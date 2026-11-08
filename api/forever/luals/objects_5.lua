@@ -3,4806 +3,628 @@
 
 
 do
----@class CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_LeftObject : Texture
-local CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_LeftObject = {}
+---@class AuctionHouseFrame_SearchBar_FavoritesSearchButton_ControllerObject : Frame
+local AuctionHouseFrame_SearchBar_FavoritesSearchButton_ControllerObject = {}
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButton_ControllerObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButton_ControllerObject:OnShow(...) end
 end
 
 do
----@class CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_LoadingSpinnerObject : Frame
----@field Anim CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_LoadingSpinner_AnimObject
----@field Ring CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_LoadingSpinner_RingObject
----@field Sparks CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_LoadingSpinner_SparksObject
-local CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_LoadingSpinnerObject = {}
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_LoadingSpinnerObject:GetShadowAlpha(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_LoadingSpinnerObject:OnHide(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_LoadingSpinnerObject:OnShow(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_LoadingSpinnerObject:OnSizeChanged(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_LoadingSpinnerObject:SetDesaturated(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_LoadingSpinnerObject:SetShadowEnabled(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_LoadingSpinnerObject:UpdateShadowSize(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_LoadingSpinnerObject:UpdateTheme(...) end
+---@class AuctionHouseFrame_SearchBar_FavoritesSearchButton_IconObject : Texture
+local AuctionHouseFrame_SearchBar_FavoritesSearchButton_IconObject = {}
 end
 
 do
----@class CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_LoadingSpinner_AnimObject : AnimationGroup
-local CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_LoadingSpinner_AnimObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_LoadingSpinner_RingObject : Texture
-local CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_LoadingSpinner_RingObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_LoadingSpinner_SparksObject : Texture
-local CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_LoadingSpinner_SparksObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_MiddleObject : Texture
-local CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_MiddleObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_RightObject : Texture
-local CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_RightObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_TextObject : FontString
-local CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_TextObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_DescriptionObject : Frame
----@field ScrollBox CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject
+---@class AuctionHouseFrame_SearchBar_FilterButtonObject : Button
+---@field Background AuctionHouseFrame_SearchBar_FilterButton_BackgroundObject
+---@field ClearFiltersButton AuctionHouseFrame_SearchBar_FilterButton_ClearFiltersButtonObject
+---@field Event AuctionHouseFrame_SearchBar_FilterButton_EventObject
+---@field ResetButton AuctionHouseFrame_SearchBar_FilterButton_ResetButtonObject
+---@field Text AuctionHouseFrame_SearchBar_FilterButton_TextObject
+---@field baseFontObject AuctionHouseFrame_SearchBar_FilterButton_baseFontObjectObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
----@field executingEvents table
----@field fontName string
-local CharacterFrame_TokenFrame_DetailFrame_DescriptionObject = {}
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_DescriptionObject:ClearText(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_DescriptionObject:GetFontString(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_DescriptionObject:GetFontStringContainer(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_DescriptionObject:GetScrollBox(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_DescriptionObject:HasScrollableExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_DescriptionObject:OnLoad(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_DescriptionObject:OnSizeChanged(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_DescriptionObject:SetFontObject(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_DescriptionObject:SetText(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_DescriptionObject:SetTextColor(...) end
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject : Frame
----@field Defaults CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_DefaultsObject
----@field Directions CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_DirectionsObject
----@field DragDelegate CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_DragDelegateObject
----@field Event CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_EventObject
----@field FontStringContainer CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_FontStringContainerObject
----@field ScrollTarget CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject
----@field Shadows CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ShadowsObject
----@field alignmentOverlapIgnored boolean
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field debugInspectionSystem string
----@field deferredCallbacks table
----@field executingEvents table
----@field isScrollController boolean
----@field panExtent number
----@field panExtentPercentage number
----@field registeredScrollBar CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject
----@field updateLock boolean
----@field view CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject
----@field wheelPanScalar number
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject = {}
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:ApplyEdgeFade(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:CalculateEdgeFade(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:CalculatePanExtentPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:CalculateScrollPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:CanInterpolateScroll(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:ClearEdgeFade(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:EnableSnapToInterval(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:FindFrame(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:FindFrameByPredicate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:FullUpdate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:FullUpdateInternal(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GenerateCallbackEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetBottomPadding(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetCallbackTable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetCallbackTables(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetDerivedExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetDerivedScrollOffset(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetDerivedScrollRange(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetExtentPadding(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetFrameCount(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetFrameExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetFrames(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetIntervalRange(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetLeftPadding(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetLower(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetLowerPadding(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetLowerShadowTexture(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetPadding(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetPanExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetPanExtentPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetRightPadding(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetScrollInterpolator(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetScrollPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetScrollTarget(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetTopPadding(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetUpper(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetUpperPadding(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetUpperShadowTexture(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetView(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetVisibleExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:GetWheelPanPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:HasEdgeFade(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:HasScrollableExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:HasView(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:Init(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:Interpolate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:IsAlignmentOverlapIgnored(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:IsAtBegin(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:IsAtEnd(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:IsHorizontal(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:IsScrollAllowed(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:IsUpdateLocked(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:Layout(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:OnLoad(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:OnMouseWheel(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:OnScrollTargetSizeChanged(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:OnSizeChanged(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:RecalculateDerivedExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:RegisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SanitizeAlignment(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:ScrollDecrease(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:ScrollInDirection(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:ScrollIncrease(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:ScrollToBegin(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:ScrollToEnd(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:ScrollToFrame(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:ScrollToOffset(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SecureInsertEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SelectCursorComponent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SelectPointComponent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SetAlignmentOverlapIgnored(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SetEdgeFadeLength(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SetFrameExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SetHorizontal(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SetInterpolateScroll(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SetLowerShadowAtlas(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SetPadding(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SetPanExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SetPanExtentPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SetScrollAllowed(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SetScrollPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SetScrollPercentageInternal(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SetScrollTargetOffset(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SetShadowsFrameLevel(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SetShadowsScale(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SetShadowsShown(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SetUpdateLocked(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SetUpperShadowAtlas(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SetUseShadowsForEdgeFade(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:SetView(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:TriggerEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:UnregisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:UnregisterEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:Update(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBoxObject:scrollInternal(...) end
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_DefaultsObject
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_DefaultsObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_DirectionsObject
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_DirectionsObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_DragDelegateObject : Frame
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_DragDelegateObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_EventObject
----@field OnAllowScrollChanged string
----@field OnLayout string
----@field OnScroll string
----@field OnSizeChanged string
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_EventObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_FontStringContainerObject : Frame
----@field FontString CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_FontStringContainer_FontStringObject
----@field scrollable boolean
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_FontStringContainerObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_FontStringContainer_FontStringObject : FontString
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_FontStringContainer_FontStringObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject : Frame
----@field Event CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTarget_EventObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject = {}
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject:GetCallbackTable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject:GetCallbackTables(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject:OnLoad(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject:RegisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject:TriggerEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject:UnregisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject:UnregisterEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTarget_EventObject
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ScrollTarget_EventObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ShadowsObject : Frame
----@field Lower CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_Shadows_LowerObject
----@field Upper CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_Shadows_UpperObject
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_ShadowsObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_Shadows_LowerObject : Texture
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_Shadows_LowerObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_Shadows_UpperObject : Texture
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_Shadows_UpperObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject : Frame
----@field Back CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject
----@field Defaults CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_DefaultsObject
----@field Directions CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_DirectionsObject
----@field Event CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_EventObject
----@field Forward CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject
----@field Track CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_TrackObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field deferredCallbacks table
----@field executingEvents table
----@field hideIfUnscrollable boolean
----@field hideTrack boolean
----@field hideTrackIfThumbExceedsTrack boolean
----@field isScrollController boolean
----@field minThumbExtent number
----@field panDelay number
----@field panExtentPercentage number
----@field panRepeatTime number
----@field registeredScrollBox CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_registeredScrollBoxObject
----@field smartNavigationIgnored boolean
----@field snapToInterval boolean
----@field thumbAnchor string
----@field useProportionalThumb boolean
----@field visibleExtentPercentage number
----@field wheelPanScalar number
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject = {}
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:CallInternalScope(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:CanCursorStepInDirection(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:CanInterpolateScroll(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:DisableControls(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:EnableInternalPriority(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:EnableSnapToInterval(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:GenerateCallbackEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:GetBackStepper(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:GetCallbackTable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:GetCallbackTables(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:GetCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:GetForwardStepper(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:GetFrameExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:GetIntervalRange(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:GetLower(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:GetPanExtentPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:GetPanRepeatDelay(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:GetPanRepeatTime(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:GetScrollInterpolator(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:GetScrollPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:GetThumb(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:GetThumbAnchor(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:GetTrack(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:GetTrackExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:GetUpper(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:GetWheelPanPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:HasScrollableExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:Init(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:InitializeNarration(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:Interpolate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:IsAtBegin(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:IsAtEnd(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:IsHorizontal(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:IsScrollAllowed(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:IsThumbMouseDown(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:OnHide_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:OnLoad(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:OnMouseWheel(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:OnShow_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:OnStepperMouseDown(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:OnThumbMouseDown(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:OnTrackMouseDown(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:RegisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:ScrollDecrease(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:ScrollInDirection(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:ScrollIncrease(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:ScrollPageInDirection(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:ScrollStepInDirection(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:ScrollToBegin(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:ScrollToEnd(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:ScrollWheelInDirection(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:SecureInsertEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:SelectCursorComponent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:SelectPointComponent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:SetFrameExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:SetHideIfUnscrollable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:SetHorizontal(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:SetInterpolateScroll(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:SetPanExtentPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:SetScrollAllowed(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:SetScrollPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:SetScrollPercentageInternal(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:SetThumbExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:SetVisibleExtentPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:TriggerEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:UnregisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:UnregisterEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:UnregisterUpdate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:Update(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:onButtonMouseUp(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBarObject:scrollInternal(...) end
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject : Button
----@field Event CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Back_EventObject
----@field Texture CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Back_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
+---@field disableFontObject string
 ---@field displaceX number
 ---@field displaceY number
 ---@field displacedRegions table
----@field downTexture string
 ---@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject = {}
+---@field intrinsic string
+---@field menuAnchor AuctionHouseFrame_SearchBar_FilterButton_menuAnchorObject
+---@field menuDescription AuctionHouseFrame_SearchBar_FilterButton_menuDescriptionObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+---@field resizeToText boolean
+---@field resizeToTextPadding number
+---@field text string
+local AuctionHouseFrame_SearchBar_FilterButtonObject = {}
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:CopyDeferredCallbacks(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:CalculateFiltersArray(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:DesaturateIfDisabled(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:ClearMenuState(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:DoesFrameHaveEvent(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:CloseMenu(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:GenerateCallbackEvents(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:CollectSelectionData(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:GetAtlas(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:GetCallbackTable(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:CreateDefaultRootMenuDescription(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:GetCallbackTables(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:CreateRootDescription(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:GetCallbacksByEvent(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:Decrement(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:HasRegistrantsForEvent(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:IsDown(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:EnableRegenerateOnResponse(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:IsDownOver(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:IsOver(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:GenerateMenu(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:NarrationGetName(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:GetBackgroundAtlas(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:OnButtonStateChanged(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:GetCallbackTable(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:OnClick_Intrinsic(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:GetCallbackTables(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:OnDisable(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:OnEnable(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:GetFilters(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:OnEnter(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:GetLevelRange(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:OnEnter_Intrinsic(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:GetMenuDescription(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:OnLeave(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:OnLeave_Intrinsic(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:GetSelectionData(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:OnLoad(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:GetUpdateText(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:OnLoad_Intrinsic(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:HandlesGlobalMouseEvent(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:OnMouseDown(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:HasAnyRadioDescriptions(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:HasElements(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:OnMouseUp(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:HasOnlyRadioDescriptions(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:OnShow(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:HasStickyFocus(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:Increment(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:IsDown(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:RegisterCallback(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:IsDownOver(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:IsMenuOpen(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:SecureInsertEvent(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:IsOver(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:SetDisplacedRegions(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:NotifyUpdate(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:OnButtonStateChanged(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:TriggerEvent(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:OnDisable(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:UnregisterCallback(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:OnEnable(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:UnregisterEvents(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:OnEnter(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_BackObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Back_EventObject
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Back_EventObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Back_TextureObject : Texture
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Back_TextureObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_DefaultsObject
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_DefaultsObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_DirectionsObject
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_DirectionsObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_EventObject
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_EventObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject : Button
----@field Event CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Forward_EventObject
----@field Texture CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Forward_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject = {}
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:DesaturateIfDisabled(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:GenerateCallbackEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:GetAtlas(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:GetCallbackTable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:GetCallbackTables(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:GetCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:IsDown(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:IsDownOver(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:IsOver(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:NarrationGetName(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:OnButtonStateChanged(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:OnClick_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:OnDisable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:OnEnable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:OnEnter(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:OnLeave(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:OnLoad(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:OnMouseDown(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:OnMouseUp(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:OnShow(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:RegisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:SecureInsertEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:SetDisplacedRegions(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:TriggerEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:UnregisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:UnregisterEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Forward_EventObject
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Forward_EventObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Forward_TextureObject : Texture
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Forward_TextureObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_TrackObject : Frame
----@field Begin CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_BeginObject
----@field End CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_EndObject
----@field Middle CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_MiddleObject
----@field Thumb CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_TrackObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_BeginObject : Texture
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_BeginObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_EndObject : Texture
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_EndObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_MiddleObject : Texture
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_MiddleObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject : Button
----@field Begin CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_Thumb_BeginObject
----@field End CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_Thumb_EndObject
----@field Event CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_Thumb_EventObject
----@field Middle CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_Thumb_MiddleObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field downBeginTexture string
----@field downEndTexture string
----@field downMiddleTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field overBeginTexture string
----@field overEndTexture string
----@field overMiddleTexture string
----@field upBeginTexture string
----@field upEndTexture string
----@field upMiddleTexture string
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject = {}
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:GetAtlas(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:GetCallbackTable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:GetCallbackTables(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:IsDown(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:IsDownOver(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:IsOver(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:OnDisable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:OnEnable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:OnEnter(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:OnLeave(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:OnLoad(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:OnMouseDown(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:OnMouseUp(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:OnShow(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:OnSizeChanged(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:RegisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:TriggerEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:UnregisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:UnregisterEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_Thumb_BeginObject : Texture
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_Thumb_BeginObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_Thumb_EndObject : Texture
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_Thumb_EndObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_Thumb_EventObject
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_Thumb_EventObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_Thumb_MiddleObject : Texture
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_Track_Thumb_MiddleObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_registeredScrollBoxObject
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_registeredScrollBar_registeredScrollBoxObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject
----@field FrameLevelPolicy table
----@field frames table
----@field initialized boolean
----@field padding table
----@field panExtent number
----@field scrollBox CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_view_scrollBoxObject
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject = {}
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:FindFrame(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:FindFrameByPredicate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:GetDataScrollOffset(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:GetElementIndent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:GetExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:GetFrameExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:GetFrameLevelCounter(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:GetFrameLevelPolicy(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:GetFrames(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:GetLayoutFunction(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:GetLower(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:GetPadding(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:GetPanExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:GetScrollBox(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:GetScrollTarget(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:GetSpacing(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:GetUpper(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:HasBiaxalLayout(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:Init(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:InitDefaultDrag(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:IsElementStretchDisabled(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:IsExtentValid(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:IsHorizontal(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:IsInitialized(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:Layout(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:LayoutInternal(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:RecalculateExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:ReparentScrollChildren(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:SelectCursorComponent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:SelectPointComponent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:SetElementIndentCalculator(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:SetElementStretchDisabled(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:SetExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:SetFrameExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:SetFrameLevelPolicy(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:SetHorizontal(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:SetMaxPanExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:SetPadding(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:SetPanExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_viewObject:SetScrollBox(...) end
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_view_scrollBoxObject
-local CharacterFrame_TokenFrame_DetailFrame_Description_ScrollBox_view_scrollBoxObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_DescriptionScrollBarObject
-local CharacterFrame_TokenFrame_DetailFrame_DescriptionScrollBarObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_DividerObject : Texture
-local CharacterFrame_TokenFrame_DetailFrame_DividerObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_EmptyTextObject : FontString
-local CharacterFrame_TokenFrame_DetailFrame_EmptyTextObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_FooterObject : Frame
-local CharacterFrame_TokenFrame_DetailFrame_FooterObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_InactiveCheckboxObject : CheckButton
----@field Label CharacterFrame_TokenFrame_DetailFrame_InactiveCheckbox_LabelObject
-local CharacterFrame_TokenFrame_DetailFrame_InactiveCheckboxObject = {}
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_InactiveCheckboxObject:OnClick(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_InactiveCheckboxObject:OnEnter(...) end
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_InactiveCheckbox_LabelObject : FontString
-local CharacterFrame_TokenFrame_DetailFrame_InactiveCheckbox_LabelObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_SubtitleObject : FontString
-local CharacterFrame_TokenFrame_DetailFrame_SubtitleObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_TitleObject : FontString
-local CharacterFrame_TokenFrame_DetailFrame_TitleObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_rowPoolsObject
-local CharacterFrame_TokenFrame_DetailFrame_rowPoolsObject = {}
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_rowPoolsObject:private(...) end
-end
-
-do
----@class CharacterFrame_TokenFrame_LoadingSpinnerObject : Frame
----@field Anim CharacterFrame_TokenFrame_LoadingSpinner_AnimObject
----@field Ring CharacterFrame_TokenFrame_LoadingSpinner_RingObject
----@field Sparks CharacterFrame_TokenFrame_LoadingSpinner_SparksObject
-local CharacterFrame_TokenFrame_LoadingSpinnerObject = {}
----@return any ...
-function CharacterFrame_TokenFrame_LoadingSpinnerObject:GetShadowAlpha(...) end
----@return any ...
-function CharacterFrame_TokenFrame_LoadingSpinnerObject:OnHide(...) end
----@return any ...
-function CharacterFrame_TokenFrame_LoadingSpinnerObject:OnShow(...) end
----@return any ...
-function CharacterFrame_TokenFrame_LoadingSpinnerObject:OnSizeChanged(...) end
----@return any ...
-function CharacterFrame_TokenFrame_LoadingSpinnerObject:SetDesaturated(...) end
----@return any ...
-function CharacterFrame_TokenFrame_LoadingSpinnerObject:SetShadowEnabled(...) end
----@return any ...
-function CharacterFrame_TokenFrame_LoadingSpinnerObject:UpdateShadowSize(...) end
----@return any ...
-function CharacterFrame_TokenFrame_LoadingSpinnerObject:UpdateTheme(...) end
-end
-
-do
----@class CharacterFrame_TokenFrame_LoadingSpinner_AnimObject : AnimationGroup
-local CharacterFrame_TokenFrame_LoadingSpinner_AnimObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_LoadingSpinner_RingObject : Texture
-local CharacterFrame_TokenFrame_LoadingSpinner_RingObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_LoadingSpinner_SparksObject : Texture
-local CharacterFrame_TokenFrame_LoadingSpinner_SparksObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBarObject : Frame
----@field Back CharacterFrame_TokenFrame_ScrollBar_BackObject
----@field Defaults CharacterFrame_TokenFrame_ScrollBar_DefaultsObject
----@field Directions CharacterFrame_TokenFrame_ScrollBar_DirectionsObject
----@field Event CharacterFrame_TokenFrame_ScrollBar_EventObject
----@field Forward CharacterFrame_TokenFrame_ScrollBar_ForwardObject
----@field Track CharacterFrame_TokenFrame_ScrollBar_TrackObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field deferredCallbacks table
----@field executingEvents table
----@field hideTrack boolean
----@field hideTrackIfThumbExceedsTrack boolean
----@field interpolator CharacterFrame_TokenFrame_ScrollBar_interpolatorObject
----@field isScrollController boolean
----@field minThumbExtent number
----@field panDelay number
----@field panExtentPercentage number
----@field panRepeatTime number
----@field registeredScrollBox CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject
----@field scrollPercentage number
----@field smartNavigationIgnored boolean
----@field snapToInterval boolean
----@field thumbAnchor string
----@field useProportionalThumb boolean
----@field visibleExtentPercentage number
----@field wheelPanScalar number
-local CharacterFrame_TokenFrame_ScrollBarObject = {}
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:CallInternalScope(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:CanCursorStepInDirection(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:CanInterpolateScroll(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:DisableControls(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:EnableInternalPriority(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:EnableSnapToInterval(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:GenerateCallbackEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:GetBackStepper(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:GetCallbackTable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:GetCallbackTables(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:GetCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:GetForwardStepper(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:GetFrameExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:GetIntervalRange(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:GetLower(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:GetPanExtentPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:GetPanRepeatDelay(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:GetPanRepeatTime(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:GetScrollInterpolator(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:GetScrollPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:GetThumb(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:GetThumbAnchor(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:GetTrack(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:GetTrackExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:GetUpper(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:GetWheelPanPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:HasScrollableExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:Init(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:InitializeNarration(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:Interpolate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:IsAtBegin(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:IsAtEnd(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:IsHorizontal(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:IsScrollAllowed(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:IsThumbMouseDown(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:OnHide_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:OnLoad(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:OnMouseWheel(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:OnShow_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:OnStepperMouseDown(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:OnThumbMouseDown(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:OnTrackMouseDown(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:RegisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:ScrollDecrease(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:ScrollInDirection(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:ScrollIncrease(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:ScrollPageInDirection(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:ScrollStepInDirection(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:ScrollToBegin(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:ScrollToEnd(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:ScrollWheelInDirection(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:SecureInsertEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:SelectCursorComponent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:SelectPointComponent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:SetFrameExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:SetHideIfUnscrollable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:SetHorizontal(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:SetInterpolateScroll(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:SetPanExtentPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:SetScrollAllowed(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:SetScrollPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:SetScrollPercentageInternal(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:SetThumbExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:SetVisibleExtentPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:TriggerEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:UnregisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:UnregisterEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:UnregisterUpdate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:Update(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:onButtonMouseUp(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBarObject:scrollInternal(...) end
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_BackObject : Button
----@field Event CharacterFrame_TokenFrame_ScrollBar_Back_EventObject
----@field Texture CharacterFrame_TokenFrame_ScrollBar_Back_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local CharacterFrame_TokenFrame_ScrollBar_BackObject = {}
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:DesaturateIfDisabled(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:GenerateCallbackEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:GetAtlas(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:GetCallbackTable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:GetCallbackTables(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:GetCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:IsDown(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:IsDownOver(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:IsOver(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:NarrationGetName(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:OnButtonStateChanged(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:OnClick_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:OnDisable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:OnEnable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:OnEnter(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:OnLeave(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:OnLoad(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:OnMouseDown(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:OnMouseUp(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:OnShow(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:RegisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:SecureInsertEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:SetDisplacedRegions(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:TriggerEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:UnregisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:UnregisterEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_Back_EventObject
-local CharacterFrame_TokenFrame_ScrollBar_Back_EventObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_Back_TextureObject : Texture
-local CharacterFrame_TokenFrame_ScrollBar_Back_TextureObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_DefaultsObject
-local CharacterFrame_TokenFrame_ScrollBar_DefaultsObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_DirectionsObject
-local CharacterFrame_TokenFrame_ScrollBar_DirectionsObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_EventObject
-local CharacterFrame_TokenFrame_ScrollBar_EventObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_ForwardObject : Button
----@field Event CharacterFrame_TokenFrame_ScrollBar_Forward_EventObject
----@field Texture CharacterFrame_TokenFrame_ScrollBar_Forward_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local CharacterFrame_TokenFrame_ScrollBar_ForwardObject = {}
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:GetAtlas(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:GetCallbackTable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:GetCallbackTables(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:IsDown(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:IsDownOver(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:IsOver(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:NarrationGetName(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:OnDisable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:OnEnable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:OnEnter(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:OnLeave(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:OnLoad(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:OnMouseDown(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:OnMouseUp(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:OnShow(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:RegisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:SecureInsertEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:TriggerEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:UnregisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:UnregisterEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_Forward_EventObject
-local CharacterFrame_TokenFrame_ScrollBar_Forward_EventObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_Forward_TextureObject : Texture
-local CharacterFrame_TokenFrame_ScrollBar_Forward_TextureObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_TrackObject : Frame
----@field Begin CharacterFrame_TokenFrame_ScrollBar_Track_BeginObject
----@field End CharacterFrame_TokenFrame_ScrollBar_Track_EndObject
----@field Middle CharacterFrame_TokenFrame_ScrollBar_Track_MiddleObject
----@field Thumb CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject
-local CharacterFrame_TokenFrame_ScrollBar_TrackObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_Track_BeginObject : Texture
-local CharacterFrame_TokenFrame_ScrollBar_Track_BeginObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_Track_EndObject : Texture
-local CharacterFrame_TokenFrame_ScrollBar_Track_EndObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_Track_MiddleObject : Texture
-local CharacterFrame_TokenFrame_ScrollBar_Track_MiddleObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject : Button
----@field Begin CharacterFrame_TokenFrame_ScrollBar_Track_Thumb_BeginObject
----@field End CharacterFrame_TokenFrame_ScrollBar_Track_Thumb_EndObject
----@field Event CharacterFrame_TokenFrame_ScrollBar_Track_Thumb_EventObject
----@field Middle CharacterFrame_TokenFrame_ScrollBar_Track_Thumb_MiddleObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field downBeginTexture string
----@field downEndTexture string
----@field downMiddleTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field overBeginTexture string
----@field overEndTexture string
----@field overMiddleTexture string
----@field upBeginTexture string
----@field upEndTexture string
----@field upMiddleTexture string
-local CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject = {}
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:GetAtlas(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:IsDown(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:IsDownOver(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:IsOver(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:OnDisable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:OnEnable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:OnEnter(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:OnLeave(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:OnLoad(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:OnShow(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_Track_Thumb_BeginObject : Texture
-local CharacterFrame_TokenFrame_ScrollBar_Track_Thumb_BeginObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_Track_Thumb_EndObject : Texture
-local CharacterFrame_TokenFrame_ScrollBar_Track_Thumb_EndObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_Track_Thumb_EventObject
-local CharacterFrame_TokenFrame_ScrollBar_Track_Thumb_EventObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_Track_Thumb_MiddleObject : Texture
-local CharacterFrame_TokenFrame_ScrollBar_Track_Thumb_MiddleObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_interpolatorObject
-local CharacterFrame_TokenFrame_ScrollBar_interpolatorObject = {}
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_interpolatorObject:Cancel(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_interpolatorObject:Interpolate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_interpolatorObject:interpolateFunc(...) end
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject : Frame
----@field Defaults CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_DefaultsObject
----@field Directions CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_DirectionsObject
----@field DragDelegate CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_DragDelegateObject
----@field Event CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_EventObject
----@field ScrollTarget CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject
----@field Shadows CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ShadowsObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field debugInspectionSystem string
----@field deferredCallbacks table
----@field executingEvents table
----@field isScrollController boolean
----@field panExtentPercentage number
----@field registeredScrollBar CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_registeredScrollBarObject
----@field scrollPercentage number
----@field updateLock boolean
----@field view CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject
----@field wheelPanScalar number
-local CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject = {}
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ApplyEdgeFade(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:CalculateEdgeFade(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:CalculatePanExtentPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:CalculateScrollPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:CanInterpolateScroll(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ClearEdgeFade(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ContainsElementDataByPredicate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:EnableSnapToInterval(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:EnumerateDataProvider(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:EnumerateDataProviderEntireRange(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:EnumerateFrames(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:FindByPredicate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:FindElementData(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:FindElementDataByPredicate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:FindElementDataIndex(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:FindElementDataIndexByPredicate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:FindFrame(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:FindFrameByPredicate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:FindFrameElementDataIndex(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:Flush(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:FlushDataProvider(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ForEachElementData(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ForEachFrame(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:FullUpdate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:FullUpdateInternal(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GenerateCallbackEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetBottomPadding(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetCallbackTable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetCallbackTables(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetDataIndexBegin(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetDataIndexEnd(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetDataProvider(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetDataProviderSize(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetDerivedExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetDerivedScrollOffset(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetDerivedScrollRange(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetElementExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetExtentPadding(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetExtentUntil(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetFrameCount(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetFrameExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetFrames(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetIntervalRange(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetLeftPadding(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetLower(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetLowerPadding(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetLowerShadowTexture(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetPadding(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetPanExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetPanExtentPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetRightPadding(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetScrollInterpolator(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetScrollPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetScrollTarget(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetTopPadding(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetUpper(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetUpperPadding(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetUpperShadowTexture(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetView(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetVisibleExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:GetWheelPanPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:HasDataProvider(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:HasEdgeFade(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:HasScrollableExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:HasView(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:Init(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:Interpolate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:IsAcquireLocked(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:IsAlignmentOverlapIgnored(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:IsAtBegin(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:IsAtEnd(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:IsHorizontal(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:IsScrollAllowed(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:IsScrollToDataIndexSafe(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:IsUpdateLocked(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:IsVirtualized(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:Layout(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:OnLoad(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:OnMouseWheel(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:OnScrollTargetSizeChanged(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:OnSizeChanged(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:OnViewAcquiredFrame(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:OnViewDataChanged(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:OnViewDataProviderReassigned(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:OnViewInitializedFrame(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:OnViewReleasedFrame(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:Rebuild(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:RecalculateDerivedExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:RegisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ReinitializeFrames(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:RemoveDataProvider(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProvider(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ReverseForEachElementData(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ReverseForEachFrame(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SanitizeAlignment(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ScrollDecrease(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ScrollInDirection(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ScrollIncrease(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ScrollToBegin(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ScrollToElementData(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ScrollToElementDataByPredicate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ScrollToElementDataIndex(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ScrollToEnd(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ScrollToFrame(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ScrollToNearest(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ScrollToNearestByPredicate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ScrollToOffset(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SecureInsertEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SelectCursorComponent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SelectPointComponent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SetAlignmentOverlapIgnored(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SetDataProvider(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SetEdgeFadeLength(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SetFrameExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SetHorizontal(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SetInterpolateScroll(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SetLowerShadowAtlas(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SetPadding(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SetPanExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SetPanExtentPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SetScrollAllowed(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SetScrollPercentage(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SetScrollPercentageInternal(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SetScrollTargetOffset(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SetShadowsFrameLevel(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SetShadowsScale(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SetShadowsShown(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SetUpdateLocked(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SetUpperShadowAtlas(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SetUseShadowsForEdgeFade(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:SetView(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:TriggerEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:UnregisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:UnregisterEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:Update(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBoxObject:scrollInternal(...) end
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_DefaultsObject
-local CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_DefaultsObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_DirectionsObject
-local CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_DirectionsObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_DragDelegateObject : Frame
-local CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_DragDelegateObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_EventObject
-local CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_EventObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject : Frame
----@field Event CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
-local CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject = {}
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTables(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:TriggerEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
-local CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ScrollTarget_EventObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ShadowsObject : Frame
----@field Lower CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_Shadows_LowerObject
----@field Upper CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_Shadows_UpperObject
-local CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_ShadowsObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_Shadows_LowerObject : Texture
-local CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_Shadows_LowerObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_Shadows_UpperObject : Texture
-local CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_Shadows_UpperObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_registeredScrollBarObject
-local CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_registeredScrollBarObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject
----@field Event table
----@field FrameLevelPolicy table
----@field callbackTables table
----@field canSignalWithoutInitializer boolean
----@field dataIndexBegin number
----@field dataIndexEnd number
----@field dataProvider table
----@field deferredCallbacks table
----@field executingEvents table
----@field extent number
----@field frameFactory table
----@field frames table
----@field hasIdenticalTemplateExtent boolean
----@field initialized boolean
----@field initializers table
----@field padding table
----@field scrollBox CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_view_scrollBoxObject
----@field templateInfoCache table
-local CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject = {}
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:AcquireInternal(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:AcquireRange(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:AssignAccessors(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:AttachDataProviderCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:CalculateDataIndices(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:CalculateFrameExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:ClearCachedData(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:ClearElementExtentData(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:ClearInvalidation(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:ContainsElementDataByPredicate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:DataProviderContentsChanged(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:DetachDataProviderCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProvider(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:EnumerateFrames(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:FindByPredicate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:FindElementData(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:FindElementDataByPredicate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndex(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:FindFrame(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:FindFrameByPredicate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:FindFrameElementDataIndex(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:Flush(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:FlushDataProvider(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:ForEachElementData(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:ForEachFrame(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GenerateCallbackEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetCallbackTable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetCallbackTables(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetDataIndexBegin(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetDataIndexEnd(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetDataProvider(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetDataProviderSize(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetDataRange(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetDataScrollOffset(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetElementExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetElementExtentCalculator(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetElementIndent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetExtentFromInfo(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetExtentSpacing(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetExtentTo(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetExtentUntil(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetFactoryDataFromElementData(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetFirstTemplateInfo(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetFrameCount(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetFrameExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelCounter(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelPolicy(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetFrames(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetIdenticalElementExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetIdenticalStrideExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetInvalidationReason(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetLayoutFunction(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetLower(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetPadding(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetPanExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetScrollBox(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetScrollTarget(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetSpacing(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetStride(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetTemplateInfo(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:GetUpper(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:HasBiaxalLayout(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:HasDataProvider(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:HasElementExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:HasIdenticalElementExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:HasIdenticalStrideExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:Init(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:InitDefaultDrag(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:InvokeInitializer(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:InvokeInitializers(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:IsAcquireLocked(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:IsDataIndexWithinRange(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:IsElementStretchDisabled(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:IsExtentValid(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:IsHorizontal(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:IsInitialized(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:IsInvalidated(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:IsVirtualized(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:Layout(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:LayoutInternal(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSizeChanged(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSort(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:OnLoad(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementData(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:RebuildTemplateInfoCache(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:RecalculateExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:RefreshSmartNav(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:RegisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:ReinitializeFrames(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:Release(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:RemoveDataProvider(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:RemoveDataProviderInternal(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:ResizeFrame(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:ReverseForEachElementData(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:ReverseForEachFrame(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SecureInsertEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SelectCursorComponent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SelectPointComponent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SetAcquireLocked(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SetDataProvider(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SetDataRange(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SetElementExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SetElementExtentCalculator(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SetElementFactory(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SetElementIndentCalculator(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SetElementInitializer(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SetElementResetter(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SetElementStretchDisabled(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SetExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SetFrameExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SetFrameFactoryResetter(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SetFrameLevelPolicy(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SetHorizontal(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SetInvalidationReason(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SetMaxPanExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SetPadding(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SetPanExtent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SetScrollBox(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SetVirtualized(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SignalDataChangeEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:SortFrames(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:TriggerEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:UnassignAccessors(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:UnregisterCallback(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:UnregisterEvents(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:ValidateDataRange(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:elementFactory(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:elementIndentCalculator(...) end
----@return any ...
-function CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_viewObject:factory(...) end
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_view_scrollBoxObject
-local CharacterFrame_TokenFrame_ScrollBar_registeredScrollBox_view_scrollBoxObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_ScrollBoxObject
-local CharacterFrame_TokenFrame_ScrollBoxObject = {}
-end
-
-do
----@class ChatAlertFrameObject : Frame
----@field alertFrameSubSystems table
----@field baseAnchorFrame ChatAlertFrame_baseAnchorFrameObject
----@field fullscreenFrame ChatAlertFrame_fullscreenFrameObject
----@field fullscreenStrata string
----@field justification string
----@field reasonsToBlockLeftClickingAlerts table
----@field shouldQueueAlertsFlags ChatAlertFrame_shouldQueueAlertsFlagsObject
-local ChatAlertFrameObject = {}
----@return any ...
-function ChatAlertFrameObject:AddAlertFrame(...) end
----@return any ...
-function ChatAlertFrameObject:AddAlertFrameSubSystem(...) end
----@return any ...
-function ChatAlertFrameObject:AddAutoAnchoredSubSystem(...) end
----@return any ...
-function ChatAlertFrameObject:AddExternallyAnchoredSubSystem(...) end
----@return any ...
-function ChatAlertFrameObject:AddQueuedAlertFrameSubSystem(...) end
----@return any ...
-function ChatAlertFrameObject:AddSimpleAlertFrameSubSystem(...) end
----@return any ...
-function ChatAlertFrameObject:AreAlertsEnabled(...) end
----@return any ...
-function ChatAlertFrameObject:BlockLeftClickingAlerts(...) end
----@return any ...
-function ChatAlertFrameObject:CleanAnchorPriorities(...) end
----@return any ...
-function ChatAlertFrameObject:ClearFullScreenFrame(...) end
----@return any ...
-function ChatAlertFrameObject:CreateQueuedSubSystem(...) end
----@return any ...
-function ChatAlertFrameObject:CreateSubSystem(...) end
----@return any ...
-function ChatAlertFrameObject:GetJustification(...) end
----@return any ...
-function ChatAlertFrameObject:GetPointsForJustification(...) end
----@return any ...
-function ChatAlertFrameObject:IsLeftClickingAlertsBlocked(...) end
----@return any ...
-function ChatAlertFrameObject:OnLoad(...) end
----@return any ...
-function ChatAlertFrameObject:ReparentAlerts(...) end
----@return any ...
-function ChatAlertFrameObject:ResetBaseAnchorFrame(...) end
----@return any ...
-function ChatAlertFrameObject:SetAlertsEnabled(...) end
----@return any ...
-function ChatAlertFrameObject:SetBaseAnchorFrame(...) end
----@return any ...
-function ChatAlertFrameObject:SetChatButtonSide(...) end
----@return any ...
-function ChatAlertFrameObject:SetEnabledFlag(...) end
----@return any ...
-function ChatAlertFrameObject:SetFullScreenFrame(...) end
----@return any ...
-function ChatAlertFrameObject:SetJustification(...) end
----@return any ...
-function ChatAlertFrameObject:SetSubSystemAnchorPriority(...) end
----@return any ...
-function ChatAlertFrameObject:UnblockLeftClickingAlerts(...) end
----@return any ...
-function ChatAlertFrameObject:UpdateAnchors(...) end
----@type ChatAlertFrameObject
-ChatAlertFrame = ChatAlertFrameObject
-end
-
-do
----@class ChatAlertFrame_baseAnchorFrameObject
-local ChatAlertFrame_baseAnchorFrameObject = {}
-end
-
-do
----@class ChatAlertFrame_fullscreenFrameObject
-local ChatAlertFrame_fullscreenFrameObject = {}
-end
-
-do
----@class ChatAlertFrame_shouldQueueAlertsFlagsObject
----@field firstFrameRendered boolean
----@field playerEnteredWorld boolean
----@field variablesLoaded boolean
-local ChatAlertFrame_shouldQueueAlertsFlagsObject = {}
-end
-
-do
----@class ChatConfigFrameObject : Frame
----@field Border ChatConfigFrame_BorderObject
----@field ChatTabManager ChatConfigFrame_ChatTabManagerObject
----@field DefaultButton ChatConfigFrame_DefaultButtonObject
----@field Header ChatConfigFrame_HeaderObject
----@field RedockButton ChatConfigFrame_RedockButtonObject
----@field hasEnteredWorld boolean
-local ChatConfigFrameObject = {}
----@type ChatConfigFrameObject
-ChatConfigFrame = ChatConfigFrameObject
-end
-
-do
----@class ChatConfigFrame_BorderObject : Frame
----@field Bg ChatConfigFrame_Border_BgObject
----@field BottomEdge ChatConfigFrame_Border_BottomEdgeObject
----@field BottomLeftCorner ChatConfigFrame_Border_BottomLeftCornerObject
----@field BottomRightCorner ChatConfigFrame_Border_BottomRightCornerObject
----@field LeftEdge ChatConfigFrame_Border_LeftEdgeObject
----@field RightEdge ChatConfigFrame_Border_RightEdgeObject
----@field TopEdge ChatConfigFrame_Border_TopEdgeObject
----@field TopLeftCorner ChatConfigFrame_Border_TopLeftCornerObject
----@field TopRightCorner ChatConfigFrame_Border_TopRightCornerObject
----@field layoutType string
-local ChatConfigFrame_BorderObject = {}
----@return any ...
-function ChatConfigFrame_BorderObject:GetBorderColor(...) end
----@return any ...
-function ChatConfigFrame_BorderObject:GetCenterColor(...) end
----@return any ...
-function ChatConfigFrame_BorderObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function ChatConfigFrame_BorderObject:GetFrameLayoutType(...) end
----@return any ...
-function ChatConfigFrame_BorderObject:OnLoad(...) end
----@return any ...
-function ChatConfigFrame_BorderObject:SetBlendMode(...) end
----@return any ...
-function ChatConfigFrame_BorderObject:SetBorderBlendMode(...) end
----@return any ...
-function ChatConfigFrame_BorderObject:SetBorderColor(...) end
----@return any ...
-function ChatConfigFrame_BorderObject:SetCenterColor(...) end
----@return any ...
-function ChatConfigFrame_BorderObject:SetVertexColor(...) end
-end
-
-do
----@class ChatConfigFrame_Border_BgObject : Texture
-local ChatConfigFrame_Border_BgObject = {}
-end
-
-do
----@class ChatConfigFrame_Border_BottomEdgeObject : Texture
-local ChatConfigFrame_Border_BottomEdgeObject = {}
-end
-
-do
----@class ChatConfigFrame_Border_BottomLeftCornerObject : Texture
-local ChatConfigFrame_Border_BottomLeftCornerObject = {}
-end
-
-do
----@class ChatConfigFrame_Border_BottomRightCornerObject : Texture
-local ChatConfigFrame_Border_BottomRightCornerObject = {}
-end
-
-do
----@class ChatConfigFrame_Border_LeftEdgeObject : Texture
-local ChatConfigFrame_Border_LeftEdgeObject = {}
-end
-
-do
----@class ChatConfigFrame_Border_RightEdgeObject : Texture
-local ChatConfigFrame_Border_RightEdgeObject = {}
-end
-
-do
----@class ChatConfigFrame_Border_TopEdgeObject : Texture
-local ChatConfigFrame_Border_TopEdgeObject = {}
-end
-
-do
----@class ChatConfigFrame_Border_TopLeftCornerObject : Texture
-local ChatConfigFrame_Border_TopLeftCornerObject = {}
-end
-
-do
----@class ChatConfigFrame_Border_TopRightCornerObject : Texture
-local ChatConfigFrame_Border_TopRightCornerObject = {}
-end
-
-do
----@class ChatConfigFrame_ChatTabManagerObject : Frame
----@field Tabs table
----@field currentWidth number
----@field tabPool ChatConfigFrame_ChatTabManager_tabPoolObject
-local ChatConfigFrame_ChatTabManagerObject = {}
----@return any ...
-function ChatConfigFrame_ChatTabManagerObject:CalculateCurrentWidth(...) end
----@return any ...
-function ChatConfigFrame_ChatTabManagerObject:GetCurrentWidth(...) end
----@return any ...
-function ChatConfigFrame_ChatTabManagerObject:GetMaxTabWidth(...) end
----@return any ...
-function ChatConfigFrame_ChatTabManagerObject:OnLoad(...) end
----@return any ...
-function ChatConfigFrame_ChatTabManagerObject:OnShow(...) end
----@return any ...
-function ChatConfigFrame_ChatTabManagerObject:UpdateSelection(...) end
----@return any ...
-function ChatConfigFrame_ChatTabManagerObject:UpdateTabDisplay(...) end
----@return any ...
-function ChatConfigFrame_ChatTabManagerObject:UpdateWidth(...) end
-end
-
-do
----@class ChatConfigFrame_ChatTabManager_tabPoolObject
-local ChatConfigFrame_ChatTabManager_tabPoolObject = {}
----@return any ...
-function ChatConfigFrame_ChatTabManager_tabPoolObject:GetTemplate(...) end
----@return any ...
-function ChatConfigFrame_ChatTabManager_tabPoolObject:private(...) end
-end
-
-do
----@class ChatConfigFrame_DefaultButtonObject : Button
----@field Left ChatConfigFrame_DefaultButton_LeftObject
----@field Middle ChatConfigFrame_DefaultButton_MiddleObject
----@field Right ChatConfigFrame_DefaultButton_RightObject
----@field Text ChatConfigFrame_DefaultButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local ChatConfigFrame_DefaultButtonObject = {}
----@return any ...
-function ChatConfigFrame_DefaultButtonObject:FitToText(...) end
----@return any ...
-function ChatConfigFrame_DefaultButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function ChatConfigFrame_DefaultButtonObject:OnEnter(...) end
----@return any ...
-function ChatConfigFrame_DefaultButtonObject:OnLeave(...) end
----@return any ...
-function ChatConfigFrame_DefaultButtonObject:SetDisabledState(...) end
----@return any ...
-function ChatConfigFrame_DefaultButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function ChatConfigFrame_DefaultButtonObject:SetTextToFit(...) end
-end
-
-do
----@class ChatConfigFrame_DefaultButton_LeftObject : Texture
-local ChatConfigFrame_DefaultButton_LeftObject = {}
-end
-
-do
----@class ChatConfigFrame_DefaultButton_MiddleObject : Texture
-local ChatConfigFrame_DefaultButton_MiddleObject = {}
-end
-
-do
----@class ChatConfigFrame_DefaultButton_RightObject : Texture
-local ChatConfigFrame_DefaultButton_RightObject = {}
-end
-
-do
----@class ChatConfigFrame_DefaultButton_TextObject : FontString
-local ChatConfigFrame_DefaultButton_TextObject = {}
-end
-
-do
----@class ChatConfigFrame_HeaderObject : Frame
----@field CenterBG ChatConfigFrame_Header_CenterBGObject
----@field LeftBG ChatConfigFrame_Header_LeftBGObject
----@field RightBG ChatConfigFrame_Header_RightBGObject
----@field Text ChatConfigFrame_Header_TextObject
----@field headerTextPadding number
-local ChatConfigFrame_HeaderObject = {}
----@return any ...
-function ChatConfigFrame_HeaderObject:OnLoad(...) end
----@return any ...
-function ChatConfigFrame_HeaderObject:SetHeaderFont(...) end
----@return any ...
-function ChatConfigFrame_HeaderObject:Setup(...) end
----@return any ...
-function ChatConfigFrame_HeaderObject:UpdateWidth(...) end
-end
-
-do
----@class ChatConfigFrame_Header_CenterBGObject : Texture
-local ChatConfigFrame_Header_CenterBGObject = {}
-end
-
-do
----@class ChatConfigFrame_Header_LeftBGObject : Texture
-local ChatConfigFrame_Header_LeftBGObject = {}
-end
-
-do
----@class ChatConfigFrame_Header_RightBGObject : Texture
-local ChatConfigFrame_Header_RightBGObject = {}
-end
-
-do
----@class ChatConfigFrame_Header_TextObject : FontString
-local ChatConfigFrame_Header_TextObject = {}
-end
-
-do
----@class ChatConfigFrame_RedockButtonObject : Button
----@field Left ChatConfigFrame_RedockButton_LeftObject
----@field Middle ChatConfigFrame_RedockButton_MiddleObject
----@field Right ChatConfigFrame_RedockButton_RightObject
----@field Text ChatConfigFrame_RedockButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local ChatConfigFrame_RedockButtonObject = {}
----@return any ...
-function ChatConfigFrame_RedockButtonObject:FitToText(...) end
----@return any ...
-function ChatConfigFrame_RedockButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function ChatConfigFrame_RedockButtonObject:OnEnter(...) end
----@return any ...
-function ChatConfigFrame_RedockButtonObject:OnLeave(...) end
----@return any ...
-function ChatConfigFrame_RedockButtonObject:SetDisabledState(...) end
----@return any ...
-function ChatConfigFrame_RedockButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function ChatConfigFrame_RedockButtonObject:SetTextToFit(...) end
-end
-
-do
----@class ChatConfigFrame_RedockButton_LeftObject : Texture
-local ChatConfigFrame_RedockButton_LeftObject = {}
-end
-
-do
----@class ChatConfigFrame_RedockButton_MiddleObject : Texture
-local ChatConfigFrame_RedockButton_MiddleObject = {}
-end
-
-do
----@class ChatConfigFrame_RedockButton_RightObject : Texture
-local ChatConfigFrame_RedockButton_RightObject = {}
-end
-
-do
----@class ChatConfigFrame_RedockButton_TextObject : FontString
-local ChatConfigFrame_RedockButton_TextObject = {}
-end
-
-do
----@class ChatFrame1Object : Frame
----@field Background ChatFrame1_BackgroundObject
----@field EditModeResizeButton ChatFrame1_EditModeResizeButtonObject
----@field FontStringContainer ChatFrame1_FontStringContainerObject
----@field ResizeButton ChatFrame1_ResizeButtonObject
----@field ScrollBar ChatFrame1_ScrollBarObject
----@field ScrollToBottomButton ChatFrame1_ScrollToBottomButtonObject
----@field Selection ChatFrame1_SelectionObject
----@field allowAtGlues boolean
----@field allowScroll boolean
----@field alternativeDefaultLanguage string
----@field buttonFrame ChatFrame1_buttonFrameObject
----@field buttonSide string
----@field channelList table
----@field clickAnywhereButton ChatFrame1_clickAnywhereButtonObject
----@field defaultLanguage string
----@field dirtySettings table
----@field dock ChatFrame1_dockObject
----@field downKeys table
----@field editBox ChatFrame1_editBoxObject
----@field fadeDurationSecs number
----@field fontObject ChatFrame1_fontObjectObject
----@field fontStringPool ChatFrame1_fontStringPoolObject
----@field hasActiveChanges boolean
----@field hasOwnFontObject boolean
----@field historyBuffer ChatFrame1_historyBufferObject
----@field insertMode number
----@field isDisplayDirty boolean
----@field isDocked number
----@field isInitialized number
----@field isLayoutDirty boolean
----@field isLocked boolean
----@field isScrollingMessageFrame boolean
----@field isStaticDocked boolean
----@field isUninteractable boolean
----@field messageTypeList table
----@field name string
----@field oldAlpha number
----@field onDisplayRefreshedCallbacks table
----@field overrideFadeTimestamp number
----@field savedSystemInfo ChatFrame1_savedSystemInfoObject
----@field scrollOffset number
----@field settingDisplayInfoMap table
----@field settingMap table
----@field settingsDialogAnchor ChatFrame1_settingsDialogAnchorObject
----@field shouldFadeAfterInactivity boolean
----@field smartNavRightStickMaxScrollSpeed number
----@field snappedFrames table
----@field system number
----@field systemInfo ChatFrame1_systemInfoObject
----@field systemNameString string
----@field systemPositionDirty boolean
----@field textIsCopyable boolean
----@field timeVisibleSecs number
----@field visibleLines table
----@field zoneChannelList table
-local ChatFrame1Object = {}
----@return any ...
-function ChatFrame1Object:AcquireFontString(...) end
----@return any ...
-function ChatFrame1Object:AcquireHighlightTexture(...) end
----@return any ...
-function ChatFrame1Object:AddChannel(...) end
----@return any ...
-function ChatFrame1Object:AddExtraButtons(...) end
----@return any ...
-function ChatFrame1Object:AddMessage(...) end
----@return any ...
-function ChatFrame1Object:AddMessageGroup(...) end
----@return any ...
-function ChatFrame1Object:AddOnDisplayRefreshedCallback(...) end
----@return any ...
-function ChatFrame1Object:AddPrivateMessageTarget(...) end
----@return any ...
-function ChatFrame1Object:AddSingleMessageType(...) end
----@return any ...
-function ChatFrame1Object:AddSnappedFrame(...) end
----@return any ...
-function ChatFrame1Object:AdjustMessageColors(...) end
----@return any ...
-function ChatFrame1Object:AnchorSelectionFrame(...) end
----@return any ...
-function ChatFrame1Object:AnySettingsDirty(...) end
----@return any ...
-function ChatFrame1Object:ApplySystemAnchor(...) end
----@return any ...
-function ChatFrame1Object:AreAllSystemSettingsDefault(...) end
----@return any ...
-function ChatFrame1Object:AtBottom(...) end
----@return any ...
-function ChatFrame1Object:AtTop(...) end
----@return any ...
-function ChatFrame1Object:BackFillMessage(...) end
----@return any ...
-function ChatFrame1Object:BreakFrameSnap(...) end
----@return any ...
-function ChatFrame1Object:BreakFromFrameManager(...) end
----@return any ...
-function ChatFrame1Object:BreakSnappedFrames(...) end
----@return any ...
-function ChatFrame1Object:CalculateLineAlphaValueFromTimestamp(...) end
----@return any ...
-function ChatFrame1Object:CalculateLineSpacing(...) end
----@return any ...
-function ChatFrame1Object:CalculateNumVisibleLines(...) end
----@return any ...
-function ChatFrame1Object:CalculateSelectingCharacterIndicesForVisibleLine(...) end
----@return any ...
-function ChatFrame1Object:CallOnDisplayRefreshed(...) end
----@return any ...
-function ChatFrame1Object:CanBeMoved(...) end
----@return any ...
-function ChatFrame1Object:CanEffectivelyFade(...) end
----@return any ...
-function ChatFrame1Object:Clear(...) end
----@return any ...
-function ChatFrame1Object:ClearAllPointsBase(...) end
----@return any ...
-function ChatFrame1Object:ClearAllPointsOverride(...) end
----@return any ...
-function ChatFrame1Object:ClearDirtySetting(...) end
----@return any ...
-function ChatFrame1Object:ClearDownKeys(...) end
----@return any ...
-function ChatFrame1Object:ClearFrameSnap(...) end
----@return any ...
-function ChatFrame1Object:ClearGamepadFocus(...) end
----@return any ...
-function ChatFrame1Object:ClearHighlight(...) end
----@return any ...
-function ChatFrame1Object:ConfigEventHandler(...) end
----@return any ...
-function ChatFrame1Object:ContainsChannel(...) end
----@return any ...
-function ChatFrame1Object:ContainsMessageGroup(...) end
----@return any ...
-function ChatFrame1Object:ConvertSettingDisplayValueToRawValue(...) end
----@return any ...
-function ChatFrame1Object:CreateFooter(...) end
----@return any ...
-function ChatFrame1Object:DoesSettingDisplayValueEqual(...) end
----@return any ...
-function ChatFrame1Object:DoesSettingValueEqual(...) end
----@return any ...
-function ChatFrame1Object:DontRestoreGamepadFocusOnMenuClose(...) end
----@return any ...
-function ChatFrame1Object:EditMode_OnResized(...) end
----@return any ...
-function ChatFrame1Object:ExcludePrivateMessageTarget(...) end
----@return any ...
-function ChatFrame1Object:FindCharacterAndLineIndexAtCoordinate(...) end
----@return any ...
-function ChatFrame1Object:FocusGamepad(...) end
----@return any ...
-function ChatFrame1Object:ForEachMessage(...) end
----@return any ...
-function ChatFrame1Object:ForEachMessageInfoText(...) end
----@return any ...
-function ChatFrame1Object:ForEachVisibleLineText(...) end
----@return any ...
-function ChatFrame1Object:GatherSelectedText(...) end
----@return any ...
-function ChatFrame1Object:GetBottomOffset(...) end
----@return any ...
-function ChatFrame1Object:GetCombinedCenterOffset(...) end
----@return any ...
-function ChatFrame1Object:GetCombinedSelectionOffset(...) end
----@return any ...
-function ChatFrame1Object:GetCompositeNumberSettingValue(...) end
----@return any ...
-function ChatFrame1Object:GetDefaultChatTarget(...) end
----@return any ...
-function ChatFrame1Object:GetFadeDuration(...) end
----@return any ...
-function ChatFrame1Object:GetFading(...) end
----@return any ...
-function ChatFrame1Object:GetFont(...) end
----@return any ...
-function ChatFrame1Object:GetFontObject(...) end
----@return any ...
-function ChatFrame1Object:GetFrameMagneticEligibility(...) end
----@return any ...
-function ChatFrame1Object:GetIndentedWordWrap(...) end
----@return any ...
-function ChatFrame1Object:GetInsertMode(...) end
----@return any ...
-function ChatFrame1Object:GetJustifyH(...) end
----@return any ...
-function ChatFrame1Object:GetJustifyV(...) end
----@return any ...
-function ChatFrame1Object:GetLeftOffset(...) end
----@return any ...
-function ChatFrame1Object:GetManagedFrameContainer(...) end
----@return any ...
-function ChatFrame1Object:GetMaxLines(...) end
----@return any ...
-function ChatFrame1Object:GetMaxScrollRange(...) end
----@return any ...
-function ChatFrame1Object:GetMessageInfo(...) end
----@return any ...
-function ChatFrame1Object:GetNumMessages(...) end
----@return any ...
-function ChatFrame1Object:GetNumVisibleLines(...) end
----@return any ...
-function ChatFrame1Object:GetOnLineRightClickedCallback(...) end
----@return any ...
-function ChatFrame1Object:GetOnScrollChangedCallback(...) end
----@return any ...
-function ChatFrame1Object:GetOnTextCopiedCallback(...) end
----@return any ...
-function ChatFrame1Object:GetPagingScrollAmount(...) end
----@return any ...
-function ChatFrame1Object:GetRightOffset(...) end
----@return any ...
-function ChatFrame1Object:GetScaledCenter(...) end
----@return any ...
-function ChatFrame1Object:GetScaledCursorPosition(...) end
----@return any ...
-function ChatFrame1Object:GetScaledSelectionCenter(...) end
----@return any ...
-function ChatFrame1Object:GetScaledSelectionSides(...) end
----@return any ...
-function ChatFrame1Object:GetScrollOffset(...) end
----@return any ...
-function ChatFrame1Object:GetSelectionOffset(...) end
----@return any ...
-function ChatFrame1Object:GetSettingValue(...) end
----@return any ...
-function ChatFrame1Object:GetSettingValueBool(...) end
----@return any ...
-function ChatFrame1Object:GetSettingsDialogAnchor(...) end
----@return any ...
-function ChatFrame1Object:GetShadowColor(...) end
----@return any ...
-function ChatFrame1Object:GetShadowOffset(...) end
----@return any ...
-function ChatFrame1Object:GetSnapOffsets(...) end
----@return any ...
-function ChatFrame1Object:GetSpacing(...) end
----@return any ...
-function ChatFrame1Object:GetSystemName(...) end
----@return any ...
-function ChatFrame1Object:GetTextColor(...) end
----@return any ...
-function ChatFrame1Object:GetTimeVisible(...) end
----@return any ...
-function ChatFrame1Object:GetTopOffset(...) end
----@return any ...
-function ChatFrame1Object:HasActiveChanges(...) end
----@return any ...
-function ChatFrame1Object:HasCompositeNumberSetting(...) end
----@return any ...
-function ChatFrame1Object:HasFontObject(...) end
----@return any ...
-function ChatFrame1Object:HasGamepadFocus(...) end
----@return any ...
-function ChatFrame1Object:HasSetting(...) end
----@return any ...
-function ChatFrame1Object:HasValidSelectionRect(...) end
----@return any ...
-function ChatFrame1Object:HideBase(...) end
----@return any ...
-function ChatFrame1Object:HideOverride(...) end
----@return any ...
-function ChatFrame1Object:HighlightSystem(...) end
----@return any ...
-function ChatFrame1Object:InitializeFontString(...) end
----@return any ...
-function ChatFrame1Object:InitializeFontableFrame(...) end
----@return any ...
-function ChatFrame1Object:InitializeGamepad(...) end
----@return any ...
-function ChatFrame1Object:IsAboveFrame(...) end
----@return any ...
-function ChatFrame1Object:IsBelowFrame(...) end
----@return any ...
-function ChatFrame1Object:IsEditModeDragging(...) end
----@return any ...
-function ChatFrame1Object:IsFrameAnchoredToMe(...) end
----@return any ...
-function ChatFrame1Object:IsGamepadMenuOpen(...) end
----@return any ...
-function ChatFrame1Object:IsHorizontallyAlignedWithFrame(...) end
----@return any ...
-function ChatFrame1Object:IsInDefaultPosition(...) end
----@return any ...
-function ChatFrame1Object:IsInitialized(...) end
----@return any ...
-function ChatFrame1Object:IsScrollAllowed(...) end
----@return any ...
-function ChatFrame1Object:IsSelectingText(...) end
----@return any ...
-function ChatFrame1Object:IsSettingDirty(...) end
----@return any ...
-function ChatFrame1Object:IsShiftKeyDown(...) end
----@return any ...
-function ChatFrame1Object:IsSystemSettingDefault(...) end
----@return any ...
-function ChatFrame1Object:IsTextCopyable(...) end
----@return any ...
-function ChatFrame1Object:IsToTheLeftOfFrame(...) end
----@return any ...
-function ChatFrame1Object:IsToTheRightOfFrame(...) end
----@return any ...
-function ChatFrame1Object:IsVerticallyAlignedWithFrame(...) end
----@return any ...
-function ChatFrame1Object:MakeFontObjectCustom(...) end
----@return any ...
-function ChatFrame1Object:MarkAllSettingsDirty(...) end
----@return any ...
-function ChatFrame1Object:MarkDisplayDirty(...) end
----@return any ...
-function ChatFrame1Object:MarkLayoutDirty(...) end
----@return any ...
-function ChatFrame1Object:MarkSystemPositionDirty(...) end
----@return any ...
-function ChatFrame1Object:MessageEventHandler(...) end
----@return any ...
-function ChatFrame1Object:OnAnyEditModeSystemAnchorChanged(...) end
----@return any ...
-function ChatFrame1Object:OnColorsUpdated(...) end
----@return any ...
-function ChatFrame1Object:OnDragStart(...) end
----@return any ...
-function ChatFrame1Object:OnDragStop(...) end
----@return any ...
-function ChatFrame1Object:OnEditModeEnter(...) end
----@return any ...
-function ChatFrame1Object:OnEditModeExit(...) end
----@return any ...
-function ChatFrame1Object:OnEvent(...) end
----@return any ...
-function ChatFrame1Object:OnFontObjectUpdated(...) end
----@return any ...
-function ChatFrame1Object:OnHide(...) end
----@return any ...
-function ChatFrame1Object:OnHyperlinkClick(...) end
----@return any ...
-function ChatFrame1Object:OnHyperlinkEnter(...) end
----@return any ...
-function ChatFrame1Object:OnHyperlinkLeave(...) end
----@return any ...
-function ChatFrame1Object:OnKeyDown(...) end
----@return any ...
-function ChatFrame1Object:OnKeyUp(...) end
----@return any ...
-function ChatFrame1Object:OnLoad(...) end
----@return any ...
-function ChatFrame1Object:OnPostEvent(...) end
----@return any ...
-function ChatFrame1Object:OnPostHide(...) end
----@return any ...
-function ChatFrame1Object:OnPostMouseDown(...) end
----@return any ...
-function ChatFrame1Object:OnPostMouseUp(...) end
----@return any ...
-function ChatFrame1Object:OnPostShow(...) end
----@return any ...
-function ChatFrame1Object:OnPostUpdate(...) end
----@return any ...
-function ChatFrame1Object:OnPreLoad(...) end
----@return any ...
-function ChatFrame1Object:OnPreSizeChanged(...) end
----@return any ...
-function ChatFrame1Object:OnSystemHide(...) end
----@return any ...
-function ChatFrame1Object:OnSystemLoad(...) end
----@return any ...
-function ChatFrame1Object:OnSystemPositionChange(...) end
----@return any ...
-function ChatFrame1Object:OnUpdate(...) end
----@return any ...
-function ChatFrame1Object:OnUpdateSystem(...) end
----@return any ...
-function ChatFrame1Object:OpenChatChannelsMenu(...) end
----@return any ...
-function ChatFrame1Object:OpenGamepadTabMenu(...) end
----@return any ...
-function ChatFrame1Object:PackageEntry(...) end
----@return any ...
-function ChatFrame1Object:PageDown(...) end
----@return any ...
-function ChatFrame1Object:PageUp(...) end
----@return any ...
-function ChatFrame1Object:PlayerLevelChanged(...) end
----@return any ...
-function ChatFrame1Object:PlayerLevelUp(...) end
----@return any ...
-function ChatFrame1Object:PrepareForSave(...) end
----@return any ...
-function ChatFrame1Object:ProcessMovementKey(...) end
----@return any ...
-function ChatFrame1Object:ReceiveAllPrivateMessages(...) end
----@return any ...
-function ChatFrame1Object:RefreshDisplay(...) end
----@return any ...
-function ChatFrame1Object:RefreshIfNecessary(...) end
----@return any ...
-function ChatFrame1Object:RefreshLayout(...) end
----@return any ...
-function ChatFrame1Object:RefreshSystemPosition(...) end
----@return any ...
-function ChatFrame1Object:RegisterForChannels(...) end
----@return any ...
-function ChatFrame1Object:RegisterForInterfaceTransitions(...) end
----@return any ...
-function ChatFrame1Object:RegisterForMessages(...) end
----@return any ...
-function ChatFrame1Object:RemoveAllChannels(...) end
----@return any ...
-function ChatFrame1Object:RemoveAllMessageGroups(...) end
----@return any ...
-function ChatFrame1Object:RemoveChannel(...) end
----@return any ...
-function ChatFrame1Object:RemoveExcludePrivateMessageTarget(...) end
----@return any ...
-function ChatFrame1Object:RemoveMessageGroup(...) end
----@return any ...
-function ChatFrame1Object:RemoveMessagesByPredicate(...) end
----@return any ...
-function ChatFrame1Object:RemovePrivateMessageTarget(...) end
----@return any ...
-function ChatFrame1Object:RemoveSnappedFrame(...) end
----@return any ...
-function ChatFrame1Object:ResetAllFadeTimes(...) end
----@return any ...
-function ChatFrame1Object:ResetSelectingText(...) end
----@return any ...
-function ChatFrame1Object:ResetToDefaultPosition(...) end
----@return any ...
-function ChatFrame1Object:ScrollByAmount(...) end
----@return any ...
-function ChatFrame1Object:ScrollDown(...) end
----@return any ...
-function ChatFrame1Object:ScrollToBottom(...) end
----@return any ...
-function ChatFrame1Object:ScrollToTop(...) end
----@return any ...
-function ChatFrame1Object:ScrollUp(...) end
----@return any ...
-function ChatFrame1Object:SelectSystem(...) end
----@return any ...
-function ChatFrame1Object:SetChannelEnabled(...) end
----@return any ...
-function ChatFrame1Object:SetFadeDuration(...) end
----@return any ...
-function ChatFrame1Object:SetFading(...) end
----@return any ...
-function ChatFrame1Object:SetFont(...) end
----@return any ...
-function ChatFrame1Object:SetFontObject(...) end
----@return any ...
-function ChatFrame1Object:SetGamepadFocus(...) end
----@return any ...
-function ChatFrame1Object:SetHasActiveChanges(...) end
----@return any ...
-function ChatFrame1Object:SetIndentedWordWrap(...) end
----@return any ...
-function ChatFrame1Object:SetInsertMode(...) end
----@return any ...
-function ChatFrame1Object:SetJustifyH(...) end
----@return any ...
-function ChatFrame1Object:SetJustifyV(...) end
----@return any ...
-function ChatFrame1Object:SetMaxLines(...) end
----@return any ...
-function ChatFrame1Object:SetOnLineRightClickedCallback(...) end
----@return any ...
-function ChatFrame1Object:SetOnScrollChangedCallback(...) end
----@return any ...
-function ChatFrame1Object:SetOnTextCopiedCallback(...) end
----@return any ...
-function ChatFrame1Object:SetPointBase(...) end
----@return any ...
-function ChatFrame1Object:SetPointOverride(...) end
----@return any ...
-function ChatFrame1Object:SetScaleBase(...) end
----@return any ...
-function ChatFrame1Object:SetScaleOverride(...) end
----@return any ...
-function ChatFrame1Object:SetScrollAllowed(...) end
----@return any ...
-function ChatFrame1Object:SetScrollOffset(...) end
----@return any ...
-function ChatFrame1Object:SetSelectionShown(...) end
----@return any ...
-function ChatFrame1Object:SetShadowColor(...) end
----@return any ...
-function ChatFrame1Object:SetShadowOffset(...) end
----@return any ...
-function ChatFrame1Object:SetShownBase(...) end
----@return any ...
-function ChatFrame1Object:SetShownOverride(...) end
----@return any ...
-function ChatFrame1Object:SetSnappedToFrame(...) end
----@return any ...
-function ChatFrame1Object:SetSpacing(...) end
----@return any ...
-function ChatFrame1Object:SetTextColor(...) end
----@return any ...
-function ChatFrame1Object:SetTextCopyable(...) end
----@return any ...
-function ChatFrame1Object:SetTimeVisible(...) end
----@return any ...
-function ChatFrame1Object:SetupGamepad(...) end
----@return any ...
-function ChatFrame1Object:SetupSettingsDialogAnchor(...) end
----@return any ...
-function ChatFrame1Object:SetupVisibilityFunctionOverrides(...) end
----@return any ...
-function ChatFrame1Object:ShouldBreakSnappedFramesOnHide(...) end
----@return any ...
-function ChatFrame1Object:ShouldResetSettingsDialogAnchors(...) end
----@return any ...
-function ChatFrame1Object:ShouldShowSetting(...) end
----@return any ...
-function ChatFrame1Object:ShowEditInstructions(...) end
----@return any ...
-function ChatFrame1Object:SmartNavigationCloseHandler(...) end
----@return any ...
-function ChatFrame1Object:SnapToFrame(...) end
----@return any ...
-function ChatFrame1Object:SystemEventHandler(...) end
----@return any ...
-function ChatFrame1Object:TransformMessages(...) end
----@return any ...
-function ChatFrame1Object:TrySetCompositeNumberSettingValue(...) end
----@return any ...
-function ChatFrame1Object:UnfocusGamepad(...) end
----@return any ...
-function ChatFrame1Object:UninitializeGamepad(...) end
----@return any ...
-function ChatFrame1Object:UnpackageEntry(...) end
----@return any ...
-function ChatFrame1Object:UnregisterAllMessageGroups(...) end
----@return any ...
-function ChatFrame1Object:UpdateClampOffsets(...) end
----@return any ...
-function ChatFrame1Object:UpdateColorByID(...) end
----@return any ...
-function ChatFrame1Object:UpdateDefaultChatTarget(...) end
----@return any ...
-function ChatFrame1Object:UpdateDirtySettings(...) end
----@return any ...
-function ChatFrame1Object:UpdateDisplayInfoOptions(...) end
----@return any ...
-function ChatFrame1Object:UpdateFading(...) end
----@return any ...
-function ChatFrame1Object:UpdateMagnetismRegistration(...) end
----@return any ...
-function ChatFrame1Object:UpdateSelectingText(...) end
----@return any ...
-function ChatFrame1Object:UpdateSettingMap(...) end
----@return any ...
-function ChatFrame1Object:UpdateSystem(...) end
----@return any ...
-function ChatFrame1Object:UpdateSystemSetting(...) end
----@return any ...
-function ChatFrame1Object:UpdateSystemSettingHeight(...) end
----@return any ...
-function ChatFrame1Object:UpdateSystemSettingValue(...) end
----@return any ...
-function ChatFrame1Object:UpdateSystemSettingWidth(...) end
----@return any ...
-function ChatFrame1Object:UseSettingAltName(...) end
----@type ChatFrame1Object
-ChatFrame1 = ChatFrame1Object
-end
-
-do
----@class ChatFrame1_BackgroundObject : Texture
-local ChatFrame1_BackgroundObject = {}
-end
-
-do
----@class ChatFrame1_EditModeResizeButtonObject : Button
-local ChatFrame1_EditModeResizeButtonObject = {}
----@return any ...
-function ChatFrame1_EditModeResizeButtonObject:OnMouseDown(...) end
----@return any ...
-function ChatFrame1_EditModeResizeButtonObject:OnMouseUp(...) end
-end
-
-do
----@class ChatFrame1_FontStringContainerObject : Frame
-local ChatFrame1_FontStringContainerObject = {}
-end
-
-do
----@class ChatFrame1_ResizeButtonObject : Button
-local ChatFrame1_ResizeButtonObject = {}
-end
-
-do
----@class ChatFrame1_ScrollBarObject : Frame
----@field Back ChatFrame1_ScrollBar_BackObject
----@field Defaults ChatFrame1_ScrollBar_DefaultsObject
----@field Directions ChatFrame1_ScrollBar_DirectionsObject
----@field Event ChatFrame1_ScrollBar_EventObject
----@field Forward ChatFrame1_ScrollBar_ForwardObject
----@field Track ChatFrame1_ScrollBar_TrackObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field deferredCallbacks table
----@field executingEvents table
----@field hideTrack boolean
----@field hideTrackIfThumbExceedsTrack boolean
----@field internalPriority boolean
----@field interpolator ChatFrame1_ScrollBar_interpolatorObject
----@field isScrollController boolean
----@field minThumbExtent number
----@field panDelay number
----@field panRepeatTime number
----@field smartNavigationIgnored boolean
----@field snapToInterval boolean
----@field thumbAnchor string
----@field useProportionalThumb boolean
----@field wheelPanScalar number
-local ChatFrame1_ScrollBarObject = {}
----@return any ...
-function ChatFrame1_ScrollBarObject:CallInternalScope(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:CanCursorStepInDirection(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:CanInterpolateScroll(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:CopyDeferredCallbacks(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:DisableControls(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:DoesFrameHaveEvent(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:EnableInternalPriority(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:EnableSnapToInterval(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:GenerateCallbackEvents(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:GetBackStepper(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:GetCallbackTable(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:GetCallbackTables(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:GetCallbacksByEvent(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:GetForwardStepper(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:GetFrameExtent(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:GetIntervalRange(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:GetLower(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:GetPanExtentPercentage(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:GetPanRepeatDelay(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:GetPanRepeatTime(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:GetScrollInterpolator(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:GetScrollPercentage(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:GetThumb(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:GetThumbAnchor(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:GetTrack(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:GetTrackExtent(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:GetUpper(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:GetWheelPanPercentage(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:HasRegistrantsForEvent(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:HasScrollableExtent(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:Init(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:InitializeNarration(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:Interpolate(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:IsAtBegin(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:IsAtEnd(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:IsHorizontal(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:IsScrollAllowed(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:IsThumbMouseDown(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:OnHide_Intrinsic(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:OnLoad(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:OnLoad_Intrinsic(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:OnMouseWheel(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:OnShow_Intrinsic(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:OnStepperMouseDown(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:OnThumbMouseDown(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:OnTrackMouseDown(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:RegisterCallback(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:ScrollDecrease(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:ScrollInDirection(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:ScrollIncrease(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:ScrollPageInDirection(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:ScrollStepInDirection(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:ScrollToBegin(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:ScrollToEnd(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:ScrollWheelInDirection(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:SecureInsertEvent(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:SelectCursorComponent(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:SelectPointComponent(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:SetFrameExtent(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:SetHideIfUnscrollable(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:SetHorizontal(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:SetInterpolateScroll(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:SetPanExtentPercentage(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:SetScrollAllowed(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:SetScrollPercentage(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:SetScrollPercentageInternal(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:SetThumbExtent(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:SetVisibleExtentPercentage(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:TriggerEvent(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:UnregisterCallback(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:UnregisterEvents(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:UnregisterUpdate(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:Update(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:onButtonMouseUp(...) end
----@return any ...
-function ChatFrame1_ScrollBarObject:scrollInternal(...) end
-end
-
-do
----@class ChatFrame1_ScrollBar_BackObject : Button
----@field Event ChatFrame1_ScrollBar_Back_EventObject
----@field Texture ChatFrame1_ScrollBar_Back_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local ChatFrame1_ScrollBar_BackObject = {}
----@return any ...
-function ChatFrame1_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
----@return any ...
-function ChatFrame1_ScrollBar_BackObject:DesaturateIfDisabled(...) end
----@return any ...
-function ChatFrame1_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
----@return any ...
-function ChatFrame1_ScrollBar_BackObject:GenerateCallbackEvents(...) end
----@return any ...
-function ChatFrame1_ScrollBar_BackObject:GetAtlas(...) end
----@return any ...
-function ChatFrame1_ScrollBar_BackObject:GetCallbackTable(...) end
----@return any ...
-function ChatFrame1_ScrollBar_BackObject:GetCallbackTables(...) end
----@return any ...
-function ChatFrame1_ScrollBar_BackObject:GetCallbacksByEvent(...) end
----@return any ...
-function ChatFrame1_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:OnLeave(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:IsDown(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:OnLoad(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:IsDownOver(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:IsOver(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:OnMenuAssigned(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:NarrationGetName(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:OnMenuChanged(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:OnButtonStateChanged(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:OnMenuClosed(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:OnMenuOpened(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:OnDisable(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:OnMenuResponse(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:OnEnable(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:OnMouseDown(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:OnEnter(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:OnMouseUp(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:OnLeave(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:OnMouseWheel_Intrinsic(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:OnShow(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:OnLoad(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:OpenMenu(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:Pick(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:OnMouseDown(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:RegisterCallback(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:OnMouseUp(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:RegisterMenu(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:OnShow(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:Reset(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:Rotate(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:SecureInsertEvent(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:RegisterCallback(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:SetDefaultCallback(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:SetDisplacedRegions(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:SecureInsertEvent(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:SetIsDefaultCallback(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:SetDisplacedRegions(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:SetMenuAnchor(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:SetMenuOpen(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:TriggerEvent(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:UnregisterCallback(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:SetUpdateCallback(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:UnregisterEvents(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:SetupMenu(...) end
 ---@return any ...
-function ChatFrame1_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class ChatFrame1_ScrollBar_Back_EventObject
-local ChatFrame1_ScrollBar_Back_EventObject = {}
-end
-
-do
----@class ChatFrame1_ScrollBar_Back_TextureObject : Texture
-local ChatFrame1_ScrollBar_Back_TextureObject = {}
-end
-
-do
----@class ChatFrame1_ScrollBar_DefaultsObject
-local ChatFrame1_ScrollBar_DefaultsObject = {}
-end
-
-do
----@class ChatFrame1_ScrollBar_DirectionsObject
-local ChatFrame1_ScrollBar_DirectionsObject = {}
-end
-
-do
----@class ChatFrame1_ScrollBar_EventObject
-local ChatFrame1_ScrollBar_EventObject = {}
-end
-
-do
----@class ChatFrame1_ScrollBar_ForwardObject : Button
----@field Event ChatFrame1_ScrollBar_Forward_EventObject
----@field Texture ChatFrame1_ScrollBar_Forward_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local ChatFrame1_ScrollBar_ForwardObject = {}
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:GetAtlas(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:GetCallbackTable(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:GetCallbackTables(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:IsDown(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:IsDownOver(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:IsOver(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:NarrationGetName(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:OnDisable(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:OnEnable(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:OnEnter(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:OnLeave(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:OnLoad(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:OnMouseDown(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:OnMouseUp(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:OnShow(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:RegisterCallback(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:SecureInsertEvent(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:TriggerEvent(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:UnregisterCallback(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:UnregisterEvents(...) end
----@return any ...
-function ChatFrame1_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class ChatFrame1_ScrollBar_Forward_EventObject
-local ChatFrame1_ScrollBar_Forward_EventObject = {}
-end
-
-do
----@class ChatFrame1_ScrollBar_Forward_TextureObject : Texture
-local ChatFrame1_ScrollBar_Forward_TextureObject = {}
-end
-
-do
----@class ChatFrame1_ScrollBar_TrackObject : Frame
----@field Begin ChatFrame1_ScrollBar_Track_BeginObject
----@field End ChatFrame1_ScrollBar_Track_EndObject
----@field Middle ChatFrame1_ScrollBar_Track_MiddleObject
----@field Thumb ChatFrame1_ScrollBar_Track_ThumbObject
-local ChatFrame1_ScrollBar_TrackObject = {}
-end
-
-do
----@class ChatFrame1_ScrollBar_Track_BeginObject : Texture
-local ChatFrame1_ScrollBar_Track_BeginObject = {}
-end
-
-do
----@class ChatFrame1_ScrollBar_Track_EndObject : Texture
-local ChatFrame1_ScrollBar_Track_EndObject = {}
-end
-
-do
----@class ChatFrame1_ScrollBar_Track_MiddleObject : Texture
-local ChatFrame1_ScrollBar_Track_MiddleObject = {}
-end
-
-do
----@class ChatFrame1_ScrollBar_Track_ThumbObject : Button
----@field Begin ChatFrame1_ScrollBar_Track_Thumb_BeginObject
----@field End ChatFrame1_ScrollBar_Track_Thumb_EndObject
----@field Event ChatFrame1_ScrollBar_Track_Thumb_EventObject
----@field Middle ChatFrame1_ScrollBar_Track_Thumb_MiddleObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field downBeginTexture string
----@field downEndTexture string
----@field downMiddleTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field overBeginTexture string
----@field overEndTexture string
----@field overMiddleTexture string
----@field upBeginTexture string
----@field upEndTexture string
----@field upMiddleTexture string
-local ChatFrame1_ScrollBar_Track_ThumbObject = {}
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:GetAtlas(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:IsDown(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:IsDownOver(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:IsOver(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:OnDisable(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:OnEnable(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:OnEnter(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:OnLeave(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:OnLoad(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:OnShow(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
----@return any ...
-function ChatFrame1_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class ChatFrame1_ScrollBar_Track_Thumb_BeginObject : Texture
-local ChatFrame1_ScrollBar_Track_Thumb_BeginObject = {}
-end
-
-do
----@class ChatFrame1_ScrollBar_Track_Thumb_EndObject : Texture
-local ChatFrame1_ScrollBar_Track_Thumb_EndObject = {}
-end
-
-do
----@class ChatFrame1_ScrollBar_Track_Thumb_EventObject
-local ChatFrame1_ScrollBar_Track_Thumb_EventObject = {}
-end
-
-do
----@class ChatFrame1_ScrollBar_Track_Thumb_MiddleObject : Texture
-local ChatFrame1_ScrollBar_Track_Thumb_MiddleObject = {}
-end
-
-do
----@class ChatFrame1_ScrollBar_interpolatorObject
-local ChatFrame1_ScrollBar_interpolatorObject = {}
----@return any ...
-function ChatFrame1_ScrollBar_interpolatorObject:Cancel(...) end
----@return any ...
-function ChatFrame1_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
----@return any ...
-function ChatFrame1_ScrollBar_interpolatorObject:Interpolate(...) end
----@return any ...
-function ChatFrame1_ScrollBar_interpolatorObject:interpolateFunc(...) end
-end
-
-do
----@class ChatFrame1_ScrollToBottomButtonObject : Button
----@field Flash ChatFrame1_ScrollToBottomButton_FlashObject
----@field smartNavigationIgnored boolean
-local ChatFrame1_ScrollToBottomButtonObject = {}
-end
-
-do
----@class ChatFrame1_ScrollToBottomButton_FlashObject : Texture
----@field FlashAnim ChatFrame1_ScrollToBottomButton_Flash_FlashAnimObject
-local ChatFrame1_ScrollToBottomButton_FlashObject = {}
-end
-
-do
----@class ChatFrame1_ScrollToBottomButton_Flash_FlashAnimObject : AnimationGroup
----@field FadeIn ChatFrame1_ScrollToBottomButton_Flash_FlashAnim_FadeInObject
----@field FadeOut ChatFrame1_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject
-local ChatFrame1_ScrollToBottomButton_Flash_FlashAnimObject = {}
-end
-
-do
----@class ChatFrame1_ScrollToBottomButton_Flash_FlashAnim_FadeInObject : Alpha
-local ChatFrame1_ScrollToBottomButton_Flash_FlashAnim_FadeInObject = {}
-end
-
-do
----@class ChatFrame1_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject : Alpha
-local ChatFrame1_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject = {}
-end
-
-do
----@class ChatFrame1_SelectionObject : Frame
----@field Label ChatFrame1_Selection_LabelObject
----@field MouseOverHighlight ChatFrame1_Selection_MouseOverHighlightObject
----@field highlightTextureKit string
----@field ignoreInLayout boolean
----@field parent ChatFrame1_Selection_parentObject
----@field selectedTextureKit string
----@field system ChatFrame1_Selection_systemObject
-local ChatFrame1_SelectionObject = {}
----@return any ...
-function ChatFrame1_SelectionObject:CheckShowInstructionalTooltip(...) end
----@return any ...
-function ChatFrame1_SelectionObject:GetBorderColor(...) end
----@return any ...
-function ChatFrame1_SelectionObject:GetCenterColor(...) end
----@return any ...
-function ChatFrame1_SelectionObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function ChatFrame1_SelectionObject:GetFrameLayoutType(...) end
----@return any ...
-function ChatFrame1_SelectionObject:GetLabelText(...) end
----@return any ...
-function ChatFrame1_SelectionObject:HideInstructionalTooltip(...) end
----@return any ...
-function ChatFrame1_SelectionObject:IsSelected(...) end
----@return any ...
-function ChatFrame1_SelectionObject:IsShowingEditInstructions(...) end
----@return any ...
-function ChatFrame1_SelectionObject:OnDragStart(...) end
----@return any ...
-function ChatFrame1_SelectionObject:OnDragStop(...) end
----@return any ...
-function ChatFrame1_SelectionObject:OnEnter(...) end
----@return any ...
-function ChatFrame1_SelectionObject:OnLeave(...) end
----@return any ...
-function ChatFrame1_SelectionObject:OnLoad(...) end
----@return any ...
-function ChatFrame1_SelectionObject:OnMouseDown(...) end
----@return any ...
-function ChatFrame1_SelectionObject:SetBlendMode(...) end
----@return any ...
-function ChatFrame1_SelectionObject:SetBorderBlendMode(...) end
----@return any ...
-function ChatFrame1_SelectionObject:SetBorderColor(...) end
----@return any ...
-function ChatFrame1_SelectionObject:SetCenterColor(...) end
----@return any ...
-function ChatFrame1_SelectionObject:SetSystem(...) end
----@return any ...
-function ChatFrame1_SelectionObject:SetVertexColor(...) end
----@return any ...
-function ChatFrame1_SelectionObject:ShouldShowLabelText(...) end
----@return any ...
-function ChatFrame1_SelectionObject:ShowEditInstructions(...) end
----@return any ...
-function ChatFrame1_SelectionObject:ShowHighlighted(...) end
----@return any ...
-function ChatFrame1_SelectionObject:ShowSelected(...) end
----@return any ...
-function ChatFrame1_SelectionObject:UpdateLabelVisibility(...) end
-end
-
-do
----@class ChatFrame1_Selection_LabelObject : FontString
----@field fontObjectsToTry table
-local ChatFrame1_Selection_LabelObject = {}
----@return any ...
-function ChatFrame1_Selection_LabelObject:ApplyFontObjects(...) end
----@return any ...
-function ChatFrame1_Selection_LabelObject:SetFontObjectsToTry(...) end
-end
-
-do
----@class ChatFrame1_Selection_MouseOverHighlightObject : Frame
----@field BottomEdge ChatFrame1_Selection_MouseOverHighlight_BottomEdgeObject
----@field BottomLeftCorner ChatFrame1_Selection_MouseOverHighlight_BottomLeftCornerObject
----@field BottomRightCorner ChatFrame1_Selection_MouseOverHighlight_BottomRightCornerObject
----@field Center ChatFrame1_Selection_MouseOverHighlight_CenterObject
----@field LeftEdge ChatFrame1_Selection_MouseOverHighlight_LeftEdgeObject
----@field RightEdge ChatFrame1_Selection_MouseOverHighlight_RightEdgeObject
----@field TopEdge ChatFrame1_Selection_MouseOverHighlight_TopEdgeObject
----@field TopLeftCorner ChatFrame1_Selection_MouseOverHighlight_TopLeftCornerObject
----@field TopRightCorner ChatFrame1_Selection_MouseOverHighlight_TopRightCornerObject
-local ChatFrame1_Selection_MouseOverHighlightObject = {}
----@return any ...
-function ChatFrame1_Selection_MouseOverHighlightObject:GetBorderColor(...) end
----@return any ...
-function ChatFrame1_Selection_MouseOverHighlightObject:GetCenterColor(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:SignalUpdate(...) end
 ---@return any ...
-function ChatFrame1_Selection_MouseOverHighlightObject:GetFrameLayoutTextureKit(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:ToggleFilter(...) end
 ---@return any ...
-function ChatFrame1_Selection_MouseOverHighlightObject:GetFrameLayoutType(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:TriggerEvent(...) end
 ---@return any ...
-function ChatFrame1_Selection_MouseOverHighlightObject:OnLoad(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:UnregisterCallback(...) end
 ---@return any ...
-function ChatFrame1_Selection_MouseOverHighlightObject:SetBlendMode(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:UnregisterEvents(...) end
 ---@return any ...
-function ChatFrame1_Selection_MouseOverHighlightObject:SetBorderBlendMode(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function ChatFrame1_Selection_MouseOverHighlightObject:SetBorderColor(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:Update(...) end
 ---@return any ...
-function ChatFrame1_Selection_MouseOverHighlightObject:SetCenterColor(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:UpdateSelections(...) end
 ---@return any ...
-function ChatFrame1_Selection_MouseOverHighlightObject:SetVertexColor(...) end
-end
-
-do
----@class ChatFrame1_Selection_MouseOverHighlight_BottomEdgeObject : Texture
-local ChatFrame1_Selection_MouseOverHighlight_BottomEdgeObject = {}
-end
-
-do
----@class ChatFrame1_Selection_MouseOverHighlight_BottomLeftCornerObject : Texture
-local ChatFrame1_Selection_MouseOverHighlight_BottomLeftCornerObject = {}
-end
-
-do
----@class ChatFrame1_Selection_MouseOverHighlight_BottomRightCornerObject : Texture
-local ChatFrame1_Selection_MouseOverHighlight_BottomRightCornerObject = {}
-end
-
-do
----@class ChatFrame1_Selection_MouseOverHighlight_CenterObject : Texture
-local ChatFrame1_Selection_MouseOverHighlight_CenterObject = {}
-end
-
-do
----@class ChatFrame1_Selection_MouseOverHighlight_LeftEdgeObject : Texture
-local ChatFrame1_Selection_MouseOverHighlight_LeftEdgeObject = {}
-end
-
-do
----@class ChatFrame1_Selection_MouseOverHighlight_RightEdgeObject : Texture
-local ChatFrame1_Selection_MouseOverHighlight_RightEdgeObject = {}
-end
-
-do
----@class ChatFrame1_Selection_MouseOverHighlight_TopEdgeObject : Texture
-local ChatFrame1_Selection_MouseOverHighlight_TopEdgeObject = {}
-end
-
-do
----@class ChatFrame1_Selection_MouseOverHighlight_TopLeftCornerObject : Texture
-local ChatFrame1_Selection_MouseOverHighlight_TopLeftCornerObject = {}
-end
-
-do
----@class ChatFrame1_Selection_MouseOverHighlight_TopRightCornerObject : Texture
-local ChatFrame1_Selection_MouseOverHighlight_TopRightCornerObject = {}
-end
-
-do
----@class ChatFrame1_Selection_parentObject
-local ChatFrame1_Selection_parentObject = {}
-end
-
-do
----@class ChatFrame1_Selection_systemObject
-local ChatFrame1_Selection_systemObject = {}
-end
-
-do
----@class ChatFrame1_buttonFrameObject : Frame
----@field Background ChatFrame1_buttonFrame_BackgroundObject
----@field minimizeButton ChatFrame1_buttonFrame_minimizeButtonObject
-local ChatFrame1_buttonFrameObject = {}
-end
-
-do
----@class ChatFrame1_buttonFrame_BackgroundObject : Texture
-local ChatFrame1_buttonFrame_BackgroundObject = {}
-end
-
-do
----@class ChatFrame1_buttonFrame_minimizeButtonObject : Button
-local ChatFrame1_buttonFrame_minimizeButtonObject = {}
-end
-
-do
----@class ChatFrame1_clickAnywhereButtonObject : Button
-local ChatFrame1_clickAnywhereButtonObject = {}
+function AuctionHouseFrame_SearchBar_FilterButtonObject:UpdateText(...) end
 ---@return any ...
-function ChatFrame1_clickAnywhereButtonObject:OnClick(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:UpdateToMenuSelections(...) end
 ---@return any ...
-function ChatFrame1_clickAnywhereButtonObject:OnEvent(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:ValidateResetState(...) end
 ---@return any ...
-function ChatFrame1_clickAnywhereButtonObject:OnLoad(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:menuGenerator(...) end
 ---@return any ...
-function ChatFrame1_clickAnywhereButtonObject:UpdateState(...) end
+function AuctionHouseFrame_SearchBar_FilterButtonObject:onMenuClosedCallback(...) end
 end
 
 do
----@class ChatFrame1_dockObject
-local ChatFrame1_dockObject = {}
+---@class AuctionHouseFrame_SearchBar_FilterButton_BackgroundObject : Texture
+local AuctionHouseFrame_SearchBar_FilterButton_BackgroundObject = {}
 end
 
 do
----@class ChatFrame1_editBoxObject
-local ChatFrame1_editBoxObject = {}
+---@class AuctionHouseFrame_SearchBar_FilterButton_ClearFiltersButtonObject : Button
+local AuctionHouseFrame_SearchBar_FilterButton_ClearFiltersButtonObject = {}
 end
 
 do
----@class ChatFrame1_fontObjectObject
-local ChatFrame1_fontObjectObject = {}
+---@class AuctionHouseFrame_SearchBar_FilterButton_EventObject
+local AuctionHouseFrame_SearchBar_FilterButton_EventObject = {}
 end
 
 do
----@class ChatFrame1_fontStringPoolObject
-local ChatFrame1_fontStringPoolObject = {}
----@return any ...
-function ChatFrame1_fontStringPoolObject:GetTemplate(...) end
----@return any ...
-function ChatFrame1_fontStringPoolObject:private(...) end
+---@class AuctionHouseFrame_SearchBar_FilterButton_ResetButtonObject : Button
+local AuctionHouseFrame_SearchBar_FilterButton_ResetButtonObject = {}
 end
 
 do
----@class ChatFrame1_historyBufferObject
----@field headIndex table
----@field maxElements table
-local ChatFrame1_historyBufferObject = {}
----@return any ...
-function ChatFrame1_historyBufferObject:CalculateElementIndex(...) end
----@return any ...
-function ChatFrame1_historyBufferObject:CalculateElementIndexFromGlobalIndex(...) end
----@return any ...
-function ChatFrame1_historyBufferObject:Clear(...) end
----@return any ...
-function ChatFrame1_historyBufferObject:EnumerateIndexedEntries(...) end
----@return any ...
-function ChatFrame1_historyBufferObject:GetEntryAtIndex(...) end
----@return any ...
-function ChatFrame1_historyBufferObject:GetMaxNumElements(...) end
----@return any ...
-function ChatFrame1_historyBufferObject:GetNumElements(...) end
----@return any ...
-function ChatFrame1_historyBufferObject:IsEmpty(...) end
----@return any ...
-function ChatFrame1_historyBufferObject:IsFull(...) end
----@return any ...
-function ChatFrame1_historyBufferObject:IsValidIndex(...) end
----@return any ...
-function ChatFrame1_historyBufferObject:OnLoad(...) end
----@return any ...
-function ChatFrame1_historyBufferObject:PushBack(...) end
----@return any ...
-function ChatFrame1_historyBufferObject:PushFront(...) end
----@return any ...
-function ChatFrame1_historyBufferObject:RemoveIf(...) end
----@return any ...
-function ChatFrame1_historyBufferObject:ReplaceElements(...) end
----@return any ...
-function ChatFrame1_historyBufferObject:ReverseEnumerateIndexedEntries(...) end
----@return any ...
-function ChatFrame1_historyBufferObject:SetMaxNumElements(...) end
----@return any ...
-function ChatFrame1_historyBufferObject:TransformIf(...) end
+---@class AuctionHouseFrame_SearchBar_FilterButton_TextObject : FontString
+local AuctionHouseFrame_SearchBar_FilterButton_TextObject = {}
 end
 
 do
----@class ChatFrame1_savedSystemInfoObject
----@field anchorInfo table
----@field isInDefaultPosition boolean
----@field settings table
----@field system number
-local ChatFrame1_savedSystemInfoObject = {}
+---@class AuctionHouseFrame_SearchBar_FilterButton_baseFontObjectObject
+local AuctionHouseFrame_SearchBar_FilterButton_baseFontObjectObject = {}
 end
 
 do
----@class ChatFrame1_settingsDialogAnchorObject
+---@class AuctionHouseFrame_SearchBar_FilterButton_menuAnchorObject
 ---@field point string
 ---@field relativePoint string
----@field relativeTo ChatFrame1_settingsDialogAnchor_relativeToObject
+---@field relativeTo AuctionHouseFrame_SearchBar_FilterButton_menuAnchor_relativeToObject
 ---@field x number
 ---@field y number
-local ChatFrame1_settingsDialogAnchorObject = {}
+local AuctionHouseFrame_SearchBar_FilterButton_menuAnchorObject = {}
 ---@return any ...
-function ChatFrame1_settingsDialogAnchorObject:Get(...) end
+function AuctionHouseFrame_SearchBar_FilterButton_menuAnchorObject:Get(...) end
 ---@return any ...
-function ChatFrame1_settingsDialogAnchorObject:GetRelativeTo(...) end
+function AuctionHouseFrame_SearchBar_FilterButton_menuAnchorObject:GetRelativeTo(...) end
 ---@return any ...
-function ChatFrame1_settingsDialogAnchorObject:Init(...) end
+function AuctionHouseFrame_SearchBar_FilterButton_menuAnchorObject:Init(...) end
 ---@return any ...
-function ChatFrame1_settingsDialogAnchorObject:Set(...) end
+function AuctionHouseFrame_SearchBar_FilterButton_menuAnchorObject:Set(...) end
 ---@return any ...
-function ChatFrame1_settingsDialogAnchorObject:SetFromPoint(...) end
+function AuctionHouseFrame_SearchBar_FilterButton_menuAnchorObject:SetFromPoint(...) end
 ---@return any ...
-function ChatFrame1_settingsDialogAnchorObject:SetOffsets(...) end
+function AuctionHouseFrame_SearchBar_FilterButton_menuAnchorObject:SetOffsets(...) end
 ---@return any ...
-function ChatFrame1_settingsDialogAnchorObject:SetPoint(...) end
+function AuctionHouseFrame_SearchBar_FilterButton_menuAnchorObject:SetPoint(...) end
 ---@return any ...
-function ChatFrame1_settingsDialogAnchorObject:SetPointWithExtraOffset(...) end
+function AuctionHouseFrame_SearchBar_FilterButton_menuAnchorObject:SetPointWithExtraOffset(...) end
 ---@return any ...
-function ChatFrame1_settingsDialogAnchorObject:SetRelativeTo(...) end
+function AuctionHouseFrame_SearchBar_FilterButton_menuAnchorObject:SetRelativeTo(...) end
 end
 
 do
----@class ChatFrame1_settingsDialogAnchor_relativeToObject
-local ChatFrame1_settingsDialogAnchor_relativeToObject = {}
+---@class AuctionHouseFrame_SearchBar_FilterButton_menuAnchor_relativeToObject
+local AuctionHouseFrame_SearchBar_FilterButton_menuAnchor_relativeToObject = {}
 end
 
 do
----@class ChatFrame1_systemInfoObject
----@field anchorInfo table
----@field isInDefaultPosition boolean
----@field settings table
----@field system number
-local ChatFrame1_systemInfoObject = {}
+---@class AuctionHouseFrame_SearchBar_FilterButton_menuDescriptionObject
+---@field queuedProxies table
+---@field tag string
+local AuctionHouseFrame_SearchBar_FilterButton_menuDescriptionObject = {}
+---@return any ...
+function AuctionHouseFrame_SearchBar_FilterButton_menuDescriptionObject:CreateButton(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FilterButton_menuDescriptionObject:CreateCheckbox(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FilterButton_menuDescriptionObject:CreateColorSwatch(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FilterButton_menuDescriptionObject:CreateDivider(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FilterButton_menuDescriptionObject:CreateFrame(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FilterButton_menuDescriptionObject:CreateHighlightButton(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FilterButton_menuDescriptionObject:CreateHighlightRadio(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FilterButton_menuDescriptionObject:CreateRadio(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FilterButton_menuDescriptionObject:CreateRedHighlightButton(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FilterButton_menuDescriptionObject:CreateSearchEntry(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FilterButton_menuDescriptionObject:CreateSpacer(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FilterButton_menuDescriptionObject:CreateTemplate(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FilterButton_menuDescriptionObject:CreateTitle(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FilterButton_menuDescriptionObject:QueueDivider(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FilterButton_menuDescriptionObject:QueueSpacer(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FilterButton_menuDescriptionObject:QueueTitle(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FilterButton_menuDescriptionObject:SetTitleAndTextTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FilterButton_menuDescriptionObject:SetTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FilterButton_menuDescriptionObject:private(...) end
 end
 
 do
----@class ChatFrame10Object : Frame
----@field Background ChatFrame10_BackgroundObject
----@field FontStringContainer ChatFrame10_FontStringContainerObject
----@field ResizeButton ChatFrame10_ResizeButtonObject
----@field ScrollBar ChatFrame10_ScrollBarObject
----@field ScrollToBottomButton ChatFrame10_ScrollToBottomButtonObject
+---@class AuctionHouseFrame_SearchBar_SearchBoxObject : EditBox
+---@field Instructions AuctionHouseFrame_SearchBar_SearchBox_InstructionsObject
+---@field Left AuctionHouseFrame_SearchBar_SearchBox_LeftObject
+---@field Middle AuctionHouseFrame_SearchBar_SearchBox_MiddleObject
+---@field Right AuctionHouseFrame_SearchBar_SearchBox_RightObject
+---@field clearButton AuctionHouseFrame_SearchBar_SearchBox_clearButtonObject
+---@field instructionText string
+---@field searchIcon AuctionHouseFrame_SearchBar_SearchBox_searchIconObject
+local AuctionHouseFrame_SearchBar_SearchBoxObject = {}
+---@return any ...
+function AuctionHouseFrame_SearchBar_SearchBoxObject:GetSearchString(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_SearchBoxObject:NarrationGetContext(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_SearchBoxObject:NarrationGetDescription(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_SearchBoxObject:NarrationGetName(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_SearchBoxObject:OnEnterPressed(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_SearchBoxObject:Reset(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_SearchBoxObject:SetNarrationLabelRegion(...) end
+end
+
+do
+---@class AuctionHouseFrame_SearchBar_SearchBox_InstructionsObject : FontString
+local AuctionHouseFrame_SearchBar_SearchBox_InstructionsObject = {}
+end
+
+do
+---@class AuctionHouseFrame_SearchBar_SearchBox_LeftObject : Texture
+local AuctionHouseFrame_SearchBar_SearchBox_LeftObject = {}
+end
+
+do
+---@class AuctionHouseFrame_SearchBar_SearchBox_MiddleObject : Texture
+local AuctionHouseFrame_SearchBar_SearchBox_MiddleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_SearchBar_SearchBox_RightObject : Texture
+local AuctionHouseFrame_SearchBar_SearchBox_RightObject = {}
+end
+
+do
+---@class AuctionHouseFrame_SearchBar_SearchBox_clearButtonObject : Button
+---@field Icon AuctionHouseFrame_SearchBar_SearchBox_clearButton_IconObject
+local AuctionHouseFrame_SearchBar_SearchBox_clearButtonObject = {}
+---@return any ...
+function AuctionHouseFrame_SearchBar_SearchBox_clearButtonObject:NarrationGetName(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_SearchBox_clearButtonObject:OnClick(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_SearchBox_clearButtonObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_SearchBox_clearButtonObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_SearchBox_clearButtonObject:OnMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_SearchBox_clearButtonObject:OnMouseUp(...) end
+end
+
+do
+---@class AuctionHouseFrame_SearchBar_SearchBox_clearButton_IconObject : Texture
+local AuctionHouseFrame_SearchBar_SearchBox_clearButton_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_SearchBar_SearchBox_searchIconObject : Texture
+local AuctionHouseFrame_SearchBar_SearchBox_searchIconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_SearchBar_SearchButtonObject : Button
+---@field Left AuctionHouseFrame_SearchBar_SearchButton_LeftObject
+---@field Middle AuctionHouseFrame_SearchBar_SearchButton_MiddleObject
+---@field Right AuctionHouseFrame_SearchBar_SearchButton_RightObject
+---@field Text AuctionHouseFrame_SearchBar_SearchButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local AuctionHouseFrame_SearchBar_SearchButtonObject = {}
+---@return any ...
+function AuctionHouseFrame_SearchBar_SearchButtonObject:FitToText(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_SearchButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_SearchButtonObject:OnClick(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_SearchButtonObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_SearchButtonObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_SearchButtonObject:SetDisabledState(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_SearchButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_SearchButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class AuctionHouseFrame_SearchBar_SearchButton_LeftObject : Texture
+local AuctionHouseFrame_SearchBar_SearchButton_LeftObject = {}
+end
+
+do
+---@class AuctionHouseFrame_SearchBar_SearchButton_MiddleObject : Texture
+local AuctionHouseFrame_SearchBar_SearchButton_MiddleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_SearchBar_SearchButton_RightObject : Texture
+local AuctionHouseFrame_SearchBar_SearchButton_RightObject = {}
+end
+
+do
+---@class AuctionHouseFrame_SearchBar_SearchButton_TextObject : FontString
+local AuctionHouseFrame_SearchBar_SearchButton_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_SellTabObject : Button
+---@field Left AuctionHouseFrame_SellTab_LeftObject
+---@field LeftActive AuctionHouseFrame_SellTab_LeftActiveObject
+---@field LeftHighlight AuctionHouseFrame_SellTab_LeftHighlightObject
+---@field Middle AuctionHouseFrame_SellTab_MiddleObject
+---@field MiddleActive AuctionHouseFrame_SellTab_MiddleActiveObject
+---@field MiddleHighlight AuctionHouseFrame_SellTab_MiddleHighlightObject
+---@field Right AuctionHouseFrame_SellTab_RightObject
+---@field RightActive AuctionHouseFrame_SellTab_RightActiveObject
+---@field RightHighlight AuctionHouseFrame_SellTab_RightHighlightObject
+---@field TabTextures table
+---@field Text AuctionHouseFrame_SellTab_TextObject
+---@field displayMode table
+local AuctionHouseFrame_SellTabObject = {}
+---@return any ...
+function AuctionHouseFrame_SellTabObject:OnClick(...) end
+---@return any ...
+function AuctionHouseFrame_SellTabObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_SellTabObject:OnEvent(...) end
+---@return any ...
+function AuctionHouseFrame_SellTabObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_SellTabObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_SellTabObject:OnShow(...) end
+end
+
+do
+---@class AuctionHouseFrame_SellTab_LeftObject : Texture
+local AuctionHouseFrame_SellTab_LeftObject = {}
+end
+
+do
+---@class AuctionHouseFrame_SellTab_LeftActiveObject : Texture
+local AuctionHouseFrame_SellTab_LeftActiveObject = {}
+end
+
+do
+---@class AuctionHouseFrame_SellTab_LeftHighlightObject : Texture
+local AuctionHouseFrame_SellTab_LeftHighlightObject = {}
+end
+
+do
+---@class AuctionHouseFrame_SellTab_MiddleObject : Texture
+local AuctionHouseFrame_SellTab_MiddleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_SellTab_MiddleActiveObject : Texture
+local AuctionHouseFrame_SellTab_MiddleActiveObject = {}
+end
+
+do
+---@class AuctionHouseFrame_SellTab_MiddleHighlightObject : Texture
+local AuctionHouseFrame_SellTab_MiddleHighlightObject = {}
+end
+
+do
+---@class AuctionHouseFrame_SellTab_RightObject : Texture
+local AuctionHouseFrame_SellTab_RightObject = {}
+end
+
+do
+---@class AuctionHouseFrame_SellTab_RightActiveObject : Texture
+local AuctionHouseFrame_SellTab_RightActiveObject = {}
+end
+
+do
+---@class AuctionHouseFrame_SellTab_RightHighlightObject : Texture
+local AuctionHouseFrame_SellTab_RightHighlightObject = {}
+end
+
+do
+---@class AuctionHouseFrame_SellTab_TextObject : FontString
+local AuctionHouseFrame_SellTab_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_TitleContainerObject : Frame
+---@field TitleText AuctionHouseFrame_TitleContainer_TitleTextObject
+local AuctionHouseFrame_TitleContainerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_TitleContainer_TitleTextObject : FontString
+local AuctionHouseFrame_TitleContainer_TitleTextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResultsObject : Frame
+---@field Background AuctionHouseFrame_WoWTokenResults_BackgroundObject
+---@field Buyout AuctionHouseFrame_WoWTokenResults_BuyoutObject
+---@field BuyoutLabel AuctionHouseFrame_WoWTokenResults_BuyoutLabelObject
+---@field BuyoutPrice AuctionHouseFrame_WoWTokenResults_BuyoutPriceObject
+---@field DummyScrollBar AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject
+---@field GameTimeTutorial AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject
+---@field HelpButton AuctionHouseFrame_WoWTokenResults_HelpButtonObject
+---@field InvisiblePriceFrame AuctionHouseFrame_WoWTokenResults_InvisiblePriceFrameObject
+---@field NineSlice AuctionHouseFrame_WoWTokenResults_NineSliceObject
+---@field TokenDisplay AuctionHouseFrame_WoWTokenResults_TokenDisplayObject
+---@field backgroundAtlas string
+---@field backgroundTextureClassic string
+---@field layoutType string
+---@field textureHeightClassic number
+---@field textureWidthClassic number
+---@field textureXOffsetClassic number
+---@field textureYOffsetClassic number
+local AuctionHouseFrame_WoWTokenResultsObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenResultsObject:OnLoad(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_BackgroundObject : Texture
+local AuctionHouseFrame_WoWTokenResults_BackgroundObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_BuyoutObject : Button
+---@field Left AuctionHouseFrame_WoWTokenResults_Buyout_LeftObject
+---@field Middle AuctionHouseFrame_WoWTokenResults_Buyout_MiddleObject
+---@field Right AuctionHouseFrame_WoWTokenResults_Buyout_RightObject
+---@field Text AuctionHouseFrame_WoWTokenResults_Buyout_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local AuctionHouseFrame_WoWTokenResults_BuyoutObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_BuyoutObject:FitToText(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_BuyoutObject:GetDisabledTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_BuyoutObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_BuyoutObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_BuyoutObject:SetDisabledState(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_BuyoutObject:SetDisabledTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_BuyoutObject:SetTextToFit(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_Buyout_LeftObject : Texture
+local AuctionHouseFrame_WoWTokenResults_Buyout_LeftObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_Buyout_MiddleObject : Texture
+local AuctionHouseFrame_WoWTokenResults_Buyout_MiddleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_Buyout_RightObject : Texture
+local AuctionHouseFrame_WoWTokenResults_Buyout_RightObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_Buyout_TextObject : FontString
+local AuctionHouseFrame_WoWTokenResults_Buyout_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_BuyoutLabelObject : FontString
+local AuctionHouseFrame_WoWTokenResults_BuyoutLabelObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_BuyoutPriceObject : FontString
+local AuctionHouseFrame_WoWTokenResults_BuyoutPriceObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject : Slider
+---@field Back AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject
+---@field Defaults AuctionHouseFrame_WoWTokenResults_DummyScrollBar_DefaultsObject
+---@field Directions AuctionHouseFrame_WoWTokenResults_DummyScrollBar_DirectionsObject
+---@field Event AuctionHouseFrame_WoWTokenResults_DummyScrollBar_EventObject
+---@field Forward AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject
+---@field Track AuctionHouseFrame_WoWTokenResults_DummyScrollBar_TrackObject
 ---@field allowScroll boolean
----@field alternativeDefaultLanguage string
----@field buttonFrame ChatFrame10_buttonFrameObject
----@field buttonSide string
----@field channelList table
----@field clickAnywhereButton ChatFrame10_clickAnywhereButtonObject
----@field defaultLanguage string
----@field editBox ChatFrame10_editBoxObject
----@field fadeDurationSecs number
----@field fontObject ChatFrame10_fontObjectObject
----@field hasOwnFontObject boolean
----@field historyBuffer ChatFrame10_historyBufferObject
----@field insertMode number
----@field isDisplayDirty boolean
----@field isInitialized number
----@field isLayoutDirty boolean
----@field isLocked boolean
----@field isScrollingMessageFrame boolean
----@field isUninteractable boolean
----@field messageTypeList table
----@field name string
----@field oldAlpha number
----@field oldestFadingLineTimestamp number
----@field onDisplayRefreshedCallbacks table
----@field overrideFadeTimestamp number
----@field scrollOffset number
----@field shouldFadeAfterInactivity boolean
----@field smartNavRightStickMaxScrollSpeed number
----@field textIsCopyable boolean
----@field timeVisibleSecs number
----@field visibleLines table
----@field zoneChannelList table
-local ChatFrame10Object = {}
----@return any ...
-function ChatFrame10Object:AcquireFontString(...) end
----@return any ...
-function ChatFrame10Object:AcquireHighlightTexture(...) end
----@return any ...
-function ChatFrame10Object:AddChannel(...) end
----@return any ...
-function ChatFrame10Object:AddMessage(...) end
----@return any ...
-function ChatFrame10Object:AddMessageGroup(...) end
----@return any ...
-function ChatFrame10Object:AddOnDisplayRefreshedCallback(...) end
----@return any ...
-function ChatFrame10Object:AddPrivateMessageTarget(...) end
----@return any ...
-function ChatFrame10Object:AddSingleMessageType(...) end
----@return any ...
-function ChatFrame10Object:AdjustMessageColors(...) end
----@return any ...
-function ChatFrame10Object:AtBottom(...) end
----@return any ...
-function ChatFrame10Object:AtTop(...) end
----@return any ...
-function ChatFrame10Object:BackFillMessage(...) end
----@return any ...
-function ChatFrame10Object:CalculateLineAlphaValueFromTimestamp(...) end
----@return any ...
-function ChatFrame10Object:CalculateLineSpacing(...) end
----@return any ...
-function ChatFrame10Object:CalculateNumVisibleLines(...) end
----@return any ...
-function ChatFrame10Object:CalculateSelectingCharacterIndicesForVisibleLine(...) end
----@return any ...
-function ChatFrame10Object:CallOnDisplayRefreshed(...) end
----@return any ...
-function ChatFrame10Object:CanEffectivelyFade(...) end
----@return any ...
-function ChatFrame10Object:Clear(...) end
----@return any ...
-function ChatFrame10Object:ClearGamepadFocus(...) end
----@return any ...
-function ChatFrame10Object:ConfigEventHandler(...) end
----@return any ...
-function ChatFrame10Object:ContainsChannel(...) end
----@return any ...
-function ChatFrame10Object:ContainsMessageGroup(...) end
----@return any ...
-function ChatFrame10Object:CreateFooter(...) end
----@return any ...
-function ChatFrame10Object:DontRestoreGamepadFocusOnMenuClose(...) end
----@return any ...
-function ChatFrame10Object:ExcludePrivateMessageTarget(...) end
----@return any ...
-function ChatFrame10Object:FindCharacterAndLineIndexAtCoordinate(...) end
----@return any ...
-function ChatFrame10Object:FocusGamepad(...) end
----@return any ...
-function ChatFrame10Object:ForEachMessage(...) end
----@return any ...
-function ChatFrame10Object:ForEachMessageInfoText(...) end
----@return any ...
-function ChatFrame10Object:ForEachVisibleLineText(...) end
----@return any ...
-function ChatFrame10Object:GatherSelectedText(...) end
----@return any ...
-function ChatFrame10Object:GetDefaultChatTarget(...) end
----@return any ...
-function ChatFrame10Object:GetFadeDuration(...) end
----@return any ...
-function ChatFrame10Object:GetFading(...) end
----@return any ...
-function ChatFrame10Object:GetFont(...) end
----@return any ...
-function ChatFrame10Object:GetFontObject(...) end
----@return any ...
-function ChatFrame10Object:GetIndentedWordWrap(...) end
----@return any ...
-function ChatFrame10Object:GetInsertMode(...) end
----@return any ...
-function ChatFrame10Object:GetJustifyH(...) end
----@return any ...
-function ChatFrame10Object:GetJustifyV(...) end
----@return any ...
-function ChatFrame10Object:GetMaxLines(...) end
----@return any ...
-function ChatFrame10Object:GetMaxScrollRange(...) end
----@return any ...
-function ChatFrame10Object:GetMessageInfo(...) end
----@return any ...
-function ChatFrame10Object:GetNumMessages(...) end
----@return any ...
-function ChatFrame10Object:GetNumVisibleLines(...) end
----@return any ...
-function ChatFrame10Object:GetOnLineRightClickedCallback(...) end
----@return any ...
-function ChatFrame10Object:GetOnScrollChangedCallback(...) end
----@return any ...
-function ChatFrame10Object:GetOnTextCopiedCallback(...) end
----@return any ...
-function ChatFrame10Object:GetPagingScrollAmount(...) end
----@return any ...
-function ChatFrame10Object:GetScaledCursorPosition(...) end
----@return any ...
-function ChatFrame10Object:GetScrollOffset(...) end
----@return any ...
-function ChatFrame10Object:GetShadowColor(...) end
----@return any ...
-function ChatFrame10Object:GetShadowOffset(...) end
----@return any ...
-function ChatFrame10Object:GetSpacing(...) end
----@return any ...
-function ChatFrame10Object:GetTextColor(...) end
----@return any ...
-function ChatFrame10Object:GetTimeVisible(...) end
----@return any ...
-function ChatFrame10Object:HasFontObject(...) end
----@return any ...
-function ChatFrame10Object:HasGamepadFocus(...) end
----@return any ...
-function ChatFrame10Object:InitializeFontString(...) end
----@return any ...
-function ChatFrame10Object:InitializeFontableFrame(...) end
----@return any ...
-function ChatFrame10Object:InitializeGamepad(...) end
----@return any ...
-function ChatFrame10Object:IsGamepadMenuOpen(...) end
----@return any ...
-function ChatFrame10Object:IsScrollAllowed(...) end
----@return any ...
-function ChatFrame10Object:IsSelectingText(...) end
----@return any ...
-function ChatFrame10Object:IsTextCopyable(...) end
----@return any ...
-function ChatFrame10Object:MakeFontObjectCustom(...) end
----@return any ...
-function ChatFrame10Object:MarkDisplayDirty(...) end
----@return any ...
-function ChatFrame10Object:MarkLayoutDirty(...) end
----@return any ...
-function ChatFrame10Object:MessageEventHandler(...) end
----@return any ...
-function ChatFrame10Object:OnColorsUpdated(...) end
----@return any ...
-function ChatFrame10Object:OnEvent(...) end
----@return any ...
-function ChatFrame10Object:OnFontObjectUpdated(...) end
----@return any ...
-function ChatFrame10Object:OnHide(...) end
----@return any ...
-function ChatFrame10Object:OnHyperlinkClick(...) end
----@return any ...
-function ChatFrame10Object:OnHyperlinkEnter(...) end
----@return any ...
-function ChatFrame10Object:OnHyperlinkLeave(...) end
----@return any ...
-function ChatFrame10Object:OnLoad(...) end
----@return any ...
-function ChatFrame10Object:OnPostEvent(...) end
----@return any ...
-function ChatFrame10Object:OnPostHide(...) end
----@return any ...
-function ChatFrame10Object:OnPostMouseDown(...) end
----@return any ...
-function ChatFrame10Object:OnPostMouseUp(...) end
----@return any ...
-function ChatFrame10Object:OnPostShow(...) end
----@return any ...
-function ChatFrame10Object:OnPostUpdate(...) end
----@return any ...
-function ChatFrame10Object:OnPreLoad(...) end
----@return any ...
-function ChatFrame10Object:OnPreSizeChanged(...) end
----@return any ...
-function ChatFrame10Object:OnUpdate(...) end
----@return any ...
-function ChatFrame10Object:OpenChatChannelsMenu(...) end
----@return any ...
-function ChatFrame10Object:OpenGamepadTabMenu(...) end
----@return any ...
-function ChatFrame10Object:PackageEntry(...) end
----@return any ...
-function ChatFrame10Object:PageDown(...) end
----@return any ...
-function ChatFrame10Object:PageUp(...) end
----@return any ...
-function ChatFrame10Object:PlayerLevelChanged(...) end
----@return any ...
-function ChatFrame10Object:PlayerLevelUp(...) end
----@return any ...
-function ChatFrame10Object:ReceiveAllPrivateMessages(...) end
----@return any ...
-function ChatFrame10Object:RefreshDisplay(...) end
----@return any ...
-function ChatFrame10Object:RefreshIfNecessary(...) end
----@return any ...
-function ChatFrame10Object:RefreshLayout(...) end
----@return any ...
-function ChatFrame10Object:RegisterForChannels(...) end
----@return any ...
-function ChatFrame10Object:RegisterForInterfaceTransitions(...) end
----@return any ...
-function ChatFrame10Object:RegisterForMessages(...) end
----@return any ...
-function ChatFrame10Object:RemoveAllChannels(...) end
----@return any ...
-function ChatFrame10Object:RemoveAllMessageGroups(...) end
----@return any ...
-function ChatFrame10Object:RemoveChannel(...) end
----@return any ...
-function ChatFrame10Object:RemoveExcludePrivateMessageTarget(...) end
----@return any ...
-function ChatFrame10Object:RemoveMessageGroup(...) end
----@return any ...
-function ChatFrame10Object:RemoveMessagesByPredicate(...) end
----@return any ...
-function ChatFrame10Object:RemovePrivateMessageTarget(...) end
----@return any ...
-function ChatFrame10Object:ResetAllFadeTimes(...) end
----@return any ...
-function ChatFrame10Object:ResetSelectingText(...) end
----@return any ...
-function ChatFrame10Object:ScrollByAmount(...) end
----@return any ...
-function ChatFrame10Object:ScrollDown(...) end
----@return any ...
-function ChatFrame10Object:ScrollToBottom(...) end
----@return any ...
-function ChatFrame10Object:ScrollToTop(...) end
----@return any ...
-function ChatFrame10Object:ScrollUp(...) end
----@return any ...
-function ChatFrame10Object:SetChannelEnabled(...) end
----@return any ...
-function ChatFrame10Object:SetFadeDuration(...) end
----@return any ...
-function ChatFrame10Object:SetFading(...) end
----@return any ...
-function ChatFrame10Object:SetFont(...) end
----@return any ...
-function ChatFrame10Object:SetFontObject(...) end
----@return any ...
-function ChatFrame10Object:SetGamepadFocus(...) end
----@return any ...
-function ChatFrame10Object:SetIndentedWordWrap(...) end
----@return any ...
-function ChatFrame10Object:SetInsertMode(...) end
----@return any ...
-function ChatFrame10Object:SetJustifyH(...) end
----@return any ...
-function ChatFrame10Object:SetJustifyV(...) end
----@return any ...
-function ChatFrame10Object:SetMaxLines(...) end
----@return any ...
-function ChatFrame10Object:SetOnLineRightClickedCallback(...) end
----@return any ...
-function ChatFrame10Object:SetOnScrollChangedCallback(...) end
----@return any ...
-function ChatFrame10Object:SetOnTextCopiedCallback(...) end
----@return any ...
-function ChatFrame10Object:SetScrollAllowed(...) end
----@return any ...
-function ChatFrame10Object:SetScrollOffset(...) end
----@return any ...
-function ChatFrame10Object:SetShadowColor(...) end
----@return any ...
-function ChatFrame10Object:SetShadowOffset(...) end
----@return any ...
-function ChatFrame10Object:SetSpacing(...) end
----@return any ...
-function ChatFrame10Object:SetTextColor(...) end
----@return any ...
-function ChatFrame10Object:SetTextCopyable(...) end
----@return any ...
-function ChatFrame10Object:SetTimeVisible(...) end
----@return any ...
-function ChatFrame10Object:SetupGamepad(...) end
----@return any ...
-function ChatFrame10Object:SmartNavigationCloseHandler(...) end
----@return any ...
-function ChatFrame10Object:SystemEventHandler(...) end
----@return any ...
-function ChatFrame10Object:TransformMessages(...) end
----@return any ...
-function ChatFrame10Object:UnfocusGamepad(...) end
----@return any ...
-function ChatFrame10Object:UninitializeGamepad(...) end
----@return any ...
-function ChatFrame10Object:UnpackageEntry(...) end
----@return any ...
-function ChatFrame10Object:UnregisterAllMessageGroups(...) end
----@return any ...
-function ChatFrame10Object:UpdateColorByID(...) end
----@return any ...
-function ChatFrame10Object:UpdateDefaultChatTarget(...) end
----@return any ...
-function ChatFrame10Object:UpdateFading(...) end
----@return any ...
-function ChatFrame10Object:UpdateSelectingText(...) end
----@type ChatFrame10Object
-ChatFrame10 = ChatFrame10Object
-end
-
-do
----@class ChatFrame10_BackgroundObject : Texture
-local ChatFrame10_BackgroundObject = {}
-end
-
-do
----@class ChatFrame10_FontStringContainerObject : Frame
-local ChatFrame10_FontStringContainerObject = {}
-end
-
-do
----@class ChatFrame10_ResizeButtonObject : Button
-local ChatFrame10_ResizeButtonObject = {}
-end
-
-do
----@class ChatFrame10_ScrollBarObject : Frame
----@field Back ChatFrame10_ScrollBar_BackObject
----@field Defaults ChatFrame10_ScrollBar_DefaultsObject
----@field Directions ChatFrame10_ScrollBar_DirectionsObject
----@field Event ChatFrame10_ScrollBar_EventObject
----@field Forward ChatFrame10_ScrollBar_ForwardObject
----@field Track ChatFrame10_ScrollBar_TrackObject
----@field allowScroll boolean
----@field callbackTables table
 ---@field canInterpolateScroll boolean
----@field deferredCallbacks table
----@field executingEvents table
 ---@field hideTrack boolean
 ---@field hideTrackIfThumbExceedsTrack boolean
----@field internalPriority boolean
 ---@field isScrollController boolean
 ---@field minThumbExtent number
 ---@field panDelay number
@@ -4814,179 +636,179 @@ do
 ---@field useProportionalThumb boolean
 ---@field visibleExtentPercentage number
 ---@field wheelPanScalar number
-local ChatFrame10_ScrollBarObject = {}
+local AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject = {}
 ---@return any ...
-function ChatFrame10_ScrollBarObject:CallInternalScope(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:CallInternalScope(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:CanCursorStepInDirection(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:CanCursorStepInDirection(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:CanInterpolateScroll(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:CanInterpolateScroll(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:CopyDeferredCallbacks(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:DisableControls(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:DisableControls(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:DoesFrameHaveEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:EnableInternalPriority(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:EnableInternalPriority(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:EnableSnapToInterval(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:EnableSnapToInterval(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:GenerateCallbackEvents(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:GetBackStepper(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:GetBackStepper(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:GetCallbackTable(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:GetCallbackTable(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:GetCallbackTables(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:GetCallbackTables(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:GetCallbacksByEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:GetForwardStepper(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:GetForwardStepper(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:GetFrameExtent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:GetFrameExtent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:GetIntervalRange(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:GetIntervalRange(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:GetLower(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:GetLower(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:GetPanExtentPercentage(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:GetPanRepeatDelay(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:GetPanRepeatDelay(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:GetPanRepeatTime(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:GetPanRepeatTime(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:GetScrollInterpolator(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:GetScrollInterpolator(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:GetScrollPercentage(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:GetScrollPercentage(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:GetThumb(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:GetThumb(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:GetThumbAnchor(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:GetThumbAnchor(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:GetTrack(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:GetTrack(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:GetTrackExtent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:GetTrackExtent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:GetUpper(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:GetUpper(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:GetVisibleExtentPercentage(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:GetWheelPanPercentage(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:HasRegistrantsForEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:HasScrollableExtent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:HasScrollableExtent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:Init(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:Init(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:InitializeNarration(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:InitializeNarration(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:Interpolate(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:Interpolate(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:IsAtBegin(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:IsAtBegin(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:IsAtEnd(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:IsAtEnd(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:IsHorizontal(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:IsHorizontal(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:IsScrollAllowed(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:IsScrollAllowed(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:IsThumbMouseDown(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:IsThumbMouseDown(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:OnHide_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:OnLoad(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:OnLoad(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:OnLoad_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:OnMouseWheel(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:OnMouseWheel(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:OnShow_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:OnStepperMouseDown(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:OnStepperMouseDown(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:OnThumbMouseDown(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:OnThumbMouseDown(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:OnTrackMouseDown(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:OnTrackMouseDown(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:RegisterCallback(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:RegisterCallback(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:RegisterCallbackWithHandle(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:ScrollDecrease(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:ScrollDecrease(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:ScrollInDirection(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:ScrollInDirection(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:ScrollIncrease(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:ScrollIncrease(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:ScrollPageInDirection(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:ScrollPageInDirection(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:ScrollStepInDirection(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:ScrollStepInDirection(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:ScrollToBegin(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:ScrollToBegin(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:ScrollToEnd(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:ScrollToEnd(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:ScrollWheelInDirection(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:ScrollWheelInDirection(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:SecureInsertEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:SecureInsertEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:SelectCursorComponent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:SelectCursorComponent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:SelectPointComponent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:SelectPointComponent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:SetFrameExtent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:SetFrameExtent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:SetHideIfUnscrollable(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:SetHideIfUnscrollable(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:SetHorizontal(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:SetHorizontal(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:SetInterpolateScroll(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:SetInterpolateScroll(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:SetPanExtentPercentage(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:SetScrollAllowed(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:SetScrollAllowed(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:SetScrollPercentage(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:SetScrollPercentage(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:SetScrollPercentageInternal(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:SetThumbExtent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:SetThumbExtent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:SetVisibleExtentPercentage(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:SetVisibleExtentPercentage(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:TriggerEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:TriggerEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:UnregisterCallback(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:UnregisterCallback(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:UnregisterEvents(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:UnregisterEvents(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:UnregisterEventsByEventTable(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:UnregisterUpdate(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:UnregisterUpdate(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:Update(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:Update(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:onButtonMouseUp(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:onButtonMouseUp(...) end
 ---@return any ...
-function ChatFrame10_ScrollBarObject:scrollInternal(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBarObject:scrollInternal(...) end
 end
 
 do
----@class ChatFrame10_ScrollBar_BackObject : Button
----@field Event ChatFrame10_ScrollBar_Back_EventObject
----@field Texture ChatFrame10_ScrollBar_Back_TextureObject
+---@class AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject : Button
+---@field Event AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Back_EventObject
+---@field Texture AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Back_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -5000,118 +822,118 @@ do
 ---@field mouseDownSoundKitID number
 ---@field normalTexture string
 ---@field overTexture string
-local ChatFrame10_ScrollBar_BackObject = {}
+local AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject = {}
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:GetAtlas(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:GetAtlas(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:GetCallbackTable(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:GetCallbackTable(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:GetCallbackTables(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:GetCallbackTables(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:IsDown(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:IsDown(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:IsDownOver(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:IsDownOver(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:IsOver(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:IsOver(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:NarrationGetName(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:NarrationGetName(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:OnButtonStateChanged(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:OnButtonStateChanged(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:OnDisable(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:OnDisable(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:OnEnable(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:OnEnable(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:OnEnter(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:OnEnter(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:OnLeave(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:OnLeave(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:OnLoad(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:OnLoad(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:OnMouseDown(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:OnMouseDown(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:OnMouseUp(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:OnMouseUp(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:OnShow(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:OnShow(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:RegisterCallback(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:RegisterCallback(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:SecureInsertEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:SecureInsertEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:SetDisplacedRegions(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:SetDisplacedRegions(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:TriggerEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:TriggerEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:UnregisterCallback(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:UnregisterCallback(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:UnregisterEvents(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:UnregisterEvents(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_BackObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class ChatFrame10_ScrollBar_Back_EventObject
-local ChatFrame10_ScrollBar_Back_EventObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Back_EventObject
+local AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Back_EventObject = {}
 end
 
 do
----@class ChatFrame10_ScrollBar_Back_TextureObject : Texture
-local ChatFrame10_ScrollBar_Back_TextureObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Back_TextureObject : Texture
+local AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Back_TextureObject = {}
 end
 
 do
----@class ChatFrame10_ScrollBar_DefaultsObject
-local ChatFrame10_ScrollBar_DefaultsObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_DummyScrollBar_DefaultsObject
+local AuctionHouseFrame_WoWTokenResults_DummyScrollBar_DefaultsObject = {}
 end
 
 do
----@class ChatFrame10_ScrollBar_DirectionsObject
-local ChatFrame10_ScrollBar_DirectionsObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_DummyScrollBar_DirectionsObject
+local AuctionHouseFrame_WoWTokenResults_DummyScrollBar_DirectionsObject = {}
 end
 
 do
----@class ChatFrame10_ScrollBar_EventObject
-local ChatFrame10_ScrollBar_EventObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_DummyScrollBar_EventObject
+local AuctionHouseFrame_WoWTokenResults_DummyScrollBar_EventObject = {}
 end
 
 do
----@class ChatFrame10_ScrollBar_ForwardObject : Button
----@field Event ChatFrame10_ScrollBar_Forward_EventObject
----@field Texture ChatFrame10_ScrollBar_Forward_TextureObject
+---@class AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject : Button
+---@field Event AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Forward_EventObject
+---@field Texture AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Forward_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -5125,129 +947,129 @@ do
 ---@field mouseDownSoundKitID number
 ---@field normalTexture string
 ---@field overTexture string
-local ChatFrame10_ScrollBar_ForwardObject = {}
+local AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject = {}
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:GetAtlas(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:GetAtlas(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:GetCallbackTable(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:GetCallbackTable(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:GetCallbackTables(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:GetCallbackTables(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:IsDown(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:IsDown(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:IsDownOver(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:IsDownOver(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:IsOver(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:IsOver(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:NarrationGetName(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:NarrationGetName(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:OnButtonStateChanged(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:OnDisable(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:OnDisable(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:OnEnable(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:OnEnable(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:OnEnter(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:OnEnter(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:OnLeave(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:OnLeave(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:OnLoad(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:OnLoad(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:OnMouseDown(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:OnMouseDown(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:OnMouseUp(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:OnMouseUp(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:OnShow(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:OnShow(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:RegisterCallback(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:RegisterCallback(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:SecureInsertEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:SetDisplacedRegions(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:TriggerEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:TriggerEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:UnregisterCallback(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:UnregisterCallback(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:UnregisterEvents(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:UnregisterEvents(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class ChatFrame10_ScrollBar_Forward_EventObject
-local ChatFrame10_ScrollBar_Forward_EventObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Forward_EventObject
+local AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Forward_EventObject = {}
 end
 
 do
----@class ChatFrame10_ScrollBar_Forward_TextureObject : Texture
-local ChatFrame10_ScrollBar_Forward_TextureObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Forward_TextureObject : Texture
+local AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Forward_TextureObject = {}
 end
 
 do
----@class ChatFrame10_ScrollBar_TrackObject : Frame
----@field Begin ChatFrame10_ScrollBar_Track_BeginObject
----@field End ChatFrame10_ScrollBar_Track_EndObject
----@field Middle ChatFrame10_ScrollBar_Track_MiddleObject
----@field Thumb ChatFrame10_ScrollBar_Track_ThumbObject
-local ChatFrame10_ScrollBar_TrackObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_DummyScrollBar_TrackObject : Frame
+---@field Begin AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_BeginObject
+---@field End AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_EndObject
+---@field Middle AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_MiddleObject
+---@field Thumb AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject
+local AuctionHouseFrame_WoWTokenResults_DummyScrollBar_TrackObject = {}
 end
 
 do
----@class ChatFrame10_ScrollBar_Track_BeginObject : Texture
-local ChatFrame10_ScrollBar_Track_BeginObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_BeginObject : Texture
+local AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_BeginObject = {}
 end
 
 do
----@class ChatFrame10_ScrollBar_Track_EndObject : Texture
-local ChatFrame10_ScrollBar_Track_EndObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_EndObject : Texture
+local AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_EndObject = {}
 end
 
 do
----@class ChatFrame10_ScrollBar_Track_MiddleObject : Texture
-local ChatFrame10_ScrollBar_Track_MiddleObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_MiddleObject : Texture
+local AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_MiddleObject = {}
 end
 
 do
----@class ChatFrame10_ScrollBar_Track_ThumbObject : Button
----@field Begin ChatFrame10_ScrollBar_Track_Thumb_BeginObject
----@field End ChatFrame10_ScrollBar_Track_Thumb_EndObject
----@field Event ChatFrame10_ScrollBar_Track_Thumb_EventObject
----@field Middle ChatFrame10_ScrollBar_Track_Thumb_MiddleObject
+---@class AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject : Button
+---@field Begin AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_Thumb_BeginObject
+---@field End AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_Thumb_EndObject
+---@field Event AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_Thumb_EventObject
+---@field Middle AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_Thumb_MiddleObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -5262,3537 +1084,7384 @@ do
 ---@field upBeginTexture string
 ---@field upEndTexture string
 ---@field upMiddleTexture string
-local ChatFrame10_ScrollBar_Track_ThumbObject = {}
+local AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject = {}
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:GetAtlas(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:GetCallbackTable(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:GetCallbackTables(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:IsDown(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:IsDown(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:IsDownOver(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:IsOver(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:IsOver(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:OnDisable(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:OnDisable(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:OnEnable(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:OnEnable(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:OnEnter(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:OnEnter(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:OnLeave(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:OnLeave(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:OnLoad(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:OnLoad(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:OnMouseDown(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:OnMouseUp(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:OnShow(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:OnShow(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:OnSizeChanged(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:RegisterCallback(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:TriggerEvent(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:UnregisterCallback(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:UnregisterEvents(...) end
 ---@return any ...
-function ChatFrame10_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+function AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class ChatFrame10_ScrollBar_Track_Thumb_BeginObject : Texture
-local ChatFrame10_ScrollBar_Track_Thumb_BeginObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_Thumb_BeginObject : Texture
+local AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_Thumb_BeginObject = {}
 end
 
 do
----@class ChatFrame10_ScrollBar_Track_Thumb_EndObject : Texture
-local ChatFrame10_ScrollBar_Track_Thumb_EndObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_Thumb_EndObject : Texture
+local AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_Thumb_EndObject = {}
 end
 
 do
----@class ChatFrame10_ScrollBar_Track_Thumb_EventObject
-local ChatFrame10_ScrollBar_Track_Thumb_EventObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_Thumb_EventObject
+local AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_Thumb_EventObject = {}
 end
 
 do
----@class ChatFrame10_ScrollBar_Track_Thumb_MiddleObject : Texture
-local ChatFrame10_ScrollBar_Track_Thumb_MiddleObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_Thumb_MiddleObject : Texture
+local AuctionHouseFrame_WoWTokenResults_DummyScrollBar_Track_Thumb_MiddleObject = {}
 end
 
 do
----@class ChatFrame10_ScrollToBottomButtonObject : Button
----@field Flash ChatFrame10_ScrollToBottomButton_FlashObject
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject : Frame
+---@field Bg AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_BgObject
+---@field CloseButton AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_CloseButtonObject
+---@field FocusJumpHint AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject
+---@field FrameGlow AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FrameGlowObject
+---@field Inset AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_InsetObject
+---@field LeftDisplay AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftDisplayObject
+---@field LeftInset AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftInsetObject
+---@field LeftJumpHint AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject
+---@field NineSlice AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSliceObject
+---@field PortraitContainer AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_PortraitContainerObject
+---@field RightDisplay AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplayObject
+---@field RightInset AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightInsetObject
+---@field RightJumpHint AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject
+---@field TitleContainer AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_TitleContainerObject
+---@field TopTileStreaks AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_TopTileStreaksObject
+---@field Tutorial AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_TutorialObject
+---@field layoutType string
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:EndFocus(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:GetFocusFrameGlow(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:GetFocusFrameRoot(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:GetPortrait(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:GetTitleText(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:HasPortraitTexture(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:HideFocusJumpHint(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:HideLeftJumpHint(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:HideRightJumpHint(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:LockInFocus(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:RefreshFocus(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:SetBorder(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:SetFrameLevelsFromBaseLevel(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:SetPortraitAtlasRaw(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:SetPortraitShown(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:SetPortraitTexCoord(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:SetPortraitTextureRaw(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:SetPortraitTextureSizeAndOffset(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:SetPortraitToAsset(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:SetPortraitToBag(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:SetPortraitToClassIcon(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:SetPortraitToSpecIcon(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:SetPortraitToUnit(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:SetTitle(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:SetTitleColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:SetTitleFormatted(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:SetTitleMaxLinesAndHeight(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:SetTitleOffsets(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:ShowFocusJumpHint(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:ShowLeftJumpHint(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:ShowRightJumpHint(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorialObject:StartFocus(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_BgObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_BgObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_CloseButtonObject : Button
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_CloseButtonObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_CloseButtonObject:NarrationGetName(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_CloseButtonObject:OnLoad(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject : Frame
+---@field ActiveTexture AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_HoverTextureObject
+---@field LoadBar AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_LoadBarObject
+---@field LoadBarBG AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_NormalTextureObject
+---@field PressedTexture AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_SpinnerTipObject
+---@field ignoreInLayout boolean
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject:BeginHold(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject:EndHold(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject:SetDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject:SetEnabled(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject:SetFocused(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject:SetHoldState(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject:SetInputKey(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject:SetPressable(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject:SetTextureState(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject:SetUsableState(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_ActiveTextureObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_DisabledTextureObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_HoldIndicatorObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_HoldIndicatorBGObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_HoverTextureObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_LoadBarObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_LoadBarObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_LoadBarBGObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_LoadBarGlowObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_NormalTextureObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_PressedTextureObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_SpinnerTipObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FocusJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FrameGlowObject : Frame
+---@field GlowTexture AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FrameGlow_GlowTextureObject
+---@field glowTextures table
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FrameGlowObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FrameGlowObject:GetContainerFrame(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FrameGlowObject:GetFrameLayoutType(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FrameGlowObject:GetHeaderFrame(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FrameGlowObject:OnLoad(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FrameGlow_GlowTextureObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_FrameGlow_GlowTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_InsetObject : Frame
+---@field Bg AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_BgObject
+---@field NineSlice AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSliceObject
+---@field layoutType string
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_InsetObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_BgObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_BgObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSliceObject : Frame
+---@field BottomEdge AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_BottomRightCornerObject
+---@field LeftEdge AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_LeftEdgeObject
+---@field RightEdge AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_RightEdgeObject
+---@field TopEdge AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_TopEdgeObject
+---@field TopLeftCorner AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_TopLeftCornerObject
+---@field TopRightCorner AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_TopRightCornerObject
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSliceObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSliceObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_BottomEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_BottomLeftCornerObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_BottomRightCornerObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_LeftEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_RightEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_TopEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_TopLeftCornerObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_TopRightCornerObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_Inset_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftDisplayObject : Frame
+---@field Label AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftDisplay_LabelObject
+---@field Tutorial1 AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftDisplay_Tutorial1Object
+---@field Tutorial2 AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftDisplay_Tutorial2Object
+---@field Tutorial3 AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftDisplay_Tutorial3Object
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftDisplayObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftDisplay_LabelObject : FontString
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftDisplay_LabelObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftDisplay_Tutorial1Object : FontString
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftDisplay_Tutorial1Object = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftDisplay_Tutorial2Object : FontString
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftDisplay_Tutorial2Object = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftDisplay_Tutorial3Object : FontString
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftDisplay_Tutorial3Object = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftInsetObject : Frame
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftInsetObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject : Frame
+---@field ActiveTexture AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_HoverTextureObject
+---@field LoadBar AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_LoadBarObject
+---@field LoadBarBG AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_NormalTextureObject
+---@field PressedTexture AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject:BeginHold(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_ActiveTextureObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_DisabledTextureObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_HoldIndicatorObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_HoldIndicatorBGObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_HoverTextureObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_LoadBarObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_LoadBarBGObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_LoadBarGlowObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_NormalTextureObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_PressedTextureObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_SpinnerTipObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSliceObject : Frame
+---@field BottomEdge AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_BottomRightCornerObject
+---@field Center AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_CenterObject
+---@field LeftEdge AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_LeftEdgeObject
+---@field RightEdge AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_RightEdgeObject
+---@field TopEdge AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_TopEdgeObject
+---@field TopLeftCorner AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_TopLeftCornerObject
+---@field TopRightCorner AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_TopRightCornerObject
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSliceObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSliceObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_BottomEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_BottomLeftCornerObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_BottomRightCornerObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_CenterObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_CenterObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_LeftEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_RightEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_TopEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_TopLeftCornerObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_TopRightCornerObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_PortraitContainerObject : Frame
+---@field CircleMask AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_PortraitContainer_CircleMaskObject
+---@field portrait AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_PortraitContainer_portraitObject
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_PortraitContainerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_PortraitContainer_CircleMaskObject : MaskTexture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_PortraitContainer_CircleMaskObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_PortraitContainer_portraitObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_PortraitContainer_portraitObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplayObject : Frame
+---@field Label AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_LabelObject
+---@field StoreButton AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButtonObject
+---@field Tutorial1 AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_Tutorial1Object
+---@field Tutorial2 AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_Tutorial2Object
+---@field Tutorial3 AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_Tutorial3Object
+---@field infoarrow AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_infoarrowObject
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplayObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_LabelObject : FontString
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_LabelObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButtonObject : Button
+---@field Left AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButton_LeftObject
+---@field Logo AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButton_LogoObject
+---@field Middle AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButton_MiddleObject
+---@field Right AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButton_RightObject
+---@field Text AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButton_TextObject
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButtonObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButtonObject:OnClick(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButtonObject:OnDisable(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButtonObject:OnEnable(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButtonObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButtonObject:OnEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButtonObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButtonObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButtonObject:OnMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButtonObject:OnMouseUp(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButton_LeftObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButton_LeftObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButton_LogoObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButton_LogoObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButton_MiddleObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButton_MiddleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButton_RightObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButton_RightObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButton_TextObject : FontString
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_StoreButton_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_Tutorial1Object : FontString
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_Tutorial1Object = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_Tutorial2Object : FontString
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_Tutorial2Object = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_Tutorial3Object : FontString
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_Tutorial3Object = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_infoarrowObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightDisplay_infoarrowObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightInsetObject : Frame
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightInsetObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject : Frame
+---@field ActiveTexture AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_DisabledTextureObject
+---@field HoldAnim AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_HoldAnimObject
+---@field HoldIndicator AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_HoverTextureObject
+---@field LoadBar AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_LoadBarObject
+---@field LoadBarBG AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_NormalTextureObject
+---@field PressedTexture AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_PressedTextureObject
+---@field SpinnerTip AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_ActiveTextureObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_DisabledTextureObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_HoldAnim_LoadBarAnimObject
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_HoldIndicatorObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_HoldIndicatorBGObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_HoverTextureObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_LoadBarObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_LoadBarBGObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_LoadBarGlowObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_NormalTextureObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_PressedTextureObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_SpinnerTipObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_TitleContainerObject : Frame
+---@field TitleText AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_TitleContainer_TitleTextObject
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_TitleContainerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_TitleContainer_TitleTextObject : FontString
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_TitleContainer_TitleTextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_TopTileStreaksObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_TopTileStreaksObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_TutorialObject : Texture
+local AuctionHouseFrame_WoWTokenResults_GameTimeTutorial_TutorialObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_HelpButtonObject : Button
+---@field BigIPulse AuctionHouseFrame_WoWTokenResults_HelpButton_BigIPulseObject
+---@field I AuctionHouseFrame_WoWTokenResults_HelpButton_IObject
+---@field Pulse AuctionHouseFrame_WoWTokenResults_HelpButton_PulseObject
+---@field Ring AuctionHouseFrame_WoWTokenResults_HelpButton_RingObject
+---@field RingPulse AuctionHouseFrame_WoWTokenResults_HelpButton_RingPulseObject
+---@field mainHelpPlateButtonTooltipText string
 ---@field smartNavigationIgnored boolean
-local ChatFrame10_ScrollToBottomButtonObject = {}
+local AuctionHouseFrame_WoWTokenResults_HelpButtonObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_HelpButtonObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_HelpButtonObject:OnHide(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_HelpButtonObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_HelpButtonObject:OnMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_HelpButtonObject:OnMouseUp(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_HelpButtonObject:OnShow(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_HelpButtonObject:ShowTooltip(...) end
 end
 
 do
----@class ChatFrame10_ScrollToBottomButton_FlashObject : Texture
----@field FlashAnim ChatFrame10_ScrollToBottomButton_Flash_FlashAnimObject
-local ChatFrame10_ScrollToBottomButton_FlashObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_HelpButton_BigIPulseObject : Texture
+local AuctionHouseFrame_WoWTokenResults_HelpButton_BigIPulseObject = {}
 end
 
 do
----@class ChatFrame10_ScrollToBottomButton_Flash_FlashAnimObject : AnimationGroup
----@field FadeIn ChatFrame10_ScrollToBottomButton_Flash_FlashAnim_FadeInObject
----@field FadeOut ChatFrame10_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject
-local ChatFrame10_ScrollToBottomButton_Flash_FlashAnimObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_HelpButton_IObject : Texture
+local AuctionHouseFrame_WoWTokenResults_HelpButton_IObject = {}
 end
 
 do
----@class ChatFrame10_ScrollToBottomButton_Flash_FlashAnim_FadeInObject : Alpha
-local ChatFrame10_ScrollToBottomButton_Flash_FlashAnim_FadeInObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_HelpButton_PulseObject : AnimationGroup
+---@field BigIPulse AuctionHouseFrame_WoWTokenResults_HelpButton_Pulse_BigIPulseObject
+---@field RingPulse AuctionHouseFrame_WoWTokenResults_HelpButton_Pulse_RingPulseObject
+local AuctionHouseFrame_WoWTokenResults_HelpButton_PulseObject = {}
 end
 
 do
----@class ChatFrame10_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject : Alpha
-local ChatFrame10_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_HelpButton_Pulse_BigIPulseObject : Alpha
+local AuctionHouseFrame_WoWTokenResults_HelpButton_Pulse_BigIPulseObject = {}
 end
 
 do
----@class ChatFrame10_buttonFrameObject : Frame
----@field Background ChatFrame10_buttonFrame_BackgroundObject
----@field minimizeButton ChatFrame10_buttonFrame_minimizeButtonObject
-local ChatFrame10_buttonFrameObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_HelpButton_Pulse_RingPulseObject : Alpha
+local AuctionHouseFrame_WoWTokenResults_HelpButton_Pulse_RingPulseObject = {}
 end
 
 do
----@class ChatFrame10_buttonFrame_BackgroundObject : Texture
-local ChatFrame10_buttonFrame_BackgroundObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_HelpButton_RingObject : Texture
+local AuctionHouseFrame_WoWTokenResults_HelpButton_RingObject = {}
 end
 
 do
----@class ChatFrame10_buttonFrame_minimizeButtonObject : Button
-local ChatFrame10_buttonFrame_minimizeButtonObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_HelpButton_RingPulseObject : Texture
+local AuctionHouseFrame_WoWTokenResults_HelpButton_RingPulseObject = {}
 end
 
 do
----@class ChatFrame10_clickAnywhereButtonObject : Button
-local ChatFrame10_clickAnywhereButtonObject = {}
----@return any ...
-function ChatFrame10_clickAnywhereButtonObject:OnClick(...) end
----@return any ...
-function ChatFrame10_clickAnywhereButtonObject:OnEvent(...) end
----@return any ...
-function ChatFrame10_clickAnywhereButtonObject:OnLoad(...) end
----@return any ...
-function ChatFrame10_clickAnywhereButtonObject:UpdateState(...) end
+---@class AuctionHouseFrame_WoWTokenResults_InvisiblePriceFrameObject : Frame
+local AuctionHouseFrame_WoWTokenResults_InvisiblePriceFrameObject = {}
 end
 
 do
----@class ChatFrame10_editBoxObject
-local ChatFrame10_editBoxObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_NineSliceObject : Frame
+---@field BottomEdge AuctionHouseFrame_WoWTokenResults_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner AuctionHouseFrame_WoWTokenResults_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner AuctionHouseFrame_WoWTokenResults_NineSlice_BottomRightCornerObject
+---@field LeftEdge AuctionHouseFrame_WoWTokenResults_NineSlice_LeftEdgeObject
+---@field RightEdge AuctionHouseFrame_WoWTokenResults_NineSlice_RightEdgeObject
+---@field TopEdge AuctionHouseFrame_WoWTokenResults_NineSlice_TopEdgeObject
+---@field TopLeftCorner AuctionHouseFrame_WoWTokenResults_NineSlice_TopLeftCornerObject
+---@field TopRightCorner AuctionHouseFrame_WoWTokenResults_NineSlice_TopRightCornerObject
+local AuctionHouseFrame_WoWTokenResults_NineSliceObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_NineSliceObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_NineSliceObject:SetVertexColor(...) end
 end
 
 do
----@class ChatFrame10_fontObjectObject
-local ChatFrame10_fontObjectObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_NineSlice_BottomEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenResults_NineSlice_BottomEdgeObject = {}
 end
 
 do
----@class ChatFrame10_historyBufferObject
----@field elements table
----@field headIndex table
----@field maxElements table
-local ChatFrame10_historyBufferObject = {}
----@return any ...
-function ChatFrame10_historyBufferObject:CalculateElementIndex(...) end
----@return any ...
-function ChatFrame10_historyBufferObject:CalculateElementIndexFromGlobalIndex(...) end
----@return any ...
-function ChatFrame10_historyBufferObject:Clear(...) end
----@return any ...
-function ChatFrame10_historyBufferObject:EnumerateIndexedEntries(...) end
----@return any ...
-function ChatFrame10_historyBufferObject:GetEntryAtIndex(...) end
----@return any ...
-function ChatFrame10_historyBufferObject:GetMaxNumElements(...) end
----@return any ...
-function ChatFrame10_historyBufferObject:GetNumElements(...) end
----@return any ...
-function ChatFrame10_historyBufferObject:IsEmpty(...) end
----@return any ...
-function ChatFrame10_historyBufferObject:IsFull(...) end
----@return any ...
-function ChatFrame10_historyBufferObject:IsValidIndex(...) end
----@return any ...
-function ChatFrame10_historyBufferObject:OnLoad(...) end
----@return any ...
-function ChatFrame10_historyBufferObject:PushBack(...) end
----@return any ...
-function ChatFrame10_historyBufferObject:PushFront(...) end
----@return any ...
-function ChatFrame10_historyBufferObject:RemoveIf(...) end
----@return any ...
-function ChatFrame10_historyBufferObject:ReplaceElements(...) end
----@return any ...
-function ChatFrame10_historyBufferObject:ReverseEnumerateIndexedEntries(...) end
----@return any ...
-function ChatFrame10_historyBufferObject:SetMaxNumElements(...) end
----@return any ...
-function ChatFrame10_historyBufferObject:TransformIf(...) end
+---@class AuctionHouseFrame_WoWTokenResults_NineSlice_BottomLeftCornerObject : Texture
+local AuctionHouseFrame_WoWTokenResults_NineSlice_BottomLeftCornerObject = {}
 end
 
 do
----@class ChatFrame10EditBoxObject : EditBox
----@field NewcomerHint ChatFrame10EditBox_NewcomerHintObject
----@field addHighlightedText boolean
----@field addSpaceToAutoComplete boolean
----@field buttonContext string
----@field chatFrame ChatFrame10EditBox_chatFrameObject
----@field chatLanguage string
----@field focusLeft ChatFrame10EditBox_focusLeftObject
----@field focusMid ChatFrame10EditBox_focusMidObject
----@field focusRight ChatFrame10EditBox_focusRightObject
----@field header ChatFrame10EditBox_headerObject
----@field headerSuffix ChatFrame10EditBox_headerSuffixObject
----@field languageHeader ChatFrame10EditBox_languageHeaderObject
----@field prompt ChatFrame10EditBox_promptObject
----@field tabCompleteTableIndex number
-local ChatFrame10EditBoxObject = {}
----@return any ...
-function ChatFrame10EditBoxObject:AddHistory(...) end
----@return any ...
-function ChatFrame10EditBoxObject:ClearChat(...) end
----@return any ...
-function ChatFrame10EditBoxObject:Deactivate(...) end
----@return any ...
-function ChatFrame10EditBoxObject:DoesCurrentChannelTargetMatch(...) end
----@return any ...
-function ChatFrame10EditBoxObject:ExtractChannel(...) end
----@return any ...
-function ChatFrame10EditBoxObject:ExtractTellTarget(...) end
----@return any ...
-function ChatFrame10EditBoxObject:GetChannelTarget(...) end
----@return any ...
-function ChatFrame10EditBoxObject:GetChatType(...) end
----@return any ...
-function ChatFrame10EditBoxObject:GetStickyType(...) end
----@return any ...
-function ChatFrame10EditBoxObject:GetTellTarget(...) end
----@return any ...
-function ChatFrame10EditBoxObject:HandleChatType(...) end
----@return any ...
-function ChatFrame10EditBoxObject:HasStickyFocus(...) end
----@return any ...
-function ChatFrame10EditBoxObject:OnChar(...) end
----@return any ...
-function ChatFrame10EditBoxObject:OnEditFocusGained(...) end
----@return any ...
-function ChatFrame10EditBoxObject:OnEditFocusLost(...) end
----@return any ...
-function ChatFrame10EditBoxObject:OnEnterPressed(...) end
----@return any ...
-function ChatFrame10EditBoxObject:OnEscapePressed(...) end
----@return any ...
-function ChatFrame10EditBoxObject:OnEvent(...) end
----@return any ...
-function ChatFrame10EditBoxObject:OnHide(...) end
----@return any ...
-function ChatFrame10EditBoxObject:OnInputLanguageChanged(...) end
----@return any ...
-function ChatFrame10EditBoxObject:OnLoad(...) end
----@return any ...
-function ChatFrame10EditBoxObject:OnPreSendText(...) end
----@return any ...
-function ChatFrame10EditBoxObject:OnShow(...) end
----@return any ...
-function ChatFrame10EditBoxObject:OnSpacePressed(...) end
----@return any ...
-function ChatFrame10EditBoxObject:OnTabPressed(...) end
----@return any ...
-function ChatFrame10EditBoxObject:OnTextChanged(...) end
----@return any ...
-function ChatFrame10EditBoxObject:OnTextSet(...) end
----@return any ...
-function ChatFrame10EditBoxObject:OnUpdate(...) end
----@return any ...
-function ChatFrame10EditBoxObject:ParseText(...) end
----@return any ...
-function ChatFrame10EditBoxObject:ProcessChatType(...) end
----@return any ...
-function ChatFrame10EditBoxObject:ResetChatType(...) end
----@return any ...
-function ChatFrame10EditBoxObject:ResetChatTypeToSticky(...) end
----@return any ...
-function ChatFrame10EditBoxObject:SecureTabPressed(...) end
----@return any ...
-function ChatFrame10EditBoxObject:SendMessage(...) end
----@return any ...
-function ChatFrame10EditBoxObject:SendText(...) end
----@return any ...
-function ChatFrame10EditBoxObject:SetChannelTarget(...) end
----@return any ...
-function ChatFrame10EditBoxObject:SetChatType(...) end
----@return any ...
-function ChatFrame10EditBoxObject:SetFocusRegionVertexColors(...) end
----@return any ...
-function ChatFrame10EditBoxObject:SetFocusRegionsShown(...) end
----@return any ...
-function ChatFrame10EditBoxObject:SetGameLanguage(...) end
----@return any ...
-function ChatFrame10EditBoxObject:SetStickyType(...) end
----@return any ...
-function ChatFrame10EditBoxObject:SetTellTarget(...) end
----@return any ...
-function ChatFrame10EditBoxObject:ShouldDeactivateChatOnEditFocusLost(...) end
----@return any ...
-function ChatFrame10EditBoxObject:UpdateHeader(...) end
----@return any ...
-function ChatFrame10EditBoxObject:UpdateLanguageHeader(...) end
----@return any ...
-function ChatFrame10EditBoxObject:UpdateNewcomerEditBoxHint(...) end
----@return any ...
-function ChatFrame10EditBoxObject:customAutoCompleteFunction(...) end
----@type ChatFrame10EditBoxObject
-ChatFrame10EditBox = ChatFrame10EditBoxObject
+---@class AuctionHouseFrame_WoWTokenResults_NineSlice_BottomRightCornerObject : Texture
+local AuctionHouseFrame_WoWTokenResults_NineSlice_BottomRightCornerObject = {}
 end
 
 do
----@class ChatFrame10EditBox_NewcomerHintObject : FontString
-local ChatFrame10EditBox_NewcomerHintObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_NineSlice_LeftEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenResults_NineSlice_LeftEdgeObject = {}
 end
 
 do
----@class ChatFrame10EditBox_chatFrameObject
-local ChatFrame10EditBox_chatFrameObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_NineSlice_RightEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenResults_NineSlice_RightEdgeObject = {}
 end
 
 do
----@class ChatFrame10EditBox_focusLeftObject : Texture
-local ChatFrame10EditBox_focusLeftObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_NineSlice_TopEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenResults_NineSlice_TopEdgeObject = {}
 end
 
 do
----@class ChatFrame10EditBox_focusMidObject : Texture
-local ChatFrame10EditBox_focusMidObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_NineSlice_TopLeftCornerObject : Texture
+local AuctionHouseFrame_WoWTokenResults_NineSlice_TopLeftCornerObject = {}
 end
 
 do
----@class ChatFrame10EditBox_focusRightObject : Texture
-local ChatFrame10EditBox_focusRightObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_NineSlice_TopRightCornerObject : Texture
+local AuctionHouseFrame_WoWTokenResults_NineSlice_TopRightCornerObject = {}
 end
 
 do
----@class ChatFrame10EditBox_headerObject : FontString
-local ChatFrame10EditBox_headerObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_TokenDisplayObject : Button
+---@field Background AuctionHouseFrame_WoWTokenResults_TokenDisplay_BackgroundObject
+---@field FavoriteButton AuctionHouseFrame_WoWTokenResults_TokenDisplay_FavoriteButtonObject
+---@field ItemButton AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButtonObject
+---@field Name AuctionHouseFrame_WoWTokenResults_TokenDisplay_NameObject
+---@field NineSlice AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSliceObject
+---@field item number
+---@field itemButtonXOffset number
+---@field itemButtonYOffset number
+---@field layoutType string
+---@field pendingInfo AuctionHouseFrame_WoWTokenResults_TokenDisplay_pendingInfoObject
+local AuctionHouseFrame_WoWTokenResults_TokenDisplayObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:GetItem(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:GetItemCount(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:GetItemDisplayText(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:GetItemID(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:GetItemInfo(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:GetItemKey(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:GetItemLink(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:GetItemLocation(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:GetItemSource(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:IsPet(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:OnClick(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:OnEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:OnUpdate(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:Reset(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:SetAuctionHouseFrame(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:SetItem(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:SetItemCountFunction(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:SetItemInternal(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:SetItemKey(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:SetItemLevelShown(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:SetItemLocation(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:SetItemSource(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplayObject:SetItemValidationFunction(...) end
 end
 
 do
----@class ChatFrame10EditBox_headerSuffixObject : FontString
-local ChatFrame10EditBox_headerSuffixObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_TokenDisplay_BackgroundObject : Texture
+local AuctionHouseFrame_WoWTokenResults_TokenDisplay_BackgroundObject = {}
 end
 
 do
----@class ChatFrame10EditBox_languageHeaderObject : FontString
-local ChatFrame10EditBox_languageHeaderObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_TokenDisplay_FavoriteButtonObject : Button
+---@field HighlightTexture AuctionHouseFrame_WoWTokenResults_TokenDisplay_FavoriteButton_HighlightTextureObject
+---@field NormalTexture AuctionHouseFrame_WoWTokenResults_TokenDisplay_FavoriteButton_NormalTextureObject
+local AuctionHouseFrame_WoWTokenResults_TokenDisplay_FavoriteButtonObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplay_FavoriteButtonObject:IsFavorite(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplay_FavoriteButtonObject:IsInteractionAvailable(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplay_FavoriteButtonObject:OnClick(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplay_FavoriteButtonObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplay_FavoriteButtonObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplay_FavoriteButtonObject:SetItemKey(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplay_FavoriteButtonObject:ShowMaxedFavoritesTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplay_FavoriteButtonObject:UpdateFavoriteState(...) end
 end
 
 do
----@class ChatFrame10EditBox_promptObject : FontString
-local ChatFrame10EditBox_promptObject = {}
+---@class AuctionHouseFrame_WoWTokenResults_TokenDisplay_FavoriteButton_HighlightTextureObject : Texture
+local AuctionHouseFrame_WoWTokenResults_TokenDisplay_FavoriteButton_HighlightTextureObject = {}
 end
 
 do
----@class ChatFrame10TabObject : Button
----@field ActiveLeft ChatFrame10Tab_ActiveLeftObject
----@field ActiveMiddle ChatFrame10Tab_ActiveMiddleObject
----@field ActiveRight ChatFrame10Tab_ActiveRightObject
----@field HighlightLeft ChatFrame10Tab_HighlightLeftObject
----@field HighlightMiddle ChatFrame10Tab_HighlightMiddleObject
----@field HighlightRight ChatFrame10Tab_HighlightRightObject
----@field Left ChatFrame10Tab_LeftObject
----@field Middle ChatFrame10Tab_MiddleObject
----@field Right ChatFrame10Tab_RightObject
----@field Text ChatFrame10Tab_TextObject
----@field glow ChatFrame10Tab_glowObject
+---@class AuctionHouseFrame_WoWTokenResults_TokenDisplay_FavoriteButton_NormalTextureObject : Texture
+local AuctionHouseFrame_WoWTokenResults_TokenDisplay_FavoriteButton_NormalTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButtonObject : Button
+---@field CircleMask AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButton_CircleMaskObject
+---@field Count AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButton_CountObject
+---@field Icon AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButton_IconObject
+---@field IconBorder AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButton_IconBorderObject
+---@field IconOverlay AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButton_IconOverlayObject
+---@field IconOverlay2 AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButton_IconOverlay2Object
+---@field count number
+---@field isCraftedItem boolean
+---@field isProfessionItem boolean
+local AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButtonObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButtonObject:OnClick(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButtonObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButtonObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButtonObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButtonObject:SetItemButtonQuality(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButton_CircleMaskObject : MaskTexture
+local AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButton_CircleMaskObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButton_CountObject : FontString
+local AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButton_CountObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButton_IconObject : Texture
+local AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButton_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButton_IconBorderObject : Texture
+local AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButton_IconBorderObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButton_IconOverlayObject : Texture
+local AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButton_IconOverlayObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButton_IconOverlay2Object : Texture
+local AuctionHouseFrame_WoWTokenResults_TokenDisplay_ItemButton_IconOverlay2Object = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_TokenDisplay_NameObject : FontString
+local AuctionHouseFrame_WoWTokenResults_TokenDisplay_NameObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSliceObject : Frame
+---@field BottomEdge AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_BottomRightCornerObject
+---@field LeftEdge AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_LeftEdgeObject
+---@field RightEdge AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_RightEdgeObject
+---@field TopEdge AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_TopEdgeObject
+---@field TopLeftCorner AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_TopLeftCornerObject
+---@field TopRightCorner AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_TopRightCornerObject
+local AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSliceObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSliceObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_BottomEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_BottomLeftCornerObject : Texture
+local AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_BottomRightCornerObject : Texture
+local AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_LeftEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_RightEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_TopEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_TopLeftCornerObject : Texture
+local AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_TopRightCornerObject : Texture
+local AuctionHouseFrame_WoWTokenResults_TokenDisplay_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenResults_TokenDisplay_pendingInfoObject
+---@field item number
+local AuctionHouseFrame_WoWTokenResults_TokenDisplay_pendingInfoObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrameObject : Frame
+---@field Background AuctionHouseFrame_WoWTokenSellFrame_BackgroundObject
+---@field BuyoutPriceLabel AuctionHouseFrame_WoWTokenSellFrame_BuyoutPriceLabelObject
+---@field CreateAuctionLabel AuctionHouseFrame_WoWTokenSellFrame_CreateAuctionLabelObject
+---@field CreateAuctionTabLeft AuctionHouseFrame_WoWTokenSellFrame_CreateAuctionTabLeftObject
+---@field CreateAuctionTabMiddle AuctionHouseFrame_WoWTokenSellFrame_CreateAuctionTabMiddleObject
+---@field CreateAuctionTabRight AuctionHouseFrame_WoWTokenSellFrame_CreateAuctionTabRightObject
+---@field DummyItemList AuctionHouseFrame_WoWTokenSellFrame_DummyItemListObject
+---@field DummyRefreshButton AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButtonObject
+---@field EstimatedTime AuctionHouseFrame_WoWTokenSellFrame_EstimatedTimeObject
+---@field InvisiblePriceFrame AuctionHouseFrame_WoWTokenSellFrame_InvisiblePriceFrameObject
+---@field ItemDisplay AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject
+---@field MarketPrice AuctionHouseFrame_WoWTokenSellFrame_MarketPriceObject
+---@field NineSlice AuctionHouseFrame_WoWTokenSellFrame_NineSliceObject
+---@field PostButton AuctionHouseFrame_WoWTokenSellFrame_PostButtonObject
+---@field TimeToSell AuctionHouseFrame_WoWTokenSellFrame_TimeToSellObject
+---@field backgroundAtlas string
+---@field backgroundTextureClassic string
+---@field layoutType string
+---@field textureHeightClassic number
+---@field textureWidthClassic number
+---@field textureXOffsetClassic number
+---@field textureYOffsetClassic number
+local AuctionHouseFrame_WoWTokenSellFrameObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrameObject:GetAuctionHouseFrame(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrameObject:GetItem(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrameObject:GetSellToken(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrameObject:OnEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrameObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrameObject:OnShow(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrameObject:Refresh(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrameObject:SetItem(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_BackgroundObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_BackgroundObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_BuyoutPriceLabelObject : FontString
+local AuctionHouseFrame_WoWTokenSellFrame_BuyoutPriceLabelObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_CreateAuctionLabelObject : FontString
+local AuctionHouseFrame_WoWTokenSellFrame_CreateAuctionLabelObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_CreateAuctionTabLeftObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_CreateAuctionTabLeftObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_CreateAuctionTabMiddleObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_CreateAuctionTabMiddleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_CreateAuctionTabRightObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_CreateAuctionTabRightObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemListObject : Frame
+---@field Background AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_BackgroundObject
+---@field DummyScrollBar AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject
+---@field NineSlice AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSliceObject
+---@field backgroundAtlas string
+---@field backgroundTextureClassic string
+---@field layoutType string
+---@field textureHeightClassic number
+---@field textureWidthClassic number
+---@field textureXOffsetClassic number
+---@field textureYOffsetClassic number
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemListObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemListObject:OnLoad(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_BackgroundObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_BackgroundObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject : Slider
+---@field Back AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject
+---@field Defaults AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_DefaultsObject
+---@field Directions AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_DirectionsObject
+---@field Event AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_EventObject
+---@field Forward AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject
+---@field Track AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_TrackObject
+---@field allowScroll boolean
+---@field canInterpolateScroll boolean
+---@field hideTrack boolean
+---@field hideTrackIfThumbExceedsTrack boolean
+---@field isScrollController boolean
+---@field minThumbExtent number
+---@field panDelay number
+---@field panExtentPercentage number
+---@field panRepeatTime number
+---@field smartNavigationIgnored boolean
+---@field snapToInterval boolean
+---@field thumbAnchor string
+---@field useProportionalThumb boolean
+---@field visibleExtentPercentage number
+---@field wheelPanScalar number
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:CallInternalScope(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:CanCursorStepInDirection(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:CanInterpolateScroll(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:DisableControls(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:EnableInternalPriority(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:EnableSnapToInterval(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:GenerateCallbackEvents(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:GetBackStepper(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:GetCallbackTable(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:GetCallbackTables(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:GetCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:GetForwardStepper(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:GetFrameExtent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:GetIntervalRange(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:GetLower(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:GetPanExtentPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:GetPanRepeatDelay(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:GetPanRepeatTime(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:GetScrollInterpolator(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:GetScrollPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:GetThumb(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:GetThumbAnchor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:GetTrack(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:GetTrackExtent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:GetUpper(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:GetWheelPanPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:HasScrollableExtent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:Init(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:InitializeNarration(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:Interpolate(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:IsAtBegin(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:IsAtEnd(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:IsHorizontal(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:IsScrollAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:IsThumbMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:OnHide_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:OnMouseWheel(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:OnShow_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:OnStepperMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:OnThumbMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:OnTrackMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:RegisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:ScrollDecrease(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:ScrollInDirection(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:ScrollIncrease(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:ScrollPageInDirection(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:ScrollStepInDirection(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:ScrollToBegin(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:ScrollToEnd(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:ScrollWheelInDirection(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:SecureInsertEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:SelectCursorComponent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:SelectPointComponent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:SetFrameExtent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:SetHideIfUnscrollable(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:SetHorizontal(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:SetInterpolateScroll(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:SetPanExtentPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:SetScrollAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:SetScrollPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:SetThumbExtent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:SetVisibleExtentPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:TriggerEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:UnregisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:UnregisterEvents(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:UnregisterUpdate(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:Update(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:onButtonMouseUp(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBarObject:scrollInternal(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject : Button
+---@field Event AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Back_EventObject
+---@field Texture AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Back_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:DesaturateIfDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:GenerateCallbackEvents(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:GetAtlas(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:GetCallbackTable(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:GetCallbackTables(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:GetCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:IsDown(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:IsDownOver(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:IsOver(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:NarrationGetName(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:OnButtonStateChanged(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:OnClick_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:OnDisable(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:OnEnable(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:OnMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:OnMouseUp(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:OnShow(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:RegisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:SecureInsertEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:SetDisplacedRegions(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:TriggerEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:UnregisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:UnregisterEvents(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Back_EventObject
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Back_EventObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Back_TextureObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Back_TextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_DefaultsObject
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_DefaultsObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_DirectionsObject
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_DirectionsObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_EventObject
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_EventObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject : Button
+---@field Event AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Forward_EventObject
+---@field Texture AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Forward_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:GetAtlas(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:GetCallbackTable(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:GetCallbackTables(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:IsDown(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:IsDownOver(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:IsOver(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:NarrationGetName(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:OnButtonStateChanged(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:OnDisable(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:OnEnable(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:OnMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:OnMouseUp(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:OnShow(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:RegisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:SecureInsertEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:SetDisplacedRegions(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:TriggerEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:UnregisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:UnregisterEvents(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Forward_EventObject
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Forward_EventObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Forward_TextureObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Forward_TextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_TrackObject : Frame
+---@field Begin AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_BeginObject
+---@field End AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_EndObject
+---@field Middle AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_MiddleObject
+---@field Thumb AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_TrackObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_BeginObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_BeginObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_EndObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_EndObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_MiddleObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_MiddleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject : Button
+---@field Begin AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_Thumb_BeginObject
+---@field End AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_Thumb_EndObject
+---@field Event AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_Thumb_EventObject
+---@field Middle AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_Thumb_MiddleObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field downBeginTexture string
+---@field downEndTexture string
+---@field downMiddleTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field overBeginTexture string
+---@field overEndTexture string
+---@field overMiddleTexture string
+---@field upBeginTexture string
+---@field upEndTexture string
+---@field upMiddleTexture string
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:GetAtlas(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:IsDown(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:IsDownOver(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:IsOver(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:OnDisable(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:OnEnable(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:OnMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:OnMouseUp(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:OnShow(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:RegisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:TriggerEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_Thumb_BeginObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_Thumb_BeginObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_Thumb_EndObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_Thumb_EndObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_Thumb_EventObject
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_Thumb_EventObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_Thumb_MiddleObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_DummyScrollBar_Track_Thumb_MiddleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSliceObject : Frame
+---@field BottomEdge AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_BottomRightCornerObject
+---@field LeftEdge AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_LeftEdgeObject
+---@field RightEdge AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_RightEdgeObject
+---@field TopEdge AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_TopEdgeObject
+---@field TopLeftCorner AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_TopLeftCornerObject
+---@field TopRightCorner AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_TopRightCornerObject
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSliceObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSliceObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_BottomEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_BottomLeftCornerObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_BottomRightCornerObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_LeftEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_RightEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_TopEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_TopLeftCornerObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_TopRightCornerObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_DummyItemList_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButtonObject : Button
+---@field Controller AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButton_ControllerObject
+---@field Icon AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButton_IconObject
+---@field iconAtlas string
+---@field iconSize number
+local AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButtonObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButtonObject:ClearCustomTextFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButtonObject:GetOnClickSoundKit(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButtonObject:InitButton(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButtonObject:OnClick(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButtonObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButtonObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButtonObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButtonObject:OnMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButtonObject:OnMouseUp(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButtonObject:RunCustomTextFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButtonObject:SetAtlas(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButtonObject:SetButtonArtKit(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButtonObject:SetCustomTextFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButtonObject:SetEnabledState(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButtonObject:SetIcon(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButtonObject:SetOnClickHandler(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButtonObject:SetOnEnterHandler(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButtonObject:SetTooltipAnchor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButtonObject:SetTooltipInfo(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButton_ControllerObject : Frame
+local AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButton_ControllerObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButton_ControllerObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButton_ControllerObject:OnShow(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButton_IconObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_DummyRefreshButton_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_EstimatedTimeObject : FontString
+local AuctionHouseFrame_WoWTokenSellFrame_EstimatedTimeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_InvisiblePriceFrameObject : Frame
+local AuctionHouseFrame_WoWTokenSellFrame_InvisiblePriceFrameObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject : Button
+---@field Background AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_BackgroundObject
+---@field ItemButton AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButtonObject
+---@field Name AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NameObject
+---@field NineSlice AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSliceObject
+---@field itemButtonXOffset number
+---@field itemButtonYOffset number
+---@field layoutType string
+local AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:GetItem(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:GetItemCount(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:GetItemDisplayText(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:GetItemID(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:GetItemInfo(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:GetItemKey(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:GetItemLink(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:GetItemLocation(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:GetItemSource(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:IsPet(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:OnClick(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:OnEvent(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:OnReceiveDrag(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:OnUpdate(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:Reset(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:SetAuctionHouseFrame(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:SetItem(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:SetItemCountFunction(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:SetItemInternal(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:SetItemKey(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:SetItemLevelShown(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:SetItemLocation(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:SetItemSource(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:SetItemValidationFunction(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:SetOnItemChangedCallback(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:SwitchItemWithCursor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplayObject:onItemChangedCallback(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_BackgroundObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_BackgroundObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButtonObject : Button
+---@field Count AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_CountObject
+---@field EmptyBackground AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_EmptyBackgroundObject
+---@field Highlight AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_HighlightObject
+---@field Icon AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_IconObject
+---@field IconBorder AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_IconBorderObject
+---@field IconMask AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_IconMaskObject
+---@field IconOverlay AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_IconOverlayObject
+---@field IconOverlay2 AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_IconOverlay2Object
+local AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButtonObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButtonObject:GetItemLocation(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButtonObject:Init(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButtonObject:OnClick(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButtonObject:OnDragStart(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButtonObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButtonObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButtonObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButtonObject:OnReceiveDrag(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButtonObject:SetItemLocation(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButtonObject:SwitchItemWithCursor(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_CountObject : FontString
+local AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_CountObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_EmptyBackgroundObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_EmptyBackgroundObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_HighlightObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_HighlightObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_IconObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_IconBorderObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_IconBorderObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_IconMaskObject : MaskTexture
+local AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_IconMaskObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_IconOverlayObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_IconOverlayObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_IconOverlay2Object : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_ItemButton_IconOverlay2Object = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NameObject : FontString
+local AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NameObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSliceObject : Frame
+---@field BottomEdge AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_BottomRightCornerObject
+---@field LeftEdge AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_LeftEdgeObject
+---@field RightEdge AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_RightEdgeObject
+---@field TopEdge AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_TopEdgeObject
+---@field TopLeftCorner AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_TopLeftCornerObject
+---@field TopRightCorner AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_TopRightCornerObject
+local AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSliceObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSliceObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_BottomEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_BottomLeftCornerObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_BottomRightCornerObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_LeftEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_RightEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_TopEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_TopLeftCornerObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_TopRightCornerObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_ItemDisplay_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_MarketPriceObject : FontString
+local AuctionHouseFrame_WoWTokenSellFrame_MarketPriceObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_NineSliceObject : Frame
+---@field BottomEdge AuctionHouseFrame_WoWTokenSellFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner AuctionHouseFrame_WoWTokenSellFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner AuctionHouseFrame_WoWTokenSellFrame_NineSlice_BottomRightCornerObject
+---@field LeftEdge AuctionHouseFrame_WoWTokenSellFrame_NineSlice_LeftEdgeObject
+---@field RightEdge AuctionHouseFrame_WoWTokenSellFrame_NineSlice_RightEdgeObject
+---@field TopEdge AuctionHouseFrame_WoWTokenSellFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner AuctionHouseFrame_WoWTokenSellFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner AuctionHouseFrame_WoWTokenSellFrame_NineSlice_TopRightCornerObject
+local AuctionHouseFrame_WoWTokenSellFrame_NineSliceObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_NineSlice_BottomEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_NineSlice_BottomLeftCornerObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_NineSlice_BottomRightCornerObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_NineSlice_LeftEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_NineSlice_RightEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_NineSlice_TopEdgeObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_NineSlice_TopLeftCornerObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_NineSlice_TopRightCornerObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_PostButtonObject : Button
+---@field Left AuctionHouseFrame_WoWTokenSellFrame_PostButton_LeftObject
+---@field Middle AuctionHouseFrame_WoWTokenSellFrame_PostButton_MiddleObject
+---@field Right AuctionHouseFrame_WoWTokenSellFrame_PostButton_RightObject
+---@field Text AuctionHouseFrame_WoWTokenSellFrame_PostButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local AuctionHouseFrame_WoWTokenSellFrame_PostButtonObject = {}
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_PostButtonObject:FitToText(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_PostButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_PostButtonObject:OnClick(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_PostButtonObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_PostButtonObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_PostButtonObject:SetDisabledState(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_PostButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_PostButtonObject:SetTextToFit(...) end
+---@return any ...
+function AuctionHouseFrame_WoWTokenSellFrame_PostButtonObject:SetTooltip(...) end
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_PostButton_LeftObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_PostButton_LeftObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_PostButton_MiddleObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_PostButton_MiddleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_PostButton_RightObject : Texture
+local AuctionHouseFrame_WoWTokenSellFrame_PostButton_RightObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_PostButton_TextObject : FontString
+local AuctionHouseFrame_WoWTokenSellFrame_PostButton_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_WoWTokenSellFrame_TimeToSellObject : FontString
+local AuctionHouseFrame_WoWTokenSellFrame_TimeToSellObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrameObject : Frame
+---@field CancelButton AuctionHouseMultisellProgressFrame_CancelButtonObject
+---@field Fill AuctionHouseMultisellProgressFrame_FillObject
+---@field Left AuctionHouseMultisellProgressFrame_LeftObject
+---@field Middle AuctionHouseMultisellProgressFrame_MiddleObject
+---@field ProgressBar AuctionHouseMultisellProgressFrame_ProgressBarObject
+---@field Right AuctionHouseMultisellProgressFrame_RightObject
+---@field align string
+---@field hideWhenActionBarIsOverriden boolean
+---@field ignoreInLayoutWhenActionBarIsOverriden boolean
+---@field isBottomManagedFrame boolean
+---@field isManagedFrame boolean
+---@field layoutIndex number
+---@field layoutParent AuctionHouseMultisellProgressFrame_layoutParentObject
+local AuctionHouseMultisellProgressFrameObject = {}
+---@return any ...
+function AuctionHouseMultisellProgressFrameObject:OnHide(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrameObject:OnShow(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrameObject:Refresh(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrameObject:Start(...) end
+---@type AuctionHouseMultisellProgressFrameObject
+AuctionHouseMultisellProgressFrame = AuctionHouseMultisellProgressFrameObject
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_CancelButtonObject : Button
+local AuctionHouseMultisellProgressFrame_CancelButtonObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_FillObject : Texture
+local AuctionHouseMultisellProgressFrame_FillObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_LeftObject : Texture
+local AuctionHouseMultisellProgressFrame_LeftObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_MiddleObject : Texture
+local AuctionHouseMultisellProgressFrame_MiddleObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBarObject : StatusBar
+---@field Background AuctionHouseMultisellProgressFrame_ProgressBar_BackgroundObject
+---@field BaseGlow AuctionHouseMultisellProgressFrame_ProgressBar_BaseGlowObject
+---@field Border AuctionHouseMultisellProgressFrame_ProgressBar_BorderObject
+---@field BorderMask AuctionHouseMultisellProgressFrame_ProgressBar_BorderMaskObject
+---@field BorderShield AuctionHouseMultisellProgressFrame_ProgressBar_BorderShieldObject
+---@field CastTimeText AuctionHouseMultisellProgressFrame_ProgressBar_CastTimeTextObject
+---@field ChannelShadow AuctionHouseMultisellProgressFrame_ProgressBar_ChannelShadowObject
+---@field ChargeFlash AuctionHouseMultisellProgressFrame_ProgressBar_ChargeFlashObject
+---@field ChargeGlow AuctionHouseMultisellProgressFrame_ProgressBar_ChargeGlowObject
+---@field CraftGlow AuctionHouseMultisellProgressFrame_ProgressBar_CraftGlowObject
+---@field CraftingMask AuctionHouseMultisellProgressFrame_ProgressBar_CraftingMaskObject
+---@field DropShadow AuctionHouseMultisellProgressFrame_ProgressBar_DropShadowObject
+---@field EnergyGlow AuctionHouseMultisellProgressFrame_ProgressBar_EnergyGlowObject
+---@field EnergyMask AuctionHouseMultisellProgressFrame_ProgressBar_EnergyMaskObject
+---@field Flakes01 AuctionHouseMultisellProgressFrame_ProgressBar_Flakes01Object
+---@field Flakes02 AuctionHouseMultisellProgressFrame_ProgressBar_Flakes02Object
+---@field Flakes03 AuctionHouseMultisellProgressFrame_ProgressBar_Flakes03Object
+---@field Flash AuctionHouseMultisellProgressFrame_ProgressBar_FlashObject
+---@field Icon AuctionHouseMultisellProgressFrame_ProgressBar_IconObject
+---@field InterruptGlow AuctionHouseMultisellProgressFrame_ProgressBar_InterruptGlowObject
+---@field Shine AuctionHouseMultisellProgressFrame_ProgressBar_ShineObject
+---@field Spark AuctionHouseMultisellProgressFrame_ProgressBar_SparkObject
+---@field Sparkles01 AuctionHouseMultisellProgressFrame_ProgressBar_Sparkles01Object
+---@field Sparkles02 AuctionHouseMultisellProgressFrame_ProgressBar_Sparkles02Object
+---@field StandardGlow AuctionHouseMultisellProgressFrame_ProgressBar_StandardGlowObject
+---@field Text AuctionHouseMultisellProgressFrame_ProgressBar_TextObject
+---@field TextBorder AuctionHouseMultisellProgressFrame_ProgressBar_TextBorderObject
+---@field WispGlow AuctionHouseMultisellProgressFrame_ProgressBar_WispGlowObject
+---@field WispMask AuctionHouseMultisellProgressFrame_ProgressBar_WispMaskObject
+local AuctionHouseMultisellProgressFrame_ProgressBarObject = {}
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:AddStages(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:AddWidgetForFade(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:ApplyAlpha(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:ApplyInterruptFilledState(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:ClearStages(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:FinishSpell(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:GetEffectiveType(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:GetHighlightImportantCasts(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:GetHighlightWhenCastTarget(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:GetInterruptText(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:GetIsHighlightedCastTarget(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:GetIsHighlightedImportantCast(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:GetTypeInfo(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:HandleCastDelayed(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:HandleCastStart(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:HandleCastStop(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:HandleChannelUpdateDelayed(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:HandleInterruptOrSpellFailed(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:HideSpark(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:IsInterruptable(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:OnEvent(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:OnShow(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:OnUpdate(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:PlayFadeAnim(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:PlayFinishAnim(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:PlayInterruptAnims(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:SetAndUpdateShowCastbar(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:SetCastTimeTextShown(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:SetHighlightImportantCasts(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:SetHighlightWhenCastTarget(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:SetIconShown(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:SetIsHighlightedCastTarget(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:SetIsHighlightedImportantCast(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:SetLook(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:SetNameTextShown(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:SetTargetNameText(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:SetTargetNameTextShown(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:SetUnit(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:ShouldIconBeShown(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:ShouldShowCastBar(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:ShowSpark(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:SimulateCast(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:StopAnims(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:StopFinishAnims(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:StopInterruptAnims(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:UpdateBarFillTexture(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:UpdateCastTimeText(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:UpdateCastTimeTextShown(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:UpdateHighlightImportantCast(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:UpdateHighlightWhenCastTarget(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:UpdateIconShown(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:UpdateInterruptibleState(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:UpdateIsShown(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:UpdateShownState(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:UpdateStage(...) end
+---@return any ...
+function AuctionHouseMultisellProgressFrame_ProgressBarObject:UpdateTargetNameText(...) end
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_BackgroundObject : Texture
+local AuctionHouseMultisellProgressFrame_ProgressBar_BackgroundObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_BaseGlowObject : Texture
+local AuctionHouseMultisellProgressFrame_ProgressBar_BaseGlowObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_BorderObject : Texture
+local AuctionHouseMultisellProgressFrame_ProgressBar_BorderObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_BorderMaskObject : MaskTexture
+local AuctionHouseMultisellProgressFrame_ProgressBar_BorderMaskObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_BorderShieldObject : Texture
+local AuctionHouseMultisellProgressFrame_ProgressBar_BorderShieldObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_CastTimeTextObject : FontString
+local AuctionHouseMultisellProgressFrame_ProgressBar_CastTimeTextObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_ChannelShadowObject : Texture
+local AuctionHouseMultisellProgressFrame_ProgressBar_ChannelShadowObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_ChargeFlashObject : Texture
+local AuctionHouseMultisellProgressFrame_ProgressBar_ChargeFlashObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_ChargeGlowObject : Texture
+local AuctionHouseMultisellProgressFrame_ProgressBar_ChargeGlowObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_CraftGlowObject : Texture
+local AuctionHouseMultisellProgressFrame_ProgressBar_CraftGlowObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_CraftingMaskObject : MaskTexture
+local AuctionHouseMultisellProgressFrame_ProgressBar_CraftingMaskObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_DropShadowObject : Texture
+local AuctionHouseMultisellProgressFrame_ProgressBar_DropShadowObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_EnergyGlowObject : Texture
+local AuctionHouseMultisellProgressFrame_ProgressBar_EnergyGlowObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_EnergyMaskObject : MaskTexture
+local AuctionHouseMultisellProgressFrame_ProgressBar_EnergyMaskObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_Flakes01Object : Texture
+local AuctionHouseMultisellProgressFrame_ProgressBar_Flakes01Object = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_Flakes02Object : Texture
+local AuctionHouseMultisellProgressFrame_ProgressBar_Flakes02Object = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_Flakes03Object : Texture
+local AuctionHouseMultisellProgressFrame_ProgressBar_Flakes03Object = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_FlashObject : Texture
+local AuctionHouseMultisellProgressFrame_ProgressBar_FlashObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_IconObject : Texture
+local AuctionHouseMultisellProgressFrame_ProgressBar_IconObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_InterruptGlowObject : Texture
+local AuctionHouseMultisellProgressFrame_ProgressBar_InterruptGlowObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_ShineObject : Texture
+local AuctionHouseMultisellProgressFrame_ProgressBar_ShineObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_SparkObject : Texture
+local AuctionHouseMultisellProgressFrame_ProgressBar_SparkObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_Sparkles01Object : Texture
+local AuctionHouseMultisellProgressFrame_ProgressBar_Sparkles01Object = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_Sparkles02Object : Texture
+local AuctionHouseMultisellProgressFrame_ProgressBar_Sparkles02Object = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_StandardGlowObject : Texture
+local AuctionHouseMultisellProgressFrame_ProgressBar_StandardGlowObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_TextObject : FontString
+local AuctionHouseMultisellProgressFrame_ProgressBar_TextObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_TextBorderObject : Texture
+local AuctionHouseMultisellProgressFrame_ProgressBar_TextBorderObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_WispGlowObject : Texture
+local AuctionHouseMultisellProgressFrame_ProgressBar_WispGlowObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_ProgressBar_WispMaskObject : MaskTexture
+local AuctionHouseMultisellProgressFrame_ProgressBar_WispMaskObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_RightObject : Texture
+local AuctionHouseMultisellProgressFrame_RightObject = {}
+end
+
+do
+---@class AuctionHouseMultisellProgressFrame_layoutParentObject
+local AuctionHouseMultisellProgressFrame_layoutParentObject = {}
+end
+
+do
+---@class AutoFollowStatusObject : Frame
+local AutoFollowStatusObject = {}
+---@type AutoFollowStatusObject
+AutoFollowStatus = AutoFollowStatusObject
+end
+
+do
+---@class AzeriteIslandsToastObject : Frame
+---@field PartyToast AzeriteIslandsToast_PartyToastObject
+---@field PlayerToast AzeriteIslandsToast_PlayerToastObject
+local AzeriteIslandsToastObject = {}
+---@return any ...
+function AzeriteIslandsToastObject:AcquireToastFrame(...) end
+---@return any ...
+function AzeriteIslandsToastObject:AreAnyAnimationsActive(...) end
+---@return any ...
+function AzeriteIslandsToastObject:CreateAccumulator(...) end
+---@return any ...
+function AzeriteIslandsToastObject:GetAccumulator(...) end
+---@return any ...
+function AzeriteIslandsToastObject:GetToastPool(...) end
+---@return any ...
+function AzeriteIslandsToastObject:OnAnimationFinished(...) end
+---@return any ...
+function AzeriteIslandsToastObject:OnEvent(...) end
+---@return any ...
+function AzeriteIslandsToastObject:OnLoad(...) end
+---@return any ...
+function AzeriteIslandsToastObject:OnUpdate(...) end
+---@return any ...
+function AzeriteIslandsToastObject:ReleaseToastFrame(...) end
+---@return any ...
+function AzeriteIslandsToastObject:SetupTextFrame(...) end
+---@return any ...
+function AzeriteIslandsToastObject:ShowToast(...) end
+---@return any ...
+function AzeriteIslandsToastObject:ShowWidgetGlow(...) end
+---@type AzeriteIslandsToastObject
+AzeriteIslandsToast = AzeriteIslandsToastObject
+end
+
+do
+---@class AzeriteIslandsToast_PartyToastObject : Frame
+---@field ShowAnim AzeriteIslandsToast_PartyToast_ShowAnimObject
+---@field Text AzeriteIslandsToast_PartyToast_TextObject
+local AzeriteIslandsToast_PartyToastObject = {}
+end
+
+do
+---@class AzeriteIslandsToast_PartyToast_ShowAnimObject : AnimationGroup
+local AzeriteIslandsToast_PartyToast_ShowAnimObject = {}
+end
+
+do
+---@class AzeriteIslandsToast_PartyToast_TextObject : FontString
+local AzeriteIslandsToast_PartyToast_TextObject = {}
+end
+
+do
+---@class AzeriteIslandsToast_PlayerToastObject : Frame
+---@field IsPlayer boolean
+---@field ShowAnim AzeriteIslandsToast_PlayerToast_ShowAnimObject
+---@field Text AzeriteIslandsToast_PlayerToast_TextObject
+local AzeriteIslandsToast_PlayerToastObject = {}
+end
+
+do
+---@class AzeriteIslandsToast_PlayerToast_ShowAnimObject : AnimationGroup
+local AzeriteIslandsToast_PlayerToast_ShowAnimObject = {}
+end
+
+do
+---@class AzeriteIslandsToast_PlayerToast_TextObject : FontString
+local AzeriteIslandsToast_PlayerToast_TextObject = {}
+end
+
+do
+---@class AzeriteLevelUpToastObject : Frame
+---@field BottomLineLeft AzeriteLevelUpToast_BottomLineLeftObject
+---@field BottomLineRight AzeriteLevelUpToast_BottomLineRightObject
+---@field BottomRegions table
+---@field CloudyLineLMover AzeriteLevelUpToast_CloudyLineLMoverObject
+---@field CloudyLineLeft AzeriteLevelUpToast_CloudyLineLeftObject
+---@field CloudyLineRMover AzeriteLevelUpToast_CloudyLineRMoverObject
+---@field CloudyLineRight AzeriteLevelUpToast_CloudyLineRightObject
+---@field GlowLineBottom AzeriteLevelUpToast_GlowLineBottomObject
+---@field GlowLineBottomBurst AzeriteLevelUpToast_GlowLineBottomBurstObject
+---@field GlowLineTop AzeriteLevelUpToast_GlowLineTopObject
+---@field Icon AzeriteLevelUpToast_IconObject
+---@field IconEffect AzeriteLevelUpToast_IconEffectObject
+---@field IconGlowBurst AzeriteLevelUpToast_IconGlowBurstObject
+---@field IconStarBurst AzeriteLevelUpToast_IconStarBurstObject
+---@field ItemName AzeriteLevelUpToast_ItemNameObject
+---@field LineBurst1 AzeriteLevelUpToast_LineBurst1Object
+---@field LineBurst2 AzeriteLevelUpToast_LineBurst2Object
+---@field LineBurst3 AzeriteLevelUpToast_LineBurst3Object
+---@field LineBurst4 AzeriteLevelUpToast_LineBurst4Object
+---@field LineBurst5 AzeriteLevelUpToast_LineBurst5Object
+---@field ShowAnim AzeriteLevelUpToast_ShowAnimObject
+---@field Stars1 AzeriteLevelUpToast_Stars1Object
+---@field Stars2 AzeriteLevelUpToast_Stars2Object
+---@field SubTextLabel AzeriteLevelUpToast_SubTextLabelObject
+---@field TextLabel AzeriteLevelUpToast_TextLabelObject
+---@field ToastBG AzeriteLevelUpToast_ToastBGObject
+---@field UnlockItemsFrame AzeriteLevelUpToast_UnlockItemsFrameObject
+---@field WhiteIconGlow AzeriteLevelUpToast_WhiteIconGlowObject
+---@field WhiteStarBurst AzeriteLevelUpToast_WhiteStarBurstObject
+---@field itemFramePool AzeriteLevelUpToast_itemFramePoolObject
+local AzeriteLevelUpToastObject = {}
+---@return any ...
+function AzeriteLevelUpToastObject:OnAnimFinished(...) end
+---@return any ...
+function AzeriteLevelUpToastObject:OnEvent(...) end
+---@return any ...
+function AzeriteLevelUpToastObject:OnHide(...) end
+---@return any ...
+function AzeriteLevelUpToastObject:OnLoad(...) end
+---@return any ...
+function AzeriteLevelUpToastObject:OnShow(...) end
+---@return any ...
+function AzeriteLevelUpToastObject:PlayAzeriteItemPowerToast(...) end
+---@return any ...
+function AzeriteLevelUpToastObject:PlayBanner(...) end
+---@return any ...
+function AzeriteLevelUpToastObject:SetUpAzeriteMilestoneUnlocks(...) end
+---@return any ...
+function AzeriteLevelUpToastObject:SetUpUnlockedEmpoweredItems(...) end
+---@return any ...
+function AzeriteLevelUpToastObject:SetupModelScene(...) end
+---@return any ...
+function AzeriteLevelUpToastObject:StopBanner(...) end
+---@type AzeriteLevelUpToastObject
+AzeriteLevelUpToast = AzeriteLevelUpToastObject
+end
+
+do
+---@class AzeriteLevelUpToast_BottomLineLeftObject : Texture
+local AzeriteLevelUpToast_BottomLineLeftObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_BottomLineRightObject : Texture
+local AzeriteLevelUpToast_BottomLineRightObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_CloudyLineLMoverObject : Texture
+local AzeriteLevelUpToast_CloudyLineLMoverObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_CloudyLineLeftObject : Texture
+local AzeriteLevelUpToast_CloudyLineLeftObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_CloudyLineRMoverObject : Texture
+local AzeriteLevelUpToast_CloudyLineRMoverObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_CloudyLineRightObject : Texture
+local AzeriteLevelUpToast_CloudyLineRightObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_GlowLineBottomObject : Texture
+local AzeriteLevelUpToast_GlowLineBottomObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_GlowLineBottomBurstObject : Texture
+local AzeriteLevelUpToast_GlowLineBottomBurstObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_GlowLineTopObject : Texture
+local AzeriteLevelUpToast_GlowLineTopObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_IconObject : Texture
+local AzeriteLevelUpToast_IconObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_IconEffectObject
+---@field actorTemplate string
+---@field cameras table
+---@field tagToActor table
+---@field tagToCamera table
+local AzeriteLevelUpToast_IconEffectObject = {}
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:AcquireActor(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:AcquireAndInitializeActor(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:AddCamera(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:AddOrUpdateDropShadow(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:AdjustCameraYaw(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:AttachPlayerToMount(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:ClearScene(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:CreateActorFromScene(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:CreateCameraFromScene(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:CreateOrTransitionActorFromScene(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:CreateOrTransitionCameraFromScene(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:EnumerateActiveActors(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:GetActiveCamera(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:GetActorByTag(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:GetCameraByTag(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:GetModelSceneID(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:GetNumActiveActors(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:GetOrAcquireDropShadow(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:GetPlayerActor(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:HasActiveCamera(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:InitializeActor(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:IsLeftMouseButtonDown(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:IsRightMouseButtonDown(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:OnEnter(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:OnLeave(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:OnLoad(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:OnMouseDown(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:OnMouseUp(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:OnMouseWheel(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:OnUpdate(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:ReleaseActor(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:ReleaseAllActors(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:ReleaseAllCameras(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:Reset(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:SetActiveCamera(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:SetFromModelSceneID(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:SetResetCallback(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:ShowAndAnimateActors(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:StopCameraYaw(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:SynchronizeActiveCamera(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:Transform3DPointTo2D(...) end
+---@return any ...
+function AzeriteLevelUpToast_IconEffectObject:TransitionToModelSceneID(...) end
+end
+
+do
+---@class AzeriteLevelUpToast_IconGlowBurstObject : Texture
+local AzeriteLevelUpToast_IconGlowBurstObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_IconStarBurstObject : Texture
+local AzeriteLevelUpToast_IconStarBurstObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_ItemNameObject : FontString
+local AzeriteLevelUpToast_ItemNameObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_LineBurst1Object : Texture
+local AzeriteLevelUpToast_LineBurst1Object = {}
+end
+
+do
+---@class AzeriteLevelUpToast_LineBurst2Object : Texture
+local AzeriteLevelUpToast_LineBurst2Object = {}
+end
+
+do
+---@class AzeriteLevelUpToast_LineBurst3Object : Texture
+local AzeriteLevelUpToast_LineBurst3Object = {}
+end
+
+do
+---@class AzeriteLevelUpToast_LineBurst4Object : Texture
+local AzeriteLevelUpToast_LineBurst4Object = {}
+end
+
+do
+---@class AzeriteLevelUpToast_LineBurst5Object : Texture
+local AzeriteLevelUpToast_LineBurst5Object = {}
+end
+
+do
+---@class AzeriteLevelUpToast_ShowAnimObject : AnimationGroup
+---@field BGScaleAnim AzeriteLevelUpToast_ShowAnim_BGScaleAnimObject
+---@field GlowLineBottomTranslation AzeriteLevelUpToast_ShowAnim_GlowLineBottomTranslationObject
+local AzeriteLevelUpToast_ShowAnimObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_ShowAnim_BGScaleAnimObject : Scale
+local AzeriteLevelUpToast_ShowAnim_BGScaleAnimObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_ShowAnim_GlowLineBottomTranslationObject : Translation
+local AzeriteLevelUpToast_ShowAnim_GlowLineBottomTranslationObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_Stars1Object : Texture
+local AzeriteLevelUpToast_Stars1Object = {}
+end
+
+do
+---@class AzeriteLevelUpToast_Stars2Object : Texture
+local AzeriteLevelUpToast_Stars2Object = {}
+end
+
+do
+---@class AzeriteLevelUpToast_SubTextLabelObject : FontString
+local AzeriteLevelUpToast_SubTextLabelObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_TextLabelObject : FontString
+local AzeriteLevelUpToast_TextLabelObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_ToastBGObject : Texture
+local AzeriteLevelUpToast_ToastBGObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_UnlockItemsFrameObject : Frame
+---@field EssenceRankedFrame AzeriteLevelUpToast_UnlockItemsFrame_EssenceRankedFrameObject
+---@field EssenceSlotFrame AzeriteLevelUpToast_UnlockItemsFrame_EssenceSlotFrameObject
+---@field EssenceStaminaFrame AzeriteLevelUpToast_UnlockItemsFrame_EssenceStaminaFrameObject
+---@field Frames table
+local AzeriteLevelUpToast_UnlockItemsFrameObject = {}
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:AddLayoutChildren(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:CalculateFrameSize(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:ClearFixedSize(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:GetAdditionalRegions(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:GetChildHeight(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:GetChildPadding(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:GetChildSize(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:GetChildWidth(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:GetFixedHeight(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:GetFixedSize(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:GetFixedWidth(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:GetHeightPadding(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:GetLayoutChildren(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:GetPadding(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:GetWidthPadding(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:IsDirty(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:IsLayoutFrame(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:Layout(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:LayoutChildren(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:MarkClean(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:MarkDirty(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:OnCleaned(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:OnShow(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:OnUpdate(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:SetFixedHeight(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:SetFixedSize(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:SetFixedWidth(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:SetHeightPadding(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:SetWidthPadding(...) end
+---@return any ...
+function AzeriteLevelUpToast_UnlockItemsFrameObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class AzeriteLevelUpToast_UnlockItemsFrame_EssenceRankedFrameObject : Frame
+---@field Border AzeriteLevelUpToast_UnlockItemsFrame_EssenceRankedFrame_BorderObject
+---@field DiamondMask AzeriteLevelUpToast_UnlockItemsFrame_EssenceRankedFrame_DiamondMaskObject
+---@field Icon AzeriteLevelUpToast_UnlockItemsFrame_EssenceRankedFrame_IconObject
+---@field layoutIndex number
+local AzeriteLevelUpToast_UnlockItemsFrame_EssenceRankedFrameObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_UnlockItemsFrame_EssenceRankedFrame_BorderObject : Texture
+local AzeriteLevelUpToast_UnlockItemsFrame_EssenceRankedFrame_BorderObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_UnlockItemsFrame_EssenceRankedFrame_DiamondMaskObject : MaskTexture
+local AzeriteLevelUpToast_UnlockItemsFrame_EssenceRankedFrame_DiamondMaskObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_UnlockItemsFrame_EssenceRankedFrame_IconObject : Texture
+local AzeriteLevelUpToast_UnlockItemsFrame_EssenceRankedFrame_IconObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_UnlockItemsFrame_EssenceSlotFrameObject : Frame
+---@field GlassCover AzeriteLevelUpToast_UnlockItemsFrame_EssenceSlotFrame_GlassCoverObject
+---@field Ring AzeriteLevelUpToast_UnlockItemsFrame_EssenceSlotFrame_RingObject
+---@field layoutIndex number
+local AzeriteLevelUpToast_UnlockItemsFrame_EssenceSlotFrameObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_UnlockItemsFrame_EssenceSlotFrame_GlassCoverObject : Texture
+local AzeriteLevelUpToast_UnlockItemsFrame_EssenceSlotFrame_GlassCoverObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_UnlockItemsFrame_EssenceSlotFrame_RingObject : Texture
+local AzeriteLevelUpToast_UnlockItemsFrame_EssenceSlotFrame_RingObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_UnlockItemsFrame_EssenceStaminaFrameObject : Frame
+---@field Icon AzeriteLevelUpToast_UnlockItemsFrame_EssenceStaminaFrame_IconObject
+---@field layoutIndex number
+local AzeriteLevelUpToast_UnlockItemsFrame_EssenceStaminaFrameObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_UnlockItemsFrame_EssenceStaminaFrame_IconObject : Texture
+local AzeriteLevelUpToast_UnlockItemsFrame_EssenceStaminaFrame_IconObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_WhiteIconGlowObject : Texture
+local AzeriteLevelUpToast_WhiteIconGlowObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_WhiteStarBurstObject : Texture
+local AzeriteLevelUpToast_WhiteStarBurstObject = {}
+end
+
+do
+---@class AzeriteLevelUpToast_itemFramePoolObject
+local AzeriteLevelUpToast_itemFramePoolObject = {}
+---@return any ...
+function AzeriteLevelUpToast_itemFramePoolObject:GetTemplate(...) end
+---@return any ...
+function AzeriteLevelUpToast_itemFramePoolObject:private(...) end
+end
+
+do
+---@class BNToastFrameObject : Button
+---@field BNToastEvents BNToastFrame_BNToastEventsObject
+---@field BNToasts table
+---@field BottomEdge BNToastFrame_BottomEdgeObject
+---@field BottomLeftCorner BNToastFrame_BottomLeftCornerObject
+---@field BottomLine BNToastFrame_BottomLineObject
+---@field BottomRightCorner BNToastFrame_BottomRightCornerObject
+---@field Center BNToastFrame_CenterObject
+---@field CloseButton BNToastFrame_CloseButtonObject
+---@field DoubleLine BNToastFrame_DoubleLineObject
+---@field IconTexture BNToastFrame_IconTextureObject
+---@field LeftEdge BNToastFrame_LeftEdgeObject
+---@field MiddleLine BNToastFrame_MiddleLineObject
+---@field RightEdge BNToastFrame_RightEdgeObject
+---@field TooltipFrame BNToastFrame_TooltipFrameObject
+---@field TopEdge BNToastFrame_TopEdgeObject
+---@field TopLeftCorner BNToastFrame_TopLeftCornerObject
+---@field TopLine BNToastFrame_TopLineObject
+---@field TopRightCorner BNToastFrame_TopRightCornerObject
+---@field alertContainer BNToastFrame_alertContainerObject
+---@field animIn BNToastFrame_animInObject
+---@field backdropInfo BNToastFrame_backdropInfoObject
+---@field duration string
+---@field glow BNToastFrame_glowObject
+---@field waitAndAnimOut BNToastFrame_waitAndAnimOutObject
+local BNToastFrameObject = {}
+---@return any ...
+function BNToastFrameObject:AddToast(...) end
+---@return any ...
+function BNToastFrameObject:ApplyBackdrop(...) end
+---@return any ...
+function BNToastFrameObject:BlockFailed(...) end
+---@return any ...
+function BNToastFrameObject:CheckShowToast(...) end
+---@return any ...
+function BNToastFrameObject:ClearBackdrop(...) end
+---@return any ...
+function BNToastFrameObject:ClearToasts(...) end
+---@return any ...
+function BNToastFrameObject:DisableToasts(...) end
+---@return any ...
+function BNToastFrameObject:EnableToasts(...) end
+---@return any ...
+function BNToastFrameObject:GetAlertContainer(...) end
+---@return any ...
+function BNToastFrameObject:GetBackdrop(...) end
+---@return any ...
+function BNToastFrameObject:GetBackdropBorderColor(...) end
+---@return any ...
+function BNToastFrameObject:GetBackdropColor(...) end
+---@return any ...
+function BNToastFrameObject:GetEdgeSize(...) end
+---@return any ...
+function BNToastFrameObject:HasBackdropInfo(...) end
+---@return any ...
+function BNToastFrameObject:ManagesOwnOutroAnimation(...) end
+---@return any ...
+function BNToastFrameObject:OnBackdropLoaded(...) end
+---@return any ...
+function BNToastFrameObject:OnBackdropSizeChanged(...) end
+---@return any ...
+function BNToastFrameObject:OnClick(...) end
+---@return any ...
+function BNToastFrameObject:OnCustomMessageChanged(...) end
+---@return any ...
+function BNToastFrameObject:OnEnter(...) end
+---@return any ...
+function BNToastFrameObject:OnEvent(...) end
+---@return any ...
+function BNToastFrameObject:OnHide(...) end
+---@return any ...
+function BNToastFrameObject:OnLeave(...) end
+---@return any ...
+function BNToastFrameObject:OnLoad(...) end
+---@return any ...
+function BNToastFrameObject:OnManagedAlertFrameVisibilityChanged(...) end
+---@return any ...
+function BNToastFrameObject:OnPostHide(...) end
+---@return any ...
+function BNToastFrameObject:OnPostShow(...) end
+---@return any ...
+function BNToastFrameObject:OnVariablesLoaded(...) end
+---@return any ...
+function BNToastFrameObject:RemoveToast(...) end
+---@return any ...
+function BNToastFrameObject:SetAlertContainer(...) end
+---@return any ...
+function BNToastFrameObject:SetBackdrop(...) end
+---@return any ...
+function BNToastFrameObject:SetBackdropBorderColor(...) end
+---@return any ...
+function BNToastFrameObject:SetBackdropColor(...) end
+---@return any ...
+function BNToastFrameObject:SetBorderBlendMode(...) end
+---@return any ...
+function BNToastFrameObject:SetExternallyManagedOutroAnimation(...) end
+---@return any ...
+function BNToastFrameObject:SetToastsEnabled(...) end
+---@return any ...
+function BNToastFrameObject:SetupPieceVisuals(...) end
+---@return any ...
+function BNToastFrameObject:SetupTextureCoordinates(...) end
+---@return any ...
+function BNToastFrameObject:ShowToast(...) end
+---@return any ...
+function BNToastFrameObject:UpdateToastEvent(...) end
+---@type BNToastFrameObject
+BNToastFrame = BNToastFrameObject
+end
+
+do
+---@class BNToastFrame_BNToastEventsObject
+---@field showToastBroadcast table
+---@field showToastClubInvitation table
+---@field showToastFriendRequest table
+---@field showToastOffline table
+---@field showToastOnline table
+local BNToastFrame_BNToastEventsObject = {}
+end
+
+do
+---@class BNToastFrame_BottomEdgeObject : Texture
+local BNToastFrame_BottomEdgeObject = {}
+end
+
+do
+---@class BNToastFrame_BottomLeftCornerObject : Texture
+local BNToastFrame_BottomLeftCornerObject = {}
+end
+
+do
+---@class BNToastFrame_BottomLineObject : FontString
+local BNToastFrame_BottomLineObject = {}
+end
+
+do
+---@class BNToastFrame_BottomRightCornerObject : Texture
+local BNToastFrame_BottomRightCornerObject = {}
+end
+
+do
+---@class BNToastFrame_CenterObject : Texture
+local BNToastFrame_CenterObject = {}
+end
+
+do
+---@class BNToastFrame_CloseButtonObject : Button
+local BNToastFrame_CloseButtonObject = {}
+---@return any ...
+function BNToastFrame_CloseButtonObject:OnClick(...) end
+---@return any ...
+function BNToastFrame_CloseButtonObject:OnEnter(...) end
+---@return any ...
+function BNToastFrame_CloseButtonObject:OnLeave(...) end
+end
+
+do
+---@class BNToastFrame_DoubleLineObject : FontString
+local BNToastFrame_DoubleLineObject = {}
+end
+
+do
+---@class BNToastFrame_IconTextureObject : Texture
+local BNToastFrame_IconTextureObject = {}
+end
+
+do
+---@class BNToastFrame_LeftEdgeObject : Texture
+local BNToastFrame_LeftEdgeObject = {}
+end
+
+do
+---@class BNToastFrame_MiddleLineObject : FontString
+local BNToastFrame_MiddleLineObject = {}
+end
+
+do
+---@class BNToastFrame_RightEdgeObject : Texture
+local BNToastFrame_RightEdgeObject = {}
+end
+
+do
+---@class BNToastFrame_TooltipFrameObject : Frame
+---@field NineSlice BNToastFrame_TooltipFrame_NineSliceObject
+---@field Text BNToastFrame_TooltipFrame_TextObject
+---@field layoutType string
+local BNToastFrame_TooltipFrameObject = {}
+---@return any ...
+function BNToastFrame_TooltipFrameObject:GetBackdropBorderColor(...) end
+---@return any ...
+function BNToastFrame_TooltipFrameObject:GetBackdropColor(...) end
+---@return any ...
+function BNToastFrame_TooltipFrameObject:SetBackdropBorderColor(...) end
+---@return any ...
+function BNToastFrame_TooltipFrameObject:SetBackdropColor(...) end
+---@return any ...
+function BNToastFrame_TooltipFrameObject:SetBorderBlendMode(...) end
+---@return any ...
+function BNToastFrame_TooltipFrameObject:TooltipBackdropOnLoad(...) end
+end
+
+do
+---@class BNToastFrame_TooltipFrame_NineSliceObject : Frame
+---@field BottomEdge BNToastFrame_TooltipFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner BNToastFrame_TooltipFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner BNToastFrame_TooltipFrame_NineSlice_BottomRightCornerObject
+---@field Center BNToastFrame_TooltipFrame_NineSlice_CenterObject
+---@field LeftEdge BNToastFrame_TooltipFrame_NineSlice_LeftEdgeObject
+---@field RightEdge BNToastFrame_TooltipFrame_NineSlice_RightEdgeObject
+---@field TopEdge BNToastFrame_TooltipFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner BNToastFrame_TooltipFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner BNToastFrame_TooltipFrame_NineSlice_TopRightCornerObject
+local BNToastFrame_TooltipFrame_NineSliceObject = {}
+---@return any ...
+function BNToastFrame_TooltipFrame_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function BNToastFrame_TooltipFrame_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function BNToastFrame_TooltipFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function BNToastFrame_TooltipFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function BNToastFrame_TooltipFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function BNToastFrame_TooltipFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function BNToastFrame_TooltipFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function BNToastFrame_TooltipFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function BNToastFrame_TooltipFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function BNToastFrame_TooltipFrame_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class BNToastFrame_TooltipFrame_NineSlice_BottomEdgeObject : Texture
+local BNToastFrame_TooltipFrame_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class BNToastFrame_TooltipFrame_NineSlice_BottomLeftCornerObject : Texture
+local BNToastFrame_TooltipFrame_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class BNToastFrame_TooltipFrame_NineSlice_BottomRightCornerObject : Texture
+local BNToastFrame_TooltipFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class BNToastFrame_TooltipFrame_NineSlice_CenterObject : Texture
+local BNToastFrame_TooltipFrame_NineSlice_CenterObject = {}
+end
+
+do
+---@class BNToastFrame_TooltipFrame_NineSlice_LeftEdgeObject : Texture
+local BNToastFrame_TooltipFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class BNToastFrame_TooltipFrame_NineSlice_RightEdgeObject : Texture
+local BNToastFrame_TooltipFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class BNToastFrame_TooltipFrame_NineSlice_TopEdgeObject : Texture
+local BNToastFrame_TooltipFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class BNToastFrame_TooltipFrame_NineSlice_TopLeftCornerObject : Texture
+local BNToastFrame_TooltipFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class BNToastFrame_TooltipFrame_NineSlice_TopRightCornerObject : Texture
+local BNToastFrame_TooltipFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class BNToastFrame_TooltipFrame_TextObject : FontString
+local BNToastFrame_TooltipFrame_TextObject = {}
+end
+
+do
+---@class BNToastFrame_TopEdgeObject : Texture
+local BNToastFrame_TopEdgeObject = {}
+end
+
+do
+---@class BNToastFrame_TopLeftCornerObject : Texture
+local BNToastFrame_TopLeftCornerObject = {}
+end
+
+do
+---@class BNToastFrame_TopLineObject : FontString
+local BNToastFrame_TopLineObject = {}
+end
+
+do
+---@class BNToastFrame_TopRightCornerObject : Texture
+local BNToastFrame_TopRightCornerObject = {}
+end
+
+do
+---@class BNToastFrame_alertContainerObject
+local BNToastFrame_alertContainerObject = {}
+end
+
+do
+---@class BNToastFrame_animInObject : AnimationGroup
+local BNToastFrame_animInObject = {}
+end
+
+do
+---@class BNToastFrame_backdropInfoObject
+---@field bgFile string
+---@field edgeFile string
+---@field edgeSize number
+---@field insets table
+---@field tile boolean
+---@field tileEdge boolean
+---@field tileSize number
+local BNToastFrame_backdropInfoObject = {}
+end
+
+do
+---@class BNToastFrame_glowObject : Texture
+---@field animIn BNToastFrame_glow_animInObject
+local BNToastFrame_glowObject = {}
+end
+
+do
+---@class BNToastFrame_glow_animInObject : AnimationGroup
+local BNToastFrame_glow_animInObject = {}
+end
+
+do
+---@class BNToastFrame_waitAndAnimOutObject : AnimationGroup
+---@field animOut BNToastFrame_waitAndAnimOut_animOutObject
+local BNToastFrame_waitAndAnimOutObject = {}
+---@return any ...
+function BNToastFrame_waitAndAnimOutObject:OnFinished(...) end
+end
+
+do
+---@class BNToastFrame_waitAndAnimOut_animOutObject : Alpha
+local BNToastFrame_waitAndAnimOut_animOutObject = {}
+end
+
+do
+---@class BackpackTokenFrameObject : Frame
+---@field Border BackpackTokenFrame_BorderObject
+---@field Tokens table
+---@field numWatchedTokens number
+---@field tokenPool BackpackTokenFrame_tokenPoolObject
+---@field tokenWidth number
+local BackpackTokenFrameObject = {}
+---@return any ...
+function BackpackTokenFrameObject:CleanDirty(...) end
+---@return any ...
+function BackpackTokenFrameObject:GetInitialTokenAnchor(...) end
+---@return any ...
+function BackpackTokenFrameObject:GetMaxTokensWatched(...) end
+---@return any ...
+function BackpackTokenFrameObject:GetNumWatchedTokens(...) end
+---@return any ...
+function BackpackTokenFrameObject:GetTokenLayout(...) end
+---@return any ...
+function BackpackTokenFrameObject:IsCombined(...) end
+---@return any ...
+function BackpackTokenFrameObject:MarkDirty(...) end
+---@return any ...
+function BackpackTokenFrameObject:OnEvent(...) end
+---@return any ...
+function BackpackTokenFrameObject:OnHide(...) end
+---@return any ...
+function BackpackTokenFrameObject:OnLoad(...) end
+---@return any ...
+function BackpackTokenFrameObject:OnShow(...) end
+---@return any ...
+function BackpackTokenFrameObject:SetIsCombinedInventory(...) end
+---@return any ...
+function BackpackTokenFrameObject:ShouldShow(...) end
+---@return any ...
+function BackpackTokenFrameObject:Update(...) end
+---@return any ...
+function BackpackTokenFrameObject:UpdateIfVisible(...) end
+---@return any ...
+function BackpackTokenFrameObject:UpdateTokenAnchoring(...) end
+---@type BackpackTokenFrameObject
+BackpackTokenFrame = BackpackTokenFrameObject
+end
+
+do
+---@class BackpackTokenFrame_BorderObject : Frame
+---@field Left BackpackTokenFrame_Border_LeftObject
+---@field Middle BackpackTokenFrame_Border_MiddleObject
+---@field Right BackpackTokenFrame_Border_RightObject
+---@field centerEdge string
+---@field leftEdge string
+---@field rightEdge string
+local BackpackTokenFrame_BorderObject = {}
+---@return any ...
+function BackpackTokenFrame_BorderObject:OnLoad(...) end
+---@return any ...
+function BackpackTokenFrame_BorderObject:SetupPiece(...) end
+end
+
+do
+---@class BackpackTokenFrame_Border_LeftObject : Texture
+local BackpackTokenFrame_Border_LeftObject = {}
+end
+
+do
+---@class BackpackTokenFrame_Border_MiddleObject : Texture
+local BackpackTokenFrame_Border_MiddleObject = {}
+end
+
+do
+---@class BackpackTokenFrame_Border_RightObject : Texture
+local BackpackTokenFrame_Border_RightObject = {}
+end
+
+do
+---@class BackpackTokenFrame_tokenPoolObject
+local BackpackTokenFrame_tokenPoolObject = {}
+---@return any ...
+function BackpackTokenFrame_tokenPoolObject:GetTemplate(...) end
+---@return any ...
+function BackpackTokenFrame_tokenPoolObject:private(...) end
+end
+
+do
+---@class BankCleanUpConfirmationPopupObject : Frame
+---@field AcceptButton BankCleanUpConfirmationPopup_AcceptButtonObject
+---@field Border BankCleanUpConfirmationPopup_BorderObject
+---@field CancelButton BankCleanUpConfirmationPopup_CancelButtonObject
+---@field HidePopupCheckbox BankCleanUpConfirmationPopup_HidePopupCheckboxObject
+---@field Text BankCleanUpConfirmationPopup_TextObject
+---@field heightPadding number
+---@field minimumWidth number
+local BankCleanUpConfirmationPopupObject = {}
+---@return any ...
+function BankCleanUpConfirmationPopupObject:AddLayoutChildren(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:ClearFixedSize(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:GetActiveBankType(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:GetAdditionalRegions(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:GetBankPanel(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:GetBankTabSettingsMenu(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:GetChildHeight(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:GetChildSize(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:GetChildWidth(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:GetFixedHeight(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:GetFixedSize(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:GetFixedWidth(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:GetHeightPadding(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:GetLayoutChildren(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:GetMaximumWidth(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:GetMinimumWidth(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:GetWidthPadding(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:IsActiveBankTypeLocked(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:IsDirty(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:IsLayoutFrame(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:Layout(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:MarkClean(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:MarkDirty(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:OnCleaned(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:OnLoad(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:OnShow(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:OnUpdate(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:RefreshConfirmationText(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:SetFixedHeight(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:SetFixedSize(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:SetFixedWidth(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:SetHeightPadding(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:SetMaximumWidth(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:SetMinimumWidth(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:SetWidthPadding(...) end
+---@return any ...
+function BankCleanUpConfirmationPopupObject:ShouldClearOnUpdateAfterClean(...) end
+---@type BankCleanUpConfirmationPopupObject
+BankCleanUpConfirmationPopup = BankCleanUpConfirmationPopupObject
+end
+
+do
+---@class BankCleanUpConfirmationPopup_AcceptButtonObject : Button
+---@field Left BankCleanUpConfirmationPopup_AcceptButton_LeftObject
+---@field Middle BankCleanUpConfirmationPopup_AcceptButton_MiddleObject
+---@field Right BankCleanUpConfirmationPopup_AcceptButton_RightObject
+---@field Text BankCleanUpConfirmationPopup_AcceptButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local BankCleanUpConfirmationPopup_AcceptButtonObject = {}
+---@return any ...
+function BankCleanUpConfirmationPopup_AcceptButtonObject:FitToText(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_AcceptButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_AcceptButtonObject:OnEnter(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_AcceptButtonObject:OnLeave(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_AcceptButtonObject:SetDisabledState(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_AcceptButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_AcceptButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class BankCleanUpConfirmationPopup_AcceptButton_LeftObject : Texture
+local BankCleanUpConfirmationPopup_AcceptButton_LeftObject = {}
+end
+
+do
+---@class BankCleanUpConfirmationPopup_AcceptButton_MiddleObject : Texture
+local BankCleanUpConfirmationPopup_AcceptButton_MiddleObject = {}
+end
+
+do
+---@class BankCleanUpConfirmationPopup_AcceptButton_RightObject : Texture
+local BankCleanUpConfirmationPopup_AcceptButton_RightObject = {}
+end
+
+do
+---@class BankCleanUpConfirmationPopup_AcceptButton_TextObject : FontString
+local BankCleanUpConfirmationPopup_AcceptButton_TextObject = {}
+end
+
+do
+---@class BankCleanUpConfirmationPopup_BorderObject : Frame
+---@field Bg BankCleanUpConfirmationPopup_Border_BgObject
+---@field BottomEdge BankCleanUpConfirmationPopup_Border_BottomEdgeObject
+---@field BottomLeftCorner BankCleanUpConfirmationPopup_Border_BottomLeftCornerObject
+---@field BottomRightCorner BankCleanUpConfirmationPopup_Border_BottomRightCornerObject
+---@field LeftEdge BankCleanUpConfirmationPopup_Border_LeftEdgeObject
+---@field RightEdge BankCleanUpConfirmationPopup_Border_RightEdgeObject
+---@field TopEdge BankCleanUpConfirmationPopup_Border_TopEdgeObject
+---@field TopLeftCorner BankCleanUpConfirmationPopup_Border_TopLeftCornerObject
+---@field TopRightCorner BankCleanUpConfirmationPopup_Border_TopRightCornerObject
+---@field layoutType string
+local BankCleanUpConfirmationPopup_BorderObject = {}
+---@return any ...
+function BankCleanUpConfirmationPopup_BorderObject:GetBorderColor(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_BorderObject:GetCenterColor(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_BorderObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_BorderObject:GetFrameLayoutType(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_BorderObject:OnLoad(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_BorderObject:SetBlendMode(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_BorderObject:SetBorderBlendMode(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_BorderObject:SetBorderColor(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_BorderObject:SetCenterColor(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_BorderObject:SetVertexColor(...) end
+end
+
+do
+---@class BankCleanUpConfirmationPopup_Border_BgObject : Texture
+local BankCleanUpConfirmationPopup_Border_BgObject = {}
+end
+
+do
+---@class BankCleanUpConfirmationPopup_Border_BottomEdgeObject : Texture
+local BankCleanUpConfirmationPopup_Border_BottomEdgeObject = {}
+end
+
+do
+---@class BankCleanUpConfirmationPopup_Border_BottomLeftCornerObject : Texture
+local BankCleanUpConfirmationPopup_Border_BottomLeftCornerObject = {}
+end
+
+do
+---@class BankCleanUpConfirmationPopup_Border_BottomRightCornerObject : Texture
+local BankCleanUpConfirmationPopup_Border_BottomRightCornerObject = {}
+end
+
+do
+---@class BankCleanUpConfirmationPopup_Border_LeftEdgeObject : Texture
+local BankCleanUpConfirmationPopup_Border_LeftEdgeObject = {}
+end
+
+do
+---@class BankCleanUpConfirmationPopup_Border_RightEdgeObject : Texture
+local BankCleanUpConfirmationPopup_Border_RightEdgeObject = {}
+end
+
+do
+---@class BankCleanUpConfirmationPopup_Border_TopEdgeObject : Texture
+local BankCleanUpConfirmationPopup_Border_TopEdgeObject = {}
+end
+
+do
+---@class BankCleanUpConfirmationPopup_Border_TopLeftCornerObject : Texture
+local BankCleanUpConfirmationPopup_Border_TopLeftCornerObject = {}
+end
+
+do
+---@class BankCleanUpConfirmationPopup_Border_TopRightCornerObject : Texture
+local BankCleanUpConfirmationPopup_Border_TopRightCornerObject = {}
+end
+
+do
+---@class BankCleanUpConfirmationPopup_CancelButtonObject : Button
+---@field Left BankCleanUpConfirmationPopup_CancelButton_LeftObject
+---@field Middle BankCleanUpConfirmationPopup_CancelButton_MiddleObject
+---@field Right BankCleanUpConfirmationPopup_CancelButton_RightObject
+---@field Text BankCleanUpConfirmationPopup_CancelButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local BankCleanUpConfirmationPopup_CancelButtonObject = {}
+---@return any ...
+function BankCleanUpConfirmationPopup_CancelButtonObject:FitToText(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_CancelButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_CancelButtonObject:OnEnter(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_CancelButtonObject:OnLeave(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_CancelButtonObject:SetDisabledState(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_CancelButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_CancelButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class BankCleanUpConfirmationPopup_CancelButton_LeftObject : Texture
+local BankCleanUpConfirmationPopup_CancelButton_LeftObject = {}
+end
+
+do
+---@class BankCleanUpConfirmationPopup_CancelButton_MiddleObject : Texture
+local BankCleanUpConfirmationPopup_CancelButton_MiddleObject = {}
+end
+
+do
+---@class BankCleanUpConfirmationPopup_CancelButton_RightObject : Texture
+local BankCleanUpConfirmationPopup_CancelButton_RightObject = {}
+end
+
+do
+---@class BankCleanUpConfirmationPopup_CancelButton_TextObject : FontString
+local BankCleanUpConfirmationPopup_CancelButton_TextObject = {}
+end
+
+do
+---@class BankCleanUpConfirmationPopup_HidePopupCheckboxObject : Frame
+---@field Checkbox BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject
+---@field Label BankCleanUpConfirmationPopup_HidePopupCheckbox_LabelObject
+local BankCleanUpConfirmationPopup_HidePopupCheckboxObject = {}
+end
+
+do
+---@class BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject : CheckButton
+---@field Text BankCleanUpConfirmationPopup_HidePopupCheckbox_Checkbox_TextObject
+local BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject = {}
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:AddLayoutChildren(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:ClearFixedSize(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:GetAdditionalRegions(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:GetChildHeight(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:GetChildSize(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:GetChildWidth(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:GetFixedHeight(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:GetFixedSize(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:GetFixedWidth(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:GetHeightPadding(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:GetLayoutChildren(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:GetMaximumWidth(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:GetMinimumWidth(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:GetWidthPadding(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:Init(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:IsDirty(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:IsLayoutFrame(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:Layout(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:MarkClean(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:MarkDirty(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:OnCleaned(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:OnClick(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:OnEnter(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:OnLeave(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:OnShow(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:OnUpdate(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:SetFixedHeight(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:SetFixedSize(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:SetFixedWidth(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:SetHeightPadding(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:SetMaximumWidth(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:SetMinimumWidth(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:SetTextColor(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:SetWidthPadding(...) end
+---@return any ...
+function BankCleanUpConfirmationPopup_HidePopupCheckbox_CheckboxObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class BankCleanUpConfirmationPopup_HidePopupCheckbox_Checkbox_TextObject : FontString
+local BankCleanUpConfirmationPopup_HidePopupCheckbox_Checkbox_TextObject = {}
+end
+
+do
+---@class BankCleanUpConfirmationPopup_HidePopupCheckbox_LabelObject : FontString
+local BankCleanUpConfirmationPopup_HidePopupCheckbox_LabelObject = {}
+end
+
+do
+---@class BankCleanUpConfirmationPopup_TextObject : FontString
+local BankCleanUpConfirmationPopup_TextObject = {}
+end
+
+do
+---@class BankFrameObject : Frame
+---@field Background BankFrame_BackgroundObject
+---@field BagCost BankFrame_BagCostObject
+---@field BagText BankFrame_BagTextObject
+---@field BankItemSearchBox BankFrame_BankItemSearchBoxObject
+---@field BankPanel BankFrame_BankPanelObject
+---@field Bg BankFrame_BgObject
+---@field CloseButton BankFrame_CloseButtonObject
+---@field Event BankFrame_EventObject
+---@field FocusJumpHint BankFrame_FocusJumpHintObject
+---@field FrameGlow BankFrame_FrameGlowObject
+---@field LeftJumpHint BankFrame_LeftJumpHintObject
+---@field NineSlice BankFrame_NineSliceObject
+---@field PortraitContainer BankFrame_PortraitContainerObject
+---@field RightJumpHint BankFrame_RightJumpHintObject
+---@field TabIDToBankType table
+---@field TitleContainer BankFrame_TitleContainerObject
+---@field TopTileStreaks BankFrame_TopTileStreaksObject
+---@field accountBankTabID number
+---@field bankPageTabPool BankFrame_bankPageTabPoolObject
+---@field callbackRegistrantHandlers table
+---@field callbackTables table
+---@field characterBankTabID number
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field itemButtonBagPool BankFrame_itemButtonBagPoolObject
+---@field layoutType string
+local BankFrameObject = {}
+---@return any ...
+function BankFrameObject:AddDynamicEventMethod(...) end
+---@return any ...
+function BankFrameObject:AddEventMethodInternal(...) end
+---@return any ...
+function BankFrameObject:AddIconTab(...) end
+---@return any ...
+function BankFrameObject:AddNamedTab(...) end
+---@return any ...
+function BankFrameObject:AddStaticEventMethod(...) end
+---@return any ...
+function BankFrameObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function BankFrameObject:CreateEventRegistrationInfo(...) end
+---@return any ...
+function BankFrameObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function BankFrameObject:EndFocus(...) end
+---@return any ...
+function BankFrameObject:GenerateBankTypeTabs(...) end
+---@return any ...
+function BankFrameObject:GenerateCallbackEvents(...) end
+---@return any ...
+function BankFrameObject:GetActiveBankType(...) end
+---@return any ...
+function BankFrameObject:GetCallbackTable(...) end
+---@return any ...
+function BankFrameObject:GetCallbackTables(...) end
+---@return any ...
+function BankFrameObject:GetCallbacksByEvent(...) end
+---@return any ...
+function BankFrameObject:GetDynamicCallbackRegistrantHandlers(...) end
+---@return any ...
+function BankFrameObject:GetElementsForTab(...) end
+---@return any ...
+function BankFrameObject:GetFocusFrameGlow(...) end
+---@return any ...
+function BankFrameObject:GetFocusFrameRoot(...) end
+---@return any ...
+function BankFrameObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function BankFrameObject:GetNumPagesForBankType(...) end
+---@return any ...
+function BankFrameObject:GetPortrait(...) end
+---@return any ...
+function BankFrameObject:GetStaticCallbackRegistrantHandlers(...) end
+---@return any ...
+function BankFrameObject:GetTab(...) end
+---@return any ...
+function BankFrameObject:GetTabButton(...) end
+---@return any ...
+function BankFrameObject:GetTabIDForBankType(...) end
+---@return any ...
+function BankFrameObject:GetTabSet(...) end
+---@return any ...
+function BankFrameObject:GetTitleText(...) end
+---@return any ...
+function BankFrameObject:HasPortraitTexture(...) end
+---@return any ...
+function BankFrameObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function BankFrameObject:HideFocusJumpHint(...) end
+---@return any ...
+function BankFrameObject:HideLeftJumpHint(...) end
+---@return any ...
+function BankFrameObject:HideRightJumpHint(...) end
+---@return any ...
+function BankFrameObject:InitializeTabSystem(...) end
+---@return any ...
+function BankFrameObject:LockInFocus(...) end
+---@return any ...
+function BankFrameObject:OnEvent(...) end
+---@return any ...
+function BankFrameObject:OnHide(...) end
+---@return any ...
+function BankFrameObject:OnLoad(...) end
+---@return any ...
+function BankFrameObject:OnPageInfoChanged(...) end
+---@return any ...
+function BankFrameObject:OnShow(...) end
+---@return any ...
+function BankFrameObject:OnShowOrHideBagCost(...) end
+---@return any ...
+function BankFrameObject:OnTitleUpdateRequested(...) end
+---@return any ...
+function BankFrameObject:OnTriggerSetTabEffects(...) end
+---@return any ...
+function BankFrameObject:PurchaseFirstSlot(...) end
+---@return any ...
+function BankFrameObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function BankFrameObject:RefreshAll(...) end
+---@return any ...
+function BankFrameObject:RefreshBagButtons(...) end
+---@return any ...
+function BankFrameObject:RefreshBankTabHighlights(...) end
+---@return any ...
+function BankFrameObject:RefreshFocus(...) end
+---@return any ...
+function BankFrameObject:RefreshPageTabs(...) end
+---@return any ...
+function BankFrameObject:RefreshTabVisibility(...) end
+---@return any ...
+function BankFrameObject:RegisterCallback(...) end
+---@return any ...
+function BankFrameObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function BankFrameObject:RegisterFromRegistrationInfo(...) end
+---@return any ...
+function BankFrameObject:RemoveAllTabs(...) end
+---@return any ...
+function BankFrameObject:RemoveStaticEventMethod(...) end
+---@return any ...
+function BankFrameObject:SecureInsertEvent(...) end
+---@return any ...
+function BankFrameObject:SelectDefaultTab(...) end
+---@return any ...
+function BankFrameObject:SelectFirstAvailableTab(...) end
+---@return any ...
+function BankFrameObject:SetBorder(...) end
+---@return any ...
+function BankFrameObject:SetFrameLevelsFromBaseLevel(...) end
+---@return any ...
+function BankFrameObject:SetPortraitAtlasRaw(...) end
+---@return any ...
+function BankFrameObject:SetPortraitShown(...) end
+---@return any ...
+function BankFrameObject:SetPortraitTexCoord(...) end
+---@return any ...
+function BankFrameObject:SetPortraitTextureRaw(...) end
+---@return any ...
+function BankFrameObject:SetPortraitTextureSizeAndOffset(...) end
+---@return any ...
+function BankFrameObject:SetPortraitToAsset(...) end
+---@return any ...
+function BankFrameObject:SetPortraitToBag(...) end
+---@return any ...
+function BankFrameObject:SetPortraitToClassIcon(...) end
+---@return any ...
+function BankFrameObject:SetPortraitToSpecIcon(...) end
+---@return any ...
+function BankFrameObject:SetPortraitToUnit(...) end
+---@return any ...
+function BankFrameObject:SetTab(...) end
+---@return any ...
+function BankFrameObject:SetTabCallback(...) end
+---@return any ...
+function BankFrameObject:SetTabDeselectCallback(...) end
+---@return any ...
+function BankFrameObject:SetTabIDToBankType(...) end
+---@return any ...
+function BankFrameObject:SetTabSystem(...) end
+---@return any ...
+function BankFrameObject:SetTitle(...) end
+---@return any ...
+function BankFrameObject:SetTitleColor(...) end
+---@return any ...
+function BankFrameObject:SetTitleFormatted(...) end
+---@return any ...
+function BankFrameObject:SetTitleMaxLinesAndHeight(...) end
+---@return any ...
+function BankFrameObject:SetTitleOffsets(...) end
+---@return any ...
+function BankFrameObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function BankFrameObject:ShowFocusJumpHint(...) end
+---@return any ...
+function BankFrameObject:ShowLeftJumpHint(...) end
+---@return any ...
+function BankFrameObject:ShowRightJumpHint(...) end
+---@return any ...
+function BankFrameObject:StartFocus(...) end
+---@return any ...
+function BankFrameObject:TriggerEvent(...) end
+---@return any ...
+function BankFrameObject:UnregisterAllEventMethods(...) end
+---@return any ...
+function BankFrameObject:UnregisterAllInternal(...) end
+---@return any ...
+function BankFrameObject:UnregisterCallback(...) end
+---@return any ...
+function BankFrameObject:UnregisterEvents(...) end
+---@return any ...
+function BankFrameObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function BankFrameObject:UnregisterFromRegistrationInfo(...) end
+---@return any ...
+function BankFrameObject:UpdateWidthForSelectedTab(...) end
+---@type BankFrameObject
+BankFrame = BankFrameObject
+end
+
+do
+---@class BankFrame_BackgroundObject : Texture
+local BankFrame_BackgroundObject = {}
+end
+
+do
+---@class BankFrame_BagCostObject : FontString
+local BankFrame_BagCostObject = {}
+end
+
+do
+---@class BankFrame_BagTextObject : FontString
+local BankFrame_BagTextObject = {}
+end
+
+do
+---@class BankFrame_BankItemSearchBoxObject : EditBox
+---@field Instructions BankFrame_BankItemSearchBox_InstructionsObject
+---@field Left BankFrame_BankItemSearchBox_LeftObject
+---@field Middle BankFrame_BankItemSearchBox_MiddleObject
+---@field Right BankFrame_BankItemSearchBox_RightObject
+---@field clearButton BankFrame_BankItemSearchBox_clearButtonObject
+---@field instructionText string
+---@field searchIcon BankFrame_BankItemSearchBox_searchIconObject
+local BankFrame_BankItemSearchBoxObject = {}
+---@return any ...
+function BankFrame_BankItemSearchBoxObject:NarrationGetContext(...) end
+---@return any ...
+function BankFrame_BankItemSearchBoxObject:NarrationGetDescription(...) end
+---@return any ...
+function BankFrame_BankItemSearchBoxObject:NarrationGetName(...) end
+---@return any ...
+function BankFrame_BankItemSearchBoxObject:SetNarrationLabelRegion(...) end
+end
+
+do
+---@class BankFrame_BankItemSearchBox_InstructionsObject : FontString
+local BankFrame_BankItemSearchBox_InstructionsObject = {}
+end
+
+do
+---@class BankFrame_BankItemSearchBox_LeftObject : Texture
+local BankFrame_BankItemSearchBox_LeftObject = {}
+end
+
+do
+---@class BankFrame_BankItemSearchBox_MiddleObject : Texture
+local BankFrame_BankItemSearchBox_MiddleObject = {}
+end
+
+do
+---@class BankFrame_BankItemSearchBox_RightObject : Texture
+local BankFrame_BankItemSearchBox_RightObject = {}
+end
+
+do
+---@class BankFrame_BankItemSearchBox_clearButtonObject : Button
+---@field Icon BankFrame_BankItemSearchBox_clearButton_IconObject
+local BankFrame_BankItemSearchBox_clearButtonObject = {}
+---@return any ...
+function BankFrame_BankItemSearchBox_clearButtonObject:NarrationGetName(...) end
+---@return any ...
+function BankFrame_BankItemSearchBox_clearButtonObject:OnClick(...) end
+---@return any ...
+function BankFrame_BankItemSearchBox_clearButtonObject:OnEnter(...) end
+---@return any ...
+function BankFrame_BankItemSearchBox_clearButtonObject:OnLeave(...) end
+---@return any ...
+function BankFrame_BankItemSearchBox_clearButtonObject:OnMouseDown(...) end
+---@return any ...
+function BankFrame_BankItemSearchBox_clearButtonObject:OnMouseUp(...) end
+end
+
+do
+---@class BankFrame_BankItemSearchBox_clearButton_IconObject : Texture
+local BankFrame_BankItemSearchBox_clearButton_IconObject = {}
+end
+
+do
+---@class BankFrame_BankItemSearchBox_searchIconObject : Texture
+local BankFrame_BankItemSearchBox_searchIconObject = {}
+end
+
+do
+---@class BankFrame_BankPanelObject : Frame
+---@field AutoSortButton BankFrame_BankPanel_AutoSortButtonObject
+---@field EdgeShadows BankFrame_BankPanel_EdgeShadowsObject
+---@field Event BankFrame_BankPanel_EventObject
+---@field LockPrompt BankFrame_BankPanel_LockPromptObject
+---@field MoneyDisplay BankFrame_BankPanel_MoneyDisplayObject
+---@field MoneyFrame BankFrame_BankPanel_MoneyFrameObject
+---@field NineSlice BankFrame_BankPanel_NineSliceObject
+---@field Prompts table
+---@field PurchaseButton BankFrame_BankPanel_PurchaseButtonObject
+---@field PurchasePrompt BankFrame_BankPanel_PurchasePromptObject
+---@field PurchaseTab BankFrame_BankPanel_PurchaseTabObject
+---@field TabSettingsMenu BankFrame_BankPanel_TabSettingsMenuObject
+---@field bankType number
+---@field callbackRegistrantHandlers table
+---@field callbackTables table
+---@field currentPage number
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field itemButtonPool BankFrame_BankPanel_itemButtonPoolObject
+---@field itemButtonTemplate string
+---@field layoutType string
+---@field maximumTotalSlotsPerPage number
+---@field purchasedBankTabData table
+---@field useUniformItemSlotSpacing boolean
+local BankFrame_BankPanelObject = {}
+---@return any ...
+function BankFrame_BankPanelObject:AddDynamicEventMethod(...) end
+---@return any ...
+function BankFrame_BankPanelObject:AddEventMethodInternal(...) end
+---@return any ...
+function BankFrame_BankPanelObject:AddStaticEventMethod(...) end
+---@return any ...
+function BankFrame_BankPanelObject:Clean(...) end
+---@return any ...
+function BankFrame_BankPanelObject:CloseAllBankPopups(...) end
+---@return any ...
+function BankFrame_BankPanelObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function BankFrame_BankPanelObject:CreateEventRegistrationInfo(...) end
+---@return any ...
+function BankFrame_BankPanelObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function BankFrame_BankPanelObject:EnumerateValidItems(...) end
+---@return any ...
+function BankFrame_BankPanelObject:FetchPurchasedBankTabData(...) end
+---@return any ...
+function BankFrame_BankPanelObject:FindItemButtonByBankTabAndContainerSlotID(...) end
+---@return any ...
+function BankFrame_BankPanelObject:GenerateAndPlaceOnePageOfItemButtons(...) end
+---@return any ...
+function BankFrame_BankPanelObject:GenerateCallbackEvents(...) end
+---@return any ...
+function BankFrame_BankPanelObject:GenerateItemSlotsForSelectedTab(...) end
+---@return any ...
+function BankFrame_BankPanelObject:GetActiveBankType(...) end
+---@return any ...
+function BankFrame_BankPanelObject:GetBankContainerFrame(...) end
+---@return any ...
+function BankFrame_BankPanelObject:GetCallbackTable(...) end
+---@return any ...
+function BankFrame_BankPanelObject:GetCallbackTables(...) end
+---@return any ...
+function BankFrame_BankPanelObject:GetCallbacksByEvent(...) end
+---@return any ...
+function BankFrame_BankPanelObject:GetDynamicCallbackRegistrantHandlers(...) end
+---@return any ...
+function BankFrame_BankPanelObject:GetMaximumTotalSlotsPerPage(...) end
+---@return any ...
+function BankFrame_BankPanelObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function BankFrame_BankPanelObject:GetSelectedTabData(...) end
+---@return any ...
+function BankFrame_BankPanelObject:GetSelectedTabID(...) end
+---@return any ...
+function BankFrame_BankPanelObject:GetStaticCallbackRegistrantHandlers(...) end
+---@return any ...
+function BankFrame_BankPanelObject:GetTabData(...) end
+---@return any ...
+function BankFrame_BankPanelObject:GetTotalSlotsInAllTabs(...) end
+---@return any ...
+function BankFrame_BankPanelObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function BankFrame_BankPanelObject:HideAllPrompts(...) end
+---@return any ...
+function BankFrame_BankPanelObject:InitializePurchaseTab(...) end
+---@return any ...
+function BankFrame_BankPanelObject:IsBankTypeLocked(...) end
+---@return any ...
+function BankFrame_BankPanelObject:MarkDirty(...) end
+---@return any ...
+function BankFrame_BankPanelObject:OnBankTabClicked(...) end
+---@return any ...
+function BankFrame_BankPanelObject:OnEvent(...) end
+---@return any ...
+function BankFrame_BankPanelObject:OnHide(...) end
+---@return any ...
+function BankFrame_BankPanelObject:OnLoad(...) end
+---@return any ...
+function BankFrame_BankPanelObject:OnNewBankTabSelected(...) end
+---@return any ...
+function BankFrame_BankPanelObject:OnPageSelected(...) end
+---@return any ...
+function BankFrame_BankPanelObject:OnPageSwitched(...) end
+---@return any ...
+function BankFrame_BankPanelObject:OnShow(...) end
+---@return any ...
+function BankFrame_BankPanelObject:OnUpdate(...) end
+---@return any ...
+function BankFrame_BankPanelObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function BankFrame_BankPanelObject:RefreshAllItemsForSelectedTab(...) end
+---@return any ...
+function BankFrame_BankPanelObject:RefreshBankPanel(...) end
+---@return any ...
+function BankFrame_BankPanelObject:RefreshBankTabs(...) end
+---@return any ...
+function BankFrame_BankPanelObject:RefreshHeaderText(...) end
+---@return any ...
+function BankFrame_BankPanelObject:RegisterCallback(...) end
+---@return any ...
+function BankFrame_BankPanelObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function BankFrame_BankPanelObject:RegisterFromRegistrationInfo(...) end
+---@return any ...
+function BankFrame_BankPanelObject:RemoveStaticEventMethod(...) end
+---@return any ...
+function BankFrame_BankPanelObject:RequestTitleRefresh(...) end
+---@return any ...
+function BankFrame_BankPanelObject:Reset(...) end
+---@return any ...
+function BankFrame_BankPanelObject:SecureInsertEvent(...) end
+---@return any ...
+function BankFrame_BankPanelObject:SelectFirstAvailableTab(...) end
+---@return any ...
+function BankFrame_BankPanelObject:SelectTab(...) end
+---@return any ...
+function BankFrame_BankPanelObject:SetBankType(...) end
+---@return any ...
+function BankFrame_BankPanelObject:SetHeaderEnabled(...) end
+---@return any ...
+function BankFrame_BankPanelObject:SetItemDisplayEnabled(...) end
+---@return any ...
+function BankFrame_BankPanelObject:SetMoneyFrameEnabled(...) end
+---@return any ...
+function BankFrame_BankPanelObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function BankFrame_BankPanelObject:ShouldShowLockPrompt(...) end
+---@return any ...
+function BankFrame_BankPanelObject:ShouldShowPurchasePrompt(...) end
+---@return any ...
+function BankFrame_BankPanelObject:ShowLockPrompt(...) end
+---@return any ...
+function BankFrame_BankPanelObject:ShowPurchasePrompt(...) end
+---@return any ...
+function BankFrame_BankPanelObject:ToggleButtonGlowForItemsOfBankBag(...) end
+---@return any ...
+function BankFrame_BankPanelObject:TriggerEvent(...) end
+---@return any ...
+function BankFrame_BankPanelObject:UnregisterAllEventMethods(...) end
+---@return any ...
+function BankFrame_BankPanelObject:UnregisterAllInternal(...) end
+---@return any ...
+function BankFrame_BankPanelObject:UnregisterCallback(...) end
+---@return any ...
+function BankFrame_BankPanelObject:UnregisterEvents(...) end
+---@return any ...
+function BankFrame_BankPanelObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function BankFrame_BankPanelObject:UnregisterFromRegistrationInfo(...) end
+---@return any ...
+function BankFrame_BankPanelObject:UpdateSearchResults(...) end
+end
+
+do
+---@class BankFrame_BankPanel_AutoSortButtonObject : Button
+local BankFrame_BankPanel_AutoSortButtonObject = {}
+---@return any ...
+function BankFrame_BankPanel_AutoSortButtonObject:AutoSortBank(...) end
+---@return any ...
+function BankFrame_BankPanel_AutoSortButtonObject:GetActiveBankType(...) end
+---@return any ...
+function BankFrame_BankPanel_AutoSortButtonObject:GetBankPanel(...) end
+---@return any ...
+function BankFrame_BankPanel_AutoSortButtonObject:GetBankTabSettingsMenu(...) end
+---@return any ...
+function BankFrame_BankPanel_AutoSortButtonObject:IsActiveBankTypeLocked(...) end
+---@return any ...
+function BankFrame_BankPanel_AutoSortButtonObject:OnClick(...) end
+---@return any ...
+function BankFrame_BankPanel_AutoSortButtonObject:OnEnter(...) end
+---@return any ...
+function BankFrame_BankPanel_AutoSortButtonObject:OnLeave(...) end
+---@return any ...
+function BankFrame_BankPanel_AutoSortButtonObject:ShowBestTooltipForBankType(...) end
+end
+
+do
+---@class BankFrame_BankPanel_EdgeShadowsObject : Frame
+local BankFrame_BankPanel_EdgeShadowsObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_EventObject
+---@field BankTabClicked string
+---@field NewBankTabSelected string
+local BankFrame_BankPanel_EventObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_LockPromptObject : Frame
+---@field Background BankFrame_BankPanel_LockPrompt_BackgroundObject
+---@field BottomInner BankFrame_BankPanel_LockPrompt_BottomInnerObject
+---@field BottomLeftInner BankFrame_BankPanel_LockPrompt_BottomLeftInnerObject
+---@field BottomRightInner BankFrame_BankPanel_LockPrompt_BottomRightInnerObject
+---@field LeftInner BankFrame_BankPanel_LockPrompt_LeftInnerObject
+---@field PromptText BankFrame_BankPanel_LockPrompt_PromptTextObject
+---@field RightInner BankFrame_BankPanel_LockPrompt_RightInnerObject
+---@field Title BankFrame_BankPanel_LockPrompt_TitleObject
+---@field TopInner BankFrame_BankPanel_LockPrompt_TopInnerObject
+---@field TopLeftInner BankFrame_BankPanel_LockPrompt_TopLeftInnerObject
+---@field TopRightInner BankFrame_BankPanel_LockPrompt_TopRightInnerObject
+local BankFrame_BankPanel_LockPromptObject = {}
+---@return any ...
+function BankFrame_BankPanel_LockPromptObject:GetActiveBankType(...) end
+---@return any ...
+function BankFrame_BankPanel_LockPromptObject:GetBankLockedMessage(...) end
+---@return any ...
+function BankFrame_BankPanel_LockPromptObject:GetBankPanel(...) end
+---@return any ...
+function BankFrame_BankPanel_LockPromptObject:GetBankTabSettingsMenu(...) end
+---@return any ...
+function BankFrame_BankPanel_LockPromptObject:IsActiveBankTypeLocked(...) end
+---@return any ...
+function BankFrame_BankPanel_LockPromptObject:OnLoad(...) end
+---@return any ...
+function BankFrame_BankPanel_LockPromptObject:OnShow(...) end
+---@return any ...
+function BankFrame_BankPanel_LockPromptObject:Refresh(...) end
+---@return any ...
+function BankFrame_BankPanel_LockPromptObject:SetPromptText(...) end
+---@return any ...
+function BankFrame_BankPanel_LockPromptObject:SetPromptWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_LockPromptObject:SetTitle(...) end
+end
+
+do
+---@class BankFrame_BankPanel_LockPrompt_BackgroundObject : Texture
+local BankFrame_BankPanel_LockPrompt_BackgroundObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_LockPrompt_BottomInnerObject : Texture
+local BankFrame_BankPanel_LockPrompt_BottomInnerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_LockPrompt_BottomLeftInnerObject : Texture
+local BankFrame_BankPanel_LockPrompt_BottomLeftInnerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_LockPrompt_BottomRightInnerObject : Texture
+local BankFrame_BankPanel_LockPrompt_BottomRightInnerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_LockPrompt_LeftInnerObject : Texture
+local BankFrame_BankPanel_LockPrompt_LeftInnerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_LockPrompt_PromptTextObject : FontString
+local BankFrame_BankPanel_LockPrompt_PromptTextObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_LockPrompt_RightInnerObject : Texture
+local BankFrame_BankPanel_LockPrompt_RightInnerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_LockPrompt_TitleObject : FontString
+local BankFrame_BankPanel_LockPrompt_TitleObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_LockPrompt_TopInnerObject : Texture
+local BankFrame_BankPanel_LockPrompt_TopInnerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_LockPrompt_TopLeftInnerObject : Texture
+local BankFrame_BankPanel_LockPrompt_TopLeftInnerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_LockPrompt_TopRightInnerObject : Texture
+local BankFrame_BankPanel_LockPrompt_TopRightInnerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyDisplayObject : Frame
+---@field CopperButton BankFrame_BankPanel_MoneyDisplay_CopperButtonObject
+---@field GoldButton BankFrame_BankPanel_MoneyDisplay_GoldButtonObject
+---@field SilverButton BankFrame_BankPanel_MoneyDisplay_SilverButtonObject
+---@field info BankFrame_BankPanel_MoneyDisplay_infoObject
+---@field lastArgMoney number
+---@field moneyIconsDirty boolean
+---@field moneyType string
+---@field small number
+---@field smartNavigationIgnored boolean
+---@field staticMoney number
+---@field trialErrorButton BankFrame_BankPanel_MoneyDisplay_trialErrorButtonObject
+---@field vadjust number
+local BankFrame_BankPanel_MoneyDisplayObject = {}
+---@return any ...
+function BankFrame_BankPanel_MoneyDisplayObject:OnEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyDisplayObject:OnHide(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyDisplayObject:OnLoad(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyDisplayObject:OnShow(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyDisplayObject:Refresh(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyDisplayObject:SetIsUserScaled(...) end
+end
+
+do
+---@class BankFrame_BankPanel_MoneyDisplay_CopperButtonObject : Button
+---@field NormalTexture BankFrame_BankPanel_MoneyDisplay_CopperButton_NormalTextureObject
+---@field Text BankFrame_BankPanel_MoneyDisplay_CopperButton_TextObject
+local BankFrame_BankPanel_MoneyDisplay_CopperButtonObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyDisplay_CopperButton_NormalTextureObject : Texture
+local BankFrame_BankPanel_MoneyDisplay_CopperButton_NormalTextureObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyDisplay_CopperButton_TextObject : FontString
+local BankFrame_BankPanel_MoneyDisplay_CopperButton_TextObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyDisplay_GoldButtonObject : Button
+---@field Text BankFrame_BankPanel_MoneyDisplay_GoldButton_TextObject
+local BankFrame_BankPanel_MoneyDisplay_GoldButtonObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyDisplay_GoldButton_TextObject : FontString
+local BankFrame_BankPanel_MoneyDisplay_GoldButton_TextObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyDisplay_SilverButtonObject : Button
+---@field Text BankFrame_BankPanel_MoneyDisplay_SilverButton_TextObject
+local BankFrame_BankPanel_MoneyDisplay_SilverButtonObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyDisplay_SilverButton_TextObject : FontString
+local BankFrame_BankPanel_MoneyDisplay_SilverButton_TextObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyDisplay_infoObject
+---@field collapse number
+local BankFrame_BankPanel_MoneyDisplay_infoObject = {}
+---@return any ...
+function BankFrame_BankPanel_MoneyDisplay_infoObject:UpdateFunc(...) end
+end
+
+do
+---@class BankFrame_BankPanel_MoneyDisplay_trialErrorButtonObject : Texture
+local BankFrame_BankPanel_MoneyDisplay_trialErrorButtonObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyFrameObject : Frame
+---@field Border BankFrame_BankPanel_MoneyFrame_BorderObject
+---@field DepositButton BankFrame_BankPanel_MoneyFrame_DepositButtonObject
+---@field MoneyDisplay BankFrame_BankPanel_MoneyFrame_MoneyDisplayObject
+---@field WithdrawButton BankFrame_BankPanel_MoneyFrame_WithdrawButtonObject
+local BankFrame_BankPanel_MoneyFrameObject = {}
+---@return any ...
+function BankFrame_BankPanel_MoneyFrameObject:GetActiveBankType(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrameObject:GetBankPanel(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrameObject:GetBankTabSettingsMenu(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrameObject:IsActiveBankTypeLocked(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrameObject:OnShow(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrameObject:Refresh(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrameObject:RefreshContents(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrameObject:SetEnabled(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrameObject:UpdateMoneyDisplayAnchoring(...) end
+end
+
+do
+---@class BankFrame_BankPanel_MoneyFrame_BorderObject : Frame
+local BankFrame_BankPanel_MoneyFrame_BorderObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyFrame_DepositButtonObject : Button
+---@field Left BankFrame_BankPanel_MoneyFrame_DepositButton_LeftObject
+---@field Middle BankFrame_BankPanel_MoneyFrame_DepositButton_MiddleObject
+---@field Right BankFrame_BankPanel_MoneyFrame_DepositButton_RightObject
+---@field Text BankFrame_BankPanel_MoneyFrame_DepositButton_TextObject
+---@field disabledTooltipAnchor string
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local BankFrame_BankPanel_MoneyFrame_DepositButtonObject = {}
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_DepositButtonObject:FitToText(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_DepositButtonObject:GetActiveBankType(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_DepositButtonObject:GetBankPanel(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_DepositButtonObject:GetBankTabSettingsMenu(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_DepositButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_DepositButtonObject:IsActiveBankTypeLocked(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_DepositButtonObject:OnClick(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_DepositButtonObject:OnEnter(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_DepositButtonObject:OnLeave(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_DepositButtonObject:Refresh(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_DepositButtonObject:SetDisabledState(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_DepositButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_DepositButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class BankFrame_BankPanel_MoneyFrame_DepositButton_LeftObject : Texture
+local BankFrame_BankPanel_MoneyFrame_DepositButton_LeftObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyFrame_DepositButton_MiddleObject : Texture
+local BankFrame_BankPanel_MoneyFrame_DepositButton_MiddleObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyFrame_DepositButton_RightObject : Texture
+local BankFrame_BankPanel_MoneyFrame_DepositButton_RightObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyFrame_DepositButton_TextObject : FontString
+local BankFrame_BankPanel_MoneyFrame_DepositButton_TextObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyFrame_MoneyDisplayObject : Frame
+---@field CopperButton BankFrame_BankPanel_MoneyFrame_MoneyDisplay_CopperButtonObject
+---@field GoldButton BankFrame_BankPanel_MoneyFrame_MoneyDisplay_GoldButtonObject
+---@field SilverButton BankFrame_BankPanel_MoneyFrame_MoneyDisplay_SilverButtonObject
+---@field info BankFrame_BankPanel_MoneyFrame_MoneyDisplay_infoObject
+---@field moneyType string
+---@field small number
+---@field smartNavigationIgnored boolean
+---@field trialErrorButton BankFrame_BankPanel_MoneyFrame_MoneyDisplay_trialErrorButtonObject
+local BankFrame_BankPanel_MoneyFrame_MoneyDisplayObject = {}
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_MoneyDisplayObject:DisableMoneyPopupFunctionality(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_MoneyDisplayObject:GetActiveBankType(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_MoneyDisplayObject:GetBankPanel(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_MoneyDisplayObject:GetBankTabSettingsMenu(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_MoneyDisplayObject:GetBestMoneyType(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_MoneyDisplayObject:IsActiveBankTypeLocked(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_MoneyDisplayObject:OnLoad(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_MoneyDisplayObject:Refresh(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_MoneyDisplayObject:SetIsUserScaled(...) end
+end
+
+do
+---@class BankFrame_BankPanel_MoneyFrame_MoneyDisplay_CopperButtonObject : Button
+---@field NormalTexture BankFrame_BankPanel_MoneyFrame_MoneyDisplay_CopperButton_NormalTextureObject
+---@field Text BankFrame_BankPanel_MoneyFrame_MoneyDisplay_CopperButton_TextObject
+local BankFrame_BankPanel_MoneyFrame_MoneyDisplay_CopperButtonObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyFrame_MoneyDisplay_CopperButton_NormalTextureObject : Texture
+local BankFrame_BankPanel_MoneyFrame_MoneyDisplay_CopperButton_NormalTextureObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyFrame_MoneyDisplay_CopperButton_TextObject : FontString
+local BankFrame_BankPanel_MoneyFrame_MoneyDisplay_CopperButton_TextObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyFrame_MoneyDisplay_GoldButtonObject : Button
+---@field Text BankFrame_BankPanel_MoneyFrame_MoneyDisplay_GoldButton_TextObject
+local BankFrame_BankPanel_MoneyFrame_MoneyDisplay_GoldButtonObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyFrame_MoneyDisplay_GoldButton_TextObject : FontString
+local BankFrame_BankPanel_MoneyFrame_MoneyDisplay_GoldButton_TextObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyFrame_MoneyDisplay_SilverButtonObject : Button
+---@field Text BankFrame_BankPanel_MoneyFrame_MoneyDisplay_SilverButton_TextObject
+local BankFrame_BankPanel_MoneyFrame_MoneyDisplay_SilverButtonObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyFrame_MoneyDisplay_SilverButton_TextObject : FontString
+local BankFrame_BankPanel_MoneyFrame_MoneyDisplay_SilverButton_TextObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyFrame_MoneyDisplay_infoObject
+---@field canPickup number
+---@field collapse number
+---@field showSmallerCoins string
+local BankFrame_BankPanel_MoneyFrame_MoneyDisplay_infoObject = {}
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_MoneyDisplay_infoObject:DropFunc(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_MoneyDisplay_infoObject:OnloadFunc(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_MoneyDisplay_infoObject:PickupFunc(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_MoneyDisplay_infoObject:UpdateFunc(...) end
+end
+
+do
+---@class BankFrame_BankPanel_MoneyFrame_MoneyDisplay_trialErrorButtonObject : Texture
+local BankFrame_BankPanel_MoneyFrame_MoneyDisplay_trialErrorButtonObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyFrame_WithdrawButtonObject : Button
+---@field Left BankFrame_BankPanel_MoneyFrame_WithdrawButton_LeftObject
+---@field Middle BankFrame_BankPanel_MoneyFrame_WithdrawButton_MiddleObject
+---@field Right BankFrame_BankPanel_MoneyFrame_WithdrawButton_RightObject
+---@field Text BankFrame_BankPanel_MoneyFrame_WithdrawButton_TextObject
+---@field disabledTooltipAnchor string
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local BankFrame_BankPanel_MoneyFrame_WithdrawButtonObject = {}
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_WithdrawButtonObject:FitToText(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_WithdrawButtonObject:GetActiveBankType(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_WithdrawButtonObject:GetBankPanel(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_WithdrawButtonObject:GetBankTabSettingsMenu(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_WithdrawButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_WithdrawButtonObject:IsActiveBankTypeLocked(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_WithdrawButtonObject:OnClick(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_WithdrawButtonObject:OnEnter(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_WithdrawButtonObject:OnLeave(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_WithdrawButtonObject:Refresh(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_WithdrawButtonObject:SetDisabledState(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_WithdrawButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function BankFrame_BankPanel_MoneyFrame_WithdrawButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class BankFrame_BankPanel_MoneyFrame_WithdrawButton_LeftObject : Texture
+local BankFrame_BankPanel_MoneyFrame_WithdrawButton_LeftObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyFrame_WithdrawButton_MiddleObject : Texture
+local BankFrame_BankPanel_MoneyFrame_WithdrawButton_MiddleObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyFrame_WithdrawButton_RightObject : Texture
+local BankFrame_BankPanel_MoneyFrame_WithdrawButton_RightObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_MoneyFrame_WithdrawButton_TextObject : FontString
+local BankFrame_BankPanel_MoneyFrame_WithdrawButton_TextObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_NineSliceObject : Frame
+---@field BottomEdge BankFrame_BankPanel_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner BankFrame_BankPanel_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner BankFrame_BankPanel_NineSlice_BottomRightCornerObject
+---@field LeftEdge BankFrame_BankPanel_NineSlice_LeftEdgeObject
+---@field RightEdge BankFrame_BankPanel_NineSlice_RightEdgeObject
+---@field TopEdge BankFrame_BankPanel_NineSlice_TopEdgeObject
+---@field TopLeftCorner BankFrame_BankPanel_NineSlice_TopLeftCornerObject
+---@field TopRightCorner BankFrame_BankPanel_NineSlice_TopRightCornerObject
+local BankFrame_BankPanel_NineSliceObject = {}
+---@return any ...
+function BankFrame_BankPanel_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function BankFrame_BankPanel_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function BankFrame_BankPanel_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function BankFrame_BankPanel_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function BankFrame_BankPanel_NineSliceObject:OnLoad(...) end
+---@return any ...
+function BankFrame_BankPanel_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function BankFrame_BankPanel_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function BankFrame_BankPanel_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function BankFrame_BankPanel_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function BankFrame_BankPanel_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class BankFrame_BankPanel_NineSlice_BottomEdgeObject : Texture
+local BankFrame_BankPanel_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_NineSlice_BottomLeftCornerObject : Texture
+local BankFrame_BankPanel_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_NineSlice_BottomRightCornerObject : Texture
+local BankFrame_BankPanel_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_NineSlice_LeftEdgeObject : Texture
+local BankFrame_BankPanel_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_NineSlice_RightEdgeObject : Texture
+local BankFrame_BankPanel_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_NineSlice_TopEdgeObject : Texture
+local BankFrame_BankPanel_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_NineSlice_TopLeftCornerObject : Texture
+local BankFrame_BankPanel_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_NineSlice_TopRightCornerObject : Texture
+local BankFrame_BankPanel_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchaseButtonObject : Button
+---@field Left BankFrame_BankPanel_PurchaseButton_LeftObject
+---@field Middle BankFrame_BankPanel_PurchaseButton_MiddleObject
+---@field Right BankFrame_BankPanel_PurchaseButton_RightObject
+---@field Text BankFrame_BankPanel_PurchaseButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local BankFrame_BankPanel_PurchaseButtonObject = {}
+---@return any ...
+function BankFrame_BankPanel_PurchaseButtonObject:FitToText(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseButtonObject:OnClick(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseButtonObject:OnEnter(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseButtonObject:OnLeave(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseButtonObject:SetDisabledState(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class BankFrame_BankPanel_PurchaseButton_LeftObject : Texture
+local BankFrame_BankPanel_PurchaseButton_LeftObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchaseButton_MiddleObject : Texture
+local BankFrame_BankPanel_PurchaseButton_MiddleObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchaseButton_RightObject : Texture
+local BankFrame_BankPanel_PurchaseButton_RightObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchaseButton_TextObject : FontString
+local BankFrame_BankPanel_PurchaseButton_TextObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePromptObject : Frame
+---@field Background BankFrame_BankPanel_PurchasePrompt_BackgroundObject
+---@field BottomInner BankFrame_BankPanel_PurchasePrompt_BottomInnerObject
+---@field BottomLeftInner BankFrame_BankPanel_PurchasePrompt_BottomLeftInnerObject
+---@field BottomRightInner BankFrame_BankPanel_PurchasePrompt_BottomRightInnerObject
+---@field LeftInner BankFrame_BankPanel_PurchasePrompt_LeftInnerObject
+---@field PromptText BankFrame_BankPanel_PurchasePrompt_PromptTextObject
+---@field RightInner BankFrame_BankPanel_PurchasePrompt_RightInnerObject
+---@field TabCostFrame BankFrame_BankPanel_PurchasePrompt_TabCostFrameObject
+---@field Title BankFrame_BankPanel_PurchasePrompt_TitleObject
+---@field TopInner BankFrame_BankPanel_PurchasePrompt_TopInnerObject
+---@field TopLeftInner BankFrame_BankPanel_PurchasePrompt_TopLeftInnerObject
+---@field TopRightInner BankFrame_BankPanel_PurchasePrompt_TopRightInnerObject
+local BankFrame_BankPanel_PurchasePromptObject = {}
+---@return any ...
+function BankFrame_BankPanel_PurchasePromptObject:GetActiveBankType(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePromptObject:GetBankPanel(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePromptObject:GetBankTabSettingsMenu(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePromptObject:IsActiveBankTypeLocked(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePromptObject:OnEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePromptObject:OnHide(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePromptObject:OnLoad(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePromptObject:OnShow(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePromptObject:Refresh(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePromptObject:SetPromptText(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePromptObject:SetPromptWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePromptObject:SetTitle(...) end
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_BackgroundObject : Texture
+local BankFrame_BankPanel_PurchasePrompt_BackgroundObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_BottomInnerObject : Texture
+local BankFrame_BankPanel_PurchasePrompt_BottomInnerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_BottomLeftInnerObject : Texture
+local BankFrame_BankPanel_PurchasePrompt_BottomLeftInnerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_BottomRightInnerObject : Texture
+local BankFrame_BankPanel_PurchasePrompt_BottomRightInnerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_LeftInnerObject : Texture
+local BankFrame_BankPanel_PurchasePrompt_LeftInnerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_PromptTextObject : FontString
+local BankFrame_BankPanel_PurchasePrompt_PromptTextObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_RightInnerObject : Texture
+local BankFrame_BankPanel_PurchasePrompt_RightInnerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_TabCostFrameObject : Frame
+---@field MoneyDisplay BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplayObject
+---@field PurchaseButton BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButtonObject
+---@field TabCost BankFrame_BankPanel_PurchasePrompt_TabCostFrame_TabCostObject
+local BankFrame_BankPanel_PurchasePrompt_TabCostFrameObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplayObject : Frame
+---@field CopperButton BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_CopperButtonObject
+---@field GoldButton BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_GoldButtonObject
+---@field SilverButton BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_SilverButtonObject
+---@field info BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_infoObject
+---@field moneyType string
+---@field small number
+---@field smartNavigationIgnored boolean
+---@field trialErrorButton BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_trialErrorButtonObject
+local BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplayObject = {}
+---@return any ...
+function BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplayObject:OnLoad(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplayObject:SetIsUserScaled(...) end
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_CopperButtonObject : Button
+---@field NormalTexture BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_CopperButton_NormalTextureObject
+---@field Text BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_CopperButton_TextObject
+local BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_CopperButtonObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_CopperButton_NormalTextureObject : Texture
+local BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_CopperButton_NormalTextureObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_CopperButton_TextObject : FontString
+local BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_CopperButton_TextObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_GoldButtonObject : Button
+---@field Text BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_GoldButton_TextObject
+local BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_GoldButtonObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_GoldButton_TextObject : FontString
+local BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_GoldButton_TextObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_SilverButtonObject : Button
+---@field Text BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_SilverButton_TextObject
+local BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_SilverButtonObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_SilverButton_TextObject : FontString
+local BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_SilverButton_TextObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_infoObject
+local BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_infoObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_trialErrorButtonObject : Texture
+local BankFrame_BankPanel_PurchasePrompt_TabCostFrame_MoneyDisplay_trialErrorButtonObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButtonObject : Button
+---@field Left BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButton_LeftObject
+---@field Middle BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButton_MiddleObject
+---@field Right BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButton_RightObject
+---@field Text BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButtonObject = {}
+---@return any ...
+function BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButtonObject:FitToText(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButtonObject:GetActiveBankType(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButtonObject:GetBankPanel(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButtonObject:GetBankTabSettingsMenu(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButtonObject:GetBankTypeForTabPurchase(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButtonObject:IsActiveBankTypeLocked(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButtonObject:OnClick(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButtonObject:OnEnter(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButtonObject:OnLeave(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButtonObject:SetDisabledState(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButton_LeftObject : Texture
+local BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButton_LeftObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButton_MiddleObject : Texture
+local BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButton_MiddleObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButton_RightObject : Texture
+local BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButton_RightObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButton_TextObject : FontString
+local BankFrame_BankPanel_PurchasePrompt_TabCostFrame_PurchaseButton_TextObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_TabCostFrame_TabCostObject : FontString
+local BankFrame_BankPanel_PurchasePrompt_TabCostFrame_TabCostObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_TitleObject : FontString
+local BankFrame_BankPanel_PurchasePrompt_TitleObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_TopInnerObject : Texture
+local BankFrame_BankPanel_PurchasePrompt_TopInnerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_TopLeftInnerObject : Texture
+local BankFrame_BankPanel_PurchasePrompt_TopLeftInnerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchasePrompt_TopRightInnerObject : Texture
+local BankFrame_BankPanel_PurchasePrompt_TopRightInnerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchaseTabObject : Button
+---@field Background BankFrame_BankPanel_PurchaseTab_BackgroundObject
+---@field Border BankFrame_BankPanel_PurchaseTab_BorderObject
+---@field Icon BankFrame_BankPanel_PurchaseTab_IconObject
+---@field SearchOverlay BankFrame_BankPanel_PurchaseTab_SearchOverlayObject
+---@field SelectedTexture BankFrame_BankPanel_PurchaseTab_SelectedTextureObject
+---@field TabContentsChangedAnim BankFrame_BankPanel_PurchaseTab_TabContentsChangedAnimObject
+---@field callbackRegistrantHandlers table
+---@field tabData BankFrame_BankPanel_PurchaseTab_tabDataObject
+local BankFrame_BankPanel_PurchaseTabObject = {}
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:AddDynamicEventMethod(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:AddEventMethodInternal(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:AddStaticEventMethod(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:CreateEventRegistrationInfo(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:GetActiveBankType(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:GetBankPanel(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:GetBankTabSettingsMenu(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:GetDynamicCallbackRegistrantHandlers(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:GetStaticCallbackRegistrantHandlers(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:Init(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:IsActiveBankTypeLocked(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:IsPurchaseTab(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:IsSelected(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:OnClick(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:OnEnter(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:OnEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:OnHide(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:OnLeave(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:OnLoad(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:OnNewBankTabSelected(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:OnShow(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:RefreshSearchOverlay(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:RefreshVisuals(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:RegisterFromRegistrationInfo(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:RemoveStaticEventMethod(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:SetEnabledState(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:ShowTooltip(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:UnregisterAllEventMethods(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:UnregisterAllInternal(...) end
+---@return any ...
+function BankFrame_BankPanel_PurchaseTabObject:UnregisterFromRegistrationInfo(...) end
+end
+
+do
+---@class BankFrame_BankPanel_PurchaseTab_BackgroundObject : Texture
+local BankFrame_BankPanel_PurchaseTab_BackgroundObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchaseTab_BorderObject : Texture
+local BankFrame_BankPanel_PurchaseTab_BorderObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchaseTab_IconObject : Texture
+local BankFrame_BankPanel_PurchaseTab_IconObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchaseTab_SearchOverlayObject : Texture
+local BankFrame_BankPanel_PurchaseTab_SearchOverlayObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchaseTab_SelectedTextureObject : Texture
+local BankFrame_BankPanel_PurchaseTab_SelectedTextureObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchaseTab_TabContentsChangedAnimObject : AnimationGroup
+local BankFrame_BankPanel_PurchaseTab_TabContentsChangedAnimObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_PurchaseTab_tabDataObject
+---@field ID number
+---@field bankType number
+local BankFrame_BankPanel_PurchaseTab_tabDataObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenuObject : Frame
+---@field BG BankFrame_BankPanel_TabSettingsMenu_BGObject
+---@field BorderBox BankFrame_BankPanel_TabSettingsMenu_BorderBoxObject
+---@field DepositSettingsMenu BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenuObject
+---@field Event BankFrame_BankPanel_TabSettingsMenu_EventObject
+---@field IconSelector BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject
+---@field callbackRegistrantHandlers table
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field editBoxHeaderText string
+---@field executingEvents table
+---@field iconFilter number
+---@field staticCallbackRegistrantHandlers table
+local BankFrame_BankPanel_TabSettingsMenuObject = {}
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:AddDynamicEventMethod(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:AddEventMethodInternal(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:AddStaticEventMethod(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:CancelButton_OnClick(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:ConfirmIcon(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:CreateEventRegistrationInfo(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:ExitIconSelector(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:GenerateCallbackEvents(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:GetActiveBankType(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:GetBankPanel(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:GetBankTabSettingsMenu(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:GetCallbackTable(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:GetCallbackTables(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:GetCallbacksByEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:GetDynamicCallbackRegistrantHandlers(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:GetIconByIndex(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:GetIconFilter(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:GetIndexOfIcon(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:GetNewTabDepositFlags(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:GetNewTabIcon(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:GetNewTabName(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:GetNumIcons(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:GetSelectedIndex(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:GetSelectedTabData(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:GetSelectedTabID(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:GetStaticCallbackRegistrantHandlers(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:GiveGamepadFocus(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:InitDepositSettingCheckboxes(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:InitializeGamepad(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:IsActiveBankTypeLocked(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:OkayButton_OnClick(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:OnEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:OnHide(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:OnLoad(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:OnNewBankTabSelected(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:OnOpenTabSettingsRequested(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:OnShow(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:OverrideInheritedAnchoring(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:ReevaluateSelectedIcon(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:RefreshIconDataProvider(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:RegisterCallback(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:RegisterForTransitions(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:RegisterFromRegistrationInfo(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:RemoveStaticEventMethod(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:SecureInsertEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:SetIconFilter(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:SetIconFilterInternal(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:SetIconFromMouse(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:SetSelectedIconText(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:SetSelectedTab(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:SetupGamepad(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:TriggerEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:UninitializeGamepad(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:UnregisterAllEventMethods(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:UnregisterAllInternal(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:UnregisterCallback(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:UnregisterEvents(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:UnregisterFromRegistrationInfo(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:Update(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:UpdateBankTabSettings(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:UpdateDropdown(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenuObject:UpdateStateFromCursorType(...) end
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BGObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_BGObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBoxObject : Frame
+---@field BottomEdge BankFrame_BankPanel_TabSettingsMenu_BorderBox_BottomEdgeObject
+---@field BottomLeftCorner BankFrame_BankPanel_TabSettingsMenu_BorderBox_BottomLeftCornerObject
+---@field BottomRightCorner BankFrame_BankPanel_TabSettingsMenu_BorderBox_BottomRightCornerObject
+---@field CancelButton BankFrame_BankPanel_TabSettingsMenu_BorderBox_CancelButtonObject
+---@field EditBoxHeaderText BankFrame_BankPanel_TabSettingsMenu_BorderBox_EditBoxHeaderTextObject
+---@field IconDragArea BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragAreaObject
+---@field IconSelectionText BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconSelectionTextObject
+---@field IconSelectorEditBox BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconSelectorEditBoxObject
+---@field IconTypeDropdown BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject
+---@field LeftEdge BankFrame_BankPanel_TabSettingsMenu_BorderBox_LeftEdgeObject
+---@field OkayButton BankFrame_BankPanel_TabSettingsMenu_BorderBox_OkayButtonObject
+---@field RightEdge BankFrame_BankPanel_TabSettingsMenu_BorderBox_RightEdgeObject
+---@field SelectedIconArea BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconAreaObject
+---@field TopEdge BankFrame_BankPanel_TabSettingsMenu_BorderBox_TopEdgeObject
+---@field TopLeftCorner BankFrame_BankPanel_TabSettingsMenu_BorderBox_TopLeftCornerObject
+---@field TopRightCorner BankFrame_BankPanel_TabSettingsMenu_BorderBox_TopRightCornerObject
+---@field layoutType string
+local BankFrame_BankPanel_TabSettingsMenu_BorderBoxObject = {}
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBoxObject:GetBorderColor(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBoxObject:GetCenterColor(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBoxObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBoxObject:GetFrameLayoutType(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBoxObject:OnLoad(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBoxObject:SetBlendMode(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBoxObject:SetBorderBlendMode(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBoxObject:SetBorderColor(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBoxObject:SetCenterColor(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBoxObject:SetVertexColor(...) end
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_BottomEdgeObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_BottomEdgeObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_BottomLeftCornerObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_BottomLeftCornerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_BottomRightCornerObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_BottomRightCornerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_CancelButtonObject : Button
+---@field Left BankFrame_BankPanel_TabSettingsMenu_BorderBox_CancelButton_LeftObject
+---@field Middle BankFrame_BankPanel_TabSettingsMenu_BorderBox_CancelButton_MiddleObject
+---@field Right BankFrame_BankPanel_TabSettingsMenu_BorderBox_CancelButton_RightObject
+---@field Text BankFrame_BankPanel_TabSettingsMenu_BorderBox_CancelButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_CancelButtonObject = {}
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_CancelButtonObject:FitToText(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_CancelButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_CancelButton_LeftObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_CancelButton_LeftObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_CancelButton_MiddleObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_CancelButton_MiddleObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_CancelButton_RightObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_CancelButton_RightObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_CancelButton_TextObject : FontString
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_CancelButton_TextObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_EditBoxHeaderTextObject : FontString
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_EditBoxHeaderTextObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragAreaObject : Frame
+---@field IconDragAreaContent BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragAreaObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject : Frame
+---@field IconDragText BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContent_IconDragTextObject
+---@field PlusIcon BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContent_PlusIconObject
+---@field expand boolean
+---@field spacing number
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject = {}
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:AddLayoutChildren(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:CalculateFrameSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:ClearFixedSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:GetAdditionalRegions(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:GetChildHeight(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:GetChildPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:GetChildSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:GetChildWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:GetFixedHeight(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:GetFixedSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:GetFixedWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:GetHeightPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:GetLayoutChildren(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:GetPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:GetWidthPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:IsDirty(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:IsLayoutFrame(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:Layout(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:LayoutChildren(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:MarkClean(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:MarkDirty(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:OnCleaned(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:OnShow(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:OnUpdate(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:SetFixedHeight(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:SetFixedSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:SetFixedWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:SetHeightPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:SetWidthPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContentObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContent_IconDragTextObject : FontString
+---@field layoutIndex number
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContent_IconDragTextObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContent_PlusIconObject : Texture
+---@field layoutIndex number
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconDragArea_IconDragAreaContent_PlusIconObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconSelectionTextObject : FontString
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconSelectionTextObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconSelectorEditBoxObject : EditBox
+---@field IconSelectorPopupNameLeft BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconSelectorEditBox_IconSelectorPopupNameLeftObject
+---@field IconSelectorPopupNameMiddle BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconSelectorEditBox_IconSelectorPopupNameMiddleObject
+---@field IconSelectorPopupNameRight BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconSelectorEditBox_IconSelectorPopupNameRightObject
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconSelectorEditBoxObject = {}
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconSelectorEditBoxObject:GetIconSelectorPopupFrame(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconSelectorEditBoxObject:OnEnterPressed(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconSelectorEditBoxObject:OnEscapePressed(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconSelectorEditBoxObject:OnTextChanged(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconSelectorEditBoxObject:SetIconSelector(...) end
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconSelectorEditBox_IconSelectorPopupNameLeftObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconSelectorEditBox_IconSelectorPopupNameLeftObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconSelectorEditBox_IconSelectorPopupNameMiddleObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconSelectorEditBox_IconSelectorPopupNameMiddleObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconSelectorEditBox_IconSelectorPopupNameRightObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconSelectorEditBox_IconSelectorPopupNameRightObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject : Button
+---@field Arrow BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_ArrowObject
+---@field Background BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_BackgroundObject
+---@field Event BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_EventObject
+---@field Text BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuAnchorObject
+---@field menuDescription BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuDescriptionObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+---@field text string
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject = {}
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:ClearMenuState(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:CloseMenu(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:CollectSelectionData(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:CreateRootDescription(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:Decrement(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:GenerateMenu(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:GetArrowAtlas(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:GetCallbackTable(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:GetCallbackTables(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:GetDefaultText(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:GetMenuDescription(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:GetSelectionData(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:GetUpdateText(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:HasElements(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:HasStickyFocus(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:Increment(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:IsDown(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:IsDownOver(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:IsMenuOpen(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:IsOver(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:NarrationGetContext(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:NarrationGetName(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:OnDisable(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:OnEnable(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:OnEnter(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:OnLeave(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:OnLoad(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:OnMenuChanged(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:OnMenuClosed(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:OnMenuOpened(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:OnMenuResponse(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:OnMouseDown(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:OnMouseUp(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:OnShow(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:OpenMenu(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:OverrideText(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:Pick(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:RegisterCallback(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:RegisterMenu(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:Rotate(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:SetDefaultText(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:SetMenuOpen(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:SetSelectionText(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:SetTooltip(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:SetupMenu(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:ShowTooltip(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:SignalUpdate(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:TriggerEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:UnregisterCallback(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:UnregisterEvents(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:Update(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:UpdateSelections(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:UpdateText(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:menuGenerator(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdownObject:selectionTranslator(...) end
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_ArrowObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_ArrowObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_BackgroundObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_BackgroundObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_EventObject
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_EventObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_TextObject : FontString
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_TextObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuAnchorObject = {}
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuAnchor_relativeToObject
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuDescriptionObject
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuDescriptionObject = {}
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuDescriptionObject:CreateButton(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuDescriptionObject:CreateCheckbox(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuDescriptionObject:CreateColorSwatch(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuDescriptionObject:CreateDivider(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuDescriptionObject:CreateFrame(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuDescriptionObject:CreateHighlightButton(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuDescriptionObject:CreateHighlightRadio(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuDescriptionObject:CreateRadio(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuDescriptionObject:CreateSearchEntry(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuDescriptionObject:CreateSpacer(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuDescriptionObject:CreateTemplate(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuDescriptionObject:CreateTitle(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuDescriptionObject:QueueDivider(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuDescriptionObject:QueueSpacer(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuDescriptionObject:QueueTitle(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuDescriptionObject:SetTooltip(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_IconTypeDropdown_menuDescriptionObject:private(...) end
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_LeftEdgeObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_LeftEdgeObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_OkayButtonObject : Button
+---@field Left BankFrame_BankPanel_TabSettingsMenu_BorderBox_OkayButton_LeftObject
+---@field Middle BankFrame_BankPanel_TabSettingsMenu_BorderBox_OkayButton_MiddleObject
+---@field Right BankFrame_BankPanel_TabSettingsMenu_BorderBox_OkayButton_RightObject
+---@field Text BankFrame_BankPanel_TabSettingsMenu_BorderBox_OkayButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_OkayButtonObject = {}
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_OkayButtonObject:FitToText(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_OkayButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_OkayButton_LeftObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_OkayButton_LeftObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_OkayButton_MiddleObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_OkayButton_MiddleObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_OkayButton_RightObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_OkayButton_RightObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_OkayButton_TextObject : FontString
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_OkayButton_TextObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_RightEdgeObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_RightEdgeObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconAreaObject : Frame
+---@field SelectedIconButton BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconButtonObject
+---@field SelectedIconText BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconAreaObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconButtonObject : Button
+---@field Highlight BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconButton_HighlightObject
+---@field Icon BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconButton_IconObject
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconButtonObject = {}
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconButtonObject:GetIconSelectorPopupFrame(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconButtonObject:GetIconTexture(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconButtonObject:OnClick(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconButtonObject:SetIconSelector(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconButtonObject:SetIconTexture(...) end
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconButton_HighlightObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconButton_HighlightObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconButton_IconObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconButton_IconObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject : Frame
+---@field SelectedIconDescription BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconText_SelectedIconDescriptionObject
+---@field SelectedIconHeader BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconText_SelectedIconHeaderObject
+---@field expand boolean
+---@field spacing number
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject = {}
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:AddLayoutChildren(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:CalculateFrameSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:ClearFixedSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:GetAdditionalRegions(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:GetChildHeight(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:GetChildPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:GetChildSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:GetChildWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:GetFixedHeight(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:GetFixedSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:GetFixedWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:GetHeightPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:GetLayoutChildren(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:GetPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:GetWidthPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:IsDirty(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:IsLayoutFrame(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:Layout(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:LayoutChildren(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:MarkClean(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:MarkDirty(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:OnCleaned(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:OnShow(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:OnUpdate(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:SetFixedHeight(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:SetFixedSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:SetFixedWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:SetHeightPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:SetWidthPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconTextObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconText_SelectedIconDescriptionObject : FontString
+---@field align string
+---@field layoutIndex number
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconText_SelectedIconDescriptionObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconText_SelectedIconHeaderObject : FontString
+---@field align string
+---@field layoutIndex number
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_SelectedIconArea_SelectedIconText_SelectedIconHeaderObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_TopEdgeObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_TopEdgeObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_TopLeftCornerObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_TopLeftCornerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_BorderBox_TopRightCornerObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_BorderBox_TopRightCornerObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenuObject : Frame
+---@field AssignConsumablesCheckbox BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject
+---@field AssignEquipmentCheckbox BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject
+---@field AssignExpansionHeader BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignExpansionHeaderObject
+---@field AssignJunkCheckbox BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject
+---@field AssignProfessionGoodsCheckbox BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject
+---@field AssignReagentsCheckbox BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject
+---@field AssignSettingsHeader BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignSettingsHeaderObject
+---@field CleanUpSettingsHeader BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_CleanUpSettingsHeaderObject
+---@field DepositSettingsCheckboxes table
+---@field ExpansionFilterDropdown BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject
+---@field IgnoreCleanUpCheckbox BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenuObject = {}
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenuObject:OnLoad(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenuObject:OnShow(...) end
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject : CheckButton
+---@field Text BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckbox_TextObject
+---@field fontObject BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckbox_fontObjectObject
+---@field settingFlag number
+---@field text string
 ---@field textWidth number
-local ChatFrame10TabObject = {}
----@type ChatFrame10TabObject
-ChatFrame10Tab = ChatFrame10TabObject
-end
-
-do
----@class ChatFrame10Tab_ActiveLeftObject : Texture
-local ChatFrame10Tab_ActiveLeftObject = {}
-end
-
-do
----@class ChatFrame10Tab_ActiveMiddleObject : Texture
-local ChatFrame10Tab_ActiveMiddleObject = {}
-end
-
-do
----@class ChatFrame10Tab_ActiveRightObject : Texture
-local ChatFrame10Tab_ActiveRightObject = {}
-end
-
-do
----@class ChatFrame10Tab_HighlightLeftObject : Texture
-local ChatFrame10Tab_HighlightLeftObject = {}
-end
-
-do
----@class ChatFrame10Tab_HighlightMiddleObject : Texture
-local ChatFrame10Tab_HighlightMiddleObject = {}
-end
-
-do
----@class ChatFrame10Tab_HighlightRightObject : Texture
-local ChatFrame10Tab_HighlightRightObject = {}
-end
-
-do
----@class ChatFrame10Tab_LeftObject : Texture
-local ChatFrame10Tab_LeftObject = {}
-end
-
-do
----@class ChatFrame10Tab_MiddleObject : Texture
-local ChatFrame10Tab_MiddleObject = {}
-end
-
-do
----@class ChatFrame10Tab_RightObject : Texture
-local ChatFrame10Tab_RightObject = {}
-end
-
-do
----@class ChatFrame10Tab_TextObject : FontString
-local ChatFrame10Tab_TextObject = {}
-end
-
-do
----@class ChatFrame10Tab_glowObject : Texture
----@field FlashAnim ChatFrame10Tab_glow_FlashAnimObject
-local ChatFrame10Tab_glowObject = {}
-end
-
-do
----@class ChatFrame10Tab_glow_FlashAnimObject : AnimationGroup
----@field syncKey string
-local ChatFrame10Tab_glow_FlashAnimObject = {}
----@return any ...
-function ChatFrame10Tab_glow_FlashAnimObject:ClearSyncedStart(...) end
----@return any ...
-function ChatFrame10Tab_glow_FlashAnimObject:GetTimeSinceSyncTimeForKey(...) end
----@return any ...
-function ChatFrame10Tab_glow_FlashAnimObject:PlaySynced(...) end
-end
-
-do
----@class ChatFrame1EditBoxObject : EditBox
----@field NewcomerHint ChatFrame1EditBox_NewcomerHintObject
----@field addHighlightedText boolean
----@field addSpaceToAutoComplete boolean
----@field buttonContext string
----@field chatFrame ChatFrame1EditBox_chatFrameObject
----@field chatLanguage string
----@field focusLeft ChatFrame1EditBox_focusLeftObject
----@field focusMid ChatFrame1EditBox_focusMidObject
----@field focusRight ChatFrame1EditBox_focusRightObject
----@field header ChatFrame1EditBox_headerObject
----@field headerSuffix ChatFrame1EditBox_headerSuffixObject
----@field language string
----@field languageHeader ChatFrame1EditBox_languageHeaderObject
----@field languageID number
----@field prompt ChatFrame1EditBox_promptObject
----@field tabCompleteTableIndex number
-local ChatFrame1EditBoxObject = {}
----@return any ...
-function ChatFrame1EditBoxObject:AddHistory(...) end
----@return any ...
-function ChatFrame1EditBoxObject:ClearChat(...) end
----@return any ...
-function ChatFrame1EditBoxObject:Deactivate(...) end
----@return any ...
-function ChatFrame1EditBoxObject:DoesCurrentChannelTargetMatch(...) end
----@return any ...
-function ChatFrame1EditBoxObject:ExtractChannel(...) end
----@return any ...
-function ChatFrame1EditBoxObject:ExtractTellTarget(...) end
----@return any ...
-function ChatFrame1EditBoxObject:GetChannelTarget(...) end
----@return any ...
-function ChatFrame1EditBoxObject:GetChatType(...) end
----@return any ...
-function ChatFrame1EditBoxObject:GetStickyType(...) end
----@return any ...
-function ChatFrame1EditBoxObject:GetTellTarget(...) end
----@return any ...
-function ChatFrame1EditBoxObject:HandleChatType(...) end
----@return any ...
-function ChatFrame1EditBoxObject:HasStickyFocus(...) end
----@return any ...
-function ChatFrame1EditBoxObject:OnChar(...) end
----@return any ...
-function ChatFrame1EditBoxObject:OnEditFocusGained(...) end
----@return any ...
-function ChatFrame1EditBoxObject:OnEditFocusLost(...) end
----@return any ...
-function ChatFrame1EditBoxObject:OnEnterPressed(...) end
----@return any ...
-function ChatFrame1EditBoxObject:OnEscapePressed(...) end
----@return any ...
-function ChatFrame1EditBoxObject:OnEvent(...) end
----@return any ...
-function ChatFrame1EditBoxObject:OnHide(...) end
----@return any ...
-function ChatFrame1EditBoxObject:OnInputLanguageChanged(...) end
----@return any ...
-function ChatFrame1EditBoxObject:OnLoad(...) end
----@return any ...
-function ChatFrame1EditBoxObject:OnPreSendText(...) end
----@return any ...
-function ChatFrame1EditBoxObject:OnShow(...) end
----@return any ...
-function ChatFrame1EditBoxObject:OnSpacePressed(...) end
----@return any ...
-function ChatFrame1EditBoxObject:OnTabPressed(...) end
----@return any ...
-function ChatFrame1EditBoxObject:OnTextChanged(...) end
----@return any ...
-function ChatFrame1EditBoxObject:OnTextSet(...) end
----@return any ...
-function ChatFrame1EditBoxObject:OnUpdate(...) end
----@return any ...
-function ChatFrame1EditBoxObject:ParseText(...) end
----@return any ...
-function ChatFrame1EditBoxObject:ProcessChatType(...) end
----@return any ...
-function ChatFrame1EditBoxObject:ResetChatType(...) end
----@return any ...
-function ChatFrame1EditBoxObject:ResetChatTypeToSticky(...) end
----@return any ...
-function ChatFrame1EditBoxObject:SecureTabPressed(...) end
----@return any ...
-function ChatFrame1EditBoxObject:SendMessage(...) end
----@return any ...
-function ChatFrame1EditBoxObject:SendText(...) end
----@return any ...
-function ChatFrame1EditBoxObject:SetChannelTarget(...) end
----@return any ...
-function ChatFrame1EditBoxObject:SetChatType(...) end
----@return any ...
-function ChatFrame1EditBoxObject:SetFocusRegionVertexColors(...) end
----@return any ...
-function ChatFrame1EditBoxObject:SetFocusRegionsShown(...) end
----@return any ...
-function ChatFrame1EditBoxObject:SetGameLanguage(...) end
----@return any ...
-function ChatFrame1EditBoxObject:SetStickyType(...) end
----@return any ...
-function ChatFrame1EditBoxObject:SetTellTarget(...) end
----@return any ...
-function ChatFrame1EditBoxObject:ShouldDeactivateChatOnEditFocusLost(...) end
----@return any ...
-function ChatFrame1EditBoxObject:UpdateHeader(...) end
----@return any ...
-function ChatFrame1EditBoxObject:UpdateLanguageHeader(...) end
----@return any ...
-function ChatFrame1EditBoxObject:UpdateNewcomerEditBoxHint(...) end
----@return any ...
-function ChatFrame1EditBoxObject:customAutoCompleteFunction(...) end
----@type ChatFrame1EditBoxObject
-ChatFrame1EditBox = ChatFrame1EditBoxObject
-end
-
-do
----@class ChatFrame1EditBox_NewcomerHintObject : FontString
-local ChatFrame1EditBox_NewcomerHintObject = {}
-end
-
-do
----@class ChatFrame1EditBox_chatFrameObject
-local ChatFrame1EditBox_chatFrameObject = {}
-end
-
-do
----@class ChatFrame1EditBox_focusLeftObject : Texture
-local ChatFrame1EditBox_focusLeftObject = {}
-end
-
-do
----@class ChatFrame1EditBox_focusMidObject : Texture
-local ChatFrame1EditBox_focusMidObject = {}
-end
-
-do
----@class ChatFrame1EditBox_focusRightObject : Texture
-local ChatFrame1EditBox_focusRightObject = {}
-end
-
-do
----@class ChatFrame1EditBox_headerObject : FontString
-local ChatFrame1EditBox_headerObject = {}
-end
-
-do
----@class ChatFrame1EditBox_headerSuffixObject : FontString
-local ChatFrame1EditBox_headerSuffixObject = {}
-end
-
-do
----@class ChatFrame1EditBox_languageHeaderObject : FontString
-local ChatFrame1EditBox_languageHeaderObject = {}
-end
-
-do
----@class ChatFrame1EditBox_promptObject : FontString
-local ChatFrame1EditBox_promptObject = {}
-end
-
-do
----@class ChatFrame2Object : Frame
----@field Background ChatFrame2_BackgroundObject
----@field CombatLogQuickButtonFrame ChatFrame2_CombatLogQuickButtonFrameObject
----@field FontStringContainer ChatFrame2_FontStringContainerObject
----@field ResizeButton ChatFrame2_ResizeButtonObject
----@field ScrollBar ChatFrame2_ScrollBarObject
----@field ScrollToBottomButton ChatFrame2_ScrollToBottomButtonObject
----@field allowScroll boolean
----@field alternativeDefaultLanguage string
----@field buttonFrame ChatFrame2_buttonFrameObject
----@field buttonSide string
----@field channelList table
----@field clickAnywhereButton ChatFrame2_clickAnywhereButtonObject
----@field defaultLanguage string
----@field dock ChatFrame2_dockObject
----@field editBox ChatFrame2_editBoxObject
----@field fadeDurationSecs number
----@field fontObject ChatFrame2_fontObjectObject
----@field hasOwnFontObject boolean
----@field historyBuffer ChatFrame2_historyBufferObject
----@field insertMode number
----@field isDisplayDirty boolean
----@field isDocked number
----@field isInitialized number
----@field isLayoutDirty boolean
----@field isLocked boolean
----@field isScrollingMessageFrame boolean
----@field isStaticDocked boolean
----@field isUninteractable boolean
----@field messageTypeList table
----@field name string
----@field oldAlpha number
----@field oldestFadingLineTimestamp number
----@field onDisplayRefreshedCallbacks table
----@field overrideFadeTimestamp number
----@field scrollOffset number
----@field shouldFadeAfterInactivity boolean
----@field smartNavRightStickMaxScrollSpeed number
----@field textIsCopyable boolean
----@field timeVisibleSecs number
----@field visibleLines table
----@field zoneChannelList table
-local ChatFrame2Object = {}
----@return any ...
-function ChatFrame2Object:AcquireFontString(...) end
----@return any ...
-function ChatFrame2Object:AcquireHighlightTexture(...) end
----@return any ...
-function ChatFrame2Object:AddChannel(...) end
----@return any ...
-function ChatFrame2Object:AddMessage(...) end
----@return any ...
-function ChatFrame2Object:AddMessageGroup(...) end
----@return any ...
-function ChatFrame2Object:AddOnDisplayRefreshedCallback(...) end
----@return any ...
-function ChatFrame2Object:AddPrivateMessageTarget(...) end
----@return any ...
-function ChatFrame2Object:AddSingleMessageType(...) end
----@return any ...
-function ChatFrame2Object:AdjustMessageColors(...) end
----@return any ...
-function ChatFrame2Object:AtBottom(...) end
----@return any ...
-function ChatFrame2Object:AtTop(...) end
----@return any ...
-function ChatFrame2Object:BackFillMessage(...) end
----@return any ...
-function ChatFrame2Object:CalculateLineAlphaValueFromTimestamp(...) end
----@return any ...
-function ChatFrame2Object:CalculateLineSpacing(...) end
----@return any ...
-function ChatFrame2Object:CalculateNumVisibleLines(...) end
----@return any ...
-function ChatFrame2Object:CalculateSelectingCharacterIndicesForVisibleLine(...) end
----@return any ...
-function ChatFrame2Object:CallOnDisplayRefreshed(...) end
----@return any ...
-function ChatFrame2Object:CanEffectivelyFade(...) end
----@return any ...
-function ChatFrame2Object:Clear(...) end
----@return any ...
-function ChatFrame2Object:ClearGamepadFocus(...) end
----@return any ...
-function ChatFrame2Object:ConfigEventHandler(...) end
----@return any ...
-function ChatFrame2Object:ContainsChannel(...) end
----@return any ...
-function ChatFrame2Object:ContainsMessageGroup(...) end
----@return any ...
-function ChatFrame2Object:CreateFooter(...) end
----@return any ...
-function ChatFrame2Object:DontRestoreGamepadFocusOnMenuClose(...) end
----@return any ...
-function ChatFrame2Object:ExcludePrivateMessageTarget(...) end
----@return any ...
-function ChatFrame2Object:FindCharacterAndLineIndexAtCoordinate(...) end
----@return any ...
-function ChatFrame2Object:FocusGamepad(...) end
----@return any ...
-function ChatFrame2Object:ForEachMessage(...) end
----@return any ...
-function ChatFrame2Object:ForEachMessageInfoText(...) end
----@return any ...
-function ChatFrame2Object:ForEachVisibleLineText(...) end
----@return any ...
-function ChatFrame2Object:GatherSelectedText(...) end
----@return any ...
-function ChatFrame2Object:GetDefaultChatTarget(...) end
----@return any ...
-function ChatFrame2Object:GetFadeDuration(...) end
----@return any ...
-function ChatFrame2Object:GetFading(...) end
----@return any ...
-function ChatFrame2Object:GetFont(...) end
----@return any ...
-function ChatFrame2Object:GetFontObject(...) end
----@return any ...
-function ChatFrame2Object:GetIndentedWordWrap(...) end
----@return any ...
-function ChatFrame2Object:GetInsertMode(...) end
----@return any ...
-function ChatFrame2Object:GetJustifyH(...) end
----@return any ...
-function ChatFrame2Object:GetJustifyV(...) end
----@return any ...
-function ChatFrame2Object:GetMaxLines(...) end
----@return any ...
-function ChatFrame2Object:GetMaxScrollRange(...) end
----@return any ...
-function ChatFrame2Object:GetMessageInfo(...) end
----@return any ...
-function ChatFrame2Object:GetNumMessages(...) end
----@return any ...
-function ChatFrame2Object:GetNumVisibleLines(...) end
----@return any ...
-function ChatFrame2Object:GetOnLineRightClickedCallback(...) end
----@return any ...
-function ChatFrame2Object:GetOnScrollChangedCallback(...) end
----@return any ...
-function ChatFrame2Object:GetOnTextCopiedCallback(...) end
----@return any ...
-function ChatFrame2Object:GetPagingScrollAmount(...) end
----@return any ...
-function ChatFrame2Object:GetScaledCursorPosition(...) end
----@return any ...
-function ChatFrame2Object:GetScrollOffset(...) end
----@return any ...
-function ChatFrame2Object:GetShadowColor(...) end
----@return any ...
-function ChatFrame2Object:GetShadowOffset(...) end
----@return any ...
-function ChatFrame2Object:GetSpacing(...) end
----@return any ...
-function ChatFrame2Object:GetTextColor(...) end
----@return any ...
-function ChatFrame2Object:GetTimeVisible(...) end
----@return any ...
-function ChatFrame2Object:HasFontObject(...) end
----@return any ...
-function ChatFrame2Object:HasGamepadFocus(...) end
----@return any ...
-function ChatFrame2Object:InitializeFontString(...) end
----@return any ...
-function ChatFrame2Object:InitializeFontableFrame(...) end
----@return any ...
-function ChatFrame2Object:InitializeGamepad(...) end
----@return any ...
-function ChatFrame2Object:IsGamepadMenuOpen(...) end
----@return any ...
-function ChatFrame2Object:IsScrollAllowed(...) end
----@return any ...
-function ChatFrame2Object:IsSelectingText(...) end
----@return any ...
-function ChatFrame2Object:IsTextCopyable(...) end
----@return any ...
-function ChatFrame2Object:MakeFontObjectCustom(...) end
----@return any ...
-function ChatFrame2Object:MarkDisplayDirty(...) end
----@return any ...
-function ChatFrame2Object:MarkLayoutDirty(...) end
----@return any ...
-function ChatFrame2Object:MessageEventHandler(...) end
----@return any ...
-function ChatFrame2Object:OnColorsUpdated(...) end
----@return any ...
-function ChatFrame2Object:OnEvent(...) end
----@return any ...
-function ChatFrame2Object:OnFontObjectUpdated(...) end
----@return any ...
-function ChatFrame2Object:OnHide(...) end
----@return any ...
-function ChatFrame2Object:OnHyperlinkClick(...) end
----@return any ...
-function ChatFrame2Object:OnHyperlinkEnter(...) end
----@return any ...
-function ChatFrame2Object:OnHyperlinkLeave(...) end
----@return any ...
-function ChatFrame2Object:OnLoad(...) end
----@return any ...
-function ChatFrame2Object:OnPostEvent(...) end
----@return any ...
-function ChatFrame2Object:OnPostHide(...) end
----@return any ...
-function ChatFrame2Object:OnPostMouseDown(...) end
----@return any ...
-function ChatFrame2Object:OnPostMouseUp(...) end
----@return any ...
-function ChatFrame2Object:OnPostShow(...) end
----@return any ...
-function ChatFrame2Object:OnPostUpdate(...) end
----@return any ...
-function ChatFrame2Object:OnPreLoad(...) end
----@return any ...
-function ChatFrame2Object:OnPreSizeChanged(...) end
----@return any ...
-function ChatFrame2Object:OnUpdate(...) end
----@return any ...
-function ChatFrame2Object:OpenChatChannelsMenu(...) end
----@return any ...
-function ChatFrame2Object:OpenGamepadTabMenu(...) end
----@return any ...
-function ChatFrame2Object:PackageEntry(...) end
----@return any ...
-function ChatFrame2Object:PageDown(...) end
----@return any ...
-function ChatFrame2Object:PageUp(...) end
----@return any ...
-function ChatFrame2Object:PlayerLevelChanged(...) end
----@return any ...
-function ChatFrame2Object:PlayerLevelUp(...) end
----@return any ...
-function ChatFrame2Object:ReceiveAllPrivateMessages(...) end
----@return any ...
-function ChatFrame2Object:RefreshDisplay(...) end
----@return any ...
-function ChatFrame2Object:RefreshIfNecessary(...) end
----@return any ...
-function ChatFrame2Object:RefreshLayout(...) end
----@return any ...
-function ChatFrame2Object:RegisterForChannels(...) end
----@return any ...
-function ChatFrame2Object:RegisterForInterfaceTransitions(...) end
----@return any ...
-function ChatFrame2Object:RegisterForMessages(...) end
----@return any ...
-function ChatFrame2Object:RemoveAllChannels(...) end
----@return any ...
-function ChatFrame2Object:RemoveAllMessageGroups(...) end
----@return any ...
-function ChatFrame2Object:RemoveChannel(...) end
----@return any ...
-function ChatFrame2Object:RemoveExcludePrivateMessageTarget(...) end
----@return any ...
-function ChatFrame2Object:RemoveMessageGroup(...) end
----@return any ...
-function ChatFrame2Object:RemoveMessagesByPredicate(...) end
----@return any ...
-function ChatFrame2Object:RemovePrivateMessageTarget(...) end
----@return any ...
-function ChatFrame2Object:ResetAllFadeTimes(...) end
----@return any ...
-function ChatFrame2Object:ResetSelectingText(...) end
----@return any ...
-function ChatFrame2Object:ScrollByAmount(...) end
----@return any ...
-function ChatFrame2Object:ScrollDown(...) end
----@return any ...
-function ChatFrame2Object:ScrollToBottom(...) end
----@return any ...
-function ChatFrame2Object:ScrollToTop(...) end
----@return any ...
-function ChatFrame2Object:ScrollUp(...) end
----@return any ...
-function ChatFrame2Object:SetChannelEnabled(...) end
----@return any ...
-function ChatFrame2Object:SetFadeDuration(...) end
----@return any ...
-function ChatFrame2Object:SetFading(...) end
----@return any ...
-function ChatFrame2Object:SetFont(...) end
----@return any ...
-function ChatFrame2Object:SetFontObject(...) end
----@return any ...
-function ChatFrame2Object:SetGamepadFocus(...) end
----@return any ...
-function ChatFrame2Object:SetIndentedWordWrap(...) end
----@return any ...
-function ChatFrame2Object:SetInsertMode(...) end
----@return any ...
-function ChatFrame2Object:SetJustifyH(...) end
----@return any ...
-function ChatFrame2Object:SetJustifyV(...) end
----@return any ...
-function ChatFrame2Object:SetMaxLines(...) end
----@return any ...
-function ChatFrame2Object:SetOnLineRightClickedCallback(...) end
----@return any ...
-function ChatFrame2Object:SetOnScrollChangedCallback(...) end
----@return any ...
-function ChatFrame2Object:SetOnTextCopiedCallback(...) end
----@return any ...
-function ChatFrame2Object:SetScrollAllowed(...) end
----@return any ...
-function ChatFrame2Object:SetScrollOffset(...) end
----@return any ...
-function ChatFrame2Object:SetShadowColor(...) end
----@return any ...
-function ChatFrame2Object:SetShadowOffset(...) end
----@return any ...
-function ChatFrame2Object:SetSpacing(...) end
----@return any ...
-function ChatFrame2Object:SetTextColor(...) end
----@return any ...
-function ChatFrame2Object:SetTextCopyable(...) end
----@return any ...
-function ChatFrame2Object:SetTimeVisible(...) end
----@return any ...
-function ChatFrame2Object:SetupGamepad(...) end
----@return any ...
-function ChatFrame2Object:SmartNavigationCloseHandler(...) end
----@return any ...
-function ChatFrame2Object:SystemEventHandler(...) end
----@return any ...
-function ChatFrame2Object:TransformMessages(...) end
----@return any ...
-function ChatFrame2Object:UnfocusGamepad(...) end
----@return any ...
-function ChatFrame2Object:UninitializeGamepad(...) end
----@return any ...
-function ChatFrame2Object:UnpackageEntry(...) end
----@return any ...
-function ChatFrame2Object:UnregisterAllMessageGroups(...) end
----@return any ...
-function ChatFrame2Object:UpdateColorByID(...) end
----@return any ...
-function ChatFrame2Object:UpdateDefaultChatTarget(...) end
----@return any ...
-function ChatFrame2Object:UpdateFading(...) end
----@return any ...
-function ChatFrame2Object:UpdateSelectingText(...) end
----@type ChatFrame2Object
-ChatFrame2 = ChatFrame2Object
-end
-
-do
----@class ChatFrame2_BackgroundObject : Texture
-local ChatFrame2_BackgroundObject = {}
-end
-
-do
----@class ChatFrame2_CombatLogQuickButtonFrameObject : Frame
-local ChatFrame2_CombatLogQuickButtonFrameObject = {}
-end
-
-do
----@class ChatFrame2_FontStringContainerObject : Frame
-local ChatFrame2_FontStringContainerObject = {}
-end
-
-do
----@class ChatFrame2_ResizeButtonObject : Button
-local ChatFrame2_ResizeButtonObject = {}
-end
-
-do
----@class ChatFrame2_ScrollBarObject : Frame
----@field Back ChatFrame2_ScrollBar_BackObject
----@field Defaults ChatFrame2_ScrollBar_DefaultsObject
----@field Directions ChatFrame2_ScrollBar_DirectionsObject
----@field Event ChatFrame2_ScrollBar_EventObject
----@field Forward ChatFrame2_ScrollBar_ForwardObject
----@field Track ChatFrame2_ScrollBar_TrackObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field deferredCallbacks table
----@field executingEvents table
----@field hideTrack boolean
----@field hideTrackIfThumbExceedsTrack boolean
----@field internalPriority boolean
----@field isScrollController boolean
----@field minThumbExtent number
----@field panDelay number
----@field panExtentPercentage number
----@field panRepeatTime number
----@field smartNavigationIgnored boolean
----@field snapToInterval boolean
----@field thumbAnchor string
----@field useProportionalThumb boolean
----@field visibleExtentPercentage number
----@field wheelPanScalar number
-local ChatFrame2_ScrollBarObject = {}
----@return any ...
-function ChatFrame2_ScrollBarObject:CallInternalScope(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:CanCursorStepInDirection(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:CanInterpolateScroll(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:CopyDeferredCallbacks(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:DisableControls(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:DoesFrameHaveEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:EnableInternalPriority(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:EnableSnapToInterval(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:GenerateCallbackEvents(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:GetBackStepper(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:GetCallbackTable(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:GetCallbackTables(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:GetCallbacksByEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:GetForwardStepper(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:GetFrameExtent(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:GetIntervalRange(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:GetLower(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:GetPanExtentPercentage(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:GetPanRepeatDelay(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:GetPanRepeatTime(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:GetScrollInterpolator(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:GetScrollPercentage(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:GetThumb(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:GetThumbAnchor(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:GetTrack(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:GetTrackExtent(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:GetUpper(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:GetWheelPanPercentage(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:HasRegistrantsForEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:HasScrollableExtent(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:Init(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:InitializeNarration(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:Interpolate(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:IsAtBegin(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:IsAtEnd(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:IsHorizontal(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:IsScrollAllowed(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:IsThumbMouseDown(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:OnHide_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:OnLoad(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:OnLoad_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:OnMouseWheel(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:OnShow_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:OnStepperMouseDown(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:OnThumbMouseDown(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:OnTrackMouseDown(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:RegisterCallback(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:ScrollDecrease(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:ScrollInDirection(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:ScrollIncrease(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:ScrollPageInDirection(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:ScrollStepInDirection(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:ScrollToBegin(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:ScrollToEnd(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:ScrollWheelInDirection(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:SecureInsertEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:SelectCursorComponent(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:SelectPointComponent(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:SetFrameExtent(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:SetHideIfUnscrollable(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:SetHorizontal(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:SetInterpolateScroll(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:SetPanExtentPercentage(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:SetScrollAllowed(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:SetScrollPercentage(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:SetScrollPercentageInternal(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:SetThumbExtent(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:SetVisibleExtentPercentage(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:TriggerEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:UnregisterCallback(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:UnregisterEvents(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:UnregisterUpdate(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:Update(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:onButtonMouseUp(...) end
----@return any ...
-function ChatFrame2_ScrollBarObject:scrollInternal(...) end
-end
-
-do
----@class ChatFrame2_ScrollBar_BackObject : Button
----@field Event ChatFrame2_ScrollBar_Back_EventObject
----@field Texture ChatFrame2_ScrollBar_Back_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local ChatFrame2_ScrollBar_BackObject = {}
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:DesaturateIfDisabled(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:GenerateCallbackEvents(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:GetAtlas(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:GetCallbackTable(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:GetCallbackTables(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:GetCallbacksByEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:IsDown(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:IsDownOver(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:IsOver(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:NarrationGetName(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:OnButtonStateChanged(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:OnClick_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:OnDisable(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:OnEnable(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:OnEnter(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:OnLeave(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:OnLoad(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:OnMouseDown(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:OnMouseUp(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:OnShow(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:RegisterCallback(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:SecureInsertEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:SetDisplacedRegions(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:TriggerEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:UnregisterCallback(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:UnregisterEvents(...) end
----@return any ...
-function ChatFrame2_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class ChatFrame2_ScrollBar_Back_EventObject
-local ChatFrame2_ScrollBar_Back_EventObject = {}
-end
-
-do
----@class ChatFrame2_ScrollBar_Back_TextureObject : Texture
-local ChatFrame2_ScrollBar_Back_TextureObject = {}
-end
-
-do
----@class ChatFrame2_ScrollBar_DefaultsObject
-local ChatFrame2_ScrollBar_DefaultsObject = {}
-end
-
-do
----@class ChatFrame2_ScrollBar_DirectionsObject
-local ChatFrame2_ScrollBar_DirectionsObject = {}
-end
-
-do
----@class ChatFrame2_ScrollBar_EventObject
-local ChatFrame2_ScrollBar_EventObject = {}
-end
-
-do
----@class ChatFrame2_ScrollBar_ForwardObject : Button
----@field Event ChatFrame2_ScrollBar_Forward_EventObject
----@field Texture ChatFrame2_ScrollBar_Forward_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local ChatFrame2_ScrollBar_ForwardObject = {}
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:GetAtlas(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:GetCallbackTable(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:GetCallbackTables(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:IsDown(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:IsDownOver(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:IsOver(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:NarrationGetName(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:OnDisable(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:OnEnable(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:OnEnter(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:OnLeave(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:OnLoad(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:OnMouseDown(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:OnMouseUp(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:OnShow(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:RegisterCallback(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:SecureInsertEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:TriggerEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:UnregisterCallback(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:UnregisterEvents(...) end
----@return any ...
-function ChatFrame2_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class ChatFrame2_ScrollBar_Forward_EventObject
-local ChatFrame2_ScrollBar_Forward_EventObject = {}
-end
-
-do
----@class ChatFrame2_ScrollBar_Forward_TextureObject : Texture
-local ChatFrame2_ScrollBar_Forward_TextureObject = {}
-end
-
-do
----@class ChatFrame2_ScrollBar_TrackObject : Frame
----@field Begin ChatFrame2_ScrollBar_Track_BeginObject
----@field End ChatFrame2_ScrollBar_Track_EndObject
----@field Middle ChatFrame2_ScrollBar_Track_MiddleObject
----@field Thumb ChatFrame2_ScrollBar_Track_ThumbObject
-local ChatFrame2_ScrollBar_TrackObject = {}
-end
-
-do
----@class ChatFrame2_ScrollBar_Track_BeginObject : Texture
-local ChatFrame2_ScrollBar_Track_BeginObject = {}
-end
-
-do
----@class ChatFrame2_ScrollBar_Track_EndObject : Texture
-local ChatFrame2_ScrollBar_Track_EndObject = {}
-end
-
-do
----@class ChatFrame2_ScrollBar_Track_MiddleObject : Texture
-local ChatFrame2_ScrollBar_Track_MiddleObject = {}
-end
-
-do
----@class ChatFrame2_ScrollBar_Track_ThumbObject : Button
----@field Begin ChatFrame2_ScrollBar_Track_Thumb_BeginObject
----@field End ChatFrame2_ScrollBar_Track_Thumb_EndObject
----@field Event ChatFrame2_ScrollBar_Track_Thumb_EventObject
----@field Middle ChatFrame2_ScrollBar_Track_Thumb_MiddleObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field downBeginTexture string
----@field downEndTexture string
----@field downMiddleTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field overBeginTexture string
----@field overEndTexture string
----@field overMiddleTexture string
----@field upBeginTexture string
----@field upEndTexture string
----@field upMiddleTexture string
-local ChatFrame2_ScrollBar_Track_ThumbObject = {}
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:GetAtlas(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:IsDown(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:IsDownOver(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:IsOver(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:OnDisable(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:OnEnable(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:OnEnter(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:OnLeave(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:OnLoad(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:OnShow(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
----@return any ...
-function ChatFrame2_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class ChatFrame2_ScrollBar_Track_Thumb_BeginObject : Texture
-local ChatFrame2_ScrollBar_Track_Thumb_BeginObject = {}
-end
-
-do
----@class ChatFrame2_ScrollBar_Track_Thumb_EndObject : Texture
-local ChatFrame2_ScrollBar_Track_Thumb_EndObject = {}
-end
-
-do
----@class ChatFrame2_ScrollBar_Track_Thumb_EventObject
-local ChatFrame2_ScrollBar_Track_Thumb_EventObject = {}
-end
-
-do
----@class ChatFrame2_ScrollBar_Track_Thumb_MiddleObject : Texture
-local ChatFrame2_ScrollBar_Track_Thumb_MiddleObject = {}
-end
-
-do
----@class ChatFrame2_ScrollToBottomButtonObject : Button
----@field Flash ChatFrame2_ScrollToBottomButton_FlashObject
----@field smartNavigationIgnored boolean
-local ChatFrame2_ScrollToBottomButtonObject = {}
-end
-
-do
----@class ChatFrame2_ScrollToBottomButton_FlashObject : Texture
----@field FlashAnim ChatFrame2_ScrollToBottomButton_Flash_FlashAnimObject
-local ChatFrame2_ScrollToBottomButton_FlashObject = {}
-end
-
-do
----@class ChatFrame2_ScrollToBottomButton_Flash_FlashAnimObject : AnimationGroup
----@field FadeIn ChatFrame2_ScrollToBottomButton_Flash_FlashAnim_FadeInObject
----@field FadeOut ChatFrame2_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject
-local ChatFrame2_ScrollToBottomButton_Flash_FlashAnimObject = {}
-end
-
-do
----@class ChatFrame2_ScrollToBottomButton_Flash_FlashAnim_FadeInObject : Alpha
-local ChatFrame2_ScrollToBottomButton_Flash_FlashAnim_FadeInObject = {}
-end
-
-do
----@class ChatFrame2_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject : Alpha
-local ChatFrame2_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject = {}
-end
-
-do
----@class ChatFrame2_buttonFrameObject : Frame
----@field Background ChatFrame2_buttonFrame_BackgroundObject
----@field minimizeButton ChatFrame2_buttonFrame_minimizeButtonObject
-local ChatFrame2_buttonFrameObject = {}
-end
-
-do
----@class ChatFrame2_buttonFrame_BackgroundObject : Texture
-local ChatFrame2_buttonFrame_BackgroundObject = {}
-end
-
-do
----@class ChatFrame2_buttonFrame_minimizeButtonObject : Button
-local ChatFrame2_buttonFrame_minimizeButtonObject = {}
-end
-
-do
----@class ChatFrame2_clickAnywhereButtonObject : Button
-local ChatFrame2_clickAnywhereButtonObject = {}
----@return any ...
-function ChatFrame2_clickAnywhereButtonObject:OnClick(...) end
----@return any ...
-function ChatFrame2_clickAnywhereButtonObject:OnEvent(...) end
----@return any ...
-function ChatFrame2_clickAnywhereButtonObject:OnLoad(...) end
----@return any ...
-function ChatFrame2_clickAnywhereButtonObject:UpdateState(...) end
-end
-
-do
----@class ChatFrame2_dockObject
-local ChatFrame2_dockObject = {}
-end
-
-do
----@class ChatFrame2_editBoxObject
-local ChatFrame2_editBoxObject = {}
-end
-
-do
----@class ChatFrame2_fontObjectObject
-local ChatFrame2_fontObjectObject = {}
-end
-
-do
----@class ChatFrame2_historyBufferObject
----@field elements table
----@field headIndex table
----@field maxElements table
-local ChatFrame2_historyBufferObject = {}
----@return any ...
-function ChatFrame2_historyBufferObject:CalculateElementIndex(...) end
----@return any ...
-function ChatFrame2_historyBufferObject:CalculateElementIndexFromGlobalIndex(...) end
----@return any ...
-function ChatFrame2_historyBufferObject:Clear(...) end
----@return any ...
-function ChatFrame2_historyBufferObject:EnumerateIndexedEntries(...) end
----@return any ...
-function ChatFrame2_historyBufferObject:GetEntryAtIndex(...) end
----@return any ...
-function ChatFrame2_historyBufferObject:GetMaxNumElements(...) end
----@return any ...
-function ChatFrame2_historyBufferObject:GetNumElements(...) end
----@return any ...
-function ChatFrame2_historyBufferObject:IsEmpty(...) end
----@return any ...
-function ChatFrame2_historyBufferObject:IsFull(...) end
----@return any ...
-function ChatFrame2_historyBufferObject:IsValidIndex(...) end
----@return any ...
-function ChatFrame2_historyBufferObject:OnLoad(...) end
----@return any ...
-function ChatFrame2_historyBufferObject:PushBack(...) end
----@return any ...
-function ChatFrame2_historyBufferObject:PushFront(...) end
----@return any ...
-function ChatFrame2_historyBufferObject:RemoveIf(...) end
----@return any ...
-function ChatFrame2_historyBufferObject:ReplaceElements(...) end
----@return any ...
-function ChatFrame2_historyBufferObject:ReverseEnumerateIndexedEntries(...) end
----@return any ...
-function ChatFrame2_historyBufferObject:SetMaxNumElements(...) end
----@return any ...
-function ChatFrame2_historyBufferObject:TransformIf(...) end
-end
-
-do
----@class ChatFrame2EditBoxObject : EditBox
----@field NewcomerHint ChatFrame2EditBox_NewcomerHintObject
----@field addHighlightedText boolean
----@field addSpaceToAutoComplete boolean
----@field buttonContext string
----@field chatFrame ChatFrame2EditBox_chatFrameObject
----@field chatLanguage string
----@field focusLeft ChatFrame2EditBox_focusLeftObject
----@field focusMid ChatFrame2EditBox_focusMidObject
----@field focusRight ChatFrame2EditBox_focusRightObject
----@field header ChatFrame2EditBox_headerObject
----@field headerSuffix ChatFrame2EditBox_headerSuffixObject
----@field languageHeader ChatFrame2EditBox_languageHeaderObject
----@field prompt ChatFrame2EditBox_promptObject
----@field tabCompleteTableIndex number
-local ChatFrame2EditBoxObject = {}
----@return any ...
-function ChatFrame2EditBoxObject:AddHistory(...) end
----@return any ...
-function ChatFrame2EditBoxObject:ClearChat(...) end
----@return any ...
-function ChatFrame2EditBoxObject:Deactivate(...) end
----@return any ...
-function ChatFrame2EditBoxObject:DoesCurrentChannelTargetMatch(...) end
----@return any ...
-function ChatFrame2EditBoxObject:ExtractChannel(...) end
----@return any ...
-function ChatFrame2EditBoxObject:ExtractTellTarget(...) end
----@return any ...
-function ChatFrame2EditBoxObject:GetChannelTarget(...) end
----@return any ...
-function ChatFrame2EditBoxObject:GetChatType(...) end
----@return any ...
-function ChatFrame2EditBoxObject:GetStickyType(...) end
----@return any ...
-function ChatFrame2EditBoxObject:GetTellTarget(...) end
----@return any ...
-function ChatFrame2EditBoxObject:HandleChatType(...) end
----@return any ...
-function ChatFrame2EditBoxObject:HasStickyFocus(...) end
----@return any ...
-function ChatFrame2EditBoxObject:OnChar(...) end
----@return any ...
-function ChatFrame2EditBoxObject:OnEditFocusGained(...) end
----@return any ...
-function ChatFrame2EditBoxObject:OnEditFocusLost(...) end
----@return any ...
-function ChatFrame2EditBoxObject:OnEnterPressed(...) end
----@return any ...
-function ChatFrame2EditBoxObject:OnEscapePressed(...) end
----@return any ...
-function ChatFrame2EditBoxObject:OnEvent(...) end
----@return any ...
-function ChatFrame2EditBoxObject:OnHide(...) end
----@return any ...
-function ChatFrame2EditBoxObject:OnInputLanguageChanged(...) end
----@return any ...
-function ChatFrame2EditBoxObject:OnLoad(...) end
----@return any ...
-function ChatFrame2EditBoxObject:OnPreSendText(...) end
----@return any ...
-function ChatFrame2EditBoxObject:OnShow(...) end
----@return any ...
-function ChatFrame2EditBoxObject:OnSpacePressed(...) end
----@return any ...
-function ChatFrame2EditBoxObject:OnTabPressed(...) end
----@return any ...
-function ChatFrame2EditBoxObject:OnTextChanged(...) end
----@return any ...
-function ChatFrame2EditBoxObject:OnTextSet(...) end
----@return any ...
-function ChatFrame2EditBoxObject:OnUpdate(...) end
----@return any ...
-function ChatFrame2EditBoxObject:ParseText(...) end
----@return any ...
-function ChatFrame2EditBoxObject:ProcessChatType(...) end
----@return any ...
-function ChatFrame2EditBoxObject:ResetChatType(...) end
----@return any ...
-function ChatFrame2EditBoxObject:ResetChatTypeToSticky(...) end
----@return any ...
-function ChatFrame2EditBoxObject:SecureTabPressed(...) end
----@return any ...
-function ChatFrame2EditBoxObject:SendMessage(...) end
----@return any ...
-function ChatFrame2EditBoxObject:SendText(...) end
----@return any ...
-function ChatFrame2EditBoxObject:SetChannelTarget(...) end
----@return any ...
-function ChatFrame2EditBoxObject:SetChatType(...) end
----@return any ...
-function ChatFrame2EditBoxObject:SetFocusRegionVertexColors(...) end
----@return any ...
-function ChatFrame2EditBoxObject:SetFocusRegionsShown(...) end
----@return any ...
-function ChatFrame2EditBoxObject:SetGameLanguage(...) end
----@return any ...
-function ChatFrame2EditBoxObject:SetStickyType(...) end
----@return any ...
-function ChatFrame2EditBoxObject:SetTellTarget(...) end
----@return any ...
-function ChatFrame2EditBoxObject:ShouldDeactivateChatOnEditFocusLost(...) end
----@return any ...
-function ChatFrame2EditBoxObject:UpdateHeader(...) end
----@return any ...
-function ChatFrame2EditBoxObject:UpdateLanguageHeader(...) end
----@return any ...
-function ChatFrame2EditBoxObject:UpdateNewcomerEditBoxHint(...) end
----@return any ...
-function ChatFrame2EditBoxObject:customAutoCompleteFunction(...) end
----@type ChatFrame2EditBoxObject
-ChatFrame2EditBox = ChatFrame2EditBoxObject
-end
-
-do
----@class ChatFrame2EditBox_NewcomerHintObject : FontString
-local ChatFrame2EditBox_NewcomerHintObject = {}
-end
-
-do
----@class ChatFrame2EditBox_chatFrameObject
-local ChatFrame2EditBox_chatFrameObject = {}
-end
-
-do
----@class ChatFrame2EditBox_focusLeftObject : Texture
-local ChatFrame2EditBox_focusLeftObject = {}
-end
-
-do
----@class ChatFrame2EditBox_focusMidObject : Texture
-local ChatFrame2EditBox_focusMidObject = {}
-end
-
-do
----@class ChatFrame2EditBox_focusRightObject : Texture
-local ChatFrame2EditBox_focusRightObject = {}
-end
-
-do
----@class ChatFrame2EditBox_headerObject : FontString
-local ChatFrame2EditBox_headerObject = {}
-end
-
-do
----@class ChatFrame2EditBox_headerSuffixObject : FontString
-local ChatFrame2EditBox_headerSuffixObject = {}
-end
-
-do
----@class ChatFrame2EditBox_languageHeaderObject : FontString
-local ChatFrame2EditBox_languageHeaderObject = {}
-end
-
-do
----@class ChatFrame2EditBox_promptObject : FontString
-local ChatFrame2EditBox_promptObject = {}
-end
-
-do
----@class ChatFrame3Object : Frame
----@field Background ChatFrame3_BackgroundObject
----@field FontStringContainer ChatFrame3_FontStringContainerObject
----@field ResizeButton ChatFrame3_ResizeButtonObject
----@field ScrollBar ChatFrame3_ScrollBarObject
----@field ScrollToBottomButton ChatFrame3_ScrollToBottomButtonObject
----@field Tab ChatFrame3_TabObject
----@field allowScroll boolean
----@field alternativeDefaultLanguage string
----@field buttonFrame ChatFrame3_buttonFrameObject
----@field buttonSide string
----@field channelList table
----@field clickAnywhereButton ChatFrame3_clickAnywhereButtonObject
----@field defaultLanguage string
----@field editBox ChatFrame3_editBoxObject
----@field fadeDurationSecs number
----@field fontObject ChatFrame3_fontObjectObject
----@field hasOwnFontObject boolean
----@field historyBuffer ChatFrame3_historyBufferObject
----@field insertMode number
----@field isDisplayDirty boolean
----@field isInitialized number
----@field isLayoutDirty boolean
----@field isLocked boolean
----@field isScrollingMessageFrame boolean
----@field isUninteractable boolean
----@field messageTypeList table
----@field name string
----@field oldAlpha number
----@field oldestFadingLineTimestamp number
----@field onDisplayRefreshedCallbacks table
----@field overrideFadeTimestamp number
----@field scrollOffset number
----@field shouldFadeAfterInactivity boolean
----@field smartNavRightStickMaxScrollSpeed number
----@field textIsCopyable boolean
----@field timeVisibleSecs number
----@field visibleLines table
----@field zoneChannelList table
-local ChatFrame3Object = {}
----@return any ...
-function ChatFrame3Object:AcquireFontString(...) end
----@return any ...
-function ChatFrame3Object:AcquireHighlightTexture(...) end
----@return any ...
-function ChatFrame3Object:AddChannel(...) end
----@return any ...
-function ChatFrame3Object:AddMessage(...) end
----@return any ...
-function ChatFrame3Object:AddMessageGroup(...) end
----@return any ...
-function ChatFrame3Object:AddOnDisplayRefreshedCallback(...) end
----@return any ...
-function ChatFrame3Object:AddPrivateMessageTarget(...) end
----@return any ...
-function ChatFrame3Object:AddSingleMessageType(...) end
----@return any ...
-function ChatFrame3Object:AdjustMessageColors(...) end
----@return any ...
-function ChatFrame3Object:AtBottom(...) end
----@return any ...
-function ChatFrame3Object:AtTop(...) end
----@return any ...
-function ChatFrame3Object:BackFillMessage(...) end
----@return any ...
-function ChatFrame3Object:CalculateLineAlphaValueFromTimestamp(...) end
----@return any ...
-function ChatFrame3Object:CalculateLineSpacing(...) end
----@return any ...
-function ChatFrame3Object:CalculateNumVisibleLines(...) end
----@return any ...
-function ChatFrame3Object:CalculateSelectingCharacterIndicesForVisibleLine(...) end
----@return any ...
-function ChatFrame3Object:CallOnDisplayRefreshed(...) end
----@return any ...
-function ChatFrame3Object:CanEffectivelyFade(...) end
----@return any ...
-function ChatFrame3Object:Clear(...) end
----@return any ...
-function ChatFrame3Object:ClearGamepadFocus(...) end
----@return any ...
-function ChatFrame3Object:ConfigEventHandler(...) end
----@return any ...
-function ChatFrame3Object:ContainsChannel(...) end
----@return any ...
-function ChatFrame3Object:ContainsMessageGroup(...) end
----@return any ...
-function ChatFrame3Object:CreateFooter(...) end
----@return any ...
-function ChatFrame3Object:DontRestoreGamepadFocusOnMenuClose(...) end
----@return any ...
-function ChatFrame3Object:ExcludePrivateMessageTarget(...) end
----@return any ...
-function ChatFrame3Object:FindCharacterAndLineIndexAtCoordinate(...) end
----@return any ...
-function ChatFrame3Object:FocusGamepad(...) end
----@return any ...
-function ChatFrame3Object:ForEachMessage(...) end
----@return any ...
-function ChatFrame3Object:ForEachMessageInfoText(...) end
----@return any ...
-function ChatFrame3Object:ForEachVisibleLineText(...) end
----@return any ...
-function ChatFrame3Object:GatherSelectedText(...) end
----@return any ...
-function ChatFrame3Object:GetDefaultChatTarget(...) end
----@return any ...
-function ChatFrame3Object:GetFadeDuration(...) end
----@return any ...
-function ChatFrame3Object:GetFading(...) end
----@return any ...
-function ChatFrame3Object:GetFont(...) end
----@return any ...
-function ChatFrame3Object:GetFontObject(...) end
----@return any ...
-function ChatFrame3Object:GetIndentedWordWrap(...) end
----@return any ...
-function ChatFrame3Object:GetInsertMode(...) end
----@return any ...
-function ChatFrame3Object:GetJustifyH(...) end
----@return any ...
-function ChatFrame3Object:GetJustifyV(...) end
----@return any ...
-function ChatFrame3Object:GetMaxLines(...) end
----@return any ...
-function ChatFrame3Object:GetMaxScrollRange(...) end
----@return any ...
-function ChatFrame3Object:GetMessageInfo(...) end
----@return any ...
-function ChatFrame3Object:GetNumMessages(...) end
----@return any ...
-function ChatFrame3Object:GetNumVisibleLines(...) end
----@return any ...
-function ChatFrame3Object:GetOnLineRightClickedCallback(...) end
----@return any ...
-function ChatFrame3Object:GetOnScrollChangedCallback(...) end
----@return any ...
-function ChatFrame3Object:GetOnTextCopiedCallback(...) end
----@return any ...
-function ChatFrame3Object:GetPagingScrollAmount(...) end
----@return any ...
-function ChatFrame3Object:GetScaledCursorPosition(...) end
----@return any ...
-function ChatFrame3Object:GetScrollOffset(...) end
----@return any ...
-function ChatFrame3Object:GetShadowColor(...) end
----@return any ...
-function ChatFrame3Object:GetShadowOffset(...) end
----@return any ...
-function ChatFrame3Object:GetSpacing(...) end
----@return any ...
-function ChatFrame3Object:GetTextColor(...) end
----@return any ...
-function ChatFrame3Object:GetTimeVisible(...) end
----@return any ...
-function ChatFrame3Object:HasFontObject(...) end
----@return any ...
-function ChatFrame3Object:HasGamepadFocus(...) end
----@return any ...
-function ChatFrame3Object:InitializeFontString(...) end
----@return any ...
-function ChatFrame3Object:InitializeFontableFrame(...) end
----@return any ...
-function ChatFrame3Object:InitializeGamepad(...) end
----@return any ...
-function ChatFrame3Object:IsGamepadMenuOpen(...) end
----@return any ...
-function ChatFrame3Object:IsScrollAllowed(...) end
----@return any ...
-function ChatFrame3Object:IsSelectingText(...) end
----@return any ...
-function ChatFrame3Object:IsTextCopyable(...) end
----@return any ...
-function ChatFrame3Object:MakeFontObjectCustom(...) end
----@return any ...
-function ChatFrame3Object:MarkDisplayDirty(...) end
----@return any ...
-function ChatFrame3Object:MarkLayoutDirty(...) end
----@return any ...
-function ChatFrame3Object:MessageEventHandler(...) end
----@return any ...
-function ChatFrame3Object:OnColorsUpdated(...) end
----@return any ...
-function ChatFrame3Object:OnEvent(...) end
----@return any ...
-function ChatFrame3Object:OnFontObjectUpdated(...) end
----@return any ...
-function ChatFrame3Object:OnHide(...) end
----@return any ...
-function ChatFrame3Object:OnHyperlinkClick(...) end
----@return any ...
-function ChatFrame3Object:OnHyperlinkEnter(...) end
----@return any ...
-function ChatFrame3Object:OnHyperlinkLeave(...) end
----@return any ...
-function ChatFrame3Object:OnLoad(...) end
----@return any ...
-function ChatFrame3Object:OnPostEvent(...) end
----@return any ...
-function ChatFrame3Object:OnPostHide(...) end
----@return any ...
-function ChatFrame3Object:OnPostMouseDown(...) end
----@return any ...
-function ChatFrame3Object:OnPostMouseUp(...) end
----@return any ...
-function ChatFrame3Object:OnPostShow(...) end
----@return any ...
-function ChatFrame3Object:OnPostUpdate(...) end
----@return any ...
-function ChatFrame3Object:OnPreLoad(...) end
----@return any ...
-function ChatFrame3Object:OnPreSizeChanged(...) end
----@return any ...
-function ChatFrame3Object:OnUpdate(...) end
----@return any ...
-function ChatFrame3Object:OpenChatChannelsMenu(...) end
----@return any ...
-function ChatFrame3Object:OpenGamepadTabMenu(...) end
----@return any ...
-function ChatFrame3Object:PackageEntry(...) end
----@return any ...
-function ChatFrame3Object:PageDown(...) end
----@return any ...
-function ChatFrame3Object:PageUp(...) end
----@return any ...
-function ChatFrame3Object:PlayerLevelChanged(...) end
----@return any ...
-function ChatFrame3Object:PlayerLevelUp(...) end
----@return any ...
-function ChatFrame3Object:ReceiveAllPrivateMessages(...) end
----@return any ...
-function ChatFrame3Object:RefreshDisplay(...) end
----@return any ...
-function ChatFrame3Object:RefreshIfNecessary(...) end
----@return any ...
-function ChatFrame3Object:RefreshLayout(...) end
----@return any ...
-function ChatFrame3Object:RegisterForChannels(...) end
----@return any ...
-function ChatFrame3Object:RegisterForInterfaceTransitions(...) end
----@return any ...
-function ChatFrame3Object:RegisterForMessages(...) end
----@return any ...
-function ChatFrame3Object:RemoveAllChannels(...) end
----@return any ...
-function ChatFrame3Object:RemoveAllMessageGroups(...) end
----@return any ...
-function ChatFrame3Object:RemoveChannel(...) end
----@return any ...
-function ChatFrame3Object:RemoveExcludePrivateMessageTarget(...) end
----@return any ...
-function ChatFrame3Object:RemoveMessageGroup(...) end
----@return any ...
-function ChatFrame3Object:RemoveMessagesByPredicate(...) end
----@return any ...
-function ChatFrame3Object:RemovePrivateMessageTarget(...) end
----@return any ...
-function ChatFrame3Object:ResetAllFadeTimes(...) end
----@return any ...
-function ChatFrame3Object:ResetSelectingText(...) end
----@return any ...
-function ChatFrame3Object:ScrollByAmount(...) end
----@return any ...
-function ChatFrame3Object:ScrollDown(...) end
----@return any ...
-function ChatFrame3Object:ScrollToBottom(...) end
----@return any ...
-function ChatFrame3Object:ScrollToTop(...) end
----@return any ...
-function ChatFrame3Object:ScrollUp(...) end
----@return any ...
-function ChatFrame3Object:SetChannelEnabled(...) end
----@return any ...
-function ChatFrame3Object:SetFadeDuration(...) end
----@return any ...
-function ChatFrame3Object:SetFading(...) end
----@return any ...
-function ChatFrame3Object:SetFont(...) end
----@return any ...
-function ChatFrame3Object:SetFontObject(...) end
----@return any ...
-function ChatFrame3Object:SetGamepadFocus(...) end
----@return any ...
-function ChatFrame3Object:SetIndentedWordWrap(...) end
----@return any ...
-function ChatFrame3Object:SetInsertMode(...) end
----@return any ...
-function ChatFrame3Object:SetJustifyH(...) end
----@return any ...
-function ChatFrame3Object:SetJustifyV(...) end
----@return any ...
-function ChatFrame3Object:SetMaxLines(...) end
----@return any ...
-function ChatFrame3Object:SetOnLineRightClickedCallback(...) end
----@return any ...
-function ChatFrame3Object:SetOnScrollChangedCallback(...) end
----@return any ...
-function ChatFrame3Object:SetOnTextCopiedCallback(...) end
----@return any ...
-function ChatFrame3Object:SetScrollAllowed(...) end
----@return any ...
-function ChatFrame3Object:SetScrollOffset(...) end
----@return any ...
-function ChatFrame3Object:SetShadowColor(...) end
----@return any ...
-function ChatFrame3Object:SetShadowOffset(...) end
----@return any ...
-function ChatFrame3Object:SetSpacing(...) end
----@return any ...
-function ChatFrame3Object:SetTextColor(...) end
----@return any ...
-function ChatFrame3Object:SetTextCopyable(...) end
----@return any ...
-function ChatFrame3Object:SetTimeVisible(...) end
----@return any ...
-function ChatFrame3Object:SetupGamepad(...) end
----@return any ...
-function ChatFrame3Object:SmartNavigationCloseHandler(...) end
----@return any ...
-function ChatFrame3Object:SystemEventHandler(...) end
----@return any ...
-function ChatFrame3Object:TransformMessages(...) end
----@return any ...
-function ChatFrame3Object:UnfocusGamepad(...) end
----@return any ...
-function ChatFrame3Object:UninitializeGamepad(...) end
----@return any ...
-function ChatFrame3Object:UnpackageEntry(...) end
----@return any ...
-function ChatFrame3Object:UnregisterAllMessageGroups(...) end
----@return any ...
-function ChatFrame3Object:UpdateColorByID(...) end
----@return any ...
-function ChatFrame3Object:UpdateDefaultChatTarget(...) end
----@return any ...
-function ChatFrame3Object:UpdateFading(...) end
----@return any ...
-function ChatFrame3Object:UpdateSelectingText(...) end
----@return any ...
-function ChatFrame3Object:customEventHandler(...) end
----@type ChatFrame3Object
-ChatFrame3 = ChatFrame3Object
-end
-
-do
----@class ChatFrame3_BackgroundObject : Texture
-local ChatFrame3_BackgroundObject = {}
-end
-
-do
----@class ChatFrame3_FontStringContainerObject : Frame
-local ChatFrame3_FontStringContainerObject = {}
-end
-
-do
----@class ChatFrame3_ResizeButtonObject : Button
-local ChatFrame3_ResizeButtonObject = {}
-end
-
-do
----@class ChatFrame3_ScrollBarObject : Frame
----@field Back ChatFrame3_ScrollBar_BackObject
----@field Defaults ChatFrame3_ScrollBar_DefaultsObject
----@field Directions ChatFrame3_ScrollBar_DirectionsObject
----@field Event ChatFrame3_ScrollBar_EventObject
----@field Forward ChatFrame3_ScrollBar_ForwardObject
----@field Track ChatFrame3_ScrollBar_TrackObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field deferredCallbacks table
----@field executingEvents table
----@field hideTrack boolean
----@field hideTrackIfThumbExceedsTrack boolean
----@field internalPriority boolean
----@field isScrollController boolean
----@field minThumbExtent number
----@field panDelay number
----@field panExtentPercentage number
----@field panRepeatTime number
----@field smartNavigationIgnored boolean
----@field snapToInterval boolean
----@field thumbAnchor string
----@field useProportionalThumb boolean
----@field visibleExtentPercentage number
----@field wheelPanScalar number
-local ChatFrame3_ScrollBarObject = {}
----@return any ...
-function ChatFrame3_ScrollBarObject:CallInternalScope(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:CanCursorStepInDirection(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:CanInterpolateScroll(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:CopyDeferredCallbacks(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:DisableControls(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:DoesFrameHaveEvent(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:EnableInternalPriority(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:EnableSnapToInterval(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:GenerateCallbackEvents(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:GetBackStepper(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:GetCallbackTable(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:GetCallbackTables(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:GetCallbacksByEvent(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:GetForwardStepper(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:GetFrameExtent(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:GetIntervalRange(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:GetLower(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:GetPanExtentPercentage(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:GetPanRepeatDelay(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:GetPanRepeatTime(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:GetScrollInterpolator(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:GetScrollPercentage(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:GetThumb(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:GetThumbAnchor(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:GetTrack(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:GetTrackExtent(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:GetUpper(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:GetWheelPanPercentage(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:HasRegistrantsForEvent(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:HasScrollableExtent(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:Init(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:InitializeNarration(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:Interpolate(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:IsAtBegin(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:IsAtEnd(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:IsHorizontal(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:IsScrollAllowed(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:IsThumbMouseDown(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:OnHide_Intrinsic(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:OnLoad(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:OnLoad_Intrinsic(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:OnMouseWheel(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:OnShow_Intrinsic(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:OnStepperMouseDown(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:OnThumbMouseDown(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:OnTrackMouseDown(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:RegisterCallback(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:ScrollDecrease(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:ScrollInDirection(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:ScrollIncrease(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:ScrollPageInDirection(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:ScrollStepInDirection(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:ScrollToBegin(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:ScrollToEnd(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:ScrollWheelInDirection(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:SecureInsertEvent(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:SelectCursorComponent(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:SelectPointComponent(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:SetFrameExtent(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:SetHideIfUnscrollable(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:SetHorizontal(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:SetInterpolateScroll(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:SetPanExtentPercentage(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:SetScrollAllowed(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:SetScrollPercentage(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:SetScrollPercentageInternal(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:SetThumbExtent(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:SetVisibleExtentPercentage(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:TriggerEvent(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:UnregisterCallback(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:UnregisterEvents(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:UnregisterUpdate(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:Update(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:onButtonMouseUp(...) end
----@return any ...
-function ChatFrame3_ScrollBarObject:scrollInternal(...) end
-end
-
-do
----@class ChatFrame3_ScrollBar_BackObject : Button
----@field Event ChatFrame3_ScrollBar_Back_EventObject
----@field Texture ChatFrame3_ScrollBar_Back_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local ChatFrame3_ScrollBar_BackObject = {}
----@return any ...
-function ChatFrame3_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
----@return any ...
-function ChatFrame3_ScrollBar_BackObject:DesaturateIfDisabled(...) end
----@return any ...
-function ChatFrame3_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
----@return any ...
-function ChatFrame3_ScrollBar_BackObject:GenerateCallbackEvents(...) end
----@return any ...
-function ChatFrame3_ScrollBar_BackObject:GetAtlas(...) end
----@return any ...
-function ChatFrame3_ScrollBar_BackObject:GetCallbackTable(...) end
----@return any ...
-function ChatFrame3_ScrollBar_BackObject:GetCallbackTables(...) end
----@return any ...
-function ChatFrame3_ScrollBar_BackObject:GetCallbacksByEvent(...) end
----@return any ...
-function ChatFrame3_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject = {}
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:AddLayoutChildren(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:IsDown(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:ClearFixedSize(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:IsDownOver(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:GetAdditionalRegions(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:IsOver(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:GetChildHeight(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:NarrationGetName(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:GetChildSize(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:OnButtonStateChanged(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:GetChildWidth(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:GetFixedHeight(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:OnDisable(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:GetFixedSize(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:OnEnable(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:GetFixedWidth(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:OnEnter(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:GetHeightPadding(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:GetLayoutChildren(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:OnLeave(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:GetMaximumWidth(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:GetMinimumWidth(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:OnLoad(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:GetWidthPadding(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:IgnoreLayoutIndex(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:OnMouseDown(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:Init(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:IsDirty(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:OnMouseUp(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:IsLayoutFrame(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:Layout(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:OnShow(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:MarkClean(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:MarkDirty(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:MarkIgnoreInLayout(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:RegisterCallback(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:OnCleaned(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:OnClick(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:SecureInsertEvent(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:OnEnter(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:SetDisplacedRegions(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:OnLeave(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:OnShow(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:TriggerEvent(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:OnUpdate(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:UnregisterCallback(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:SetFixedHeight(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:UnregisterEvents(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:SetFixedSize(...) end
 ---@return any ...
-function ChatFrame3_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class ChatFrame3_ScrollBar_Back_EventObject
-local ChatFrame3_ScrollBar_Back_EventObject = {}
-end
-
-do
----@class ChatFrame3_ScrollBar_Back_TextureObject : Texture
-local ChatFrame3_ScrollBar_Back_TextureObject = {}
-end
-
-do
----@class ChatFrame3_ScrollBar_DefaultsObject
-local ChatFrame3_ScrollBar_DefaultsObject = {}
-end
-
-do
----@class ChatFrame3_ScrollBar_DirectionsObject
-local ChatFrame3_ScrollBar_DirectionsObject = {}
-end
-
-do
----@class ChatFrame3_ScrollBar_EventObject
-local ChatFrame3_ScrollBar_EventObject = {}
-end
-
-do
----@class ChatFrame3_ScrollBar_ForwardObject : Button
----@field Event ChatFrame3_ScrollBar_Forward_EventObject
----@field Texture ChatFrame3_ScrollBar_Forward_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local ChatFrame3_ScrollBar_ForwardObject = {}
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:GetAtlas(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:GetCallbackTable(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:GetCallbackTables(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:IsDown(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:IsDownOver(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:IsOver(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:NarrationGetName(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:OnDisable(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:OnEnable(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:OnEnter(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:OnLeave(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:OnLoad(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:OnMouseDown(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:OnMouseUp(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:OnShow(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:RegisterCallback(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:SecureInsertEvent(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:TriggerEvent(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:UnregisterCallback(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:UnregisterEvents(...) end
----@return any ...
-function ChatFrame3_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class ChatFrame3_ScrollBar_Forward_EventObject
-local ChatFrame3_ScrollBar_Forward_EventObject = {}
-end
-
-do
----@class ChatFrame3_ScrollBar_Forward_TextureObject : Texture
-local ChatFrame3_ScrollBar_Forward_TextureObject = {}
-end
-
-do
----@class ChatFrame3_ScrollBar_TrackObject : Frame
----@field Begin ChatFrame3_ScrollBar_Track_BeginObject
----@field End ChatFrame3_ScrollBar_Track_EndObject
----@field Middle ChatFrame3_ScrollBar_Track_MiddleObject
----@field Thumb ChatFrame3_ScrollBar_Track_ThumbObject
-local ChatFrame3_ScrollBar_TrackObject = {}
-end
-
-do
----@class ChatFrame3_ScrollBar_Track_BeginObject : Texture
-local ChatFrame3_ScrollBar_Track_BeginObject = {}
-end
-
-do
----@class ChatFrame3_ScrollBar_Track_EndObject : Texture
-local ChatFrame3_ScrollBar_Track_EndObject = {}
-end
-
-do
----@class ChatFrame3_ScrollBar_Track_MiddleObject : Texture
-local ChatFrame3_ScrollBar_Track_MiddleObject = {}
-end
-
-do
----@class ChatFrame3_ScrollBar_Track_ThumbObject : Button
----@field Begin ChatFrame3_ScrollBar_Track_Thumb_BeginObject
----@field End ChatFrame3_ScrollBar_Track_Thumb_EndObject
----@field Event ChatFrame3_ScrollBar_Track_Thumb_EventObject
----@field Middle ChatFrame3_ScrollBar_Track_Thumb_MiddleObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field downBeginTexture string
----@field downEndTexture string
----@field downMiddleTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field overBeginTexture string
----@field overEndTexture string
----@field overMiddleTexture string
----@field upBeginTexture string
----@field upEndTexture string
----@field upMiddleTexture string
-local ChatFrame3_ScrollBar_Track_ThumbObject = {}
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:GetAtlas(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:IsDown(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:IsDownOver(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:IsOver(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:OnDisable(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:OnEnable(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:OnEnter(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:OnLeave(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:OnLoad(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:OnShow(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
----@return any ...
-function ChatFrame3_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class ChatFrame3_ScrollBar_Track_Thumb_BeginObject : Texture
-local ChatFrame3_ScrollBar_Track_Thumb_BeginObject = {}
-end
-
-do
----@class ChatFrame3_ScrollBar_Track_Thumb_EndObject : Texture
-local ChatFrame3_ScrollBar_Track_Thumb_EndObject = {}
-end
-
-do
----@class ChatFrame3_ScrollBar_Track_Thumb_EventObject
-local ChatFrame3_ScrollBar_Track_Thumb_EventObject = {}
-end
-
-do
----@class ChatFrame3_ScrollBar_Track_Thumb_MiddleObject : Texture
-local ChatFrame3_ScrollBar_Track_Thumb_MiddleObject = {}
-end
-
-do
----@class ChatFrame3_ScrollToBottomButtonObject : Button
----@field Flash ChatFrame3_ScrollToBottomButton_FlashObject
----@field smartNavigationIgnored boolean
-local ChatFrame3_ScrollToBottomButtonObject = {}
-end
-
-do
----@class ChatFrame3_ScrollToBottomButton_FlashObject : Texture
----@field FlashAnim ChatFrame3_ScrollToBottomButton_Flash_FlashAnimObject
-local ChatFrame3_ScrollToBottomButton_FlashObject = {}
-end
-
-do
----@class ChatFrame3_ScrollToBottomButton_Flash_FlashAnimObject : AnimationGroup
----@field FadeIn ChatFrame3_ScrollToBottomButton_Flash_FlashAnim_FadeInObject
----@field FadeOut ChatFrame3_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject
-local ChatFrame3_ScrollToBottomButton_Flash_FlashAnimObject = {}
-end
-
-do
----@class ChatFrame3_ScrollToBottomButton_Flash_FlashAnim_FadeInObject : Alpha
-local ChatFrame3_ScrollToBottomButton_Flash_FlashAnim_FadeInObject = {}
-end
-
-do
----@class ChatFrame3_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject : Alpha
-local ChatFrame3_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject = {}
-end
-
-do
----@class ChatFrame3_TabObject
-local ChatFrame3_TabObject = {}
-end
-
-do
----@class ChatFrame3_buttonFrameObject : Frame
----@field Background ChatFrame3_buttonFrame_BackgroundObject
----@field minimizeButton ChatFrame3_buttonFrame_minimizeButtonObject
-local ChatFrame3_buttonFrameObject = {}
-end
-
-do
----@class ChatFrame3_buttonFrame_BackgroundObject : Texture
-local ChatFrame3_buttonFrame_BackgroundObject = {}
-end
-
-do
----@class ChatFrame3_buttonFrame_minimizeButtonObject : Button
-local ChatFrame3_buttonFrame_minimizeButtonObject = {}
-end
-
-do
----@class ChatFrame3_clickAnywhereButtonObject : Button
-local ChatFrame3_clickAnywhereButtonObject = {}
----@return any ...
-function ChatFrame3_clickAnywhereButtonObject:OnClick(...) end
----@return any ...
-function ChatFrame3_clickAnywhereButtonObject:OnEvent(...) end
----@return any ...
-function ChatFrame3_clickAnywhereButtonObject:OnLoad(...) end
----@return any ...
-function ChatFrame3_clickAnywhereButtonObject:UpdateState(...) end
-end
-
-do
----@class ChatFrame3_editBoxObject
-local ChatFrame3_editBoxObject = {}
-end
-
-do
----@class ChatFrame3_fontObjectObject
-local ChatFrame3_fontObjectObject = {}
-end
-
-do
----@class ChatFrame3_historyBufferObject
----@field elements table
----@field headIndex table
----@field maxElements table
-local ChatFrame3_historyBufferObject = {}
----@return any ...
-function ChatFrame3_historyBufferObject:CalculateElementIndex(...) end
----@return any ...
-function ChatFrame3_historyBufferObject:CalculateElementIndexFromGlobalIndex(...) end
----@return any ...
-function ChatFrame3_historyBufferObject:Clear(...) end
----@return any ...
-function ChatFrame3_historyBufferObject:EnumerateIndexedEntries(...) end
----@return any ...
-function ChatFrame3_historyBufferObject:GetEntryAtIndex(...) end
----@return any ...
-function ChatFrame3_historyBufferObject:GetMaxNumElements(...) end
----@return any ...
-function ChatFrame3_historyBufferObject:GetNumElements(...) end
----@return any ...
-function ChatFrame3_historyBufferObject:IsEmpty(...) end
----@return any ...
-function ChatFrame3_historyBufferObject:IsFull(...) end
----@return any ...
-function ChatFrame3_historyBufferObject:IsValidIndex(...) end
----@return any ...
-function ChatFrame3_historyBufferObject:OnLoad(...) end
----@return any ...
-function ChatFrame3_historyBufferObject:PushBack(...) end
----@return any ...
-function ChatFrame3_historyBufferObject:PushFront(...) end
----@return any ...
-function ChatFrame3_historyBufferObject:RemoveIf(...) end
----@return any ...
-function ChatFrame3_historyBufferObject:ReplaceElements(...) end
----@return any ...
-function ChatFrame3_historyBufferObject:ReverseEnumerateIndexedEntries(...) end
----@return any ...
-function ChatFrame3_historyBufferObject:SetMaxNumElements(...) end
----@return any ...
-function ChatFrame3_historyBufferObject:TransformIf(...) end
-end
-
-do
----@class ChatFrame3EditBoxObject : EditBox
----@field NewcomerHint ChatFrame3EditBox_NewcomerHintObject
----@field addHighlightedText boolean
----@field addSpaceToAutoComplete boolean
----@field buttonContext string
----@field chatFrame ChatFrame3EditBox_chatFrameObject
----@field chatLanguage string
----@field disableActivate boolean
----@field focusLeft ChatFrame3EditBox_focusLeftObject
----@field focusMid ChatFrame3EditBox_focusMidObject
----@field focusRight ChatFrame3EditBox_focusRightObject
----@field header ChatFrame3EditBox_headerObject
----@field headerSuffix ChatFrame3EditBox_headerSuffixObject
----@field languageHeader ChatFrame3EditBox_languageHeaderObject
----@field prompt ChatFrame3EditBox_promptObject
-local ChatFrame3EditBoxObject = {}
----@return any ...
-function ChatFrame3EditBoxObject:AddHistory(...) end
----@return any ...
-function ChatFrame3EditBoxObject:ClearChat(...) end
----@return any ...
-function ChatFrame3EditBoxObject:Deactivate(...) end
----@return any ...
-function ChatFrame3EditBoxObject:DoesCurrentChannelTargetMatch(...) end
----@return any ...
-function ChatFrame3EditBoxObject:ExtractChannel(...) end
----@return any ...
-function ChatFrame3EditBoxObject:ExtractTellTarget(...) end
----@return any ...
-function ChatFrame3EditBoxObject:GetChannelTarget(...) end
----@return any ...
-function ChatFrame3EditBoxObject:GetChatType(...) end
----@return any ...
-function ChatFrame3EditBoxObject:GetStickyType(...) end
----@return any ...
-function ChatFrame3EditBoxObject:GetTellTarget(...) end
----@return any ...
-function ChatFrame3EditBoxObject:HandleChatType(...) end
----@return any ...
-function ChatFrame3EditBoxObject:HasStickyFocus(...) end
----@return any ...
-function ChatFrame3EditBoxObject:OnChar(...) end
----@return any ...
-function ChatFrame3EditBoxObject:OnEditFocusGained(...) end
----@return any ...
-function ChatFrame3EditBoxObject:OnEditFocusLost(...) end
----@return any ...
-function ChatFrame3EditBoxObject:OnEnterPressed(...) end
----@return any ...
-function ChatFrame3EditBoxObject:OnEscapePressed(...) end
----@return any ...
-function ChatFrame3EditBoxObject:OnEvent(...) end
----@return any ...
-function ChatFrame3EditBoxObject:OnHide(...) end
----@return any ...
-function ChatFrame3EditBoxObject:OnInputLanguageChanged(...) end
----@return any ...
-function ChatFrame3EditBoxObject:OnLoad(...) end
----@return any ...
-function ChatFrame3EditBoxObject:OnPreSendText(...) end
----@return any ...
-function ChatFrame3EditBoxObject:OnShow(...) end
----@return any ...
-function ChatFrame3EditBoxObject:OnSpacePressed(...) end
----@return any ...
-function ChatFrame3EditBoxObject:OnTabPressed(...) end
----@return any ...
-function ChatFrame3EditBoxObject:OnTextChanged(...) end
----@return any ...
-function ChatFrame3EditBoxObject:OnTextSet(...) end
----@return any ...
-function ChatFrame3EditBoxObject:OnUpdate(...) end
----@return any ...
-function ChatFrame3EditBoxObject:ParseText(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:SetFixedWidth(...) end
 ---@return any ...
-function ChatFrame3EditBoxObject:ProcessChatType(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:SetHeightPadding(...) end
 ---@return any ...
-function ChatFrame3EditBoxObject:ResetChatType(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:SetMaximumWidth(...) end
 ---@return any ...
-function ChatFrame3EditBoxObject:ResetChatTypeToSticky(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:SetMinimumWidth(...) end
 ---@return any ...
-function ChatFrame3EditBoxObject:SecureTabPressed(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:SetTextColor(...) end
 ---@return any ...
-function ChatFrame3EditBoxObject:SendMessage(...) end
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:SetWidthPadding(...) end
 ---@return any ...
-function ChatFrame3EditBoxObject:SendText(...) end
----@return any ...
-function ChatFrame3EditBoxObject:SetChannelTarget(...) end
----@return any ...
-function ChatFrame3EditBoxObject:SetChatType(...) end
----@return any ...
-function ChatFrame3EditBoxObject:SetFocusRegionVertexColors(...) end
----@return any ...
-function ChatFrame3EditBoxObject:SetFocusRegionsShown(...) end
----@return any ...
-function ChatFrame3EditBoxObject:SetGameLanguage(...) end
----@return any ...
-function ChatFrame3EditBoxObject:SetStickyType(...) end
----@return any ...
-function ChatFrame3EditBoxObject:SetTellTarget(...) end
----@return any ...
-function ChatFrame3EditBoxObject:ShouldDeactivateChatOnEditFocusLost(...) end
----@return any ...
-function ChatFrame3EditBoxObject:UpdateHeader(...) end
----@return any ...
-function ChatFrame3EditBoxObject:UpdateLanguageHeader(...) end
----@return any ...
-function ChatFrame3EditBoxObject:UpdateNewcomerEditBoxHint(...) end
----@return any ...
-function ChatFrame3EditBoxObject:customAutoCompleteFunction(...) end
----@type ChatFrame3EditBoxObject
-ChatFrame3EditBox = ChatFrame3EditBoxObject
-end
-
-do
----@class ChatFrame3EditBox_NewcomerHintObject : FontString
-local ChatFrame3EditBox_NewcomerHintObject = {}
-end
-
-do
----@class ChatFrame3EditBox_chatFrameObject
-local ChatFrame3EditBox_chatFrameObject = {}
-end
-
-do
----@class ChatFrame3EditBox_focusLeftObject : Texture
-local ChatFrame3EditBox_focusLeftObject = {}
-end
-
-do
----@class ChatFrame3EditBox_focusMidObject : Texture
-local ChatFrame3EditBox_focusMidObject = {}
-end
-
-do
----@class ChatFrame3EditBox_focusRightObject : Texture
-local ChatFrame3EditBox_focusRightObject = {}
-end
-
-do
----@class ChatFrame3EditBox_headerObject : FontString
-local ChatFrame3EditBox_headerObject = {}
-end
-
-do
----@class ChatFrame3EditBox_headerSuffixObject : FontString
-local ChatFrame3EditBox_headerSuffixObject = {}
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckboxObject:ShouldClearOnUpdateAfterClean(...) end
 end
 
 do
----@class ChatFrame3EditBox_languageHeaderObject : FontString
-local ChatFrame3EditBox_languageHeaderObject = {}
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckbox_TextObject : FontString
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckbox_TextObject = {}
 end
 
 do
----@class ChatFrame3EditBox_promptObject : FontString
-local ChatFrame3EditBox_promptObject = {}
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckbox_fontObjectObject
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignConsumablesCheckbox_fontObjectObject = {}
 end
 
 do
----@class ChatFrame3TabObject : Button
----@field ActiveLeft ChatFrame3Tab_ActiveLeftObject
----@field ActiveMiddle ChatFrame3Tab_ActiveMiddleObject
----@field ActiveRight ChatFrame3Tab_ActiveRightObject
----@field HighlightLeft ChatFrame3Tab_HighlightLeftObject
----@field HighlightMiddle ChatFrame3Tab_HighlightMiddleObject
----@field HighlightRight ChatFrame3Tab_HighlightRightObject
----@field Left ChatFrame3Tab_LeftObject
----@field Middle ChatFrame3Tab_MiddleObject
----@field Right ChatFrame3Tab_RightObject
----@field Text ChatFrame3Tab_TextObject
----@field glow ChatFrame3Tab_glowObject
----@field selectedColorTable ChatFrame3Tab_selectedColorTableObject
----@field sizePadding number
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject : CheckButton
+---@field Text BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckbox_TextObject
+---@field fontObject BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckbox_fontObjectObject
+---@field settingFlag number
+---@field text string
 ---@field textWidth number
-local ChatFrame3TabObject = {}
----@type ChatFrame3TabObject
-ChatFrame3Tab = ChatFrame3TabObject
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject = {}
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:AddLayoutChildren(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:ClearFixedSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:GetAdditionalRegions(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:GetChildHeight(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:GetChildSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:GetChildWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:GetFixedHeight(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:GetFixedSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:GetFixedWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:GetHeightPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:GetLayoutChildren(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:GetMaximumWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:GetMinimumWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:GetWidthPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:Init(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:IsDirty(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:IsLayoutFrame(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:Layout(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:MarkClean(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:MarkDirty(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:OnCleaned(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:OnClick(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:OnEnter(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:OnLeave(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:OnShow(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:OnUpdate(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:SetFixedHeight(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:SetFixedSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:SetFixedWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:SetHeightPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:SetMaximumWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:SetMinimumWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:SetTextColor(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:SetWidthPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckboxObject:ShouldClearOnUpdateAfterClean(...) end
 end
 
 do
----@class ChatFrame3Tab_ActiveLeftObject : Texture
-local ChatFrame3Tab_ActiveLeftObject = {}
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckbox_TextObject : FontString
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckbox_TextObject = {}
 end
 
 do
----@class ChatFrame3Tab_ActiveMiddleObject : Texture
-local ChatFrame3Tab_ActiveMiddleObject = {}
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckbox_fontObjectObject
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignEquipmentCheckbox_fontObjectObject = {}
 end
 
 do
----@class ChatFrame3Tab_ActiveRightObject : Texture
-local ChatFrame3Tab_ActiveRightObject = {}
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignExpansionHeaderObject : FontString
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignExpansionHeaderObject = {}
 end
 
 do
----@class ChatFrame3Tab_HighlightLeftObject : Texture
-local ChatFrame3Tab_HighlightLeftObject = {}
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject : CheckButton
+---@field Text BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckbox_TextObject
+---@field fontObject BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckbox_fontObjectObject
+---@field settingFlag number
+---@field text string
+---@field textWidth number
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject = {}
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:AddLayoutChildren(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:ClearFixedSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:GetAdditionalRegions(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:GetChildHeight(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:GetChildSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:GetChildWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:GetFixedHeight(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:GetFixedSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:GetFixedWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:GetHeightPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:GetLayoutChildren(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:GetMaximumWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:GetMinimumWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:GetWidthPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:Init(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:IsDirty(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:IsLayoutFrame(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:Layout(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:MarkClean(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:MarkDirty(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:OnCleaned(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:OnClick(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:OnEnter(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:OnLeave(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:OnShow(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:OnUpdate(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:SetFixedHeight(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:SetFixedSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:SetFixedWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:SetHeightPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:SetMaximumWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:SetMinimumWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:SetTextColor(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:SetWidthPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckboxObject:ShouldClearOnUpdateAfterClean(...) end
 end
 
 do
----@class ChatFrame3Tab_HighlightMiddleObject : Texture
-local ChatFrame3Tab_HighlightMiddleObject = {}
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckbox_TextObject : FontString
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckbox_TextObject = {}
 end
 
 do
----@class ChatFrame3Tab_HighlightRightObject : Texture
-local ChatFrame3Tab_HighlightRightObject = {}
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckbox_fontObjectObject
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignJunkCheckbox_fontObjectObject = {}
 end
 
 do
----@class ChatFrame3Tab_LeftObject : Texture
-local ChatFrame3Tab_LeftObject = {}
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject : CheckButton
+---@field Text BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckbox_TextObject
+---@field fontObject BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckbox_fontObjectObject
+---@field settingFlag number
+---@field text string
+---@field textWidth number
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject = {}
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:AddLayoutChildren(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:ClearFixedSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:GetAdditionalRegions(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:GetChildHeight(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:GetChildSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:GetChildWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:GetFixedHeight(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:GetFixedSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:GetFixedWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:GetHeightPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:GetLayoutChildren(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:GetMaximumWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:GetMinimumWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:GetWidthPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:Init(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:IsDirty(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:IsLayoutFrame(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:Layout(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:MarkClean(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:MarkDirty(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:OnCleaned(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:OnClick(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:OnEnter(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:OnLeave(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:OnShow(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:OnUpdate(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:SetFixedHeight(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:SetFixedSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:SetFixedWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:SetHeightPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:SetMaximumWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:SetMinimumWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:SetTextColor(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:SetWidthPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckboxObject:ShouldClearOnUpdateAfterClean(...) end
 end
 
 do
----@class ChatFrame3Tab_MiddleObject : Texture
-local ChatFrame3Tab_MiddleObject = {}
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckbox_TextObject : FontString
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckbox_TextObject = {}
 end
 
 do
----@class ChatFrame3Tab_RightObject : Texture
-local ChatFrame3Tab_RightObject = {}
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckbox_fontObjectObject
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignProfessionGoodsCheckbox_fontObjectObject = {}
 end
 
 do
----@class ChatFrame3Tab_TextObject : FontString
-local ChatFrame3Tab_TextObject = {}
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject : CheckButton
+---@field Text BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckbox_TextObject
+---@field fontObject BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckbox_fontObjectObject
+---@field settingFlag number
+---@field text string
+---@field textWidth number
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject = {}
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:AddLayoutChildren(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:ClearFixedSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:GetAdditionalRegions(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:GetChildHeight(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:GetChildSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:GetChildWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:GetFixedHeight(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:GetFixedSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:GetFixedWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:GetHeightPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:GetLayoutChildren(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:GetMaximumWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:GetMinimumWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:GetWidthPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:Init(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:IsDirty(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:IsLayoutFrame(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:Layout(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:MarkClean(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:MarkDirty(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:OnCleaned(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:OnClick(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:OnEnter(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:OnLeave(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:OnShow(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:OnUpdate(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:SetFixedHeight(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:SetFixedSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:SetFixedWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:SetHeightPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:SetMaximumWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:SetMinimumWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:SetTextColor(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:SetWidthPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckboxObject:ShouldClearOnUpdateAfterClean(...) end
 end
 
 do
----@class ChatFrame3Tab_glowObject : Texture
----@field FlashAnim ChatFrame3Tab_glow_FlashAnimObject
-local ChatFrame3Tab_glowObject = {}
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckbox_TextObject : FontString
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckbox_TextObject = {}
 end
 
 do
----@class ChatFrame3Tab_glow_FlashAnimObject : AnimationGroup
----@field syncKey string
-local ChatFrame3Tab_glow_FlashAnimObject = {}
----@return any ...
-function ChatFrame3Tab_glow_FlashAnimObject:ClearSyncedStart(...) end
----@return any ...
-function ChatFrame3Tab_glow_FlashAnimObject:GetTimeSinceSyncTimeForKey(...) end
----@return any ...
-function ChatFrame3Tab_glow_FlashAnimObject:PlaySynced(...) end
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckbox_fontObjectObject
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignReagentsCheckbox_fontObjectObject = {}
 end
 
 do
----@class ChatFrame3Tab_selectedColorTableObject
----@field b number
----@field g number
----@field r number
-local ChatFrame3Tab_selectedColorTableObject = {}
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignSettingsHeaderObject : FontString
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_AssignSettingsHeaderObject = {}
 end
 
 do
----@class ChatFrame4Object : Frame
----@field Background ChatFrame4_BackgroundObject
----@field FontStringContainer ChatFrame4_FontStringContainerObject
----@field ResizeButton ChatFrame4_ResizeButtonObject
----@field ScrollBar ChatFrame4_ScrollBarObject
----@field ScrollToBottomButton ChatFrame4_ScrollToBottomButtonObject
----@field allowScroll boolean
----@field alternativeDefaultLanguage string
----@field buttonFrame ChatFrame4_buttonFrameObject
----@field buttonSide string
----@field channelList table
----@field checkedGMOTD boolean
----@field clickAnywhereButton ChatFrame4_clickAnywhereButtonObject
----@field defaultLanguage string
----@field dock ChatFrame4_dockObject
----@field editBox ChatFrame4_editBoxObject
----@field fadeDurationSecs number
----@field fontObject ChatFrame4_fontObjectObject
----@field hasOwnFontObject boolean
----@field historyBuffer ChatFrame4_historyBufferObject
----@field insertMode number
----@field isDisplayDirty boolean
----@field isDocked number
----@field isInitialized number
----@field isLayoutDirty boolean
----@field isLocked boolean
----@field isScrollingMessageFrame boolean
----@field isUninteractable boolean
----@field messageTypeList table
----@field name string
----@field oldAlpha number
----@field oldestFadingLineTimestamp number
----@field onDisplayRefreshedCallbacks table
----@field overrideFadeTimestamp number
----@field scrollOffset number
----@field shouldFadeAfterInactivity boolean
----@field smartNavRightStickMaxScrollSpeed number
----@field textIsCopyable boolean
----@field timeVisibleSecs number
----@field visibleLines table
----@field zoneChannelList table
-local ChatFrame4Object = {}
----@return any ...
-function ChatFrame4Object:AcquireFontString(...) end
----@return any ...
-function ChatFrame4Object:AcquireHighlightTexture(...) end
----@return any ...
-function ChatFrame4Object:AddChannel(...) end
----@return any ...
-function ChatFrame4Object:AddMessage(...) end
----@return any ...
-function ChatFrame4Object:AddMessageGroup(...) end
----@return any ...
-function ChatFrame4Object:AddOnDisplayRefreshedCallback(...) end
----@return any ...
-function ChatFrame4Object:AddPrivateMessageTarget(...) end
----@return any ...
-function ChatFrame4Object:AddSingleMessageType(...) end
----@return any ...
-function ChatFrame4Object:AdjustMessageColors(...) end
----@return any ...
-function ChatFrame4Object:AtBottom(...) end
----@return any ...
-function ChatFrame4Object:AtTop(...) end
----@return any ...
-function ChatFrame4Object:BackFillMessage(...) end
----@return any ...
-function ChatFrame4Object:CalculateLineAlphaValueFromTimestamp(...) end
----@return any ...
-function ChatFrame4Object:CalculateLineSpacing(...) end
----@return any ...
-function ChatFrame4Object:CalculateNumVisibleLines(...) end
----@return any ...
-function ChatFrame4Object:CalculateSelectingCharacterIndicesForVisibleLine(...) end
----@return any ...
-function ChatFrame4Object:CallOnDisplayRefreshed(...) end
----@return any ...
-function ChatFrame4Object:CanEffectivelyFade(...) end
----@return any ...
-function ChatFrame4Object:Clear(...) end
----@return any ...
-function ChatFrame4Object:ClearGamepadFocus(...) end
----@return any ...
-function ChatFrame4Object:ConfigEventHandler(...) end
----@return any ...
-function ChatFrame4Object:ContainsChannel(...) end
----@return any ...
-function ChatFrame4Object:ContainsMessageGroup(...) end
----@return any ...
-function ChatFrame4Object:CreateFooter(...) end
----@return any ...
-function ChatFrame4Object:DontRestoreGamepadFocusOnMenuClose(...) end
----@return any ...
-function ChatFrame4Object:ExcludePrivateMessageTarget(...) end
----@return any ...
-function ChatFrame4Object:FindCharacterAndLineIndexAtCoordinate(...) end
----@return any ...
-function ChatFrame4Object:FocusGamepad(...) end
----@return any ...
-function ChatFrame4Object:ForEachMessage(...) end
----@return any ...
-function ChatFrame4Object:ForEachMessageInfoText(...) end
----@return any ...
-function ChatFrame4Object:ForEachVisibleLineText(...) end
----@return any ...
-function ChatFrame4Object:GatherSelectedText(...) end
----@return any ...
-function ChatFrame4Object:GetDefaultChatTarget(...) end
----@return any ...
-function ChatFrame4Object:GetFadeDuration(...) end
----@return any ...
-function ChatFrame4Object:GetFading(...) end
----@return any ...
-function ChatFrame4Object:GetFont(...) end
----@return any ...
-function ChatFrame4Object:GetFontObject(...) end
----@return any ...
-function ChatFrame4Object:GetIndentedWordWrap(...) end
----@return any ...
-function ChatFrame4Object:GetInsertMode(...) end
----@return any ...
-function ChatFrame4Object:GetJustifyH(...) end
----@return any ...
-function ChatFrame4Object:GetJustifyV(...) end
----@return any ...
-function ChatFrame4Object:GetMaxLines(...) end
----@return any ...
-function ChatFrame4Object:GetMaxScrollRange(...) end
----@return any ...
-function ChatFrame4Object:GetMessageInfo(...) end
----@return any ...
-function ChatFrame4Object:GetNumMessages(...) end
----@return any ...
-function ChatFrame4Object:GetNumVisibleLines(...) end
----@return any ...
-function ChatFrame4Object:GetOnLineRightClickedCallback(...) end
----@return any ...
-function ChatFrame4Object:GetOnScrollChangedCallback(...) end
----@return any ...
-function ChatFrame4Object:GetOnTextCopiedCallback(...) end
----@return any ...
-function ChatFrame4Object:GetPagingScrollAmount(...) end
----@return any ...
-function ChatFrame4Object:GetScaledCursorPosition(...) end
----@return any ...
-function ChatFrame4Object:GetScrollOffset(...) end
----@return any ...
-function ChatFrame4Object:GetShadowColor(...) end
----@return any ...
-function ChatFrame4Object:GetShadowOffset(...) end
----@return any ...
-function ChatFrame4Object:GetSpacing(...) end
----@return any ...
-function ChatFrame4Object:GetTextColor(...) end
----@return any ...
-function ChatFrame4Object:GetTimeVisible(...) end
----@return any ...
-function ChatFrame4Object:HasFontObject(...) end
----@return any ...
-function ChatFrame4Object:HasGamepadFocus(...) end
----@return any ...
-function ChatFrame4Object:InitializeFontString(...) end
----@return any ...
-function ChatFrame4Object:InitializeFontableFrame(...) end
----@return any ...
-function ChatFrame4Object:InitializeGamepad(...) end
----@return any ...
-function ChatFrame4Object:IsGamepadMenuOpen(...) end
----@return any ...
-function ChatFrame4Object:IsScrollAllowed(...) end
----@return any ...
-function ChatFrame4Object:IsSelectingText(...) end
----@return any ...
-function ChatFrame4Object:IsTextCopyable(...) end
----@return any ...
-function ChatFrame4Object:MakeFontObjectCustom(...) end
----@return any ...
-function ChatFrame4Object:MarkDisplayDirty(...) end
----@return any ...
-function ChatFrame4Object:MarkLayoutDirty(...) end
----@return any ...
-function ChatFrame4Object:MessageEventHandler(...) end
----@return any ...
-function ChatFrame4Object:OnColorsUpdated(...) end
----@return any ...
-function ChatFrame4Object:OnEvent(...) end
----@return any ...
-function ChatFrame4Object:OnFontObjectUpdated(...) end
----@return any ...
-function ChatFrame4Object:OnHide(...) end
----@return any ...
-function ChatFrame4Object:OnHyperlinkClick(...) end
----@return any ...
-function ChatFrame4Object:OnHyperlinkEnter(...) end
----@return any ...
-function ChatFrame4Object:OnHyperlinkLeave(...) end
----@return any ...
-function ChatFrame4Object:OnLoad(...) end
----@return any ...
-function ChatFrame4Object:OnPostEvent(...) end
----@return any ...
-function ChatFrame4Object:OnPostHide(...) end
----@return any ...
-function ChatFrame4Object:OnPostMouseDown(...) end
----@return any ...
-function ChatFrame4Object:OnPostMouseUp(...) end
----@return any ...
-function ChatFrame4Object:OnPostShow(...) end
----@return any ...
-function ChatFrame4Object:OnPostUpdate(...) end
----@return any ...
-function ChatFrame4Object:OnPreLoad(...) end
----@return any ...
-function ChatFrame4Object:OnPreSizeChanged(...) end
----@return any ...
-function ChatFrame4Object:OnUpdate(...) end
----@return any ...
-function ChatFrame4Object:OpenChatChannelsMenu(...) end
----@return any ...
-function ChatFrame4Object:OpenGamepadTabMenu(...) end
----@return any ...
-function ChatFrame4Object:PackageEntry(...) end
----@return any ...
-function ChatFrame4Object:PageDown(...) end
----@return any ...
-function ChatFrame4Object:PageUp(...) end
----@return any ...
-function ChatFrame4Object:PlayerLevelChanged(...) end
----@return any ...
-function ChatFrame4Object:PlayerLevelUp(...) end
----@return any ...
-function ChatFrame4Object:ReceiveAllPrivateMessages(...) end
----@return any ...
-function ChatFrame4Object:RefreshDisplay(...) end
----@return any ...
-function ChatFrame4Object:RefreshIfNecessary(...) end
----@return any ...
-function ChatFrame4Object:RefreshLayout(...) end
----@return any ...
-function ChatFrame4Object:RegisterForChannels(...) end
----@return any ...
-function ChatFrame4Object:RegisterForInterfaceTransitions(...) end
----@return any ...
-function ChatFrame4Object:RegisterForMessages(...) end
----@return any ...
-function ChatFrame4Object:RemoveAllChannels(...) end
----@return any ...
-function ChatFrame4Object:RemoveAllMessageGroups(...) end
----@return any ...
-function ChatFrame4Object:RemoveChannel(...) end
----@return any ...
-function ChatFrame4Object:RemoveExcludePrivateMessageTarget(...) end
----@return any ...
-function ChatFrame4Object:RemoveMessageGroup(...) end
----@return any ...
-function ChatFrame4Object:RemoveMessagesByPredicate(...) end
----@return any ...
-function ChatFrame4Object:RemovePrivateMessageTarget(...) end
----@return any ...
-function ChatFrame4Object:ResetAllFadeTimes(...) end
----@return any ...
-function ChatFrame4Object:ResetSelectingText(...) end
----@return any ...
-function ChatFrame4Object:ScrollByAmount(...) end
----@return any ...
-function ChatFrame4Object:ScrollDown(...) end
----@return any ...
-function ChatFrame4Object:ScrollToBottom(...) end
----@return any ...
-function ChatFrame4Object:ScrollToTop(...) end
----@return any ...
-function ChatFrame4Object:ScrollUp(...) end
----@return any ...
-function ChatFrame4Object:SetChannelEnabled(...) end
----@return any ...
-function ChatFrame4Object:SetFadeDuration(...) end
----@return any ...
-function ChatFrame4Object:SetFading(...) end
----@return any ...
-function ChatFrame4Object:SetFont(...) end
----@return any ...
-function ChatFrame4Object:SetFontObject(...) end
----@return any ...
-function ChatFrame4Object:SetGamepadFocus(...) end
----@return any ...
-function ChatFrame4Object:SetIndentedWordWrap(...) end
----@return any ...
-function ChatFrame4Object:SetInsertMode(...) end
----@return any ...
-function ChatFrame4Object:SetJustifyH(...) end
----@return any ...
-function ChatFrame4Object:SetJustifyV(...) end
----@return any ...
-function ChatFrame4Object:SetMaxLines(...) end
----@return any ...
-function ChatFrame4Object:SetOnLineRightClickedCallback(...) end
----@return any ...
-function ChatFrame4Object:SetOnScrollChangedCallback(...) end
----@return any ...
-function ChatFrame4Object:SetOnTextCopiedCallback(...) end
----@return any ...
-function ChatFrame4Object:SetScrollAllowed(...) end
----@return any ...
-function ChatFrame4Object:SetScrollOffset(...) end
----@return any ...
-function ChatFrame4Object:SetShadowColor(...) end
----@return any ...
-function ChatFrame4Object:SetShadowOffset(...) end
----@return any ...
-function ChatFrame4Object:SetSpacing(...) end
----@return any ...
-function ChatFrame4Object:SetTextColor(...) end
----@return any ...
-function ChatFrame4Object:SetTextCopyable(...) end
----@return any ...
-function ChatFrame4Object:SetTimeVisible(...) end
----@return any ...
-function ChatFrame4Object:SetupGamepad(...) end
----@return any ...
-function ChatFrame4Object:SmartNavigationCloseHandler(...) end
----@return any ...
-function ChatFrame4Object:SystemEventHandler(...) end
----@return any ...
-function ChatFrame4Object:TransformMessages(...) end
----@return any ...
-function ChatFrame4Object:UnfocusGamepad(...) end
----@return any ...
-function ChatFrame4Object:UninitializeGamepad(...) end
----@return any ...
-function ChatFrame4Object:UnpackageEntry(...) end
----@return any ...
-function ChatFrame4Object:UnregisterAllMessageGroups(...) end
----@return any ...
-function ChatFrame4Object:UpdateColorByID(...) end
----@return any ...
-function ChatFrame4Object:UpdateDefaultChatTarget(...) end
----@return any ...
-function ChatFrame4Object:UpdateFading(...) end
----@return any ...
-function ChatFrame4Object:UpdateSelectingText(...) end
----@type ChatFrame4Object
-ChatFrame4 = ChatFrame4Object
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_CleanUpSettingsHeaderObject : FontString
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_CleanUpSettingsHeaderObject = {}
 end
 
 do
----@class ChatFrame4_BackgroundObject : Texture
-local ChatFrame4_BackgroundObject = {}
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject : Button
+---@field Arrow BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_ArrowObject
+---@field Background BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_BackgroundObject
+---@field Event BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_EventObject
+---@field Text BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_menuAnchorObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject = {}
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:ClearMenuState(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:CloseMenu(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:CollectSelectionData(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:CreateRootDescription(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:Decrement(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:GenerateMenu(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:GetArrowAtlas(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:GetCallbackTable(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:GetCallbackTables(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:GetDefaultText(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:GetFilterValue(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:GetMenuDescription(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:GetSelectedTabData(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:GetSelectionData(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:GetUpdateText(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:HasElements(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:HasStickyFocus(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:Increment(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:IsDown(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:IsDownOver(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:IsMenuOpen(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:IsOver(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:NarrationGetContext(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:NarrationGetName(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:OnDisable(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:OnEnable(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:OnEnter(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:OnLeave(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:OnLoad(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:OnMenuChanged(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:OnMenuClosed(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:OnMenuOpened(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:OnMenuResponse(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:OnMouseDown(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:OnMouseUp(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:OnShow(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:OpenMenu(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:OverrideText(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:Pick(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:Refresh(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:RegisterCallback(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:RegisterMenu(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:Rotate(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:SetDefaultText(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:SetFilterValue(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:SetMenuOpen(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:SetSelectionText(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:SetTooltip(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:SetupMenu(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:ShowTooltip(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:SignalUpdate(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:TriggerEvent(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:UnregisterCallback(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:UnregisterEvents(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:Update(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:UpdateSelections(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:UpdateText(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdownObject:selectionTranslator(...) end
 end
 
 do
----@class ChatFrame4_FontStringContainerObject : Frame
-local ChatFrame4_FontStringContainerObject = {}
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_ArrowObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_ArrowObject = {}
 end
 
 do
----@class ChatFrame4_ResizeButtonObject : Button
-local ChatFrame4_ResizeButtonObject = {}
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_BackgroundObject : Texture
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_BackgroundObject = {}
 end
 
 do
----@class ChatFrame4_ScrollBarObject : Frame
----@field Back ChatFrame4_ScrollBar_BackObject
----@field Defaults ChatFrame4_ScrollBar_DefaultsObject
----@field Directions ChatFrame4_ScrollBar_DirectionsObject
----@field Event ChatFrame4_ScrollBar_EventObject
----@field Forward ChatFrame4_ScrollBar_ForwardObject
----@field Track ChatFrame4_ScrollBar_TrackObject
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_EventObject
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_EventObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_TextObject : FontString
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_TextObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_menuAnchorObject = {}
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_menuAnchor_relativeToObject
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_ExpansionFilterDropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject : CheckButton
+---@field Text BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckbox_TextObject
+---@field fontObject BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckbox_fontObjectObject
+---@field settingFlag number
+---@field text string
+---@field textWidth number
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject = {}
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:AddLayoutChildren(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:ClearFixedSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:GetAdditionalRegions(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:GetChildHeight(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:GetChildSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:GetChildWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:GetFixedHeight(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:GetFixedSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:GetFixedWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:GetHeightPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:GetLayoutChildren(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:GetMaximumWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:GetMinimumWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:GetWidthPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:Init(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:IsDirty(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:IsLayoutFrame(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:Layout(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:MarkClean(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:MarkDirty(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:OnCleaned(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:OnClick(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:OnEnter(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:OnLeave(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:OnShow(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:OnUpdate(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:SetFixedHeight(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:SetFixedSize(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:SetFixedWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:SetHeightPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:SetMaximumWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:SetMinimumWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:SetTextColor(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:SetWidthPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckboxObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckbox_TextObject : FontString
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckbox_TextObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckbox_fontObjectObject
+local BankFrame_BankPanel_TabSettingsMenu_DepositSettingsMenu_IgnoreCleanUpCheckbox_fontObjectObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_EventObject
+---@field OpenTabSettingsRequested string
+local BankFrame_BankPanel_TabSettingsMenu_EventObject = {}
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject : Frame
+---@field ScrollBar BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject
+---@field ScrollBox BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBoxObject
+---@field buttonTemplate string
+---@field retainScrollPosition boolean
+---@field templateType string
+local BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject = {}
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:AdjustScrollBarOffsets(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:EnumerateButtons(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:GetButtonHeight(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:GetButtonTemplate(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:GetButtonWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:GetNumSelections(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:GetPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:GetSelectedIndex(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:GetSelection(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:GetSetupCallback(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:GetStride(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:Init(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:IsSelected(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:OnSelection(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:OnShow(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:RunSetup(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:ScrollToElementDataIndex(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:ScrollToSelectedIndex(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:SetCustomButtonHeight(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:SetCustomButtonTemplate(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:SetCustomButtonWidth(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:SetCustomPadding(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:SetCustomStride(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:SetSelectedCallback(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:SetSelectedIndex(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:SetSelectionsArray(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:SetSelectionsDataProvider(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:SetSetupCallback(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:UpdateAllSelectedTextures(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:UpdateSelections(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:selectedCallback(...) end
+---@return any ...
+function BankFrame_BankPanel_TabSettingsMenu_IconSelectorObject:setupCallback(...) end
+end
+
+do
+---@class BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject : Frame
+---@field Back BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBar_BackObject
+---@field Defaults BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBar_DefaultsObject
+---@field Directions BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBar_DirectionsObject
+---@field Event BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBar_EventObject
+---@field Forward BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBar_ForwardObject
+---@field Track BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBar_TrackObject
 ---@field allowScroll boolean
 ---@field callbackTables table
 ---@field canInterpolateScroll boolean
@@ -8800,7 +8469,6 @@ do
 ---@field executingEvents table
 ---@field hideTrack boolean
 ---@field hideTrackIfThumbExceedsTrack boolean
----@field internalPriority boolean
 ---@field isScrollController boolean
 ---@field minThumbExtent number
 ---@field panDelay number
@@ -8812,1176 +8480,171 @@ do
 ---@field useProportionalThumb boolean
 ---@field visibleExtentPercentage number
 ---@field wheelPanScalar number
-local ChatFrame4_ScrollBarObject = {}
+local BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject = {}
 ---@return any ...
-function ChatFrame4_ScrollBarObject:CallInternalScope(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:CallInternalScope(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:CanCursorStepInDirection(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:CanCursorStepInDirection(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:CanInterpolateScroll(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:CanInterpolateScroll(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:CopyDeferredCallbacks(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:DisableControls(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:DisableControls(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:DoesFrameHaveEvent(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:EnableInternalPriority(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:EnableInternalPriority(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:EnableSnapToInterval(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:EnableSnapToInterval(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:GenerateCallbackEvents(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:GetBackStepper(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:GetBackStepper(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:GetCallbackTable(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:GetCallbackTable(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:GetCallbackTables(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:GetCallbackTables(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:GetCallbacksByEvent(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:GetForwardStepper(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:GetForwardStepper(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:GetFrameExtent(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:GetFrameExtent(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:GetIntervalRange(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:GetIntervalRange(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:GetLower(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:GetLower(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:GetPanExtentPercentage(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:GetPanRepeatDelay(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:GetPanRepeatDelay(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:GetPanRepeatTime(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:GetPanRepeatTime(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:GetScrollInterpolator(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:GetScrollInterpolator(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:GetScrollPercentage(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:GetScrollPercentage(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:GetThumb(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:GetThumb(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:GetThumbAnchor(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:GetThumbAnchor(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:GetTrack(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:GetTrack(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:GetTrackExtent(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:GetTrackExtent(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:GetUpper(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:GetUpper(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:GetVisibleExtentPercentage(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:GetWheelPanPercentage(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:HasRegistrantsForEvent(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:HasScrollableExtent(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:HasScrollableExtent(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:Init(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:Init(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:InitializeNarration(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:InitializeNarration(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:Interpolate(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:Interpolate(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:IsAtBegin(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:IsAtBegin(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:IsAtEnd(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:IsAtEnd(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:IsHorizontal(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:IsHorizontal(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:IsScrollAllowed(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:IsScrollAllowed(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:IsThumbMouseDown(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:IsThumbMouseDown(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:OnHide_Intrinsic(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:OnLoad(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:OnLoad(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:OnLoad_Intrinsic(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:OnMouseWheel(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:OnMouseWheel(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:OnShow_Intrinsic(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:OnStepperMouseDown(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:OnStepperMouseDown(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:OnThumbMouseDown(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:OnThumbMouseDown(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:OnTrackMouseDown(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:OnTrackMouseDown(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:RegisterCallback(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:RegisterCallback(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:RegisterCallbackWithHandle(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:ScrollDecrease(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:ScrollDecrease(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:ScrollInDirection(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:ScrollInDirection(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:ScrollIncrease(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:ScrollIncrease(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:ScrollPageInDirection(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:ScrollPageInDirection(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:ScrollStepInDirection(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:ScrollStepInDirection(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:ScrollToBegin(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:ScrollToBegin(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:ScrollToEnd(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:ScrollToEnd(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:ScrollWheelInDirection(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:ScrollWheelInDirection(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:SecureInsertEvent(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:SecureInsertEvent(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:SelectCursorComponent(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:SelectCursorComponent(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:SelectPointComponent(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:SelectPointComponent(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:SetFrameExtent(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:SetFrameExtent(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:SetHideIfUnscrollable(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:SetHideIfUnscrollable(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:SetHorizontal(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:SetHorizontal(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:SetInterpolateScroll(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:SetInterpolateScroll(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:SetPanExtentPercentage(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:SetScrollAllowed(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:SetScrollAllowed(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:SetScrollPercentage(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:SetScrollPercentage(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:SetScrollPercentageInternal(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:SetThumbExtent(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:SetThumbExtent(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:SetVisibleExtentPercentage(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:SetVisibleExtentPercentage(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:TriggerEvent(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:TriggerEvent(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:UnregisterCallback(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:UnregisterCallback(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:UnregisterEvents(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:UnregisterEvents(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:UnregisterEventsByEventTable(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:UnregisterUpdate(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:UnregisterUpdate(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:Update(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:Update(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:onButtonMouseUp(...) end
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:onButtonMouseUp(...) end
 ---@return any ...
-function ChatFrame4_ScrollBarObject:scrollInternal(...) end
-end
-
-do
----@class ChatFrame4_ScrollBar_BackObject : Button
----@field Event ChatFrame4_ScrollBar_Back_EventObject
----@field Texture ChatFrame4_ScrollBar_Back_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local ChatFrame4_ScrollBar_BackObject = {}
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:DesaturateIfDisabled(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:GenerateCallbackEvents(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:GetAtlas(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:GetCallbackTable(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:GetCallbackTables(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:GetCallbacksByEvent(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:IsDown(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:IsDownOver(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:IsOver(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:NarrationGetName(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:OnButtonStateChanged(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:OnClick_Intrinsic(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:OnDisable(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:OnEnable(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:OnEnter(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:OnLeave(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:OnLoad(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:OnMouseDown(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:OnMouseUp(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:OnShow(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:RegisterCallback(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:SecureInsertEvent(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:SetDisplacedRegions(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:TriggerEvent(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:UnregisterCallback(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:UnregisterEvents(...) end
----@return any ...
-function ChatFrame4_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class ChatFrame4_ScrollBar_Back_EventObject
-local ChatFrame4_ScrollBar_Back_EventObject = {}
-end
-
-do
----@class ChatFrame4_ScrollBar_Back_TextureObject : Texture
-local ChatFrame4_ScrollBar_Back_TextureObject = {}
-end
-
-do
----@class ChatFrame4_ScrollBar_DefaultsObject
-local ChatFrame4_ScrollBar_DefaultsObject = {}
-end
-
-do
----@class ChatFrame4_ScrollBar_DirectionsObject
-local ChatFrame4_ScrollBar_DirectionsObject = {}
-end
-
-do
----@class ChatFrame4_ScrollBar_EventObject
-local ChatFrame4_ScrollBar_EventObject = {}
-end
-
-do
----@class ChatFrame4_ScrollBar_ForwardObject : Button
----@field Event ChatFrame4_ScrollBar_Forward_EventObject
----@field Texture ChatFrame4_ScrollBar_Forward_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local ChatFrame4_ScrollBar_ForwardObject = {}
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:GetAtlas(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:GetCallbackTable(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:GetCallbackTables(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:IsDown(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:IsDownOver(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:IsOver(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:NarrationGetName(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:OnDisable(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:OnEnable(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:OnEnter(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:OnLeave(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:OnLoad(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:OnMouseDown(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:OnMouseUp(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:OnShow(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:RegisterCallback(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:SecureInsertEvent(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:TriggerEvent(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:UnregisterCallback(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:UnregisterEvents(...) end
----@return any ...
-function ChatFrame4_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class ChatFrame4_ScrollBar_Forward_EventObject
-local ChatFrame4_ScrollBar_Forward_EventObject = {}
-end
-
-do
----@class ChatFrame4_ScrollBar_Forward_TextureObject : Texture
-local ChatFrame4_ScrollBar_Forward_TextureObject = {}
-end
-
-do
----@class ChatFrame4_ScrollBar_TrackObject : Frame
----@field Begin ChatFrame4_ScrollBar_Track_BeginObject
----@field End ChatFrame4_ScrollBar_Track_EndObject
----@field Middle ChatFrame4_ScrollBar_Track_MiddleObject
----@field Thumb ChatFrame4_ScrollBar_Track_ThumbObject
-local ChatFrame4_ScrollBar_TrackObject = {}
-end
-
-do
----@class ChatFrame4_ScrollBar_Track_BeginObject : Texture
-local ChatFrame4_ScrollBar_Track_BeginObject = {}
-end
-
-do
----@class ChatFrame4_ScrollBar_Track_EndObject : Texture
-local ChatFrame4_ScrollBar_Track_EndObject = {}
-end
-
-do
----@class ChatFrame4_ScrollBar_Track_MiddleObject : Texture
-local ChatFrame4_ScrollBar_Track_MiddleObject = {}
-end
-
-do
----@class ChatFrame4_ScrollBar_Track_ThumbObject : Button
----@field Begin ChatFrame4_ScrollBar_Track_Thumb_BeginObject
----@field End ChatFrame4_ScrollBar_Track_Thumb_EndObject
----@field Event ChatFrame4_ScrollBar_Track_Thumb_EventObject
----@field Middle ChatFrame4_ScrollBar_Track_Thumb_MiddleObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field downBeginTexture string
----@field downEndTexture string
----@field downMiddleTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field overBeginTexture string
----@field overEndTexture string
----@field overMiddleTexture string
----@field upBeginTexture string
----@field upEndTexture string
----@field upMiddleTexture string
-local ChatFrame4_ScrollBar_Track_ThumbObject = {}
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:GetAtlas(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:IsDown(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:IsDownOver(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:IsOver(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:OnDisable(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:OnEnable(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:OnEnter(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:OnLeave(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:OnLoad(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:OnShow(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
----@return any ...
-function ChatFrame4_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class ChatFrame4_ScrollBar_Track_Thumb_BeginObject : Texture
-local ChatFrame4_ScrollBar_Track_Thumb_BeginObject = {}
-end
-
-do
----@class ChatFrame4_ScrollBar_Track_Thumb_EndObject : Texture
-local ChatFrame4_ScrollBar_Track_Thumb_EndObject = {}
-end
-
-do
----@class ChatFrame4_ScrollBar_Track_Thumb_EventObject
-local ChatFrame4_ScrollBar_Track_Thumb_EventObject = {}
-end
-
-do
----@class ChatFrame4_ScrollBar_Track_Thumb_MiddleObject : Texture
-local ChatFrame4_ScrollBar_Track_Thumb_MiddleObject = {}
-end
-
-do
----@class ChatFrame4_ScrollToBottomButtonObject : Button
----@field Flash ChatFrame4_ScrollToBottomButton_FlashObject
----@field smartNavigationIgnored boolean
-local ChatFrame4_ScrollToBottomButtonObject = {}
-end
-
-do
----@class ChatFrame4_ScrollToBottomButton_FlashObject : Texture
----@field FlashAnim ChatFrame4_ScrollToBottomButton_Flash_FlashAnimObject
-local ChatFrame4_ScrollToBottomButton_FlashObject = {}
-end
-
-do
----@class ChatFrame4_ScrollToBottomButton_Flash_FlashAnimObject : AnimationGroup
----@field FadeIn ChatFrame4_ScrollToBottomButton_Flash_FlashAnim_FadeInObject
----@field FadeOut ChatFrame4_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject
-local ChatFrame4_ScrollToBottomButton_Flash_FlashAnimObject = {}
-end
-
-do
----@class ChatFrame4_ScrollToBottomButton_Flash_FlashAnim_FadeInObject : Alpha
-local ChatFrame4_ScrollToBottomButton_Flash_FlashAnim_FadeInObject = {}
-end
-
-do
----@class ChatFrame4_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject : Alpha
-local ChatFrame4_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject = {}
-end
-
-do
----@class ChatFrame4_buttonFrameObject : Frame
----@field Background ChatFrame4_buttonFrame_BackgroundObject
----@field minimizeButton ChatFrame4_buttonFrame_minimizeButtonObject
-local ChatFrame4_buttonFrameObject = {}
-end
-
-do
----@class ChatFrame4_buttonFrame_BackgroundObject : Texture
-local ChatFrame4_buttonFrame_BackgroundObject = {}
-end
-
-do
----@class ChatFrame4_buttonFrame_minimizeButtonObject : Button
-local ChatFrame4_buttonFrame_minimizeButtonObject = {}
-end
-
-do
----@class ChatFrame4_clickAnywhereButtonObject : Button
-local ChatFrame4_clickAnywhereButtonObject = {}
----@return any ...
-function ChatFrame4_clickAnywhereButtonObject:OnClick(...) end
----@return any ...
-function ChatFrame4_clickAnywhereButtonObject:OnEvent(...) end
----@return any ...
-function ChatFrame4_clickAnywhereButtonObject:OnLoad(...) end
----@return any ...
-function ChatFrame4_clickAnywhereButtonObject:UpdateState(...) end
-end
-
-do
----@class ChatFrame4_dockObject
-local ChatFrame4_dockObject = {}
-end
-
-do
----@class ChatFrame4_editBoxObject
-local ChatFrame4_editBoxObject = {}
-end
-
-do
----@class ChatFrame4_fontObjectObject
-local ChatFrame4_fontObjectObject = {}
-end
-
-do
----@class ChatFrame4_historyBufferObject
----@field elements table
----@field headIndex table
----@field maxElements table
-local ChatFrame4_historyBufferObject = {}
----@return any ...
-function ChatFrame4_historyBufferObject:CalculateElementIndex(...) end
----@return any ...
-function ChatFrame4_historyBufferObject:CalculateElementIndexFromGlobalIndex(...) end
----@return any ...
-function ChatFrame4_historyBufferObject:Clear(...) end
----@return any ...
-function ChatFrame4_historyBufferObject:EnumerateIndexedEntries(...) end
----@return any ...
-function ChatFrame4_historyBufferObject:GetEntryAtIndex(...) end
----@return any ...
-function ChatFrame4_historyBufferObject:GetMaxNumElements(...) end
----@return any ...
-function ChatFrame4_historyBufferObject:GetNumElements(...) end
----@return any ...
-function ChatFrame4_historyBufferObject:IsEmpty(...) end
----@return any ...
-function ChatFrame4_historyBufferObject:IsFull(...) end
----@return any ...
-function ChatFrame4_historyBufferObject:IsValidIndex(...) end
----@return any ...
-function ChatFrame4_historyBufferObject:OnLoad(...) end
----@return any ...
-function ChatFrame4_historyBufferObject:PushBack(...) end
----@return any ...
-function ChatFrame4_historyBufferObject:PushFront(...) end
----@return any ...
-function ChatFrame4_historyBufferObject:RemoveIf(...) end
----@return any ...
-function ChatFrame4_historyBufferObject:ReplaceElements(...) end
----@return any ...
-function ChatFrame4_historyBufferObject:ReverseEnumerateIndexedEntries(...) end
----@return any ...
-function ChatFrame4_historyBufferObject:SetMaxNumElements(...) end
----@return any ...
-function ChatFrame4_historyBufferObject:TransformIf(...) end
-end
-
-do
----@class ChatFrame4EditBoxObject : EditBox
----@field NewcomerHint ChatFrame4EditBox_NewcomerHintObject
----@field addHighlightedText boolean
----@field addSpaceToAutoComplete boolean
----@field buttonContext string
----@field chatFrame ChatFrame4EditBox_chatFrameObject
----@field chatLanguage string
----@field focusLeft ChatFrame4EditBox_focusLeftObject
----@field focusMid ChatFrame4EditBox_focusMidObject
----@field focusRight ChatFrame4EditBox_focusRightObject
----@field header ChatFrame4EditBox_headerObject
----@field headerSuffix ChatFrame4EditBox_headerSuffixObject
----@field languageHeader ChatFrame4EditBox_languageHeaderObject
----@field prompt ChatFrame4EditBox_promptObject
----@field tabCompleteTableIndex number
-local ChatFrame4EditBoxObject = {}
----@return any ...
-function ChatFrame4EditBoxObject:AddHistory(...) end
----@return any ...
-function ChatFrame4EditBoxObject:ClearChat(...) end
----@return any ...
-function ChatFrame4EditBoxObject:Deactivate(...) end
----@return any ...
-function ChatFrame4EditBoxObject:DoesCurrentChannelTargetMatch(...) end
----@return any ...
-function ChatFrame4EditBoxObject:ExtractChannel(...) end
----@return any ...
-function ChatFrame4EditBoxObject:ExtractTellTarget(...) end
----@return any ...
-function ChatFrame4EditBoxObject:GetChannelTarget(...) end
----@return any ...
-function ChatFrame4EditBoxObject:GetChatType(...) end
----@return any ...
-function ChatFrame4EditBoxObject:GetStickyType(...) end
----@return any ...
-function ChatFrame4EditBoxObject:GetTellTarget(...) end
----@return any ...
-function ChatFrame4EditBoxObject:HandleChatType(...) end
----@return any ...
-function ChatFrame4EditBoxObject:HasStickyFocus(...) end
----@return any ...
-function ChatFrame4EditBoxObject:OnChar(...) end
----@return any ...
-function ChatFrame4EditBoxObject:OnEditFocusGained(...) end
----@return any ...
-function ChatFrame4EditBoxObject:OnEditFocusLost(...) end
----@return any ...
-function ChatFrame4EditBoxObject:OnEnterPressed(...) end
----@return any ...
-function ChatFrame4EditBoxObject:OnEscapePressed(...) end
----@return any ...
-function ChatFrame4EditBoxObject:OnEvent(...) end
----@return any ...
-function ChatFrame4EditBoxObject:OnHide(...) end
----@return any ...
-function ChatFrame4EditBoxObject:OnInputLanguageChanged(...) end
----@return any ...
-function ChatFrame4EditBoxObject:OnLoad(...) end
----@return any ...
-function ChatFrame4EditBoxObject:OnPreSendText(...) end
----@return any ...
-function ChatFrame4EditBoxObject:OnShow(...) end
----@return any ...
-function ChatFrame4EditBoxObject:OnSpacePressed(...) end
----@return any ...
-function ChatFrame4EditBoxObject:OnTabPressed(...) end
----@return any ...
-function ChatFrame4EditBoxObject:OnTextChanged(...) end
----@return any ...
-function ChatFrame4EditBoxObject:OnTextSet(...) end
----@return any ...
-function ChatFrame4EditBoxObject:OnUpdate(...) end
----@return any ...
-function ChatFrame4EditBoxObject:ParseText(...) end
----@return any ...
-function ChatFrame4EditBoxObject:ProcessChatType(...) end
----@return any ...
-function ChatFrame4EditBoxObject:ResetChatType(...) end
----@return any ...
-function ChatFrame4EditBoxObject:ResetChatTypeToSticky(...) end
----@return any ...
-function ChatFrame4EditBoxObject:SecureTabPressed(...) end
----@return any ...
-function ChatFrame4EditBoxObject:SendMessage(...) end
----@return any ...
-function ChatFrame4EditBoxObject:SendText(...) end
----@return any ...
-function ChatFrame4EditBoxObject:SetChannelTarget(...) end
----@return any ...
-function ChatFrame4EditBoxObject:SetChatType(...) end
----@return any ...
-function ChatFrame4EditBoxObject:SetFocusRegionVertexColors(...) end
----@return any ...
-function ChatFrame4EditBoxObject:SetFocusRegionsShown(...) end
----@return any ...
-function ChatFrame4EditBoxObject:SetGameLanguage(...) end
----@return any ...
-function ChatFrame4EditBoxObject:SetStickyType(...) end
----@return any ...
-function ChatFrame4EditBoxObject:SetTellTarget(...) end
----@return any ...
-function ChatFrame4EditBoxObject:ShouldDeactivateChatOnEditFocusLost(...) end
----@return any ...
-function ChatFrame4EditBoxObject:UpdateHeader(...) end
----@return any ...
-function ChatFrame4EditBoxObject:UpdateLanguageHeader(...) end
----@return any ...
-function ChatFrame4EditBoxObject:UpdateNewcomerEditBoxHint(...) end
----@return any ...
-function ChatFrame4EditBoxObject:customAutoCompleteFunction(...) end
----@type ChatFrame4EditBoxObject
-ChatFrame4EditBox = ChatFrame4EditBoxObject
-end
-
-do
----@class ChatFrame4EditBox_NewcomerHintObject : FontString
-local ChatFrame4EditBox_NewcomerHintObject = {}
-end
-
-do
----@class ChatFrame4EditBox_chatFrameObject
-local ChatFrame4EditBox_chatFrameObject = {}
-end
-
-do
----@class ChatFrame4EditBox_focusLeftObject : Texture
-local ChatFrame4EditBox_focusLeftObject = {}
-end
-
-do
----@class ChatFrame4EditBox_focusMidObject : Texture
-local ChatFrame4EditBox_focusMidObject = {}
-end
-
-do
----@class ChatFrame4EditBox_focusRightObject : Texture
-local ChatFrame4EditBox_focusRightObject = {}
-end
-
-do
----@class ChatFrame4EditBox_headerObject : FontString
-local ChatFrame4EditBox_headerObject = {}
-end
-
-do
----@class ChatFrame4EditBox_headerSuffixObject : FontString
-local ChatFrame4EditBox_headerSuffixObject = {}
-end
-
-do
----@class ChatFrame4EditBox_languageHeaderObject : FontString
-local ChatFrame4EditBox_languageHeaderObject = {}
-end
-
-do
----@class ChatFrame4EditBox_promptObject : FontString
-local ChatFrame4EditBox_promptObject = {}
-end
-
-do
----@class ChatFrame5Object : Frame
----@field Background ChatFrame5_BackgroundObject
----@field FontStringContainer ChatFrame5_FontStringContainerObject
----@field ResizeButton ChatFrame5_ResizeButtonObject
----@field ScrollBar ChatFrame5_ScrollBarObject
----@field ScrollToBottomButton ChatFrame5_ScrollToBottomButtonObject
----@field allowScroll boolean
----@field alternativeDefaultLanguage string
----@field buttonFrame ChatFrame5_buttonFrameObject
----@field buttonSide string
----@field channelList table
----@field clickAnywhereButton ChatFrame5_clickAnywhereButtonObject
----@field defaultLanguage string
----@field dock ChatFrame5_dockObject
----@field editBox ChatFrame5_editBoxObject
----@field fadeDurationSecs number
----@field fontObject ChatFrame5_fontObjectObject
----@field hasOwnFontObject boolean
----@field historyBuffer ChatFrame5_historyBufferObject
----@field insertMode number
----@field isDisplayDirty boolean
----@field isDocked number
----@field isInitialized number
----@field isLayoutDirty boolean
----@field isLocked boolean
----@field isScrollingMessageFrame boolean
----@field isUninteractable boolean
----@field messageTypeList table
----@field name string
----@field oldAlpha number
----@field oldestFadingLineTimestamp number
----@field onDisplayRefreshedCallbacks table
----@field overrideFadeTimestamp number
----@field scrollOffset number
----@field shouldFadeAfterInactivity boolean
----@field smartNavRightStickMaxScrollSpeed number
----@field textIsCopyable boolean
----@field timeVisibleSecs number
----@field visibleLines table
----@field zoneChannelList table
-local ChatFrame5Object = {}
----@return any ...
-function ChatFrame5Object:AcquireFontString(...) end
----@return any ...
-function ChatFrame5Object:AcquireHighlightTexture(...) end
----@return any ...
-function ChatFrame5Object:AddChannel(...) end
----@return any ...
-function ChatFrame5Object:AddMessage(...) end
----@return any ...
-function ChatFrame5Object:AddMessageGroup(...) end
----@return any ...
-function ChatFrame5Object:AddOnDisplayRefreshedCallback(...) end
----@return any ...
-function ChatFrame5Object:AddPrivateMessageTarget(...) end
----@return any ...
-function ChatFrame5Object:AddSingleMessageType(...) end
----@return any ...
-function ChatFrame5Object:AdjustMessageColors(...) end
----@return any ...
-function ChatFrame5Object:AtBottom(...) end
----@return any ...
-function ChatFrame5Object:AtTop(...) end
----@return any ...
-function ChatFrame5Object:BackFillMessage(...) end
----@return any ...
-function ChatFrame5Object:CalculateLineAlphaValueFromTimestamp(...) end
----@return any ...
-function ChatFrame5Object:CalculateLineSpacing(...) end
----@return any ...
-function ChatFrame5Object:CalculateNumVisibleLines(...) end
----@return any ...
-function ChatFrame5Object:CalculateSelectingCharacterIndicesForVisibleLine(...) end
----@return any ...
-function ChatFrame5Object:CallOnDisplayRefreshed(...) end
----@return any ...
-function ChatFrame5Object:CanEffectivelyFade(...) end
----@return any ...
-function ChatFrame5Object:Clear(...) end
----@return any ...
-function ChatFrame5Object:ClearGamepadFocus(...) end
----@return any ...
-function ChatFrame5Object:ConfigEventHandler(...) end
----@return any ...
-function ChatFrame5Object:ContainsChannel(...) end
----@return any ...
-function ChatFrame5Object:ContainsMessageGroup(...) end
----@return any ...
-function ChatFrame5Object:CreateFooter(...) end
----@return any ...
-function ChatFrame5Object:DontRestoreGamepadFocusOnMenuClose(...) end
----@return any ...
-function ChatFrame5Object:ExcludePrivateMessageTarget(...) end
----@return any ...
-function ChatFrame5Object:FindCharacterAndLineIndexAtCoordinate(...) end
----@return any ...
-function ChatFrame5Object:FocusGamepad(...) end
----@return any ...
-function ChatFrame5Object:ForEachMessage(...) end
----@return any ...
-function ChatFrame5Object:ForEachMessageInfoText(...) end
----@return any ...
-function ChatFrame5Object:ForEachVisibleLineText(...) end
----@return any ...
-function ChatFrame5Object:GatherSelectedText(...) end
----@return any ...
-function ChatFrame5Object:GetDefaultChatTarget(...) end
----@return any ...
-function ChatFrame5Object:GetFadeDuration(...) end
----@return any ...
-function ChatFrame5Object:GetFading(...) end
----@return any ...
-function ChatFrame5Object:GetFont(...) end
----@return any ...
-function ChatFrame5Object:GetFontObject(...) end
----@return any ...
-function ChatFrame5Object:GetIndentedWordWrap(...) end
----@return any ...
-function ChatFrame5Object:GetInsertMode(...) end
----@return any ...
-function ChatFrame5Object:GetJustifyH(...) end
----@return any ...
-function ChatFrame5Object:GetJustifyV(...) end
----@return any ...
-function ChatFrame5Object:GetMaxLines(...) end
----@return any ...
-function ChatFrame5Object:GetMaxScrollRange(...) end
----@return any ...
-function ChatFrame5Object:GetMessageInfo(...) end
----@return any ...
-function ChatFrame5Object:GetNumMessages(...) end
----@return any ...
-function ChatFrame5Object:GetNumVisibleLines(...) end
----@return any ...
-function ChatFrame5Object:GetOnLineRightClickedCallback(...) end
----@return any ...
-function ChatFrame5Object:GetOnScrollChangedCallback(...) end
----@return any ...
-function ChatFrame5Object:GetOnTextCopiedCallback(...) end
----@return any ...
-function ChatFrame5Object:GetPagingScrollAmount(...) end
----@return any ...
-function ChatFrame5Object:GetScaledCursorPosition(...) end
----@return any ...
-function ChatFrame5Object:GetScrollOffset(...) end
----@return any ...
-function ChatFrame5Object:GetShadowColor(...) end
----@return any ...
-function ChatFrame5Object:GetShadowOffset(...) end
----@return any ...
-function ChatFrame5Object:GetSpacing(...) end
----@return any ...
-function ChatFrame5Object:GetTextColor(...) end
----@return any ...
-function ChatFrame5Object:GetTimeVisible(...) end
----@return any ...
-function ChatFrame5Object:HasFontObject(...) end
----@return any ...
-function ChatFrame5Object:HasGamepadFocus(...) end
----@return any ...
-function ChatFrame5Object:InitializeFontString(...) end
----@return any ...
-function ChatFrame5Object:InitializeFontableFrame(...) end
----@return any ...
-function ChatFrame5Object:InitializeGamepad(...) end
----@return any ...
-function ChatFrame5Object:IsGamepadMenuOpen(...) end
----@return any ...
-function ChatFrame5Object:IsScrollAllowed(...) end
----@return any ...
-function ChatFrame5Object:IsSelectingText(...) end
----@return any ...
-function ChatFrame5Object:IsTextCopyable(...) end
----@return any ...
-function ChatFrame5Object:MakeFontObjectCustom(...) end
----@return any ...
-function ChatFrame5Object:MarkDisplayDirty(...) end
----@return any ...
-function ChatFrame5Object:MarkLayoutDirty(...) end
----@return any ...
-function ChatFrame5Object:MessageEventHandler(...) end
----@return any ...
-function ChatFrame5Object:OnColorsUpdated(...) end
----@return any ...
-function ChatFrame5Object:OnEvent(...) end
----@return any ...
-function ChatFrame5Object:OnFontObjectUpdated(...) end
----@return any ...
-function ChatFrame5Object:OnHide(...) end
----@return any ...
-function ChatFrame5Object:OnHyperlinkClick(...) end
----@return any ...
-function ChatFrame5Object:OnHyperlinkEnter(...) end
----@return any ...
-function ChatFrame5Object:OnHyperlinkLeave(...) end
----@return any ...
-function ChatFrame5Object:OnLoad(...) end
----@return any ...
-function ChatFrame5Object:OnPostEvent(...) end
----@return any ...
-function ChatFrame5Object:OnPostHide(...) end
----@return any ...
-function ChatFrame5Object:OnPostMouseDown(...) end
----@return any ...
-function ChatFrame5Object:OnPostMouseUp(...) end
----@return any ...
-function ChatFrame5Object:OnPostShow(...) end
----@return any ...
-function ChatFrame5Object:OnPostUpdate(...) end
----@return any ...
-function ChatFrame5Object:OnPreLoad(...) end
----@return any ...
-function ChatFrame5Object:OnPreSizeChanged(...) end
----@return any ...
-function ChatFrame5Object:OnUpdate(...) end
----@return any ...
-function ChatFrame5Object:OpenChatChannelsMenu(...) end
----@return any ...
-function ChatFrame5Object:OpenGamepadTabMenu(...) end
----@return any ...
-function ChatFrame5Object:PackageEntry(...) end
----@return any ...
-function ChatFrame5Object:PageDown(...) end
----@return any ...
-function ChatFrame5Object:PageUp(...) end
----@return any ...
-function ChatFrame5Object:PlayerLevelChanged(...) end
----@return any ...
-function ChatFrame5Object:PlayerLevelUp(...) end
----@return any ...
-function ChatFrame5Object:ReceiveAllPrivateMessages(...) end
----@return any ...
-function ChatFrame5Object:RefreshDisplay(...) end
----@return any ...
-function ChatFrame5Object:RefreshIfNecessary(...) end
----@return any ...
-function ChatFrame5Object:RefreshLayout(...) end
----@return any ...
-function ChatFrame5Object:RegisterForChannels(...) end
----@return any ...
-function ChatFrame5Object:RegisterForInterfaceTransitions(...) end
----@return any ...
-function ChatFrame5Object:RegisterForMessages(...) end
----@return any ...
-function ChatFrame5Object:RemoveAllChannels(...) end
----@return any ...
-function ChatFrame5Object:RemoveAllMessageGroups(...) end
----@return any ...
-function ChatFrame5Object:RemoveChannel(...) end
----@return any ...
-function ChatFrame5Object:RemoveExcludePrivateMessageTarget(...) end
----@return any ...
-function ChatFrame5Object:RemoveMessageGroup(...) end
----@return any ...
-function ChatFrame5Object:RemoveMessagesByPredicate(...) end
----@return any ...
-function ChatFrame5Object:RemovePrivateMessageTarget(...) end
----@return any ...
-function ChatFrame5Object:ResetAllFadeTimes(...) end
----@return any ...
-function ChatFrame5Object:ResetSelectingText(...) end
----@return any ...
-function ChatFrame5Object:ScrollByAmount(...) end
----@return any ...
-function ChatFrame5Object:ScrollDown(...) end
----@return any ...
-function ChatFrame5Object:ScrollToBottom(...) end
----@return any ...
-function ChatFrame5Object:ScrollToTop(...) end
----@return any ...
-function ChatFrame5Object:ScrollUp(...) end
----@return any ...
-function ChatFrame5Object:SetChannelEnabled(...) end
----@return any ...
-function ChatFrame5Object:SetFadeDuration(...) end
----@return any ...
-function ChatFrame5Object:SetFading(...) end
----@return any ...
-function ChatFrame5Object:SetFont(...) end
----@return any ...
-function ChatFrame5Object:SetFontObject(...) end
----@return any ...
-function ChatFrame5Object:SetGamepadFocus(...) end
----@return any ...
-function ChatFrame5Object:SetIndentedWordWrap(...) end
----@return any ...
-function ChatFrame5Object:SetInsertMode(...) end
----@return any ...
-function ChatFrame5Object:SetJustifyH(...) end
----@return any ...
-function ChatFrame5Object:SetJustifyV(...) end
----@return any ...
-function ChatFrame5Object:SetMaxLines(...) end
----@return any ...
-function ChatFrame5Object:SetOnLineRightClickedCallback(...) end
----@return any ...
-function ChatFrame5Object:SetOnScrollChangedCallback(...) end
----@return any ...
-function ChatFrame5Object:SetOnTextCopiedCallback(...) end
----@return any ...
-function ChatFrame5Object:SetScrollAllowed(...) end
----@return any ...
-function ChatFrame5Object:SetScrollOffset(...) end
----@return any ...
-function ChatFrame5Object:SetShadowColor(...) end
----@return any ...
-function ChatFrame5Object:SetShadowOffset(...) end
----@return any ...
-function ChatFrame5Object:SetSpacing(...) end
----@return any ...
-function ChatFrame5Object:SetTextColor(...) end
----@return any ...
-function ChatFrame5Object:SetTextCopyable(...) end
----@return any ...
-function ChatFrame5Object:SetTimeVisible(...) end
----@return any ...
-function ChatFrame5Object:SetupGamepad(...) end
----@return any ...
-function ChatFrame5Object:SmartNavigationCloseHandler(...) end
----@return any ...
-function ChatFrame5Object:SystemEventHandler(...) end
----@return any ...
-function ChatFrame5Object:TransformMessages(...) end
----@return any ...
-function ChatFrame5Object:UnfocusGamepad(...) end
----@return any ...
-function ChatFrame5Object:UninitializeGamepad(...) end
----@return any ...
-function ChatFrame5Object:UnpackageEntry(...) end
----@return any ...
-function ChatFrame5Object:UnregisterAllMessageGroups(...) end
----@return any ...
-function ChatFrame5Object:UpdateColorByID(...) end
----@return any ...
-function ChatFrame5Object:UpdateDefaultChatTarget(...) end
----@return any ...
-function ChatFrame5Object:UpdateFading(...) end
----@return any ...
-function ChatFrame5Object:UpdateSelectingText(...) end
----@type ChatFrame5Object
-ChatFrame5 = ChatFrame5Object
+function BankFrame_BankPanel_TabSettingsMenu_IconSelector_ScrollBarObject:scrollInternal(...) end
 end

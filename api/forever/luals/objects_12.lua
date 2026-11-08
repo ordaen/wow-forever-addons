@@ -3,7360 +3,646 @@
 
 
 do
----@class CooldownViewerSettings_SettingsDropdown_EventObject
-local CooldownViewerSettings_SettingsDropdown_EventObject = {}
+---@class CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_BottomEdgeObject : Texture
+local CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_BottomEdgeObject = {}
 end
 
 do
----@class CooldownViewerSettings_SettingsDropdown_IconObject : Texture
-local CooldownViewerSettings_SettingsDropdown_IconObject = {}
+---@class CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_BottomLeftCornerObject : Texture
+local CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_BottomLeftCornerObject = {}
 end
 
 do
----@class CooldownViewerSettings_SettingsDropdown_menuAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo CooldownViewerSettings_SettingsDropdown_menuAnchor_relativeToObject
----@field x number
----@field y number
-local CooldownViewerSettings_SettingsDropdown_menuAnchorObject = {}
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:Get(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:GetRelativeTo(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:Init(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:Set(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:SetFromPoint(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:SetOffsets(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:SetPoint(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:SetRelativeTo(...) end
+---@class CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_BottomRightCornerObject : Texture
+local CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_BottomRightCornerObject = {}
 end
 
 do
----@class CooldownViewerSettings_SettingsDropdown_menuAnchor_relativeToObject
-local CooldownViewerSettings_SettingsDropdown_menuAnchor_relativeToObject = {}
+---@class CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_LeftEdgeObject : Texture
+local CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_LeftEdgeObject = {}
 end
 
 do
----@class CooldownViewerSettings_SettingsDropdown_menuDescriptionObject
----@field tag string
-local CooldownViewerSettings_SettingsDropdown_menuDescriptionObject = {}
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateButton(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateCheckbox(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateColorSwatch(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateDivider(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateFrame(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateHighlightButton(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateHighlightRadio(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateRadio(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateSearchEntry(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateSpacer(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateTemplate(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateTitle(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:QueueDivider(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:QueueSpacer(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:QueueTitle(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:SetTooltip(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:private(...) end
+---@class CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_RightEdgeObject : Texture
+local CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_RightEdgeObject = {}
 end
 
 do
----@class CooldownViewerSettings_SpellsTabObject : Frame
----@field Background CooldownViewerSettings_SpellsTab_BackgroundObject
----@field HighlightTexture CooldownViewerSettings_SpellsTab_HighlightTextureObject
----@field Icon CooldownViewerSettings_SpellsTab_IconObject
----@field Mask CooldownViewerSettings_SpellsTab_MaskObject
----@field NewOptionsFrame CooldownViewerSettings_SpellsTab_NewOptionsFrameObject
----@field SelectedTexture CooldownViewerSettings_SpellsTab_SelectedTextureObject
----@field TabGlow CooldownViewerSettings_SpellsTab_TabGlowObject
----@field TabGlowAnimation CooldownViewerSettings_SpellsTab_TabGlowAnimationObject
----@field activeAtlas string
----@field displayMode string
----@field inactiveAtlas string
----@field newTagID string
----@field tooltipText string
-local CooldownViewerSettings_SpellsTabObject = {}
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:CalculateTabSizeBasedOnTabArt(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:CheckNewTagID(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:GetFinalIconAnchorOffsets(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:GetIconAnchorOffsetsForTabArt(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:GetNewOptionDisplay(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:GetNewTagID(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:GetPressedIconAnchorOffsets(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:GetTooltipTextSetupFunction(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:HideNewOptionDisplay(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:InitializeIconAnchoring(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:InitializeSizeForTabArt(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:IsTabGlowAnimationPlaying(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:MarkSeen(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:NDCM_OnHide(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:NDCM_OnShow(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:OnEnter(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:OnLeave(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:OnLoad(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:OnMouseDown(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:OnMouseUp(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:SetChecked(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:SetCustomOnMouseUpHandler(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:SetFillToInterior(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:SetNewOptionAnchor(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:SetNewTagID(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:SetTabGlowAnimationPlaying(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:SetTooltipTextSetupFunction(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:UpdateIconInterior(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:customMouseUpHandler(...) end
+---@class CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_TopEdgeObject : Texture
+local CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_TopEdgeObject = {}
 end
 
 do
----@class CooldownViewerSettings_SpellsTab_BackgroundObject : Texture
-local CooldownViewerSettings_SpellsTab_BackgroundObject = {}
+---@class CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_TopLeftCornerObject : Texture
+local CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_TopLeftCornerObject = {}
 end
 
 do
----@class CooldownViewerSettings_SpellsTab_HighlightTextureObject : Texture
-local CooldownViewerSettings_SpellsTab_HighlightTextureObject = {}
+---@class CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_TopRightCornerObject : Texture
+local CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_TopRightCornerObject = {}
 end
 
 do
----@class CooldownViewerSettings_SpellsTab_IconObject : Texture
-local CooldownViewerSettings_SpellsTab_IconObject = {}
-end
-
-do
----@class CooldownViewerSettings_SpellsTab_MaskObject : MaskTexture
-local CooldownViewerSettings_SpellsTab_MaskObject = {}
-end
-
-do
----@class CooldownViewerSettings_SpellsTab_NewOptionsFrameObject : Texture
-local CooldownViewerSettings_SpellsTab_NewOptionsFrameObject = {}
-end
-
-do
----@class CooldownViewerSettings_SpellsTab_SelectedTextureObject : Texture
-local CooldownViewerSettings_SpellsTab_SelectedTextureObject = {}
-end
-
-do
----@class CooldownViewerSettings_SpellsTab_TabGlowObject : Texture
-local CooldownViewerSettings_SpellsTab_TabGlowObject = {}
-end
-
-do
----@class CooldownViewerSettings_SpellsTab_TabGlowAnimationObject : AnimationGroup
-local CooldownViewerSettings_SpellsTab_TabGlowAnimationObject = {}
-end
-
-do
----@class CooldownViewerSettings_TitleContainerObject : Frame
----@field TitleText CooldownViewerSettings_TitleContainer_TitleTextObject
-local CooldownViewerSettings_TitleContainerObject = {}
-end
-
-do
----@class CooldownViewerSettings_TitleContainer_TitleTextObject : FontString
-local CooldownViewerSettings_TitleContainer_TitleTextObject = {}
-end
-
-do
----@class CooldownViewerSettings_TopTileStreaksObject : Texture
-local CooldownViewerSettings_TopTileStreaksObject = {}
-end
-
-do
----@class CooldownViewerSettings_UndoButtonObject : Button
----@field Controller CooldownViewerSettings_UndoButton_ControllerObject
----@field Left CooldownViewerSettings_UndoButton_LeftObject
----@field Middle CooldownViewerSettings_UndoButton_MiddleObject
----@field Right CooldownViewerSettings_UndoButton_RightObject
----@field Text CooldownViewerSettings_UndoButton_TextObject
----@field disabledTooltip string
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
----@field tooltipTitle string
-local CooldownViewerSettings_UndoButtonObject = {}
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:ClearCustomTextFormatter(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:FitToText(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:GetOnClickSoundKit(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:InitButton(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:OnClick(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:OnEnter(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:OnLeave(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:RunCustomTextFormatter(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:SetButtonArtKit(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:SetCustomTextFormatter(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:SetOnClickHandler(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:SetOnEnterHandler(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:SetTextToFit(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:SetTooltipAnchor(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:SetTooltipInfo(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:customTextFormatter(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:onClickHandler(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:originalOnDisableScript(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:originalOnEnableScript(...) end
-end
-
-do
----@class CooldownViewerSettings_UndoButton_ControllerObject : Frame
-local CooldownViewerSettings_UndoButton_ControllerObject = {}
----@return any ...
-function CooldownViewerSettings_UndoButton_ControllerObject:OnLoad(...) end
----@return any ...
-function CooldownViewerSettings_UndoButton_ControllerObject:OnShow(...) end
-end
-
-do
----@class CooldownViewerSettings_UndoButton_LeftObject : Texture
-local CooldownViewerSettings_UndoButton_LeftObject = {}
-end
-
-do
----@class CooldownViewerSettings_UndoButton_MiddleObject : Texture
-local CooldownViewerSettings_UndoButton_MiddleObject = {}
-end
-
-do
----@class CooldownViewerSettings_UndoButton_RightObject : Texture
-local CooldownViewerSettings_UndoButton_RightObject = {}
-end
-
-do
----@class CooldownViewerSettings_UndoButton_TextObject : FontString
-local CooldownViewerSettings_UndoButton_TextObject = {}
-end
-
-do
----@class CooldownViewerSettings_categoryPoolObject
-local CooldownViewerSettings_categoryPoolObject = {}
----@return any ...
-function CooldownViewerSettings_categoryPoolObject:private(...) end
-end
-
-do
----@class CooldownViewerSettings_dataProviderObject
----@field displayData table
----@field displayDataDirty boolean
----@field layoutManager table
-local CooldownViewerSettings_dataProviderObject = {}
----@return any ...
-function CooldownViewerSettings_dataProviderObject:ChangeCooldownInfoCategoryByID(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:ChangeCooldownInfoInternal(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:ChangeOrderIndex(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:CheckBuildDisplayData(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:GetCooldownDefaults(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:GetCooldownInfoForID(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:GetDefaultOrderedCooldownIDs(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:GetDisplayData(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:GetLayoutManager(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:GetOrderedCooldownIDs(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:GetOrderedCooldownIDsForCategory(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:Init(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:IsDefaultValue(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:IsDirty(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:IsLayoutUpdateQueued(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:MarkDirty(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:ResetCurrentToDefaults(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:ResetToRestorePoint(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:SetActiveLayoutByID(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:SetCooldownToCategory(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:SetLayoutManager(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:SwitchToBestLayoutForSpec(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:UseDefaultLayout(...) end
-end
-
-do
----@class CooldownViewerSettings_dataSerializationObject
----@field cachedSerializedData string
----@field layoutManager table
-local CooldownViewerSettings_dataSerializationObject = {}
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:AddLayout(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:ClearSerializedData(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:CreateEncodeOutput(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:DeserializeLayouts(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:GetCurrentEncodingVersion(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:GetCurrentSaveFormatVersion(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:GetLayoutManager(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:GetSerializedData(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:Init(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:IsLoaded(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:ReadData(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:ResetToDefaults(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:SerializeLayouts(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:SetSerializationPersistenceObject(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:SetSerializedData(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:WriteData(...) end
-end
-
-do
----@class CooldownViewerSettings_layoutManagerObject
-local CooldownViewerSettings_layoutManagerObject = {}
-end
-
-do
----@class CovenantChoiceToastObject : Frame
----@field CovenantName CovenantChoiceToast_CovenantNameObject
----@field GlowLineTop CovenantChoiceToast_GlowLineTopObject
----@field GlowLineTopAdditive CovenantChoiceToast_GlowLineTopAdditiveObject
----@field HeaderText CovenantChoiceToast_HeaderTextObject
----@field Icon CovenantChoiceToast_IconObject
----@field IconSwirlModelScene CovenantChoiceToast_IconSwirlModelSceneObject
----@field ShowAnim CovenantChoiceToast_ShowAnimObject
----@field Stars1 CovenantChoiceToast_Stars1Object
----@field Stars2 CovenantChoiceToast_Stars2Object
----@field ToastBG CovenantChoiceToast_ToastBGObject
-local CovenantChoiceToastObject = {}
----@return any ...
-function CovenantChoiceToastObject:AddSwirlEffects(...) end
----@return any ...
-function CovenantChoiceToastObject:CancelIconSwirlEffects(...) end
----@return any ...
-function CovenantChoiceToastObject:OnAnimFinished(...) end
----@return any ...
-function CovenantChoiceToastObject:OnEvent(...) end
----@return any ...
-function CovenantChoiceToastObject:OnHide(...) end
----@return any ...
-function CovenantChoiceToastObject:OnLoad(...) end
----@return any ...
-function CovenantChoiceToastObject:PlayBanner(...) end
----@return any ...
-function CovenantChoiceToastObject:PlayCovenantChoiceToast(...) end
----@return any ...
-function CovenantChoiceToastObject:SetCovenantTextureKit(...) end
----@return any ...
-function CovenantChoiceToastObject:StopBanner(...) end
----@type CovenantChoiceToastObject
-CovenantChoiceToast = CovenantChoiceToastObject
-end
-
-do
----@class CovenantChoiceToast_CovenantNameObject : FontString
-local CovenantChoiceToast_CovenantNameObject = {}
-end
-
-do
----@class CovenantChoiceToast_GlowLineTopObject : Texture
-local CovenantChoiceToast_GlowLineTopObject = {}
-end
-
-do
----@class CovenantChoiceToast_GlowLineTopAdditiveObject : Texture
-local CovenantChoiceToast_GlowLineTopAdditiveObject = {}
-end
-
-do
----@class CovenantChoiceToast_HeaderTextObject : FontString
-local CovenantChoiceToast_HeaderTextObject = {}
-end
-
-do
----@class CovenantChoiceToast_IconObject : Frame
----@field Tex CovenantChoiceToast_Icon_TexObject
-local CovenantChoiceToast_IconObject = {}
-end
-
-do
----@class CovenantChoiceToast_Icon_TexObject : Texture
-local CovenantChoiceToast_Icon_TexObject = {}
-end
-
-do
----@class CovenantChoiceToast_IconSwirlModelSceneObject
----@field actorTemplate string
----@field cameras table
----@field centerX number
----@field centerY number
----@field delayedActions table
----@field effectControllers table
----@field pixelsPerSceneUnit number
----@field tagToActor table
----@field tagToCamera table
----@field useViewInsetNormalization boolean
-local CovenantChoiceToast_IconSwirlModelSceneObject = {}
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:AcquireActor(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:AcquireAndInitializeActor(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:AddCamera(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:AddDynamicEffect(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:AddEffect(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:AddOrUpdateDropShadow(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:AdjustCameraYaw(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:AttachPlayerToMount(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:CalculatePixelsPerSceneUnit(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:ClearEffects(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:ClearScene(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:CreateActorFromScene(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:CreateCameraFromScene(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:CreateOrTransitionActorFromScene(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:CreateOrTransitionCameraFromScene(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:EnumerateActiveActors(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:ExecuteOrDelayUntilSceneSet(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:GetActiveCamera(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:GetActorByTag(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:GetCameraByTag(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:GetEffectSpeed(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:GetModelSceneID(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:GetNumActiveActors(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:GetOrAcquireDropShadow(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:GetPixelsPerSceneUnit(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:GetPlayerActor(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:GetSceneSize(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:HasActiveCamera(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:HasActiveEffects(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:InitializeActor(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:InternalAddEffect(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:IsLeftMouseButtonDown(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:IsModelSceneSet(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:IsRightMouseButtonDown(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:OnEnter(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:OnEvent(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:OnHide(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:OnLeave(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:OnLoad(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:OnMouseDown(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:OnMouseUp(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:OnMouseWheel(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:OnShow(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:OnSizeChanged(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:OnUpdate(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:RefreshModelScene(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:ReleaseActor(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:ReleaseAllActors(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:ReleaseAllCameras(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:RemoveEffectController(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:Reset(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:SetActiveCamera(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:SetActorPositionFromPixels(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:SetEffectSpeed(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:SetFromModelSceneID(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:SetResetCallback(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:ShowAndAnimateActors(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:StopCameraYaw(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:SynchronizeActiveCamera(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:Transform3DPointTo2D(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:TransitionToModelSceneID(...) end
-end
-
-do
----@class CovenantChoiceToast_ShowAnimObject : AnimationGroup
-local CovenantChoiceToast_ShowAnimObject = {}
-end
-
-do
----@class CovenantChoiceToast_Stars1Object : Texture
-local CovenantChoiceToast_Stars1Object = {}
-end
-
-do
----@class CovenantChoiceToast_Stars2Object : Texture
-local CovenantChoiceToast_Stars2Object = {}
-end
-
-do
----@class CovenantChoiceToast_ToastBGObject : Texture
-local CovenantChoiceToast_ToastBGObject = {}
-end
-
-do
----@class CovenantRenownToastObject : Frame
----@field GlowLineTop CovenantRenownToast_GlowLineTopObject
----@field GlowLineTopAdditive CovenantRenownToast_GlowLineTopAdditiveObject
----@field GlowLineTopBottom CovenantRenownToast_GlowLineTopBottomObject
----@field Icon CovenantRenownToast_IconObject
----@field IconSwirlModelScene CovenantRenownToast_IconSwirlModelSceneObject
----@field RenownLabel CovenantRenownToast_RenownLabelObject
----@field RewardDescription CovenantRenownToast_RewardDescriptionObject
----@field RewardIcon CovenantRenownToast_RewardIconObject
----@field RewardIconMask CovenantRenownToast_RewardIconMaskObject
----@field RewardIconMouseOver CovenantRenownToast_RewardIconMouseOverObject
----@field RewardIconRing CovenantRenownToast_RewardIconRingObject
----@field ShowAnim CovenantRenownToast_ShowAnimObject
----@field Stars1 CovenantRenownToast_Stars1Object
----@field Stars2 CovenantRenownToast_Stars2Object
----@field ToastBG CovenantRenownToast_ToastBGObject
-local CovenantRenownToastObject = {}
----@return any ...
-function CovenantRenownToastObject:AddSwirlEffects(...) end
----@return any ...
-function CovenantRenownToastObject:CancelIconSwirlEffects(...) end
----@return any ...
-function CovenantRenownToastObject:OnAnimFinished(...) end
----@return any ...
-function CovenantRenownToastObject:OnEvent(...) end
----@return any ...
-function CovenantRenownToastObject:OnHide(...) end
----@return any ...
-function CovenantRenownToastObject:OnHoldAnimStarted(...) end
----@return any ...
-function CovenantRenownToastObject:OnLoad(...) end
----@return any ...
-function CovenantRenownToastObject:OnMouseEnter(...) end
----@return any ...
-function CovenantRenownToastObject:OnMouseLeave(...) end
----@return any ...
-function CovenantRenownToastObject:PlayBanner(...) end
----@return any ...
-function CovenantRenownToastObject:RefreshTooltip(...) end
----@return any ...
-function CovenantRenownToastObject:SetCovenantTextureKit(...) end
----@return any ...
-function CovenantRenownToastObject:SetupRewardVisuals(...) end
----@return any ...
-function CovenantRenownToastObject:ShowRenownLevelUpToast(...) end
----@return any ...
-function CovenantRenownToastObject:StopBanner(...) end
----@type CovenantRenownToastObject
-CovenantRenownToast = CovenantRenownToastObject
-end
-
-do
----@class CovenantRenownToast_GlowLineTopObject : Texture
-local CovenantRenownToast_GlowLineTopObject = {}
-end
-
-do
----@class CovenantRenownToast_GlowLineTopAdditiveObject : Texture
-local CovenantRenownToast_GlowLineTopAdditiveObject = {}
-end
-
-do
----@class CovenantRenownToast_GlowLineTopBottomObject : Texture
-local CovenantRenownToast_GlowLineTopBottomObject = {}
-end
-
-do
----@class CovenantRenownToast_IconObject : Frame
----@field Tex CovenantRenownToast_Icon_TexObject
-local CovenantRenownToast_IconObject = {}
-end
-
-do
----@class CovenantRenownToast_Icon_TexObject : Texture
-local CovenantRenownToast_Icon_TexObject = {}
-end
-
-do
----@class CovenantRenownToast_IconSwirlModelSceneObject
----@field actorTemplate string
----@field cameras table
----@field centerX number
----@field centerY number
----@field delayedActions table
----@field effectControllers table
----@field pixelsPerSceneUnit number
----@field tagToActor table
----@field tagToCamera table
----@field useViewInsetNormalization boolean
-local CovenantRenownToast_IconSwirlModelSceneObject = {}
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:AcquireActor(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:AcquireAndInitializeActor(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:AddCamera(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:AddDynamicEffect(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:AddEffect(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:AddOrUpdateDropShadow(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:AdjustCameraYaw(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:AttachPlayerToMount(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:CalculatePixelsPerSceneUnit(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:ClearEffects(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:ClearScene(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:CreateActorFromScene(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:CreateCameraFromScene(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:CreateOrTransitionActorFromScene(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:CreateOrTransitionCameraFromScene(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:EnumerateActiveActors(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:ExecuteOrDelayUntilSceneSet(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:GetActiveCamera(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:GetActorByTag(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:GetCameraByTag(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:GetEffectSpeed(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:GetModelSceneID(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:GetNumActiveActors(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:GetOrAcquireDropShadow(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:GetPixelsPerSceneUnit(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:GetPlayerActor(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:GetSceneSize(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:HasActiveCamera(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:HasActiveEffects(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:InitializeActor(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:InternalAddEffect(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:IsLeftMouseButtonDown(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:IsModelSceneSet(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:IsRightMouseButtonDown(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:OnEnter(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:OnEvent(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:OnHide(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:OnLeave(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:OnLoad(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:OnMouseDown(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:OnMouseUp(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:OnMouseWheel(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:OnShow(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:OnSizeChanged(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:OnUpdate(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:RefreshModelScene(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:ReleaseActor(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:ReleaseAllActors(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:ReleaseAllCameras(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:RemoveEffectController(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:Reset(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:SetActiveCamera(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:SetActorPositionFromPixels(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:SetEffectSpeed(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:SetFromModelSceneID(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:SetResetCallback(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:ShowAndAnimateActors(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:StopCameraYaw(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:SynchronizeActiveCamera(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:Transform3DPointTo2D(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:TransitionToModelSceneID(...) end
-end
-
-do
----@class CovenantRenownToast_RenownLabelObject : FontString
-local CovenantRenownToast_RenownLabelObject = {}
-end
-
-do
----@class CovenantRenownToast_RewardDescriptionObject : FontString
-local CovenantRenownToast_RewardDescriptionObject = {}
-end
-
-do
----@class CovenantRenownToast_RewardIconObject : Texture
-local CovenantRenownToast_RewardIconObject = {}
-end
-
-do
----@class CovenantRenownToast_RewardIconMaskObject : MaskTexture
-local CovenantRenownToast_RewardIconMaskObject = {}
-end
-
-do
----@class CovenantRenownToast_RewardIconMouseOverObject : Frame
-local CovenantRenownToast_RewardIconMouseOverObject = {}
-end
-
-do
----@class CovenantRenownToast_RewardIconRingObject : Texture
-local CovenantRenownToast_RewardIconRingObject = {}
-end
-
-do
----@class CovenantRenownToast_ShowAnimObject : AnimationGroup
----@field FadeAlpha CovenantRenownToast_ShowAnim_FadeAlphaObject
----@field HoldAlpha CovenantRenownToast_ShowAnim_HoldAlphaObject
-local CovenantRenownToast_ShowAnimObject = {}
-end
-
-do
----@class CovenantRenownToast_ShowAnim_FadeAlphaObject : Alpha
-local CovenantRenownToast_ShowAnim_FadeAlphaObject = {}
-end
-
-do
----@class CovenantRenownToast_ShowAnim_HoldAlphaObject : Alpha
-local CovenantRenownToast_ShowAnim_HoldAlphaObject = {}
-end
-
-do
----@class CovenantRenownToast_Stars1Object : Texture
-local CovenantRenownToast_Stars1Object = {}
-end
-
-do
----@class CovenantRenownToast_Stars2Object : Texture
-local CovenantRenownToast_Stars2Object = {}
-end
-
-do
----@class CovenantRenownToast_ToastBGObject : Texture
-local CovenantRenownToast_ToastBGObject = {}
-end
-
-do
----@class CreateChannelPopupObject : Frame
----@field BG CreateChannelPopup_BGObject
----@field CancelButton CreateChannelPopup_CancelButtonObject
----@field CloseButton CreateChannelPopup_CloseButtonObject
----@field FocusJumpHint CreateChannelPopup_FocusJumpHintObject
----@field FrameGlow CreateChannelPopup_FrameGlowObject
----@field Header CreateChannelPopup_HeaderObject
----@field LeftJumpHint CreateChannelPopup_LeftJumpHintObject
----@field Name CreateChannelPopup_NameObject
----@field OKButton CreateChannelPopup_OKButtonObject
----@field Password CreateChannelPopup_PasswordObject
----@field RightJumpHint CreateChannelPopup_RightJumpHintObject
----@field UseVoiceChat CreateChannelPopup_UseVoiceChatObject
----@field layoutType string
----@field tabGroup CreateChannelPopup_tabGroupObject
-local CreateChannelPopupObject = {}
----@return any ...
-function CreateChannelPopupObject:DoCallback(...) end
----@return any ...
-function CreateChannelPopupObject:EndFocus(...) end
----@return any ...
-function CreateChannelPopupObject:FocusGamepad(...) end
----@return any ...
-function CreateChannelPopupObject:GetFocusFrameGlow(...) end
----@return any ...
-function CreateChannelPopupObject:GetFocusFrameRoot(...) end
----@return any ...
-function CreateChannelPopupObject:HideFocusJumpHint(...) end
----@return any ...
-function CreateChannelPopupObject:HideLeftJumpHint(...) end
----@return any ...
-function CreateChannelPopupObject:HideRightJumpHint(...) end
----@return any ...
-function CreateChannelPopupObject:InitializeGamepad(...) end
----@return any ...
-function CreateChannelPopupObject:LockInFocus(...) end
----@return any ...
-function CreateChannelPopupObject:OnCancelClicked(...) end
----@return any ...
-function CreateChannelPopupObject:OnHide(...) end
----@return any ...
-function CreateChannelPopupObject:OnLoad(...) end
----@return any ...
-function CreateChannelPopupObject:OnOKClicked(...) end
----@return any ...
-function CreateChannelPopupObject:OnShow(...) end
----@return any ...
-function CreateChannelPopupObject:OnTabPressed(...) end
----@return any ...
-function CreateChannelPopupObject:RefreshFocus(...) end
----@return any ...
-function CreateChannelPopupObject:RegisterForTransitions(...) end
----@return any ...
-function CreateChannelPopupObject:SetCallback(...) end
----@return any ...
-function CreateChannelPopupObject:SetupGamepad(...) end
----@return any ...
-function CreateChannelPopupObject:ShowFocusJumpHint(...) end
----@return any ...
-function CreateChannelPopupObject:ShowLeftJumpHint(...) end
----@return any ...
-function CreateChannelPopupObject:ShowRightJumpHint(...) end
----@return any ...
-function CreateChannelPopupObject:StartFocus(...) end
----@return any ...
-function CreateChannelPopupObject:UnfocusGamepad(...) end
----@type CreateChannelPopupObject
-CreateChannelPopup = CreateChannelPopupObject
-end
-
-do
----@class CreateChannelPopup_BGObject : Frame
----@field Bg CreateChannelPopup_BG_BgObject
----@field BottomEdge CreateChannelPopup_BG_BottomEdgeObject
----@field BottomLeftCorner CreateChannelPopup_BG_BottomLeftCornerObject
----@field BottomRightCorner CreateChannelPopup_BG_BottomRightCornerObject
----@field LeftEdge CreateChannelPopup_BG_LeftEdgeObject
----@field RightEdge CreateChannelPopup_BG_RightEdgeObject
----@field TopEdge CreateChannelPopup_BG_TopEdgeObject
----@field TopLeftCorner CreateChannelPopup_BG_TopLeftCornerObject
----@field TopRightCorner CreateChannelPopup_BG_TopRightCornerObject
----@field layoutType string
-local CreateChannelPopup_BGObject = {}
----@return any ...
-function CreateChannelPopup_BGObject:GetBorderColor(...) end
----@return any ...
-function CreateChannelPopup_BGObject:GetCenterColor(...) end
----@return any ...
-function CreateChannelPopup_BGObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function CreateChannelPopup_BGObject:GetFrameLayoutType(...) end
----@return any ...
-function CreateChannelPopup_BGObject:OnLoad(...) end
----@return any ...
-function CreateChannelPopup_BGObject:SetBlendMode(...) end
----@return any ...
-function CreateChannelPopup_BGObject:SetBorderBlendMode(...) end
----@return any ...
-function CreateChannelPopup_BGObject:SetBorderColor(...) end
----@return any ...
-function CreateChannelPopup_BGObject:SetCenterColor(...) end
----@return any ...
-function CreateChannelPopup_BGObject:SetVertexColor(...) end
-end
-
-do
----@class CreateChannelPopup_BG_BgObject : Texture
-local CreateChannelPopup_BG_BgObject = {}
-end
-
-do
----@class CreateChannelPopup_BG_BottomEdgeObject : Texture
-local CreateChannelPopup_BG_BottomEdgeObject = {}
-end
-
-do
----@class CreateChannelPopup_BG_BottomLeftCornerObject : Texture
-local CreateChannelPopup_BG_BottomLeftCornerObject = {}
-end
-
-do
----@class CreateChannelPopup_BG_BottomRightCornerObject : Texture
-local CreateChannelPopup_BG_BottomRightCornerObject = {}
-end
-
-do
----@class CreateChannelPopup_BG_LeftEdgeObject : Texture
-local CreateChannelPopup_BG_LeftEdgeObject = {}
-end
-
-do
----@class CreateChannelPopup_BG_RightEdgeObject : Texture
-local CreateChannelPopup_BG_RightEdgeObject = {}
-end
-
-do
----@class CreateChannelPopup_BG_TopEdgeObject : Texture
-local CreateChannelPopup_BG_TopEdgeObject = {}
-end
-
-do
----@class CreateChannelPopup_BG_TopLeftCornerObject : Texture
-local CreateChannelPopup_BG_TopLeftCornerObject = {}
-end
-
-do
----@class CreateChannelPopup_BG_TopRightCornerObject : Texture
-local CreateChannelPopup_BG_TopRightCornerObject = {}
-end
-
-do
----@class CreateChannelPopup_CancelButtonObject : Button
----@field Left CreateChannelPopup_CancelButton_LeftObject
----@field Middle CreateChannelPopup_CancelButton_MiddleObject
----@field Right CreateChannelPopup_CancelButton_RightObject
----@field Text CreateChannelPopup_CancelButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local CreateChannelPopup_CancelButtonObject = {}
----@return any ...
-function CreateChannelPopup_CancelButtonObject:FitToText(...) end
----@return any ...
-function CreateChannelPopup_CancelButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function CreateChannelPopup_CancelButtonObject:OnEnter(...) end
----@return any ...
-function CreateChannelPopup_CancelButtonObject:OnLeave(...) end
----@return any ...
-function CreateChannelPopup_CancelButtonObject:SetDisabledState(...) end
----@return any ...
-function CreateChannelPopup_CancelButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function CreateChannelPopup_CancelButtonObject:SetTextToFit(...) end
-end
-
-do
----@class CreateChannelPopup_CancelButton_LeftObject : Texture
-local CreateChannelPopup_CancelButton_LeftObject = {}
-end
-
-do
----@class CreateChannelPopup_CancelButton_MiddleObject : Texture
-local CreateChannelPopup_CancelButton_MiddleObject = {}
-end
-
-do
----@class CreateChannelPopup_CancelButton_RightObject : Texture
-local CreateChannelPopup_CancelButton_RightObject = {}
-end
-
-do
----@class CreateChannelPopup_CancelButton_TextObject : FontString
-local CreateChannelPopup_CancelButton_TextObject = {}
-end
-
-do
----@class CreateChannelPopup_CloseButtonObject : Button
-local CreateChannelPopup_CloseButtonObject = {}
----@return any ...
-function CreateChannelPopup_CloseButtonObject:NarrationGetName(...) end
-end
-
-do
----@class CreateChannelPopup_FocusJumpHintObject : Frame
----@field ActiveTexture CreateChannelPopup_FocusJumpHint_ActiveTextureObject
----@field DisabledTexture CreateChannelPopup_FocusJumpHint_DisabledTextureObject
----@field HoldAnim CreateChannelPopup_FocusJumpHint_HoldAnimObject
----@field HoldIndicator CreateChannelPopup_FocusJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG CreateChannelPopup_FocusJumpHint_HoldIndicatorBGObject
----@field HoverTexture CreateChannelPopup_FocusJumpHint_HoverTextureObject
----@field LoadBar CreateChannelPopup_FocusJumpHint_LoadBarObject
----@field LoadBarBG CreateChannelPopup_FocusJumpHint_LoadBarBGObject
----@field LoadBarGlow CreateChannelPopup_FocusJumpHint_LoadBarGlowObject
----@field NormalTexture CreateChannelPopup_FocusJumpHint_NormalTextureObject
----@field PressedTexture CreateChannelPopup_FocusJumpHint_PressedTextureObject
----@field SpinnerTip CreateChannelPopup_FocusJumpHint_SpinnerTipObject
----@field ignoreInLayout boolean
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local CreateChannelPopup_FocusJumpHintObject = {}
----@return any ...
-function CreateChannelPopup_FocusJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function CreateChannelPopup_FocusJumpHintObject:BeginHold(...) end
----@return any ...
-function CreateChannelPopup_FocusJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function CreateChannelPopup_FocusJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function CreateChannelPopup_FocusJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function CreateChannelPopup_FocusJumpHintObject:EndHold(...) end
----@return any ...
-function CreateChannelPopup_FocusJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function CreateChannelPopup_FocusJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function CreateChannelPopup_FocusJumpHintObject:OnLoad(...) end
----@return any ...
-function CreateChannelPopup_FocusJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function CreateChannelPopup_FocusJumpHintObject:SetDisabled(...) end
----@return any ...
-function CreateChannelPopup_FocusJumpHintObject:SetEnabled(...) end
----@return any ...
-function CreateChannelPopup_FocusJumpHintObject:SetFocused(...) end
----@return any ...
-function CreateChannelPopup_FocusJumpHintObject:SetHoldState(...) end
----@return any ...
-function CreateChannelPopup_FocusJumpHintObject:SetInputKey(...) end
----@return any ...
-function CreateChannelPopup_FocusJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function CreateChannelPopup_FocusJumpHintObject:SetPressable(...) end
----@return any ...
-function CreateChannelPopup_FocusJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function CreateChannelPopup_FocusJumpHintObject:SetTextureState(...) end
----@return any ...
-function CreateChannelPopup_FocusJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function CreateChannelPopup_FocusJumpHintObject:SetUsableState(...) end
----@return any ...
-function CreateChannelPopup_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class CreateChannelPopup_FocusJumpHint_ActiveTextureObject : Texture
-local CreateChannelPopup_FocusJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class CreateChannelPopup_FocusJumpHint_DisabledTextureObject : Texture
-local CreateChannelPopup_FocusJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class CreateChannelPopup_FocusJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim CreateChannelPopup_FocusJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim CreateChannelPopup_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim CreateChannelPopup_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
-local CreateChannelPopup_FocusJumpHint_HoldAnimObject = {}
-end
-
-do
----@class CreateChannelPopup_FocusJumpHint_HoldAnim_LoadBarAnimObject
-local CreateChannelPopup_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class CreateChannelPopup_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local CreateChannelPopup_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class CreateChannelPopup_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local CreateChannelPopup_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class CreateChannelPopup_FocusJumpHint_HoldIndicatorObject : Texture
-local CreateChannelPopup_FocusJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class CreateChannelPopup_FocusJumpHint_HoldIndicatorBGObject : Texture
-local CreateChannelPopup_FocusJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class CreateChannelPopup_FocusJumpHint_HoverTextureObject : Texture
-local CreateChannelPopup_FocusJumpHint_HoverTextureObject = {}
-end
-
-do
----@class CreateChannelPopup_FocusJumpHint_LoadBarObject : Texture
-local CreateChannelPopup_FocusJumpHint_LoadBarObject = {}
-end
-
-do
----@class CreateChannelPopup_FocusJumpHint_LoadBarBGObject : Texture
-local CreateChannelPopup_FocusJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class CreateChannelPopup_FocusJumpHint_LoadBarGlowObject : Texture
-local CreateChannelPopup_FocusJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class CreateChannelPopup_FocusJumpHint_NormalTextureObject : Texture
-local CreateChannelPopup_FocusJumpHint_NormalTextureObject = {}
-end
-
-do
----@class CreateChannelPopup_FocusJumpHint_PressedTextureObject : Texture
-local CreateChannelPopup_FocusJumpHint_PressedTextureObject = {}
-end
-
-do
----@class CreateChannelPopup_FocusJumpHint_SpinnerTipObject : Texture
-local CreateChannelPopup_FocusJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class CreateChannelPopup_FrameGlowObject : Frame
----@field GlowTexture CreateChannelPopup_FrameGlow_GlowTextureObject
----@field HeaderGlowTexture CreateChannelPopup_FrameGlow_HeaderGlowTextureObject
----@field glowTextures table
-local CreateChannelPopup_FrameGlowObject = {}
----@return any ...
-function CreateChannelPopup_FrameGlowObject:GetContainerFrame(...) end
----@return any ...
-function CreateChannelPopup_FrameGlowObject:GetFrameLayoutType(...) end
----@return any ...
-function CreateChannelPopup_FrameGlowObject:GetHeaderFrame(...) end
----@return any ...
-function CreateChannelPopup_FrameGlowObject:OnLoad(...) end
-end
-
-do
----@class CreateChannelPopup_FrameGlow_GlowTextureObject : Texture
-local CreateChannelPopup_FrameGlow_GlowTextureObject = {}
-end
-
-do
----@class CreateChannelPopup_FrameGlow_HeaderGlowTextureObject : Texture
-local CreateChannelPopup_FrameGlow_HeaderGlowTextureObject = {}
-end
-
-do
----@class CreateChannelPopup_HeaderObject : Frame
----@field CenterBG CreateChannelPopup_Header_CenterBGObject
----@field LeftBG CreateChannelPopup_Header_LeftBGObject
----@field RightBG CreateChannelPopup_Header_RightBGObject
----@field Text CreateChannelPopup_Header_TextObject
----@field headerTextPadding number
----@field textString string
-local CreateChannelPopup_HeaderObject = {}
----@return any ...
-function CreateChannelPopup_HeaderObject:OnLoad(...) end
----@return any ...
-function CreateChannelPopup_HeaderObject:SetHeaderFont(...) end
----@return any ...
-function CreateChannelPopup_HeaderObject:Setup(...) end
----@return any ...
-function CreateChannelPopup_HeaderObject:UpdateWidth(...) end
-end
-
-do
----@class CreateChannelPopup_Header_CenterBGObject : Texture
-local CreateChannelPopup_Header_CenterBGObject = {}
-end
-
-do
----@class CreateChannelPopup_Header_LeftBGObject : Texture
-local CreateChannelPopup_Header_LeftBGObject = {}
-end
-
-do
----@class CreateChannelPopup_Header_RightBGObject : Texture
-local CreateChannelPopup_Header_RightBGObject = {}
-end
-
-do
----@class CreateChannelPopup_Header_TextObject : FontString
-local CreateChannelPopup_Header_TextObject = {}
-end
-
-do
----@class CreateChannelPopup_LeftJumpHintObject : Frame
----@field ActiveTexture CreateChannelPopup_LeftJumpHint_ActiveTextureObject
----@field DisabledTexture CreateChannelPopup_LeftJumpHint_DisabledTextureObject
----@field HoldAnim CreateChannelPopup_LeftJumpHint_HoldAnimObject
----@field HoldIndicator CreateChannelPopup_LeftJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG CreateChannelPopup_LeftJumpHint_HoldIndicatorBGObject
----@field HoverTexture CreateChannelPopup_LeftJumpHint_HoverTextureObject
----@field LoadBar CreateChannelPopup_LeftJumpHint_LoadBarObject
----@field LoadBarBG CreateChannelPopup_LeftJumpHint_LoadBarBGObject
----@field LoadBarGlow CreateChannelPopup_LeftJumpHint_LoadBarGlowObject
----@field NormalTexture CreateChannelPopup_LeftJumpHint_NormalTextureObject
----@field PressedTexture CreateChannelPopup_LeftJumpHint_PressedTextureObject
----@field SpinnerTip CreateChannelPopup_LeftJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local CreateChannelPopup_LeftJumpHintObject = {}
----@return any ...
-function CreateChannelPopup_LeftJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function CreateChannelPopup_LeftJumpHintObject:BeginHold(...) end
----@return any ...
-function CreateChannelPopup_LeftJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function CreateChannelPopup_LeftJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function CreateChannelPopup_LeftJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function CreateChannelPopup_LeftJumpHintObject:EndHold(...) end
----@return any ...
-function CreateChannelPopup_LeftJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function CreateChannelPopup_LeftJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function CreateChannelPopup_LeftJumpHintObject:OnLoad(...) end
----@return any ...
-function CreateChannelPopup_LeftJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function CreateChannelPopup_LeftJumpHintObject:SetDisabled(...) end
----@return any ...
-function CreateChannelPopup_LeftJumpHintObject:SetEnabled(...) end
----@return any ...
-function CreateChannelPopup_LeftJumpHintObject:SetFocused(...) end
----@return any ...
-function CreateChannelPopup_LeftJumpHintObject:SetHoldState(...) end
----@return any ...
-function CreateChannelPopup_LeftJumpHintObject:SetInputKey(...) end
----@return any ...
-function CreateChannelPopup_LeftJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function CreateChannelPopup_LeftJumpHintObject:SetPressable(...) end
----@return any ...
-function CreateChannelPopup_LeftJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function CreateChannelPopup_LeftJumpHintObject:SetTextureState(...) end
----@return any ...
-function CreateChannelPopup_LeftJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function CreateChannelPopup_LeftJumpHintObject:SetUsableState(...) end
----@return any ...
-function CreateChannelPopup_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class CreateChannelPopup_LeftJumpHint_ActiveTextureObject : Texture
-local CreateChannelPopup_LeftJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class CreateChannelPopup_LeftJumpHint_DisabledTextureObject : Texture
-local CreateChannelPopup_LeftJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class CreateChannelPopup_LeftJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim CreateChannelPopup_LeftJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim CreateChannelPopup_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim CreateChannelPopup_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
-local CreateChannelPopup_LeftJumpHint_HoldAnimObject = {}
-end
-
-do
----@class CreateChannelPopup_LeftJumpHint_HoldAnim_LoadBarAnimObject
-local CreateChannelPopup_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class CreateChannelPopup_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local CreateChannelPopup_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class CreateChannelPopup_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local CreateChannelPopup_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class CreateChannelPopup_LeftJumpHint_HoldIndicatorObject : Texture
-local CreateChannelPopup_LeftJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class CreateChannelPopup_LeftJumpHint_HoldIndicatorBGObject : Texture
-local CreateChannelPopup_LeftJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class CreateChannelPopup_LeftJumpHint_HoverTextureObject : Texture
-local CreateChannelPopup_LeftJumpHint_HoverTextureObject = {}
-end
-
-do
----@class CreateChannelPopup_LeftJumpHint_LoadBarObject : Texture
-local CreateChannelPopup_LeftJumpHint_LoadBarObject = {}
-end
-
-do
----@class CreateChannelPopup_LeftJumpHint_LoadBarBGObject : Texture
-local CreateChannelPopup_LeftJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class CreateChannelPopup_LeftJumpHint_LoadBarGlowObject : Texture
-local CreateChannelPopup_LeftJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class CreateChannelPopup_LeftJumpHint_NormalTextureObject : Texture
-local CreateChannelPopup_LeftJumpHint_NormalTextureObject = {}
-end
-
-do
----@class CreateChannelPopup_LeftJumpHint_PressedTextureObject : Texture
-local CreateChannelPopup_LeftJumpHint_PressedTextureObject = {}
-end
-
-do
----@class CreateChannelPopup_LeftJumpHint_SpinnerTipObject : Texture
-local CreateChannelPopup_LeftJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class CreateChannelPopup_NameObject : EditBox
----@field Label CreateChannelPopup_Name_LabelObject
----@field Left CreateChannelPopup_Name_LeftObject
----@field Middle CreateChannelPopup_Name_MiddleObject
----@field Right CreateChannelPopup_Name_RightObject
-local CreateChannelPopup_NameObject = {}
----@return any ...
-function CreateChannelPopup_NameObject:NarrationGetContext(...) end
----@return any ...
-function CreateChannelPopup_NameObject:NarrationGetDescription(...) end
----@return any ...
-function CreateChannelPopup_NameObject:NarrationGetName(...) end
----@return any ...
-function CreateChannelPopup_NameObject:SetNarrationLabelRegion(...) end
-end
-
-do
----@class CreateChannelPopup_Name_LabelObject : FontString
-local CreateChannelPopup_Name_LabelObject = {}
-end
-
-do
----@class CreateChannelPopup_Name_LeftObject : Texture
-local CreateChannelPopup_Name_LeftObject = {}
-end
-
-do
----@class CreateChannelPopup_Name_MiddleObject : Texture
-local CreateChannelPopup_Name_MiddleObject = {}
-end
-
-do
----@class CreateChannelPopup_Name_RightObject : Texture
-local CreateChannelPopup_Name_RightObject = {}
-end
-
-do
----@class CreateChannelPopup_OKButtonObject : Button
----@field Left CreateChannelPopup_OKButton_LeftObject
----@field Middle CreateChannelPopup_OKButton_MiddleObject
----@field Right CreateChannelPopup_OKButton_RightObject
----@field Text CreateChannelPopup_OKButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local CreateChannelPopup_OKButtonObject = {}
----@return any ...
-function CreateChannelPopup_OKButtonObject:FitToText(...) end
----@return any ...
-function CreateChannelPopup_OKButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function CreateChannelPopup_OKButtonObject:OnEnter(...) end
----@return any ...
-function CreateChannelPopup_OKButtonObject:OnLeave(...) end
----@return any ...
-function CreateChannelPopup_OKButtonObject:SetDisabledState(...) end
----@return any ...
-function CreateChannelPopup_OKButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function CreateChannelPopup_OKButtonObject:SetTextToFit(...) end
-end
-
-do
----@class CreateChannelPopup_OKButton_LeftObject : Texture
-local CreateChannelPopup_OKButton_LeftObject = {}
-end
-
-do
----@class CreateChannelPopup_OKButton_MiddleObject : Texture
-local CreateChannelPopup_OKButton_MiddleObject = {}
-end
-
-do
----@class CreateChannelPopup_OKButton_RightObject : Texture
-local CreateChannelPopup_OKButton_RightObject = {}
-end
-
-do
----@class CreateChannelPopup_OKButton_TextObject : FontString
-local CreateChannelPopup_OKButton_TextObject = {}
-end
-
-do
----@class CreateChannelPopup_PasswordObject : EditBox
----@field Label CreateChannelPopup_Password_LabelObject
----@field Left CreateChannelPopup_Password_LeftObject
----@field Middle CreateChannelPopup_Password_MiddleObject
----@field Right CreateChannelPopup_Password_RightObject
-local CreateChannelPopup_PasswordObject = {}
----@return any ...
-function CreateChannelPopup_PasswordObject:NarrationGetContext(...) end
----@return any ...
-function CreateChannelPopup_PasswordObject:NarrationGetDescription(...) end
----@return any ...
-function CreateChannelPopup_PasswordObject:NarrationGetName(...) end
----@return any ...
-function CreateChannelPopup_PasswordObject:SetNarrationLabelRegion(...) end
-end
-
-do
----@class CreateChannelPopup_Password_LabelObject : FontString
-local CreateChannelPopup_Password_LabelObject = {}
-end
-
-do
----@class CreateChannelPopup_Password_LeftObject : Texture
-local CreateChannelPopup_Password_LeftObject = {}
-end
-
-do
----@class CreateChannelPopup_Password_MiddleObject : Texture
-local CreateChannelPopup_Password_MiddleObject = {}
-end
-
-do
----@class CreateChannelPopup_Password_RightObject : Texture
-local CreateChannelPopup_Password_RightObject = {}
-end
-
-do
----@class CreateChannelPopup_RightJumpHintObject : Frame
----@field ActiveTexture CreateChannelPopup_RightJumpHint_ActiveTextureObject
----@field DisabledTexture CreateChannelPopup_RightJumpHint_DisabledTextureObject
----@field HoldAnim CreateChannelPopup_RightJumpHint_HoldAnimObject
----@field HoldIndicator CreateChannelPopup_RightJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG CreateChannelPopup_RightJumpHint_HoldIndicatorBGObject
----@field HoverTexture CreateChannelPopup_RightJumpHint_HoverTextureObject
----@field LoadBar CreateChannelPopup_RightJumpHint_LoadBarObject
----@field LoadBarBG CreateChannelPopup_RightJumpHint_LoadBarBGObject
----@field LoadBarGlow CreateChannelPopup_RightJumpHint_LoadBarGlowObject
----@field NormalTexture CreateChannelPopup_RightJumpHint_NormalTextureObject
----@field PressedTexture CreateChannelPopup_RightJumpHint_PressedTextureObject
----@field SpinnerTip CreateChannelPopup_RightJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local CreateChannelPopup_RightJumpHintObject = {}
----@return any ...
-function CreateChannelPopup_RightJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function CreateChannelPopup_RightJumpHintObject:BeginHold(...) end
----@return any ...
-function CreateChannelPopup_RightJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function CreateChannelPopup_RightJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function CreateChannelPopup_RightJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function CreateChannelPopup_RightJumpHintObject:EndHold(...) end
----@return any ...
-function CreateChannelPopup_RightJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function CreateChannelPopup_RightJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function CreateChannelPopup_RightJumpHintObject:OnLoad(...) end
----@return any ...
-function CreateChannelPopup_RightJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function CreateChannelPopup_RightJumpHintObject:SetDisabled(...) end
----@return any ...
-function CreateChannelPopup_RightJumpHintObject:SetEnabled(...) end
----@return any ...
-function CreateChannelPopup_RightJumpHintObject:SetFocused(...) end
----@return any ...
-function CreateChannelPopup_RightJumpHintObject:SetHoldState(...) end
----@return any ...
-function CreateChannelPopup_RightJumpHintObject:SetInputKey(...) end
----@return any ...
-function CreateChannelPopup_RightJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function CreateChannelPopup_RightJumpHintObject:SetPressable(...) end
----@return any ...
-function CreateChannelPopup_RightJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function CreateChannelPopup_RightJumpHintObject:SetTextureState(...) end
----@return any ...
-function CreateChannelPopup_RightJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function CreateChannelPopup_RightJumpHintObject:SetUsableState(...) end
----@return any ...
-function CreateChannelPopup_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class CreateChannelPopup_RightJumpHint_ActiveTextureObject : Texture
-local CreateChannelPopup_RightJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class CreateChannelPopup_RightJumpHint_DisabledTextureObject : Texture
-local CreateChannelPopup_RightJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class CreateChannelPopup_RightJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim CreateChannelPopup_RightJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim CreateChannelPopup_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim CreateChannelPopup_RightJumpHint_HoldAnim_SpinnerTipAnimObject
-local CreateChannelPopup_RightJumpHint_HoldAnimObject = {}
-end
-
-do
----@class CreateChannelPopup_RightJumpHint_HoldAnim_LoadBarAnimObject
-local CreateChannelPopup_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class CreateChannelPopup_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local CreateChannelPopup_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class CreateChannelPopup_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local CreateChannelPopup_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class CreateChannelPopup_RightJumpHint_HoldIndicatorObject : Texture
-local CreateChannelPopup_RightJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class CreateChannelPopup_RightJumpHint_HoldIndicatorBGObject : Texture
-local CreateChannelPopup_RightJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class CreateChannelPopup_RightJumpHint_HoverTextureObject : Texture
-local CreateChannelPopup_RightJumpHint_HoverTextureObject = {}
-end
-
-do
----@class CreateChannelPopup_RightJumpHint_LoadBarObject : Texture
-local CreateChannelPopup_RightJumpHint_LoadBarObject = {}
-end
-
-do
----@class CreateChannelPopup_RightJumpHint_LoadBarBGObject : Texture
-local CreateChannelPopup_RightJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class CreateChannelPopup_RightJumpHint_LoadBarGlowObject : Texture
-local CreateChannelPopup_RightJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class CreateChannelPopup_RightJumpHint_NormalTextureObject : Texture
-local CreateChannelPopup_RightJumpHint_NormalTextureObject = {}
-end
-
-do
----@class CreateChannelPopup_RightJumpHint_PressedTextureObject : Texture
-local CreateChannelPopup_RightJumpHint_PressedTextureObject = {}
-end
-
-do
----@class CreateChannelPopup_RightJumpHint_SpinnerTipObject : Texture
-local CreateChannelPopup_RightJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class CreateChannelPopup_UseVoiceChatObject : CheckButton
----@field Text CreateChannelPopup_UseVoiceChat_TextObject
----@field text CreateChannelPopup_UseVoiceChat_textObject
-local CreateChannelPopup_UseVoiceChatObject = {}
-end
-
-do
----@class CreateChannelPopup_UseVoiceChat_TextObject : FontString
-local CreateChannelPopup_UseVoiceChat_TextObject = {}
-end
-
-do
----@class CreateChannelPopup_UseVoiceChat_textObject
-local CreateChannelPopup_UseVoiceChat_textObject = {}
-end
-
-do
----@class CreateChannelPopup_tabGroupObject
----@field frames table
----@field isTabGroup boolean
-local CreateChannelPopup_tabGroupObject = {}
----@return any ...
-function CreateChannelPopup_tabGroupObject:AddFrame(...) end
----@return any ...
-function CreateChannelPopup_tabGroupObject:DiscoverFocusIndex(...) end
----@return any ...
-function CreateChannelPopup_tabGroupObject:GetFocusIndex(...) end
----@return any ...
-function CreateChannelPopup_tabGroupObject:HasFocus(...) end
----@return any ...
-function CreateChannelPopup_tabGroupObject:IsValidFocusIndex(...) end
----@return any ...
-function CreateChannelPopup_tabGroupObject:OnLoad(...) end
----@return any ...
-function CreateChannelPopup_tabGroupObject:OnTabPressed(...) end
----@return any ...
-function CreateChannelPopup_tabGroupObject:SetFocus(...) end
----@return any ...
-function CreateChannelPopup_tabGroupObject:WrapFocusIndex(...) end
-end
-
-do
----@class CurrencyTransferMenuObject : Frame
----@field AnimationHolder CurrencyTransferMenu_AnimationHolderObject
----@field Background CurrencyTransferMenu_BackgroundObject
----@field Bg CurrencyTransferMenu_BgObject
----@field CelebrationBackgroundFlash CurrencyTransferMenu_CelebrationBackgroundFlashObject
----@field CloseButton CurrencyTransferMenu_CloseButtonObject
----@field Content CurrencyTransferMenu_ContentObject
----@field Event CurrencyTransferMenu_EventObject
----@field FocusJumpHint CurrencyTransferMenu_FocusJumpHintObject
----@field FrameGlow CurrencyTransferMenu_FrameGlowObject
----@field Inset CurrencyTransferMenu_InsetObject
----@field LeftJumpHint CurrencyTransferMenu_LeftJumpHintObject
----@field NineSlice CurrencyTransferMenu_NineSliceObject
----@field PortraitContainer CurrencyTransferMenu_PortraitContainerObject
----@field RightJumpHint CurrencyTransferMenu_RightJumpHintObject
----@field TitleContainer CurrencyTransferMenu_TitleContainerObject
----@field TopTileStreaks CurrencyTransferMenu_TopTileStreaksObject
----@field TransferringSpinner CurrencyTransferMenu_TransferringSpinnerObject
----@field callbackRegistrantHandlers table
+---@class CommunitiesFrame_CommunitiesList_ScrollBarObject : Frame
+---@field Back CommunitiesFrame_CommunitiesList_ScrollBar_BackObject
+---@field Defaults CommunitiesFrame_CommunitiesList_ScrollBar_DefaultsObject
+---@field Directions CommunitiesFrame_CommunitiesList_ScrollBar_DirectionsObject
+---@field Event CommunitiesFrame_CommunitiesList_ScrollBar_EventObject
+---@field Forward CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject
+---@field Track CommunitiesFrame_CommunitiesList_ScrollBar_TrackObject
+---@field allowScroll boolean
 ---@field callbackTables table
+---@field canInterpolateScroll boolean
 ---@field deferredCallbacks table
 ---@field executingEvents table
----@field layoutType string
----@field staticCallbackRegistrantHandlers table
-local CurrencyTransferMenuObject = {}
+---@field hideTrack boolean
+---@field hideTrackIfThumbExceedsTrack boolean
+---@field interpolator CommunitiesFrame_CommunitiesList_ScrollBar_interpolatorObject
+---@field isScrollController boolean
+---@field minThumbExtent number
+---@field panDelay number
+---@field panExtentPercentage number
+---@field panRepeatTime number
+---@field registeredScrollBox CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject
+---@field scrollPercentage number
+---@field smartNavigationIgnored boolean
+---@field snapToInterval boolean
+---@field thumbAnchor string
+---@field useProportionalThumb boolean
+---@field visibleExtentPercentage number
+---@field wheelPanScalar number
+local CommunitiesFrame_CommunitiesList_ScrollBarObject = {}
 ---@return any ...
-function CurrencyTransferMenuObject:AddDynamicEventMethod(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:CallInternalScope(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:AddEventMethodInternal(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:CanCursorStepInDirection(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:AddStaticEventMethod(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:CanInterpolateScroll(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:CalculateEarnableCurrencyLimit(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:CheckPlayTransferringSpinner(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:DisableControls(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:ClearTransferData(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:CopyDeferredCallbacks(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:EnableInternalPriority(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:CreateEventRegistrationInfo(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:EnableSnapToInterval(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:DoesFrameHaveEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:EndFocus(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetBackStepper(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:FullRefresh(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetCallbackTable(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:GenerateCallbackEvents(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetCallbackTables(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:GetCallbackTable(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:GetCallbackTables(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetForwardStepper(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:GetCallbacksByEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetFrameExtent(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:GetCurrencyID(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetIntervalRange(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:GetCurrencyIcon(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetLower(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:GetCurrencyInfo(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:GetCurrencyTransferLoss(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:GetDynamicCallbackRegistrantHandlers(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetPanRepeatDelay(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:GetFocusFrameGlow(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetPanRepeatTime(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:GetFocusFrameRoot(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetScrollInterpolator(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:GetMutableCallbacksByEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetScrollPercentage(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:GetPlayerCurrencyQuantity(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetThumb(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:GetPortrait(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetThumbAnchor(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:GetRequestedCurrencyTransferAmount(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetTrack(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:GetSourceCharacterCurrencyQuantity(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetTrackExtent(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:GetSourceCharacterData(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetUpper(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:GetSourceCharacterName(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:GetStaticCallbackRegistrantHandlers(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:GetTitleText(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:GetTotalCurrencyTransferCost(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:HasScrollableExtent(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:HasPortraitTexture(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:Init(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:HasRegistrantsForEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:InitializeNarration(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:HideFocusJumpHint(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:Interpolate(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:HideLeftJumpHint(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:IsAtBegin(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:HideRightJumpHint(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:IsAtEnd(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:InitializeFrameVisuals(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:IsHorizontal(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:LockInFocus(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:IsScrollAllowed(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:OnCurrencyTransferAmountUpdated(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:IsThumbMouseDown(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:OnCurrencyTransferRequested(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:OnCurrencyTransferSourceSelected(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:OnLoad(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:OnEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:OnHide(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:OnMouseWheel(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:OnLoad(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:OnShow(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:PlayTransferCelebration(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:OnStepperMouseDown(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:QueueTransferringSpinner(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:OnThumbMouseDown(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:ReconcileDeferredCallbacks(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:OnTrackMouseDown(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:RefreshCurrencyInfo(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:RefreshFocus(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:RegisterCallback(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:RefreshMenuTitle(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:RefreshPlayerBalancePreview(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:ScrollDecrease(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:RefreshSourceCharacterBalancePreview(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:ScrollInDirection(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:RegisterCallback(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:ScrollIncrease(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:RegisterCallbackWithHandle(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:ScrollPageInDirection(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:RegisterFromRegistrationInfo(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:ScrollStepInDirection(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:RemoveStaticEventMethod(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:ScrollToBegin(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:ResetCurrencyAmountSelector(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:ScrollToEnd(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:SecureInsertEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:ScrollWheelInDirection(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:SetBorder(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:SecureInsertEvent(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:SetCurrency(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:SelectCursorComponent(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:SetFrameLevelsFromBaseLevel(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:SelectPointComponent(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:SetPortraitAtlasRaw(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetFrameExtent(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:SetPortraitShown(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetHideIfUnscrollable(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:SetPortraitTexCoord(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:SetPortraitTextureRaw(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetHorizontal(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:SetPortraitTextureSizeAndOffset(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetInterpolateScroll(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:SetPortraitToAsset(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:SetPortraitToBag(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetScrollAllowed(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:SetPortraitToClassIcon(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetScrollPercentage(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:SetPortraitToSpecIcon(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:SetPortraitToUnit(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetThumbExtent(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:SetTitle(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:SetTitleColor(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetVisibleExtentPercentage(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:SetTitleFormatted(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:TriggerEvent(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:SetTitleMaxLinesAndHeight(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:UnregisterCallback(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:SetTitleOffsets(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:UnregisterEvents(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:SetTransferringSpinnerShown(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:SetUndefinedEventsAllowed(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:UnregisterUpdate(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:ShowFocusJumpHint(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:Update(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:ShowLeftJumpHint(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:onButtonMouseUp(...) end
 ---@return any ...
-function CurrencyTransferMenuObject:ShowRightJumpHint(...) end
----@return any ...
-function CurrencyTransferMenuObject:StartFocus(...) end
----@return any ...
-function CurrencyTransferMenuObject:StopTransferCelebration(...) end
----@return any ...
-function CurrencyTransferMenuObject:TriggerEvent(...) end
----@return any ...
-function CurrencyTransferMenuObject:UnregisterAllEventMethods(...) end
----@return any ...
-function CurrencyTransferMenuObject:UnregisterAllInternal(...) end
----@return any ...
-function CurrencyTransferMenuObject:UnregisterCallback(...) end
----@return any ...
-function CurrencyTransferMenuObject:UnregisterEvents(...) end
----@return any ...
-function CurrencyTransferMenuObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CurrencyTransferMenuObject:UnregisterFromRegistrationInfo(...) end
----@type CurrencyTransferMenuObject
-CurrencyTransferMenu = CurrencyTransferMenuObject
+function CommunitiesFrame_CommunitiesList_ScrollBarObject:scrollInternal(...) end
 end
 
 do
----@class CurrencyTransferMenu_AnimationHolderObject : Frame
----@field TransferCelebration CurrencyTransferMenu_AnimationHolder_TransferCelebrationObject
-local CurrencyTransferMenu_AnimationHolderObject = {}
-end
-
-do
----@class CurrencyTransferMenu_AnimationHolder_TransferCelebrationObject : AnimationGroup
-local CurrencyTransferMenu_AnimationHolder_TransferCelebrationObject = {}
-end
-
-do
----@class CurrencyTransferMenu_BackgroundObject : Texture
-local CurrencyTransferMenu_BackgroundObject = {}
-end
-
-do
----@class CurrencyTransferMenu_BgObject : Texture
-local CurrencyTransferMenu_BgObject = {}
-end
-
-do
----@class CurrencyTransferMenu_CelebrationBackgroundFlashObject : Texture
-local CurrencyTransferMenu_CelebrationBackgroundFlashObject = {}
-end
-
-do
----@class CurrencyTransferMenu_CloseButtonObject : Button
-local CurrencyTransferMenu_CloseButtonObject = {}
----@return any ...
-function CurrencyTransferMenu_CloseButtonObject:NarrationGetName(...) end
----@return any ...
-function CurrencyTransferMenu_CloseButtonObject:OnLoad(...) end
-end
-
-do
----@class CurrencyTransferMenu_ContentObject : Frame
----@field AmountSelector CurrencyTransferMenu_Content_AmountSelectorObject
----@field CancelButton CurrencyTransferMenu_Content_CancelButtonObject
----@field ConfirmButton CurrencyTransferMenu_Content_ConfirmButtonObject
----@field PlayerBalancePreview CurrencyTransferMenu_Content_PlayerBalancePreviewObject
----@field SourceBalancePreview CurrencyTransferMenu_Content_SourceBalancePreviewObject
----@field SourceSelector CurrencyTransferMenu_Content_SourceSelectorObject
----@field TransactionDivider CurrencyTransferMenu_Content_TransactionDividerObject
-local CurrencyTransferMenu_ContentObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_AmountSelectorObject : Frame
----@field Event CurrencyTransferMenu_Content_AmountSelector_EventObject
----@field InputBox CurrencyTransferMenu_Content_AmountSelector_InputBoxObject
----@field MaxQuantityButton CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButtonObject
----@field TransferAmountLabel CurrencyTransferMenu_Content_AmountSelector_TransferAmountLabelObject
----@field callbackRegistrantHandlers table
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_BackObject : Button
+---@field Event CommunitiesFrame_CommunitiesList_ScrollBar_Back_EventObject
+---@field Texture CommunitiesFrame_CommunitiesList_ScrollBar_Back_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
 ---@field executingEvents table
-local CurrencyTransferMenu_Content_AmountSelectorObject = {}
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local CommunitiesFrame_CommunitiesList_ScrollBar_BackObject = {}
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:AddDynamicEventMethod(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:AddEventMethodInternal(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:AddStaticEventMethod(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:CalculateCurrencyTransferLoss(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:CalculateTotalCurrencyTransferCost(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:GetAtlas(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:CopyDeferredCallbacks(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:GetCallbackTable(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:CreateEventRegistrationInfo(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:GetCallbackTables(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:DoesFrameHaveEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:GenerateCallbackEvents(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:GetCallbackTable(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:GetCallbackTables(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:IsDown(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:GetCallbacksByEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:IsDownOver(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:GetDynamicCallbackRegistrantHandlers(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:IsOver(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:GetMutableCallbacksByEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:NarrationGetName(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:GetRequestedCurrencyTransferAmount(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnButtonStateChanged(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:GetStaticCallbackRegistrantHandlers(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:HasRegistrantsForEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnDisable(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:OnHide(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnEnable(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:OnLoad(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnEnter(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:OnRequestSetSourceCharacterMaxQuantity(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:OnShow(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnLeave(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:ReconcileDeferredCallbacks(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:RegisterCallback(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnLoad(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:RegisterCallbackWithHandle(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:RegisterFromRegistrationInfo(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnMouseDown(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:RemoveStaticEventMethod(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:Reset(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnMouseUp(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:SecureInsertEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:SetUndefinedEventsAllowed(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnShow(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:TriggerEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:UnregisterAllEventMethods(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:UnregisterAllInternal(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:RegisterCallback(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:UnregisterCallback(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:UnregisterEvents(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:SecureInsertEvent(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:UnregisterEventsByEventTable(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:SetDisplacedRegions(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:UnregisterFromRegistrationInfo(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_AmountSelectorObject:ValidateAndSetValue(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class CurrencyTransferMenu_Content_AmountSelector_EventObject
----@field RequestSetSourceCharacterMaxQuantity string
-local CurrencyTransferMenu_Content_AmountSelector_EventObject = {}
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_Back_EventObject
+local CommunitiesFrame_CommunitiesList_ScrollBar_Back_EventObject = {}
 end
 
 do
----@class CurrencyTransferMenu_Content_AmountSelector_InputBoxObject : EditBox
----@field Left CurrencyTransferMenu_Content_AmountSelector_InputBox_LeftObject
----@field Middle CurrencyTransferMenu_Content_AmountSelector_InputBox_MiddleObject
----@field Right CurrencyTransferMenu_Content_AmountSelector_InputBox_RightObject
-local CurrencyTransferMenu_Content_AmountSelector_InputBoxObject = {}
----@return any ...
-function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:GetClampedInputAmount(...) end
----@return any ...
-function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:GetCurrencyTransferMenu(...) end
----@return any ...
-function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:GetMaxTransferAmountPerTransaction(...) end
----@return any ...
-function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:NarrationGetContext(...) end
----@return any ...
-function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:NarrationGetDescription(...) end
----@return any ...
-function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:NarrationGetName(...) end
----@return any ...
-function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:OnEditFocusLost(...) end
----@return any ...
-function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:OnTextChanged(...) end
----@return any ...
-function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:Reset(...) end
----@return any ...
-function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:SetNarrationLabelRegion(...) end
----@return any ...
-function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:TrySetFullSourceCharacterCurrencyQuantity(...) end
----@return any ...
-function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:ValidateAndSetValue(...) end
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_Back_TextureObject : Texture
+local CommunitiesFrame_CommunitiesList_ScrollBar_Back_TextureObject = {}
 end
 
 do
----@class CurrencyTransferMenu_Content_AmountSelector_InputBox_LeftObject : Texture
-local CurrencyTransferMenu_Content_AmountSelector_InputBox_LeftObject = {}
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_DefaultsObject
+local CommunitiesFrame_CommunitiesList_ScrollBar_DefaultsObject = {}
 end
 
 do
----@class CurrencyTransferMenu_Content_AmountSelector_InputBox_MiddleObject : Texture
-local CurrencyTransferMenu_Content_AmountSelector_InputBox_MiddleObject = {}
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_DirectionsObject
+local CommunitiesFrame_CommunitiesList_ScrollBar_DirectionsObject = {}
 end
 
 do
----@class CurrencyTransferMenu_Content_AmountSelector_InputBox_RightObject : Texture
-local CurrencyTransferMenu_Content_AmountSelector_InputBox_RightObject = {}
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_EventObject
+local CommunitiesFrame_CommunitiesList_ScrollBar_EventObject = {}
 end
 
 do
----@class CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButtonObject : Button
----@field Left CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_LeftObject
----@field Middle CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_MiddleObject
----@field Right CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_RightObject
----@field Text CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButtonObject = {}
----@return any ...
-function CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButtonObject:FitToText(...) end
----@return any ...
-function CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButtonObject:OnEnter(...) end
----@return any ...
-function CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButtonObject:OnLeave(...) end
----@return any ...
-function CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButtonObject:SetDisabledState(...) end
----@return any ...
-function CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButtonObject:SetTextToFit(...) end
-end
-
-do
----@class CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_LeftObject : Texture
-local CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_LeftObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_MiddleObject : Texture
-local CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_MiddleObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_RightObject : Texture
-local CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_RightObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_TextObject : FontString
-local CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_TextObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_AmountSelector_TransferAmountLabelObject : FontString
-local CurrencyTransferMenu_Content_AmountSelector_TransferAmountLabelObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_CancelButtonObject : Button
----@field Left CurrencyTransferMenu_Content_CancelButton_LeftObject
----@field Middle CurrencyTransferMenu_Content_CancelButton_MiddleObject
----@field Right CurrencyTransferMenu_Content_CancelButton_RightObject
----@field Text CurrencyTransferMenu_Content_CancelButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local CurrencyTransferMenu_Content_CancelButtonObject = {}
----@return any ...
-function CurrencyTransferMenu_Content_CancelButtonObject:FitToText(...) end
----@return any ...
-function CurrencyTransferMenu_Content_CancelButtonObject:GetCurrencyTransferMenu(...) end
----@return any ...
-function CurrencyTransferMenu_Content_CancelButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function CurrencyTransferMenu_Content_CancelButtonObject:OnClick(...) end
----@return any ...
-function CurrencyTransferMenu_Content_CancelButtonObject:OnEnter(...) end
----@return any ...
-function CurrencyTransferMenu_Content_CancelButtonObject:OnLeave(...) end
----@return any ...
-function CurrencyTransferMenu_Content_CancelButtonObject:SetDisabledState(...) end
----@return any ...
-function CurrencyTransferMenu_Content_CancelButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function CurrencyTransferMenu_Content_CancelButtonObject:SetTextToFit(...) end
-end
-
-do
----@class CurrencyTransferMenu_Content_CancelButton_LeftObject : Texture
-local CurrencyTransferMenu_Content_CancelButton_LeftObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_CancelButton_MiddleObject : Texture
-local CurrencyTransferMenu_Content_CancelButton_MiddleObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_CancelButton_RightObject : Texture
-local CurrencyTransferMenu_Content_CancelButton_RightObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_CancelButton_TextObject : FontString
-local CurrencyTransferMenu_Content_CancelButton_TextObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_ConfirmButtonObject : Button
----@field Left CurrencyTransferMenu_Content_ConfirmButton_LeftObject
----@field Middle CurrencyTransferMenu_Content_ConfirmButton_MiddleObject
----@field Right CurrencyTransferMenu_Content_ConfirmButton_RightObject
----@field Text CurrencyTransferMenu_Content_ConfirmButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local CurrencyTransferMenu_Content_ConfirmButtonObject = {}
----@return any ...
-function CurrencyTransferMenu_Content_ConfirmButtonObject:FitToText(...) end
----@return any ...
-function CurrencyTransferMenu_Content_ConfirmButtonObject:GetCurrencyTransferMenu(...) end
----@return any ...
-function CurrencyTransferMenu_Content_ConfirmButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function CurrencyTransferMenu_Content_ConfirmButtonObject:OnClick(...) end
----@return any ...
-function CurrencyTransferMenu_Content_ConfirmButtonObject:OnEnter(...) end
----@return any ...
-function CurrencyTransferMenu_Content_ConfirmButtonObject:OnLeave(...) end
----@return any ...
-function CurrencyTransferMenu_Content_ConfirmButtonObject:SetDisabledState(...) end
----@return any ...
-function CurrencyTransferMenu_Content_ConfirmButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function CurrencyTransferMenu_Content_ConfirmButtonObject:SetTextToFit(...) end
-end
-
-do
----@class CurrencyTransferMenu_Content_ConfirmButton_LeftObject : Texture
-local CurrencyTransferMenu_Content_ConfirmButton_LeftObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_ConfirmButton_MiddleObject : Texture
-local CurrencyTransferMenu_Content_ConfirmButton_MiddleObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_ConfirmButton_RightObject : Texture
-local CurrencyTransferMenu_Content_ConfirmButton_RightObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_ConfirmButton_TextObject : FontString
-local CurrencyTransferMenu_Content_ConfirmButton_TextObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_PlayerBalancePreviewObject : Frame
----@field BalanceInfo CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfoObject
----@field Label CurrencyTransferMenu_Content_PlayerBalancePreview_LabelObject
----@field showTransferCost boolean
-local CurrencyTransferMenu_Content_PlayerBalancePreviewObject = {}
----@return any ...
-function CurrencyTransferMenu_Content_PlayerBalancePreviewObject:GetCurrencyTransferMenu(...) end
----@return any ...
-function CurrencyTransferMenu_Content_PlayerBalancePreviewObject:RefreshTransferCostDisplay(...) end
----@return any ...
-function CurrencyTransferMenu_Content_PlayerBalancePreviewObject:SetCharacterAndCurrencyBalance(...) end
----@return any ...
-function CurrencyTransferMenu_Content_PlayerBalancePreviewObject:SetCharacterName(...) end
----@return any ...
-function CurrencyTransferMenu_Content_PlayerBalancePreviewObject:SetCurrencyBalance(...) end
----@return any ...
-function CurrencyTransferMenu_Content_PlayerBalancePreviewObject:SetCurrencyIcon(...) end
-end
-
-do
----@class CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfoObject : Frame
----@field Amount CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_AmountObject
----@field CurrencyIcon CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_CurrencyIconObject
----@field TransferCostDisplay CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_TransferCostDisplayObject
-local CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfoObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_AmountObject : FontString
----@field minLineHeight number
-local CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_AmountObject = {}
----@return any ...
-function CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_AmountObject:ScaleTextToFit(...) end
----@return any ...
-function CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_AmountObject:SetMinLineHeight(...) end
-end
-
-do
----@class CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_CurrencyIconObject : Texture
-local CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_CurrencyIconObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_TransferCostDisplayObject : Button
----@field Icon CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_TransferCostDisplay_IconObject
-local CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_TransferCostDisplayObject = {}
----@return any ...
-function CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_TransferCostDisplayObject:GetCurrencyTransferMenu(...) end
----@return any ...
-function CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_TransferCostDisplayObject:OnEnter(...) end
----@return any ...
-function CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_TransferCostDisplayObject:OnLeave(...) end
-end
-
-do
----@class CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_TransferCostDisplay_IconObject : Texture
-local CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_TransferCostDisplay_IconObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_PlayerBalancePreview_LabelObject : FontString
----@field minLineHeight number
-local CurrencyTransferMenu_Content_PlayerBalancePreview_LabelObject = {}
----@return any ...
-function CurrencyTransferMenu_Content_PlayerBalancePreview_LabelObject:ScaleTextToFit(...) end
----@return any ...
-function CurrencyTransferMenu_Content_PlayerBalancePreview_LabelObject:SetMinLineHeight(...) end
-end
-
-do
----@class CurrencyTransferMenu_Content_SourceBalancePreviewObject : Frame
----@field BalanceInfo CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfoObject
----@field Label CurrencyTransferMenu_Content_SourceBalancePreview_LabelObject
----@field showTransferCost boolean
-local CurrencyTransferMenu_Content_SourceBalancePreviewObject = {}
----@return any ...
-function CurrencyTransferMenu_Content_SourceBalancePreviewObject:GetCurrencyTransferMenu(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceBalancePreviewObject:RefreshTransferCostDisplay(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceBalancePreviewObject:SetCharacterAndCurrencyBalance(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceBalancePreviewObject:SetCharacterName(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceBalancePreviewObject:SetCurrencyBalance(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceBalancePreviewObject:SetCurrencyIcon(...) end
-end
-
-do
----@class CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfoObject : Frame
----@field Amount CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_AmountObject
----@field CurrencyIcon CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_CurrencyIconObject
----@field TransferCostDisplay CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_TransferCostDisplayObject
-local CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfoObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_AmountObject : FontString
----@field minLineHeight number
-local CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_AmountObject = {}
----@return any ...
-function CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_AmountObject:ScaleTextToFit(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_AmountObject:SetMinLineHeight(...) end
-end
-
-do
----@class CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_CurrencyIconObject : Texture
-local CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_CurrencyIconObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_TransferCostDisplayObject : Button
----@field Icon CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_TransferCostDisplay_IconObject
-local CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_TransferCostDisplayObject = {}
----@return any ...
-function CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_TransferCostDisplayObject:GetCurrencyTransferMenu(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_TransferCostDisplayObject:OnEnter(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_TransferCostDisplayObject:OnLeave(...) end
-end
-
-do
----@class CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_TransferCostDisplay_IconObject : Texture
-local CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_TransferCostDisplay_IconObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_SourceBalancePreview_LabelObject : FontString
----@field minLineHeight number
-local CurrencyTransferMenu_Content_SourceBalancePreview_LabelObject = {}
----@return any ...
-function CurrencyTransferMenu_Content_SourceBalancePreview_LabelObject:ScaleTextToFit(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceBalancePreview_LabelObject:SetMinLineHeight(...) end
-end
-
-do
----@class CurrencyTransferMenu_Content_SourceSelectorObject : Frame
----@field Dropdown CurrencyTransferMenu_Content_SourceSelector_DropdownObject
----@field PlayerName CurrencyTransferMenu_Content_SourceSelector_PlayerNameObject
----@field SourceLabel CurrencyTransferMenu_Content_SourceSelector_SourceLabelObject
-local CurrencyTransferMenu_Content_SourceSelectorObject = {}
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelectorObject:AutoSelectHighestQuantitySource(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelectorObject:GetCurrencyTransferMenu(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelectorObject:GetRosterCurrencyData(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelectorObject:OnLoad(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelectorObject:OnShow(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelectorObject:RefreshPlayerName(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelectorObject:RefreshRosterCurrencyData(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelectorObject:RefreshSelectedSource(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelectorObject:SetupCharacterDropdown(...) end
-end
-
-do
----@class CurrencyTransferMenu_Content_SourceSelector_DropdownObject : Button
----@field Arrow CurrencyTransferMenu_Content_SourceSelector_Dropdown_ArrowObject
----@field Background CurrencyTransferMenu_Content_SourceSelector_Dropdown_BackgroundObject
----@field Event CurrencyTransferMenu_Content_SourceSelector_Dropdown_EventObject
----@field LongArrow CurrencyTransferMenu_Content_SourceSelector_Dropdown_LongArrowObject
----@field Text CurrencyTransferMenu_Content_SourceSelector_Dropdown_TextObject
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject : Button
+---@field Event CommunitiesFrame_CommunitiesList_ScrollBar_Forward_EventObject
+---@field Texture CommunitiesFrame_CommunitiesList_ScrollBar_Forward_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
 ---@field executingEvents table
----@field intrinsic string
----@field menuAnchor CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject
----@field menuPoint string
----@field menuPointX number
----@field menuPointY number
----@field menuRelativePoint string
-local CurrencyTransferMenu_Content_SourceSelector_DropdownObject = {}
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject = {}
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:ClearMenuState(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:CloseMenu(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:CollectSelectionData(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:CopyDeferredCallbacks(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:CreateDefaultRootMenuDescription(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:GetAtlas(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:CreateRootDescription(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:GetCallbackTable(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:Decrement(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:GetCallbackTables(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:DesaturateIfDisabled(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:DoesFrameHaveEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:EnableRegenerateOnResponse(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:GenerateCallbackEvents(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:IsDown(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:GenerateMenu(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:IsDownOver(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:GetArrowAtlas(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:IsOver(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:GetCallbackTable(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:NarrationGetName(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:GetCallbackTables(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:GetCallbacksByEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:GetDefaultText(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnDisable(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:GetMenuDescription(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnEnable(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:GetMutableCallbacksByEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnEnter(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:GetSelectionData(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:GetUpdateText(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnLeave(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:HandlesGlobalMouseEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:HasAnyRadioDescriptions(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnLoad(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:HasElements(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:HasOnlyRadioDescriptions(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnMouseDown(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:HasRegistrantsForEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:HasStickyFocus(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnMouseUp(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:Increment(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:IsDown(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnShow(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:IsDownOver(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:IsMenuOpen(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:IsOver(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:RegisterCallback(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:NarrationGetContext(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:NarrationGetName(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:SecureInsertEvent(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnButtonStateChanged(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnDisable(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnEnable(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:TriggerEvent(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnEnter(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:UnregisterCallback(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnEnter_Intrinsic(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:UnregisterEvents(...) end
 ---@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnLeave(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnLoad(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnMenuAssigned(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnMenuChanged(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnMenuClosed(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnMenuOpened(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnMenuResponse(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnMouseDown(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnMouseUp(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnMouseWheel_Intrinsic(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnShow(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OpenMenu(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OverrideText(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:Pick(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:RegisterCallback(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:RegisterMenu(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:Rotate(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:SecureInsertEvent(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:SetDefaultText(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:SetDisplacedRegions(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:SetMenuAnchor(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:SetMenuOpen(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:SetSelectionText(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:SetSelectionTranslator(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:SetTooltip(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:SetupMenu(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:ShouldShowTooltip(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:ShowTooltip(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:SignalUpdate(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:TriggerEvent(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:UnregisterCallback(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:UnregisterEvents(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:Update(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:UpdateSelections(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:UpdateText(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:UpdateToMenuSelections(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:onMenuClosedCallback(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:selectionTranslator(...) end
-end
-
-do
----@class CurrencyTransferMenu_Content_SourceSelector_Dropdown_ArrowObject : Texture
-local CurrencyTransferMenu_Content_SourceSelector_Dropdown_ArrowObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_SourceSelector_Dropdown_BackgroundObject : Texture
-local CurrencyTransferMenu_Content_SourceSelector_Dropdown_BackgroundObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_SourceSelector_Dropdown_EventObject
-local CurrencyTransferMenu_Content_SourceSelector_Dropdown_EventObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_SourceSelector_Dropdown_LongArrowObject : Texture
-local CurrencyTransferMenu_Content_SourceSelector_Dropdown_LongArrowObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_SourceSelector_Dropdown_TextObject : FontString
-local CurrencyTransferMenu_Content_SourceSelector_Dropdown_TextObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchor_relativeToObject
----@field x number
----@field y number
-local CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject = {}
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject:Get(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject:GetRelativeTo(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject:Init(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject:Set(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject:SetFromPoint(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject:SetOffsets(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject:SetPoint(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject:SetRelativeTo(...) end
-end
-
-do
----@class CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchor_relativeToObject
-local CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchor_relativeToObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Content_SourceSelector_PlayerNameObject : FontString
----@field baseLineHeight number
-local CurrencyTransferMenu_Content_SourceSelector_PlayerNameObject = {}
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_PlayerNameObject:ScaleTextToFit(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_PlayerNameObject:SetMinLineHeight(...) end
-end
-
-do
----@class CurrencyTransferMenu_Content_SourceSelector_SourceLabelObject : FontString
-local CurrencyTransferMenu_Content_SourceSelector_SourceLabelObject = {}
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_SourceLabelObject:ScaleTextToFit(...) end
----@return any ...
-function CurrencyTransferMenu_Content_SourceSelector_SourceLabelObject:SetMinLineHeight(...) end
-end
-
-do
----@class CurrencyTransferMenu_Content_TransactionDividerObject : Texture
-local CurrencyTransferMenu_Content_TransactionDividerObject = {}
-end
-
-do
----@class CurrencyTransferMenu_EventObject
----@field CurrencyTransferAmountUpdated string
----@field CurrencyTransferRequested string
----@field CurrencyTransferSourceSelected string
-local CurrencyTransferMenu_EventObject = {}
-end
-
-do
----@class CurrencyTransferMenu_FocusJumpHintObject : Frame
----@field ActiveTexture CurrencyTransferMenu_FocusJumpHint_ActiveTextureObject
----@field DisabledTexture CurrencyTransferMenu_FocusJumpHint_DisabledTextureObject
----@field HoldAnim CurrencyTransferMenu_FocusJumpHint_HoldAnimObject
----@field HoldIndicator CurrencyTransferMenu_FocusJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG CurrencyTransferMenu_FocusJumpHint_HoldIndicatorBGObject
----@field HoverTexture CurrencyTransferMenu_FocusJumpHint_HoverTextureObject
----@field LoadBar CurrencyTransferMenu_FocusJumpHint_LoadBarObject
----@field LoadBarBG CurrencyTransferMenu_FocusJumpHint_LoadBarBGObject
----@field LoadBarGlow CurrencyTransferMenu_FocusJumpHint_LoadBarGlowObject
----@field NormalTexture CurrencyTransferMenu_FocusJumpHint_NormalTextureObject
----@field PressedTexture CurrencyTransferMenu_FocusJumpHint_PressedTextureObject
----@field SpinnerTip CurrencyTransferMenu_FocusJumpHint_SpinnerTipObject
----@field ignoreInLayout boolean
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local CurrencyTransferMenu_FocusJumpHintObject = {}
----@return any ...
-function CurrencyTransferMenu_FocusJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function CurrencyTransferMenu_FocusJumpHintObject:BeginHold(...) end
----@return any ...
-function CurrencyTransferMenu_FocusJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function CurrencyTransferMenu_FocusJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function CurrencyTransferMenu_FocusJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function CurrencyTransferMenu_FocusJumpHintObject:EndHold(...) end
----@return any ...
-function CurrencyTransferMenu_FocusJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function CurrencyTransferMenu_FocusJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function CurrencyTransferMenu_FocusJumpHintObject:OnLoad(...) end
----@return any ...
-function CurrencyTransferMenu_FocusJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function CurrencyTransferMenu_FocusJumpHintObject:SetDisabled(...) end
----@return any ...
-function CurrencyTransferMenu_FocusJumpHintObject:SetEnabled(...) end
----@return any ...
-function CurrencyTransferMenu_FocusJumpHintObject:SetFocused(...) end
----@return any ...
-function CurrencyTransferMenu_FocusJumpHintObject:SetHoldState(...) end
----@return any ...
-function CurrencyTransferMenu_FocusJumpHintObject:SetInputKey(...) end
----@return any ...
-function CurrencyTransferMenu_FocusJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function CurrencyTransferMenu_FocusJumpHintObject:SetPressable(...) end
----@return any ...
-function CurrencyTransferMenu_FocusJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function CurrencyTransferMenu_FocusJumpHintObject:SetTextureState(...) end
----@return any ...
-function CurrencyTransferMenu_FocusJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function CurrencyTransferMenu_FocusJumpHintObject:SetUsableState(...) end
----@return any ...
-function CurrencyTransferMenu_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class CurrencyTransferMenu_FocusJumpHint_ActiveTextureObject : Texture
-local CurrencyTransferMenu_FocusJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class CurrencyTransferMenu_FocusJumpHint_DisabledTextureObject : Texture
-local CurrencyTransferMenu_FocusJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class CurrencyTransferMenu_FocusJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim CurrencyTransferMenu_FocusJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim CurrencyTransferMenu_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim CurrencyTransferMenu_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
-local CurrencyTransferMenu_FocusJumpHint_HoldAnimObject = {}
-end
-
-do
----@class CurrencyTransferMenu_FocusJumpHint_HoldAnim_LoadBarAnimObject
-local CurrencyTransferMenu_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class CurrencyTransferMenu_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local CurrencyTransferMenu_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class CurrencyTransferMenu_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local CurrencyTransferMenu_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class CurrencyTransferMenu_FocusJumpHint_HoldIndicatorObject : Texture
-local CurrencyTransferMenu_FocusJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class CurrencyTransferMenu_FocusJumpHint_HoldIndicatorBGObject : Texture
-local CurrencyTransferMenu_FocusJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class CurrencyTransferMenu_FocusJumpHint_HoverTextureObject : Texture
-local CurrencyTransferMenu_FocusJumpHint_HoverTextureObject = {}
-end
-
-do
----@class CurrencyTransferMenu_FocusJumpHint_LoadBarObject : Texture
-local CurrencyTransferMenu_FocusJumpHint_LoadBarObject = {}
-end
-
-do
----@class CurrencyTransferMenu_FocusJumpHint_LoadBarBGObject : Texture
-local CurrencyTransferMenu_FocusJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class CurrencyTransferMenu_FocusJumpHint_LoadBarGlowObject : Texture
-local CurrencyTransferMenu_FocusJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class CurrencyTransferMenu_FocusJumpHint_NormalTextureObject : Texture
-local CurrencyTransferMenu_FocusJumpHint_NormalTextureObject = {}
-end
-
-do
----@class CurrencyTransferMenu_FocusJumpHint_PressedTextureObject : Texture
-local CurrencyTransferMenu_FocusJumpHint_PressedTextureObject = {}
-end
-
-do
----@class CurrencyTransferMenu_FocusJumpHint_SpinnerTipObject : Texture
-local CurrencyTransferMenu_FocusJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class CurrencyTransferMenu_FrameGlowObject : Frame
----@field GlowTexture CurrencyTransferMenu_FrameGlow_GlowTextureObject
----@field glowTextures table
-local CurrencyTransferMenu_FrameGlowObject = {}
----@return any ...
-function CurrencyTransferMenu_FrameGlowObject:GetContainerFrame(...) end
----@return any ...
-function CurrencyTransferMenu_FrameGlowObject:GetFrameLayoutType(...) end
----@return any ...
-function CurrencyTransferMenu_FrameGlowObject:GetHeaderFrame(...) end
----@return any ...
-function CurrencyTransferMenu_FrameGlowObject:OnLoad(...) end
-end
-
-do
----@class CurrencyTransferMenu_FrameGlow_GlowTextureObject : Texture
-local CurrencyTransferMenu_FrameGlow_GlowTextureObject = {}
-end
-
-do
----@class CurrencyTransferMenu_InsetObject : Frame
----@field Bg CurrencyTransferMenu_Inset_BgObject
----@field NineSlice CurrencyTransferMenu_Inset_NineSliceObject
----@field layoutType string
-local CurrencyTransferMenu_InsetObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Inset_BgObject : Texture
-local CurrencyTransferMenu_Inset_BgObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Inset_NineSliceObject : Frame
----@field BottomEdge CurrencyTransferMenu_Inset_NineSlice_BottomEdgeObject
----@field BottomLeftCorner CurrencyTransferMenu_Inset_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner CurrencyTransferMenu_Inset_NineSlice_BottomRightCornerObject
----@field LeftEdge CurrencyTransferMenu_Inset_NineSlice_LeftEdgeObject
----@field RightEdge CurrencyTransferMenu_Inset_NineSlice_RightEdgeObject
----@field TopEdge CurrencyTransferMenu_Inset_NineSlice_TopEdgeObject
----@field TopLeftCorner CurrencyTransferMenu_Inset_NineSlice_TopLeftCornerObject
----@field TopRightCorner CurrencyTransferMenu_Inset_NineSlice_TopRightCornerObject
-local CurrencyTransferMenu_Inset_NineSliceObject = {}
----@return any ...
-function CurrencyTransferMenu_Inset_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function CurrencyTransferMenu_Inset_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function CurrencyTransferMenu_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function CurrencyTransferMenu_Inset_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function CurrencyTransferMenu_Inset_NineSliceObject:OnLoad(...) end
----@return any ...
-function CurrencyTransferMenu_Inset_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function CurrencyTransferMenu_Inset_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function CurrencyTransferMenu_Inset_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function CurrencyTransferMenu_Inset_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function CurrencyTransferMenu_Inset_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class CurrencyTransferMenu_Inset_NineSlice_BottomEdgeObject : Texture
-local CurrencyTransferMenu_Inset_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Inset_NineSlice_BottomLeftCornerObject : Texture
-local CurrencyTransferMenu_Inset_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Inset_NineSlice_BottomRightCornerObject : Texture
-local CurrencyTransferMenu_Inset_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Inset_NineSlice_LeftEdgeObject : Texture
-local CurrencyTransferMenu_Inset_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Inset_NineSlice_RightEdgeObject : Texture
-local CurrencyTransferMenu_Inset_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Inset_NineSlice_TopEdgeObject : Texture
-local CurrencyTransferMenu_Inset_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Inset_NineSlice_TopLeftCornerObject : Texture
-local CurrencyTransferMenu_Inset_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class CurrencyTransferMenu_Inset_NineSlice_TopRightCornerObject : Texture
-local CurrencyTransferMenu_Inset_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class CurrencyTransferMenu_LeftJumpHintObject : Frame
----@field ActiveTexture CurrencyTransferMenu_LeftJumpHint_ActiveTextureObject
----@field DisabledTexture CurrencyTransferMenu_LeftJumpHint_DisabledTextureObject
----@field HoldAnim CurrencyTransferMenu_LeftJumpHint_HoldAnimObject
----@field HoldIndicator CurrencyTransferMenu_LeftJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG CurrencyTransferMenu_LeftJumpHint_HoldIndicatorBGObject
----@field HoverTexture CurrencyTransferMenu_LeftJumpHint_HoverTextureObject
----@field LoadBar CurrencyTransferMenu_LeftJumpHint_LoadBarObject
----@field LoadBarBG CurrencyTransferMenu_LeftJumpHint_LoadBarBGObject
----@field LoadBarGlow CurrencyTransferMenu_LeftJumpHint_LoadBarGlowObject
----@field NormalTexture CurrencyTransferMenu_LeftJumpHint_NormalTextureObject
----@field PressedTexture CurrencyTransferMenu_LeftJumpHint_PressedTextureObject
----@field SpinnerTip CurrencyTransferMenu_LeftJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local CurrencyTransferMenu_LeftJumpHintObject = {}
----@return any ...
-function CurrencyTransferMenu_LeftJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function CurrencyTransferMenu_LeftJumpHintObject:BeginHold(...) end
----@return any ...
-function CurrencyTransferMenu_LeftJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function CurrencyTransferMenu_LeftJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function CurrencyTransferMenu_LeftJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function CurrencyTransferMenu_LeftJumpHintObject:EndHold(...) end
----@return any ...
-function CurrencyTransferMenu_LeftJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function CurrencyTransferMenu_LeftJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function CurrencyTransferMenu_LeftJumpHintObject:OnLoad(...) end
----@return any ...
-function CurrencyTransferMenu_LeftJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function CurrencyTransferMenu_LeftJumpHintObject:SetDisabled(...) end
----@return any ...
-function CurrencyTransferMenu_LeftJumpHintObject:SetEnabled(...) end
----@return any ...
-function CurrencyTransferMenu_LeftJumpHintObject:SetFocused(...) end
----@return any ...
-function CurrencyTransferMenu_LeftJumpHintObject:SetHoldState(...) end
----@return any ...
-function CurrencyTransferMenu_LeftJumpHintObject:SetInputKey(...) end
----@return any ...
-function CurrencyTransferMenu_LeftJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function CurrencyTransferMenu_LeftJumpHintObject:SetPressable(...) end
----@return any ...
-function CurrencyTransferMenu_LeftJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function CurrencyTransferMenu_LeftJumpHintObject:SetTextureState(...) end
----@return any ...
-function CurrencyTransferMenu_LeftJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function CurrencyTransferMenu_LeftJumpHintObject:SetUsableState(...) end
----@return any ...
-function CurrencyTransferMenu_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class CurrencyTransferMenu_LeftJumpHint_ActiveTextureObject : Texture
-local CurrencyTransferMenu_LeftJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class CurrencyTransferMenu_LeftJumpHint_DisabledTextureObject : Texture
-local CurrencyTransferMenu_LeftJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class CurrencyTransferMenu_LeftJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim CurrencyTransferMenu_LeftJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim CurrencyTransferMenu_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim CurrencyTransferMenu_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
-local CurrencyTransferMenu_LeftJumpHint_HoldAnimObject = {}
-end
-
-do
----@class CurrencyTransferMenu_LeftJumpHint_HoldAnim_LoadBarAnimObject
-local CurrencyTransferMenu_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class CurrencyTransferMenu_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local CurrencyTransferMenu_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class CurrencyTransferMenu_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local CurrencyTransferMenu_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class CurrencyTransferMenu_LeftJumpHint_HoldIndicatorObject : Texture
-local CurrencyTransferMenu_LeftJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class CurrencyTransferMenu_LeftJumpHint_HoldIndicatorBGObject : Texture
-local CurrencyTransferMenu_LeftJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class CurrencyTransferMenu_LeftJumpHint_HoverTextureObject : Texture
-local CurrencyTransferMenu_LeftJumpHint_HoverTextureObject = {}
-end
-
-do
----@class CurrencyTransferMenu_LeftJumpHint_LoadBarObject : Texture
-local CurrencyTransferMenu_LeftJumpHint_LoadBarObject = {}
-end
-
-do
----@class CurrencyTransferMenu_LeftJumpHint_LoadBarBGObject : Texture
-local CurrencyTransferMenu_LeftJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class CurrencyTransferMenu_LeftJumpHint_LoadBarGlowObject : Texture
-local CurrencyTransferMenu_LeftJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class CurrencyTransferMenu_LeftJumpHint_NormalTextureObject : Texture
-local CurrencyTransferMenu_LeftJumpHint_NormalTextureObject = {}
-end
-
-do
----@class CurrencyTransferMenu_LeftJumpHint_PressedTextureObject : Texture
-local CurrencyTransferMenu_LeftJumpHint_PressedTextureObject = {}
-end
-
-do
----@class CurrencyTransferMenu_LeftJumpHint_SpinnerTipObject : Texture
-local CurrencyTransferMenu_LeftJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class CurrencyTransferMenu_NineSliceObject : Frame
----@field BottomEdge CurrencyTransferMenu_NineSlice_BottomEdgeObject
----@field BottomLeftCorner CurrencyTransferMenu_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner CurrencyTransferMenu_NineSlice_BottomRightCornerObject
----@field Center CurrencyTransferMenu_NineSlice_CenterObject
----@field LeftEdge CurrencyTransferMenu_NineSlice_LeftEdgeObject
----@field RightEdge CurrencyTransferMenu_NineSlice_RightEdgeObject
----@field TopEdge CurrencyTransferMenu_NineSlice_TopEdgeObject
----@field TopLeftCorner CurrencyTransferMenu_NineSlice_TopLeftCornerObject
----@field TopRightCorner CurrencyTransferMenu_NineSlice_TopRightCornerObject
-local CurrencyTransferMenu_NineSliceObject = {}
----@return any ...
-function CurrencyTransferMenu_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function CurrencyTransferMenu_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function CurrencyTransferMenu_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function CurrencyTransferMenu_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function CurrencyTransferMenu_NineSliceObject:OnLoad(...) end
----@return any ...
-function CurrencyTransferMenu_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function CurrencyTransferMenu_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function CurrencyTransferMenu_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function CurrencyTransferMenu_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function CurrencyTransferMenu_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class CurrencyTransferMenu_NineSlice_BottomEdgeObject : Texture
-local CurrencyTransferMenu_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class CurrencyTransferMenu_NineSlice_BottomLeftCornerObject : Texture
-local CurrencyTransferMenu_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class CurrencyTransferMenu_NineSlice_BottomRightCornerObject : Texture
-local CurrencyTransferMenu_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class CurrencyTransferMenu_NineSlice_CenterObject : Texture
-local CurrencyTransferMenu_NineSlice_CenterObject = {}
-end
-
-do
----@class CurrencyTransferMenu_NineSlice_LeftEdgeObject : Texture
-local CurrencyTransferMenu_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class CurrencyTransferMenu_NineSlice_RightEdgeObject : Texture
-local CurrencyTransferMenu_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class CurrencyTransferMenu_NineSlice_TopEdgeObject : Texture
-local CurrencyTransferMenu_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class CurrencyTransferMenu_NineSlice_TopLeftCornerObject : Texture
-local CurrencyTransferMenu_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class CurrencyTransferMenu_NineSlice_TopRightCornerObject : Texture
-local CurrencyTransferMenu_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class CurrencyTransferMenu_PortraitContainerObject : Frame
----@field CircleMask CurrencyTransferMenu_PortraitContainer_CircleMaskObject
----@field portrait CurrencyTransferMenu_PortraitContainer_portraitObject
-local CurrencyTransferMenu_PortraitContainerObject = {}
-end
-
-do
----@class CurrencyTransferMenu_PortraitContainer_CircleMaskObject : MaskTexture
-local CurrencyTransferMenu_PortraitContainer_CircleMaskObject = {}
-end
-
-do
----@class CurrencyTransferMenu_PortraitContainer_portraitObject : Texture
-local CurrencyTransferMenu_PortraitContainer_portraitObject = {}
-end
-
-do
----@class CurrencyTransferMenu_RightJumpHintObject : Frame
----@field ActiveTexture CurrencyTransferMenu_RightJumpHint_ActiveTextureObject
----@field DisabledTexture CurrencyTransferMenu_RightJumpHint_DisabledTextureObject
----@field HoldAnim CurrencyTransferMenu_RightJumpHint_HoldAnimObject
----@field HoldIndicator CurrencyTransferMenu_RightJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG CurrencyTransferMenu_RightJumpHint_HoldIndicatorBGObject
----@field HoverTexture CurrencyTransferMenu_RightJumpHint_HoverTextureObject
----@field LoadBar CurrencyTransferMenu_RightJumpHint_LoadBarObject
----@field LoadBarBG CurrencyTransferMenu_RightJumpHint_LoadBarBGObject
----@field LoadBarGlow CurrencyTransferMenu_RightJumpHint_LoadBarGlowObject
----@field NormalTexture CurrencyTransferMenu_RightJumpHint_NormalTextureObject
----@field PressedTexture CurrencyTransferMenu_RightJumpHint_PressedTextureObject
----@field SpinnerTip CurrencyTransferMenu_RightJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local CurrencyTransferMenu_RightJumpHintObject = {}
----@return any ...
-function CurrencyTransferMenu_RightJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function CurrencyTransferMenu_RightJumpHintObject:BeginHold(...) end
----@return any ...
-function CurrencyTransferMenu_RightJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function CurrencyTransferMenu_RightJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function CurrencyTransferMenu_RightJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function CurrencyTransferMenu_RightJumpHintObject:EndHold(...) end
----@return any ...
-function CurrencyTransferMenu_RightJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function CurrencyTransferMenu_RightJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function CurrencyTransferMenu_RightJumpHintObject:OnLoad(...) end
----@return any ...
-function CurrencyTransferMenu_RightJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function CurrencyTransferMenu_RightJumpHintObject:SetDisabled(...) end
----@return any ...
-function CurrencyTransferMenu_RightJumpHintObject:SetEnabled(...) end
----@return any ...
-function CurrencyTransferMenu_RightJumpHintObject:SetFocused(...) end
----@return any ...
-function CurrencyTransferMenu_RightJumpHintObject:SetHoldState(...) end
----@return any ...
-function CurrencyTransferMenu_RightJumpHintObject:SetInputKey(...) end
----@return any ...
-function CurrencyTransferMenu_RightJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function CurrencyTransferMenu_RightJumpHintObject:SetPressable(...) end
----@return any ...
-function CurrencyTransferMenu_RightJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function CurrencyTransferMenu_RightJumpHintObject:SetTextureState(...) end
----@return any ...
-function CurrencyTransferMenu_RightJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function CurrencyTransferMenu_RightJumpHintObject:SetUsableState(...) end
----@return any ...
-function CurrencyTransferMenu_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class CurrencyTransferMenu_RightJumpHint_ActiveTextureObject : Texture
-local CurrencyTransferMenu_RightJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class CurrencyTransferMenu_RightJumpHint_DisabledTextureObject : Texture
-local CurrencyTransferMenu_RightJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class CurrencyTransferMenu_RightJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim CurrencyTransferMenu_RightJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim CurrencyTransferMenu_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim CurrencyTransferMenu_RightJumpHint_HoldAnim_SpinnerTipAnimObject
-local CurrencyTransferMenu_RightJumpHint_HoldAnimObject = {}
-end
-
-do
----@class CurrencyTransferMenu_RightJumpHint_HoldAnim_LoadBarAnimObject
-local CurrencyTransferMenu_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class CurrencyTransferMenu_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local CurrencyTransferMenu_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class CurrencyTransferMenu_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local CurrencyTransferMenu_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class CurrencyTransferMenu_RightJumpHint_HoldIndicatorObject : Texture
-local CurrencyTransferMenu_RightJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class CurrencyTransferMenu_RightJumpHint_HoldIndicatorBGObject : Texture
-local CurrencyTransferMenu_RightJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class CurrencyTransferMenu_RightJumpHint_HoverTextureObject : Texture
-local CurrencyTransferMenu_RightJumpHint_HoverTextureObject = {}
-end
-
-do
----@class CurrencyTransferMenu_RightJumpHint_LoadBarObject : Texture
-local CurrencyTransferMenu_RightJumpHint_LoadBarObject = {}
-end
-
-do
----@class CurrencyTransferMenu_RightJumpHint_LoadBarBGObject : Texture
-local CurrencyTransferMenu_RightJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class CurrencyTransferMenu_RightJumpHint_LoadBarGlowObject : Texture
-local CurrencyTransferMenu_RightJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class CurrencyTransferMenu_RightJumpHint_NormalTextureObject : Texture
-local CurrencyTransferMenu_RightJumpHint_NormalTextureObject = {}
-end
-
-do
----@class CurrencyTransferMenu_RightJumpHint_PressedTextureObject : Texture
-local CurrencyTransferMenu_RightJumpHint_PressedTextureObject = {}
-end
-
-do
----@class CurrencyTransferMenu_RightJumpHint_SpinnerTipObject : Texture
-local CurrencyTransferMenu_RightJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class CurrencyTransferMenu_TitleContainerObject : Frame
----@field TitleText CurrencyTransferMenu_TitleContainer_TitleTextObject
-local CurrencyTransferMenu_TitleContainerObject = {}
-end
-
-do
----@class CurrencyTransferMenu_TitleContainer_TitleTextObject : FontString
-local CurrencyTransferMenu_TitleContainer_TitleTextObject = {}
-end
-
-do
----@class CurrencyTransferMenu_TopTileStreaksObject : Texture
-local CurrencyTransferMenu_TopTileStreaksObject = {}
-end
-
-do
----@class CurrencyTransferMenu_TransferringSpinnerObject : Frame
----@field Anim CurrencyTransferMenu_TransferringSpinner_AnimObject
----@field Ring CurrencyTransferMenu_TransferringSpinner_RingObject
----@field Sparks CurrencyTransferMenu_TransferringSpinner_SparksObject
-local CurrencyTransferMenu_TransferringSpinnerObject = {}
----@return any ...
-function CurrencyTransferMenu_TransferringSpinnerObject:GetShadowAlpha(...) end
----@return any ...
-function CurrencyTransferMenu_TransferringSpinnerObject:OnHide(...) end
----@return any ...
-function CurrencyTransferMenu_TransferringSpinnerObject:OnShow(...) end
----@return any ...
-function CurrencyTransferMenu_TransferringSpinnerObject:OnSizeChanged(...) end
----@return any ...
-function CurrencyTransferMenu_TransferringSpinnerObject:SetDesaturated(...) end
----@return any ...
-function CurrencyTransferMenu_TransferringSpinnerObject:SetShadowEnabled(...) end
----@return any ...
-function CurrencyTransferMenu_TransferringSpinnerObject:UpdateShadowSize(...) end
----@return any ...
-function CurrencyTransferMenu_TransferringSpinnerObject:UpdateTheme(...) end
-end
-
-do
----@class CurrencyTransferMenu_TransferringSpinner_AnimObject : AnimationGroup
-local CurrencyTransferMenu_TransferringSpinner_AnimObject = {}
-end
-
-do
----@class CurrencyTransferMenu_TransferringSpinner_RingObject : Texture
-local CurrencyTransferMenu_TransferringSpinner_RingObject = {}
-end
-
-do
----@class CurrencyTransferMenu_TransferringSpinner_SparksObject : Texture
-local CurrencyTransferMenu_TransferringSpinner_SparksObject = {}
-end
-
-do
----@class CustomizationDebugFrameObject : Frame
----@field updateTime number
-local CustomizationDebugFrameObject = {}
----@type CustomizationDebugFrameObject
-CustomizationDebugFrame = CustomizationDebugFrameObject
-end
-
-do
----@class DamageMeterObject : Frame
----@field EditModeResizeButton DamageMeter_EditModeResizeButtonObject
----@field Selection DamageMeter_SelectionObject
----@field backgroundAlpha number
----@field barHeight number
----@field barSpacing number
----@field defaultHideSelection boolean
----@field dirtySettings table
----@field downKeys table
----@field hasActiveChanges boolean
----@field numberDisplayType number
----@field savedSystemInfo DamageMeter_savedSystemInfoObject
----@field sessionType number
----@field settingDisplayInfoMap table
----@field settingMap table
----@field settingsDialogAnchor DamageMeter_settingsDialogAnchorObject
----@field showBarIcons boolean
----@field snappedFrames table
----@field style number
----@field system number
----@field systemInfo DamageMeter_systemInfoObject
----@field systemNameString string
----@field useClassColor boolean
----@field visibility number
----@field windowDataList table
-local DamageMeterObject = {}
----@return any ...
-function DamageMeterObject:AddExtraButtons(...) end
----@return any ...
-function DamageMeterObject:AddSnappedFrame(...) end
----@return any ...
-function DamageMeterObject:AnchorSelectionFrame(...) end
----@return any ...
-function DamageMeterObject:AnySettingsDirty(...) end
----@return any ...
-function DamageMeterObject:ApplySystemAnchor(...) end
----@return any ...
-function DamageMeterObject:AreAllSystemSettingsDefault(...) end
----@return any ...
-function DamageMeterObject:BreakFrameSnap(...) end
----@return any ...
-function DamageMeterObject:BreakFromFrameManager(...) end
----@return any ...
-function DamageMeterObject:BreakSnappedFrames(...) end
----@return any ...
-function DamageMeterObject:CanBeMoved(...) end
----@return any ...
-function DamageMeterObject:CanHideSessionWindow(...) end
----@return any ...
-function DamageMeterObject:CanMoveOrResizeSessionWindow(...) end
----@return any ...
-function DamageMeterObject:CanShowNewSecondarySessionWindow(...) end
----@return any ...
-function DamageMeterObject:ClearAllPointsBase(...) end
----@return any ...
-function DamageMeterObject:ClearAllPointsOverride(...) end
----@return any ...
-function DamageMeterObject:ClearDirtySetting(...) end
----@return any ...
-function DamageMeterObject:ClearDownKeys(...) end
----@return any ...
-function DamageMeterObject:ClearFrameSnap(...) end
----@return any ...
-function DamageMeterObject:ClearHighlight(...) end
----@return any ...
-function DamageMeterObject:ConvertSettingDisplayValueToRawValue(...) end
----@return any ...
-function DamageMeterObject:CreateWindowData(...) end
----@return any ...
-function DamageMeterObject:DoesSettingDisplayValueEqual(...) end
----@return any ...
-function DamageMeterObject:DoesSettingValueEqual(...) end
----@return any ...
-function DamageMeterObject:ForEachSessionWindow(...) end
----@return any ...
-function DamageMeterObject:GetAvailableSecondarySessionWindowIndex(...) end
----@return any ...
-function DamageMeterObject:GetAvailableSecondaryWindowDataIndex(...) end
----@return any ...
-function DamageMeterObject:GetBackgroundAlpha(...) end
----@return any ...
-function DamageMeterObject:GetBackgroundTransparency(...) end
----@return any ...
-function DamageMeterObject:GetBarHeight(...) end
----@return any ...
-function DamageMeterObject:GetBarSpacing(...) end
----@return any ...
-function DamageMeterObject:GetBottomOffset(...) end
----@return any ...
-function DamageMeterObject:GetCombinedCenterOffset(...) end
----@return any ...
-function DamageMeterObject:GetCombinedSelectionOffset(...) end
----@return any ...
-function DamageMeterObject:GetCompositeNumberSettingValue(...) end
----@return any ...
-function DamageMeterObject:GetCurrentSessionWindowCount(...) end
----@return any ...
-function DamageMeterObject:GetDefaultWindowData(...) end
----@return any ...
-function DamageMeterObject:GetFrameMagneticEligibility(...) end
----@return any ...
-function DamageMeterObject:GetLeftOffset(...) end
----@return any ...
-function DamageMeterObject:GetManagedFrameContainer(...) end
----@return any ...
-function DamageMeterObject:GetMaxSessionWindowCount(...) end
----@return any ...
-function DamageMeterObject:GetNumberDisplayType(...) end
----@return any ...
-function DamageMeterObject:GetPrimarySessionWindow(...) end
----@return any ...
-function DamageMeterObject:GetRightOffset(...) end
----@return any ...
-function DamageMeterObject:GetScaledCenter(...) end
----@return any ...
-function DamageMeterObject:GetScaledSelectionCenter(...) end
----@return any ...
-function DamageMeterObject:GetScaledSelectionSides(...) end
----@return any ...
-function DamageMeterObject:GetSelectionOffset(...) end
----@return any ...
-function DamageMeterObject:GetSessionID(...) end
----@return any ...
-function DamageMeterObject:GetSessionType(...) end
----@return any ...
-function DamageMeterObject:GetSessionWindow(...) end
----@return any ...
-function DamageMeterObject:GetSessionWindowDamageMeterType(...) end
----@return any ...
-function DamageMeterObject:GetSessionWindowData(...) end
----@return any ...
-function DamageMeterObject:GetSettingValue(...) end
----@return any ...
-function DamageMeterObject:GetSettingValueBool(...) end
----@return any ...
-function DamageMeterObject:GetSettingsDialogAnchor(...) end
----@return any ...
-function DamageMeterObject:GetSnapOffsets(...) end
----@return any ...
-function DamageMeterObject:GetStyle(...) end
----@return any ...
-function DamageMeterObject:GetSystemName(...) end
----@return any ...
-function DamageMeterObject:GetTextScale(...) end
----@return any ...
-function DamageMeterObject:GetTextSize(...) end
----@return any ...
-function DamageMeterObject:GetTopOffset(...) end
----@return any ...
-function DamageMeterObject:GetWindowAlpha(...) end
----@return any ...
-function DamageMeterObject:GetWindowDataList(...) end
----@return any ...
-function DamageMeterObject:GetWindowTransparency(...) end
----@return any ...
-function DamageMeterObject:HasActiveChanges(...) end
----@return any ...
-function DamageMeterObject:HasCompositeNumberSetting(...) end
----@return any ...
-function DamageMeterObject:HasSetting(...) end
----@return any ...
-function DamageMeterObject:HasValidSelectionRect(...) end
----@return any ...
-function DamageMeterObject:HideAllSessionWindows(...) end
----@return any ...
-function DamageMeterObject:HideBase(...) end
----@return any ...
-function DamageMeterObject:HideOverride(...) end
----@return any ...
-function DamageMeterObject:HideSessionWindow(...) end
----@return any ...
-function DamageMeterObject:HighlightSystem(...) end
----@return any ...
-function DamageMeterObject:InitializeWindowDataList(...) end
----@return any ...
-function DamageMeterObject:IsAboveFrame(...) end
----@return any ...
-function DamageMeterObject:IsBelowFrame(...) end
----@return any ...
-function DamageMeterObject:IsEditModeDragging(...) end
----@return any ...
-function DamageMeterObject:IsEditing(...) end
----@return any ...
-function DamageMeterObject:IsFrameAnchoredToMe(...) end
----@return any ...
-function DamageMeterObject:IsHorizontallyAlignedWithFrame(...) end
----@return any ...
-function DamageMeterObject:IsInDefaultPosition(...) end
----@return any ...
-function DamageMeterObject:IsInitialized(...) end
----@return any ...
-function DamageMeterObject:IsPlayerInCombat(...) end
----@return any ...
-function DamageMeterObject:IsPlayerInGroup(...) end
----@return any ...
-function DamageMeterObject:IsSettingDirty(...) end
----@return any ...
-function DamageMeterObject:IsShiftKeyDown(...) end
----@return any ...
-function DamageMeterObject:IsSystemSettingDefault(...) end
----@return any ...
-function DamageMeterObject:IsToTheLeftOfFrame(...) end
----@return any ...
-function DamageMeterObject:IsToTheRightOfFrame(...) end
----@return any ...
-function DamageMeterObject:IsVerticallyAlignedWithFrame(...) end
----@return any ...
-function DamageMeterObject:LoadSavedWindowDataList(...) end
----@return any ...
-function DamageMeterObject:MarkAllSettingsDirty(...) end
----@return any ...
-function DamageMeterObject:OnAnyEditModeSystemAnchorChanged(...) end
----@return any ...
-function DamageMeterObject:OnBackgroundAlphaChanged(...) end
----@return any ...
-function DamageMeterObject:OnBarHeightChanged(...) end
----@return any ...
-function DamageMeterObject:OnBarSpacingChanged(...) end
----@return any ...
-function DamageMeterObject:OnDragStart(...) end
----@return any ...
-function DamageMeterObject:OnDragStop(...) end
----@return any ...
-function DamageMeterObject:OnEditModeEnter(...) end
----@return any ...
-function DamageMeterObject:OnEditModeExit(...) end
----@return any ...
-function DamageMeterObject:OnEnabledCVarChanged(...) end
----@return any ...
-function DamageMeterObject:OnEvent(...) end
----@return any ...
-function DamageMeterObject:OnKeyDown(...) end
----@return any ...
-function DamageMeterObject:OnKeyUp(...) end
----@return any ...
-function DamageMeterObject:OnLoad(...) end
----@return any ...
-function DamageMeterObject:OnNumberDisplayTypeChanged(...) end
----@return any ...
-function DamageMeterObject:OnShowBarIconsChanged(...) end
----@return any ...
-function DamageMeterObject:OnStyleChanged(...) end
----@return any ...
-function DamageMeterObject:OnSystemHide(...) end
----@return any ...
-function DamageMeterObject:OnSystemLoad(...) end
----@return any ...
-function DamageMeterObject:OnSystemPositionChange(...) end
----@return any ...
-function DamageMeterObject:OnTextScaleChanged(...) end
----@return any ...
-function DamageMeterObject:OnUpdateSystem(...) end
----@return any ...
-function DamageMeterObject:OnUseClassColorChanged(...) end
----@return any ...
-function DamageMeterObject:OnVariablesLoaded(...) end
----@return any ...
-function DamageMeterObject:OnWindowAlphaChanged(...) end
----@return any ...
-function DamageMeterObject:PrepareForSave(...) end
----@return any ...
-function DamageMeterObject:ProcessMovementKey(...) end
----@return any ...
-function DamageMeterObject:RefreshLayout(...) end
----@return any ...
-function DamageMeterObject:RemoveSnappedFrame(...) end
----@return any ...
-function DamageMeterObject:ResetToDefaultPosition(...) end
----@return any ...
-function DamageMeterObject:SelectSystem(...) end
----@return any ...
-function DamageMeterObject:SetBackgroundAlpha(...) end
----@return any ...
-function DamageMeterObject:SetBackgroundTransparency(...) end
----@return any ...
-function DamageMeterObject:SetBarHeight(...) end
----@return any ...
-function DamageMeterObject:SetBarSpacing(...) end
----@return any ...
-function DamageMeterObject:SetHasActiveChanges(...) end
----@return any ...
-function DamageMeterObject:SetIsEditing(...) end
----@return any ...
-function DamageMeterObject:SetNumberDisplayType(...) end
----@return any ...
-function DamageMeterObject:SetPointBase(...) end
----@return any ...
-function DamageMeterObject:SetPointOverride(...) end
----@return any ...
-function DamageMeterObject:SetScaleBase(...) end
----@return any ...
-function DamageMeterObject:SetScaleOverride(...) end
----@return any ...
-function DamageMeterObject:SetSelectionShown(...) end
----@return any ...
-function DamageMeterObject:SetSessionWindowDamageMeterType(...) end
----@return any ...
-function DamageMeterObject:SetSessionWindowLocked(...) end
----@return any ...
-function DamageMeterObject:SetSessionWindowMinimized(...) end
----@return any ...
-function DamageMeterObject:SetSessionWindowNonInteractive(...) end
----@return any ...
-function DamageMeterObject:SetSessionWindowSessionID(...) end
----@return any ...
-function DamageMeterObject:SetShowBarIcons(...) end
----@return any ...
-function DamageMeterObject:SetShownBase(...) end
----@return any ...
-function DamageMeterObject:SetShownOverride(...) end
----@return any ...
-function DamageMeterObject:SetSnappedToFrame(...) end
----@return any ...
-function DamageMeterObject:SetStyle(...) end
----@return any ...
-function DamageMeterObject:SetTextScale(...) end
----@return any ...
-function DamageMeterObject:SetTextSize(...) end
----@return any ...
-function DamageMeterObject:SetUseClassColor(...) end
----@return any ...
-function DamageMeterObject:SetWindowAlpha(...) end
----@return any ...
-function DamageMeterObject:SetWindowTransparency(...) end
----@return any ...
-function DamageMeterObject:SetupSessionWindow(...) end
----@return any ...
-function DamageMeterObject:SetupSettingsDialogAnchor(...) end
----@return any ...
-function DamageMeterObject:SetupVisibilityFunctionOverrides(...) end
----@return any ...
-function DamageMeterObject:ShouldBeShown(...) end
----@return any ...
-function DamageMeterObject:ShouldBreakSnappedFramesOnHide(...) end
----@return any ...
-function DamageMeterObject:ShouldResetSettingsDialogAnchors(...) end
----@return any ...
-function DamageMeterObject:ShouldShowBarIcons(...) end
----@return any ...
-function DamageMeterObject:ShouldShowSetting(...) end
----@return any ...
-function DamageMeterObject:ShouldUseClassColor(...) end
----@return any ...
-function DamageMeterObject:ShowEditInstructions(...) end
----@return any ...
-function DamageMeterObject:ShowNewSecondarySessionWindow(...) end
----@return any ...
-function DamageMeterObject:SnapToFrame(...) end
----@return any ...
-function DamageMeterObject:TrySetCompositeNumberSettingValue(...) end
----@return any ...
-function DamageMeterObject:UpdateClampOffsets(...) end
----@return any ...
-function DamageMeterObject:UpdateDirtySettings(...) end
----@return any ...
-function DamageMeterObject:UpdateDisplayInfoOptions(...) end
----@return any ...
-function DamageMeterObject:UpdateMagnetismRegistration(...) end
----@return any ...
-function DamageMeterObject:UpdateSessionTimerState(...) end
----@return any ...
-function DamageMeterObject:UpdateSettingMap(...) end
----@return any ...
-function DamageMeterObject:UpdateShownState(...) end
----@return any ...
-function DamageMeterObject:UpdateSystem(...) end
----@return any ...
-function DamageMeterObject:UpdateSystemSetting(...) end
----@return any ...
-function DamageMeterObject:UpdateSystemSettingBackgroundTransparency(...) end
----@return any ...
-function DamageMeterObject:UpdateSystemSettingBarHeight(...) end
----@return any ...
-function DamageMeterObject:UpdateSystemSettingFrameHeight(...) end
----@return any ...
-function DamageMeterObject:UpdateSystemSettingFrameWidth(...) end
----@return any ...
-function DamageMeterObject:UpdateSystemSettingNumberDisplayType(...) end
----@return any ...
-function DamageMeterObject:UpdateSystemSettingPadding(...) end
----@return any ...
-function DamageMeterObject:UpdateSystemSettingShowClassColor(...) end
----@return any ...
-function DamageMeterObject:UpdateSystemSettingShowSpecIcon(...) end
----@return any ...
-function DamageMeterObject:UpdateSystemSettingStyle(...) end
----@return any ...
-function DamageMeterObject:UpdateSystemSettingTextSize(...) end
----@return any ...
-function DamageMeterObject:UpdateSystemSettingTransparency(...) end
----@return any ...
-function DamageMeterObject:UpdateSystemSettingValue(...) end
----@return any ...
-function DamageMeterObject:UpdateSystemSettingVisibility(...) end
----@return any ...
-function DamageMeterObject:UseSettingAltName(...) end
----@type DamageMeterObject
-DamageMeter = DamageMeterObject
-end
-
-do
----@class DamageMeter_EditModeResizeButtonObject : Button
-local DamageMeter_EditModeResizeButtonObject = {}
-end
-
-do
----@class DamageMeter_SelectionObject : Frame
----@field Label DamageMeter_Selection_LabelObject
----@field MouseOverHighlight DamageMeter_Selection_MouseOverHighlightObject
----@field highlightTextureKit string
----@field ignoreInLayout boolean
----@field parent DamageMeter_Selection_parentObject
----@field selectedTextureKit string
----@field system DamageMeter_Selection_systemObject
-local DamageMeter_SelectionObject = {}
----@return any ...
-function DamageMeter_SelectionObject:CheckShowInstructionalTooltip(...) end
----@return any ...
-function DamageMeter_SelectionObject:GetBorderColor(...) end
----@return any ...
-function DamageMeter_SelectionObject:GetCenterColor(...) end
----@return any ...
-function DamageMeter_SelectionObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function DamageMeter_SelectionObject:GetFrameLayoutType(...) end
----@return any ...
-function DamageMeter_SelectionObject:GetLabelText(...) end
----@return any ...
-function DamageMeter_SelectionObject:HideInstructionalTooltip(...) end
----@return any ...
-function DamageMeter_SelectionObject:IsSelected(...) end
----@return any ...
-function DamageMeter_SelectionObject:IsShowingEditInstructions(...) end
----@return any ...
-function DamageMeter_SelectionObject:OnDragStart(...) end
----@return any ...
-function DamageMeter_SelectionObject:OnDragStop(...) end
----@return any ...
-function DamageMeter_SelectionObject:OnEnter(...) end
----@return any ...
-function DamageMeter_SelectionObject:OnLeave(...) end
----@return any ...
-function DamageMeter_SelectionObject:OnLoad(...) end
----@return any ...
-function DamageMeter_SelectionObject:OnMouseDown(...) end
----@return any ...
-function DamageMeter_SelectionObject:SetBlendMode(...) end
----@return any ...
-function DamageMeter_SelectionObject:SetBorderBlendMode(...) end
----@return any ...
-function DamageMeter_SelectionObject:SetBorderColor(...) end
----@return any ...
-function DamageMeter_SelectionObject:SetCenterColor(...) end
----@return any ...
-function DamageMeter_SelectionObject:SetSystem(...) end
----@return any ...
-function DamageMeter_SelectionObject:SetVertexColor(...) end
----@return any ...
-function DamageMeter_SelectionObject:ShouldShowLabelText(...) end
----@return any ...
-function DamageMeter_SelectionObject:ShowEditInstructions(...) end
----@return any ...
-function DamageMeter_SelectionObject:ShowHighlighted(...) end
----@return any ...
-function DamageMeter_SelectionObject:ShowSelected(...) end
----@return any ...
-function DamageMeter_SelectionObject:UpdateLabelVisibility(...) end
-end
-
-do
----@class DamageMeter_Selection_LabelObject : FontString
----@field fontObjectsToTry table
-local DamageMeter_Selection_LabelObject = {}
----@return any ...
-function DamageMeter_Selection_LabelObject:ApplyFontObjects(...) end
----@return any ...
-function DamageMeter_Selection_LabelObject:SetFontObjectsToTry(...) end
-end
-
-do
----@class DamageMeter_Selection_MouseOverHighlightObject : Frame
----@field BottomEdge DamageMeter_Selection_MouseOverHighlight_BottomEdgeObject
----@field BottomLeftCorner DamageMeter_Selection_MouseOverHighlight_BottomLeftCornerObject
----@field BottomRightCorner DamageMeter_Selection_MouseOverHighlight_BottomRightCornerObject
----@field Center DamageMeter_Selection_MouseOverHighlight_CenterObject
----@field LeftEdge DamageMeter_Selection_MouseOverHighlight_LeftEdgeObject
----@field RightEdge DamageMeter_Selection_MouseOverHighlight_RightEdgeObject
----@field TopEdge DamageMeter_Selection_MouseOverHighlight_TopEdgeObject
----@field TopLeftCorner DamageMeter_Selection_MouseOverHighlight_TopLeftCornerObject
----@field TopRightCorner DamageMeter_Selection_MouseOverHighlight_TopRightCornerObject
-local DamageMeter_Selection_MouseOverHighlightObject = {}
----@return any ...
-function DamageMeter_Selection_MouseOverHighlightObject:GetBorderColor(...) end
----@return any ...
-function DamageMeter_Selection_MouseOverHighlightObject:GetCenterColor(...) end
----@return any ...
-function DamageMeter_Selection_MouseOverHighlightObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function DamageMeter_Selection_MouseOverHighlightObject:GetFrameLayoutType(...) end
----@return any ...
-function DamageMeter_Selection_MouseOverHighlightObject:OnLoad(...) end
----@return any ...
-function DamageMeter_Selection_MouseOverHighlightObject:SetBlendMode(...) end
----@return any ...
-function DamageMeter_Selection_MouseOverHighlightObject:SetBorderBlendMode(...) end
----@return any ...
-function DamageMeter_Selection_MouseOverHighlightObject:SetBorderColor(...) end
----@return any ...
-function DamageMeter_Selection_MouseOverHighlightObject:SetCenterColor(...) end
----@return any ...
-function DamageMeter_Selection_MouseOverHighlightObject:SetVertexColor(...) end
-end
-
-do
----@class DamageMeter_Selection_MouseOverHighlight_BottomEdgeObject : Texture
-local DamageMeter_Selection_MouseOverHighlight_BottomEdgeObject = {}
-end
-
-do
----@class DamageMeter_Selection_MouseOverHighlight_BottomLeftCornerObject : Texture
-local DamageMeter_Selection_MouseOverHighlight_BottomLeftCornerObject = {}
-end
-
-do
----@class DamageMeter_Selection_MouseOverHighlight_BottomRightCornerObject : Texture
-local DamageMeter_Selection_MouseOverHighlight_BottomRightCornerObject = {}
-end
-
-do
----@class DamageMeter_Selection_MouseOverHighlight_CenterObject : Texture
-local DamageMeter_Selection_MouseOverHighlight_CenterObject = {}
-end
-
-do
----@class DamageMeter_Selection_MouseOverHighlight_LeftEdgeObject : Texture
-local DamageMeter_Selection_MouseOverHighlight_LeftEdgeObject = {}
-end
-
-do
----@class DamageMeter_Selection_MouseOverHighlight_RightEdgeObject : Texture
-local DamageMeter_Selection_MouseOverHighlight_RightEdgeObject = {}
-end
-
-do
----@class DamageMeter_Selection_MouseOverHighlight_TopEdgeObject : Texture
-local DamageMeter_Selection_MouseOverHighlight_TopEdgeObject = {}
-end
-
-do
----@class DamageMeter_Selection_MouseOverHighlight_TopLeftCornerObject : Texture
-local DamageMeter_Selection_MouseOverHighlight_TopLeftCornerObject = {}
-end
-
-do
----@class DamageMeter_Selection_MouseOverHighlight_TopRightCornerObject : Texture
-local DamageMeter_Selection_MouseOverHighlight_TopRightCornerObject = {}
-end
-
-do
----@class DamageMeter_Selection_parentObject
-local DamageMeter_Selection_parentObject = {}
-end
-
-do
----@class DamageMeter_Selection_systemObject
-local DamageMeter_Selection_systemObject = {}
-end
-
-do
----@class DamageMeter_savedSystemInfoObject
----@field anchorInfo table
----@field isInDefaultPosition boolean
----@field settings table
----@field system number
-local DamageMeter_savedSystemInfoObject = {}
-end
-
-do
----@class DamageMeter_settingsDialogAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo DamageMeter_settingsDialogAnchor_relativeToObject
----@field x number
----@field y number
-local DamageMeter_settingsDialogAnchorObject = {}
----@return any ...
-function DamageMeter_settingsDialogAnchorObject:Get(...) end
----@return any ...
-function DamageMeter_settingsDialogAnchorObject:GetRelativeTo(...) end
----@return any ...
-function DamageMeter_settingsDialogAnchorObject:Init(...) end
----@return any ...
-function DamageMeter_settingsDialogAnchorObject:Set(...) end
----@return any ...
-function DamageMeter_settingsDialogAnchorObject:SetFromPoint(...) end
----@return any ...
-function DamageMeter_settingsDialogAnchorObject:SetOffsets(...) end
----@return any ...
-function DamageMeter_settingsDialogAnchorObject:SetPoint(...) end
----@return any ...
-function DamageMeter_settingsDialogAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function DamageMeter_settingsDialogAnchorObject:SetRelativeTo(...) end
-end
-
-do
----@class DamageMeter_settingsDialogAnchor_relativeToObject
-local DamageMeter_settingsDialogAnchor_relativeToObject = {}
-end
-
-do
----@class DamageMeter_systemInfoObject
----@field anchorInfo table
----@field isInDefaultPosition boolean
----@field settings table
----@field system number
-local DamageMeter_systemInfoObject = {}
-end
-
-do
----@class DeadlyDebuffFrameObject : Frame
----@field Debuff DeadlyDebuffFrame_DebuffObject
----@field WarningText DeadlyDebuffFrame_WarningTextObject
-local DeadlyDebuffFrameObject = {}
----@return any ...
-function DeadlyDebuffFrameObject:OnHide(...) end
----@return any ...
-function DeadlyDebuffFrameObject:OnShow(...) end
----@return any ...
-function DeadlyDebuffFrameObject:Setup(...) end
----@type DeadlyDebuffFrameObject
-DeadlyDebuffFrame = DeadlyDebuffFrameObject
-end
-
-do
----@class DeadlyDebuffFrame_DebuffObject : Button
----@field Count DeadlyDebuffFrame_Debuff_CountObject
----@field DebuffBorder DeadlyDebuffFrame_Debuff_DebuffBorderObject
----@field Duration DeadlyDebuffFrame_Debuff_DurationObject
----@field Icon DeadlyDebuffFrame_Debuff_IconObject
----@field Symbol DeadlyDebuffFrame_Debuff_SymbolObject
----@field TempEnchantBorder DeadlyDebuffFrame_Debuff_TempEnchantBorderObject
----@field buttonContext string
-local DeadlyDebuffFrame_DebuffObject = {}
----@return any ...
-function DeadlyDebuffFrame_DebuffObject:CalculateTimeLeft(...) end
----@return any ...
-function DeadlyDebuffFrame_DebuffObject:GetFilter(...) end
----@return any ...
-function DeadlyDebuffFrame_DebuffObject:OnClick(...) end
----@return any ...
-function DeadlyDebuffFrame_DebuffObject:OnEnter(...) end
----@return any ...
-function DeadlyDebuffFrame_DebuffObject:OnLeave(...) end
----@return any ...
-function DeadlyDebuffFrame_DebuffObject:OnLoad(...) end
----@return any ...
-function DeadlyDebuffFrame_DebuffObject:OnUpdate(...) end
----@return any ...
-function DeadlyDebuffFrame_DebuffObject:SetupDebuffBorderTexture(...) end
----@return any ...
-function DeadlyDebuffFrame_DebuffObject:Update(...) end
----@return any ...
-function DeadlyDebuffFrame_DebuffObject:UpdateAuraType(...) end
----@return any ...
-function DeadlyDebuffFrame_DebuffObject:UpdateDuration(...) end
----@return any ...
-function DeadlyDebuffFrame_DebuffObject:UpdateExpirationTime(...) end
-end
-
-do
----@class DeadlyDebuffFrame_Debuff_CountObject : FontString
-local DeadlyDebuffFrame_Debuff_CountObject = {}
-end
-
-do
----@class DeadlyDebuffFrame_Debuff_DebuffBorderObject : Texture
-local DeadlyDebuffFrame_Debuff_DebuffBorderObject = {}
-end
-
-do
----@class DeadlyDebuffFrame_Debuff_DurationObject : FontString
-local DeadlyDebuffFrame_Debuff_DurationObject = {}
-end
-
-do
----@class DeadlyDebuffFrame_Debuff_IconObject : Texture
-local DeadlyDebuffFrame_Debuff_IconObject = {}
-end
-
-do
----@class DeadlyDebuffFrame_Debuff_SymbolObject : FontString
-local DeadlyDebuffFrame_Debuff_SymbolObject = {}
-end
-
-do
----@class DeadlyDebuffFrame_Debuff_TempEnchantBorderObject : Texture
-local DeadlyDebuffFrame_Debuff_TempEnchantBorderObject = {}
-end
-
-do
----@class DeadlyDebuffFrame_WarningTextObject : FontString
-local DeadlyDebuffFrame_WarningTextObject = {}
-end
-
-do
----@class DebuffFrameObject : Frame
----@field AuraContainer DebuffFrame_AuraContainerObject
----@field PrivateAuraAnchors table
----@field Selection DebuffFrame_SelectionObject
----@field auraFrames table
----@field auraInfo table
----@field deadlyDebuffInfo table
----@field defaultHideSelection boolean
----@field dirtySettings table
----@field doNotAnchorDisabledFrames boolean
----@field downKeys table
----@field exampleAuraType string
----@field hasActiveChanges boolean
----@field hasInitializedForEditMode boolean
----@field maxAuras number
----@field maxPrivateAuras number
----@field privateAuraAnchor1 DebuffFrame_privateAuraAnchor1Object
----@field privateAuraAnchor2 DebuffFrame_privateAuraAnchor2Object
----@field privateAuraAnchor3 DebuffFrame_privateAuraAnchor3Object
----@field privateAuraAnchor4 DebuffFrame_privateAuraAnchor4Object
----@field privateAuraAnchor5 DebuffFrame_privateAuraAnchor5Object
----@field privateAuraAnchor6 DebuffFrame_privateAuraAnchor6Object
----@field savedSystemInfo DebuffFrame_savedSystemInfoObject
----@field settingDisplayInfoMap DebuffFrame_settingDisplayInfoMapObject
----@field settingMap table
----@field settingsDialogAnchor DebuffFrame_settingsDialogAnchorObject
----@field snappedFrames table
----@field system number
----@field systemIndex number
----@field systemInfo DebuffFrame_systemInfoObject
----@field systemNameString string
----@field unit string
-local DebuffFrameObject = {}
----@return any ...
-function DebuffFrameObject:AddExtraButtons(...) end
----@return any ...
-function DebuffFrameObject:AddSnappedFrame(...) end
----@return any ...
-function DebuffFrameObject:AnchorSelectionFrame(...) end
----@return any ...
-function DebuffFrameObject:AnySettingsDirty(...) end
----@return any ...
-function DebuffFrameObject:ApplySystemAnchor(...) end
----@return any ...
-function DebuffFrameObject:AreAllSystemSettingsDefault(...) end
----@return any ...
-function DebuffFrameObject:AuraFrameEventListener_OnEvent(...) end
----@return any ...
-function DebuffFrameObject:AuraFrameEventListener_OnLoad(...) end
----@return any ...
-function DebuffFrameObject:AuraFrame_OnLoad(...) end
----@return any ...
-function DebuffFrameObject:BreakFrameSnap(...) end
----@return any ...
-function DebuffFrameObject:BreakFromFrameManager(...) end
----@return any ...
-function DebuffFrameObject:BreakSnappedFrames(...) end
----@return any ...
-function DebuffFrameObject:CanBeMoved(...) end
----@return any ...
-function DebuffFrameObject:ClearAllPointsBase(...) end
----@return any ...
-function DebuffFrameObject:ClearAllPointsOverride(...) end
----@return any ...
-function DebuffFrameObject:ClearDirtySetting(...) end
----@return any ...
-function DebuffFrameObject:ClearDownKeys(...) end
----@return any ...
-function DebuffFrameObject:ClearFrameSnap(...) end
----@return any ...
-function DebuffFrameObject:ClearGamepadFocus(...) end
----@return any ...
-function DebuffFrameObject:ClearHighlight(...) end
----@return any ...
-function DebuffFrameObject:ConvertSettingDisplayValueToRawValue(...) end
----@return any ...
-function DebuffFrameObject:DoesSettingDisplayValueEqual(...) end
----@return any ...
-function DebuffFrameObject:DoesSettingValueEqual(...) end
----@return any ...
-function DebuffFrameObject:FocusGamepad(...) end
----@return any ...
-function DebuffFrameObject:GetBottomOffset(...) end
----@return any ...
-function DebuffFrameObject:GetCombinedCenterOffset(...) end
----@return any ...
-function DebuffFrameObject:GetCombinedSelectionOffset(...) end
----@return any ...
-function DebuffFrameObject:GetCompositeNumberSettingValue(...) end
----@return any ...
-function DebuffFrameObject:GetFrameMagneticEligibility(...) end
----@return any ...
-function DebuffFrameObject:GetIconLimitSettingEnum(...) end
----@return any ...
-function DebuffFrameObject:GetLastActiveAuraFrame(...) end
----@return any ...
-function DebuffFrameObject:GetLeftOffset(...) end
----@return any ...
-function DebuffFrameObject:GetManagedFrameContainer(...) end
----@return any ...
-function DebuffFrameObject:GetRightOffset(...) end
----@return any ...
-function DebuffFrameObject:GetScaledCenter(...) end
----@return any ...
-function DebuffFrameObject:GetScaledSelectionCenter(...) end
----@return any ...
-function DebuffFrameObject:GetScaledSelectionSides(...) end
----@return any ...
-function DebuffFrameObject:GetSelectionOffset(...) end
----@return any ...
-function DebuffFrameObject:GetSettingValue(...) end
----@return any ...
-function DebuffFrameObject:GetSettingValueBool(...) end
----@return any ...
-function DebuffFrameObject:GetSettingsDialogAnchor(...) end
----@return any ...
-function DebuffFrameObject:GetSnapOffsets(...) end
----@return any ...
-function DebuffFrameObject:GetSystemName(...) end
----@return any ...
-function DebuffFrameObject:GetTopOffset(...) end
----@return any ...
-function DebuffFrameObject:HasActiveAura(...) end
----@return any ...
-function DebuffFrameObject:HasActiveChanges(...) end
----@return any ...
-function DebuffFrameObject:HasCompositeNumberSetting(...) end
----@return any ...
-function DebuffFrameObject:HasSetting(...) end
----@return any ...
-function DebuffFrameObject:HasValidSelectionRect(...) end
----@return any ...
-function DebuffFrameObject:HideBase(...) end
----@return any ...
-function DebuffFrameObject:HideOverride(...) end
----@return any ...
-function DebuffFrameObject:HighlightSystem(...) end
----@return any ...
-function DebuffFrameObject:IsAboveFrame(...) end
----@return any ...
-function DebuffFrameObject:IsBelowFrame(...) end
----@return any ...
-function DebuffFrameObject:IsEditModeDragging(...) end
----@return any ...
-function DebuffFrameObject:IsEditing(...) end
----@return any ...
-function DebuffFrameObject:IsExpanded(...) end
----@return any ...
-function DebuffFrameObject:IsFrameAnchoredToMe(...) end
----@return any ...
-function DebuffFrameObject:IsHorizontallyAlignedWithFrame(...) end
----@return any ...
-function DebuffFrameObject:IsInDefaultPosition(...) end
----@return any ...
-function DebuffFrameObject:IsInitialized(...) end
----@return any ...
-function DebuffFrameObject:IsSettingDirty(...) end
----@return any ...
-function DebuffFrameObject:IsShiftKeyDown(...) end
----@return any ...
-function DebuffFrameObject:IsSystemSettingDefault(...) end
----@return any ...
-function DebuffFrameObject:IsToTheLeftOfFrame(...) end
----@return any ...
-function DebuffFrameObject:IsToTheRightOfFrame(...) end
----@return any ...
-function DebuffFrameObject:IsVerticallyAlignedWithFrame(...) end
----@return any ...
-function DebuffFrameObject:MarkAllSettingsDirty(...) end
----@return any ...
-function DebuffFrameObject:OnAnyEditModeSystemAnchorChanged(...) end
----@return any ...
-function DebuffFrameObject:OnDragStart(...) end
----@return any ...
-function DebuffFrameObject:OnDragStop(...) end
----@return any ...
-function DebuffFrameObject:OnEditModeEnter(...) end
----@return any ...
-function DebuffFrameObject:OnEditModeExit(...) end
----@return any ...
-function DebuffFrameObject:OnKeyDown(...) end
----@return any ...
-function DebuffFrameObject:OnKeyUp(...) end
----@return any ...
-function DebuffFrameObject:OnLoad(...) end
----@return any ...
-function DebuffFrameObject:OnSystemHide(...) end
----@return any ...
-function DebuffFrameObject:OnSystemLoad(...) end
----@return any ...
-function DebuffFrameObject:OnSystemPositionChange(...) end
----@return any ...
-function DebuffFrameObject:OnUpdateSystem(...) end
----@return any ...
-function DebuffFrameObject:PrepareForSave(...) end
----@return any ...
-function DebuffFrameObject:ProcessMovementKey(...) end
----@return any ...
-function DebuffFrameObject:RegisterForTransitions(...) end
----@return any ...
-function DebuffFrameObject:RemoveSnappedFrame(...) end
----@return any ...
-function DebuffFrameObject:ResetToDefaultPosition(...) end
----@return any ...
-function DebuffFrameObject:SelectSystem(...) end
----@return any ...
-function DebuffFrameObject:SetGamepadFocus(...) end
----@return any ...
-function DebuffFrameObject:SetHasActiveChanges(...) end
----@return any ...
-function DebuffFrameObject:SetIsEditing(...) end
----@return any ...
-function DebuffFrameObject:SetPointBase(...) end
----@return any ...
-function DebuffFrameObject:SetPointOverride(...) end
----@return any ...
-function DebuffFrameObject:SetScaleBase(...) end
----@return any ...
-function DebuffFrameObject:SetScaleOverride(...) end
----@return any ...
-function DebuffFrameObject:SetSelectionShown(...) end
----@return any ...
-function DebuffFrameObject:SetShownBase(...) end
----@return any ...
-function DebuffFrameObject:SetShownOverride(...) end
----@return any ...
-function DebuffFrameObject:SetSnappedToFrame(...) end
----@return any ...
-function DebuffFrameObject:SetupGamepad(...) end
----@return any ...
-function DebuffFrameObject:SetupSettingsDialogAnchor(...) end
----@return any ...
-function DebuffFrameObject:SetupVisibilityFunctionOverrides(...) end
----@return any ...
-function DebuffFrameObject:ShouldBeShown(...) end
----@return any ...
-function DebuffFrameObject:ShouldBreakSnappedFramesOnHide(...) end
----@return any ...
-function DebuffFrameObject:ShouldResetSettingsDialogAnchors(...) end
----@return any ...
-function DebuffFrameObject:ShouldShowAura(...) end
----@return any ...
-function DebuffFrameObject:ShouldShowSetting(...) end
----@return any ...
-function DebuffFrameObject:ShowEditInstructions(...) end
----@return any ...
-function DebuffFrameObject:SmartNavigationCloseHandler(...) end
----@return any ...
-function DebuffFrameObject:SnapToFrame(...) end
----@return any ...
-function DebuffFrameObject:TryEditModeUpdateAuraButtons(...) end
----@return any ...
-function DebuffFrameObject:TrySetCompositeNumberSettingValue(...) end
----@return any ...
-function DebuffFrameObject:UnfocusGamepad(...) end
----@return any ...
-function DebuffFrameObject:Update(...) end
----@return any ...
-function DebuffFrameObject:UpdateAuraButtons(...) end
----@return any ...
-function DebuffFrameObject:UpdateAuraContainerAnchor(...) end
----@return any ...
-function DebuffFrameObject:UpdateAuras(...) end
----@return any ...
-function DebuffFrameObject:UpdateClampOffsets(...) end
----@return any ...
-function DebuffFrameObject:UpdateDeadlyDebuffs(...) end
----@return any ...
-function DebuffFrameObject:UpdateDirtySettings(...) end
----@return any ...
-function DebuffFrameObject:UpdateDisplayInfoOptions(...) end
----@return any ...
-function DebuffFrameObject:UpdateGridLayout(...) end
----@return any ...
-function DebuffFrameObject:UpdateMagnetismRegistration(...) end
----@return any ...
-function DebuffFrameObject:UpdatePrivateAuraAnchors(...) end
----@return any ...
-function DebuffFrameObject:UpdateSettingMap(...) end
----@return any ...
-function DebuffFrameObject:UpdateShownState(...) end
----@return any ...
-function DebuffFrameObject:UpdateSize(...) end
----@return any ...
-function DebuffFrameObject:UpdateSystem(...) end
----@return any ...
-function DebuffFrameObject:UpdateSystemSetting(...) end
----@return any ...
-function DebuffFrameObject:UpdateSystemSettingIconDirection(...) end
----@return any ...
-function DebuffFrameObject:UpdateSystemSettingIconLimit(...) end
----@return any ...
-function DebuffFrameObject:UpdateSystemSettingIconPadding(...) end
----@return any ...
-function DebuffFrameObject:UpdateSystemSettingIconSize(...) end
----@return any ...
-function DebuffFrameObject:UpdateSystemSettingIconWrap(...) end
----@return any ...
-function DebuffFrameObject:UpdateSystemSettingOpacity(...) end
----@return any ...
-function DebuffFrameObject:UpdateSystemSettingOrientation(...) end
----@return any ...
-function DebuffFrameObject:UpdateSystemSettingShowDispelType(...) end
----@return any ...
-function DebuffFrameObject:UpdateSystemSettingValue(...) end
----@return any ...
-function DebuffFrameObject:UpdateSystemSettingVisibleSetting(...) end
----@return any ...
-function DebuffFrameObject:UseSettingAltName(...) end
----@type DebuffFrameObject
-DebuffFrame = DebuffFrameObject
-end
-
-do
----@class DebuffFrame_AuraContainerObject : Frame
----@field WarningFader DebuffFrame_AuraContainer_WarningFaderObject
----@field addIconsToRight boolean
----@field addIconsToTop boolean
----@field auraWarningFlashPeriod number
----@field auraWarningMaxAlpha number
----@field auraWarningMinAlpha number
----@field currentGridLayoutInfo DebuffFrame_AuraContainer_currentGridLayoutInfoObject
----@field iconPadding number
----@field iconScale number
----@field iconStride number
----@field isHorizontal boolean
----@field showDispelType boolean
-local DebuffFrame_AuraContainerObject = {}
----@return any ...
-function DebuffFrame_AuraContainerObject:GetAuraWarningAlphaForDuration(...) end
----@return any ...
-function DebuffFrame_AuraContainerObject:OnLoad(...) end
----@return any ...
-function DebuffFrame_AuraContainerObject:UpdateGridLayout(...) end
-end
-
-do
----@class DebuffFrame_AuraContainer_WarningFaderObject : AnimationGroup
----@field Animation DebuffFrame_AuraContainer_WarningFader_AnimationObject
----@field maxAlpha number
----@field minAlpha number
----@field period number
-local DebuffFrame_AuraContainer_WarningFaderObject = {}
----@return any ...
-function DebuffFrame_AuraContainer_WarningFaderObject:GetSmoothAlpha(...) end
----@return any ...
-function DebuffFrame_AuraContainer_WarningFaderObject:Init(...) end
-end
-
-do
----@class DebuffFrame_AuraContainer_WarningFader_AnimationObject : Animation
-local DebuffFrame_AuraContainer_WarningFader_AnimationObject = {}
-end
-
-do
----@class DebuffFrame_AuraContainer_currentGridLayoutInfoObject
----@field addIconsToRight boolean
----@field addIconsToTop boolean
----@field anchor table
----@field iconPadding number
----@field iconStride number
----@field isHorizontal boolean
----@field layout table
-local DebuffFrame_AuraContainer_currentGridLayoutInfoObject = {}
-end
-
-do
----@class DebuffFrame_SelectionObject : Frame
----@field Label DebuffFrame_Selection_LabelObject
----@field MouseOverHighlight DebuffFrame_Selection_MouseOverHighlightObject
----@field highlightTextureKit string
----@field ignoreInLayout boolean
----@field parent DebuffFrame_Selection_parentObject
----@field selectedTextureKit string
----@field system DebuffFrame_Selection_systemObject
-local DebuffFrame_SelectionObject = {}
----@return any ...
-function DebuffFrame_SelectionObject:CheckShowInstructionalTooltip(...) end
----@return any ...
-function DebuffFrame_SelectionObject:GetBorderColor(...) end
----@return any ...
-function DebuffFrame_SelectionObject:GetCenterColor(...) end
----@return any ...
-function DebuffFrame_SelectionObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function DebuffFrame_SelectionObject:GetFrameLayoutType(...) end
----@return any ...
-function DebuffFrame_SelectionObject:GetLabelText(...) end
----@return any ...
-function DebuffFrame_SelectionObject:HideInstructionalTooltip(...) end
----@return any ...
-function DebuffFrame_SelectionObject:IsSelected(...) end
----@return any ...
-function DebuffFrame_SelectionObject:IsShowingEditInstructions(...) end
----@return any ...
-function DebuffFrame_SelectionObject:OnDragStart(...) end
----@return any ...
-function DebuffFrame_SelectionObject:OnDragStop(...) end
----@return any ...
-function DebuffFrame_SelectionObject:OnEnter(...) end
----@return any ...
-function DebuffFrame_SelectionObject:OnLeave(...) end
----@return any ...
-function DebuffFrame_SelectionObject:OnLoad(...) end
----@return any ...
-function DebuffFrame_SelectionObject:OnMouseDown(...) end
----@return any ...
-function DebuffFrame_SelectionObject:SetBlendMode(...) end
----@return any ...
-function DebuffFrame_SelectionObject:SetBorderBlendMode(...) end
----@return any ...
-function DebuffFrame_SelectionObject:SetBorderColor(...) end
----@return any ...
-function DebuffFrame_SelectionObject:SetCenterColor(...) end
----@return any ...
-function DebuffFrame_SelectionObject:SetSystem(...) end
----@return any ...
-function DebuffFrame_SelectionObject:SetVertexColor(...) end
----@return any ...
-function DebuffFrame_SelectionObject:ShouldShowLabelText(...) end
----@return any ...
-function DebuffFrame_SelectionObject:ShowEditInstructions(...) end
----@return any ...
-function DebuffFrame_SelectionObject:ShowHighlighted(...) end
----@return any ...
-function DebuffFrame_SelectionObject:ShowSelected(...) end
----@return any ...
-function DebuffFrame_SelectionObject:UpdateLabelVisibility(...) end
-end
-
-do
----@class DebuffFrame_Selection_LabelObject : FontString
----@field fontObjectsToTry table
-local DebuffFrame_Selection_LabelObject = {}
----@return any ...
-function DebuffFrame_Selection_LabelObject:ApplyFontObjects(...) end
----@return any ...
-function DebuffFrame_Selection_LabelObject:SetFontObjectsToTry(...) end
-end
-
-do
----@class DebuffFrame_Selection_MouseOverHighlightObject : Frame
----@field BottomEdge DebuffFrame_Selection_MouseOverHighlight_BottomEdgeObject
----@field BottomLeftCorner DebuffFrame_Selection_MouseOverHighlight_BottomLeftCornerObject
----@field BottomRightCorner DebuffFrame_Selection_MouseOverHighlight_BottomRightCornerObject
----@field Center DebuffFrame_Selection_MouseOverHighlight_CenterObject
----@field LeftEdge DebuffFrame_Selection_MouseOverHighlight_LeftEdgeObject
----@field RightEdge DebuffFrame_Selection_MouseOverHighlight_RightEdgeObject
----@field TopEdge DebuffFrame_Selection_MouseOverHighlight_TopEdgeObject
----@field TopLeftCorner DebuffFrame_Selection_MouseOverHighlight_TopLeftCornerObject
----@field TopRightCorner DebuffFrame_Selection_MouseOverHighlight_TopRightCornerObject
-local DebuffFrame_Selection_MouseOverHighlightObject = {}
----@return any ...
-function DebuffFrame_Selection_MouseOverHighlightObject:GetBorderColor(...) end
----@return any ...
-function DebuffFrame_Selection_MouseOverHighlightObject:GetCenterColor(...) end
----@return any ...
-function DebuffFrame_Selection_MouseOverHighlightObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function DebuffFrame_Selection_MouseOverHighlightObject:GetFrameLayoutType(...) end
----@return any ...
-function DebuffFrame_Selection_MouseOverHighlightObject:OnLoad(...) end
----@return any ...
-function DebuffFrame_Selection_MouseOverHighlightObject:SetBlendMode(...) end
----@return any ...
-function DebuffFrame_Selection_MouseOverHighlightObject:SetBorderBlendMode(...) end
----@return any ...
-function DebuffFrame_Selection_MouseOverHighlightObject:SetBorderColor(...) end
----@return any ...
-function DebuffFrame_Selection_MouseOverHighlightObject:SetCenterColor(...) end
----@return any ...
-function DebuffFrame_Selection_MouseOverHighlightObject:SetVertexColor(...) end
-end
-
-do
----@class DebuffFrame_Selection_MouseOverHighlight_BottomEdgeObject : Texture
-local DebuffFrame_Selection_MouseOverHighlight_BottomEdgeObject = {}
-end
-
-do
----@class DebuffFrame_Selection_MouseOverHighlight_BottomLeftCornerObject : Texture
-local DebuffFrame_Selection_MouseOverHighlight_BottomLeftCornerObject = {}
-end
-
-do
----@class DebuffFrame_Selection_MouseOverHighlight_BottomRightCornerObject : Texture
-local DebuffFrame_Selection_MouseOverHighlight_BottomRightCornerObject = {}
-end
-
-do
----@class DebuffFrame_Selection_MouseOverHighlight_CenterObject : Texture
-local DebuffFrame_Selection_MouseOverHighlight_CenterObject = {}
-end
-
-do
----@class DebuffFrame_Selection_MouseOverHighlight_LeftEdgeObject : Texture
-local DebuffFrame_Selection_MouseOverHighlight_LeftEdgeObject = {}
-end
-
-do
----@class DebuffFrame_Selection_MouseOverHighlight_RightEdgeObject : Texture
-local DebuffFrame_Selection_MouseOverHighlight_RightEdgeObject = {}
-end
-
-do
----@class DebuffFrame_Selection_MouseOverHighlight_TopEdgeObject : Texture
-local DebuffFrame_Selection_MouseOverHighlight_TopEdgeObject = {}
-end
-
-do
----@class DebuffFrame_Selection_MouseOverHighlight_TopLeftCornerObject : Texture
-local DebuffFrame_Selection_MouseOverHighlight_TopLeftCornerObject = {}
-end
-
-do
----@class DebuffFrame_Selection_MouseOverHighlight_TopRightCornerObject : Texture
-local DebuffFrame_Selection_MouseOverHighlight_TopRightCornerObject = {}
-end
-
-do
----@class DebuffFrame_Selection_parentObject
-local DebuffFrame_Selection_parentObject = {}
-end
-
-do
----@class DebuffFrame_Selection_systemObject
-local DebuffFrame_Selection_systemObject = {}
-end
-
-do
----@class DebuffFrame_privateAuraAnchor1Object : Frame
----@field Duration DebuffFrame_privateAuraAnchor1_DurationObject
----@field Icon DebuffFrame_privateAuraAnchor1_IconObject
----@field anchorID number
----@field auraIndex number
----@field isAuraAnchor boolean
----@field unit string
-local DebuffFrame_privateAuraAnchor1Object = {}
----@return any ...
-function DebuffFrame_privateAuraAnchor1Object:SetUnit(...) end
-end
-
-do
----@class DebuffFrame_privateAuraAnchor1_DurationObject : Frame
-local DebuffFrame_privateAuraAnchor1_DurationObject = {}
-end
-
-do
----@class DebuffFrame_privateAuraAnchor1_IconObject : Frame
-local DebuffFrame_privateAuraAnchor1_IconObject = {}
-end
-
-do
----@class DebuffFrame_privateAuraAnchor2Object : Frame
----@field Duration DebuffFrame_privateAuraAnchor2_DurationObject
----@field Icon DebuffFrame_privateAuraAnchor2_IconObject
----@field anchorID number
----@field auraIndex number
----@field isAuraAnchor boolean
----@field unit string
-local DebuffFrame_privateAuraAnchor2Object = {}
----@return any ...
-function DebuffFrame_privateAuraAnchor2Object:SetUnit(...) end
-end
-
-do
----@class DebuffFrame_privateAuraAnchor2_DurationObject : Frame
-local DebuffFrame_privateAuraAnchor2_DurationObject = {}
-end
-
-do
----@class DebuffFrame_privateAuraAnchor2_IconObject : Frame
-local DebuffFrame_privateAuraAnchor2_IconObject = {}
-end
-
-do
----@class DebuffFrame_privateAuraAnchor3Object : Frame
----@field Duration DebuffFrame_privateAuraAnchor3_DurationObject
----@field Icon DebuffFrame_privateAuraAnchor3_IconObject
----@field anchorID number
----@field auraIndex number
----@field isAuraAnchor boolean
----@field unit string
-local DebuffFrame_privateAuraAnchor3Object = {}
----@return any ...
-function DebuffFrame_privateAuraAnchor3Object:SetUnit(...) end
-end
-
-do
----@class DebuffFrame_privateAuraAnchor3_DurationObject : Frame
-local DebuffFrame_privateAuraAnchor3_DurationObject = {}
-end
-
-do
----@class DebuffFrame_privateAuraAnchor3_IconObject : Frame
-local DebuffFrame_privateAuraAnchor3_IconObject = {}
-end
-
-do
----@class DebuffFrame_privateAuraAnchor4Object : Frame
----@field Duration DebuffFrame_privateAuraAnchor4_DurationObject
----@field Icon DebuffFrame_privateAuraAnchor4_IconObject
----@field anchorID number
----@field auraIndex number
----@field isAuraAnchor boolean
----@field unit string
-local DebuffFrame_privateAuraAnchor4Object = {}
----@return any ...
-function DebuffFrame_privateAuraAnchor4Object:SetUnit(...) end
-end
-
-do
----@class DebuffFrame_privateAuraAnchor4_DurationObject : Frame
-local DebuffFrame_privateAuraAnchor4_DurationObject = {}
-end
-
-do
----@class DebuffFrame_privateAuraAnchor4_IconObject : Frame
-local DebuffFrame_privateAuraAnchor4_IconObject = {}
-end
-
-do
----@class DebuffFrame_privateAuraAnchor5Object : Frame
----@field Duration DebuffFrame_privateAuraAnchor5_DurationObject
----@field Icon DebuffFrame_privateAuraAnchor5_IconObject
----@field anchorID number
----@field auraIndex number
----@field isAuraAnchor boolean
----@field unit string
-local DebuffFrame_privateAuraAnchor5Object = {}
----@return any ...
-function DebuffFrame_privateAuraAnchor5Object:SetUnit(...) end
-end
-
-do
----@class DebuffFrame_privateAuraAnchor5_DurationObject : Frame
-local DebuffFrame_privateAuraAnchor5_DurationObject = {}
-end
-
-do
----@class DebuffFrame_privateAuraAnchor5_IconObject : Frame
-local DebuffFrame_privateAuraAnchor5_IconObject = {}
-end
-
-do
----@class DebuffFrame_privateAuraAnchor6Object : Frame
----@field Duration DebuffFrame_privateAuraAnchor6_DurationObject
----@field Icon DebuffFrame_privateAuraAnchor6_IconObject
----@field anchorID number
----@field auraIndex number
----@field isAuraAnchor boolean
----@field unit string
-local DebuffFrame_privateAuraAnchor6Object = {}
----@return any ...
-function DebuffFrame_privateAuraAnchor6Object:SetUnit(...) end
-end
-
-do
----@class DebuffFrame_privateAuraAnchor6_DurationObject : Frame
-local DebuffFrame_privateAuraAnchor6_DurationObject = {}
-end
-
-do
----@class DebuffFrame_privateAuraAnchor6_IconObject : Frame
-local DebuffFrame_privateAuraAnchor6_IconObject = {}
-end
-
-do
----@class DebuffFrame_savedSystemInfoObject
----@field anchorInfo table
----@field isInDefaultPosition boolean
----@field settings table
----@field system number
----@field systemIndex number
-local DebuffFrame_savedSystemInfoObject = {}
-end
-
-do
----@class DebuffFrame_settingDisplayInfoMapObject
-local DebuffFrame_settingDisplayInfoMapObject = {}
-end
-
-do
----@class DebuffFrame_settingsDialogAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo DebuffFrame_settingsDialogAnchor_relativeToObject
----@field x number
----@field y number
-local DebuffFrame_settingsDialogAnchorObject = {}
----@return any ...
-function DebuffFrame_settingsDialogAnchorObject:Get(...) end
----@return any ...
-function DebuffFrame_settingsDialogAnchorObject:GetRelativeTo(...) end
----@return any ...
-function DebuffFrame_settingsDialogAnchorObject:Init(...) end
----@return any ...
-function DebuffFrame_settingsDialogAnchorObject:Set(...) end
----@return any ...
-function DebuffFrame_settingsDialogAnchorObject:SetFromPoint(...) end
----@return any ...
-function DebuffFrame_settingsDialogAnchorObject:SetOffsets(...) end
----@return any ...
-function DebuffFrame_settingsDialogAnchorObject:SetPoint(...) end
----@return any ...
-function DebuffFrame_settingsDialogAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function DebuffFrame_settingsDialogAnchorObject:SetRelativeTo(...) end
-end
-
-do
----@class DebuffFrame_settingsDialogAnchor_relativeToObject
-local DebuffFrame_settingsDialogAnchor_relativeToObject = {}
-end
-
-do
----@class DebuffFrame_systemInfoObject
----@field anchorInfo table
----@field isInDefaultPosition boolean
----@field settings table
----@field system number
----@field systemIndex number
-local DebuffFrame_systemInfoObject = {}
-end
-
-do
----@class DeclensionFrameObject : Frame
----@field BottomEdge DeclensionFrame_BottomEdgeObject
----@field BottomLeftCorner DeclensionFrame_BottomLeftCornerObject
----@field BottomRightCorner DeclensionFrame_BottomRightCornerObject
----@field Center DeclensionFrame_CenterObject
----@field LeftEdge DeclensionFrame_LeftEdgeObject
----@field RightEdge DeclensionFrame_RightEdgeObject
----@field TopEdge DeclensionFrame_TopEdgeObject
----@field TopLeftCorner DeclensionFrame_TopLeftCornerObject
----@field TopRightCorner DeclensionFrame_TopRightCornerObject
----@field backdropInfo DeclensionFrame_backdropInfoObject
----@field set number
-local DeclensionFrameObject = {}
----@return any ...
-function DeclensionFrameObject:ApplyBackdrop(...) end
----@return any ...
-function DeclensionFrameObject:ClearBackdrop(...) end
----@return any ...
-function DeclensionFrameObject:GetBackdrop(...) end
----@return any ...
-function DeclensionFrameObject:GetBackdropBorderColor(...) end
----@return any ...
-function DeclensionFrameObject:GetBackdropColor(...) end
----@return any ...
-function DeclensionFrameObject:GetEdgeSize(...) end
----@return any ...
-function DeclensionFrameObject:HasBackdropInfo(...) end
----@return any ...
-function DeclensionFrameObject:OnBackdropLoaded(...) end
----@return any ...
-function DeclensionFrameObject:OnBackdropSizeChanged(...) end
----@return any ...
-function DeclensionFrameObject:SetBackdrop(...) end
----@return any ...
-function DeclensionFrameObject:SetBackdropBorderColor(...) end
----@return any ...
-function DeclensionFrameObject:SetBackdropColor(...) end
----@return any ...
-function DeclensionFrameObject:SetBorderBlendMode(...) end
----@return any ...
-function DeclensionFrameObject:SetupPieceVisuals(...) end
----@return any ...
-function DeclensionFrameObject:SetupTextureCoordinates(...) end
----@type DeclensionFrameObject
-DeclensionFrame = DeclensionFrameObject
-end
-
-do
----@class DeclensionFrame_BottomEdgeObject : Texture
-local DeclensionFrame_BottomEdgeObject = {}
-end
-
-do
----@class DeclensionFrame_BottomLeftCornerObject : Texture
-local DeclensionFrame_BottomLeftCornerObject = {}
-end
-
-do
----@class DeclensionFrame_BottomRightCornerObject : Texture
-local DeclensionFrame_BottomRightCornerObject = {}
-end
-
-do
----@class DeclensionFrame_CenterObject : Texture
-local DeclensionFrame_CenterObject = {}
-end
-
-do
----@class DeclensionFrame_LeftEdgeObject : Texture
-local DeclensionFrame_LeftEdgeObject = {}
-end
-
-do
----@class DeclensionFrame_RightEdgeObject : Texture
-local DeclensionFrame_RightEdgeObject = {}
-end
-
-do
----@class DeclensionFrame_TopEdgeObject : Texture
-local DeclensionFrame_TopEdgeObject = {}
-end
-
-do
----@class DeclensionFrame_TopLeftCornerObject : Texture
-local DeclensionFrame_TopLeftCornerObject = {}
-end
-
-do
----@class DeclensionFrame_TopRightCornerObject : Texture
-local DeclensionFrame_TopRightCornerObject = {}
-end
-
-do
----@class DeclensionFrame_backdropInfoObject
----@field bgFile string
----@field edgeFile string
----@field edgeSize number
----@field insets table
----@field tile boolean
----@field tileEdge boolean
----@field tileSize number
-local DeclensionFrame_backdropInfoObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrameObject : Frame
----@field AnimationHolder DelvesCompanionAbilityListFrame_AnimationHolderObject
----@field BackgroundFlash DelvesCompanionAbilityListFrame_BackgroundFlashObject
----@field Bg DelvesCompanionAbilityListFrame_BgObject
----@field ButtonsParent DelvesCompanionAbilityListFrame_ButtonsParentObject
----@field CloseButton DelvesCompanionAbilityListFrame_CloseButtonObject
----@field CommitSpinner DelvesCompanionAbilityListFrame_CommitSpinnerObject
----@field CommitUpdateReasons DelvesCompanionAbilityListFrame_CommitUpdateReasonsObject
----@field CompanionAbilityListBackground DelvesCompanionAbilityListFrame_CompanionAbilityListBackgroundObject
----@field DelvesCompanionAbilityListPagingControls DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject
----@field DelvesCompanionRoleDropdown DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject
----@field DisabledOverlay DelvesCompanionAbilityListFrame_DisabledOverlayObject
----@field Event DelvesCompanionAbilityListFrame_EventObject
----@field FocusJumpHint DelvesCompanionAbilityListFrame_FocusJumpHintObject
----@field FrameGlow DelvesCompanionAbilityListFrame_FrameGlowObject
----@field LeftJumpHint DelvesCompanionAbilityListFrame_LeftJumpHintObject
----@field NineSlice DelvesCompanionAbilityListFrame_NineSliceObject
----@field PortraitContainer DelvesCompanionAbilityListFrame_PortraitContainerObject
----@field RightJumpHint DelvesCompanionAbilityListFrame_RightJumpHintObject
----@field SelectionChoiceFrame DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject
----@field TitleContainer DelvesCompanionAbilityListFrame_TitleContainerObject
----@field TopTileStreaks DelvesCompanionAbilityListFrame_TopTileStreaksObject
----@field VisualsUpdateReasons DelvesCompanionAbilityListFrame_VisualsUpdateReasonsObject
----@field areBaseCommitVisualsActive boolean
----@field basePanOffsetX number
----@field basePanOffsetY number
----@field bottomPadding number
----@field buttonSize number
----@field buttons DelvesCompanionAbilityListFrame_buttonsObject
----@field buttonsWithDirtyEdges table
----@field callbackTables table
----@field condInfoCache table
----@field deferredCallbacks table
----@field definitionInfoCache table
----@field dirtyCondIDSet table
----@field dirtyDefinitionIDSet table
----@field dirtyEntryIDSet table
----@field dirtyNodeIDSet table
----@field dirtySubTreeIDSet table
----@field disabledOverlayAlpha number
----@field edgePool DelvesCompanionAbilityListFrame_edgePoolObject
----@field enableCommitCastBar boolean
----@field enableCommitEndFlash boolean
----@field enableCommitSpinner boolean
----@field enableZoomAndPan boolean
----@field entryInfoCache table
----@field eventRegisteredNodes table
----@field excludeStagedChangesForCurrencies boolean
----@field executingEvents table
----@field gatePool DelvesCompanionAbilityListFrame_gatePoolObject
----@field layoutType string
----@field leftPadding number
----@field maximumCommitTime number
----@field nodeIDToButton table
----@field nodeInfoCache table
----@field panOffsetX number
----@field panOffsetY number
----@field rightPadding number
----@field subTreeInfoCache table
----@field talentAnimationFramePoolCollection DelvesCompanionAbilityListFrame_talentAnimationFramePoolCollectionObject
----@field talentButtonCollection DelvesCompanionAbilityListFrame_talentButtonCollectionObject
----@field talentCardPool DelvesCompanionAbilityListFrame_talentCardPoolObject
----@field talentDisplayFramePool DelvesCompanionAbilityListFrame_talentDisplayFramePoolObject
----@field topPadding number
----@field treeInfoDirty boolean
-local DelvesCompanionAbilityListFrameObject = {}
----@return any ...
-function DelvesCompanionAbilityListFrameObject:AcquireAnimation(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:AcquireEdge(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:AcquireTalentButton(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:AcquireTalentCard(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:AcquireTalentDisplayFrame(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:AddConditionsToTooltip(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:AddCostToTooltip(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:AddEdgeRequirementsToTooltip(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:AdjustPanOffset(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:AdjustZoomLevel(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:AnchorGate(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:AreSelectionsOpen(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:AttemptConfigOperation(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:AttemptConfigOperationWithErrorsSuppressed(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:CanAfford(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:CanCommitInstantly(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:CascadeRepurchaseRanks(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:CheckAndReportCommitOperation(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ClearButtons(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ClearCascadeRepurchaseHistory(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ClearInfoCaches(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ClearSuppressedSounds(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:CommitConfig(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:CommitConfigInternal(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:CopyDeferredCallbacks(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:DeregisterNodeForUpdateInfoEvent(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:DisableZoomAndPan(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:DoesFrameHaveEvent(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:EndFocus(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:EnumerateAllTalentButtons(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:EnumerateSubTreeInfoCache(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ForceCondInfoUpdate(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ForceDefinitionInfoUpdate(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ForceEntryInfoCacheUpdate(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ForceNodeInfoUpdate(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ForceSubTreeInfoUpdate(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GenerateCallbackEvents(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetAndCacheCondInfo(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetAndCacheDefinitionInfo(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetAndCacheEntryInfo(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetAndCacheNodeInfo(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetAndCacheSubTreeInfo(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetButtonAnimationStates(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetButtonSize(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetButtonsInDefaultOrder(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetButtonsInEdgeOrder(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetButtonsInOrder(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetCallbackTable(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetCallbackTables(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetCallbacksByEvent(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetComparisonFunction(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetConfigCommitErrorString(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetConfigID(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetCostStrings(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetFocusFrameGlow(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetFocusFrameRoot(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetFrameLevelForButton(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetFrameLevelForEdge(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetIncomingEdgeInfoForNode(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetIndexFromNodePosition(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetIndexFromTalentButtonPosition(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetInspectUnit(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetItemModifiedAppearanceIDs(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetMaximumCommitTime(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetNodeCost(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetPanExtents(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetPanOffset(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetPanViewCornerPosition(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetPanViewSize(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetPortrait(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetRootTalentButton(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetSpecializedSelectionChoiceMixin(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetSubTreeInfo(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetTalentButtonByNodeID(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetTalentTreeID(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetTemplateForTalentType(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetTitleText(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetTraitTreeName(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetTreeCurrencyDisplayText(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetTreeCurrencyInfo(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetTreeCurrencyTextByIndex(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetTreeInfo(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetTreeInfoOrLayoutDefaults(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetTreeNodes(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:GetZoomLevel(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:HasAnyPurchasedRanks(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:HasMassPurchase(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:HasPortraitTexture(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:HasRegistrantsForEvent(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:HideFocusJumpHint(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:HideLeftJumpHint(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:HideRightJumpHint(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:HideSelections(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:InstantiateTalentButton(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:InvokeTalentButtonMethodByNodeID(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:IsCommitCastBarActive(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:IsCommitInProgress(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:IsCondInfoCacheDirty(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:IsDefinitionInfoCacheDirty(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:IsEdgePanningEnabled(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:IsEntryInfoCacheDirty(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:IsInspecting(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:IsLocked(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:IsMouseOverSelections(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:IsNodeInfoCacheDirty(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:IsPanning(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:IsSubTreeInfoCacheDirty(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:IsTreeDirty(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:LoadTalentTree(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:LoadTalentTreeInternal(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:LockInFocus(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:MarkCondInfoCacheDirty(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:MarkDefinitionInfoCacheDirty(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:MarkEdgesDirty(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:MarkEntryInfoCacheDirty(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:MarkNodeInfoCacheDirty(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:MarkSubTreeInfoCacheDirty(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:MarkTreeClean(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:MarkTreeDirty(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:MarkTreeInfoDirty(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:OnButtonNodeIDSet(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:OnButtonUpdateNodeInfo(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:OnCommitCastBarShow(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:OnDefinitionInfoUpdated(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:OnEvent(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:OnGateDisplayed(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:OnHide(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:OnLoad(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:OnMouseWheel(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:OnNodeInfoUpdated(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:OnShow(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:OnSubTreeInfoUpdated(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:OnTraitConfigUpdated(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:OnUpdate(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:PlayCommitConfigSound(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:PlayDeselectSoundForButton(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:PlayRollbackConfigSound(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:PlaySelectSoundForButton(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:PurchaseRank(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:Refresh(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:RefreshConditionsCache(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:RefreshFocus(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:RefreshGates(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:RefundAllRanks(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:RefundRank(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:RegisterCallback(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:RegisterNodeForUpdateInfoEvent(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:RegisterOnUpdate(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ReleaseAllTalentButtons(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ReleaseAndReinstantiateTalentButton(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ReleaseAndReinstantiateTalentButtonByID(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ReleaseAnimation(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ReleaseEdge(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ReleaseEdgesByCondition(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ReleaseTalentButton(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ReleaseTalentCard(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ReleaseTalentDisplayFrame(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ReportConfigCommitError(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:RollbackConfig(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SecureInsertEvent(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetBasePanOffset(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetBorder(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetCardTemplateCallback(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetCommitCastBarActive(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetCommitCompleteVisualsActive(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetCommitSpinnerShown(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetCommitStarted(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetCommitVisualsActive(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetConfigID(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetConfigIDBySystemID(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetDisabledOverlayShown(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetEdgePanningEnabled(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetElementFrameLevel(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetFrameLevelsFromBaseLevel(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetNodesFilter(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetPanOffset(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetPortraitAtlasRaw(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetPortraitShown(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetPortraitTexCoord(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetPortraitTextureRaw(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetPortraitTextureSizeAndOffset(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetPortraitToAsset(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetPortraitToBag(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetPortraitToClassIcon(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetPortraitToSpecIcon(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetPortraitToUnit(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetSelection(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetSuppressedSounds(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetSuppressingConfigOperationErrors(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetTalentTreeID(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetTitle(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetTitleColor(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetTitleFormatted(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetTitleMaxLinesAndHeight(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetTitleOffsets(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetTreeCurrencyDisplayTextCallback(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetZoomLevel(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:SetZoomLevelInternal(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ShouldAddEdgeRequirementsToTooltip(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ShouldButtonShowEdges(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ShouldDisplayGate(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ShouldHideSingleRankNumbers(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ShouldInstantiateInvisibleButtons(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ShouldInstantiateNode(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ShouldShowConfirmation(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ShowFocusJumpHint(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ShowLeftJumpHint(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ShowOrHideGlowOnChangesPending(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ShowRightJumpHint(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ShowSelections(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:StartFocus(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:TalentButtonCollectionReset(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:ToggleSelections(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:TriggerEvent(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:TryPlaySound(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:UnregisterCallback(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:UnregisterEvents(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:UpdateAllButtons(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:UpdateAllGatePositions(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:UpdateAllTalentButtonPositions(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:UpdateButtonFrameLevel(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:UpdateColorBlindModeUI(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:UpdateEdgeFrameLevel(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:UpdateEdgesForButton(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:UpdatePadding(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:UpdatePaginatedButtonDisplay(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:UpdateSelections(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:UpdateTalentButtonPosition(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:UpdateTreeCurrencyInfo(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:UpdateTreeInfo(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:getEdgeTemplateType(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:getSpecializedChoiceMixin(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:getSpecializedMixin(...) end
----@return any ...
-function DelvesCompanionAbilityListFrameObject:getTemplateType(...) end
----@type DelvesCompanionAbilityListFrameObject
-DelvesCompanionAbilityListFrame = DelvesCompanionAbilityListFrameObject
-end
-
-do
----@class DelvesCompanionAbilityListFrame_AnimationHolderObject : Frame
----@field BackgroundFlashAnim DelvesCompanionAbilityListFrame_AnimationHolder_BackgroundFlashAnimObject
-local DelvesCompanionAbilityListFrame_AnimationHolderObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_AnimationHolder_BackgroundFlashAnimObject : AnimationGroup
-local DelvesCompanionAbilityListFrame_AnimationHolder_BackgroundFlashAnimObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_BackgroundFlashObject : Texture
-local DelvesCompanionAbilityListFrame_BackgroundFlashObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_BgObject : Texture
-local DelvesCompanionAbilityListFrame_BgObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_ButtonsParentObject : Frame
----@field smartNavigationIgnoredDontPropagate boolean
-local DelvesCompanionAbilityListFrame_ButtonsParentObject = {}
----@return any ...
-function DelvesCompanionAbilityListFrame_ButtonsParentObject:IsEdgePanningEnabled(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_ButtonsParentObject:IsPanning(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_ButtonsParentObject:IsPanningMouseButtonDown(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_ButtonsParentObject:MarkPanningPosition(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_ButtonsParentObject:OnMouseDown(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_ButtonsParentObject:OnMouseWheel(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_ButtonsParentObject:OnUpdate(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_ButtonsParentObject:SetEdgePanningEnabled(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_ButtonsParentObject:StartPanning(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_ButtonsParentObject:StopPanning(...) end
-end
-
-do
----@class DelvesCompanionAbilityListFrame_CloseButtonObject : Button
-local DelvesCompanionAbilityListFrame_CloseButtonObject = {}
----@return any ...
-function DelvesCompanionAbilityListFrame_CloseButtonObject:NarrationGetName(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_CloseButtonObject:OnLoad(...) end
-end
-
-do
----@class DelvesCompanionAbilityListFrame_CommitSpinnerObject : Frame
----@field Anim DelvesCompanionAbilityListFrame_CommitSpinner_AnimObject
----@field Ring DelvesCompanionAbilityListFrame_CommitSpinner_RingObject
----@field Sparks DelvesCompanionAbilityListFrame_CommitSpinner_SparksObject
-local DelvesCompanionAbilityListFrame_CommitSpinnerObject = {}
----@return any ...
-function DelvesCompanionAbilityListFrame_CommitSpinnerObject:GetShadowAlpha(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_CommitSpinnerObject:OnHide(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_CommitSpinnerObject:OnShow(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_CommitSpinnerObject:OnSizeChanged(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_CommitSpinnerObject:SetDesaturated(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_CommitSpinnerObject:SetShadowEnabled(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_CommitSpinnerObject:UpdateShadowSize(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_CommitSpinnerObject:UpdateTheme(...) end
-end
-
-do
----@class DelvesCompanionAbilityListFrame_CommitSpinner_AnimObject : AnimationGroup
-local DelvesCompanionAbilityListFrame_CommitSpinner_AnimObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_CommitSpinner_RingObject : Texture
-local DelvesCompanionAbilityListFrame_CommitSpinner_RingObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_CommitSpinner_SparksObject : Texture
-local DelvesCompanionAbilityListFrame_CommitSpinner_SparksObject = {}
+function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class DelvesCompanionAbilityListFrame_CommitUpdateReasonsObject
----@field CommitFailed number
----@field CommitStarted number
----@field CommitSucceeded number
----@field InstantCommit number
-local DelvesCompanionAbilityListFrame_CommitUpdateReasonsObject = {}
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_Forward_EventObject
+local CommunitiesFrame_CommunitiesList_ScrollBar_Forward_EventObject = {}
 end
 
 do
----@class DelvesCompanionAbilityListFrame_CompanionAbilityListBackgroundObject : Texture
-local DelvesCompanionAbilityListFrame_CompanionAbilityListBackgroundObject = {}
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_Forward_TextureObject : Texture
+local CommunitiesFrame_CommunitiesList_ScrollBar_Forward_TextureObject = {}
 end
 
 do
----@class DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject : Frame
----@field NextPageButton DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControls_NextPageButtonObject
----@field PageText DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControls_PageTextObject
----@field PrevPageButton DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControls_PrevPageButtonObject
----@field currentPage number
----@field currentPageOnlyText string
----@field currentPageWithMaxText string
----@field dirty boolean
----@field displayMaxPages boolean
----@field hideWhenSinglePage boolean
----@field maxPages number
----@field spacing number
-local DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject = {}
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:AddLayoutChildren(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:CalculateFrameSize(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:ClearFixedSize(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetAdditionalRegions(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetChildHeight(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetChildPadding(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetChildSize(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetChildWidth(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetCurrentPage(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetFixedHeight(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetFixedSize(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetFixedWidth(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetHeightPadding(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetLayoutChildren(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetMaxPages(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetPadding(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetPageDelta(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetWidthPadding(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:IgnoreLayoutIndex(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:Init(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:IsDirty(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:IsLayoutFrame(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:Layout(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:LayoutChildren(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:MarkClean(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:MarkDirty(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:MarkIgnoreInLayout(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:NextPage(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:OnCleaned(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:OnLoad(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:OnMouseWheel(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:OnPageButtonEnter(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:OnPageButtonLeave(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:OnShow(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:OnUpdate(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:PreviousPage(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:Refresh(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:SetButtonHoverCallbacks(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:SetCurrentPage(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:SetFixedHeight(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:SetFixedSize(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:SetFixedWidth(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:SetHeightPadding(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:SetMaxPages(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:SetOverridePagedContentFrame(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:SetWidthPadding(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:UpdateControls(...) end
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_TrackObject : Frame
+---@field Begin CommunitiesFrame_CommunitiesList_ScrollBar_Track_BeginObject
+---@field End CommunitiesFrame_CommunitiesList_ScrollBar_Track_EndObject
+---@field Middle CommunitiesFrame_CommunitiesList_ScrollBar_Track_MiddleObject
+---@field Thumb CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject
+local CommunitiesFrame_CommunitiesList_ScrollBar_TrackObject = {}
 end
 
 do
----@class DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControls_NextPageButtonObject : Button
----@field layoutIndex number
-local DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControls_NextPageButtonObject = {}
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_Track_BeginObject : Texture
+local CommunitiesFrame_CommunitiesList_ScrollBar_Track_BeginObject = {}
 end
 
 do
----@class DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControls_PageTextObject : FontString
----@field align string
----@field layoutIndex number
-local DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControls_PageTextObject = {}
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_Track_EndObject : Texture
+local CommunitiesFrame_CommunitiesList_ScrollBar_Track_EndObject = {}
 end
 
 do
----@class DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControls_PrevPageButtonObject : Button
----@field layoutIndex number
-local DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControls_PrevPageButtonObject = {}
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_Track_MiddleObject : Texture
+local CommunitiesFrame_CommunitiesList_ScrollBar_Track_MiddleObject = {}
 end
 
 do
----@class DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject : Button
----@field Arrow DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_ArrowObject
----@field Background DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_BackgroundObject
----@field Event DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_EventObject
----@field Text DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_TextObject
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject : Button
+---@field Begin CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_BeginObject
+---@field End CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_EndObject
+---@field Event CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_EventObject
+---@field Middle CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_MiddleObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field downBeginTexture string
+---@field downEndTexture string
+---@field downMiddleTexture string
 ---@field executingEvents table
----@field intrinsic string
----@field menuAnchor DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject
----@field menuPoint string
----@field menuPointX number
----@field menuPointY number
----@field menuRelativePoint string
-local DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject = {}
+---@field mouseDownSoundKitID number
+---@field overBeginTexture string
+---@field overEndTexture string
+---@field overMiddleTexture string
+---@field upBeginTexture string
+---@field upEndTexture string
+---@field upMiddleTexture string
+local CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject = {}
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:ClearMenuState(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:CloseMenu(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:CollectSelectionData(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:CopyDeferredCallbacks(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:CreateDefaultRootMenuDescription(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:GetAtlas(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:CreateRootDescription(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:Decrement(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:DesaturateIfDisabled(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:DoesFrameHaveEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:EnableRegenerateOnResponse(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:GenerateCallbackEvents(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:IsDown(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:GenerateMenu(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:IsDownOver(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:GetArrowAtlas(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:IsOver(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:GetCallbackTable(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:GetCallbackTables(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:GetCallbacksByEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnDisable(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:GetDefaultText(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnEnable(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:GetMenuDescription(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnEnter(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:GetMutableCallbacksByEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:GetSelectionData(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnLeave(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:GetUpdateText(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:HandlesGlobalMouseEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnLoad(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:HasAnyRadioDescriptions(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:HasElements(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:HasOnlyRadioDescriptions(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:HasRegistrantsForEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:HasStickyFocus(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:Increment(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnShow(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:IsDown(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:IsDownOver(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:IsMenuOpen(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:IsOver(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:NarrationGetContext(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:NarrationGetName(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnButtonStateChanged(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnDisable(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnEnable(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnEnter(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnEnter_Intrinsic(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
 ---@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnLeave(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnLoad(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnLoad_Intrinsic(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnMenuAssigned(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnMenuChanged(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnMenuClosed(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnMenuOpened(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnMenuResponse(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnMouseDown(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnMouseUp(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnMouseWheel_Intrinsic(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnShow(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OpenMenu(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OverrideText(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:Pick(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:Refresh(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:RegisterCallback(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:RegisterMenu(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:Rotate(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:SecureInsertEvent(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:SetDefaultText(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:SetDisplacedRegions(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:SetMenuAnchor(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:SetMenuOpen(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:SetSelectionText(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:SetSelectionTranslator(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:SetTooltip(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:SetupMenu(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:ShouldShowTooltip(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:ShowTooltip(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:SignalUpdate(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:TriggerEvent(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:UnregisterCallback(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:UnregisterEvents(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:Update(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:UpdateSelections(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:UpdateText(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:UpdateToMenuSelections(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:onMenuClosedCallback(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:selectionTranslator(...) end
-end
-
-do
----@class DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_ArrowObject : Texture
-local DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_ArrowObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_BackgroundObject : Texture
-local DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_BackgroundObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_EventObject
-local DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_EventObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_TextObject : FontString
-local DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_TextObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchor_relativeToObject
----@field x number
----@field y number
-local DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject = {}
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject:Get(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject:GetRelativeTo(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject:Init(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject:Set(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject:SetFromPoint(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject:SetOffsets(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject:SetPoint(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject:SetRelativeTo(...) end
-end
-
-do
----@class DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchor_relativeToObject
-local DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchor_relativeToObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_DisabledOverlayObject : Frame
----@field GrayOverlay DelvesCompanionAbilityListFrame_DisabledOverlay_GrayOverlayObject
-local DelvesCompanionAbilityListFrame_DisabledOverlayObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_DisabledOverlay_GrayOverlayObject : Texture
-local DelvesCompanionAbilityListFrame_DisabledOverlay_GrayOverlayObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_EventObject
----@field CommitStatusChanged string
----@field ConfigCommitted string
----@field TalentButtonAcquired string
----@field TalentButtonNodeUpdated string
----@field TalentButtonReleased string
----@field TreeCurrencyInfoUpdated string
-local DelvesCompanionAbilityListFrame_EventObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_FocusJumpHintObject : Frame
----@field ActiveTexture DelvesCompanionAbilityListFrame_FocusJumpHint_ActiveTextureObject
----@field DisabledTexture DelvesCompanionAbilityListFrame_FocusJumpHint_DisabledTextureObject
----@field HoldAnim DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnimObject
----@field HoldIndicator DelvesCompanionAbilityListFrame_FocusJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG DelvesCompanionAbilityListFrame_FocusJumpHint_HoldIndicatorBGObject
----@field HoverTexture DelvesCompanionAbilityListFrame_FocusJumpHint_HoverTextureObject
----@field LoadBar DelvesCompanionAbilityListFrame_FocusJumpHint_LoadBarObject
----@field LoadBarBG DelvesCompanionAbilityListFrame_FocusJumpHint_LoadBarBGObject
----@field LoadBarGlow DelvesCompanionAbilityListFrame_FocusJumpHint_LoadBarGlowObject
----@field NormalTexture DelvesCompanionAbilityListFrame_FocusJumpHint_NormalTextureObject
----@field PressedTexture DelvesCompanionAbilityListFrame_FocusJumpHint_PressedTextureObject
----@field SpinnerTip DelvesCompanionAbilityListFrame_FocusJumpHint_SpinnerTipObject
----@field ignoreInLayout boolean
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local DelvesCompanionAbilityListFrame_FocusJumpHintObject = {}
----@return any ...
-function DelvesCompanionAbilityListFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FocusJumpHintObject:BeginHold(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FocusJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FocusJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FocusJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FocusJumpHintObject:EndHold(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FocusJumpHintObject:OnLoad(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FocusJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FocusJumpHintObject:SetDisabled(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FocusJumpHintObject:SetEnabled(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FocusJumpHintObject:SetFocused(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FocusJumpHintObject:SetHoldState(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FocusJumpHintObject:SetInputKey(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FocusJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FocusJumpHintObject:SetPressable(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FocusJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FocusJumpHintObject:SetTextureState(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FocusJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FocusJumpHintObject:SetUsableState(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class DelvesCompanionAbilityListFrame_FocusJumpHint_ActiveTextureObject : Texture
-local DelvesCompanionAbilityListFrame_FocusJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_FocusJumpHint_DisabledTextureObject : Texture
-local DelvesCompanionAbilityListFrame_FocusJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
-local DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnimObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
-local DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_FocusJumpHint_HoldIndicatorObject : Texture
-local DelvesCompanionAbilityListFrame_FocusJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
-local DelvesCompanionAbilityListFrame_FocusJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_FocusJumpHint_HoverTextureObject : Texture
-local DelvesCompanionAbilityListFrame_FocusJumpHint_HoverTextureObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_FocusJumpHint_LoadBarObject : Texture
-local DelvesCompanionAbilityListFrame_FocusJumpHint_LoadBarObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_FocusJumpHint_LoadBarBGObject : Texture
-local DelvesCompanionAbilityListFrame_FocusJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_FocusJumpHint_LoadBarGlowObject : Texture
-local DelvesCompanionAbilityListFrame_FocusJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_FocusJumpHint_NormalTextureObject : Texture
-local DelvesCompanionAbilityListFrame_FocusJumpHint_NormalTextureObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_FocusJumpHint_PressedTextureObject : Texture
-local DelvesCompanionAbilityListFrame_FocusJumpHint_PressedTextureObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_FocusJumpHint_SpinnerTipObject : Texture
-local DelvesCompanionAbilityListFrame_FocusJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_FrameGlowObject : Frame
----@field GlowTexture DelvesCompanionAbilityListFrame_FrameGlow_GlowTextureObject
----@field glowTextures table
-local DelvesCompanionAbilityListFrame_FrameGlowObject = {}
----@return any ...
-function DelvesCompanionAbilityListFrame_FrameGlowObject:GetContainerFrame(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FrameGlowObject:GetFrameLayoutType(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FrameGlowObject:GetHeaderFrame(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_FrameGlowObject:OnLoad(...) end
-end
-
-do
----@class DelvesCompanionAbilityListFrame_FrameGlow_GlowTextureObject : Texture
-local DelvesCompanionAbilityListFrame_FrameGlow_GlowTextureObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_LeftJumpHintObject : Frame
----@field ActiveTexture DelvesCompanionAbilityListFrame_LeftJumpHint_ActiveTextureObject
----@field DisabledTexture DelvesCompanionAbilityListFrame_LeftJumpHint_DisabledTextureObject
----@field HoldAnim DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnimObject
----@field HoldIndicator DelvesCompanionAbilityListFrame_LeftJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG DelvesCompanionAbilityListFrame_LeftJumpHint_HoldIndicatorBGObject
----@field HoverTexture DelvesCompanionAbilityListFrame_LeftJumpHint_HoverTextureObject
----@field LoadBar DelvesCompanionAbilityListFrame_LeftJumpHint_LoadBarObject
----@field LoadBarBG DelvesCompanionAbilityListFrame_LeftJumpHint_LoadBarBGObject
----@field LoadBarGlow DelvesCompanionAbilityListFrame_LeftJumpHint_LoadBarGlowObject
----@field NormalTexture DelvesCompanionAbilityListFrame_LeftJumpHint_NormalTextureObject
----@field PressedTexture DelvesCompanionAbilityListFrame_LeftJumpHint_PressedTextureObject
----@field SpinnerTip DelvesCompanionAbilityListFrame_LeftJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local DelvesCompanionAbilityListFrame_LeftJumpHintObject = {}
----@return any ...
-function DelvesCompanionAbilityListFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_LeftJumpHintObject:BeginHold(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_LeftJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_LeftJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_LeftJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_LeftJumpHintObject:EndHold(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_LeftJumpHintObject:OnLoad(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_LeftJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_LeftJumpHintObject:SetDisabled(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_LeftJumpHintObject:SetEnabled(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_LeftJumpHintObject:SetFocused(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_LeftJumpHintObject:SetHoldState(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_LeftJumpHintObject:SetInputKey(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_LeftJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_LeftJumpHintObject:SetPressable(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_LeftJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_LeftJumpHintObject:SetTextureState(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_LeftJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_LeftJumpHintObject:SetUsableState(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class DelvesCompanionAbilityListFrame_LeftJumpHint_ActiveTextureObject : Texture
-local DelvesCompanionAbilityListFrame_LeftJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_LeftJumpHint_DisabledTextureObject : Texture
-local DelvesCompanionAbilityListFrame_LeftJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
-local DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnimObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
-local DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_LeftJumpHint_HoldIndicatorObject : Texture
-local DelvesCompanionAbilityListFrame_LeftJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
-local DelvesCompanionAbilityListFrame_LeftJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_LeftJumpHint_HoverTextureObject : Texture
-local DelvesCompanionAbilityListFrame_LeftJumpHint_HoverTextureObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_LeftJumpHint_LoadBarObject : Texture
-local DelvesCompanionAbilityListFrame_LeftJumpHint_LoadBarObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_LeftJumpHint_LoadBarBGObject : Texture
-local DelvesCompanionAbilityListFrame_LeftJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_LeftJumpHint_LoadBarGlowObject : Texture
-local DelvesCompanionAbilityListFrame_LeftJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_LeftJumpHint_NormalTextureObject : Texture
-local DelvesCompanionAbilityListFrame_LeftJumpHint_NormalTextureObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_LeftJumpHint_PressedTextureObject : Texture
-local DelvesCompanionAbilityListFrame_LeftJumpHint_PressedTextureObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_LeftJumpHint_SpinnerTipObject : Texture
-local DelvesCompanionAbilityListFrame_LeftJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_NineSliceObject : Frame
----@field BottomEdge DelvesCompanionAbilityListFrame_NineSlice_BottomEdgeObject
----@field BottomLeftCorner DelvesCompanionAbilityListFrame_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner DelvesCompanionAbilityListFrame_NineSlice_BottomRightCornerObject
----@field Center DelvesCompanionAbilityListFrame_NineSlice_CenterObject
----@field LeftEdge DelvesCompanionAbilityListFrame_NineSlice_LeftEdgeObject
----@field RightEdge DelvesCompanionAbilityListFrame_NineSlice_RightEdgeObject
----@field TopEdge DelvesCompanionAbilityListFrame_NineSlice_TopEdgeObject
----@field TopLeftCorner DelvesCompanionAbilityListFrame_NineSlice_TopLeftCornerObject
----@field TopRightCorner DelvesCompanionAbilityListFrame_NineSlice_TopRightCornerObject
-local DelvesCompanionAbilityListFrame_NineSliceObject = {}
----@return any ...
-function DelvesCompanionAbilityListFrame_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_NineSliceObject:OnLoad(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class DelvesCompanionAbilityListFrame_NineSlice_BottomEdgeObject : Texture
-local DelvesCompanionAbilityListFrame_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_NineSlice_BottomLeftCornerObject : Texture
-local DelvesCompanionAbilityListFrame_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_NineSlice_BottomRightCornerObject : Texture
-local DelvesCompanionAbilityListFrame_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_NineSlice_CenterObject : Texture
-local DelvesCompanionAbilityListFrame_NineSlice_CenterObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_NineSlice_LeftEdgeObject : Texture
-local DelvesCompanionAbilityListFrame_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_NineSlice_RightEdgeObject : Texture
-local DelvesCompanionAbilityListFrame_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_NineSlice_TopEdgeObject : Texture
-local DelvesCompanionAbilityListFrame_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_NineSlice_TopLeftCornerObject : Texture
-local DelvesCompanionAbilityListFrame_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_NineSlice_TopRightCornerObject : Texture
-local DelvesCompanionAbilityListFrame_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_PortraitContainerObject : Frame
----@field CircleMask DelvesCompanionAbilityListFrame_PortraitContainer_CircleMaskObject
----@field portrait DelvesCompanionAbilityListFrame_PortraitContainer_portraitObject
-local DelvesCompanionAbilityListFrame_PortraitContainerObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_PortraitContainer_CircleMaskObject : MaskTexture
-local DelvesCompanionAbilityListFrame_PortraitContainer_CircleMaskObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_PortraitContainer_portraitObject : Texture
-local DelvesCompanionAbilityListFrame_PortraitContainer_portraitObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_RightJumpHintObject : Frame
----@field ActiveTexture DelvesCompanionAbilityListFrame_RightJumpHint_ActiveTextureObject
----@field DisabledTexture DelvesCompanionAbilityListFrame_RightJumpHint_DisabledTextureObject
----@field HoldAnim DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnimObject
----@field HoldIndicator DelvesCompanionAbilityListFrame_RightJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG DelvesCompanionAbilityListFrame_RightJumpHint_HoldIndicatorBGObject
----@field HoverTexture DelvesCompanionAbilityListFrame_RightJumpHint_HoverTextureObject
----@field LoadBar DelvesCompanionAbilityListFrame_RightJumpHint_LoadBarObject
----@field LoadBarBG DelvesCompanionAbilityListFrame_RightJumpHint_LoadBarBGObject
----@field LoadBarGlow DelvesCompanionAbilityListFrame_RightJumpHint_LoadBarGlowObject
----@field NormalTexture DelvesCompanionAbilityListFrame_RightJumpHint_NormalTextureObject
----@field PressedTexture DelvesCompanionAbilityListFrame_RightJumpHint_PressedTextureObject
----@field SpinnerTip DelvesCompanionAbilityListFrame_RightJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local DelvesCompanionAbilityListFrame_RightJumpHintObject = {}
----@return any ...
-function DelvesCompanionAbilityListFrame_RightJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_RightJumpHintObject:BeginHold(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_RightJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_RightJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_RightJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_RightJumpHintObject:EndHold(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_RightJumpHintObject:OnLoad(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_RightJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_RightJumpHintObject:SetDisabled(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_RightJumpHintObject:SetEnabled(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_RightJumpHintObject:SetFocused(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_RightJumpHintObject:SetHoldState(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_RightJumpHintObject:SetInputKey(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_RightJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_RightJumpHintObject:SetPressable(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_RightJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_RightJumpHintObject:SetTextureState(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_RightJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_RightJumpHintObject:SetUsableState(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class DelvesCompanionAbilityListFrame_RightJumpHint_ActiveTextureObject : Texture
-local DelvesCompanionAbilityListFrame_RightJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_RightJumpHint_DisabledTextureObject : Texture
-local DelvesCompanionAbilityListFrame_RightJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
-local DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnimObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
-local DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_RightJumpHint_HoldIndicatorObject : Texture
-local DelvesCompanionAbilityListFrame_RightJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_RightJumpHint_HoldIndicatorBGObject : Texture
-local DelvesCompanionAbilityListFrame_RightJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_RightJumpHint_HoverTextureObject : Texture
-local DelvesCompanionAbilityListFrame_RightJumpHint_HoverTextureObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_RightJumpHint_LoadBarObject : Texture
-local DelvesCompanionAbilityListFrame_RightJumpHint_LoadBarObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_RightJumpHint_LoadBarBGObject : Texture
-local DelvesCompanionAbilityListFrame_RightJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_RightJumpHint_LoadBarGlowObject : Texture
-local DelvesCompanionAbilityListFrame_RightJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_RightJumpHint_NormalTextureObject : Texture
-local DelvesCompanionAbilityListFrame_RightJumpHint_NormalTextureObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_RightJumpHint_PressedTextureObject : Texture
-local DelvesCompanionAbilityListFrame_RightJumpHint_PressedTextureObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_RightJumpHint_SpinnerTipObject : Texture
-local DelvesCompanionAbilityListFrame_RightJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject : Frame
----@field HorizontalSelectionPosition DelvesCompanionAbilityListFrame_SelectionChoiceFrame_HorizontalSelectionPositionObject
----@field alwaysUpdateLayout boolean
----@field childXPadding number
----@field childYPadding number
----@field dialogStyle boolean
----@field dirty boolean
----@field isHorizontal boolean
----@field layoutFramesGoingRight boolean
----@field oldGridSettings DelvesCompanionAbilityListFrame_SelectionChoiceFrame_oldGridSettingsObject
----@field selectionFrameArray table
----@field stride number
----@field talentFrame DelvesCompanionAbilityListFrame_SelectionChoiceFrame_talentFrameObject
-local DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject = {}
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:AddLayoutChildren(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:CacheLayoutSettings(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:ClearFixedSize(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetAdditionalRegions(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetBaseButton(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetBaseTraitCurrenciesCost(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetChildHeight(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetChildSize(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetChildWidth(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetFixedHeight(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetFixedSize(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetFixedWidth(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetHeightPadding(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetHorizontalSelectionPositionForIndex(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetLayoutChildren(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetMaximumWidth(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetMinimumWidth(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetSelectionCount(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetTalentFrame(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetWidthPadding(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:IgnoreLayoutIndex(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:IsDirty(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:IsDraggingSpell(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:IsLayoutFrame(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:Layout(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:MarkClean(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:MarkDirty(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:MarkIgnoreInLayout(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:OnCleaned(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:OnEvent(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:OnHide(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:OnLoad(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:OnShow(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:OnUpdate(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:SetFixedHeight(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:SetFixedSize(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:SetFixedWidth(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:SetHeightPadding(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:SetMaximumWidth(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:SetMinimumWidth(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:SetSelectedEntryID(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:SetSelectionOptions(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:SetTalentFrame(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:SetWidthPadding(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:ShouldUpdateLayout(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:UpdateSelectionOptions(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:UpdateVisualState(...) end
-end
-
-do
----@class DelvesCompanionAbilityListFrame_SelectionChoiceFrame_HorizontalSelectionPositionObject
----@field Inner number
----@field OuterLeft number
----@field OuterRight number
-local DelvesCompanionAbilityListFrame_SelectionChoiceFrame_HorizontalSelectionPositionObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_SelectionChoiceFrame_oldGridSettingsObject
----@field childXPadding number
----@field childYPadding number
----@field isHorizontal boolean
----@field layoutChildren table
----@field layoutFramesGoingRight boolean
----@field stride number
-local DelvesCompanionAbilityListFrame_SelectionChoiceFrame_oldGridSettingsObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_SelectionChoiceFrame_talentFrameObject
-local DelvesCompanionAbilityListFrame_SelectionChoiceFrame_talentFrameObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_TitleContainerObject : Frame
----@field TitleText DelvesCompanionAbilityListFrame_TitleContainer_TitleTextObject
-local DelvesCompanionAbilityListFrame_TitleContainerObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_TitleContainer_TitleTextObject : FontString
-local DelvesCompanionAbilityListFrame_TitleContainer_TitleTextObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_TopTileStreaksObject : Texture
-local DelvesCompanionAbilityListFrame_TopTileStreaksObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_VisualsUpdateReasonsObject
----@field CommitOngoing number
----@field CommitStoppedComplete number
----@field CommitStoppedIncomplete number
----@field FrameHidden number
----@field TalentTreeReset number
-local DelvesCompanionAbilityListFrame_VisualsUpdateReasonsObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_buttonsObject
----@field nodeIDs table
-local DelvesCompanionAbilityListFrame_buttonsObject = {}
-end
-
-do
----@class DelvesCompanionAbilityListFrame_edgePoolObject
-local DelvesCompanionAbilityListFrame_edgePoolObject = {}
----@return any ...
-function DelvesCompanionAbilityListFrame_edgePoolObject:private(...) end
-end
-
-do
----@class DelvesCompanionAbilityListFrame_gatePoolObject
-local DelvesCompanionAbilityListFrame_gatePoolObject = {}
----@return any ...
-function DelvesCompanionAbilityListFrame_gatePoolObject:GetTemplate(...) end
----@return any ...
-function DelvesCompanionAbilityListFrame_gatePoolObject:private(...) end
-end
-
-do
----@class DelvesCompanionAbilityListFrame_talentAnimationFramePoolCollectionObject
-local DelvesCompanionAbilityListFrame_talentAnimationFramePoolCollectionObject = {}
----@return any ...
-function DelvesCompanionAbilityListFrame_talentAnimationFramePoolCollectionObject:private(...) end
-end
-
-do
----@class DelvesCompanionAbilityListFrame_talentButtonCollectionObject
-local DelvesCompanionAbilityListFrame_talentButtonCollectionObject = {}
----@return any ...
-function DelvesCompanionAbilityListFrame_talentButtonCollectionObject:private(...) end
-end
-
-do
----@class DelvesCompanionAbilityListFrame_talentCardPoolObject
-local DelvesCompanionAbilityListFrame_talentCardPoolObject = {}
----@return any ...
-function DelvesCompanionAbilityListFrame_talentCardPoolObject:private(...) end
-end
-
-do
----@class DelvesCompanionAbilityListFrame_talentDisplayFramePoolObject
-local DelvesCompanionAbilityListFrame_talentDisplayFramePoolObject = {}
----@return any ...
-function DelvesCompanionAbilityListFrame_talentDisplayFramePoolObject:private(...) end
-end
-
-do
----@class DelvesCompanionConfigurationFrameObject : Frame
----@field Background DelvesCompanionConfigurationFrame_BackgroundObject
----@field Bg DelvesCompanionConfigurationFrame_BgObject
----@field Border DelvesCompanionConfigurationFrame_BorderObject
----@field CloseButton DelvesCompanionConfigurationFrame_CloseButtonObject
----@field CompanionConfigShowAbilitiesButton DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButtonObject
----@field CompanionExperienceRingFrame DelvesCompanionConfigurationFrame_CompanionExperienceRingFrameObject
----@field CompanionInfoFrame DelvesCompanionConfigurationFrame_CompanionInfoFrameObject
----@field CompanionLevelFrame DelvesCompanionConfigurationFrame_CompanionLevelFrameObject
----@field CompanionPortraitFrame DelvesCompanionConfigurationFrame_CompanionPortraitFrameObject
----@field CompanionSlots DelvesCompanionConfigurationFrame_CompanionSlotsObject
----@field NineSlice DelvesCompanionConfigurationFrame_NineSliceObject
----@field layoutType string
----@field unseenCuriosAcknowledged boolean
-local DelvesCompanionConfigurationFrameObject = {}
----@return any ...
-function DelvesCompanionConfigurationFrameObject:OnEvent(...) end
----@return any ...
-function DelvesCompanionConfigurationFrameObject:OnHide(...) end
----@return any ...
-function DelvesCompanionConfigurationFrameObject:OnLoad(...) end
----@return any ...
-function DelvesCompanionConfigurationFrameObject:OnShow(...) end
----@return any ...
-function DelvesCompanionConfigurationFrameObject:Refresh(...) end
----@return any ...
-function DelvesCompanionConfigurationFrameObject:TryShowSeasonHelptip(...) end
----@type DelvesCompanionConfigurationFrameObject
-DelvesCompanionConfigurationFrame = DelvesCompanionConfigurationFrameObject
-end
-
-do
----@class DelvesCompanionConfigurationFrame_BackgroundObject : Texture
-local DelvesCompanionConfigurationFrame_BackgroundObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_BgObject : Texture
-local DelvesCompanionConfigurationFrame_BgObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_BorderObject : Frame
----@field Bg DelvesCompanionConfigurationFrame_Border_BgObject
----@field BottomEdge DelvesCompanionConfigurationFrame_Border_BottomEdgeObject
----@field BottomLeftCorner DelvesCompanionConfigurationFrame_Border_BottomLeftCornerObject
----@field BottomRightCorner DelvesCompanionConfigurationFrame_Border_BottomRightCornerObject
----@field LeftEdge DelvesCompanionConfigurationFrame_Border_LeftEdgeObject
----@field RightEdge DelvesCompanionConfigurationFrame_Border_RightEdgeObject
----@field TopEdge DelvesCompanionConfigurationFrame_Border_TopEdgeObject
----@field TopLeftCorner DelvesCompanionConfigurationFrame_Border_TopLeftCornerObject
----@field TopRightCorner DelvesCompanionConfigurationFrame_Border_TopRightCornerObject
----@field layoutType string
-local DelvesCompanionConfigurationFrame_BorderObject = {}
----@return any ...
-function DelvesCompanionConfigurationFrame_BorderObject:GetBorderColor(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_BorderObject:GetCenterColor(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_BorderObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_BorderObject:GetFrameLayoutType(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_BorderObject:OnLoad(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_BorderObject:SetBlendMode(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_BorderObject:SetBorderBlendMode(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_BorderObject:SetBorderColor(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_BorderObject:SetCenterColor(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_BorderObject:SetVertexColor(...) end
-end
-
-do
----@class DelvesCompanionConfigurationFrame_Border_BgObject : Texture
-local DelvesCompanionConfigurationFrame_Border_BgObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_Border_BottomEdgeObject : Texture
-local DelvesCompanionConfigurationFrame_Border_BottomEdgeObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_Border_BottomLeftCornerObject : Texture
-local DelvesCompanionConfigurationFrame_Border_BottomLeftCornerObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_Border_BottomRightCornerObject : Texture
-local DelvesCompanionConfigurationFrame_Border_BottomRightCornerObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_Border_LeftEdgeObject : Texture
-local DelvesCompanionConfigurationFrame_Border_LeftEdgeObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_Border_RightEdgeObject : Texture
-local DelvesCompanionConfigurationFrame_Border_RightEdgeObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_Border_TopEdgeObject : Texture
-local DelvesCompanionConfigurationFrame_Border_TopEdgeObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_Border_TopLeftCornerObject : Texture
-local DelvesCompanionConfigurationFrame_Border_TopLeftCornerObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_Border_TopRightCornerObject : Texture
-local DelvesCompanionConfigurationFrame_Border_TopRightCornerObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CloseButtonObject : Button
-local DelvesCompanionConfigurationFrame_CloseButtonObject = {}
----@return any ...
-function DelvesCompanionConfigurationFrame_CloseButtonObject:NarrationGetName(...) end
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButtonObject : Button
----@field Left DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_LeftObject
----@field Middle DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_MiddleObject
----@field Right DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_RightObject
----@field Text DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButtonObject = {}
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButtonObject:FitToText(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButtonObject:OnClick(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButtonObject:OnEnter(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButtonObject:OnLeave(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButtonObject:SetDisabledState(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButtonObject:SetTextToFit(...) end
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_LeftObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_LeftObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_MiddleObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_MiddleObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_RightObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_RightObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_TextObject : FontString
-local DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_TextObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionExperienceRingFrameObject : Cooldown
-local DelvesCompanionConfigurationFrame_CompanionExperienceRingFrameObject = {}
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionExperienceRingFrameObject:Refresh(...) end
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionInfoFrameObject : Frame
----@field CompanionDescription DelvesCompanionConfigurationFrame_CompanionInfoFrame_CompanionDescriptionObject
----@field CompanionName DelvesCompanionConfigurationFrame_CompanionInfoFrame_CompanionNameObject
----@field InfoFrameShadow DelvesCompanionConfigurationFrame_CompanionInfoFrame_InfoFrameShadowObject
-local DelvesCompanionConfigurationFrame_CompanionInfoFrameObject = {}
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionInfoFrameObject:Refresh(...) end
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionInfoFrame_CompanionDescriptionObject : FontString
-local DelvesCompanionConfigurationFrame_CompanionInfoFrame_CompanionDescriptionObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionInfoFrame_CompanionNameObject : FontString
-local DelvesCompanionConfigurationFrame_CompanionInfoFrame_CompanionNameObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionInfoFrame_InfoFrameShadowObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionInfoFrame_InfoFrameShadowObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionLevelFrameObject : Frame
----@field CompanionLevel DelvesCompanionConfigurationFrame_CompanionLevelFrame_CompanionLevelObject
-local DelvesCompanionConfigurationFrame_CompanionLevelFrameObject = {}
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionLevelFrameObject:Refresh(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionLevelFrame_CompanionLevelObject : FontString
-local DelvesCompanionConfigurationFrame_CompanionLevelFrame_CompanionLevelObject = {}
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_BeginObject : Texture
+local CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_BeginObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionPortraitFrameObject : Frame
----@field Border DelvesCompanionConfigurationFrame_CompanionPortraitFrame_BorderObject
----@field Icon DelvesCompanionConfigurationFrame_CompanionPortraitFrame_IconObject
-local DelvesCompanionConfigurationFrame_CompanionPortraitFrameObject = {}
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionPortraitFrameObject:OnEnter(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionPortraitFrameObject:OnLeave(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionPortraitFrameObject:Refresh(...) end
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionPortraitFrame_BorderObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionPortraitFrame_BorderObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionPortraitFrame_IconObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionPortraitFrame_IconObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionSlotsObject : Frame
----@field CompanionCombatRoleSlot DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject
----@field CompanionCombatTrinketSlot DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject
----@field CompanionFlavorSlot DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlotObject
----@field CompanionUtilityTrinketSlot DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlotObject
----@field spacing number
-local DelvesCompanionConfigurationFrame_CompanionSlotsObject = {}
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:AddLayoutChildren(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:CalculateFrameSize(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:ClearFixedSize(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetAdditionalRegions(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetChildHeight(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetChildPadding(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetChildSize(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetChildWidth(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetFixedHeight(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetFixedSize(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetFixedWidth(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetHeightPadding(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetLayoutChildren(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetPadding(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetWidthPadding(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:IgnoreLayoutIndex(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:IsDirty(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:IsLayoutFrame(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:Layout(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:LayoutChildren(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:MarkClean(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:MarkDirty(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:MarkIgnoreInLayout(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:OnCleaned(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:OnShow(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:OnUpdate(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:SetFixedHeight(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:SetFixedSize(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:SetFixedWidth(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:SetHeightPadding(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:SetWidthPadding(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlotsObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject : Button
----@field Border DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_BorderObject
----@field BorderHighlight DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_BorderHighlightObject
----@field HighlightTexture DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_HighlightTextureObject
----@field Label DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_LabelObject
----@field NewGlowHighlight DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewGlowHighlightObject
----@field NewGlowHighlightAnimIn DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewGlowHighlightAnimInObject
----@field NewLabel DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject
----@field OptionsList DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsListObject
----@field Shadow DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_ShadowObject
----@field Texture DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_TextureObject
----@field TextureMask DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_TextureMaskObject
----@field Value DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_ValueObject
----@field layoutIndex number
----@field selectionNodeID number
----@field type string
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject = {}
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:BuildSelectionNodeOptions(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:CheckToggleAllowed(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:GetSelectionNodeID(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:GetSlotLabelText(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:HasActiveEntry(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:HasSelectionAndInfo(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:OnEnter(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:OnEvent(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:OnHide(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:OnLeave(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:OnLoad(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:OnMouseDown(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:OnShow(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:PopulateOptionsList(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:Refresh(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:SetSeenCurios(...) end
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_BorderObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_BorderObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_BorderHighlightObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_BorderHighlightObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_HighlightTextureObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_HighlightTextureObject = {}
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_EndObject : Texture
+local CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_EndObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_LabelObject : FontString
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_LabelObject = {}
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_EventObject
+local CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_EventObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewGlowHighlightObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewGlowHighlightObject = {}
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_MiddleObject : Texture
+local CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_MiddleObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewGlowHighlightAnimInObject : AnimationGroup
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewGlowHighlightAnimInObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject : Frame
----@field BGLabel DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_BGLabelObject
----@field Fade DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_FadeObject
----@field Glow DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_GlowObject
----@field Label DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_LabelObject
----@field animateGlow boolean
----@field justifyH string
----@field label string
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject = {}
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:AddLayoutChildren(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:ClearAlert(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:ClearFixedSize(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetAdditionalRegions(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetChildHeight(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetChildSize(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetChildWidth(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetFixedHeight(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetFixedSize(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetFixedWidth(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetHeightPadding(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetLayoutChildren(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetMaximumWidth(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetMinimumWidth(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetTextWidth(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetWidthPadding(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:IgnoreLayoutIndex(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:IsDirty(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:IsLayoutFrame(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:Layout(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:MarkClean(...) end
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_interpolatorObject
+local CommunitiesFrame_CommunitiesList_ScrollBar_interpolatorObject = {}
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:MarkDirty(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_interpolatorObject:Cancel(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:MarkIgnoreInLayout(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:NewFeatureLabel_OnShow(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_interpolatorObject:Interpolate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:OnCleaned(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:OnHide(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:OnLoad(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:OnShow(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:OnUpdate(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:SetFixedHeight(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:SetFixedSize(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:SetFixedWidth(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:SetHeightPadding(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:SetMaximumWidth(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:SetMinimumWidth(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:SetWidthPadding(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_BGLabelObject : FontString
----@field ignoreInLayout boolean
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_BGLabelObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_FadeObject : AnimationGroup
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_FadeObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_GlowObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_GlowObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_LabelObject : FontString
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_LabelObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsListObject : Frame
----@field Bottom DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_BottomObject
----@field Middle DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_MiddleObject
----@field ScrollBox DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject
----@field Top DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_TopObject
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsListObject = {}
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsListObject:OnHide(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsListObject:OnShow(...) end
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_BottomObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_BottomObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_MiddleObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_MiddleObject = {}
+function CommunitiesFrame_CommunitiesList_ScrollBar_interpolatorObject:interpolateFunc(...) end
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject : Frame
----@field Defaults DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_DefaultsObject
----@field Directions DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_DirectionsObject
----@field DragDelegate DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_DragDelegateObject
----@field Event DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_EventObject
----@field ScrollTarget DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject
----@field Shadows DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ShadowsObject
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject : Frame
+---@field Defaults CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_DefaultsObject
+---@field Directions CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_DirectionsObject
+---@field DragDelegate CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_DragDelegateObject
+---@field Event CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_EventObject
+---@field ScrollTarget CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject
+---@field Shadows CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ShadowsObject
 ---@field allowScroll boolean
 ---@field callbackTables table
 ---@field canInterpolateScroll boolean
@@ -7365,972 +651,1722 @@ do
 ---@field executingEvents table
 ---@field isScrollController boolean
 ---@field panExtentPercentage number
----@field view DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject
+---@field registeredScrollBar CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_registeredScrollBarObject
+---@field updateLock boolean
+---@field view CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject
 ---@field wheelPanScalar number
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject = {}
+local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject = {}
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ApplyEdgeFade(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ApplyEdgeFade(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:CalculateEdgeFade(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:CalculateEdgeFade(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:CalculatePanExtentPercentage(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:CalculatePanExtentPercentage(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:CalculateScrollPercentage(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:CalculateScrollPercentage(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:CanInterpolateScroll(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:CanInterpolateScroll(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ClearEdgeFade(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ClearEdgeFade(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ContainsElementDataByPredicate(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ContainsElementDataByPredicate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:CopyDeferredCallbacks(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:DoesFrameHaveEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:EnableSnapToInterval(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:EnableSnapToInterval(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:EnumerateDataProvider(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:EnumerateDataProvider(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:EnumerateDataProviderEntireRange(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:EnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:EnumerateFrames(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:EnumerateFrames(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:FindByPredicate(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:FindByPredicate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:FindElementData(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:FindElementData(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:FindElementDataByPredicate(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:FindElementDataByPredicate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:FindElementDataIndex(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:FindElementDataIndex(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:FindElementDataIndexByPredicate(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:FindElementDataIndexByPredicate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:FindFrame(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:FindFrame(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:FindFrameByPredicate(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:FindFrameByPredicate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:FindFrameElementDataIndex(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:FindFrameElementDataIndex(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:Flush(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:Flush(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:FlushDataProvider(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:FlushDataProvider(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ForEachElementData(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ForEachElementData(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ForEachFrame(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ForEachFrame(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:FullUpdate(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:FullUpdate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:FullUpdateInternal(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:FullUpdateInternal(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GenerateCallbackEvents(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetBottomPadding(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetBottomPadding(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetCallbackTable(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetCallbackTable(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetCallbackTables(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetCallbackTables(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetCallbacksByEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetDataIndexBegin(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetDataIndexBegin(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetDataIndexEnd(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetDataIndexEnd(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetDataProvider(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetDataProvider(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetDataProviderSize(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetDataProviderSize(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetDerivedExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetDerivedExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetDerivedScrollOffset(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetDerivedScrollOffset(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetDerivedScrollRange(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetDerivedScrollRange(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetElementExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetElementExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetExtentPadding(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetExtentPadding(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetExtentUntil(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetExtentUntil(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetFrameCount(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetFrameCount(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetFrameExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetFrameExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetFrames(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetFrames(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetIntervalRange(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetIntervalRange(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetLeftPadding(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetLeftPadding(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetLower(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetLower(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetLowerPadding(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetLowerPadding(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetLowerShadowTexture(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetLowerShadowTexture(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetMutableCallbacksByEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetPadding(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetPadding(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetPanExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetPanExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetPanExtentPercentage(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetRightPadding(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetRightPadding(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetScrollInterpolator(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetScrollInterpolator(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetScrollPercentage(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetScrollPercentage(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetScrollTarget(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetScrollTarget(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetTopPadding(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetTopPadding(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetUpper(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetUpper(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetUpperPadding(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetUpperPadding(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetUpperShadowTexture(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetUpperShadowTexture(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetView(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetView(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetVisibleExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetVisibleExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetVisibleExtentPercentage(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetWheelPanPercentage(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:HasDataProvider(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:HasDataProvider(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:HasEdgeFade(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:HasEdgeFade(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:HasRegistrantsForEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:HasScrollableExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:HasScrollableExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:HasView(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:HasView(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:Init(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:Init(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:Interpolate(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:Interpolate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:IsAcquireLocked(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:IsAcquireLocked(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:IsAlignmentOverlapIgnored(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:IsAlignmentOverlapIgnored(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:IsAtBegin(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:IsAtBegin(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:IsAtEnd(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:IsAtEnd(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:IsHorizontal(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:IsHorizontal(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:IsScrollAllowed(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:IsScrollAllowed(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:IsScrollToDataIndexSafe(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:IsScrollToDataIndexSafe(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:IsUpdateLocked(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:IsUpdateLocked(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:IsVirtualized(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:IsVirtualized(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:Layout(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:Layout(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:OnLoad(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:OnLoad(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:OnMouseWheel(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:OnMouseWheel(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:OnScrollTargetSizeChanged(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:OnScrollTargetSizeChanged(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:OnSizeChanged(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:OnSizeChanged(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:OnViewAcquiredFrame(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:OnViewAcquiredFrame(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:OnViewDataChanged(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:OnViewDataChanged(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:OnViewDataProviderReassigned(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:OnViewDataProviderReassigned(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:OnViewInitializedFrame(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:OnViewInitializedFrame(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:OnViewReleasedFrame(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:OnViewReleasedFrame(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:Rebuild(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:Rebuild(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:RecalculateDerivedExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:RecalculateDerivedExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ReconcileDeferredCallbacks(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:RegisterCallback(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:RegisterCallback(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:RegisterCallbackWithHandle(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ReinitializeFrames(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ReinitializeFrames(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:RemoveDataProvider(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:RemoveDataProvider(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ReverseEnumerateDataProvider(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProvider(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ReverseForEachElementData(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ReverseForEachElementData(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ReverseForEachFrame(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ReverseForEachFrame(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SanitizeAlignment(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SanitizeAlignment(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollDecrease(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollDecrease(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollInDirection(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollInDirection(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollIncrease(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollIncrease(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollToBegin(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollToBegin(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollToElementData(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollToElementData(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollToElementDataByPredicate(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollToElementDataByPredicate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollToElementDataIndex(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollToElementDataIndex(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollToEnd(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollToEnd(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollToFrame(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollToFrame(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollToNearest(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollToNearest(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollToNearestByPredicate(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollToNearestByPredicate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollToOffset(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollToOffset(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SecureInsertEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SecureInsertEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SelectCursorComponent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SelectCursorComponent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SelectPointComponent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SelectPointComponent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetAlignmentOverlapIgnored(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetAlignmentOverlapIgnored(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetDataProvider(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetDataProvider(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetEdgeFadeLength(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetEdgeFadeLength(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetFrameExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetFrameExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetHorizontal(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetHorizontal(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetInterpolateScroll(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetInterpolateScroll(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetLowerShadowAtlas(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetLowerShadowAtlas(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetPadding(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetPadding(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetPanExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetPanExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetPanExtentPercentage(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetScrollAllowed(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetScrollAllowed(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetScrollPercentage(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetScrollPercentage(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetScrollPercentageInternal(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetScrollTargetOffset(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetScrollTargetOffset(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetShadowsFrameLevel(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetShadowsFrameLevel(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetShadowsScale(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetShadowsScale(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetShadowsShown(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetShadowsShown(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetUndefinedEventsAllowed(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetUpdateLocked(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetUpdateLocked(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetUpperShadowAtlas(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetUpperShadowAtlas(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetUseShadowsForEdgeFade(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetUseShadowsForEdgeFade(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetView(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetView(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:TriggerEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:TriggerEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:UnregisterCallback(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:UnregisterCallback(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:UnregisterEvents(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:UnregisterEvents(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:UnregisterEventsByEventTable(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:Update(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:Update(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:scrollInternal(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:scrollInternal(...) end
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_DefaultsObject
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_DefaultsObject = {}
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_DefaultsObject
+local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_DefaultsObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_DirectionsObject
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_DirectionsObject = {}
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_DirectionsObject
+local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_DirectionsObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_DragDelegateObject : Frame
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_DragDelegateObject = {}
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_DragDelegateObject : Frame
+local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_DragDelegateObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_EventObject
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_EventObject = {}
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_EventObject
+local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_EventObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject : Frame
----@field Event DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTarget_EventObject
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject : Frame
+---@field Event CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field executingEvents table
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject = {}
+local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject = {}
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:GetCallbackTable(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTable(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:GetCallbackTables(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTables(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:OnLoad(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:RegisterCallback(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallback(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:TriggerEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:TriggerEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:UnregisterCallback(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterCallback(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:UnregisterEvents(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEvents(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTarget_EventObject
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTarget_EventObject = {}
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
+local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTarget_EventObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ShadowsObject : Frame
----@field Lower DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_Shadows_LowerObject
----@field Upper DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_Shadows_UpperObject
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ShadowsObject = {}
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ShadowsObject : Frame
+---@field Lower CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_Shadows_LowerObject
+---@field Upper CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_Shadows_UpperObject
+local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ShadowsObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_Shadows_LowerObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_Shadows_LowerObject = {}
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_Shadows_LowerObject : Texture
+local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_Shadows_LowerObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_Shadows_UpperObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_Shadows_UpperObject = {}
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_Shadows_UpperObject : Texture
+local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_Shadows_UpperObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_registeredScrollBarObject
+local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_registeredScrollBarObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject
 ---@field Event table
 ---@field FrameLevelPolicy table
 ---@field callbackTables table
 ---@field canSignalWithoutInitializer boolean
+---@field dataIndexBegin number
+---@field dataIndexEnd number
 ---@field deferredCallbacks table
 ---@field executingEvents table
 ---@field frameFactory table
+---@field frameTemplateOrFrameType string
 ---@field frames table
 ---@field initialized boolean
 ---@field initializers table
 ---@field padding table
----@field scrollBox DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_view_scrollBoxObject
+---@field scrollBox CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_view_scrollBoxObject
 ---@field templateInfoCache table
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject = {}
+local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject = {}
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:AcquireInternal(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:AcquireInternal(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:AcquireRange(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:AcquireRange(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:AssignAccessors(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:AssignAccessors(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:AttachDataProviderCallbacks(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:AttachDataProviderCallbacks(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:CalculateDataIndices(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:CalculateDataIndices(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:CalculateFrameExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:CalculateFrameExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ClearCachedData(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ClearCachedData(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ClearElementExtentData(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ClearElementExtentData(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ClearInvalidation(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ClearInvalidation(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ContainsElementDataByPredicate(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ContainsElementDataByPredicate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:CopyDeferredCallbacks(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:DataProviderContentsChanged(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:DataProviderContentsChanged(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:DetachDataProviderCallbacks(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:DetachDataProviderCallbacks(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:DoesFrameHaveEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:EnumerateDataProvider(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProvider(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:EnumerateFrames(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:EnumerateFrames(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:FindByPredicate(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:FindByPredicate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:FindElementData(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:FindElementData(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:FindElementDataByPredicate(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:FindElementDataByPredicate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:FindElementDataIndex(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndex(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:FindFrame(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:FindFrame(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:FindFrameByPredicate(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:FindFrameByPredicate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:FindFrameElementDataIndex(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:FindFrameElementDataIndex(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:Flush(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:Flush(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:FlushDataProvider(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:FlushDataProvider(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ForEachElementData(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ForEachElementData(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ForEachFrame(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ForEachFrame(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GenerateCallbackEvents(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetCallbackTable(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetCallbackTable(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetCallbackTables(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetCallbackTables(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetCallbacksByEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetDataIndexBegin(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetDataIndexBegin(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetDataIndexEnd(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetDataIndexEnd(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetDataProvider(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetDataProvider(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetDataProviderSize(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetDataProviderSize(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetDataRange(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetDataRange(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetDataScrollOffset(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetDataScrollOffset(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetElementExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetElementExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetElementExtentCalculator(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetElementExtentCalculator(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetElementIndent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetElementIndent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetExtentFromInfo(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetExtentFromInfo(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetExtentSpacing(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetExtentSpacing(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetExtentTo(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetExtentTo(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetExtentUntil(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetExtentUntil(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetFactoryDataFromElementData(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetFactoryDataFromElementData(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetFirstTemplateInfo(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetFirstTemplateInfo(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetFrameCount(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetFrameCount(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetFrameExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetFrameExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetFrameLevelCounter(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelCounter(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetFrameLevelPolicy(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelPolicy(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetFrames(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetFrames(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetIdenticalElementExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetIdenticalElementExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetIdenticalStrideExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetIdenticalStrideExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetInvalidationReason(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetInvalidationReason(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetLayoutFunction(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetLayoutFunction(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetLower(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetLower(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetPadding(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetPadding(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetPanExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetPanExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetScrollBox(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetScrollBox(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetScrollTarget(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetScrollTarget(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetSpacing(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetSpacing(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetStride(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetStride(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetTemplateExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetTemplateInfo(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetTemplateInfo(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetUpper(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetUpper(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:HasBiaxalLayout(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:HasBiaxalLayout(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:HasDataProvider(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:HasDataProvider(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:HasElementExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:HasElementExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:HasIdenticalElementExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:HasIdenticalElementExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:HasIdenticalStrideExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:HasIdenticalStrideExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:HasRegistrantsForEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:Init(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:Init(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:InitDefaultDrag(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:InitDefaultDrag(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:InvokeInitializer(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:InvokeInitializer(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:InvokeInitializers(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:InvokeInitializers(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:IsAcquireLocked(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:IsAcquireLocked(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:IsDataIndexWithinRange(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:IsDataIndexWithinRange(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:IsElementStretchDisabled(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:IsElementStretchDisabled(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:IsExtentValid(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:IsExtentValid(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:IsHorizontal(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:IsHorizontal(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:IsInitialized(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:IsInitialized(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:IsInvalidated(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:IsInvalidated(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:IsVirtualized(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:IsVirtualized(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:Layout(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:Layout(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:LayoutInternal(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:LayoutInternal(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:OnDataProviderSizeChanged(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSizeChanged(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:OnDataProviderSort(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSort(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:OnLoad(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:OnLoad(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:PrepareScrollToElementData(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementData(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:RebuildTemplateInfoCache(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:RebuildTemplateInfoCache(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:RecalculateExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:RecalculateExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:RefreshSmartNav(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:RefreshSmartNav(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:RegisterCallback(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:RegisterCallback(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:RegisterCallbackWithHandle(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ReinitializeFrames(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ReinitializeFrames(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:Release(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:Release(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:RemoveDataProvider(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:RemoveDataProvider(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:RemoveDataProviderInternal(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:RemoveDataProviderInternal(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ResizeFrame(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ResizeFrame(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ReverseForEachElementData(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ReverseForEachElementData(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ReverseForEachFrame(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ReverseForEachFrame(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SecureInsertEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SecureInsertEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SelectCursorComponent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SelectCursorComponent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SelectPointComponent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SelectPointComponent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetAcquireLocked(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetAcquireLocked(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetDataProvider(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetDataProvider(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetDataRange(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetDataRange(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetElementExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetElementExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetElementExtentCalculator(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetElementExtentCalculator(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetElementFactory(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetElementFactory(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetElementIndentCalculator(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetElementIndentCalculator(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetElementInitializer(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetElementInitializer(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetElementResetter(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetElementResetter(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetElementStretchDisabled(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetElementStretchDisabled(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetFrameExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetFrameExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetFrameFactoryResetter(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetFrameFactoryResetter(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetFrameLevelPolicy(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetFrameLevelPolicy(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetHorizontal(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetHorizontal(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetInvalidationReason(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetInvalidationReason(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetMaxPanExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetMaxPanExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetPadding(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetPadding(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetPanExtent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetPanExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetScrollBox(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetScrollBox(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetVirtualized(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetVirtualized(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SignalDataChangeEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SignalDataChangeEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SortFrames(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SortFrames(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:TriggerEvent(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:TriggerEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:UnassignAccessors(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:UnassignAccessors(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:UnregisterCallback(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:UnregisterCallback(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:UnregisterEvents(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:UnregisterEvents(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:UnregisterEventsByEventTable(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ValidateDataRange(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ValidateDataRange(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:elementFactory(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:elementFactory(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:factory(...) end
+function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:factory(...) end
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_view_scrollBoxObject
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_view_scrollBoxObject = {}
+---@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_view_scrollBoxObject
+local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_view_scrollBoxObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_TopObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_TopObject = {}
+---@class CommunitiesFrame_CommunitiesList_ScrollBoxObject
+local CommunitiesFrame_CommunitiesList_ScrollBoxObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_ShadowObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_ShadowObject = {}
+---@class CommunitiesFrame_CommunitiesList_TopFiligreeObject : Texture
+local CommunitiesFrame_CommunitiesList_TopFiligreeObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_TextureObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_TextureObject = {}
+---@class CommunitiesFrame_CommunitiesListDropdownObject : Button
+---@field Arrow CommunitiesFrame_CommunitiesListDropdown_ArrowObject
+---@field Background CommunitiesFrame_CommunitiesListDropdown_BackgroundObject
+---@field Event CommunitiesFrame_CommunitiesListDropdown_EventObject
+---@field NotificationOverlay CommunitiesFrame_CommunitiesListDropdown_NotificationOverlayObject
+---@field Text CommunitiesFrame_CommunitiesListDropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+local CommunitiesFrame_CommunitiesListDropdownObject = {}
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:ClearMenuState(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:CloseMenu(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:CollectSelectionData(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:CreateRootDescription(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:Decrement(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:GenerateMenu(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:GetArrowAtlas(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:GetDefaultText(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:GetMenuDescription(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:GetSelectionData(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:GetUpdateText(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:HasElements(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:HasStickyFocus(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:Increment(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:IsDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:IsDownOver(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:IsMenuOpen(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:IsOver(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:NarrationGetContext(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:NarrationGetName(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:OnClubSelected(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:OnCommunitiesClubSelected(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:OnDisable(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:OnEnable(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:OnHide(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:OnMenuChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:OnMenuClosed(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:OnMenuOpened(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:OnMenuResponse(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:OnMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:OnMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:OpenMenu(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:OverrideText(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:Pick(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:RegisterMenu(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:Rotate(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:SetDefaultText(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:SetMenuOpen(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:SetSelectionText(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:SetTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:SetupMenu(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:ShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:SignalUpdate(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:Update(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:UpdateSelections(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:UpdateText(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:UpdateUnreadNotification(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdownObject:selectionTranslator(...) end
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_TextureMaskObject : MaskTexture
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_TextureMaskObject = {}
+---@class CommunitiesFrame_CommunitiesListDropdown_ArrowObject : Texture
+local CommunitiesFrame_CommunitiesListDropdown_ArrowObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_ValueObject : FontString
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_ValueObject = {}
+---@class CommunitiesFrame_CommunitiesListDropdown_BackgroundObject : Texture
+local CommunitiesFrame_CommunitiesListDropdown_BackgroundObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject : Button
----@field Border DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_BorderObject
----@field BorderHighlight DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_BorderHighlightObject
----@field HighlightTexture DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_HighlightTextureObject
----@field Label DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_LabelObject
----@field NewGlowHighlight DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewGlowHighlightObject
----@field NewGlowHighlightAnimIn DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewGlowHighlightAnimInObject
----@field NewLabel DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject
----@field OptionsList DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsListObject
----@field Shadow DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_ShadowObject
----@field Texture DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_TextureObject
----@field TextureMask DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_TextureMaskObject
----@field Value DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_ValueObject
----@field layoutIndex number
----@field selectionNodeID number
----@field type string
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject = {}
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:BuildSelectionNodeOptions(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:CheckToggleAllowed(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:GetSelectionNodeID(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:GetSlotLabelText(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:HasActiveEntry(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:HasSelectionAndInfo(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:OnEnter(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:OnEvent(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:OnHide(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:OnLeave(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:OnLoad(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:OnMouseDown(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:OnShow(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:PopulateOptionsList(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:Refresh(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:SetSeenCurios(...) end
+---@class CommunitiesFrame_CommunitiesListDropdown_EventObject
+local CommunitiesFrame_CommunitiesListDropdown_EventObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_BorderObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_BorderObject = {}
+---@class CommunitiesFrame_CommunitiesListDropdown_NotificationOverlayObject : Frame
+---@field UnreadNotificationIcon CommunitiesFrame_CommunitiesListDropdown_NotificationOverlay_UnreadNotificationIconObject
+local CommunitiesFrame_CommunitiesListDropdown_NotificationOverlayObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_BorderHighlightObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_BorderHighlightObject = {}
+---@class CommunitiesFrame_CommunitiesListDropdown_NotificationOverlay_UnreadNotificationIconObject : Texture
+local CommunitiesFrame_CommunitiesListDropdown_NotificationOverlay_UnreadNotificationIconObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_HighlightTextureObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_HighlightTextureObject = {}
+---@class CommunitiesFrame_CommunitiesListDropdown_TextObject : FontString
+local CommunitiesFrame_CommunitiesListDropdown_TextObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_LabelObject : FontString
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_LabelObject = {}
+---@class CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo CommunitiesFrame_CommunitiesListDropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject = {}
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject:SetRelativeTo(...) end
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewGlowHighlightObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewGlowHighlightObject = {}
+---@class CommunitiesFrame_CommunitiesListDropdown_menuAnchor_relativeToObject
+local CommunitiesFrame_CommunitiesListDropdown_menuAnchor_relativeToObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewGlowHighlightAnimInObject : AnimationGroup
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewGlowHighlightAnimInObject = {}
+---@class CommunitiesFrame_CommunityFinderFrameObject : Frame
+---@field ClubFinderPendingTab CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTabObject
+---@field ClubFinderSearchTab CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTabObject
+---@field CommunityCards CommunitiesFrame_CommunityFinderFrame_CommunityCardsObject
+---@field DisabledFrame CommunitiesFrame_CommunityFinderFrame_DisabledFrameObject
+---@field GuildCards CommunitiesFrame_CommunityFinderFrame_GuildCardsObject
+---@field InsetFrame CommunitiesFrame_CommunityFinderFrame_InsetFrameObject
+---@field OptionsList CommunitiesFrame_CommunityFinderFrame_OptionsListObject
+---@field PendingCommunityCards CommunitiesFrame_CommunityFinderFrame_PendingCommunityCardsObject
+---@field PendingGuildCards CommunitiesFrame_CommunityFinderFrame_PendingGuildCardsObject
+---@field RequestToJoinFrame CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrameObject
+local CommunitiesFrame_CommunityFinderFrameObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrameObject:ClearAllCardLists(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrameObject:ClubFinderOnClickHyperLink(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrameObject:GetDisplayModeBasedOnSelectedTab(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrameObject:OnEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrameObject:OnHide(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrameObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrameObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrameObject:UpdateEnabledState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrameObject:UpdatePendingTab(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrameObject:UpdateType(...) end
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject : Frame
----@field BGLabel DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_BGLabelObject
----@field Fade DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_FadeObject
----@field Glow DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_GlowObject
----@field Label DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_LabelObject
----@field animateGlow boolean
----@field justifyH string
----@field label string
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject = {}
+---@class CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTabObject : CheckButton
+---@field Icon CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTab_IconObject
+---@field IconOverlay CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTab_IconOverlayObject
+---@field iconTexture string
+---@field tooltip string
+local CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTabObject = {}
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:AddLayoutChildren(...) end
+function CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTabObject:OnClick(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:ClearAlert(...) end
+function CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTabObject:OnEnter(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:ClearFixedSize(...) end
+function CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTabObject:OnLeave(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetAdditionalRegions(...) end
+function CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTabObject:OnLoad(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetChildHeight(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetChildSize(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetChildWidth(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetFixedHeight(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetFixedSize(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetFixedWidth(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetHeightPadding(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetLayoutChildren(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetMaximumWidth(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetMinimumWidth(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetTextWidth(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetWidthPadding(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:IgnoreLayoutIndex(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:IsDirty(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:IsLayoutFrame(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:Layout(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:MarkClean(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:MarkDirty(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:MarkIgnoreInLayout(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:NewFeatureLabel_OnShow(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:OnCleaned(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:OnHide(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:OnLoad(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:OnShow(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:OnUpdate(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:SetFixedHeight(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:SetFixedSize(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:SetFixedWidth(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:SetHeightPadding(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:SetMaximumWidth(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:SetMinimumWidth(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:SetWidthPadding(...) end
----@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:ShouldClearOnUpdateAfterClean(...) end
+function CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTabObject:SetTab(...) end
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_BGLabelObject : FontString
----@field ignoreInLayout boolean
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_BGLabelObject = {}
+---@class CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTab_IconObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTab_IconObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_FadeObject : AnimationGroup
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_FadeObject = {}
+---@class CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTab_IconOverlayObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTab_IconOverlayObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_GlowObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_GlowObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_LabelObject : FontString
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_LabelObject = {}
-end
-
-do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsListObject : Frame
----@field Bottom DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_BottomObject
----@field Middle DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_MiddleObject
----@field ScrollBox DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject
----@field Top DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_TopObject
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsListObject = {}
+---@class CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTabObject : CheckButton
+---@field Icon CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTab_IconObject
+---@field IconOverlay CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTab_IconOverlayObject
+---@field iconTexture string
+---@field tooltip string
+local CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTabObject = {}
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsListObject:OnHide(...) end
+function CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTabObject:OnClick(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsListObject:OnShow(...) end
+function CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTabObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTabObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTabObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTabObject:SetTab(...) end
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_BottomObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_BottomObject = {}
+---@class CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTab_IconObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTab_IconObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_MiddleObject : Texture
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_MiddleObject = {}
+---@class CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTab_IconOverlayObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTab_IconOverlayObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject : Frame
----@field Defaults DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_DefaultsObject
----@field Directions DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_DirectionsObject
----@field DragDelegate DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_DragDelegateObject
----@field Event DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_EventObject
----@field ScrollTarget DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject
----@field Shadows DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ShadowsObject
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCardsObject : Frame
+---@field CardList table
+---@field ScrollBar CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject
+---@field ScrollBox CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBoxObject
+local CommunitiesFrame_CommunityFinderFrame_CommunityCardsObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCardsObject:BuildCardList(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCardsObject:ClearCardList(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCardsObject:FindAndSetReportedCard(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCardsObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCardsObject:OnScrollBoxScroll(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCardsObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCardsObject:RefreshLayout(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCardsObject:UpateCardsAlreadyInList(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject : Frame
+---@field Back CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject
+---@field Defaults CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_DefaultsObject
+---@field Directions CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_DirectionsObject
+---@field Event CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_EventObject
+---@field Forward CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject
+---@field Track CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_TrackObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field hideTrack boolean
+---@field hideTrackIfThumbExceedsTrack boolean
+---@field interpolator CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_interpolatorObject
+---@field isScrollController boolean
+---@field minThumbExtent number
+---@field panDelay number
+---@field panExtentPercentage number
+---@field panRepeatTime number
+---@field registeredScrollBox CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject
+---@field scrollPercentage number
+---@field smartNavigationIgnored boolean
+---@field snapToInterval boolean
+---@field thumbAnchor string
+---@field useProportionalThumb boolean
+---@field visibleExtentPercentage number
+---@field wheelPanScalar number
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:CallInternalScope(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:CanCursorStepInDirection(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:CanInterpolateScroll(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:DisableControls(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:EnableInternalPriority(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:EnableSnapToInterval(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetBackStepper(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetForwardStepper(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetFrameExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetIntervalRange(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetLower(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetPanExtentPercentage(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetPanRepeatDelay(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetPanRepeatTime(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetScrollInterpolator(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetScrollPercentage(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetThumb(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetThumbAnchor(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetTrack(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetTrackExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetUpper(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetWheelPanPercentage(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:HasScrollableExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:Init(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:InitializeNarration(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:Interpolate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:IsAtBegin(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:IsAtEnd(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:IsHorizontal(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:IsScrollAllowed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:IsThumbMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:OnHide_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:OnMouseWheel(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:OnShow_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:OnStepperMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:OnThumbMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:OnTrackMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:ScrollDecrease(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:ScrollInDirection(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:ScrollIncrease(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:ScrollPageInDirection(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:ScrollStepInDirection(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:ScrollToBegin(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:ScrollToEnd(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:ScrollWheelInDirection(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SelectCursorComponent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SelectPointComponent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetFrameExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetHideIfUnscrollable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetHorizontal(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetInterpolateScroll(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetPanExtentPercentage(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetScrollAllowed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetScrollPercentage(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetThumbExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetVisibleExtentPercentage(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:UnregisterUpdate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:Update(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:onButtonMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:scrollInternal(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject : Button
+---@field Event CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Back_EventObject
+---@field Texture CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Back_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:GetAtlas(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:IsDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:IsDownOver(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:IsOver(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:NarrationGetName(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnButtonStateChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnDisable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnEnable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:SetDisplacedRegions(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Back_EventObject
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Back_EventObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Back_TextureObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Back_TextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_DefaultsObject
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_DefaultsObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_DirectionsObject
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_DirectionsObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_EventObject
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_EventObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject : Button
+---@field Event CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Forward_EventObject
+---@field Texture CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Forward_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:GetAtlas(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:IsDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:IsDownOver(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:IsOver(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:NarrationGetName(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnDisable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnEnable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Forward_EventObject
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Forward_EventObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Forward_TextureObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Forward_TextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_TrackObject : Frame
+---@field Begin CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_BeginObject
+---@field End CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_EndObject
+---@field Middle CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_MiddleObject
+---@field Thumb CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_TrackObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_BeginObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_BeginObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_EndObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_EndObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_MiddleObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject : Button
+---@field Begin CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_BeginObject
+---@field End CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_EndObject
+---@field Event CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_EventObject
+---@field Middle CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_MiddleObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field downBeginTexture string
+---@field downEndTexture string
+---@field downMiddleTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field overBeginTexture string
+---@field overEndTexture string
+---@field overMiddleTexture string
+---@field upBeginTexture string
+---@field upEndTexture string
+---@field upMiddleTexture string
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:IsDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:IsOver(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnDisable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnEnable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_BeginObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_BeginObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_EndObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_EndObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_EventObject
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_EventObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_MiddleObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_interpolatorObject
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_interpolatorObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_interpolatorObject:Cancel(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_interpolatorObject:Interpolate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_interpolatorObject:interpolateFunc(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject : Frame
+---@field Defaults CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_DefaultsObject
+---@field Directions CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_DirectionsObject
+---@field DragDelegate CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_DragDelegateObject
+---@field Event CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_EventObject
+---@field ScrollTarget CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject
+---@field Shadows CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ShadowsObject
 ---@field allowScroll boolean
 ---@field callbackTables table
 ---@field canInterpolateScroll boolean
@@ -8339,317 +2375,4585 @@ do
 ---@field executingEvents table
 ---@field isScrollController boolean
 ---@field panExtentPercentage number
----@field view DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject
+---@field registeredScrollBar CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_registeredScrollBarObject
+---@field updateLock boolean
+---@field view CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject
 ---@field wheelPanScalar number
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject = {}
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject = {}
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ApplyEdgeFade(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ApplyEdgeFade(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:CalculateEdgeFade(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:CalculateEdgeFade(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:CalculatePanExtentPercentage(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:CalculatePanExtentPercentage(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:CalculateScrollPercentage(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:CalculateScrollPercentage(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:CanInterpolateScroll(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:CanInterpolateScroll(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ClearEdgeFade(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ClearEdgeFade(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ContainsElementDataByPredicate(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ContainsElementDataByPredicate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:CopyDeferredCallbacks(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:DoesFrameHaveEvent(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:EnableSnapToInterval(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:EnableSnapToInterval(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:EnumerateDataProvider(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:EnumerateDataProvider(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:EnumerateDataProviderEntireRange(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:EnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:EnumerateFrames(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:EnumerateFrames(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:FindByPredicate(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:FindByPredicate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:FindElementData(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:FindElementData(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:FindElementDataByPredicate(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:FindElementDataByPredicate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:FindElementDataIndex(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:FindElementDataIndex(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:FindElementDataIndexByPredicate(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:FindElementDataIndexByPredicate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:FindFrame(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:FindFrame(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:FindFrameByPredicate(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:FindFrameByPredicate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:FindFrameElementDataIndex(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:FindFrameElementDataIndex(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:Flush(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:Flush(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:FlushDataProvider(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:FlushDataProvider(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ForEachElementData(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ForEachElementData(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ForEachFrame(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ForEachFrame(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:FullUpdate(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:FullUpdate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:FullUpdateInternal(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:FullUpdateInternal(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GenerateCallbackEvents(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetBottomPadding(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetBottomPadding(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetCallbackTable(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetCallbackTable(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetCallbackTables(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetCallbackTables(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetCallbacksByEvent(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetDataIndexBegin(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetDataIndexBegin(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetDataIndexEnd(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetDataIndexEnd(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetDataProvider(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetDataProvider(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetDataProviderSize(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetDataProviderSize(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetDerivedExtent(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetDerivedExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetDerivedScrollOffset(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetDerivedScrollOffset(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetDerivedScrollRange(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetDerivedScrollRange(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetElementExtent(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetElementExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetExtent(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetExtentPadding(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetExtentPadding(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetExtentUntil(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetExtentUntil(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetFrameCount(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetFrameCount(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetFrameExtent(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetFrameExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetFrames(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetFrames(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetIntervalRange(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetIntervalRange(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetLeftPadding(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetLeftPadding(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetLower(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetLower(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetLowerPadding(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetLowerPadding(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetLowerShadowTexture(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetLowerShadowTexture(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetMutableCallbacksByEvent(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetPadding(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetPadding(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetPanExtent(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetPanExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetPanExtentPercentage(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetRightPadding(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetRightPadding(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetScrollInterpolator(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetScrollInterpolator(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetScrollPercentage(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetScrollPercentage(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetScrollTarget(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetScrollTarget(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetTopPadding(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetTopPadding(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetUpper(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetUpper(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetUpperPadding(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetUpperPadding(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetUpperShadowTexture(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetUpperShadowTexture(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetView(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetView(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetVisibleExtent(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetVisibleExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetVisibleExtentPercentage(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetWheelPanPercentage(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:HasDataProvider(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:HasDataProvider(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:HasEdgeFade(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:HasEdgeFade(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:HasRegistrantsForEvent(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:HasScrollableExtent(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:HasScrollableExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:HasView(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:HasView(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:Init(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:Init(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:Interpolate(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:Interpolate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:IsAcquireLocked(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:IsAcquireLocked(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:IsAlignmentOverlapIgnored(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:IsAlignmentOverlapIgnored(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:IsAtBegin(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:IsAtBegin(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:IsAtEnd(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:IsAtEnd(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:IsHorizontal(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:IsHorizontal(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:IsScrollAllowed(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:IsScrollAllowed(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:IsScrollToDataIndexSafe(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:IsScrollToDataIndexSafe(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:IsUpdateLocked(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:IsUpdateLocked(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:IsVirtualized(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:IsVirtualized(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:Layout(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:Layout(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:OnLoad(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:OnLoad(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:OnMouseWheel(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:OnMouseWheel(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:OnScrollTargetSizeChanged(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:OnScrollTargetSizeChanged(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:OnSizeChanged(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:OnSizeChanged(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:OnViewAcquiredFrame(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:OnViewAcquiredFrame(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:OnViewDataChanged(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:OnViewDataChanged(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:OnViewDataProviderReassigned(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:OnViewDataProviderReassigned(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:OnViewInitializedFrame(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:OnViewInitializedFrame(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:OnViewReleasedFrame(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:OnViewReleasedFrame(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:Rebuild(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:Rebuild(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:RecalculateDerivedExtent(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:RecalculateDerivedExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ReconcileDeferredCallbacks(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:RegisterCallback(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:RegisterCallback(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:RegisterCallbackWithHandle(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ReinitializeFrames(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ReinitializeFrames(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:RemoveDataProvider(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:RemoveDataProvider(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ReverseEnumerateDataProvider(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProvider(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ReverseForEachElementData(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ReverseForEachElementData(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ReverseForEachFrame(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ReverseForEachFrame(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SanitizeAlignment(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SanitizeAlignment(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollDecrease(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollDecrease(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollInDirection(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollInDirection(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollIncrease(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollIncrease(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollToBegin(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToBegin(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollToElementData(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToElementData(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollToElementDataByPredicate(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToElementDataByPredicate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollToElementDataIndex(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToElementDataIndex(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollToEnd(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToEnd(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollToFrame(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToFrame(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollToNearest(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToNearest(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollToNearestByPredicate(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToNearestByPredicate(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollToOffset(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToOffset(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SecureInsertEvent(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SecureInsertEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SelectCursorComponent(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SelectCursorComponent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SelectPointComponent(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SelectPointComponent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetAlignmentOverlapIgnored(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetAlignmentOverlapIgnored(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetDataProvider(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetDataProvider(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetEdgeFadeLength(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetEdgeFadeLength(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetFrameExtent(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetFrameExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetHorizontal(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetHorizontal(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetInterpolateScroll(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetInterpolateScroll(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetLowerShadowAtlas(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetLowerShadowAtlas(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetPadding(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetPadding(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetPanExtent(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetPanExtent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetPanExtentPercentage(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetScrollAllowed(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetScrollAllowed(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetScrollPercentage(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetScrollPercentage(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetScrollPercentageInternal(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetScrollTargetOffset(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetScrollTargetOffset(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetShadowsFrameLevel(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetShadowsFrameLevel(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetShadowsScale(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetShadowsScale(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetShadowsShown(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetShadowsShown(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetUndefinedEventsAllowed(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetUpdateLocked(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetUpdateLocked(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetUpperShadowAtlas(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetUpperShadowAtlas(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetUseShadowsForEdgeFade(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetUseShadowsForEdgeFade(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetView(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetView(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:TriggerEvent(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:TriggerEvent(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:UnregisterCallback(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:UnregisterCallback(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:UnregisterEvents(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:UnregisterEvents(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:UnregisterEventsByEventTable(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:Update(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:Update(...) end
 ---@return any ...
-function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:scrollInternal(...) end
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:scrollInternal(...) end
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_DefaultsObject
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_DefaultsObject = {}
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_DefaultsObject
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_DefaultsObject = {}
 end
 
 do
----@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_DirectionsObject
-local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_DirectionsObject = {}
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_DirectionsObject
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_DirectionsObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_DragDelegateObject : Frame
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_DragDelegateObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_EventObject
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_EventObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject : Frame
+---@field Event CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTarget_EventObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ShadowsObject : Frame
+---@field Lower CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_Shadows_LowerObject
+---@field Upper CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_Shadows_UpperObject
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ShadowsObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_Shadows_LowerObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_Shadows_LowerObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_Shadows_UpperObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_Shadows_UpperObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_registeredScrollBarObject
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_registeredScrollBarObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject
+---@field Event table
+---@field FrameLevelPolicy table
+---@field callbackTables table
+---@field canSignalWithoutInitializer boolean
+---@field dataIndexBegin number
+---@field dataIndexEnd number
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field frameFactory table
+---@field frameTemplateOrFrameType string
+---@field frames table
+---@field initialized boolean
+---@field initializers table
+---@field padding table
+---@field scrollBox CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_view_scrollBoxObject
+---@field templateInfoCache table
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:AcquireInternal(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:AcquireRange(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:AssignAccessors(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:AttachDataProviderCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:CalculateDataIndices(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:CalculateFrameExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ClearCachedData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ClearElementExtentData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ClearInvalidation(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ContainsElementDataByPredicate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:DataProviderContentsChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:DetachDataProviderCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProvider(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:EnumerateFrames(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:FindByPredicate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:FindElementData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:FindElementDataByPredicate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndex(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:FindFrame(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:FindFrameByPredicate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:FindFrameElementDataIndex(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:Flush(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:FlushDataProvider(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ForEachElementData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ForEachFrame(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetDataIndexBegin(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetDataIndexEnd(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetDataProvider(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetDataProviderSize(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetDataRange(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetDataScrollOffset(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetElementExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetElementExtentCalculator(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetElementIndent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetExtentFromInfo(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetExtentSpacing(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetExtentTo(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetExtentUntil(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetFactoryDataFromElementData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetFirstTemplateInfo(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetFrameCount(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetFrameExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelCounter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelPolicy(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetFrames(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetIdenticalElementExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetIdenticalStrideExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetInvalidationReason(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetLayoutFunction(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetLower(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetPadding(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetPanExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetScrollBox(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetScrollTarget(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetSpacing(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetStride(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetTemplateInfo(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetUpper(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:HasBiaxalLayout(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:HasDataProvider(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:HasElementExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:HasIdenticalElementExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:HasIdenticalStrideExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:Init(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:InitDefaultDrag(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:InvokeInitializer(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:InvokeInitializers(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:IsAcquireLocked(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:IsDataIndexWithinRange(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:IsElementStretchDisabled(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:IsExtentValid(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:IsHorizontal(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:IsInitialized(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:IsInvalidated(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:IsVirtualized(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:Layout(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:LayoutInternal(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSizeChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSort(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:RebuildTemplateInfoCache(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:RecalculateExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:RefreshSmartNav(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ReinitializeFrames(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:Release(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:RemoveDataProvider(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:RemoveDataProviderInternal(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ResizeFrame(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ReverseForEachElementData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ReverseForEachFrame(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SelectCursorComponent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SelectPointComponent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetAcquireLocked(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetDataProvider(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetDataRange(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetElementExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetElementExtentCalculator(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetElementFactory(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetElementIndentCalculator(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetElementInitializer(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetElementResetter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetElementStretchDisabled(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetFrameExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetFrameFactoryResetter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetFrameLevelPolicy(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetHorizontal(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetInvalidationReason(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetMaxPanExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetPadding(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetPanExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetScrollBox(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetVirtualized(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SignalDataChangeEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SortFrames(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:UnassignAccessors(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ValidateDataRange(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:elementFactory(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:factory(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_view_scrollBoxObject
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_view_scrollBoxObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBoxObject
+local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBoxObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_DisabledFrameObject : Frame
+---@field Bg CommunitiesFrame_CommunityFinderFrame_DisabledFrame_BgObject
+---@field Description CommunitiesFrame_CommunityFinderFrame_DisabledFrame_DescriptionObject
+---@field NineSlice CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject
+---@field Title CommunitiesFrame_CommunityFinderFrame_DisabledFrame_TitleObject
+---@field layoutType string
+local CommunitiesFrame_CommunityFinderFrame_DisabledFrameObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_BgObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_BgObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_DescriptionObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_DescriptionObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject : Frame
+---@field BottomEdge CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_BottomRightCornerObject
+---@field LeftEdge CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_LeftEdgeObject
+---@field RightEdge CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_RightEdgeObject
+---@field TopEdge CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_TopRightCornerObject
+local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_BottomEdgeObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_BottomLeftCornerObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_BottomRightCornerObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_LeftEdgeObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_RightEdgeObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_TopEdgeObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_TopLeftCornerObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_TopRightCornerObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_TitleObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_TitleObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCardsObject : Frame
+---@field CardList table
+---@field Cards table
+---@field FirstCard CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject
+---@field NextPage CommunitiesFrame_CommunityFinderFrame_GuildCards_NextPageObject
+---@field PreviousPage CommunitiesFrame_CommunityFinderFrame_GuildCards_PreviousPageObject
+---@field SearchingSpinner CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinnerObject
+---@field SecondCard CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject
+---@field ThirdCard CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject
+---@field numPages number
+---@field pageNumber number
+local CommunitiesFrame_CommunityFinderFrame_GuildCardsObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:BuildCardList(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:ClearCardList(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:FindAndSetReportedCard(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:FindAndUpdateGuildRealmName(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:HideCardList(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:OnHide(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:OnMouseWheel(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:PageNext(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:PagePrevious(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:RefreshLayout(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:SetSearchingState(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject : Button
+---@field CardBackground CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_CardBackgroundObject
+---@field Description CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_DescriptionObject
+---@field Focus CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_FocusObject
+---@field GuildBannerBackground CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerBackgroundObject
+---@field GuildBannerBorder CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerBorderObject
+---@field GuildBannerEmblemLogo CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerEmblemLogoObject
+---@field GuildBannerShadow CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerShadowObject
+---@field MemberCount CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_MemberCountObject
+---@field MemberIcon CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_MemberIconObject
+---@field Name CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_NameObject
+---@field ReportedDescription CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_ReportedDescriptionObject
+---@field RequestJoin CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoinObject
+---@field RequestStatus CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestStatusObject
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:CreateRecruitingSpecsMap(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:GetCardName(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:GetCardStatus(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:GetClubGUID(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:GetLastPosterGUID(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:IsReported(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:OnClick(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:RequestToJoinClub(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:SetReportedCardState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:UpdateCard(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_CardBackgroundObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_CardBackgroundObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_DescriptionObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_DescriptionObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_FocusObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_FocusObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerBackgroundObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerBackgroundObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerBorderObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerBorderObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerEmblemLogoObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerEmblemLogoObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerShadowObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerShadowObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_MemberCountObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_MemberCountObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_MemberIconObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_MemberIconObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_NameObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_NameObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_ReportedDescriptionObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_ReportedDescriptionObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoinObject : Button
+---@field Left CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_LeftObject
+---@field Middle CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_MiddleObject
+---@field Right CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_RightObject
+---@field Text CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoinObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoinObject:FitToText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoinObject:GetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoinObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoinObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoinObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoinObject:SetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoinObject:SetTextToFit(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_LeftObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_LeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_MiddleObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_RightObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_RightObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_TextObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestStatusObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestStatusObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_NextPageObject : Button
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_NextPageObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_PreviousPageObject : Button
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_PreviousPageObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinnerObject : Frame
+---@field Anim CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_AnimObject
+---@field Label CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_LabelObject
+---@field Ring CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_RingObject
+---@field Sparks CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_SparksObject
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinnerObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinnerObject:GetShadowAlpha(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinnerObject:OnHide(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinnerObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinnerObject:OnSizeChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinnerObject:SetDesaturated(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinnerObject:SetShadowEnabled(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinnerObject:UpdateShadowSize(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinnerObject:UpdateTheme(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_AnimObject : AnimationGroup
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_AnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_LabelObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_LabelObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_RingObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_RingObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_SparksObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_SparksObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject : Button
+---@field CardBackground CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_CardBackgroundObject
+---@field Description CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_DescriptionObject
+---@field Focus CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_FocusObject
+---@field GuildBannerBackground CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerBackgroundObject
+---@field GuildBannerBorder CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerBorderObject
+---@field GuildBannerEmblemLogo CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerEmblemLogoObject
+---@field GuildBannerShadow CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerShadowObject
+---@field MemberCount CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_MemberCountObject
+---@field MemberIcon CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_MemberIconObject
+---@field Name CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_NameObject
+---@field ReportedDescription CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_ReportedDescriptionObject
+---@field RequestJoin CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoinObject
+---@field RequestStatus CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestStatusObject
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:CreateRecruitingSpecsMap(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:GetCardName(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:GetCardStatus(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:GetClubGUID(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:GetLastPosterGUID(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:IsReported(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:OnClick(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:RequestToJoinClub(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:SetReportedCardState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:UpdateCard(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_CardBackgroundObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_CardBackgroundObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_DescriptionObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_DescriptionObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_FocusObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_FocusObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerBackgroundObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerBackgroundObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerBorderObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerBorderObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerEmblemLogoObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerEmblemLogoObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerShadowObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerShadowObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_MemberCountObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_MemberCountObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_MemberIconObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_MemberIconObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_NameObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_NameObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_ReportedDescriptionObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_ReportedDescriptionObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoinObject : Button
+---@field Left CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_LeftObject
+---@field Middle CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_MiddleObject
+---@field Right CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_RightObject
+---@field Text CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoinObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoinObject:FitToText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoinObject:GetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoinObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoinObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoinObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoinObject:SetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoinObject:SetTextToFit(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_LeftObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_LeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_MiddleObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_RightObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_RightObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_TextObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestStatusObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestStatusObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject : Button
+---@field CardBackground CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_CardBackgroundObject
+---@field Description CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_DescriptionObject
+---@field Focus CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_FocusObject
+---@field GuildBannerBackground CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerBackgroundObject
+---@field GuildBannerBorder CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerBorderObject
+---@field GuildBannerEmblemLogo CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerEmblemLogoObject
+---@field GuildBannerShadow CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerShadowObject
+---@field MemberCount CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_MemberCountObject
+---@field MemberIcon CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_MemberIconObject
+---@field Name CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_NameObject
+---@field ReportedDescription CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_ReportedDescriptionObject
+---@field RequestJoin CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoinObject
+---@field RequestStatus CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestStatusObject
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:CreateRecruitingSpecsMap(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:GetCardName(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:GetCardStatus(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:GetClubGUID(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:GetLastPosterGUID(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:IsReported(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:OnClick(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:RequestToJoinClub(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:SetReportedCardState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:UpdateCard(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_CardBackgroundObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_CardBackgroundObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_DescriptionObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_DescriptionObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_FocusObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_FocusObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerBackgroundObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerBackgroundObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerBorderObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerBorderObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerEmblemLogoObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerEmblemLogoObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerShadowObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerShadowObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_MemberCountObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_MemberCountObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_MemberIconObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_MemberIconObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_NameObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_NameObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_ReportedDescriptionObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_ReportedDescriptionObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoinObject : Button
+---@field Left CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_LeftObject
+---@field Middle CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_MiddleObject
+---@field Right CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_RightObject
+---@field Text CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoinObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoinObject:FitToText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoinObject:GetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoinObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoinObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoinObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoinObject:SetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoinObject:SetTextToFit(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_LeftObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_LeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_MiddleObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_RightObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_RightObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_TextObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestStatusObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestStatusObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_InsetFrameObject : Frame
+---@field Bg CommunitiesFrame_CommunityFinderFrame_InsetFrame_BgObject
+---@field ErrorDescription CommunitiesFrame_CommunityFinderFrame_InsetFrame_ErrorDescriptionObject
+---@field GuildDescription CommunitiesFrame_CommunityFinderFrame_InsetFrame_GuildDescriptionObject
+---@field NineSlice CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject
+---@field layoutType string
+local CommunitiesFrame_CommunityFinderFrame_InsetFrameObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_BgObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_InsetFrame_BgObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_ErrorDescriptionObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_InsetFrame_ErrorDescriptionObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_GuildDescriptionObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_InsetFrame_GuildDescriptionObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject : Frame
+---@field BottomEdge CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_BottomRightCornerObject
+---@field LeftEdge CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_LeftEdgeObject
+---@field RightEdge CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_RightEdgeObject
+---@field TopEdge CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_TopRightCornerObject
+local CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_BottomEdgeObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_BottomLeftCornerObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_BottomRightCornerObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_LeftEdgeObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_RightEdgeObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_TopEdgeObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_TopLeftCornerObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_TopRightCornerObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsListObject : Frame
+---@field ClubFilterDropdown CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject
+---@field ClubSizeDropdown CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject
+---@field DpsRoleFrame CommunitiesFrame_CommunityFinderFrame_OptionsList_DpsRoleFrameObject
+---@field HealerRoleFrame CommunitiesFrame_CommunityFinderFrame_OptionsList_HealerRoleFrameObject
+---@field PendingTextFrame CommunitiesFrame_CommunityFinderFrame_OptionsList_PendingTextFrameObject
+---@field Search CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchObject
+---@field SearchBox CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBoxObject
+---@field SortByDropdown CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject
+---@field TankRoleFrame CommunitiesFrame_CommunityFinderFrame_OptionsList_TankRoleFrameObject
+local CommunitiesFrame_CommunityFinderFrame_OptionsListObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:CheckDisabled(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:InitializeRoleButton(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:InitializeRoleButtons(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:OnSearchButtonClick(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:RefreshRoleButtons(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:SetEnabledRoles(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:SetOptionsState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:SetType(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:SetupCommunityFinderOptions(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:SetupGuildFinderOptions(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject : Button
+---@field Arrow CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_ArrowObject
+---@field Background CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_BackgroundObject
+---@field Event CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_EventObject
+---@field Label CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_LabelObject
+---@field Text CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field labelText string
+---@field menuAnchor CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:ClearMenuState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:CloseMenu(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:CollectSelectionData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:CreateRootDescription(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:Decrement(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GenerateMenu(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GetArrowAtlas(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GetDefaultText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GetLocaleFlag(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GetMenuDescription(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GetSelectionData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GetUpdateText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:HasElements(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:HasStickyFocus(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:Increment(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:IsDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:IsDownOver(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:IsLocaleFlagSet(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:IsMenuOpen(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:IsOver(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:NarrationGetContext(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:NarrationGetName(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnDisable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnEnable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnMenuChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnMenuClosed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnMenuOpened(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnMenuResponse(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OpenMenu(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OverrideText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:Pick(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:RegisterMenu(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:Rotate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SetDefaultText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SetLocaleFlag(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SetLocaleFlags(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SetMenuOpen(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SetSelectionText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SetTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SetupMenu(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:ShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SignalUpdate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:Update(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:UpdateSelections(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:UpdateText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:selectionTranslator(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_ArrowObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_ArrowObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_BackgroundObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_BackgroundObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_EventObject
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_EventObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_LabelObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_LabelObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_TextObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchor_relativeToObject
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject : Button
+---@field Arrow CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_ArrowObject
+---@field Background CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_BackgroundObject
+---@field Event CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_EventObject
+---@field Label CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_LabelObject
+---@field Text CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field labelText string
+---@field menuAnchor CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_menuAnchorObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:ClearMenuState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:CloseMenu(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:CollectSelectionData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:CreateRootDescription(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:Decrement(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:GenerateMenu(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:GetArrowAtlas(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:GetDefaultText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:GetMenuDescription(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:GetSelectionData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:GetUpdateText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:HasElements(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:HasStickyFocus(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:Increment(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:IsDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:IsDownOver(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:IsMenuOpen(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:IsOver(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:NarrationGetContext(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:NarrationGetName(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnDisable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnEnable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnMenuChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnMenuClosed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnMenuOpened(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnMenuResponse(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OpenMenu(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OverrideText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:Pick(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:RegisterMenu(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:Rotate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:SetDefaultText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:SetMenuOpen(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:SetSelectionText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:SetTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:SetupMenu(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:ShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:SignalUpdate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:Update(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:UpdateSelections(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:UpdateText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:selectionTranslator(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_ArrowObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_ArrowObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_BackgroundObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_BackgroundObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_EventObject
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_EventObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_LabelObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_LabelObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_TextObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_menuAnchorObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_menuAnchor_relativeToObject
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_DpsRoleFrameObject : Frame
+---@field Checkbox CommunitiesFrame_CommunityFinderFrame_OptionsList_DpsRoleFrame_CheckboxObject
+---@field Icon CommunitiesFrame_CommunityFinderFrame_OptionsList_DpsRoleFrame_IconObject
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_DpsRoleFrameObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_DpsRoleFrameObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_DpsRoleFrameObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_DpsRoleFrameObject:SetEnabled(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_DpsRoleFrame_CheckboxObject : CheckButton
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_DpsRoleFrame_CheckboxObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_DpsRoleFrame_CheckboxObject:OnClick(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_DpsRoleFrame_CheckboxObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_DpsRoleFrame_CheckboxObject:OnLeave(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_DpsRoleFrame_IconObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_DpsRoleFrame_IconObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_HealerRoleFrameObject : Frame
+---@field Checkbox CommunitiesFrame_CommunityFinderFrame_OptionsList_HealerRoleFrame_CheckboxObject
+---@field Icon CommunitiesFrame_CommunityFinderFrame_OptionsList_HealerRoleFrame_IconObject
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_HealerRoleFrameObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_HealerRoleFrameObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_HealerRoleFrameObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_HealerRoleFrameObject:SetEnabled(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_HealerRoleFrame_CheckboxObject : CheckButton
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_HealerRoleFrame_CheckboxObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_HealerRoleFrame_CheckboxObject:OnClick(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_HealerRoleFrame_CheckboxObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_HealerRoleFrame_CheckboxObject:OnLeave(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_HealerRoleFrame_IconObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_HealerRoleFrame_IconObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_PendingTextFrameObject : Frame
+---@field Text CommunitiesFrame_CommunityFinderFrame_OptionsList_PendingTextFrame_TextObject
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_PendingTextFrameObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_PendingTextFrame_TextObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_PendingTextFrame_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchObject : Button
+---@field Left CommunitiesFrame_CommunityFinderFrame_OptionsList_Search_LeftObject
+---@field Middle CommunitiesFrame_CommunityFinderFrame_OptionsList_Search_MiddleObject
+---@field Right CommunitiesFrame_CommunityFinderFrame_OptionsList_Search_RightObject
+---@field Text CommunitiesFrame_CommunityFinderFrame_OptionsList_Search_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+---@field searchBox CommunitiesFrame_CommunityFinderFrame_OptionsList_Search_searchBoxObject
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchObject:FitToText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchObject:GetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchObject:HideTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchObject:OnClick(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchObject:SetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchObject:SetSearchBox(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchObject:SetTextToFit(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchObject:ShouldBeEnabled(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchObject:ShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchObject:UpdateEnabledState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchObject:UpdateTooltip(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_Search_LeftObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_Search_LeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_Search_MiddleObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_Search_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_Search_RightObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_Search_RightObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_Search_TextObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_Search_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_Search_searchBoxObject
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_Search_searchBoxObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBoxObject : EditBox
+---@field Instructions CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_InstructionsObject
+---@field Left CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_LeftObject
+---@field Middle CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_MiddleObject
+---@field Right CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_RightObject
+---@field clearButton CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_clearButtonObject
+---@field instructionText string
+---@field searchIcon CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_searchIconObject
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBoxObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBoxObject:NarrationGetContext(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBoxObject:NarrationGetDescription(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBoxObject:NarrationGetName(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBoxObject:OnEnterPressed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBoxObject:OnTextChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBoxObject:SetNarrationLabelRegion(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_InstructionsObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_InstructionsObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_LeftObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_LeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_MiddleObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_RightObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_RightObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_clearButtonObject : Button
+---@field Icon CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_clearButton_IconObject
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_clearButtonObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_clearButtonObject:NarrationGetName(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_clearButtonObject:OnClick(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_clearButtonObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_clearButtonObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_clearButtonObject:OnMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_clearButtonObject:OnMouseUp(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_clearButton_IconObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_clearButton_IconObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_searchIconObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBox_searchIconObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject : Button
+---@field Arrow CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_ArrowObject
+---@field Background CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_BackgroundObject
+---@field Event CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_EventObject
+---@field Label CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_LabelObject
+---@field Text CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field labelText string
+---@field menuAnchor CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_menuAnchorObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:ClearMenuState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:CloseMenu(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:CollectSelectionData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:CreateRootDescription(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:Decrement(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:GenerateMenu(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:GetArrowAtlas(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:GetDefaultText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:GetMenuDescription(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:GetSelectionData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:GetUpdateText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:HasElements(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:HasStickyFocus(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:Increment(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:IsDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:IsDownOver(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:IsMenuOpen(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:IsOver(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:NarrationGetContext(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:NarrationGetName(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:OnDisable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:OnEnable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:OnMenuChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:OnMenuClosed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:OnMenuOpened(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:OnMenuResponse(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:OnMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:OnMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:OpenMenu(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:OverrideText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:Pick(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:RegisterMenu(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:Rotate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:SetDefaultText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:SetMenuOpen(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:SetSelectionText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:SetTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:SetupMenu(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:ShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:SignalUpdate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:Update(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:UpdateSelections(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:UpdateText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject:selectionTranslator(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_ArrowObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_ArrowObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_BackgroundObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_BackgroundObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_EventObject
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_EventObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_LabelObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_LabelObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_TextObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_menuAnchorObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_menuAnchor_relativeToObject
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_TankRoleFrameObject : Frame
+---@field Checkbox CommunitiesFrame_CommunityFinderFrame_OptionsList_TankRoleFrame_CheckboxObject
+---@field Icon CommunitiesFrame_CommunityFinderFrame_OptionsList_TankRoleFrame_IconObject
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_TankRoleFrameObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_TankRoleFrameObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_TankRoleFrameObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_TankRoleFrameObject:SetEnabled(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_TankRoleFrame_CheckboxObject : CheckButton
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_TankRoleFrame_CheckboxObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_TankRoleFrame_CheckboxObject:OnClick(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_TankRoleFrame_CheckboxObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_OptionsList_TankRoleFrame_CheckboxObject:OnLeave(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_OptionsList_TankRoleFrame_IconObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_OptionsList_TankRoleFrame_IconObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCardsObject : Frame
+---@field CardList table
+---@field ScrollBar CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject
+---@field ScrollBox CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBoxObject
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCardsObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCardsObject:BuildCardList(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCardsObject:ClearCardList(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCardsObject:FindAndSetReportedCard(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCardsObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCardsObject:OnScrollBoxScroll(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCardsObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCardsObject:RefreshLayout(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCardsObject:UpateCardsAlreadyInList(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject : Frame
+---@field Back CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject
+---@field Defaults CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_DefaultsObject
+---@field Directions CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_DirectionsObject
+---@field Event CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_EventObject
+---@field Forward CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject
+---@field Track CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_TrackObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field hideTrack boolean
+---@field hideTrackIfThumbExceedsTrack boolean
+---@field interpolator CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_interpolatorObject
+---@field isScrollController boolean
+---@field minThumbExtent number
+---@field panDelay number
+---@field panExtentPercentage number
+---@field panRepeatTime number
+---@field registeredScrollBox CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject
+---@field scrollPercentage number
+---@field smartNavigationIgnored boolean
+---@field snapToInterval boolean
+---@field thumbAnchor string
+---@field useProportionalThumb boolean
+---@field visibleExtentPercentage number
+---@field wheelPanScalar number
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:CallInternalScope(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:CanCursorStepInDirection(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:CanInterpolateScroll(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:DisableControls(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:EnableInternalPriority(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:EnableSnapToInterval(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:GetBackStepper(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:GetForwardStepper(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:GetFrameExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:GetIntervalRange(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:GetLower(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:GetPanExtentPercentage(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:GetPanRepeatDelay(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:GetPanRepeatTime(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:GetScrollInterpolator(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:GetScrollPercentage(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:GetThumb(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:GetThumbAnchor(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:GetTrack(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:GetTrackExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:GetUpper(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:GetWheelPanPercentage(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:HasScrollableExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:Init(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:InitializeNarration(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:Interpolate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:IsAtBegin(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:IsAtEnd(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:IsHorizontal(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:IsScrollAllowed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:IsThumbMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:OnHide_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:OnMouseWheel(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:OnShow_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:OnStepperMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:OnThumbMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:OnTrackMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:ScrollDecrease(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:ScrollInDirection(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:ScrollIncrease(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:ScrollPageInDirection(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:ScrollStepInDirection(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:ScrollToBegin(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:ScrollToEnd(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:ScrollWheelInDirection(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:SelectCursorComponent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:SelectPointComponent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:SetFrameExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:SetHideIfUnscrollable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:SetHorizontal(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:SetInterpolateScroll(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:SetPanExtentPercentage(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:SetScrollAllowed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:SetScrollPercentage(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:SetThumbExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:SetVisibleExtentPercentage(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:UnregisterUpdate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:Update(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:onButtonMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBarObject:scrollInternal(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject : Button
+---@field Event CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Back_EventObject
+---@field Texture CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Back_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:GetAtlas(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:IsDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:IsDownOver(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:IsOver(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:NarrationGetName(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:OnButtonStateChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:OnDisable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:OnEnable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:OnMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:OnMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:SetDisplacedRegions(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Back_EventObject
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Back_EventObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Back_TextureObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Back_TextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_DefaultsObject
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_DefaultsObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_DirectionsObject
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_DirectionsObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_EventObject
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_EventObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject : Button
+---@field Event CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Forward_EventObject
+---@field Texture CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Forward_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:GetAtlas(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:IsDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:IsDownOver(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:IsOver(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:NarrationGetName(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:OnDisable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:OnEnable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:OnMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:OnMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Forward_EventObject
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Forward_EventObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Forward_TextureObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Forward_TextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_TrackObject : Frame
+---@field Begin CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_BeginObject
+---@field End CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_EndObject
+---@field Middle CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_MiddleObject
+---@field Thumb CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_TrackObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_BeginObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_BeginObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_EndObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_EndObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_MiddleObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject : Button
+---@field Begin CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_Thumb_BeginObject
+---@field End CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_Thumb_EndObject
+---@field Event CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_Thumb_EventObject
+---@field Middle CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_Thumb_MiddleObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field downBeginTexture string
+---@field downEndTexture string
+---@field downMiddleTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field overBeginTexture string
+---@field overEndTexture string
+---@field overMiddleTexture string
+---@field upBeginTexture string
+---@field upEndTexture string
+---@field upMiddleTexture string
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:IsDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:IsOver(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:OnDisable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:OnEnable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_Thumb_BeginObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_Thumb_BeginObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_Thumb_EndObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_Thumb_EndObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_Thumb_EventObject
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_Thumb_EventObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_Thumb_MiddleObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_Track_Thumb_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_interpolatorObject
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_interpolatorObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_interpolatorObject:Cancel(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_interpolatorObject:Interpolate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_interpolatorObject:interpolateFunc(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject : Frame
+---@field Defaults CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_DefaultsObject
+---@field Directions CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_DirectionsObject
+---@field DragDelegate CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_DragDelegateObject
+---@field Event CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_EventObject
+---@field ScrollTarget CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject
+---@field Shadows CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ShadowsObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field debugInspectionSystem string
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field isScrollController boolean
+---@field panExtentPercentage number
+---@field registeredScrollBar CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_registeredScrollBarObject
+---@field updateLock boolean
+---@field view CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject
+---@field wheelPanScalar number
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ApplyEdgeFade(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:CalculateEdgeFade(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:CalculatePanExtentPercentage(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:CalculateScrollPercentage(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:CanInterpolateScroll(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ClearEdgeFade(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ContainsElementDataByPredicate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:EnableSnapToInterval(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:EnumerateDataProvider(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:EnumerateDataProviderEntireRange(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:EnumerateFrames(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:FindByPredicate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:FindElementData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:FindElementDataByPredicate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:FindElementDataIndex(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:FindElementDataIndexByPredicate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:FindFrame(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:FindFrameByPredicate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:FindFrameElementDataIndex(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:Flush(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:FlushDataProvider(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ForEachElementData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ForEachFrame(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:FullUpdate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:FullUpdateInternal(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetBottomPadding(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetDataIndexBegin(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetDataIndexEnd(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetDataProvider(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetDataProviderSize(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetDerivedExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetDerivedScrollOffset(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetDerivedScrollRange(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetElementExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetExtentPadding(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetExtentUntil(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetFrameCount(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetFrameExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetFrames(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetIntervalRange(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetLeftPadding(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetLower(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetLowerPadding(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetLowerShadowTexture(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetPadding(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetPanExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetPanExtentPercentage(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetRightPadding(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetScrollInterpolator(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetScrollPercentage(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetScrollTarget(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetTopPadding(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetUpper(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetUpperPadding(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetUpperShadowTexture(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetView(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetVisibleExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:GetWheelPanPercentage(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:HasDataProvider(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:HasEdgeFade(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:HasScrollableExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:HasView(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:Init(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:Interpolate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:IsAcquireLocked(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:IsAlignmentOverlapIgnored(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:IsAtBegin(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:IsAtEnd(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:IsHorizontal(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:IsScrollAllowed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:IsScrollToDataIndexSafe(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:IsUpdateLocked(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:IsVirtualized(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:Layout(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:OnMouseWheel(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:OnScrollTargetSizeChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:OnSizeChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:OnViewAcquiredFrame(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:OnViewDataChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:OnViewDataProviderReassigned(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:OnViewInitializedFrame(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:OnViewReleasedFrame(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:Rebuild(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:RecalculateDerivedExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ReinitializeFrames(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:RemoveDataProvider(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProvider(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ReverseForEachElementData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ReverseForEachFrame(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SanitizeAlignment(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ScrollDecrease(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ScrollInDirection(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ScrollIncrease(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToBegin(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToElementData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToElementDataByPredicate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToElementDataIndex(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToEnd(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToFrame(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToNearest(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToNearestByPredicate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToOffset(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SelectCursorComponent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SelectPointComponent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SetAlignmentOverlapIgnored(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SetDataProvider(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SetEdgeFadeLength(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SetFrameExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SetHorizontal(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SetInterpolateScroll(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SetLowerShadowAtlas(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SetPadding(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SetPanExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SetPanExtentPercentage(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SetScrollAllowed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SetScrollPercentage(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SetScrollTargetOffset(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SetShadowsFrameLevel(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SetShadowsScale(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SetShadowsShown(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SetUpdateLocked(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SetUpperShadowAtlas(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SetUseShadowsForEdgeFade(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:SetView(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:Update(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBoxObject:scrollInternal(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_DefaultsObject
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_DefaultsObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_DirectionsObject
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_DirectionsObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_DragDelegateObject : Frame
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_DragDelegateObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_EventObject
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_EventObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject : Frame
+---@field Event CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ScrollTarget_EventObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ShadowsObject : Frame
+---@field Lower CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_Shadows_LowerObject
+---@field Upper CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_Shadows_UpperObject
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_ShadowsObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_Shadows_LowerObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_Shadows_LowerObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_Shadows_UpperObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_Shadows_UpperObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_registeredScrollBarObject
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_registeredScrollBarObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject
+---@field Event table
+---@field FrameLevelPolicy table
+---@field callbackTables table
+---@field canSignalWithoutInitializer boolean
+---@field dataIndexBegin number
+---@field dataIndexEnd number
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field frameFactory table
+---@field frameTemplateOrFrameType string
+---@field frames table
+---@field initialized boolean
+---@field initializers table
+---@field padding table
+---@field scrollBox CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_view_scrollBoxObject
+---@field templateInfoCache table
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:AcquireInternal(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:AcquireRange(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:AssignAccessors(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:AttachDataProviderCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:CalculateDataIndices(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:CalculateFrameExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:ClearCachedData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:ClearElementExtentData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:ClearInvalidation(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:ContainsElementDataByPredicate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:DataProviderContentsChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:DetachDataProviderCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProvider(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:EnumerateFrames(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:FindByPredicate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:FindElementData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:FindElementDataByPredicate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndex(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:FindFrame(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:FindFrameByPredicate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:FindFrameElementDataIndex(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:Flush(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:FlushDataProvider(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:ForEachElementData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:ForEachFrame(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetDataIndexBegin(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetDataIndexEnd(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetDataProvider(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetDataProviderSize(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetDataRange(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetDataScrollOffset(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetElementExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetElementExtentCalculator(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetElementIndent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetExtentFromInfo(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetExtentSpacing(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetExtentTo(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetExtentUntil(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetFactoryDataFromElementData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetFirstTemplateInfo(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetFrameCount(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetFrameExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelCounter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelPolicy(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetFrames(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetIdenticalElementExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetIdenticalStrideExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetInvalidationReason(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetLayoutFunction(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetLower(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetPadding(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetPanExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetScrollBox(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetScrollTarget(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetSpacing(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetStride(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetTemplateInfo(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:GetUpper(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:HasBiaxalLayout(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:HasDataProvider(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:HasElementExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:HasIdenticalElementExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:HasIdenticalStrideExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:Init(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:InitDefaultDrag(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:InvokeInitializer(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:InvokeInitializers(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:IsAcquireLocked(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:IsDataIndexWithinRange(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:IsElementStretchDisabled(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:IsExtentValid(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:IsHorizontal(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:IsInitialized(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:IsInvalidated(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:IsVirtualized(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:Layout(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:LayoutInternal(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSizeChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSort(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:RebuildTemplateInfoCache(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:RecalculateExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:RefreshSmartNav(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:ReinitializeFrames(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:Release(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:RemoveDataProvider(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:RemoveDataProviderInternal(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:ResizeFrame(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:ReverseForEachElementData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:ReverseForEachFrame(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SelectCursorComponent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SelectPointComponent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SetAcquireLocked(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SetDataProvider(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SetDataRange(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SetElementExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SetElementExtentCalculator(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SetElementFactory(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SetElementIndentCalculator(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SetElementInitializer(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SetElementResetter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SetElementStretchDisabled(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SetExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SetFrameExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SetFrameFactoryResetter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SetFrameLevelPolicy(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SetHorizontal(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SetInvalidationReason(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SetMaxPanExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SetPadding(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SetPanExtent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SetScrollBox(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SetVirtualized(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SignalDataChangeEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:SortFrames(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:UnassignAccessors(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:ValidateDataRange(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:elementFactory(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_viewObject:factory(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_view_scrollBoxObject
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBar_registeredScrollBox_view_scrollBoxObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBoxObject
+local CommunitiesFrame_CommunityFinderFrame_PendingCommunityCards_ScrollBoxObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCardsObject : Frame
+---@field CardList table
+---@field Cards table
+---@field FirstCard CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCardObject
+---@field NextPage CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_NextPageObject
+---@field PreviousPage CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_PreviousPageObject
+---@field SearchingSpinner CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SearchingSpinnerObject
+---@field SecondCard CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCardObject
+---@field ThirdCard CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCardObject
+---@field numPages number
+---@field pageNumber number
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCardsObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCardsObject:BuildCardList(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCardsObject:ClearCardList(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCardsObject:FindAndSetReportedCard(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCardsObject:FindAndUpdateGuildRealmName(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCardsObject:HideCardList(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCardsObject:OnHide(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCardsObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCardsObject:OnMouseWheel(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCardsObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCardsObject:PageNext(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCardsObject:PagePrevious(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCardsObject:RefreshLayout(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCardsObject:SetSearchingState(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCardObject : Button
+---@field CardBackground CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_CardBackgroundObject
+---@field Description CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_DescriptionObject
+---@field Focus CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_FocusObject
+---@field GuildBannerBackground CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_GuildBannerBackgroundObject
+---@field GuildBannerBorder CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_GuildBannerBorderObject
+---@field GuildBannerEmblemLogo CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_GuildBannerEmblemLogoObject
+---@field GuildBannerShadow CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_GuildBannerShadowObject
+---@field MemberCount CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_MemberCountObject
+---@field MemberIcon CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_MemberIconObject
+---@field Name CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_NameObject
+---@field ReportedDescription CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_ReportedDescriptionObject
+---@field RequestJoin CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestJoinObject
+---@field RequestStatus CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestStatusObject
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCardObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCardObject:CreateRecruitingSpecsMap(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCardObject:GetCardName(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCardObject:GetCardStatus(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCardObject:GetClubGUID(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCardObject:GetLastPosterGUID(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCardObject:IsReported(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCardObject:OnClick(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCardObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCardObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCardObject:RequestToJoinClub(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCardObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCardObject:SetReportedCardState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCardObject:UpdateCard(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_CardBackgroundObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_CardBackgroundObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_DescriptionObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_DescriptionObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_FocusObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_FocusObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_GuildBannerBackgroundObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_GuildBannerBackgroundObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_GuildBannerBorderObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_GuildBannerBorderObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_GuildBannerEmblemLogoObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_GuildBannerEmblemLogoObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_GuildBannerShadowObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_GuildBannerShadowObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_MemberCountObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_MemberCountObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_MemberIconObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_MemberIconObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_NameObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_NameObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_ReportedDescriptionObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_ReportedDescriptionObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestJoinObject : Button
+---@field Left CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestJoin_LeftObject
+---@field Middle CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestJoin_MiddleObject
+---@field Right CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestJoin_RightObject
+---@field Text CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestJoin_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestJoinObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestJoinObject:FitToText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestJoinObject:GetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestJoinObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestJoinObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestJoinObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestJoinObject:SetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestJoinObject:SetTextToFit(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestJoin_LeftObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestJoin_LeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestJoin_MiddleObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestJoin_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestJoin_RightObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestJoin_RightObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestJoin_TextObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestJoin_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestStatusObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_FirstCard_RequestStatusObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_NextPageObject : Button
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_NextPageObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_PreviousPageObject : Button
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_PreviousPageObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SearchingSpinnerObject : Frame
+---@field Anim CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SearchingSpinner_AnimObject
+---@field Label CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SearchingSpinner_LabelObject
+---@field Ring CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SearchingSpinner_RingObject
+---@field Sparks CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SearchingSpinner_SparksObject
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SearchingSpinnerObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SearchingSpinnerObject:GetShadowAlpha(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SearchingSpinnerObject:OnHide(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SearchingSpinnerObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SearchingSpinnerObject:OnSizeChanged(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SearchingSpinnerObject:SetDesaturated(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SearchingSpinnerObject:SetShadowEnabled(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SearchingSpinnerObject:UpdateShadowSize(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SearchingSpinnerObject:UpdateTheme(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SearchingSpinner_AnimObject : AnimationGroup
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SearchingSpinner_AnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SearchingSpinner_LabelObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SearchingSpinner_LabelObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SearchingSpinner_RingObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SearchingSpinner_RingObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SearchingSpinner_SparksObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SearchingSpinner_SparksObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCardObject : Button
+---@field CardBackground CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_CardBackgroundObject
+---@field Description CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_DescriptionObject
+---@field Focus CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_FocusObject
+---@field GuildBannerBackground CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_GuildBannerBackgroundObject
+---@field GuildBannerBorder CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_GuildBannerBorderObject
+---@field GuildBannerEmblemLogo CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_GuildBannerEmblemLogoObject
+---@field GuildBannerShadow CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_GuildBannerShadowObject
+---@field MemberCount CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_MemberCountObject
+---@field MemberIcon CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_MemberIconObject
+---@field Name CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_NameObject
+---@field ReportedDescription CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_ReportedDescriptionObject
+---@field RequestJoin CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestJoinObject
+---@field RequestStatus CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestStatusObject
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCardObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCardObject:CreateRecruitingSpecsMap(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCardObject:GetCardName(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCardObject:GetCardStatus(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCardObject:GetClubGUID(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCardObject:GetLastPosterGUID(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCardObject:IsReported(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCardObject:OnClick(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCardObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCardObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCardObject:RequestToJoinClub(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCardObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCardObject:SetReportedCardState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCardObject:UpdateCard(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_CardBackgroundObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_CardBackgroundObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_DescriptionObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_DescriptionObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_FocusObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_FocusObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_GuildBannerBackgroundObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_GuildBannerBackgroundObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_GuildBannerBorderObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_GuildBannerBorderObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_GuildBannerEmblemLogoObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_GuildBannerEmblemLogoObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_GuildBannerShadowObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_GuildBannerShadowObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_MemberCountObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_MemberCountObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_MemberIconObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_MemberIconObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_NameObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_NameObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_ReportedDescriptionObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_ReportedDescriptionObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestJoinObject : Button
+---@field Left CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestJoin_LeftObject
+---@field Middle CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestJoin_MiddleObject
+---@field Right CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestJoin_RightObject
+---@field Text CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestJoin_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestJoinObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestJoinObject:FitToText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestJoinObject:GetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestJoinObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestJoinObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestJoinObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestJoinObject:SetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestJoinObject:SetTextToFit(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestJoin_LeftObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestJoin_LeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestJoin_MiddleObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestJoin_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestJoin_RightObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestJoin_RightObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestJoin_TextObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestJoin_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestStatusObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_SecondCard_RequestStatusObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCardObject : Button
+---@field CardBackground CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_CardBackgroundObject
+---@field Description CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_DescriptionObject
+---@field Focus CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_FocusObject
+---@field GuildBannerBackground CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_GuildBannerBackgroundObject
+---@field GuildBannerBorder CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_GuildBannerBorderObject
+---@field GuildBannerEmblemLogo CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_GuildBannerEmblemLogoObject
+---@field GuildBannerShadow CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_GuildBannerShadowObject
+---@field MemberCount CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_MemberCountObject
+---@field MemberIcon CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_MemberIconObject
+---@field Name CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_NameObject
+---@field ReportedDescription CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_ReportedDescriptionObject
+---@field RequestJoin CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestJoinObject
+---@field RequestStatus CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestStatusObject
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCardObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCardObject:CreateRecruitingSpecsMap(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCardObject:GetCardName(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCardObject:GetCardStatus(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCardObject:GetClubGUID(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCardObject:GetLastPosterGUID(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCardObject:IsReported(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCardObject:OnClick(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCardObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCardObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCardObject:RequestToJoinClub(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCardObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCardObject:SetReportedCardState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCardObject:UpdateCard(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_CardBackgroundObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_CardBackgroundObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_DescriptionObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_DescriptionObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_FocusObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_FocusObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_GuildBannerBackgroundObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_GuildBannerBackgroundObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_GuildBannerBorderObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_GuildBannerBorderObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_GuildBannerEmblemLogoObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_GuildBannerEmblemLogoObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_GuildBannerShadowObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_GuildBannerShadowObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_MemberCountObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_MemberCountObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_MemberIconObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_MemberIconObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_NameObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_NameObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_ReportedDescriptionObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_ReportedDescriptionObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestJoinObject : Button
+---@field Left CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestJoin_LeftObject
+---@field Middle CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestJoin_MiddleObject
+---@field Right CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestJoin_RightObject
+---@field Text CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestJoin_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestJoinObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestJoinObject:FitToText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestJoinObject:GetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestJoinObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestJoinObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestJoinObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestJoinObject:SetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestJoinObject:SetTextToFit(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestJoin_LeftObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestJoin_LeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestJoin_MiddleObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestJoin_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestJoin_RightObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestJoin_RightObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestJoin_TextObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestJoin_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestStatusObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_PendingGuildCards_ThirdCard_RequestStatusObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrameObject : Frame
+---@field Apply CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_ApplyObject
+---@field BG CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BGObject
+---@field Cancel CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_CancelObject
+---@field ClubDescription CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_ClubDescriptionObject
+---@field ClubDescription2 CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_ClubDescription2Object
+---@field ClubName CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_ClubNameObject
+---@field DialogLabel CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_DialogLabelObject
+---@field ErrorDescription CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_ErrorDescriptionObject
+---@field MessageFrame CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_MessageFrameObject
+---@field RecruitingSpecDescriptions CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_RecruitingSpecDescriptionsObject
+local CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrameObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrameObject:ApplyButtonOnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrameObject:ApplyButtonOnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrameObject:ApplyToClub(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrameObject:DoesPlayerMatchRecruitingSpecs(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrameObject:EnableOrDisableApplyButton(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrameObject:GetCommunitiesFrame(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrameObject:Initialize(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrameObject:OnHide(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrameObject:OnShow(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_ApplyObject : Button
+---@field Left CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_Apply_LeftObject
+---@field Middle CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_Apply_MiddleObject
+---@field Right CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_Apply_RightObject
+---@field Text CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_Apply_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_ApplyObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_ApplyObject:FitToText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_ApplyObject:GetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_ApplyObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_ApplyObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_ApplyObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_ApplyObject:SetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_ApplyObject:SetTextToFit(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_Apply_LeftObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_Apply_LeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_Apply_MiddleObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_Apply_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_Apply_RightObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_Apply_RightObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_Apply_TextObject : FontString
+local CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_Apply_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BGObject : Frame
+---@field Bg CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_BgObject
+---@field BottomEdge CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_BottomEdgeObject
+---@field BottomLeftCorner CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_BottomLeftCornerObject
+---@field BottomRightCorner CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_BottomRightCornerObject
+---@field LeftEdge CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_LeftEdgeObject
+---@field RightEdge CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_RightEdgeObject
+---@field TopEdge CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_TopEdgeObject
+---@field TopLeftCorner CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_TopLeftCornerObject
+---@field TopRightCorner CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_TopRightCornerObject
+---@field layoutType string
+local CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BGObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BGObject:GetBorderColor(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BGObject:GetCenterColor(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BGObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BGObject:GetFrameLayoutType(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BGObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BGObject:SetBlendMode(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BGObject:SetBorderBlendMode(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BGObject:SetBorderColor(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BGObject:SetCenterColor(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BGObject:SetVertexColor(...) end
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_BgObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_BgObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_BottomEdgeObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_BottomEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_BottomLeftCornerObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_BottomLeftCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_BottomRightCornerObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_BottomRightCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_LeftEdgeObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_LeftEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_RightEdgeObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_RightEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_TopEdgeObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_TopEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_TopLeftCornerObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_TopLeftCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_TopRightCornerObject : Texture
+local CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_BG_TopRightCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_CancelObject : Button
+---@field Left CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_Cancel_LeftObject
+---@field Middle CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_Cancel_MiddleObject
+---@field Right CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_Cancel_RightObject
+---@field Text CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_Cancel_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_CancelObject = {}
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_CancelObject:FitToText(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_CancelObject:GetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_CancelObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_CancelObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_CancelObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_CancelObject:SetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrame_CancelObject:SetTextToFit(...) end
 end

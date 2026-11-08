@@ -3,413 +3,108 @@
 
 
 do
----@class CommunitiesFrame_ApplicantList_ScrollBar_BackObject : Button
----@field Event CommunitiesFrame_ApplicantList_ScrollBar_Back_EventObject
----@field Texture CommunitiesFrame_ApplicantList_ScrollBar_Back_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local CommunitiesFrame_ApplicantList_ScrollBar_BackObject = {}
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:DesaturateIfDisabled(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:GetAtlas(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:IsDown(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:IsDownOver(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:IsOver(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:NarrationGetName(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:OnButtonStateChanged(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:OnClick_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:OnDisable(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:OnEnable(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:OnMouseDown(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:OnMouseUp(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:OnShow(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:SetDisplacedRegions(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+---@class CatalogShopFrame_HeaderFrame_SearchBoxIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
+local CatalogShopFrame_HeaderFrame_SearchBoxIcon_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class CommunitiesFrame_ApplicantList_ScrollBar_Back_EventObject
-local CommunitiesFrame_ApplicantList_ScrollBar_Back_EventObject = {}
+---@class CatalogShopFrame_HeaderFrame_SearchBoxIcon_HoldAnim_SpinnerTipAnimObject : Rotation
+local CatalogShopFrame_HeaderFrame_SearchBoxIcon_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class CommunitiesFrame_ApplicantList_ScrollBar_Back_TextureObject : Texture
-local CommunitiesFrame_ApplicantList_ScrollBar_Back_TextureObject = {}
+---@class CatalogShopFrame_HeaderFrame_SearchBoxIcon_HoldIndicatorObject : Texture
+local CatalogShopFrame_HeaderFrame_SearchBoxIcon_HoldIndicatorObject = {}
 end
 
 do
----@class CommunitiesFrame_ApplicantList_ScrollBar_BackgroundObject : Texture
-local CommunitiesFrame_ApplicantList_ScrollBar_BackgroundObject = {}
+---@class CatalogShopFrame_HeaderFrame_SearchBoxIcon_HoldIndicatorBGObject : Texture
+local CatalogShopFrame_HeaderFrame_SearchBoxIcon_HoldIndicatorBGObject = {}
 end
 
 do
----@class CommunitiesFrame_ApplicantList_ScrollBar_DefaultsObject
-local CommunitiesFrame_ApplicantList_ScrollBar_DefaultsObject = {}
+---@class CatalogShopFrame_HeaderFrame_SearchBoxIcon_HoverTextureObject : Texture
+local CatalogShopFrame_HeaderFrame_SearchBoxIcon_HoverTextureObject = {}
 end
 
 do
----@class CommunitiesFrame_ApplicantList_ScrollBar_DirectionsObject
-local CommunitiesFrame_ApplicantList_ScrollBar_DirectionsObject = {}
+---@class CatalogShopFrame_HeaderFrame_SearchBoxIcon_LoadBarObject : Texture
+local CatalogShopFrame_HeaderFrame_SearchBoxIcon_LoadBarObject = {}
 end
 
 do
----@class CommunitiesFrame_ApplicantList_ScrollBar_EventObject
-local CommunitiesFrame_ApplicantList_ScrollBar_EventObject = {}
+---@class CatalogShopFrame_HeaderFrame_SearchBoxIcon_LoadBarBGObject : Texture
+local CatalogShopFrame_HeaderFrame_SearchBoxIcon_LoadBarBGObject = {}
 end
 
 do
----@class CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject : Button
----@field Event CommunitiesFrame_ApplicantList_ScrollBar_Forward_EventObject
----@field Texture CommunitiesFrame_ApplicantList_ScrollBar_Forward_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject = {}
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:GetAtlas(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:IsDown(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:IsDownOver(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:IsOver(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:NarrationGetName(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:OnDisable(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:OnEnable(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:OnMouseDown(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:OnMouseUp(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:OnShow(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+---@class CatalogShopFrame_HeaderFrame_SearchBoxIcon_LoadBarGlowObject : Texture
+local CatalogShopFrame_HeaderFrame_SearchBoxIcon_LoadBarGlowObject = {}
 end
 
 do
----@class CommunitiesFrame_ApplicantList_ScrollBar_Forward_EventObject
-local CommunitiesFrame_ApplicantList_ScrollBar_Forward_EventObject = {}
+---@class CatalogShopFrame_HeaderFrame_SearchBoxIcon_NormalTextureObject : Texture
+local CatalogShopFrame_HeaderFrame_SearchBoxIcon_NormalTextureObject = {}
 end
 
 do
----@class CommunitiesFrame_ApplicantList_ScrollBar_Forward_TextureObject : Texture
-local CommunitiesFrame_ApplicantList_ScrollBar_Forward_TextureObject = {}
+---@class CatalogShopFrame_HeaderFrame_SearchBoxIcon_PressedTextureObject : Texture
+local CatalogShopFrame_HeaderFrame_SearchBoxIcon_PressedTextureObject = {}
 end
 
 do
----@class CommunitiesFrame_ApplicantList_ScrollBar_TrackObject : Frame
----@field Begin CommunitiesFrame_ApplicantList_ScrollBar_Track_BeginObject
----@field End CommunitiesFrame_ApplicantList_ScrollBar_Track_EndObject
----@field Middle CommunitiesFrame_ApplicantList_ScrollBar_Track_MiddleObject
----@field Thumb CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject
-local CommunitiesFrame_ApplicantList_ScrollBar_TrackObject = {}
+---@class CatalogShopFrame_HeaderFrame_SearchBoxIcon_SpinnerTipObject : Texture
+local CatalogShopFrame_HeaderFrame_SearchBoxIcon_SpinnerTipObject = {}
 end
 
 do
----@class CommunitiesFrame_ApplicantList_ScrollBar_Track_BeginObject : Texture
-local CommunitiesFrame_ApplicantList_ScrollBar_Track_BeginObject = {}
+---@class CatalogShopFrame_IconTrainFrameObject : Frame
+---@field IconTrainScrollBox CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject
+local CatalogShopFrame_IconTrainFrameObject = {}
+---@return any ...
+function CatalogShopFrame_IconTrainFrameObject:AddDynamicEventMethod(...) end
+---@return any ...
+function CatalogShopFrame_IconTrainFrameObject:AddEventMethodInternal(...) end
+---@return any ...
+function CatalogShopFrame_IconTrainFrameObject:AddStaticEventMethod(...) end
+---@return any ...
+function CatalogShopFrame_IconTrainFrameObject:CreateEventRegistrationInfo(...) end
+---@return any ...
+function CatalogShopFrame_IconTrainFrameObject:GetDynamicCallbackRegistrantHandlers(...) end
+---@return any ...
+function CatalogShopFrame_IconTrainFrameObject:GetIconTrainChildren(...) end
+---@return any ...
+function CatalogShopFrame_IconTrainFrameObject:GetStaticCallbackRegistrantHandlers(...) end
+---@return any ...
+function CatalogShopFrame_IconTrainFrameObject:Init(...) end
+---@return any ...
+function CatalogShopFrame_IconTrainFrameObject:OnHide(...) end
+---@return any ...
+function CatalogShopFrame_IconTrainFrameObject:OnShow(...) end
+---@return any ...
+function CatalogShopFrame_IconTrainFrameObject:RegisterFromRegistrationInfo(...) end
+---@return any ...
+function CatalogShopFrame_IconTrainFrameObject:RemoveStaticEventMethod(...) end
+---@return any ...
+function CatalogShopFrame_IconTrainFrameObject:SetupIconTrainData(...) end
+---@return any ...
+function CatalogShopFrame_IconTrainFrameObject:SetupIconTrainScrollView(...) end
+---@return any ...
+function CatalogShopFrame_IconTrainFrameObject:UnregisterAllEventMethods(...) end
+---@return any ...
+function CatalogShopFrame_IconTrainFrameObject:UnregisterAllInternal(...) end
+---@return any ...
+function CatalogShopFrame_IconTrainFrameObject:UnregisterFromRegistrationInfo(...) end
 end
 
 do
----@class CommunitiesFrame_ApplicantList_ScrollBar_Track_EndObject : Texture
-local CommunitiesFrame_ApplicantList_ScrollBar_Track_EndObject = {}
-end
-
-do
----@class CommunitiesFrame_ApplicantList_ScrollBar_Track_MiddleObject : Texture
-local CommunitiesFrame_ApplicantList_ScrollBar_Track_MiddleObject = {}
-end
-
-do
----@class CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject : Button
----@field Begin CommunitiesFrame_ApplicantList_ScrollBar_Track_Thumb_BeginObject
----@field End CommunitiesFrame_ApplicantList_ScrollBar_Track_Thumb_EndObject
----@field Event CommunitiesFrame_ApplicantList_ScrollBar_Track_Thumb_EventObject
----@field Middle CommunitiesFrame_ApplicantList_ScrollBar_Track_Thumb_MiddleObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field downBeginTexture string
----@field downEndTexture string
----@field downMiddleTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field overBeginTexture string
----@field overEndTexture string
----@field overMiddleTexture string
----@field upBeginTexture string
----@field upEndTexture string
----@field upMiddleTexture string
-local CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject = {}
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:GetAtlas(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:IsDown(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:IsDownOver(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:IsOver(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:OnDisable(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:OnEnable(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:OnShow(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class CommunitiesFrame_ApplicantList_ScrollBar_Track_Thumb_BeginObject : Texture
-local CommunitiesFrame_ApplicantList_ScrollBar_Track_Thumb_BeginObject = {}
-end
-
-do
----@class CommunitiesFrame_ApplicantList_ScrollBar_Track_Thumb_EndObject : Texture
-local CommunitiesFrame_ApplicantList_ScrollBar_Track_Thumb_EndObject = {}
-end
-
-do
----@class CommunitiesFrame_ApplicantList_ScrollBar_Track_Thumb_EventObject
-local CommunitiesFrame_ApplicantList_ScrollBar_Track_Thumb_EventObject = {}
-end
-
-do
----@class CommunitiesFrame_ApplicantList_ScrollBar_Track_Thumb_MiddleObject : Texture
-local CommunitiesFrame_ApplicantList_ScrollBar_Track_Thumb_MiddleObject = {}
-end
-
-do
----@class CommunitiesFrame_ApplicantList_ScrollBar_interpolatorObject
-local CommunitiesFrame_ApplicantList_ScrollBar_interpolatorObject = {}
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_interpolatorObject:Cancel(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_interpolatorObject:Interpolate(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_interpolatorObject:interpolateFunc(...) end
-end
-
-do
----@class CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject : Frame
----@field Defaults CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_DefaultsObject
----@field Directions CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_DirectionsObject
----@field DragDelegate CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_DragDelegateObject
----@field Event CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_EventObject
----@field ScrollTarget CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject
----@field Shadows CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ShadowsObject
+---@class CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject : Frame
+---@field Defaults CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_DefaultsObject
+---@field Directions CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_DirectionsObject
+---@field DragDelegate CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_DragDelegateObject
+---@field Event CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_EventObject
+---@field ScrollTarget CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject
+---@field Shadows CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ShadowsObject
 ---@field allowScroll boolean
 ---@field callbackTables table
 ---@field canInterpolateScroll boolean
@@ -418,2666 +113,2710 @@ do
 ---@field executingEvents table
 ---@field isScrollController boolean
 ---@field panExtentPercentage number
----@field registeredScrollBar CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_registeredScrollBarObject
----@field updateLock boolean
----@field view CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject
 ---@field wheelPanScalar number
-local CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject = {}
+local CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject = {}
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ApplyEdgeFade(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ApplyEdgeFade(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:CalculateEdgeFade(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:CalculateEdgeFade(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:CalculatePanExtentPercentage(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:CalculatePanExtentPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:CalculateScrollPercentage(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:CalculateScrollPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:CanInterpolateScroll(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:CanInterpolateScroll(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ClearEdgeFade(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ClearEdgeFade(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ContainsElementDataByPredicate(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ContainsElementDataByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:CopyDeferredCallbacks(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:DoesFrameHaveEvent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:EnableSnapToInterval(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:EnableSnapToInterval(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:EnumerateDataProvider(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:EnumerateDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:EnumerateDataProviderEntireRange(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:EnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:EnumerateFrames(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:EnumerateFrames(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:FindByPredicate(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:FindByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:FindElementData(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:FindElementData(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:FindElementDataByPredicate(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:FindElementDataByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:FindElementDataIndex(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:FindElementDataIndex(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:FindElementDataIndexByPredicate(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:FindElementDataIndexByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:FindFrame(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:FindFrame(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:FindFrameByPredicate(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:FindFrameByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:FindFrameElementDataIndex(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:FindFrameElementDataIndex(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:Flush(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:Flush(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:FlushDataProvider(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:FlushDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ForEachElementData(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ForEachElementData(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ForEachFrame(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ForEachFrame(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:FullUpdate(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:FullUpdate(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:FullUpdateInternal(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:FullUpdateInternal(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GenerateCallbackEvents(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetBottomPadding(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetBottomPadding(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetCallbackTable(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetCallbackTables(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetCallbacksByEvent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetDataIndexBegin(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetDataIndexBegin(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetDataIndexEnd(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetDataIndexEnd(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetDataProvider(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetDataProviderSize(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetDataProviderSize(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetDerivedExtent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetDerivedExtent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetDerivedScrollOffset(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetDerivedScrollOffset(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetDerivedScrollRange(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetDerivedScrollRange(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetElementExtent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetElementExtent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetExtent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetExtent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetExtentPadding(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetExtentPadding(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetExtentUntil(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetExtentUntil(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetFrameCount(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetFrameCount(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetFrameExtent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetFrameExtent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetFrames(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetFrames(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetIntervalRange(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetIntervalRange(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetLeftPadding(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetLeftPadding(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetLower(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetLower(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetLowerPadding(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetLowerPadding(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetLowerShadowTexture(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetLowerShadowTexture(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetMutableCallbacksByEvent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetPadding(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetPadding(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetPanExtent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetPanExtent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetPanExtentPercentage(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetRightPadding(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetRightPadding(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetScrollInterpolator(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetScrollInterpolator(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetScrollPercentage(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetScrollPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetScrollTarget(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetScrollTarget(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetTopPadding(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetTopPadding(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetUpper(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetUpper(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetUpperPadding(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetUpperPadding(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetUpperShadowTexture(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetUpperShadowTexture(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetView(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetView(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetVisibleExtent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetVisibleExtent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetVisibleExtentPercentage(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:GetWheelPanPercentage(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:HasDataProvider(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:HasDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:HasEdgeFade(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:HasEdgeFade(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:HasRegistrantsForEvent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:HasScrollableExtent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:HasScrollableExtent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:HasView(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:HasView(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:Init(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:Init(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:Interpolate(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:Interpolate(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:IsAcquireLocked(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:IsAcquireLocked(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:IsAlignmentOverlapIgnored(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:IsAlignmentOverlapIgnored(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:IsAtBegin(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:IsAtBegin(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:IsAtEnd(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:IsAtEnd(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:IsHorizontal(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:IsHorizontal(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:IsScrollAllowed(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:IsScrollAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:IsScrollToDataIndexSafe(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:IsScrollToDataIndexSafe(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:IsUpdateLocked(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:IsUpdateLocked(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:IsVirtualized(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:IsVirtualized(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:Layout(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:Layout(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:OnLoad(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:OnMouseWheel(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:OnMouseWheel(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:OnScrollTargetSizeChanged(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:OnScrollTargetSizeChanged(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:OnSizeChanged(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:OnSizeChanged(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:OnViewAcquiredFrame(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:OnViewAcquiredFrame(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:OnViewDataChanged(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:OnViewDataChanged(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:OnViewDataProviderReassigned(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:OnViewDataProviderReassigned(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:OnViewInitializedFrame(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:OnViewInitializedFrame(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:OnViewReleasedFrame(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:OnViewReleasedFrame(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:Rebuild(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:Rebuild(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:RecalculateDerivedExtent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:RecalculateDerivedExtent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ReconcileDeferredCallbacks(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:RegisterCallback(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:RegisterCallbackWithHandle(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ReinitializeFrames(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ReinitializeFrames(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:RemoveDataProvider(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:RemoveDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProvider(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ReverseEnumerateDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ReverseForEachElementData(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ReverseForEachElementData(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ReverseForEachFrame(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ReverseForEachFrame(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SanitizeAlignment(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SanitizeAlignment(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ScrollDecrease(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ScrollDecrease(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ScrollInDirection(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ScrollInDirection(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ScrollIncrease(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ScrollIncrease(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ScrollToBegin(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ScrollToBegin(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ScrollToElementData(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ScrollToElementData(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ScrollToElementDataByPredicate(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ScrollToElementDataByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ScrollToElementDataIndex(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ScrollToElementDataIndex(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ScrollToEnd(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ScrollToEnd(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ScrollToFrame(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ScrollToFrame(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ScrollToNearest(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ScrollToNearest(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ScrollToNearestByPredicate(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ScrollToNearestByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ScrollToOffset(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ScrollToOffset(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SecureInsertEvent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SelectCursorComponent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SelectCursorComponent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SelectPointComponent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SelectPointComponent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SetAlignmentOverlapIgnored(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SetAlignmentOverlapIgnored(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SetDataProvider(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SetDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SetEdgeFadeLength(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SetEdgeFadeLength(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SetFrameExtent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SetFrameExtent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SetHorizontal(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SetHorizontal(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SetInterpolateScroll(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SetInterpolateScroll(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SetLowerShadowAtlas(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SetLowerShadowAtlas(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SetPadding(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SetPadding(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SetPanExtent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SetPanExtent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SetPanExtentPercentage(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SetScrollAllowed(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SetScrollAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SetScrollPercentage(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SetScrollPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SetScrollPercentageInternal(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SetScrollTargetOffset(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SetScrollTargetOffset(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SetShadowsFrameLevel(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SetShadowsFrameLevel(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SetShadowsScale(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SetShadowsScale(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SetShadowsShown(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SetShadowsShown(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SetUndefinedEventsAllowed(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SetUpdateLocked(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SetUpdateLocked(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SetUpperShadowAtlas(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SetUpperShadowAtlas(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SetUseShadowsForEdgeFade(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SetUseShadowsForEdgeFade(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:SetView(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:SetView(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:TriggerEvent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:UnregisterCallback(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:UnregisterEvents(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:UnregisterEventsByEventTable(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:Update(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:Update(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBoxObject:scrollInternal(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBoxObject:scrollInternal(...) end
 end
 
 do
----@class CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_DefaultsObject
-local CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_DefaultsObject = {}
+---@class CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_DefaultsObject
+local CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_DefaultsObject = {}
 end
 
 do
----@class CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_DirectionsObject
-local CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_DirectionsObject = {}
+---@class CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_DirectionsObject
+local CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_DirectionsObject = {}
 end
 
 do
----@class CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_DragDelegateObject : Frame
-local CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_DragDelegateObject = {}
+---@class CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_DragDelegateObject : Frame
+local CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_DragDelegateObject = {}
 end
 
 do
----@class CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_EventObject
-local CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_EventObject = {}
+---@class CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_EventObject
+local CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_EventObject = {}
 end
 
 do
----@class CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject : Frame
----@field Event CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
+---@class CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject : Frame
+---@field Event CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTarget_EventObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field executingEvents table
-local CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject = {}
+local CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject = {}
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTable(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTables(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallback(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject:TriggerEvent(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterCallback(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEvents(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
+function CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
-local CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ScrollTarget_EventObject = {}
+---@class CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTarget_EventObject
+local CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ScrollTarget_EventObject = {}
 end
 
 do
----@class CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ShadowsObject : Frame
----@field Lower CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_Shadows_LowerObject
----@field Upper CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_Shadows_UpperObject
-local CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_ShadowsObject = {}
+---@class CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ShadowsObject : Frame
+---@field Lower CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_Shadows_LowerObject
+---@field Upper CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_Shadows_UpperObject
+local CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_ShadowsObject = {}
 end
 
 do
----@class CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_Shadows_LowerObject : Texture
-local CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_Shadows_LowerObject = {}
+---@class CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_Shadows_LowerObject : Texture
+local CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_Shadows_LowerObject = {}
 end
 
 do
----@class CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_Shadows_UpperObject : Texture
-local CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_Shadows_UpperObject = {}
+---@class CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_Shadows_UpperObject : Texture
+local CatalogShopFrame_IconTrainFrame_IconTrainScrollBox_Shadows_UpperObject = {}
 end
 
 do
----@class CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_registeredScrollBarObject
-local CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_registeredScrollBarObject = {}
-end
-
-do
----@class CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject
----@field Event table
----@field FrameLevelPolicy table
----@field callbackTables table
----@field canSignalWithoutInitializer boolean
----@field dataIndexBegin number
----@field dataIndexEnd number
----@field deferredCallbacks table
----@field executingEvents table
----@field frameFactory table
----@field frameTemplateOrFrameType string
----@field frames table
----@field initialized boolean
----@field initializers table
----@field padding table
----@field scrollBox CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_view_scrollBoxObject
----@field templateInfoCache table
-local CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject = {}
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:AcquireInternal(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:AcquireRange(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:AssignAccessors(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:AttachDataProviderCallbacks(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:CalculateDataIndices(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:CalculateFrameExtent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:ClearCachedData(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:ClearElementExtentData(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:ClearInvalidation(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:ContainsElementDataByPredicate(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:DataProviderContentsChanged(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:DetachDataProviderCallbacks(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProvider(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:EnumerateFrames(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:FindByPredicate(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:FindElementData(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:FindElementDataByPredicate(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndex(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:FindFrame(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:FindFrameByPredicate(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:FindFrameElementDataIndex(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:Flush(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:FlushDataProvider(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:ForEachElementData(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:ForEachFrame(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetDataIndexBegin(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetDataIndexEnd(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetDataProvider(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetDataProviderSize(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetDataRange(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetDataScrollOffset(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetElementExtent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetElementExtentCalculator(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetElementIndent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetExtent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetExtentFromInfo(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetExtentSpacing(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetExtentTo(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetExtentUntil(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetFactoryDataFromElementData(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetFirstTemplateInfo(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetFrameCount(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetFrameExtent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelCounter(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelPolicy(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetFrames(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetIdenticalElementExtent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetIdenticalStrideExtent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetInvalidationReason(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetLayoutFunction(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetLower(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetPadding(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetPanExtent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetScrollBox(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetScrollTarget(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetSpacing(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetStride(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetTemplateInfo(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:GetUpper(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:HasBiaxalLayout(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:HasDataProvider(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:HasElementExtent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:HasIdenticalElementExtent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:HasIdenticalStrideExtent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:Init(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:InitDefaultDrag(...) end
+---@class CatalogShopFrame_LeftJumpHintObject : Frame
+---@field ActiveTexture CatalogShopFrame_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture CatalogShopFrame_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim CatalogShopFrame_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator CatalogShopFrame_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG CatalogShopFrame_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture CatalogShopFrame_LeftJumpHint_HoverTextureObject
+---@field LoadBar CatalogShopFrame_LeftJumpHint_LoadBarObject
+---@field LoadBarBG CatalogShopFrame_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow CatalogShopFrame_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture CatalogShopFrame_LeftJumpHint_NormalTextureObject
+---@field PressedTexture CatalogShopFrame_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip CatalogShopFrame_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local CatalogShopFrame_LeftJumpHintObject = {}
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:InvokeInitializer(...) end
+function CatalogShopFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:InvokeInitializers(...) end
+function CatalogShopFrame_LeftJumpHintObject:BeginHold(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:IsAcquireLocked(...) end
+function CatalogShopFrame_LeftJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:IsDataIndexWithinRange(...) end
+function CatalogShopFrame_LeftJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:IsElementStretchDisabled(...) end
+function CatalogShopFrame_LeftJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:IsExtentValid(...) end
+function CatalogShopFrame_LeftJumpHintObject:EndHold(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:IsHorizontal(...) end
+function CatalogShopFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:IsInitialized(...) end
+function CatalogShopFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:IsInvalidated(...) end
+function CatalogShopFrame_LeftJumpHintObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
+function CatalogShopFrame_LeftJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:IsVirtualized(...) end
+function CatalogShopFrame_LeftJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:Layout(...) end
+function CatalogShopFrame_LeftJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:LayoutInternal(...) end
+function CatalogShopFrame_LeftJumpHintObject:SetFocused(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSizeChanged(...) end
+function CatalogShopFrame_LeftJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSort(...) end
+function CatalogShopFrame_LeftJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:OnLoad(...) end
+function CatalogShopFrame_LeftJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementData(...) end
+function CatalogShopFrame_LeftJumpHintObject:SetPressable(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
+function CatalogShopFrame_LeftJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:RebuildTemplateInfoCache(...) end
+function CatalogShopFrame_LeftJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:RecalculateExtent(...) end
+function CatalogShopFrame_LeftJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
+function CatalogShopFrame_LeftJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:RefreshSmartNav(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:ReinitializeFrames(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:Release(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:RemoveDataProvider(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:RemoveDataProviderInternal(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:ResizeFrame(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:ReverseForEachElementData(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:ReverseForEachFrame(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SelectCursorComponent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SelectPointComponent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SetAcquireLocked(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SetDataProvider(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SetDataRange(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SetElementExtent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SetElementExtentCalculator(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SetElementFactory(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SetElementIndentCalculator(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SetElementInitializer(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SetElementResetter(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SetElementStretchDisabled(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SetExtent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SetFrameExtent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SetFrameFactoryResetter(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SetFrameLevelPolicy(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SetHorizontal(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SetInvalidationReason(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SetMaxPanExtent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SetPadding(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SetPanExtent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SetScrollBox(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SetVirtualized(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SignalDataChangeEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:SortFrames(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:UnassignAccessors(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:ValidateDataRange(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:elementFactory(...) end
----@return any ...
-function CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_viewObject:factory(...) end
-end
-
-do
----@class CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_view_scrollBoxObject
-local CommunitiesFrame_ApplicantList_ScrollBar_registeredScrollBox_view_scrollBoxObject = {}
-end
-
-do
----@class CommunitiesFrame_ApplicantList_ScrollBoxObject
-local CommunitiesFrame_ApplicantList_ScrollBoxObject = {}
-end
-
-do
----@class CommunitiesFrame_BgObject : Texture
-local CommunitiesFrame_BgObject = {}
+function CatalogShopFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class CommunitiesFrame_ChatTabObject : CheckButton
----@field Icon CommunitiesFrame_ChatTab_IconObject
----@field IconOverlay CommunitiesFrame_ChatTab_IconOverlayObject
----@field displayMode table
----@field iconTexture string
----@field tooltip string
-local CommunitiesFrame_ChatTabObject = {}
----@return any ...
-function CommunitiesFrame_ChatTabObject:OnClick(...) end
----@return any ...
-function CommunitiesFrame_ChatTabObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_ChatTabObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_ChatTabObject:OnLoad(...) end
+---@class CatalogShopFrame_LeftJumpHint_ActiveTextureObject : Texture
+local CatalogShopFrame_LeftJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class CommunitiesFrame_ChatTab_IconObject : Texture
-local CommunitiesFrame_ChatTab_IconObject = {}
+---@class CatalogShopFrame_LeftJumpHint_DisabledTextureObject : Texture
+local CatalogShopFrame_LeftJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class CommunitiesFrame_ChatTab_IconOverlayObject : Texture
-local CommunitiesFrame_ChatTab_IconOverlayObject = {}
+---@class CatalogShopFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim CatalogShopFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim CatalogShopFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim CatalogShopFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local CatalogShopFrame_LeftJumpHint_HoldAnimObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrameObject : Frame
----@field AcceptButton CommunitiesFrame_ClubFinderInvitationFrame_AcceptButtonObject
----@field ApplyButton CommunitiesFrame_ClubFinderInvitationFrame_ApplyButtonObject
----@field CircleMask CommunitiesFrame_ClubFinderInvitationFrame_CircleMaskObject
----@field DeclineButton CommunitiesFrame_ClubFinderInvitationFrame_DeclineButtonObject
----@field Description CommunitiesFrame_ClubFinderInvitationFrame_DescriptionObject
----@field GuildBannerBackground CommunitiesFrame_ClubFinderInvitationFrame_GuildBannerBackgroundObject
----@field GuildBannerBorder CommunitiesFrame_ClubFinderInvitationFrame_GuildBannerBorderObject
----@field GuildBannerEmblemLogo CommunitiesFrame_ClubFinderInvitationFrame_GuildBannerEmblemLogoObject
----@field GuildBannerShadow CommunitiesFrame_ClubFinderInvitationFrame_GuildBannerShadowObject
----@field Icon CommunitiesFrame_ClubFinderInvitationFrame_IconObject
----@field IconRing CommunitiesFrame_ClubFinderInvitationFrame_IconRingObject
----@field InsetFrame CommunitiesFrame_ClubFinderInvitationFrame_InsetFrameObject
----@field InvitationText CommunitiesFrame_ClubFinderInvitationFrame_InvitationTextObject
----@field Leader CommunitiesFrame_ClubFinderInvitationFrame_LeaderObject
----@field MemberCount CommunitiesFrame_ClubFinderInvitationFrame_MemberCountObject
----@field Name CommunitiesFrame_ClubFinderInvitationFrame_NameObject
----@field RequestToJoinFrame CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrameObject
----@field Type CommunitiesFrame_ClubFinderInvitationFrame_TypeObject
----@field WarningDialog CommunitiesFrame_ClubFinderInvitationFrame_WarningDialogObject
-local CommunitiesFrame_ClubFinderInvitationFrameObject = {}
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrameObject:AcceptInvitation(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrameObject:ApplyToLinkedClub(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrameObject:DeclineInvitation(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrameObject:DisplayInvitation(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrameObject:OnAcceptButtonEnter(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrameObject:OnAcceptButtonLeave(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrameObject:OnApplyButtonEnter(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrameObject:OnApplyButtonLeave(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrameObject:OnEvent(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrameObject:OnHide(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrameObject:OnShow(...) end
+---@class CatalogShopFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local CatalogShopFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_AcceptButtonObject : Button
----@field Left CommunitiesFrame_ClubFinderInvitationFrame_AcceptButton_LeftObject
----@field Middle CommunitiesFrame_ClubFinderInvitationFrame_AcceptButton_MiddleObject
----@field Right CommunitiesFrame_ClubFinderInvitationFrame_AcceptButton_RightObject
----@field Text CommunitiesFrame_ClubFinderInvitationFrame_AcceptButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local CommunitiesFrame_ClubFinderInvitationFrame_AcceptButtonObject = {}
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_AcceptButtonObject:FitToText(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_AcceptButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_AcceptButtonObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_AcceptButtonObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_AcceptButtonObject:SetDisabledState(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_AcceptButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_AcceptButtonObject:SetTextToFit(...) end
+---@class CatalogShopFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local CatalogShopFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_AcceptButton_LeftObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_AcceptButton_LeftObject = {}
+---@class CatalogShopFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local CatalogShopFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_AcceptButton_MiddleObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_AcceptButton_MiddleObject = {}
+---@class CatalogShopFrame_LeftJumpHint_HoldIndicatorObject : Texture
+local CatalogShopFrame_LeftJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_AcceptButton_RightObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_AcceptButton_RightObject = {}
+---@class CatalogShopFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
+local CatalogShopFrame_LeftJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_AcceptButton_TextObject : FontString
-local CommunitiesFrame_ClubFinderInvitationFrame_AcceptButton_TextObject = {}
+---@class CatalogShopFrame_LeftJumpHint_HoverTextureObject : Texture
+local CatalogShopFrame_LeftJumpHint_HoverTextureObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_ApplyButtonObject : Button
----@field Left CommunitiesFrame_ClubFinderInvitationFrame_ApplyButton_LeftObject
----@field Middle CommunitiesFrame_ClubFinderInvitationFrame_ApplyButton_MiddleObject
----@field Right CommunitiesFrame_ClubFinderInvitationFrame_ApplyButton_RightObject
----@field Text CommunitiesFrame_ClubFinderInvitationFrame_ApplyButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local CommunitiesFrame_ClubFinderInvitationFrame_ApplyButtonObject = {}
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_ApplyButtonObject:FitToText(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_ApplyButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_ApplyButtonObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_ApplyButtonObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_ApplyButtonObject:SetDisabledState(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_ApplyButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_ApplyButtonObject:SetTextToFit(...) end
+---@class CatalogShopFrame_LeftJumpHint_LoadBarObject : Texture
+local CatalogShopFrame_LeftJumpHint_LoadBarObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_ApplyButton_LeftObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_ApplyButton_LeftObject = {}
+---@class CatalogShopFrame_LeftJumpHint_LoadBarBGObject : Texture
+local CatalogShopFrame_LeftJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_ApplyButton_MiddleObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_ApplyButton_MiddleObject = {}
+---@class CatalogShopFrame_LeftJumpHint_LoadBarGlowObject : Texture
+local CatalogShopFrame_LeftJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_ApplyButton_RightObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_ApplyButton_RightObject = {}
+---@class CatalogShopFrame_LeftJumpHint_NormalTextureObject : Texture
+local CatalogShopFrame_LeftJumpHint_NormalTextureObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_ApplyButton_TextObject : FontString
-local CommunitiesFrame_ClubFinderInvitationFrame_ApplyButton_TextObject = {}
+---@class CatalogShopFrame_LeftJumpHint_PressedTextureObject : Texture
+local CatalogShopFrame_LeftJumpHint_PressedTextureObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_CircleMaskObject : MaskTexture
-local CommunitiesFrame_ClubFinderInvitationFrame_CircleMaskObject = {}
+---@class CatalogShopFrame_LeftJumpHint_SpinnerTipObject : Texture
+local CatalogShopFrame_LeftJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_DeclineButtonObject : Button
----@field Left CommunitiesFrame_ClubFinderInvitationFrame_DeclineButton_LeftObject
----@field Middle CommunitiesFrame_ClubFinderInvitationFrame_DeclineButton_MiddleObject
----@field Right CommunitiesFrame_ClubFinderInvitationFrame_DeclineButton_RightObject
----@field Text CommunitiesFrame_ClubFinderInvitationFrame_DeclineButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local CommunitiesFrame_ClubFinderInvitationFrame_DeclineButtonObject = {}
+---@class CatalogShopFrame_ModelSceneContainerFrameObject : Frame
+---@field AlternateFormButton CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject
+---@field MainModelScene CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject
+---@field NormalFormButton CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject
+local CatalogShopFrame_ModelSceneContainerFrameObject = {}
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_DeclineButtonObject:FitToText(...) end
+function CatalogShopFrame_ModelSceneContainerFrameObject:AfterTransmogActorLoaded(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_DeclineButtonObject:GetDisabledTooltip(...) end
+function CatalogShopFrame_ModelSceneContainerFrameObject:AfterTransmogActorLoadedCheckCarousel(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_DeclineButtonObject:OnEnter(...) end
+function CatalogShopFrame_ModelSceneContainerFrameObject:Init(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_DeclineButtonObject:OnLeave(...) end
+function CatalogShopFrame_ModelSceneContainerFrameObject:OnCelebratePurchase(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_DeclineButtonObject:SetDisabledState(...) end
+function CatalogShopFrame_ModelSceneContainerFrameObject:OnFormChanged(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_DeclineButtonObject:SetDisabledTooltip(...) end
+function CatalogShopFrame_ModelSceneContainerFrameObject:OnFormSelected(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_DeclineButtonObject:SetTextToFit(...) end
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_DeclineButton_LeftObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_DeclineButton_LeftObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_DeclineButton_MiddleObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_DeclineButton_MiddleObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_DeclineButton_RightObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_DeclineButton_RightObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_DeclineButton_TextObject : FontString
-local CommunitiesFrame_ClubFinderInvitationFrame_DeclineButton_TextObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_DescriptionObject : FontString
-local CommunitiesFrame_ClubFinderInvitationFrame_DescriptionObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_GuildBannerBackgroundObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_GuildBannerBackgroundObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_GuildBannerBorderObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_GuildBannerBorderObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_GuildBannerEmblemLogoObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_GuildBannerEmblemLogoObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_GuildBannerShadowObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_GuildBannerShadowObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_IconObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_IconObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_IconRingObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_IconRingObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_InsetFrameObject : Frame
----@field Bg CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_BgObject
----@field NineSlice CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSliceObject
----@field layoutType string
-local CommunitiesFrame_ClubFinderInvitationFrame_InsetFrameObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_BgObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_BgObject = {}
+function CatalogShopFrame_ModelSceneContainerFrameObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrameObject:OnProductSelected(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrameObject:OnShow(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrameObject:OnUpdate(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrameObject:UpdateActorVisuals(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrameObject:UpdateBundleVisuals(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrameObject:UpdateDropShadowForBundle(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrameObject:UpdateDropShadowForSingleActor(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrameObject:UpdateFormButtonVisibility(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrameObject:UpdatePlayerModel(...) end
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSliceObject : Frame
----@field BottomEdge CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_BottomEdgeObject
----@field BottomLeftCorner CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_BottomRightCornerObject
----@field LeftEdge CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_LeftEdgeObject
----@field RightEdge CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_RightEdgeObject
----@field TopEdge CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_TopEdgeObject
----@field TopLeftCorner CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_TopLeftCornerObject
----@field TopRightCorner CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_TopRightCornerObject
-local CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSliceObject = {}
+---@class CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject : CheckButton
+---@field CheckedTexture CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_CheckedTextureObject
+---@field CircleMask CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_CircleMaskObject
+---@field DisabledOverlay CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_DisabledOverlayObject
+---@field Flash CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_FlashObject
+---@field HighlightTexture CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_HighlightTextureObject
+---@field New CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject
+---@field NormalTexture CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NormalTextureObject
+---@field PushedTexture CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_PushedTextureObject
+---@field Ring CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_RingObject
+---@field checkedAtlas string
+---@field checkedTextureSize number
+---@field circleMaskSizeOffset number
+---@field disabledOverlayAlpha number
+---@field flipTextures boolean
+---@field highlightAtlas string
+---@field newTagYOffset number
+---@field ringAtlas string
+---@field ringHeight number
+---@field ringWidth number
+---@field selected boolean
+---@field tooltipAnchor string
+---@field tooltipPadding number
+---@field tooltipXOffset number
+---@field tooltipYOffset number
+local CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject = {}
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSliceObject:GetBorderColor(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:AddBlankTooltipLine(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSliceObject:GetCenterColor(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:AddExtraStuffToTooltip(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:AddTooltipLine(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSliceObject:GetFrameLayoutType(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:CanChangeSelection(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSliceObject:OnLoad(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:ClearFlashTimer(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSliceObject:SetBlendMode(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:ClearTooltipLines(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSliceObject:SetBorderBlendMode(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:GetAppropriateTooltip(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSliceObject:SetBorderColor(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:HideTooltip(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSliceObject:SetCenterColor(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:IsSelected(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_BottomEdgeObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_BottomLeftCornerObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_BottomRightCornerObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_BottomRightCornerObject = {}
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:OnClick(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:OnEnter(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:OnLeave(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:OnMouseDown(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:OnMouseUp(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:OnSelected(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:Reset(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:SetEnabledState(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:SetIconAtlas(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:SetSelected(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:SetSelectedState(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:SetSelectionChangeInterrupt(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:SetupAlteredFormButton(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:SetupAnchors(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:ShowTooltip(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:StartFlash(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:StopFlash(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButtonObject:UpdateHighlightTexture(...) end
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_LeftEdgeObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_LeftEdgeObject = {}
+---@class CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_CheckedTextureObject : Texture
+local CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_CheckedTextureObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_RightEdgeObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_RightEdgeObject = {}
+---@class CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_CircleMaskObject : MaskTexture
+local CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_CircleMaskObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_TopEdgeObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_TopEdgeObject = {}
+---@class CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_DisabledOverlayObject : Texture
+local CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_DisabledOverlayObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_TopLeftCornerObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_TopLeftCornerObject = {}
+---@class CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_FlashObject : Frame
+---@field Anim CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_Flash_AnimObject
+---@field Portrait CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_Flash_PortraitObject
+---@field Ring CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_Flash_RingObject
+---@field Ring2 CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_Flash_Ring2Object
+local CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_FlashObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_TopRightCornerObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_InsetFrame_NineSlice_TopRightCornerObject = {}
+---@class CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_Flash_AnimObject : AnimationGroup
+local CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_Flash_AnimObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_InvitationTextObject : FontString
-local CommunitiesFrame_ClubFinderInvitationFrame_InvitationTextObject = {}
+---@class CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_Flash_PortraitObject : Texture
+local CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_Flash_PortraitObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_LeaderObject : FontString
-local CommunitiesFrame_ClubFinderInvitationFrame_LeaderObject = {}
+---@class CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_Flash_RingObject : Texture
+local CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_Flash_RingObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_MemberCountObject : FontString
-local CommunitiesFrame_ClubFinderInvitationFrame_MemberCountObject = {}
+---@class CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_Flash_Ring2Object : Texture
+local CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_Flash_Ring2Object = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_NameObject : FontString
-local CommunitiesFrame_ClubFinderInvitationFrame_NameObject = {}
+---@class CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_HighlightTextureObject : Texture
+local CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_HighlightTextureObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrameObject : Frame
----@field Apply CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_ApplyObject
----@field BG CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BGObject
----@field Cancel CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_CancelObject
----@field ClubDescription CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_ClubDescriptionObject
----@field ClubDescription2 CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_ClubDescription2Object
----@field ClubName CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_ClubNameObject
----@field DialogLabel CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_DialogLabelObject
----@field ErrorDescription CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_ErrorDescriptionObject
----@field MessageFrame CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrameObject
----@field RecruitingSpecDescriptions CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_RecruitingSpecDescriptionsObject
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrameObject = {}
+---@class CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject : Frame
+---@field BGLabel CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_New_BGLabelObject
+---@field Fade CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_New_FadeObject
+---@field Glow CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_New_GlowObject
+---@field Label CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_New_LabelObject
+---@field animateGlow boolean
+---@field justifyH string
+---@field label string
+local CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject = {}
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrameObject:ApplyButtonOnEnter(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:AddLayoutChildren(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrameObject:ApplyButtonOnLeave(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:ClearAlert(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrameObject:ApplyToClub(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:ClearFixedSize(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrameObject:DoesPlayerMatchRecruitingSpecs(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:GetAdditionalRegions(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrameObject:EnableOrDisableApplyButton(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:GetChildHeight(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrameObject:GetCommunitiesFrame(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:GetChildSize(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrameObject:Initialize(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:GetChildWidth(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrameObject:OnHide(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:GetFixedHeight(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrameObject:OnShow(...) end
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_ApplyObject : Button
----@field Left CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Apply_LeftObject
----@field Middle CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Apply_MiddleObject
----@field Right CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Apply_RightObject
----@field Text CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Apply_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_ApplyObject = {}
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:GetFixedSize(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_ApplyObject:FitToText(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:GetFixedWidth(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_ApplyObject:GetDisabledTooltip(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:GetHeightPadding(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_ApplyObject:OnEnter(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:GetLayoutChildren(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_ApplyObject:OnLeave(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:GetMaximumWidth(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_ApplyObject:SetDisabledState(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:GetMinimumWidth(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_ApplyObject:SetDisabledTooltip(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:GetTextWidth(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_ApplyObject:SetTextToFit(...) end
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Apply_LeftObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Apply_LeftObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Apply_MiddleObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Apply_MiddleObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Apply_RightObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Apply_RightObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Apply_TextObject : FontString
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Apply_TextObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BGObject : Frame
----@field Bg CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_BgObject
----@field BottomEdge CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_BottomEdgeObject
----@field BottomLeftCorner CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_BottomLeftCornerObject
----@field BottomRightCorner CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_BottomRightCornerObject
----@field LeftEdge CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_LeftEdgeObject
----@field RightEdge CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_RightEdgeObject
----@field TopEdge CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_TopEdgeObject
----@field TopLeftCorner CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_TopLeftCornerObject
----@field TopRightCorner CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_TopRightCornerObject
----@field layoutType string
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BGObject = {}
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:GetWidthPadding(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BGObject:GetBorderColor(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:IgnoreLayoutIndex(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BGObject:GetCenterColor(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:IsDirty(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BGObject:GetFrameLayoutTextureKit(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:IsLayoutFrame(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BGObject:GetFrameLayoutType(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:Layout(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BGObject:OnLoad(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:MarkClean(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BGObject:SetBlendMode(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:MarkDirty(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BGObject:SetBorderBlendMode(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:MarkIgnoreInLayout(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BGObject:SetBorderColor(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:NewFeatureLabel_OnShow(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BGObject:SetCenterColor(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:OnCleaned(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BGObject:SetVertexColor(...) end
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_BgObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_BgObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_BottomEdgeObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_BottomEdgeObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_BottomLeftCornerObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_BottomLeftCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_BottomRightCornerObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_BottomRightCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_LeftEdgeObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_LeftEdgeObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_RightEdgeObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_RightEdgeObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_TopEdgeObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_TopEdgeObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_TopLeftCornerObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_TopLeftCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_TopRightCornerObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_BG_TopRightCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_CancelObject : Button
----@field Left CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Cancel_LeftObject
----@field Middle CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Cancel_MiddleObject
----@field Right CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Cancel_RightObject
----@field Text CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Cancel_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_CancelObject = {}
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:OnHide(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_CancelObject:FitToText(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_CancelObject:GetDisabledTooltip(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:OnShow(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_CancelObject:OnEnter(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:OnUpdate(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_CancelObject:OnLeave(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:SetFixedHeight(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_CancelObject:SetDisabledState(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:SetFixedSize(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_CancelObject:SetDisabledTooltip(...) end
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:SetFixedWidth(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_CancelObject:SetTextToFit(...) end
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Cancel_LeftObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Cancel_LeftObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Cancel_MiddleObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Cancel_MiddleObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Cancel_RightObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Cancel_RightObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Cancel_TextObject : FontString
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_Cancel_TextObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_ClubDescriptionObject : FontString
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_ClubDescriptionObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_ClubDescription2Object : FontString
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_ClubDescription2Object = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_ClubNameObject : FontString
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_ClubNameObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_DialogLabelObject : FontString
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_DialogLabelObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_ErrorDescriptionObject : FontString
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_ErrorDescriptionObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrameObject : Frame
----@field Bottom CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_BottomObject
----@field BottomLeft CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_BottomLeftObject
----@field BottomRight CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_BottomRightObject
----@field Left CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_LeftObject
----@field MessageScroll CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScrollObject
----@field Middle CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MiddleObject
----@field Right CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_RightObject
----@field Top CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_TopObject
----@field TopLeft CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_TopLeftObject
----@field TopRight CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_TopRightObject
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrameObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_BottomObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_BottomObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_BottomLeftObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_BottomLeftObject = {}
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:SetHeightPadding(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:SetMaximumWidth(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:SetMinimumWidth(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:SetWidthPadding(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NewObject:ShouldClearOnUpdateAfterClean(...) end
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_BottomRightObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_BottomRightObject = {}
+---@class CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_New_BGLabelObject : FontString
+---@field ignoreInLayout boolean
+local CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_New_BGLabelObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_LeftObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_LeftObject = {}
+---@class CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_New_FadeObject : AnimationGroup
+local CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_New_FadeObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScrollObject : ScrollFrame
----@field BottomLeftTex CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_BottomLeftTexObject
----@field BottomRightTex CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_BottomRightTexObject
----@field BottomTex CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_BottomTexObject
----@field CharCount CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_CharCountObject
----@field EditBox CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_EditBoxObject
----@field LeftTex CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_LeftTexObject
----@field MiddleTex CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_MiddleTexObject
----@field RightTex CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_RightTexObject
----@field ScrollBar CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject
----@field TopLeftTex CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_TopLeftTexObject
----@field TopRightTex CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_TopRightTexObject
----@field TopTex CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_TopTexObject
----@field cursorOffset number
----@field hideCharCount boolean
----@field instructions string
----@field maxLetters number
----@field panExtent number
----@field scrollBarBottomY number
----@field scrollBarHideIfUnscrollable boolean
----@field scrollBarTopY number
----@field scrollBarX number
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScrollObject = {}
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScrollObject:GetPanExtent(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScrollObject:SetPanExtent(...) end
+---@class CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_New_GlowObject : Texture
+local CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_New_GlowObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_BottomLeftTexObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_BottomLeftTexObject = {}
+---@class CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_New_LabelObject : FontString
+local CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_New_LabelObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_BottomRightTexObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_BottomRightTexObject = {}
+---@class CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NormalTextureObject : Texture
+local CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_NormalTextureObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_BottomTexObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_BottomTexObject = {}
+---@class CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_PushedTextureObject : Texture
+local CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_PushedTextureObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_CharCountObject : FontString
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_CharCountObject = {}
+---@class CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_RingObject : Texture
+local CatalogShopFrame_ModelSceneContainerFrame_AlternateFormButton_RingObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_EditBoxObject : EditBox
----@field Instructions CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_EditBox_InstructionsObject
+---@class CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject
+---@field ModelFrame CatalogShopFrame_ModelSceneContainerFrame_MainModelScene_ModelFrameObject
+---@field actorTemplate string
+---@field allowOverlappedModels boolean
+---@field cameras table
 ---@field smartNavigationIgnored boolean
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_EditBoxObject = {}
+---@field tagToActor table
+---@field tagToCamera table
+local CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject = {}
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:AcquireActor(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:AcquireAndInitializeActor(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:AddCamera(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:AddOrUpdateDropShadow(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:AdjustCameraYaw(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:AttachPlayerToMount(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:ClearScene(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:CreateActorFromScene(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:CreateCameraFromScene(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:CreateOrTransitionActorFromScene(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:CreateOrTransitionCameraFromScene(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:EnumerateActiveActors(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:GetActiveCamera(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:GetActorByTag(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:GetCameraByTag(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:GetModelSceneID(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:GetNumActiveActors(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:GetOrAcquireDropShadow(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:GetPlayerActor(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:HasActiveCamera(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:InitializeActor(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:IsLeftMouseButtonDown(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:IsRightMouseButtonDown(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:OnEnter(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:OnLeave(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:OnMouseDown(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:OnMouseUp(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:OnMouseWheel(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:OnUpdate(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:ReleaseActor(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:ReleaseAllActors(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:ReleaseAllCameras(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:Reset(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:SetActiveCamera(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:SetFromModelSceneID(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:SetResetCallback(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:ShowAndAnimateActors(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:StopCameraYaw(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:SynchronizeActiveCamera(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:Transform3DPointTo2D(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_MainModelSceneObject:TransitionToModelSceneID(...) end
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_EditBox_InstructionsObject : FontString
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_EditBox_InstructionsObject = {}
+---@class CatalogShopFrame_ModelSceneContainerFrame_MainModelScene_ModelFrameObject : Frame
+---@field dropShadow CatalogShopFrame_ModelSceneContainerFrame_MainModelScene_ModelFrame_dropShadowObject
+local CatalogShopFrame_ModelSceneContainerFrame_MainModelScene_ModelFrameObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_LeftTexObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_LeftTexObject = {}
+---@class CatalogShopFrame_ModelSceneContainerFrame_MainModelScene_ModelFrame_dropShadowObject : Texture
+local CatalogShopFrame_ModelSceneContainerFrame_MainModelScene_ModelFrame_dropShadowObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_MiddleTexObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_MiddleTexObject = {}
+---@class CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject : CheckButton
+---@field CheckedTexture CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_CheckedTextureObject
+---@field CircleMask CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_CircleMaskObject
+---@field DisabledOverlay CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_DisabledOverlayObject
+---@field Flash CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_FlashObject
+---@field HighlightTexture CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_HighlightTextureObject
+---@field New CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject
+---@field NormalTexture CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NormalTextureObject
+---@field PushedTexture CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_PushedTextureObject
+---@field Ring CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_RingObject
+---@field checkedAtlas string
+---@field checkedTextureSize number
+---@field circleMaskSizeOffset number
+---@field disabledOverlayAlpha number
+---@field flipTextures boolean
+---@field highlightAtlas string
+---@field newTagYOffset number
+---@field ringAtlas string
+---@field ringHeight number
+---@field ringWidth number
+---@field selected boolean
+---@field tooltipAnchor string
+---@field tooltipPadding number
+---@field tooltipXOffset number
+---@field tooltipYOffset number
+local CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject = {}
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:AddBlankTooltipLine(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:AddExtraStuffToTooltip(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:AddTooltipLine(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:CanChangeSelection(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:ClearFlashTimer(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:ClearTooltipLines(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:GetAppropriateTooltip(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:HideTooltip(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:IsSelected(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:OnClick(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:OnEnter(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:OnLeave(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:OnMouseDown(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:OnMouseUp(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:OnSelected(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:Reset(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:SetEnabledState(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:SetIconAtlas(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:SetSelected(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:SetSelectedState(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:SetSelectionChangeInterrupt(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:SetupAlteredFormButton(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:SetupAnchors(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:ShowTooltip(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:StartFlash(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:StopFlash(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButtonObject:UpdateHighlightTexture(...) end
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_RightTexObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_RightTexObject = {}
+---@class CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_CheckedTextureObject : Texture
+local CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_CheckedTextureObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject : Frame
----@field Back CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject
----@field Defaults CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_DefaultsObject
----@field Directions CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_DirectionsObject
----@field Event CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_EventObject
----@field Forward CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject
----@field Track CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_TrackObject
+---@class CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_CircleMaskObject : MaskTexture
+local CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_CircleMaskObject = {}
+end
+
+do
+---@class CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_DisabledOverlayObject : Texture
+local CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_DisabledOverlayObject = {}
+end
+
+do
+---@class CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_FlashObject : Frame
+---@field Anim CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_Flash_AnimObject
+---@field Portrait CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_Flash_PortraitObject
+---@field Ring CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_Flash_RingObject
+---@field Ring2 CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_Flash_Ring2Object
+local CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_FlashObject = {}
+end
+
+do
+---@class CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_Flash_AnimObject : AnimationGroup
+local CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_Flash_AnimObject = {}
+end
+
+do
+---@class CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_Flash_PortraitObject : Texture
+local CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_Flash_PortraitObject = {}
+end
+
+do
+---@class CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_Flash_RingObject : Texture
+local CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_Flash_RingObject = {}
+end
+
+do
+---@class CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_Flash_Ring2Object : Texture
+local CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_Flash_Ring2Object = {}
+end
+
+do
+---@class CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_HighlightTextureObject : Texture
+local CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_HighlightTextureObject = {}
+end
+
+do
+---@class CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject : Frame
+---@field BGLabel CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_New_BGLabelObject
+---@field Fade CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_New_FadeObject
+---@field Glow CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_New_GlowObject
+---@field Label CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_New_LabelObject
+---@field animateGlow boolean
+---@field justifyH string
+---@field label string
+local CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject = {}
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:AddLayoutChildren(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:ClearAlert(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:ClearFixedSize(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:GetAdditionalRegions(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:GetChildHeight(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:GetChildSize(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:GetChildWidth(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:GetFixedHeight(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:GetFixedSize(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:GetFixedWidth(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:GetHeightPadding(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:GetLayoutChildren(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:GetMaximumWidth(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:GetMinimumWidth(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:GetTextWidth(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:GetWidthPadding(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:IsDirty(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:IsLayoutFrame(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:Layout(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:MarkClean(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:MarkDirty(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:NewFeatureLabel_OnShow(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:OnCleaned(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:OnHide(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:OnShow(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:OnUpdate(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:SetFixedHeight(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:SetFixedSize(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:SetFixedWidth(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:SetHeightPadding(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:SetMaximumWidth(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:SetMinimumWidth(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:SetWidthPadding(...) end
+---@return any ...
+function CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NewObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_New_BGLabelObject : FontString
+---@field ignoreInLayout boolean
+local CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_New_BGLabelObject = {}
+end
+
+do
+---@class CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_New_FadeObject : AnimationGroup
+local CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_New_FadeObject = {}
+end
+
+do
+---@class CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_New_GlowObject : Texture
+local CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_New_GlowObject = {}
+end
+
+do
+---@class CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_New_LabelObject : FontString
+local CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_New_LabelObject = {}
+end
+
+do
+---@class CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NormalTextureObject : Texture
+local CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_NormalTextureObject = {}
+end
+
+do
+---@class CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_PushedTextureObject : Texture
+local CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_PushedTextureObject = {}
+end
+
+do
+---@class CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_RingObject : Texture
+local CatalogShopFrame_ModelSceneContainerFrame_NormalFormButton_RingObject = {}
+end
+
+do
+---@class CatalogShopFrame_ModelSceneDataObject
+---@field CurrentCardModelSceneData table
+---@field CurrentModelSceneData table
+local CatalogShopFrame_ModelSceneDataObject = {}
+end
+
+do
+---@class CatalogShopFrame_NineSliceObject : Frame
+---@field BottomEdge CatalogShopFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner CatalogShopFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner CatalogShopFrame_NineSlice_BottomRightCornerObject
+---@field Center CatalogShopFrame_NineSlice_CenterObject
+---@field LeftEdge CatalogShopFrame_NineSlice_LeftEdgeObject
+---@field RightEdge CatalogShopFrame_NineSlice_RightEdgeObject
+---@field TopEdge CatalogShopFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner CatalogShopFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner CatalogShopFrame_NineSlice_TopRightCornerObject
+local CatalogShopFrame_NineSliceObject = {}
+---@return any ...
+function CatalogShopFrame_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function CatalogShopFrame_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function CatalogShopFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function CatalogShopFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function CatalogShopFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function CatalogShopFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function CatalogShopFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function CatalogShopFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function CatalogShopFrame_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class CatalogShopFrame_NineSlice_BottomEdgeObject : Texture
+local CatalogShopFrame_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class CatalogShopFrame_NineSlice_BottomLeftCornerObject : Texture
+local CatalogShopFrame_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class CatalogShopFrame_NineSlice_BottomRightCornerObject : Texture
+local CatalogShopFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class CatalogShopFrame_NineSlice_CenterObject : Texture
+local CatalogShopFrame_NineSlice_CenterObject = {}
+end
+
+do
+---@class CatalogShopFrame_NineSlice_LeftEdgeObject : Texture
+local CatalogShopFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class CatalogShopFrame_NineSlice_RightEdgeObject : Texture
+local CatalogShopFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class CatalogShopFrame_NineSlice_TopEdgeObject : Texture
+local CatalogShopFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class CatalogShopFrame_NineSlice_TopLeftCornerObject : Texture
+local CatalogShopFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class CatalogShopFrame_NineSlice_TopRightCornerObject : Texture
+local CatalogShopFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class CatalogShopFrame_PMTImageContainerFrameObject : Frame
+---@field ImageCarousel CatalogShopFrame_PMTImageContainerFrame_ImageCarouselObject
+---@field OtherProductWarningText CatalogShopFrame_PMTImageContainerFrame_OtherProductWarningTextObject
+---@field PMTImageForNoModel CatalogShopFrame_PMTImageContainerFrame_PMTImageForNoModelObject
+---@field PMTImageForNoModelBorder CatalogShopFrame_PMTImageContainerFrame_PMTImageForNoModelBorderObject
+---@field PMTImageForNoModelMask CatalogShopFrame_PMTImageContainerFrame_PMTImageForNoModelMaskObject
+---@field Spinner CatalogShopFrame_PMTImageContainerFrame_SpinnerObject
+---@field WatermarkLogoTexture CatalogShopFrame_PMTImageContainerFrame_WatermarkLogoTextureObject
+---@field carouselImageURLs table
+local CatalogShopFrame_PMTImageContainerFrameObject = {}
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrameObject:OnCarouselSelectionSet(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrameObject:OnEvent(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrameObject:OnHide(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrameObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrameObject:OnShow(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrameObject:ResetCarouselSelection(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrameObject:SetCarouselSelection(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrameObject:SetDetailsShown(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrameObject:SetDisplayInfo(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrameObject:SetForFailedModelScene(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrameObject:SetupCarouselImages(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrameObject:SetupCarouselImagesAndHide(...) end
+end
+
+do
+---@class CatalogShopFrame_PMTImageContainerFrame_ImageCarouselObject : Frame
+---@field LeftButton CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_LeftButtonObject
+---@field RightButton CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_RightButtonObject
+---@field ScrollBox CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject
+local CatalogShopFrame_PMTImageContainerFrame_ImageCarouselObject = {}
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarouselObject:Init(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarouselObject:OnClick(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarouselObject:OnHide(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarouselObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarouselObject:OnShow(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarouselObject:OnUpdate(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarouselObject:SelectNextImage(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarouselObject:SelectPreviousImage(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarouselObject:SetImages(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarouselObject:SetupScrollData(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarouselObject:SetupScrollView(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarouselObject:SetupScrolling(...) end
+end
+
+do
+---@class CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_LeftButtonObject : Button
+---@field Selected CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_LeftButton_SelectedObject
+---@field direction string
+local CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_LeftButtonObject = {}
+end
+
+do
+---@class CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_LeftButton_SelectedObject : Texture
+local CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_LeftButton_SelectedObject = {}
+end
+
+do
+---@class CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_RightButtonObject : Button
+---@field direction string
+local CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_RightButtonObject = {}
+end
+
+do
+---@class CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject : Frame
+---@field Defaults CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_DefaultsObject
+---@field Directions CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_DirectionsObject
+---@field DragDelegate CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_DragDelegateObject
+---@field Event CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_EventObject
+---@field ScrollTarget CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject
+---@field Shadows CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ShadowsObject
 ---@field allowScroll boolean
 ---@field callbackTables table
 ---@field canInterpolateScroll boolean
+---@field debugInspectionSystem string
 ---@field deferredCallbacks table
 ---@field executingEvents table
----@field hideIfUnscrollable boolean
----@field hideTrack boolean
----@field interpolator CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_interpolatorObject
 ---@field isScrollController boolean
----@field minThumbExtent number
----@field panDelay number
 ---@field panExtentPercentage number
----@field panRepeatTime number
----@field smartNavigationIgnored boolean
----@field snapToInterval boolean
----@field thumbAnchor string
----@field useProportionalThumb boolean
----@field visibleExtentPercentage number
 ---@field wheelPanScalar number
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject = {}
+local CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject = {}
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:CallInternalScope(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ApplyEdgeFade(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:CanCursorStepInDirection(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:CalculateEdgeFade(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:CanInterpolateScroll(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:CalculatePanExtentPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:CopyDeferredCallbacks(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:CalculateScrollPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:DisableControls(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:CanInterpolateScroll(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:DoesFrameHaveEvent(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ClearEdgeFade(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:EnableInternalPriority(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ContainsElementDataByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:EnableSnapToInterval(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:GenerateCallbackEvents(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:GetBackStepper(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:EnableSnapToInterval(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:GetCallbackTable(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:EnumerateDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:GetCallbackTables(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:EnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:GetCallbacksByEvent(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:EnumerateFrames(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:GetForwardStepper(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:FindByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:GetFrameExtent(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:FindElementData(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:GetIntervalRange(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:FindElementDataByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:GetLower(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:FindElementDataIndex(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:FindElementDataIndexByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:GetPanExtentPercentage(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:FindFrame(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:GetPanRepeatDelay(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:FindFrameByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:GetPanRepeatTime(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:FindFrameElementDataIndex(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:GetScrollInterpolator(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:Flush(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:GetScrollPercentage(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:FlushDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:GetThumb(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ForEachElementData(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:GetThumbAnchor(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ForEachFrame(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:GetTrack(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:FullUpdate(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:GetTrackExtent(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:FullUpdateInternal(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:GetUpper(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:GetVisibleExtentPercentage(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetBottomPadding(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:GetWheelPanPercentage(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:HasRegistrantsForEvent(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:HasScrollableExtent(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:Init(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetDataIndexBegin(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:InitializeNarration(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetDataIndexEnd(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:Interpolate(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:IsAtBegin(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetDataProviderSize(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:IsAtEnd(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetDerivedExtent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:IsHorizontal(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetDerivedScrollOffset(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:IsScrollAllowed(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetDerivedScrollRange(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:IsThumbMouseDown(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetElementExtent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:OnHide_Intrinsic(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetExtent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:OnLoad(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetExtentPadding(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:OnLoad_Intrinsic(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetExtentUntil(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:OnMouseWheel(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetFrameCount(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:OnShow_Intrinsic(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetFrameExtent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetFrames(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:OnStepperMouseDown(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetIntervalRange(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:OnThumbMouseDown(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetLeftPadding(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:OnTrackMouseDown(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetLower(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetLowerPadding(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:RegisterCallback(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetLowerShadowTexture(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:RegisterCallbackWithHandle(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:ScrollDecrease(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetPadding(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:ScrollInDirection(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetPanExtent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:ScrollIncrease(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:ScrollPageInDirection(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetRightPadding(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:ScrollStepInDirection(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetScrollInterpolator(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:ScrollToBegin(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetScrollPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:ScrollToEnd(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetScrollTarget(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:ScrollWheelInDirection(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetTopPadding(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:SecureInsertEvent(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetUpper(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:SelectCursorComponent(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetUpperPadding(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:SelectPointComponent(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetUpperShadowTexture(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:SetFrameExtent(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetView(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:SetHideIfUnscrollable(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetVisibleExtent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:SetHorizontal(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:SetInterpolateScroll(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:HasDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:SetPanExtentPercentage(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:HasEdgeFade(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:SetScrollAllowed(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:SetScrollPercentage(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:HasScrollableExtent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:SetScrollPercentageInternal(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:HasView(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:SetThumbExtent(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:Init(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:Interpolate(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:SetVisibleExtentPercentage(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:IsAcquireLocked(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:TriggerEvent(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:IsAlignmentOverlapIgnored(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:UnregisterCallback(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:IsAtBegin(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:UnregisterEvents(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:IsAtEnd(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:UnregisterEventsByEventTable(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:IsHorizontal(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:UnregisterUpdate(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:IsScrollAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:Update(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:IsScrollToDataIndexSafe(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:onButtonMouseUp(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:IsUpdateLocked(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBarObject:scrollInternal(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:IsVirtualized(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:Layout(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:OnMouseWheel(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:OnScrollTargetSizeChanged(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:OnSizeChanged(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:OnViewAcquiredFrame(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:OnViewDataChanged(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:OnViewDataProviderReassigned(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:OnViewInitializedFrame(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:OnViewReleasedFrame(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:Rebuild(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:RecalculateDerivedExtent(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:RegisterCallback(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ReinitializeFrames(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:RemoveDataProvider(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ReverseEnumerateDataProvider(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ReverseForEachElementData(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ReverseForEachFrame(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SanitizeAlignment(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ScrollDecrease(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ScrollInDirection(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ScrollIncrease(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ScrollToBegin(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ScrollToElementData(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ScrollToElementDataByPredicate(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ScrollToElementDataIndex(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ScrollToEnd(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ScrollToFrame(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ScrollToNearest(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ScrollToNearestByPredicate(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ScrollToOffset(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SecureInsertEvent(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SelectCursorComponent(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SelectPointComponent(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SetAlignmentOverlapIgnored(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SetDataProvider(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SetEdgeFadeLength(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SetFrameExtent(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SetHorizontal(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SetInterpolateScroll(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SetLowerShadowAtlas(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SetPadding(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SetPanExtent(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SetPanExtentPercentage(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SetScrollAllowed(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SetScrollPercentage(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SetScrollTargetOffset(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SetShadowsFrameLevel(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SetShadowsScale(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SetShadowsShown(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SetUpdateLocked(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SetUpperShadowAtlas(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SetUseShadowsForEdgeFade(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:SetView(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:TriggerEvent(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:UnregisterCallback(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:UnregisterEvents(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:Update(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBoxObject:scrollInternal(...) end
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject : Button
----@field Event CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Back_EventObject
----@field Texture CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Back_TextureObject
+---@class CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_DefaultsObject
+local CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_DefaultsObject = {}
+end
+
+do
+---@class CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_DirectionsObject
+local CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_DirectionsObject = {}
+end
+
+do
+---@class CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_DragDelegateObject : Frame
+local CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_DragDelegateObject = {}
+end
+
+do
+---@class CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_EventObject
+local CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_EventObject = {}
+end
+
+do
+---@class CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject : Frame
+---@field Event CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTarget_EventObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
 ---@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject = {}
+local CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject = {}
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:GetAtlas(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:GetCallbackTable(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:GetCallbackTables(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:IsDown(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:IsDownOver(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:IsOver(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:NarrationGetName(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:OnButtonStateChanged(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:OnDisable(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:OnEnable(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:OnEnter(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:OnLeave(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:OnMouseDown(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:OnMouseUp(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:OnShow(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:SetDisplacedRegions(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+function CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Back_EventObject
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Back_EventObject = {}
+---@class CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTarget_EventObject
+local CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ScrollTarget_EventObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Back_TextureObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Back_TextureObject = {}
+---@class CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ShadowsObject : Frame
+---@field Lower CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_Shadows_LowerObject
+---@field Upper CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_Shadows_UpperObject
+local CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_ShadowsObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_DefaultsObject
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_DefaultsObject = {}
+---@class CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_Shadows_LowerObject : Texture
+local CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_Shadows_LowerObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_DirectionsObject
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_DirectionsObject = {}
+---@class CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_Shadows_UpperObject : Texture
+local CatalogShopFrame_PMTImageContainerFrame_ImageCarousel_ScrollBox_Shadows_UpperObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_EventObject
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_EventObject = {}
+---@class CatalogShopFrame_PMTImageContainerFrame_OtherProductWarningTextObject : FontString
+local CatalogShopFrame_PMTImageContainerFrame_OtherProductWarningTextObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject : Button
----@field Event CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Forward_EventObject
----@field Texture CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Forward_TextureObject
+---@class CatalogShopFrame_PMTImageContainerFrame_PMTImageForNoModelObject : Texture
+local CatalogShopFrame_PMTImageContainerFrame_PMTImageForNoModelObject = {}
+end
+
+do
+---@class CatalogShopFrame_PMTImageContainerFrame_PMTImageForNoModelBorderObject : Texture
+local CatalogShopFrame_PMTImageContainerFrame_PMTImageForNoModelBorderObject = {}
+end
+
+do
+---@class CatalogShopFrame_PMTImageContainerFrame_PMTImageForNoModelMaskObject : MaskTexture
+local CatalogShopFrame_PMTImageContainerFrame_PMTImageForNoModelMaskObject = {}
+end
+
+do
+---@class CatalogShopFrame_PMTImageContainerFrame_SpinnerObject : Frame
+---@field Anim CatalogShopFrame_PMTImageContainerFrame_Spinner_AnimObject
+---@field Ring CatalogShopFrame_PMTImageContainerFrame_Spinner_RingObject
+---@field Sparks CatalogShopFrame_PMTImageContainerFrame_Spinner_SparksObject
+local CatalogShopFrame_PMTImageContainerFrame_SpinnerObject = {}
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_SpinnerObject:GetShadowAlpha(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_SpinnerObject:OnHide(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_SpinnerObject:OnShow(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_SpinnerObject:OnSizeChanged(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_SpinnerObject:SetDesaturated(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_SpinnerObject:SetShadowEnabled(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_SpinnerObject:UpdateShadowSize(...) end
+---@return any ...
+function CatalogShopFrame_PMTImageContainerFrame_SpinnerObject:UpdateTheme(...) end
+end
+
+do
+---@class CatalogShopFrame_PMTImageContainerFrame_Spinner_AnimObject : AnimationGroup
+local CatalogShopFrame_PMTImageContainerFrame_Spinner_AnimObject = {}
+end
+
+do
+---@class CatalogShopFrame_PMTImageContainerFrame_Spinner_RingObject : Texture
+local CatalogShopFrame_PMTImageContainerFrame_Spinner_RingObject = {}
+end
+
+do
+---@class CatalogShopFrame_PMTImageContainerFrame_Spinner_SparksObject : Texture
+local CatalogShopFrame_PMTImageContainerFrame_Spinner_SparksObject = {}
+end
+
+do
+---@class CatalogShopFrame_PMTImageContainerFrame_WatermarkLogoTextureObject : Texture
+local CatalogShopFrame_PMTImageContainerFrame_WatermarkLogoTextureObject = {}
+end
+
+do
+---@class CatalogShopFrame_PersistentRefundContainerFrameObject : Frame
+---@field PersistentRefundButton CatalogShopFrame_PersistentRefundContainerFrame_PersistentRefundButtonObject
+---@field RefundCountFrame CatalogShopFrame_PersistentRefundContainerFrame_RefundCountFrameObject
+---@field RefundTextFrame CatalogShopFrame_PersistentRefundContainerFrame_RefundTextFrameObject
+local CatalogShopFrame_PersistentRefundContainerFrameObject = {}
+---@return any ...
+function CatalogShopFrame_PersistentRefundContainerFrameObject:OnCategorySelected(...) end
+---@return any ...
+function CatalogShopFrame_PersistentRefundContainerFrameObject:OnHide(...) end
+---@return any ...
+function CatalogShopFrame_PersistentRefundContainerFrameObject:UpdateState(...) end
+end
+
+do
+---@class CatalogShopFrame_PersistentRefundContainerFrame_PersistentRefundButtonObject : Button
+---@field Controller CatalogShopFrame_PersistentRefundContainerFrame_PersistentRefundButton_ControllerObject
+---@field buttonArtKit string
+---@field catalogShopOnClickMethod string
+local CatalogShopFrame_PersistentRefundContainerFrame_PersistentRefundButtonObject = {}
+---@return any ...
+function CatalogShopFrame_PersistentRefundContainerFrame_PersistentRefundButtonObject:ClearCustomTextFormatter(...) end
+---@return any ...
+function CatalogShopFrame_PersistentRefundContainerFrame_PersistentRefundButtonObject:GetOnClickSoundKit(...) end
+---@return any ...
+function CatalogShopFrame_PersistentRefundContainerFrame_PersistentRefundButtonObject:InitButton(...) end
+---@return any ...
+function CatalogShopFrame_PersistentRefundContainerFrame_PersistentRefundButtonObject:OnClick(...) end
+---@return any ...
+function CatalogShopFrame_PersistentRefundContainerFrame_PersistentRefundButtonObject:OnEnter(...) end
+---@return any ...
+function CatalogShopFrame_PersistentRefundContainerFrame_PersistentRefundButtonObject:OnLeave(...) end
+---@return any ...
+function CatalogShopFrame_PersistentRefundContainerFrame_PersistentRefundButtonObject:RunCustomTextFormatter(...) end
+---@return any ...
+function CatalogShopFrame_PersistentRefundContainerFrame_PersistentRefundButtonObject:SetButtonArtKit(...) end
+---@return any ...
+function CatalogShopFrame_PersistentRefundContainerFrame_PersistentRefundButtonObject:SetCustomTextFormatter(...) end
+---@return any ...
+function CatalogShopFrame_PersistentRefundContainerFrame_PersistentRefundButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function CatalogShopFrame_PersistentRefundContainerFrame_PersistentRefundButtonObject:SetOnClickHandler(...) end
+---@return any ...
+function CatalogShopFrame_PersistentRefundContainerFrame_PersistentRefundButtonObject:SetOnEnterHandler(...) end
+---@return any ...
+function CatalogShopFrame_PersistentRefundContainerFrame_PersistentRefundButtonObject:SetTooltipAnchor(...) end
+---@return any ...
+function CatalogShopFrame_PersistentRefundContainerFrame_PersistentRefundButtonObject:SetTooltipInfo(...) end
+end
+
+do
+---@class CatalogShopFrame_PersistentRefundContainerFrame_PersistentRefundButton_ControllerObject : Frame
+local CatalogShopFrame_PersistentRefundContainerFrame_PersistentRefundButton_ControllerObject = {}
+---@return any ...
+function CatalogShopFrame_PersistentRefundContainerFrame_PersistentRefundButton_ControllerObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_PersistentRefundContainerFrame_PersistentRefundButton_ControllerObject:OnShow(...) end
+end
+
+do
+---@class CatalogShopFrame_PersistentRefundContainerFrame_RefundCountFrameObject : Frame
+---@field RefundCountBackground CatalogShopFrame_PersistentRefundContainerFrame_RefundCountFrame_RefundCountBackgroundObject
+---@field RefundCountText CatalogShopFrame_PersistentRefundContainerFrame_RefundCountFrame_RefundCountTextObject
+local CatalogShopFrame_PersistentRefundContainerFrame_RefundCountFrameObject = {}
+end
+
+do
+---@class CatalogShopFrame_PersistentRefundContainerFrame_RefundCountFrame_RefundCountBackgroundObject : Texture
+local CatalogShopFrame_PersistentRefundContainerFrame_RefundCountFrame_RefundCountBackgroundObject = {}
+end
+
+do
+---@class CatalogShopFrame_PersistentRefundContainerFrame_RefundCountFrame_RefundCountTextObject : FontString
+local CatalogShopFrame_PersistentRefundContainerFrame_RefundCountFrame_RefundCountTextObject = {}
+end
+
+do
+---@class CatalogShopFrame_PersistentRefundContainerFrame_RefundTextFrameObject : Frame
+---@field RefundText CatalogShopFrame_PersistentRefundContainerFrame_RefundTextFrame_RefundTextObject
+local CatalogShopFrame_PersistentRefundContainerFrame_RefundTextFrameObject = {}
+end
+
+do
+---@class CatalogShopFrame_PersistentRefundContainerFrame_RefundTextFrame_RefundTextObject : FontString
+local CatalogShopFrame_PersistentRefundContainerFrame_RefundTextFrame_RefundTextObject = {}
+end
+
+do
+---@class CatalogShopFrame_PortraitContainerObject : Frame
+---@field CircleMask CatalogShopFrame_PortraitContainer_CircleMaskObject
+---@field portrait CatalogShopFrame_PortraitContainer_portraitObject
+local CatalogShopFrame_PortraitContainerObject = {}
+end
+
+do
+---@class CatalogShopFrame_PortraitContainer_CircleMaskObject : MaskTexture
+local CatalogShopFrame_PortraitContainer_CircleMaskObject = {}
+end
+
+do
+---@class CatalogShopFrame_PortraitContainer_portraitObject : Texture
+local CatalogShopFrame_PortraitContainer_portraitObject = {}
+end
+
+do
+---@class CatalogShopFrame_ProductContainerFrameObject : Frame
+---@field NoSearchResults CatalogShopFrame_ProductContainerFrame_NoSearchResultsObject
+---@field ProductsHeader CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject
+---@field ProductsScrollBoxContainer CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainerObject
+---@field ShadowLayer CatalogShopFrame_ProductContainerFrame_ShadowLayerObject
+---@field noSearchResultsText string
+---@field usesScrollBox boolean
+local CatalogShopFrame_ProductContainerFrameObject = {}
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:AllDataRefresh(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:GetSelectedProductInfo(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:Init(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:InitProductContainer(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:OnCategorySelected(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:OnEnter(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:OnEvent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:OnHide(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:OnLeave(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:OnModelSceneFailure(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:OnProductSelected(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:OnShow(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:OnUpdate(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:SelectFirstProduct(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:SelectFirstProductSilent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:SetSelectedProductInfo(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:SetupProductHeaderFrame(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:SetupScrollView(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:TrySelectProduct(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:TrySelectProductByID(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:UpdateProducts(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:UpdateSpecificProduct(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrameObject:getDataProviderFunc(...) end
+end
+
+do
+---@class CatalogShopFrame_ProductContainerFrame_NoSearchResultsObject : FontString
+local CatalogShopFrame_ProductContainerFrame_NoSearchResultsObject = {}
+end
+
+do
+---@class CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject : Frame
+---@field LegalDisclaimerText CatalogShopFrame_ProductContainerFrame_ProductsHeader_LegalDisclaimerTextObject
+---@field ProductDescription CatalogShopFrame_ProductContainerFrame_ProductsHeader_ProductDescriptionObject
+---@field ProductName CatalogShopFrame_ProductContainerFrame_ProductsHeader_ProductNameObject
+---@field ProductType CatalogShopFrame_ProductContainerFrame_ProductsHeader_ProductTypeObject
+---@field fixedWidth number
+local CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject = {}
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:AddLayoutChildren(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:CalculateFrameSize(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:ClearFixedSize(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:GetAdditionalRegions(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:GetChildHeight(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:GetChildPadding(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:GetChildSize(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:GetChildWidth(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:GetFixedHeight(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:GetFixedSize(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:GetFixedWidth(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:GetHeightPadding(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:GetLayoutChildren(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:GetPadding(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:GetWidthPadding(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:Init(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:IsDirty(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:IsLayoutFrame(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:Layout(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:LayoutChildren(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:MarkClean(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:MarkDirty(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:OnCleaned(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:OnShow(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:OnUpdate(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:SetFixedHeight(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:SetFixedSize(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:SetFixedWidth(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:SetHeightPadding(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:SetWidthPadding(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeaderObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class CatalogShopFrame_ProductContainerFrame_ProductsHeader_LegalDisclaimerTextObject : FontString
+---@field bottomPadding number
+---@field layoutIndex number
+---@field leftPadding number
+---@field minLineHeight number
+---@field topPadding number
+local CatalogShopFrame_ProductContainerFrame_ProductsHeader_LegalDisclaimerTextObject = {}
+end
+
+do
+---@class CatalogShopFrame_ProductContainerFrame_ProductsHeader_ProductDescriptionObject : FontString
+---@field bottomPadding number
+---@field layoutIndex number
+---@field leftPadding number
+---@field minLineHeight number
+---@field topPadding number
+local CatalogShopFrame_ProductContainerFrame_ProductsHeader_ProductDescriptionObject = {}
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeader_ProductDescriptionObject:OnEnter(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeader_ProductDescriptionObject:OnLeave(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeader_ProductDescriptionObject:ScaleTextToFit(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeader_ProductDescriptionObject:SetMinLineHeight(...) end
+end
+
+do
+---@class CatalogShopFrame_ProductContainerFrame_ProductsHeader_ProductNameObject : FontString
+---@field bottomPadding number
+---@field layoutIndex number
+---@field leftPadding number
+---@field minLineHeight number
+---@field topPadding number
+local CatalogShopFrame_ProductContainerFrame_ProductsHeader_ProductNameObject = {}
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeader_ProductNameObject:ScaleTextToFit(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeader_ProductNameObject:SetMinLineHeight(...) end
+end
+
+do
+---@class CatalogShopFrame_ProductContainerFrame_ProductsHeader_ProductTypeObject : FontString
+---@field bottomPadding number
+---@field layoutIndex number
+---@field leftPadding number
+---@field minLineHeight number
+---@field topPadding number
+local CatalogShopFrame_ProductContainerFrame_ProductsHeader_ProductTypeObject = {}
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeader_ProductTypeObject:ScaleTextToFit(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsHeader_ProductTypeObject:SetMinLineHeight(...) end
+end
+
+do
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainerObject : Frame
+---@field ScrollBar CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_ScrollBarObject
+---@field ScrollBox CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_ScrollBoxObject
+---@field selectionBehavior CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainerObject = {}
+end
+
+do
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_ScrollBarObject
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_ScrollBarObject = {}
+end
+
+do
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_ScrollBoxObject
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_ScrollBoxObject = {}
+end
+
+do
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject
+---@field Event table
 ---@field callbackTables table
 ---@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
 ---@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject = {}
+---@field scrollBox CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject
+---@field selectionFlags table
+---@field selections table
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject = {}
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:ClearSelections(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:Deselect(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:DeselectByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:GetAtlas(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:DeselectElementData(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:GetCallbackTable(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:DeselectSelectedElements(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:GetCallbackTables(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:IsDown(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:IsDownOver(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:GetFirstSelectedElementData(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:IsOver(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:NarrationGetName(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:GetSelectedElementData(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:HasSelection(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:OnDisable(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:Init(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:OnEnable(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:IsElementDataIntrusiveSelected(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:OnEnter(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:IsElementDataSelected(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:IsFirstElementDataSelected(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:OnLeave(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:IsFlagSet(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:IsIntrusiveSelected(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:OnLoad(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:IsLastElementDataSelected(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:IsSelected(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:OnMouseDown(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:OnScrollBoxDataProviderReassigned(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:OnMouseUp(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:OnShow(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:Select(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:RegisterCallback(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:SelectElementData(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:SelectElementDataByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:SelectFirstElementData(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:SelectLastElementData(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:SelectNextElementData(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:TriggerEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:SelectOffsetElementData(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:UnregisterCallback(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:SelectPreviousElementData(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:UnregisterEvents(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:SetElementDataSelected_Internal(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:SetSelectionFlags(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:ToggleSelect(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:ToggleSelectElementData(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:TriggerEvent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:UnregisterCallback(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:UnregisterEvents(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Forward_EventObject
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Forward_EventObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject : Frame
+---@field Defaults CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_DefaultsObject
+---@field Directions CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_DirectionsObject
+---@field DragDelegate CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_DragDelegateObject
+---@field Event CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_EventObject
+---@field ScrollTarget CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject
+---@field Shadows CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ShadowsObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field debugInspectionSystem string
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field isScrollController boolean
+---@field panExtentPercentage number
+---@field registeredScrollBar CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject
+---@field view CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject
+---@field wheelPanScalar number
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject = {}
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ApplyEdgeFade(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:CalculateEdgeFade(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:CalculatePanExtentPercentage(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:CalculateScrollPercentage(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:CanInterpolateScroll(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ClearEdgeFade(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ContainsElementDataByPredicate(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:EnableSnapToInterval(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:EnumerateDataProvider(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:EnumerateDataProviderEntireRange(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:EnumerateFrames(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:FindByPredicate(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:FindElementData(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:FindElementDataByPredicate(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:FindElementDataIndex(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:FindElementDataIndexByPredicate(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:FindFrame(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:FindFrameByPredicate(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:FindFrameElementDataIndex(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:Flush(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:FlushDataProvider(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ForEachElementData(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ForEachFrame(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:FullUpdate(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:FullUpdateInternal(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetBottomPadding(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetCallbackTable(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetCallbackTables(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetDataIndexBegin(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetDataIndexEnd(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetDataProvider(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetDataProviderSize(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetDerivedExtent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetDerivedScrollOffset(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetDerivedScrollRange(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetElementExtent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetExtent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetExtentPadding(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetExtentUntil(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetFrameCount(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetFrameExtent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetFrames(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetIntervalRange(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetLeftPadding(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetLower(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetLowerPadding(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetLowerShadowTexture(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetPadding(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetPanExtent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetPanExtentPercentage(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetRightPadding(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetScrollInterpolator(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetScrollPercentage(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetScrollTarget(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetTopPadding(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetUpper(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetUpperPadding(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetUpperShadowTexture(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetView(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetVisibleExtent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetWheelPanPercentage(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:HasDataProvider(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:HasEdgeFade(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:HasScrollableExtent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:HasView(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:Init(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:Interpolate(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:IsAcquireLocked(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:IsAlignmentOverlapIgnored(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:IsAtBegin(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:IsAtEnd(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:IsHorizontal(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:IsScrollAllowed(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:IsScrollToDataIndexSafe(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:IsUpdateLocked(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:IsVirtualized(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:Layout(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:OnMouseWheel(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:OnScrollTargetSizeChanged(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:OnSizeChanged(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:OnViewAcquiredFrame(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:OnViewDataChanged(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:OnViewDataProviderReassigned(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:OnViewInitializedFrame(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:OnViewReleasedFrame(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:Rebuild(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:RecalculateDerivedExtent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:RegisterCallback(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ReinitializeFrames(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:RemoveDataProvider(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ReverseEnumerateDataProvider(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ReverseForEachElementData(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ReverseForEachFrame(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SanitizeAlignment(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollDecrease(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollInDirection(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollIncrease(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollToBegin(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollToElementData(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollToElementDataByPredicate(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollToElementDataIndex(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollToEnd(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollToFrame(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollToNearest(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollToNearestByPredicate(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollToOffset(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollToOffsetWithAdjustment(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SecureInsertEvent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SelectCursorComponent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SelectPointComponent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetAlignmentOverlapIgnored(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetDataProvider(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetEdgeFadeLength(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetFrameExtent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetHorizontal(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetInterpolateScroll(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetLowerShadowAtlas(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetPadding(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetPanExtent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetPanExtentPercentage(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetScrollAllowed(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetScrollPercentage(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetScrollTargetOffset(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetShadowsFrameLevel(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetShadowsScale(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetShadowsShown(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetUpdateLocked(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetUpperShadowAtlas(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetUseShadowsForEdgeFade(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetView(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:TriggerEvent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:UnregisterCallback(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:UnregisterEvents(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:Update(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:scrollInternal(...) end
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Forward_TextureObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Forward_TextureObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_DefaultsObject
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_DefaultsObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_TrackObject : Frame
----@field Begin CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_BeginObject
----@field End CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_EndObject
----@field Middle CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_MiddleObject
----@field Thumb CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_TrackObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_DirectionsObject
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_DirectionsObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_BeginObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_BeginObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_DragDelegateObject : Frame
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_DragDelegateObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_EndObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_EndObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_EventObject
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_EventObject = {}
 end
 
 do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_MiddleObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_MiddleObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject : Button
----@field Begin CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_Thumb_BeginObject
----@field End CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_Thumb_EndObject
----@field Event CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_Thumb_EventObject
----@field Middle CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_Thumb_MiddleObject
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject : Frame
+---@field Event CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTarget_EventObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field downBeginTexture string
----@field downEndTexture string
----@field downMiddleTexture string
 ---@field executingEvents table
----@field mouseDownSoundKitID number
----@field overBeginTexture string
----@field overEndTexture string
----@field overMiddleTexture string
----@field upBeginTexture string
----@field upEndTexture string
----@field upMiddleTexture string
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject = {}
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject = {}
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:IsDown(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:IsOver(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:OnDisable(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:OnEnable(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:OnEnter(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:OnLeave(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:OnShow(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_Thumb_BeginObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_Thumb_BeginObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_Thumb_EndObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_Thumb_EndObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_Thumb_EventObject
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_Thumb_EventObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_Thumb_MiddleObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_Track_Thumb_MiddleObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_interpolatorObject
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_interpolatorObject = {}
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_interpolatorObject:Cancel(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_interpolatorObject:Interpolate(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_ScrollBar_interpolatorObject:interpolateFunc(...) end
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_TopLeftTexObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_TopLeftTexObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_TopRightTexObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_TopRightTexObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_TopTexObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MessageScroll_TopTexObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MiddleObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_MiddleObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_RightObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_RightObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_TopObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_TopObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_TopLeftObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_TopLeftObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_TopRightObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_MessageFrame_TopRightObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_RecruitingSpecDescriptionsObject : FontString
-local CommunitiesFrame_ClubFinderInvitationFrame_RequestToJoinFrame_RecruitingSpecDescriptionsObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_TypeObject : FontString
-local CommunitiesFrame_ClubFinderInvitationFrame_TypeObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_WarningDialogObject : Frame
----@field Accept CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_AcceptObject
----@field BG CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BGObject
----@field Cancel CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_CancelObject
----@field DialogLabel CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_DialogLabelObject
-local CommunitiesFrame_ClubFinderInvitationFrame_WarningDialogObject = {}
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialogObject:OnAcceptButtonClick(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialogObject:OnCancelButtonClick(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialogObject:OnShow(...) end
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_AcceptObject : Button
----@field Left CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Accept_LeftObject
----@field Middle CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Accept_MiddleObject
----@field Right CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Accept_RightObject
----@field Text CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Accept_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_AcceptObject = {}
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_AcceptObject:FitToText(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_AcceptObject:GetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_AcceptObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_AcceptObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_AcceptObject:SetDisabledState(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_AcceptObject:SetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_AcceptObject:SetTextToFit(...) end
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Accept_LeftObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Accept_LeftObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Accept_MiddleObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Accept_MiddleObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Accept_RightObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Accept_RightObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Accept_TextObject : FontString
-local CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Accept_TextObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BGObject : Frame
----@field Bg CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_BgObject
----@field BottomEdge CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_BottomEdgeObject
----@field BottomLeftCorner CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_BottomLeftCornerObject
----@field BottomRightCorner CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_BottomRightCornerObject
----@field LeftEdge CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_LeftEdgeObject
----@field RightEdge CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_RightEdgeObject
----@field TopEdge CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_TopEdgeObject
----@field TopLeftCorner CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_TopLeftCornerObject
----@field TopRightCorner CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_TopRightCornerObject
----@field layoutType string
-local CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BGObject = {}
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BGObject:GetBorderColor(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BGObject:GetCenterColor(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BGObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BGObject:GetFrameLayoutType(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BGObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BGObject:SetBlendMode(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BGObject:SetBorderBlendMode(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BGObject:SetBorderColor(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BGObject:SetCenterColor(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BGObject:SetVertexColor(...) end
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_BgObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_BgObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_BottomEdgeObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_BottomEdgeObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_BottomLeftCornerObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_BottomLeftCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_BottomRightCornerObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_BottomRightCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_LeftEdgeObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_LeftEdgeObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_RightEdgeObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_RightEdgeObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_TopEdgeObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_TopEdgeObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_TopLeftCornerObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_TopLeftCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_TopRightCornerObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_BG_TopRightCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_CancelObject : Button
----@field Left CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Cancel_LeftObject
----@field Middle CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Cancel_MiddleObject
----@field Right CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Cancel_RightObject
----@field Text CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Cancel_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_CancelObject = {}
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_CancelObject:FitToText(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_CancelObject:GetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_CancelObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_CancelObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_CancelObject:SetDisabledState(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_CancelObject:SetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_CancelObject:SetTextToFit(...) end
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Cancel_LeftObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Cancel_LeftObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Cancel_MiddleObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Cancel_MiddleObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Cancel_RightObject : Texture
-local CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Cancel_RightObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Cancel_TextObject : FontString
-local CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_Cancel_TextObject = {}
-end
-
-do
----@class CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_DialogLabelObject : FontString
-local CommunitiesFrame_ClubFinderInvitationFrame_WarningDialog_DialogLabelObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesControlFrameObject : Frame
----@field CommunitiesSettingsButton CommunitiesFrame_CommunitiesControlFrame_CommunitiesSettingsButtonObject
----@field GuildControlButton CommunitiesFrame_CommunitiesControlFrame_GuildControlButtonObject
----@field GuildRecruitmentButton CommunitiesFrame_CommunitiesControlFrame_GuildRecruitmentButtonObject
-local CommunitiesFrame_CommunitiesControlFrameObject = {}
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrameObject:GetCommunitiesFrame(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrameObject:OnShow(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrameObject:Update(...) end
-end
-
-do
----@class CommunitiesFrame_CommunitiesControlFrame_CommunitiesSettingsButtonObject : Button
----@field Left CommunitiesFrame_CommunitiesControlFrame_CommunitiesSettingsButton_LeftObject
----@field Middle CommunitiesFrame_CommunitiesControlFrame_CommunitiesSettingsButton_MiddleObject
----@field Right CommunitiesFrame_CommunitiesControlFrame_CommunitiesSettingsButton_RightObject
----@field Text CommunitiesFrame_CommunitiesControlFrame_CommunitiesSettingsButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
----@field padding number
-local CommunitiesFrame_CommunitiesControlFrame_CommunitiesSettingsButtonObject = {}
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrame_CommunitiesSettingsButtonObject:FitToText(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrame_CommunitiesSettingsButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrame_CommunitiesSettingsButtonObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrame_CommunitiesSettingsButtonObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrame_CommunitiesSettingsButtonObject:SetDisabledState(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrame_CommunitiesSettingsButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrame_CommunitiesSettingsButtonObject:SetTextToFit(...) end
-end
-
-do
----@class CommunitiesFrame_CommunitiesControlFrame_CommunitiesSettingsButton_LeftObject : Texture
-local CommunitiesFrame_CommunitiesControlFrame_CommunitiesSettingsButton_LeftObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesControlFrame_CommunitiesSettingsButton_MiddleObject : Texture
-local CommunitiesFrame_CommunitiesControlFrame_CommunitiesSettingsButton_MiddleObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesControlFrame_CommunitiesSettingsButton_RightObject : Texture
-local CommunitiesFrame_CommunitiesControlFrame_CommunitiesSettingsButton_RightObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesControlFrame_CommunitiesSettingsButton_TextObject : FontString
-local CommunitiesFrame_CommunitiesControlFrame_CommunitiesSettingsButton_TextObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesControlFrame_GuildControlButtonObject : Button
----@field Left CommunitiesFrame_CommunitiesControlFrame_GuildControlButton_LeftObject
----@field Middle CommunitiesFrame_CommunitiesControlFrame_GuildControlButton_MiddleObject
----@field Right CommunitiesFrame_CommunitiesControlFrame_GuildControlButton_RightObject
----@field Text CommunitiesFrame_CommunitiesControlFrame_GuildControlButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
----@field frame CommunitiesFrame_CommunitiesControlFrame_GuildControlButton_frameObject
-local CommunitiesFrame_CommunitiesControlFrame_GuildControlButtonObject = {}
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrame_GuildControlButtonObject:FitToText(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrame_GuildControlButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrame_GuildControlButtonObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrame_GuildControlButtonObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrame_GuildControlButtonObject:SetDisabledState(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrame_GuildControlButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrame_GuildControlButtonObject:SetTextToFit(...) end
-end
-
-do
----@class CommunitiesFrame_CommunitiesControlFrame_GuildControlButton_LeftObject : Texture
-local CommunitiesFrame_CommunitiesControlFrame_GuildControlButton_LeftObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesControlFrame_GuildControlButton_MiddleObject : Texture
-local CommunitiesFrame_CommunitiesControlFrame_GuildControlButton_MiddleObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesControlFrame_GuildControlButton_RightObject : Texture
-local CommunitiesFrame_CommunitiesControlFrame_GuildControlButton_RightObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesControlFrame_GuildControlButton_TextObject : FontString
-local CommunitiesFrame_CommunitiesControlFrame_GuildControlButton_TextObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesControlFrame_GuildControlButton_frameObject
-local CommunitiesFrame_CommunitiesControlFrame_GuildControlButton_frameObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesControlFrame_GuildRecruitmentButtonObject : Button
----@field Left CommunitiesFrame_CommunitiesControlFrame_GuildRecruitmentButton_LeftObject
----@field Middle CommunitiesFrame_CommunitiesControlFrame_GuildRecruitmentButton_MiddleObject
----@field Right CommunitiesFrame_CommunitiesControlFrame_GuildRecruitmentButton_RightObject
----@field Text CommunitiesFrame_CommunitiesControlFrame_GuildRecruitmentButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local CommunitiesFrame_CommunitiesControlFrame_GuildRecruitmentButtonObject = {}
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrame_GuildRecruitmentButtonObject:FitToText(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrame_GuildRecruitmentButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrame_GuildRecruitmentButtonObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrame_GuildRecruitmentButtonObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrame_GuildRecruitmentButtonObject:SetDisabledState(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrame_GuildRecruitmentButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesControlFrame_GuildRecruitmentButtonObject:SetTextToFit(...) end
-end
-
-do
----@class CommunitiesFrame_CommunitiesControlFrame_GuildRecruitmentButton_LeftObject : Texture
-local CommunitiesFrame_CommunitiesControlFrame_GuildRecruitmentButton_LeftObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesControlFrame_GuildRecruitmentButton_MiddleObject : Texture
-local CommunitiesFrame_CommunitiesControlFrame_GuildRecruitmentButton_MiddleObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesControlFrame_GuildRecruitmentButton_RightObject : Texture
-local CommunitiesFrame_CommunitiesControlFrame_GuildRecruitmentButton_RightObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesControlFrame_GuildRecruitmentButton_TextObject : FontString
-local CommunitiesFrame_CommunitiesControlFrame_GuildRecruitmentButton_TextObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesListObject : Frame
----@field Bg CommunitiesFrame_CommunitiesList_BgObject
----@field BottomFiligree CommunitiesFrame_CommunitiesList_BottomFiligreeObject
----@field FilligreeOverlay CommunitiesFrame_CommunitiesList_FilligreeOverlayObject
----@field InsetFrame CommunitiesFrame_CommunitiesList_InsetFrameObject
----@field ScrollBar CommunitiesFrame_CommunitiesList_ScrollBarObject
----@field ScrollBox CommunitiesFrame_CommunitiesList_ScrollBoxObject
----@field TopFiligree CommunitiesFrame_CommunitiesList_TopFiligreeObject
----@field declinedInvitationIds table
----@field pendingFavorites table
-local CommunitiesFrame_CommunitiesListObject = {}
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:AddTicket(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:AlreadyHaveTicket(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:AlreadyInClubOrHaveInvitation(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:ClearTickets(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:GetClubFinderInvitations(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:GetCommunitiesFrame(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:GetCommunitiesList(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:GetInvitations(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:GetTicketInfoForClubId(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:GetTickets(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:IsClubFavorite(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:IsFinderVisible(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:OnClubSelected(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:OnCommunitiesFrameDisplayModeChanged(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:OnCommunityInviteDeclined(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:OnEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:OnHide(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:OnNewCommunityFlashStarted(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:OnShow(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:PredictFavorites(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:RegisterEventCallbacks(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:RemoveTicket(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:ScrollToClub(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:SetFavorite(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:ShouldShowNewCommunityFlash(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:SortCommunitiesList(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:Update(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:UpdateClub(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:UpdateCommunitiesList(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:UpdateFinderInvitations(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:UpdateInvitations(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListObject:ValidateTickets(...) end
-end
-
-do
----@class CommunitiesFrame_CommunitiesList_BgObject : Texture
-local CommunitiesFrame_CommunitiesList_BgObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesList_BottomFiligreeObject : Texture
-local CommunitiesFrame_CommunitiesList_BottomFiligreeObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesList_FilligreeOverlayObject : Frame
----@field BLCorner CommunitiesFrame_CommunitiesList_FilligreeOverlay_BLCornerObject
----@field BRCorner CommunitiesFrame_CommunitiesList_FilligreeOverlay_BRCornerObject
----@field BottomBar CommunitiesFrame_CommunitiesList_FilligreeOverlay_BottomBarObject
----@field LeftBar CommunitiesFrame_CommunitiesList_FilligreeOverlay_LeftBarObject
----@field RightBar CommunitiesFrame_CommunitiesList_FilligreeOverlay_RightBarObject
----@field TLCorner CommunitiesFrame_CommunitiesList_FilligreeOverlay_TLCornerObject
----@field TRCorner CommunitiesFrame_CommunitiesList_FilligreeOverlay_TRCornerObject
----@field TopBar CommunitiesFrame_CommunitiesList_FilligreeOverlay_TopBarObject
-local CommunitiesFrame_CommunitiesList_FilligreeOverlayObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesList_FilligreeOverlay_BLCornerObject : Texture
-local CommunitiesFrame_CommunitiesList_FilligreeOverlay_BLCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesList_FilligreeOverlay_BRCornerObject : Texture
-local CommunitiesFrame_CommunitiesList_FilligreeOverlay_BRCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesList_FilligreeOverlay_BottomBarObject : Texture
-local CommunitiesFrame_CommunitiesList_FilligreeOverlay_BottomBarObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesList_FilligreeOverlay_LeftBarObject : Texture
-local CommunitiesFrame_CommunitiesList_FilligreeOverlay_LeftBarObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesList_FilligreeOverlay_RightBarObject : Texture
-local CommunitiesFrame_CommunitiesList_FilligreeOverlay_RightBarObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesList_FilligreeOverlay_TLCornerObject : Texture
-local CommunitiesFrame_CommunitiesList_FilligreeOverlay_TLCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesList_FilligreeOverlay_TRCornerObject : Texture
-local CommunitiesFrame_CommunitiesList_FilligreeOverlay_TRCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesList_FilligreeOverlay_TopBarObject : Texture
-local CommunitiesFrame_CommunitiesList_FilligreeOverlay_TopBarObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesList_InsetFrameObject : Frame
----@field Bg CommunitiesFrame_CommunitiesList_InsetFrame_BgObject
----@field NineSlice CommunitiesFrame_CommunitiesList_InsetFrame_NineSliceObject
----@field layoutType string
-local CommunitiesFrame_CommunitiesList_InsetFrameObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesList_InsetFrame_BgObject : Texture
-local CommunitiesFrame_CommunitiesList_InsetFrame_BgObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesList_InsetFrame_NineSliceObject : Frame
----@field BottomEdge CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_BottomEdgeObject
----@field BottomLeftCorner CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_BottomRightCornerObject
----@field LeftEdge CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_LeftEdgeObject
----@field RightEdge CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_RightEdgeObject
----@field TopEdge CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_TopEdgeObject
----@field TopLeftCorner CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_TopLeftCornerObject
----@field TopRightCorner CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_TopRightCornerObject
-local CommunitiesFrame_CommunitiesList_InsetFrame_NineSliceObject = {}
----@return any ...
-function CommunitiesFrame_CommunitiesList_InsetFrame_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_InsetFrame_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_InsetFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_InsetFrame_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_InsetFrame_NineSliceObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_InsetFrame_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_InsetFrame_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_InsetFrame_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_InsetFrame_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_InsetFrame_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_BottomEdgeObject : Texture
-local CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_BottomLeftCornerObject : Texture
-local CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_BottomRightCornerObject : Texture
-local CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_LeftEdgeObject : Texture
-local CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_LeftEdgeObject = {}
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_RightEdgeObject : Texture
-local CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_RightEdgeObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTarget_EventObject
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTarget_EventObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_TopEdgeObject : Texture
-local CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_TopEdgeObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ShadowsObject : Frame
+---@field Lower CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_Shadows_LowerObject
+---@field Upper CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_Shadows_UpperObject
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ShadowsObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_TopLeftCornerObject : Texture
-local CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_TopLeftCornerObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_Shadows_LowerObject : Texture
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_Shadows_LowerObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_TopRightCornerObject : Texture
-local CommunitiesFrame_CommunitiesList_InsetFrame_NineSlice_TopRightCornerObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_Shadows_UpperObject : Texture
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_Shadows_UpperObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBarObject : Frame
----@field Back CommunitiesFrame_CommunitiesList_ScrollBar_BackObject
----@field Defaults CommunitiesFrame_CommunitiesList_ScrollBar_DefaultsObject
----@field Directions CommunitiesFrame_CommunitiesList_ScrollBar_DirectionsObject
----@field Event CommunitiesFrame_CommunitiesList_ScrollBar_EventObject
----@field Forward CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject
----@field Track CommunitiesFrame_CommunitiesList_ScrollBar_TrackObject
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject : Frame
+---@field Back CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject
+---@field Defaults CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_DefaultsObject
+---@field Directions CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_DirectionsObject
+---@field Event CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_EventObject
+---@field Forward CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject
+---@field Track CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_TrackObject
 ---@field allowScroll boolean
 ---@field callbackTables table
 ---@field canInterpolateScroll boolean
@@ -3085,13 +2824,13 @@ do
 ---@field executingEvents table
 ---@field hideTrack boolean
 ---@field hideTrackIfThumbExceedsTrack boolean
----@field interpolator CommunitiesFrame_CommunitiesList_ScrollBar_interpolatorObject
+---@field interpolator CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_interpolatorObject
 ---@field isScrollController boolean
 ---@field minThumbExtent number
 ---@field panDelay number
 ---@field panExtentPercentage number
 ---@field panRepeatTime number
----@field registeredScrollBox CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject
+---@field registeredScrollBox CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_registeredScrollBoxObject
 ---@field scrollPercentage number
 ---@field smartNavigationIgnored boolean
 ---@field snapToInterval boolean
@@ -3099,179 +2838,179 @@ do
 ---@field useProportionalThumb boolean
 ---@field visibleExtentPercentage number
 ---@field wheelPanScalar number
-local CommunitiesFrame_CommunitiesList_ScrollBarObject = {}
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject = {}
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:CallInternalScope(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:CallInternalScope(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:CanCursorStepInDirection(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:CanCursorStepInDirection(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:CanInterpolateScroll(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:CanInterpolateScroll(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:CopyDeferredCallbacks(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:DisableControls(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:DisableControls(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:DoesFrameHaveEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:EnableInternalPriority(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:EnableInternalPriority(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:EnableSnapToInterval(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:EnableSnapToInterval(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:GenerateCallbackEvents(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetBackStepper(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetBackStepper(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetCallbackTable(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetCallbackTables(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetCallbacksByEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetForwardStepper(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetForwardStepper(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetFrameExtent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetFrameExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetIntervalRange(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetIntervalRange(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetLower(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetLower(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetPanExtentPercentage(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetPanRepeatDelay(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetPanRepeatDelay(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetPanRepeatTime(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetPanRepeatTime(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetScrollInterpolator(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetScrollInterpolator(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetScrollPercentage(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetScrollPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetThumb(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetThumb(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetThumbAnchor(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetThumbAnchor(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetTrack(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetTrack(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetTrackExtent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetTrackExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetUpper(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetUpper(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetVisibleExtentPercentage(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:GetWheelPanPercentage(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:HasRegistrantsForEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:HasScrollableExtent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:HasScrollableExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:Init(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:Init(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:InitializeNarration(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:InitializeNarration(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:Interpolate(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:Interpolate(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:IsAtBegin(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:IsAtBegin(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:IsAtEnd(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:IsAtEnd(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:IsHorizontal(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:IsHorizontal(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:IsScrollAllowed(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:IsScrollAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:IsThumbMouseDown(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:IsThumbMouseDown(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:OnHide_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:OnLoad(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:OnLoad_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:OnMouseWheel(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:OnMouseWheel(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:OnShow_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:OnStepperMouseDown(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:OnStepperMouseDown(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:OnThumbMouseDown(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:OnThumbMouseDown(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:OnTrackMouseDown(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:OnTrackMouseDown(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:RegisterCallback(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:RegisterCallbackWithHandle(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:ScrollDecrease(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:ScrollDecrease(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:ScrollInDirection(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:ScrollInDirection(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:ScrollIncrease(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:ScrollIncrease(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:ScrollPageInDirection(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:ScrollPageInDirection(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:ScrollStepInDirection(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:ScrollStepInDirection(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:ScrollToBegin(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:ScrollToBegin(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:ScrollToEnd(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:ScrollToEnd(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:ScrollWheelInDirection(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:ScrollWheelInDirection(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:SecureInsertEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:SelectCursorComponent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SelectCursorComponent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:SelectPointComponent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SelectPointComponent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetFrameExtent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetFrameExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetHideIfUnscrollable(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetHideIfUnscrollable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetHorizontal(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetHorizontal(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetInterpolateScroll(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetInterpolateScroll(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetPanExtentPercentage(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetScrollAllowed(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetScrollAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetScrollPercentage(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetScrollPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetScrollPercentageInternal(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetThumbExtent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetThumbExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:SetVisibleExtentPercentage(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetVisibleExtentPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:TriggerEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:UnregisterCallback(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:UnregisterEvents(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:UnregisterEventsByEventTable(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:UnregisterUpdate(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:UnregisterUpdate(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:Update(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:Update(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:onButtonMouseUp(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:onButtonMouseUp(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBarObject:scrollInternal(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:scrollInternal(...) end
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_BackObject : Button
----@field Event CommunitiesFrame_CommunitiesList_ScrollBar_Back_EventObject
----@field Texture CommunitiesFrame_CommunitiesList_ScrollBar_Back_TextureObject
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject : Button
+---@field Event CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Back_EventObject
+---@field Texture CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Back_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -3285,118 +3024,118 @@ do
 ---@field mouseDownSoundKitID number
 ---@field normalTexture string
 ---@field overTexture string
-local CommunitiesFrame_CommunitiesList_ScrollBar_BackObject = {}
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject = {}
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:GetAtlas(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:GetAtlas(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:GetCallbackTable(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:GetCallbackTables(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:IsDown(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:IsDown(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:IsDownOver(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:IsDownOver(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:IsOver(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:IsOver(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:NarrationGetName(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:NarrationGetName(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnButtonStateChanged(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnButtonStateChanged(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnDisable(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnDisable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnEnable(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnEnable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnEnter(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnEnter(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnLeave(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnLeave(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnLoad(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnMouseDown(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnMouseDown(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnMouseUp(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnMouseUp(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnShow(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnShow(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:RegisterCallback(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:SecureInsertEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:SetDisplacedRegions(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:SetDisplacedRegions(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:TriggerEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:UnregisterCallback(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:UnregisterEvents(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_Back_EventObject
-local CommunitiesFrame_CommunitiesList_ScrollBar_Back_EventObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Back_EventObject
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Back_EventObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_Back_TextureObject : Texture
-local CommunitiesFrame_CommunitiesList_ScrollBar_Back_TextureObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Back_TextureObject : Texture
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Back_TextureObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_DefaultsObject
-local CommunitiesFrame_CommunitiesList_ScrollBar_DefaultsObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_DefaultsObject
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_DefaultsObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_DirectionsObject
-local CommunitiesFrame_CommunitiesList_ScrollBar_DirectionsObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_DirectionsObject
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_DirectionsObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_EventObject
-local CommunitiesFrame_CommunitiesList_ScrollBar_EventObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_EventObject
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_EventObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject : Button
----@field Event CommunitiesFrame_CommunitiesList_ScrollBar_Forward_EventObject
----@field Texture CommunitiesFrame_CommunitiesList_ScrollBar_Forward_TextureObject
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject : Button
+---@field Event CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Forward_EventObject
+---@field Texture CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Forward_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -3410,129 +3149,129 @@ do
 ---@field mouseDownSoundKitID number
 ---@field normalTexture string
 ---@field overTexture string
-local CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject = {}
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject = {}
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:GetAtlas(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:GetAtlas(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:GetCallbackTable(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:GetCallbackTables(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:IsDown(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:IsDown(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:IsDownOver(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:IsDownOver(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:IsOver(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:IsOver(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:NarrationGetName(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:NarrationGetName(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnButtonStateChanged(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnDisable(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnDisable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnEnable(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnEnable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnEnter(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnEnter(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnLeave(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnLeave(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnLoad(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnMouseDown(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnMouseDown(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnMouseUp(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnMouseUp(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnShow(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnShow(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:RegisterCallback(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:SetDisplacedRegions(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:TriggerEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:UnregisterCallback(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:UnregisterEvents(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_Forward_EventObject
-local CommunitiesFrame_CommunitiesList_ScrollBar_Forward_EventObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Forward_EventObject
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Forward_EventObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_Forward_TextureObject : Texture
-local CommunitiesFrame_CommunitiesList_ScrollBar_Forward_TextureObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Forward_TextureObject : Texture
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Forward_TextureObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_TrackObject : Frame
----@field Begin CommunitiesFrame_CommunitiesList_ScrollBar_Track_BeginObject
----@field End CommunitiesFrame_CommunitiesList_ScrollBar_Track_EndObject
----@field Middle CommunitiesFrame_CommunitiesList_ScrollBar_Track_MiddleObject
----@field Thumb CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject
-local CommunitiesFrame_CommunitiesList_ScrollBar_TrackObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_TrackObject : Frame
+---@field Begin CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_BeginObject
+---@field End CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_EndObject
+---@field Middle CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_MiddleObject
+---@field Thumb CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_TrackObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_Track_BeginObject : Texture
-local CommunitiesFrame_CommunitiesList_ScrollBar_Track_BeginObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_BeginObject : Texture
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_BeginObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_Track_EndObject : Texture
-local CommunitiesFrame_CommunitiesList_ScrollBar_Track_EndObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_EndObject : Texture
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_EndObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_Track_MiddleObject : Texture
-local CommunitiesFrame_CommunitiesList_ScrollBar_Track_MiddleObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_MiddleObject : Texture
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_MiddleObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject : Button
----@field Begin CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_BeginObject
----@field End CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_EndObject
----@field Event CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_EventObject
----@field Middle CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_MiddleObject
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject : Button
+---@field Begin CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_BeginObject
+---@field End CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_EndObject
+---@field Event CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_EventObject
+---@field Middle CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_MiddleObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -3547,130 +3286,933 @@ do
 ---@field upBeginTexture string
 ---@field upEndTexture string
 ---@field upMiddleTexture string
-local CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject = {}
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject = {}
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:GetAtlas(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:IsDown(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:IsDown(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:IsDownOver(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:IsOver(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:IsOver(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnDisable(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnDisable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnEnable(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnEnable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnEnter(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnEnter(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnLeave(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnLeave(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnLoad(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnMouseDown(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnMouseUp(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnShow(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnShow(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnSizeChanged(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_BeginObject : Texture
-local CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_BeginObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_BeginObject : Texture
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_BeginObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_EndObject : Texture
-local CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_EndObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_EndObject : Texture
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_EndObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_EventObject
-local CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_EventObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_EventObject
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_EventObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_MiddleObject : Texture
-local CommunitiesFrame_CommunitiesList_ScrollBar_Track_Thumb_MiddleObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_MiddleObject : Texture
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_MiddleObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_interpolatorObject
-local CommunitiesFrame_CommunitiesList_ScrollBar_interpolatorObject = {}
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_interpolatorObject
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_interpolatorObject = {}
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_interpolatorObject:Cancel(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_interpolatorObject:Cancel(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_interpolatorObject:GetInterpolateTo(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_interpolatorObject:Interpolate(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_interpolatorObject:Interpolate(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_interpolatorObject:interpolateFunc(...) end
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_interpolatorObject:interpolateFunc(...) end
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject : Frame
----@field Defaults CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_DefaultsObject
----@field Directions CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_DirectionsObject
----@field DragDelegate CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_DragDelegateObject
----@field Event CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_EventObject
----@field ScrollTarget CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject
----@field Shadows CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ShadowsObject
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_registeredScrollBoxObject
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_registeredScrollBoxObject = {}
+end
+
+do
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject
+---@field Event table
+---@field FrameLevelPolicy table
+---@field callbackTables table
+---@field canSignalWithoutInitializer boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field frameFactory table
+---@field frames table
+---@field initialized boolean
+---@field initializers table
+---@field padding table
+---@field scrollBox CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_view_scrollBoxObject
+---@field templateInfoCache table
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject = {}
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:AcquireInternal(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:AcquireRange(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:AssignAccessors(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:AttachDataProviderCallbacks(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:CalculateDataIndices(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:CalculateFrameExtent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:CalculateFrameSize(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:CalculateNumElementsInRow(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ClearCachedData(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ClearElementExtentData(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ClearElementSizeData(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ClearInvalidation(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ContainsElementDataByPredicate(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:DataProviderContentsChanged(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:DetachDataProviderCallbacks(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:EnumerateDataProvider(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:EnumerateFrames(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:FindByPredicate(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:FindElementData(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:FindElementDataByPredicate(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:FindElementDataIndex(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:FindElementDataIndexByPredicate(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:FindFrame(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:FindFrameByPredicate(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:FindFrameElementDataIndex(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:Flush(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:FlushDataProvider(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ForEachElementData(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ForEachFrame(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetCallbackTable(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetCallbackTables(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetDataIndexBegin(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetDataIndexEnd(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetDataProvider(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetDataProviderSize(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetDataRange(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetDataScrollOffset(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetElementExtent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetElementSize(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetElementSizeCalculator(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetExtent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetExtentFromInfo(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetExtentSpacing(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetExtentTo(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetExtentUntil(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetFactoryDataFromElementData(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetFirstTemplateInfo(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetFrameCount(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetFrameExtent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetFrameLevelCounter(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetFrameLevelPolicy(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetFrames(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetHorizontalSpacing(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetIdenticalElementSize(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetInvalidationReason(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetLower(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetPadding(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetPanExtent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetScrollBox(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetScrollTarget(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetTemplateExtent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetTemplateInfo(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetTemplateSizeFromElementData(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetUpper(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetVerticalSpacing(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetVisibleWidth(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:HasBiaxalLayout(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:HasDataProvider(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:HasElementExtent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:HasIdenticalElementSize(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:Init(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:InitDefaultDrag(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:InvokeInitializer(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:InvokeInitializers(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:IsAcquireLocked(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:IsDataIndexWithinRange(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:IsElementStretchDisabled(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:IsExtentValid(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:IsHorizontal(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:IsInitialized(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:IsInvalidated(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:IsScrollToDataIndexSafe(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:IsVirtualized(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:Layout(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:OnDataProviderSizeChanged(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:OnDataProviderSort(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:PrepareScrollToElementData(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:RebuildTemplateInfoCache(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:RecalculateExtent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:RefreshSmartNav(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:RegisterCallback(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ReinitializeFrames(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:Release(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:RemoveDataProvider(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:RemoveDataProviderInternal(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ResizeFrame(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ReverseEnumerateDataProvider(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ReverseForEachElementData(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ReverseForEachFrame(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SecureInsertEvent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SelectCursorComponent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SelectPointComponent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetAcquireLocked(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetDataProvider(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetDataRange(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetElementExtent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetElementFactory(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetElementInitializer(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetElementResetter(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetElementSize(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetElementSizeCalculator(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetElementStretchDisabled(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetExtent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetFrameExtent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetFrameFactoryResetter(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetFrameLevelPolicy(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetInvalidationReason(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetMaxPanExtent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetPadding(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetPanExtent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetScrollBox(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetVirtualized(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SignalDataChangeEvent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SortFrames(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:TriggerEvent(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:UnassignAccessors(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:UnregisterCallback(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:UnregisterEvents(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ValidateDataRange(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:elementFactory(...) end
+---@return any ...
+function CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:factory(...) end
+end
+
+do
+---@class CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_view_scrollBoxObject
+local CatalogShopFrame_ProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_view_scrollBoxObject = {}
+end
+
+do
+---@class CatalogShopFrame_ProductContainerFrame_ShadowLayerObject : Frame
+---@field bottomProductRule CatalogShopFrame_ProductContainerFrame_ShadowLayer_bottomProductRuleObject
+---@field topProductRule CatalogShopFrame_ProductContainerFrame_ShadowLayer_topProductRuleObject
+local CatalogShopFrame_ProductContainerFrame_ShadowLayerObject = {}
+end
+
+do
+---@class CatalogShopFrame_ProductContainerFrame_ShadowLayer_bottomProductRuleObject : Texture
+local CatalogShopFrame_ProductContainerFrame_ShadowLayer_bottomProductRuleObject = {}
+end
+
+do
+---@class CatalogShopFrame_ProductContainerFrame_ShadowLayer_topProductRuleObject : Texture
+local CatalogShopFrame_ProductContainerFrame_ShadowLayer_topProductRuleObject = {}
+end
+
+do
+---@class CatalogShopFrame_ProductDetailsContainerFrameObject : Frame
+---@field BackButton CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject
+---@field DetailsProductContainerFrame CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject
+local CatalogShopFrame_ProductDetailsContainerFrameObject = {}
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrameObject:Init(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrameObject:OnEnter(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrameObject:OnEvent(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrameObject:OnHide(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrameObject:OnLeave(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrameObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrameObject:OnShow(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrameObject:UpdateProductInfo(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrameObject:UpdateSpecificProduct(...) end
+end
+
+do
+---@class CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject : Button
+---@field Center CatalogShopFrame_ProductDetailsContainerFrame_BackButton_CenterObject
+---@field Controller CatalogShopFrame_ProductDetailsContainerFrame_BackButton_ControllerObject
+---@field Left CatalogShopFrame_ProductDetailsContainerFrame_BackButton_LeftObject
+---@field Right CatalogShopFrame_ProductDetailsContainerFrame_BackButton_RightObject
+---@field atlasName string
+---@field catalogShopOnClickMethod string
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+---@field leftAtlasInfo CatalogShopFrame_ProductDetailsContainerFrame_BackButton_leftAtlasInfoObject
+---@field rightAtlasInfo CatalogShopFrame_ProductDetailsContainerFrame_BackButton_rightAtlasInfoObject
+local CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject = {}
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:ClearCustomTextFormatter(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:FitToText(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:GetCenterAtlasName(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:GetHighlightAtlasName(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:GetLeftAtlasName(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:GetOnClickSoundKit(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:GetRightAtlasName(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:InitButton(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:OnClick(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:OnEnter(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:OnLeave(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:OnMouseDown(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:OnMouseUp(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:RunCustomTextFormatter(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:SetButtonArtKit(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:SetCustomTextFormatter(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:SetOnClickHandler(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:SetOnEnterHandler(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:SetTextToFit(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:SetTooltipAnchor(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:SetTooltipInfo(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:UpdateButton(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:UpdateScale(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButtonObject:UpdateState(...) end
+end
+
+do
+---@class CatalogShopFrame_ProductDetailsContainerFrame_BackButton_CenterObject : Texture
+local CatalogShopFrame_ProductDetailsContainerFrame_BackButton_CenterObject = {}
+end
+
+do
+---@class CatalogShopFrame_ProductDetailsContainerFrame_BackButton_ControllerObject : Frame
+local CatalogShopFrame_ProductDetailsContainerFrame_BackButton_ControllerObject = {}
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButton_ControllerObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_BackButton_ControllerObject:OnShow(...) end
+end
+
+do
+---@class CatalogShopFrame_ProductDetailsContainerFrame_BackButton_LeftObject : Texture
+local CatalogShopFrame_ProductDetailsContainerFrame_BackButton_LeftObject = {}
+end
+
+do
+---@class CatalogShopFrame_ProductDetailsContainerFrame_BackButton_RightObject : Texture
+local CatalogShopFrame_ProductDetailsContainerFrame_BackButton_RightObject = {}
+end
+
+do
+---@class CatalogShopFrame_ProductDetailsContainerFrame_BackButton_leftAtlasInfoObject
+---@field bottomTexCoord number
+---@field elementName string
+---@field file number
+---@field height number
+---@field leftTexCoord number
+---@field rawSize table
+---@field rightTexCoord number
+---@field tilesHorizontally boolean
+---@field tilesVertically boolean
+---@field topTexCoord number
+---@field width number
+local CatalogShopFrame_ProductDetailsContainerFrame_BackButton_leftAtlasInfoObject = {}
+end
+
+do
+---@class CatalogShopFrame_ProductDetailsContainerFrame_BackButton_rightAtlasInfoObject
+---@field bottomTexCoord number
+---@field elementName string
+---@field file number
+---@field height number
+---@field leftTexCoord number
+---@field rawSize table
+---@field rightTexCoord number
+---@field tilesHorizontally boolean
+---@field tilesVertically boolean
+---@field topTexCoord number
+---@field width number
+local CatalogShopFrame_ProductDetailsContainerFrame_BackButton_rightAtlasInfoObject = {}
+end
+
+do
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject : Frame
+---@field ProductsHeader CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject
+---@field ProductsScrollBoxContainer CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainerObject
+---@field ShadowLayer CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ShadowLayerObject
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject = {}
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:AllDataRefresh(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:GetSelectedProductInfo(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:Init(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:InitProductContainer(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:OnCategorySelected(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:OnEnter(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:OnEvent(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:OnHide(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:OnLeave(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:OnModelSceneFailure(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:OnProductSelected(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:OnShow(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:OnUpdate(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:SelectFirstProduct(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:SelectFirstProductSilent(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:SetSelectedProductInfo(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:SetupProductHeaderFrame(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:SetupScrollView(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:TrySelectProduct(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:TrySelectProductByID(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:UpdateProductInfo(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:UpdateProducts(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:UpdateSpecificProduct(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrameObject:getDataProviderFunc(...) end
+end
+
+do
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject : Frame
+---@field LegalDisclaimerText CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeader_LegalDisclaimerTextObject
+---@field ProductDescription CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeader_ProductDescriptionObject
+---@field ProductName CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeader_ProductNameObject
+---@field ProductType CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeader_ProductTypeObject
+---@field fixedWidth number
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject = {}
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:AddLayoutChildren(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:CalculateFrameSize(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:ClearFixedSize(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:GetAdditionalRegions(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:GetChildHeight(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:GetChildPadding(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:GetChildSize(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:GetChildWidth(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:GetFixedHeight(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:GetFixedSize(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:GetFixedWidth(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:GetHeightPadding(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:GetLayoutChildren(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:GetPadding(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:GetWidthPadding(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:Init(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:IsDirty(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:IsLayoutFrame(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:Layout(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:LayoutChildren(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:MarkClean(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:MarkDirty(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:OnCleaned(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:OnShow(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:OnUpdate(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:SetFixedHeight(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:SetFixedSize(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:SetFixedWidth(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:SetHeightPadding(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:SetWidthPadding(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeaderObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeader_LegalDisclaimerTextObject : FontString
+---@field bottomPadding number
+---@field layoutIndex number
+---@field leftPadding number
+---@field minLineHeight number
+---@field topPadding number
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeader_LegalDisclaimerTextObject = {}
+end
+
+do
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeader_ProductDescriptionObject : FontString
+---@field bottomPadding number
+---@field layoutIndex number
+---@field leftPadding number
+---@field minLineHeight number
+---@field topPadding number
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeader_ProductDescriptionObject = {}
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeader_ProductDescriptionObject:OnEnter(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeader_ProductDescriptionObject:OnLeave(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeader_ProductDescriptionObject:ScaleTextToFit(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeader_ProductDescriptionObject:SetMinLineHeight(...) end
+end
+
+do
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeader_ProductNameObject : FontString
+---@field bottomPadding number
+---@field layoutIndex number
+---@field leftPadding number
+---@field minLineHeight number
+---@field topPadding number
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeader_ProductNameObject = {}
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeader_ProductNameObject:ScaleTextToFit(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeader_ProductNameObject:SetMinLineHeight(...) end
+end
+
+do
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeader_ProductTypeObject : FontString
+---@field bottomPadding number
+---@field layoutIndex number
+---@field leftPadding number
+---@field minLineHeight number
+---@field topPadding number
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeader_ProductTypeObject = {}
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeader_ProductTypeObject:ScaleTextToFit(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsHeader_ProductTypeObject:SetMinLineHeight(...) end
+end
+
+do
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainerObject : Frame
+---@field ScrollBar CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_ScrollBarObject
+---@field ScrollBox CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_ScrollBoxObject
+---@field selectionBehavior CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainerObject = {}
+end
+
+do
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_ScrollBarObject
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_ScrollBarObject = {}
+end
+
+do
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_ScrollBoxObject
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_ScrollBoxObject = {}
+end
+
+do
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject
+---@field Event table
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field scrollBox CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject
+---@field selectionFlags table
+---@field selections table
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject = {}
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:ClearSelections(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:Deselect(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:DeselectByPredicate(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:DeselectElementData(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:DeselectSelectedElements(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:GetCallbackTable(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:GetCallbackTables(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:GetFirstSelectedElementData(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:GetSelectedElementData(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:HasSelection(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:Init(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:IsElementDataIntrusiveSelected(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:IsElementDataSelected(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:IsFirstElementDataSelected(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:IsFlagSet(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:IsIntrusiveSelected(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:IsLastElementDataSelected(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:IsSelected(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:OnScrollBoxDataProviderReassigned(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:RegisterCallback(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:SecureInsertEvent(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:Select(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:SelectElementData(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:SelectElementDataByPredicate(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:SelectFirstElementData(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:SelectLastElementData(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:SelectNextElementData(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:SelectOffsetElementData(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:SelectPreviousElementData(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:SetElementDataSelected_Internal(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:SetSelectionFlags(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:ToggleSelect(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:ToggleSelectElementData(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:TriggerEvent(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:UnregisterCallback(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:UnregisterEvents(...) end
+---@return any ...
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehaviorObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject : Frame
+---@field Defaults CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_DefaultsObject
+---@field Directions CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_DirectionsObject
+---@field DragDelegate CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_DragDelegateObject
+---@field Event CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_EventObject
+---@field ScrollTarget CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject
+---@field Shadows CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ShadowsObject
 ---@field allowScroll boolean
 ---@field callbackTables table
 ---@field canInterpolateScroll boolean
@@ -3679,1129 +4221,425 @@ do
 ---@field executingEvents table
 ---@field isScrollController boolean
 ---@field panExtentPercentage number
----@field registeredScrollBar CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_registeredScrollBarObject
----@field updateLock boolean
----@field view CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject
+---@field registeredScrollBar CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject
+---@field view CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject
 ---@field wheelPanScalar number
-local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject = {}
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject = {}
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ApplyEdgeFade(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ApplyEdgeFade(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:CalculateEdgeFade(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:CalculateEdgeFade(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:CalculatePanExtentPercentage(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:CalculatePanExtentPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:CalculateScrollPercentage(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:CalculateScrollPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:CanInterpolateScroll(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:CanInterpolateScroll(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ClearEdgeFade(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ClearEdgeFade(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ContainsElementDataByPredicate(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ContainsElementDataByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:CopyDeferredCallbacks(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:DoesFrameHaveEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:EnableSnapToInterval(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:EnableSnapToInterval(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:EnumerateDataProvider(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:EnumerateDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:EnumerateDataProviderEntireRange(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:EnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:EnumerateFrames(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:EnumerateFrames(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:FindByPredicate(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:FindByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:FindElementData(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:FindElementData(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:FindElementDataByPredicate(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:FindElementDataByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:FindElementDataIndex(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:FindElementDataIndex(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:FindElementDataIndexByPredicate(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:FindElementDataIndexByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:FindFrame(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:FindFrame(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:FindFrameByPredicate(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:FindFrameByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:FindFrameElementDataIndex(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:FindFrameElementDataIndex(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:Flush(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:Flush(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:FlushDataProvider(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:FlushDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ForEachElementData(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ForEachElementData(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ForEachFrame(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ForEachFrame(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:FullUpdate(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:FullUpdate(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:FullUpdateInternal(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:FullUpdateInternal(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GenerateCallbackEvents(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetBottomPadding(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetBottomPadding(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetCallbackTable(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetCallbackTables(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetCallbacksByEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetDataIndexBegin(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetDataIndexBegin(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetDataIndexEnd(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetDataIndexEnd(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetDataProvider(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetDataProviderSize(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetDataProviderSize(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetDerivedExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetDerivedExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetDerivedScrollOffset(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetDerivedScrollOffset(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetDerivedScrollRange(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetDerivedScrollRange(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetElementExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetElementExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetExtentPadding(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetExtentPadding(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetExtentUntil(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetExtentUntil(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetFrameCount(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetFrameCount(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetFrameExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetFrameExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetFrames(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetFrames(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetIntervalRange(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetIntervalRange(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetLeftPadding(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetLeftPadding(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetLower(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetLower(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetLowerPadding(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetLowerPadding(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetLowerShadowTexture(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetLowerShadowTexture(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetMutableCallbacksByEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetPadding(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetPadding(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetPanExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetPanExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetPanExtentPercentage(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetRightPadding(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetRightPadding(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetScrollInterpolator(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetScrollInterpolator(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetScrollPercentage(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetScrollPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetScrollTarget(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetScrollTarget(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetTopPadding(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetTopPadding(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetUpper(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetUpper(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetUpperPadding(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetUpperPadding(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetUpperShadowTexture(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetUpperShadowTexture(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetView(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetView(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetVisibleExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetVisibleExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetVisibleExtentPercentage(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:GetWheelPanPercentage(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:HasDataProvider(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:HasDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:HasEdgeFade(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:HasEdgeFade(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:HasRegistrantsForEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:HasScrollableExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:HasScrollableExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:HasView(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:HasView(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:Init(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:Init(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:Interpolate(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:Interpolate(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:IsAcquireLocked(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:IsAcquireLocked(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:IsAlignmentOverlapIgnored(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:IsAlignmentOverlapIgnored(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:IsAtBegin(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:IsAtBegin(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:IsAtEnd(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:IsAtEnd(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:IsHorizontal(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:IsHorizontal(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:IsScrollAllowed(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:IsScrollAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:IsScrollToDataIndexSafe(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:IsScrollToDataIndexSafe(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:IsUpdateLocked(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:IsUpdateLocked(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:IsVirtualized(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:IsVirtualized(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:Layout(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:Layout(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:OnLoad(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:OnMouseWheel(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:OnMouseWheel(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:OnScrollTargetSizeChanged(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:OnScrollTargetSizeChanged(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:OnSizeChanged(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:OnSizeChanged(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:OnViewAcquiredFrame(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:OnViewAcquiredFrame(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:OnViewDataChanged(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:OnViewDataChanged(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:OnViewDataProviderReassigned(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:OnViewDataProviderReassigned(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:OnViewInitializedFrame(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:OnViewInitializedFrame(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:OnViewReleasedFrame(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:OnViewReleasedFrame(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:Rebuild(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:Rebuild(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:RecalculateDerivedExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:RecalculateDerivedExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ReconcileDeferredCallbacks(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:RegisterCallback(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:RegisterCallbackWithHandle(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ReinitializeFrames(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ReinitializeFrames(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:RemoveDataProvider(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:RemoveDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProvider(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ReverseEnumerateDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ReverseForEachElementData(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ReverseForEachElementData(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ReverseForEachFrame(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ReverseForEachFrame(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SanitizeAlignment(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SanitizeAlignment(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollDecrease(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollDecrease(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollInDirection(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollInDirection(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollIncrease(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollIncrease(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollToBegin(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollToBegin(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollToElementData(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollToElementData(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollToElementDataByPredicate(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollToElementDataByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollToElementDataIndex(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollToElementDataIndex(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollToEnd(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollToEnd(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollToFrame(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollToFrame(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollToNearest(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollToNearest(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollToNearestByPredicate(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollToNearestByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollToOffset(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollToOffset(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ScrollToOffsetWithAdjustment(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SecureInsertEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SelectCursorComponent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SelectCursorComponent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SelectPointComponent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SelectPointComponent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetAlignmentOverlapIgnored(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetAlignmentOverlapIgnored(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetDataProvider(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetEdgeFadeLength(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetEdgeFadeLength(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetFrameExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetFrameExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetHorizontal(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetHorizontal(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetInterpolateScroll(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetInterpolateScroll(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetLowerShadowAtlas(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetLowerShadowAtlas(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetPadding(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetPadding(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetPanExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetPanExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetPanExtentPercentage(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetScrollAllowed(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetScrollAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetScrollPercentage(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetScrollPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetScrollPercentageInternal(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetScrollTargetOffset(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetScrollTargetOffset(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetShadowsFrameLevel(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetShadowsFrameLevel(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetShadowsScale(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetShadowsScale(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetShadowsShown(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetShadowsShown(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetUndefinedEventsAllowed(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetUpdateLocked(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetUpdateLocked(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetUpperShadowAtlas(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetUpperShadowAtlas(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetUseShadowsForEdgeFade(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetUseShadowsForEdgeFade(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:SetView(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:SetView(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:TriggerEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:UnregisterCallback(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:UnregisterEvents(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:UnregisterEventsByEventTable(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:Update(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:Update(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBoxObject:scrollInternal(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBoxObject:scrollInternal(...) end
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_DefaultsObject
-local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_DefaultsObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_DefaultsObject
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_DefaultsObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_DirectionsObject
-local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_DirectionsObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_DirectionsObject
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_DirectionsObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_DragDelegateObject : Frame
-local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_DragDelegateObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_DragDelegateObject : Frame
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_DragDelegateObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_EventObject
-local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_EventObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_EventObject
+---@field OnAcquiredFrame string
+---@field OnAllowScrollChanged string
+---@field OnDataProviderReassigned string
+---@field OnDataRangeChanged string
+---@field OnInitializedFrame string
+---@field OnLayout string
+---@field OnReleasedFrame string
+---@field OnScroll string
+---@field OnSizeChanged string
+---@field OnUpdate string
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_EventObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject : Frame
----@field Event CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject : Frame
+---@field Event CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTarget_EventObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field executingEvents table
-local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject = {}
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject = {}
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTable(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTables(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallback(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:TriggerEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterCallback(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEvents(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
-local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ScrollTarget_EventObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTarget_EventObject
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ScrollTarget_EventObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ShadowsObject : Frame
----@field Lower CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_Shadows_LowerObject
----@field Upper CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_Shadows_UpperObject
-local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_ShadowsObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ShadowsObject : Frame
+---@field Lower CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_Shadows_LowerObject
+---@field Upper CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_Shadows_UpperObject
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_ShadowsObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_Shadows_LowerObject : Texture
-local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_Shadows_LowerObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_Shadows_LowerObject : Texture
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_Shadows_LowerObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_Shadows_UpperObject : Texture
-local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_Shadows_UpperObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_Shadows_UpperObject : Texture
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_Shadows_UpperObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_registeredScrollBarObject
-local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_registeredScrollBarObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject
----@field Event table
----@field FrameLevelPolicy table
----@field callbackTables table
----@field canSignalWithoutInitializer boolean
----@field dataIndexBegin number
----@field dataIndexEnd number
----@field deferredCallbacks table
----@field executingEvents table
----@field frameFactory table
----@field frameTemplateOrFrameType string
----@field frames table
----@field initialized boolean
----@field initializers table
----@field padding table
----@field scrollBox CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_view_scrollBoxObject
----@field templateInfoCache table
-local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject = {}
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:AcquireInternal(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:AcquireRange(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:AssignAccessors(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:AttachDataProviderCallbacks(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:CalculateDataIndices(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:CalculateFrameExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ClearCachedData(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ClearElementExtentData(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ClearInvalidation(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ContainsElementDataByPredicate(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:DataProviderContentsChanged(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:DetachDataProviderCallbacks(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProvider(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:EnumerateFrames(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:FindByPredicate(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:FindElementData(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:FindElementDataByPredicate(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndex(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:FindFrame(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:FindFrameByPredicate(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:FindFrameElementDataIndex(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:Flush(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:FlushDataProvider(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ForEachElementData(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ForEachFrame(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetDataIndexBegin(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetDataIndexEnd(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetDataProvider(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetDataProviderSize(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetDataRange(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetDataScrollOffset(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetElementExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetElementExtentCalculator(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetElementIndent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetExtentFromInfo(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetExtentSpacing(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetExtentTo(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetExtentUntil(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetFactoryDataFromElementData(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetFirstTemplateInfo(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetFrameCount(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetFrameExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelCounter(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelPolicy(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetFrames(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetIdenticalElementExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetIdenticalStrideExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetInvalidationReason(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetLayoutFunction(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetLower(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetPadding(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetPanExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetScrollBox(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetScrollTarget(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetSpacing(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetStride(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetTemplateInfo(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:GetUpper(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:HasBiaxalLayout(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:HasDataProvider(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:HasElementExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:HasIdenticalElementExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:HasIdenticalStrideExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:Init(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:InitDefaultDrag(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:InvokeInitializer(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:InvokeInitializers(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:IsAcquireLocked(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:IsDataIndexWithinRange(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:IsElementStretchDisabled(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:IsExtentValid(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:IsHorizontal(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:IsInitialized(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:IsInvalidated(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:IsVirtualized(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:Layout(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:LayoutInternal(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSizeChanged(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSort(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementData(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:RebuildTemplateInfoCache(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:RecalculateExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:RefreshSmartNav(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ReinitializeFrames(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:Release(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:RemoveDataProvider(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:RemoveDataProviderInternal(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ResizeFrame(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ReverseForEachElementData(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ReverseForEachFrame(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SelectCursorComponent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SelectPointComponent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetAcquireLocked(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetDataProvider(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetDataRange(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetElementExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetElementExtentCalculator(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetElementFactory(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetElementIndentCalculator(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetElementInitializer(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetElementResetter(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetElementStretchDisabled(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetFrameExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetFrameFactoryResetter(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetFrameLevelPolicy(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetHorizontal(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetInvalidationReason(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetMaxPanExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetPadding(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetPanExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetScrollBox(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SetVirtualized(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SignalDataChangeEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:SortFrames(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:UnassignAccessors(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:ValidateDataRange(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:elementFactory(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_viewObject:factory(...) end
-end
-
-do
----@class CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_view_scrollBoxObject
-local CommunitiesFrame_CommunitiesList_ScrollBar_registeredScrollBox_view_scrollBoxObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesList_ScrollBoxObject
-local CommunitiesFrame_CommunitiesList_ScrollBoxObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesList_TopFiligreeObject : Texture
-local CommunitiesFrame_CommunitiesList_TopFiligreeObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesListDropdownObject : Button
----@field Arrow CommunitiesFrame_CommunitiesListDropdown_ArrowObject
----@field Background CommunitiesFrame_CommunitiesListDropdown_BackgroundObject
----@field Event CommunitiesFrame_CommunitiesListDropdown_EventObject
----@field NotificationOverlay CommunitiesFrame_CommunitiesListDropdown_NotificationOverlayObject
----@field Text CommunitiesFrame_CommunitiesListDropdown_TextObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
----@field intrinsic string
----@field menuAnchor CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject
----@field menuPoint string
----@field menuPointX number
----@field menuPointY number
----@field menuRelativePoint string
-local CommunitiesFrame_CommunitiesListDropdownObject = {}
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:ClearMenuState(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:CloseMenu(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:CollectSelectionData(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:CreateDefaultRootMenuDescription(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:CreateRootDescription(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:Decrement(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:DesaturateIfDisabled(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:EnableRegenerateOnResponse(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:GenerateMenu(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:GetArrowAtlas(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:GetDefaultText(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:GetMenuDescription(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:GetSelectionData(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:GetUpdateText(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:HandlesGlobalMouseEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:HasAnyRadioDescriptions(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:HasElements(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:HasOnlyRadioDescriptions(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:HasStickyFocus(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:Increment(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:IsDown(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:IsDownOver(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:IsMenuOpen(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:IsOver(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:NarrationGetContext(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:NarrationGetName(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:OnButtonStateChanged(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:OnClubSelected(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:OnCommunitiesClubSelected(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:OnDisable(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:OnEnable(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:OnHide(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:OnMenuAssigned(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:OnMenuChanged(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:OnMenuClosed(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:OnMenuOpened(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:OnMenuResponse(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:OnMouseDown(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:OnMouseUp(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:OnMouseWheel_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:OnShow(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:OpenMenu(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:OverrideText(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:Pick(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:RegisterMenu(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:Rotate(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:SetDefaultText(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:SetDisplacedRegions(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:SetMenuAnchor(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:SetMenuOpen(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:SetSelectionText(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:SetSelectionTranslator(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:SetTooltip(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:SetupMenu(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:ShouldShowTooltip(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:ShowTooltip(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:SignalUpdate(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:Update(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:UpdateSelections(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:UpdateText(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:UpdateToMenuSelections(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:UpdateUnreadNotification(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:onMenuClosedCallback(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdownObject:selectionTranslator(...) end
-end
-
-do
----@class CommunitiesFrame_CommunitiesListDropdown_ArrowObject : Texture
-local CommunitiesFrame_CommunitiesListDropdown_ArrowObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesListDropdown_BackgroundObject : Texture
-local CommunitiesFrame_CommunitiesListDropdown_BackgroundObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesListDropdown_EventObject
-local CommunitiesFrame_CommunitiesListDropdown_EventObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesListDropdown_NotificationOverlayObject : Frame
----@field UnreadNotificationIcon CommunitiesFrame_CommunitiesListDropdown_NotificationOverlay_UnreadNotificationIconObject
-local CommunitiesFrame_CommunitiesListDropdown_NotificationOverlayObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesListDropdown_NotificationOverlay_UnreadNotificationIconObject : Texture
-local CommunitiesFrame_CommunitiesListDropdown_NotificationOverlay_UnreadNotificationIconObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesListDropdown_TextObject : FontString
-local CommunitiesFrame_CommunitiesListDropdown_TextObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo CommunitiesFrame_CommunitiesListDropdown_menuAnchor_relativeToObject
----@field x number
----@field y number
-local CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject = {}
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject:Get(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject:GetRelativeTo(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject:Init(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject:Set(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject:SetFromPoint(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject:SetOffsets(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject:SetPoint(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function CommunitiesFrame_CommunitiesListDropdown_menuAnchorObject:SetRelativeTo(...) end
-end
-
-do
----@class CommunitiesFrame_CommunitiesListDropdown_menuAnchor_relativeToObject
-local CommunitiesFrame_CommunitiesListDropdown_menuAnchor_relativeToObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrameObject : Frame
----@field ClubFinderPendingTab CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTabObject
----@field ClubFinderSearchTab CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTabObject
----@field CommunityCards CommunitiesFrame_CommunityFinderFrame_CommunityCardsObject
----@field DisabledFrame CommunitiesFrame_CommunityFinderFrame_DisabledFrameObject
----@field GuildCards CommunitiesFrame_CommunityFinderFrame_GuildCardsObject
----@field InsetFrame CommunitiesFrame_CommunityFinderFrame_InsetFrameObject
----@field OptionsList CommunitiesFrame_CommunityFinderFrame_OptionsListObject
----@field PendingCommunityCards CommunitiesFrame_CommunityFinderFrame_PendingCommunityCardsObject
----@field PendingGuildCards CommunitiesFrame_CommunityFinderFrame_PendingGuildCardsObject
----@field RequestToJoinFrame CommunitiesFrame_CommunityFinderFrame_RequestToJoinFrameObject
-local CommunitiesFrame_CommunityFinderFrameObject = {}
----@return any ...
-function CommunitiesFrame_CommunityFinderFrameObject:ClearAllCardLists(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrameObject:ClubFinderOnClickHyperLink(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrameObject:GetDisplayModeBasedOnSelectedTab(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrameObject:OnEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrameObject:OnHide(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrameObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrameObject:OnShow(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrameObject:UpdateEnabledState(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrameObject:UpdatePendingTab(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrameObject:UpdateType(...) end
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTabObject : CheckButton
----@field Icon CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTab_IconObject
----@field IconOverlay CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTab_IconOverlayObject
----@field iconTexture string
----@field tooltip string
-local CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTabObject = {}
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTabObject:OnClick(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTabObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTabObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTabObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTabObject:SetTab(...) end
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTab_IconObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTab_IconObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTab_IconOverlayObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_ClubFinderPendingTab_IconOverlayObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTabObject : CheckButton
----@field Icon CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTab_IconObject
----@field IconOverlay CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTab_IconOverlayObject
----@field iconTexture string
----@field tooltip string
-local CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTabObject = {}
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTabObject:OnClick(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTabObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTabObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTabObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTabObject:SetTab(...) end
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTab_IconObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTab_IconObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTab_IconOverlayObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_ClubFinderSearchTab_IconOverlayObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCardsObject : Frame
----@field CardList table
----@field ScrollBar CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject
----@field ScrollBox CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBoxObject
-local CommunitiesFrame_CommunityFinderFrame_CommunityCardsObject = {}
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCardsObject:BuildCardList(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCardsObject:ClearCardList(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCardsObject:FindAndSetReportedCard(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCardsObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCardsObject:OnScrollBoxScroll(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCardsObject:OnShow(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCardsObject:RefreshLayout(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCardsObject:UpateCardsAlreadyInList(...) end
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject : Frame
----@field Back CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject
----@field Defaults CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_DefaultsObject
----@field Directions CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_DirectionsObject
----@field Event CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_EventObject
----@field Forward CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject
----@field Track CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_TrackObject
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject : Frame
+---@field Back CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject
+---@field Defaults CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_DefaultsObject
+---@field Directions CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_DirectionsObject
+---@field Event CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_EventObject
+---@field Forward CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject
+---@field Track CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_TrackObject
 ---@field allowScroll boolean
 ---@field callbackTables table
 ---@field canInterpolateScroll boolean
@@ -4809,13 +4647,13 @@ do
 ---@field executingEvents table
 ---@field hideTrack boolean
 ---@field hideTrackIfThumbExceedsTrack boolean
----@field interpolator CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_interpolatorObject
+---@field interpolator CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_interpolatorObject
 ---@field isScrollController boolean
 ---@field minThumbExtent number
 ---@field panDelay number
 ---@field panExtentPercentage number
 ---@field panRepeatTime number
----@field registeredScrollBox CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject
+---@field registeredScrollBox CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_registeredScrollBoxObject
 ---@field scrollPercentage number
 ---@field smartNavigationIgnored boolean
 ---@field snapToInterval boolean
@@ -4823,179 +4661,179 @@ do
 ---@field useProportionalThumb boolean
 ---@field visibleExtentPercentage number
 ---@field wheelPanScalar number
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject = {}
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject = {}
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:CallInternalScope(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:CallInternalScope(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:CanCursorStepInDirection(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:CanCursorStepInDirection(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:CanInterpolateScroll(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:CanInterpolateScroll(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:CopyDeferredCallbacks(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:DisableControls(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:DisableControls(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:DoesFrameHaveEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:EnableInternalPriority(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:EnableInternalPriority(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:EnableSnapToInterval(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:EnableSnapToInterval(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GenerateCallbackEvents(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetBackStepper(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetBackStepper(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetCallbackTable(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetCallbackTables(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetCallbacksByEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetForwardStepper(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetForwardStepper(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetFrameExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetFrameExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetIntervalRange(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetIntervalRange(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetLower(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetLower(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetPanExtentPercentage(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetPanRepeatDelay(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetPanRepeatDelay(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetPanRepeatTime(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetPanRepeatTime(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetScrollInterpolator(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetScrollInterpolator(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetScrollPercentage(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetScrollPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetThumb(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetThumb(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetThumbAnchor(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetThumbAnchor(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetTrack(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetTrack(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetTrackExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetTrackExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetUpper(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetUpper(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetVisibleExtentPercentage(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:GetWheelPanPercentage(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:HasRegistrantsForEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:HasScrollableExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:HasScrollableExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:Init(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:Init(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:InitializeNarration(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:InitializeNarration(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:Interpolate(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:Interpolate(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:IsAtBegin(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:IsAtBegin(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:IsAtEnd(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:IsAtEnd(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:IsHorizontal(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:IsHorizontal(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:IsScrollAllowed(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:IsScrollAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:IsThumbMouseDown(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:IsThumbMouseDown(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:OnHide_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:OnLoad(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:OnLoad_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:OnMouseWheel(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:OnMouseWheel(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:OnShow_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:OnStepperMouseDown(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:OnStepperMouseDown(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:OnThumbMouseDown(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:OnThumbMouseDown(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:OnTrackMouseDown(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:OnTrackMouseDown(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:RegisterCallback(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:RegisterCallbackWithHandle(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:ScrollDecrease(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:ScrollDecrease(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:ScrollInDirection(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:ScrollInDirection(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:ScrollIncrease(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:ScrollIncrease(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:ScrollPageInDirection(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:ScrollPageInDirection(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:ScrollStepInDirection(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:ScrollStepInDirection(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:ScrollToBegin(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:ScrollToBegin(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:ScrollToEnd(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:ScrollToEnd(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:ScrollWheelInDirection(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:ScrollWheelInDirection(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SecureInsertEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SelectCursorComponent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SelectCursorComponent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SelectPointComponent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SelectPointComponent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetFrameExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetFrameExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetHideIfUnscrollable(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetHideIfUnscrollable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetHorizontal(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetHorizontal(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetInterpolateScroll(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetInterpolateScroll(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetPanExtentPercentage(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetScrollAllowed(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetScrollAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetScrollPercentage(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetScrollPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetScrollPercentageInternal(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetThumbExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetThumbExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:SetVisibleExtentPercentage(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:SetVisibleExtentPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:TriggerEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:UnregisterCallback(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:UnregisterEvents(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:UnregisterEventsByEventTable(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:UnregisterUpdate(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:UnregisterUpdate(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:Update(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:Update(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:onButtonMouseUp(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:onButtonMouseUp(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBarObject:scrollInternal(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBarObject:scrollInternal(...) end
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject : Button
----@field Event CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Back_EventObject
----@field Texture CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Back_TextureObject
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject : Button
+---@field Event CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Back_EventObject
+---@field Texture CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Back_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -5009,118 +4847,127 @@ do
 ---@field mouseDownSoundKitID number
 ---@field normalTexture string
 ---@field overTexture string
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject = {}
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject = {}
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:GetAtlas(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:GetAtlas(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:GetCallbackTable(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:GetCallbackTables(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:IsDown(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:IsDown(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:IsDownOver(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:IsDownOver(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:IsOver(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:IsOver(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:NarrationGetName(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:NarrationGetName(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnButtonStateChanged(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnButtonStateChanged(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnDisable(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnDisable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnEnable(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnEnable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnEnter(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnEnter(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnLeave(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnLeave(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnLoad(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnMouseDown(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnMouseDown(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnMouseUp(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnMouseUp(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnShow(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnShow(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:RegisterCallback(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:SecureInsertEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:SetDisplacedRegions(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:SetDisplacedRegions(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:TriggerEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:UnregisterCallback(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:UnregisterEvents(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_BackObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Back_EventObject
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Back_EventObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Back_EventObject
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Back_EventObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Back_TextureObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Back_TextureObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Back_TextureObject : Texture
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Back_TextureObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_DefaultsObject
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_DefaultsObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_DefaultsObject
+---@field PanExtentPercentage number
+---@field WheelPanScalar number
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_DefaultsObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_DirectionsObject
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_DirectionsObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_DirectionsObject
+---@field Decrease number
+---@field Increase number
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_DirectionsObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_EventObject
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_EventObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_EventObject
+---@field OnAllowScrollChanged string
+---@field OnHide string
+---@field OnScroll string
+---@field OnShow string
+---@field OnSizeChanged string
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_EventObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject : Button
----@field Event CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Forward_EventObject
----@field Texture CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Forward_TextureObject
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject : Button
+---@field Event CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Forward_EventObject
+---@field Texture CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Forward_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -5134,129 +4981,129 @@ do
 ---@field mouseDownSoundKitID number
 ---@field normalTexture string
 ---@field overTexture string
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject = {}
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject = {}
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:GetAtlas(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:GetAtlas(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:GetCallbackTable(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:GetCallbackTables(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:IsDown(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:IsDown(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:IsDownOver(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:IsDownOver(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:IsOver(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:IsOver(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:NarrationGetName(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:NarrationGetName(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnButtonStateChanged(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnDisable(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnDisable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnEnable(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnEnable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnEnter(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnEnter(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnLeave(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnLeave(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnLoad(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnMouseDown(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnMouseDown(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnMouseUp(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnMouseUp(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnShow(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnShow(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:RegisterCallback(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:SetDisplacedRegions(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:TriggerEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:UnregisterCallback(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:UnregisterEvents(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Forward_EventObject
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Forward_EventObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Forward_EventObject
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Forward_EventObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Forward_TextureObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Forward_TextureObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Forward_TextureObject : Texture
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Forward_TextureObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_TrackObject : Frame
----@field Begin CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_BeginObject
----@field End CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_EndObject
----@field Middle CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_MiddleObject
----@field Thumb CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_TrackObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_TrackObject : Frame
+---@field Begin CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_BeginObject
+---@field End CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_EndObject
+---@field Middle CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_MiddleObject
+---@field Thumb CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_TrackObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_BeginObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_BeginObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_BeginObject : Texture
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_BeginObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_EndObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_EndObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_EndObject : Texture
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_EndObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_MiddleObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_MiddleObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_MiddleObject : Texture
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_MiddleObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject : Button
----@field Begin CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_BeginObject
----@field End CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_EndObject
----@field Event CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_EventObject
----@field Middle CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_MiddleObject
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject : Button
+---@field Begin CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_BeginObject
+---@field End CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_EndObject
+---@field Event CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_EventObject
+---@field Middle CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_MiddleObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -5271,2085 +5118,1034 @@ do
 ---@field upBeginTexture string
 ---@field upEndTexture string
 ---@field upMiddleTexture string
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject = {}
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject = {}
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:GetAtlas(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:IsDown(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:IsDown(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:IsDownOver(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:IsOver(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:IsOver(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnDisable(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnDisable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnEnable(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnEnable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnEnter(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnEnter(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnLeave(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnLeave(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnLoad(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnMouseDown(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnMouseUp(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnShow(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnShow(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnSizeChanged(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_BeginObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_BeginObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_BeginObject : Texture
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_BeginObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_EndObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_EndObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_EndObject : Texture
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_EndObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_EventObject
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_EventObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_EventObject
+---@field OnClick string
+---@field OnEnter string
+---@field OnLeave string
+---@field OnMouseDown string
+---@field OnMouseUp string
+---@field OnSizeChanged string
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_EventObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_MiddleObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_Track_Thumb_MiddleObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_MiddleObject : Texture
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_Track_Thumb_MiddleObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_interpolatorObject
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_interpolatorObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_interpolatorObject
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_interpolatorObject = {}
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_interpolatorObject:Cancel(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_interpolatorObject:Cancel(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_interpolatorObject:GetInterpolateTo(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_interpolatorObject:Interpolate(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_interpolatorObject:Interpolate(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_interpolatorObject:interpolateFunc(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_interpolatorObject:interpolateFunc(...) end
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject : Frame
----@field Defaults CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_DefaultsObject
----@field Directions CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_DirectionsObject
----@field DragDelegate CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_DragDelegateObject
----@field Event CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_EventObject
----@field ScrollTarget CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject
----@field Shadows CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ShadowsObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field debugInspectionSystem string
----@field deferredCallbacks table
----@field executingEvents table
----@field isScrollController boolean
----@field panExtentPercentage number
----@field registeredScrollBar CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_registeredScrollBarObject
----@field updateLock boolean
----@field view CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject
----@field wheelPanScalar number
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject = {}
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ApplyEdgeFade(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:CalculateEdgeFade(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:CalculatePanExtentPercentage(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:CalculateScrollPercentage(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:CanInterpolateScroll(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ClearEdgeFade(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ContainsElementDataByPredicate(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:EnableSnapToInterval(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:EnumerateDataProvider(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:EnumerateDataProviderEntireRange(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:EnumerateFrames(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:FindByPredicate(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:FindElementData(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:FindElementDataByPredicate(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:FindElementDataIndex(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:FindElementDataIndexByPredicate(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:FindFrame(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:FindFrameByPredicate(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:FindFrameElementDataIndex(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:Flush(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:FlushDataProvider(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ForEachElementData(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ForEachFrame(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:FullUpdate(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:FullUpdateInternal(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetBottomPadding(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetDataIndexBegin(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetDataIndexEnd(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetDataProvider(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetDataProviderSize(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetDerivedExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetDerivedScrollOffset(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetDerivedScrollRange(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetElementExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetExtentPadding(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetExtentUntil(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetFrameCount(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetFrameExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetFrames(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetIntervalRange(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetLeftPadding(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetLower(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetLowerPadding(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetLowerShadowTexture(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetPadding(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetPanExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetPanExtentPercentage(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetRightPadding(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetScrollInterpolator(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetScrollPercentage(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetScrollTarget(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetTopPadding(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetUpper(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetUpperPadding(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetUpperShadowTexture(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetView(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetVisibleExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:GetWheelPanPercentage(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:HasDataProvider(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:HasEdgeFade(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:HasScrollableExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:HasView(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:Init(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:Interpolate(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:IsAcquireLocked(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:IsAlignmentOverlapIgnored(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:IsAtBegin(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:IsAtEnd(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:IsHorizontal(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:IsScrollAllowed(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:IsScrollToDataIndexSafe(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:IsUpdateLocked(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:IsVirtualized(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:Layout(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:OnMouseWheel(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:OnScrollTargetSizeChanged(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:OnSizeChanged(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:OnViewAcquiredFrame(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:OnViewDataChanged(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:OnViewDataProviderReassigned(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:OnViewInitializedFrame(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:OnViewReleasedFrame(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:Rebuild(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:RecalculateDerivedExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ReinitializeFrames(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:RemoveDataProvider(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProvider(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ReverseForEachElementData(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ReverseForEachFrame(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SanitizeAlignment(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollDecrease(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollInDirection(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollIncrease(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToBegin(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToElementData(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToElementDataByPredicate(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToElementDataIndex(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToEnd(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToFrame(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToNearest(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToNearestByPredicate(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToOffset(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SelectCursorComponent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SelectPointComponent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetAlignmentOverlapIgnored(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetDataProvider(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetEdgeFadeLength(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetFrameExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetHorizontal(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetInterpolateScroll(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetLowerShadowAtlas(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetPadding(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetPanExtent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetPanExtentPercentage(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetScrollAllowed(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetScrollPercentage(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetScrollPercentageInternal(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetScrollTargetOffset(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetShadowsFrameLevel(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetShadowsScale(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetShadowsShown(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetUpdateLocked(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetUpperShadowAtlas(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetUseShadowsForEdgeFade(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:SetView(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:Update(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBoxObject:scrollInternal(...) end
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_registeredScrollBoxObject
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_registeredScrollBar_registeredScrollBoxObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_DefaultsObject
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_DefaultsObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_DirectionsObject
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_DirectionsObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_DragDelegateObject : Frame
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_DragDelegateObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_EventObject
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_EventObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject : Frame
----@field Event CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject = {}
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ScrollTarget_EventObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ShadowsObject : Frame
----@field Lower CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_Shadows_LowerObject
----@field Upper CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_Shadows_UpperObject
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_ShadowsObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_Shadows_LowerObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_Shadows_LowerObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_Shadows_UpperObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_Shadows_UpperObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_registeredScrollBarObject
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_registeredScrollBarObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject
 ---@field Event table
 ---@field FrameLevelPolicy table
 ---@field callbackTables table
 ---@field canSignalWithoutInitializer boolean
----@field dataIndexBegin number
----@field dataIndexEnd number
 ---@field deferredCallbacks table
 ---@field executingEvents table
 ---@field frameFactory table
----@field frameTemplateOrFrameType string
 ---@field frames table
 ---@field initialized boolean
 ---@field initializers table
 ---@field padding table
----@field scrollBox CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_view_scrollBoxObject
+---@field scrollBox CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_view_scrollBoxObject
 ---@field templateInfoCache table
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject = {}
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject = {}
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:AcquireInternal(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:AcquireInternal(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:AcquireRange(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:AcquireRange(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:AssignAccessors(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:AssignAccessors(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:AttachDataProviderCallbacks(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:AttachDataProviderCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:CalculateDataIndices(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:CalculateDataIndices(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:CalculateFrameExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:CalculateFrameExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ClearCachedData(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:CalculateFrameSize(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ClearElementExtentData(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:CalculateNumElementsInRow(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ClearInvalidation(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ClearCachedData(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ContainsElementDataByPredicate(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ClearElementExtentData(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:CopyDeferredCallbacks(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ClearElementSizeData(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:DataProviderContentsChanged(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ClearInvalidation(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:DetachDataProviderCallbacks(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ContainsElementDataByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:DoesFrameHaveEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProvider(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:DataProviderContentsChanged(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:DetachDataProviderCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:EnumerateFrames(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:FindByPredicate(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:EnumerateDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:FindElementData(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:FindElementDataByPredicate(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:EnumerateFrames(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndex(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:FindByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:FindElementData(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:FindFrame(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:FindElementDataByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:FindFrameByPredicate(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:FindElementDataIndex(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:FindFrameElementDataIndex(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:FindElementDataIndexByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:Flush(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:FindFrame(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:FlushDataProvider(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:FindFrameByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ForEachElementData(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:FindFrameElementDataIndex(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ForEachFrame(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:Flush(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GenerateCallbackEvents(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:FlushDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetCallbackTable(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ForEachElementData(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetCallbackTables(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ForEachFrame(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetCallbacksByEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetDataIndexBegin(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetDataIndexEnd(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetDataProvider(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetDataProviderSize(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetDataIndexBegin(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetDataRange(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetDataIndexEnd(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetDataScrollOffset(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetElementExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetDataProviderSize(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetElementExtentCalculator(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetDataRange(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetElementIndent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetDataScrollOffset(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetElementExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetExtentFromInfo(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetElementSize(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetExtentSpacing(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetElementSizeCalculator(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetExtentTo(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetExtentUntil(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetExtentFromInfo(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetFactoryDataFromElementData(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetExtentSpacing(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetFirstTemplateInfo(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetExtentTo(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetFrameCount(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetExtentUntil(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetFrameExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetFactoryDataFromElementData(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelCounter(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetFirstTemplateInfo(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelPolicy(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetFrameCount(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetFrames(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetFrameExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetIdenticalElementExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetFrameLevelCounter(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetIdenticalStrideExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetFrameLevelPolicy(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetInvalidationReason(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetFrames(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetLayoutFunction(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetHorizontalSpacing(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetLower(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetIdenticalElementSize(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetInvalidationReason(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetPadding(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetLower(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetPanExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetScrollBox(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetPadding(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetScrollTarget(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetPanExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetSpacing(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetScrollBox(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetStride(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetScrollTarget(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetTemplateExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetTemplateInfo(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetTemplateInfo(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetTemplateSizeFromElementData(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:GetUpper(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetUpper(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetVerticalSpacing(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:HasBiaxalLayout(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:GetVisibleWidth(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:HasDataProvider(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:HasElementExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:HasBiaxalLayout(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:HasIdenticalElementExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:HasDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:HasIdenticalStrideExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:HasElementExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:HasRegistrantsForEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:HasIdenticalElementSize(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:Init(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:InitDefaultDrag(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:Init(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:InvokeInitializer(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:InitDefaultDrag(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:InvokeInitializers(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:InvokeInitializer(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:IsAcquireLocked(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:InvokeInitializers(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:IsDataIndexWithinRange(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:IsAcquireLocked(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:IsElementStretchDisabled(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:IsDataIndexWithinRange(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:IsExtentValid(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:IsElementStretchDisabled(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:IsHorizontal(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:IsExtentValid(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:IsInitialized(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:IsHorizontal(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:IsInvalidated(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:IsInitialized(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:IsInvalidated(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:IsVirtualized(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:IsScrollToDataIndexSafe(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:Layout(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:IsVirtualized(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:LayoutInternal(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:Layout(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSizeChanged(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:OnDataProviderSizeChanged(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSort(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:OnDataProviderSort(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:OnLoad(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementData(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:PrepareScrollToElementData(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:RebuildTemplateInfoCache(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:RebuildTemplateInfoCache(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:RecalculateExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:RecalculateExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:RefreshSmartNav(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:RefreshSmartNav(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:RegisterCallback(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:RegisterCallbackWithHandle(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ReinitializeFrames(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ReinitializeFrames(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:Release(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:Release(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:RemoveDataProvider(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:RemoveDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:RemoveDataProviderInternal(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:RemoveDataProviderInternal(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ResizeFrame(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ResizeFrame(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ReverseEnumerateDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ReverseForEachElementData(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ReverseForEachElementData(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ReverseForEachFrame(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ReverseForEachFrame(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SecureInsertEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SelectCursorComponent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SelectCursorComponent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SelectPointComponent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SelectPointComponent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetAcquireLocked(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetAcquireLocked(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetDataProvider(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetDataProvider(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetDataRange(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetDataRange(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetElementExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetElementExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetElementExtentCalculator(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetElementFactory(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetElementFactory(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetElementInitializer(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetElementIndentCalculator(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetElementResetter(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetElementInitializer(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetElementSize(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetElementResetter(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetElementSizeCalculator(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetElementStretchDisabled(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetElementStretchDisabled(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetFrameExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetFrameExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetFrameFactoryResetter(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetFrameFactoryResetter(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetFrameLevelPolicy(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetFrameLevelPolicy(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetHorizontal(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetInvalidationReason(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetInvalidationReason(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetMaxPanExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetMaxPanExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetPadding(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetPadding(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetPanExtent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetPanExtent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetScrollBox(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetScrollBox(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SetVirtualized(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SetVirtualized(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SignalDataChangeEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SignalDataChangeEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:SortFrames(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:SortFrames(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:TriggerEvent(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:UnassignAccessors(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:UnassignAccessors(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:UnregisterCallback(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:UnregisterEvents(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:UnregisterEventsByEventTable(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:ValidateDataRange(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:ValidateDataRange(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:elementFactory(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:elementFactory(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_viewObject:factory(...) end
+function CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_viewObject:factory(...) end
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_view_scrollBoxObject
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBar_registeredScrollBox_view_scrollBoxObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_view_scrollBoxObject
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ProductsScrollBoxContainer_selectionBehavior_scrollBox_view_scrollBoxObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBoxObject
-local CommunitiesFrame_CommunityFinderFrame_CommunityCards_ScrollBoxObject = {}
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ShadowLayerObject : Frame
+---@field bottomProductRule CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ShadowLayer_bottomProductRuleObject
+---@field topProductRule CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ShadowLayer_topProductRuleObject
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ShadowLayerObject = {}
 end
 
 do
----@class CommunitiesFrame_CommunityFinderFrame_DisabledFrameObject : Frame
----@field Bg CommunitiesFrame_CommunityFinderFrame_DisabledFrame_BgObject
----@field Description CommunitiesFrame_CommunityFinderFrame_DisabledFrame_DescriptionObject
----@field NineSlice CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject
----@field Title CommunitiesFrame_CommunityFinderFrame_DisabledFrame_TitleObject
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ShadowLayer_bottomProductRuleObject : Texture
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ShadowLayer_bottomProductRuleObject = {}
+end
+
+do
+---@class CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ShadowLayer_topProductRuleObject : Texture
+local CatalogShopFrame_ProductDetailsContainerFrame_DetailsProductContainerFrame_ShadowLayer_topProductRuleObject = {}
+end
+
+do
+---@class CatalogShopFrame_RightJumpHintObject : Frame
+---@field ActiveTexture CatalogShopFrame_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture CatalogShopFrame_RightJumpHint_DisabledTextureObject
+---@field HoldAnim CatalogShopFrame_RightJumpHint_HoldAnimObject
+---@field HoldIndicator CatalogShopFrame_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG CatalogShopFrame_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture CatalogShopFrame_RightJumpHint_HoverTextureObject
+---@field LoadBar CatalogShopFrame_RightJumpHint_LoadBarObject
+---@field LoadBarBG CatalogShopFrame_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow CatalogShopFrame_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture CatalogShopFrame_RightJumpHint_NormalTextureObject
+---@field PressedTexture CatalogShopFrame_RightJumpHint_PressedTextureObject
+---@field SpinnerTip CatalogShopFrame_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local CatalogShopFrame_RightJumpHintObject = {}
+---@return any ...
+function CatalogShopFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function CatalogShopFrame_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function CatalogShopFrame_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function CatalogShopFrame_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function CatalogShopFrame_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function CatalogShopFrame_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function CatalogShopFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function CatalogShopFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function CatalogShopFrame_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function CatalogShopFrame_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function CatalogShopFrame_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function CatalogShopFrame_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function CatalogShopFrame_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function CatalogShopFrame_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function CatalogShopFrame_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function CatalogShopFrame_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function CatalogShopFrame_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function CatalogShopFrame_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function CatalogShopFrame_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function CatalogShopFrame_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function CatalogShopFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class CatalogShopFrame_RightJumpHint_ActiveTextureObject : Texture
+local CatalogShopFrame_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class CatalogShopFrame_RightJumpHint_DisabledTextureObject : Texture
+local CatalogShopFrame_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class CatalogShopFrame_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim CatalogShopFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim CatalogShopFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim CatalogShopFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local CatalogShopFrame_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class CatalogShopFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+local CatalogShopFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class CatalogShopFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local CatalogShopFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class CatalogShopFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local CatalogShopFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class CatalogShopFrame_RightJumpHint_HoldIndicatorObject : Texture
+local CatalogShopFrame_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class CatalogShopFrame_RightJumpHint_HoldIndicatorBGObject : Texture
+local CatalogShopFrame_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class CatalogShopFrame_RightJumpHint_HoverTextureObject : Texture
+local CatalogShopFrame_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class CatalogShopFrame_RightJumpHint_LoadBarObject : Texture
+local CatalogShopFrame_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class CatalogShopFrame_RightJumpHint_LoadBarBGObject : Texture
+local CatalogShopFrame_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class CatalogShopFrame_RightJumpHint_LoadBarGlowObject : Texture
+local CatalogShopFrame_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class CatalogShopFrame_RightJumpHint_NormalTextureObject : Texture
+local CatalogShopFrame_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class CatalogShopFrame_RightJumpHint_PressedTextureObject : Texture
+local CatalogShopFrame_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class CatalogShopFrame_RightJumpHint_SpinnerTipObject : Texture
+local CatalogShopFrame_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class CatalogShopFrame_ServicesContainerFrameObject : Frame
+---@field AnimContainer CatalogShopFrame_ServicesContainerFrame_AnimContainerObject
+local CatalogShopFrame_ServicesContainerFrameObject = {}
+---@return any ...
+function CatalogShopFrame_ServicesContainerFrameObject:OnHide(...) end
+---@return any ...
+function CatalogShopFrame_ServicesContainerFrameObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_ServicesContainerFrameObject:OnShow(...) end
+end
+
+do
+---@class CatalogShopFrame_ServicesContainerFrame_AnimContainerObject : Frame
+---@field ServicesIconFrame CatalogShopFrame_ServicesContainerFrame_AnimContainer_ServicesIconFrameObject
+---@field ShopRays CatalogShopFrame_ServicesContainerFrame_AnimContainer_ShopRaysObject
+---@field loopingSoundEmitter CatalogShopFrame_ServicesContainerFrame_AnimContainer_loopingSoundEmitterObject
+---@field playLoopingSoundFX boolean
+local CatalogShopFrame_ServicesContainerFrame_AnimContainerObject = {}
+---@return any ...
+function CatalogShopFrame_ServicesContainerFrame_AnimContainerObject:CreateLoopingSoundFX(...) end
+---@return any ...
+function CatalogShopFrame_ServicesContainerFrame_AnimContainerObject:OnHide(...) end
+---@return any ...
+function CatalogShopFrame_ServicesContainerFrame_AnimContainerObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_ServicesContainerFrame_AnimContainerObject:OnShow(...) end
+end
+
+do
+---@class CatalogShopFrame_ServicesContainerFrame_AnimContainer_ServicesIconFrameObject : Frame
+---@field Icon CatalogShopFrame_ServicesContainerFrame_AnimContainer_ServicesIconFrame_IconObject
+---@field IconBorder CatalogShopFrame_ServicesContainerFrame_AnimContainer_ServicesIconFrame_IconBorderObject
+---@field ProductCounter CatalogShopFrame_ServicesContainerFrame_AnimContainer_ServicesIconFrame_ProductCounterObject
+---@field ProductCounterText CatalogShopFrame_ServicesContainerFrame_AnimContainer_ServicesIconFrame_ProductCounterTextObject
+local CatalogShopFrame_ServicesContainerFrame_AnimContainer_ServicesIconFrameObject = {}
+end
+
+do
+---@class CatalogShopFrame_ServicesContainerFrame_AnimContainer_ServicesIconFrame_IconObject : Texture
+local CatalogShopFrame_ServicesContainerFrame_AnimContainer_ServicesIconFrame_IconObject = {}
+end
+
+do
+---@class CatalogShopFrame_ServicesContainerFrame_AnimContainer_ServicesIconFrame_IconBorderObject : Texture
+local CatalogShopFrame_ServicesContainerFrame_AnimContainer_ServicesIconFrame_IconBorderObject = {}
+end
+
+do
+---@class CatalogShopFrame_ServicesContainerFrame_AnimContainer_ServicesIconFrame_ProductCounterObject : Texture
+local CatalogShopFrame_ServicesContainerFrame_AnimContainer_ServicesIconFrame_ProductCounterObject = {}
+end
+
+do
+---@class CatalogShopFrame_ServicesContainerFrame_AnimContainer_ServicesIconFrame_ProductCounterTextObject : FontString
+local CatalogShopFrame_ServicesContainerFrame_AnimContainer_ServicesIconFrame_ProductCounterTextObject = {}
+end
+
+do
+---@class CatalogShopFrame_ServicesContainerFrame_AnimContainer_ShopRaysObject : Frame
+---@field Bloom CatalogShopFrame_ServicesContainerFrame_AnimContainer_ShopRays_BloomObject
+---@field RayAnim CatalogShopFrame_ServicesContainerFrame_AnimContainer_ShopRays_RayAnimObject
+---@field RaysLarge CatalogShopFrame_ServicesContainerFrame_AnimContainer_ShopRays_RaysLargeObject
+---@field RaysSmall CatalogShopFrame_ServicesContainerFrame_AnimContainer_ShopRays_RaysSmallObject
+local CatalogShopFrame_ServicesContainerFrame_AnimContainer_ShopRaysObject = {}
+end
+
+do
+---@class CatalogShopFrame_ServicesContainerFrame_AnimContainer_ShopRays_BloomObject : Texture
+local CatalogShopFrame_ServicesContainerFrame_AnimContainer_ShopRays_BloomObject = {}
+end
+
+do
+---@class CatalogShopFrame_ServicesContainerFrame_AnimContainer_ShopRays_RayAnimObject : AnimationGroup
+local CatalogShopFrame_ServicesContainerFrame_AnimContainer_ShopRays_RayAnimObject = {}
+end
+
+do
+---@class CatalogShopFrame_ServicesContainerFrame_AnimContainer_ShopRays_RaysLargeObject : Texture
+local CatalogShopFrame_ServicesContainerFrame_AnimContainer_ShopRays_RaysLargeObject = {}
+end
+
+do
+---@class CatalogShopFrame_ServicesContainerFrame_AnimContainer_ShopRays_RaysSmallObject : Texture
+local CatalogShopFrame_ServicesContainerFrame_AnimContainer_ShopRays_RaysSmallObject = {}
+end
+
+do
+---@class CatalogShopFrame_ServicesContainerFrame_AnimContainer_loopingSoundEmitterObject
+---@field loopFinishSoundEffect number
+---@field loopStartSoundEffect number
+---@field loopingSoundEffect number
+---@field loopingSoundEffectFadeTime number
+---@field loopingSoundEffectFinishDelay number
+---@field loopingSoundEffectStartDelay number
+local CatalogShopFrame_ServicesContainerFrame_AnimContainer_loopingSoundEmitterObject = {}
+---@return any ...
+function CatalogShopFrame_ServicesContainerFrame_AnimContainer_loopingSoundEmitterObject:CancelLoopingSound(...) end
+---@return any ...
+function CatalogShopFrame_ServicesContainerFrame_AnimContainer_loopingSoundEmitterObject:FinishLoopingSound(...) end
+---@return any ...
+function CatalogShopFrame_ServicesContainerFrame_AnimContainer_loopingSoundEmitterObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_ServicesContainerFrame_AnimContainer_loopingSoundEmitterObject:StartLoopingSound(...) end
+end
+
+do
+---@class CatalogShopFrame_TitleContainerObject : Frame
+---@field TitleText CatalogShopFrame_TitleContainer_TitleTextObject
+local CatalogShopFrame_TitleContainerObject = {}
+end
+
+do
+---@class CatalogShopFrame_TitleContainer_TitleTextObject : FontString
+local CatalogShopFrame_TitleContainer_TitleTextObject = {}
+end
+
+do
+---@class CatalogShopFrame_TopTileStreaksObject : Texture
+local CatalogShopFrame_TopTileStreaksObject = {}
+end
+
+do
+---@class CatalogShopFrame_ToyContainerFrameObject : Frame
+---@field AnimContainer CatalogShopFrame_ToyContainerFrame_AnimContainerObject
+local CatalogShopFrame_ToyContainerFrameObject = {}
+---@return any ...
+function CatalogShopFrame_ToyContainerFrameObject:OnHide(...) end
+---@return any ...
+function CatalogShopFrame_ToyContainerFrameObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_ToyContainerFrameObject:OnShow(...) end
+end
+
+do
+---@class CatalogShopFrame_ToyContainerFrame_AnimContainerObject : Frame
+---@field ShopRays CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRaysObject
+---@field ToyIconFrame CatalogShopFrame_ToyContainerFrame_AnimContainer_ToyIconFrameObject
+---@field loopingSoundEmitter CatalogShopFrame_ToyContainerFrame_AnimContainer_loopingSoundEmitterObject
+---@field playLoopingSoundFX boolean
+local CatalogShopFrame_ToyContainerFrame_AnimContainerObject = {}
+---@return any ...
+function CatalogShopFrame_ToyContainerFrame_AnimContainerObject:CreateLoopingSoundFX(...) end
+---@return any ...
+function CatalogShopFrame_ToyContainerFrame_AnimContainerObject:OnHide(...) end
+---@return any ...
+function CatalogShopFrame_ToyContainerFrame_AnimContainerObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_ToyContainerFrame_AnimContainerObject:OnShow(...) end
+end
+
+do
+---@class CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRaysObject : Frame
+---@field Bloom CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_BloomObject
+---@field RayAnim CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_RayAnimObject
+---@field RaysLarge CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_RaysLargeObject
+---@field RaysSmall CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_RaysSmallObject
+local CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRaysObject = {}
+end
+
+do
+---@class CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_BloomObject : Texture
+local CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_BloomObject = {}
+end
+
+do
+---@class CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_RayAnimObject : AnimationGroup
+local CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_RayAnimObject = {}
+end
+
+do
+---@class CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_RaysLargeObject : Texture
+local CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_RaysLargeObject = {}
+end
+
+do
+---@class CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_RaysSmallObject : Texture
+local CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_RaysSmallObject = {}
+end
+
+do
+---@class CatalogShopFrame_ToyContainerFrame_AnimContainer_ToyIconFrameObject : Frame
+---@field Icon CatalogShopFrame_ToyContainerFrame_AnimContainer_ToyIconFrame_IconObject
+---@field IconBorder CatalogShopFrame_ToyContainerFrame_AnimContainer_ToyIconFrame_IconBorderObject
+local CatalogShopFrame_ToyContainerFrame_AnimContainer_ToyIconFrameObject = {}
+end
+
+do
+---@class CatalogShopFrame_ToyContainerFrame_AnimContainer_ToyIconFrame_IconObject : Texture
+local CatalogShopFrame_ToyContainerFrame_AnimContainer_ToyIconFrame_IconObject = {}
+end
+
+do
+---@class CatalogShopFrame_ToyContainerFrame_AnimContainer_ToyIconFrame_IconBorderObject : Texture
+local CatalogShopFrame_ToyContainerFrame_AnimContainer_ToyIconFrame_IconBorderObject = {}
+end
+
+do
+---@class CatalogShopFrame_ToyContainerFrame_AnimContainer_loopingSoundEmitterObject
+---@field loopFinishSoundEffect number
+---@field loopStartSoundEffect number
+---@field loopingSoundEffect number
+---@field loopingSoundEffectFadeTime number
+---@field loopingSoundEffectFinishDelay number
+---@field loopingSoundEffectStartDelay number
+local CatalogShopFrame_ToyContainerFrame_AnimContainer_loopingSoundEmitterObject = {}
+---@return any ...
+function CatalogShopFrame_ToyContainerFrame_AnimContainer_loopingSoundEmitterObject:CancelLoopingSound(...) end
+---@return any ...
+function CatalogShopFrame_ToyContainerFrame_AnimContainer_loopingSoundEmitterObject:FinishLoopingSound(...) end
+---@return any ...
+function CatalogShopFrame_ToyContainerFrame_AnimContainer_loopingSoundEmitterObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_ToyContainerFrame_AnimContainer_loopingSoundEmitterObject:StartLoopingSound(...) end
+end
+
+do
+---@class CatalogShopFrame_WoWTokenContainerFrameObject : Frame
+---@field AnimContainer CatalogShopFrame_WoWTokenContainerFrame_AnimContainerObject
+local CatalogShopFrame_WoWTokenContainerFrameObject = {}
+---@return any ...
+function CatalogShopFrame_WoWTokenContainerFrameObject:OnHide(...) end
+---@return any ...
+function CatalogShopFrame_WoWTokenContainerFrameObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_WoWTokenContainerFrameObject:OnShow(...) end
+end
+
+do
+---@class CatalogShopFrame_WoWTokenContainerFrame_AnimContainerObject : Frame
+---@field ShopRays CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRaysObject
+---@field WoWTokenIconFrame CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_WoWTokenIconFrameObject
+---@field loopingSoundEmitter CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_loopingSoundEmitterObject
+---@field playLoopingSoundFX boolean
+local CatalogShopFrame_WoWTokenContainerFrame_AnimContainerObject = {}
+---@return any ...
+function CatalogShopFrame_WoWTokenContainerFrame_AnimContainerObject:CreateLoopingSoundFX(...) end
+---@return any ...
+function CatalogShopFrame_WoWTokenContainerFrame_AnimContainerObject:OnHide(...) end
+---@return any ...
+function CatalogShopFrame_WoWTokenContainerFrame_AnimContainerObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_WoWTokenContainerFrame_AnimContainerObject:OnShow(...) end
+end
+
+do
+---@class CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRaysObject : Frame
+---@field Bloom CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_BloomObject
+---@field RayAnim CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_RayAnimObject
+---@field RaysLarge CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_RaysLargeObject
+---@field RaysSmall CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_RaysSmallObject
+local CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRaysObject = {}
+end
+
+do
+---@class CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_BloomObject : Texture
+local CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_BloomObject = {}
+end
+
+do
+---@class CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_RayAnimObject : AnimationGroup
+local CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_RayAnimObject = {}
+end
+
+do
+---@class CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_RaysLargeObject : Texture
+local CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_RaysLargeObject = {}
+end
+
+do
+---@class CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_RaysSmallObject : Texture
+local CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_RaysSmallObject = {}
+end
+
+do
+---@class CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_WoWTokenIconFrameObject : Frame
+---@field WoWTokenIcon CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_WoWTokenIconFrame_WoWTokenIconObject
+local CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_WoWTokenIconFrameObject = {}
+end
+
+do
+---@class CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_WoWTokenIconFrame_WoWTokenIconObject : Texture
+local CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_WoWTokenIconFrame_WoWTokenIconObject = {}
+end
+
+do
+---@class CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_loopingSoundEmitterObject
+---@field loopFinishSoundEffect number
+---@field loopStartSoundEffect number
+---@field loopingSoundEffect number
+---@field loopingSoundEffectFadeTime number
+---@field loopingSoundEffectFinishDelay number
+---@field loopingSoundEffectStartDelay number
+local CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_loopingSoundEmitterObject = {}
+---@return any ...
+function CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_loopingSoundEmitterObject:CancelLoopingSound(...) end
+---@return any ...
+function CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_loopingSoundEmitterObject:FinishLoopingSound(...) end
+---@return any ...
+function CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_loopingSoundEmitterObject:OnLoad(...) end
+---@return any ...
+function CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_loopingSoundEmitterObject:StartLoopingSound(...) end
+end
+
+do
+---@class CatalogShopFrame_tooltipObject
+local CatalogShopFrame_tooltipObject = {}
+end
+
+do
+---@class CatalogShopRefundFrameObject : Frame
+---@field Bg CatalogShopRefundFrame_BgObject
+---@field CloseButton CatalogShopRefundFrame_CloseButtonObject
+---@field CoverFrame CatalogShopRefundFrame_CoverFrameObject
+---@field DecorsScrollBoxContainer CatalogShopRefundFrame_DecorsScrollBoxContainerObject
+---@field DescriptionContainer CatalogShopRefundFrame_DescriptionContainerObject
+---@field FocusJumpHint CatalogShopRefundFrame_FocusJumpHintObject
+---@field FrameGlow CatalogShopRefundFrame_FrameGlowObject
+---@field LeftJumpHint CatalogShopRefundFrame_LeftJumpHintObject
+---@field NineSlice CatalogShopRefundFrame_NineSliceObject
+---@field ProcessingContainer CatalogShopRefundFrame_ProcessingContainerObject
+---@field RefundButton CatalogShopRefundFrame_RefundButtonObject
+---@field RightJumpHint CatalogShopRefundFrame_RightJumpHintObject
+---@field TitleContainer CatalogShopRefundFrame_TitleContainerObject
+---@field TopTileStreaks CatalogShopRefundFrame_TopTileStreaksObject
+---@field TotalRefundContainer CatalogShopRefundFrame_TotalRefundContainerObject
+---@field isProcessingRefund boolean
 ---@field layoutType string
-local CommunitiesFrame_CommunityFinderFrame_DisabledFrameObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_BgObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_BgObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_DescriptionObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_DescriptionObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject : Frame
----@field BottomEdge CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_BottomEdgeObject
----@field BottomLeftCorner CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_BottomRightCornerObject
----@field LeftEdge CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_LeftEdgeObject
----@field RightEdge CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_RightEdgeObject
----@field TopEdge CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_TopEdgeObject
----@field TopLeftCorner CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_TopLeftCornerObject
----@field TopRightCorner CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_TopRightCornerObject
-local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject = {}
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_BottomEdgeObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_BottomLeftCornerObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_BottomRightCornerObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_LeftEdgeObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_RightEdgeObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_TopEdgeObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_TopLeftCornerObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_TopRightCornerObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_DisabledFrame_TitleObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_DisabledFrame_TitleObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCardsObject : Frame
----@field CardList table
----@field Cards table
----@field FirstCard CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject
----@field NextPage CommunitiesFrame_CommunityFinderFrame_GuildCards_NextPageObject
----@field PreviousPage CommunitiesFrame_CommunityFinderFrame_GuildCards_PreviousPageObject
----@field SearchingSpinner CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinnerObject
----@field SecondCard CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject
----@field ThirdCard CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject
----@field numPages number
----@field pageNumber number
-local CommunitiesFrame_CommunityFinderFrame_GuildCardsObject = {}
+---@field refreshRequest CatalogShopRefundFrame_refreshRequestObject
+---@field refundRequest CatalogShopRefundFrame_refundRequestObject
+---@field refundableDecors table
+---@field sortAscending boolean
+---@field sortField string
+local CatalogShopRefundFrameObject = {}
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:BuildCardList(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:ClearCardList(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:FindAndSetReportedCard(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:FindAndUpdateGuildRealmName(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:HideCardList(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:OnHide(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:OnMouseWheel(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:OnShow(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:PageNext(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:PagePrevious(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:RefreshLayout(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCardsObject:SetSearchingState(...) end
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject : Button
----@field CardBackground CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_CardBackgroundObject
----@field Description CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_DescriptionObject
----@field Focus CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_FocusObject
----@field GuildBannerBackground CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerBackgroundObject
----@field GuildBannerBorder CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerBorderObject
----@field GuildBannerEmblemLogo CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerEmblemLogoObject
----@field GuildBannerShadow CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerShadowObject
----@field MemberCount CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_MemberCountObject
----@field MemberIcon CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_MemberIconObject
----@field Name CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_NameObject
----@field ReportedDescription CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_ReportedDescriptionObject
----@field RequestJoin CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoinObject
----@field RequestStatus CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestStatusObject
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject = {}
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:CreateRecruitingSpecsMap(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:GetCardName(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:GetCardStatus(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:GetClubGUID(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:GetLastPosterGUID(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:IsReported(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:OnClick(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:RequestToJoinClub(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:SetDisabledState(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:SetReportedCardState(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCardObject:UpdateCard(...) end
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_CardBackgroundObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_CardBackgroundObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_DescriptionObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_DescriptionObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_FocusObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_FocusObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerBackgroundObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerBackgroundObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerBorderObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerBorderObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerEmblemLogoObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerEmblemLogoObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerShadowObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_GuildBannerShadowObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_MemberCountObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_MemberCountObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_MemberIconObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_MemberIconObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_NameObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_NameObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_ReportedDescriptionObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_ReportedDescriptionObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoinObject : Button
----@field Left CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_LeftObject
----@field Middle CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_MiddleObject
----@field Right CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_RightObject
----@field Text CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoinObject = {}
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoinObject:FitToText(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoinObject:GetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoinObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoinObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoinObject:SetDisabledState(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoinObject:SetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoinObject:SetTextToFit(...) end
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_LeftObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_LeftObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_MiddleObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_MiddleObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_RightObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_RightObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_TextObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestJoin_TextObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestStatusObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_FirstCard_RequestStatusObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_NextPageObject : Button
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_NextPageObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_PreviousPageObject : Button
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_PreviousPageObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinnerObject : Frame
----@field Anim CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_AnimObject
----@field Label CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_LabelObject
----@field Ring CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_RingObject
----@field Sparks CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_SparksObject
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinnerObject = {}
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinnerObject:GetShadowAlpha(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinnerObject:OnHide(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinnerObject:OnShow(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinnerObject:OnSizeChanged(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinnerObject:SetDesaturated(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinnerObject:SetShadowEnabled(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinnerObject:UpdateShadowSize(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinnerObject:UpdateTheme(...) end
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_AnimObject : AnimationGroup
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_AnimObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_LabelObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_LabelObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_RingObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_RingObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_SparksObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_SearchingSpinner_SparksObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject : Button
----@field CardBackground CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_CardBackgroundObject
----@field Description CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_DescriptionObject
----@field Focus CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_FocusObject
----@field GuildBannerBackground CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerBackgroundObject
----@field GuildBannerBorder CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerBorderObject
----@field GuildBannerEmblemLogo CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerEmblemLogoObject
----@field GuildBannerShadow CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerShadowObject
----@field MemberCount CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_MemberCountObject
----@field MemberIcon CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_MemberIconObject
----@field Name CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_NameObject
----@field ReportedDescription CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_ReportedDescriptionObject
----@field RequestJoin CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoinObject
----@field RequestStatus CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestStatusObject
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject = {}
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:CreateRecruitingSpecsMap(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:GetCardName(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:GetCardStatus(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:GetClubGUID(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:GetLastPosterGUID(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:IsReported(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:OnClick(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:RequestToJoinClub(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:SetDisabledState(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:SetReportedCardState(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCardObject:UpdateCard(...) end
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_CardBackgroundObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_CardBackgroundObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_DescriptionObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_DescriptionObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_FocusObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_FocusObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerBackgroundObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerBackgroundObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerBorderObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerBorderObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerEmblemLogoObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerEmblemLogoObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerShadowObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_GuildBannerShadowObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_MemberCountObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_MemberCountObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_MemberIconObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_MemberIconObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_NameObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_NameObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_ReportedDescriptionObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_ReportedDescriptionObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoinObject : Button
----@field Left CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_LeftObject
----@field Middle CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_MiddleObject
----@field Right CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_RightObject
----@field Text CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoinObject = {}
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoinObject:FitToText(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoinObject:GetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoinObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoinObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoinObject:SetDisabledState(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoinObject:SetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoinObject:SetTextToFit(...) end
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_LeftObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_LeftObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_MiddleObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_MiddleObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_RightObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_RightObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_TextObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestJoin_TextObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestStatusObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_SecondCard_RequestStatusObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject : Button
----@field CardBackground CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_CardBackgroundObject
----@field Description CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_DescriptionObject
----@field Focus CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_FocusObject
----@field GuildBannerBackground CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerBackgroundObject
----@field GuildBannerBorder CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerBorderObject
----@field GuildBannerEmblemLogo CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerEmblemLogoObject
----@field GuildBannerShadow CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerShadowObject
----@field MemberCount CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_MemberCountObject
----@field MemberIcon CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_MemberIconObject
----@field Name CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_NameObject
----@field ReportedDescription CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_ReportedDescriptionObject
----@field RequestJoin CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoinObject
----@field RequestStatus CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestStatusObject
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject = {}
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:CreateRecruitingSpecsMap(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:GetCardName(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:GetCardStatus(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:GetClubGUID(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:GetLastPosterGUID(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:IsReported(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:OnClick(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:RequestToJoinClub(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:SetDisabledState(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:SetReportedCardState(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCardObject:UpdateCard(...) end
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_CardBackgroundObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_CardBackgroundObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_DescriptionObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_DescriptionObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_FocusObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_FocusObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerBackgroundObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerBackgroundObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerBorderObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerBorderObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerEmblemLogoObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerEmblemLogoObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerShadowObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_GuildBannerShadowObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_MemberCountObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_MemberCountObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_MemberIconObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_MemberIconObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_NameObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_NameObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_ReportedDescriptionObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_ReportedDescriptionObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoinObject : Button
----@field Left CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_LeftObject
----@field Middle CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_MiddleObject
----@field Right CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_RightObject
----@field Text CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoinObject = {}
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoinObject:FitToText(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoinObject:GetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoinObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoinObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoinObject:SetDisabledState(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoinObject:SetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoinObject:SetTextToFit(...) end
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_LeftObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_LeftObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_MiddleObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_MiddleObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_RightObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_RightObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_TextObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestJoin_TextObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestStatusObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_GuildCards_ThirdCard_RequestStatusObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_InsetFrameObject : Frame
----@field Bg CommunitiesFrame_CommunityFinderFrame_InsetFrame_BgObject
----@field ErrorDescription CommunitiesFrame_CommunityFinderFrame_InsetFrame_ErrorDescriptionObject
----@field GuildDescription CommunitiesFrame_CommunityFinderFrame_InsetFrame_GuildDescriptionObject
----@field NineSlice CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject
----@field layoutType string
-local CommunitiesFrame_CommunityFinderFrame_InsetFrameObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_BgObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_InsetFrame_BgObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_ErrorDescriptionObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_InsetFrame_ErrorDescriptionObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_GuildDescriptionObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_InsetFrame_GuildDescriptionObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject : Frame
----@field BottomEdge CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_BottomEdgeObject
----@field BottomLeftCorner CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_BottomRightCornerObject
----@field LeftEdge CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_LeftEdgeObject
----@field RightEdge CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_RightEdgeObject
----@field TopEdge CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_TopEdgeObject
----@field TopLeftCorner CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_TopLeftCornerObject
----@field TopRightCorner CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_TopRightCornerObject
-local CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject = {}
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_BottomEdgeObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_BottomLeftCornerObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_BottomRightCornerObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_LeftEdgeObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_RightEdgeObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_TopEdgeObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_TopLeftCornerObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_TopRightCornerObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_InsetFrame_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_OptionsListObject : Frame
----@field ClubFilterDropdown CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject
----@field ClubSizeDropdown CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject
----@field DpsRoleFrame CommunitiesFrame_CommunityFinderFrame_OptionsList_DpsRoleFrameObject
----@field HealerRoleFrame CommunitiesFrame_CommunityFinderFrame_OptionsList_HealerRoleFrameObject
----@field PendingTextFrame CommunitiesFrame_CommunityFinderFrame_OptionsList_PendingTextFrameObject
----@field Search CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchObject
----@field SearchBox CommunitiesFrame_CommunityFinderFrame_OptionsList_SearchBoxObject
----@field SortByDropdown CommunitiesFrame_CommunityFinderFrame_OptionsList_SortByDropdownObject
----@field TankRoleFrame CommunitiesFrame_CommunityFinderFrame_OptionsList_TankRoleFrameObject
-local CommunitiesFrame_CommunityFinderFrame_OptionsListObject = {}
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:CheckDisabled(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:InitializeRoleButton(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:InitializeRoleButtons(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:OnSearchButtonClick(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:OnShow(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:RefreshRoleButtons(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:SetEnabledRoles(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:SetOptionsState(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:SetType(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:SetupCommunityFinderOptions(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsListObject:SetupGuildFinderOptions(...) end
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject : Button
----@field Arrow CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_ArrowObject
----@field Background CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_BackgroundObject
----@field Event CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_EventObject
----@field Label CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_LabelObject
----@field Text CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_TextObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
----@field intrinsic string
----@field labelText string
----@field menuAnchor CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject
----@field menuPoint string
----@field menuPointX number
----@field menuPointY number
----@field menuRelativePoint string
-local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject = {}
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:ClearMenuState(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:CloseMenu(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:CollectSelectionData(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:CreateDefaultRootMenuDescription(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:CreateRootDescription(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:Decrement(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:DesaturateIfDisabled(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:EnableRegenerateOnResponse(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GenerateMenu(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GetArrowAtlas(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GetDefaultText(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GetLocaleFlag(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GetMenuDescription(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GetSelectionData(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:GetUpdateText(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:HandlesGlobalMouseEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:HasAnyRadioDescriptions(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:HasElements(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:HasOnlyRadioDescriptions(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:HasStickyFocus(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:Increment(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:IsDown(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:IsDownOver(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:IsLocaleFlagSet(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:IsMenuOpen(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:IsOver(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:NarrationGetContext(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:NarrationGetName(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnButtonStateChanged(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnDisable(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnEnable(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnMenuAssigned(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnMenuChanged(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnMenuClosed(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnMenuOpened(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnMenuResponse(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnMouseDown(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnMouseUp(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnMouseWheel_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OnShow(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OpenMenu(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:OverrideText(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:Pick(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:RegisterMenu(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:Rotate(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SetDefaultText(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SetDisplacedRegions(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SetLocaleFlag(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SetLocaleFlags(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SetMenuAnchor(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SetMenuOpen(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SetSelectionText(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SetSelectionTranslator(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SetTooltip(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SetupMenu(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:ShouldShowTooltip(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:ShowTooltip(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:SignalUpdate(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:Update(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:UpdateSelections(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:UpdateText(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:UpdateToMenuSelections(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:onMenuClosedCallback(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdownObject:selectionTranslator(...) end
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_ArrowObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_ArrowObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_BackgroundObject : Texture
-local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_BackgroundObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_EventObject
-local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_EventObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_LabelObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_LabelObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_TextObject : FontString
-local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_TextObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchor_relativeToObject
----@field x number
----@field y number
-local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject = {}
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject:Get(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject:GetRelativeTo(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject:Init(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject:Set(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject:SetFromPoint(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject:SetOffsets(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject:SetPoint(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchorObject:SetRelativeTo(...) end
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchor_relativeToObject
-local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubFilterDropdown_menuAnchor_relativeToObject = {}
-end
-
-do
----@class CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject : Button
----@field Arrow CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_ArrowObject
----@field Background CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_BackgroundObject
----@field Event CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_EventObject
----@field Label CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_LabelObject
----@field Text CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_TextObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
----@field intrinsic string
----@field labelText string
----@field menuAnchor CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdown_menuAnchorObject
----@field menuPoint string
----@field menuPointX number
----@field menuPointY number
----@field menuRelativePoint string
-local CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject = {}
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:ClearMenuState(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:CloseMenu(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:CollectSelectionData(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:CreateDefaultRootMenuDescription(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:CreateRootDescription(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:Decrement(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:DesaturateIfDisabled(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:EnableRegenerateOnResponse(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:GenerateMenu(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:GetArrowAtlas(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:GetDefaultText(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:GetMenuDescription(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:GetSelectionData(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:GetUpdateText(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:HandlesGlobalMouseEvent(...) end
+function CatalogShopRefundFrameObject:EndFocus(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:HasAnyRadioDescriptions(...) end
+function CatalogShopRefundFrameObject:GetDecor(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:HasElements(...) end
+function CatalogShopRefundFrameObject:GetDefaultSortAscending(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:HasOnlyRadioDescriptions(...) end
+function CatalogShopRefundFrameObject:GetFocusFrameGlow(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:HasRegistrantsForEvent(...) end
+function CatalogShopRefundFrameObject:GetFocusFrameRoot(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:HasStickyFocus(...) end
+function CatalogShopRefundFrameObject:GetSortAscending(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:Increment(...) end
+function CatalogShopRefundFrameObject:GetSortField(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:IsDown(...) end
+function CatalogShopRefundFrameObject:GetTitleText(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:IsDownOver(...) end
+function CatalogShopRefundFrameObject:HideCoverFrame(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:IsMenuOpen(...) end
+function CatalogShopRefundFrameObject:HideFocusJumpHint(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:IsOver(...) end
+function CatalogShopRefundFrameObject:HideLeftJumpHint(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:NarrationGetContext(...) end
+function CatalogShopRefundFrameObject:HideRightJumpHint(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:NarrationGetName(...) end
+function CatalogShopRefundFrameObject:Leave(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnButtonStateChanged(...) end
+function CatalogShopRefundFrameObject:LockInFocus(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnDisable(...) end
+function CatalogShopRefundFrameObject:OnAttributeChanged(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnEnable(...) end
+function CatalogShopRefundFrameObject:OnEvent(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnEnter(...) end
+function CatalogShopRefundFrameObject:OnHide(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnEnter_Intrinsic(...) end
+function CatalogShopRefundFrameObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnLeave(...) end
+function CatalogShopRefundFrameObject:OnShow(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnLoad(...) end
+function CatalogShopRefundFrameObject:OnUpdate(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnLoad_Intrinsic(...) end
+function CatalogShopRefundFrameObject:RefreshFocus(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnMenuAssigned(...) end
+function CatalogShopRefundFrameObject:RefundSelectedDecors(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnMenuChanged(...) end
+function CatalogShopRefundFrameObject:SelectAllDecors(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnMenuClosed(...) end
+function CatalogShopRefundFrameObject:SelectionsUpdated(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnMenuOpened(...) end
+function CatalogShopRefundFrameObject:SetSortAscending(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnMenuResponse(...) end
+function CatalogShopRefundFrameObject:SetSortField(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnMouseDown(...) end
+function CatalogShopRefundFrameObject:SetTitle(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnMouseDown_Intrinsic(...) end
+function CatalogShopRefundFrameObject:SetTitleColor(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnMouseUp(...) end
+function CatalogShopRefundFrameObject:SetTitleFormatted(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnMouseWheel_Intrinsic(...) end
+function CatalogShopRefundFrameObject:SetTitleMaxLinesAndHeight(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OnShow(...) end
+function CatalogShopRefundFrameObject:SetTitleOffsets(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OpenMenu(...) end
+function CatalogShopRefundFrameObject:ShowBulkRefundError(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:OverrideText(...) end
+function CatalogShopRefundFrameObject:ShowCoverFrame(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:Pick(...) end
+function CatalogShopRefundFrameObject:ShowFocusJumpHint(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:ReconcileDeferredCallbacks(...) end
+function CatalogShopRefundFrameObject:ShowLeftJumpHint(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:RegisterCallback(...) end
+function CatalogShopRefundFrameObject:ShowRightJumpHint(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:RegisterCallbackWithHandle(...) end
+function CatalogShopRefundFrameObject:SortFieldSet(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:RegisterMenu(...) end
+function CatalogShopRefundFrameObject:StartFocus(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:Rotate(...) end
+function CatalogShopRefundFrameObject:StartProcessing(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:SecureInsertEvent(...) end
+function CatalogShopRefundFrameObject:StopProcessing(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:SetDefaultText(...) end
+function CatalogShopRefundFrameObject:UpdateDecors(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:SetDisplacedRegions(...) end
+function CatalogShopRefundFrameObject:UpdateProcessing(...) end
 ---@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:SetMenuAnchor(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:SetMenuOpen(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:SetSelectionText(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:SetSelectionTranslator(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:SetTooltip(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:SetupMenu(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:ShouldShowTooltip(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:ShowTooltip(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:SignalUpdate(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:Update(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:UpdateSelections(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:UpdateText(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:UpdateToMenuSelections(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:onMenuClosedCallback(...) end
----@return any ...
-function CommunitiesFrame_CommunityFinderFrame_OptionsList_ClubSizeDropdownObject:selectionTranslator(...) end
+function CatalogShopRefundFrameObject:onCloseCallback(...) end
+---@type CatalogShopRefundFrameObject
+CatalogShopRefundFrame = CatalogShopRefundFrameObject
 end

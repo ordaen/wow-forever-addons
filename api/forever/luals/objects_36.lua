@@ -3,1896 +3,9481 @@
 
 
 do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_Thumb_BeginObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_Thumb_BeginObject = {}
+---@class PVPMatchResults_content_scrollBar_registeredScrollBox_DefaultsObject
+local PVPMatchResults_content_scrollBar_registeredScrollBox_DefaultsObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_Thumb_EndObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_Thumb_EndObject = {}
+---@class PVPMatchResults_content_scrollBar_registeredScrollBox_DirectionsObject
+local PVPMatchResults_content_scrollBar_registeredScrollBox_DirectionsObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_Thumb_EventObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_Thumb_EventObject = {}
+---@class PVPMatchResults_content_scrollBar_registeredScrollBox_DragDelegateObject : Frame
+local PVPMatchResults_content_scrollBar_registeredScrollBox_DragDelegateObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject = {}
+---@class PVPMatchResults_content_scrollBar_registeredScrollBox_EventObject
+local PVPMatchResults_content_scrollBar_registeredScrollBox_EventObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_interpolatorObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_interpolatorObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_interpolatorObject:Cancel(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_interpolatorObject:Interpolate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_interpolatorObject:interpolateFunc(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBoxObject : EditBox
----@field Instructions WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_InstructionsObject
----@field Left WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_LeftObject
----@field Middle WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_MiddleObject
----@field Right WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_RightObject
----@field clearButton WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_clearButtonObject
----@field instructionText string
----@field searchIcon WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_searchIconObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBoxObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBoxObject:Clear(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBoxObject:NarrationGetContext(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBoxObject:NarrationGetDescription(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBoxObject:NarrationGetName(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBoxObject:OnTextChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBoxObject:SetNarrationLabelRegion(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBoxObject:UpdateState(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_InstructionsObject : FontString
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_InstructionsObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_LeftObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_LeftObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_MiddleObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_MiddleObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_RightObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_RightObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_clearButtonObject : Button
----@field Icon WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_clearButton_IconObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_clearButtonObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_clearButtonObject:NarrationGetName(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_clearButtonObject:OnClick(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_clearButtonObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_clearButtonObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_clearButtonObject:OnMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_clearButtonObject:OnMouseUp(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_clearButton_IconObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_clearButton_IconObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_searchIconObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBox_searchIconObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject : Button
----@field Event WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_EventObject
----@field Icon WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_IconObject
+---@class PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject : Frame
+---@field Event PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTarget_EventObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field executingEvents table
----@field intrinsic string
----@field menuAnchor WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuAnchorObject
----@field menuDescription WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuDescriptionObject
----@field menuPoint string
----@field menuPointX number
----@field menuPointY number
----@field menuRelativePoint string
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject = {}
+local PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject = {}
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:ClearMenuState(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:CloseMenu(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:CollectSelectionData(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:CopyDeferredCallbacks(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTable(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:CreateDefaultRootMenuDescription(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTables(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:CreateRootDescription(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:Decrement(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:DoesFrameHaveEvent(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:EnableRegenerateOnResponse(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:GenerateCallbackEvents(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject:OnLoad(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:GenerateMenu(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:GetCallbackTable(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:GetCallbackTables(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:GetCallbacksByEvent(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:GetMenuDescription(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallback(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:GetMutableCallbacksByEvent(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:GetSelectionData(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:HandlesGlobalMouseEvent(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:HasAnyRadioDescriptions(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject:TriggerEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:HasElements(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject:UnregisterCallback(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:HasOnlyRadioDescriptions(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEvents(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:HasStickyFocus(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:Increment(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:IsMenuOpen(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:OnEnter_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:OnMenuAssigned(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:OnMenuChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:OnMenuClosed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:OnMenuOpened(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:OnMenuResponse(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:OnMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:OnMouseUp(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:OnMouseWheel_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:OpenMenu(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:Pick(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:RegisterMenu(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:Rotate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:SetMenuAnchor(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:SetMenuOpen(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:SetupMenu(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:SignalUpdate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:Update(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:UpdateSelections(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:UpdateToMenuSelections(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:menuGenerator(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject:onMenuClosedCallback(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_EventObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_EventObject = {}
+---@class PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTarget_EventObject
+local PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTarget_EventObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_IconObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_IconObject = {}
+---@class PVPMatchResults_content_scrollBar_registeredScrollBox_ShadowsObject : Frame
+---@field Lower PVPMatchResults_content_scrollBar_registeredScrollBox_Shadows_LowerObject
+---@field Upper PVPMatchResults_content_scrollBar_registeredScrollBox_Shadows_UpperObject
+local PVPMatchResults_content_scrollBar_registeredScrollBox_ShadowsObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuAnchor_relativeToObject
+---@class PVPMatchResults_content_scrollBar_registeredScrollBox_Shadows_LowerObject : Texture
+local PVPMatchResults_content_scrollBar_registeredScrollBox_Shadows_LowerObject = {}
+end
+
+do
+---@class PVPMatchResults_content_scrollBar_registeredScrollBox_Shadows_UpperObject : Texture
+local PVPMatchResults_content_scrollBar_registeredScrollBox_Shadows_UpperObject = {}
+end
+
+do
+---@class PVPMatchResults_content_scrollBar_registeredScrollBox_edgeFadeObject
 ---@field x number
 ---@field y number
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuAnchorObject = {}
+local PVPMatchResults_content_scrollBar_registeredScrollBox_edgeFadeObject = {}
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuAnchorObject:Get(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_edgeFadeObject:Add(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuAnchorObject:GetRelativeTo(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_edgeFadeObject:Clone(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuAnchorObject:Init(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_edgeFadeObject:Cross(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuAnchorObject:Set(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_edgeFadeObject:DivideBy(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuAnchorObject:SetFromPoint(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_edgeFadeObject:Dot(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuAnchorObject:SetOffsets(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_edgeFadeObject:GetLength(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuAnchorObject:SetPoint(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_edgeFadeObject:GetLengthSquared(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_edgeFadeObject:GetXY(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuAnchorObject:SetRelativeTo(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_edgeFadeObject:IsEqualTo(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_edgeFadeObject:IsZero(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_edgeFadeObject:Normalize(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_edgeFadeObject:OnLoad(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_edgeFadeObject:RotateDirection(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_edgeFadeObject:ScaleBy(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_edgeFadeObject:SetXY(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_edgeFadeObject:Subtract(...) end
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuAnchor_relativeToObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuAnchor_relativeToObject = {}
+---@class PVPMatchResults_content_scrollBar_registeredScrollBox_registeredScrollBarObject
+local PVPMatchResults_content_scrollBar_registeredScrollBox_registeredScrollBarObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuDescriptionObject
----@field tag string
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuDescriptionObject = {}
+---@class PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject
+---@field Event table
+---@field FrameLevelPolicy table
+---@field callbackTables table
+---@field canSignalWithoutInitializer boolean
+---@field dataIndexBegin number
+---@field dataIndexEnd number
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field frameFactory table
+---@field frameTemplateOrFrameType string
+---@field frames table
+---@field initialized boolean
+---@field initializers table
+---@field padding table
+---@field scrollBox PVPMatchResults_content_scrollBar_registeredScrollBox_view_scrollBoxObject
+---@field templateInfoCache table
+local PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject = {}
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuDescriptionObject:CreateButton(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:AcquireInternal(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuDescriptionObject:CreateCheckbox(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:AcquireRange(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuDescriptionObject:CreateColorSwatch(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:AssignAccessors(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuDescriptionObject:CreateDivider(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:AttachDataProviderCallbacks(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuDescriptionObject:CreateFrame(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuDescriptionObject:CreateHighlightButton(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:CalculateDataIndices(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuDescriptionObject:CreateHighlightRadio(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:CalculateFrameExtent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuDescriptionObject:CreateRadio(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:ClearCachedData(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:ClearElementExtentData(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuDescriptionObject:CreateSearchEntry(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:ClearInvalidation(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuDescriptionObject:CreateSpacer(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:ContainsElementDataByPredicate(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuDescriptionObject:CreateTemplate(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuDescriptionObject:CreateTitle(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:DataProviderContentsChanged(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuDescriptionObject:QueueDivider(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:DetachDataProviderCallbacks(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuDescriptionObject:QueueSpacer(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuDescriptionObject:QueueTitle(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:EnumerateDataProvider(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuDescriptionObject:SetTooltip(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:EnumerateFrames(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdown_menuDescriptionObject:private(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:FindByPredicate(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:FindElementData(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:FindElementDataByPredicate(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:FindElementDataIndex(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:FindFrame(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:FindFrameByPredicate(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:FindFrameElementDataIndex(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:Flush(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:FlushDataProvider(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:ForEachElementData(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:ForEachFrame(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GenerateCallbackEvents(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetCallbackTable(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetCallbackTables(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetCallbacksByEvent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetDataIndexBegin(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetDataIndexEnd(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetDataProvider(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetDataProviderSize(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetDataRange(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetDataScrollOffset(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetElementExtent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetElementExtentCalculator(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetElementIndent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetExtent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetExtentFromInfo(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetExtentSpacing(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetExtentTo(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetExtentUntil(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetFactoryDataFromElementData(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetFirstTemplateInfo(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetFrameCount(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetFrameExtent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetFrameLevelCounter(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetFrameLevelPolicy(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetFrames(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetIdenticalElementExtent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetIdenticalStrideExtent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetInvalidationReason(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetLayoutFunction(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetLower(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetPadding(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetPanExtent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetScrollBox(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetScrollTarget(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetSpacing(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetStride(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetTemplateExtent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetTemplateInfo(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:GetUpper(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:HasBiaxalLayout(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:HasDataProvider(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:HasElementExtent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:HasIdenticalElementExtent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:HasIdenticalStrideExtent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:Init(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:InitDefaultDrag(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:InvokeInitializer(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:InvokeInitializers(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:IsAcquireLocked(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:IsDataIndexWithinRange(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:IsElementStretchDisabled(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:IsExtentValid(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:IsHorizontal(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:IsInitialized(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:IsInvalidated(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:IsVirtualized(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:Layout(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:LayoutInternal(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:OnDataProviderSizeChanged(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:OnDataProviderSort(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:OnLoad(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:PrepareScrollToElementData(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:RebuildTemplateInfoCache(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:RecalculateExtent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:RefreshSmartNav(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:RegisterCallback(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:ReinitializeFrames(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:Release(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:RemoveDataProvider(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:RemoveDataProviderInternal(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:ResizeFrame(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:ReverseForEachElementData(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:ReverseForEachFrame(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SecureInsertEvent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SelectCursorComponent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SelectPointComponent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SetAcquireLocked(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SetDataProvider(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SetDataRange(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SetElementExtent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SetElementExtentCalculator(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SetElementFactory(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SetElementIndentCalculator(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SetElementInitializer(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SetElementResetter(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SetElementStretchDisabled(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SetExtent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SetFrameExtent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SetFrameFactoryResetter(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SetFrameLevelPolicy(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SetHorizontal(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SetInvalidationReason(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SetMaxPanExtent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SetPadding(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SetPanExtent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SetScrollBox(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SetVirtualized(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SignalDataChangeEvent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:SortFrames(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:TriggerEvent(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:UnassignAccessors(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:UnregisterCallback(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:UnregisterEvents(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:ValidateDataRange(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:elementFactory(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:factory(...) end
+---@return any ...
+function PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject:frameResetter(...) end
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_StoryTooltipObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_StoryTooltipObject = {}
+---@class PVPMatchResults_content_scrollBar_registeredScrollBox_view_scrollBoxObject
+local PVPMatchResults_content_scrollBar_registeredScrollBox_view_scrollBoxObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_campaignHeaderFramePoolObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_campaignHeaderFramePoolObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_campaignHeaderFramePoolObject:GetTemplate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_campaignHeaderFramePoolObject:private(...) end
+---@class PVPMatchResults_content_scrollBoxObject
+local PVPMatchResults_content_scrollBoxObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_campaignHeaderMinimalFramePoolObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_campaignHeaderMinimalFramePoolObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_campaignHeaderMinimalFramePoolObject:GetTemplate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_campaignHeaderMinimalFramePoolObject:private(...) end
+---@class PVPMatchResults_content_scrollCategoriesObject
+local PVPMatchResults_content_scrollCategoriesObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_covenantCallingsHeaderFramePoolObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_covenantCallingsHeaderFramePoolObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_covenantCallingsHeaderFramePoolObject:GetTemplate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_covenantCallingsHeaderFramePoolObject:private(...) end
+---@class PVPMatchResults_content_tabContainerObject : Frame
+---@field tabGroup PVPMatchResults_content_tabContainer_tabGroupObject
+local PVPMatchResults_content_tabContainerObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_headerFramePoolObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_headerFramePoolObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_headerFramePoolObject:GetTemplate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_headerFramePoolObject:private(...) end
+---@class PVPMatchResults_content_tabContainer_tabGroupObject : Frame
+---@field Tabs table
+---@field tab1 PVPMatchResults_content_tabContainer_tabGroup_tab1Object
+---@field tab2 PVPMatchResults_content_tabContainer_tabGroup_tab2Object
+---@field tab3 PVPMatchResults_content_tabContainer_tabGroup_tab3Object
+local PVPMatchResults_content_tabContainer_tabGroupObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_objectiveFramePoolObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_objectiveFramePoolObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_objectiveFramePoolObject:GetTemplate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_objectiveFramePoolObject:private(...) end
+---@class PVPMatchResults_content_tabContainer_tabGroup_tab1Object
+local PVPMatchResults_content_tabContainer_tabGroup_tab1Object = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_titleFramePoolObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_titleFramePoolObject = {}
+---@class PVPMatchResults_content_tabContainer_tabGroup_tab2Object : Button
+---@field Left PVPMatchResults_content_tabContainer_tabGroup_tab2_LeftObject
+---@field LeftActive PVPMatchResults_content_tabContainer_tabGroup_tab2_LeftActiveObject
+---@field LeftHighlight PVPMatchResults_content_tabContainer_tabGroup_tab2_LeftHighlightObject
+---@field Middle PVPMatchResults_content_tabContainer_tabGroup_tab2_MiddleObject
+---@field MiddleActive PVPMatchResults_content_tabContainer_tabGroup_tab2_MiddleActiveObject
+---@field MiddleHighlight PVPMatchResults_content_tabContainer_tabGroup_tab2_MiddleHighlightObject
+---@field Right PVPMatchResults_content_tabContainer_tabGroup_tab2_RightObject
+---@field RightActive PVPMatchResults_content_tabContainer_tabGroup_tab2_RightActiveObject
+---@field RightHighlight PVPMatchResults_content_tabContainer_tabGroup_tab2_RightHighlightObject
+---@field TabTextures table
+---@field Text PVPMatchResults_content_tabContainer_tabGroup_tab2_TextObject
+---@field factionEnum number
+local PVPMatchResults_content_tabContainer_tabGroup_tab2Object = {}
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_titleFramePoolObject:GetTemplate(...) end
+function PVPMatchResults_content_tabContainer_tabGroup_tab2Object:OnEnter(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_titleFramePoolObject:private(...) end
+function PVPMatchResults_content_tabContainer_tabGroup_tab2Object:OnEvent(...) end
+---@return any ...
+function PVPMatchResults_content_tabContainer_tabGroup_tab2Object:OnLeave(...) end
+---@return any ...
+function PVPMatchResults_content_tabContainer_tabGroup_tab2Object:OnLoad(...) end
+---@return any ...
+function PVPMatchResults_content_tabContainer_tabGroup_tab2Object:OnShow(...) end
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsTabObject : Frame
----@field Background WorldMapFrame_QuestLog_QuestsTab_BackgroundObject
----@field HighlightTexture WorldMapFrame_QuestLog_QuestsTab_HighlightTextureObject
----@field Icon WorldMapFrame_QuestLog_QuestsTab_IconObject
----@field Mask WorldMapFrame_QuestLog_QuestsTab_MaskObject
----@field SelectedTexture WorldMapFrame_QuestLog_QuestsTab_SelectedTextureObject
----@field TabGlow WorldMapFrame_QuestLog_QuestsTab_TabGlowObject
----@field TabGlowAnimation WorldMapFrame_QuestLog_QuestsTab_TabGlowAnimationObject
----@field activeAtlas string
----@field displayMode number
----@field inactiveAtlas string
+---@class PVPMatchResults_content_tabContainer_tabGroup_tab2_LeftObject : Texture
+local PVPMatchResults_content_tabContainer_tabGroup_tab2_LeftObject = {}
+end
+
+do
+---@class PVPMatchResults_content_tabContainer_tabGroup_tab2_LeftActiveObject : Texture
+local PVPMatchResults_content_tabContainer_tabGroup_tab2_LeftActiveObject = {}
+end
+
+do
+---@class PVPMatchResults_content_tabContainer_tabGroup_tab2_LeftHighlightObject : Texture
+local PVPMatchResults_content_tabContainer_tabGroup_tab2_LeftHighlightObject = {}
+end
+
+do
+---@class PVPMatchResults_content_tabContainer_tabGroup_tab2_MiddleObject : Texture
+local PVPMatchResults_content_tabContainer_tabGroup_tab2_MiddleObject = {}
+end
+
+do
+---@class PVPMatchResults_content_tabContainer_tabGroup_tab2_MiddleActiveObject : Texture
+local PVPMatchResults_content_tabContainer_tabGroup_tab2_MiddleActiveObject = {}
+end
+
+do
+---@class PVPMatchResults_content_tabContainer_tabGroup_tab2_MiddleHighlightObject : Texture
+local PVPMatchResults_content_tabContainer_tabGroup_tab2_MiddleHighlightObject = {}
+end
+
+do
+---@class PVPMatchResults_content_tabContainer_tabGroup_tab2_RightObject : Texture
+local PVPMatchResults_content_tabContainer_tabGroup_tab2_RightObject = {}
+end
+
+do
+---@class PVPMatchResults_content_tabContainer_tabGroup_tab2_RightActiveObject : Texture
+local PVPMatchResults_content_tabContainer_tabGroup_tab2_RightActiveObject = {}
+end
+
+do
+---@class PVPMatchResults_content_tabContainer_tabGroup_tab2_RightHighlightObject : Texture
+local PVPMatchResults_content_tabContainer_tabGroup_tab2_RightHighlightObject = {}
+end
+
+do
+---@class PVPMatchResults_content_tabContainer_tabGroup_tab2_TextObject : FontString
+local PVPMatchResults_content_tabContainer_tabGroup_tab2_TextObject = {}
+end
+
+do
+---@class PVPMatchResults_content_tabContainer_tabGroup_tab3Object
+local PVPMatchResults_content_tabContainer_tabGroup_tab3Object = {}
+end
+
+do
+---@class PVPMatchResults_headerObject
+local PVPMatchResults_headerObject = {}
+end
+
+do
+---@class PVPMatchResults_leaveButtonObject : Button
+---@field Center PVPMatchResults_leaveButton_CenterObject
+---@field Controller PVPMatchResults_leaveButton_ControllerObject
+---@field Left PVPMatchResults_leaveButton_LeftObject
+---@field Right PVPMatchResults_leaveButton_RightObject
+---@field atlasName string
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+---@field leftAtlasInfo PVPMatchResults_leaveButton_leftAtlasInfoObject
+---@field rightAtlasInfo PVPMatchResults_leaveButton_rightAtlasInfoObject
+local PVPMatchResults_leaveButtonObject = {}
+---@return any ...
+function PVPMatchResults_leaveButtonObject:ClearCustomTextFormatter(...) end
+---@return any ...
+function PVPMatchResults_leaveButtonObject:FitToText(...) end
+---@return any ...
+function PVPMatchResults_leaveButtonObject:GetCenterAtlasName(...) end
+---@return any ...
+function PVPMatchResults_leaveButtonObject:GetHighlightAtlasName(...) end
+---@return any ...
+function PVPMatchResults_leaveButtonObject:GetLeftAtlasName(...) end
+---@return any ...
+function PVPMatchResults_leaveButtonObject:GetOnClickSoundKit(...) end
+---@return any ...
+function PVPMatchResults_leaveButtonObject:GetRightAtlasName(...) end
+---@return any ...
+function PVPMatchResults_leaveButtonObject:InitButton(...) end
+---@return any ...
+function PVPMatchResults_leaveButtonObject:OnClick(...) end
+---@return any ...
+function PVPMatchResults_leaveButtonObject:OnEnter(...) end
+---@return any ...
+function PVPMatchResults_leaveButtonObject:OnLeave(...) end
+---@return any ...
+function PVPMatchResults_leaveButtonObject:OnMouseDown(...) end
+---@return any ...
+function PVPMatchResults_leaveButtonObject:OnMouseUp(...) end
+---@return any ...
+function PVPMatchResults_leaveButtonObject:RunCustomTextFormatter(...) end
+---@return any ...
+function PVPMatchResults_leaveButtonObject:SetButtonArtKit(...) end
+---@return any ...
+function PVPMatchResults_leaveButtonObject:SetCustomTextFormatter(...) end
+---@return any ...
+function PVPMatchResults_leaveButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function PVPMatchResults_leaveButtonObject:SetOnClickHandler(...) end
+---@return any ...
+function PVPMatchResults_leaveButtonObject:SetOnEnterHandler(...) end
+---@return any ...
+function PVPMatchResults_leaveButtonObject:SetTextToFit(...) end
+---@return any ...
+function PVPMatchResults_leaveButtonObject:SetTooltipAnchor(...) end
+---@return any ...
+function PVPMatchResults_leaveButtonObject:SetTooltipInfo(...) end
+---@return any ...
+function PVPMatchResults_leaveButtonObject:UpdateButton(...) end
+---@return any ...
+function PVPMatchResults_leaveButtonObject:UpdateScale(...) end
+end
+
+do
+---@class PVPMatchResults_leaveButton_CenterObject : Texture
+local PVPMatchResults_leaveButton_CenterObject = {}
+end
+
+do
+---@class PVPMatchResults_leaveButton_ControllerObject : Frame
+local PVPMatchResults_leaveButton_ControllerObject = {}
+---@return any ...
+function PVPMatchResults_leaveButton_ControllerObject:OnLoad(...) end
+---@return any ...
+function PVPMatchResults_leaveButton_ControllerObject:OnShow(...) end
+end
+
+do
+---@class PVPMatchResults_leaveButton_LeftObject : Texture
+local PVPMatchResults_leaveButton_LeftObject = {}
+end
+
+do
+---@class PVPMatchResults_leaveButton_RightObject : Texture
+local PVPMatchResults_leaveButton_RightObject = {}
+end
+
+do
+---@class PVPMatchResults_leaveButton_leftAtlasInfoObject
+---@field bottomTexCoord number
+---@field elementName string
+---@field file number
+---@field height number
+---@field leftTexCoord number
+---@field rawSize table
+---@field rightTexCoord number
+---@field tilesHorizontally boolean
+---@field tilesVertically boolean
+---@field topTexCoord number
+---@field width number
+local PVPMatchResults_leaveButton_leftAtlasInfoObject = {}
+end
+
+do
+---@class PVPMatchResults_leaveButton_rightAtlasInfoObject
+---@field bottomTexCoord number
+---@field elementName string
+---@field file number
+---@field height number
+---@field leftTexCoord number
+---@field rawSize table
+---@field rightTexCoord number
+---@field tilesHorizontally boolean
+---@field tilesVertically boolean
+---@field topTexCoord number
+---@field width number
+local PVPMatchResults_leaveButton_rightAtlasInfoObject = {}
+end
+
+do
+---@class PVPMatchResults_scrollBarObject
+local PVPMatchResults_scrollBarObject = {}
+end
+
+do
+---@class PVPMatchResults_scrollBoxObject
+local PVPMatchResults_scrollBoxObject = {}
+end
+
+do
+---@class PVPMatchResults_scrollCategoriesObject
+local PVPMatchResults_scrollCategoriesObject = {}
+end
+
+do
+---@class PVPMatchResults_tab1Object : Button
+---@field Left PVPMatchResults_tab1_LeftObject
+---@field LeftActive PVPMatchResults_tab1_LeftActiveObject
+---@field LeftHighlight PVPMatchResults_tab1_LeftHighlightObject
+---@field Middle PVPMatchResults_tab1_MiddleObject
+---@field MiddleActive PVPMatchResults_tab1_MiddleActiveObject
+---@field MiddleHighlight PVPMatchResults_tab1_MiddleHighlightObject
+---@field Right PVPMatchResults_tab1_RightObject
+---@field RightActive PVPMatchResults_tab1_RightActiveObject
+---@field RightHighlight PVPMatchResults_tab1_RightHighlightObject
+---@field TabTextures table
+---@field Text PVPMatchResults_tab1_TextObject
+---@field factionEnum number
+local PVPMatchResults_tab1Object = {}
+---@return any ...
+function PVPMatchResults_tab1Object:OnEnter(...) end
+---@return any ...
+function PVPMatchResults_tab1Object:OnEvent(...) end
+---@return any ...
+function PVPMatchResults_tab1Object:OnLeave(...) end
+---@return any ...
+function PVPMatchResults_tab1Object:OnLoad(...) end
+---@return any ...
+function PVPMatchResults_tab1Object:OnShow(...) end
+end
+
+do
+---@class PVPMatchResults_tab1_LeftObject : Texture
+local PVPMatchResults_tab1_LeftObject = {}
+end
+
+do
+---@class PVPMatchResults_tab1_LeftActiveObject : Texture
+local PVPMatchResults_tab1_LeftActiveObject = {}
+end
+
+do
+---@class PVPMatchResults_tab1_LeftHighlightObject : Texture
+local PVPMatchResults_tab1_LeftHighlightObject = {}
+end
+
+do
+---@class PVPMatchResults_tab1_MiddleObject : Texture
+local PVPMatchResults_tab1_MiddleObject = {}
+end
+
+do
+---@class PVPMatchResults_tab1_MiddleActiveObject : Texture
+local PVPMatchResults_tab1_MiddleActiveObject = {}
+end
+
+do
+---@class PVPMatchResults_tab1_MiddleHighlightObject : Texture
+local PVPMatchResults_tab1_MiddleHighlightObject = {}
+end
+
+do
+---@class PVPMatchResults_tab1_RightObject : Texture
+local PVPMatchResults_tab1_RightObject = {}
+end
+
+do
+---@class PVPMatchResults_tab1_RightActiveObject : Texture
+local PVPMatchResults_tab1_RightActiveObject = {}
+end
+
+do
+---@class PVPMatchResults_tab1_RightHighlightObject : Texture
+local PVPMatchResults_tab1_RightHighlightObject = {}
+end
+
+do
+---@class PVPMatchResults_tab1_TextObject : FontString
+local PVPMatchResults_tab1_TextObject = {}
+end
+
+do
+---@class PVPMatchResults_tab2Object
+local PVPMatchResults_tab2Object = {}
+end
+
+do
+---@class PVPMatchResults_tab3Object : Button
+---@field Left PVPMatchResults_tab3_LeftObject
+---@field LeftActive PVPMatchResults_tab3_LeftActiveObject
+---@field LeftHighlight PVPMatchResults_tab3_LeftHighlightObject
+---@field Middle PVPMatchResults_tab3_MiddleObject
+---@field MiddleActive PVPMatchResults_tab3_MiddleActiveObject
+---@field MiddleHighlight PVPMatchResults_tab3_MiddleHighlightObject
+---@field Right PVPMatchResults_tab3_RightObject
+---@field RightActive PVPMatchResults_tab3_RightActiveObject
+---@field RightHighlight PVPMatchResults_tab3_RightHighlightObject
+---@field TabTextures table
+---@field Text PVPMatchResults_tab3_TextObject
+---@field factionEnum number
+local PVPMatchResults_tab3Object = {}
+---@return any ...
+function PVPMatchResults_tab3Object:OnEnter(...) end
+---@return any ...
+function PVPMatchResults_tab3Object:OnEvent(...) end
+---@return any ...
+function PVPMatchResults_tab3Object:OnLeave(...) end
+---@return any ...
+function PVPMatchResults_tab3Object:OnLoad(...) end
+---@return any ...
+function PVPMatchResults_tab3Object:OnShow(...) end
+end
+
+do
+---@class PVPMatchResults_tab3_LeftObject : Texture
+local PVPMatchResults_tab3_LeftObject = {}
+end
+
+do
+---@class PVPMatchResults_tab3_LeftActiveObject : Texture
+local PVPMatchResults_tab3_LeftActiveObject = {}
+end
+
+do
+---@class PVPMatchResults_tab3_LeftHighlightObject : Texture
+local PVPMatchResults_tab3_LeftHighlightObject = {}
+end
+
+do
+---@class PVPMatchResults_tab3_MiddleObject : Texture
+local PVPMatchResults_tab3_MiddleObject = {}
+end
+
+do
+---@class PVPMatchResults_tab3_MiddleActiveObject : Texture
+local PVPMatchResults_tab3_MiddleActiveObject = {}
+end
+
+do
+---@class PVPMatchResults_tab3_MiddleHighlightObject : Texture
+local PVPMatchResults_tab3_MiddleHighlightObject = {}
+end
+
+do
+---@class PVPMatchResults_tab3_RightObject : Texture
+local PVPMatchResults_tab3_RightObject = {}
+end
+
+do
+---@class PVPMatchResults_tab3_RightActiveObject : Texture
+local PVPMatchResults_tab3_RightActiveObject = {}
+end
+
+do
+---@class PVPMatchResults_tab3_RightHighlightObject : Texture
+local PVPMatchResults_tab3_RightHighlightObject = {}
+end
+
+do
+---@class PVPMatchResults_tab3_TextObject : FontString
+local PVPMatchResults_tab3_TextObject = {}
+end
+
+do
+---@class PVPMatchResults_tabGroupObject
+local PVPMatchResults_tabGroupObject = {}
+end
+
+do
+---@class PVPMatchResults_tableBuilderObject
+---@field columnHeaderOverlap number
+---@field columns table
+---@field headerContainer PVPMatchResults_tableBuilder_headerContainerObject
+---@field headerPoolCollection table
+---@field leftMargin number
+---@field rightMargin number
+---@field rows table
+---@field tableWidth number
+local PVPMatchResults_tableBuilderObject = {}
+---@return any ...
+function PVPMatchResults_tableBuilderObject:AddColumn(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:AddRow(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:Arrange(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:ArrangeCells(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:ArrangeHeaders(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:ArrangeHorizontally(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:CalculateColumnSpacing(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:ConstructHeader(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:EnumerateHeaders(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:GetColumnHeaderOverlap(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:GetColumns(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:GetDataProvider(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:GetDataProviderData(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:GetHeaderContainer(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:GetHeaderPoolCollection(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:GetTableMargins(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:GetTableWidth(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:Init(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:RemoveRow(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:Reset(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:SetColumnHeaderOverlap(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:SetDataProvider(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:SetHeaderContainer(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:SetTableMargins(...) end
+---@return any ...
+function PVPMatchResults_tableBuilderObject:SetTableWidth(...) end
+end
+
+do
+---@class PVPMatchResults_tableBuilder_headerContainerObject : Frame
+local PVPMatchResults_tableBuilder_headerContainerObject = {}
+end
+
+do
+---@class PVPMatchScoreboardObject : Frame
+---@field ClosePanelButton PVPMatchScoreboard_ClosePanelButtonObject
+---@field Content PVPMatchScoreboard_ContentObject
+---@field HeaderContainer PVPMatchScoreboard_HeaderContainerObject
+---@field NineSlice PVPMatchScoreboard_NineSliceObject
+---@field ScrollBar PVPMatchScoreboard_ScrollBarObject
+---@field ScrollBox PVPMatchScoreboard_ScrollBoxObject
+---@field ScrollCategories PVPMatchScoreboard_ScrollCategoriesObject
+---@field Tab1 PVPMatchScoreboard_Tab1Object
+---@field Tab2 PVPMatchScoreboard_Tab2Object
+---@field Tab3 PVPMatchScoreboard_Tab3Object
+---@field TabContainer PVPMatchScoreboard_TabContainerObject
+---@field TabGroup PVPMatchScoreboard_TabGroupObject
+---@field Tabs table
+---@field numTabs number
+---@field selectedTab number
+---@field tableBuilder PVPMatchScoreboard_tableBuilderObject
+local PVPMatchScoreboardObject = {}
+---@return any ...
+function PVPMatchScoreboardObject:BeginShow(...) end
+---@return any ...
+function PVPMatchScoreboardObject:Init(...) end
+---@return any ...
+function PVPMatchScoreboardObject:OnEvent(...) end
+---@return any ...
+function PVPMatchScoreboardObject:OnHide(...) end
+---@return any ...
+function PVPMatchScoreboardObject:OnLoad(...) end
+---@return any ...
+function PVPMatchScoreboardObject:OnShow(...) end
+---@return any ...
+function PVPMatchScoreboardObject:OnTabGroupClicked(...) end
+---@return any ...
+function PVPMatchScoreboardObject:OnUpdate(...) end
+---@return any ...
+function PVPMatchScoreboardObject:ShutdownPrivate(...) end
+---@return any ...
+function PVPMatchScoreboardObject:UpdateMapName(...) end
+---@return any ...
+function PVPMatchScoreboardObject:UpdateTable(...) end
+---@return any ...
+function PVPMatchScoreboardObject:UpdateTabs(...) end
+---@type PVPMatchScoreboardObject
+PVPMatchScoreboard = PVPMatchScoreboardObject
+end
+
+do
+---@class PVPMatchScoreboard_ClosePanelButtonObject : Button
+local PVPMatchScoreboard_ClosePanelButtonObject = {}
+---@return any ...
+function PVPMatchScoreboard_ClosePanelButtonObject:NarrationGetName(...) end
+---@return any ...
+function PVPMatchScoreboard_ClosePanelButtonObject:OnLoad(...) end
+end
+
+do
+---@class PVPMatchScoreboard_ContentObject : Frame
+---@field ScrollBar PVPMatchScoreboard_Content_ScrollBarObject
+---@field ScrollBox PVPMatchScoreboard_Content_ScrollBoxObject
+---@field ScrollCategories PVPMatchScoreboard_Content_ScrollCategoriesObject
+---@field TabContainer PVPMatchScoreboard_Content_TabContainerObject
+local PVPMatchScoreboard_ContentObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_ScrollBarObject : Frame
+---@field Back PVPMatchScoreboard_Content_ScrollBar_BackObject
+---@field Defaults PVPMatchScoreboard_Content_ScrollBar_DefaultsObject
+---@field Directions PVPMatchScoreboard_Content_ScrollBar_DirectionsObject
+---@field Event PVPMatchScoreboard_Content_ScrollBar_EventObject
+---@field Forward PVPMatchScoreboard_Content_ScrollBar_ForwardObject
+---@field Track PVPMatchScoreboard_Content_ScrollBar_TrackObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field hideTrack boolean
+---@field hideTrackIfThumbExceedsTrack boolean
+---@field interpolator PVPMatchScoreboard_Content_ScrollBar_interpolatorObject
+---@field isScrollController boolean
+---@field minThumbExtent number
+---@field panDelay number
+---@field panExtentPercentage number
+---@field panRepeatTime number
+---@field registeredScrollBox PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject
+---@field scrollPercentage number
 ---@field smartNavigationIgnored boolean
----@field tooltipText string
-local WorldMapFrame_QuestLog_QuestsTabObject = {}
+---@field snapToInterval boolean
+---@field thumbAnchor string
+---@field useProportionalThumb boolean
+---@field visibleExtentPercentage number
+---@field wheelPanScalar number
+local PVPMatchScoreboard_Content_ScrollBarObject = {}
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsTabObject:CalculateTabSizeBasedOnTabArt(...) end
+function PVPMatchScoreboard_Content_ScrollBarObject:CallInternalScope(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsTabObject:GetFinalIconAnchorOffsets(...) end
+function PVPMatchScoreboard_Content_ScrollBarObject:CanCursorStepInDirection(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsTabObject:GetIconAnchorOffsetsForTabArt(...) end
+function PVPMatchScoreboard_Content_ScrollBarObject:CanInterpolateScroll(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsTabObject:GetPressedIconAnchorOffsets(...) end
+function PVPMatchScoreboard_Content_ScrollBarObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsTabObject:GetTooltipTextSetupFunction(...) end
+function PVPMatchScoreboard_Content_ScrollBarObject:DisableControls(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsTabObject:InitializeIconAnchoring(...) end
+function PVPMatchScoreboard_Content_ScrollBarObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsTabObject:InitializeSizeForTabArt(...) end
+function PVPMatchScoreboard_Content_ScrollBarObject:EnableInternalPriority(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsTabObject:IsTabGlowAnimationPlaying(...) end
+function PVPMatchScoreboard_Content_ScrollBarObject:EnableSnapToInterval(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsTabObject:OnEnter(...) end
+function PVPMatchScoreboard_Content_ScrollBarObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsTabObject:OnLeave(...) end
+function PVPMatchScoreboard_Content_ScrollBarObject:GetBackStepper(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsTabObject:OnLoad(...) end
+function PVPMatchScoreboard_Content_ScrollBarObject:GetCallbackTable(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsTabObject:OnMouseDown(...) end
+function PVPMatchScoreboard_Content_ScrollBarObject:GetCallbackTables(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsTabObject:OnMouseUp(...) end
+function PVPMatchScoreboard_Content_ScrollBarObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsTabObject:SetChecked(...) end
+function PVPMatchScoreboard_Content_ScrollBarObject:GetForwardStepper(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsTabObject:SetCustomOnMouseUpHandler(...) end
+function PVPMatchScoreboard_Content_ScrollBarObject:GetFrameExtent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsTabObject:SetFillToInterior(...) end
+function PVPMatchScoreboard_Content_ScrollBarObject:GetIntervalRange(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsTabObject:SetTabGlowAnimationPlaying(...) end
+function PVPMatchScoreboard_Content_ScrollBarObject:GetLower(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsTabObject:UpdateIconInterior(...) end
+function PVPMatchScoreboard_Content_ScrollBarObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_QuestsTabObject:customMouseUpHandler(...) end
+function PVPMatchScoreboard_Content_ScrollBarObject:GetPanExtentPercentage(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:GetPanRepeatDelay(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:GetPanRepeatTime(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:GetScrollInterpolator(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:GetScrollPercentage(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:GetThumb(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:GetThumbAnchor(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:GetTrack(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:GetTrackExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:GetUpper(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:GetWheelPanPercentage(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:HasScrollableExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:Init(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:InitializeNarration(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:Interpolate(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:IsAtBegin(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:IsAtEnd(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:IsHorizontal(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:IsScrollAllowed(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:IsThumbMouseDown(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:OnHide_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:OnLoad(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:OnMouseWheel(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:OnShow_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:OnStepperMouseDown(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:OnThumbMouseDown(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:OnTrackMouseDown(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:RegisterCallback(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:ScrollDecrease(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:ScrollInDirection(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:ScrollIncrease(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:ScrollPageInDirection(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:ScrollStepInDirection(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:ScrollToBegin(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:ScrollToEnd(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:ScrollWheelInDirection(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:SecureInsertEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:SelectCursorComponent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:SelectPointComponent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:SetFrameExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:SetHideIfUnscrollable(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:SetHorizontal(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:SetInterpolateScroll(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:SetPanExtentPercentage(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:SetScrollAllowed(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:SetScrollPercentage(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:SetThumbExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:SetVisibleExtentPercentage(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:TriggerEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:UnregisterCallback(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:UnregisterEvents(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:UnregisterUpdate(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:Update(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:onButtonMouseUp(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBarObject:scrollInternal(...) end
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsTab_BackgroundObject : Texture
-local WorldMapFrame_QuestLog_QuestsTab_BackgroundObject = {}
+---@class PVPMatchScoreboard_Content_ScrollBar_BackObject : Button
+---@field Event PVPMatchScoreboard_Content_ScrollBar_Back_EventObject
+---@field Texture PVPMatchScoreboard_Content_ScrollBar_Back_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local PVPMatchScoreboard_Content_ScrollBar_BackObject = {}
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:GetAtlas(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:GetCallbackTable(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:GetCallbackTables(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:IsDown(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:IsDownOver(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:IsOver(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:NarrationGetName(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:OnButtonStateChanged(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:OnDisable(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:OnEnable(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:OnEnter(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:OnLeave(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:OnLoad(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:OnMouseDown(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:OnMouseUp(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:OnShow(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:RegisterCallback(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:SecureInsertEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:SetDisplacedRegions(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:TriggerEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:UnregisterCallback(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:UnregisterEvents(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsTab_HighlightTextureObject : Texture
-local WorldMapFrame_QuestLog_QuestsTab_HighlightTextureObject = {}
+---@class PVPMatchScoreboard_Content_ScrollBar_Back_EventObject
+local PVPMatchScoreboard_Content_ScrollBar_Back_EventObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsTab_IconObject : Texture
-local WorldMapFrame_QuestLog_QuestsTab_IconObject = {}
+---@class PVPMatchScoreboard_Content_ScrollBar_Back_TextureObject : Texture
+local PVPMatchScoreboard_Content_ScrollBar_Back_TextureObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsTab_MaskObject : MaskTexture
-local WorldMapFrame_QuestLog_QuestsTab_MaskObject = {}
+---@class PVPMatchScoreboard_Content_ScrollBar_DefaultsObject
+local PVPMatchScoreboard_Content_ScrollBar_DefaultsObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsTab_SelectedTextureObject : Texture
-local WorldMapFrame_QuestLog_QuestsTab_SelectedTextureObject = {}
+---@class PVPMatchScoreboard_Content_ScrollBar_DirectionsObject
+local PVPMatchScoreboard_Content_ScrollBar_DirectionsObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsTab_TabGlowObject : Texture
-local WorldMapFrame_QuestLog_QuestsTab_TabGlowObject = {}
+---@class PVPMatchScoreboard_Content_ScrollBar_EventObject
+local PVPMatchScoreboard_Content_ScrollBar_EventObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_QuestsTab_TabGlowAnimationObject : AnimationGroup
-local WorldMapFrame_QuestLog_QuestsTab_TabGlowAnimationObject = {}
+---@class PVPMatchScoreboard_Content_ScrollBar_ForwardObject : Button
+---@field Event PVPMatchScoreboard_Content_ScrollBar_Forward_EventObject
+---@field Texture PVPMatchScoreboard_Content_ScrollBar_Forward_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local PVPMatchScoreboard_Content_ScrollBar_ForwardObject = {}
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:GetAtlas(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:GetCallbackTable(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:GetCallbackTables(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:IsDown(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:IsDownOver(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:IsOver(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:NarrationGetName(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:OnDisable(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:OnEnable(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:OnEnter(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:OnLeave(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:OnLoad(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:OnMouseDown(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:OnMouseUp(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:OnShow(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:RegisterCallback(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:TriggerEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:UnregisterCallback(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:UnregisterEvents(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class WorldMapFrame_QuestLog_VerticalSeparatorObject : Texture
-local WorldMapFrame_QuestLog_VerticalSeparatorObject = {}
+---@class PVPMatchScoreboard_Content_ScrollBar_Forward_EventObject
+local PVPMatchScoreboard_Content_ScrollBar_Forward_EventObject = {}
 end
 
 do
----@class WorldMapFrame_ScrollContainerObject : ScrollFrame
----@field Child WorldMapFrame_ScrollContainer_ChildObject
----@field gamepadPanMagnitude number
----@field gamepadScrollSpeed WorldMapFrame_ScrollContainer_gamepadScrollSpeedObject
----@field gamepadZoom number
----@field gamepadZoomSpeed number
----@field hasInitializedGamepadCursor boolean
----@field maxGamepadScrollSpeed number
----@field maxGamepadScrollSpeedFullScreen number
----@field mouseButtonInfo WorldMapFrame_ScrollContainer_mouseButtonInfoObject
----@field mouseWheelZoomMode number
----@field normalizedPanXLerpAmount number
----@field normalizedPanYLerpAmount number
----@field normalizedZoomLerpAmount number
----@field scalingMode string
----@field shouldNavigateOnClick boolean
----@field shouldPanOnClick boolean
----@field shouldZoomInOnClick boolean
----@field shouldZoomInstantly boolean
----@field targetScrollX number
----@field targetScrollY number
----@field zoomAmountPerMouseWheelDelta number
-local WorldMapFrame_ScrollContainerObject = {}
----@return any ...
-function WorldMapFrame_ScrollContainerObject:AccumulateMouseDeltas(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:AdjustDetailLayerAlpha(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:CalculateLerpScaling(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:CalculateScaleExtents(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:CalculateScrollExtents(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:CalculateScrollExtentsAtScale(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:CalculateViewRect(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:CalculateZoomScaleAndPositionForAreaInViewRect(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:CanPan(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:CheckForEdgePan(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:CreateGamepadCursorLines(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:CreateZoomLevels(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:DenormalizeHorizontalSize(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:DenormalizeVerticalSize(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:FindBestLocationForClick(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:GamepadZoom(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:GetCanvasScale(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:GetCanvasZoomPercent(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:GetCurrentLayerIndex(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:GetCurrentScrollX(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:GetCurrentScrollY(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:GetCurrentZoomRange(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:GetCursorPosition(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:GetGamepadCursorPosition(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:GetGamepadMaxScrollSpeed(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:GetMap(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:GetMaxZoomViewRect(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:GetMinZoomViewRect(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:GetNormalizedCursorPosition(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:GetNormalizedGamepadCursorPosition(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:GetNormalizedHorizontalScroll(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:GetNormalizedMouseDelta(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:GetNormalizedVerticalScroll(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:GetScaleForMaxZoom(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:GetScaleForMinZoom(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:GetTraversalSpeedMultiplier(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:GetViewRect(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:GetZoomLevelIndexForScale(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:HasGamepadCursorInput(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:HasGamepadScrollSpeed(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:HasZoomLevels(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:InstantPanAndZoom(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:IsAtMaxZoom(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:IsAtMinZoom(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:IsGamepadZooming(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:IsGamepadZoomingOut(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:IsPanning(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:IsZoomingIn(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:IsZoomingOut(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:MarkAreaTriggersDirty(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:MarkCanvasDirty(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:MarkViewRectDirty(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:NormalizeHorizontalSize(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:NormalizeUIPosition(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:NormalizeVerticalSize(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:OnCanvasSizeChanged(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:OnHide(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:OnMouseDown(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:OnMouseUp(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:OnMouseWheel(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:OnUpdate(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:RefreshCanvasScale(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:RefreshGamepadScrollSpeed(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:ResetZoom(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:ScalingMode(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:SetCanvasSize(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:SetGamepadCursorLinesShown(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:SetGamepadFocus(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:SetGamepadPanMagnitude(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:SetGamepadScrollSpeed(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:SetGamepadZoom(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:SetMapID(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:SetMouseWheelZoomMode(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:SetNormalizedHorizontalScroll(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:SetNormalizedVerticalScroll(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:SetPanTarget(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:SetScalingMode(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:SetShouldNavigateIgnoreZoneMapPositionData(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:SetShouldNavigateOnClick(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:SetShouldPanOnClick(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:SetShouldZoomInOnClick(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:SetShouldZoomInstantly(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:SetZoomTarget(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:ShouldAdjustTargetPanOnMouseWheel(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:ShouldNavigateIgnoreZoneMapPositionData(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:ShouldNavigateOnClick(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:ShouldPanOnClick(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:ShouldZoomInOnClick(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:ShouldZoomInstantly(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:TryPanOrZoomOnClick(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:UpdateGamepadCursorLines(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:WouldCursorPositionBeClick(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:ZoomIn(...) end
----@return any ...
-function WorldMapFrame_ScrollContainerObject:ZoomOut(...) end
+---@class PVPMatchScoreboard_Content_ScrollBar_Forward_TextureObject : Texture
+local PVPMatchScoreboard_Content_ScrollBar_Forward_TextureObject = {}
 end
 
 do
----@class WorldMapFrame_ScrollContainer_ChildObject : Frame
----@field TiledBackground WorldMapFrame_ScrollContainer_Child_TiledBackgroundObject
----@field smartNavigationIgnored boolean
-local WorldMapFrame_ScrollContainer_ChildObject = {}
+---@class PVPMatchScoreboard_Content_ScrollBar_TrackObject : Frame
+---@field Begin PVPMatchScoreboard_Content_ScrollBar_Track_BeginObject
+---@field End PVPMatchScoreboard_Content_ScrollBar_Track_EndObject
+---@field Middle PVPMatchScoreboard_Content_ScrollBar_Track_MiddleObject
+---@field Thumb PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject
+local PVPMatchScoreboard_Content_ScrollBar_TrackObject = {}
 end
 
 do
----@class WorldMapFrame_ScrollContainer_Child_TiledBackgroundObject : Texture
-local WorldMapFrame_ScrollContainer_Child_TiledBackgroundObject = {}
+---@class PVPMatchScoreboard_Content_ScrollBar_Track_BeginObject : Texture
+local PVPMatchScoreboard_Content_ScrollBar_Track_BeginObject = {}
 end
 
 do
----@class WorldMapFrame_ScrollContainer_gamepadScrollSpeedObject
----@field X number
----@field Y number
-local WorldMapFrame_ScrollContainer_gamepadScrollSpeedObject = {}
+---@class PVPMatchScoreboard_Content_ScrollBar_Track_EndObject : Texture
+local PVPMatchScoreboard_Content_ScrollBar_Track_EndObject = {}
 end
 
 do
----@class WorldMapFrame_ScrollContainer_mouseButtonInfoObject
----@field LeftButton table
----@field RightButton table
-local WorldMapFrame_ScrollContainer_mouseButtonInfoObject = {}
+---@class PVPMatchScoreboard_Content_ScrollBar_Track_MiddleObject : Texture
+local PVPMatchScoreboard_Content_ScrollBar_Track_MiddleObject = {}
 end
 
 do
----@class WorldMapFrame_SidePanelToggleObject : Button
----@field CloseButton WorldMapFrame_SidePanelToggle_CloseButtonObject
----@field OpenButton WorldMapFrame_SidePanelToggle_OpenButtonObject
----@field relativeFrame WorldMapFrame_SidePanelToggle_relativeFrameObject
-local WorldMapFrame_SidePanelToggleObject = {}
+---@class PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject : Button
+---@field Begin PVPMatchScoreboard_Content_ScrollBar_Track_Thumb_BeginObject
+---@field End PVPMatchScoreboard_Content_ScrollBar_Track_Thumb_EndObject
+---@field Event PVPMatchScoreboard_Content_ScrollBar_Track_Thumb_EventObject
+---@field Middle PVPMatchScoreboard_Content_ScrollBar_Track_Thumb_MiddleObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field downBeginTexture string
+---@field downEndTexture string
+---@field downMiddleTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field overBeginTexture string
+---@field overEndTexture string
+---@field overMiddleTexture string
+---@field upBeginTexture string
+---@field upEndTexture string
+---@field upMiddleTexture string
+local PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject = {}
 ---@return any ...
-function WorldMapFrame_SidePanelToggleObject:OnClick(...) end
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function WorldMapFrame_SidePanelToggleObject:Refresh(...) end
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:IsDown(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:IsOver(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:OnDisable(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:OnEnable(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:OnEnter(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:OnLeave(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:OnLoad(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:OnShow(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class WorldMapFrame_SidePanelToggle_CloseButtonObject : Button
-local WorldMapFrame_SidePanelToggle_CloseButtonObject = {}
+---@class PVPMatchScoreboard_Content_ScrollBar_Track_Thumb_BeginObject : Texture
+local PVPMatchScoreboard_Content_ScrollBar_Track_Thumb_BeginObject = {}
 end
 
 do
----@class WorldMapFrame_SidePanelToggle_OpenButtonObject : Button
-local WorldMapFrame_SidePanelToggle_OpenButtonObject = {}
+---@class PVPMatchScoreboard_Content_ScrollBar_Track_Thumb_EndObject : Texture
+local PVPMatchScoreboard_Content_ScrollBar_Track_Thumb_EndObject = {}
 end
 
 do
----@class WorldMapFrame_SidePanelToggle_relativeFrameObject
-local WorldMapFrame_SidePanelToggle_relativeFrameObject = {}
+---@class PVPMatchScoreboard_Content_ScrollBar_Track_Thumb_EventObject
+local PVPMatchScoreboard_Content_ScrollBar_Track_Thumb_EventObject = {}
 end
 
 do
----@class WorldMapFrame_TitleCanvasSpacerFrameObject : Frame
-local WorldMapFrame_TitleCanvasSpacerFrameObject = {}
+---@class PVPMatchScoreboard_Content_ScrollBar_Track_Thumb_MiddleObject : Texture
+local PVPMatchScoreboard_Content_ScrollBar_Track_Thumb_MiddleObject = {}
 end
 
 do
----@class WorldMapFrame_WorldMapTrackingOptionsButtonObject : Button
----@field DefaultYOffset number
----@field Event WorldMapFrame_WorldMapTrackingOptionsButton_EventObject
----@field GamepadFocusIcon WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject
----@field Icon WorldMapFrame_WorldMapTrackingOptionsButton_IconObject
----@field ResetButton WorldMapFrame_WorldMapTrackingOptionsButton_ResetButtonObject
----@field buttonContext string
+---@class PVPMatchScoreboard_Content_ScrollBar_interpolatorObject
+local PVPMatchScoreboard_Content_ScrollBar_interpolatorObject = {}
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_interpolatorObject:Cancel(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_interpolatorObject:Interpolate(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_interpolatorObject:interpolateFunc(...) end
+end
+
+do
+---@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject : Frame
+---@field Defaults PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_DefaultsObject
+---@field Directions PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_DirectionsObject
+---@field DragDelegate PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_DragDelegateObject
+---@field Event PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_EventObject
+---@field ScrollTarget PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject
+---@field Shadows PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ShadowsObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field debugInspectionSystem string
+---@field deferredCallbacks table
+---@field edgeFade PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject
+---@field executingEvents table
+---@field isScrollController boolean
+---@field panExtentPercentage number
+---@field registeredScrollBar PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_registeredScrollBarObject
+---@field updateLock boolean
+---@field view PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject
+---@field wheelPanScalar number
+local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject = {}
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ApplyEdgeFade(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:CalculateEdgeFade(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:CalculatePanExtentPercentage(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:CalculateScrollPercentage(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:CanInterpolateScroll(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ClearEdgeFade(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ContainsElementDataByPredicate(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:EnableSnapToInterval(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:EnumerateDataProvider(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:EnumerateDataProviderEntireRange(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:EnumerateFrames(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:FindByPredicate(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:FindElementData(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:FindElementDataByPredicate(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:FindElementDataIndex(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:FindElementDataIndexByPredicate(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:FindFrame(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:FindFrameByPredicate(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:FindFrameElementDataIndex(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:Flush(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:FlushDataProvider(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ForEachElementData(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ForEachFrame(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:FullUpdate(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:FullUpdateInternal(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GenerateCallbackEvents(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetBottomPadding(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetCallbackTable(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetCallbackTables(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetCallbacksByEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetDataIndexBegin(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetDataIndexEnd(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetDataProvider(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetDataProviderSize(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetDerivedExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetDerivedScrollOffset(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetDerivedScrollRange(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetElementExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetExtentPadding(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetExtentUntil(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetFrameCount(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetFrameExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetFrames(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetIntervalRange(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetLeftPadding(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetLower(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetLowerPadding(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetLowerShadowTexture(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetPadding(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetPanExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetPanExtentPercentage(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetRightPadding(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetScrollInterpolator(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetScrollPercentage(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetScrollTarget(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetTopPadding(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetUpper(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetUpperPadding(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetUpperShadowTexture(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetView(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetVisibleExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:GetWheelPanPercentage(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:HasDataProvider(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:HasEdgeFade(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:HasScrollableExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:HasView(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:Init(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:Interpolate(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:IsAcquireLocked(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:IsAlignmentOverlapIgnored(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:IsAtBegin(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:IsAtEnd(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:IsHorizontal(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:IsScrollAllowed(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:IsScrollToDataIndexSafe(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:IsUpdateLocked(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:IsVirtualized(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:Layout(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:OnLoad(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:OnMouseWheel(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:OnScrollTargetSizeChanged(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:OnSizeChanged(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:OnViewAcquiredFrame(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:OnViewDataChanged(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:OnViewDataProviderReassigned(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:OnViewInitializedFrame(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:OnViewReleasedFrame(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:Rebuild(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:RecalculateDerivedExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:RegisterCallback(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ReinitializeFrames(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:RemoveDataProvider(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProvider(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ReverseForEachElementData(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ReverseForEachFrame(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SanitizeAlignment(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ScrollDecrease(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ScrollInDirection(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ScrollIncrease(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ScrollToBegin(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ScrollToElementData(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ScrollToElementDataByPredicate(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ScrollToElementDataIndex(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ScrollToEnd(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ScrollToFrame(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ScrollToNearest(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ScrollToNearestByPredicate(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ScrollToOffset(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SecureInsertEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SelectCursorComponent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SelectPointComponent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SetAlignmentOverlapIgnored(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SetDataProvider(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SetEdgeFadeLength(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SetFrameExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SetHorizontal(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SetInterpolateScroll(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SetLowerShadowAtlas(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SetPadding(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SetPanExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SetPanExtentPercentage(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SetScrollAllowed(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SetScrollPercentage(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SetScrollTargetOffset(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SetShadowsFrameLevel(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SetShadowsScale(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SetShadowsShown(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SetUpdateLocked(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SetUpperShadowAtlas(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SetUseShadowsForEdgeFade(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:SetView(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:TriggerEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:UnregisterCallback(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:UnregisterEvents(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:Update(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBoxObject:scrollInternal(...) end
+end
+
+do
+---@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_DefaultsObject
+local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_DefaultsObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_DirectionsObject
+local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_DirectionsObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_DragDelegateObject : Frame
+local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_DragDelegateObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_EventObject
+local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_EventObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject : Frame
+---@field Event PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field executingEvents table
----@field intrinsic string
----@field menuAnchor WorldMapFrame_WorldMapTrackingOptionsButton_menuAnchorObject
----@field menuPoint string
----@field menuPointX number
----@field menuPointY number
----@field menuRelativePoint string
----@field mouseDownAtlas string
----@field mouseUpAtlas string
----@field relativeFrame WorldMapFrame_WorldMapTrackingOptionsButton_relativeFrameObject
----@field worldMapFilters WorldMapFrame_WorldMapTrackingOptionsButton_worldMapFiltersObject
-local WorldMapFrame_WorldMapTrackingOptionsButtonObject = {}
+local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject = {}
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:BuildFilterTable(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:BuildGameSpecificFilterTable(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:CanShowDungeonEntrancesOnMapFilterOption(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:CanShowRefreshAccountCompletedQuestFilterTutorial(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTable(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:ClearMenuState(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTables(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:CloseMenu(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:CollectSelectionData(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:CopyDeferredCallbacks(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:CreateDefaultRootMenuDescription(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:CreateRootDescription(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:Decrement(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:DoesFrameHaveEvent(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:EnableRegenerateOnResponse(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:GenerateCallbackEvents(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:GenerateMenu(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallback(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:GetActiveFilters(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:GetCallbackTable(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:GetCallbackTables(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:GetCallbacksByEvent(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:TriggerEvent(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:GetMenuDescription(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterCallback(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:GetMutableCallbacksByEvent(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEvents(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:GetSelectionData(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:GetWorldMapFilter(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:GetWorldMapFilters(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:HandlesGlobalMouseEvent(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:HasAnyRadioDescriptions(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:HasElements(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:HasOnlyRadioDescriptions(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:HasStickyFocus(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:Increment(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:IsMenuOpen(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:NotifyUpdate(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:OnEnter_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:OnMenuAssigned(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:OnMenuChanged(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:OnMenuClosed(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:OnMenuOpened(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:OnMenuResponse(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:OnMouseDown(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:OnMouseUp(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:OnMouseWheel_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:OpenMenu(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:Pick(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:Refresh(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:RefreshAccountCompletedQuestFilterTutorial(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:RefreshFilterCounter(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:RegisterMenu(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:Reset(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:Rotate(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:SetDefaultCallback(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:SetIsDefaultCallback(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:SetMenuAnchor(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:SetMenuOpen(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:SetUpdateCallback(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:SetupMenu(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:ShouldShowWorldQuestFilters(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:SignalUpdate(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:Update(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:UpdateSelections(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:UpdateToMenuSelections(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:ValidateResetState(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButtonObject:onMenuClosedCallback(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_EventObject
-local WorldMapFrame_WorldMapTrackingOptionsButton_EventObject = {}
+---@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
+local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTarget_EventObject = {}
 end
 
 do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject : Frame
----@field ActiveTexture WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_ActiveTextureObject
----@field DisabledTexture WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_DisabledTextureObject
----@field HoldAnim WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_HoldAnimObject
----@field HoldIndicator WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_HoldIndicatorObject
----@field HoldIndicatorBG WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_HoldIndicatorBGObject
----@field HoverTexture WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_HoverTextureObject
----@field LoadBar WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_LoadBarObject
----@field LoadBarBG WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_LoadBarBGObject
----@field LoadBarGlow WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_LoadBarGlowObject
----@field NormalTexture WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_NormalTextureObject
----@field PressedTexture WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_PressedTextureObject
----@field SpinnerTip WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject = {}
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject:ApplyTextureLayout(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject:BeginHold(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject:CanEnterTextureState(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject:DisableDropShadow(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject:EnableDropShadow(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject:EndHold(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject:OnHoldAnimFinished(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject:OnHoldAnimStopped(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject:RefreshIconTextures(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject:SetDisabled(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject:SetEnabled(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject:SetFocused(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject:SetHoldState(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject:SetInputKey(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject:SetIsHoldAction(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject:SetPressable(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject:SetTextureHeight(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject:SetTextureState(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject:SetTextureWidth(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject:SetUsableState(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIconObject:ShouldUseAdjustedTextureBounds(...) end
+---@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ShadowsObject : Frame
+---@field Lower PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_Shadows_LowerObject
+---@field Upper PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_Shadows_UpperObject
+local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ShadowsObject = {}
 end
 
 do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_ActiveTextureObject : Texture
-local WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_ActiveTextureObject = {}
+---@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_Shadows_LowerObject : Texture
+local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_Shadows_LowerObject = {}
 end
 
 do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_DisabledTextureObject : Texture
-local WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_DisabledTextureObject = {}
+---@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_Shadows_UpperObject : Texture
+local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_Shadows_UpperObject = {}
 end
 
 do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_HoldAnimObject : AnimationGroup
----@field LoadBarAnim WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_HoldAnim_SpinnerTipAnimObject
-local WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_HoldAnimObject = {}
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_HoldAnim_LoadBarAnimObject
-local WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
-local WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_HoldAnim_SpinnerTipAnimObject : Rotation
-local WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_HoldIndicatorObject : Texture
-local WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_HoldIndicatorObject = {}
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_HoldIndicatorBGObject : Texture
-local WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_HoldIndicatorBGObject = {}
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_HoverTextureObject : Texture
-local WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_HoverTextureObject = {}
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_LoadBarObject : Texture
-local WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_LoadBarObject = {}
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_LoadBarBGObject : Texture
-local WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_LoadBarBGObject = {}
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_LoadBarGlowObject : Texture
-local WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_LoadBarGlowObject = {}
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_NormalTextureObject : Texture
-local WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_NormalTextureObject = {}
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_PressedTextureObject : Texture
-local WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_PressedTextureObject = {}
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_SpinnerTipObject : Texture
-local WorldMapFrame_WorldMapTrackingOptionsButton_GamepadFocusIcon_SpinnerTipObject = {}
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_IconObject : Texture
-local WorldMapFrame_WorldMapTrackingOptionsButton_IconObject = {}
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_ResetButtonObject : Button
-local WorldMapFrame_WorldMapTrackingOptionsButton_ResetButtonObject = {}
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_menuAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo WorldMapFrame_WorldMapTrackingOptionsButton_menuAnchor_relativeToObject
+---@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject
 ---@field x number
 ---@field y number
-local WorldMapFrame_WorldMapTrackingOptionsButton_menuAnchorObject = {}
+local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject = {}
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_menuAnchorObject:Get(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:Add(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_menuAnchorObject:GetRelativeTo(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:Clone(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_menuAnchorObject:Init(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:Cross(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_menuAnchorObject:Set(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:DivideBy(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_menuAnchorObject:SetFromPoint(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:Dot(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_menuAnchorObject:SetOffsets(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:GetLength(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_menuAnchorObject:SetPoint(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:GetLengthSquared(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_menuAnchorObject:SetPointWithExtraOffset(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:GetXY(...) end
 ---@return any ...
-function WorldMapFrame_WorldMapTrackingOptionsButton_menuAnchorObject:SetRelativeTo(...) end
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:IsEqualTo(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:IsZero(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:Normalize(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:OnLoad(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:RotateDirection(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:ScaleBy(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:SetXY(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:Subtract(...) end
 end
 
 do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_menuAnchor_relativeToObject
-local WorldMapFrame_WorldMapTrackingOptionsButton_menuAnchor_relativeToObject = {}
+---@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_registeredScrollBarObject
+local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_registeredScrollBarObject = {}
 end
 
 do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_relativeFrameObject
-local WorldMapFrame_WorldMapTrackingOptionsButton_relativeFrameObject = {}
+---@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject
+---@field Event table
+---@field FrameLevelPolicy table
+---@field callbackTables table
+---@field canSignalWithoutInitializer boolean
+---@field dataIndexBegin number
+---@field dataIndexEnd number
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field frameFactory table
+---@field frameTemplateOrFrameType string
+---@field frames table
+---@field initialized boolean
+---@field initializers table
+---@field padding table
+---@field scrollBox PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_view_scrollBoxObject
+---@field templateInfoCache table
+local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject = {}
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:AcquireInternal(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:AcquireRange(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:AssignAccessors(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:AttachDataProviderCallbacks(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:CalculateDataIndices(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:CalculateFrameExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ClearCachedData(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ClearElementExtentData(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ClearInvalidation(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ContainsElementDataByPredicate(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:DataProviderContentsChanged(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:DetachDataProviderCallbacks(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProvider(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:EnumerateFrames(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:FindByPredicate(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:FindElementData(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:FindElementDataByPredicate(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndex(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:FindFrame(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:FindFrameByPredicate(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:FindFrameElementDataIndex(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:Flush(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:FlushDataProvider(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ForEachElementData(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ForEachFrame(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GenerateCallbackEvents(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetCallbackTable(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetCallbackTables(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetCallbacksByEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetDataIndexBegin(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetDataIndexEnd(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetDataProvider(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetDataProviderSize(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetDataRange(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetDataScrollOffset(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetElementExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetElementExtentCalculator(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetElementIndent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetExtentFromInfo(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetExtentSpacing(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetExtentTo(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetExtentUntil(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetFactoryDataFromElementData(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetFirstTemplateInfo(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetFrameCount(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetFrameExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelCounter(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelPolicy(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetFrames(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetIdenticalElementExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetIdenticalStrideExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetInvalidationReason(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetLayoutFunction(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetLower(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetPadding(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetPanExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetScrollBox(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetScrollTarget(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetSpacing(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetStride(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetTemplateInfo(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetUpper(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:HasBiaxalLayout(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:HasDataProvider(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:HasElementExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:HasIdenticalElementExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:HasIdenticalStrideExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:Init(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:InitDefaultDrag(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:InvokeInitializer(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:InvokeInitializers(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:IsAcquireLocked(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:IsDataIndexWithinRange(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:IsElementStretchDisabled(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:IsExtentValid(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:IsHorizontal(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:IsInitialized(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:IsInvalidated(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:IsVirtualized(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:Layout(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:LayoutInternal(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSizeChanged(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSort(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:OnLoad(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementData(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:RebuildTemplateInfoCache(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:RecalculateExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:RefreshSmartNav(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:RegisterCallback(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ReinitializeFrames(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:Release(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:RemoveDataProvider(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:RemoveDataProviderInternal(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ResizeFrame(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ReverseForEachElementData(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ReverseForEachFrame(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SecureInsertEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SelectCursorComponent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SelectPointComponent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetAcquireLocked(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetDataProvider(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetDataRange(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetElementExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetElementExtentCalculator(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetElementFactory(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetElementIndentCalculator(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetElementInitializer(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetElementResetter(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetElementStretchDisabled(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetFrameExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetFrameFactoryResetter(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetFrameLevelPolicy(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetHorizontal(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetInvalidationReason(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetMaxPanExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetPadding(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetPanExtent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetScrollBox(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetVirtualized(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SignalDataChangeEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SortFrames(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:TriggerEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:UnassignAccessors(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:UnregisterCallback(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:UnregisterEvents(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ValidateDataRange(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:elementFactory(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:factory(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:frameResetter(...) end
 end
 
 do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_worldMapFiltersObject
----@field contentTrackingFilter table
----@field primaryProfessionsFilter table
----@field questPOI table
----@field questPOIWQ table
----@field secondaryProfessionsFilter table
----@field showQuestDifficultyColor table
----@field showQuestLevel table
----@field trivialQuests table
-local WorldMapFrame_WorldMapTrackingOptionsButton_worldMapFiltersObject = {}
+---@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_view_scrollBoxObject
+local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_view_scrollBoxObject = {}
 end
 
 do
----@class WorldMapFrame_WorldMapTrackingPinButtonObject : Button
----@field ActiveTexture WorldMapFrame_WorldMapTrackingPinButton_ActiveTextureObject
----@field Background WorldMapFrame_WorldMapTrackingPinButton_BackgroundObject
----@field Border WorldMapFrame_WorldMapTrackingPinButton_BorderObject
----@field Icon WorldMapFrame_WorldMapTrackingPinButton_IconObject
----@field IconOverlay WorldMapFrame_WorldMapTrackingPinButton_IconOverlayObject
----@field relativeFrame WorldMapFrame_WorldMapTrackingPinButton_relativeFrameObject
-local WorldMapFrame_WorldMapTrackingPinButtonObject = {}
----@return any ...
-function WorldMapFrame_WorldMapTrackingPinButtonObject:OnClick(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingPinButtonObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingPinButtonObject:OnEvent(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingPinButtonObject:OnHide(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingPinButtonObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingPinButtonObject:OnMouseDown(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingPinButtonObject:OnMouseUp(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingPinButtonObject:Refresh(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingPinButtonObject:SetActive(...) end
+---@class PVPMatchScoreboard_Content_ScrollBoxObject
+local PVPMatchScoreboard_Content_ScrollBoxObject = {}
 end
 
 do
----@class WorldMapFrame_WorldMapTrackingPinButton_ActiveTextureObject : Texture
-local WorldMapFrame_WorldMapTrackingPinButton_ActiveTextureObject = {}
+---@class PVPMatchScoreboard_Content_ScrollCategoriesObject
+local PVPMatchScoreboard_Content_ScrollCategoriesObject = {}
 end
 
 do
----@class WorldMapFrame_WorldMapTrackingPinButton_BackgroundObject : Texture
-local WorldMapFrame_WorldMapTrackingPinButton_BackgroundObject = {}
+---@class PVPMatchScoreboard_Content_TabContainerObject : Frame
+---@field TabGroup PVPMatchScoreboard_Content_TabContainer_TabGroupObject
+local PVPMatchScoreboard_Content_TabContainerObject = {}
 end
 
 do
----@class WorldMapFrame_WorldMapTrackingPinButton_BorderObject : Texture
-local WorldMapFrame_WorldMapTrackingPinButton_BorderObject = {}
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroupObject : Frame
+---@field Tab1 PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1Object
+---@field Tab2 PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2Object
+---@field Tab3 PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3Object
+---@field Tabs table
+local PVPMatchScoreboard_Content_TabContainer_TabGroupObject = {}
 end
 
 do
----@class WorldMapFrame_WorldMapTrackingPinButton_IconObject : Texture
-local WorldMapFrame_WorldMapTrackingPinButton_IconObject = {}
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1Object : Button
+---@field Left PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_LeftObject
+---@field LeftActive PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_LeftActiveObject
+---@field LeftHighlight PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_LeftHighlightObject
+---@field Middle PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_MiddleObject
+---@field MiddleActive PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_MiddleActiveObject
+---@field MiddleHighlight PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_MiddleHighlightObject
+---@field Right PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_RightObject
+---@field RightActive PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_RightActiveObject
+---@field RightHighlight PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_RightHighlightObject
+---@field TabTextures table
+---@field Text PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_TextObject
+---@field factionEnum number
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1Object = {}
+---@return any ...
+function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1Object:OnEnter(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1Object:OnEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1Object:OnLeave(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1Object:OnLoad(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1Object:OnShow(...) end
 end
 
 do
----@class WorldMapFrame_WorldMapTrackingPinButton_IconOverlayObject : Texture
-local WorldMapFrame_WorldMapTrackingPinButton_IconOverlayObject = {}
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_LeftObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_LeftObject = {}
 end
 
 do
----@class WorldMapFrame_WorldMapTrackingPinButton_relativeFrameObject
-local WorldMapFrame_WorldMapTrackingPinButton_relativeFrameObject = {}
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_LeftActiveObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_LeftActiveObject = {}
 end
 
 do
----@class WorldMapFrame_cursorHandlersObject
-local WorldMapFrame_cursorHandlersObject = {}
----@return any ...
-function WorldMapFrame_cursorHandlersObject:AddHandler(...) end
----@return any ...
-function WorldMapFrame_cursorHandlersObject:FindHandler(...) end
----@return any ...
-function WorldMapFrame_cursorHandlersObject:InvokeHandlers(...) end
----@return any ...
-function WorldMapFrame_cursorHandlersObject:RemoveHandler(...) end
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_LeftHighlightObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_LeftHighlightObject = {}
 end
 
 do
----@class WorldMapFrame_dataProviderEventsCountObject
----@field CONTENT_TRACKING_UPDATE number
----@field QUEST_LOG_UPDATE number
----@field SUPER_TRACKING_CHANGED number
----@field TRACKING_TARGET_INFO_UPDATE number
-local WorldMapFrame_dataProviderEventsCountObject = {}
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_MiddleObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_MiddleObject = {}
 end
 
 do
----@class WorldMapFrame_detailLayerPoolObject
-local WorldMapFrame_detailLayerPoolObject = {}
----@return any ...
-function WorldMapFrame_detailLayerPoolObject:GetTemplate(...) end
----@return any ...
-function WorldMapFrame_detailLayerPoolObject:private(...) end
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_MiddleActiveObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_MiddleActiveObject = {}
 end
 
 do
----@class WorldMapFrame_globalPinMouseActionHandlersObject
-local WorldMapFrame_globalPinMouseActionHandlersObject = {}
----@return any ...
-function WorldMapFrame_globalPinMouseActionHandlersObject:AddHandler(...) end
----@return any ...
-function WorldMapFrame_globalPinMouseActionHandlersObject:FindHandler(...) end
----@return any ...
-function WorldMapFrame_globalPinMouseActionHandlersObject:InvokeHandlers(...) end
----@return any ...
-function WorldMapFrame_globalPinMouseActionHandlersObject:RemoveHandler(...) end
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_MiddleHighlightObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_MiddleHighlightObject = {}
 end
 
 do
----@class WorldMapFrame_mouseClickHandlersObject
-local WorldMapFrame_mouseClickHandlersObject = {}
----@return any ...
-function WorldMapFrame_mouseClickHandlersObject:AddHandler(...) end
----@return any ...
-function WorldMapFrame_mouseClickHandlersObject:FindHandler(...) end
----@return any ...
-function WorldMapFrame_mouseClickHandlersObject:InvokeHandlers(...) end
----@return any ...
-function WorldMapFrame_mouseClickHandlersObject:RemoveHandler(...) end
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_RightObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_RightObject = {}
 end
 
 do
----@class WorldMapFrame_navBarObject : Frame
----@field GamepadNextAreaIcon WorldMapFrame_navBar_GamepadNextAreaIconObject
----@field GamepadPreviousAreaIcon WorldMapFrame_navBar_GamepadPreviousAreaIconObject
----@field InsetBorderBottom WorldMapFrame_navBar_InsetBorderBottomObject
----@field InsetBorderBottomLeft WorldMapFrame_navBar_InsetBorderBottomLeftObject
----@field InsetBorderBottomRight WorldMapFrame_navBar_InsetBorderBottomRightObject
----@field InsetBorderLeft WorldMapFrame_navBar_InsetBorderLeftObject
----@field InsetBorderRight WorldMapFrame_navBar_InsetBorderRightObject
----@field KioskOverlay WorldMapFrame_navBar_KioskOverlayObject
----@field freeButtons table
----@field home WorldMapFrame_navBar_homeObject
----@field homeButton WorldMapFrame_navBar_homeButtonObject
----@field navList table
----@field overflow WorldMapFrame_navBar_overflowObject
----@field overflowButton WorldMapFrame_navBar_overflowButtonObject
----@field overlay WorldMapFrame_navBar_overlayObject
----@field relativeFrame WorldMapFrame_navBar_relativeFrameObject
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_RightActiveObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_RightActiveObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_RightHighlightObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_RightHighlightObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_TextObject : FontString
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_TextObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2Object : Button
+---@field Left PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_LeftObject
+---@field LeftActive PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_LeftActiveObject
+---@field LeftHighlight PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_LeftHighlightObject
+---@field Middle PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_MiddleObject
+---@field MiddleActive PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_MiddleActiveObject
+---@field MiddleHighlight PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_MiddleHighlightObject
+---@field Right PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_RightObject
+---@field RightActive PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_RightActiveObject
+---@field RightHighlight PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_RightHighlightObject
+---@field TabTextures table
+---@field Text PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_TextObject
+---@field factionEnum number
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2Object = {}
+---@return any ...
+function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2Object:OnEnter(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2Object:OnEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2Object:OnLeave(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2Object:OnLoad(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2Object:OnShow(...) end
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_LeftObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_LeftObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_LeftActiveObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_LeftActiveObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_LeftHighlightObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_LeftHighlightObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_MiddleObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_MiddleObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_MiddleActiveObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_MiddleActiveObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_MiddleHighlightObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_MiddleHighlightObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_RightObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_RightObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_RightActiveObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_RightActiveObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_RightHighlightObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_RightHighlightObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_TextObject : FontString
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_TextObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3Object : Button
+---@field Left PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_LeftObject
+---@field LeftActive PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_LeftActiveObject
+---@field LeftHighlight PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_LeftHighlightObject
+---@field Middle PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_MiddleObject
+---@field MiddleActive PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_MiddleActiveObject
+---@field MiddleHighlight PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_MiddleHighlightObject
+---@field Right PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_RightObject
+---@field RightActive PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_RightActiveObject
+---@field RightHighlight PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_RightHighlightObject
+---@field TabTextures table
+---@field Text PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_TextObject
+---@field factionEnum number
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3Object = {}
+---@return any ...
+function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3Object:OnEnter(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3Object:OnEvent(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3Object:OnLeave(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3Object:OnLoad(...) end
+---@return any ...
+function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3Object:OnShow(...) end
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_LeftObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_LeftObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_LeftActiveObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_LeftActiveObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_LeftHighlightObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_LeftHighlightObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_MiddleObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_MiddleObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_MiddleActiveObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_MiddleActiveObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_MiddleHighlightObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_MiddleHighlightObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_RightObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_RightObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_RightActiveObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_RightActiveObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_RightHighlightObject : Texture
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_RightHighlightObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_TextObject : FontString
+local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_TextObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_HeaderContainerObject : Frame
+---@field Text PVPMatchScoreboard_HeaderContainer_TextObject
+local PVPMatchScoreboard_HeaderContainerObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_HeaderContainer_TextObject : FontString
+local PVPMatchScoreboard_HeaderContainer_TextObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_NineSliceObject : Frame
+---@field BottomEdge PVPMatchScoreboard_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner PVPMatchScoreboard_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner PVPMatchScoreboard_NineSlice_BottomRightCornerObject
+---@field Center PVPMatchScoreboard_NineSlice_CenterObject
+---@field LeftEdge PVPMatchScoreboard_NineSlice_LeftEdgeObject
+---@field RightEdge PVPMatchScoreboard_NineSlice_RightEdgeObject
+---@field TopEdge PVPMatchScoreboard_NineSlice_TopEdgeObject
+---@field TopLeftCorner PVPMatchScoreboard_NineSlice_TopLeftCornerObject
+---@field TopRightCorner PVPMatchScoreboard_NineSlice_TopRightCornerObject
+---@field layoutType string
+local PVPMatchScoreboard_NineSliceObject = {}
+---@return any ...
+function PVPMatchScoreboard_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function PVPMatchScoreboard_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function PVPMatchScoreboard_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function PVPMatchScoreboard_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function PVPMatchScoreboard_NineSliceObject:OnLoad(...) end
+---@return any ...
+function PVPMatchScoreboard_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function PVPMatchScoreboard_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function PVPMatchScoreboard_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function PVPMatchScoreboard_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function PVPMatchScoreboard_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class PVPMatchScoreboard_NineSlice_BottomEdgeObject : Texture
+local PVPMatchScoreboard_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_NineSlice_BottomLeftCornerObject : Texture
+local PVPMatchScoreboard_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_NineSlice_BottomRightCornerObject : Texture
+local PVPMatchScoreboard_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_NineSlice_CenterObject : Texture
+local PVPMatchScoreboard_NineSlice_CenterObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_NineSlice_LeftEdgeObject : Texture
+local PVPMatchScoreboard_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_NineSlice_RightEdgeObject : Texture
+local PVPMatchScoreboard_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_NineSlice_TopEdgeObject : Texture
+local PVPMatchScoreboard_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_NineSlice_TopLeftCornerObject : Texture
+local PVPMatchScoreboard_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_NineSlice_TopRightCornerObject : Texture
+local PVPMatchScoreboard_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_ScrollBarObject
+local PVPMatchScoreboard_ScrollBarObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_ScrollBoxObject
+local PVPMatchScoreboard_ScrollBoxObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_ScrollCategoriesObject
+local PVPMatchScoreboard_ScrollCategoriesObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_Tab1Object
+local PVPMatchScoreboard_Tab1Object = {}
+end
+
+do
+---@class PVPMatchScoreboard_Tab2Object
+local PVPMatchScoreboard_Tab2Object = {}
+end
+
+do
+---@class PVPMatchScoreboard_Tab3Object
+local PVPMatchScoreboard_Tab3Object = {}
+end
+
+do
+---@class PVPMatchScoreboard_TabContainerObject
+local PVPMatchScoreboard_TabContainerObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_TabGroupObject
+local PVPMatchScoreboard_TabGroupObject = {}
+end
+
+do
+---@class PVPMatchScoreboard_tableBuilderObject
+---@field columnHeaderOverlap number
+---@field columns table
+---@field headerContainer PVPMatchScoreboard_tableBuilder_headerContainerObject
+---@field headerPoolCollection table
+---@field leftMargin number
+---@field rightMargin number
+---@field rows table
+---@field tableWidth number
+local PVPMatchScoreboard_tableBuilderObject = {}
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:AddColumn(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:AddRow(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:Arrange(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:ArrangeCells(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:ArrangeHeaders(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:ArrangeHorizontally(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:CalculateColumnSpacing(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:ConstructHeader(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:EnumerateHeaders(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:GetColumnHeaderOverlap(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:GetColumns(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:GetDataProvider(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:GetDataProviderData(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:GetHeaderContainer(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:GetHeaderPoolCollection(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:GetTableMargins(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:GetTableWidth(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:Init(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:RemoveRow(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:Reset(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:SetColumnHeaderOverlap(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:SetDataProvider(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:SetHeaderContainer(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:SetTableMargins(...) end
+---@return any ...
+function PVPMatchScoreboard_tableBuilderObject:SetTableWidth(...) end
+end
+
+do
+---@class PVPMatchScoreboard_tableBuilder_headerContainerObject : Frame
+local PVPMatchScoreboard_tableBuilder_headerContainerObject = {}
+end
+
+do
+---@class PVPReadyDialogObject : Frame
+---@field Border PVPReadyDialog_BorderObject
+---@field background PVPReadyDialog_backgroundObject
+---@field bottomArt PVPReadyDialog_bottomArtObject
+---@field enterButton PVPReadyDialog_enterButtonObject
+---@field instanceInfo PVPReadyDialog_instanceInfoObject
+---@field label PVPReadyDialog_labelObject
+---@field leaveButton PVPReadyDialog_leaveButtonObject
+---@field roleDescription PVPReadyDialog_roleDescriptionObject
+---@field roleIcon PVPReadyDialog_roleIconObject
+---@field roleLabel PVPReadyDialog_roleLabelObject
+local PVPReadyDialogObject = {}
+---@type PVPReadyDialogObject
+PVPReadyDialog = PVPReadyDialogObject
+end
+
+do
+---@class PVPReadyDialog_BorderObject : Frame
+---@field Bg PVPReadyDialog_Border_BgObject
+---@field BottomEdge PVPReadyDialog_Border_BottomEdgeObject
+---@field BottomLeftCorner PVPReadyDialog_Border_BottomLeftCornerObject
+---@field BottomRightCorner PVPReadyDialog_Border_BottomRightCornerObject
+---@field LeftEdge PVPReadyDialog_Border_LeftEdgeObject
+---@field RightEdge PVPReadyDialog_Border_RightEdgeObject
+---@field TopEdge PVPReadyDialog_Border_TopEdgeObject
+---@field TopLeftCorner PVPReadyDialog_Border_TopLeftCornerObject
+---@field TopRightCorner PVPReadyDialog_Border_TopRightCornerObject
+---@field layoutType string
+local PVPReadyDialog_BorderObject = {}
+---@return any ...
+function PVPReadyDialog_BorderObject:GetBorderColor(...) end
+---@return any ...
+function PVPReadyDialog_BorderObject:GetCenterColor(...) end
+---@return any ...
+function PVPReadyDialog_BorderObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function PVPReadyDialog_BorderObject:GetFrameLayoutType(...) end
+---@return any ...
+function PVPReadyDialog_BorderObject:OnLoad(...) end
+---@return any ...
+function PVPReadyDialog_BorderObject:SetBlendMode(...) end
+---@return any ...
+function PVPReadyDialog_BorderObject:SetBorderBlendMode(...) end
+---@return any ...
+function PVPReadyDialog_BorderObject:SetBorderColor(...) end
+---@return any ...
+function PVPReadyDialog_BorderObject:SetCenterColor(...) end
+---@return any ...
+function PVPReadyDialog_BorderObject:SetVertexColor(...) end
+end
+
+do
+---@class PVPReadyDialog_Border_BgObject : Texture
+local PVPReadyDialog_Border_BgObject = {}
+end
+
+do
+---@class PVPReadyDialog_Border_BottomEdgeObject : Texture
+local PVPReadyDialog_Border_BottomEdgeObject = {}
+end
+
+do
+---@class PVPReadyDialog_Border_BottomLeftCornerObject : Texture
+local PVPReadyDialog_Border_BottomLeftCornerObject = {}
+end
+
+do
+---@class PVPReadyDialog_Border_BottomRightCornerObject : Texture
+local PVPReadyDialog_Border_BottomRightCornerObject = {}
+end
+
+do
+---@class PVPReadyDialog_Border_LeftEdgeObject : Texture
+local PVPReadyDialog_Border_LeftEdgeObject = {}
+end
+
+do
+---@class PVPReadyDialog_Border_RightEdgeObject : Texture
+local PVPReadyDialog_Border_RightEdgeObject = {}
+end
+
+do
+---@class PVPReadyDialog_Border_TopEdgeObject : Texture
+local PVPReadyDialog_Border_TopEdgeObject = {}
+end
+
+do
+---@class PVPReadyDialog_Border_TopLeftCornerObject : Texture
+local PVPReadyDialog_Border_TopLeftCornerObject = {}
+end
+
+do
+---@class PVPReadyDialog_Border_TopRightCornerObject : Texture
+local PVPReadyDialog_Border_TopRightCornerObject = {}
+end
+
+do
+---@class PVPReadyDialog_backgroundObject : Texture
+local PVPReadyDialog_backgroundObject = {}
+end
+
+do
+---@class PVPReadyDialog_bottomArtObject : Texture
+local PVPReadyDialog_bottomArtObject = {}
+end
+
+do
+---@class PVPReadyDialog_enterButtonObject : Button
+---@field Left PVPReadyDialog_enterButton_LeftObject
+---@field Middle PVPReadyDialog_enterButton_MiddleObject
+---@field Right PVPReadyDialog_enterButton_RightObject
+---@field Text PVPReadyDialog_enterButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local PVPReadyDialog_enterButtonObject = {}
+---@return any ...
+function PVPReadyDialog_enterButtonObject:FitToText(...) end
+---@return any ...
+function PVPReadyDialog_enterButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function PVPReadyDialog_enterButtonObject:OnClick(...) end
+---@return any ...
+function PVPReadyDialog_enterButtonObject:OnEnter(...) end
+---@return any ...
+function PVPReadyDialog_enterButtonObject:OnLeave(...) end
+---@return any ...
+function PVPReadyDialog_enterButtonObject:SetDisabledState(...) end
+---@return any ...
+function PVPReadyDialog_enterButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function PVPReadyDialog_enterButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class PVPReadyDialog_enterButton_LeftObject : Texture
+local PVPReadyDialog_enterButton_LeftObject = {}
+end
+
+do
+---@class PVPReadyDialog_enterButton_MiddleObject : Texture
+local PVPReadyDialog_enterButton_MiddleObject = {}
+end
+
+do
+---@class PVPReadyDialog_enterButton_RightObject : Texture
+local PVPReadyDialog_enterButton_RightObject = {}
+end
+
+do
+---@class PVPReadyDialog_enterButton_TextObject : FontString
+local PVPReadyDialog_enterButton_TextObject = {}
+end
+
+do
+---@class PVPReadyDialog_instanceInfoObject : Frame
+---@field name PVPReadyDialog_instanceInfo_nameObject
+---@field statusText PVPReadyDialog_instanceInfo_statusTextObject
+---@field underline PVPReadyDialog_instanceInfo_underlineObject
+local PVPReadyDialog_instanceInfoObject = {}
+end
+
+do
+---@class PVPReadyDialog_instanceInfo_nameObject : FontString
+local PVPReadyDialog_instanceInfo_nameObject = {}
+end
+
+do
+---@class PVPReadyDialog_instanceInfo_statusTextObject : FontString
+local PVPReadyDialog_instanceInfo_statusTextObject = {}
+end
+
+do
+---@class PVPReadyDialog_instanceInfo_underlineObject : Texture
+local PVPReadyDialog_instanceInfo_underlineObject = {}
+end
+
+do
+---@class PVPReadyDialog_labelObject : FontString
+local PVPReadyDialog_labelObject = {}
+end
+
+do
+---@class PVPReadyDialog_leaveButtonObject : Button
+---@field Left PVPReadyDialog_leaveButton_LeftObject
+---@field Middle PVPReadyDialog_leaveButton_MiddleObject
+---@field Right PVPReadyDialog_leaveButton_RightObject
+---@field Text PVPReadyDialog_leaveButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local PVPReadyDialog_leaveButtonObject = {}
+---@return any ...
+function PVPReadyDialog_leaveButtonObject:FitToText(...) end
+---@return any ...
+function PVPReadyDialog_leaveButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function PVPReadyDialog_leaveButtonObject:OnClick(...) end
+---@return any ...
+function PVPReadyDialog_leaveButtonObject:OnEnter(...) end
+---@return any ...
+function PVPReadyDialog_leaveButtonObject:OnLeave(...) end
+---@return any ...
+function PVPReadyDialog_leaveButtonObject:SetDisabledState(...) end
+---@return any ...
+function PVPReadyDialog_leaveButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function PVPReadyDialog_leaveButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class PVPReadyDialog_leaveButton_LeftObject : Texture
+local PVPReadyDialog_leaveButton_LeftObject = {}
+end
+
+do
+---@class PVPReadyDialog_leaveButton_MiddleObject : Texture
+local PVPReadyDialog_leaveButton_MiddleObject = {}
+end
+
+do
+---@class PVPReadyDialog_leaveButton_RightObject : Texture
+local PVPReadyDialog_leaveButton_RightObject = {}
+end
+
+do
+---@class PVPReadyDialog_leaveButton_TextObject : FontString
+local PVPReadyDialog_leaveButton_TextObject = {}
+end
+
+do
+---@class PVPReadyDialog_roleDescriptionObject : FontString
+local PVPReadyDialog_roleDescriptionObject = {}
+end
+
+do
+---@class PVPReadyDialog_roleIconObject : Frame
+---@field texture PVPReadyDialog_roleIcon_textureObject
+local PVPReadyDialog_roleIconObject = {}
+end
+
+do
+---@class PVPReadyDialog_roleIcon_textureObject : Texture
+local PVPReadyDialog_roleIcon_textureObject = {}
+end
+
+do
+---@class PVPReadyDialog_roleLabelObject : FontString
+local PVPReadyDialog_roleLabelObject = {}
+end
+
+do
+---@class PVPReadyPopupObject : Frame
+---@field RolePool PVPReadyPopup_RolePoolObject
+---@field RolelessButton PVPReadyPopup_RolelessButtonObject
+local PVPReadyPopupObject = {}
+---@return any ...
+function PVPReadyPopupObject:GetCenterOffsetBasedOffNumRoles(...) end
+---@return any ...
+function PVPReadyPopupObject:OnEvent(...) end
+---@return any ...
+function PVPReadyPopupObject:OnLoad(...) end
+---@return any ...
+function PVPReadyPopupObject:OnUpdate(...) end
+---@return any ...
+function PVPReadyPopupObject:Reset(...) end
+---@return any ...
+function PVPReadyPopupObject:Setup(...) end
+---@return any ...
+function PVPReadyPopupObject:SetupRole(...) end
+---@return any ...
+function PVPReadyPopupObject:SetupRoleButtons(...) end
+---@return any ...
+function PVPReadyPopupObject:SetupRolelessButton(...) end
+---@type PVPReadyPopupObject
+PVPReadyPopup = PVPReadyPopupObject
+end
+
+do
+---@class PVPReadyPopup_RolePoolObject
+local PVPReadyPopup_RolePoolObject = {}
+---@return any ...
+function PVPReadyPopup_RolePoolObject:GetTemplate(...) end
+---@return any ...
+function PVPReadyPopup_RolePoolObject:private(...) end
+end
+
+do
+---@class PVPReadyPopup_RolelessButtonObject : Frame
+---@field Count PVPReadyPopup_RolelessButton_CountObject
+---@field StatusIcon PVPReadyPopup_RolelessButton_StatusIconObject
+---@field Texture PVPReadyPopup_RolelessButton_TextureObject
+local PVPReadyPopup_RolelessButtonObject = {}
+---@return any ...
+function PVPReadyPopup_RolelessButtonObject:OnLoad(...) end
+---@return any ...
+function PVPReadyPopup_RolelessButtonObject:Setup(...) end
+end
+
+do
+---@class PVPReadyPopup_RolelessButton_CountObject : FontString
+local PVPReadyPopup_RolelessButton_CountObject = {}
+end
+
+do
+---@class PVPReadyPopup_RolelessButton_StatusIconObject : Texture
+local PVPReadyPopup_RolelessButton_StatusIconObject = {}
+end
+
+do
+---@class PVPReadyPopup_RolelessButton_TextureObject : Texture
+local PVPReadyPopup_RolelessButton_TextureObject = {}
+end
+
+do
+---@class PVPRoleCheckPopupObject : Frame
+---@field Border PVPRoleCheckPopup_BorderObject
+---@field DPSIcon PVPRoleCheckPopup_DPSIconObject
+---@field Description PVPRoleCheckPopup_DescriptionObject
+---@field HealerIcon PVPRoleCheckPopup_HealerIconObject
+---@field TankIcon PVPRoleCheckPopup_TankIconObject
+local PVPRoleCheckPopupObject = {}
+---@type PVPRoleCheckPopupObject
+PVPRoleCheckPopup = PVPRoleCheckPopupObject
+end
+
+do
+---@class PVPRoleCheckPopup_BorderObject : Frame
+---@field Bg PVPRoleCheckPopup_Border_BgObject
+---@field BottomEdge PVPRoleCheckPopup_Border_BottomEdgeObject
+---@field BottomLeftCorner PVPRoleCheckPopup_Border_BottomLeftCornerObject
+---@field BottomRightCorner PVPRoleCheckPopup_Border_BottomRightCornerObject
+---@field LeftEdge PVPRoleCheckPopup_Border_LeftEdgeObject
+---@field RightEdge PVPRoleCheckPopup_Border_RightEdgeObject
+---@field TopEdge PVPRoleCheckPopup_Border_TopEdgeObject
+---@field TopLeftCorner PVPRoleCheckPopup_Border_TopLeftCornerObject
+---@field TopRightCorner PVPRoleCheckPopup_Border_TopRightCornerObject
+---@field layoutType string
+local PVPRoleCheckPopup_BorderObject = {}
+---@return any ...
+function PVPRoleCheckPopup_BorderObject:GetBorderColor(...) end
+---@return any ...
+function PVPRoleCheckPopup_BorderObject:GetCenterColor(...) end
+---@return any ...
+function PVPRoleCheckPopup_BorderObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function PVPRoleCheckPopup_BorderObject:GetFrameLayoutType(...) end
+---@return any ...
+function PVPRoleCheckPopup_BorderObject:OnLoad(...) end
+---@return any ...
+function PVPRoleCheckPopup_BorderObject:SetBlendMode(...) end
+---@return any ...
+function PVPRoleCheckPopup_BorderObject:SetBorderBlendMode(...) end
+---@return any ...
+function PVPRoleCheckPopup_BorderObject:SetBorderColor(...) end
+---@return any ...
+function PVPRoleCheckPopup_BorderObject:SetCenterColor(...) end
+---@return any ...
+function PVPRoleCheckPopup_BorderObject:SetVertexColor(...) end
+end
+
+do
+---@class PVPRoleCheckPopup_Border_BgObject : Texture
+local PVPRoleCheckPopup_Border_BgObject = {}
+end
+
+do
+---@class PVPRoleCheckPopup_Border_BottomEdgeObject : Texture
+local PVPRoleCheckPopup_Border_BottomEdgeObject = {}
+end
+
+do
+---@class PVPRoleCheckPopup_Border_BottomLeftCornerObject : Texture
+local PVPRoleCheckPopup_Border_BottomLeftCornerObject = {}
+end
+
+do
+---@class PVPRoleCheckPopup_Border_BottomRightCornerObject : Texture
+local PVPRoleCheckPopup_Border_BottomRightCornerObject = {}
+end
+
+do
+---@class PVPRoleCheckPopup_Border_LeftEdgeObject : Texture
+local PVPRoleCheckPopup_Border_LeftEdgeObject = {}
+end
+
+do
+---@class PVPRoleCheckPopup_Border_RightEdgeObject : Texture
+local PVPRoleCheckPopup_Border_RightEdgeObject = {}
+end
+
+do
+---@class PVPRoleCheckPopup_Border_TopEdgeObject : Texture
+local PVPRoleCheckPopup_Border_TopEdgeObject = {}
+end
+
+do
+---@class PVPRoleCheckPopup_Border_TopLeftCornerObject : Texture
+local PVPRoleCheckPopup_Border_TopLeftCornerObject = {}
+end
+
+do
+---@class PVPRoleCheckPopup_Border_TopRightCornerObject : Texture
+local PVPRoleCheckPopup_Border_TopRightCornerObject = {}
+end
+
+do
+---@class PVPRoleCheckPopup_DPSIconObject : Button
+---@field alert PVPRoleCheckPopup_DPSIcon_alertObject
+---@field checkButton PVPRoleCheckPopup_DPSIcon_checkButtonObject
+---@field lockedIndicator PVPRoleCheckPopup_DPSIcon_lockedIndicatorObject
+---@field permDisabledTip string
+---@field role string
+local PVPRoleCheckPopup_DPSIconObject = {}
+end
+
+do
+---@class PVPRoleCheckPopup_DPSIcon_alertObject : Frame
+local PVPRoleCheckPopup_DPSIcon_alertObject = {}
+end
+
+do
+---@class PVPRoleCheckPopup_DPSIcon_checkButtonObject : CheckButton
+local PVPRoleCheckPopup_DPSIcon_checkButtonObject = {}
+---@return any ...
+function PVPRoleCheckPopup_DPSIcon_checkButtonObject:onClick(...) end
+end
+
+do
+---@class PVPRoleCheckPopup_DPSIcon_lockedIndicatorObject : Frame
+local PVPRoleCheckPopup_DPSIcon_lockedIndicatorObject = {}
+end
+
+do
+---@class PVPRoleCheckPopup_DescriptionObject : Frame
+---@field Text PVPRoleCheckPopup_Description_TextObject
+local PVPRoleCheckPopup_DescriptionObject = {}
+end
+
+do
+---@class PVPRoleCheckPopup_Description_TextObject : FontString
+local PVPRoleCheckPopup_Description_TextObject = {}
+end
+
+do
+---@class PVPRoleCheckPopup_HealerIconObject : Button
+---@field alert PVPRoleCheckPopup_HealerIcon_alertObject
+---@field checkButton PVPRoleCheckPopup_HealerIcon_checkButtonObject
+---@field lockedIndicator PVPRoleCheckPopup_HealerIcon_lockedIndicatorObject
+---@field permDisabledTip string
+---@field role string
+local PVPRoleCheckPopup_HealerIconObject = {}
+end
+
+do
+---@class PVPRoleCheckPopup_HealerIcon_alertObject : Frame
+local PVPRoleCheckPopup_HealerIcon_alertObject = {}
+end
+
+do
+---@class PVPRoleCheckPopup_HealerIcon_checkButtonObject : CheckButton
+local PVPRoleCheckPopup_HealerIcon_checkButtonObject = {}
+---@return any ...
+function PVPRoleCheckPopup_HealerIcon_checkButtonObject:onClick(...) end
+end
+
+do
+---@class PVPRoleCheckPopup_HealerIcon_lockedIndicatorObject : Frame
+local PVPRoleCheckPopup_HealerIcon_lockedIndicatorObject = {}
+end
+
+do
+---@class PVPRoleCheckPopup_TankIconObject : Button
+---@field alert PVPRoleCheckPopup_TankIcon_alertObject
+---@field checkButton PVPRoleCheckPopup_TankIcon_checkButtonObject
+---@field lockedIndicator PVPRoleCheckPopup_TankIcon_lockedIndicatorObject
+---@field permDisabledTip string
+---@field role string
+local PVPRoleCheckPopup_TankIconObject = {}
+end
+
+do
+---@class PVPRoleCheckPopup_TankIcon_alertObject : Frame
+local PVPRoleCheckPopup_TankIcon_alertObject = {}
+end
+
+do
+---@class PVPRoleCheckPopup_TankIcon_checkButtonObject : CheckButton
+local PVPRoleCheckPopup_TankIcon_checkButtonObject = {}
+---@return any ...
+function PVPRoleCheckPopup_TankIcon_checkButtonObject:onClick(...) end
+end
+
+do
+---@class PVPRoleCheckPopup_TankIcon_lockedIndicatorObject : Frame
+local PVPRoleCheckPopup_TankIcon_lockedIndicatorObject = {}
+end
+
+do
+---@class PartyFrameObject : Frame
+---@field Background PartyFrame_BackgroundObject
+---@field MemberFrame1 PartyFrame_MemberFrame1Object
+---@field MemberFrame2 PartyFrame_MemberFrame2Object
+---@field MemberFrame3 PartyFrame_MemberFrame3Object
+---@field MemberFrame4 PartyFrame_MemberFrame4Object
+---@field PartyMemberFramePool PartyFrame_PartyMemberFramePoolObject
+---@field Selection PartyFrame_SelectionObject
+---@field TargetingActiveDPadFooterinputLegend PartyFrame_TargetingActiveDPadFooterinputLegendObject
+---@field alwaysUseTopLeftAnchor boolean
+---@field bottomPadding number
+---@field breakSnappedFramesOnSave boolean
+---@field defaultHideSelection boolean
+---@field dirty boolean
+---@field dirtySettings table
+---@field downKeys table
+---@field hasActiveChanges boolean
+---@field lastSystemIndex number
+---@field leftPadding number
+---@field rightPadding number
+---@field savedSystemInfo PartyFrame_savedSystemInfoObject
+---@field settingDisplayInfoMap PartyFrame_settingDisplayInfoMapObject
+---@field settingMap table
+---@field settingsDialogAnchor PartyFrame_settingsDialogAnchorObject
+---@field snappedFrames table
+---@field spacing number
+---@field system number
+---@field systemIndex number
+---@field systemInfo PartyFrame_systemInfoObject
+---@field systemNameString string
+local PartyFrameObject = {}
+---@return any ...
+function PartyFrameObject:AddExtraButtons(...) end
+---@return any ...
+function PartyFrameObject:AddLayoutChildren(...) end
+---@return any ...
+function PartyFrameObject:AddSnappedFrame(...) end
+---@return any ...
+function PartyFrameObject:AnchorSelectionFrame(...) end
+---@return any ...
+function PartyFrameObject:AnySettingsDirty(...) end
+---@return any ...
+function PartyFrameObject:ApplySystemAnchor(...) end
+---@return any ...
+function PartyFrameObject:AreAllSystemSettingsDefault(...) end
+---@return any ...
+function PartyFrameObject:BreakFrameSnap(...) end
+---@return any ...
+function PartyFrameObject:BreakFromFrameManager(...) end
+---@return any ...
+function PartyFrameObject:BreakSnappedFrames(...) end
+---@return any ...
+function PartyFrameObject:CalculateFrameSize(...) end
+---@return any ...
+function PartyFrameObject:CanBeMoved(...) end
+---@return any ...
+function PartyFrameObject:ClearAllPointsBase(...) end
+---@return any ...
+function PartyFrameObject:ClearAllPointsOverride(...) end
+---@return any ...
+function PartyFrameObject:ClearDirtySetting(...) end
+---@return any ...
+function PartyFrameObject:ClearDownKeys(...) end
+---@return any ...
+function PartyFrameObject:ClearFixedSize(...) end
+---@return any ...
+function PartyFrameObject:ClearFrameSnap(...) end
+---@return any ...
+function PartyFrameObject:ClearHighlight(...) end
+---@return any ...
+function PartyFrameObject:ConvertSettingDisplayValueToRawValue(...) end
+---@return any ...
+function PartyFrameObject:DoesSettingDisplayValueEqual(...) end
+---@return any ...
+function PartyFrameObject:DoesSettingValueEqual(...) end
+---@return any ...
+function PartyFrameObject:GetAdditionalRegions(...) end
+---@return any ...
+function PartyFrameObject:GetBottomOffset(...) end
+---@return any ...
+function PartyFrameObject:GetChildHeight(...) end
+---@return any ...
+function PartyFrameObject:GetChildPadding(...) end
+---@return any ...
+function PartyFrameObject:GetChildSize(...) end
+---@return any ...
+function PartyFrameObject:GetChildWidth(...) end
+---@return any ...
+function PartyFrameObject:GetCombinedCenterOffset(...) end
+---@return any ...
+function PartyFrameObject:GetCombinedSelectionOffset(...) end
+---@return any ...
+function PartyFrameObject:GetCompositeNumberSettingValue(...) end
+---@return any ...
+function PartyFrameObject:GetFixedHeight(...) end
+---@return any ...
+function PartyFrameObject:GetFixedSize(...) end
+---@return any ...
+function PartyFrameObject:GetFixedWidth(...) end
+---@return any ...
+function PartyFrameObject:GetFrameMagneticEligibility(...) end
+---@return any ...
+function PartyFrameObject:GetHeightPadding(...) end
+---@return any ...
+function PartyFrameObject:GetLayoutChildren(...) end
+---@return any ...
+function PartyFrameObject:GetLeftOffset(...) end
+---@return any ...
+function PartyFrameObject:GetManagedFrameContainer(...) end
+---@return any ...
+function PartyFrameObject:GetPadding(...) end
+---@return any ...
+function PartyFrameObject:GetPartyMemberFrame(...) end
+---@return any ...
+function PartyFrameObject:GetRightOffset(...) end
+---@return any ...
+function PartyFrameObject:GetScaledCenter(...) end
+---@return any ...
+function PartyFrameObject:GetScaledSelectionCenter(...) end
+---@return any ...
+function PartyFrameObject:GetScaledSelectionSides(...) end
+---@return any ...
+function PartyFrameObject:GetSelectionOffset(...) end
+---@return any ...
+function PartyFrameObject:GetSettingValue(...) end
+---@return any ...
+function PartyFrameObject:GetSettingValueBool(...) end
+---@return any ...
+function PartyFrameObject:GetSettingsDialogAnchor(...) end
+---@return any ...
+function PartyFrameObject:GetSnapOffsets(...) end
+---@return any ...
+function PartyFrameObject:GetSystemName(...) end
+---@return any ...
+function PartyFrameObject:GetTopOffset(...) end
+---@return any ...
+function PartyFrameObject:GetWidthPadding(...) end
+---@return any ...
+function PartyFrameObject:HasActiveChanges(...) end
+---@return any ...
+function PartyFrameObject:HasCompositeNumberSetting(...) end
+---@return any ...
+function PartyFrameObject:HasSetting(...) end
+---@return any ...
+function PartyFrameObject:HasValidSelectionRect(...) end
+---@return any ...
+function PartyFrameObject:HideBase(...) end
+---@return any ...
+function PartyFrameObject:HideOverride(...) end
+---@return any ...
+function PartyFrameObject:HidePartyFrames(...) end
+---@return any ...
+function PartyFrameObject:HighlightSystem(...) end
+---@return any ...
+function PartyFrameObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function PartyFrameObject:InitializePartyMemberFrames(...) end
+---@return any ...
+function PartyFrameObject:IsAboveFrame(...) end
+---@return any ...
+function PartyFrameObject:IsBelowFrame(...) end
+---@return any ...
+function PartyFrameObject:IsDirty(...) end
+---@return any ...
+function PartyFrameObject:IsEditModeDragging(...) end
+---@return any ...
+function PartyFrameObject:IsFrameAnchoredToMe(...) end
+---@return any ...
+function PartyFrameObject:IsHorizontallyAlignedWithFrame(...) end
+---@return any ...
+function PartyFrameObject:IsInDefaultPosition(...) end
+---@return any ...
+function PartyFrameObject:IsInitialized(...) end
+---@return any ...
+function PartyFrameObject:IsLayoutFrame(...) end
+---@return any ...
+function PartyFrameObject:IsSettingDirty(...) end
+---@return any ...
+function PartyFrameObject:IsShiftKeyDown(...) end
+---@return any ...
+function PartyFrameObject:IsSystemSettingDefault(...) end
+---@return any ...
+function PartyFrameObject:IsToTheLeftOfFrame(...) end
+---@return any ...
+function PartyFrameObject:IsToTheRightOfFrame(...) end
+---@return any ...
+function PartyFrameObject:IsVerticallyAlignedWithFrame(...) end
+---@return any ...
+function PartyFrameObject:Layout(...) end
+---@return any ...
+function PartyFrameObject:LayoutChildren(...) end
+---@return any ...
+function PartyFrameObject:MarkAllSettingsDirty(...) end
+---@return any ...
+function PartyFrameObject:MarkClean(...) end
+---@return any ...
+function PartyFrameObject:MarkDirty(...) end
+---@return any ...
+function PartyFrameObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function PartyFrameObject:OnAnyEditModeSystemAnchorChanged(...) end
+---@return any ...
+function PartyFrameObject:OnCleaned(...) end
+---@return any ...
+function PartyFrameObject:OnDragStart(...) end
+---@return any ...
+function PartyFrameObject:OnDragStop(...) end
+---@return any ...
+function PartyFrameObject:OnEditModeEnter(...) end
+---@return any ...
+function PartyFrameObject:OnEditModeExit(...) end
+---@return any ...
+function PartyFrameObject:OnEvent(...) end
+---@return any ...
+function PartyFrameObject:OnKeyDown(...) end
+---@return any ...
+function PartyFrameObject:OnKeyUp(...) end
+---@return any ...
+function PartyFrameObject:OnLoad(...) end
+---@return any ...
+function PartyFrameObject:OnShow(...) end
+---@return any ...
+function PartyFrameObject:OnSystemHide(...) end
+---@return any ...
+function PartyFrameObject:OnSystemLoad(...) end
+---@return any ...
+function PartyFrameObject:OnSystemPositionChange(...) end
+---@return any ...
+function PartyFrameObject:OnUpdate(...) end
+---@return any ...
+function PartyFrameObject:OnUpdateSystem(...) end
+---@return any ...
+function PartyFrameObject:PrepareForSave(...) end
+---@return any ...
+function PartyFrameObject:ProcessMovementKey(...) end
+---@return any ...
+function PartyFrameObject:RemoveSnappedFrame(...) end
+---@return any ...
+function PartyFrameObject:ResetToDefaultPosition(...) end
+---@return any ...
+function PartyFrameObject:SelectSystem(...) end
+---@return any ...
+function PartyFrameObject:SetFixedHeight(...) end
+---@return any ...
+function PartyFrameObject:SetFixedSize(...) end
+---@return any ...
+function PartyFrameObject:SetFixedWidth(...) end
+---@return any ...
+function PartyFrameObject:SetHasActiveChanges(...) end
+---@return any ...
+function PartyFrameObject:SetHeightPadding(...) end
+---@return any ...
+function PartyFrameObject:SetPointBase(...) end
+---@return any ...
+function PartyFrameObject:SetPointOverride(...) end
+---@return any ...
+function PartyFrameObject:SetScaleBase(...) end
+---@return any ...
+function PartyFrameObject:SetScaleOverride(...) end
+---@return any ...
+function PartyFrameObject:SetSelectionShown(...) end
+---@return any ...
+function PartyFrameObject:SetShownBase(...) end
+---@return any ...
+function PartyFrameObject:SetShownOverride(...) end
+---@return any ...
+function PartyFrameObject:SetSnappedToFrame(...) end
+---@return any ...
+function PartyFrameObject:SetWidthPadding(...) end
+---@return any ...
+function PartyFrameObject:SetupSettingsDialogAnchor(...) end
+---@return any ...
+function PartyFrameObject:SetupVisibilityFunctionOverrides(...) end
+---@return any ...
+function PartyFrameObject:ShouldBreakSnappedFramesOnHide(...) end
+---@return any ...
+function PartyFrameObject:ShouldClearOnUpdateAfterClean(...) end
+---@return any ...
+function PartyFrameObject:ShouldResetSettingsDialogAnchors(...) end
+---@return any ...
+function PartyFrameObject:ShouldShow(...) end
+---@return any ...
+function PartyFrameObject:ShouldShowSetting(...) end
+---@return any ...
+function PartyFrameObject:ShowEditInstructions(...) end
+---@return any ...
+function PartyFrameObject:SnapToFrame(...) end
+---@return any ...
+function PartyFrameObject:TrySetCompositeNumberSettingValue(...) end
+---@return any ...
+function PartyFrameObject:UpdateClampOffsets(...) end
+---@return any ...
+function PartyFrameObject:UpdateCompactRaidFrameContainerSetting(...) end
+---@return any ...
+function PartyFrameObject:UpdateDirtySettings(...) end
+---@return any ...
+function PartyFrameObject:UpdateDisplayInfoOptions(...) end
+---@return any ...
+function PartyFrameObject:UpdateMagnetismRegistration(...) end
+---@return any ...
+function PartyFrameObject:UpdateMemberFrames(...) end
+---@return any ...
+function PartyFrameObject:UpdatePaddingAndLayout(...) end
+---@return any ...
+function PartyFrameObject:UpdatePartyFrames(...) end
+---@return any ...
+function PartyFrameObject:UpdatePartyMemberBackground(...) end
+---@return any ...
+function PartyFrameObject:UpdateSelectionVerticalState(...) end
+---@return any ...
+function PartyFrameObject:UpdateSettingMap(...) end
+---@return any ...
+function PartyFrameObject:UpdateSpacingAndLayout(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystem(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystemSetting(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystemSettingAuraOrganizationType(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystemSettingBigDefensiveIconSize(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystemSettingBuffIconSize(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystemSettingBuffsOnTop(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystemSettingCastBarOnSide(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystemSettingDebuffIconSize(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystemSettingDisplayBorder(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystemSettingFrameHeight(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystemSettingFrameSize(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystemSettingFrameWidth(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystemSettingOpacity(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystemSettingRaidGroupDisplayType(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystemSettingRowSize(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystemSettingShowCastTime(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystemSettingShowPartyFrameBackground(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystemSettingSortPlayersBy(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystemSettingUseHorizontalGroups(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystemSettingUseLargerFrame(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystemSettingUseRaidStylePartyFrames(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystemSettingValue(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystemSettingViewArenaSize(...) end
+---@return any ...
+function PartyFrameObject:UpdateSystemSettingViewRaidSize(...) end
+---@return any ...
+function PartyFrameObject:UseCombinedGroups(...) end
+---@return any ...
+function PartyFrameObject:UseSettingAltName(...) end
+---@type PartyFrameObject
+PartyFrame = PartyFrameObject
+end
+
+do
+---@class PartyFrame_BackgroundObject : Frame
+---@field BottomEdge PartyFrame_Background_BottomEdgeObject
+---@field BottomLeftCorner PartyFrame_Background_BottomLeftCornerObject
+---@field BottomRightCorner PartyFrame_Background_BottomRightCornerObject
+---@field Center PartyFrame_Background_CenterObject
+---@field LeftEdge PartyFrame_Background_LeftEdgeObject
+---@field RightEdge PartyFrame_Background_RightEdgeObject
+---@field TopEdge PartyFrame_Background_TopEdgeObject
+---@field TopLeftCorner PartyFrame_Background_TopLeftCornerObject
+---@field TopRightCorner PartyFrame_Background_TopRightCornerObject
+---@field backdropInfo PartyFrame_Background_backdropInfoObject
+local PartyFrame_BackgroundObject = {}
+---@return any ...
+function PartyFrame_BackgroundObject:ApplyBackdrop(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:ClearBackdrop(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:GetBackdrop(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:GetBackdropBorderColor(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:GetBackdropColor(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:GetEdgeSize(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:HasBackdropInfo(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:OnBackdropLoaded(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:OnBackdropSizeChanged(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:OnEvent(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:OnLoad(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:OnMouseUp(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:OnShow(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:SaveOpacity(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:SetBackdrop(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:SetBackdropBorderColor(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:SetBackdropColor(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:SetBorderBlendMode(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:SetOpacity(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:SetupPieceVisuals(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:SetupTextureCoordinates(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:ToggleOpacity(...) end
+end
+
+do
+---@class PartyFrame_Background_BottomEdgeObject : Texture
+local PartyFrame_Background_BottomEdgeObject = {}
+end
+
+do
+---@class PartyFrame_Background_BottomLeftCornerObject : Texture
+local PartyFrame_Background_BottomLeftCornerObject = {}
+end
+
+do
+---@class PartyFrame_Background_BottomRightCornerObject : Texture
+local PartyFrame_Background_BottomRightCornerObject = {}
+end
+
+do
+---@class PartyFrame_Background_CenterObject : Texture
+local PartyFrame_Background_CenterObject = {}
+end
+
+do
+---@class PartyFrame_Background_LeftEdgeObject : Texture
+local PartyFrame_Background_LeftEdgeObject = {}
+end
+
+do
+---@class PartyFrame_Background_RightEdgeObject : Texture
+local PartyFrame_Background_RightEdgeObject = {}
+end
+
+do
+---@class PartyFrame_Background_TopEdgeObject : Texture
+local PartyFrame_Background_TopEdgeObject = {}
+end
+
+do
+---@class PartyFrame_Background_TopLeftCornerObject : Texture
+local PartyFrame_Background_TopLeftCornerObject = {}
+end
+
+do
+---@class PartyFrame_Background_TopRightCornerObject : Texture
+local PartyFrame_Background_TopRightCornerObject = {}
+end
+
+do
+---@class PartyFrame_Background_backdropInfoObject
+---@field bgFile string
+---@field edgeFile string
+---@field edgeSize number
+---@field insets table
+---@field tile boolean
+---@field tileEdge boolean
+---@field tileSize number
+local PartyFrame_Background_backdropInfoObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1Object : Button
+---@field ArtLayoutInfo PartyFrame_MemberFrame1_ArtLayoutInfoObject
+---@field AuraFrameContainer PartyFrame_MemberFrame1_AuraFrameContainerObject
+---@field AuraFramePool PartyFrame_MemberFrame1_AuraFramePoolObject
+---@field Flash PartyFrame_MemberFrame1_FlashObject
+---@field HealthBarContainer PartyFrame_MemberFrame1_HealthBarContainerObject
+---@field ManaBar PartyFrame_MemberFrame1_ManaBarObject
+---@field Name PartyFrame_MemberFrame1_NameObject
+---@field NotPresentIcon PartyFrame_MemberFrame1_NotPresentIconObject
+---@field PartyMemberOverlay PartyFrame_MemberFrame1_PartyMemberOverlayObject
+---@field PetFrame PartyFrame_MemberFrame1_PetFrameObject
+---@field Portrait PartyFrame_MemberFrame1_PortraitObject
+---@field PortraitMask PartyFrame_MemberFrame1_PortraitMaskObject
+---@field PowerBarAlt PartyFrame_MemberFrame1_PowerBarAltObject
+---@field ReadyCheck PartyFrame_MemberFrame1_ReadyCheckObject
+---@field ResurrectableIndicator PartyFrame_MemberFrame1_ResurrectableIndicatorObject
+---@field Texture PartyFrame_MemberFrame1_TextureObject
+---@field VehicleTexture PartyFrame_MemberFrame1_VehicleTextureObject
+---@field debuffCountdown number
+---@field frameType string
+---@field healAbsorbBar PartyFrame_MemberFrame1_healAbsorbBarObject
+---@field healthbar PartyFrame_MemberFrame1_healthbarObject
+---@field initialized boolean
+---@field layoutIndex number
+---@field manabar PartyFrame_MemberFrame1_manabarObject
+---@field myHealPredictionBar PartyFrame_MemberFrame1_myHealPredictionBarObject
+---@field name PartyFrame_MemberFrame1_nameObject
+---@field noContextActions boolean
+---@field numDebuffs number
+---@field otherHealPredictionBar PartyFrame_MemberFrame1_otherHealPredictionBarObject
+---@field overAbsorbGlow PartyFrame_MemberFrame1_overAbsorbGlowObject
+---@field overHealAbsorbGlow PartyFrame_MemberFrame1_overHealAbsorbGlowObject
+---@field petUnitToken string
+---@field portrait PartyFrame_MemberFrame1_portraitObject
+---@field replacePortraitSettingChangedHandlers table
+---@field state string
+---@field statusCounter number
+---@field statusSign number
+---@field tempMaxHealthLossBar PartyFrame_MemberFrame1_tempMaxHealthLossBarObject
+---@field threatIndicator PartyFrame_MemberFrame1_threatIndicatorObject
+---@field totalAbsorbBar PartyFrame_MemberFrame1_totalAbsorbBarObject
+---@field unit string
+---@field unitHPPercent number
+---@field unitToken string
+local PartyFrame_MemberFrame1Object = {}
+---@return any ...
+function PartyFrame_MemberFrame1Object:GetAllowRadialWheel(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:GetIsPingable(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:GetTargetInfo(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:GetUnit(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:OnEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:OnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:OnLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:OnUpdate(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:ParseAllAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:PartyMemberHealthCheck(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:Setup(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:ToCharacterStyleArt(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:ToPlayerArt(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:ToVehicleArt(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateArt(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateAssignedRoles(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateAurasInternal(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateHealthBarTextAnchors(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateLeader(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateManaBarTextAnchors(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateMember(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateMemberAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateMemberHealth(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateNameTextAnchors(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateNotPresentIcon(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateOnlineStatus(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdatePet(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdatePingAttributes(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdatePvPStatus(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateReadyCheck(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateVoiceActivityNotification(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:VoiceActivityNotificationCreatedCallback(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_ArtLayoutInfoObject
+local PartyFrame_MemberFrame1_ArtLayoutInfoObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_AuraFrameContainerObject : Frame
+---@field spacing number
+local PartyFrame_MemberFrame1_AuraFrameContainerObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:AddLayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:CalculateFrameSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:ClearFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetAdditionalRegions(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetChildHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetChildPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetChildSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetChildWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetFixedHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetFixedWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetHeightPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetLayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetWidthPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:IsDirty(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:IsLayoutFrame(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:Layout(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:LayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:MarkClean(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:MarkDirty(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:OnCleaned(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:OnShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:OnUpdate(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:SetFixedHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:SetFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:SetFixedWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:SetHeightPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:SetWidthPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_AuraFramePoolObject
+local PartyFrame_MemberFrame1_AuraFramePoolObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFramePoolObject:GetTemplate(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFramePoolObject:private(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_FlashObject
+local PartyFrame_MemberFrame1_FlashObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_HealthBarContainerObject
+local PartyFrame_MemberFrame1_HealthBarContainerObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_ManaBarObject : StatusBar
+---@field CenterText PartyFrame_MemberFrame1_ManaBar_CenterTextObject
+---@field LeftText PartyFrame_MemberFrame1_ManaBar_LeftTextObject
+---@field ManaBarMask PartyFrame_MemberFrame1_ManaBar_ManaBarMaskObject
+---@field RightText PartyFrame_MemberFrame1_ManaBar_RightTextObject
+---@field TextString PartyFrame_MemberFrame1_ManaBar_TextStringObject
+---@field Texture PartyFrame_MemberFrame1_ManaBar_TextureObject
+---@field capNumericDisplay boolean
+---@field controlsShownState boolean
+---@field currValue number
+---@field cvar string
+---@field cvarLabel string
+---@field disconnected boolean
+---@field frequentUpdates boolean
+---@field lockColor boolean
+---@field lockShow number
+---@field smartNavigationIgnored boolean
+---@field textLockable number
+---@field texture PartyFrame_MemberFrame1_ManaBar_textureObject
+---@field unit string
+---@field unitFrame PartyFrame_MemberFrame1_ManaBar_unitFrameObject
+local PartyFrame_MemberFrame1_ManaBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:GetNumericDisplay(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:HideStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:InitializeTextStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:OnStatusBarEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:OnStatusBarLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:OnStatusBarMinMaxChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:OnStatusBarValueChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:SetBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:SetBarTextPrefix(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:SetBarTextZeroText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:SetForceShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:ShowStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:TextStatusBarOnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:UpdateTextString(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:UpdateTextStringWithValues(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_ManaBar_CenterTextObject
+local PartyFrame_MemberFrame1_ManaBar_CenterTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_ManaBar_LeftTextObject : FontString
+local PartyFrame_MemberFrame1_ManaBar_LeftTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_ManaBar_ManaBarMaskObject : MaskTexture
+local PartyFrame_MemberFrame1_ManaBar_ManaBarMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_ManaBar_RightTextObject : FontString
+local PartyFrame_MemberFrame1_ManaBar_RightTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_ManaBar_TextStringObject : FontString
+local PartyFrame_MemberFrame1_ManaBar_TextStringObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_ManaBar_TextureObject : Texture
+local PartyFrame_MemberFrame1_ManaBar_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_ManaBar_textureObject
+local PartyFrame_MemberFrame1_ManaBar_textureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_ManaBar_unitFrameObject
+local PartyFrame_MemberFrame1_ManaBar_unitFrameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_NameObject : FontString
+local PartyFrame_MemberFrame1_NameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_NotPresentIconObject : Frame
+---@field Border PartyFrame_MemberFrame1_NotPresentIcon_BorderObject
+---@field smartNavigationIgnored boolean
+---@field texture PartyFrame_MemberFrame1_NotPresentIcon_textureObject
+local PartyFrame_MemberFrame1_NotPresentIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_NotPresentIcon_BorderObject : Texture
+local PartyFrame_MemberFrame1_NotPresentIcon_BorderObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_NotPresentIcon_textureObject : Texture
+local PartyFrame_MemberFrame1_NotPresentIcon_textureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PartyMemberOverlayObject : Frame
+---@field Disconnect PartyFrame_MemberFrame1_PartyMemberOverlay_DisconnectObject
+---@field GuideIcon PartyFrame_MemberFrame1_PartyMemberOverlay_GuideIconObject
+---@field LeaderIcon PartyFrame_MemberFrame1_PartyMemberOverlay_LeaderIconObject
+---@field PVPIcon PartyFrame_MemberFrame1_PartyMemberOverlay_PVPIconObject
+---@field RoleIcon PartyFrame_MemberFrame1_PartyMemberOverlay_RoleIconObject
+---@field Status PartyFrame_MemberFrame1_PartyMemberOverlay_StatusObject
+---@field smartNavigationIgnored boolean
+local PartyFrame_MemberFrame1_PartyMemberOverlayObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PartyMemberOverlay_DisconnectObject : Texture
+local PartyFrame_MemberFrame1_PartyMemberOverlay_DisconnectObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PartyMemberOverlay_GuideIconObject : Texture
+local PartyFrame_MemberFrame1_PartyMemberOverlay_GuideIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PartyMemberOverlay_LeaderIconObject : Texture
+local PartyFrame_MemberFrame1_PartyMemberOverlay_LeaderIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PartyMemberOverlay_PVPIconObject : Texture
+local PartyFrame_MemberFrame1_PartyMemberOverlay_PVPIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PartyMemberOverlay_RoleIconObject : Texture
+local PartyFrame_MemberFrame1_PartyMemberOverlay_RoleIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PartyMemberOverlay_StatusObject : Texture
+local PartyFrame_MemberFrame1_PartyMemberOverlay_StatusObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrameObject : Button
+---@field AuraFrameContainer PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject
+---@field AuraFramePool PartyFrame_MemberFrame1_PetFrame_AuraFramePoolObject
+---@field Flash PartyFrame_MemberFrame1_PetFrame_FlashObject
+---@field HealthBar PartyFrame_MemberFrame1_PetFrame_HealthBarObject
+---@field Name PartyFrame_MemberFrame1_PetFrame_NameObject
+---@field Portrait PartyFrame_MemberFrame1_PetFrame_PortraitObject
+---@field PortraitMask PartyFrame_MemberFrame1_PetFrame_PortraitMaskObject
+---@field Texture PartyFrame_MemberFrame1_PetFrame_TextureObject
+---@field buffs PartyFrame_MemberFrame1_PetFrame_buffsObject
+---@field debuffs PartyFrame_MemberFrame1_PetFrame_debuffsObject
+---@field healthbar PartyFrame_MemberFrame1_PetFrame_healthbarObject
+---@field name PartyFrame_MemberFrame1_PetFrame_nameObject
+---@field noContextActions boolean
+---@field portrait PartyFrame_MemberFrame1_PetFrame_portraitObject
+---@field replacePortraitSettingChangedHandlers table
+---@field threatIndicator PartyFrame_MemberFrame1_PetFrame_threatIndicatorObject
+---@field unit string
+---@field unitToken string
+local PartyFrame_MemberFrame1_PetFrameObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrameObject:OnEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrameObject:OnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrameObject:OnLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrameObject:OnShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrameObject:ParseAllAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrameObject:Setup(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrameObject:UpdateAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrameObject:UpdateAurasInternal(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrameObject:UpdateMemberAuras(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject : Frame
+---@field dirty boolean
+---@field smartNavigationIgnored boolean
+---@field spacing number
+local PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:AddLayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:CalculateFrameSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:ClearFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetAdditionalRegions(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetChildHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetChildPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetChildSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetChildWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetFixedHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetFixedWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetHeightPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetLayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetWidthPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:IsDirty(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:IsLayoutFrame(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:Layout(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:LayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:MarkClean(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:MarkDirty(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:OnCleaned(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:OnShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:OnUpdate(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:SetFixedHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:SetFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:SetFixedWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:SetHeightPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:SetWidthPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_AuraFramePoolObject
+local PartyFrame_MemberFrame1_PetFrame_AuraFramePoolObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFramePoolObject:GetTemplate(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFramePoolObject:private(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_FlashObject
+local PartyFrame_MemberFrame1_PetFrame_FlashObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_HealthBarObject : StatusBar
+---@field capNumericDisplay boolean
+---@field controlsShownState boolean
+---@field currValue number
+---@field disconnected boolean
+---@field forceHideText boolean
+---@field frequentUpdates boolean
+---@field lockShow number
+---@field smartNavigationIgnored boolean
+---@field unit string
+---@field unitFrame PartyFrame_MemberFrame1_PetFrame_HealthBar_unitFrameObject
+local PartyFrame_MemberFrame1_PetFrame_HealthBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:GetNumericDisplay(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:HideStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:InitializeTextStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:OnStatusBarEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:OnStatusBarLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:OnStatusBarMinMaxChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:OnStatusBarValueChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:SetBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:SetBarTextPrefix(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:SetBarTextZeroText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:SetForceShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:ShowStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:TextStatusBarOnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:UpdateTextString(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:UpdateTextStringWithValues(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_HealthBar_unitFrameObject
+local PartyFrame_MemberFrame1_PetFrame_HealthBar_unitFrameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_NameObject : FontString
+local PartyFrame_MemberFrame1_PetFrame_NameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_PortraitObject
+local PartyFrame_MemberFrame1_PetFrame_PortraitObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_PortraitMaskObject : MaskTexture
+local PartyFrame_MemberFrame1_PetFrame_PortraitMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_TextureObject : Texture
+local PartyFrame_MemberFrame1_PetFrame_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_buffsObject
+local PartyFrame_MemberFrame1_PetFrame_buffsObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_buffsObject:Clear(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_buffsObject:Get(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_buffsObject:GetBottom(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_buffsObject:GetTop(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_buffsObject:Iterate(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_buffsObject:Pop(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_buffsObject:Remove(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_buffsObject:Size(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_debuffsObject
+local PartyFrame_MemberFrame1_PetFrame_debuffsObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Clear(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Get(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_debuffsObject:GetBottom(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_debuffsObject:GetTop(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Iterate(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Pop(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Remove(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Size(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_healthbarObject
+local PartyFrame_MemberFrame1_PetFrame_healthbarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_nameObject
+local PartyFrame_MemberFrame1_PetFrame_nameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_portraitObject : Texture
+local PartyFrame_MemberFrame1_PetFrame_portraitObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_threatIndicatorObject : Texture
+---@field feedbackUnit string
+---@field unit string
+local PartyFrame_MemberFrame1_PetFrame_threatIndicatorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PortraitObject : Texture
+local PartyFrame_MemberFrame1_PortraitObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PortraitMaskObject : MaskTexture
+local PartyFrame_MemberFrame1_PortraitMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAltObject : Frame
+---@field background PartyFrame_MemberFrame1_PowerBarAlt_backgroundObject
+---@field counterBar PartyFrame_MemberFrame1_PowerBarAlt_counterBarObject
+---@field fill PartyFrame_MemberFrame1_PowerBarAlt_fillObject
+---@field flash PartyFrame_MemberFrame1_PowerBarAlt_flashObject
+---@field flashAnim PartyFrame_MemberFrame1_PowerBarAlt_flashAnimObject
+---@field flashOutAnim PartyFrame_MemberFrame1_PowerBarAlt_flashOutAnimObject
+---@field frame PartyFrame_MemberFrame1_PowerBarAlt_frameObject
+---@field pillFrames table
+---@field scale number
+---@field smartNavigationIgnored boolean
+---@field spark PartyFrame_MemberFrame1_PowerBarAlt_sparkObject
+---@field statusFrame PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject
+---@field unit string
+---@field updateAllEvent string
+local PartyFrame_MemberFrame1_PowerBarAltObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_backgroundObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_backgroundObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBarObject : Frame
+---@field BG PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGObject
+---@field BGL PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGLObject
+---@field BGR PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGRObject
+---@field artBottom PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artBottomObject
+---@field artTop PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artTopObject
+---@field digit1 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1Object
+---@field digit2 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2Object
+---@field digit3 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3Object
+---@field digit4 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4Object
+---@field digit5 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5Object
+---@field digit6 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6Object
+---@field digit7 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7Object
+---@field unit string
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGLObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGLObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGRObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGRObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artBottomObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artBottomObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artTopObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artTopObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1Object : Frame
+---@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberObject
+---@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberMaskObject
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberMaskObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2Object : Frame
+---@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberObject
+---@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberMaskObject
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberMaskObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3Object : Frame
+---@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberObject
+---@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberMaskObject
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberMaskObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4Object : Frame
+---@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberObject
+---@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberMaskObject
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberMaskObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5Object : Frame
+---@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberObject
+---@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberMaskObject
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberMaskObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6Object : Frame
+---@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberObject
+---@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberMaskObject
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberMaskObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7Object : Frame
+---@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberObject
+---@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberMaskObject
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberMaskObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_fillObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_fillObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_flashObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_flashObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_flashAnimObject : AnimationGroup
+local PartyFrame_MemberFrame1_PowerBarAlt_flashAnimObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_flashOutAnimObject : AnimationGroup
+local PartyFrame_MemberFrame1_PowerBarAlt_flashOutAnimObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_frameObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_frameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_sparkObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_sparkObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject : StatusBar
+---@field alwaysShow number
+---@field cvar string
+---@field cvarLabel string
+---@field lockShow number
+---@field text PartyFrame_MemberFrame1_PowerBarAlt_statusFrame_textObject
+---@field textLockable number
+local PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:GetNumericDisplay(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:HideStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:InitializeTextStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:OnStatusBarEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:OnStatusBarLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:OnStatusBarMinMaxChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:OnStatusBarValueChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:SetBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:SetBarTextPrefix(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:SetBarTextZeroText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:SetForceShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:ShowStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:TextStatusBarOnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:UpdateTextString(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:UpdateTextStringWithValues(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_statusFrame_textObject : FontString
+local PartyFrame_MemberFrame1_PowerBarAlt_statusFrame_textObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_ReadyCheckObject : Frame
+---@field Texture PartyFrame_MemberFrame1_ReadyCheck_TextureObject
+---@field smartNavigationIgnored boolean
+local PartyFrame_MemberFrame1_ReadyCheckObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_ReadyCheck_TextureObject : Texture
+local PartyFrame_MemberFrame1_ReadyCheck_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_ResurrectableIndicatorObject : FontString
+local PartyFrame_MemberFrame1_ResurrectableIndicatorObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_ResurrectableIndicatorObject:OnEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ResurrectableIndicatorObject:OnLeave(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_TextureObject : Texture
+local PartyFrame_MemberFrame1_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_VehicleTextureObject : Texture
+local PartyFrame_MemberFrame1_VehicleTextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_healAbsorbBarObject
+local PartyFrame_MemberFrame1_healAbsorbBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_healthbarObject
+local PartyFrame_MemberFrame1_healthbarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_manabarObject
+local PartyFrame_MemberFrame1_manabarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_myHealPredictionBarObject
+local PartyFrame_MemberFrame1_myHealPredictionBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_nameObject
+local PartyFrame_MemberFrame1_nameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_otherHealPredictionBarObject
+local PartyFrame_MemberFrame1_otherHealPredictionBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_overAbsorbGlowObject
+local PartyFrame_MemberFrame1_overAbsorbGlowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_overHealAbsorbGlowObject
+local PartyFrame_MemberFrame1_overHealAbsorbGlowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_portraitObject
+local PartyFrame_MemberFrame1_portraitObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBarObject : StatusBar
+---@field Texture PartyFrame_MemberFrame1_tempMaxHealthLossBar_TextureObject
+---@field healthBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject
+---@field initialized boolean
+---@field myHealthBarContainer PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainerObject
+local PartyFrame_MemberFrame1_tempMaxHealthLossBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBarObject:InitializeMaxHealthLossBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBarObject:OnMaxHealthModifiersChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBarObject:SetShouldAdjustHealthBarAnchor(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBarObject:Update_MaxHealthLoss(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_TextureObject : Texture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject : StatusBar
+---@field Background PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_BackgroundObject
+---@field HealAbsorbBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject
+---@field HealthBarTexture PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealthBarTextureObject
+---@field LeftText PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_LeftTextObject
+---@field MyHealPredictionBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject
+---@field OtherHealPredictionBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject
+---@field OverAbsorbGlow PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject
+---@field OverHealAbsorbGlow PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject
+---@field RightText PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_RightTextObject
+---@field TextString PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TextStringObject
+---@field TotalAbsorbBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject
+---@field capNumericDisplay boolean
+---@field controlsShownState boolean
+---@field currValue number
+---@field cvar string
+---@field cvarLabel string
+---@field disconnected boolean
+---@field forceHideText boolean
+---@field frequentUpdates boolean
+---@field lockColor boolean
+---@field lockShow number
+---@field partyFrame PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_partyFrameObject
+---@field textLockable number
+---@field unit string
+---@field unitFrame PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_unitFrameObject
+---@field zeroText string
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:GetNumericDisplay(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:HideStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:InitializeTextStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:OnStatusBarEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:OnStatusBarLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:OnStatusBarMinMaxChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:OnStatusBarValueChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:SetBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:SetBarTextPrefix(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:SetBarTextZeroText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:SetForceShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:ShowStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:TextStatusBarOnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:UpdateTextString(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:UpdateTextStringWithValues(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_BackgroundObject : Texture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_BackgroundObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject : Frame
+---@field Fill PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject
+---@field FillMask PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject
+---@field LeftShadow PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject
+---@field RightShadow PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject
+---@field fillAtlas string
+---@field fillColor PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject
+---@field fillOverlays table
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:Initialize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:OnLoad(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:SetFillColor(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:SetStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:UpdateFillPosition(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject : Texture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject : MaskTexture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject : Texture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject : Texture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealthBarTextureObject : Texture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealthBarTextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_LeftTextObject : FontString
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_LeftTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject : Frame
+---@field Fill PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject
+---@field FillMask PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject
+---@field fillAtlas string
+---@field fillColor PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject
+---@field initialized boolean
+---@field statusBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:Initialize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:OnLoad(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:SetFillColor(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:SetStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:UpdateFillPosition(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject : Texture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject : MaskTexture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject : Frame
+---@field Fill PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject
+---@field FillMask PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject
+---@field fillAtlas string
+---@field fillColor PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject
+---@field initialized boolean
+---@field statusBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:Initialize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:OnLoad(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:SetFillColor(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:SetStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:UpdateFillPosition(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject : Texture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject : MaskTexture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject : Texture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject : Texture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_RightTextObject : FontString
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_RightTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TextStringObject : FontString
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TextStringObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject : Frame
+---@field Fill PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject
+---@field FillMask PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject
+---@field TiledFillOverlay PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject
+---@field fillAtlas string
+---@field fillColor PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject
+---@field fillOverlays table
+---@field initialized boolean
+---@field statusBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject
+---@field tiledFillOverlaySize number
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:Initialize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:OnLoad(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:SetFillColor(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:SetStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:UpdateFillPosition(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject : Texture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject : MaskTexture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject : Texture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_partyFrameObject
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_partyFrameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_unitFrameObject
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_unitFrameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainerObject : Frame
+---@field CenterText PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject
+---@field HealthBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject
+---@field HealthBarMask PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject
+---@field LeftText PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject
+---@field RightText PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject
+---@field TempMaxHealthLoss PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject
+---@field smartNavigationIgnored boolean
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainerObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject : MaskTexture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_threatIndicatorObject : Texture
+---@field feedbackUnit string
+---@field unit string
+local PartyFrame_MemberFrame1_threatIndicatorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_totalAbsorbBarObject
+local PartyFrame_MemberFrame1_totalAbsorbBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2Object : Button
+---@field ArtLayoutInfo PartyFrame_MemberFrame2_ArtLayoutInfoObject
+---@field AuraFrameContainer PartyFrame_MemberFrame2_AuraFrameContainerObject
+---@field AuraFramePool PartyFrame_MemberFrame2_AuraFramePoolObject
+---@field Flash PartyFrame_MemberFrame2_FlashObject
+---@field HealthBarContainer PartyFrame_MemberFrame2_HealthBarContainerObject
+---@field ManaBar PartyFrame_MemberFrame2_ManaBarObject
+---@field Name PartyFrame_MemberFrame2_NameObject
+---@field NotPresentIcon PartyFrame_MemberFrame2_NotPresentIconObject
+---@field PartyMemberOverlay PartyFrame_MemberFrame2_PartyMemberOverlayObject
+---@field PetFrame PartyFrame_MemberFrame2_PetFrameObject
+---@field Portrait PartyFrame_MemberFrame2_PortraitObject
+---@field PortraitMask PartyFrame_MemberFrame2_PortraitMaskObject
+---@field PowerBarAlt PartyFrame_MemberFrame2_PowerBarAltObject
+---@field ReadyCheck PartyFrame_MemberFrame2_ReadyCheckObject
+---@field ResurrectableIndicator PartyFrame_MemberFrame2_ResurrectableIndicatorObject
+---@field Texture PartyFrame_MemberFrame2_TextureObject
+---@field VehicleTexture PartyFrame_MemberFrame2_VehicleTextureObject
+---@field debuffCountdown number
+---@field frameType string
+---@field healAbsorbBar PartyFrame_MemberFrame2_healAbsorbBarObject
+---@field healthbar PartyFrame_MemberFrame2_healthbarObject
+---@field initialized boolean
+---@field layoutIndex number
+---@field manabar PartyFrame_MemberFrame2_manabarObject
+---@field myHealPredictionBar PartyFrame_MemberFrame2_myHealPredictionBarObject
+---@field name PartyFrame_MemberFrame2_nameObject
+---@field noContextActions boolean
+---@field numDebuffs number
+---@field otherHealPredictionBar PartyFrame_MemberFrame2_otherHealPredictionBarObject
+---@field overAbsorbGlow PartyFrame_MemberFrame2_overAbsorbGlowObject
+---@field overHealAbsorbGlow PartyFrame_MemberFrame2_overHealAbsorbGlowObject
+---@field petUnitToken string
+---@field portrait PartyFrame_MemberFrame2_portraitObject
+---@field replacePortraitSettingChangedHandlers table
+---@field state string
+---@field statusCounter number
+---@field statusSign number
+---@field tempMaxHealthLossBar PartyFrame_MemberFrame2_tempMaxHealthLossBarObject
+---@field threatIndicator PartyFrame_MemberFrame2_threatIndicatorObject
+---@field totalAbsorbBar PartyFrame_MemberFrame2_totalAbsorbBarObject
+---@field unit string
+---@field unitHPPercent number
+---@field unitToken string
+local PartyFrame_MemberFrame2Object = {}
+---@return any ...
+function PartyFrame_MemberFrame2Object:GetAllowRadialWheel(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:GetIsPingable(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:GetTargetInfo(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:GetUnit(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:OnEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:OnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:OnLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:OnUpdate(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:ParseAllAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:PartyMemberHealthCheck(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:Setup(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:ToCharacterStyleArt(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:ToPlayerArt(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:ToVehicleArt(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:UpdateArt(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:UpdateAssignedRoles(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:UpdateAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:UpdateAurasInternal(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:UpdateHealthBarTextAnchors(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:UpdateLeader(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:UpdateManaBarTextAnchors(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:UpdateMember(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:UpdateMemberAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:UpdateMemberHealth(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:UpdateNameTextAnchors(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:UpdateNotPresentIcon(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:UpdateOnlineStatus(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:UpdatePet(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:UpdatePingAttributes(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:UpdatePvPStatus(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:UpdateReadyCheck(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:UpdateVoiceActivityNotification(...) end
+---@return any ...
+function PartyFrame_MemberFrame2Object:VoiceActivityNotificationCreatedCallback(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame2_ArtLayoutInfoObject
+local PartyFrame_MemberFrame2_ArtLayoutInfoObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_AuraFrameContainerObject : Frame
+---@field spacing number
+local PartyFrame_MemberFrame2_AuraFrameContainerObject = {}
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:AddLayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:CalculateFrameSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:ClearFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetAdditionalRegions(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetChildHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetChildPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetChildSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetChildWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetFixedHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetFixedWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetHeightPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetLayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetWidthPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:IsDirty(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:IsLayoutFrame(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:Layout(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:LayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:MarkClean(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:MarkDirty(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:OnCleaned(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:OnShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:OnUpdate(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:SetFixedHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:SetFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:SetFixedWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:SetHeightPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:SetWidthPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFrameContainerObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame2_AuraFramePoolObject
+local PartyFrame_MemberFrame2_AuraFramePoolObject = {}
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFramePoolObject:GetTemplate(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_AuraFramePoolObject:private(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame2_FlashObject
+local PartyFrame_MemberFrame2_FlashObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_HealthBarContainerObject
+local PartyFrame_MemberFrame2_HealthBarContainerObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_ManaBarObject : StatusBar
+---@field CenterText PartyFrame_MemberFrame2_ManaBar_CenterTextObject
+---@field LeftText PartyFrame_MemberFrame2_ManaBar_LeftTextObject
+---@field ManaBarMask PartyFrame_MemberFrame2_ManaBar_ManaBarMaskObject
+---@field RightText PartyFrame_MemberFrame2_ManaBar_RightTextObject
+---@field TextString PartyFrame_MemberFrame2_ManaBar_TextStringObject
+---@field Texture PartyFrame_MemberFrame2_ManaBar_TextureObject
+---@field capNumericDisplay boolean
+---@field controlsShownState boolean
+---@field currValue number
+---@field cvar string
+---@field cvarLabel string
+---@field disconnected boolean
+---@field frequentUpdates boolean
+---@field lockColor boolean
+---@field lockShow number
+---@field smartNavigationIgnored boolean
+---@field textLockable number
+---@field texture PartyFrame_MemberFrame2_ManaBar_textureObject
+---@field unit string
+---@field unitFrame PartyFrame_MemberFrame2_ManaBar_unitFrameObject
+local PartyFrame_MemberFrame2_ManaBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame2_ManaBarObject:GetNumericDisplay(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_ManaBarObject:HideStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_ManaBarObject:InitializeTextStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_ManaBarObject:OnStatusBarEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_ManaBarObject:OnStatusBarLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_ManaBarObject:OnStatusBarMinMaxChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_ManaBarObject:OnStatusBarValueChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_ManaBarObject:SetBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_ManaBarObject:SetBarTextPrefix(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_ManaBarObject:SetBarTextZeroText(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_ManaBarObject:SetForceShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_ManaBarObject:ShowStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_ManaBarObject:TextStatusBarOnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_ManaBarObject:UpdateTextString(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_ManaBarObject:UpdateTextStringWithValues(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame2_ManaBar_CenterTextObject
+local PartyFrame_MemberFrame2_ManaBar_CenterTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_ManaBar_LeftTextObject : FontString
+local PartyFrame_MemberFrame2_ManaBar_LeftTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_ManaBar_ManaBarMaskObject : MaskTexture
+local PartyFrame_MemberFrame2_ManaBar_ManaBarMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_ManaBar_RightTextObject : FontString
+local PartyFrame_MemberFrame2_ManaBar_RightTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_ManaBar_TextStringObject : FontString
+local PartyFrame_MemberFrame2_ManaBar_TextStringObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_ManaBar_TextureObject : Texture
+local PartyFrame_MemberFrame2_ManaBar_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_ManaBar_textureObject
+local PartyFrame_MemberFrame2_ManaBar_textureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_ManaBar_unitFrameObject
+local PartyFrame_MemberFrame2_ManaBar_unitFrameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_NameObject : FontString
+local PartyFrame_MemberFrame2_NameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_NotPresentIconObject : Frame
+---@field Border PartyFrame_MemberFrame2_NotPresentIcon_BorderObject
+---@field smartNavigationIgnored boolean
+---@field texture PartyFrame_MemberFrame2_NotPresentIcon_textureObject
+local PartyFrame_MemberFrame2_NotPresentIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_NotPresentIcon_BorderObject : Texture
+local PartyFrame_MemberFrame2_NotPresentIcon_BorderObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_NotPresentIcon_textureObject : Texture
+local PartyFrame_MemberFrame2_NotPresentIcon_textureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PartyMemberOverlayObject : Frame
+---@field Disconnect PartyFrame_MemberFrame2_PartyMemberOverlay_DisconnectObject
+---@field GuideIcon PartyFrame_MemberFrame2_PartyMemberOverlay_GuideIconObject
+---@field LeaderIcon PartyFrame_MemberFrame2_PartyMemberOverlay_LeaderIconObject
+---@field PVPIcon PartyFrame_MemberFrame2_PartyMemberOverlay_PVPIconObject
+---@field RoleIcon PartyFrame_MemberFrame2_PartyMemberOverlay_RoleIconObject
+---@field Status PartyFrame_MemberFrame2_PartyMemberOverlay_StatusObject
+---@field smartNavigationIgnored boolean
+local PartyFrame_MemberFrame2_PartyMemberOverlayObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PartyMemberOverlay_DisconnectObject : Texture
+local PartyFrame_MemberFrame2_PartyMemberOverlay_DisconnectObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PartyMemberOverlay_GuideIconObject : Texture
+local PartyFrame_MemberFrame2_PartyMemberOverlay_GuideIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PartyMemberOverlay_LeaderIconObject : Texture
+local PartyFrame_MemberFrame2_PartyMemberOverlay_LeaderIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PartyMemberOverlay_PVPIconObject : Texture
+local PartyFrame_MemberFrame2_PartyMemberOverlay_PVPIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PartyMemberOverlay_RoleIconObject : Texture
+local PartyFrame_MemberFrame2_PartyMemberOverlay_RoleIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PartyMemberOverlay_StatusObject : Texture
+local PartyFrame_MemberFrame2_PartyMemberOverlay_StatusObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PetFrameObject : Button
+---@field AuraFrameContainer PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject
+---@field AuraFramePool PartyFrame_MemberFrame2_PetFrame_AuraFramePoolObject
+---@field Flash PartyFrame_MemberFrame2_PetFrame_FlashObject
+---@field HealthBar PartyFrame_MemberFrame2_PetFrame_HealthBarObject
+---@field Name PartyFrame_MemberFrame2_PetFrame_NameObject
+---@field Portrait PartyFrame_MemberFrame2_PetFrame_PortraitObject
+---@field PortraitMask PartyFrame_MemberFrame2_PetFrame_PortraitMaskObject
+---@field Texture PartyFrame_MemberFrame2_PetFrame_TextureObject
+---@field buffs PartyFrame_MemberFrame2_PetFrame_buffsObject
+---@field debuffs PartyFrame_MemberFrame2_PetFrame_debuffsObject
+---@field healthbar PartyFrame_MemberFrame2_PetFrame_healthbarObject
+---@field name PartyFrame_MemberFrame2_PetFrame_nameObject
+---@field noContextActions boolean
+---@field portrait PartyFrame_MemberFrame2_PetFrame_portraitObject
+---@field replacePortraitSettingChangedHandlers table
+---@field threatIndicator PartyFrame_MemberFrame2_PetFrame_threatIndicatorObject
+---@field unit string
+---@field unitToken string
+local PartyFrame_MemberFrame2_PetFrameObject = {}
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrameObject:OnEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrameObject:OnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrameObject:OnLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrameObject:OnShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrameObject:ParseAllAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrameObject:Setup(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrameObject:UpdateAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrameObject:UpdateAurasInternal(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrameObject:UpdateMemberAuras(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject : Frame
+---@field dirty boolean
+---@field smartNavigationIgnored boolean
+---@field spacing number
+local PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject = {}
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:AddLayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:CalculateFrameSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:ClearFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetAdditionalRegions(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetChildHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetChildPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetChildSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetChildWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetFixedHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetFixedWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetHeightPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetLayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetWidthPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:IsDirty(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:IsLayoutFrame(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:Layout(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:LayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:MarkClean(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:MarkDirty(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:OnCleaned(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:OnShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:OnUpdate(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:SetFixedHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:SetFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:SetFixedWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:SetHeightPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:SetWidthPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame2_PetFrame_AuraFramePoolObject
+local PartyFrame_MemberFrame2_PetFrame_AuraFramePoolObject = {}
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFramePoolObject:GetTemplate(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_AuraFramePoolObject:private(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame2_PetFrame_FlashObject
+local PartyFrame_MemberFrame2_PetFrame_FlashObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PetFrame_HealthBarObject : StatusBar
+---@field capNumericDisplay boolean
+---@field controlsShownState boolean
+---@field currValue number
+---@field disconnected boolean
+---@field forceHideText boolean
+---@field frequentUpdates boolean
+---@field lockShow number
+---@field smartNavigationIgnored boolean
+---@field unit string
+---@field unitFrame PartyFrame_MemberFrame2_PetFrame_HealthBar_unitFrameObject
+local PartyFrame_MemberFrame2_PetFrame_HealthBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:GetNumericDisplay(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:HideStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:InitializeTextStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:OnStatusBarEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:OnStatusBarLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:OnStatusBarMinMaxChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:OnStatusBarValueChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:SetBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:SetBarTextPrefix(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:SetBarTextZeroText(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:SetForceShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:ShowStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:TextStatusBarOnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:UpdateTextString(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:UpdateTextStringWithValues(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame2_PetFrame_HealthBar_unitFrameObject
+local PartyFrame_MemberFrame2_PetFrame_HealthBar_unitFrameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PetFrame_NameObject : FontString
+local PartyFrame_MemberFrame2_PetFrame_NameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PetFrame_PortraitObject
+local PartyFrame_MemberFrame2_PetFrame_PortraitObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PetFrame_PortraitMaskObject : MaskTexture
+local PartyFrame_MemberFrame2_PetFrame_PortraitMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PetFrame_TextureObject : Texture
+local PartyFrame_MemberFrame2_PetFrame_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PetFrame_buffsObject
+local PartyFrame_MemberFrame2_PetFrame_buffsObject = {}
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_buffsObject:Clear(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_buffsObject:Get(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_buffsObject:GetBottom(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_buffsObject:GetTop(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_buffsObject:Iterate(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_buffsObject:Pop(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_buffsObject:Remove(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_buffsObject:Size(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame2_PetFrame_debuffsObject
+local PartyFrame_MemberFrame2_PetFrame_debuffsObject = {}
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_debuffsObject:Clear(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_debuffsObject:Get(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_debuffsObject:GetBottom(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_debuffsObject:GetTop(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_debuffsObject:Iterate(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_debuffsObject:Pop(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_debuffsObject:Remove(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PetFrame_debuffsObject:Size(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame2_PetFrame_healthbarObject
+local PartyFrame_MemberFrame2_PetFrame_healthbarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PetFrame_nameObject
+local PartyFrame_MemberFrame2_PetFrame_nameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PetFrame_portraitObject : Texture
+local PartyFrame_MemberFrame2_PetFrame_portraitObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PetFrame_threatIndicatorObject : Texture
+---@field feedbackUnit string
+---@field unit string
+local PartyFrame_MemberFrame2_PetFrame_threatIndicatorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PortraitObject : Texture
+local PartyFrame_MemberFrame2_PortraitObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PortraitMaskObject : MaskTexture
+local PartyFrame_MemberFrame2_PortraitMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAltObject : Frame
+---@field background PartyFrame_MemberFrame2_PowerBarAlt_backgroundObject
+---@field counterBar PartyFrame_MemberFrame2_PowerBarAlt_counterBarObject
+---@field fill PartyFrame_MemberFrame2_PowerBarAlt_fillObject
+---@field flash PartyFrame_MemberFrame2_PowerBarAlt_flashObject
+---@field flashAnim PartyFrame_MemberFrame2_PowerBarAlt_flashAnimObject
+---@field flashOutAnim PartyFrame_MemberFrame2_PowerBarAlt_flashOutAnimObject
+---@field frame PartyFrame_MemberFrame2_PowerBarAlt_frameObject
+---@field pillFrames table
+---@field scale number
+---@field smartNavigationIgnored boolean
+---@field spark PartyFrame_MemberFrame2_PowerBarAlt_sparkObject
+---@field statusFrame PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject
+---@field unit string
+---@field updateAllEvent string
+local PartyFrame_MemberFrame2_PowerBarAltObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_backgroundObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_backgroundObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBarObject : Frame
+---@field BG PartyFrame_MemberFrame2_PowerBarAlt_counterBar_BGObject
+---@field BGL PartyFrame_MemberFrame2_PowerBarAlt_counterBar_BGLObject
+---@field BGR PartyFrame_MemberFrame2_PowerBarAlt_counterBar_BGRObject
+---@field artBottom PartyFrame_MemberFrame2_PowerBarAlt_counterBar_artBottomObject
+---@field artTop PartyFrame_MemberFrame2_PowerBarAlt_counterBar_artTopObject
+---@field digit1 PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit1Object
+---@field digit2 PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit2Object
+---@field digit3 PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit3Object
+---@field digit4 PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit4Object
+---@field digit5 PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit5Object
+---@field digit6 PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit6Object
+---@field digit7 PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit7Object
+---@field unit string
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_BGObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_BGObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_BGLObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_BGLObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_BGRObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_BGRObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_artBottomObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_artBottomObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_artTopObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_artTopObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit1Object : Frame
+---@field number PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit1_numberObject
+---@field numberMask PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit1_numberMaskObject
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit1Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit1_numberObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit1_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit1_numberMaskObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit1_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit2Object : Frame
+---@field number PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit2_numberObject
+---@field numberMask PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit2_numberMaskObject
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit2Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit2_numberObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit2_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit2_numberMaskObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit2_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit3Object : Frame
+---@field number PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit3_numberObject
+---@field numberMask PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit3_numberMaskObject
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit3Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit3_numberObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit3_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit3_numberMaskObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit3_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit4Object : Frame
+---@field number PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit4_numberObject
+---@field numberMask PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit4_numberMaskObject
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit4Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit4_numberObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit4_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit4_numberMaskObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit4_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit5Object : Frame
+---@field number PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit5_numberObject
+---@field numberMask PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit5_numberMaskObject
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit5Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit5_numberObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit5_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit5_numberMaskObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit5_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit6Object : Frame
+---@field number PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit6_numberObject
+---@field numberMask PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit6_numberMaskObject
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit6Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit6_numberObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit6_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit6_numberMaskObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit6_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit7Object : Frame
+---@field number PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit7_numberObject
+---@field numberMask PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit7_numberMaskObject
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit7Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit7_numberObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit7_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit7_numberMaskObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit7_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_fillObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_fillObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_flashObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_flashObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_flashAnimObject : AnimationGroup
+local PartyFrame_MemberFrame2_PowerBarAlt_flashAnimObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_flashOutAnimObject : AnimationGroup
+local PartyFrame_MemberFrame2_PowerBarAlt_flashOutAnimObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_frameObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_frameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_sparkObject : Texture
+local PartyFrame_MemberFrame2_PowerBarAlt_sparkObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject : StatusBar
+---@field alwaysShow number
+---@field cvar string
+---@field cvarLabel string
+---@field lockShow number
+---@field text PartyFrame_MemberFrame2_PowerBarAlt_statusFrame_textObject
+---@field textLockable number
+local PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject = {}
+---@return any ...
+function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:GetNumericDisplay(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:HideStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:InitializeTextStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:OnStatusBarEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:OnStatusBarLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:OnStatusBarMinMaxChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:OnStatusBarValueChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:SetBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:SetBarTextPrefix(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:SetBarTextZeroText(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:SetForceShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:ShowStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:TextStatusBarOnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:UpdateTextString(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:UpdateTextStringWithValues(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame2_PowerBarAlt_statusFrame_textObject : FontString
+local PartyFrame_MemberFrame2_PowerBarAlt_statusFrame_textObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_ReadyCheckObject : Frame
+---@field Texture PartyFrame_MemberFrame2_ReadyCheck_TextureObject
+---@field smartNavigationIgnored boolean
+local PartyFrame_MemberFrame2_ReadyCheckObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_ReadyCheck_TextureObject : Texture
+local PartyFrame_MemberFrame2_ReadyCheck_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_ResurrectableIndicatorObject : FontString
+local PartyFrame_MemberFrame2_ResurrectableIndicatorObject = {}
+---@return any ...
+function PartyFrame_MemberFrame2_ResurrectableIndicatorObject:OnEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_ResurrectableIndicatorObject:OnLeave(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame2_TextureObject : Texture
+local PartyFrame_MemberFrame2_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_VehicleTextureObject : Texture
+local PartyFrame_MemberFrame2_VehicleTextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_healAbsorbBarObject
+local PartyFrame_MemberFrame2_healAbsorbBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_healthbarObject
+local PartyFrame_MemberFrame2_healthbarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_manabarObject
+local PartyFrame_MemberFrame2_manabarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_myHealPredictionBarObject
+local PartyFrame_MemberFrame2_myHealPredictionBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_nameObject
+local PartyFrame_MemberFrame2_nameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_otherHealPredictionBarObject
+local PartyFrame_MemberFrame2_otherHealPredictionBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_overAbsorbGlowObject
+local PartyFrame_MemberFrame2_overAbsorbGlowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_overHealAbsorbGlowObject
+local PartyFrame_MemberFrame2_overHealAbsorbGlowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_portraitObject
+local PartyFrame_MemberFrame2_portraitObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBarObject : StatusBar
+---@field Texture PartyFrame_MemberFrame2_tempMaxHealthLossBar_TextureObject
+---@field healthBar PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject
+---@field initialized boolean
+---@field myHealthBarContainer PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainerObject
+local PartyFrame_MemberFrame2_tempMaxHealthLossBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBarObject:InitializeMaxHealthLossBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBarObject:OnMaxHealthModifiersChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBarObject:SetShouldAdjustHealthBarAnchor(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBarObject:Update_MaxHealthLoss(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_TextureObject : Texture
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject : StatusBar
+---@field Background PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_BackgroundObject
+---@field HealAbsorbBar PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject
+---@field HealthBarTexture PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealthBarTextureObject
+---@field LeftText PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_LeftTextObject
+---@field MyHealPredictionBar PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject
+---@field OtherHealPredictionBar PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject
+---@field OverAbsorbGlow PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject
+---@field OverHealAbsorbGlow PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject
+---@field RightText PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_RightTextObject
+---@field TextString PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TextStringObject
+---@field TotalAbsorbBar PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject
+---@field capNumericDisplay boolean
+---@field controlsShownState boolean
+---@field currValue number
+---@field cvar string
+---@field cvarLabel string
+---@field disconnected boolean
+---@field forceHideText boolean
+---@field frequentUpdates boolean
+---@field lockColor boolean
+---@field lockShow number
+---@field partyFrame PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_partyFrameObject
+---@field textLockable number
+---@field unit string
+---@field unitFrame PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_unitFrameObject
+---@field zeroText string
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:GetNumericDisplay(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:HideStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:InitializeTextStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:OnStatusBarEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:OnStatusBarLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:OnStatusBarMinMaxChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:OnStatusBarValueChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:SetBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:SetBarTextPrefix(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:SetBarTextZeroText(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:SetForceShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:ShowStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:TextStatusBarOnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:UpdateTextString(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:UpdateTextStringWithValues(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_BackgroundObject : Texture
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_BackgroundObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject : Frame
+---@field Fill PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject
+---@field FillMask PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject
+---@field LeftShadow PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject
+---@field RightShadow PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject
+---@field fillAtlas string
+---@field fillColor PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject
+---@field fillOverlays table
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:Initialize(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:OnLoad(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:SetFillColor(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:SetStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:UpdateFillPosition(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject : Texture
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject : MaskTexture
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject : Texture
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject : Texture
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealthBarTextureObject : Texture
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealthBarTextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_LeftTextObject : FontString
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_LeftTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject : Frame
+---@field Fill PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject
+---@field FillMask PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject
+---@field fillAtlas string
+---@field fillColor PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject
+---@field initialized boolean
+---@field statusBar PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:Initialize(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:OnLoad(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:SetFillColor(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:SetStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:UpdateFillPosition(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject : Texture
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject : MaskTexture
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject : Frame
+---@field Fill PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject
+---@field FillMask PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject
+---@field fillAtlas string
+---@field fillColor PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject
+---@field initialized boolean
+---@field statusBar PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:Initialize(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:OnLoad(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:SetFillColor(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:SetStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:UpdateFillPosition(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject : Texture
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject : MaskTexture
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject : Texture
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject : Texture
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_RightTextObject : FontString
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_RightTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TextStringObject : FontString
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TextStringObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject : Frame
+---@field Fill PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject
+---@field FillMask PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject
+---@field TiledFillOverlay PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject
+---@field fillAtlas string
+---@field fillColor PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject
+---@field fillOverlays table
+---@field initialized boolean
+---@field statusBar PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject
+---@field tiledFillOverlaySize number
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:Initialize(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:OnLoad(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:SetFillColor(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:SetStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:UpdateFillPosition(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject : Texture
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject : MaskTexture
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject : Texture
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_partyFrameObject
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_partyFrameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_unitFrameObject
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_unitFrameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainerObject : Frame
+---@field CenterText PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject
+---@field HealthBar PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject
+---@field HealthBarMask PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject
+---@field LeftText PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject
+---@field RightText PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject
+---@field TempMaxHealthLoss PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject
+---@field smartNavigationIgnored boolean
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainerObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject : MaskTexture
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject
+local PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_threatIndicatorObject : Texture
+---@field feedbackUnit string
+---@field unit string
+local PartyFrame_MemberFrame2_threatIndicatorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame2_totalAbsorbBarObject
+local PartyFrame_MemberFrame2_totalAbsorbBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3Object : Button
+---@field ArtLayoutInfo PartyFrame_MemberFrame3_ArtLayoutInfoObject
+---@field AuraFrameContainer PartyFrame_MemberFrame3_AuraFrameContainerObject
+---@field AuraFramePool PartyFrame_MemberFrame3_AuraFramePoolObject
+---@field Flash PartyFrame_MemberFrame3_FlashObject
+---@field HealthBarContainer PartyFrame_MemberFrame3_HealthBarContainerObject
+---@field ManaBar PartyFrame_MemberFrame3_ManaBarObject
+---@field Name PartyFrame_MemberFrame3_NameObject
+---@field NotPresentIcon PartyFrame_MemberFrame3_NotPresentIconObject
+---@field PartyMemberOverlay PartyFrame_MemberFrame3_PartyMemberOverlayObject
+---@field PetFrame PartyFrame_MemberFrame3_PetFrameObject
+---@field Portrait PartyFrame_MemberFrame3_PortraitObject
+---@field PortraitMask PartyFrame_MemberFrame3_PortraitMaskObject
+---@field PowerBarAlt PartyFrame_MemberFrame3_PowerBarAltObject
+---@field ReadyCheck PartyFrame_MemberFrame3_ReadyCheckObject
+---@field ResurrectableIndicator PartyFrame_MemberFrame3_ResurrectableIndicatorObject
+---@field Texture PartyFrame_MemberFrame3_TextureObject
+---@field VehicleTexture PartyFrame_MemberFrame3_VehicleTextureObject
+---@field debuffCountdown number
+---@field frameType string
+---@field healAbsorbBar PartyFrame_MemberFrame3_healAbsorbBarObject
+---@field healthbar PartyFrame_MemberFrame3_healthbarObject
+---@field initialized boolean
+---@field layoutIndex number
+---@field manabar PartyFrame_MemberFrame3_manabarObject
+---@field myHealPredictionBar PartyFrame_MemberFrame3_myHealPredictionBarObject
+---@field name PartyFrame_MemberFrame3_nameObject
+---@field noContextActions boolean
+---@field numDebuffs number
+---@field otherHealPredictionBar PartyFrame_MemberFrame3_otherHealPredictionBarObject
+---@field overAbsorbGlow PartyFrame_MemberFrame3_overAbsorbGlowObject
+---@field overHealAbsorbGlow PartyFrame_MemberFrame3_overHealAbsorbGlowObject
+---@field petUnitToken string
+---@field portrait PartyFrame_MemberFrame3_portraitObject
+---@field replacePortraitSettingChangedHandlers table
+---@field state string
+---@field statusCounter number
+---@field statusSign number
+---@field tempMaxHealthLossBar PartyFrame_MemberFrame3_tempMaxHealthLossBarObject
+---@field threatIndicator PartyFrame_MemberFrame3_threatIndicatorObject
+---@field totalAbsorbBar PartyFrame_MemberFrame3_totalAbsorbBarObject
+---@field unit string
+---@field unitHPPercent number
+---@field unitToken string
+local PartyFrame_MemberFrame3Object = {}
+---@return any ...
+function PartyFrame_MemberFrame3Object:GetAllowRadialWheel(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:GetIsPingable(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:GetTargetInfo(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:GetUnit(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:OnEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:OnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:OnLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:OnUpdate(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:ParseAllAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:PartyMemberHealthCheck(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:Setup(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:ToCharacterStyleArt(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:ToPlayerArt(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:ToVehicleArt(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:UpdateArt(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:UpdateAssignedRoles(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:UpdateAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:UpdateAurasInternal(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:UpdateHealthBarTextAnchors(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:UpdateLeader(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:UpdateManaBarTextAnchors(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:UpdateMember(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:UpdateMemberAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:UpdateMemberHealth(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:UpdateNameTextAnchors(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:UpdateNotPresentIcon(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:UpdateOnlineStatus(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:UpdatePet(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:UpdatePingAttributes(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:UpdatePvPStatus(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:UpdateReadyCheck(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:UpdateVoiceActivityNotification(...) end
+---@return any ...
+function PartyFrame_MemberFrame3Object:VoiceActivityNotificationCreatedCallback(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame3_ArtLayoutInfoObject
+---@field Character table
+---@field Player table
+---@field Vehicle table
+local PartyFrame_MemberFrame3_ArtLayoutInfoObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_AuraFrameContainerObject : Frame
+---@field spacing number
+local PartyFrame_MemberFrame3_AuraFrameContainerObject = {}
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:AddLayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:CalculateFrameSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:ClearFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetAdditionalRegions(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetChildHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetChildPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetChildSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetChildWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetFixedHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetFixedWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetHeightPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetLayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetWidthPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:IsDirty(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:IsLayoutFrame(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:Layout(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:LayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:MarkClean(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:MarkDirty(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:OnCleaned(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:OnShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:OnUpdate(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:SetFixedHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:SetFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:SetFixedWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:SetHeightPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:SetWidthPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFrameContainerObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame3_AuraFramePoolObject
+local PartyFrame_MemberFrame3_AuraFramePoolObject = {}
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFramePoolObject:GetTemplate(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_AuraFramePoolObject:private(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame3_FlashObject
+local PartyFrame_MemberFrame3_FlashObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_HealthBarContainerObject
+local PartyFrame_MemberFrame3_HealthBarContainerObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_ManaBarObject : StatusBar
+---@field CenterText PartyFrame_MemberFrame3_ManaBar_CenterTextObject
+---@field LeftText PartyFrame_MemberFrame3_ManaBar_LeftTextObject
+---@field ManaBarMask PartyFrame_MemberFrame3_ManaBar_ManaBarMaskObject
+---@field RightText PartyFrame_MemberFrame3_ManaBar_RightTextObject
+---@field TextString PartyFrame_MemberFrame3_ManaBar_TextStringObject
+---@field Texture PartyFrame_MemberFrame3_ManaBar_TextureObject
+---@field capNumericDisplay boolean
+---@field controlsShownState boolean
+---@field currValue number
+---@field cvar string
+---@field cvarLabel string
+---@field disconnected boolean
+---@field frequentUpdates boolean
+---@field lockColor boolean
+---@field lockShow number
+---@field smartNavigationIgnored boolean
+---@field textLockable number
+---@field texture PartyFrame_MemberFrame3_ManaBar_textureObject
+---@field unit string
+---@field unitFrame PartyFrame_MemberFrame3_ManaBar_unitFrameObject
+local PartyFrame_MemberFrame3_ManaBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame3_ManaBarObject:GetNumericDisplay(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_ManaBarObject:HideStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_ManaBarObject:InitializeTextStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_ManaBarObject:OnStatusBarEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_ManaBarObject:OnStatusBarLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_ManaBarObject:OnStatusBarMinMaxChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_ManaBarObject:OnStatusBarValueChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_ManaBarObject:SetBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_ManaBarObject:SetBarTextPrefix(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_ManaBarObject:SetBarTextZeroText(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_ManaBarObject:SetForceShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_ManaBarObject:ShowStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_ManaBarObject:TextStatusBarOnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_ManaBarObject:UpdateTextString(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_ManaBarObject:UpdateTextStringWithValues(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame3_ManaBar_CenterTextObject
+local PartyFrame_MemberFrame3_ManaBar_CenterTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_ManaBar_LeftTextObject : FontString
+local PartyFrame_MemberFrame3_ManaBar_LeftTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_ManaBar_ManaBarMaskObject : MaskTexture
+local PartyFrame_MemberFrame3_ManaBar_ManaBarMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_ManaBar_RightTextObject : FontString
+local PartyFrame_MemberFrame3_ManaBar_RightTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_ManaBar_TextStringObject : FontString
+local PartyFrame_MemberFrame3_ManaBar_TextStringObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_ManaBar_TextureObject : Texture
+local PartyFrame_MemberFrame3_ManaBar_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_ManaBar_textureObject
+local PartyFrame_MemberFrame3_ManaBar_textureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_ManaBar_unitFrameObject
+local PartyFrame_MemberFrame3_ManaBar_unitFrameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_NameObject : FontString
+local PartyFrame_MemberFrame3_NameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_NotPresentIconObject : Frame
+---@field Border PartyFrame_MemberFrame3_NotPresentIcon_BorderObject
+---@field smartNavigationIgnored boolean
+---@field texture PartyFrame_MemberFrame3_NotPresentIcon_textureObject
+local PartyFrame_MemberFrame3_NotPresentIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_NotPresentIcon_BorderObject : Texture
+local PartyFrame_MemberFrame3_NotPresentIcon_BorderObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_NotPresentIcon_textureObject : Texture
+local PartyFrame_MemberFrame3_NotPresentIcon_textureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PartyMemberOverlayObject : Frame
+---@field Disconnect PartyFrame_MemberFrame3_PartyMemberOverlay_DisconnectObject
+---@field GuideIcon PartyFrame_MemberFrame3_PartyMemberOverlay_GuideIconObject
+---@field LeaderIcon PartyFrame_MemberFrame3_PartyMemberOverlay_LeaderIconObject
+---@field PVPIcon PartyFrame_MemberFrame3_PartyMemberOverlay_PVPIconObject
+---@field RoleIcon PartyFrame_MemberFrame3_PartyMemberOverlay_RoleIconObject
+---@field Status PartyFrame_MemberFrame3_PartyMemberOverlay_StatusObject
+---@field smartNavigationIgnored boolean
+local PartyFrame_MemberFrame3_PartyMemberOverlayObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PartyMemberOverlay_DisconnectObject : Texture
+local PartyFrame_MemberFrame3_PartyMemberOverlay_DisconnectObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PartyMemberOverlay_GuideIconObject : Texture
+local PartyFrame_MemberFrame3_PartyMemberOverlay_GuideIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PartyMemberOverlay_LeaderIconObject : Texture
+local PartyFrame_MemberFrame3_PartyMemberOverlay_LeaderIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PartyMemberOverlay_PVPIconObject : Texture
+local PartyFrame_MemberFrame3_PartyMemberOverlay_PVPIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PartyMemberOverlay_RoleIconObject : Texture
+local PartyFrame_MemberFrame3_PartyMemberOverlay_RoleIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PartyMemberOverlay_StatusObject : Texture
+local PartyFrame_MemberFrame3_PartyMemberOverlay_StatusObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PetFrameObject : Button
+---@field AuraFrameContainer PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject
+---@field AuraFramePool PartyFrame_MemberFrame3_PetFrame_AuraFramePoolObject
+---@field Flash PartyFrame_MemberFrame3_PetFrame_FlashObject
+---@field HealthBar PartyFrame_MemberFrame3_PetFrame_HealthBarObject
+---@field Name PartyFrame_MemberFrame3_PetFrame_NameObject
+---@field Portrait PartyFrame_MemberFrame3_PetFrame_PortraitObject
+---@field PortraitMask PartyFrame_MemberFrame3_PetFrame_PortraitMaskObject
+---@field Texture PartyFrame_MemberFrame3_PetFrame_TextureObject
+---@field buffs PartyFrame_MemberFrame3_PetFrame_buffsObject
+---@field debuffs PartyFrame_MemberFrame3_PetFrame_debuffsObject
+---@field healthbar PartyFrame_MemberFrame3_PetFrame_healthbarObject
+---@field name PartyFrame_MemberFrame3_PetFrame_nameObject
+---@field noContextActions boolean
+---@field portrait PartyFrame_MemberFrame3_PetFrame_portraitObject
+---@field replacePortraitSettingChangedHandlers table
+---@field threatIndicator PartyFrame_MemberFrame3_PetFrame_threatIndicatorObject
+---@field unit string
+---@field unitToken string
+local PartyFrame_MemberFrame3_PetFrameObject = {}
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrameObject:OnEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrameObject:OnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrameObject:OnLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrameObject:OnShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrameObject:ParseAllAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrameObject:Setup(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrameObject:UpdateAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrameObject:UpdateAurasInternal(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrameObject:UpdateMemberAuras(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject : Frame
+---@field dirty boolean
+---@field smartNavigationIgnored boolean
+---@field spacing number
+local PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject = {}
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:AddLayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:CalculateFrameSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:ClearFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetAdditionalRegions(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetChildHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetChildPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetChildSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetChildWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetFixedHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetFixedWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetHeightPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetLayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetWidthPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:IsDirty(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:IsLayoutFrame(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:Layout(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:LayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:MarkClean(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:MarkDirty(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:OnCleaned(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:OnShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:OnUpdate(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:SetFixedHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:SetFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:SetFixedWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:SetHeightPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:SetWidthPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame3_PetFrame_AuraFramePoolObject
+local PartyFrame_MemberFrame3_PetFrame_AuraFramePoolObject = {}
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFramePoolObject:GetTemplate(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_AuraFramePoolObject:private(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame3_PetFrame_FlashObject
+local PartyFrame_MemberFrame3_PetFrame_FlashObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PetFrame_HealthBarObject : StatusBar
+---@field capNumericDisplay boolean
+---@field controlsShownState boolean
+---@field currValue number
+---@field disconnected boolean
+---@field forceHideText boolean
+---@field frequentUpdates boolean
+---@field lockShow number
+---@field smartNavigationIgnored boolean
+---@field unit string
+---@field unitFrame PartyFrame_MemberFrame3_PetFrame_HealthBar_unitFrameObject
+local PartyFrame_MemberFrame3_PetFrame_HealthBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:GetNumericDisplay(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:HideStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:InitializeTextStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:OnStatusBarEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:OnStatusBarLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:OnStatusBarMinMaxChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:OnStatusBarValueChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:SetBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:SetBarTextPrefix(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:SetBarTextZeroText(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:SetForceShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:ShowStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:TextStatusBarOnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:UpdateTextString(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:UpdateTextStringWithValues(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame3_PetFrame_HealthBar_unitFrameObject
+local PartyFrame_MemberFrame3_PetFrame_HealthBar_unitFrameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PetFrame_NameObject : FontString
+local PartyFrame_MemberFrame3_PetFrame_NameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PetFrame_PortraitObject
+local PartyFrame_MemberFrame3_PetFrame_PortraitObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PetFrame_PortraitMaskObject : MaskTexture
+local PartyFrame_MemberFrame3_PetFrame_PortraitMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PetFrame_TextureObject : Texture
+local PartyFrame_MemberFrame3_PetFrame_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PetFrame_buffsObject
+local PartyFrame_MemberFrame3_PetFrame_buffsObject = {}
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_buffsObject:Clear(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_buffsObject:Get(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_buffsObject:GetBottom(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_buffsObject:GetTop(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_buffsObject:Iterate(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_buffsObject:Pop(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_buffsObject:Remove(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_buffsObject:Size(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame3_PetFrame_debuffsObject
+local PartyFrame_MemberFrame3_PetFrame_debuffsObject = {}
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_debuffsObject:Clear(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_debuffsObject:Get(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_debuffsObject:GetBottom(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_debuffsObject:GetTop(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_debuffsObject:Iterate(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_debuffsObject:Pop(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_debuffsObject:Remove(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PetFrame_debuffsObject:Size(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame3_PetFrame_healthbarObject
+local PartyFrame_MemberFrame3_PetFrame_healthbarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PetFrame_nameObject
+local PartyFrame_MemberFrame3_PetFrame_nameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PetFrame_portraitObject : Texture
+local PartyFrame_MemberFrame3_PetFrame_portraitObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PetFrame_threatIndicatorObject : Texture
+---@field feedbackUnit string
+---@field unit string
+local PartyFrame_MemberFrame3_PetFrame_threatIndicatorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PortraitObject : Texture
+local PartyFrame_MemberFrame3_PortraitObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PortraitMaskObject : MaskTexture
+local PartyFrame_MemberFrame3_PortraitMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAltObject : Frame
+---@field background PartyFrame_MemberFrame3_PowerBarAlt_backgroundObject
+---@field counterBar PartyFrame_MemberFrame3_PowerBarAlt_counterBarObject
+---@field fill PartyFrame_MemberFrame3_PowerBarAlt_fillObject
+---@field flash PartyFrame_MemberFrame3_PowerBarAlt_flashObject
+---@field flashAnim PartyFrame_MemberFrame3_PowerBarAlt_flashAnimObject
+---@field flashOutAnim PartyFrame_MemberFrame3_PowerBarAlt_flashOutAnimObject
+---@field frame PartyFrame_MemberFrame3_PowerBarAlt_frameObject
+---@field pillFrames table
+---@field scale number
+---@field smartNavigationIgnored boolean
+---@field spark PartyFrame_MemberFrame3_PowerBarAlt_sparkObject
+---@field statusFrame PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject
+---@field unit string
+---@field updateAllEvent string
+local PartyFrame_MemberFrame3_PowerBarAltObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_backgroundObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_backgroundObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBarObject : Frame
+---@field BG PartyFrame_MemberFrame3_PowerBarAlt_counterBar_BGObject
+---@field BGL PartyFrame_MemberFrame3_PowerBarAlt_counterBar_BGLObject
+---@field BGR PartyFrame_MemberFrame3_PowerBarAlt_counterBar_BGRObject
+---@field artBottom PartyFrame_MemberFrame3_PowerBarAlt_counterBar_artBottomObject
+---@field artTop PartyFrame_MemberFrame3_PowerBarAlt_counterBar_artTopObject
+---@field digit1 PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit1Object
+---@field digit2 PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit2Object
+---@field digit3 PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit3Object
+---@field digit4 PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit4Object
+---@field digit5 PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit5Object
+---@field digit6 PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit6Object
+---@field digit7 PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit7Object
+---@field unit string
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_BGObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_BGObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_BGLObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_BGLObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_BGRObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_BGRObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_artBottomObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_artBottomObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_artTopObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_artTopObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit1Object : Frame
+---@field number PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit1_numberObject
+---@field numberMask PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit1_numberMaskObject
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit1Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit1_numberObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit1_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit1_numberMaskObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit1_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit2Object : Frame
+---@field number PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit2_numberObject
+---@field numberMask PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit2_numberMaskObject
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit2Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit2_numberObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit2_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit2_numberMaskObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit2_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit3Object : Frame
+---@field number PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit3_numberObject
+---@field numberMask PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit3_numberMaskObject
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit3Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit3_numberObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit3_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit3_numberMaskObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit3_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit4Object : Frame
+---@field number PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit4_numberObject
+---@field numberMask PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit4_numberMaskObject
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit4Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit4_numberObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit4_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit4_numberMaskObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit4_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit5Object : Frame
+---@field number PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit5_numberObject
+---@field numberMask PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit5_numberMaskObject
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit5Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit5_numberObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit5_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit5_numberMaskObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit5_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit6Object : Frame
+---@field number PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit6_numberObject
+---@field numberMask PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit6_numberMaskObject
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit6Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit6_numberObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit6_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit6_numberMaskObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit6_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit7Object : Frame
+---@field number PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit7_numberObject
+---@field numberMask PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit7_numberMaskObject
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit7Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit7_numberObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit7_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit7_numberMaskObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit7_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_fillObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_fillObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_flashObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_flashObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_flashAnimObject : AnimationGroup
+local PartyFrame_MemberFrame3_PowerBarAlt_flashAnimObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_flashOutAnimObject : AnimationGroup
+local PartyFrame_MemberFrame3_PowerBarAlt_flashOutAnimObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_frameObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_frameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_sparkObject : Texture
+local PartyFrame_MemberFrame3_PowerBarAlt_sparkObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject : StatusBar
+---@field alwaysShow number
+---@field cvar string
+---@field cvarLabel string
+---@field lockShow number
+---@field text PartyFrame_MemberFrame3_PowerBarAlt_statusFrame_textObject
+---@field textLockable number
+local PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject = {}
+---@return any ...
+function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:GetNumericDisplay(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:HideStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:InitializeTextStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:OnStatusBarEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:OnStatusBarLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:OnStatusBarMinMaxChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:OnStatusBarValueChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:SetBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:SetBarTextPrefix(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:SetBarTextZeroText(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:SetForceShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:ShowStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:TextStatusBarOnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:UpdateTextString(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:UpdateTextStringWithValues(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame3_PowerBarAlt_statusFrame_textObject : FontString
+local PartyFrame_MemberFrame3_PowerBarAlt_statusFrame_textObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_ReadyCheckObject : Frame
+---@field Texture PartyFrame_MemberFrame3_ReadyCheck_TextureObject
+---@field smartNavigationIgnored boolean
+local PartyFrame_MemberFrame3_ReadyCheckObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_ReadyCheck_TextureObject : Texture
+local PartyFrame_MemberFrame3_ReadyCheck_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_ResurrectableIndicatorObject : FontString
+local PartyFrame_MemberFrame3_ResurrectableIndicatorObject = {}
+---@return any ...
+function PartyFrame_MemberFrame3_ResurrectableIndicatorObject:OnEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_ResurrectableIndicatorObject:OnLeave(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame3_TextureObject : Texture
+local PartyFrame_MemberFrame3_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_VehicleTextureObject : Texture
+local PartyFrame_MemberFrame3_VehicleTextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_healAbsorbBarObject
+local PartyFrame_MemberFrame3_healAbsorbBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_healthbarObject
+local PartyFrame_MemberFrame3_healthbarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_manabarObject
+local PartyFrame_MemberFrame3_manabarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_myHealPredictionBarObject
+local PartyFrame_MemberFrame3_myHealPredictionBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_nameObject
+local PartyFrame_MemberFrame3_nameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_otherHealPredictionBarObject
+local PartyFrame_MemberFrame3_otherHealPredictionBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_overAbsorbGlowObject
+local PartyFrame_MemberFrame3_overAbsorbGlowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_overHealAbsorbGlowObject
+local PartyFrame_MemberFrame3_overHealAbsorbGlowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_portraitObject
+local PartyFrame_MemberFrame3_portraitObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBarObject : StatusBar
+---@field Texture PartyFrame_MemberFrame3_tempMaxHealthLossBar_TextureObject
+---@field healthBar PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject
+---@field initialized boolean
+---@field myHealthBarContainer PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainerObject
+local PartyFrame_MemberFrame3_tempMaxHealthLossBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBarObject:InitializeMaxHealthLossBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBarObject:OnMaxHealthModifiersChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBarObject:SetShouldAdjustHealthBarAnchor(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBarObject:Update_MaxHealthLoss(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_TextureObject : Texture
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject : StatusBar
+---@field Background PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_BackgroundObject
+---@field HealAbsorbBar PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject
+---@field HealthBarTexture PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealthBarTextureObject
+---@field LeftText PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_LeftTextObject
+---@field MyHealPredictionBar PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject
+---@field OtherHealPredictionBar PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject
+---@field OverAbsorbGlow PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject
+---@field OverHealAbsorbGlow PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject
+---@field RightText PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_RightTextObject
+---@field TextString PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TextStringObject
+---@field TotalAbsorbBar PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject
+---@field capNumericDisplay boolean
+---@field controlsShownState boolean
+---@field currValue number
+---@field cvar string
+---@field cvarLabel string
+---@field disconnected boolean
+---@field forceHideText boolean
+---@field frequentUpdates boolean
+---@field lockColor boolean
+---@field lockShow number
+---@field partyFrame PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_partyFrameObject
+---@field textLockable number
+---@field unit string
+---@field unitFrame PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_unitFrameObject
+---@field zeroText string
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:GetNumericDisplay(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:HideStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:InitializeTextStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:OnStatusBarEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:OnStatusBarLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:OnStatusBarMinMaxChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:OnStatusBarValueChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:SetBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:SetBarTextPrefix(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:SetBarTextZeroText(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:SetForceShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:ShowStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:TextStatusBarOnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:UpdateTextString(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:UpdateTextStringWithValues(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_BackgroundObject : Texture
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_BackgroundObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject : Frame
+---@field Fill PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject
+---@field FillMask PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject
+---@field LeftShadow PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject
+---@field RightShadow PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject
+---@field fillAtlas string
+---@field fillColor PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject
+---@field fillOverlays table
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:Initialize(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:OnLoad(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:SetFillColor(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:SetStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:UpdateFillPosition(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject : Texture
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject : MaskTexture
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject : Texture
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject : Texture
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealthBarTextureObject : Texture
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealthBarTextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_LeftTextObject : FontString
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_LeftTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject : Frame
+---@field Fill PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject
+---@field FillMask PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject
+---@field fillAtlas string
+---@field fillColor PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject
+---@field initialized boolean
+---@field statusBar PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:Initialize(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:OnLoad(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:SetFillColor(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:SetStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:UpdateFillPosition(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject : Texture
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject : MaskTexture
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject : Frame
+---@field Fill PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject
+---@field FillMask PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject
+---@field fillAtlas string
+---@field fillColor PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject
+---@field initialized boolean
+---@field statusBar PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:Initialize(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:OnLoad(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:SetFillColor(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:SetStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:UpdateFillPosition(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject : Texture
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject : MaskTexture
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject : Texture
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject : Texture
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_RightTextObject : FontString
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_RightTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TextStringObject : FontString
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TextStringObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject : Frame
+---@field Fill PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject
+---@field FillMask PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject
+---@field TiledFillOverlay PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject
+---@field fillAtlas string
+---@field fillColor PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject
+---@field fillOverlays table
+---@field initialized boolean
+---@field statusBar PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject
+---@field tiledFillOverlaySize number
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:Initialize(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:OnLoad(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:SetFillColor(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:SetStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:UpdateFillPosition(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject : Texture
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject : MaskTexture
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject : Texture
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_partyFrameObject
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_partyFrameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_unitFrameObject
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_unitFrameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainerObject : Frame
+---@field CenterText PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject
+---@field HealthBar PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject
+---@field HealthBarMask PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject
+---@field LeftText PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject
+---@field RightText PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject
+---@field TempMaxHealthLoss PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject
+---@field smartNavigationIgnored boolean
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainerObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject : MaskTexture
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject
+local PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_threatIndicatorObject : Texture
+---@field feedbackUnit string
+---@field unit string
+local PartyFrame_MemberFrame3_threatIndicatorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame3_totalAbsorbBarObject
+local PartyFrame_MemberFrame3_totalAbsorbBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4Object : Button
+---@field ArtLayoutInfo PartyFrame_MemberFrame4_ArtLayoutInfoObject
+---@field AuraFrameContainer PartyFrame_MemberFrame4_AuraFrameContainerObject
+---@field AuraFramePool PartyFrame_MemberFrame4_AuraFramePoolObject
+---@field Flash PartyFrame_MemberFrame4_FlashObject
+---@field HealthBarContainer PartyFrame_MemberFrame4_HealthBarContainerObject
+---@field ManaBar PartyFrame_MemberFrame4_ManaBarObject
+---@field Name PartyFrame_MemberFrame4_NameObject
+---@field NotPresentIcon PartyFrame_MemberFrame4_NotPresentIconObject
+---@field PartyMemberOverlay PartyFrame_MemberFrame4_PartyMemberOverlayObject
+---@field PetFrame PartyFrame_MemberFrame4_PetFrameObject
+---@field Portrait PartyFrame_MemberFrame4_PortraitObject
+---@field PortraitMask PartyFrame_MemberFrame4_PortraitMaskObject
+---@field PowerBarAlt PartyFrame_MemberFrame4_PowerBarAltObject
+---@field ReadyCheck PartyFrame_MemberFrame4_ReadyCheckObject
+---@field ResurrectableIndicator PartyFrame_MemberFrame4_ResurrectableIndicatorObject
+---@field Texture PartyFrame_MemberFrame4_TextureObject
+---@field VehicleTexture PartyFrame_MemberFrame4_VehicleTextureObject
+---@field debuffCountdown number
+---@field frameType string
+---@field healAbsorbBar PartyFrame_MemberFrame4_healAbsorbBarObject
+---@field healthbar PartyFrame_MemberFrame4_healthbarObject
+---@field initialized boolean
+---@field layoutIndex number
+---@field manabar PartyFrame_MemberFrame4_manabarObject
+---@field myHealPredictionBar PartyFrame_MemberFrame4_myHealPredictionBarObject
+---@field name PartyFrame_MemberFrame4_nameObject
+---@field noContextActions boolean
+---@field numDebuffs number
+---@field otherHealPredictionBar PartyFrame_MemberFrame4_otherHealPredictionBarObject
+---@field overAbsorbGlow PartyFrame_MemberFrame4_overAbsorbGlowObject
+---@field overHealAbsorbGlow PartyFrame_MemberFrame4_overHealAbsorbGlowObject
+---@field petUnitToken string
+---@field portrait PartyFrame_MemberFrame4_portraitObject
+---@field replacePortraitSettingChangedHandlers table
+---@field state string
+---@field statusCounter number
+---@field statusSign number
+---@field tempMaxHealthLossBar PartyFrame_MemberFrame4_tempMaxHealthLossBarObject
+---@field threatIndicator PartyFrame_MemberFrame4_threatIndicatorObject
+---@field totalAbsorbBar PartyFrame_MemberFrame4_totalAbsorbBarObject
+---@field unit string
+---@field unitHPPercent number
+---@field unitToken string
+local PartyFrame_MemberFrame4Object = {}
+---@return any ...
+function PartyFrame_MemberFrame4Object:GetAllowRadialWheel(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:GetIsPingable(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:GetTargetInfo(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:GetUnit(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:OnEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:OnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:OnLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:OnUpdate(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:ParseAllAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:PartyMemberHealthCheck(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:Setup(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:ToCharacterStyleArt(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:ToPlayerArt(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:ToVehicleArt(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:UpdateArt(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:UpdateAssignedRoles(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:UpdateAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:UpdateAurasInternal(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:UpdateHealthBarTextAnchors(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:UpdateLeader(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:UpdateManaBarTextAnchors(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:UpdateMember(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:UpdateMemberAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:UpdateMemberHealth(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:UpdateNameTextAnchors(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:UpdateNotPresentIcon(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:UpdateOnlineStatus(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:UpdatePet(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:UpdatePingAttributes(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:UpdatePvPStatus(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:UpdateReadyCheck(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:UpdateVoiceActivityNotification(...) end
+---@return any ...
+function PartyFrame_MemberFrame4Object:VoiceActivityNotificationCreatedCallback(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame4_ArtLayoutInfoObject
+local PartyFrame_MemberFrame4_ArtLayoutInfoObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_AuraFrameContainerObject : Frame
+---@field spacing number
+local PartyFrame_MemberFrame4_AuraFrameContainerObject = {}
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:AddLayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:CalculateFrameSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:ClearFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetAdditionalRegions(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetChildHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetChildPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetChildSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetChildWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetFixedHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetFixedWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetHeightPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetLayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetWidthPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:IsDirty(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:IsLayoutFrame(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:Layout(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:LayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:MarkClean(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:MarkDirty(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:OnCleaned(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:OnShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:OnUpdate(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:SetFixedHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:SetFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:SetFixedWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:SetHeightPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:SetWidthPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFrameContainerObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame4_AuraFramePoolObject
+local PartyFrame_MemberFrame4_AuraFramePoolObject = {}
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFramePoolObject:GetTemplate(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_AuraFramePoolObject:private(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame4_FlashObject
+local PartyFrame_MemberFrame4_FlashObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_HealthBarContainerObject
+local PartyFrame_MemberFrame4_HealthBarContainerObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_ManaBarObject : StatusBar
+---@field CenterText PartyFrame_MemberFrame4_ManaBar_CenterTextObject
+---@field LeftText PartyFrame_MemberFrame4_ManaBar_LeftTextObject
+---@field ManaBarMask PartyFrame_MemberFrame4_ManaBar_ManaBarMaskObject
+---@field RightText PartyFrame_MemberFrame4_ManaBar_RightTextObject
+---@field TextString PartyFrame_MemberFrame4_ManaBar_TextStringObject
+---@field Texture PartyFrame_MemberFrame4_ManaBar_TextureObject
+---@field capNumericDisplay boolean
+---@field controlsShownState boolean
+---@field currValue number
+---@field cvar string
+---@field cvarLabel string
+---@field disconnected boolean
+---@field frequentUpdates boolean
+---@field lockColor boolean
+---@field lockShow number
+---@field smartNavigationIgnored boolean
+---@field textLockable number
+---@field texture PartyFrame_MemberFrame4_ManaBar_textureObject
+---@field unit string
+---@field unitFrame PartyFrame_MemberFrame4_ManaBar_unitFrameObject
+local PartyFrame_MemberFrame4_ManaBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame4_ManaBarObject:GetNumericDisplay(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_ManaBarObject:HideStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_ManaBarObject:InitializeTextStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_ManaBarObject:OnStatusBarEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_ManaBarObject:OnStatusBarLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_ManaBarObject:OnStatusBarMinMaxChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_ManaBarObject:OnStatusBarValueChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_ManaBarObject:SetBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_ManaBarObject:SetBarTextPrefix(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_ManaBarObject:SetBarTextZeroText(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_ManaBarObject:SetForceShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_ManaBarObject:ShowStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_ManaBarObject:TextStatusBarOnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_ManaBarObject:UpdateTextString(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_ManaBarObject:UpdateTextStringWithValues(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame4_ManaBar_CenterTextObject
+local PartyFrame_MemberFrame4_ManaBar_CenterTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_ManaBar_LeftTextObject : FontString
+local PartyFrame_MemberFrame4_ManaBar_LeftTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_ManaBar_ManaBarMaskObject : MaskTexture
+local PartyFrame_MemberFrame4_ManaBar_ManaBarMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_ManaBar_RightTextObject : FontString
+local PartyFrame_MemberFrame4_ManaBar_RightTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_ManaBar_TextStringObject : FontString
+local PartyFrame_MemberFrame4_ManaBar_TextStringObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_ManaBar_TextureObject : Texture
+local PartyFrame_MemberFrame4_ManaBar_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_ManaBar_textureObject
+local PartyFrame_MemberFrame4_ManaBar_textureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_ManaBar_unitFrameObject
+local PartyFrame_MemberFrame4_ManaBar_unitFrameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_NameObject : FontString
+local PartyFrame_MemberFrame4_NameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_NotPresentIconObject : Frame
+---@field Border PartyFrame_MemberFrame4_NotPresentIcon_BorderObject
+---@field smartNavigationIgnored boolean
+---@field texture PartyFrame_MemberFrame4_NotPresentIcon_textureObject
+local PartyFrame_MemberFrame4_NotPresentIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_NotPresentIcon_BorderObject : Texture
+local PartyFrame_MemberFrame4_NotPresentIcon_BorderObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_NotPresentIcon_textureObject : Texture
+local PartyFrame_MemberFrame4_NotPresentIcon_textureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PartyMemberOverlayObject : Frame
+---@field Disconnect PartyFrame_MemberFrame4_PartyMemberOverlay_DisconnectObject
+---@field GuideIcon PartyFrame_MemberFrame4_PartyMemberOverlay_GuideIconObject
+---@field LeaderIcon PartyFrame_MemberFrame4_PartyMemberOverlay_LeaderIconObject
+---@field PVPIcon PartyFrame_MemberFrame4_PartyMemberOverlay_PVPIconObject
+---@field RoleIcon PartyFrame_MemberFrame4_PartyMemberOverlay_RoleIconObject
+---@field Status PartyFrame_MemberFrame4_PartyMemberOverlay_StatusObject
+---@field smartNavigationIgnored boolean
+local PartyFrame_MemberFrame4_PartyMemberOverlayObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PartyMemberOverlay_DisconnectObject : Texture
+local PartyFrame_MemberFrame4_PartyMemberOverlay_DisconnectObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PartyMemberOverlay_GuideIconObject : Texture
+local PartyFrame_MemberFrame4_PartyMemberOverlay_GuideIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PartyMemberOverlay_LeaderIconObject : Texture
+local PartyFrame_MemberFrame4_PartyMemberOverlay_LeaderIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PartyMemberOverlay_PVPIconObject : Texture
+local PartyFrame_MemberFrame4_PartyMemberOverlay_PVPIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PartyMemberOverlay_RoleIconObject : Texture
+local PartyFrame_MemberFrame4_PartyMemberOverlay_RoleIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PartyMemberOverlay_StatusObject : Texture
+local PartyFrame_MemberFrame4_PartyMemberOverlay_StatusObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PetFrameObject : Button
+---@field AuraFrameContainer PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject
+---@field AuraFramePool PartyFrame_MemberFrame4_PetFrame_AuraFramePoolObject
+---@field Flash PartyFrame_MemberFrame4_PetFrame_FlashObject
+---@field HealthBar PartyFrame_MemberFrame4_PetFrame_HealthBarObject
+---@field Name PartyFrame_MemberFrame4_PetFrame_NameObject
+---@field Portrait PartyFrame_MemberFrame4_PetFrame_PortraitObject
+---@field PortraitMask PartyFrame_MemberFrame4_PetFrame_PortraitMaskObject
+---@field Texture PartyFrame_MemberFrame4_PetFrame_TextureObject
+---@field buffs PartyFrame_MemberFrame4_PetFrame_buffsObject
+---@field debuffs PartyFrame_MemberFrame4_PetFrame_debuffsObject
+---@field healthbar PartyFrame_MemberFrame4_PetFrame_healthbarObject
+---@field name PartyFrame_MemberFrame4_PetFrame_nameObject
+---@field noContextActions boolean
+---@field portrait PartyFrame_MemberFrame4_PetFrame_portraitObject
+---@field replacePortraitSettingChangedHandlers table
+---@field threatIndicator PartyFrame_MemberFrame4_PetFrame_threatIndicatorObject
+---@field unit string
+---@field unitToken string
+local PartyFrame_MemberFrame4_PetFrameObject = {}
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrameObject:OnEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrameObject:OnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrameObject:OnLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrameObject:OnShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrameObject:ParseAllAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrameObject:Setup(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrameObject:UpdateAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrameObject:UpdateAurasInternal(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrameObject:UpdateMemberAuras(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject : Frame
+---@field dirty boolean
+---@field smartNavigationIgnored boolean
+---@field spacing number
+local PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject = {}
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:AddLayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:CalculateFrameSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:ClearFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetAdditionalRegions(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetChildHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetChildPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetChildSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetChildWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetFixedHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetFixedWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetHeightPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetLayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetWidthPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:IsDirty(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:IsLayoutFrame(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:Layout(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:LayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:MarkClean(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:MarkDirty(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:OnCleaned(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:OnShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:OnUpdate(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:SetFixedHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:SetFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:SetFixedWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:SetHeightPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:SetWidthPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame4_PetFrame_AuraFramePoolObject
+local PartyFrame_MemberFrame4_PetFrame_AuraFramePoolObject = {}
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFramePoolObject:GetTemplate(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_AuraFramePoolObject:private(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame4_PetFrame_FlashObject
+local PartyFrame_MemberFrame4_PetFrame_FlashObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PetFrame_HealthBarObject : StatusBar
+---@field capNumericDisplay boolean
+---@field controlsShownState boolean
+---@field currValue number
+---@field disconnected boolean
+---@field forceHideText boolean
+---@field frequentUpdates boolean
+---@field lockShow number
+---@field smartNavigationIgnored boolean
+---@field unit string
+---@field unitFrame PartyFrame_MemberFrame4_PetFrame_HealthBar_unitFrameObject
+local PartyFrame_MemberFrame4_PetFrame_HealthBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:GetNumericDisplay(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:HideStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:InitializeTextStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:OnStatusBarEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:OnStatusBarLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:OnStatusBarMinMaxChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:OnStatusBarValueChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:SetBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:SetBarTextPrefix(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:SetBarTextZeroText(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:SetForceShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:ShowStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:TextStatusBarOnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:UpdateTextString(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:UpdateTextStringWithValues(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame4_PetFrame_HealthBar_unitFrameObject
+local PartyFrame_MemberFrame4_PetFrame_HealthBar_unitFrameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PetFrame_NameObject : FontString
+local PartyFrame_MemberFrame4_PetFrame_NameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PetFrame_PortraitObject
+local PartyFrame_MemberFrame4_PetFrame_PortraitObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PetFrame_PortraitMaskObject : MaskTexture
+local PartyFrame_MemberFrame4_PetFrame_PortraitMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PetFrame_TextureObject : Texture
+local PartyFrame_MemberFrame4_PetFrame_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PetFrame_buffsObject
+local PartyFrame_MemberFrame4_PetFrame_buffsObject = {}
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_buffsObject:Clear(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_buffsObject:Get(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_buffsObject:GetBottom(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_buffsObject:GetTop(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_buffsObject:Iterate(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_buffsObject:Pop(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_buffsObject:Remove(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_buffsObject:Size(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame4_PetFrame_debuffsObject
+local PartyFrame_MemberFrame4_PetFrame_debuffsObject = {}
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_debuffsObject:Clear(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_debuffsObject:Get(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_debuffsObject:GetBottom(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_debuffsObject:GetTop(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_debuffsObject:Iterate(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_debuffsObject:Pop(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_debuffsObject:Remove(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PetFrame_debuffsObject:Size(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame4_PetFrame_healthbarObject
+local PartyFrame_MemberFrame4_PetFrame_healthbarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PetFrame_nameObject
+local PartyFrame_MemberFrame4_PetFrame_nameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PetFrame_portraitObject : Texture
+local PartyFrame_MemberFrame4_PetFrame_portraitObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PetFrame_threatIndicatorObject : Texture
+---@field feedbackUnit string
+---@field unit string
+local PartyFrame_MemberFrame4_PetFrame_threatIndicatorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PortraitObject : Texture
+local PartyFrame_MemberFrame4_PortraitObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PortraitMaskObject : MaskTexture
+local PartyFrame_MemberFrame4_PortraitMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAltObject : Frame
+---@field background PartyFrame_MemberFrame4_PowerBarAlt_backgroundObject
+---@field counterBar PartyFrame_MemberFrame4_PowerBarAlt_counterBarObject
+---@field fill PartyFrame_MemberFrame4_PowerBarAlt_fillObject
+---@field flash PartyFrame_MemberFrame4_PowerBarAlt_flashObject
+---@field flashAnim PartyFrame_MemberFrame4_PowerBarAlt_flashAnimObject
+---@field flashOutAnim PartyFrame_MemberFrame4_PowerBarAlt_flashOutAnimObject
+---@field frame PartyFrame_MemberFrame4_PowerBarAlt_frameObject
+---@field pillFrames table
+---@field scale number
+---@field smartNavigationIgnored boolean
+---@field spark PartyFrame_MemberFrame4_PowerBarAlt_sparkObject
+---@field statusFrame PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject
+---@field unit string
+---@field updateAllEvent string
+local PartyFrame_MemberFrame4_PowerBarAltObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_backgroundObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_backgroundObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBarObject : Frame
+---@field BG PartyFrame_MemberFrame4_PowerBarAlt_counterBar_BGObject
+---@field BGL PartyFrame_MemberFrame4_PowerBarAlt_counterBar_BGLObject
+---@field BGR PartyFrame_MemberFrame4_PowerBarAlt_counterBar_BGRObject
+---@field artBottom PartyFrame_MemberFrame4_PowerBarAlt_counterBar_artBottomObject
+---@field artTop PartyFrame_MemberFrame4_PowerBarAlt_counterBar_artTopObject
+---@field digit1 PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit1Object
+---@field digit2 PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit2Object
+---@field digit3 PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit3Object
+---@field digit4 PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit4Object
+---@field digit5 PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit5Object
+---@field digit6 PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit6Object
+---@field digit7 PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit7Object
+---@field unit string
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_BGObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_BGObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_BGLObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_BGLObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_BGRObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_BGRObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_artBottomObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_artBottomObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_artTopObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_artTopObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit1Object : Frame
+---@field number PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit1_numberObject
+---@field numberMask PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit1_numberMaskObject
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit1Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit1_numberObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit1_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit1_numberMaskObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit1_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit2Object : Frame
+---@field number PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit2_numberObject
+---@field numberMask PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit2_numberMaskObject
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit2Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit2_numberObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit2_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit2_numberMaskObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit2_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit3Object : Frame
+---@field number PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit3_numberObject
+---@field numberMask PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit3_numberMaskObject
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit3Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit3_numberObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit3_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit3_numberMaskObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit3_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit4Object : Frame
+---@field number PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit4_numberObject
+---@field numberMask PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit4_numberMaskObject
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit4Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit4_numberObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit4_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit4_numberMaskObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit4_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit5Object : Frame
+---@field number PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit5_numberObject
+---@field numberMask PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit5_numberMaskObject
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit5Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit5_numberObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit5_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit5_numberMaskObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit5_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit6Object : Frame
+---@field number PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit6_numberObject
+---@field numberMask PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit6_numberMaskObject
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit6Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit6_numberObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit6_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit6_numberMaskObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit6_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit7Object : Frame
+---@field number PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit7_numberObject
+---@field numberMask PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit7_numberMaskObject
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit7Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit7_numberObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit7_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit7_numberMaskObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit7_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_fillObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_fillObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_flashObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_flashObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_flashAnimObject : AnimationGroup
+local PartyFrame_MemberFrame4_PowerBarAlt_flashAnimObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_flashOutAnimObject : AnimationGroup
+local PartyFrame_MemberFrame4_PowerBarAlt_flashOutAnimObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_frameObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_frameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_sparkObject : Texture
+local PartyFrame_MemberFrame4_PowerBarAlt_sparkObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject : StatusBar
+---@field alwaysShow number
+---@field cvar string
+---@field cvarLabel string
+---@field lockShow number
+---@field text PartyFrame_MemberFrame4_PowerBarAlt_statusFrame_textObject
+---@field textLockable number
+local PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject = {}
+---@return any ...
+function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:GetNumericDisplay(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:HideStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:InitializeTextStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:OnStatusBarEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:OnStatusBarLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:OnStatusBarMinMaxChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:OnStatusBarValueChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:SetBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:SetBarTextPrefix(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:SetBarTextZeroText(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:SetForceShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:ShowStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:TextStatusBarOnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:UpdateTextString(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:UpdateTextStringWithValues(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame4_PowerBarAlt_statusFrame_textObject : FontString
+local PartyFrame_MemberFrame4_PowerBarAlt_statusFrame_textObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_ReadyCheckObject : Frame
+---@field Texture PartyFrame_MemberFrame4_ReadyCheck_TextureObject
+---@field smartNavigationIgnored boolean
+local PartyFrame_MemberFrame4_ReadyCheckObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_ReadyCheck_TextureObject : Texture
+local PartyFrame_MemberFrame4_ReadyCheck_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_ResurrectableIndicatorObject : FontString
+local PartyFrame_MemberFrame4_ResurrectableIndicatorObject = {}
+---@return any ...
+function PartyFrame_MemberFrame4_ResurrectableIndicatorObject:OnEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_ResurrectableIndicatorObject:OnLeave(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame4_TextureObject : Texture
+local PartyFrame_MemberFrame4_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_VehicleTextureObject : Texture
+local PartyFrame_MemberFrame4_VehicleTextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_healAbsorbBarObject
+local PartyFrame_MemberFrame4_healAbsorbBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_healthbarObject
+local PartyFrame_MemberFrame4_healthbarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_manabarObject
+local PartyFrame_MemberFrame4_manabarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_myHealPredictionBarObject
+local PartyFrame_MemberFrame4_myHealPredictionBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_nameObject
+local PartyFrame_MemberFrame4_nameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_otherHealPredictionBarObject
+local PartyFrame_MemberFrame4_otherHealPredictionBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_overAbsorbGlowObject
+local PartyFrame_MemberFrame4_overAbsorbGlowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_overHealAbsorbGlowObject
+local PartyFrame_MemberFrame4_overHealAbsorbGlowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_portraitObject
+local PartyFrame_MemberFrame4_portraitObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBarObject : StatusBar
+---@field Texture PartyFrame_MemberFrame4_tempMaxHealthLossBar_TextureObject
+---@field healthBar PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject
+---@field initialized boolean
+---@field myHealthBarContainer PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainerObject
+local PartyFrame_MemberFrame4_tempMaxHealthLossBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBarObject:InitializeMaxHealthLossBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBarObject:OnMaxHealthModifiersChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBarObject:SetShouldAdjustHealthBarAnchor(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBarObject:Update_MaxHealthLoss(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_TextureObject : Texture
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject : StatusBar
+---@field Background PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_BackgroundObject
+---@field HealAbsorbBar PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject
+---@field HealthBarTexture PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealthBarTextureObject
+---@field LeftText PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_LeftTextObject
+---@field MyHealPredictionBar PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject
+---@field OtherHealPredictionBar PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject
+---@field OverAbsorbGlow PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject
+---@field OverHealAbsorbGlow PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject
+---@field RightText PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_RightTextObject
+---@field TextString PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TextStringObject
+---@field TotalAbsorbBar PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject
+---@field capNumericDisplay boolean
+---@field controlsShownState boolean
+---@field currValue number
+---@field cvar string
+---@field cvarLabel string
+---@field disconnected boolean
+---@field forceHideText boolean
+---@field frequentUpdates boolean
+---@field lockColor boolean
+---@field lockShow number
+---@field partyFrame PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_partyFrameObject
+---@field textLockable number
+---@field unit string
+---@field unitFrame PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_unitFrameObject
+---@field zeroText string
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:GetNumericDisplay(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:HideStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:InitializeTextStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:OnStatusBarEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:OnStatusBarLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:OnStatusBarMinMaxChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:OnStatusBarValueChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:SetBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:SetBarTextPrefix(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:SetBarTextZeroText(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:SetForceShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:ShowStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:TextStatusBarOnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:UpdateTextString(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:UpdateTextStringWithValues(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_BackgroundObject : Texture
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_BackgroundObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject : Frame
+---@field Fill PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject
+---@field FillMask PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject
+---@field LeftShadow PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject
+---@field RightShadow PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject
+---@field fillAtlas string
+---@field fillColor PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject
+---@field fillOverlays table
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:Initialize(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:OnLoad(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:SetFillColor(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:SetStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:UpdateFillPosition(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject : Texture
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject : MaskTexture
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject : Texture
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject : Texture
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealthBarTextureObject : Texture
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealthBarTextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_LeftTextObject : FontString
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_LeftTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject : Frame
+---@field Fill PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject
+---@field FillMask PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject
+---@field fillAtlas string
+---@field fillColor PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject
+---@field initialized boolean
+---@field statusBar PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:Initialize(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:OnLoad(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:SetFillColor(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:SetStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:UpdateFillPosition(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject : Texture
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject : MaskTexture
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject : Frame
+---@field Fill PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject
+---@field FillMask PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject
+---@field fillAtlas string
+---@field fillColor PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject
+---@field initialized boolean
+---@field statusBar PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:Initialize(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:OnLoad(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:SetFillColor(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:SetStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:UpdateFillPosition(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject : Texture
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject : MaskTexture
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject : Texture
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject : Texture
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_RightTextObject : FontString
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_RightTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TextStringObject : FontString
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TextStringObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject : Frame
+---@field Fill PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject
+---@field FillMask PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject
+---@field TiledFillOverlay PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject
+---@field fillAtlas string
+---@field fillColor PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject
+---@field fillOverlays table
+---@field initialized boolean
+---@field statusBar PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject
+---@field tiledFillOverlaySize number
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:Initialize(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:OnLoad(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:SetFillColor(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:SetStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:UpdateFillPosition(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject : Texture
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject : MaskTexture
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject : Texture
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_partyFrameObject
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_partyFrameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_unitFrameObject
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_unitFrameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainerObject : Frame
+---@field CenterText PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject
+---@field HealthBar PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject
+---@field HealthBarMask PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject
+---@field LeftText PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject
+---@field RightText PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject
+---@field TempMaxHealthLoss PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject
+---@field smartNavigationIgnored boolean
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainerObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject : MaskTexture
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject
+local PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_threatIndicatorObject : Texture
+---@field feedbackUnit string
+---@field unit string
+local PartyFrame_MemberFrame4_threatIndicatorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame4_totalAbsorbBarObject
+local PartyFrame_MemberFrame4_totalAbsorbBarObject = {}
+end
+
+do
+---@class PartyFrame_PartyMemberFramePoolObject
+local PartyFrame_PartyMemberFramePoolObject = {}
+---@return any ...
+function PartyFrame_PartyMemberFramePoolObject:GetTemplate(...) end
+---@return any ...
+function PartyFrame_PartyMemberFramePoolObject:private(...) end
+end
+
+do
+---@class PartyFrame_SelectionObject : Frame
+---@field HorizontalLabel PartyFrame_Selection_HorizontalLabelObject
+---@field MouseOverHighlight PartyFrame_Selection_MouseOverHighlightObject
+---@field VerticalLabel PartyFrame_Selection_VerticalLabelObject
+---@field highlightTextureKit string
+---@field ignoreInLayout boolean
+---@field isVertical boolean
+---@field parent PartyFrame_Selection_parentObject
+---@field selectedTextureKit string
+---@field system PartyFrame_Selection_systemObject
+local PartyFrame_SelectionObject = {}
+---@return any ...
+function PartyFrame_SelectionObject:CheckShowInstructionalTooltip(...) end
+---@return any ...
+function PartyFrame_SelectionObject:GetBorderColor(...) end
+---@return any ...
+function PartyFrame_SelectionObject:GetCenterColor(...) end
+---@return any ...
+function PartyFrame_SelectionObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function PartyFrame_SelectionObject:GetFrameLayoutType(...) end
+---@return any ...
+function PartyFrame_SelectionObject:GetLabelText(...) end
+---@return any ...
+function PartyFrame_SelectionObject:HideInstructionalTooltip(...) end
+---@return any ...
+function PartyFrame_SelectionObject:IsSelected(...) end
+---@return any ...
+function PartyFrame_SelectionObject:IsShowingEditInstructions(...) end
+---@return any ...
+function PartyFrame_SelectionObject:OnDragStart(...) end
+---@return any ...
+function PartyFrame_SelectionObject:OnDragStop(...) end
+---@return any ...
+function PartyFrame_SelectionObject:OnEnter(...) end
+---@return any ...
+function PartyFrame_SelectionObject:OnLeave(...) end
+---@return any ...
+function PartyFrame_SelectionObject:OnLoad(...) end
+---@return any ...
+function PartyFrame_SelectionObject:OnMouseDown(...) end
+---@return any ...
+function PartyFrame_SelectionObject:SetBlendMode(...) end
+---@return any ...
+function PartyFrame_SelectionObject:SetBorderBlendMode(...) end
+---@return any ...
+function PartyFrame_SelectionObject:SetBorderColor(...) end
+---@return any ...
+function PartyFrame_SelectionObject:SetCenterColor(...) end
+---@return any ...
+function PartyFrame_SelectionObject:SetSystem(...) end
+---@return any ...
+function PartyFrame_SelectionObject:SetVertexColor(...) end
+---@return any ...
+function PartyFrame_SelectionObject:SetVerticalState(...) end
+---@return any ...
+function PartyFrame_SelectionObject:ShouldShowLabelText(...) end
+---@return any ...
+function PartyFrame_SelectionObject:ShowEditInstructions(...) end
+---@return any ...
+function PartyFrame_SelectionObject:ShowHighlighted(...) end
+---@return any ...
+function PartyFrame_SelectionObject:ShowSelected(...) end
+---@return any ...
+function PartyFrame_SelectionObject:UpdateLabelVisibility(...) end
+end
+
+do
+---@class PartyFrame_Selection_HorizontalLabelObject : FontString
+---@field fontObjectsToTry table
+local PartyFrame_Selection_HorizontalLabelObject = {}
+---@return any ...
+function PartyFrame_Selection_HorizontalLabelObject:ApplyFontObjects(...) end
+---@return any ...
+function PartyFrame_Selection_HorizontalLabelObject:SetFontObjectsToTry(...) end
+end
+
+do
+---@class PartyFrame_Selection_MouseOverHighlightObject : Frame
+---@field BottomEdge PartyFrame_Selection_MouseOverHighlight_BottomEdgeObject
+---@field BottomLeftCorner PartyFrame_Selection_MouseOverHighlight_BottomLeftCornerObject
+---@field BottomRightCorner PartyFrame_Selection_MouseOverHighlight_BottomRightCornerObject
+---@field Center PartyFrame_Selection_MouseOverHighlight_CenterObject
+---@field LeftEdge PartyFrame_Selection_MouseOverHighlight_LeftEdgeObject
+---@field RightEdge PartyFrame_Selection_MouseOverHighlight_RightEdgeObject
+---@field TopEdge PartyFrame_Selection_MouseOverHighlight_TopEdgeObject
+---@field TopLeftCorner PartyFrame_Selection_MouseOverHighlight_TopLeftCornerObject
+---@field TopRightCorner PartyFrame_Selection_MouseOverHighlight_TopRightCornerObject
+local PartyFrame_Selection_MouseOverHighlightObject = {}
+---@return any ...
+function PartyFrame_Selection_MouseOverHighlightObject:GetBorderColor(...) end
+---@return any ...
+function PartyFrame_Selection_MouseOverHighlightObject:GetCenterColor(...) end
+---@return any ...
+function PartyFrame_Selection_MouseOverHighlightObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function PartyFrame_Selection_MouseOverHighlightObject:GetFrameLayoutType(...) end
+---@return any ...
+function PartyFrame_Selection_MouseOverHighlightObject:OnLoad(...) end
+---@return any ...
+function PartyFrame_Selection_MouseOverHighlightObject:SetBlendMode(...) end
+---@return any ...
+function PartyFrame_Selection_MouseOverHighlightObject:SetBorderBlendMode(...) end
+---@return any ...
+function PartyFrame_Selection_MouseOverHighlightObject:SetBorderColor(...) end
+---@return any ...
+function PartyFrame_Selection_MouseOverHighlightObject:SetCenterColor(...) end
+---@return any ...
+function PartyFrame_Selection_MouseOverHighlightObject:SetVertexColor(...) end
+end
+
+do
+---@class PartyFrame_Selection_MouseOverHighlight_BottomEdgeObject : Texture
+local PartyFrame_Selection_MouseOverHighlight_BottomEdgeObject = {}
+end
+
+do
+---@class PartyFrame_Selection_MouseOverHighlight_BottomLeftCornerObject : Texture
+local PartyFrame_Selection_MouseOverHighlight_BottomLeftCornerObject = {}
+end
+
+do
+---@class PartyFrame_Selection_MouseOverHighlight_BottomRightCornerObject : Texture
+local PartyFrame_Selection_MouseOverHighlight_BottomRightCornerObject = {}
+end
+
+do
+---@class PartyFrame_Selection_MouseOverHighlight_CenterObject : Texture
+local PartyFrame_Selection_MouseOverHighlight_CenterObject = {}
+end
+
+do
+---@class PartyFrame_Selection_MouseOverHighlight_LeftEdgeObject : Texture
+local PartyFrame_Selection_MouseOverHighlight_LeftEdgeObject = {}
+end
+
+do
+---@class PartyFrame_Selection_MouseOverHighlight_RightEdgeObject : Texture
+local PartyFrame_Selection_MouseOverHighlight_RightEdgeObject = {}
+end
+
+do
+---@class PartyFrame_Selection_MouseOverHighlight_TopEdgeObject : Texture
+local PartyFrame_Selection_MouseOverHighlight_TopEdgeObject = {}
+end
+
+do
+---@class PartyFrame_Selection_MouseOverHighlight_TopLeftCornerObject : Texture
+local PartyFrame_Selection_MouseOverHighlight_TopLeftCornerObject = {}
+end
+
+do
+---@class PartyFrame_Selection_MouseOverHighlight_TopRightCornerObject : Texture
+local PartyFrame_Selection_MouseOverHighlight_TopRightCornerObject = {}
+end
+
+do
+---@class PartyFrame_Selection_VerticalLabelObject : FontString
+local PartyFrame_Selection_VerticalLabelObject = {}
+end
+
+do
+---@class PartyFrame_Selection_parentObject
+local PartyFrame_Selection_parentObject = {}
+end
+
+do
+---@class PartyFrame_Selection_systemObject
+local PartyFrame_Selection_systemObject = {}
+end
+
+do
+---@class PartyFrame_TargetingActiveDPadFooterinputLegendObject : Frame
+---@field actions table
+---@field promptContainerFrame PartyFrame_TargetingActiveDPadFooterinputLegend_promptContainerFrameObject
+---@field promptFrames PartyFrame_TargetingActiveDPadFooterinputLegend_promptFramesObject
+---@field promptFramesAddOrder table
+---@field promptMap table
+---@field wrapAroundRowWidth boolean
+local PartyFrame_TargetingActiveDPadFooterinputLegendObject = {}
+---@return any ...
+function PartyFrame_TargetingActiveDPadFooterinputLegendObject:AddModifierSection(...) end
+---@return any ...
+function PartyFrame_TargetingActiveDPadFooterinputLegendObject:ApplyDefaultPromptPositioning(...) end
+---@return any ...
+function PartyFrame_TargetingActiveDPadFooterinputLegendObject:ApplyDefaultStyle(...) end
+---@return any ...
+function PartyFrame_TargetingActiveDPadFooterinputLegendObject:ApplyEnabledStyleToModifierSection(...) end
+---@return any ...
+function PartyFrame_TargetingActiveDPadFooterinputLegendObject:ApplyFocusedStyleToModifierSection(...) end
+---@return any ...
+function PartyFrame_TargetingActiveDPadFooterinputLegendObject:ApplyFocusedStyleToPromptContainer(...) end
+---@return any ...
+function PartyFrame_TargetingActiveDPadFooterinputLegendObject:ApplyNeutralStyleToPromptContainer(...) end
+---@return any ...
+function PartyFrame_TargetingActiveDPadFooterinputLegendObject:ApplyWideStyle(...) end
+---@return any ...
+function PartyFrame_TargetingActiveDPadFooterinputLegendObject:GetOrCreatePromptFrameUsingTemplateAndInputs(...) end
+---@return any ...
+function PartyFrame_TargetingActiveDPadFooterinputLegendObject:InitializePrompts(...) end
+---@return any ...
+function PartyFrame_TargetingActiveDPadFooterinputLegendObject:OnBackgroundAlphaChanged(...) end
+---@return any ...
+function PartyFrame_TargetingActiveDPadFooterinputLegendObject:RefreshWithPromptedBindings(...) end
+---@return any ...
+function PartyFrame_TargetingActiveDPadFooterinputLegendObject:SetLegendWidth(...) end
+end
+
+do
+---@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptContainerFrameObject : Frame
+---@field backgroundBorder PartyFrame_TargetingActiveDPadFooterinputLegend_promptContainerFrame_backgroundBorderObject
+---@field backgroundSlot PartyFrame_TargetingActiveDPadFooterinputLegend_promptContainerFrame_backgroundSlotObject
+local PartyFrame_TargetingActiveDPadFooterinputLegend_promptContainerFrameObject = {}
+end
+
+do
+---@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptContainerFrame_backgroundBorderObject : Texture
+local PartyFrame_TargetingActiveDPadFooterinputLegend_promptContainerFrame_backgroundBorderObject = {}
+end
+
+do
+---@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptContainerFrame_backgroundSlotObject : Texture
+local PartyFrame_TargetingActiveDPadFooterinputLegend_promptContainerFrame_backgroundSlotObject = {}
+end
+
+do
+---@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFramesObject
+---@field StandardOneIconDIRPADSLASH PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject
+---@field StandardOneIconPADLSHOULDERSLASH PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject
+local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFramesObject = {}
+end
+
+do
+---@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject : Frame
+---@field ControlDescText PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_ControlDescTextObject
+---@field InputIcon1 PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object
+---@field InputIcons table
 ---@field template string
----@field widthBuffer number
-local WorldMapFrame_navBarObject = {}
+local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject = {}
 ---@return any ...
-function WorldMapFrame_navBarObject:GetTopMostUIMapType(...) end
+function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:ApplyInactiveEnabledPromptStyling(...) end
 ---@return any ...
-function WorldMapFrame_navBarObject:GoToMap(...) end
+function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:BeginHold(...) end
 ---@return any ...
-function WorldMapFrame_navBarObject:OnLoad(...) end
+function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:DisablePrompt(...) end
 ---@return any ...
-function WorldMapFrame_navBarObject:Refresh(...) end
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIconObject : Frame
----@field ActiveTexture WorldMapFrame_navBar_GamepadNextAreaIcon_ActiveTextureObject
----@field DisabledTexture WorldMapFrame_navBar_GamepadNextAreaIcon_DisabledTextureObject
----@field HoldAnim WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnimObject
----@field HoldIndicator WorldMapFrame_navBar_GamepadNextAreaIcon_HoldIndicatorObject
----@field HoldIndicatorBG WorldMapFrame_navBar_GamepadNextAreaIcon_HoldIndicatorBGObject
----@field HoverTexture WorldMapFrame_navBar_GamepadNextAreaIcon_HoverTextureObject
----@field LoadBar WorldMapFrame_navBar_GamepadNextAreaIcon_LoadBarObject
----@field LoadBarBG WorldMapFrame_navBar_GamepadNextAreaIcon_LoadBarBGObject
----@field LoadBarGlow WorldMapFrame_navBar_GamepadNextAreaIcon_LoadBarGlowObject
----@field NormalTexture WorldMapFrame_navBar_GamepadNextAreaIcon_NormalTextureObject
----@field PressedTexture WorldMapFrame_navBar_GamepadNextAreaIcon_PressedTextureObject
----@field SpinnerTip WorldMapFrame_navBar_GamepadNextAreaIcon_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local WorldMapFrame_navBar_GamepadNextAreaIconObject = {}
+function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:EnableOrDisablePrompt(...) end
 ---@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:ApplyTextureLayout(...) end
+function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:EnablePrompt(...) end
 ---@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:BeginHold(...) end
+function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:EndHold(...) end
 ---@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:CanEnterTextureState(...) end
+function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:GetDividerSpacingForPrompt(...) end
 ---@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:DisableDropShadow(...) end
+function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:GetDividerSpacingInfo(...) end
 ---@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:EnableDropShadow(...) end
+function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:GetIconDividerControl(...) end
 ---@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:EndHold(...) end
+function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:GetInputIconControl(...) end
 ---@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:OnHoldAnimFinished(...) end
+function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:GetPromptTextControl(...) end
 ---@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:OnHoldAnimStopped(...) end
+function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:OnLoad(...) end
 ---@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:OnLoad(...) end
+function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:RefreshInputPromptSize(...) end
 ---@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:RefreshIconTextures(...) end
+function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:SetDisabled(...) end
 ---@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:SetDisabled(...) end
+function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:SetDividerType(...) end
 ---@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:SetEnabled(...) end
+function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:SetFocused(...) end
 ---@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:SetFocused(...) end
+function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:SetInputIconSize(...) end
 ---@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:SetHoldState(...) end
+function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:SetIsHoldAction(...) end
 ---@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:SetInputKey(...) end
+function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:SetPressable(...) end
 ---@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:SetIsHoldAction(...) end
+function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:SetPromptFont(...) end
 ---@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:SetPressable(...) end
+function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:SetPromptInputIconKey(...) end
 ---@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:SetTextureHeight(...) end
+function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:SetPromptText(...) end
 ---@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:SetTextureState(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:SetTextureWidth(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:SetUsableState(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_ActiveTextureObject : Texture
-local WorldMapFrame_navBar_GamepadNextAreaIcon_ActiveTextureObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_DisabledTextureObject : Texture
-local WorldMapFrame_navBar_GamepadNextAreaIcon_DisabledTextureObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnimObject : AnimationGroup
----@field LoadBarAnim WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnim_SpinnerTipAnimObject
-local WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnimObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnim_LoadBarAnimObject
-local WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
-local WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnim_SpinnerTipAnimObject : Rotation
-local WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_HoldIndicatorObject : Texture
-local WorldMapFrame_navBar_GamepadNextAreaIcon_HoldIndicatorObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_HoldIndicatorBGObject : Texture
-local WorldMapFrame_navBar_GamepadNextAreaIcon_HoldIndicatorBGObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_HoverTextureObject : Texture
-local WorldMapFrame_navBar_GamepadNextAreaIcon_HoverTextureObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_LoadBarObject : Texture
-local WorldMapFrame_navBar_GamepadNextAreaIcon_LoadBarObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_LoadBarBGObject : Texture
-local WorldMapFrame_navBar_GamepadNextAreaIcon_LoadBarBGObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_LoadBarGlowObject : Texture
-local WorldMapFrame_navBar_GamepadNextAreaIcon_LoadBarGlowObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_NormalTextureObject : Texture
-local WorldMapFrame_navBar_GamepadNextAreaIcon_NormalTextureObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_PressedTextureObject : Texture
-local WorldMapFrame_navBar_GamepadNextAreaIcon_PressedTextureObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_SpinnerTipObject : Texture
-local WorldMapFrame_navBar_GamepadNextAreaIcon_SpinnerTipObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIconObject : Frame
----@field ActiveTexture WorldMapFrame_navBar_GamepadPreviousAreaIcon_ActiveTextureObject
----@field DisabledTexture WorldMapFrame_navBar_GamepadPreviousAreaIcon_DisabledTextureObject
----@field HoldAnim WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnimObject
----@field HoldIndicator WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldIndicatorObject
----@field HoldIndicatorBG WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldIndicatorBGObject
----@field HoverTexture WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoverTextureObject
----@field LoadBar WorldMapFrame_navBar_GamepadPreviousAreaIcon_LoadBarObject
----@field LoadBarBG WorldMapFrame_navBar_GamepadPreviousAreaIcon_LoadBarBGObject
----@field LoadBarGlow WorldMapFrame_navBar_GamepadPreviousAreaIcon_LoadBarGlowObject
----@field NormalTexture WorldMapFrame_navBar_GamepadPreviousAreaIcon_NormalTextureObject
----@field PressedTexture WorldMapFrame_navBar_GamepadPreviousAreaIcon_PressedTextureObject
----@field SpinnerTip WorldMapFrame_navBar_GamepadPreviousAreaIcon_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local WorldMapFrame_navBar_GamepadPreviousAreaIconObject = {}
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:ApplyTextureLayout(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:BeginHold(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:CanEnterTextureState(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:DisableDropShadow(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:EnableDropShadow(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:EndHold(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:OnHoldAnimFinished(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:OnHoldAnimStopped(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:RefreshIconTextures(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:SetDisabled(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:SetEnabled(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:SetFocused(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:SetHoldState(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:SetInputKey(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:SetIsHoldAction(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:SetPressable(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:SetTextureHeight(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:SetTextureState(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:SetTextureWidth(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:SetUsableState(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_ActiveTextureObject : Texture
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_ActiveTextureObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_DisabledTextureObject : Texture
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_DisabledTextureObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnimObject : AnimationGroup
----@field LoadBarAnim WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnim_SpinnerTipAnimObject
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnimObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnim_LoadBarAnimObject
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnim_SpinnerTipAnimObject : Rotation
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldIndicatorObject : Texture
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldIndicatorObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldIndicatorBGObject : Texture
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldIndicatorBGObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoverTextureObject : Texture
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoverTextureObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_LoadBarObject : Texture
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_LoadBarObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_LoadBarBGObject : Texture
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_LoadBarBGObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_LoadBarGlowObject : Texture
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_LoadBarGlowObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_NormalTextureObject : Texture
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_NormalTextureObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_PressedTextureObject : Texture
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_PressedTextureObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_SpinnerTipObject : Texture
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_SpinnerTipObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_InsetBorderBottomObject : Texture
-local WorldMapFrame_navBar_InsetBorderBottomObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_InsetBorderBottomLeftObject : Texture
-local WorldMapFrame_navBar_InsetBorderBottomLeftObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_InsetBorderBottomRightObject : Texture
-local WorldMapFrame_navBar_InsetBorderBottomRightObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_InsetBorderLeftObject : Texture
-local WorldMapFrame_navBar_InsetBorderLeftObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_InsetBorderRightObject : Texture
-local WorldMapFrame_navBar_InsetBorderRightObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_KioskOverlayObject : Frame
-local WorldMapFrame_navBar_KioskOverlayObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_homeObject
-local WorldMapFrame_navBar_homeObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_homeButtonObject : Button
----@field data WorldMapFrame_navBar_homeButton_dataObject
----@field text WorldMapFrame_navBar_homeButton_textObject
----@field xoffset number
-local WorldMapFrame_navBar_homeButtonObject = {}
----@return any ...
-function WorldMapFrame_navBar_homeButtonObject:myclick(...) end
----@return any ...
-function WorldMapFrame_navBar_homeButtonObject:oldClick(...) end
-end
-
-do
----@class WorldMapFrame_navBar_homeButton_dataObject
----@field name string
-local WorldMapFrame_navBar_homeButton_dataObject = {}
----@return any ...
-function WorldMapFrame_navBar_homeButton_dataObject:OnClick(...) end
-end
-
-do
----@class WorldMapFrame_navBar_homeButton_textObject : FontString
-local WorldMapFrame_navBar_homeButton_textObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_overflowObject
-local WorldMapFrame_navBar_overflowObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_overflowButtonObject : Button
----@field Event WorldMapFrame_navBar_overflowButton_EventObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
----@field intrinsic string
----@field menuAnchor WorldMapFrame_navBar_overflowButton_menuAnchorObject
----@field menuPoint string
----@field menuPointX number
----@field menuPointY number
----@field menuRelativePoint string
----@field xoffset number
-local WorldMapFrame_navBar_overflowButtonObject = {}
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:ClearMenuState(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:CloseMenu(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:CollectSelectionData(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:CreateDefaultRootMenuDescription(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:CreateRootDescription(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:Decrement(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:EnableRegenerateOnResponse(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:GenerateMenu(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:GetMenuDescription(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:GetSelectionData(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:HandlesGlobalMouseEvent(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:HasAnyRadioDescriptions(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:HasElements(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:HasOnlyRadioDescriptions(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:HasStickyFocus(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:Increment(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:IsMenuOpen(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:OnEnter_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:OnMenuAssigned(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:OnMenuChanged(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:OnMenuClosed(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:OnMenuOpened(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:OnMenuResponse(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:OnMouseWheel_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:OpenMenu(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:Pick(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:RegisterMenu(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:Rotate(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:SetMenuAnchor(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:SetMenuOpen(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:SetupMenu(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:SignalUpdate(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:Update(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:UpdateSelections(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:UpdateToMenuSelections(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:listFunc(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:menuGenerator(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:onMenuClosedCallback(...) end
-end
-
-do
----@class WorldMapFrame_navBar_overflowButton_EventObject
-local WorldMapFrame_navBar_overflowButton_EventObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_overflowButton_menuAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo WorldMapFrame_navBar_overflowButton_menuAnchor_relativeToObject
----@field x number
----@field y number
-local WorldMapFrame_navBar_overflowButton_menuAnchorObject = {}
----@return any ...
-function WorldMapFrame_navBar_overflowButton_menuAnchorObject:Get(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButton_menuAnchorObject:GetRelativeTo(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButton_menuAnchorObject:Init(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButton_menuAnchorObject:Set(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButton_menuAnchorObject:SetFromPoint(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButton_menuAnchorObject:SetOffsets(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButton_menuAnchorObject:SetPoint(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButton_menuAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButton_menuAnchorObject:SetRelativeTo(...) end
-end
-
-do
----@class WorldMapFrame_navBar_overflowButton_menuAnchor_relativeToObject
-local WorldMapFrame_navBar_overflowButton_menuAnchor_relativeToObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_overlayObject : Frame
-local WorldMapFrame_navBar_overlayObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_relativeFrameObject
-local WorldMapFrame_navBar_relativeFrameObject = {}
-end
-
-do
----@class WorldMapFrame_pinFrameLevelsManagerObject
----@field definitions table
----@field maxLevel number
----@field minLevel number
----@field topMostDefinition table
-local WorldMapFrame_pinFrameLevelsManagerObject = {}
----@return any ...
-function WorldMapFrame_pinFrameLevelsManagerObject:AddDefinition(...) end
----@return any ...
-function WorldMapFrame_pinFrameLevelsManagerObject:AddFrameLevel(...) end
----@return any ...
-function WorldMapFrame_pinFrameLevelsManagerObject:ClearOverride(...) end
----@return any ...
-function WorldMapFrame_pinFrameLevelsManagerObject:GetFrameLevelRange(...) end
----@return any ...
-function WorldMapFrame_pinFrameLevelsManagerObject:GetFrameLevelStart(...) end
----@return any ...
-function WorldMapFrame_pinFrameLevelsManagerObject:GetValidFrameLevel(...) end
----@return any ...
-function WorldMapFrame_pinFrameLevelsManagerObject:Initialize(...) end
----@return any ...
-function WorldMapFrame_pinFrameLevelsManagerObject:InsertFrameLevelAbove(...) end
----@return any ...
-function WorldMapFrame_pinFrameLevelsManagerObject:InsertFrameLevelBelow(...) end
----@return any ...
-function WorldMapFrame_pinFrameLevelsManagerObject:SetOverride(...) end
----@return any ...
-function WorldMapFrame_pinFrameLevelsManagerObject:ValidateContiguous(...) end
-end
-
-do
----@class WorldMapFrame_pinPoolsObject
----@field FogOfWarPinTemplate table
----@field GroupMembersPinTemplate table
----@field MapExplorationPinTemplate table
----@field MapHighlightPinTemplate table
----@field QuestBlobPinTemplate table
----@field ScenarioBlobPinTemplate table
-local WorldMapFrame_pinPoolsObject = {}
-end
-
-do
----@class WorldMapFrame_pinTemplateTypesObject
----@field FogOfWarPinTemplate string
----@field GroupMembersPinTemplate string
----@field MapExplorationPinTemplate string
----@field MapHighlightPinTemplate string
----@field QuestBlobPinTemplate string
----@field ScenarioBlobPinTemplate string
----@field VignettePinPOIButtonTemplate string
-local WorldMapFrame_pinTemplateTypesObject = {}
-end
-
-do
----@class ZoneTextFrameObject : Frame
----@field fadeInTime number
----@field fadeOutTime number
----@field holdTime number
----@field zoneText string
-local ZoneTextFrameObject = {}
----@type ZoneTextFrameObject
-ZoneTextFrame = ZoneTextFrameObject
+function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:SetUseDropShadow(...) end
 end

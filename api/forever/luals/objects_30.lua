@@ -3,4471 +3,6881 @@
 
 
 do
----@class QuestSessionManager_StartDialog_ButtonContainer_Confirm_FlashObject : Texture
-local QuestSessionManager_StartDialog_ButtonContainer_Confirm_FlashObject = {}
+---@class GuildBankFrame_Column5_Button12_CountObject : FontString
+local GuildBankFrame_Column5_Button12_CountObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_ButtonContainer_Confirm_PulseAnimObject : AnimationGroup
-local QuestSessionManager_StartDialog_ButtonContainer_Confirm_PulseAnimObject = {}
+---@class GuildBankFrame_Column5_Button12_HighlightTextureObject : Texture
+local GuildBankFrame_Column5_Button12_HighlightTextureObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_ButtonContainer_Confirm_TextObject : FontString
-local QuestSessionManager_StartDialog_ButtonContainer_Confirm_TextObject = {}
+---@class GuildBankFrame_Column5_Button12_IconBorderObject : Texture
+local GuildBankFrame_Column5_Button12_IconBorderObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_ButtonContainer_DeclineObject : Button
----@field Flash QuestSessionManager_StartDialog_ButtonContainer_Decline_FlashObject
----@field PulseAnim QuestSessionManager_StartDialog_ButtonContainer_Decline_PulseAnimObject
----@field Text QuestSessionManager_StartDialog_ButtonContainer_Decline_TextObject
----@field baseHeight number
----@field baseWidth number
----@field useScaleWeight boolean
-local QuestSessionManager_StartDialog_ButtonContainer_DeclineObject = {}
----@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_DeclineObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_DeclineObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_DeclineObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_DeclineObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_DeclineObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_DeclineObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_DeclineObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_DeclineObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_DeclineObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_DeclineObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_DeclineObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_DeclineObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_DeclineObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_DeclineObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_DeclineObject:UpdateWidth(...) end
+---@class GuildBankFrame_Column5_Button12_IconOverlayObject : Texture
+local GuildBankFrame_Column5_Button12_IconOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_ButtonContainer_Decline_FlashObject : Texture
-local QuestSessionManager_StartDialog_ButtonContainer_Decline_FlashObject = {}
+---@class GuildBankFrame_Column5_Button12_IconOverlay2Object : Texture
+local GuildBankFrame_Column5_Button12_IconOverlay2Object = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_ButtonContainer_Decline_PulseAnimObject : AnimationGroup
-local QuestSessionManager_StartDialog_ButtonContainer_Decline_PulseAnimObject = {}
+---@class GuildBankFrame_Column5_Button12_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column5_Button12_ItemContextOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_ButtonContainer_Decline_TextObject : FontString
-local QuestSessionManager_StartDialog_ButtonContainer_Decline_TextObject = {}
+---@class GuildBankFrame_Column5_Button12_MaskObject : MaskTexture
+local GuildBankFrame_Column5_Button12_MaskObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_DividerObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_StartDialog_DividerObject = {}
+---@class GuildBankFrame_Column5_Button12_NormalTextureObject : Texture
+local GuildBankFrame_Column5_Button12_NormalTextureObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_InvisibleRuleObject : Texture
-local QuestSessionManager_StartDialog_InvisibleRuleObject = {}
+---@class GuildBankFrame_Column5_Button12_PushedTextureObject : Texture
+local GuildBankFrame_Column5_Button12_PushedTextureObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_MinimizeButtonObject : Button
----@field ignoreInLayout boolean
-local QuestSessionManager_StartDialog_MinimizeButtonObject = {}
----@return any ...
-function QuestSessionManager_StartDialog_MinimizeButtonObject:OnClick(...) end
+---@class GuildBankFrame_Column5_Button12_StockObject : FontString
+local GuildBankFrame_Column5_Button12_StockObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_PlayerContainerObject : Frame
-local QuestSessionManager_StartDialog_PlayerContainerObject = {}
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:Layout(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_StartDialog_PlayerContainerObject:ShouldClearOnUpdateAfterClean(...) end
+---@class GuildBankFrame_Column5_Button12_iconObject : Texture
+local GuildBankFrame_Column5_Button12_iconObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_TitleObject : Frame
----@field Icon QuestSessionManager_StartDialog_Title_IconObject
----@field Text QuestSessionManager_StartDialog_Title_TextObject
-local QuestSessionManager_StartDialog_TitleObject = {}
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:Layout(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:SetText(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_StartDialog_TitleObject:ShouldClearOnUpdateAfterClean(...) end
+---@class GuildBankFrame_Column5_Button12_searchOverlayObject : Texture
+local GuildBankFrame_Column5_Button12_searchOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_Title_IconObject : Texture
-local QuestSessionManager_StartDialog_Title_IconObject = {}
+---@class GuildBankFrame_Column5_Button13Object : Button
+---@field Count GuildBankFrame_Column5_Button13_CountObject
+---@field HighlightTexture GuildBankFrame_Column5_Button13_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column5_Button13_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column5_Button13_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column5_Button13_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column5_Button13_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column5_Button13_MaskObject
+---@field NormalTexture GuildBankFrame_Column5_Button13_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column5_Button13_PushedTextureObject
+---@field Stock GuildBankFrame_Column5_Button13_StockObject
+---@field icon GuildBankFrame_Column5_Button13_iconObject
+---@field searchOverlay GuildBankFrame_Column5_Button13_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column5_Button13Object = {}
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button13Object:UpdateTooltip(...) end
 end
 
 do
----@class QuestSessionManager_StartDialog_Title_TextObject : FontString
-local QuestSessionManager_StartDialog_Title_TextObject = {}
+---@class GuildBankFrame_Column5_Button13_CountObject : FontString
+local GuildBankFrame_Column5_Button13_CountObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_playerPoolObject
-local QuestSessionManager_StartDialog_playerPoolObject = {}
----@return any ...
-function QuestSessionManager_StartDialog_playerPoolObject:GetTemplate(...) end
----@return any ...
-function QuestSessionManager_StartDialog_playerPoolObject:private(...) end
+---@class GuildBankFrame_Column5_Button13_HighlightTextureObject : Texture
+local GuildBankFrame_Column5_Button13_HighlightTextureObject = {}
 end
 
 do
----@class QueueStatusFrameObject : Frame
----@field NineSlice QueueStatusFrame_NineSliceObject
----@field hasNonPlunderstormQueue boolean
----@field layoutType string
----@field statusEntriesPool QueueStatusFrame_statusEntriesPoolObject
-local QueueStatusFrameObject = {}
----@return any ...
-function QueueStatusFrameObject:GetBackdropBorderColor(...) end
----@return any ...
-function QueueStatusFrameObject:GetBackdropColor(...) end
----@return any ...
-function QueueStatusFrameObject:GetEntry(...) end
----@return any ...
-function QueueStatusFrameObject:HasNonPlunderstormQueue(...) end
----@return any ...
-function QueueStatusFrameObject:OnEvent(...) end
----@return any ...
-function QueueStatusFrameObject:OnLoad(...) end
----@return any ...
-function QueueStatusFrameObject:SetBackdropBorderColor(...) end
----@return any ...
-function QueueStatusFrameObject:SetBackdropColor(...) end
----@return any ...
-function QueueStatusFrameObject:SetBorderBlendMode(...) end
----@return any ...
-function QueueStatusFrameObject:SetOwner(...) end
----@return any ...
-function QueueStatusFrameObject:TooltipBackdropOnLoad(...) end
----@return any ...
-function QueueStatusFrameObject:Update(...) end
----@return any ...
-function QueueStatusFrameObject:UpdatePosition(...) end
----@type QueueStatusFrameObject
-QueueStatusFrame = QueueStatusFrameObject
+---@class GuildBankFrame_Column5_Button13_IconBorderObject : Texture
+local GuildBankFrame_Column5_Button13_IconBorderObject = {}
 end
 
 do
----@class QueueStatusFrame_NineSliceObject : Frame
----@field BottomEdge QueueStatusFrame_NineSlice_BottomEdgeObject
----@field BottomLeftCorner QueueStatusFrame_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner QueueStatusFrame_NineSlice_BottomRightCornerObject
----@field Center QueueStatusFrame_NineSlice_CenterObject
----@field LeftEdge QueueStatusFrame_NineSlice_LeftEdgeObject
----@field RightEdge QueueStatusFrame_NineSlice_RightEdgeObject
----@field TopEdge QueueStatusFrame_NineSlice_TopEdgeObject
----@field TopLeftCorner QueueStatusFrame_NineSlice_TopLeftCornerObject
----@field TopRightCorner QueueStatusFrame_NineSlice_TopRightCornerObject
-local QueueStatusFrame_NineSliceObject = {}
----@return any ...
-function QueueStatusFrame_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function QueueStatusFrame_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function QueueStatusFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function QueueStatusFrame_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function QueueStatusFrame_NineSliceObject:OnLoad(...) end
----@return any ...
-function QueueStatusFrame_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function QueueStatusFrame_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function QueueStatusFrame_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function QueueStatusFrame_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function QueueStatusFrame_NineSliceObject:SetVertexColor(...) end
+---@class GuildBankFrame_Column5_Button13_IconOverlayObject : Texture
+local GuildBankFrame_Column5_Button13_IconOverlayObject = {}
 end
 
 do
----@class QueueStatusFrame_NineSlice_BottomEdgeObject : Texture
-local QueueStatusFrame_NineSlice_BottomEdgeObject = {}
+---@class GuildBankFrame_Column5_Button13_IconOverlay2Object : Texture
+local GuildBankFrame_Column5_Button13_IconOverlay2Object = {}
 end
 
 do
----@class QueueStatusFrame_NineSlice_BottomLeftCornerObject : Texture
-local QueueStatusFrame_NineSlice_BottomLeftCornerObject = {}
+---@class GuildBankFrame_Column5_Button13_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column5_Button13_ItemContextOverlayObject = {}
 end
 
 do
----@class QueueStatusFrame_NineSlice_BottomRightCornerObject : Texture
-local QueueStatusFrame_NineSlice_BottomRightCornerObject = {}
+---@class GuildBankFrame_Column5_Button13_MaskObject : MaskTexture
+local GuildBankFrame_Column5_Button13_MaskObject = {}
 end
 
 do
----@class QueueStatusFrame_NineSlice_CenterObject : Texture
-local QueueStatusFrame_NineSlice_CenterObject = {}
+---@class GuildBankFrame_Column5_Button13_NormalTextureObject : Texture
+local GuildBankFrame_Column5_Button13_NormalTextureObject = {}
 end
 
 do
----@class QueueStatusFrame_NineSlice_LeftEdgeObject : Texture
-local QueueStatusFrame_NineSlice_LeftEdgeObject = {}
+---@class GuildBankFrame_Column5_Button13_PushedTextureObject : Texture
+local GuildBankFrame_Column5_Button13_PushedTextureObject = {}
 end
 
 do
----@class QueueStatusFrame_NineSlice_RightEdgeObject : Texture
-local QueueStatusFrame_NineSlice_RightEdgeObject = {}
+---@class GuildBankFrame_Column5_Button13_StockObject : FontString
+local GuildBankFrame_Column5_Button13_StockObject = {}
 end
 
 do
----@class QueueStatusFrame_NineSlice_TopEdgeObject : Texture
-local QueueStatusFrame_NineSlice_TopEdgeObject = {}
+---@class GuildBankFrame_Column5_Button13_iconObject : Texture
+local GuildBankFrame_Column5_Button13_iconObject = {}
 end
 
 do
----@class QueueStatusFrame_NineSlice_TopLeftCornerObject : Texture
-local QueueStatusFrame_NineSlice_TopLeftCornerObject = {}
+---@class GuildBankFrame_Column5_Button13_searchOverlayObject : Texture
+local GuildBankFrame_Column5_Button13_searchOverlayObject = {}
 end
 
 do
----@class QueueStatusFrame_NineSlice_TopRightCornerObject : Texture
-local QueueStatusFrame_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class QueueStatusFrame_statusEntriesPoolObject
-local QueueStatusFrame_statusEntriesPoolObject = {}
+---@class GuildBankFrame_Column5_Button14Object : Button
+---@field Count GuildBankFrame_Column5_Button14_CountObject
+---@field HighlightTexture GuildBankFrame_Column5_Button14_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column5_Button14_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column5_Button14_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column5_Button14_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column5_Button14_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column5_Button14_MaskObject
+---@field NormalTexture GuildBankFrame_Column5_Button14_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column5_Button14_PushedTextureObject
+---@field Stock GuildBankFrame_Column5_Button14_StockObject
+---@field icon GuildBankFrame_Column5_Button14_iconObject
+---@field searchOverlay GuildBankFrame_Column5_Button14_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column5_Button14Object = {}
 ---@return any ...
-function QueueStatusFrame_statusEntriesPoolObject:GetTemplate(...) end
+function GuildBankFrame_Column5_Button14Object:GetBagID(...) end
 ---@return any ...
-function QueueStatusFrame_statusEntriesPoolObject:private(...) end
+function GuildBankFrame_Column5_Button14Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button14Object:UpdateTooltip(...) end
 end
 
 do
----@class QuickJoinRoleSelectionFrameObject : Frame
----@field AcceptButton QuickJoinRoleSelectionFrame_AcceptButtonObject
----@field Border QuickJoinRoleSelectionFrame_BorderObject
----@field CancelButton QuickJoinRoleSelectionFrame_CancelButtonObject
----@field CloseButton QuickJoinRoleSelectionFrame_CloseButtonObject
----@field QueueWarningText QuickJoinRoleSelectionFrame_QueueWarningTextObject
----@field RoleButtonDPS QuickJoinRoleSelectionFrame_RoleButtonDPSObject
----@field RoleButtonHealer QuickJoinRoleSelectionFrame_RoleButtonHealerObject
----@field RoleButtonTank QuickJoinRoleSelectionFrame_RoleButtonTankObject
----@field Roles table
-local QuickJoinRoleSelectionFrameObject = {}
----@return any ...
-function QuickJoinRoleSelectionFrameObject:GetSelectedRoles(...) end
----@return any ...
-function QuickJoinRoleSelectionFrameObject:OnAccept(...) end
----@return any ...
-function QuickJoinRoleSelectionFrameObject:OnCancel(...) end
----@return any ...
-function QuickJoinRoleSelectionFrameObject:OnLoad(...) end
----@return any ...
-function QuickJoinRoleSelectionFrameObject:SetDisabledRoles(...) end
----@return any ...
-function QuickJoinRoleSelectionFrameObject:ShowForGroup(...) end
----@return any ...
-function QuickJoinRoleSelectionFrameObject:UpdatePermanentlyDisabledRoles(...) end
----@type QuickJoinRoleSelectionFrameObject
-QuickJoinRoleSelectionFrame = QuickJoinRoleSelectionFrameObject
+---@class GuildBankFrame_Column5_Button14_CountObject : FontString
+local GuildBankFrame_Column5_Button14_CountObject = {}
 end
 
 do
----@class QuickJoinRoleSelectionFrame_AcceptButtonObject : Button
----@field Left QuickJoinRoleSelectionFrame_AcceptButton_LeftObject
----@field Middle QuickJoinRoleSelectionFrame_AcceptButton_MiddleObject
----@field Right QuickJoinRoleSelectionFrame_AcceptButton_RightObject
----@field Text QuickJoinRoleSelectionFrame_AcceptButton_TextObject
+---@class GuildBankFrame_Column5_Button14_HighlightTextureObject : Texture
+local GuildBankFrame_Column5_Button14_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button14_IconBorderObject : Texture
+local GuildBankFrame_Column5_Button14_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button14_IconOverlayObject : Texture
+local GuildBankFrame_Column5_Button14_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button14_IconOverlay2Object : Texture
+local GuildBankFrame_Column5_Button14_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button14_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column5_Button14_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button14_MaskObject : MaskTexture
+local GuildBankFrame_Column5_Button14_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button14_NormalTextureObject : Texture
+local GuildBankFrame_Column5_Button14_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button14_PushedTextureObject : Texture
+local GuildBankFrame_Column5_Button14_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button14_StockObject : FontString
+local GuildBankFrame_Column5_Button14_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button14_iconObject : Texture
+local GuildBankFrame_Column5_Button14_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button14_searchOverlayObject : Texture
+local GuildBankFrame_Column5_Button14_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button2Object : Button
+---@field Count GuildBankFrame_Column5_Button2_CountObject
+---@field HighlightTexture GuildBankFrame_Column5_Button2_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column5_Button2_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column5_Button2_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column5_Button2_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column5_Button2_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column5_Button2_MaskObject
+---@field NormalTexture GuildBankFrame_Column5_Button2_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column5_Button2_PushedTextureObject
+---@field Stock GuildBankFrame_Column5_Button2_StockObject
+---@field icon GuildBankFrame_Column5_Button2_iconObject
+---@field searchOverlay GuildBankFrame_Column5_Button2_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column5_Button2Object = {}
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button2Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column5_Button2_CountObject : FontString
+local GuildBankFrame_Column5_Button2_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button2_HighlightTextureObject : Texture
+local GuildBankFrame_Column5_Button2_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button2_IconBorderObject : Texture
+local GuildBankFrame_Column5_Button2_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button2_IconOverlayObject : Texture
+local GuildBankFrame_Column5_Button2_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button2_IconOverlay2Object : Texture
+local GuildBankFrame_Column5_Button2_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button2_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column5_Button2_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button2_MaskObject : MaskTexture
+local GuildBankFrame_Column5_Button2_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button2_NormalTextureObject : Texture
+local GuildBankFrame_Column5_Button2_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button2_PushedTextureObject : Texture
+local GuildBankFrame_Column5_Button2_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button2_StockObject : FontString
+local GuildBankFrame_Column5_Button2_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button2_iconObject : Texture
+local GuildBankFrame_Column5_Button2_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button2_searchOverlayObject : Texture
+local GuildBankFrame_Column5_Button2_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button3Object : Button
+---@field Count GuildBankFrame_Column5_Button3_CountObject
+---@field HighlightTexture GuildBankFrame_Column5_Button3_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column5_Button3_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column5_Button3_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column5_Button3_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column5_Button3_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column5_Button3_MaskObject
+---@field NormalTexture GuildBankFrame_Column5_Button3_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column5_Button3_PushedTextureObject
+---@field Stock GuildBankFrame_Column5_Button3_StockObject
+---@field icon GuildBankFrame_Column5_Button3_iconObject
+---@field searchOverlay GuildBankFrame_Column5_Button3_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column5_Button3Object = {}
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button3Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column5_Button3_CountObject : FontString
+local GuildBankFrame_Column5_Button3_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button3_HighlightTextureObject : Texture
+local GuildBankFrame_Column5_Button3_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button3_IconBorderObject : Texture
+local GuildBankFrame_Column5_Button3_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button3_IconOverlayObject : Texture
+local GuildBankFrame_Column5_Button3_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button3_IconOverlay2Object : Texture
+local GuildBankFrame_Column5_Button3_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button3_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column5_Button3_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button3_MaskObject : MaskTexture
+local GuildBankFrame_Column5_Button3_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button3_NormalTextureObject : Texture
+local GuildBankFrame_Column5_Button3_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button3_PushedTextureObject : Texture
+local GuildBankFrame_Column5_Button3_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button3_StockObject : FontString
+local GuildBankFrame_Column5_Button3_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button3_iconObject : Texture
+local GuildBankFrame_Column5_Button3_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button3_searchOverlayObject : Texture
+local GuildBankFrame_Column5_Button3_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button4Object : Button
+---@field Count GuildBankFrame_Column5_Button4_CountObject
+---@field HighlightTexture GuildBankFrame_Column5_Button4_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column5_Button4_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column5_Button4_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column5_Button4_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column5_Button4_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column5_Button4_MaskObject
+---@field NormalTexture GuildBankFrame_Column5_Button4_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column5_Button4_PushedTextureObject
+---@field Stock GuildBankFrame_Column5_Button4_StockObject
+---@field icon GuildBankFrame_Column5_Button4_iconObject
+---@field searchOverlay GuildBankFrame_Column5_Button4_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column5_Button4Object = {}
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button4Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column5_Button4_CountObject : FontString
+local GuildBankFrame_Column5_Button4_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button4_HighlightTextureObject : Texture
+local GuildBankFrame_Column5_Button4_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button4_IconBorderObject : Texture
+local GuildBankFrame_Column5_Button4_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button4_IconOverlayObject : Texture
+local GuildBankFrame_Column5_Button4_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button4_IconOverlay2Object : Texture
+local GuildBankFrame_Column5_Button4_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button4_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column5_Button4_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button4_MaskObject : MaskTexture
+local GuildBankFrame_Column5_Button4_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button4_NormalTextureObject : Texture
+local GuildBankFrame_Column5_Button4_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button4_PushedTextureObject : Texture
+local GuildBankFrame_Column5_Button4_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button4_StockObject : FontString
+local GuildBankFrame_Column5_Button4_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button4_iconObject : Texture
+local GuildBankFrame_Column5_Button4_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button4_searchOverlayObject : Texture
+local GuildBankFrame_Column5_Button4_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button5Object : Button
+---@field Count GuildBankFrame_Column5_Button5_CountObject
+---@field HighlightTexture GuildBankFrame_Column5_Button5_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column5_Button5_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column5_Button5_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column5_Button5_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column5_Button5_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column5_Button5_MaskObject
+---@field NormalTexture GuildBankFrame_Column5_Button5_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column5_Button5_PushedTextureObject
+---@field Stock GuildBankFrame_Column5_Button5_StockObject
+---@field icon GuildBankFrame_Column5_Button5_iconObject
+---@field searchOverlay GuildBankFrame_Column5_Button5_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column5_Button5Object = {}
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button5Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column5_Button5_CountObject : FontString
+local GuildBankFrame_Column5_Button5_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button5_HighlightTextureObject : Texture
+local GuildBankFrame_Column5_Button5_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button5_IconBorderObject : Texture
+local GuildBankFrame_Column5_Button5_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button5_IconOverlayObject : Texture
+local GuildBankFrame_Column5_Button5_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button5_IconOverlay2Object : Texture
+local GuildBankFrame_Column5_Button5_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button5_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column5_Button5_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button5_MaskObject : MaskTexture
+local GuildBankFrame_Column5_Button5_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button5_NormalTextureObject : Texture
+local GuildBankFrame_Column5_Button5_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button5_PushedTextureObject : Texture
+local GuildBankFrame_Column5_Button5_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button5_StockObject : FontString
+local GuildBankFrame_Column5_Button5_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button5_iconObject : Texture
+local GuildBankFrame_Column5_Button5_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button5_searchOverlayObject : Texture
+local GuildBankFrame_Column5_Button5_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button6Object : Button
+---@field Count GuildBankFrame_Column5_Button6_CountObject
+---@field HighlightTexture GuildBankFrame_Column5_Button6_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column5_Button6_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column5_Button6_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column5_Button6_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column5_Button6_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column5_Button6_MaskObject
+---@field NormalTexture GuildBankFrame_Column5_Button6_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column5_Button6_PushedTextureObject
+---@field Stock GuildBankFrame_Column5_Button6_StockObject
+---@field icon GuildBankFrame_Column5_Button6_iconObject
+---@field searchOverlay GuildBankFrame_Column5_Button6_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column5_Button6Object = {}
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button6Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column5_Button6_CountObject : FontString
+local GuildBankFrame_Column5_Button6_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button6_HighlightTextureObject : Texture
+local GuildBankFrame_Column5_Button6_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button6_IconBorderObject : Texture
+local GuildBankFrame_Column5_Button6_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button6_IconOverlayObject : Texture
+local GuildBankFrame_Column5_Button6_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button6_IconOverlay2Object : Texture
+local GuildBankFrame_Column5_Button6_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button6_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column5_Button6_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button6_MaskObject : MaskTexture
+local GuildBankFrame_Column5_Button6_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button6_NormalTextureObject : Texture
+local GuildBankFrame_Column5_Button6_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button6_PushedTextureObject : Texture
+local GuildBankFrame_Column5_Button6_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button6_StockObject : FontString
+local GuildBankFrame_Column5_Button6_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button6_iconObject : Texture
+local GuildBankFrame_Column5_Button6_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button6_searchOverlayObject : Texture
+local GuildBankFrame_Column5_Button6_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button7Object : Button
+---@field Count GuildBankFrame_Column5_Button7_CountObject
+---@field HighlightTexture GuildBankFrame_Column5_Button7_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column5_Button7_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column5_Button7_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column5_Button7_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column5_Button7_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column5_Button7_MaskObject
+---@field NormalTexture GuildBankFrame_Column5_Button7_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column5_Button7_PushedTextureObject
+---@field Stock GuildBankFrame_Column5_Button7_StockObject
+---@field icon GuildBankFrame_Column5_Button7_iconObject
+---@field searchOverlay GuildBankFrame_Column5_Button7_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column5_Button7Object = {}
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button7Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column5_Button7_CountObject : FontString
+local GuildBankFrame_Column5_Button7_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button7_HighlightTextureObject : Texture
+local GuildBankFrame_Column5_Button7_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button7_IconBorderObject : Texture
+local GuildBankFrame_Column5_Button7_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button7_IconOverlayObject : Texture
+local GuildBankFrame_Column5_Button7_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button7_IconOverlay2Object : Texture
+local GuildBankFrame_Column5_Button7_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button7_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column5_Button7_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button7_MaskObject : MaskTexture
+local GuildBankFrame_Column5_Button7_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button7_NormalTextureObject : Texture
+local GuildBankFrame_Column5_Button7_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button7_PushedTextureObject : Texture
+local GuildBankFrame_Column5_Button7_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button7_StockObject : FontString
+local GuildBankFrame_Column5_Button7_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button7_iconObject : Texture
+local GuildBankFrame_Column5_Button7_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button7_searchOverlayObject : Texture
+local GuildBankFrame_Column5_Button7_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button8Object : Button
+---@field Count GuildBankFrame_Column5_Button8_CountObject
+---@field HighlightTexture GuildBankFrame_Column5_Button8_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column5_Button8_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column5_Button8_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column5_Button8_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column5_Button8_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column5_Button8_MaskObject
+---@field NormalTexture GuildBankFrame_Column5_Button8_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column5_Button8_PushedTextureObject
+---@field Stock GuildBankFrame_Column5_Button8_StockObject
+---@field icon GuildBankFrame_Column5_Button8_iconObject
+---@field searchOverlay GuildBankFrame_Column5_Button8_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column5_Button8Object = {}
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button8Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column5_Button8_CountObject : FontString
+local GuildBankFrame_Column5_Button8_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button8_HighlightTextureObject : Texture
+local GuildBankFrame_Column5_Button8_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button8_IconBorderObject : Texture
+local GuildBankFrame_Column5_Button8_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button8_IconOverlayObject : Texture
+local GuildBankFrame_Column5_Button8_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button8_IconOverlay2Object : Texture
+local GuildBankFrame_Column5_Button8_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button8_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column5_Button8_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button8_MaskObject : MaskTexture
+local GuildBankFrame_Column5_Button8_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button8_NormalTextureObject : Texture
+local GuildBankFrame_Column5_Button8_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button8_PushedTextureObject : Texture
+local GuildBankFrame_Column5_Button8_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button8_StockObject : FontString
+local GuildBankFrame_Column5_Button8_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button8_iconObject : Texture
+local GuildBankFrame_Column5_Button8_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button8_searchOverlayObject : Texture
+local GuildBankFrame_Column5_Button8_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button9Object : Button
+---@field Count GuildBankFrame_Column5_Button9_CountObject
+---@field HighlightTexture GuildBankFrame_Column5_Button9_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column5_Button9_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column5_Button9_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column5_Button9_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column5_Button9_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column5_Button9_MaskObject
+---@field NormalTexture GuildBankFrame_Column5_Button9_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column5_Button9_PushedTextureObject
+---@field Stock GuildBankFrame_Column5_Button9_StockObject
+---@field icon GuildBankFrame_Column5_Button9_iconObject
+---@field searchOverlay GuildBankFrame_Column5_Button9_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column5_Button9Object = {}
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column5_Button9Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column5_Button9_CountObject : FontString
+local GuildBankFrame_Column5_Button9_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button9_HighlightTextureObject : Texture
+local GuildBankFrame_Column5_Button9_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button9_IconBorderObject : Texture
+local GuildBankFrame_Column5_Button9_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button9_IconOverlayObject : Texture
+local GuildBankFrame_Column5_Button9_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button9_IconOverlay2Object : Texture
+local GuildBankFrame_Column5_Button9_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button9_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column5_Button9_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button9_MaskObject : MaskTexture
+local GuildBankFrame_Column5_Button9_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button9_NormalTextureObject : Texture
+local GuildBankFrame_Column5_Button9_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button9_PushedTextureObject : Texture
+local GuildBankFrame_Column5_Button9_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button9_StockObject : FontString
+local GuildBankFrame_Column5_Button9_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button9_iconObject : Texture
+local GuildBankFrame_Column5_Button9_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5_Button9_searchOverlayObject : Texture
+local GuildBankFrame_Column5_Button9_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6Object : Frame
+---@field Background GuildBankFrame_Column6_BackgroundObject
+---@field Button1 GuildBankFrame_Column6_Button1Object
+---@field Button10 GuildBankFrame_Column6_Button10Object
+---@field Button11 GuildBankFrame_Column6_Button11Object
+---@field Button12 GuildBankFrame_Column6_Button12Object
+---@field Button13 GuildBankFrame_Column6_Button13Object
+---@field Button14 GuildBankFrame_Column6_Button14Object
+---@field Button2 GuildBankFrame_Column6_Button2Object
+---@field Button3 GuildBankFrame_Column6_Button3Object
+---@field Button4 GuildBankFrame_Column6_Button4Object
+---@field Button5 GuildBankFrame_Column6_Button5Object
+---@field Button6 GuildBankFrame_Column6_Button6Object
+---@field Button7 GuildBankFrame_Column6_Button7Object
+---@field Button8 GuildBankFrame_Column6_Button8Object
+---@field Button9 GuildBankFrame_Column6_Button9Object
+---@field Buttons table
+local GuildBankFrame_Column6Object = {}
+end
+
+do
+---@class GuildBankFrame_Column6_BackgroundObject : Texture
+local GuildBankFrame_Column6_BackgroundObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button1Object : Button
+---@field Count GuildBankFrame_Column6_Button1_CountObject
+---@field HighlightTexture GuildBankFrame_Column6_Button1_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column6_Button1_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column6_Button1_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column6_Button1_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column6_Button1_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column6_Button1_MaskObject
+---@field NormalTexture GuildBankFrame_Column6_Button1_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column6_Button1_PushedTextureObject
+---@field Stock GuildBankFrame_Column6_Button1_StockObject
+---@field icon GuildBankFrame_Column6_Button1_iconObject
+---@field searchOverlay GuildBankFrame_Column6_Button1_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column6_Button1Object = {}
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button1Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column6_Button1_CountObject : FontString
+local GuildBankFrame_Column6_Button1_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button1_HighlightTextureObject : Texture
+local GuildBankFrame_Column6_Button1_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button1_IconBorderObject : Texture
+local GuildBankFrame_Column6_Button1_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button1_IconOverlayObject : Texture
+local GuildBankFrame_Column6_Button1_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button1_IconOverlay2Object : Texture
+local GuildBankFrame_Column6_Button1_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button1_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column6_Button1_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button1_MaskObject : MaskTexture
+local GuildBankFrame_Column6_Button1_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button1_NormalTextureObject : Texture
+local GuildBankFrame_Column6_Button1_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button1_PushedTextureObject : Texture
+local GuildBankFrame_Column6_Button1_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button1_StockObject : FontString
+local GuildBankFrame_Column6_Button1_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button1_iconObject : Texture
+local GuildBankFrame_Column6_Button1_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button1_searchOverlayObject : Texture
+local GuildBankFrame_Column6_Button1_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button10Object : Button
+---@field Count GuildBankFrame_Column6_Button10_CountObject
+---@field HighlightTexture GuildBankFrame_Column6_Button10_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column6_Button10_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column6_Button10_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column6_Button10_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column6_Button10_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column6_Button10_MaskObject
+---@field NormalTexture GuildBankFrame_Column6_Button10_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column6_Button10_PushedTextureObject
+---@field Stock GuildBankFrame_Column6_Button10_StockObject
+---@field icon GuildBankFrame_Column6_Button10_iconObject
+---@field searchOverlay GuildBankFrame_Column6_Button10_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column6_Button10Object = {}
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button10Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column6_Button10_CountObject : FontString
+local GuildBankFrame_Column6_Button10_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button10_HighlightTextureObject : Texture
+local GuildBankFrame_Column6_Button10_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button10_IconBorderObject : Texture
+local GuildBankFrame_Column6_Button10_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button10_IconOverlayObject : Texture
+local GuildBankFrame_Column6_Button10_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button10_IconOverlay2Object : Texture
+local GuildBankFrame_Column6_Button10_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button10_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column6_Button10_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button10_MaskObject : MaskTexture
+local GuildBankFrame_Column6_Button10_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button10_NormalTextureObject : Texture
+local GuildBankFrame_Column6_Button10_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button10_PushedTextureObject : Texture
+local GuildBankFrame_Column6_Button10_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button10_StockObject : FontString
+local GuildBankFrame_Column6_Button10_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button10_iconObject : Texture
+local GuildBankFrame_Column6_Button10_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button10_searchOverlayObject : Texture
+local GuildBankFrame_Column6_Button10_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button11Object : Button
+---@field Count GuildBankFrame_Column6_Button11_CountObject
+---@field HighlightTexture GuildBankFrame_Column6_Button11_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column6_Button11_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column6_Button11_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column6_Button11_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column6_Button11_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column6_Button11_MaskObject
+---@field NormalTexture GuildBankFrame_Column6_Button11_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column6_Button11_PushedTextureObject
+---@field Stock GuildBankFrame_Column6_Button11_StockObject
+---@field icon GuildBankFrame_Column6_Button11_iconObject
+---@field searchOverlay GuildBankFrame_Column6_Button11_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column6_Button11Object = {}
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button11Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column6_Button11_CountObject : FontString
+local GuildBankFrame_Column6_Button11_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button11_HighlightTextureObject : Texture
+local GuildBankFrame_Column6_Button11_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button11_IconBorderObject : Texture
+local GuildBankFrame_Column6_Button11_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button11_IconOverlayObject : Texture
+local GuildBankFrame_Column6_Button11_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button11_IconOverlay2Object : Texture
+local GuildBankFrame_Column6_Button11_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button11_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column6_Button11_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button11_MaskObject : MaskTexture
+local GuildBankFrame_Column6_Button11_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button11_NormalTextureObject : Texture
+local GuildBankFrame_Column6_Button11_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button11_PushedTextureObject : Texture
+local GuildBankFrame_Column6_Button11_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button11_StockObject : FontString
+local GuildBankFrame_Column6_Button11_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button11_iconObject : Texture
+local GuildBankFrame_Column6_Button11_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button11_searchOverlayObject : Texture
+local GuildBankFrame_Column6_Button11_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button12Object : Button
+---@field Count GuildBankFrame_Column6_Button12_CountObject
+---@field HighlightTexture GuildBankFrame_Column6_Button12_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column6_Button12_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column6_Button12_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column6_Button12_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column6_Button12_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column6_Button12_MaskObject
+---@field NormalTexture GuildBankFrame_Column6_Button12_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column6_Button12_PushedTextureObject
+---@field Stock GuildBankFrame_Column6_Button12_StockObject
+---@field icon GuildBankFrame_Column6_Button12_iconObject
+---@field searchOverlay GuildBankFrame_Column6_Button12_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column6_Button12Object = {}
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button12Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column6_Button12_CountObject : FontString
+local GuildBankFrame_Column6_Button12_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button12_HighlightTextureObject : Texture
+local GuildBankFrame_Column6_Button12_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button12_IconBorderObject : Texture
+local GuildBankFrame_Column6_Button12_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button12_IconOverlayObject : Texture
+local GuildBankFrame_Column6_Button12_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button12_IconOverlay2Object : Texture
+local GuildBankFrame_Column6_Button12_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button12_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column6_Button12_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button12_MaskObject : MaskTexture
+local GuildBankFrame_Column6_Button12_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button12_NormalTextureObject : Texture
+local GuildBankFrame_Column6_Button12_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button12_PushedTextureObject : Texture
+local GuildBankFrame_Column6_Button12_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button12_StockObject : FontString
+local GuildBankFrame_Column6_Button12_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button12_iconObject : Texture
+local GuildBankFrame_Column6_Button12_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button12_searchOverlayObject : Texture
+local GuildBankFrame_Column6_Button12_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button13Object : Button
+---@field Count GuildBankFrame_Column6_Button13_CountObject
+---@field HighlightTexture GuildBankFrame_Column6_Button13_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column6_Button13_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column6_Button13_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column6_Button13_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column6_Button13_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column6_Button13_MaskObject
+---@field NormalTexture GuildBankFrame_Column6_Button13_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column6_Button13_PushedTextureObject
+---@field Stock GuildBankFrame_Column6_Button13_StockObject
+---@field icon GuildBankFrame_Column6_Button13_iconObject
+---@field searchOverlay GuildBankFrame_Column6_Button13_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column6_Button13Object = {}
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button13Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column6_Button13_CountObject : FontString
+local GuildBankFrame_Column6_Button13_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button13_HighlightTextureObject : Texture
+local GuildBankFrame_Column6_Button13_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button13_IconBorderObject : Texture
+local GuildBankFrame_Column6_Button13_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button13_IconOverlayObject : Texture
+local GuildBankFrame_Column6_Button13_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button13_IconOverlay2Object : Texture
+local GuildBankFrame_Column6_Button13_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button13_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column6_Button13_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button13_MaskObject : MaskTexture
+local GuildBankFrame_Column6_Button13_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button13_NormalTextureObject : Texture
+local GuildBankFrame_Column6_Button13_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button13_PushedTextureObject : Texture
+local GuildBankFrame_Column6_Button13_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button13_StockObject : FontString
+local GuildBankFrame_Column6_Button13_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button13_iconObject : Texture
+local GuildBankFrame_Column6_Button13_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button13_searchOverlayObject : Texture
+local GuildBankFrame_Column6_Button13_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button14Object : Button
+---@field Count GuildBankFrame_Column6_Button14_CountObject
+---@field HighlightTexture GuildBankFrame_Column6_Button14_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column6_Button14_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column6_Button14_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column6_Button14_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column6_Button14_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column6_Button14_MaskObject
+---@field NormalTexture GuildBankFrame_Column6_Button14_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column6_Button14_PushedTextureObject
+---@field Stock GuildBankFrame_Column6_Button14_StockObject
+---@field icon GuildBankFrame_Column6_Button14_iconObject
+---@field searchOverlay GuildBankFrame_Column6_Button14_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column6_Button14Object = {}
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button14Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column6_Button14_CountObject : FontString
+local GuildBankFrame_Column6_Button14_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button14_HighlightTextureObject : Texture
+local GuildBankFrame_Column6_Button14_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button14_IconBorderObject : Texture
+local GuildBankFrame_Column6_Button14_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button14_IconOverlayObject : Texture
+local GuildBankFrame_Column6_Button14_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button14_IconOverlay2Object : Texture
+local GuildBankFrame_Column6_Button14_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button14_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column6_Button14_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button14_MaskObject : MaskTexture
+local GuildBankFrame_Column6_Button14_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button14_NormalTextureObject : Texture
+local GuildBankFrame_Column6_Button14_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button14_PushedTextureObject : Texture
+local GuildBankFrame_Column6_Button14_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button14_StockObject : FontString
+local GuildBankFrame_Column6_Button14_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button14_iconObject : Texture
+local GuildBankFrame_Column6_Button14_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button14_searchOverlayObject : Texture
+local GuildBankFrame_Column6_Button14_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button2Object : Button
+---@field Count GuildBankFrame_Column6_Button2_CountObject
+---@field HighlightTexture GuildBankFrame_Column6_Button2_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column6_Button2_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column6_Button2_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column6_Button2_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column6_Button2_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column6_Button2_MaskObject
+---@field NormalTexture GuildBankFrame_Column6_Button2_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column6_Button2_PushedTextureObject
+---@field Stock GuildBankFrame_Column6_Button2_StockObject
+---@field icon GuildBankFrame_Column6_Button2_iconObject
+---@field searchOverlay GuildBankFrame_Column6_Button2_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column6_Button2Object = {}
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button2Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column6_Button2_CountObject : FontString
+local GuildBankFrame_Column6_Button2_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button2_HighlightTextureObject : Texture
+local GuildBankFrame_Column6_Button2_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button2_IconBorderObject : Texture
+local GuildBankFrame_Column6_Button2_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button2_IconOverlayObject : Texture
+local GuildBankFrame_Column6_Button2_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button2_IconOverlay2Object : Texture
+local GuildBankFrame_Column6_Button2_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button2_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column6_Button2_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button2_MaskObject : MaskTexture
+local GuildBankFrame_Column6_Button2_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button2_NormalTextureObject : Texture
+local GuildBankFrame_Column6_Button2_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button2_PushedTextureObject : Texture
+local GuildBankFrame_Column6_Button2_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button2_StockObject : FontString
+local GuildBankFrame_Column6_Button2_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button2_iconObject : Texture
+local GuildBankFrame_Column6_Button2_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button2_searchOverlayObject : Texture
+local GuildBankFrame_Column6_Button2_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button3Object : Button
+---@field Count GuildBankFrame_Column6_Button3_CountObject
+---@field HighlightTexture GuildBankFrame_Column6_Button3_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column6_Button3_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column6_Button3_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column6_Button3_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column6_Button3_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column6_Button3_MaskObject
+---@field NormalTexture GuildBankFrame_Column6_Button3_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column6_Button3_PushedTextureObject
+---@field Stock GuildBankFrame_Column6_Button3_StockObject
+---@field icon GuildBankFrame_Column6_Button3_iconObject
+---@field searchOverlay GuildBankFrame_Column6_Button3_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column6_Button3Object = {}
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button3Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column6_Button3_CountObject : FontString
+local GuildBankFrame_Column6_Button3_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button3_HighlightTextureObject : Texture
+local GuildBankFrame_Column6_Button3_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button3_IconBorderObject : Texture
+local GuildBankFrame_Column6_Button3_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button3_IconOverlayObject : Texture
+local GuildBankFrame_Column6_Button3_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button3_IconOverlay2Object : Texture
+local GuildBankFrame_Column6_Button3_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button3_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column6_Button3_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button3_MaskObject : MaskTexture
+local GuildBankFrame_Column6_Button3_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button3_NormalTextureObject : Texture
+local GuildBankFrame_Column6_Button3_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button3_PushedTextureObject : Texture
+local GuildBankFrame_Column6_Button3_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button3_StockObject : FontString
+local GuildBankFrame_Column6_Button3_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button3_iconObject : Texture
+local GuildBankFrame_Column6_Button3_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button3_searchOverlayObject : Texture
+local GuildBankFrame_Column6_Button3_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button4Object : Button
+---@field Count GuildBankFrame_Column6_Button4_CountObject
+---@field HighlightTexture GuildBankFrame_Column6_Button4_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column6_Button4_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column6_Button4_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column6_Button4_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column6_Button4_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column6_Button4_MaskObject
+---@field NormalTexture GuildBankFrame_Column6_Button4_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column6_Button4_PushedTextureObject
+---@field Stock GuildBankFrame_Column6_Button4_StockObject
+---@field icon GuildBankFrame_Column6_Button4_iconObject
+---@field searchOverlay GuildBankFrame_Column6_Button4_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column6_Button4Object = {}
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button4Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column6_Button4_CountObject : FontString
+local GuildBankFrame_Column6_Button4_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button4_HighlightTextureObject : Texture
+local GuildBankFrame_Column6_Button4_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button4_IconBorderObject : Texture
+local GuildBankFrame_Column6_Button4_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button4_IconOverlayObject : Texture
+local GuildBankFrame_Column6_Button4_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button4_IconOverlay2Object : Texture
+local GuildBankFrame_Column6_Button4_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button4_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column6_Button4_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button4_MaskObject : MaskTexture
+local GuildBankFrame_Column6_Button4_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button4_NormalTextureObject : Texture
+local GuildBankFrame_Column6_Button4_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button4_PushedTextureObject : Texture
+local GuildBankFrame_Column6_Button4_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button4_StockObject : FontString
+local GuildBankFrame_Column6_Button4_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button4_iconObject : Texture
+local GuildBankFrame_Column6_Button4_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button4_searchOverlayObject : Texture
+local GuildBankFrame_Column6_Button4_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button5Object : Button
+---@field Count GuildBankFrame_Column6_Button5_CountObject
+---@field HighlightTexture GuildBankFrame_Column6_Button5_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column6_Button5_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column6_Button5_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column6_Button5_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column6_Button5_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column6_Button5_MaskObject
+---@field NormalTexture GuildBankFrame_Column6_Button5_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column6_Button5_PushedTextureObject
+---@field Stock GuildBankFrame_Column6_Button5_StockObject
+---@field icon GuildBankFrame_Column6_Button5_iconObject
+---@field searchOverlay GuildBankFrame_Column6_Button5_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column6_Button5Object = {}
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button5Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column6_Button5_CountObject : FontString
+local GuildBankFrame_Column6_Button5_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button5_HighlightTextureObject : Texture
+local GuildBankFrame_Column6_Button5_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button5_IconBorderObject : Texture
+local GuildBankFrame_Column6_Button5_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button5_IconOverlayObject : Texture
+local GuildBankFrame_Column6_Button5_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button5_IconOverlay2Object : Texture
+local GuildBankFrame_Column6_Button5_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button5_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column6_Button5_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button5_MaskObject : MaskTexture
+local GuildBankFrame_Column6_Button5_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button5_NormalTextureObject : Texture
+local GuildBankFrame_Column6_Button5_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button5_PushedTextureObject : Texture
+local GuildBankFrame_Column6_Button5_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button5_StockObject : FontString
+local GuildBankFrame_Column6_Button5_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button5_iconObject : Texture
+local GuildBankFrame_Column6_Button5_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button5_searchOverlayObject : Texture
+local GuildBankFrame_Column6_Button5_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button6Object : Button
+---@field Count GuildBankFrame_Column6_Button6_CountObject
+---@field HighlightTexture GuildBankFrame_Column6_Button6_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column6_Button6_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column6_Button6_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column6_Button6_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column6_Button6_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column6_Button6_MaskObject
+---@field NormalTexture GuildBankFrame_Column6_Button6_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column6_Button6_PushedTextureObject
+---@field Stock GuildBankFrame_Column6_Button6_StockObject
+---@field icon GuildBankFrame_Column6_Button6_iconObject
+---@field searchOverlay GuildBankFrame_Column6_Button6_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column6_Button6Object = {}
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button6Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column6_Button6_CountObject : FontString
+local GuildBankFrame_Column6_Button6_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button6_HighlightTextureObject : Texture
+local GuildBankFrame_Column6_Button6_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button6_IconBorderObject : Texture
+local GuildBankFrame_Column6_Button6_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button6_IconOverlayObject : Texture
+local GuildBankFrame_Column6_Button6_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button6_IconOverlay2Object : Texture
+local GuildBankFrame_Column6_Button6_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button6_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column6_Button6_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button6_MaskObject : MaskTexture
+local GuildBankFrame_Column6_Button6_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button6_NormalTextureObject : Texture
+local GuildBankFrame_Column6_Button6_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button6_PushedTextureObject : Texture
+local GuildBankFrame_Column6_Button6_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button6_StockObject : FontString
+local GuildBankFrame_Column6_Button6_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button6_iconObject : Texture
+local GuildBankFrame_Column6_Button6_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button6_searchOverlayObject : Texture
+local GuildBankFrame_Column6_Button6_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button7Object : Button
+---@field Count GuildBankFrame_Column6_Button7_CountObject
+---@field HighlightTexture GuildBankFrame_Column6_Button7_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column6_Button7_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column6_Button7_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column6_Button7_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column6_Button7_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column6_Button7_MaskObject
+---@field NormalTexture GuildBankFrame_Column6_Button7_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column6_Button7_PushedTextureObject
+---@field Stock GuildBankFrame_Column6_Button7_StockObject
+---@field icon GuildBankFrame_Column6_Button7_iconObject
+---@field searchOverlay GuildBankFrame_Column6_Button7_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column6_Button7Object = {}
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button7Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column6_Button7_CountObject : FontString
+local GuildBankFrame_Column6_Button7_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button7_HighlightTextureObject : Texture
+local GuildBankFrame_Column6_Button7_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button7_IconBorderObject : Texture
+local GuildBankFrame_Column6_Button7_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button7_IconOverlayObject : Texture
+local GuildBankFrame_Column6_Button7_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button7_IconOverlay2Object : Texture
+local GuildBankFrame_Column6_Button7_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button7_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column6_Button7_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button7_MaskObject : MaskTexture
+local GuildBankFrame_Column6_Button7_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button7_NormalTextureObject : Texture
+local GuildBankFrame_Column6_Button7_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button7_PushedTextureObject : Texture
+local GuildBankFrame_Column6_Button7_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button7_StockObject : FontString
+local GuildBankFrame_Column6_Button7_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button7_iconObject : Texture
+local GuildBankFrame_Column6_Button7_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button7_searchOverlayObject : Texture
+local GuildBankFrame_Column6_Button7_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button8Object : Button
+---@field Count GuildBankFrame_Column6_Button8_CountObject
+---@field HighlightTexture GuildBankFrame_Column6_Button8_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column6_Button8_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column6_Button8_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column6_Button8_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column6_Button8_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column6_Button8_MaskObject
+---@field NormalTexture GuildBankFrame_Column6_Button8_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column6_Button8_PushedTextureObject
+---@field Stock GuildBankFrame_Column6_Button8_StockObject
+---@field icon GuildBankFrame_Column6_Button8_iconObject
+---@field searchOverlay GuildBankFrame_Column6_Button8_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column6_Button8Object = {}
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button8Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column6_Button8_CountObject : FontString
+local GuildBankFrame_Column6_Button8_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button8_HighlightTextureObject : Texture
+local GuildBankFrame_Column6_Button8_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button8_IconBorderObject : Texture
+local GuildBankFrame_Column6_Button8_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button8_IconOverlayObject : Texture
+local GuildBankFrame_Column6_Button8_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button8_IconOverlay2Object : Texture
+local GuildBankFrame_Column6_Button8_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button8_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column6_Button8_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button8_MaskObject : MaskTexture
+local GuildBankFrame_Column6_Button8_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button8_NormalTextureObject : Texture
+local GuildBankFrame_Column6_Button8_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button8_PushedTextureObject : Texture
+local GuildBankFrame_Column6_Button8_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button8_StockObject : FontString
+local GuildBankFrame_Column6_Button8_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button8_iconObject : Texture
+local GuildBankFrame_Column6_Button8_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button8_searchOverlayObject : Texture
+local GuildBankFrame_Column6_Button8_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button9Object : Button
+---@field Count GuildBankFrame_Column6_Button9_CountObject
+---@field HighlightTexture GuildBankFrame_Column6_Button9_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column6_Button9_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column6_Button9_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column6_Button9_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column6_Button9_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column6_Button9_MaskObject
+---@field NormalTexture GuildBankFrame_Column6_Button9_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column6_Button9_PushedTextureObject
+---@field Stock GuildBankFrame_Column6_Button9_StockObject
+---@field icon GuildBankFrame_Column6_Button9_iconObject
+---@field searchOverlay GuildBankFrame_Column6_Button9_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column6_Button9Object = {}
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column6_Button9Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column6_Button9_CountObject : FontString
+local GuildBankFrame_Column6_Button9_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button9_HighlightTextureObject : Texture
+local GuildBankFrame_Column6_Button9_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button9_IconBorderObject : Texture
+local GuildBankFrame_Column6_Button9_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button9_IconOverlayObject : Texture
+local GuildBankFrame_Column6_Button9_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button9_IconOverlay2Object : Texture
+local GuildBankFrame_Column6_Button9_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button9_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column6_Button9_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button9_MaskObject : MaskTexture
+local GuildBankFrame_Column6_Button9_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button9_NormalTextureObject : Texture
+local GuildBankFrame_Column6_Button9_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button9_PushedTextureObject : Texture
+local GuildBankFrame_Column6_Button9_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button9_StockObject : FontString
+local GuildBankFrame_Column6_Button9_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button9_iconObject : Texture
+local GuildBankFrame_Column6_Button9_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column6_Button9_searchOverlayObject : Texture
+local GuildBankFrame_Column6_Button9_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7Object : Frame
+---@field Background GuildBankFrame_Column7_BackgroundObject
+---@field Button1 GuildBankFrame_Column7_Button1Object
+---@field Button10 GuildBankFrame_Column7_Button10Object
+---@field Button11 GuildBankFrame_Column7_Button11Object
+---@field Button12 GuildBankFrame_Column7_Button12Object
+---@field Button13 GuildBankFrame_Column7_Button13Object
+---@field Button14 GuildBankFrame_Column7_Button14Object
+---@field Button2 GuildBankFrame_Column7_Button2Object
+---@field Button3 GuildBankFrame_Column7_Button3Object
+---@field Button4 GuildBankFrame_Column7_Button4Object
+---@field Button5 GuildBankFrame_Column7_Button5Object
+---@field Button6 GuildBankFrame_Column7_Button6Object
+---@field Button7 GuildBankFrame_Column7_Button7Object
+---@field Button8 GuildBankFrame_Column7_Button8Object
+---@field Button9 GuildBankFrame_Column7_Button9Object
+---@field Buttons table
+local GuildBankFrame_Column7Object = {}
+end
+
+do
+---@class GuildBankFrame_Column7_BackgroundObject : Texture
+local GuildBankFrame_Column7_BackgroundObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button1Object : Button
+---@field Count GuildBankFrame_Column7_Button1_CountObject
+---@field HighlightTexture GuildBankFrame_Column7_Button1_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column7_Button1_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column7_Button1_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column7_Button1_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column7_Button1_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column7_Button1_MaskObject
+---@field NormalTexture GuildBankFrame_Column7_Button1_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column7_Button1_PushedTextureObject
+---@field Stock GuildBankFrame_Column7_Button1_StockObject
+---@field icon GuildBankFrame_Column7_Button1_iconObject
+---@field searchOverlay GuildBankFrame_Column7_Button1_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column7_Button1Object = {}
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button1Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column7_Button1_CountObject : FontString
+local GuildBankFrame_Column7_Button1_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button1_HighlightTextureObject : Texture
+local GuildBankFrame_Column7_Button1_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button1_IconBorderObject : Texture
+local GuildBankFrame_Column7_Button1_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button1_IconOverlayObject : Texture
+local GuildBankFrame_Column7_Button1_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button1_IconOverlay2Object : Texture
+local GuildBankFrame_Column7_Button1_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button1_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column7_Button1_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button1_MaskObject : MaskTexture
+local GuildBankFrame_Column7_Button1_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button1_NormalTextureObject : Texture
+local GuildBankFrame_Column7_Button1_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button1_PushedTextureObject : Texture
+local GuildBankFrame_Column7_Button1_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button1_StockObject : FontString
+local GuildBankFrame_Column7_Button1_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button1_iconObject : Texture
+local GuildBankFrame_Column7_Button1_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button1_searchOverlayObject : Texture
+local GuildBankFrame_Column7_Button1_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button10Object : Button
+---@field Count GuildBankFrame_Column7_Button10_CountObject
+---@field HighlightTexture GuildBankFrame_Column7_Button10_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column7_Button10_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column7_Button10_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column7_Button10_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column7_Button10_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column7_Button10_MaskObject
+---@field NormalTexture GuildBankFrame_Column7_Button10_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column7_Button10_PushedTextureObject
+---@field Stock GuildBankFrame_Column7_Button10_StockObject
+---@field icon GuildBankFrame_Column7_Button10_iconObject
+---@field searchOverlay GuildBankFrame_Column7_Button10_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column7_Button10Object = {}
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button10Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column7_Button10_CountObject : FontString
+local GuildBankFrame_Column7_Button10_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button10_HighlightTextureObject : Texture
+local GuildBankFrame_Column7_Button10_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button10_IconBorderObject : Texture
+local GuildBankFrame_Column7_Button10_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button10_IconOverlayObject : Texture
+local GuildBankFrame_Column7_Button10_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button10_IconOverlay2Object : Texture
+local GuildBankFrame_Column7_Button10_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button10_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column7_Button10_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button10_MaskObject : MaskTexture
+local GuildBankFrame_Column7_Button10_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button10_NormalTextureObject : Texture
+local GuildBankFrame_Column7_Button10_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button10_PushedTextureObject : Texture
+local GuildBankFrame_Column7_Button10_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button10_StockObject : FontString
+local GuildBankFrame_Column7_Button10_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button10_iconObject : Texture
+local GuildBankFrame_Column7_Button10_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button10_searchOverlayObject : Texture
+local GuildBankFrame_Column7_Button10_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button11Object : Button
+---@field Count GuildBankFrame_Column7_Button11_CountObject
+---@field HighlightTexture GuildBankFrame_Column7_Button11_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column7_Button11_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column7_Button11_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column7_Button11_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column7_Button11_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column7_Button11_MaskObject
+---@field NormalTexture GuildBankFrame_Column7_Button11_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column7_Button11_PushedTextureObject
+---@field Stock GuildBankFrame_Column7_Button11_StockObject
+---@field icon GuildBankFrame_Column7_Button11_iconObject
+---@field searchOverlay GuildBankFrame_Column7_Button11_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column7_Button11Object = {}
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button11Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column7_Button11_CountObject : FontString
+local GuildBankFrame_Column7_Button11_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button11_HighlightTextureObject : Texture
+local GuildBankFrame_Column7_Button11_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button11_IconBorderObject : Texture
+local GuildBankFrame_Column7_Button11_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button11_IconOverlayObject : Texture
+local GuildBankFrame_Column7_Button11_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button11_IconOverlay2Object : Texture
+local GuildBankFrame_Column7_Button11_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button11_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column7_Button11_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button11_MaskObject : MaskTexture
+local GuildBankFrame_Column7_Button11_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button11_NormalTextureObject : Texture
+local GuildBankFrame_Column7_Button11_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button11_PushedTextureObject : Texture
+local GuildBankFrame_Column7_Button11_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button11_StockObject : FontString
+local GuildBankFrame_Column7_Button11_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button11_iconObject : Texture
+local GuildBankFrame_Column7_Button11_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button11_searchOverlayObject : Texture
+local GuildBankFrame_Column7_Button11_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button12Object : Button
+---@field Count GuildBankFrame_Column7_Button12_CountObject
+---@field HighlightTexture GuildBankFrame_Column7_Button12_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column7_Button12_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column7_Button12_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column7_Button12_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column7_Button12_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column7_Button12_MaskObject
+---@field NormalTexture GuildBankFrame_Column7_Button12_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column7_Button12_PushedTextureObject
+---@field Stock GuildBankFrame_Column7_Button12_StockObject
+---@field icon GuildBankFrame_Column7_Button12_iconObject
+---@field searchOverlay GuildBankFrame_Column7_Button12_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column7_Button12Object = {}
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button12Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column7_Button12_CountObject : FontString
+local GuildBankFrame_Column7_Button12_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button12_HighlightTextureObject : Texture
+local GuildBankFrame_Column7_Button12_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button12_IconBorderObject : Texture
+local GuildBankFrame_Column7_Button12_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button12_IconOverlayObject : Texture
+local GuildBankFrame_Column7_Button12_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button12_IconOverlay2Object : Texture
+local GuildBankFrame_Column7_Button12_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button12_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column7_Button12_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button12_MaskObject : MaskTexture
+local GuildBankFrame_Column7_Button12_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button12_NormalTextureObject : Texture
+local GuildBankFrame_Column7_Button12_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button12_PushedTextureObject : Texture
+local GuildBankFrame_Column7_Button12_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button12_StockObject : FontString
+local GuildBankFrame_Column7_Button12_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button12_iconObject : Texture
+local GuildBankFrame_Column7_Button12_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button12_searchOverlayObject : Texture
+local GuildBankFrame_Column7_Button12_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button13Object : Button
+---@field Count GuildBankFrame_Column7_Button13_CountObject
+---@field HighlightTexture GuildBankFrame_Column7_Button13_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column7_Button13_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column7_Button13_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column7_Button13_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column7_Button13_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column7_Button13_MaskObject
+---@field NormalTexture GuildBankFrame_Column7_Button13_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column7_Button13_PushedTextureObject
+---@field Stock GuildBankFrame_Column7_Button13_StockObject
+---@field icon GuildBankFrame_Column7_Button13_iconObject
+---@field searchOverlay GuildBankFrame_Column7_Button13_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column7_Button13Object = {}
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button13Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column7_Button13_CountObject : FontString
+local GuildBankFrame_Column7_Button13_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button13_HighlightTextureObject : Texture
+local GuildBankFrame_Column7_Button13_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button13_IconBorderObject : Texture
+local GuildBankFrame_Column7_Button13_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button13_IconOverlayObject : Texture
+local GuildBankFrame_Column7_Button13_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button13_IconOverlay2Object : Texture
+local GuildBankFrame_Column7_Button13_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button13_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column7_Button13_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button13_MaskObject : MaskTexture
+local GuildBankFrame_Column7_Button13_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button13_NormalTextureObject : Texture
+local GuildBankFrame_Column7_Button13_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button13_PushedTextureObject : Texture
+local GuildBankFrame_Column7_Button13_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button13_StockObject : FontString
+local GuildBankFrame_Column7_Button13_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button13_iconObject : Texture
+local GuildBankFrame_Column7_Button13_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button13_searchOverlayObject : Texture
+local GuildBankFrame_Column7_Button13_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button14Object : Button
+---@field Count GuildBankFrame_Column7_Button14_CountObject
+---@field HighlightTexture GuildBankFrame_Column7_Button14_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column7_Button14_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column7_Button14_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column7_Button14_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column7_Button14_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column7_Button14_MaskObject
+---@field NormalTexture GuildBankFrame_Column7_Button14_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column7_Button14_PushedTextureObject
+---@field Stock GuildBankFrame_Column7_Button14_StockObject
+---@field icon GuildBankFrame_Column7_Button14_iconObject
+---@field searchOverlay GuildBankFrame_Column7_Button14_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column7_Button14Object = {}
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button14Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column7_Button14_CountObject : FontString
+local GuildBankFrame_Column7_Button14_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button14_HighlightTextureObject : Texture
+local GuildBankFrame_Column7_Button14_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button14_IconBorderObject : Texture
+local GuildBankFrame_Column7_Button14_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button14_IconOverlayObject : Texture
+local GuildBankFrame_Column7_Button14_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button14_IconOverlay2Object : Texture
+local GuildBankFrame_Column7_Button14_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button14_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column7_Button14_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button14_MaskObject : MaskTexture
+local GuildBankFrame_Column7_Button14_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button14_NormalTextureObject : Texture
+local GuildBankFrame_Column7_Button14_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button14_PushedTextureObject : Texture
+local GuildBankFrame_Column7_Button14_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button14_StockObject : FontString
+local GuildBankFrame_Column7_Button14_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button14_iconObject : Texture
+local GuildBankFrame_Column7_Button14_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button14_searchOverlayObject : Texture
+local GuildBankFrame_Column7_Button14_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button2Object : Button
+---@field Count GuildBankFrame_Column7_Button2_CountObject
+---@field HighlightTexture GuildBankFrame_Column7_Button2_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column7_Button2_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column7_Button2_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column7_Button2_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column7_Button2_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column7_Button2_MaskObject
+---@field NormalTexture GuildBankFrame_Column7_Button2_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column7_Button2_PushedTextureObject
+---@field Stock GuildBankFrame_Column7_Button2_StockObject
+---@field icon GuildBankFrame_Column7_Button2_iconObject
+---@field searchOverlay GuildBankFrame_Column7_Button2_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column7_Button2Object = {}
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button2Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column7_Button2_CountObject : FontString
+local GuildBankFrame_Column7_Button2_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button2_HighlightTextureObject : Texture
+local GuildBankFrame_Column7_Button2_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button2_IconBorderObject : Texture
+local GuildBankFrame_Column7_Button2_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button2_IconOverlayObject : Texture
+local GuildBankFrame_Column7_Button2_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button2_IconOverlay2Object : Texture
+local GuildBankFrame_Column7_Button2_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button2_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column7_Button2_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button2_MaskObject : MaskTexture
+local GuildBankFrame_Column7_Button2_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button2_NormalTextureObject : Texture
+local GuildBankFrame_Column7_Button2_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button2_PushedTextureObject : Texture
+local GuildBankFrame_Column7_Button2_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button2_StockObject : FontString
+local GuildBankFrame_Column7_Button2_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button2_iconObject : Texture
+local GuildBankFrame_Column7_Button2_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button2_searchOverlayObject : Texture
+local GuildBankFrame_Column7_Button2_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button3Object : Button
+---@field Count GuildBankFrame_Column7_Button3_CountObject
+---@field HighlightTexture GuildBankFrame_Column7_Button3_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column7_Button3_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column7_Button3_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column7_Button3_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column7_Button3_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column7_Button3_MaskObject
+---@field NormalTexture GuildBankFrame_Column7_Button3_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column7_Button3_PushedTextureObject
+---@field Stock GuildBankFrame_Column7_Button3_StockObject
+---@field icon GuildBankFrame_Column7_Button3_iconObject
+---@field searchOverlay GuildBankFrame_Column7_Button3_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column7_Button3Object = {}
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button3Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column7_Button3_CountObject : FontString
+local GuildBankFrame_Column7_Button3_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button3_HighlightTextureObject : Texture
+local GuildBankFrame_Column7_Button3_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button3_IconBorderObject : Texture
+local GuildBankFrame_Column7_Button3_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button3_IconOverlayObject : Texture
+local GuildBankFrame_Column7_Button3_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button3_IconOverlay2Object : Texture
+local GuildBankFrame_Column7_Button3_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button3_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column7_Button3_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button3_MaskObject : MaskTexture
+local GuildBankFrame_Column7_Button3_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button3_NormalTextureObject : Texture
+local GuildBankFrame_Column7_Button3_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button3_PushedTextureObject : Texture
+local GuildBankFrame_Column7_Button3_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button3_StockObject : FontString
+local GuildBankFrame_Column7_Button3_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button3_iconObject : Texture
+local GuildBankFrame_Column7_Button3_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button3_searchOverlayObject : Texture
+local GuildBankFrame_Column7_Button3_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button4Object : Button
+---@field Count GuildBankFrame_Column7_Button4_CountObject
+---@field HighlightTexture GuildBankFrame_Column7_Button4_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column7_Button4_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column7_Button4_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column7_Button4_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column7_Button4_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column7_Button4_MaskObject
+---@field NormalTexture GuildBankFrame_Column7_Button4_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column7_Button4_PushedTextureObject
+---@field Stock GuildBankFrame_Column7_Button4_StockObject
+---@field icon GuildBankFrame_Column7_Button4_iconObject
+---@field searchOverlay GuildBankFrame_Column7_Button4_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column7_Button4Object = {}
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button4Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column7_Button4_CountObject : FontString
+local GuildBankFrame_Column7_Button4_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button4_HighlightTextureObject : Texture
+local GuildBankFrame_Column7_Button4_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button4_IconBorderObject : Texture
+local GuildBankFrame_Column7_Button4_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button4_IconOverlayObject : Texture
+local GuildBankFrame_Column7_Button4_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button4_IconOverlay2Object : Texture
+local GuildBankFrame_Column7_Button4_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button4_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column7_Button4_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button4_MaskObject : MaskTexture
+local GuildBankFrame_Column7_Button4_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button4_NormalTextureObject : Texture
+local GuildBankFrame_Column7_Button4_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button4_PushedTextureObject : Texture
+local GuildBankFrame_Column7_Button4_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button4_StockObject : FontString
+local GuildBankFrame_Column7_Button4_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button4_iconObject : Texture
+local GuildBankFrame_Column7_Button4_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button4_searchOverlayObject : Texture
+local GuildBankFrame_Column7_Button4_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button5Object : Button
+---@field Count GuildBankFrame_Column7_Button5_CountObject
+---@field HighlightTexture GuildBankFrame_Column7_Button5_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column7_Button5_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column7_Button5_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column7_Button5_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column7_Button5_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column7_Button5_MaskObject
+---@field NormalTexture GuildBankFrame_Column7_Button5_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column7_Button5_PushedTextureObject
+---@field Stock GuildBankFrame_Column7_Button5_StockObject
+---@field icon GuildBankFrame_Column7_Button5_iconObject
+---@field searchOverlay GuildBankFrame_Column7_Button5_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column7_Button5Object = {}
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button5Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column7_Button5_CountObject : FontString
+local GuildBankFrame_Column7_Button5_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button5_HighlightTextureObject : Texture
+local GuildBankFrame_Column7_Button5_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button5_IconBorderObject : Texture
+local GuildBankFrame_Column7_Button5_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button5_IconOverlayObject : Texture
+local GuildBankFrame_Column7_Button5_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button5_IconOverlay2Object : Texture
+local GuildBankFrame_Column7_Button5_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button5_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column7_Button5_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button5_MaskObject : MaskTexture
+local GuildBankFrame_Column7_Button5_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button5_NormalTextureObject : Texture
+local GuildBankFrame_Column7_Button5_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button5_PushedTextureObject : Texture
+local GuildBankFrame_Column7_Button5_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button5_StockObject : FontString
+local GuildBankFrame_Column7_Button5_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button5_iconObject : Texture
+local GuildBankFrame_Column7_Button5_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button5_searchOverlayObject : Texture
+local GuildBankFrame_Column7_Button5_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button6Object : Button
+---@field Count GuildBankFrame_Column7_Button6_CountObject
+---@field HighlightTexture GuildBankFrame_Column7_Button6_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column7_Button6_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column7_Button6_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column7_Button6_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column7_Button6_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column7_Button6_MaskObject
+---@field NormalTexture GuildBankFrame_Column7_Button6_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column7_Button6_PushedTextureObject
+---@field Stock GuildBankFrame_Column7_Button6_StockObject
+---@field icon GuildBankFrame_Column7_Button6_iconObject
+---@field searchOverlay GuildBankFrame_Column7_Button6_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column7_Button6Object = {}
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button6Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column7_Button6_CountObject : FontString
+local GuildBankFrame_Column7_Button6_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button6_HighlightTextureObject : Texture
+local GuildBankFrame_Column7_Button6_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button6_IconBorderObject : Texture
+local GuildBankFrame_Column7_Button6_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button6_IconOverlayObject : Texture
+local GuildBankFrame_Column7_Button6_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button6_IconOverlay2Object : Texture
+local GuildBankFrame_Column7_Button6_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button6_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column7_Button6_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button6_MaskObject : MaskTexture
+local GuildBankFrame_Column7_Button6_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button6_NormalTextureObject : Texture
+local GuildBankFrame_Column7_Button6_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button6_PushedTextureObject : Texture
+local GuildBankFrame_Column7_Button6_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button6_StockObject : FontString
+local GuildBankFrame_Column7_Button6_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button6_iconObject : Texture
+local GuildBankFrame_Column7_Button6_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button6_searchOverlayObject : Texture
+local GuildBankFrame_Column7_Button6_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button7Object : Button
+---@field Count GuildBankFrame_Column7_Button7_CountObject
+---@field HighlightTexture GuildBankFrame_Column7_Button7_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column7_Button7_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column7_Button7_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column7_Button7_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column7_Button7_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column7_Button7_MaskObject
+---@field NormalTexture GuildBankFrame_Column7_Button7_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column7_Button7_PushedTextureObject
+---@field Stock GuildBankFrame_Column7_Button7_StockObject
+---@field icon GuildBankFrame_Column7_Button7_iconObject
+---@field searchOverlay GuildBankFrame_Column7_Button7_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column7_Button7Object = {}
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button7Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column7_Button7_CountObject : FontString
+local GuildBankFrame_Column7_Button7_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button7_HighlightTextureObject : Texture
+local GuildBankFrame_Column7_Button7_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button7_IconBorderObject : Texture
+local GuildBankFrame_Column7_Button7_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button7_IconOverlayObject : Texture
+local GuildBankFrame_Column7_Button7_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button7_IconOverlay2Object : Texture
+local GuildBankFrame_Column7_Button7_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button7_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column7_Button7_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button7_MaskObject : MaskTexture
+local GuildBankFrame_Column7_Button7_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button7_NormalTextureObject : Texture
+local GuildBankFrame_Column7_Button7_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button7_PushedTextureObject : Texture
+local GuildBankFrame_Column7_Button7_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button7_StockObject : FontString
+local GuildBankFrame_Column7_Button7_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button7_iconObject : Texture
+local GuildBankFrame_Column7_Button7_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button7_searchOverlayObject : Texture
+local GuildBankFrame_Column7_Button7_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button8Object : Button
+---@field Count GuildBankFrame_Column7_Button8_CountObject
+---@field HighlightTexture GuildBankFrame_Column7_Button8_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column7_Button8_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column7_Button8_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column7_Button8_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column7_Button8_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column7_Button8_MaskObject
+---@field NormalTexture GuildBankFrame_Column7_Button8_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column7_Button8_PushedTextureObject
+---@field Stock GuildBankFrame_Column7_Button8_StockObject
+---@field icon GuildBankFrame_Column7_Button8_iconObject
+---@field searchOverlay GuildBankFrame_Column7_Button8_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column7_Button8Object = {}
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button8Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column7_Button8_CountObject : FontString
+local GuildBankFrame_Column7_Button8_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button8_HighlightTextureObject : Texture
+local GuildBankFrame_Column7_Button8_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button8_IconBorderObject : Texture
+local GuildBankFrame_Column7_Button8_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button8_IconOverlayObject : Texture
+local GuildBankFrame_Column7_Button8_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button8_IconOverlay2Object : Texture
+local GuildBankFrame_Column7_Button8_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button8_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column7_Button8_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button8_MaskObject : MaskTexture
+local GuildBankFrame_Column7_Button8_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button8_NormalTextureObject : Texture
+local GuildBankFrame_Column7_Button8_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button8_PushedTextureObject : Texture
+local GuildBankFrame_Column7_Button8_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button8_StockObject : FontString
+local GuildBankFrame_Column7_Button8_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button8_iconObject : Texture
+local GuildBankFrame_Column7_Button8_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button8_searchOverlayObject : Texture
+local GuildBankFrame_Column7_Button8_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button9Object : Button
+---@field Count GuildBankFrame_Column7_Button9_CountObject
+---@field HighlightTexture GuildBankFrame_Column7_Button9_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column7_Button9_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column7_Button9_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column7_Button9_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column7_Button9_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column7_Button9_MaskObject
+---@field NormalTexture GuildBankFrame_Column7_Button9_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column7_Button9_PushedTextureObject
+---@field Stock GuildBankFrame_Column7_Button9_StockObject
+---@field icon GuildBankFrame_Column7_Button9_iconObject
+---@field searchOverlay GuildBankFrame_Column7_Button9_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column7_Button9Object = {}
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column7_Button9Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column7_Button9_CountObject : FontString
+local GuildBankFrame_Column7_Button9_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button9_HighlightTextureObject : Texture
+local GuildBankFrame_Column7_Button9_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button9_IconBorderObject : Texture
+local GuildBankFrame_Column7_Button9_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button9_IconOverlayObject : Texture
+local GuildBankFrame_Column7_Button9_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button9_IconOverlay2Object : Texture
+local GuildBankFrame_Column7_Button9_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button9_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column7_Button9_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button9_MaskObject : MaskTexture
+local GuildBankFrame_Column7_Button9_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button9_NormalTextureObject : Texture
+local GuildBankFrame_Column7_Button9_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button9_PushedTextureObject : Texture
+local GuildBankFrame_Column7_Button9_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button9_StockObject : FontString
+local GuildBankFrame_Column7_Button9_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button9_iconObject : Texture
+local GuildBankFrame_Column7_Button9_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column7_Button9_searchOverlayObject : Texture
+local GuildBankFrame_Column7_Button9_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_DepositButtonObject : Button
+---@field Left GuildBankFrame_DepositButton_LeftObject
+---@field Middle GuildBankFrame_DepositButton_MiddleObject
+---@field Right GuildBankFrame_DepositButton_RightObject
+---@field Text GuildBankFrame_DepositButton_TextObject
 ---@field fitTextCanWidthDecrease boolean
 ---@field fitTextWidthPadding number
-local QuickJoinRoleSelectionFrame_AcceptButtonObject = {}
+local GuildBankFrame_DepositButtonObject = {}
 ---@return any ...
-function QuickJoinRoleSelectionFrame_AcceptButtonObject:FitToText(...) end
+function GuildBankFrame_DepositButtonObject:FitToText(...) end
 ---@return any ...
-function QuickJoinRoleSelectionFrame_AcceptButtonObject:GetDisabledTooltip(...) end
+function GuildBankFrame_DepositButtonObject:GetDisabledTooltip(...) end
 ---@return any ...
-function QuickJoinRoleSelectionFrame_AcceptButtonObject:OnEnter(...) end
+function GuildBankFrame_DepositButtonObject:OnClick(...) end
 ---@return any ...
-function QuickJoinRoleSelectionFrame_AcceptButtonObject:OnLeave(...) end
+function GuildBankFrame_DepositButtonObject:OnEnter(...) end
 ---@return any ...
-function QuickJoinRoleSelectionFrame_AcceptButtonObject:SetDisabledState(...) end
+function GuildBankFrame_DepositButtonObject:OnLeave(...) end
 ---@return any ...
-function QuickJoinRoleSelectionFrame_AcceptButtonObject:SetDisabledTooltip(...) end
+function GuildBankFrame_DepositButtonObject:SetDisabledState(...) end
 ---@return any ...
-function QuickJoinRoleSelectionFrame_AcceptButtonObject:SetTextToFit(...) end
+function GuildBankFrame_DepositButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function GuildBankFrame_DepositButtonObject:SetTextToFit(...) end
 end
 
 do
----@class QuickJoinRoleSelectionFrame_AcceptButton_LeftObject : Texture
-local QuickJoinRoleSelectionFrame_AcceptButton_LeftObject = {}
+---@class GuildBankFrame_DepositButton_LeftObject : Texture
+local GuildBankFrame_DepositButton_LeftObject = {}
 end
 
 do
----@class QuickJoinRoleSelectionFrame_AcceptButton_MiddleObject : Texture
-local QuickJoinRoleSelectionFrame_AcceptButton_MiddleObject = {}
+---@class GuildBankFrame_DepositButton_MiddleObject : Texture
+local GuildBankFrame_DepositButton_MiddleObject = {}
 end
 
 do
----@class QuickJoinRoleSelectionFrame_AcceptButton_RightObject : Texture
-local QuickJoinRoleSelectionFrame_AcceptButton_RightObject = {}
+---@class GuildBankFrame_DepositButton_RightObject : Texture
+local GuildBankFrame_DepositButton_RightObject = {}
 end
 
 do
----@class QuickJoinRoleSelectionFrame_AcceptButton_TextObject : FontString
-local QuickJoinRoleSelectionFrame_AcceptButton_TextObject = {}
+---@class GuildBankFrame_DepositButton_TextObject : FontString
+local GuildBankFrame_DepositButton_TextObject = {}
 end
 
 do
----@class QuickJoinRoleSelectionFrame_BorderObject : Frame
----@field Bg QuickJoinRoleSelectionFrame_Border_BgObject
----@field BottomEdge QuickJoinRoleSelectionFrame_Border_BottomEdgeObject
----@field BottomLeftCorner QuickJoinRoleSelectionFrame_Border_BottomLeftCornerObject
----@field BottomRightCorner QuickJoinRoleSelectionFrame_Border_BottomRightCornerObject
----@field LeftEdge QuickJoinRoleSelectionFrame_Border_LeftEdgeObject
----@field RightEdge QuickJoinRoleSelectionFrame_Border_RightEdgeObject
----@field TopEdge QuickJoinRoleSelectionFrame_Border_TopEdgeObject
----@field TopLeftCorner QuickJoinRoleSelectionFrame_Border_TopLeftCornerObject
----@field TopRightCorner QuickJoinRoleSelectionFrame_Border_TopRightCornerObject
----@field layoutType string
-local QuickJoinRoleSelectionFrame_BorderObject = {}
----@return any ...
-function QuickJoinRoleSelectionFrame_BorderObject:GetBorderColor(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_BorderObject:GetCenterColor(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_BorderObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_BorderObject:GetFrameLayoutType(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_BorderObject:OnLoad(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_BorderObject:SetBlendMode(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_BorderObject:SetBorderBlendMode(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_BorderObject:SetBorderColor(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_BorderObject:SetCenterColor(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_BorderObject:SetVertexColor(...) end
+---@class GuildBankFrame_EmblemObject : Frame
+---@field BL GuildBankFrame_Emblem_BLObject
+---@field BR GuildBankFrame_Emblem_BRObject
+---@field BackgroundBL GuildBankFrame_Emblem_BackgroundBLObject
+---@field BackgroundBR GuildBankFrame_Emblem_BackgroundBRObject
+---@field BackgroundUL GuildBankFrame_Emblem_BackgroundULObject
+---@field BackgroundUR GuildBankFrame_Emblem_BackgroundURObject
+---@field BorderBL GuildBankFrame_Emblem_BorderBLObject
+---@field BorderBR GuildBankFrame_Emblem_BorderBRObject
+---@field BorderUL GuildBankFrame_Emblem_BorderULObject
+---@field BorderUR GuildBankFrame_Emblem_BorderURObject
+---@field Left GuildBankFrame_Emblem_LeftObject
+---@field Right GuildBankFrame_Emblem_RightObject
+---@field UL GuildBankFrame_Emblem_ULObject
+---@field UR GuildBankFrame_Emblem_URObject
+local GuildBankFrame_EmblemObject = {}
 end
 
 do
----@class QuickJoinRoleSelectionFrame_Border_BgObject : Texture
-local QuickJoinRoleSelectionFrame_Border_BgObject = {}
+---@class GuildBankFrame_Emblem_BLObject : Texture
+local GuildBankFrame_Emblem_BLObject = {}
 end
 
 do
----@class QuickJoinRoleSelectionFrame_Border_BottomEdgeObject : Texture
-local QuickJoinRoleSelectionFrame_Border_BottomEdgeObject = {}
+---@class GuildBankFrame_Emblem_BRObject : Texture
+local GuildBankFrame_Emblem_BRObject = {}
 end
 
 do
----@class QuickJoinRoleSelectionFrame_Border_BottomLeftCornerObject : Texture
-local QuickJoinRoleSelectionFrame_Border_BottomLeftCornerObject = {}
+---@class GuildBankFrame_Emblem_BackgroundBLObject : Texture
+local GuildBankFrame_Emblem_BackgroundBLObject = {}
 end
 
 do
----@class QuickJoinRoleSelectionFrame_Border_BottomRightCornerObject : Texture
-local QuickJoinRoleSelectionFrame_Border_BottomRightCornerObject = {}
+---@class GuildBankFrame_Emblem_BackgroundBRObject : Texture
+local GuildBankFrame_Emblem_BackgroundBRObject = {}
 end
 
 do
----@class QuickJoinRoleSelectionFrame_Border_LeftEdgeObject : Texture
-local QuickJoinRoleSelectionFrame_Border_LeftEdgeObject = {}
+---@class GuildBankFrame_Emblem_BackgroundULObject : Texture
+local GuildBankFrame_Emblem_BackgroundULObject = {}
 end
 
 do
----@class QuickJoinRoleSelectionFrame_Border_RightEdgeObject : Texture
-local QuickJoinRoleSelectionFrame_Border_RightEdgeObject = {}
+---@class GuildBankFrame_Emblem_BackgroundURObject : Texture
+local GuildBankFrame_Emblem_BackgroundURObject = {}
 end
 
 do
----@class QuickJoinRoleSelectionFrame_Border_TopEdgeObject : Texture
-local QuickJoinRoleSelectionFrame_Border_TopEdgeObject = {}
+---@class GuildBankFrame_Emblem_BorderBLObject : Texture
+local GuildBankFrame_Emblem_BorderBLObject = {}
 end
 
 do
----@class QuickJoinRoleSelectionFrame_Border_TopLeftCornerObject : Texture
-local QuickJoinRoleSelectionFrame_Border_TopLeftCornerObject = {}
+---@class GuildBankFrame_Emblem_BorderBRObject : Texture
+local GuildBankFrame_Emblem_BorderBRObject = {}
 end
 
 do
----@class QuickJoinRoleSelectionFrame_Border_TopRightCornerObject : Texture
-local QuickJoinRoleSelectionFrame_Border_TopRightCornerObject = {}
+---@class GuildBankFrame_Emblem_BorderULObject : Texture
+local GuildBankFrame_Emblem_BorderULObject = {}
 end
 
 do
----@class QuickJoinRoleSelectionFrame_CancelButtonObject : Button
----@field Left QuickJoinRoleSelectionFrame_CancelButton_LeftObject
----@field Middle QuickJoinRoleSelectionFrame_CancelButton_MiddleObject
----@field Right QuickJoinRoleSelectionFrame_CancelButton_RightObject
----@field Text QuickJoinRoleSelectionFrame_CancelButton_TextObject
+---@class GuildBankFrame_Emblem_BorderURObject : Texture
+local GuildBankFrame_Emblem_BorderURObject = {}
+end
+
+do
+---@class GuildBankFrame_Emblem_LeftObject : Texture
+local GuildBankFrame_Emblem_LeftObject = {}
+end
+
+do
+---@class GuildBankFrame_Emblem_RightObject : Texture
+local GuildBankFrame_Emblem_RightObject = {}
+end
+
+do
+---@class GuildBankFrame_Emblem_ULObject : Texture
+local GuildBankFrame_Emblem_ULObject = {}
+end
+
+do
+---@class GuildBankFrame_Emblem_URObject : Texture
+local GuildBankFrame_Emblem_URObject = {}
+end
+
+do
+---@class GuildBankFrame_ErrorMessageObject : FontString
+local GuildBankFrame_ErrorMessageObject = {}
+end
+
+do
+---@class GuildBankFrame_InfoObject : Frame
+---@field SaveButton GuildBankFrame_Info_SaveButtonObject
+---@field ScrollFrame GuildBankFrame_Info_ScrollFrameObject
+local GuildBankFrame_InfoObject = {}
+end
+
+do
+---@class GuildBankFrame_Info_SaveButtonObject : Button
+---@field Left GuildBankFrame_Info_SaveButton_LeftObject
+---@field Middle GuildBankFrame_Info_SaveButton_MiddleObject
+---@field Right GuildBankFrame_Info_SaveButton_RightObject
+---@field Text GuildBankFrame_Info_SaveButton_TextObject
 ---@field fitTextCanWidthDecrease boolean
 ---@field fitTextWidthPadding number
-local QuickJoinRoleSelectionFrame_CancelButtonObject = {}
+local GuildBankFrame_Info_SaveButtonObject = {}
 ---@return any ...
-function QuickJoinRoleSelectionFrame_CancelButtonObject:FitToText(...) end
+function GuildBankFrame_Info_SaveButtonObject:FitToText(...) end
 ---@return any ...
-function QuickJoinRoleSelectionFrame_CancelButtonObject:GetDisabledTooltip(...) end
+function GuildBankFrame_Info_SaveButtonObject:GetDisabledTooltip(...) end
 ---@return any ...
-function QuickJoinRoleSelectionFrame_CancelButtonObject:OnEnter(...) end
+function GuildBankFrame_Info_SaveButtonObject:OnEnter(...) end
 ---@return any ...
-function QuickJoinRoleSelectionFrame_CancelButtonObject:OnLeave(...) end
+function GuildBankFrame_Info_SaveButtonObject:OnLeave(...) end
 ---@return any ...
-function QuickJoinRoleSelectionFrame_CancelButtonObject:SetDisabledState(...) end
+function GuildBankFrame_Info_SaveButtonObject:SetDisabledState(...) end
 ---@return any ...
-function QuickJoinRoleSelectionFrame_CancelButtonObject:SetDisabledTooltip(...) end
+function GuildBankFrame_Info_SaveButtonObject:SetDisabledTooltip(...) end
 ---@return any ...
-function QuickJoinRoleSelectionFrame_CancelButtonObject:SetTextToFit(...) end
+function GuildBankFrame_Info_SaveButtonObject:SetTextToFit(...) end
 end
 
 do
----@class QuickJoinRoleSelectionFrame_CancelButton_LeftObject : Texture
-local QuickJoinRoleSelectionFrame_CancelButton_LeftObject = {}
+---@class GuildBankFrame_Info_SaveButton_LeftObject : Texture
+local GuildBankFrame_Info_SaveButton_LeftObject = {}
 end
 
 do
----@class QuickJoinRoleSelectionFrame_CancelButton_MiddleObject : Texture
-local QuickJoinRoleSelectionFrame_CancelButton_MiddleObject = {}
+---@class GuildBankFrame_Info_SaveButton_MiddleObject : Texture
+local GuildBankFrame_Info_SaveButton_MiddleObject = {}
 end
 
 do
----@class QuickJoinRoleSelectionFrame_CancelButton_RightObject : Texture
-local QuickJoinRoleSelectionFrame_CancelButton_RightObject = {}
+---@class GuildBankFrame_Info_SaveButton_RightObject : Texture
+local GuildBankFrame_Info_SaveButton_RightObject = {}
 end
 
 do
----@class QuickJoinRoleSelectionFrame_CancelButton_TextObject : FontString
-local QuickJoinRoleSelectionFrame_CancelButton_TextObject = {}
+---@class GuildBankFrame_Info_SaveButton_TextObject : FontString
+local GuildBankFrame_Info_SaveButton_TextObject = {}
 end
 
 do
----@class QuickJoinRoleSelectionFrame_CloseButtonObject : Button
-local QuickJoinRoleSelectionFrame_CloseButtonObject = {}
----@return any ...
-function QuickJoinRoleSelectionFrame_CloseButtonObject:NarrationGetName(...) end
-end
-
-do
----@class QuickJoinRoleSelectionFrame_QueueWarningTextObject : FontString
-local QuickJoinRoleSelectionFrame_QueueWarningTextObject = {}
-end
-
-do
----@class QuickJoinRoleSelectionFrame_RoleButtonDPSObject : Button
----@field CheckButton QuickJoinRoleSelectionFrame_RoleButtonDPS_CheckButtonObject
----@field permDisabled boolean
----@field permDisabledTip string
----@field role string
-local QuickJoinRoleSelectionFrame_RoleButtonDPSObject = {}
----@return any ...
-function QuickJoinRoleSelectionFrame_RoleButtonDPSObject:IsSelected(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_RoleButtonDPSObject:OnClick(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_RoleButtonDPSObject:SetPermanentlyDisabled(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_RoleButtonDPSObject:SetSelected(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_RoleButtonDPSObject:SetTemporarilyDisabled(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_RoleButtonDPSObject:UpdateDisplay(...) end
-end
-
-do
----@class QuickJoinRoleSelectionFrame_RoleButtonDPS_CheckButtonObject : CheckButton
-local QuickJoinRoleSelectionFrame_RoleButtonDPS_CheckButtonObject = {}
-end
-
-do
----@class QuickJoinRoleSelectionFrame_RoleButtonHealerObject : Button
----@field CheckButton QuickJoinRoleSelectionFrame_RoleButtonHealer_CheckButtonObject
----@field permDisabled boolean
----@field permDisabledTip string
----@field role string
-local QuickJoinRoleSelectionFrame_RoleButtonHealerObject = {}
----@return any ...
-function QuickJoinRoleSelectionFrame_RoleButtonHealerObject:IsSelected(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_RoleButtonHealerObject:OnClick(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_RoleButtonHealerObject:SetPermanentlyDisabled(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_RoleButtonHealerObject:SetSelected(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_RoleButtonHealerObject:SetTemporarilyDisabled(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_RoleButtonHealerObject:UpdateDisplay(...) end
-end
-
-do
----@class QuickJoinRoleSelectionFrame_RoleButtonHealer_CheckButtonObject : CheckButton
-local QuickJoinRoleSelectionFrame_RoleButtonHealer_CheckButtonObject = {}
-end
-
-do
----@class QuickJoinRoleSelectionFrame_RoleButtonTankObject : Button
----@field CheckButton QuickJoinRoleSelectionFrame_RoleButtonTank_CheckButtonObject
----@field permDisabled boolean
----@field permDisabledTip string
----@field role string
-local QuickJoinRoleSelectionFrame_RoleButtonTankObject = {}
----@return any ...
-function QuickJoinRoleSelectionFrame_RoleButtonTankObject:IsSelected(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_RoleButtonTankObject:OnClick(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_RoleButtonTankObject:SetPermanentlyDisabled(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_RoleButtonTankObject:SetSelected(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_RoleButtonTankObject:SetTemporarilyDisabled(...) end
----@return any ...
-function QuickJoinRoleSelectionFrame_RoleButtonTankObject:UpdateDisplay(...) end
-end
-
-do
----@class QuickJoinRoleSelectionFrame_RoleButtonTank_CheckButtonObject : CheckButton
-local QuickJoinRoleSelectionFrame_RoleButtonTank_CheckButtonObject = {}
-end
-
-do
----@class QuickJoinToastButtonObject : Button
----@field FlashingLayer QuickJoinToastButton_FlashingLayerObject
----@field FriendCount QuickJoinToastButton_FriendCountObject
----@field FriendToToastAnim QuickJoinToastButton_FriendToToastAnimObject
----@field FriendsButton QuickJoinToastButton_FriendsButtonObject
----@field QueueButton QuickJoinToastButton_QueueButtonObject
----@field QueueCount QuickJoinToastButton_QueueCountObject
----@field QuickKeybindHighlightTexture QuickJoinToastButton_QuickKeybindHighlightTextureObject
----@field Toast QuickJoinToastButton_ToastObject
----@field Toast2 QuickJoinToastButton_Toast2Object
----@field ToastActiveAnim QuickJoinToastButton_ToastActiveAnimObject
----@field ToastToFriendAnim QuickJoinToastButton_ToastToFriendAnimObject
----@field ToastToToastAnim QuickJoinToastButton_ToastToToastAnimObject
----@field alertContainer QuickJoinToastButton_alertContainerObject
----@field commandName string
----@field groups table
----@field groupsAwaitingDisplay table
----@field isOnRight boolean
----@field queuedUpdates table
----@field throttle QuickJoinToastButton_throttleObject
-local QuickJoinToastButtonObject = {}
----@return any ...
-function QuickJoinToastButtonObject:CachedQueueData(...) end
----@return any ...
-function QuickJoinToastButtonObject:CheckDisplayToast(...) end
----@return any ...
-function QuickJoinToastButtonObject:CheckShowToast(...) end
----@return any ...
-function QuickJoinToastButtonObject:ClearCachedQueueData(...) end
----@return any ...
-function QuickJoinToastButtonObject:DoModeChange(...) end
----@return any ...
-function QuickJoinToastButtonObject:FriendToToastFinished(...) end
----@return any ...
-function QuickJoinToastButtonObject:GetAlertContainer(...) end
----@return any ...
-function QuickJoinToastButtonObject:GetCurrentText(...) end
----@return any ...
-function QuickJoinToastButtonObject:GetHighestPriorityGroup(...) end
----@return any ...
-function QuickJoinToastButtonObject:GetNextToastTime(...) end
----@return any ...
-function QuickJoinToastButtonObject:HasCachedQueueData(...) end
----@return any ...
-function QuickJoinToastButtonObject:HideToast(...) end
----@return any ...
-function QuickJoinToastButtonObject:InitMKB(...) end
----@return any ...
-function QuickJoinToastButtonObject:ManagesOwnOutroAnimation(...) end
----@return any ...
-function QuickJoinToastButtonObject:ModifyToastDirection(...) end
----@return any ...
-function QuickJoinToastButtonObject:OnClick(...) end
----@return any ...
-function QuickJoinToastButtonObject:OnEnter(...) end
----@return any ...
-function QuickJoinToastButtonObject:OnEvent(...) end
----@return any ...
-function QuickJoinToastButtonObject:OnHide(...) end
----@return any ...
-function QuickJoinToastButtonObject:OnLeave(...) end
----@return any ...
-function QuickJoinToastButtonObject:OnLoad(...) end
----@return any ...
-function QuickJoinToastButtonObject:OnManagedAlertFrameVisibilityChanged(...) end
----@return any ...
-function QuickJoinToastButtonObject:OnMouseDown(...) end
----@return any ...
-function QuickJoinToastButtonObject:OnMouseUp(...) end
----@return any ...
-function QuickJoinToastButtonObject:OnPostHide(...) end
----@return any ...
-function QuickJoinToastButtonObject:OnPostShow(...) end
----@return any ...
-function QuickJoinToastButtonObject:OnShow(...) end
----@return any ...
-function QuickJoinToastButtonObject:ProcessOrQueueUpdate(...) end
----@return any ...
-function QuickJoinToastButtonObject:ProcessQueuedUpdates(...) end
----@return any ...
-function QuickJoinToastButtonObject:ProcessUpdate(...) end
----@return any ...
-function QuickJoinToastButtonObject:QueueUpdate(...) end
----@return any ...
-function QuickJoinToastButtonObject:QuickKeybindButtonOnClick(...) end
----@return any ...
-function QuickJoinToastButtonObject:QuickKeybindButtonOnEnter(...) end
----@return any ...
-function QuickJoinToastButtonObject:QuickKeybindButtonOnHide(...) end
----@return any ...
-function QuickJoinToastButtonObject:QuickKeybindButtonOnLeave(...) end
----@return any ...
-function QuickJoinToastButtonObject:QuickKeybindButtonOnMouseWheel(...) end
----@return any ...
-function QuickJoinToastButtonObject:QuickKeybindButtonOnShow(...) end
----@return any ...
-function QuickJoinToastButtonObject:QuickKeybindButtonOnUpdate(...) end
----@return any ...
-function QuickJoinToastButtonObject:QuickKeybindButtonSetTooltip(...) end
----@return any ...
-function QuickJoinToastButtonObject:RegisterForInterfaceTransitions(...) end
----@return any ...
-function QuickJoinToastButtonObject:SetAlertContainer(...) end
----@return any ...
-function QuickJoinToastButtonObject:SetCachedQueueData(...) end
----@return any ...
-function QuickJoinToastButtonObject:SetExternallyManagedOutroAnimation(...) end
----@return any ...
-function QuickJoinToastButtonObject:SetTimerFor(...) end
----@return any ...
-function QuickJoinToastButtonObject:SetToastDirection(...) end
----@return any ...
-function QuickJoinToastButtonObject:ShouldDisplayGroup(...) end
----@return any ...
-function QuickJoinToastButtonObject:ShouldSuppressAllToasts(...) end
----@return any ...
-function QuickJoinToastButtonObject:ShowToast(...) end
----@return any ...
-function QuickJoinToastButtonObject:ToastPulse(...) end
----@return any ...
-function QuickJoinToastButtonObject:ToastToFriendFinished(...) end
----@return any ...
-function QuickJoinToastButtonObject:ToastToToastFinished(...) end
----@return any ...
-function QuickJoinToastButtonObject:UninitMKB(...) end
----@return any ...
-function QuickJoinToastButtonObject:UpdateDisplayedFriendCount(...) end
----@return any ...
-function QuickJoinToastButtonObject:UpdateMouseWheelHandler(...) end
----@return any ...
-function QuickJoinToastButtonObject:UpdateQueueIcon(...) end
----@type QuickJoinToastButtonObject
-QuickJoinToastButton = QuickJoinToastButtonObject
-end
-
-do
----@class QuickJoinToastButton_FlashingLayerObject : Texture
-local QuickJoinToastButton_FlashingLayerObject = {}
-end
-
-do
----@class QuickJoinToastButton_FriendCountObject : FontString
-local QuickJoinToastButton_FriendCountObject = {}
-end
-
-do
----@class QuickJoinToastButton_FriendToToastAnimObject : AnimationGroup
-local QuickJoinToastButton_FriendToToastAnimObject = {}
-end
-
-do
----@class QuickJoinToastButton_FriendsButtonObject : Texture
-local QuickJoinToastButton_FriendsButtonObject = {}
-end
-
-do
----@class QuickJoinToastButton_QueueButtonObject : Texture
-local QuickJoinToastButton_QueueButtonObject = {}
-end
-
-do
----@class QuickJoinToastButton_QueueCountObject : FontString
-local QuickJoinToastButton_QueueCountObject = {}
-end
-
-do
----@class QuickJoinToastButton_QuickKeybindHighlightTextureObject : Texture
-local QuickJoinToastButton_QuickKeybindHighlightTextureObject = {}
-end
-
-do
----@class QuickJoinToastButton_ToastObject : Frame
----@field Background QuickJoinToastButton_Toast_BackgroundObject
----@field Line QuickJoinToastButton_Toast_LineObject
----@field Text QuickJoinToastButton_Toast_TextObject
-local QuickJoinToastButton_ToastObject = {}
-end
-
-do
----@class QuickJoinToastButton_Toast_BackgroundObject : Texture
-local QuickJoinToastButton_Toast_BackgroundObject = {}
-end
-
-do
----@class QuickJoinToastButton_Toast_LineObject : Texture
-local QuickJoinToastButton_Toast_LineObject = {}
-end
-
-do
----@class QuickJoinToastButton_Toast_TextObject : FontString
-local QuickJoinToastButton_Toast_TextObject = {}
-end
-
-do
----@class QuickJoinToastButton_Toast2Object : Frame
----@field Background QuickJoinToastButton_Toast2_BackgroundObject
----@field Line QuickJoinToastButton_Toast2_LineObject
----@field Text QuickJoinToastButton_Toast2_TextObject
-local QuickJoinToastButton_Toast2Object = {}
-end
-
-do
----@class QuickJoinToastButton_Toast2_BackgroundObject : Texture
-local QuickJoinToastButton_Toast2_BackgroundObject = {}
-end
-
-do
----@class QuickJoinToastButton_Toast2_LineObject : Texture
-local QuickJoinToastButton_Toast2_LineObject = {}
-end
-
-do
----@class QuickJoinToastButton_Toast2_TextObject : FontString
-local QuickJoinToastButton_Toast2_TextObject = {}
-end
-
-do
----@class QuickJoinToastButton_ToastActiveAnimObject : AnimationGroup
-local QuickJoinToastButton_ToastActiveAnimObject = {}
-end
-
-do
----@class QuickJoinToastButton_ToastToFriendAnimObject : AnimationGroup
-local QuickJoinToastButton_ToastToFriendAnimObject = {}
-end
-
-do
----@class QuickJoinToastButton_ToastToToastAnimObject : AnimationGroup
-local QuickJoinToastButton_ToastToToastAnimObject = {}
-end
-
-do
----@class QuickJoinToastButton_alertContainerObject
-local QuickJoinToastButton_alertContainerObject = {}
-end
-
-do
----@class QuickJoinToastButton_throttleObject
----@field lastThreshold number
----@field lastUpdateTime number
-local QuickJoinToastButton_throttleObject = {}
----@return any ...
-function QuickJoinToastButton_throttleObject:GetThresholdAtTime(...) end
----@return any ...
-function QuickJoinToastButton_throttleObject:GetTimeOfThreshold(...) end
----@return any ...
-function QuickJoinToastButton_throttleObject:Init(...) end
----@return any ...
-function QuickJoinToastButton_throttleObject:OnToastShown(...) end
-end
-
-do
----@class QuickKeybindFrameObject : Button
----@field BG QuickKeybindFrame_BGObject
----@field CancelButton QuickKeybindFrame_CancelButtonObject
----@field CancelDescriptionText QuickKeybindFrame_CancelDescriptionTextObject
----@field DefaultsButton QuickKeybindFrame_DefaultsButtonObject
----@field Header QuickKeybindFrame_HeaderObject
----@field InstructionText QuickKeybindFrame_InstructionTextObject
----@field OkayButton QuickKeybindFrame_OkayButtonObject
----@field OutputText QuickKeybindFrame_OutputTextObject
----@field UseCharacterBindingsButton QuickKeybindFrame_UseCharacterBindingsButtonObject
-local QuickKeybindFrameObject = {}
----@return any ...
-function QuickKeybindFrameObject:CancelBinding(...) end
----@return any ...
-function QuickKeybindFrameObject:ClearOutputText(...) end
----@return any ...
-function QuickKeybindFrameObject:OnCharacterBindingsChanged(...) end
----@return any ...
-function QuickKeybindFrameObject:OnDragStart(...) end
----@return any ...
-function QuickKeybindFrameObject:OnDragStop(...) end
----@return any ...
-function QuickKeybindFrameObject:OnHide(...) end
----@return any ...
-function QuickKeybindFrameObject:OnKeyDown(...) end
----@return any ...
-function QuickKeybindFrameObject:OnKeybindRebindFailed(...) end
----@return any ...
-function QuickKeybindFrameObject:OnKeybindRebindSuccess(...) end
----@return any ...
-function QuickKeybindFrameObject:OnKeybindUnbindFailed(...) end
----@return any ...
-function QuickKeybindFrameObject:OnLoad(...) end
----@return any ...
-function QuickKeybindFrameObject:OnMouseWheel(...) end
----@return any ...
-function QuickKeybindFrameObject:OnShow(...) end
----@return any ...
-function QuickKeybindFrameObject:SetOutputText(...) end
----@return any ...
-function QuickKeybindFrameObject:SetSelected(...) end
----@type QuickKeybindFrameObject
-QuickKeybindFrame = QuickKeybindFrameObject
-end
-
-do
----@class QuickKeybindFrame_BGObject : Frame
----@field Bg QuickKeybindFrame_BG_BgObject
----@field BottomEdge QuickKeybindFrame_BG_BottomEdgeObject
----@field BottomLeftCorner QuickKeybindFrame_BG_BottomLeftCornerObject
----@field BottomRightCorner QuickKeybindFrame_BG_BottomRightCornerObject
----@field LeftEdge QuickKeybindFrame_BG_LeftEdgeObject
----@field RightEdge QuickKeybindFrame_BG_RightEdgeObject
----@field TopEdge QuickKeybindFrame_BG_TopEdgeObject
----@field TopLeftCorner QuickKeybindFrame_BG_TopLeftCornerObject
----@field TopRightCorner QuickKeybindFrame_BG_TopRightCornerObject
----@field layoutType string
-local QuickKeybindFrame_BGObject = {}
----@return any ...
-function QuickKeybindFrame_BGObject:GetBorderColor(...) end
----@return any ...
-function QuickKeybindFrame_BGObject:GetCenterColor(...) end
----@return any ...
-function QuickKeybindFrame_BGObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function QuickKeybindFrame_BGObject:GetFrameLayoutType(...) end
----@return any ...
-function QuickKeybindFrame_BGObject:OnLoad(...) end
----@return any ...
-function QuickKeybindFrame_BGObject:SetBlendMode(...) end
----@return any ...
-function QuickKeybindFrame_BGObject:SetBorderBlendMode(...) end
----@return any ...
-function QuickKeybindFrame_BGObject:SetBorderColor(...) end
----@return any ...
-function QuickKeybindFrame_BGObject:SetCenterColor(...) end
----@return any ...
-function QuickKeybindFrame_BGObject:SetVertexColor(...) end
-end
-
-do
----@class QuickKeybindFrame_BG_BgObject : Texture
-local QuickKeybindFrame_BG_BgObject = {}
-end
-
-do
----@class QuickKeybindFrame_BG_BottomEdgeObject : Texture
-local QuickKeybindFrame_BG_BottomEdgeObject = {}
-end
-
-do
----@class QuickKeybindFrame_BG_BottomLeftCornerObject : Texture
-local QuickKeybindFrame_BG_BottomLeftCornerObject = {}
-end
-
-do
----@class QuickKeybindFrame_BG_BottomRightCornerObject : Texture
-local QuickKeybindFrame_BG_BottomRightCornerObject = {}
-end
-
-do
----@class QuickKeybindFrame_BG_LeftEdgeObject : Texture
-local QuickKeybindFrame_BG_LeftEdgeObject = {}
-end
-
-do
----@class QuickKeybindFrame_BG_RightEdgeObject : Texture
-local QuickKeybindFrame_BG_RightEdgeObject = {}
-end
-
-do
----@class QuickKeybindFrame_BG_TopEdgeObject : Texture
-local QuickKeybindFrame_BG_TopEdgeObject = {}
-end
-
-do
----@class QuickKeybindFrame_BG_TopLeftCornerObject : Texture
-local QuickKeybindFrame_BG_TopLeftCornerObject = {}
-end
-
-do
----@class QuickKeybindFrame_BG_TopRightCornerObject : Texture
-local QuickKeybindFrame_BG_TopRightCornerObject = {}
-end
-
-do
----@class QuickKeybindFrame_CancelButtonObject : Button
----@field Left QuickKeybindFrame_CancelButton_LeftObject
----@field Middle QuickKeybindFrame_CancelButton_MiddleObject
----@field Right QuickKeybindFrame_CancelButton_RightObject
----@field Text QuickKeybindFrame_CancelButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local QuickKeybindFrame_CancelButtonObject = {}
----@return any ...
-function QuickKeybindFrame_CancelButtonObject:FitToText(...) end
----@return any ...
-function QuickKeybindFrame_CancelButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function QuickKeybindFrame_CancelButtonObject:OnEnter(...) end
----@return any ...
-function QuickKeybindFrame_CancelButtonObject:OnLeave(...) end
----@return any ...
-function QuickKeybindFrame_CancelButtonObject:SetDisabledState(...) end
----@return any ...
-function QuickKeybindFrame_CancelButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function QuickKeybindFrame_CancelButtonObject:SetTextToFit(...) end
-end
-
-do
----@class QuickKeybindFrame_CancelButton_LeftObject : Texture
-local QuickKeybindFrame_CancelButton_LeftObject = {}
-end
-
-do
----@class QuickKeybindFrame_CancelButton_MiddleObject : Texture
-local QuickKeybindFrame_CancelButton_MiddleObject = {}
-end
-
-do
----@class QuickKeybindFrame_CancelButton_RightObject : Texture
-local QuickKeybindFrame_CancelButton_RightObject = {}
-end
-
-do
----@class QuickKeybindFrame_CancelButton_TextObject : FontString
-local QuickKeybindFrame_CancelButton_TextObject = {}
-end
-
-do
----@class QuickKeybindFrame_CancelDescriptionTextObject : FontString
-local QuickKeybindFrame_CancelDescriptionTextObject = {}
-end
-
-do
----@class QuickKeybindFrame_DefaultsButtonObject : Button
----@field Left QuickKeybindFrame_DefaultsButton_LeftObject
----@field Middle QuickKeybindFrame_DefaultsButton_MiddleObject
----@field Right QuickKeybindFrame_DefaultsButton_RightObject
----@field Text QuickKeybindFrame_DefaultsButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local QuickKeybindFrame_DefaultsButtonObject = {}
----@return any ...
-function QuickKeybindFrame_DefaultsButtonObject:FitToText(...) end
----@return any ...
-function QuickKeybindFrame_DefaultsButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function QuickKeybindFrame_DefaultsButtonObject:OnEnter(...) end
----@return any ...
-function QuickKeybindFrame_DefaultsButtonObject:OnLeave(...) end
----@return any ...
-function QuickKeybindFrame_DefaultsButtonObject:SetDisabledState(...) end
----@return any ...
-function QuickKeybindFrame_DefaultsButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function QuickKeybindFrame_DefaultsButtonObject:SetTextToFit(...) end
-end
-
-do
----@class QuickKeybindFrame_DefaultsButton_LeftObject : Texture
-local QuickKeybindFrame_DefaultsButton_LeftObject = {}
-end
-
-do
----@class QuickKeybindFrame_DefaultsButton_MiddleObject : Texture
-local QuickKeybindFrame_DefaultsButton_MiddleObject = {}
-end
-
-do
----@class QuickKeybindFrame_DefaultsButton_RightObject : Texture
-local QuickKeybindFrame_DefaultsButton_RightObject = {}
-end
-
-do
----@class QuickKeybindFrame_DefaultsButton_TextObject : FontString
-local QuickKeybindFrame_DefaultsButton_TextObject = {}
-end
-
-do
----@class QuickKeybindFrame_HeaderObject : Frame
----@field CenterBG QuickKeybindFrame_Header_CenterBGObject
----@field LeftBG QuickKeybindFrame_Header_LeftBGObject
----@field RightBG QuickKeybindFrame_Header_RightBGObject
----@field Text QuickKeybindFrame_Header_TextObject
----@field headerTextPadding number
----@field textString string
-local QuickKeybindFrame_HeaderObject = {}
----@return any ...
-function QuickKeybindFrame_HeaderObject:OnLoad(...) end
----@return any ...
-function QuickKeybindFrame_HeaderObject:SetHeaderFont(...) end
----@return any ...
-function QuickKeybindFrame_HeaderObject:Setup(...) end
----@return any ...
-function QuickKeybindFrame_HeaderObject:UpdateWidth(...) end
-end
-
-do
----@class QuickKeybindFrame_Header_CenterBGObject : Texture
-local QuickKeybindFrame_Header_CenterBGObject = {}
-end
-
-do
----@class QuickKeybindFrame_Header_LeftBGObject : Texture
-local QuickKeybindFrame_Header_LeftBGObject = {}
-end
-
-do
----@class QuickKeybindFrame_Header_RightBGObject : Texture
-local QuickKeybindFrame_Header_RightBGObject = {}
-end
-
-do
----@class QuickKeybindFrame_Header_TextObject : FontString
-local QuickKeybindFrame_Header_TextObject = {}
-end
-
-do
----@class QuickKeybindFrame_InstructionTextObject : FontString
-local QuickKeybindFrame_InstructionTextObject = {}
-end
-
-do
----@class QuickKeybindFrame_OkayButtonObject : Button
----@field Left QuickKeybindFrame_OkayButton_LeftObject
----@field Middle QuickKeybindFrame_OkayButton_MiddleObject
----@field Right QuickKeybindFrame_OkayButton_RightObject
----@field Text QuickKeybindFrame_OkayButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local QuickKeybindFrame_OkayButtonObject = {}
----@return any ...
-function QuickKeybindFrame_OkayButtonObject:FitToText(...) end
----@return any ...
-function QuickKeybindFrame_OkayButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function QuickKeybindFrame_OkayButtonObject:OnEnter(...) end
----@return any ...
-function QuickKeybindFrame_OkayButtonObject:OnLeave(...) end
----@return any ...
-function QuickKeybindFrame_OkayButtonObject:SetDisabledState(...) end
----@return any ...
-function QuickKeybindFrame_OkayButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function QuickKeybindFrame_OkayButtonObject:SetTextToFit(...) end
-end
-
-do
----@class QuickKeybindFrame_OkayButton_LeftObject : Texture
-local QuickKeybindFrame_OkayButton_LeftObject = {}
-end
-
-do
----@class QuickKeybindFrame_OkayButton_MiddleObject : Texture
-local QuickKeybindFrame_OkayButton_MiddleObject = {}
-end
-
-do
----@class QuickKeybindFrame_OkayButton_RightObject : Texture
-local QuickKeybindFrame_OkayButton_RightObject = {}
-end
-
-do
----@class QuickKeybindFrame_OkayButton_TextObject : FontString
-local QuickKeybindFrame_OkayButton_TextObject = {}
-end
-
-do
----@class QuickKeybindFrame_OutputTextObject : FontString
-local QuickKeybindFrame_OutputTextObject = {}
-end
-
-do
----@class QuickKeybindFrame_UseCharacterBindingsButtonObject : CheckButton
----@field Text QuickKeybindFrame_UseCharacterBindingsButton_TextObject
----@field text QuickKeybindFrame_UseCharacterBindingsButton_textObject
-local QuickKeybindFrame_UseCharacterBindingsButtonObject = {}
-end
-
-do
----@class QuickKeybindFrame_UseCharacterBindingsButton_TextObject : FontString
-local QuickKeybindFrame_UseCharacterBindingsButton_TextObject = {}
-end
-
-do
----@class QuickKeybindFrame_UseCharacterBindingsButton_textObject
-local QuickKeybindFrame_UseCharacterBindingsButton_textObject = {}
-end
-
-do
----@class QuickKeybindTooltipObject : GameTooltip
----@field BottomOverlay QuickKeybindTooltip_BottomOverlayObject
----@field NineSlice QuickKeybindTooltip_NineSliceObject
----@field TextLeft1 QuickKeybindTooltip_TextLeft1Object
----@field TextLeft2 QuickKeybindTooltip_TextLeft2Object
----@field TextRight1 QuickKeybindTooltip_TextRight1Object
----@field TextRight2 QuickKeybindTooltip_TextRight2Object
----@field TopOverlay QuickKeybindTooltip_TopOverlayObject
----@field layoutType string
----@field textLeft1Font string
----@field textLeft2Font string
----@field textRight1Font string
----@field textRight2Font string
-local QuickKeybindTooltipObject = {}
----@type QuickKeybindTooltipObject
-QuickKeybindTooltip = QuickKeybindTooltipObject
-end
-
-do
----@class QuickKeybindTooltip_BottomOverlayObject : Texture
-local QuickKeybindTooltip_BottomOverlayObject = {}
-end
-
-do
----@class QuickKeybindTooltip_NineSliceObject : Frame
----@field BottomEdge QuickKeybindTooltip_NineSlice_BottomEdgeObject
----@field BottomLeftCorner QuickKeybindTooltip_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner QuickKeybindTooltip_NineSlice_BottomRightCornerObject
----@field Center QuickKeybindTooltip_NineSlice_CenterObject
----@field LeftEdge QuickKeybindTooltip_NineSlice_LeftEdgeObject
----@field RightEdge QuickKeybindTooltip_NineSlice_RightEdgeObject
----@field TopEdge QuickKeybindTooltip_NineSlice_TopEdgeObject
----@field TopLeftCorner QuickKeybindTooltip_NineSlice_TopLeftCornerObject
----@field TopRightCorner QuickKeybindTooltip_NineSlice_TopRightCornerObject
-local QuickKeybindTooltip_NineSliceObject = {}
----@return any ...
-function QuickKeybindTooltip_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function QuickKeybindTooltip_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function QuickKeybindTooltip_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function QuickKeybindTooltip_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function QuickKeybindTooltip_NineSliceObject:OnLoad(...) end
----@return any ...
-function QuickKeybindTooltip_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function QuickKeybindTooltip_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function QuickKeybindTooltip_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function QuickKeybindTooltip_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function QuickKeybindTooltip_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class QuickKeybindTooltip_NineSlice_BottomEdgeObject : Texture
-local QuickKeybindTooltip_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class QuickKeybindTooltip_NineSlice_BottomLeftCornerObject : Texture
-local QuickKeybindTooltip_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class QuickKeybindTooltip_NineSlice_BottomRightCornerObject : Texture
-local QuickKeybindTooltip_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class QuickKeybindTooltip_NineSlice_CenterObject : Texture
-local QuickKeybindTooltip_NineSlice_CenterObject = {}
-end
-
-do
----@class QuickKeybindTooltip_NineSlice_LeftEdgeObject : Texture
-local QuickKeybindTooltip_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class QuickKeybindTooltip_NineSlice_RightEdgeObject : Texture
-local QuickKeybindTooltip_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class QuickKeybindTooltip_NineSlice_TopEdgeObject : Texture
-local QuickKeybindTooltip_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class QuickKeybindTooltip_NineSlice_TopLeftCornerObject : Texture
-local QuickKeybindTooltip_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class QuickKeybindTooltip_NineSlice_TopRightCornerObject : Texture
-local QuickKeybindTooltip_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class QuickKeybindTooltip_TextLeft1Object : FontString
-local QuickKeybindTooltip_TextLeft1Object = {}
-end
-
-do
----@class QuickKeybindTooltip_TextLeft2Object : FontString
-local QuickKeybindTooltip_TextLeft2Object = {}
-end
-
-do
----@class QuickKeybindTooltip_TextRight1Object : FontString
-local QuickKeybindTooltip_TextRight1Object = {}
-end
-
-do
----@class QuickKeybindTooltip_TextRight2Object : FontString
-local QuickKeybindTooltip_TextRight2Object = {}
-end
-
-do
----@class QuickKeybindTooltip_TopOverlayObject : Texture
-local QuickKeybindTooltip_TopOverlayObject = {}
-end
-
-do
----@class RPETutorialInterrupt_FrameObject : Frame
----@field Anim_FadeIn RPETutorialInterrupt_Frame_Anim_FadeInObject
----@field Anim_FadeOut RPETutorialInterrupt_Frame_Anim_FadeOutObject
----@field BottomEdge RPETutorialInterrupt_Frame_BottomEdgeObject
----@field BottomLeftCorner RPETutorialInterrupt_Frame_BottomLeftCornerObject
----@field BottomRightCorner RPETutorialInterrupt_Frame_BottomRightCornerObject
----@field Center RPETutorialInterrupt_Frame_CenterObject
----@field ContainerFrame RPETutorialInterrupt_Frame_ContainerFrameObject
----@field FramePositions RPETutorialInterrupt_Frame_FramePositionsObject
----@field LeftEdge RPETutorialInterrupt_Frame_LeftEdgeObject
----@field NextID number
----@field Position number
----@field RightEdge RPETutorialInterrupt_Frame_RightEdgeObject
----@field State string
----@field States RPETutorialInterrupt_Frame_StatesObject
----@field TopEdge RPETutorialInterrupt_Frame_TopEdgeObject
----@field TopLeftCorner RPETutorialInterrupt_Frame_TopLeftCornerObject
----@field TopRightCorner RPETutorialInterrupt_Frame_TopRightCornerObject
----@field dirty boolean
----@field frameType number
----@field heightPadding number
----@field wasShown boolean
----@field widthPadding number
-local RPETutorialInterrupt_FrameObject = {}
----@return any ...
-function RPETutorialInterrupt_FrameObject:AddLayoutChildren(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:CINEMATIC_START(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:CINEMATIC_STOP(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:ClearFixedSize(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:GetAdditionalRegions(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:GetChildHeight(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:GetChildSize(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:GetChildWidth(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:GetFixedHeight(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:GetFixedSize(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:GetFixedWidth(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:GetHeightPadding(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:GetLayoutChildren(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:GetMaximumWidth(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:GetMinimumWidth(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:GetWidthPadding(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:HideTutorial(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:IgnoreLayoutIndex(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:IsDirty(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:IsLayoutFrame(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:Layout(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:MarkClean(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:MarkDirty(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:MarkIgnoreInLayout(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:OnCleaned(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:OnLoad(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:OnShow(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:OnUpdate(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:SetFixedHeight(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:SetFixedSize(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:SetFixedWidth(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:SetHeightPadding(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:SetMaximumWidth(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:SetMinimumWidth(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:SetWidthPadding(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:ShowTutorial(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:UpdateFrameState(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:_AnimateIn(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:_AnimateOut(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:_SetContent(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:_SetDesiredContent(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:_SetDesiredPosition(...) end
----@return any ...
-function RPETutorialInterrupt_FrameObject:_SetPosition(...) end
----@type RPETutorialInterrupt_FrameObject
-RPETutorialInterrupt_Frame = RPETutorialInterrupt_FrameObject
-end
-
-do
----@class RPETutorialInterrupt_Frame_Anim_FadeInObject : AnimationGroup
-local RPETutorialInterrupt_Frame_Anim_FadeInObject = {}
-end
-
-do
----@class RPETutorialInterrupt_Frame_Anim_FadeOutObject : AnimationGroup
-local RPETutorialInterrupt_Frame_Anim_FadeOutObject = {}
-end
-
-do
----@class RPETutorialInterrupt_Frame_BottomEdgeObject : Texture
-local RPETutorialInterrupt_Frame_BottomEdgeObject = {}
-end
-
-do
----@class RPETutorialInterrupt_Frame_BottomLeftCornerObject : Texture
-local RPETutorialInterrupt_Frame_BottomLeftCornerObject = {}
-end
-
-do
----@class RPETutorialInterrupt_Frame_BottomRightCornerObject : Texture
-local RPETutorialInterrupt_Frame_BottomRightCornerObject = {}
-end
-
-do
----@class RPETutorialInterrupt_Frame_CenterObject : Texture
-local RPETutorialInterrupt_Frame_CenterObject = {}
-end
-
-do
----@class RPETutorialInterrupt_Frame_ContainerFrameObject : Frame
----@field Icon RPETutorialInterrupt_Frame_ContainerFrame_IconObject
----@field Text RPETutorialInterrupt_Frame_ContainerFrame_TextObject
-local RPETutorialInterrupt_Frame_ContainerFrameObject = {}
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:AddLayoutChildren(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:ClearFixedSize(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:GetAdditionalRegions(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:GetChildHeight(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:GetChildSize(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:GetChildWidth(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:GetFixedHeight(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:GetFixedSize(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:GetFixedWidth(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:GetHeightPadding(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:GetLayoutChildren(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:GetMaximumWidth(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:GetMinimumWidth(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:GetWidthPadding(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:IgnoreLayoutIndex(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:IsDirty(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:IsLayoutFrame(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:Layout(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:MarkClean(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:MarkDirty(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:MarkIgnoreInLayout(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:OnCleaned(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:OnShow(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:OnUpdate(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:SetFixedHeight(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:SetFixedSize(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:SetFixedWidth(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:SetHeightPadding(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:SetMaximumWidth(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:SetMinimumWidth(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:SetWidthPadding(...) end
----@return any ...
-function RPETutorialInterrupt_Frame_ContainerFrameObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class RPETutorialInterrupt_Frame_ContainerFrame_IconObject : Texture
-local RPETutorialInterrupt_Frame_ContainerFrame_IconObject = {}
-end
-
-do
----@class RPETutorialInterrupt_Frame_ContainerFrame_TextObject : FontString
-local RPETutorialInterrupt_Frame_ContainerFrame_TextObject = {}
-end
-
-do
----@class RPETutorialInterrupt_Frame_FramePositionsObject
----@field Default number
----@field Low number
-local RPETutorialInterrupt_Frame_FramePositionsObject = {}
-end
-
-do
----@class RPETutorialInterrupt_Frame_LeftEdgeObject : Texture
-local RPETutorialInterrupt_Frame_LeftEdgeObject = {}
-end
-
-do
----@class RPETutorialInterrupt_Frame_RightEdgeObject : Texture
-local RPETutorialInterrupt_Frame_RightEdgeObject = {}
-end
-
-do
----@class RPETutorialInterrupt_Frame_StatesObject
----@field AnimatingIn string
----@field AnimatingOut string
----@field Hidden string
----@field Visible string
-local RPETutorialInterrupt_Frame_StatesObject = {}
-end
-
-do
----@class RPETutorialInterrupt_Frame_TopEdgeObject : Texture
-local RPETutorialInterrupt_Frame_TopEdgeObject = {}
-end
-
-do
----@class RPETutorialInterrupt_Frame_TopLeftCornerObject : Texture
-local RPETutorialInterrupt_Frame_TopLeftCornerObject = {}
-end
-
-do
----@class RPETutorialInterrupt_Frame_TopRightCornerObject : Texture
-local RPETutorialInterrupt_Frame_TopRightCornerObject = {}
-end
-
-do
----@class RaidParentFrameObject : Frame
----@field Bg RaidParentFrame_BgObject
----@field CloseButton RaidParentFrame_CloseButtonObject
----@field FocusJumpHint RaidParentFrame_FocusJumpHintObject
----@field FrameGlow RaidParentFrame_FrameGlowObject
----@field Inset RaidParentFrame_InsetObject
----@field LeftJumpHint RaidParentFrame_LeftJumpHintObject
----@field NineSlice RaidParentFrame_NineSliceObject
----@field PortraitContainer RaidParentFrame_PortraitContainerObject
----@field RightJumpHint RaidParentFrame_RightJumpHintObject
----@field Tabs table
----@field TitleContainer RaidParentFrame_TitleContainerObject
----@field TopTileStreaks RaidParentFrame_TopTileStreaksObject
----@field layoutType string
----@field numTabs number
----@field selectTab number
----@field selectedTab number
-local RaidParentFrameObject = {}
----@return any ...
-function RaidParentFrameObject:EndFocus(...) end
----@return any ...
-function RaidParentFrameObject:GetFocusFrameGlow(...) end
----@return any ...
-function RaidParentFrameObject:GetFocusFrameRoot(...) end
----@return any ...
-function RaidParentFrameObject:GetPortrait(...) end
----@return any ...
-function RaidParentFrameObject:GetTitleText(...) end
----@return any ...
-function RaidParentFrameObject:HasPortraitTexture(...) end
----@return any ...
-function RaidParentFrameObject:HideFocusJumpHint(...) end
----@return any ...
-function RaidParentFrameObject:HideLeftJumpHint(...) end
----@return any ...
-function RaidParentFrameObject:HideRightJumpHint(...) end
----@return any ...
-function RaidParentFrameObject:LockInFocus(...) end
----@return any ...
-function RaidParentFrameObject:RefreshFocus(...) end
----@return any ...
-function RaidParentFrameObject:SetBorder(...) end
----@return any ...
-function RaidParentFrameObject:SetFrameLevelsFromBaseLevel(...) end
----@return any ...
-function RaidParentFrameObject:SetPortraitAtlasRaw(...) end
----@return any ...
-function RaidParentFrameObject:SetPortraitShown(...) end
----@return any ...
-function RaidParentFrameObject:SetPortraitTexCoord(...) end
----@return any ...
-function RaidParentFrameObject:SetPortraitTextureRaw(...) end
----@return any ...
-function RaidParentFrameObject:SetPortraitTextureSizeAndOffset(...) end
----@return any ...
-function RaidParentFrameObject:SetPortraitToAsset(...) end
----@return any ...
-function RaidParentFrameObject:SetPortraitToBag(...) end
----@return any ...
-function RaidParentFrameObject:SetPortraitToClassIcon(...) end
----@return any ...
-function RaidParentFrameObject:SetPortraitToSpecIcon(...) end
----@return any ...
-function RaidParentFrameObject:SetPortraitToUnit(...) end
----@return any ...
-function RaidParentFrameObject:SetTitle(...) end
----@return any ...
-function RaidParentFrameObject:SetTitleColor(...) end
----@return any ...
-function RaidParentFrameObject:SetTitleFormatted(...) end
----@return any ...
-function RaidParentFrameObject:SetTitleMaxLinesAndHeight(...) end
----@return any ...
-function RaidParentFrameObject:SetTitleOffsets(...) end
----@return any ...
-function RaidParentFrameObject:ShowFocusJumpHint(...) end
----@return any ...
-function RaidParentFrameObject:ShowLeftJumpHint(...) end
----@return any ...
-function RaidParentFrameObject:ShowRightJumpHint(...) end
----@return any ...
-function RaidParentFrameObject:StartFocus(...) end
----@type RaidParentFrameObject
-RaidParentFrame = RaidParentFrameObject
-end
-
-do
----@class RaidParentFrame_BgObject : Texture
-local RaidParentFrame_BgObject = {}
-end
-
-do
----@class RaidParentFrame_CloseButtonObject : Button
-local RaidParentFrame_CloseButtonObject = {}
----@return any ...
-function RaidParentFrame_CloseButtonObject:NarrationGetName(...) end
----@return any ...
-function RaidParentFrame_CloseButtonObject:OnLoad(...) end
-end
-
-do
----@class RaidParentFrame_FocusJumpHintObject : Frame
----@field ActiveTexture RaidParentFrame_FocusJumpHint_ActiveTextureObject
----@field DisabledTexture RaidParentFrame_FocusJumpHint_DisabledTextureObject
----@field HoldAnim RaidParentFrame_FocusJumpHint_HoldAnimObject
----@field HoldIndicator RaidParentFrame_FocusJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG RaidParentFrame_FocusJumpHint_HoldIndicatorBGObject
----@field HoverTexture RaidParentFrame_FocusJumpHint_HoverTextureObject
----@field LoadBar RaidParentFrame_FocusJumpHint_LoadBarObject
----@field LoadBarBG RaidParentFrame_FocusJumpHint_LoadBarBGObject
----@field LoadBarGlow RaidParentFrame_FocusJumpHint_LoadBarGlowObject
----@field NormalTexture RaidParentFrame_FocusJumpHint_NormalTextureObject
----@field PressedTexture RaidParentFrame_FocusJumpHint_PressedTextureObject
----@field SpinnerTip RaidParentFrame_FocusJumpHint_SpinnerTipObject
----@field ignoreInLayout boolean
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local RaidParentFrame_FocusJumpHintObject = {}
----@return any ...
-function RaidParentFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function RaidParentFrame_FocusJumpHintObject:BeginHold(...) end
----@return any ...
-function RaidParentFrame_FocusJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function RaidParentFrame_FocusJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function RaidParentFrame_FocusJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function RaidParentFrame_FocusJumpHintObject:EndHold(...) end
----@return any ...
-function RaidParentFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function RaidParentFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function RaidParentFrame_FocusJumpHintObject:OnLoad(...) end
----@return any ...
-function RaidParentFrame_FocusJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function RaidParentFrame_FocusJumpHintObject:SetDisabled(...) end
----@return any ...
-function RaidParentFrame_FocusJumpHintObject:SetEnabled(...) end
----@return any ...
-function RaidParentFrame_FocusJumpHintObject:SetFocused(...) end
----@return any ...
-function RaidParentFrame_FocusJumpHintObject:SetHoldState(...) end
----@return any ...
-function RaidParentFrame_FocusJumpHintObject:SetInputKey(...) end
----@return any ...
-function RaidParentFrame_FocusJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function RaidParentFrame_FocusJumpHintObject:SetPressable(...) end
----@return any ...
-function RaidParentFrame_FocusJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function RaidParentFrame_FocusJumpHintObject:SetTextureState(...) end
----@return any ...
-function RaidParentFrame_FocusJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function RaidParentFrame_FocusJumpHintObject:SetUsableState(...) end
----@return any ...
-function RaidParentFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_ActiveTextureObject : Texture
-local RaidParentFrame_FocusJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_DisabledTextureObject : Texture
-local RaidParentFrame_FocusJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim RaidParentFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim RaidParentFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim RaidParentFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
-local RaidParentFrame_FocusJumpHint_HoldAnimObject = {}
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
-local RaidParentFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local RaidParentFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local RaidParentFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_HoldIndicatorObject : Texture
-local RaidParentFrame_FocusJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
-local RaidParentFrame_FocusJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_HoverTextureObject : Texture
-local RaidParentFrame_FocusJumpHint_HoverTextureObject = {}
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_LoadBarObject : Texture
-local RaidParentFrame_FocusJumpHint_LoadBarObject = {}
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_LoadBarBGObject : Texture
-local RaidParentFrame_FocusJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_LoadBarGlowObject : Texture
-local RaidParentFrame_FocusJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_NormalTextureObject : Texture
-local RaidParentFrame_FocusJumpHint_NormalTextureObject = {}
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_PressedTextureObject : Texture
-local RaidParentFrame_FocusJumpHint_PressedTextureObject = {}
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_SpinnerTipObject : Texture
-local RaidParentFrame_FocusJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class RaidParentFrame_FrameGlowObject : Frame
----@field GlowTexture RaidParentFrame_FrameGlow_GlowTextureObject
----@field glowTextures table
-local RaidParentFrame_FrameGlowObject = {}
----@return any ...
-function RaidParentFrame_FrameGlowObject:GetContainerFrame(...) end
----@return any ...
-function RaidParentFrame_FrameGlowObject:GetFrameLayoutType(...) end
----@return any ...
-function RaidParentFrame_FrameGlowObject:GetHeaderFrame(...) end
----@return any ...
-function RaidParentFrame_FrameGlowObject:OnLoad(...) end
-end
-
-do
----@class RaidParentFrame_FrameGlow_GlowTextureObject : Texture
-local RaidParentFrame_FrameGlow_GlowTextureObject = {}
-end
-
-do
----@class RaidParentFrame_InsetObject : Frame
----@field Bg RaidParentFrame_Inset_BgObject
----@field NineSlice RaidParentFrame_Inset_NineSliceObject
----@field layoutType string
-local RaidParentFrame_InsetObject = {}
-end
-
-do
----@class RaidParentFrame_Inset_BgObject : Texture
-local RaidParentFrame_Inset_BgObject = {}
-end
-
-do
----@class RaidParentFrame_Inset_NineSliceObject : Frame
----@field BottomEdge RaidParentFrame_Inset_NineSlice_BottomEdgeObject
----@field BottomLeftCorner RaidParentFrame_Inset_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner RaidParentFrame_Inset_NineSlice_BottomRightCornerObject
----@field LeftEdge RaidParentFrame_Inset_NineSlice_LeftEdgeObject
----@field RightEdge RaidParentFrame_Inset_NineSlice_RightEdgeObject
----@field TopEdge RaidParentFrame_Inset_NineSlice_TopEdgeObject
----@field TopLeftCorner RaidParentFrame_Inset_NineSlice_TopLeftCornerObject
----@field TopRightCorner RaidParentFrame_Inset_NineSlice_TopRightCornerObject
-local RaidParentFrame_Inset_NineSliceObject = {}
----@return any ...
-function RaidParentFrame_Inset_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function RaidParentFrame_Inset_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function RaidParentFrame_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function RaidParentFrame_Inset_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function RaidParentFrame_Inset_NineSliceObject:OnLoad(...) end
----@return any ...
-function RaidParentFrame_Inset_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function RaidParentFrame_Inset_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function RaidParentFrame_Inset_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function RaidParentFrame_Inset_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function RaidParentFrame_Inset_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class RaidParentFrame_Inset_NineSlice_BottomEdgeObject : Texture
-local RaidParentFrame_Inset_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class RaidParentFrame_Inset_NineSlice_BottomLeftCornerObject : Texture
-local RaidParentFrame_Inset_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class RaidParentFrame_Inset_NineSlice_BottomRightCornerObject : Texture
-local RaidParentFrame_Inset_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class RaidParentFrame_Inset_NineSlice_LeftEdgeObject : Texture
-local RaidParentFrame_Inset_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class RaidParentFrame_Inset_NineSlice_RightEdgeObject : Texture
-local RaidParentFrame_Inset_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class RaidParentFrame_Inset_NineSlice_TopEdgeObject : Texture
-local RaidParentFrame_Inset_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class RaidParentFrame_Inset_NineSlice_TopLeftCornerObject : Texture
-local RaidParentFrame_Inset_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class RaidParentFrame_Inset_NineSlice_TopRightCornerObject : Texture
-local RaidParentFrame_Inset_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHintObject : Frame
----@field ActiveTexture RaidParentFrame_LeftJumpHint_ActiveTextureObject
----@field DisabledTexture RaidParentFrame_LeftJumpHint_DisabledTextureObject
----@field HoldAnim RaidParentFrame_LeftJumpHint_HoldAnimObject
----@field HoldIndicator RaidParentFrame_LeftJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG RaidParentFrame_LeftJumpHint_HoldIndicatorBGObject
----@field HoverTexture RaidParentFrame_LeftJumpHint_HoverTextureObject
----@field LoadBar RaidParentFrame_LeftJumpHint_LoadBarObject
----@field LoadBarBG RaidParentFrame_LeftJumpHint_LoadBarBGObject
----@field LoadBarGlow RaidParentFrame_LeftJumpHint_LoadBarGlowObject
----@field NormalTexture RaidParentFrame_LeftJumpHint_NormalTextureObject
----@field PressedTexture RaidParentFrame_LeftJumpHint_PressedTextureObject
----@field SpinnerTip RaidParentFrame_LeftJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local RaidParentFrame_LeftJumpHintObject = {}
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:BeginHold(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:EndHold(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:OnLoad(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:SetDisabled(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:SetEnabled(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:SetFocused(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:SetHoldState(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:SetInputKey(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:SetPressable(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:SetTextureState(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:SetUsableState(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_ActiveTextureObject : Texture
-local RaidParentFrame_LeftJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_DisabledTextureObject : Texture
-local RaidParentFrame_LeftJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim RaidParentFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim RaidParentFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim RaidParentFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
-local RaidParentFrame_LeftJumpHint_HoldAnimObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
-local RaidParentFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local RaidParentFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local RaidParentFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_HoldIndicatorObject : Texture
-local RaidParentFrame_LeftJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
-local RaidParentFrame_LeftJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_HoverTextureObject : Texture
-local RaidParentFrame_LeftJumpHint_HoverTextureObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_LoadBarObject : Texture
-local RaidParentFrame_LeftJumpHint_LoadBarObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_LoadBarBGObject : Texture
-local RaidParentFrame_LeftJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_LoadBarGlowObject : Texture
-local RaidParentFrame_LeftJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_NormalTextureObject : Texture
-local RaidParentFrame_LeftJumpHint_NormalTextureObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_PressedTextureObject : Texture
-local RaidParentFrame_LeftJumpHint_PressedTextureObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_SpinnerTipObject : Texture
-local RaidParentFrame_LeftJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class RaidParentFrame_NineSliceObject : Frame
----@field BottomEdge RaidParentFrame_NineSlice_BottomEdgeObject
----@field BottomLeftCorner RaidParentFrame_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner RaidParentFrame_NineSlice_BottomRightCornerObject
----@field Center RaidParentFrame_NineSlice_CenterObject
----@field LeftEdge RaidParentFrame_NineSlice_LeftEdgeObject
----@field RightEdge RaidParentFrame_NineSlice_RightEdgeObject
----@field TopEdge RaidParentFrame_NineSlice_TopEdgeObject
----@field TopLeftCorner RaidParentFrame_NineSlice_TopLeftCornerObject
----@field TopRightCorner RaidParentFrame_NineSlice_TopRightCornerObject
-local RaidParentFrame_NineSliceObject = {}
----@return any ...
-function RaidParentFrame_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function RaidParentFrame_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function RaidParentFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function RaidParentFrame_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function RaidParentFrame_NineSliceObject:OnLoad(...) end
----@return any ...
-function RaidParentFrame_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function RaidParentFrame_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function RaidParentFrame_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function RaidParentFrame_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function RaidParentFrame_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class RaidParentFrame_NineSlice_BottomEdgeObject : Texture
-local RaidParentFrame_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class RaidParentFrame_NineSlice_BottomLeftCornerObject : Texture
-local RaidParentFrame_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class RaidParentFrame_NineSlice_BottomRightCornerObject : Texture
-local RaidParentFrame_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class RaidParentFrame_NineSlice_CenterObject : Texture
-local RaidParentFrame_NineSlice_CenterObject = {}
-end
-
-do
----@class RaidParentFrame_NineSlice_LeftEdgeObject : Texture
-local RaidParentFrame_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class RaidParentFrame_NineSlice_RightEdgeObject : Texture
-local RaidParentFrame_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class RaidParentFrame_NineSlice_TopEdgeObject : Texture
-local RaidParentFrame_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class RaidParentFrame_NineSlice_TopLeftCornerObject : Texture
-local RaidParentFrame_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class RaidParentFrame_NineSlice_TopRightCornerObject : Texture
-local RaidParentFrame_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class RaidParentFrame_PortraitContainerObject : Frame
----@field CircleMask RaidParentFrame_PortraitContainer_CircleMaskObject
----@field portrait RaidParentFrame_PortraitContainer_portraitObject
-local RaidParentFrame_PortraitContainerObject = {}
-end
-
-do
----@class RaidParentFrame_PortraitContainer_CircleMaskObject : MaskTexture
-local RaidParentFrame_PortraitContainer_CircleMaskObject = {}
-end
-
-do
----@class RaidParentFrame_PortraitContainer_portraitObject : Texture
-local RaidParentFrame_PortraitContainer_portraitObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHintObject : Frame
----@field ActiveTexture RaidParentFrame_RightJumpHint_ActiveTextureObject
----@field DisabledTexture RaidParentFrame_RightJumpHint_DisabledTextureObject
----@field HoldAnim RaidParentFrame_RightJumpHint_HoldAnimObject
----@field HoldIndicator RaidParentFrame_RightJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG RaidParentFrame_RightJumpHint_HoldIndicatorBGObject
----@field HoverTexture RaidParentFrame_RightJumpHint_HoverTextureObject
----@field LoadBar RaidParentFrame_RightJumpHint_LoadBarObject
----@field LoadBarBG RaidParentFrame_RightJumpHint_LoadBarBGObject
----@field LoadBarGlow RaidParentFrame_RightJumpHint_LoadBarGlowObject
----@field NormalTexture RaidParentFrame_RightJumpHint_NormalTextureObject
----@field PressedTexture RaidParentFrame_RightJumpHint_PressedTextureObject
----@field SpinnerTip RaidParentFrame_RightJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local RaidParentFrame_RightJumpHintObject = {}
----@return any ...
-function RaidParentFrame_RightJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:BeginHold(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:EndHold(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:OnLoad(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:SetDisabled(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:SetEnabled(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:SetFocused(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:SetHoldState(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:SetInputKey(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:SetPressable(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:SetTextureState(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:SetUsableState(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class RaidParentFrame_RightJumpHint_ActiveTextureObject : Texture
-local RaidParentFrame_RightJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_DisabledTextureObject : Texture
-local RaidParentFrame_RightJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim RaidParentFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim RaidParentFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim RaidParentFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
-local RaidParentFrame_RightJumpHint_HoldAnimObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
-local RaidParentFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local RaidParentFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local RaidParentFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_HoldIndicatorObject : Texture
-local RaidParentFrame_RightJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_HoldIndicatorBGObject : Texture
-local RaidParentFrame_RightJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_HoverTextureObject : Texture
-local RaidParentFrame_RightJumpHint_HoverTextureObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_LoadBarObject : Texture
-local RaidParentFrame_RightJumpHint_LoadBarObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_LoadBarBGObject : Texture
-local RaidParentFrame_RightJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_LoadBarGlowObject : Texture
-local RaidParentFrame_RightJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_NormalTextureObject : Texture
-local RaidParentFrame_RightJumpHint_NormalTextureObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_PressedTextureObject : Texture
-local RaidParentFrame_RightJumpHint_PressedTextureObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_SpinnerTipObject : Texture
-local RaidParentFrame_RightJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class RaidParentFrame_TitleContainerObject : Frame
----@field TitleText RaidParentFrame_TitleContainer_TitleTextObject
-local RaidParentFrame_TitleContainerObject = {}
-end
-
-do
----@class RaidParentFrame_TitleContainer_TitleTextObject : FontString
-local RaidParentFrame_TitleContainer_TitleTextObject = {}
-end
-
-do
----@class RaidParentFrame_TopTileStreaksObject : Texture
-local RaidParentFrame_TopTileStreaksObject = {}
-end
-
-do
----@class RaidTargetingFreeSelectionObject : Frame
----@field RaidTargetingFooterinputLegend RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject
----@field TargetHighlight RaidTargetingFreeSelection_TargetHighlightObject
----@field raidTargetingFooter RaidTargetingFreeSelection_raidTargetingFooterObject
-local RaidTargetingFreeSelectionObject = {}
----@return any ...
-function RaidTargetingFreeSelectionObject:CanUseFocusButton(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:InitializeGamepad(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:OnExitEditMode(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:OnGamepadMainMenuShown(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:OnHide(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:OnLoad(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:OnShow(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:RegisterForTransitions(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:SetActive(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:SetupFooter(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:Toggle(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:UninitializeGamepad(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:UpdateFooter(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:UpdateVisibility(...) end
----@type RaidTargetingFreeSelectionObject
-RaidTargetingFreeSelection = RaidTargetingFreeSelectionObject
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject : Frame
----@field actions table
----@field promptContainerFrame RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrameObject
----@field promptFrames RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFramesObject
----@field promptFramesAddOrder table
----@field promptMap table
----@field wrapAroundRowWidth boolean
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject = {}
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:AddModifierSection(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:ApplyDefaultPromptPositioning(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:ApplyDefaultStyle(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:ApplyEnabledStyleToModifierSection(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:ApplyFocusedStyleToModifierSection(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:ApplyFocusedStyleToPromptContainer(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:ApplyNeutralStyleToPromptContainer(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:ApplyWideStyle(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:GetOrCreatePromptFrameUsingTemplateAndInputs(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:InitializePrompts(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:OnBackgroundAlphaChanged(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:RefreshWithPromptedBindings(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:SetLegendWidth(...) end
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrameObject : Frame
----@field backgroundBorder RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrame_backgroundBorderObject
----@field backgroundSlot RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrame_backgroundSlotObject
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrameObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrame_backgroundBorderObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrame_backgroundBorderObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrame_backgroundSlotObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrame_backgroundSlotObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFramesObject
----@field StandardOneIconPADLSHOULDERSLASH RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFramesObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject : Frame
----@field ControlDescText RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescTextObject
----@field InputIcon1 RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object
----@field InputIcons table
----@field template string
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject = {}
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:BeginHold(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:DisablePrompt(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:EnableOrDisablePrompt(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:EnablePrompt(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:EndHold(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:GetDividerSpacingInfo(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:GetIconDividerControl(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:GetInputIconControl(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:GetPromptTextControl(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:OnLoad(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:RefreshInputPromptSize(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetDisabled(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetDividerType(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetFocused(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetInputIconSize(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetIsHoldAction(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetPressable(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetPromptFont(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetPromptInputIconKey(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetPromptText(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetUseDropShadow(...) end
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescTextObject : Frame
----@field FontString RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescText_FontStringObject
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescTextObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescText_FontStringObject : FontString
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescText_FontStringObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object : Frame
----@field ActiveTexture RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_ActiveTextureObject
----@field DisabledTexture RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_DisabledTextureObject
----@field HoldAnim RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnimObject
----@field HoldIndicator RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoverTextureObject
----@field LoadBar RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarObject
----@field LoadBarBG RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarBGObject
----@field LoadBarGlow RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarGlowObject
----@field NormalTexture RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_NormalTextureObject
----@field PressedTexture RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_PressedTextureObject
----@field SpinnerTip RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object = {}
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:BeginHold(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:EndHold(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:OnLoad(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetFocused(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetPressable(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_ActiveTextureObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_DisabledTextureObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorBGObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoverTextureObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarBGObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarGlowObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_NormalTextureObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_PressedTextureObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_SpinnerTipObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_TargetHighlightObject : Frame
-local RaidTargetingFreeSelection_TargetHighlightObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_raidTargetingFooterObject
----@field ALIGNMENT_TYPE table
----@field OVERFLOW_TYPE table
----@field alignmentType number
----@field debugName string
----@field disallowButtonContexts boolean
----@field inputLegend RaidTargetingFreeSelection_raidTargetingFooter_inputLegendObject
----@field isShown boolean
----@field overflowType number
----@field parentFrame RaidTargetingFreeSelection_raidTargetingFooter_parentFrameObject
----@field promptedBindings table
----@field promptedBindingsActive table
----@field promptedBindingsByKey table
----@field requiresBindingGroup boolean
----@field xOffset number
----@field yOffset number
-local RaidTargetingFreeSelection_raidTargetingFooterObject = {}
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:AddFunctionBinding(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:AddNonFallbackSelectPrompt(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:AddPromptedBinding(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:AddPromptedBindings(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:AddStandardBackPrompt(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:AddStandardSelectPrompt(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:ApplyInputLegendAttachment(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:Finalize(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:GeneratePromptedBindingsByKey(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:GetPromptedBindingToDisplayForKey(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:HideAndDeactivateBindings(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:Init(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:IsBindingGroupRequired(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:Refresh(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:RefreshBindingGroup(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:RefreshCustomFrameVisibility(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:RefreshInputLegend(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:RefreshPromptedBindingsActive(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:SetAlignmentType(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:SetAnchorOffsets(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:SetCustomAnchor(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:SetOverflowType(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:SetParentFrame(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:ShowAndActivateBindings(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:UseWideBackground(...) end
-end
-
-do
----@class RaidTargetingFreeSelection_raidTargetingFooter_inputLegendObject
-local RaidTargetingFreeSelection_raidTargetingFooter_inputLegendObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_raidTargetingFooter_parentFrameObject
-local RaidTargetingFreeSelection_raidTargetingFooter_parentFrameObject = {}
-end
-
-do
----@class RaidWarningFrameObject : Frame
----@field Selection RaidWarningFrame_SelectionObject
----@field defaultHideSelection boolean
----@field dirtySettings table
----@field downKeys table
----@field fontStringPool RaidWarningFrame_fontStringPoolObject
----@field hasActiveChanges boolean
----@field maxMessageSlots number
----@field maxTextHeight number
----@field maxTotalLines number
----@field messageCounter number
----@field messageTypes table
----@field minReservedSlots number
----@field savedSystemInfo RaidWarningFrame_savedSystemInfoObject
----@field settingDisplayInfoMap table
----@field settingMap table
----@field settingsDialogAnchor RaidWarningFrame_settingsDialogAnchorObject
----@field snappedFrames table
----@field system number
----@field systemInfo RaidWarningFrame_systemInfoObject
----@field systemNameString string
-local RaidWarningFrameObject = {}
----@return any ...
-function RaidWarningFrameObject:AcquireOrEvictSlot(...) end
----@return any ...
-function RaidWarningFrameObject:AcquireString(...) end
----@return any ...
-function RaidWarningFrameObject:AddExtraButtons(...) end
----@return any ...
-function RaidWarningFrameObject:AddMessage(...) end
----@return any ...
-function RaidWarningFrameObject:AddSnappedFrame(...) end
----@return any ...
-function RaidWarningFrameObject:AnchorSelectionFrame(...) end
----@return any ...
-function RaidWarningFrameObject:AnySettingsDirty(...) end
----@return any ...
-function RaidWarningFrameObject:ApplySystemAnchor(...) end
----@return any ...
-function RaidWarningFrameObject:AreAllSystemSettingsDefault(...) end
----@return any ...
-function RaidWarningFrameObject:BreakFrameSnap(...) end
----@return any ...
-function RaidWarningFrameObject:BreakFromFrameManager(...) end
----@return any ...
-function RaidWarningFrameObject:BreakSnappedFrames(...) end
----@return any ...
-function RaidWarningFrameObject:CanBeMoved(...) end
----@return any ...
-function RaidWarningFrameObject:ClearAllPointsBase(...) end
----@return any ...
-function RaidWarningFrameObject:ClearAllPointsOverride(...) end
----@return any ...
-function RaidWarningFrameObject:ClearDirtySetting(...) end
----@return any ...
-function RaidWarningFrameObject:ClearDownKeys(...) end
----@return any ...
-function RaidWarningFrameObject:ClearFrameSnap(...) end
----@return any ...
-function RaidWarningFrameObject:ClearHighlight(...) end
----@return any ...
-function RaidWarningFrameObject:ClearMessages(...) end
----@return any ...
-function RaidWarningFrameObject:ConvertSettingDisplayValueToRawValue(...) end
----@return any ...
-function RaidWarningFrameObject:DoesSettingDisplayValueEqual(...) end
----@return any ...
-function RaidWarningFrameObject:DoesSettingValueEqual(...) end
----@return any ...
-function RaidWarningFrameObject:EnforceLineLimits(...) end
----@return any ...
-function RaidWarningFrameObject:FindSlotToEvict(...) end
----@return any ...
-function RaidWarningFrameObject:GetActiveMessageCount(...) end
----@return any ...
-function RaidWarningFrameObject:GetBottomOffset(...) end
----@return any ...
-function RaidWarningFrameObject:GetCombinedCenterOffset(...) end
----@return any ...
-function RaidWarningFrameObject:GetCombinedSelectionOffset(...) end
----@return any ...
-function RaidWarningFrameObject:GetCompositeNumberSettingValue(...) end
----@return any ...
-function RaidWarningFrameObject:GetFirstMessage(...) end
----@return any ...
-function RaidWarningFrameObject:GetFrameMagneticEligibility(...) end
----@return any ...
-function RaidWarningFrameObject:GetLeftOffset(...) end
----@return any ...
-function RaidWarningFrameObject:GetLowestMessage(...) end
----@return any ...
-function RaidWarningFrameObject:GetManagedFrameContainer(...) end
----@return any ...
-function RaidWarningFrameObject:GetRightOffset(...) end
----@return any ...
-function RaidWarningFrameObject:GetScaledCenter(...) end
----@return any ...
-function RaidWarningFrameObject:GetScaledSelectionCenter(...) end
----@return any ...
-function RaidWarningFrameObject:GetScaledSelectionSides(...) end
----@return any ...
-function RaidWarningFrameObject:GetSelectionOffset(...) end
----@return any ...
-function RaidWarningFrameObject:GetSettingValue(...) end
----@return any ...
-function RaidWarningFrameObject:GetSettingValueBool(...) end
----@return any ...
-function RaidWarningFrameObject:GetSettingsDialogAnchor(...) end
----@return any ...
-function RaidWarningFrameObject:GetSnapOffsets(...) end
----@return any ...
-function RaidWarningFrameObject:GetSortedMessages(...) end
----@return any ...
-function RaidWarningFrameObject:GetSystemName(...) end
----@return any ...
-function RaidWarningFrameObject:GetTopOffset(...) end
----@return any ...
-function RaidWarningFrameObject:HasActiveChanges(...) end
----@return any ...
-function RaidWarningFrameObject:HasCompositeNumberSetting(...) end
----@return any ...
-function RaidWarningFrameObject:HasSetting(...) end
----@return any ...
-function RaidWarningFrameObject:HasValidSelectionRect(...) end
----@return any ...
-function RaidWarningFrameObject:HideBase(...) end
----@return any ...
-function RaidWarningFrameObject:HideOverride(...) end
----@return any ...
-function RaidWarningFrameObject:HighlightSystem(...) end
----@return any ...
-function RaidWarningFrameObject:IsAboveFrame(...) end
----@return any ...
-function RaidWarningFrameObject:IsBelowFrame(...) end
----@return any ...
-function RaidWarningFrameObject:IsEditModeDragging(...) end
----@return any ...
-function RaidWarningFrameObject:IsFrameAnchoredToMe(...) end
----@return any ...
-function RaidWarningFrameObject:IsHorizontallyAlignedWithFrame(...) end
----@return any ...
-function RaidWarningFrameObject:IsInDefaultPosition(...) end
----@return any ...
-function RaidWarningFrameObject:IsInitialized(...) end
----@return any ...
-function RaidWarningFrameObject:IsSettingDirty(...) end
----@return any ...
-function RaidWarningFrameObject:IsShiftKeyDown(...) end
----@return any ...
-function RaidWarningFrameObject:IsSystemSettingDefault(...) end
----@return any ...
-function RaidWarningFrameObject:IsToTheLeftOfFrame(...) end
----@return any ...
-function RaidWarningFrameObject:IsToTheRightOfFrame(...) end
----@return any ...
-function RaidWarningFrameObject:IsVerticallyAlignedWithFrame(...) end
----@return any ...
-function RaidWarningFrameObject:MarkAllSettingsDirty(...) end
----@return any ...
-function RaidWarningFrameObject:OnAnyEditModeSystemAnchorChanged(...) end
----@return any ...
-function RaidWarningFrameObject:OnDragStart(...) end
----@return any ...
-function RaidWarningFrameObject:OnDragStop(...) end
----@return any ...
-function RaidWarningFrameObject:OnEditModeEnter(...) end
----@return any ...
-function RaidWarningFrameObject:OnEditModeExit(...) end
----@return any ...
-function RaidWarningFrameObject:OnEvent(...) end
----@return any ...
-function RaidWarningFrameObject:OnKeyDown(...) end
----@return any ...
-function RaidWarningFrameObject:OnKeyUp(...) end
----@return any ...
-function RaidWarningFrameObject:OnLayoutUpdated(...) end
----@return any ...
-function RaidWarningFrameObject:OnLoad(...) end
----@return any ...
-function RaidWarningFrameObject:OnSystemHide(...) end
----@return any ...
-function RaidWarningFrameObject:OnSystemLoad(...) end
----@return any ...
-function RaidWarningFrameObject:OnSystemPositionChange(...) end
----@return any ...
-function RaidWarningFrameObject:OnUpdate(...) end
----@return any ...
-function RaidWarningFrameObject:OnUpdateSystem(...) end
----@return any ...
-function RaidWarningFrameObject:PrepareForSave(...) end
----@return any ...
-function RaidWarningFrameObject:ProcessMovementKey(...) end
----@return any ...
-function RaidWarningFrameObject:RegisterMessageEvents(...) end
----@return any ...
-function RaidWarningFrameObject:RemoveSnappedFrame(...) end
----@return any ...
-function RaidWarningFrameObject:ResetToDefaultPosition(...) end
----@return any ...
-function RaidWarningFrameObject:SelectSystem(...) end
----@return any ...
-function RaidWarningFrameObject:SetHasActiveChanges(...) end
----@return any ...
-function RaidWarningFrameObject:SetIsInEditMode(...) end
----@return any ...
-function RaidWarningFrameObject:SetPointBase(...) end
----@return any ...
-function RaidWarningFrameObject:SetPointOverride(...) end
----@return any ...
-function RaidWarningFrameObject:SetScaleBase(...) end
----@return any ...
-function RaidWarningFrameObject:SetScaleOverride(...) end
----@return any ...
-function RaidWarningFrameObject:SetSelectionShown(...) end
----@return any ...
-function RaidWarningFrameObject:SetShownBase(...) end
----@return any ...
-function RaidWarningFrameObject:SetShownOverride(...) end
----@return any ...
-function RaidWarningFrameObject:SetSnappedToFrame(...) end
----@return any ...
-function RaidWarningFrameObject:SetupSettingsDialogAnchor(...) end
----@return any ...
-function RaidWarningFrameObject:SetupVisibilityFunctionOverrides(...) end
----@return any ...
-function RaidWarningFrameObject:ShouldBreakSnappedFramesOnHide(...) end
----@return any ...
-function RaidWarningFrameObject:ShouldResetSettingsDialogAnchors(...) end
----@return any ...
-function RaidWarningFrameObject:ShouldShowSetting(...) end
----@return any ...
-function RaidWarningFrameObject:ShowEditInstructions(...) end
----@return any ...
-function RaidWarningFrameObject:SnapToFrame(...) end
----@return any ...
-function RaidWarningFrameObject:TrySetCompositeNumberSettingValue(...) end
----@return any ...
-function RaidWarningFrameObject:UpdateClampOffsets(...) end
----@return any ...
-function RaidWarningFrameObject:UpdateDirtySettings(...) end
----@return any ...
-function RaidWarningFrameObject:UpdateDisplayInfoOptions(...) end
----@return any ...
-function RaidWarningFrameObject:UpdateLayout(...) end
----@return any ...
-function RaidWarningFrameObject:UpdateMagnetismRegistration(...) end
----@return any ...
-function RaidWarningFrameObject:UpdateSettingMap(...) end
----@return any ...
-function RaidWarningFrameObject:UpdateShownState(...) end
----@return any ...
-function RaidWarningFrameObject:UpdateSystem(...) end
----@return any ...
-function RaidWarningFrameObject:UpdateSystemSetting(...) end
----@return any ...
-function RaidWarningFrameObject:UpdateSystemSettingValue(...) end
----@return any ...
-function RaidWarningFrameObject:UseSettingAltName(...) end
----@type RaidWarningFrameObject
-RaidWarningFrame = RaidWarningFrameObject
-end
-
-do
----@class RaidWarningFrame_SelectionObject : Frame
----@field Label RaidWarningFrame_Selection_LabelObject
----@field MouseOverHighlight RaidWarningFrame_Selection_MouseOverHighlightObject
----@field highlightTextureKit string
----@field ignoreInLayout boolean
----@field parent RaidWarningFrame_Selection_parentObject
----@field selectedTextureKit string
----@field system RaidWarningFrame_Selection_systemObject
-local RaidWarningFrame_SelectionObject = {}
----@return any ...
-function RaidWarningFrame_SelectionObject:CheckShowInstructionalTooltip(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:GetBorderColor(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:GetCenterColor(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:GetFrameLayoutType(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:GetLabelText(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:HideInstructionalTooltip(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:IsSelected(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:IsShowingEditInstructions(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:OnDragStart(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:OnDragStop(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:OnEnter(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:OnLeave(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:OnLoad(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:OnMouseDown(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:SetBlendMode(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:SetBorderBlendMode(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:SetBorderColor(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:SetCenterColor(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:SetSystem(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:SetVertexColor(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:ShouldShowLabelText(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:ShowEditInstructions(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:ShowHighlighted(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:ShowSelected(...) end
----@return any ...
-function RaidWarningFrame_SelectionObject:UpdateLabelVisibility(...) end
-end
-
-do
----@class RaidWarningFrame_Selection_LabelObject : FontString
----@field fontObjectsToTry table
-local RaidWarningFrame_Selection_LabelObject = {}
----@return any ...
-function RaidWarningFrame_Selection_LabelObject:ApplyFontObjects(...) end
----@return any ...
-function RaidWarningFrame_Selection_LabelObject:SetFontObjectsToTry(...) end
-end
-
-do
----@class RaidWarningFrame_Selection_MouseOverHighlightObject : Frame
----@field BottomEdge RaidWarningFrame_Selection_MouseOverHighlight_BottomEdgeObject
----@field BottomLeftCorner RaidWarningFrame_Selection_MouseOverHighlight_BottomLeftCornerObject
----@field BottomRightCorner RaidWarningFrame_Selection_MouseOverHighlight_BottomRightCornerObject
----@field Center RaidWarningFrame_Selection_MouseOverHighlight_CenterObject
----@field LeftEdge RaidWarningFrame_Selection_MouseOverHighlight_LeftEdgeObject
----@field RightEdge RaidWarningFrame_Selection_MouseOverHighlight_RightEdgeObject
----@field TopEdge RaidWarningFrame_Selection_MouseOverHighlight_TopEdgeObject
----@field TopLeftCorner RaidWarningFrame_Selection_MouseOverHighlight_TopLeftCornerObject
----@field TopRightCorner RaidWarningFrame_Selection_MouseOverHighlight_TopRightCornerObject
-local RaidWarningFrame_Selection_MouseOverHighlightObject = {}
----@return any ...
-function RaidWarningFrame_Selection_MouseOverHighlightObject:GetBorderColor(...) end
----@return any ...
-function RaidWarningFrame_Selection_MouseOverHighlightObject:GetCenterColor(...) end
----@return any ...
-function RaidWarningFrame_Selection_MouseOverHighlightObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function RaidWarningFrame_Selection_MouseOverHighlightObject:GetFrameLayoutType(...) end
----@return any ...
-function RaidWarningFrame_Selection_MouseOverHighlightObject:OnLoad(...) end
----@return any ...
-function RaidWarningFrame_Selection_MouseOverHighlightObject:SetBlendMode(...) end
----@return any ...
-function RaidWarningFrame_Selection_MouseOverHighlightObject:SetBorderBlendMode(...) end
----@return any ...
-function RaidWarningFrame_Selection_MouseOverHighlightObject:SetBorderColor(...) end
----@return any ...
-function RaidWarningFrame_Selection_MouseOverHighlightObject:SetCenterColor(...) end
----@return any ...
-function RaidWarningFrame_Selection_MouseOverHighlightObject:SetVertexColor(...) end
-end
-
-do
----@class RaidWarningFrame_Selection_MouseOverHighlight_BottomEdgeObject : Texture
-local RaidWarningFrame_Selection_MouseOverHighlight_BottomEdgeObject = {}
-end
-
-do
----@class RaidWarningFrame_Selection_MouseOverHighlight_BottomLeftCornerObject : Texture
-local RaidWarningFrame_Selection_MouseOverHighlight_BottomLeftCornerObject = {}
-end
-
-do
----@class RaidWarningFrame_Selection_MouseOverHighlight_BottomRightCornerObject : Texture
-local RaidWarningFrame_Selection_MouseOverHighlight_BottomRightCornerObject = {}
-end
-
-do
----@class RaidWarningFrame_Selection_MouseOverHighlight_CenterObject : Texture
-local RaidWarningFrame_Selection_MouseOverHighlight_CenterObject = {}
-end
-
-do
----@class RaidWarningFrame_Selection_MouseOverHighlight_LeftEdgeObject : Texture
-local RaidWarningFrame_Selection_MouseOverHighlight_LeftEdgeObject = {}
-end
-
-do
----@class RaidWarningFrame_Selection_MouseOverHighlight_RightEdgeObject : Texture
-local RaidWarningFrame_Selection_MouseOverHighlight_RightEdgeObject = {}
-end
-
-do
----@class RaidWarningFrame_Selection_MouseOverHighlight_TopEdgeObject : Texture
-local RaidWarningFrame_Selection_MouseOverHighlight_TopEdgeObject = {}
-end
-
-do
----@class RaidWarningFrame_Selection_MouseOverHighlight_TopLeftCornerObject : Texture
-local RaidWarningFrame_Selection_MouseOverHighlight_TopLeftCornerObject = {}
-end
-
-do
----@class RaidWarningFrame_Selection_MouseOverHighlight_TopRightCornerObject : Texture
-local RaidWarningFrame_Selection_MouseOverHighlight_TopRightCornerObject = {}
-end
-
-do
----@class RaidWarningFrame_Selection_parentObject
-local RaidWarningFrame_Selection_parentObject = {}
-end
-
-do
----@class RaidWarningFrame_Selection_systemObject
-local RaidWarningFrame_Selection_systemObject = {}
-end
-
-do
----@class RaidWarningFrame_fontStringPoolObject
-local RaidWarningFrame_fontStringPoolObject = {}
----@return any ...
-function RaidWarningFrame_fontStringPoolObject:GetTemplate(...) end
----@return any ...
-function RaidWarningFrame_fontStringPoolObject:private(...) end
-end
-
-do
----@class RaidWarningFrame_savedSystemInfoObject
----@field anchorInfo table
----@field isInDefaultPosition boolean
----@field settings table
----@field system number
-local RaidWarningFrame_savedSystemInfoObject = {}
-end
-
-do
----@class RaidWarningFrame_settingsDialogAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo RaidWarningFrame_settingsDialogAnchor_relativeToObject
----@field x number
----@field y number
-local RaidWarningFrame_settingsDialogAnchorObject = {}
----@return any ...
-function RaidWarningFrame_settingsDialogAnchorObject:Get(...) end
----@return any ...
-function RaidWarningFrame_settingsDialogAnchorObject:GetRelativeTo(...) end
----@return any ...
-function RaidWarningFrame_settingsDialogAnchorObject:Init(...) end
----@return any ...
-function RaidWarningFrame_settingsDialogAnchorObject:Set(...) end
----@return any ...
-function RaidWarningFrame_settingsDialogAnchorObject:SetFromPoint(...) end
----@return any ...
-function RaidWarningFrame_settingsDialogAnchorObject:SetOffsets(...) end
----@return any ...
-function RaidWarningFrame_settingsDialogAnchorObject:SetPoint(...) end
----@return any ...
-function RaidWarningFrame_settingsDialogAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function RaidWarningFrame_settingsDialogAnchorObject:SetRelativeTo(...) end
-end
-
-do
----@class RaidWarningFrame_settingsDialogAnchor_relativeToObject
-local RaidWarningFrame_settingsDialogAnchor_relativeToObject = {}
-end
-
-do
----@class RaidWarningFrame_systemInfoObject
----@field anchorInfo table
----@field isInDefaultPosition boolean
----@field settings table
----@field system number
-local RaidWarningFrame_systemInfoObject = {}
-end
-
-do
----@class RatingMenuFrameObject : Frame
----@field Border RatingMenuFrame_BorderObject
----@field Header RatingMenuFrame_HeaderObject
-local RatingMenuFrameObject = {}
----@type RatingMenuFrameObject
-RatingMenuFrame = RatingMenuFrameObject
-end
-
-do
----@class RatingMenuFrame_BorderObject : Frame
----@field Bg RatingMenuFrame_Border_BgObject
----@field BottomEdge RatingMenuFrame_Border_BottomEdgeObject
----@field BottomLeftCorner RatingMenuFrame_Border_BottomLeftCornerObject
----@field BottomRightCorner RatingMenuFrame_Border_BottomRightCornerObject
----@field LeftEdge RatingMenuFrame_Border_LeftEdgeObject
----@field RightEdge RatingMenuFrame_Border_RightEdgeObject
----@field TopEdge RatingMenuFrame_Border_TopEdgeObject
----@field TopLeftCorner RatingMenuFrame_Border_TopLeftCornerObject
----@field TopRightCorner RatingMenuFrame_Border_TopRightCornerObject
----@field layoutType string
-local RatingMenuFrame_BorderObject = {}
----@return any ...
-function RatingMenuFrame_BorderObject:GetBorderColor(...) end
----@return any ...
-function RatingMenuFrame_BorderObject:GetCenterColor(...) end
----@return any ...
-function RatingMenuFrame_BorderObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function RatingMenuFrame_BorderObject:GetFrameLayoutType(...) end
----@return any ...
-function RatingMenuFrame_BorderObject:OnLoad(...) end
----@return any ...
-function RatingMenuFrame_BorderObject:SetBlendMode(...) end
----@return any ...
-function RatingMenuFrame_BorderObject:SetBorderBlendMode(...) end
----@return any ...
-function RatingMenuFrame_BorderObject:SetBorderColor(...) end
----@return any ...
-function RatingMenuFrame_BorderObject:SetCenterColor(...) end
----@return any ...
-function RatingMenuFrame_BorderObject:SetVertexColor(...) end
-end
-
-do
----@class RatingMenuFrame_Border_BgObject : Texture
-local RatingMenuFrame_Border_BgObject = {}
-end
-
-do
----@class RatingMenuFrame_Border_BottomEdgeObject : Texture
-local RatingMenuFrame_Border_BottomEdgeObject = {}
-end
-
-do
----@class RatingMenuFrame_Border_BottomLeftCornerObject : Texture
-local RatingMenuFrame_Border_BottomLeftCornerObject = {}
-end
-
-do
----@class RatingMenuFrame_Border_BottomRightCornerObject : Texture
-local RatingMenuFrame_Border_BottomRightCornerObject = {}
-end
-
-do
----@class RatingMenuFrame_Border_LeftEdgeObject : Texture
-local RatingMenuFrame_Border_LeftEdgeObject = {}
-end
-
-do
----@class RatingMenuFrame_Border_RightEdgeObject : Texture
-local RatingMenuFrame_Border_RightEdgeObject = {}
-end
-
-do
----@class RatingMenuFrame_Border_TopEdgeObject : Texture
-local RatingMenuFrame_Border_TopEdgeObject = {}
-end
-
-do
----@class RatingMenuFrame_Border_TopLeftCornerObject : Texture
-local RatingMenuFrame_Border_TopLeftCornerObject = {}
-end
-
-do
----@class RatingMenuFrame_Border_TopRightCornerObject : Texture
-local RatingMenuFrame_Border_TopRightCornerObject = {}
-end
-
-do
----@class RatingMenuFrame_HeaderObject : Frame
----@field CenterBG RatingMenuFrame_Header_CenterBGObject
----@field LeftBG RatingMenuFrame_Header_LeftBGObject
----@field RightBG RatingMenuFrame_Header_RightBGObject
----@field Text RatingMenuFrame_Header_TextObject
----@field headerTextPadding number
----@field textString string
-local RatingMenuFrame_HeaderObject = {}
----@return any ...
-function RatingMenuFrame_HeaderObject:OnLoad(...) end
----@return any ...
-function RatingMenuFrame_HeaderObject:SetHeaderFont(...) end
----@return any ...
-function RatingMenuFrame_HeaderObject:Setup(...) end
----@return any ...
-function RatingMenuFrame_HeaderObject:UpdateWidth(...) end
-end
-
-do
----@class RatingMenuFrame_Header_CenterBGObject : Texture
-local RatingMenuFrame_Header_CenterBGObject = {}
-end
-
-do
----@class RatingMenuFrame_Header_LeftBGObject : Texture
-local RatingMenuFrame_Header_LeftBGObject = {}
-end
-
-do
----@class RatingMenuFrame_Header_RightBGObject : Texture
-local RatingMenuFrame_Header_RightBGObject = {}
-end
-
-do
----@class RatingMenuFrame_Header_TextObject : FontString
-local RatingMenuFrame_Header_TextObject = {}
-end
-
-do
----@class ReadyCheckFrameObject : Frame
-local ReadyCheckFrameObject = {}
----@type ReadyCheckFrameObject
-ReadyCheckFrame = ReadyCheckFrameObject
-end
-
-do
----@class RecruitAFriendRecruitmentFrameObject : Frame
----@field Border RecruitAFriendRecruitmentFrame_BorderObject
----@field CloseButton RecruitAFriendRecruitmentFrame_CloseButtonObject
----@field Description RecruitAFriendRecruitmentFrame_DescriptionObject
----@field EditBox RecruitAFriendRecruitmentFrame_EditBoxObject
----@field FactionAndRealm RecruitAFriendRecruitmentFrame_FactionAndRealmObject
----@field GenerateOrCopyLinkButton RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButtonObject
----@field InfoText1 RecruitAFriendRecruitmentFrame_InfoText1Object
----@field InfoText2 RecruitAFriendRecruitmentFrame_InfoText2Object
----@field Title RecruitAFriendRecruitmentFrame_TitleObject
-local RecruitAFriendRecruitmentFrameObject = {}
----@return any ...
-function RecruitAFriendRecruitmentFrameObject:OnHide(...) end
----@return any ...
-function RecruitAFriendRecruitmentFrameObject:OnLoad(...) end
----@return any ...
-function RecruitAFriendRecruitmentFrameObject:OnShow(...) end
----@return any ...
-function RecruitAFriendRecruitmentFrameObject:UpdateRecruitmentInfo(...) end
----@type RecruitAFriendRecruitmentFrameObject
-RecruitAFriendRecruitmentFrame = RecruitAFriendRecruitmentFrameObject
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_BorderObject : Frame
----@field Bg RecruitAFriendRecruitmentFrame_Border_BgObject
----@field BottomEdge RecruitAFriendRecruitmentFrame_Border_BottomEdgeObject
----@field BottomLeftCorner RecruitAFriendRecruitmentFrame_Border_BottomLeftCornerObject
----@field BottomRightCorner RecruitAFriendRecruitmentFrame_Border_BottomRightCornerObject
----@field LeftEdge RecruitAFriendRecruitmentFrame_Border_LeftEdgeObject
----@field RightEdge RecruitAFriendRecruitmentFrame_Border_RightEdgeObject
----@field TopEdge RecruitAFriendRecruitmentFrame_Border_TopEdgeObject
----@field TopLeftCorner RecruitAFriendRecruitmentFrame_Border_TopLeftCornerObject
----@field TopRightCorner RecruitAFriendRecruitmentFrame_Border_TopRightCornerObject
----@field layoutType string
-local RecruitAFriendRecruitmentFrame_BorderObject = {}
----@return any ...
-function RecruitAFriendRecruitmentFrame_BorderObject:GetBorderColor(...) end
----@return any ...
-function RecruitAFriendRecruitmentFrame_BorderObject:GetCenterColor(...) end
----@return any ...
-function RecruitAFriendRecruitmentFrame_BorderObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function RecruitAFriendRecruitmentFrame_BorderObject:GetFrameLayoutType(...) end
----@return any ...
-function RecruitAFriendRecruitmentFrame_BorderObject:OnLoad(...) end
----@return any ...
-function RecruitAFriendRecruitmentFrame_BorderObject:SetBlendMode(...) end
----@return any ...
-function RecruitAFriendRecruitmentFrame_BorderObject:SetBorderBlendMode(...) end
----@return any ...
-function RecruitAFriendRecruitmentFrame_BorderObject:SetBorderColor(...) end
----@return any ...
-function RecruitAFriendRecruitmentFrame_BorderObject:SetCenterColor(...) end
----@return any ...
-function RecruitAFriendRecruitmentFrame_BorderObject:SetVertexColor(...) end
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_Border_BgObject : Texture
-local RecruitAFriendRecruitmentFrame_Border_BgObject = {}
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_Border_BottomEdgeObject : Texture
-local RecruitAFriendRecruitmentFrame_Border_BottomEdgeObject = {}
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_Border_BottomLeftCornerObject : Texture
-local RecruitAFriendRecruitmentFrame_Border_BottomLeftCornerObject = {}
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_Border_BottomRightCornerObject : Texture
-local RecruitAFriendRecruitmentFrame_Border_BottomRightCornerObject = {}
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_Border_LeftEdgeObject : Texture
-local RecruitAFriendRecruitmentFrame_Border_LeftEdgeObject = {}
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_Border_RightEdgeObject : Texture
-local RecruitAFriendRecruitmentFrame_Border_RightEdgeObject = {}
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_Border_TopEdgeObject : Texture
-local RecruitAFriendRecruitmentFrame_Border_TopEdgeObject = {}
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_Border_TopLeftCornerObject : Texture
-local RecruitAFriendRecruitmentFrame_Border_TopLeftCornerObject = {}
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_Border_TopRightCornerObject : Texture
-local RecruitAFriendRecruitmentFrame_Border_TopRightCornerObject = {}
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_CloseButtonObject : Button
-local RecruitAFriendRecruitmentFrame_CloseButtonObject = {}
----@return any ...
-function RecruitAFriendRecruitmentFrame_CloseButtonObject:NarrationGetName(...) end
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_DescriptionObject : FontString
-local RecruitAFriendRecruitmentFrame_DescriptionObject = {}
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_EditBoxObject : EditBox
----@field Instructions RecruitAFriendRecruitmentFrame_EditBox_InstructionsObject
----@field Left RecruitAFriendRecruitmentFrame_EditBox_LeftObject
----@field Middle RecruitAFriendRecruitmentFrame_EditBox_MiddleObject
----@field Right RecruitAFriendRecruitmentFrame_EditBox_RightObject
-local RecruitAFriendRecruitmentFrame_EditBoxObject = {}
----@return any ...
-function RecruitAFriendRecruitmentFrame_EditBoxObject:NarrationGetContext(...) end
----@return any ...
-function RecruitAFriendRecruitmentFrame_EditBoxObject:NarrationGetDescription(...) end
----@return any ...
-function RecruitAFriendRecruitmentFrame_EditBoxObject:NarrationGetName(...) end
----@return any ...
-function RecruitAFriendRecruitmentFrame_EditBoxObject:SetNarrationLabelRegion(...) end
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_EditBox_InstructionsObject : FontString
-local RecruitAFriendRecruitmentFrame_EditBox_InstructionsObject = {}
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_EditBox_LeftObject : Texture
-local RecruitAFriendRecruitmentFrame_EditBox_LeftObject = {}
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_EditBox_MiddleObject : Texture
-local RecruitAFriendRecruitmentFrame_EditBox_MiddleObject = {}
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_EditBox_RightObject : Texture
-local RecruitAFriendRecruitmentFrame_EditBox_RightObject = {}
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_FactionAndRealmObject : FontString
-local RecruitAFriendRecruitmentFrame_FactionAndRealmObject = {}
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButtonObject : Button
----@field Left RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButton_LeftObject
----@field Middle RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButton_MiddleObject
----@field Right RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButton_RightObject
----@field Text RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButtonObject = {}
----@return any ...
-function RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButtonObject:FitToText(...) end
----@return any ...
-function RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButtonObject:OnClick(...) end
----@return any ...
-function RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButtonObject:OnEnter(...) end
----@return any ...
-function RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButtonObject:OnLeave(...) end
----@return any ...
-function RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButtonObject:SetDisabledState(...) end
----@return any ...
-function RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButtonObject:SetTextToFit(...) end
----@return any ...
-function RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButtonObject:Update(...) end
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButton_LeftObject : Texture
-local RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButton_LeftObject = {}
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButton_MiddleObject : Texture
-local RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButton_MiddleObject = {}
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButton_RightObject : Texture
-local RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButton_RightObject = {}
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButton_TextObject : FontString
-local RecruitAFriendRecruitmentFrame_GenerateOrCopyLinkButton_TextObject = {}
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_InfoText1Object : FontString
-local RecruitAFriendRecruitmentFrame_InfoText1Object = {}
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_InfoText2Object : FontString
-local RecruitAFriendRecruitmentFrame_InfoText2Object = {}
-end
-
-do
----@class RecruitAFriendRecruitmentFrame_TitleObject : FontString
-local RecruitAFriendRecruitmentFrame_TitleObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrameObject : Frame
----@field Background RecruitAFriendRewardsFrame_BackgroundObject
----@field Border RecruitAFriendRewardsFrame_BorderObject
----@field Bracket_BottomLeft RecruitAFriendRewardsFrame_Bracket_BottomLeftObject
----@field Bracket_BottomRight RecruitAFriendRewardsFrame_Bracket_BottomRightObject
----@field Bracket_TopLeft RecruitAFriendRewardsFrame_Bracket_TopLeftObject
----@field Bracket_TopRight RecruitAFriendRewardsFrame_Bracket_TopRightObject
----@field ClaimLegacyRewardsButton RecruitAFriendRewardsFrame_ClaimLegacyRewardsButtonObject
----@field CloseButton RecruitAFriendRewardsFrame_CloseButtonObject
----@field Description RecruitAFriendRewardsFrame_DescriptionObject
----@field Title RecruitAFriendRewardsFrame_TitleObject
----@field VersionInfoButton RecruitAFriendRewardsFrame_VersionInfoButtonObject
----@field Watermark RecruitAFriendRewardsFrame_WatermarkObject
----@field backgroundAtlas string
----@field heightPadding number
----@field legacyBackgroundAtlas string
----@field rewardPool RecruitAFriendRewardsFrame_rewardPoolObject
----@field rewardTabPool RecruitAFriendRewardsFrame_rewardTabPoolObject
----@field widthPadding number
-local RecruitAFriendRewardsFrameObject = {}
----@return any ...
-function RecruitAFriendRewardsFrameObject:AddLayoutChildren(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:ClearFixedSize(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:FullRefresh(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:GetAdditionalRegions(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:GetChildHeight(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:GetChildSize(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:GetChildWidth(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:GetFixedHeight(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:GetFixedSize(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:GetFixedWidth(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:GetHeightPadding(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:GetLayoutChildren(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:GetMaximumWidth(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:GetMinimumWidth(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:GetRecruitAFriendFrame(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:GetRecruitAFriendRewardsFrame(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:GetWidthPadding(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:IgnoreLayoutIndex(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:IsDirty(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:IsLayoutFrame(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:Layout(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:MarkClean(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:MarkDirty(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:MarkIgnoreInLayout(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:OnCleaned(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:OnHide(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:OnLoad(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:OnShow(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:OnUpdate(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:Refresh(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:RefreshTabs(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:SetFixedHeight(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:SetFixedSize(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:SetFixedWidth(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:SetHeightPadding(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:SetMaximumWidth(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:SetMinimumWidth(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:SetUpTabs(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:SetWidthPadding(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:UpdateBackground(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:UpdateDescription(...) end
----@return any ...
-function RecruitAFriendRewardsFrameObject:UpdateRewards(...) end
----@type RecruitAFriendRewardsFrameObject
-RecruitAFriendRewardsFrame = RecruitAFriendRewardsFrameObject
-end
-
-do
----@class RecruitAFriendRewardsFrame_BackgroundObject : Texture
-local RecruitAFriendRewardsFrame_BackgroundObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_BorderObject : Frame
----@field BottomEdge RecruitAFriendRewardsFrame_Border_BottomEdgeObject
----@field BottomLeftCorner RecruitAFriendRewardsFrame_Border_BottomLeftCornerObject
----@field BottomRightCorner RecruitAFriendRewardsFrame_Border_BottomRightCornerObject
----@field LeftEdge RecruitAFriendRewardsFrame_Border_LeftEdgeObject
----@field RightEdge RecruitAFriendRewardsFrame_Border_RightEdgeObject
----@field TopEdge RecruitAFriendRewardsFrame_Border_TopEdgeObject
----@field TopLeftCorner RecruitAFriendRewardsFrame_Border_TopLeftCornerObject
----@field TopRightCorner RecruitAFriendRewardsFrame_Border_TopRightCornerObject
----@field layoutType string
-local RecruitAFriendRewardsFrame_BorderObject = {}
----@return any ...
-function RecruitAFriendRewardsFrame_BorderObject:GetBorderColor(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_BorderObject:GetCenterColor(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_BorderObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_BorderObject:GetFrameLayoutType(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_BorderObject:OnLoad(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_BorderObject:SetBlendMode(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_BorderObject:SetBorderBlendMode(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_BorderObject:SetBorderColor(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_BorderObject:SetCenterColor(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_BorderObject:SetVertexColor(...) end
-end
-
-do
----@class RecruitAFriendRewardsFrame_Border_BottomEdgeObject : Texture
-local RecruitAFriendRewardsFrame_Border_BottomEdgeObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_Border_BottomLeftCornerObject : Texture
-local RecruitAFriendRewardsFrame_Border_BottomLeftCornerObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_Border_BottomRightCornerObject : Texture
-local RecruitAFriendRewardsFrame_Border_BottomRightCornerObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_Border_LeftEdgeObject : Texture
-local RecruitAFriendRewardsFrame_Border_LeftEdgeObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_Border_RightEdgeObject : Texture
-local RecruitAFriendRewardsFrame_Border_RightEdgeObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_Border_TopEdgeObject : Texture
-local RecruitAFriendRewardsFrame_Border_TopEdgeObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_Border_TopLeftCornerObject : Texture
-local RecruitAFriendRewardsFrame_Border_TopLeftCornerObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_Border_TopRightCornerObject : Texture
-local RecruitAFriendRewardsFrame_Border_TopRightCornerObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_Bracket_BottomLeftObject : Texture
-local RecruitAFriendRewardsFrame_Bracket_BottomLeftObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_Bracket_BottomRightObject : Texture
-local RecruitAFriendRewardsFrame_Bracket_BottomRightObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_Bracket_TopLeftObject : Texture
-local RecruitAFriendRewardsFrame_Bracket_TopLeftObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_Bracket_TopRightObject : Texture
-local RecruitAFriendRewardsFrame_Bracket_TopRightObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_ClaimLegacyRewardsButtonObject : Button
----@field Left RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_LeftObject
----@field Middle RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_MiddleObject
----@field Right RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_RightObject
----@field Text RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_TextObject
----@field UnclaimedRewardsAnim RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_UnclaimedRewardsAnimObject
----@field YellowGlow RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_YellowGlowObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
----@field padding number
-local RecruitAFriendRewardsFrame_ClaimLegacyRewardsButtonObject = {}
----@return any ...
-function RecruitAFriendRewardsFrame_ClaimLegacyRewardsButtonObject:ClaimNextReward(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_ClaimLegacyRewardsButtonObject:FitToText(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_ClaimLegacyRewardsButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_ClaimLegacyRewardsButtonObject:GetRecruitAFriendFrame(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_ClaimLegacyRewardsButtonObject:GetRecruitAFriendRewardsFrame(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_ClaimLegacyRewardsButtonObject:HideDisabledTooltip(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_ClaimLegacyRewardsButtonObject:OnClick(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_ClaimLegacyRewardsButtonObject:OnEnter(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_ClaimLegacyRewardsButtonObject:OnEvent(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_ClaimLegacyRewardsButtonObject:OnHide(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_ClaimLegacyRewardsButtonObject:OnLeave(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_ClaimLegacyRewardsButtonObject:OnLoad(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_ClaimLegacyRewardsButtonObject:SetAutoClaimRewardsEnabled(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_ClaimLegacyRewardsButtonObject:SetDisabledState(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_ClaimLegacyRewardsButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_ClaimLegacyRewardsButtonObject:SetTextToFit(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_ClaimLegacyRewardsButtonObject:Update(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_ClaimLegacyRewardsButtonObject:UpdateButtonEnabledState(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_ClaimLegacyRewardsButtonObject:UpdateUnclaimedRewardsAnim(...) end
-end
-
-do
----@class RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_LeftObject : Texture
-local RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_LeftObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_MiddleObject : Texture
-local RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_MiddleObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_RightObject : Texture
-local RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_RightObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_TextObject : FontString
-local RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_TextObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_UnclaimedRewardsAnimObject : AnimationGroup
-local RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_UnclaimedRewardsAnimObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_YellowGlowObject : Frame
----@field Left RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_YellowGlow_LeftObject
----@field Middle RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_YellowGlow_MiddleObject
----@field Right RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_YellowGlow_RightObject
-local RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_YellowGlowObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_YellowGlow_LeftObject : Texture
-local RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_YellowGlow_LeftObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_YellowGlow_MiddleObject : Texture
-local RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_YellowGlow_MiddleObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_YellowGlow_RightObject : Texture
-local RecruitAFriendRewardsFrame_ClaimLegacyRewardsButton_YellowGlow_RightObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_CloseButtonObject : Button
-local RecruitAFriendRewardsFrame_CloseButtonObject = {}
----@return any ...
-function RecruitAFriendRewardsFrame_CloseButtonObject:NarrationGetName(...) end
-end
-
-do
----@class RecruitAFriendRewardsFrame_DescriptionObject : Frame
----@field Text RecruitAFriendRewardsFrame_Description_TextObject
-local RecruitAFriendRewardsFrame_DescriptionObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_Description_TextObject : FontString
-local RecruitAFriendRewardsFrame_Description_TextObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_TitleObject : Frame
----@field Text RecruitAFriendRewardsFrame_Title_TextObject
-local RecruitAFriendRewardsFrame_TitleObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_Title_TextObject : FontString
-local RecruitAFriendRewardsFrame_Title_TextObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_VersionInfoButtonObject : Button
-local RecruitAFriendRewardsFrame_VersionInfoButtonObject = {}
----@return any ...
-function RecruitAFriendRewardsFrame_VersionInfoButtonObject:GetRecruitAFriendFrame(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_VersionInfoButtonObject:GetRecruitAFriendRewardsFrame(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_VersionInfoButtonObject:OnEnter(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_VersionInfoButtonObject:OnLeave(...) end
-end
-
-do
----@class RecruitAFriendRewardsFrame_WatermarkObject : Texture
-local RecruitAFriendRewardsFrame_WatermarkObject = {}
-end
-
-do
----@class RecruitAFriendRewardsFrame_rewardPoolObject
-local RecruitAFriendRewardsFrame_rewardPoolObject = {}
----@return any ...
-function RecruitAFriendRewardsFrame_rewardPoolObject:GetTemplate(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_rewardPoolObject:private(...) end
-end
-
-do
----@class RecruitAFriendRewardsFrame_rewardTabPoolObject
-local RecruitAFriendRewardsFrame_rewardTabPoolObject = {}
----@return any ...
-function RecruitAFriendRewardsFrame_rewardTabPoolObject:GetTemplate(...) end
----@return any ...
-function RecruitAFriendRewardsFrame_rewardTabPoolObject:private(...) end
-end
-
-do
----@class ReportCheatingDialogObject : Frame
----@field Border ReportCheatingDialog_BorderObject
----@field CommentFrame ReportCheatingDialog_CommentFrameObject
----@field exclusive boolean
----@field reportButton ReportCheatingDialog_reportButtonObject
-local ReportCheatingDialogObject = {}
----@type ReportCheatingDialogObject
-ReportCheatingDialog = ReportCheatingDialogObject
-end
-
-do
----@class ReportCheatingDialog_BorderObject : Frame
----@field Bg ReportCheatingDialog_Border_BgObject
----@field BottomEdge ReportCheatingDialog_Border_BottomEdgeObject
----@field BottomLeftCorner ReportCheatingDialog_Border_BottomLeftCornerObject
----@field BottomRightCorner ReportCheatingDialog_Border_BottomRightCornerObject
----@field LeftEdge ReportCheatingDialog_Border_LeftEdgeObject
----@field RightEdge ReportCheatingDialog_Border_RightEdgeObject
----@field TopEdge ReportCheatingDialog_Border_TopEdgeObject
----@field TopLeftCorner ReportCheatingDialog_Border_TopLeftCornerObject
----@field TopRightCorner ReportCheatingDialog_Border_TopRightCornerObject
----@field layoutType string
-local ReportCheatingDialog_BorderObject = {}
----@return any ...
-function ReportCheatingDialog_BorderObject:GetBorderColor(...) end
----@return any ...
-function ReportCheatingDialog_BorderObject:GetCenterColor(...) end
----@return any ...
-function ReportCheatingDialog_BorderObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function ReportCheatingDialog_BorderObject:GetFrameLayoutType(...) end
----@return any ...
-function ReportCheatingDialog_BorderObject:OnLoad(...) end
----@return any ...
-function ReportCheatingDialog_BorderObject:SetBlendMode(...) end
----@return any ...
-function ReportCheatingDialog_BorderObject:SetBorderBlendMode(...) end
----@return any ...
-function ReportCheatingDialog_BorderObject:SetBorderColor(...) end
----@return any ...
-function ReportCheatingDialog_BorderObject:SetCenterColor(...) end
----@return any ...
-function ReportCheatingDialog_BorderObject:SetVertexColor(...) end
-end
-
-do
----@class ReportCheatingDialog_Border_BgObject : Texture
-local ReportCheatingDialog_Border_BgObject = {}
-end
-
-do
----@class ReportCheatingDialog_Border_BottomEdgeObject : Texture
-local ReportCheatingDialog_Border_BottomEdgeObject = {}
-end
-
-do
----@class ReportCheatingDialog_Border_BottomLeftCornerObject : Texture
-local ReportCheatingDialog_Border_BottomLeftCornerObject = {}
-end
-
-do
----@class ReportCheatingDialog_Border_BottomRightCornerObject : Texture
-local ReportCheatingDialog_Border_BottomRightCornerObject = {}
-end
-
-do
----@class ReportCheatingDialog_Border_LeftEdgeObject : Texture
-local ReportCheatingDialog_Border_LeftEdgeObject = {}
-end
-
-do
----@class ReportCheatingDialog_Border_RightEdgeObject : Texture
-local ReportCheatingDialog_Border_RightEdgeObject = {}
-end
-
-do
----@class ReportCheatingDialog_Border_TopEdgeObject : Texture
-local ReportCheatingDialog_Border_TopEdgeObject = {}
-end
-
-do
----@class ReportCheatingDialog_Border_TopLeftCornerObject : Texture
-local ReportCheatingDialog_Border_TopLeftCornerObject = {}
-end
-
-do
----@class ReportCheatingDialog_Border_TopRightCornerObject : Texture
-local ReportCheatingDialog_Border_TopRightCornerObject = {}
-end
-
-do
----@class ReportCheatingDialog_CommentFrameObject : Frame
----@field EditBox ReportCheatingDialog_CommentFrame_EditBoxObject
-local ReportCheatingDialog_CommentFrameObject = {}
-end
-
-do
----@class ReportCheatingDialog_CommentFrame_EditBoxObject : EditBox
----@field InformationText ReportCheatingDialog_CommentFrame_EditBox_InformationTextObject
-local ReportCheatingDialog_CommentFrame_EditBoxObject = {}
-end
-
-do
----@class ReportCheatingDialog_CommentFrame_EditBox_InformationTextObject : FontString
-local ReportCheatingDialog_CommentFrame_EditBox_InformationTextObject = {}
-end
-
-do
----@class ReportCheatingDialog_reportButtonObject : Button
----@field Left ReportCheatingDialog_reportButton_LeftObject
----@field Middle ReportCheatingDialog_reportButton_MiddleObject
----@field Right ReportCheatingDialog_reportButton_RightObject
----@field Text ReportCheatingDialog_reportButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local ReportCheatingDialog_reportButtonObject = {}
----@return any ...
-function ReportCheatingDialog_reportButtonObject:FitToText(...) end
----@return any ...
-function ReportCheatingDialog_reportButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function ReportCheatingDialog_reportButtonObject:OnEnter(...) end
----@return any ...
-function ReportCheatingDialog_reportButtonObject:OnLeave(...) end
----@return any ...
-function ReportCheatingDialog_reportButtonObject:SetDisabledState(...) end
----@return any ...
-function ReportCheatingDialog_reportButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function ReportCheatingDialog_reportButtonObject:SetTextToFit(...) end
-end
-
-do
----@class ReportCheatingDialog_reportButton_LeftObject : Texture
-local ReportCheatingDialog_reportButton_LeftObject = {}
-end
-
-do
----@class ReportCheatingDialog_reportButton_MiddleObject : Texture
-local ReportCheatingDialog_reportButton_MiddleObject = {}
-end
-
-do
----@class ReportCheatingDialog_reportButton_RightObject : Texture
-local ReportCheatingDialog_reportButton_RightObject = {}
-end
-
-do
----@class ReportCheatingDialog_reportButton_TextObject : FontString
-local ReportCheatingDialog_reportButton_TextObject = {}
-end
-
-do
----@class ReportFrameObject : Frame
----@field Border ReportFrame_BorderObject
----@field BottomInset ReportFrame_BottomInsetObject
----@field BottomInsetEdge ReportFrame_BottomInsetEdgeObject
----@field CloseButton ReportFrame_CloseButtonObject
----@field Comment ReportFrame_CommentObject
----@field MinorCategoryButtonPool ReportFrame_MinorCategoryButtonPoolObject
----@field MinorReportDescription ReportFrame_MinorReportDescriptionObject
----@field ReportButton ReportFrame_ReportButtonObject
----@field ReportString ReportFrame_ReportStringObject
----@field ReportingMajorCategoryDropdown ReportFrame_ReportingMajorCategoryDropdownObject
----@field ScreenshotReportingFrame ReportFrame_ScreenshotReportingFrameObject
----@field ThankYouText ReportFrame_ThankYouTextObject
----@field TitleText ReportFrame_TitleTextObject
----@field TopInset ReportFrame_TopInsetObject
----@field TopInsetEdge ReportFrame_TopInsetEdgeObject
----@field Watermark ReportFrame_WatermarkObject
----@field bottomPadding number
----@field fixedWidth number
----@field minimumHeight number
----@field minorCategoryFlags ReportFrame_minorCategoryFlagsObject
-local ReportFrameObject = {}
----@return any ...
-function ReportFrameObject:AddLayoutChildren(...) end
----@return any ...
-function ReportFrameObject:AnchorMinorCategory(...) end
----@return any ...
-function ReportFrameObject:CanDisplayMinorCategory(...) end
----@return any ...
-function ReportFrameObject:ClearFixedSize(...) end
----@return any ...
-function ReportFrameObject:GetAdditionalRegions(...) end
----@return any ...
-function ReportFrameObject:GetChildHeight(...) end
----@return any ...
-function ReportFrameObject:GetChildSize(...) end
----@return any ...
-function ReportFrameObject:GetChildWidth(...) end
----@return any ...
-function ReportFrameObject:GetFixedHeight(...) end
----@return any ...
-function ReportFrameObject:GetFixedSize(...) end
----@return any ...
-function ReportFrameObject:GetFixedWidth(...) end
----@return any ...
-function ReportFrameObject:GetHeightPadding(...) end
----@return any ...
-function ReportFrameObject:GetLayoutChildren(...) end
----@return any ...
-function ReportFrameObject:GetMaximumWidth(...) end
----@return any ...
-function ReportFrameObject:GetMinimumWidth(...) end
----@return any ...
-function ReportFrameObject:GetWidthPadding(...) end
----@return any ...
-function ReportFrameObject:IgnoreLayoutIndex(...) end
----@return any ...
-function ReportFrameObject:InitiateReport(...) end
----@return any ...
-function ReportFrameObject:InitiateReportInternal(...) end
----@return any ...
-function ReportFrameObject:IsDirty(...) end
----@return any ...
-function ReportFrameObject:IsLayoutFrame(...) end
----@return any ...
-function ReportFrameObject:Layout(...) end
----@return any ...
-function ReportFrameObject:MajorTypeSelected(...) end
----@return any ...
-function ReportFrameObject:ManageButton(...) end
----@return any ...
-function ReportFrameObject:MarkClean(...) end
----@return any ...
-function ReportFrameObject:MarkDirty(...) end
----@return any ...
-function ReportFrameObject:MarkIgnoreInLayout(...) end
----@return any ...
-function ReportFrameObject:OnAttributeChanged(...) end
----@return any ...
-function ReportFrameObject:OnCleaned(...) end
----@return any ...
-function ReportFrameObject:OnEvent(...) end
----@return any ...
-function ReportFrameObject:OnHide(...) end
----@return any ...
-function ReportFrameObject:OnLoad(...) end
----@return any ...
-function ReportFrameObject:OnShow(...) end
----@return any ...
-function ReportFrameObject:OnTakeScreenshotClicked(...) end
----@return any ...
-function ReportFrameObject:OnUpdate(...) end
----@return any ...
-function ReportFrameObject:ReportByType(...) end
----@return any ...
-function ReportFrameObject:Reset(...) end
----@return any ...
-function ReportFrameObject:SendReport(...) end
----@return any ...
-function ReportFrameObject:SetFixedHeight(...) end
----@return any ...
-function ReportFrameObject:SetFixedSize(...) end
----@return any ...
-function ReportFrameObject:SetFixedWidth(...) end
----@return any ...
-function ReportFrameObject:SetHeightPadding(...) end
----@return any ...
-function ReportFrameObject:SetMajorType(...) end
----@return any ...
-function ReportFrameObject:SetMaximumWidth(...) end
----@return any ...
-function ReportFrameObject:SetMinimumWidth(...) end
----@return any ...
-function ReportFrameObject:SetMinorCategoryFlag(...) end
----@return any ...
-function ReportFrameObject:SetWidthPadding(...) end
----@return any ...
-function ReportFrameObject:SetupDropdownByReportType(...) end
----@return any ...
-function ReportFrameObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function ReportFrameObject:ShouldDisplayTooltip(...) end
----@return any ...
-function ReportFrameObject:UpdateHarmfulToMinorsMinorCategoryEnabled(...) end
----@return any ...
-function ReportFrameObject:UpdateThankYouMessage(...) end
----@type ReportFrameObject
-ReportFrame = ReportFrameObject
-end
-
-do
----@class ReportFrame_BorderObject : Frame
----@field BottomEdge ReportFrame_Border_BottomEdgeObject
----@field BottomLeftCorner ReportFrame_Border_BottomLeftCornerObject
----@field BottomRightCorner ReportFrame_Border_BottomRightCornerObject
----@field LeftEdge ReportFrame_Border_LeftEdgeObject
----@field RightEdge ReportFrame_Border_RightEdgeObject
----@field TopEdge ReportFrame_Border_TopEdgeObject
----@field TopLeftCorner ReportFrame_Border_TopLeftCornerObject
----@field TopRightCorner ReportFrame_Border_TopRightCornerObject
-local ReportFrame_BorderObject = {}
-end
-
-do
----@class ReportFrame_Border_BottomEdgeObject : Texture
-local ReportFrame_Border_BottomEdgeObject = {}
-end
-
-do
----@class ReportFrame_Border_BottomLeftCornerObject : Texture
-local ReportFrame_Border_BottomLeftCornerObject = {}
-end
-
-do
----@class ReportFrame_Border_BottomRightCornerObject : Texture
-local ReportFrame_Border_BottomRightCornerObject = {}
-end
-
-do
----@class ReportFrame_Border_LeftEdgeObject : Texture
-local ReportFrame_Border_LeftEdgeObject = {}
-end
-
-do
----@class ReportFrame_Border_RightEdgeObject : Texture
-local ReportFrame_Border_RightEdgeObject = {}
-end
-
-do
----@class ReportFrame_Border_TopEdgeObject : Texture
-local ReportFrame_Border_TopEdgeObject = {}
-end
-
-do
----@class ReportFrame_Border_TopLeftCornerObject : Texture
-local ReportFrame_Border_TopLeftCornerObject = {}
-end
-
-do
----@class ReportFrame_Border_TopRightCornerObject : Texture
-local ReportFrame_Border_TopRightCornerObject = {}
-end
-
-do
----@class ReportFrame_BottomInsetObject : Texture
-local ReportFrame_BottomInsetObject = {}
-end
-
-do
----@class ReportFrame_BottomInsetEdgeObject : Texture
-local ReportFrame_BottomInsetEdgeObject = {}
-end
-
-do
----@class ReportFrame_CloseButtonObject : Button
----@field Border ReportFrame_CloseButton_BorderObject
-local ReportFrame_CloseButtonObject = {}
----@return any ...
-function ReportFrame_CloseButtonObject:NarrationGetName(...) end
-end
-
-do
----@class ReportFrame_CloseButton_BorderObject : Texture
-local ReportFrame_CloseButton_BorderObject = {}
-end
-
-do
----@class ReportFrame_CommentObject : ScrollFrame
----@field BottomLeftTex ReportFrame_Comment_BottomLeftTexObject
----@field BottomRightTex ReportFrame_Comment_BottomRightTexObject
----@field BottomTex ReportFrame_Comment_BottomTexObject
----@field CharCount ReportFrame_Comment_CharCountObject
----@field EditBox ReportFrame_Comment_EditBoxObject
----@field LeftTex ReportFrame_Comment_LeftTexObject
----@field MiddleTex ReportFrame_Comment_MiddleTexObject
----@field RightTex ReportFrame_Comment_RightTexObject
----@field ScrollBar ReportFrame_Comment_ScrollBarObject
----@field TopLeftTex ReportFrame_Comment_TopLeftTexObject
----@field TopRightTex ReportFrame_Comment_TopRightTexObject
----@field TopTex ReportFrame_Comment_TopTexObject
----@field hideCharCount boolean
----@field instructions string
----@field maxLetters number
+---@class GuildBankFrame_Info_ScrollFrameObject : ScrollFrame
+---@field EditBox GuildBankFrame_Info_ScrollFrame_EditBoxObject
+---@field ScrollBar GuildBankFrame_Info_ScrollFrame_ScrollBarObject
 ---@field panExtent number
 ---@field scrollBarBottomY number
----@field scrollBarHideIfUnscrollable boolean
 ---@field scrollBarTopY number
 ---@field scrollBarX number
-local ReportFrame_CommentObject = {}
+local GuildBankFrame_Info_ScrollFrameObject = {}
 ---@return any ...
-function ReportFrame_CommentObject:GetPanExtent(...) end
+function GuildBankFrame_Info_ScrollFrameObject:GetPanExtent(...) end
 ---@return any ...
-function ReportFrame_CommentObject:SetPanExtent(...) end
+function GuildBankFrame_Info_ScrollFrameObject:SetPanExtent(...) end
 end
 
 do
----@class ReportFrame_Comment_BottomLeftTexObject : Texture
-local ReportFrame_Comment_BottomLeftTexObject = {}
+---@class GuildBankFrame_Info_ScrollFrame_EditBoxObject : EditBox
+local GuildBankFrame_Info_ScrollFrame_EditBoxObject = {}
 end
 
 do
----@class ReportFrame_Comment_BottomRightTexObject : Texture
-local ReportFrame_Comment_BottomRightTexObject = {}
-end
-
-do
----@class ReportFrame_Comment_BottomTexObject : Texture
-local ReportFrame_Comment_BottomTexObject = {}
-end
-
-do
----@class ReportFrame_Comment_CharCountObject : FontString
-local ReportFrame_Comment_CharCountObject = {}
-end
-
-do
----@class ReportFrame_Comment_EditBoxObject : EditBox
----@field Instructions ReportFrame_Comment_EditBox_InstructionsObject
----@field smartNavigationIgnored boolean
-local ReportFrame_Comment_EditBoxObject = {}
-end
-
-do
----@class ReportFrame_Comment_EditBox_InstructionsObject : FontString
-local ReportFrame_Comment_EditBox_InstructionsObject = {}
-end
-
-do
----@class ReportFrame_Comment_LeftTexObject : Texture
-local ReportFrame_Comment_LeftTexObject = {}
-end
-
-do
----@class ReportFrame_Comment_MiddleTexObject : Texture
-local ReportFrame_Comment_MiddleTexObject = {}
-end
-
-do
----@class ReportFrame_Comment_RightTexObject : Texture
-local ReportFrame_Comment_RightTexObject = {}
-end
-
-do
----@class ReportFrame_Comment_ScrollBarObject : Frame
----@field Back ReportFrame_Comment_ScrollBar_BackObject
----@field Defaults ReportFrame_Comment_ScrollBar_DefaultsObject
----@field Directions ReportFrame_Comment_ScrollBar_DirectionsObject
----@field Event ReportFrame_Comment_ScrollBar_EventObject
----@field Forward ReportFrame_Comment_ScrollBar_ForwardObject
----@field Track ReportFrame_Comment_ScrollBar_TrackObject
+---@class GuildBankFrame_Info_ScrollFrame_ScrollBarObject : Frame
+---@field Back GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject
+---@field Defaults GuildBankFrame_Info_ScrollFrame_ScrollBar_DefaultsObject
+---@field Directions GuildBankFrame_Info_ScrollFrame_ScrollBar_DirectionsObject
+---@field Event GuildBankFrame_Info_ScrollFrame_ScrollBar_EventObject
+---@field Forward GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject
+---@field Track GuildBankFrame_Info_ScrollFrame_ScrollBar_TrackObject
 ---@field allowScroll boolean
 ---@field callbackTables table
 ---@field canInterpolateScroll boolean
 ---@field deferredCallbacks table
 ---@field executingEvents table
----@field hideIfUnscrollable boolean
 ---@field hideTrack boolean
----@field interpolator ReportFrame_Comment_ScrollBar_interpolatorObject
+---@field interpolator GuildBankFrame_Info_ScrollFrame_ScrollBar_interpolatorObject
 ---@field isScrollController boolean
 ---@field minThumbExtent number
 ---@field panDelay number
@@ -4479,179 +6889,179 @@ do
 ---@field useProportionalThumb boolean
 ---@field visibleExtentPercentage number
 ---@field wheelPanScalar number
-local ReportFrame_Comment_ScrollBarObject = {}
+local GuildBankFrame_Info_ScrollFrame_ScrollBarObject = {}
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:CallInternalScope(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:CallInternalScope(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:CanCursorStepInDirection(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:CanCursorStepInDirection(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:CanInterpolateScroll(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:CanInterpolateScroll(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:CopyDeferredCallbacks(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:DisableControls(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:DisableControls(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:DoesFrameHaveEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:EnableInternalPriority(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:EnableInternalPriority(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:EnableSnapToInterval(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:EnableSnapToInterval(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:GenerateCallbackEvents(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:GetBackStepper(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:GetBackStepper(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:GetCallbackTable(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:GetCallbackTable(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:GetCallbackTables(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:GetCallbackTables(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:GetCallbacksByEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:GetForwardStepper(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:GetForwardStepper(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:GetFrameExtent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:GetFrameExtent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:GetIntervalRange(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:GetIntervalRange(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:GetLower(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:GetLower(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:GetPanExtentPercentage(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:GetPanRepeatDelay(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:GetPanRepeatDelay(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:GetPanRepeatTime(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:GetPanRepeatTime(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:GetScrollInterpolator(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:GetScrollInterpolator(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:GetScrollPercentage(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:GetScrollPercentage(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:GetThumb(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:GetThumb(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:GetThumbAnchor(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:GetThumbAnchor(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:GetTrack(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:GetTrack(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:GetTrackExtent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:GetTrackExtent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:GetUpper(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:GetUpper(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:GetVisibleExtentPercentage(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:GetWheelPanPercentage(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:HasRegistrantsForEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:HasScrollableExtent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:HasScrollableExtent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:Init(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:Init(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:InitializeNarration(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:InitializeNarration(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:Interpolate(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:Interpolate(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:IsAtBegin(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:IsAtBegin(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:IsAtEnd(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:IsAtEnd(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:IsHorizontal(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:IsHorizontal(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:IsScrollAllowed(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:IsScrollAllowed(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:IsThumbMouseDown(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:IsThumbMouseDown(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:OnHide_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:OnLoad(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:OnLoad(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:OnLoad_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:OnMouseWheel(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:OnMouseWheel(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:OnShow_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:OnStepperMouseDown(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:OnStepperMouseDown(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:OnThumbMouseDown(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:OnThumbMouseDown(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:OnTrackMouseDown(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:OnTrackMouseDown(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:RegisterCallback(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:RegisterCallback(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:RegisterCallbackWithHandle(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:ScrollDecrease(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:ScrollDecrease(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:ScrollInDirection(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:ScrollInDirection(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:ScrollIncrease(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:ScrollIncrease(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:ScrollPageInDirection(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:ScrollPageInDirection(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:ScrollStepInDirection(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:ScrollStepInDirection(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:ScrollToBegin(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:ScrollToBegin(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:ScrollToEnd(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:ScrollToEnd(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:ScrollWheelInDirection(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:ScrollWheelInDirection(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:SecureInsertEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:SecureInsertEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:SelectCursorComponent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:SelectCursorComponent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:SelectPointComponent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:SelectPointComponent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:SetFrameExtent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:SetFrameExtent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:SetHideIfUnscrollable(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:SetHideIfUnscrollable(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:SetHorizontal(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:SetHorizontal(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:SetInterpolateScroll(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:SetInterpolateScroll(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:SetPanExtentPercentage(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:SetScrollAllowed(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:SetScrollAllowed(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:SetScrollPercentage(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:SetScrollPercentage(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:SetScrollPercentageInternal(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:SetThumbExtent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:SetThumbExtent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:SetVisibleExtentPercentage(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:SetVisibleExtentPercentage(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:TriggerEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:TriggerEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:UnregisterCallback(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:UnregisterCallback(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:UnregisterEvents(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:UnregisterEvents(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:UnregisterEventsByEventTable(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:UnregisterUpdate(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:UnregisterUpdate(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:Update(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:Update(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:onButtonMouseUp(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:onButtonMouseUp(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBarObject:scrollInternal(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBarObject:scrollInternal(...) end
 end
 
 do
----@class ReportFrame_Comment_ScrollBar_BackObject : Button
----@field Event ReportFrame_Comment_ScrollBar_Back_EventObject
----@field Texture ReportFrame_Comment_ScrollBar_Back_TextureObject
+---@class GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject : Button
+---@field Event GuildBankFrame_Info_ScrollFrame_ScrollBar_Back_EventObject
+---@field Texture GuildBankFrame_Info_ScrollFrame_ScrollBar_Back_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -4665,118 +7075,118 @@ do
 ---@field mouseDownSoundKitID number
 ---@field normalTexture string
 ---@field overTexture string
-local ReportFrame_Comment_ScrollBar_BackObject = {}
+local GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject = {}
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:GetAtlas(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:GetAtlas(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:GetCallbackTable(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:GetCallbackTable(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:GetCallbackTables(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:GetCallbackTables(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:IsDown(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:IsDown(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:IsDownOver(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:IsDownOver(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:IsOver(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:IsOver(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:NarrationGetName(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:NarrationGetName(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:OnButtonStateChanged(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:OnButtonStateChanged(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:OnDisable(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:OnDisable(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:OnEnable(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:OnEnable(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:OnEnter(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:OnEnter(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:OnLeave(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:OnLeave(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:OnLoad(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:OnLoad(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:OnMouseDown(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:OnMouseDown(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:OnMouseUp(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:OnMouseUp(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:OnShow(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:OnShow(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:RegisterCallback(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:RegisterCallback(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:SecureInsertEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:SecureInsertEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:SetDisplacedRegions(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:SetDisplacedRegions(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:TriggerEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:TriggerEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:UnregisterCallback(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:UnregisterCallback(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:UnregisterEvents(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:UnregisterEvents(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class ReportFrame_Comment_ScrollBar_Back_EventObject
-local ReportFrame_Comment_ScrollBar_Back_EventObject = {}
+---@class GuildBankFrame_Info_ScrollFrame_ScrollBar_Back_EventObject
+local GuildBankFrame_Info_ScrollFrame_ScrollBar_Back_EventObject = {}
 end
 
 do
----@class ReportFrame_Comment_ScrollBar_Back_TextureObject : Texture
-local ReportFrame_Comment_ScrollBar_Back_TextureObject = {}
+---@class GuildBankFrame_Info_ScrollFrame_ScrollBar_Back_TextureObject : Texture
+local GuildBankFrame_Info_ScrollFrame_ScrollBar_Back_TextureObject = {}
 end
 
 do
----@class ReportFrame_Comment_ScrollBar_DefaultsObject
-local ReportFrame_Comment_ScrollBar_DefaultsObject = {}
+---@class GuildBankFrame_Info_ScrollFrame_ScrollBar_DefaultsObject
+local GuildBankFrame_Info_ScrollFrame_ScrollBar_DefaultsObject = {}
 end
 
 do
----@class ReportFrame_Comment_ScrollBar_DirectionsObject
-local ReportFrame_Comment_ScrollBar_DirectionsObject = {}
+---@class GuildBankFrame_Info_ScrollFrame_ScrollBar_DirectionsObject
+local GuildBankFrame_Info_ScrollFrame_ScrollBar_DirectionsObject = {}
 end
 
 do
----@class ReportFrame_Comment_ScrollBar_EventObject
-local ReportFrame_Comment_ScrollBar_EventObject = {}
+---@class GuildBankFrame_Info_ScrollFrame_ScrollBar_EventObject
+local GuildBankFrame_Info_ScrollFrame_ScrollBar_EventObject = {}
 end
 
 do
----@class ReportFrame_Comment_ScrollBar_ForwardObject : Button
----@field Event ReportFrame_Comment_ScrollBar_Forward_EventObject
----@field Texture ReportFrame_Comment_ScrollBar_Forward_TextureObject
+---@class GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject : Button
+---@field Event GuildBankFrame_Info_ScrollFrame_ScrollBar_Forward_EventObject
+---@field Texture GuildBankFrame_Info_ScrollFrame_ScrollBar_Forward_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -4790,129 +7200,129 @@ do
 ---@field mouseDownSoundKitID number
 ---@field normalTexture string
 ---@field overTexture string
-local ReportFrame_Comment_ScrollBar_ForwardObject = {}
+local GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject = {}
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:GetAtlas(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:GetAtlas(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:GetCallbackTable(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:GetCallbackTable(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:GetCallbackTables(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:GetCallbackTables(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:IsDown(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:IsDown(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:IsDownOver(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:IsDownOver(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:IsOver(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:IsOver(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:NarrationGetName(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:NarrationGetName(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:OnDisable(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:OnDisable(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:OnEnable(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:OnEnable(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:OnEnter(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:OnEnter(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:OnLeave(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:OnLeave(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:OnLoad(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:OnLoad(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:OnMouseDown(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:OnMouseDown(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:OnMouseUp(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:OnMouseUp(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:OnShow(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:OnShow(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:RegisterCallback(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:RegisterCallback(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:SecureInsertEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:TriggerEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:TriggerEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:UnregisterCallback(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:UnregisterCallback(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:UnregisterEvents(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:UnregisterEvents(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class ReportFrame_Comment_ScrollBar_Forward_EventObject
-local ReportFrame_Comment_ScrollBar_Forward_EventObject = {}
+---@class GuildBankFrame_Info_ScrollFrame_ScrollBar_Forward_EventObject
+local GuildBankFrame_Info_ScrollFrame_ScrollBar_Forward_EventObject = {}
 end
 
 do
----@class ReportFrame_Comment_ScrollBar_Forward_TextureObject : Texture
-local ReportFrame_Comment_ScrollBar_Forward_TextureObject = {}
+---@class GuildBankFrame_Info_ScrollFrame_ScrollBar_Forward_TextureObject : Texture
+local GuildBankFrame_Info_ScrollFrame_ScrollBar_Forward_TextureObject = {}
 end
 
 do
----@class ReportFrame_Comment_ScrollBar_TrackObject : Frame
----@field Begin ReportFrame_Comment_ScrollBar_Track_BeginObject
----@field End ReportFrame_Comment_ScrollBar_Track_EndObject
----@field Middle ReportFrame_Comment_ScrollBar_Track_MiddleObject
----@field Thumb ReportFrame_Comment_ScrollBar_Track_ThumbObject
-local ReportFrame_Comment_ScrollBar_TrackObject = {}
+---@class GuildBankFrame_Info_ScrollFrame_ScrollBar_TrackObject : Frame
+---@field Begin GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_BeginObject
+---@field End GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_EndObject
+---@field Middle GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_MiddleObject
+---@field Thumb GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject
+local GuildBankFrame_Info_ScrollFrame_ScrollBar_TrackObject = {}
 end
 
 do
----@class ReportFrame_Comment_ScrollBar_Track_BeginObject : Texture
-local ReportFrame_Comment_ScrollBar_Track_BeginObject = {}
+---@class GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_BeginObject : Texture
+local GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_BeginObject = {}
 end
 
 do
----@class ReportFrame_Comment_ScrollBar_Track_EndObject : Texture
-local ReportFrame_Comment_ScrollBar_Track_EndObject = {}
+---@class GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_EndObject : Texture
+local GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_EndObject = {}
 end
 
 do
----@class ReportFrame_Comment_ScrollBar_Track_MiddleObject : Texture
-local ReportFrame_Comment_ScrollBar_Track_MiddleObject = {}
+---@class GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_MiddleObject : Texture
+local GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_MiddleObject = {}
 end
 
 do
----@class ReportFrame_Comment_ScrollBar_Track_ThumbObject : Button
----@field Begin ReportFrame_Comment_ScrollBar_Track_Thumb_BeginObject
----@field End ReportFrame_Comment_ScrollBar_Track_Thumb_EndObject
----@field Event ReportFrame_Comment_ScrollBar_Track_Thumb_EventObject
----@field Middle ReportFrame_Comment_ScrollBar_Track_Thumb_MiddleObject
+---@class GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject : Button
+---@field Begin GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_Thumb_BeginObject
+---@field End GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_Thumb_EndObject
+---@field Event GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_Thumb_EventObject
+---@field Middle GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -4927,2281 +7337,2439 @@ do
 ---@field upBeginTexture string
 ---@field upEndTexture string
 ---@field upMiddleTexture string
-local ReportFrame_Comment_ScrollBar_Track_ThumbObject = {}
+local GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject = {}
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:GetAtlas(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:IsDown(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:IsDown(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:IsDownOver(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:IsOver(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:IsOver(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:OnDisable(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:OnDisable(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:OnEnable(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnable(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:OnEnter(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnter(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:OnLeave(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:OnLeave(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:OnLoad(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:OnLoad(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:OnShow(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:OnShow(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class ReportFrame_Comment_ScrollBar_Track_Thumb_BeginObject : Texture
-local ReportFrame_Comment_ScrollBar_Track_Thumb_BeginObject = {}
+---@class GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_Thumb_BeginObject : Texture
+local GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_Thumb_BeginObject = {}
 end
 
 do
----@class ReportFrame_Comment_ScrollBar_Track_Thumb_EndObject : Texture
-local ReportFrame_Comment_ScrollBar_Track_Thumb_EndObject = {}
+---@class GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_Thumb_EndObject : Texture
+local GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_Thumb_EndObject = {}
 end
 
 do
----@class ReportFrame_Comment_ScrollBar_Track_Thumb_EventObject
-local ReportFrame_Comment_ScrollBar_Track_Thumb_EventObject = {}
+---@class GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_Thumb_EventObject
+local GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_Thumb_EventObject = {}
 end
 
 do
----@class ReportFrame_Comment_ScrollBar_Track_Thumb_MiddleObject : Texture
-local ReportFrame_Comment_ScrollBar_Track_Thumb_MiddleObject = {}
+---@class GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject : Texture
+local GuildBankFrame_Info_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject = {}
 end
 
 do
----@class ReportFrame_Comment_ScrollBar_interpolatorObject
-local ReportFrame_Comment_ScrollBar_interpolatorObject = {}
+---@class GuildBankFrame_Info_ScrollFrame_ScrollBar_interpolatorObject
+local GuildBankFrame_Info_ScrollFrame_ScrollBar_interpolatorObject = {}
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_interpolatorObject:Cancel(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_interpolatorObject:Cancel(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_interpolatorObject:Interpolate(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_interpolatorObject:Interpolate(...) end
 ---@return any ...
-function ReportFrame_Comment_ScrollBar_interpolatorObject:interpolateFunc(...) end
+function GuildBankFrame_Info_ScrollFrame_ScrollBar_interpolatorObject:interpolateFunc(...) end
 end
 
 do
----@class ReportFrame_Comment_TopLeftTexObject : Texture
-local ReportFrame_Comment_TopLeftTexObject = {}
+---@class GuildBankFrame_LeftBorderObject : Texture
+local GuildBankFrame_LeftBorderObject = {}
 end
 
 do
----@class ReportFrame_Comment_TopRightTexObject : Texture
-local ReportFrame_Comment_TopRightTexObject = {}
+---@class GuildBankFrame_LimitLabelObject : FontString
+local GuildBankFrame_LimitLabelObject = {}
 end
 
 do
----@class ReportFrame_Comment_TopTexObject : Texture
-local ReportFrame_Comment_TopTexObject = {}
+---@class GuildBankFrame_LogObject : Frame
+---@field MessageFrame GuildBankFrame_Log_MessageFrameObject
+---@field ScrollBar GuildBankFrame_Log_ScrollBarObject
+local GuildBankFrame_LogObject = {}
 end
 
 do
----@class ReportFrame_MinorCategoryButtonPoolObject
-local ReportFrame_MinorCategoryButtonPoolObject = {}
+---@class GuildBankFrame_Log_MessageFrameObject : Frame
+---@field FontStringContainer GuildBankFrame_Log_MessageFrame_FontStringContainerObject
+---@field allowScroll boolean
+---@field constrainRangeToText boolean
+---@field fadeDurationSecs number
+---@field fontObject GuildBankFrame_Log_MessageFrame_fontObjectObject
+---@field hasOwnFontObject boolean
+---@field historyBuffer GuildBankFrame_Log_MessageFrame_historyBufferObject
+---@field insertMode number
+---@field isDisplayDirty boolean
+---@field isLayoutDirty boolean
+---@field isScrollingMessageFrame boolean
+---@field oldestFadingLineTimestamp number
+---@field onDisplayRefreshedCallbacks table
+---@field overrideFadeTimestamp number
+---@field scrollOffset number
+---@field shouldFadeAfterInactivity boolean
+---@field smartNavRightStickMaxScrollSpeed number
+---@field textIsCopyable boolean
+---@field timeVisibleSecs number
+---@field tooltipFrame GuildBankFrame_Log_MessageFrame_tooltipFrameObject
+---@field visibleLines table
+local GuildBankFrame_Log_MessageFrameObject = {}
 ---@return any ...
-function ReportFrame_MinorCategoryButtonPoolObject:GetTemplate(...) end
+function GuildBankFrame_Log_MessageFrameObject:AcquireFontString(...) end
 ---@return any ...
-function ReportFrame_MinorCategoryButtonPoolObject:private(...) end
+function GuildBankFrame_Log_MessageFrameObject:AcquireHighlightTexture(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:AddMessage(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:AddOnDisplayRefreshedCallback(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:AdjustMessageColors(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:AtBottom(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:AtTop(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:BackFillMessage(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:CalculateLineAlphaValueFromTimestamp(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:CalculateLineSpacing(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:CalculateNumVisibleLines(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:CalculateSelectingCharacterIndicesForVisibleLine(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:CallOnDisplayRefreshed(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:CanEffectivelyFade(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:Clear(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:FindCharacterAndLineIndexAtCoordinate(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:ForEachMessage(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:ForEachMessageInfoText(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:ForEachVisibleLineText(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GatherSelectedText(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetFadeDuration(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetFading(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetFont(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetFontObject(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetIndentedWordWrap(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetInsertMode(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetJustifyH(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetJustifyV(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetMaxLines(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetMaxScrollRange(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetMessageInfo(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetNumMessages(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetNumVisibleLines(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetOnLineRightClickedCallback(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetOnScrollChangedCallback(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetOnTextCopiedCallback(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetPagingScrollAmount(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetScaledCursorPosition(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetScrollOffset(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetShadowColor(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetShadowOffset(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetSpacing(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetTextColor(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:GetTimeVisible(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:HasFontObject(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:InitializeFontString(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:InitializeFontableFrame(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:IsScrollAllowed(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:IsSelectingText(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:IsTextCopyable(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:MakeFontObjectCustom(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:MarkDisplayDirty(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:MarkLayoutDirty(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:OnColorsUpdated(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:OnFontObjectUpdated(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:OnPostEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:OnPostHide(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:OnPostMouseDown(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:OnPostMouseUp(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:OnPostShow(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:OnPostUpdate(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:OnPreLoad(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:OnPreSizeChanged(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:PackageEntry(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:PageDown(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:PageUp(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:RefreshDisplay(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:RefreshIfNecessary(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:RefreshLayout(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:RemoveMessagesByPredicate(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:ResetAllFadeTimes(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:ResetSelectingText(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:ScrollByAmount(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:ScrollDown(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:ScrollToBottom(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:ScrollToTop(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:ScrollUp(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:SetFadeDuration(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:SetFading(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:SetFont(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:SetFontObject(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:SetIndentedWordWrap(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:SetInsertMode(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:SetJustifyH(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:SetJustifyV(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:SetMaxLines(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:SetOnLineRightClickedCallback(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:SetOnScrollChangedCallback(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:SetOnTextCopiedCallback(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:SetScrollAllowed(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:SetScrollOffset(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:SetShadowColor(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:SetShadowOffset(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:SetSpacing(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:SetTextColor(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:SetTextCopyable(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:SetTimeVisible(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:TransformMessages(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:UnpackageEntry(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:UpdateFading(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrameObject:UpdateSelectingText(...) end
 end
 
 do
----@class ReportFrame_MinorReportDescriptionObject : FontString
-local ReportFrame_MinorReportDescriptionObject = {}
+---@class GuildBankFrame_Log_MessageFrame_FontStringContainerObject : Frame
+local GuildBankFrame_Log_MessageFrame_FontStringContainerObject = {}
 end
 
 do
----@class ReportFrame_ReportButtonObject : Button
----@field Left ReportFrame_ReportButton_LeftObject
----@field Middle ReportFrame_ReportButton_MiddleObject
----@field Right ReportFrame_ReportButton_RightObject
----@field Text ReportFrame_ReportButton_TextObject
+---@class GuildBankFrame_Log_MessageFrame_fontObjectObject
+local GuildBankFrame_Log_MessageFrame_fontObjectObject = {}
+end
+
+do
+---@class GuildBankFrame_Log_MessageFrame_historyBufferObject
+---@field elements table
+---@field headIndex table
+---@field maxElements table
+local GuildBankFrame_Log_MessageFrame_historyBufferObject = {}
+---@return any ...
+function GuildBankFrame_Log_MessageFrame_historyBufferObject:CalculateElementIndex(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrame_historyBufferObject:CalculateElementIndexFromGlobalIndex(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrame_historyBufferObject:Clear(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrame_historyBufferObject:EnumerateIndexedEntries(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrame_historyBufferObject:GetEntryAtIndex(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrame_historyBufferObject:GetMaxNumElements(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrame_historyBufferObject:GetNumElements(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrame_historyBufferObject:IsEmpty(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrame_historyBufferObject:IsFull(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrame_historyBufferObject:IsValidIndex(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrame_historyBufferObject:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrame_historyBufferObject:PushBack(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrame_historyBufferObject:PushFront(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrame_historyBufferObject:RemoveIf(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrame_historyBufferObject:ReplaceElements(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrame_historyBufferObject:ReverseEnumerateIndexedEntries(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrame_historyBufferObject:SetMaxNumElements(...) end
+---@return any ...
+function GuildBankFrame_Log_MessageFrame_historyBufferObject:TransformIf(...) end
+end
+
+do
+---@class GuildBankFrame_Log_MessageFrame_tooltipFrameObject
+local GuildBankFrame_Log_MessageFrame_tooltipFrameObject = {}
+end
+
+do
+---@class GuildBankFrame_Log_ScrollBarObject : Frame
+---@field Back GuildBankFrame_Log_ScrollBar_BackObject
+---@field Defaults GuildBankFrame_Log_ScrollBar_DefaultsObject
+---@field Directions GuildBankFrame_Log_ScrollBar_DirectionsObject
+---@field Event GuildBankFrame_Log_ScrollBar_EventObject
+---@field Forward GuildBankFrame_Log_ScrollBar_ForwardObject
+---@field Track GuildBankFrame_Log_ScrollBar_TrackObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field hideTrack boolean
+---@field hideTrackIfThumbExceedsTrack boolean
+---@field internalPriority boolean
+---@field isScrollController boolean
+---@field minThumbExtent number
+---@field panDelay number
+---@field panExtentPercentage number
+---@field panRepeatTime number
+---@field smartNavigationIgnored boolean
+---@field snapToInterval boolean
+---@field thumbAnchor string
+---@field useProportionalThumb boolean
+---@field visibleExtentPercentage number
+---@field wheelPanScalar number
+local GuildBankFrame_Log_ScrollBarObject = {}
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:CallInternalScope(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:CanCursorStepInDirection(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:CanInterpolateScroll(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:DisableControls(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:EnableInternalPriority(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:EnableSnapToInterval(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:GenerateCallbackEvents(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:GetBackStepper(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:GetCallbackTable(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:GetCallbackTables(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:GetCallbacksByEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:GetForwardStepper(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:GetFrameExtent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:GetIntervalRange(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:GetLower(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:GetPanExtentPercentage(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:GetPanRepeatDelay(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:GetPanRepeatTime(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:GetScrollInterpolator(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:GetScrollPercentage(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:GetThumb(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:GetThumbAnchor(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:GetTrack(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:GetTrackExtent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:GetUpper(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:GetWheelPanPercentage(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:HasScrollableExtent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:Init(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:InitializeNarration(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:Interpolate(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:IsAtBegin(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:IsAtEnd(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:IsHorizontal(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:IsScrollAllowed(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:IsThumbMouseDown(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:OnHide_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:OnMouseWheel(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:OnShow_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:OnStepperMouseDown(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:OnThumbMouseDown(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:OnTrackMouseDown(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:RegisterCallback(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:ScrollDecrease(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:ScrollInDirection(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:ScrollIncrease(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:ScrollPageInDirection(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:ScrollStepInDirection(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:ScrollToBegin(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:ScrollToEnd(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:ScrollWheelInDirection(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:SecureInsertEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:SelectCursorComponent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:SelectPointComponent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:SetFrameExtent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:SetHideIfUnscrollable(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:SetHorizontal(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:SetInterpolateScroll(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:SetPanExtentPercentage(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:SetScrollAllowed(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:SetScrollPercentage(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:SetThumbExtent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:SetVisibleExtentPercentage(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:TriggerEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:UnregisterCallback(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:UnregisterEvents(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:UnregisterUpdate(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:Update(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:onButtonMouseUp(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBarObject:scrollInternal(...) end
+end
+
+do
+---@class GuildBankFrame_Log_ScrollBar_BackObject : Button
+---@field Event GuildBankFrame_Log_ScrollBar_Back_EventObject
+---@field Texture GuildBankFrame_Log_ScrollBar_Back_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local GuildBankFrame_Log_ScrollBar_BackObject = {}
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:GetAtlas(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:GetCallbackTable(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:GetCallbackTables(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:IsDown(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:IsDownOver(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:IsOver(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:NarrationGetName(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:OnButtonStateChanged(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:OnDisable(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:OnEnable(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:OnMouseDown(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:OnMouseUp(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:OnShow(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:RegisterCallback(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:SecureInsertEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:SetDisplacedRegions(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:TriggerEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:UnregisterCallback(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:UnregisterEvents(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class GuildBankFrame_Log_ScrollBar_Back_EventObject
+local GuildBankFrame_Log_ScrollBar_Back_EventObject = {}
+end
+
+do
+---@class GuildBankFrame_Log_ScrollBar_Back_TextureObject : Texture
+local GuildBankFrame_Log_ScrollBar_Back_TextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Log_ScrollBar_DefaultsObject
+local GuildBankFrame_Log_ScrollBar_DefaultsObject = {}
+end
+
+do
+---@class GuildBankFrame_Log_ScrollBar_DirectionsObject
+local GuildBankFrame_Log_ScrollBar_DirectionsObject = {}
+end
+
+do
+---@class GuildBankFrame_Log_ScrollBar_EventObject
+local GuildBankFrame_Log_ScrollBar_EventObject = {}
+end
+
+do
+---@class GuildBankFrame_Log_ScrollBar_ForwardObject : Button
+---@field Event GuildBankFrame_Log_ScrollBar_Forward_EventObject
+---@field Texture GuildBankFrame_Log_ScrollBar_Forward_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local GuildBankFrame_Log_ScrollBar_ForwardObject = {}
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:GetAtlas(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:GetCallbackTable(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:GetCallbackTables(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:IsDown(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:IsDownOver(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:IsOver(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:NarrationGetName(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:OnDisable(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:OnEnable(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:OnMouseDown(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:OnMouseUp(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:OnShow(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:RegisterCallback(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:TriggerEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:UnregisterCallback(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:UnregisterEvents(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class GuildBankFrame_Log_ScrollBar_Forward_EventObject
+local GuildBankFrame_Log_ScrollBar_Forward_EventObject = {}
+end
+
+do
+---@class GuildBankFrame_Log_ScrollBar_Forward_TextureObject : Texture
+local GuildBankFrame_Log_ScrollBar_Forward_TextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Log_ScrollBar_TrackObject : Frame
+---@field Begin GuildBankFrame_Log_ScrollBar_Track_BeginObject
+---@field End GuildBankFrame_Log_ScrollBar_Track_EndObject
+---@field Middle GuildBankFrame_Log_ScrollBar_Track_MiddleObject
+---@field Thumb GuildBankFrame_Log_ScrollBar_Track_ThumbObject
+local GuildBankFrame_Log_ScrollBar_TrackObject = {}
+end
+
+do
+---@class GuildBankFrame_Log_ScrollBar_Track_BeginObject : Texture
+local GuildBankFrame_Log_ScrollBar_Track_BeginObject = {}
+end
+
+do
+---@class GuildBankFrame_Log_ScrollBar_Track_EndObject : Texture
+local GuildBankFrame_Log_ScrollBar_Track_EndObject = {}
+end
+
+do
+---@class GuildBankFrame_Log_ScrollBar_Track_MiddleObject : Texture
+local GuildBankFrame_Log_ScrollBar_Track_MiddleObject = {}
+end
+
+do
+---@class GuildBankFrame_Log_ScrollBar_Track_ThumbObject : Button
+---@field Begin GuildBankFrame_Log_ScrollBar_Track_Thumb_BeginObject
+---@field End GuildBankFrame_Log_ScrollBar_Track_Thumb_EndObject
+---@field Event GuildBankFrame_Log_ScrollBar_Track_Thumb_EventObject
+---@field Middle GuildBankFrame_Log_ScrollBar_Track_Thumb_MiddleObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field downBeginTexture string
+---@field downEndTexture string
+---@field downMiddleTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field overBeginTexture string
+---@field overEndTexture string
+---@field overMiddleTexture string
+---@field upBeginTexture string
+---@field upEndTexture string
+---@field upMiddleTexture string
+local GuildBankFrame_Log_ScrollBar_Track_ThumbObject = {}
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:IsDown(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:IsOver(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:OnDisable(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:OnEnable(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:OnShow(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+---@return any ...
+function GuildBankFrame_Log_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class GuildBankFrame_Log_ScrollBar_Track_Thumb_BeginObject : Texture
+local GuildBankFrame_Log_ScrollBar_Track_Thumb_BeginObject = {}
+end
+
+do
+---@class GuildBankFrame_Log_ScrollBar_Track_Thumb_EndObject : Texture
+local GuildBankFrame_Log_ScrollBar_Track_Thumb_EndObject = {}
+end
+
+do
+---@class GuildBankFrame_Log_ScrollBar_Track_Thumb_EventObject
+local GuildBankFrame_Log_ScrollBar_Track_Thumb_EventObject = {}
+end
+
+do
+---@class GuildBankFrame_Log_ScrollBar_Track_Thumb_MiddleObject : Texture
+local GuildBankFrame_Log_ScrollBar_Track_Thumb_MiddleObject = {}
+end
+
+do
+---@class GuildBankFrame_MoneyFrameObject : Frame
+---@field CopperButton GuildBankFrame_MoneyFrame_CopperButtonObject
+---@field GoldButton GuildBankFrame_MoneyFrame_GoldButtonObject
+---@field SilverButton GuildBankFrame_MoneyFrame_SilverButtonObject
+---@field info GuildBankFrame_MoneyFrame_infoObject
+---@field moneyType string
+---@field small number
+---@field smartNavigationIgnored boolean
+---@field trialErrorButton GuildBankFrame_MoneyFrame_trialErrorButtonObject
+local GuildBankFrame_MoneyFrameObject = {}
+---@return any ...
+function GuildBankFrame_MoneyFrameObject:SetIsUserScaled(...) end
+end
+
+do
+---@class GuildBankFrame_MoneyFrame_CopperButtonObject : Button
+---@field NormalTexture GuildBankFrame_MoneyFrame_CopperButton_NormalTextureObject
+---@field Text GuildBankFrame_MoneyFrame_CopperButton_TextObject
+local GuildBankFrame_MoneyFrame_CopperButtonObject = {}
+end
+
+do
+---@class GuildBankFrame_MoneyFrame_CopperButton_NormalTextureObject : Texture
+local GuildBankFrame_MoneyFrame_CopperButton_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_MoneyFrame_CopperButton_TextObject : FontString
+local GuildBankFrame_MoneyFrame_CopperButton_TextObject = {}
+end
+
+do
+---@class GuildBankFrame_MoneyFrame_GoldButtonObject : Button
+---@field Text GuildBankFrame_MoneyFrame_GoldButton_TextObject
+local GuildBankFrame_MoneyFrame_GoldButtonObject = {}
+end
+
+do
+---@class GuildBankFrame_MoneyFrame_GoldButton_TextObject : FontString
+local GuildBankFrame_MoneyFrame_GoldButton_TextObject = {}
+end
+
+do
+---@class GuildBankFrame_MoneyFrame_SilverButtonObject : Button
+---@field Text GuildBankFrame_MoneyFrame_SilverButton_TextObject
+local GuildBankFrame_MoneyFrame_SilverButtonObject = {}
+end
+
+do
+---@class GuildBankFrame_MoneyFrame_SilverButton_TextObject : FontString
+local GuildBankFrame_MoneyFrame_SilverButton_TextObject = {}
+end
+
+do
+---@class GuildBankFrame_MoneyFrame_infoObject
+---@field collapse number
+---@field showSmallerCoins string
+local GuildBankFrame_MoneyFrame_infoObject = {}
+---@return any ...
+function GuildBankFrame_MoneyFrame_infoObject:DropFunc(...) end
+---@return any ...
+function GuildBankFrame_MoneyFrame_infoObject:OnloadFunc(...) end
+---@return any ...
+function GuildBankFrame_MoneyFrame_infoObject:PickupFunc(...) end
+---@return any ...
+function GuildBankFrame_MoneyFrame_infoObject:UpdateFunc(...) end
+end
+
+do
+---@class GuildBankFrame_MoneyFrame_trialErrorButtonObject : Texture
+local GuildBankFrame_MoneyFrame_trialErrorButtonObject = {}
+end
+
+do
+---@class GuildBankFrame_MoneyFrameBGObject : Frame
+---@field LimitLabel GuildBankFrame_MoneyFrameBG_LimitLabelObject
+---@field UnlimitedLabel GuildBankFrame_MoneyFrameBG_UnlimitedLabelObject
+local GuildBankFrame_MoneyFrameBGObject = {}
+end
+
+do
+---@class GuildBankFrame_MoneyFrameBG_LimitLabelObject : FontString
+local GuildBankFrame_MoneyFrameBG_LimitLabelObject = {}
+end
+
+do
+---@class GuildBankFrame_MoneyFrameBG_UnlimitedLabelObject : FontString
+local GuildBankFrame_MoneyFrameBG_UnlimitedLabelObject = {}
+end
+
+do
+---@class GuildBankFrame_PortraitObject : Texture
+local GuildBankFrame_PortraitObject = {}
+end
+
+do
+---@class GuildBankFrame_RedMarbleBGObject : Texture
+local GuildBankFrame_RedMarbleBGObject = {}
+end
+
+do
+---@class GuildBankFrame_RightBorderObject : Texture
+local GuildBankFrame_RightBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_TabLimitBGObject : Texture
+local GuildBankFrame_TabLimitBGObject = {}
+end
+
+do
+---@class GuildBankFrame_TabLimitBGLeftObject : Texture
+local GuildBankFrame_TabLimitBGLeftObject = {}
+end
+
+do
+---@class GuildBankFrame_TabLimitBGRightObject : Texture
+local GuildBankFrame_TabLimitBGRightObject = {}
+end
+
+do
+---@class GuildBankFrame_TabTitleObject : FontString
+local GuildBankFrame_TabTitleObject = {}
+end
+
+do
+---@class GuildBankFrame_TabTitleBGObject : Texture
+local GuildBankFrame_TabTitleBGObject = {}
+end
+
+do
+---@class GuildBankFrame_TabTitleBGLeftObject : Texture
+local GuildBankFrame_TabTitleBGLeftObject = {}
+end
+
+do
+---@class GuildBankFrame_TabTitleBGRightObject : Texture
+local GuildBankFrame_TabTitleBGRightObject = {}
+end
+
+do
+---@class GuildBankFrame_TitleBgObject : Texture
+local GuildBankFrame_TitleBgObject = {}
+end
+
+do
+---@class GuildBankFrame_TitleTextObject : FontString
+local GuildBankFrame_TitleTextObject = {}
+end
+
+do
+---@class GuildBankFrame_TopBorderObject : Texture
+local GuildBankFrame_TopBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_TopLeftCornerObject : Texture
+local GuildBankFrame_TopLeftCornerObject = {}
+end
+
+do
+---@class GuildBankFrame_TopRightCornerObject : Texture
+local GuildBankFrame_TopRightCornerObject = {}
+end
+
+do
+---@class GuildBankFrame_TopTileStreaksObject : Texture
+local GuildBankFrame_TopTileStreaksObject = {}
+end
+
+do
+---@class GuildBankFrame_WithdrawButtonObject : Button
+---@field Left GuildBankFrame_WithdrawButton_LeftObject
+---@field Middle GuildBankFrame_WithdrawButton_MiddleObject
+---@field Right GuildBankFrame_WithdrawButton_RightObject
+---@field Text GuildBankFrame_WithdrawButton_TextObject
 ---@field fitTextCanWidthDecrease boolean
 ---@field fitTextWidthPadding number
-local ReportFrame_ReportButtonObject = {}
+local GuildBankFrame_WithdrawButtonObject = {}
 ---@return any ...
-function ReportFrame_ReportButtonObject:FitToText(...) end
+function GuildBankFrame_WithdrawButtonObject:FitToText(...) end
 ---@return any ...
-function ReportFrame_ReportButtonObject:GetDisabledTooltip(...) end
+function GuildBankFrame_WithdrawButtonObject:GetDisabledTooltip(...) end
 ---@return any ...
-function ReportFrame_ReportButtonObject:OnClick(...) end
+function GuildBankFrame_WithdrawButtonObject:OnClick(...) end
 ---@return any ...
-function ReportFrame_ReportButtonObject:OnEnter(...) end
+function GuildBankFrame_WithdrawButtonObject:OnEnter(...) end
 ---@return any ...
-function ReportFrame_ReportButtonObject:OnLeave(...) end
+function GuildBankFrame_WithdrawButtonObject:OnLeave(...) end
 ---@return any ...
-function ReportFrame_ReportButtonObject:SetDisabledState(...) end
+function GuildBankFrame_WithdrawButtonObject:SetDisabledState(...) end
 ---@return any ...
-function ReportFrame_ReportButtonObject:SetDisabledTooltip(...) end
+function GuildBankFrame_WithdrawButtonObject:SetDisabledTooltip(...) end
 ---@return any ...
-function ReportFrame_ReportButtonObject:SetTextToFit(...) end
----@return any ...
-function ReportFrame_ReportButtonObject:UpdateButtonState(...) end
+function GuildBankFrame_WithdrawButtonObject:SetTextToFit(...) end
 end
 
 do
----@class ReportFrame_ReportButton_LeftObject : Texture
-local ReportFrame_ReportButton_LeftObject = {}
+---@class GuildBankFrame_WithdrawButton_LeftObject : Texture
+local GuildBankFrame_WithdrawButton_LeftObject = {}
 end
 
 do
----@class ReportFrame_ReportButton_MiddleObject : Texture
-local ReportFrame_ReportButton_MiddleObject = {}
+---@class GuildBankFrame_WithdrawButton_MiddleObject : Texture
+local GuildBankFrame_WithdrawButton_MiddleObject = {}
 end
 
 do
----@class ReportFrame_ReportButton_RightObject : Texture
-local ReportFrame_ReportButton_RightObject = {}
+---@class GuildBankFrame_WithdrawButton_RightObject : Texture
+local GuildBankFrame_WithdrawButton_RightObject = {}
 end
 
 do
----@class ReportFrame_ReportButton_TextObject : FontString
-local ReportFrame_ReportButton_TextObject = {}
+---@class GuildBankFrame_WithdrawButton_TextObject : FontString
+local GuildBankFrame_WithdrawButton_TextObject = {}
 end
 
 do
----@class ReportFrame_ReportStringObject : FontString
-local ReportFrame_ReportStringObject = {}
+---@class GuildBankFrame_WithdrawMoneyFrameObject : Frame
+---@field CopperButton GuildBankFrame_WithdrawMoneyFrame_CopperButtonObject
+---@field GoldButton GuildBankFrame_WithdrawMoneyFrame_GoldButtonObject
+---@field SilverButton GuildBankFrame_WithdrawMoneyFrame_SilverButtonObject
+---@field info GuildBankFrame_WithdrawMoneyFrame_infoObject
+---@field moneyType string
+---@field small number
+---@field smartNavigationIgnored boolean
+---@field trialErrorButton GuildBankFrame_WithdrawMoneyFrame_trialErrorButtonObject
+local GuildBankFrame_WithdrawMoneyFrameObject = {}
+---@return any ...
+function GuildBankFrame_WithdrawMoneyFrameObject:SetIsUserScaled(...) end
 end
 
 do
----@class ReportFrame_ReportingMajorCategoryDropdownObject : Button
----@field Arrow ReportFrame_ReportingMajorCategoryDropdown_ArrowObject
----@field Background ReportFrame_ReportingMajorCategoryDropdown_BackgroundObject
----@field Event ReportFrame_ReportingMajorCategoryDropdown_EventObject
----@field Label ReportFrame_ReportingMajorCategoryDropdown_LabelObject
----@field Text ReportFrame_ReportingMajorCategoryDropdown_TextObject
+---@class GuildBankFrame_WithdrawMoneyFrame_CopperButtonObject : Button
+---@field NormalTexture GuildBankFrame_WithdrawMoneyFrame_CopperButton_NormalTextureObject
+---@field Text GuildBankFrame_WithdrawMoneyFrame_CopperButton_TextObject
+local GuildBankFrame_WithdrawMoneyFrame_CopperButtonObject = {}
+end
+
+do
+---@class GuildBankFrame_WithdrawMoneyFrame_CopperButton_NormalTextureObject : Texture
+local GuildBankFrame_WithdrawMoneyFrame_CopperButton_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_WithdrawMoneyFrame_CopperButton_TextObject : FontString
+local GuildBankFrame_WithdrawMoneyFrame_CopperButton_TextObject = {}
+end
+
+do
+---@class GuildBankFrame_WithdrawMoneyFrame_GoldButtonObject : Button
+---@field Text GuildBankFrame_WithdrawMoneyFrame_GoldButton_TextObject
+local GuildBankFrame_WithdrawMoneyFrame_GoldButtonObject = {}
+end
+
+do
+---@class GuildBankFrame_WithdrawMoneyFrame_GoldButton_TextObject : FontString
+local GuildBankFrame_WithdrawMoneyFrame_GoldButton_TextObject = {}
+end
+
+do
+---@class GuildBankFrame_WithdrawMoneyFrame_SilverButtonObject : Button
+---@field Text GuildBankFrame_WithdrawMoneyFrame_SilverButton_TextObject
+local GuildBankFrame_WithdrawMoneyFrame_SilverButtonObject = {}
+end
+
+do
+---@class GuildBankFrame_WithdrawMoneyFrame_SilverButton_TextObject : FontString
+local GuildBankFrame_WithdrawMoneyFrame_SilverButton_TextObject = {}
+end
+
+do
+---@class GuildBankFrame_WithdrawMoneyFrame_infoObject
+---@field collapse number
+---@field showSmallerCoins string
+local GuildBankFrame_WithdrawMoneyFrame_infoObject = {}
+---@return any ...
+function GuildBankFrame_WithdrawMoneyFrame_infoObject:OnloadFunc(...) end
+---@return any ...
+function GuildBankFrame_WithdrawMoneyFrame_infoObject:UpdateFunc(...) end
+end
+
+do
+---@class GuildBankFrame_WithdrawMoneyFrame_trialErrorButtonObject : Texture
+local GuildBankFrame_WithdrawMoneyFrame_trialErrorButtonObject = {}
+end
+
+do
+---@class GuildControlUIObject : Frame
+---@field Bg GuildControlUI_BgObject
+---@field BottomBorder GuildControlUI_BottomBorderObject
+---@field BottomLeftCorner GuildControlUI_BottomLeftCornerObject
+---@field BottomRightCorner GuildControlUI_BottomRightCornerObject
+---@field CloseButton GuildControlUI_CloseButtonObject
+---@field FocusJumpHint GuildControlUI_FocusJumpHintObject
+---@field FrameGlow GuildControlUI_FrameGlowObject
+---@field LeftBorder GuildControlUI_LeftBorderObject
+---@field LeftJumpHint GuildControlUI_LeftJumpHintObject
+---@field RightBorder GuildControlUI_RightBorderObject
+---@field RightJumpHint GuildControlUI_RightJumpHintObject
+---@field TopBorder GuildControlUI_TopBorderObject
+---@field TopLeftCorner GuildControlUI_TopLeftCornerObject
+---@field TopRightCorner GuildControlUI_TopRightCornerObject
+---@field bankTabFrame GuildControlUI_bankTabFrameObject
+---@field currFrame GuildControlUI_currFrameObject
+---@field currentRank number
+---@field discordFrame GuildControlUI_discordFrameObject
+---@field dropdown GuildControlUI_dropdownObject
+---@field layoutType string
+---@field numSkipUpdates number
+---@field orderFrame GuildControlUI_orderFrameObject
+---@field rankPermFrame GuildControlUI_rankPermFrameObject
+---@field selectedDiscordChannel number
+---@field selectedDiscordServer number
+---@field selectedTab number
+local GuildControlUIObject = {}
+---@return any ...
+function GuildControlUIObject:CreateGamepadFooter(...) end
+---@return any ...
+function GuildControlUIObject:EndFocus(...) end
+---@return any ...
+function GuildControlUIObject:FocusGamepad(...) end
+---@return any ...
+function GuildControlUIObject:GamepadBaseDialog_OnHide(...) end
+---@return any ...
+function GuildControlUIObject:GamepadBaseDialog_OnLoad(...) end
+---@return any ...
+function GuildControlUIObject:GamepadBaseDialog_OnShow(...) end
+---@return any ...
+function GuildControlUIObject:GetFocusFrameGlow(...) end
+---@return any ...
+function GuildControlUIObject:GetFocusFrameRoot(...) end
+---@return any ...
+function GuildControlUIObject:HideFocusJumpHint(...) end
+---@return any ...
+function GuildControlUIObject:HideLeftJumpHint(...) end
+---@return any ...
+function GuildControlUIObject:HideRightJumpHint(...) end
+---@return any ...
+function GuildControlUIObject:InitGamepad(...) end
+---@return any ...
+function GuildControlUIObject:LockInFocus(...) end
+---@return any ...
+function GuildControlUIObject:RefreshFocus(...) end
+---@return any ...
+function GuildControlUIObject:SetupGamepad(...) end
+---@return any ...
+function GuildControlUIObject:ShowFocusJumpHint(...) end
+---@return any ...
+function GuildControlUIObject:ShowLeftJumpHint(...) end
+---@return any ...
+function GuildControlUIObject:ShowRightJumpHint(...) end
+---@return any ...
+function GuildControlUIObject:StartFocus(...) end
+---@return any ...
+function GuildControlUIObject:UnfocusGamepad(...) end
+---@return any ...
+function GuildControlUIObject:UninitGamepad(...) end
+---@return any ...
+function GuildControlUIObject:rankUpdate(...) end
+---@type GuildControlUIObject
+GuildControlUI = GuildControlUIObject
+end
+
+do
+---@class GuildControlUI_BgObject : Texture
+local GuildControlUI_BgObject = {}
+end
+
+do
+---@class GuildControlUI_BottomBorderObject : Texture
+local GuildControlUI_BottomBorderObject = {}
+end
+
+do
+---@class GuildControlUI_BottomLeftCornerObject : Texture
+local GuildControlUI_BottomLeftCornerObject = {}
+end
+
+do
+---@class GuildControlUI_BottomRightCornerObject : Texture
+local GuildControlUI_BottomRightCornerObject = {}
+end
+
+do
+---@class GuildControlUI_CloseButtonObject : Button
+local GuildControlUI_CloseButtonObject = {}
+---@return any ...
+function GuildControlUI_CloseButtonObject:NarrationGetName(...) end
+end
+
+do
+---@class GuildControlUI_FocusJumpHintObject : Frame
+---@field ActiveTexture GuildControlUI_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture GuildControlUI_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim GuildControlUI_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator GuildControlUI_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GuildControlUI_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GuildControlUI_FocusJumpHint_HoverTextureObject
+---@field LoadBar GuildControlUI_FocusJumpHint_LoadBarObject
+---@field LoadBarBG GuildControlUI_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow GuildControlUI_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture GuildControlUI_FocusJumpHint_NormalTextureObject
+---@field PressedTexture GuildControlUI_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip GuildControlUI_FocusJumpHint_SpinnerTipObject
+---@field ignoreInLayout boolean
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GuildControlUI_FocusJumpHintObject = {}
+---@return any ...
+function GuildControlUI_FocusJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function GuildControlUI_FocusJumpHintObject:BeginHold(...) end
+---@return any ...
+function GuildControlUI_FocusJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function GuildControlUI_FocusJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function GuildControlUI_FocusJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function GuildControlUI_FocusJumpHintObject:EndHold(...) end
+---@return any ...
+function GuildControlUI_FocusJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function GuildControlUI_FocusJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function GuildControlUI_FocusJumpHintObject:OnLoad(...) end
+---@return any ...
+function GuildControlUI_FocusJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function GuildControlUI_FocusJumpHintObject:SetDisabled(...) end
+---@return any ...
+function GuildControlUI_FocusJumpHintObject:SetEnabled(...) end
+---@return any ...
+function GuildControlUI_FocusJumpHintObject:SetFocused(...) end
+---@return any ...
+function GuildControlUI_FocusJumpHintObject:SetHoldState(...) end
+---@return any ...
+function GuildControlUI_FocusJumpHintObject:SetInputKey(...) end
+---@return any ...
+function GuildControlUI_FocusJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function GuildControlUI_FocusJumpHintObject:SetPressable(...) end
+---@return any ...
+function GuildControlUI_FocusJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function GuildControlUI_FocusJumpHintObject:SetTextureState(...) end
+---@return any ...
+function GuildControlUI_FocusJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function GuildControlUI_FocusJumpHintObject:SetUsableState(...) end
+---@return any ...
+function GuildControlUI_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GuildControlUI_FocusJumpHint_ActiveTextureObject : Texture
+local GuildControlUI_FocusJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class GuildControlUI_FocusJumpHint_DisabledTextureObject : Texture
+local GuildControlUI_FocusJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class GuildControlUI_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GuildControlUI_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GuildControlUI_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GuildControlUI_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local GuildControlUI_FocusJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class GuildControlUI_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local GuildControlUI_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GuildControlUI_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GuildControlUI_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GuildControlUI_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GuildControlUI_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GuildControlUI_FocusJumpHint_HoldIndicatorObject : Texture
+local GuildControlUI_FocusJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class GuildControlUI_FocusJumpHint_HoldIndicatorBGObject : Texture
+local GuildControlUI_FocusJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GuildControlUI_FocusJumpHint_HoverTextureObject : Texture
+local GuildControlUI_FocusJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class GuildControlUI_FocusJumpHint_LoadBarObject : Texture
+local GuildControlUI_FocusJumpHint_LoadBarObject = {}
+end
+
+do
+---@class GuildControlUI_FocusJumpHint_LoadBarBGObject : Texture
+local GuildControlUI_FocusJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class GuildControlUI_FocusJumpHint_LoadBarGlowObject : Texture
+local GuildControlUI_FocusJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class GuildControlUI_FocusJumpHint_NormalTextureObject : Texture
+local GuildControlUI_FocusJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class GuildControlUI_FocusJumpHint_PressedTextureObject : Texture
+local GuildControlUI_FocusJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class GuildControlUI_FocusJumpHint_SpinnerTipObject : Texture
+local GuildControlUI_FocusJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class GuildControlUI_FrameGlowObject : Frame
+---@field GlowTexture GuildControlUI_FrameGlow_GlowTextureObject
+---@field glowTextures table
+local GuildControlUI_FrameGlowObject = {}
+---@return any ...
+function GuildControlUI_FrameGlowObject:GetContainerFrame(...) end
+---@return any ...
+function GuildControlUI_FrameGlowObject:GetFrameLayoutType(...) end
+---@return any ...
+function GuildControlUI_FrameGlowObject:GetHeaderFrame(...) end
+---@return any ...
+function GuildControlUI_FrameGlowObject:OnLoad(...) end
+end
+
+do
+---@class GuildControlUI_FrameGlow_GlowTextureObject : Texture
+local GuildControlUI_FrameGlow_GlowTextureObject = {}
+end
+
+do
+---@class GuildControlUI_LeftBorderObject : Texture
+local GuildControlUI_LeftBorderObject = {}
+end
+
+do
+---@class GuildControlUI_LeftJumpHintObject : Frame
+---@field ActiveTexture GuildControlUI_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture GuildControlUI_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim GuildControlUI_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator GuildControlUI_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GuildControlUI_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GuildControlUI_LeftJumpHint_HoverTextureObject
+---@field LoadBar GuildControlUI_LeftJumpHint_LoadBarObject
+---@field LoadBarBG GuildControlUI_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow GuildControlUI_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture GuildControlUI_LeftJumpHint_NormalTextureObject
+---@field PressedTexture GuildControlUI_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip GuildControlUI_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GuildControlUI_LeftJumpHintObject = {}
+---@return any ...
+function GuildControlUI_LeftJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function GuildControlUI_LeftJumpHintObject:BeginHold(...) end
+---@return any ...
+function GuildControlUI_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function GuildControlUI_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function GuildControlUI_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function GuildControlUI_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function GuildControlUI_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function GuildControlUI_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function GuildControlUI_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function GuildControlUI_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function GuildControlUI_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function GuildControlUI_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function GuildControlUI_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function GuildControlUI_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function GuildControlUI_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function GuildControlUI_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function GuildControlUI_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function GuildControlUI_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function GuildControlUI_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function GuildControlUI_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function GuildControlUI_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function GuildControlUI_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GuildControlUI_LeftJumpHint_ActiveTextureObject : Texture
+local GuildControlUI_LeftJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class GuildControlUI_LeftJumpHint_DisabledTextureObject : Texture
+local GuildControlUI_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class GuildControlUI_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GuildControlUI_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GuildControlUI_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GuildControlUI_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local GuildControlUI_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class GuildControlUI_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local GuildControlUI_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GuildControlUI_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GuildControlUI_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GuildControlUI_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GuildControlUI_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GuildControlUI_LeftJumpHint_HoldIndicatorObject : Texture
+local GuildControlUI_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class GuildControlUI_LeftJumpHint_HoldIndicatorBGObject : Texture
+local GuildControlUI_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GuildControlUI_LeftJumpHint_HoverTextureObject : Texture
+local GuildControlUI_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class GuildControlUI_LeftJumpHint_LoadBarObject : Texture
+local GuildControlUI_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class GuildControlUI_LeftJumpHint_LoadBarBGObject : Texture
+local GuildControlUI_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class GuildControlUI_LeftJumpHint_LoadBarGlowObject : Texture
+local GuildControlUI_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class GuildControlUI_LeftJumpHint_NormalTextureObject : Texture
+local GuildControlUI_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class GuildControlUI_LeftJumpHint_PressedTextureObject : Texture
+local GuildControlUI_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class GuildControlUI_LeftJumpHint_SpinnerTipObject : Texture
+local GuildControlUI_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class GuildControlUI_RightBorderObject : Texture
+local GuildControlUI_RightBorderObject = {}
+end
+
+do
+---@class GuildControlUI_RightJumpHintObject : Frame
+---@field ActiveTexture GuildControlUI_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture GuildControlUI_RightJumpHint_DisabledTextureObject
+---@field HoldAnim GuildControlUI_RightJumpHint_HoldAnimObject
+---@field HoldIndicator GuildControlUI_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GuildControlUI_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GuildControlUI_RightJumpHint_HoverTextureObject
+---@field LoadBar GuildControlUI_RightJumpHint_LoadBarObject
+---@field LoadBarBG GuildControlUI_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow GuildControlUI_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture GuildControlUI_RightJumpHint_NormalTextureObject
+---@field PressedTexture GuildControlUI_RightJumpHint_PressedTextureObject
+---@field SpinnerTip GuildControlUI_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GuildControlUI_RightJumpHintObject = {}
+---@return any ...
+function GuildControlUI_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function GuildControlUI_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function GuildControlUI_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function GuildControlUI_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function GuildControlUI_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function GuildControlUI_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function GuildControlUI_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function GuildControlUI_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function GuildControlUI_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function GuildControlUI_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function GuildControlUI_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function GuildControlUI_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function GuildControlUI_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function GuildControlUI_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function GuildControlUI_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function GuildControlUI_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function GuildControlUI_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function GuildControlUI_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function GuildControlUI_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function GuildControlUI_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function GuildControlUI_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function GuildControlUI_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GuildControlUI_RightJumpHint_ActiveTextureObject : Texture
+local GuildControlUI_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class GuildControlUI_RightJumpHint_DisabledTextureObject : Texture
+local GuildControlUI_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class GuildControlUI_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GuildControlUI_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GuildControlUI_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GuildControlUI_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local GuildControlUI_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class GuildControlUI_RightJumpHint_HoldAnim_LoadBarAnimObject
+local GuildControlUI_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GuildControlUI_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GuildControlUI_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GuildControlUI_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GuildControlUI_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GuildControlUI_RightJumpHint_HoldIndicatorObject : Texture
+local GuildControlUI_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class GuildControlUI_RightJumpHint_HoldIndicatorBGObject : Texture
+local GuildControlUI_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GuildControlUI_RightJumpHint_HoverTextureObject : Texture
+local GuildControlUI_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class GuildControlUI_RightJumpHint_LoadBarObject : Texture
+local GuildControlUI_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class GuildControlUI_RightJumpHint_LoadBarBGObject : Texture
+local GuildControlUI_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class GuildControlUI_RightJumpHint_LoadBarGlowObject : Texture
+local GuildControlUI_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class GuildControlUI_RightJumpHint_NormalTextureObject : Texture
+local GuildControlUI_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class GuildControlUI_RightJumpHint_PressedTextureObject : Texture
+local GuildControlUI_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class GuildControlUI_RightJumpHint_SpinnerTipObject : Texture
+local GuildControlUI_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class GuildControlUI_TopBorderObject : Texture
+local GuildControlUI_TopBorderObject = {}
+end
+
+do
+---@class GuildControlUI_TopLeftCornerObject : Texture
+local GuildControlUI_TopLeftCornerObject = {}
+end
+
+do
+---@class GuildControlUI_TopRightCornerObject : Texture
+local GuildControlUI_TopRightCornerObject = {}
+end
+
+do
+---@class GuildControlUI_bankTabFrameObject : Frame
+---@field dropdown GuildControlUI_bankTabFrame_dropdownObject
+---@field inset GuildControlUI_bankTabFrame_insetObject
+---@field scrollFrame GuildControlUI_bankTabFrame_scrollFrameObject
+local GuildControlUI_bankTabFrameObject = {}
+end
+
+do
+---@class GuildControlUI_bankTabFrame_dropdownObject : Button
+---@field Arrow GuildControlUI_bankTabFrame_dropdown_ArrowObject
+---@field Background GuildControlUI_bankTabFrame_dropdown_BackgroundObject
+---@field Event GuildControlUI_bankTabFrame_dropdown_EventObject
+---@field Text GuildControlUI_bankTabFrame_dropdown_TextObject
 ---@field callbackTables table
----@field defaultText string
 ---@field deferredCallbacks table
 ---@field executingEvents table
 ---@field intrinsic string
----@field menuAnchor ReportFrame_ReportingMajorCategoryDropdown_menuAnchorObject
+---@field menuAnchor GuildControlUI_bankTabFrame_dropdown_menuAnchorObject
+---@field menuDescription GuildControlUI_bankTabFrame_dropdown_menuDescriptionObject
 ---@field menuPoint string
 ---@field menuPointX number
 ---@field menuPointY number
 ---@field menuRelativePoint string
-local ReportFrame_ReportingMajorCategoryDropdownObject = {}
+local GuildControlUI_bankTabFrame_dropdownObject = {}
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:ClearMenuState(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:ClearMenuState(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:CloseMenu(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:CloseMenu(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:CollectSelectionData(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:CollectSelectionData(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:CopyDeferredCallbacks(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:CreateDefaultRootMenuDescription(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:CreateDefaultRootMenuDescription(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:CreateRootDescription(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:CreateRootDescription(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:Decrement(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:Decrement(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:DesaturateIfDisabled(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:DoesFrameHaveEvent(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:EnableRegenerateOnResponse(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:EnableRegenerateOnResponse(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:GenerateCallbackEvents(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:GenerateMenu(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:GenerateMenu(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:GetArrowAtlas(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:GetArrowAtlas(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:GetCallbackTable(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:GetCallbackTable(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:GetCallbackTables(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:GetCallbackTables(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:GetCallbacksByEvent(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:GetDefaultText(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:GetDefaultText(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:GetMenuDescription(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:GetMenuDescription(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:GetMutableCallbacksByEvent(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:GetSelectionData(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:GetSelectionData(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:GetUpdateText(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:GetUpdateText(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:HandlesGlobalMouseEvent(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:HandlesGlobalMouseEvent(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:HasAnyRadioDescriptions(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:HasAnyRadioDescriptions(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:HasElements(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:HasElements(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:HasOnlyRadioDescriptions(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:HasOnlyRadioDescriptions(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:HasRegistrantsForEvent(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:HasStickyFocus(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:HasStickyFocus(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:Increment(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:Increment(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:IsDown(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:IsDown(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:IsDownOver(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:IsDownOver(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:IsMenuOpen(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:IsMenuOpen(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:IsOver(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:IsOver(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:NarrationGetContext(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:NarrationGetContext(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:NarrationGetName(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:NarrationGetName(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:OnButtonStateChanged(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:OnButtonStateChanged(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:OnDisable(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:OnDisable(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:OnEnable(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:OnEnable(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:OnEnter(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:OnEnter(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:OnEnter_Intrinsic(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:OnLeave(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:OnLeave(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:OnLoad(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:OnLoad(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:OnLoad_Intrinsic(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:OnMenuAssigned(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:OnMenuAssigned(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:OnMenuChanged(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:OnMenuChanged(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:OnMenuClosed(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:OnMenuClosed(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:OnMenuOpened(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:OnMenuOpened(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:OnMenuResponse(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:OnMenuResponse(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:OnMouseDown(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:OnMouseDown(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:OnMouseDown_Intrinsic(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:OnMouseUp(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:OnMouseUp(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:OnMouseWheel_Intrinsic(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:OnMouseWheel_Intrinsic(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:OnShow(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:OnShow(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:OpenMenu(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:OpenMenu(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:OverrideText(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:OverrideText(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:Pick(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:Pick(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:ReconcileDeferredCallbacks(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:RegisterCallback(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:RegisterCallback(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:RegisterCallbackWithHandle(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:RegisterMenu(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:RegisterMenu(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:Rotate(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:Rotate(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:SecureInsertEvent(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:SecureInsertEvent(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:SetDefaultText(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:SetDefaultText(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:SetDisplacedRegions(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:SetDisplacedRegions(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:SetMenuAnchor(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:SetMenuAnchor(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:SetMenuOpen(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:SetMenuOpen(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:SetSelectionText(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:SetSelectionText(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:SetSelectionTranslator(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:SetSelectionTranslator(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:SetTooltip(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:SetTooltip(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:SetUndefinedEventsAllowed(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:SetupMenu(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:SetupMenu(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:ShouldShowTooltip(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:ShouldShowTooltip(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:ShowTooltip(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:ShowTooltip(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:SignalUpdate(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:SignalUpdate(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:TriggerEvent(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:TriggerEvent(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:UnregisterCallback(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:UnregisterCallback(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:UnregisterEvents(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:UnregisterEvents(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:UnregisterEventsByEventTable(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:Update(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:Update(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:UpdateSelections(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:UpdateSelections(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:UpdateText(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:UpdateText(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:UpdateToMenuSelections(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:UpdateToMenuSelections(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:onMenuClosedCallback(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:menuGenerator(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdownObject:selectionTranslator(...) end
+function GuildControlUI_bankTabFrame_dropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function GuildControlUI_bankTabFrame_dropdownObject:selectionTranslator(...) end
 end
 
 do
----@class ReportFrame_ReportingMajorCategoryDropdown_ArrowObject : Texture
-local ReportFrame_ReportingMajorCategoryDropdown_ArrowObject = {}
+---@class GuildControlUI_bankTabFrame_dropdown_ArrowObject : Texture
+local GuildControlUI_bankTabFrame_dropdown_ArrowObject = {}
 end
 
 do
----@class ReportFrame_ReportingMajorCategoryDropdown_BackgroundObject : Texture
-local ReportFrame_ReportingMajorCategoryDropdown_BackgroundObject = {}
+---@class GuildControlUI_bankTabFrame_dropdown_BackgroundObject : Texture
+local GuildControlUI_bankTabFrame_dropdown_BackgroundObject = {}
 end
 
 do
----@class ReportFrame_ReportingMajorCategoryDropdown_EventObject
-local ReportFrame_ReportingMajorCategoryDropdown_EventObject = {}
+---@class GuildControlUI_bankTabFrame_dropdown_EventObject
+local GuildControlUI_bankTabFrame_dropdown_EventObject = {}
 end
 
 do
----@class ReportFrame_ReportingMajorCategoryDropdown_LabelObject : FontString
-local ReportFrame_ReportingMajorCategoryDropdown_LabelObject = {}
+---@class GuildControlUI_bankTabFrame_dropdown_TextObject : FontString
+local GuildControlUI_bankTabFrame_dropdown_TextObject = {}
 end
 
 do
----@class ReportFrame_ReportingMajorCategoryDropdown_TextObject : FontString
-local ReportFrame_ReportingMajorCategoryDropdown_TextObject = {}
-end
-
-do
----@class ReportFrame_ReportingMajorCategoryDropdown_menuAnchorObject
+---@class GuildControlUI_bankTabFrame_dropdown_menuAnchorObject
 ---@field point string
 ---@field relativePoint string
----@field relativeTo ReportFrame_ReportingMajorCategoryDropdown_menuAnchor_relativeToObject
+---@field relativeTo GuildControlUI_bankTabFrame_dropdown_menuAnchor_relativeToObject
 ---@field x number
 ---@field y number
-local ReportFrame_ReportingMajorCategoryDropdown_menuAnchorObject = {}
+local GuildControlUI_bankTabFrame_dropdown_menuAnchorObject = {}
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdown_menuAnchorObject:Get(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuAnchorObject:Get(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdown_menuAnchorObject:GetRelativeTo(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuAnchorObject:GetRelativeTo(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdown_menuAnchorObject:Init(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuAnchorObject:Init(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdown_menuAnchorObject:Set(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuAnchorObject:Set(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdown_menuAnchorObject:SetFromPoint(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuAnchorObject:SetFromPoint(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdown_menuAnchorObject:SetOffsets(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuAnchorObject:SetOffsets(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdown_menuAnchorObject:SetPoint(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuAnchorObject:SetPoint(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
 ---@return any ...
-function ReportFrame_ReportingMajorCategoryDropdown_menuAnchorObject:SetRelativeTo(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuAnchorObject:SetRelativeTo(...) end
 end
 
 do
----@class ReportFrame_ReportingMajorCategoryDropdown_menuAnchor_relativeToObject
-local ReportFrame_ReportingMajorCategoryDropdown_menuAnchor_relativeToObject = {}
+---@class GuildControlUI_bankTabFrame_dropdown_menuAnchor_relativeToObject
+local GuildControlUI_bankTabFrame_dropdown_menuAnchor_relativeToObject = {}
 end
 
 do
----@class ReportFrame_ScreenshotReportingFrameObject : Frame
----@field ScreenshotDescription ReportFrame_ScreenshotReportingFrame_ScreenshotDescriptionObject
----@field ScreenshotEmptyText ReportFrame_ScreenshotReportingFrame_ScreenshotEmptyTextObject
----@field ScreenshotError ReportFrame_ScreenshotReportingFrame_ScreenshotErrorObject
----@field ScreenshotPreview ReportFrame_ScreenshotReportingFrame_ScreenshotPreviewObject
----@field TakeScreenshotButton ReportFrame_ScreenshotReportingFrame_TakeScreenshotButtonObject
-local ReportFrame_ScreenshotReportingFrameObject = {}
-end
-
-do
----@class ReportFrame_ScreenshotReportingFrame_ScreenshotDescriptionObject : FontString
-local ReportFrame_ScreenshotReportingFrame_ScreenshotDescriptionObject = {}
-end
-
-do
----@class ReportFrame_ScreenshotReportingFrame_ScreenshotEmptyTextObject : FontString
-local ReportFrame_ScreenshotReportingFrame_ScreenshotEmptyTextObject = {}
-end
-
-do
----@class ReportFrame_ScreenshotReportingFrame_ScreenshotErrorObject : FontString
-local ReportFrame_ScreenshotReportingFrame_ScreenshotErrorObject = {}
-end
-
-do
----@class ReportFrame_ScreenshotReportingFrame_ScreenshotPreviewObject : Texture
-local ReportFrame_ScreenshotReportingFrame_ScreenshotPreviewObject = {}
-end
-
-do
----@class ReportFrame_ScreenshotReportingFrame_TakeScreenshotButtonObject : Button
----@field Left ReportFrame_ScreenshotReportingFrame_TakeScreenshotButton_LeftObject
----@field Middle ReportFrame_ScreenshotReportingFrame_TakeScreenshotButton_MiddleObject
----@field Right ReportFrame_ScreenshotReportingFrame_TakeScreenshotButton_RightObject
----@field Text ReportFrame_ScreenshotReportingFrame_TakeScreenshotButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local ReportFrame_ScreenshotReportingFrame_TakeScreenshotButtonObject = {}
----@return any ...
-function ReportFrame_ScreenshotReportingFrame_TakeScreenshotButtonObject:FitToText(...) end
----@return any ...
-function ReportFrame_ScreenshotReportingFrame_TakeScreenshotButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function ReportFrame_ScreenshotReportingFrame_TakeScreenshotButtonObject:OnEnter(...) end
----@return any ...
-function ReportFrame_ScreenshotReportingFrame_TakeScreenshotButtonObject:OnLeave(...) end
----@return any ...
-function ReportFrame_ScreenshotReportingFrame_TakeScreenshotButtonObject:SetDisabledState(...) end
----@return any ...
-function ReportFrame_ScreenshotReportingFrame_TakeScreenshotButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function ReportFrame_ScreenshotReportingFrame_TakeScreenshotButtonObject:SetTextToFit(...) end
-end
-
-do
----@class ReportFrame_ScreenshotReportingFrame_TakeScreenshotButton_LeftObject : Texture
-local ReportFrame_ScreenshotReportingFrame_TakeScreenshotButton_LeftObject = {}
-end
-
-do
----@class ReportFrame_ScreenshotReportingFrame_TakeScreenshotButton_MiddleObject : Texture
-local ReportFrame_ScreenshotReportingFrame_TakeScreenshotButton_MiddleObject = {}
-end
-
-do
----@class ReportFrame_ScreenshotReportingFrame_TakeScreenshotButton_RightObject : Texture
-local ReportFrame_ScreenshotReportingFrame_TakeScreenshotButton_RightObject = {}
-end
-
-do
----@class ReportFrame_ScreenshotReportingFrame_TakeScreenshotButton_TextObject : FontString
-local ReportFrame_ScreenshotReportingFrame_TakeScreenshotButton_TextObject = {}
-end
-
-do
----@class ReportFrame_ThankYouTextObject : FontString
-local ReportFrame_ThankYouTextObject = {}
-end
-
-do
----@class ReportFrame_TitleTextObject : FontString
-local ReportFrame_TitleTextObject = {}
-end
-
-do
----@class ReportFrame_TopInsetObject : Texture
-local ReportFrame_TopInsetObject = {}
-end
-
-do
----@class ReportFrame_TopInsetEdgeObject : Texture
-local ReportFrame_TopInsetEdgeObject = {}
-end
-
-do
----@class ReportFrame_WatermarkObject : Texture
-local ReportFrame_WatermarkObject = {}
-end
-
-do
----@class ReportFrame_minorCategoryFlagsObject
----@field flags number
-local ReportFrame_minorCategoryFlagsObject = {}
----@return any ...
-function ReportFrame_minorCategoryFlagsObject:AddNamedFlagsFromTable(...) end
----@return any ...
-function ReportFrame_minorCategoryFlagsObject:AddNamedMask(...) end
----@return any ...
-function ReportFrame_minorCategoryFlagsObject:AreAnySet(...) end
----@return any ...
-function ReportFrame_minorCategoryFlagsObject:AreNoneSet(...) end
----@return any ...
-function ReportFrame_minorCategoryFlagsObject:Clear(...) end
----@return any ...
-function ReportFrame_minorCategoryFlagsObject:ClearAll(...) end
----@return any ...
-function ReportFrame_minorCategoryFlagsObject:GetFlags(...) end
----@return any ...
-function ReportFrame_minorCategoryFlagsObject:IsAnySet(...) end
----@return any ...
-function ReportFrame_minorCategoryFlagsObject:IsSet(...) end
----@return any ...
-function ReportFrame_minorCategoryFlagsObject:OnLoad(...) end
----@return any ...
-function ReportFrame_minorCategoryFlagsObject:Set(...) end
----@return any ...
-function ReportFrame_minorCategoryFlagsObject:SetOrClear(...) end
-end
-
-do
----@class RightManagedFrameContainerObject : Frame
----@field BottomManagedLayoutContainer RightManagedFrameContainer_BottomManagedLayoutContainerObject
----@field dirty boolean
----@field fixedHeight number
----@field respectChildScale boolean
----@field showingFrames table
----@field spacing number
-local RightManagedFrameContainerObject = {}
----@return any ...
-function RightManagedFrameContainerObject:AddLayoutChildren(...) end
----@return any ...
-function RightManagedFrameContainerObject:AddManagedFrame(...) end
----@return any ...
-function RightManagedFrameContainerObject:AnimInManagedFrames(...) end
----@return any ...
-function RightManagedFrameContainerObject:AnimOutManagedFrames(...) end
----@return any ...
-function RightManagedFrameContainerObject:CalculateFrameSize(...) end
----@return any ...
-function RightManagedFrameContainerObject:ClearFixedSize(...) end
----@return any ...
-function RightManagedFrameContainerObject:ClearManagedFrames(...) end
----@return any ...
-function RightManagedFrameContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function RightManagedFrameContainerObject:GetChildHeight(...) end
----@return any ...
-function RightManagedFrameContainerObject:GetChildPadding(...) end
----@return any ...
-function RightManagedFrameContainerObject:GetChildSize(...) end
----@return any ...
-function RightManagedFrameContainerObject:GetChildWidth(...) end
----@return any ...
-function RightManagedFrameContainerObject:GetFixedHeight(...) end
----@return any ...
-function RightManagedFrameContainerObject:GetFixedSize(...) end
----@return any ...
-function RightManagedFrameContainerObject:GetFixedWidth(...) end
----@return any ...
-function RightManagedFrameContainerObject:GetHeightPadding(...) end
----@return any ...
-function RightManagedFrameContainerObject:GetLayoutChildren(...) end
----@return any ...
-function RightManagedFrameContainerObject:GetPadding(...) end
----@return any ...
-function RightManagedFrameContainerObject:GetWidthPadding(...) end
----@return any ...
-function RightManagedFrameContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function RightManagedFrameContainerObject:IsDirty(...) end
----@return any ...
-function RightManagedFrameContainerObject:IsLayoutFrame(...) end
----@return any ...
-function RightManagedFrameContainerObject:Layout(...) end
----@return any ...
-function RightManagedFrameContainerObject:LayoutChildren(...) end
----@return any ...
-function RightManagedFrameContainerObject:MarkClean(...) end
----@return any ...
-function RightManagedFrameContainerObject:MarkDirty(...) end
----@return any ...
-function RightManagedFrameContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function RightManagedFrameContainerObject:OnCleaned(...) end
----@return any ...
-function RightManagedFrameContainerObject:OnLoad(...) end
----@return any ...
-function RightManagedFrameContainerObject:OnShow(...) end
----@return any ...
-function RightManagedFrameContainerObject:OnUpdate(...) end
----@return any ...
-function RightManagedFrameContainerObject:RemoveManagedFrame(...) end
----@return any ...
-function RightManagedFrameContainerObject:SetFixedHeight(...) end
----@return any ...
-function RightManagedFrameContainerObject:SetFixedSize(...) end
----@return any ...
-function RightManagedFrameContainerObject:SetFixedWidth(...) end
----@return any ...
-function RightManagedFrameContainerObject:SetHeightPadding(...) end
----@return any ...
-function RightManagedFrameContainerObject:SetWidthPadding(...) end
----@return any ...
-function RightManagedFrameContainerObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function RightManagedFrameContainerObject:UpdateFrame(...) end
----@return any ...
-function RightManagedFrameContainerObject:UpdateManagedFrames(...) end
----@return any ...
-function RightManagedFrameContainerObject:UpdateManagedFramesAlphaState(...) end
----@type RightManagedFrameContainerObject
-RightManagedFrameContainer = RightManagedFrameContainerObject
-end
-
-do
----@class RightManagedFrameContainer_BottomManagedLayoutContainerObject : Frame
----@field dirty boolean
----@field layoutIndex number
----@field spacing number
-local RightManagedFrameContainer_BottomManagedLayoutContainerObject = {}
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:AddLayoutChildren(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:CalculateFrameSize(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:ClearFixedSize(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:GetChildHeight(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:GetChildPadding(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:GetChildSize(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:GetChildWidth(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:GetFixedHeight(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:GetFixedSize(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:GetFixedWidth(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:GetHeightPadding(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:GetLayoutChildren(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:GetPadding(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:GetWidthPadding(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:IsDirty(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:IsLayoutFrame(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:Layout(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:LayoutChildren(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:MarkClean(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:MarkDirty(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:OnCleaned(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:OnShow(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:OnUpdate(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:SetFixedHeight(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:SetFixedSize(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:SetFixedWidth(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:SetHeightPadding(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:SetWidthPadding(...) end
----@return any ...
-function RightManagedFrameContainer_BottomManagedLayoutContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class RoleChangedFrameObject : Frame
-local RoleChangedFrameObject = {}
----@type RoleChangedFrameObject
-RoleChangedFrame = RoleChangedFrameObject
-end
-
-do
----@class RolePollPopupObject : Frame
----@field Border RolePollPopup_BorderObject
----@field CloseButton RolePollPopup_CloseButtonObject
----@field FocusJumpHint RolePollPopup_FocusJumpHintObject
----@field FrameGlow RolePollPopup_FrameGlowObject
----@field LeftJumpHint RolePollPopup_LeftJumpHintObject
----@field RightJumpHint RolePollPopup_RightJumpHintObject
----@field acceptButton RolePollPopup_acceptButtonObject
----@field layoutType string
-local RolePollPopupObject = {}
----@return any ...
-function RolePollPopupObject:EndFocus(...) end
----@return any ...
-function RolePollPopupObject:GetFocusFrameGlow(...) end
----@return any ...
-function RolePollPopupObject:GetFocusFrameRoot(...) end
----@return any ...
-function RolePollPopupObject:HideFocusJumpHint(...) end
----@return any ...
-function RolePollPopupObject:HideLeftJumpHint(...) end
----@return any ...
-function RolePollPopupObject:HideRightJumpHint(...) end
----@return any ...
-function RolePollPopupObject:LockInFocus(...) end
----@return any ...
-function RolePollPopupObject:RefreshFocus(...) end
----@return any ...
-function RolePollPopupObject:ShowFocusJumpHint(...) end
----@return any ...
-function RolePollPopupObject:ShowLeftJumpHint(...) end
----@return any ...
-function RolePollPopupObject:ShowRightJumpHint(...) end
----@return any ...
-function RolePollPopupObject:StartFocus(...) end
----@type RolePollPopupObject
-RolePollPopup = RolePollPopupObject
-end
-
-do
----@class RolePollPopup_BorderObject : Frame
----@field Bg RolePollPopup_Border_BgObject
----@field BottomEdge RolePollPopup_Border_BottomEdgeObject
----@field BottomLeftCorner RolePollPopup_Border_BottomLeftCornerObject
----@field BottomRightCorner RolePollPopup_Border_BottomRightCornerObject
----@field LeftEdge RolePollPopup_Border_LeftEdgeObject
----@field RightEdge RolePollPopup_Border_RightEdgeObject
----@field TopEdge RolePollPopup_Border_TopEdgeObject
----@field TopLeftCorner RolePollPopup_Border_TopLeftCornerObject
----@field TopRightCorner RolePollPopup_Border_TopRightCornerObject
----@field layoutType string
-local RolePollPopup_BorderObject = {}
----@return any ...
-function RolePollPopup_BorderObject:GetBorderColor(...) end
----@return any ...
-function RolePollPopup_BorderObject:GetCenterColor(...) end
----@return any ...
-function RolePollPopup_BorderObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function RolePollPopup_BorderObject:GetFrameLayoutType(...) end
----@return any ...
-function RolePollPopup_BorderObject:OnLoad(...) end
----@return any ...
-function RolePollPopup_BorderObject:SetBlendMode(...) end
----@return any ...
-function RolePollPopup_BorderObject:SetBorderBlendMode(...) end
----@return any ...
-function RolePollPopup_BorderObject:SetBorderColor(...) end
----@return any ...
-function RolePollPopup_BorderObject:SetCenterColor(...) end
----@return any ...
-function RolePollPopup_BorderObject:SetVertexColor(...) end
-end
-
-do
----@class RolePollPopup_Border_BgObject : Texture
-local RolePollPopup_Border_BgObject = {}
-end
-
-do
----@class RolePollPopup_Border_BottomEdgeObject : Texture
-local RolePollPopup_Border_BottomEdgeObject = {}
-end
-
-do
----@class RolePollPopup_Border_BottomLeftCornerObject : Texture
-local RolePollPopup_Border_BottomLeftCornerObject = {}
-end
-
-do
----@class RolePollPopup_Border_BottomRightCornerObject : Texture
-local RolePollPopup_Border_BottomRightCornerObject = {}
-end
-
-do
----@class RolePollPopup_Border_LeftEdgeObject : Texture
-local RolePollPopup_Border_LeftEdgeObject = {}
-end
-
-do
----@class RolePollPopup_Border_RightEdgeObject : Texture
-local RolePollPopup_Border_RightEdgeObject = {}
-end
-
-do
----@class RolePollPopup_Border_TopEdgeObject : Texture
-local RolePollPopup_Border_TopEdgeObject = {}
-end
-
-do
----@class RolePollPopup_Border_TopLeftCornerObject : Texture
-local RolePollPopup_Border_TopLeftCornerObject = {}
-end
-
-do
----@class RolePollPopup_Border_TopRightCornerObject : Texture
-local RolePollPopup_Border_TopRightCornerObject = {}
-end
-
-do
----@class RolePollPopup_CloseButtonObject : Button
-local RolePollPopup_CloseButtonObject = {}
----@return any ...
-function RolePollPopup_CloseButtonObject:NarrationGetName(...) end
-end
-
-do
----@class RolePollPopup_FocusJumpHintObject : Frame
----@field ActiveTexture RolePollPopup_FocusJumpHint_ActiveTextureObject
----@field DisabledTexture RolePollPopup_FocusJumpHint_DisabledTextureObject
----@field HoldAnim RolePollPopup_FocusJumpHint_HoldAnimObject
----@field HoldIndicator RolePollPopup_FocusJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG RolePollPopup_FocusJumpHint_HoldIndicatorBGObject
----@field HoverTexture RolePollPopup_FocusJumpHint_HoverTextureObject
----@field LoadBar RolePollPopup_FocusJumpHint_LoadBarObject
----@field LoadBarBG RolePollPopup_FocusJumpHint_LoadBarBGObject
----@field LoadBarGlow RolePollPopup_FocusJumpHint_LoadBarGlowObject
----@field NormalTexture RolePollPopup_FocusJumpHint_NormalTextureObject
----@field PressedTexture RolePollPopup_FocusJumpHint_PressedTextureObject
----@field SpinnerTip RolePollPopup_FocusJumpHint_SpinnerTipObject
----@field ignoreInLayout boolean
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local RolePollPopup_FocusJumpHintObject = {}
----@return any ...
-function RolePollPopup_FocusJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function RolePollPopup_FocusJumpHintObject:BeginHold(...) end
----@return any ...
-function RolePollPopup_FocusJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function RolePollPopup_FocusJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function RolePollPopup_FocusJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function RolePollPopup_FocusJumpHintObject:EndHold(...) end
----@return any ...
-function RolePollPopup_FocusJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function RolePollPopup_FocusJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function RolePollPopup_FocusJumpHintObject:OnLoad(...) end
----@return any ...
-function RolePollPopup_FocusJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function RolePollPopup_FocusJumpHintObject:SetDisabled(...) end
----@return any ...
-function RolePollPopup_FocusJumpHintObject:SetEnabled(...) end
----@return any ...
-function RolePollPopup_FocusJumpHintObject:SetFocused(...) end
----@return any ...
-function RolePollPopup_FocusJumpHintObject:SetHoldState(...) end
----@return any ...
-function RolePollPopup_FocusJumpHintObject:SetInputKey(...) end
----@return any ...
-function RolePollPopup_FocusJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function RolePollPopup_FocusJumpHintObject:SetPressable(...) end
----@return any ...
-function RolePollPopup_FocusJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function RolePollPopup_FocusJumpHintObject:SetTextureState(...) end
----@return any ...
-function RolePollPopup_FocusJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function RolePollPopup_FocusJumpHintObject:SetUsableState(...) end
----@return any ...
-function RolePollPopup_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class RolePollPopup_FocusJumpHint_ActiveTextureObject : Texture
-local RolePollPopup_FocusJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class RolePollPopup_FocusJumpHint_DisabledTextureObject : Texture
-local RolePollPopup_FocusJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class RolePollPopup_FocusJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim RolePollPopup_FocusJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim RolePollPopup_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim RolePollPopup_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
-local RolePollPopup_FocusJumpHint_HoldAnimObject = {}
-end
-
-do
----@class RolePollPopup_FocusJumpHint_HoldAnim_LoadBarAnimObject
-local RolePollPopup_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class RolePollPopup_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local RolePollPopup_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class RolePollPopup_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local RolePollPopup_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class RolePollPopup_FocusJumpHint_HoldIndicatorObject : Texture
-local RolePollPopup_FocusJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class RolePollPopup_FocusJumpHint_HoldIndicatorBGObject : Texture
-local RolePollPopup_FocusJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class RolePollPopup_FocusJumpHint_HoverTextureObject : Texture
-local RolePollPopup_FocusJumpHint_HoverTextureObject = {}
-end
-
-do
----@class RolePollPopup_FocusJumpHint_LoadBarObject : Texture
-local RolePollPopup_FocusJumpHint_LoadBarObject = {}
-end
-
-do
----@class RolePollPopup_FocusJumpHint_LoadBarBGObject : Texture
-local RolePollPopup_FocusJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class RolePollPopup_FocusJumpHint_LoadBarGlowObject : Texture
-local RolePollPopup_FocusJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class RolePollPopup_FocusJumpHint_NormalTextureObject : Texture
-local RolePollPopup_FocusJumpHint_NormalTextureObject = {}
-end
-
-do
----@class RolePollPopup_FocusJumpHint_PressedTextureObject : Texture
-local RolePollPopup_FocusJumpHint_PressedTextureObject = {}
-end
-
-do
----@class RolePollPopup_FocusJumpHint_SpinnerTipObject : Texture
-local RolePollPopup_FocusJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class RolePollPopup_FrameGlowObject : Frame
----@field GlowTexture RolePollPopup_FrameGlow_GlowTextureObject
----@field glowTextures table
-local RolePollPopup_FrameGlowObject = {}
----@return any ...
-function RolePollPopup_FrameGlowObject:GetContainerFrame(...) end
----@return any ...
-function RolePollPopup_FrameGlowObject:GetFrameLayoutType(...) end
----@return any ...
-function RolePollPopup_FrameGlowObject:GetHeaderFrame(...) end
----@return any ...
-function RolePollPopup_FrameGlowObject:OnLoad(...) end
-end
-
-do
----@class RolePollPopup_FrameGlow_GlowTextureObject : Texture
-local RolePollPopup_FrameGlow_GlowTextureObject = {}
-end
-
-do
----@class RolePollPopup_LeftJumpHintObject : Frame
----@field ActiveTexture RolePollPopup_LeftJumpHint_ActiveTextureObject
----@field DisabledTexture RolePollPopup_LeftJumpHint_DisabledTextureObject
----@field HoldAnim RolePollPopup_LeftJumpHint_HoldAnimObject
----@field HoldIndicator RolePollPopup_LeftJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG RolePollPopup_LeftJumpHint_HoldIndicatorBGObject
----@field HoverTexture RolePollPopup_LeftJumpHint_HoverTextureObject
----@field LoadBar RolePollPopup_LeftJumpHint_LoadBarObject
----@field LoadBarBG RolePollPopup_LeftJumpHint_LoadBarBGObject
----@field LoadBarGlow RolePollPopup_LeftJumpHint_LoadBarGlowObject
----@field NormalTexture RolePollPopup_LeftJumpHint_NormalTextureObject
----@field PressedTexture RolePollPopup_LeftJumpHint_PressedTextureObject
----@field SpinnerTip RolePollPopup_LeftJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local RolePollPopup_LeftJumpHintObject = {}
----@return any ...
-function RolePollPopup_LeftJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function RolePollPopup_LeftJumpHintObject:BeginHold(...) end
----@return any ...
-function RolePollPopup_LeftJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function RolePollPopup_LeftJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function RolePollPopup_LeftJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function RolePollPopup_LeftJumpHintObject:EndHold(...) end
----@return any ...
-function RolePollPopup_LeftJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function RolePollPopup_LeftJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function RolePollPopup_LeftJumpHintObject:OnLoad(...) end
----@return any ...
-function RolePollPopup_LeftJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function RolePollPopup_LeftJumpHintObject:SetDisabled(...) end
----@return any ...
-function RolePollPopup_LeftJumpHintObject:SetEnabled(...) end
----@return any ...
-function RolePollPopup_LeftJumpHintObject:SetFocused(...) end
----@return any ...
-function RolePollPopup_LeftJumpHintObject:SetHoldState(...) end
----@return any ...
-function RolePollPopup_LeftJumpHintObject:SetInputKey(...) end
----@return any ...
-function RolePollPopup_LeftJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function RolePollPopup_LeftJumpHintObject:SetPressable(...) end
----@return any ...
-function RolePollPopup_LeftJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function RolePollPopup_LeftJumpHintObject:SetTextureState(...) end
----@return any ...
-function RolePollPopup_LeftJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function RolePollPopup_LeftJumpHintObject:SetUsableState(...) end
----@return any ...
-function RolePollPopup_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class RolePollPopup_LeftJumpHint_ActiveTextureObject : Texture
-local RolePollPopup_LeftJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class RolePollPopup_LeftJumpHint_DisabledTextureObject : Texture
-local RolePollPopup_LeftJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class RolePollPopup_LeftJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim RolePollPopup_LeftJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim RolePollPopup_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim RolePollPopup_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
-local RolePollPopup_LeftJumpHint_HoldAnimObject = {}
-end
-
-do
----@class RolePollPopup_LeftJumpHint_HoldAnim_LoadBarAnimObject
-local RolePollPopup_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class RolePollPopup_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local RolePollPopup_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class RolePollPopup_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local RolePollPopup_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class RolePollPopup_LeftJumpHint_HoldIndicatorObject : Texture
-local RolePollPopup_LeftJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class RolePollPopup_LeftJumpHint_HoldIndicatorBGObject : Texture
-local RolePollPopup_LeftJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class RolePollPopup_LeftJumpHint_HoverTextureObject : Texture
-local RolePollPopup_LeftJumpHint_HoverTextureObject = {}
-end
-
-do
----@class RolePollPopup_LeftJumpHint_LoadBarObject : Texture
-local RolePollPopup_LeftJumpHint_LoadBarObject = {}
-end
-
-do
----@class RolePollPopup_LeftJumpHint_LoadBarBGObject : Texture
-local RolePollPopup_LeftJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class RolePollPopup_LeftJumpHint_LoadBarGlowObject : Texture
-local RolePollPopup_LeftJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class RolePollPopup_LeftJumpHint_NormalTextureObject : Texture
-local RolePollPopup_LeftJumpHint_NormalTextureObject = {}
-end
-
-do
----@class RolePollPopup_LeftJumpHint_PressedTextureObject : Texture
-local RolePollPopup_LeftJumpHint_PressedTextureObject = {}
-end
-
-do
----@class RolePollPopup_LeftJumpHint_SpinnerTipObject : Texture
-local RolePollPopup_LeftJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class RolePollPopup_RightJumpHintObject : Frame
----@field ActiveTexture RolePollPopup_RightJumpHint_ActiveTextureObject
----@field DisabledTexture RolePollPopup_RightJumpHint_DisabledTextureObject
----@field HoldAnim RolePollPopup_RightJumpHint_HoldAnimObject
----@field HoldIndicator RolePollPopup_RightJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG RolePollPopup_RightJumpHint_HoldIndicatorBGObject
----@field HoverTexture RolePollPopup_RightJumpHint_HoverTextureObject
----@field LoadBar RolePollPopup_RightJumpHint_LoadBarObject
----@field LoadBarBG RolePollPopup_RightJumpHint_LoadBarBGObject
----@field LoadBarGlow RolePollPopup_RightJumpHint_LoadBarGlowObject
----@field NormalTexture RolePollPopup_RightJumpHint_NormalTextureObject
----@field PressedTexture RolePollPopup_RightJumpHint_PressedTextureObject
----@field SpinnerTip RolePollPopup_RightJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local RolePollPopup_RightJumpHintObject = {}
----@return any ...
-function RolePollPopup_RightJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function RolePollPopup_RightJumpHintObject:BeginHold(...) end
----@return any ...
-function RolePollPopup_RightJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function RolePollPopup_RightJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function RolePollPopup_RightJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function RolePollPopup_RightJumpHintObject:EndHold(...) end
----@return any ...
-function RolePollPopup_RightJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function RolePollPopup_RightJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function RolePollPopup_RightJumpHintObject:OnLoad(...) end
----@return any ...
-function RolePollPopup_RightJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function RolePollPopup_RightJumpHintObject:SetDisabled(...) end
----@return any ...
-function RolePollPopup_RightJumpHintObject:SetEnabled(...) end
----@return any ...
-function RolePollPopup_RightJumpHintObject:SetFocused(...) end
----@return any ...
-function RolePollPopup_RightJumpHintObject:SetHoldState(...) end
----@return any ...
-function RolePollPopup_RightJumpHintObject:SetInputKey(...) end
----@return any ...
-function RolePollPopup_RightJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function RolePollPopup_RightJumpHintObject:SetPressable(...) end
----@return any ...
-function RolePollPopup_RightJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function RolePollPopup_RightJumpHintObject:SetTextureState(...) end
----@return any ...
-function RolePollPopup_RightJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function RolePollPopup_RightJumpHintObject:SetUsableState(...) end
----@return any ...
-function RolePollPopup_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class RolePollPopup_RightJumpHint_ActiveTextureObject : Texture
-local RolePollPopup_RightJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class RolePollPopup_RightJumpHint_DisabledTextureObject : Texture
-local RolePollPopup_RightJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class RolePollPopup_RightJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim RolePollPopup_RightJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim RolePollPopup_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim RolePollPopup_RightJumpHint_HoldAnim_SpinnerTipAnimObject
-local RolePollPopup_RightJumpHint_HoldAnimObject = {}
-end
-
-do
----@class RolePollPopup_RightJumpHint_HoldAnim_LoadBarAnimObject
-local RolePollPopup_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class RolePollPopup_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local RolePollPopup_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class RolePollPopup_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local RolePollPopup_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class RolePollPopup_RightJumpHint_HoldIndicatorObject : Texture
-local RolePollPopup_RightJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class RolePollPopup_RightJumpHint_HoldIndicatorBGObject : Texture
-local RolePollPopup_RightJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class RolePollPopup_RightJumpHint_HoverTextureObject : Texture
-local RolePollPopup_RightJumpHint_HoverTextureObject = {}
-end
-
-do
----@class RolePollPopup_RightJumpHint_LoadBarObject : Texture
-local RolePollPopup_RightJumpHint_LoadBarObject = {}
-end
-
-do
----@class RolePollPopup_RightJumpHint_LoadBarBGObject : Texture
-local RolePollPopup_RightJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class RolePollPopup_RightJumpHint_LoadBarGlowObject : Texture
-local RolePollPopup_RightJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class RolePollPopup_RightJumpHint_NormalTextureObject : Texture
-local RolePollPopup_RightJumpHint_NormalTextureObject = {}
-end
-
-do
----@class RolePollPopup_RightJumpHint_PressedTextureObject : Texture
-local RolePollPopup_RightJumpHint_PressedTextureObject = {}
-end
-
-do
----@class RolePollPopup_RightJumpHint_SpinnerTipObject : Texture
-local RolePollPopup_RightJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class RolePollPopup_acceptButtonObject : Button
----@field Left RolePollPopup_acceptButton_LeftObject
----@field Middle RolePollPopup_acceptButton_MiddleObject
----@field Right RolePollPopup_acceptButton_RightObject
----@field Text RolePollPopup_acceptButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local RolePollPopup_acceptButtonObject = {}
----@return any ...
-function RolePollPopup_acceptButtonObject:FitToText(...) end
----@return any ...
-function RolePollPopup_acceptButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function RolePollPopup_acceptButtonObject:OnEnter(...) end
----@return any ...
-function RolePollPopup_acceptButtonObject:OnLeave(...) end
----@return any ...
-function RolePollPopup_acceptButtonObject:SetDisabledState(...) end
----@return any ...
-function RolePollPopup_acceptButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function RolePollPopup_acceptButtonObject:SetTextToFit(...) end
-end
-
-do
----@class RolePollPopup_acceptButton_LeftObject : Texture
-local RolePollPopup_acceptButton_LeftObject = {}
-end
-
-do
----@class RolePollPopup_acceptButton_MiddleObject : Texture
-local RolePollPopup_acceptButton_MiddleObject = {}
-end
-
-do
----@class RolePollPopup_acceptButton_RightObject : Texture
-local RolePollPopup_acceptButton_RightObject = {}
-end
-
-do
----@class RolePollPopup_acceptButton_TextObject : FontString
-local RolePollPopup_acceptButton_TextObject = {}
-end
-
-do
----@class ScenarioRewardsFrameObject : Frame
----@field Anim ScenarioRewardsFrame_AnimObject
----@field Header ScenarioRewardsFrame_HeaderObject
----@field HeaderGlow ScenarioRewardsFrame_HeaderGlowObject
----@field HeaderTop ScenarioRewardsFrame_HeaderTopObject
----@field RewardsBottom ScenarioRewardsFrame_RewardsBottomObject
----@field RewardsShadow ScenarioRewardsFrame_RewardsShadowObject
----@field RewardsTop ScenarioRewardsFrame_RewardsTopObject
-local ScenarioRewardsFrameObject = {}
----@return any ...
-function ScenarioRewardsFrameObject:AddReward(...) end
----@return any ...
-function ScenarioRewardsFrameObject:DisplayRewards(...) end
----@return any ...
-function ScenarioRewardsFrameObject:OnAnimFinished(...) end
----@return any ...
-function ScenarioRewardsFrameObject:OnLoad(...) end
----@type ScenarioRewardsFrameObject
-ScenarioRewardsFrame = ScenarioRewardsFrameObject
-end
-
-do
----@class ScenarioRewardsFrame_AnimObject : AnimationGroup
----@field RewardsBottomAnim ScenarioRewardsFrame_Anim_RewardsBottomAnimObject
----@field RewardsShadowAnim ScenarioRewardsFrame_Anim_RewardsShadowAnimObject
-local ScenarioRewardsFrame_AnimObject = {}
-end
-
-do
----@class ScenarioRewardsFrame_Anim_RewardsBottomAnimObject : Translation
-local ScenarioRewardsFrame_Anim_RewardsBottomAnimObject = {}
-end
-
-do
----@class ScenarioRewardsFrame_Anim_RewardsShadowAnimObject : Scale
-local ScenarioRewardsFrame_Anim_RewardsShadowAnimObject = {}
-end
-
-do
----@class ScenarioRewardsFrame_HeaderObject : FontString
-local ScenarioRewardsFrame_HeaderObject = {}
-end
-
-do
----@class ScenarioRewardsFrame_HeaderGlowObject : Texture
-local ScenarioRewardsFrame_HeaderGlowObject = {}
-end
-
-do
----@class ScenarioRewardsFrame_HeaderTopObject : Texture
-local ScenarioRewardsFrame_HeaderTopObject = {}
-end
-
-do
----@class ScenarioRewardsFrame_RewardsBottomObject : Texture
-local ScenarioRewardsFrame_RewardsBottomObject = {}
-end
-
-do
----@class ScenarioRewardsFrame_RewardsShadowObject : Texture
-local ScenarioRewardsFrame_RewardsShadowObject = {}
-end
-
-do
----@class ScenarioRewardsFrame_RewardsTopObject : Texture
-local ScenarioRewardsFrame_RewardsTopObject = {}
-end
-
-do
----@class SettingsPanelObject : Frame
----@field AccessibilityFontPreview SettingsPanel_AccessibilityFontPreviewObject
----@field AddOnsTab SettingsPanel_AddOnsTabObject
----@field ApplyButton SettingsPanel_ApplyButtonObject
----@field Bg SettingsPanel_BgObject
----@field CategoryList SettingsPanel_CategoryListObject
----@field CloseButton SettingsPanel_CloseButtonObject
----@field ClosePanelButton SettingsPanel_ClosePanelButtonObject
----@field Container SettingsPanel_ContainerObject
----@field GameTab SettingsPanel_GameTabObject
----@field InputBlocker SettingsPanel_InputBlockerObject
----@field NineSlice SettingsPanel_NineSliceObject
----@field OutputText SettingsPanel_OutputTextObject
----@field QuestTextPreview SettingsPanel_QuestTextPreviewObject
----@field SearchBox SettingsPanel_SearchBoxObject
----@field categoryLayouts table
----@field keybindingsCategory SettingsPanel_keybindingsCategoryObject
----@field modified table
----@field settings table
----@field tabsGroup SettingsPanel_tabsGroupObject
-local SettingsPanelObject = {}
----@return any ...
-function SettingsPanelObject:ActivateCategory(...) end
----@return any ...
-function SettingsPanelObject:AssignLayoutToCategory(...) end
----@return any ...
-function SettingsPanelObject:CallDefaultOnCanvases(...) end
----@return any ...
-function SettingsPanelObject:CallRefreshOnCanvases(...) end
----@return any ...
-function SettingsPanelObject:CancelPendingRevertTimer(...) end
----@return any ...
-function SettingsPanelObject:CategoriesUpdated(...) end
----@return any ...
-function SettingsPanelObject:CheckApplyButton(...) end
----@return any ...
-function SettingsPanelObject:CheckIsSettingDefaults(...) end
----@return any ...
-function SettingsPanelObject:CheckTutorials(...) end
----@return any ...
-function SettingsPanelObject:ClearActiveCategoryTutorial(...) end
----@return any ...
-function SettingsPanelObject:ClearCurrentCategoryCanvas(...) end
----@return any ...
-function SettingsPanelObject:ClearOutputText(...) end
----@return any ...
-function SettingsPanelObject:ClearSearchBox(...) end
----@return any ...
-function SettingsPanelObject:Close(...) end
----@return any ...
-function SettingsPanelObject:Commit(...) end
----@return any ...
-function SettingsPanelObject:CommitBindings(...) end
----@return any ...
-function SettingsPanelObject:CommitCanvases(...) end
----@return any ...
-function SettingsPanelObject:CommitSettings(...) end
----@return any ...
-function SettingsPanelObject:DiscardRevertableSettings(...) end
----@return any ...
-function SettingsPanelObject:DisplayCategory(...) end
----@return any ...
-function SettingsPanelObject:DisplayLayout(...) end
----@return any ...
-function SettingsPanelObject:ExitWithCommit(...) end
----@return any ...
-function SettingsPanelObject:ExitWithoutCommit(...) end
----@return any ...
-function SettingsPanelObject:FinalizeCommit(...) end
----@return any ...
-function SettingsPanelObject:FindInitializersMatchingSearchText(...) end
----@return any ...
-function SettingsPanelObject:Flush(...) end
----@return any ...
-function SettingsPanelObject:FocusApplyOrClose(...) end
----@return any ...
-function SettingsPanelObject:FocusContainer(...) end
----@return any ...
-function SettingsPanelObject:ForEachCanvas(...) end
----@return any ...
-function SettingsPanelObject:GetAllCategories(...) end
----@return any ...
-function SettingsPanelObject:GetCategory(...) end
----@return any ...
-function SettingsPanelObject:GetCategoryList(...) end
----@return any ...
-function SettingsPanelObject:GetCurrentCategory(...) end
----@return any ...
-function SettingsPanelObject:GetCurrentLayout(...) end
----@return any ...
-function SettingsPanelObject:GetFirstSmartNavFocusableSettingFrame(...) end
----@return any ...
-function SettingsPanelObject:GetLastSmartNavFocusableSettingFrame(...) end
----@return any ...
-function SettingsPanelObject:GetLayout(...) end
----@return any ...
-function SettingsPanelObject:GetOrCreateGroup(...) end
----@return any ...
-function SettingsPanelObject:GetSetting(...) end
----@return any ...
-function SettingsPanelObject:GetSettingsCanvas(...) end
----@return any ...
-function SettingsPanelObject:GetSettingsList(...) end
----@return any ...
-function SettingsPanelObject:HasUnappliedSettings(...) end
----@return any ...
-function SettingsPanelObject:InitializeGamepad(...) end
----@return any ...
-function SettingsPanelObject:IsCommitInProgress(...) end
----@return any ...
-function SettingsPanelObject:OnCVarChanged(...) end
----@return any ...
-function SettingsPanelObject:OnEvent(...) end
----@return any ...
-function SettingsPanelObject:OnHide(...) end
----@return any ...
-function SettingsPanelObject:OnKeybindRebindFailed(...) end
----@return any ...
-function SettingsPanelObject:OnKeybindRebindSuccess(...) end
----@return any ...
-function SettingsPanelObject:OnKeybindStartedListening(...) end
----@return any ...
-function SettingsPanelObject:OnKeybindStoppedListening(...) end
----@return any ...
-function SettingsPanelObject:OnKeybindUnbindFailed(...) end
----@return any ...
-function SettingsPanelObject:OnLoad(...) end
----@return any ...
-function SettingsPanelObject:OnSearchTextChanged(...) end
----@return any ...
-function SettingsPanelObject:OnSettingValueChanged(...) end
----@return any ...
-function SettingsPanelObject:OnShow(...) end
----@return any ...
-function SettingsPanelObject:OnTabSelected(...) end
----@return any ...
-function SettingsPanelObject:Open(...) end
----@return any ...
-function SettingsPanelObject:OpenToCategory(...) end
----@return any ...
-function SettingsPanelObject:RegisterCategory(...) end
----@return any ...
-function SettingsPanelObject:RegisterInitializer(...) end
----@return any ...
-function SettingsPanelObject:RegisterSetting(...) end
----@return any ...
-function SettingsPanelObject:RegisterTransitions(...) end
----@return any ...
-function SettingsPanelObject:RenewKeybinds(...) end
----@return any ...
-function SettingsPanelObject:RepairDisplay(...) end
----@return any ...
-function SettingsPanelObject:RevertSettings(...) end
----@return any ...
-function SettingsPanelObject:SelectCategory(...) end
----@return any ...
-function SettingsPanelObject:SelectFirstCategory(...) end
----@return any ...
-function SettingsPanelObject:SetAllSettingsToDefaults(...) end
----@return any ...
-function SettingsPanelObject:SetApplyButtonEnabled(...) end
----@return any ...
-function SettingsPanelObject:SetCurrentCategory(...) end
----@return any ...
-function SettingsPanelObject:SetCurrentCategorySettingsToDefaults(...) end
----@return any ...
-function SettingsPanelObject:SetCurrentLayout(...) end
----@return any ...
-function SettingsPanelObject:SetIsSettingDefaults(...) end
----@return any ...
-function SettingsPanelObject:SetKeybindingsCategory(...) end
----@return any ...
-function SettingsPanelObject:SetOutputText(...) end
----@return any ...
-function SettingsPanelObject:SettingsUpdated(...) end
----@return any ...
-function SettingsPanelObject:SetupGamepad(...) end
----@return any ...
-function SettingsPanelObject:SmartNavPanelInfoAdded(...) end
----@return any ...
-function SettingsPanelObject:SmartNavigationCloseHandler(...) end
----@return any ...
-function SettingsPanelObject:TransitionBackOpeningPanel(...) end
----@return any ...
-function SettingsPanelObject:UnfocusContainer(...) end
----@return any ...
-function SettingsPanelObject:WipeModifiedTable(...) end
----@return any ...
-function SettingsPanelObject:onCloseCallback(...) end
----@type SettingsPanelObject
-SettingsPanel = SettingsPanelObject
-end
-
-do
----@class SettingsPanel_AccessibilityFontPreviewObject : Frame
----@field BodyText SettingsPanel_AccessibilityFontPreview_BodyTextObject
----@field BottomSpacer SettingsPanel_AccessibilityFontPreview_BottomSpacerObject
----@field NineSlice SettingsPanel_AccessibilityFontPreview_NineSliceObject
----@field Spacer SettingsPanel_AccessibilityFontPreview_SpacerObject
----@field TitleText SettingsPanel_AccessibilityFontPreview_TitleTextObject
----@field layoutType string
-local SettingsPanel_AccessibilityFontPreviewObject = {}
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:AddLayoutChildren(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:ClearFixedSize(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:GetAdditionalRegions(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:GetBackdropBorderColor(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:GetBackdropColor(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:GetChildHeight(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:GetChildSize(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:GetChildWidth(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:GetFixedHeight(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:GetFixedSize(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:GetFixedWidth(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:GetHeightPadding(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:GetLayoutChildren(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:GetMaximumWidth(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:GetMinimumWidth(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:GetValue(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:GetWidthPadding(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:IgnoreLayoutIndex(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:IsDirty(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:IsLayoutFrame(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:Layout(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:MarkClean(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:MarkDirty(...) end
+---@class GuildControlUI_bankTabFrame_dropdown_menuDescriptionObject
+---@field tag string
+local GuildControlUI_bankTabFrame_dropdown_menuDescriptionObject = {}
 ---@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:MarkIgnoreInLayout(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuDescriptionObject:CreateButton(...) end
 ---@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:OnCleaned(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuDescriptionObject:CreateCheckbox(...) end
 ---@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:OnShow(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuDescriptionObject:CreateColorSwatch(...) end
 ---@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:OnUpdate(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuDescriptionObject:CreateDivider(...) end
 ---@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:RegisterWithSettingInitializer(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuDescriptionObject:CreateFrame(...) end
 ---@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:SetBackdropBorderColor(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuDescriptionObject:CreateHighlightButton(...) end
 ---@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:SetBackdropColor(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuDescriptionObject:CreateHighlightRadio(...) end
 ---@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:SetBorderBlendMode(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuDescriptionObject:CreateRadio(...) end
 ---@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:SetFixedHeight(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
 ---@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:SetFixedSize(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuDescriptionObject:CreateSearchEntry(...) end
 ---@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:SetFixedWidth(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuDescriptionObject:CreateSpacer(...) end
 ---@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:SetHeightPadding(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuDescriptionObject:CreateTemplate(...) end
 ---@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:SetMaximumWidth(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuDescriptionObject:CreateTitle(...) end
 ---@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:SetMinimumWidth(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuDescriptionObject:QueueDivider(...) end
 ---@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:SetValueAccessor(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuDescriptionObject:QueueSpacer(...) end
 ---@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:SetWidthPadding(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuDescriptionObject:QueueTitle(...) end
 ---@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:ShouldClearOnUpdateAfterClean(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
 ---@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:TooltipBackdropOnLoad(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuDescriptionObject:SetTooltip(...) end
 ---@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:UpdatePreview(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreviewObject:accessor(...) end
-end
-
-do
----@class SettingsPanel_AccessibilityFontPreview_BodyTextObject : FontString
-local SettingsPanel_AccessibilityFontPreview_BodyTextObject = {}
-end
-
-do
----@class SettingsPanel_AccessibilityFontPreview_BottomSpacerObject : Texture
-local SettingsPanel_AccessibilityFontPreview_BottomSpacerObject = {}
-end
-
-do
----@class SettingsPanel_AccessibilityFontPreview_NineSliceObject : Frame
----@field BottomEdge SettingsPanel_AccessibilityFontPreview_NineSlice_BottomEdgeObject
----@field BottomLeftCorner SettingsPanel_AccessibilityFontPreview_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner SettingsPanel_AccessibilityFontPreview_NineSlice_BottomRightCornerObject
----@field Center SettingsPanel_AccessibilityFontPreview_NineSlice_CenterObject
----@field LeftEdge SettingsPanel_AccessibilityFontPreview_NineSlice_LeftEdgeObject
----@field RightEdge SettingsPanel_AccessibilityFontPreview_NineSlice_RightEdgeObject
----@field TopEdge SettingsPanel_AccessibilityFontPreview_NineSlice_TopEdgeObject
----@field TopLeftCorner SettingsPanel_AccessibilityFontPreview_NineSlice_TopLeftCornerObject
----@field TopRightCorner SettingsPanel_AccessibilityFontPreview_NineSlice_TopRightCornerObject
-local SettingsPanel_AccessibilityFontPreview_NineSliceObject = {}
----@return any ...
-function SettingsPanel_AccessibilityFontPreview_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreview_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreview_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreview_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreview_NineSliceObject:OnLoad(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreview_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreview_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreview_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreview_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function SettingsPanel_AccessibilityFontPreview_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class SettingsPanel_AccessibilityFontPreview_NineSlice_BottomEdgeObject : Texture
-local SettingsPanel_AccessibilityFontPreview_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class SettingsPanel_AccessibilityFontPreview_NineSlice_BottomLeftCornerObject : Texture
-local SettingsPanel_AccessibilityFontPreview_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class SettingsPanel_AccessibilityFontPreview_NineSlice_BottomRightCornerObject : Texture
-local SettingsPanel_AccessibilityFontPreview_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class SettingsPanel_AccessibilityFontPreview_NineSlice_CenterObject : Texture
-local SettingsPanel_AccessibilityFontPreview_NineSlice_CenterObject = {}
-end
-
-do
----@class SettingsPanel_AccessibilityFontPreview_NineSlice_LeftEdgeObject : Texture
-local SettingsPanel_AccessibilityFontPreview_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class SettingsPanel_AccessibilityFontPreview_NineSlice_RightEdgeObject : Texture
-local SettingsPanel_AccessibilityFontPreview_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class SettingsPanel_AccessibilityFontPreview_NineSlice_TopEdgeObject : Texture
-local SettingsPanel_AccessibilityFontPreview_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class SettingsPanel_AccessibilityFontPreview_NineSlice_TopLeftCornerObject : Texture
-local SettingsPanel_AccessibilityFontPreview_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class SettingsPanel_AccessibilityFontPreview_NineSlice_TopRightCornerObject : Texture
-local SettingsPanel_AccessibilityFontPreview_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class SettingsPanel_AccessibilityFontPreview_SpacerObject : Texture
-local SettingsPanel_AccessibilityFontPreview_SpacerObject = {}
-end
-
-do
----@class SettingsPanel_AccessibilityFontPreview_TitleTextObject : FontString
-local SettingsPanel_AccessibilityFontPreview_TitleTextObject = {}
-end
-
-do
----@class SettingsPanel_AddOnsTabObject : Button
----@field Left SettingsPanel_AddOnsTab_LeftObject
----@field Middle SettingsPanel_AddOnsTab_MiddleObject
----@field Right SettingsPanel_AddOnsTab_RightObject
----@field Text SettingsPanel_AddOnsTab_TextObject
----@field categorySet number
----@field overLeftTexture string
----@field overMiddleTexture string
----@field overRightTexture string
----@field selected boolean
----@field selectedLeftTexture string
----@field selectedMiddleTexture string
----@field selectedRightTexture string
----@field tabText string
----@field upLeftTexture string
----@field upMiddleTexture string
----@field upRightTexture string
-local SettingsPanel_AddOnsTabObject = {}
----@return any ...
-function SettingsPanel_AddOnsTabObject:CanChangeSelection(...) end
----@return any ...
-function SettingsPanel_AddOnsTabObject:GetAtlas(...) end
----@return any ...
-function SettingsPanel_AddOnsTabObject:IsSelected(...) end
----@return any ...
-function SettingsPanel_AddOnsTabObject:OnClick(...) end
----@return any ...
-function SettingsPanel_AddOnsTabObject:OnDisable(...) end
----@return any ...
-function SettingsPanel_AddOnsTabObject:OnEnable(...) end
----@return any ...
-function SettingsPanel_AddOnsTabObject:OnEnter(...) end
----@return any ...
-function SettingsPanel_AddOnsTabObject:OnLeave(...) end
----@return any ...
-function SettingsPanel_AddOnsTabObject:OnLoad(...) end
----@return any ...
-function SettingsPanel_AddOnsTabObject:OnSelected(...) end
----@return any ...
-function SettingsPanel_AddOnsTabObject:Reset(...) end
----@return any ...
-function SettingsPanel_AddOnsTabObject:SelectionChangeInterrupt(...) end
----@return any ...
-function SettingsPanel_AddOnsTabObject:SetSelected(...) end
----@return any ...
-function SettingsPanel_AddOnsTabObject:SetSelectedState(...) end
----@return any ...
-function SettingsPanel_AddOnsTabObject:SetSelectionChangeInterrupt(...) end
----@return any ...
-function SettingsPanel_AddOnsTabObject:UpdateAtlas(...) end
----@return any ...
-function SettingsPanel_AddOnsTabObject:previousOnClickScript(...) end
-end
-
-do
----@class SettingsPanel_AddOnsTab_LeftObject : Texture
-local SettingsPanel_AddOnsTab_LeftObject = {}
-end
-
-do
----@class SettingsPanel_AddOnsTab_MiddleObject : Texture
-local SettingsPanel_AddOnsTab_MiddleObject = {}
-end
-
-do
----@class SettingsPanel_AddOnsTab_RightObject : Texture
-local SettingsPanel_AddOnsTab_RightObject = {}
-end
-
-do
----@class SettingsPanel_AddOnsTab_TextObject : FontString
-local SettingsPanel_AddOnsTab_TextObject = {}
-end
-
-do
----@class SettingsPanel_ApplyButtonObject : Button
----@field Left SettingsPanel_ApplyButton_LeftObject
----@field Middle SettingsPanel_ApplyButton_MiddleObject
----@field Right SettingsPanel_ApplyButton_RightObject
----@field Text SettingsPanel_ApplyButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local SettingsPanel_ApplyButtonObject = {}
----@return any ...
-function SettingsPanel_ApplyButtonObject:FitToText(...) end
----@return any ...
-function SettingsPanel_ApplyButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function SettingsPanel_ApplyButtonObject:OnEnter(...) end
----@return any ...
-function SettingsPanel_ApplyButtonObject:OnLeave(...) end
----@return any ...
-function SettingsPanel_ApplyButtonObject:SetDisabledState(...) end
----@return any ...
-function SettingsPanel_ApplyButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function SettingsPanel_ApplyButtonObject:SetTextToFit(...) end
+function GuildControlUI_bankTabFrame_dropdown_menuDescriptionObject:private(...) end
 end
 
 do
----@class SettingsPanel_ApplyButton_LeftObject : Texture
-local SettingsPanel_ApplyButton_LeftObject = {}
+---@class GuildControlUI_bankTabFrame_insetObject : Frame
+---@field BotLeftCorner GuildControlUI_bankTabFrame_inset_BotLeftCornerObject
+---@field BotRightCorner GuildControlUI_bankTabFrame_inset_BotRightCornerObject
+---@field BottomBorder GuildControlUI_bankTabFrame_inset_BottomBorderObject
+---@field LeftBorder GuildControlUI_bankTabFrame_inset_LeftBorderObject
+---@field RightBorder GuildControlUI_bankTabFrame_inset_RightBorderObject
+---@field TopBorder GuildControlUI_bankTabFrame_inset_TopBorderObject
+---@field TopLeftCorner GuildControlUI_bankTabFrame_inset_TopLeftCornerObject
+---@field TopRightCorner GuildControlUI_bankTabFrame_inset_TopRightCornerObject
+---@field scrollFrame GuildControlUI_bankTabFrame_inset_scrollFrameObject
+local GuildControlUI_bankTabFrame_insetObject = {}
 end
 
 do
----@class SettingsPanel_ApplyButton_MiddleObject : Texture
-local SettingsPanel_ApplyButton_MiddleObject = {}
+---@class GuildControlUI_bankTabFrame_inset_BotLeftCornerObject : Texture
+local GuildControlUI_bankTabFrame_inset_BotLeftCornerObject = {}
 end
 
 do
----@class SettingsPanel_ApplyButton_RightObject : Texture
-local SettingsPanel_ApplyButton_RightObject = {}
+---@class GuildControlUI_bankTabFrame_inset_BotRightCornerObject : Texture
+local GuildControlUI_bankTabFrame_inset_BotRightCornerObject = {}
 end
 
 do
----@class SettingsPanel_ApplyButton_TextObject : FontString
-local SettingsPanel_ApplyButton_TextObject = {}
+---@class GuildControlUI_bankTabFrame_inset_BottomBorderObject : Texture
+local GuildControlUI_bankTabFrame_inset_BottomBorderObject = {}
 end
 
 do
----@class SettingsPanel_BgObject : Frame
----@field BottomEdge SettingsPanel_Bg_BottomEdgeObject
----@field BottomLeft SettingsPanel_Bg_BottomLeftObject
----@field BottomRight SettingsPanel_Bg_BottomRightObject
----@field TopSection SettingsPanel_Bg_TopSectionObject
-local SettingsPanel_BgObject = {}
+---@class GuildControlUI_bankTabFrame_inset_LeftBorderObject : Texture
+local GuildControlUI_bankTabFrame_inset_LeftBorderObject = {}
 end
 
 do
----@class SettingsPanel_Bg_BottomEdgeObject : Texture
-local SettingsPanel_Bg_BottomEdgeObject = {}
+---@class GuildControlUI_bankTabFrame_inset_RightBorderObject : Texture
+local GuildControlUI_bankTabFrame_inset_RightBorderObject = {}
 end
 
 do
----@class SettingsPanel_Bg_BottomLeftObject : Texture
-local SettingsPanel_Bg_BottomLeftObject = {}
+---@class GuildControlUI_bankTabFrame_inset_TopBorderObject : Texture
+local GuildControlUI_bankTabFrame_inset_TopBorderObject = {}
 end
 
 do
----@class SettingsPanel_Bg_BottomRightObject : Texture
-local SettingsPanel_Bg_BottomRightObject = {}
+---@class GuildControlUI_bankTabFrame_inset_TopLeftCornerObject : Texture
+local GuildControlUI_bankTabFrame_inset_TopLeftCornerObject = {}
 end
 
 do
----@class SettingsPanel_Bg_TopSectionObject : Texture
-local SettingsPanel_Bg_TopSectionObject = {}
+---@class GuildControlUI_bankTabFrame_inset_TopRightCornerObject : Texture
+local GuildControlUI_bankTabFrame_inset_TopRightCornerObject = {}
 end
 
 do
----@class SettingsPanel_CategoryListObject : Frame
----@field Event SettingsPanel_CategoryList_EventObject
----@field ScrollBar SettingsPanel_CategoryList_ScrollBarObject
----@field ScrollBox SettingsPanel_CategoryList_ScrollBoxObject
----@field allCategories table
----@field callbackTables table
----@field categorySet number
----@field deferredCallbacks table
----@field elementList table
----@field executingEvents table
----@field groups table
-local SettingsPanel_CategoryListObject = {}
----@return any ...
-function SettingsPanel_CategoryListObject:AddCategory(...) end
+---@class GuildControlUI_bankTabFrame_inset_scrollFrameObject : ScrollFrame
+---@field ScrollBar GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject
+---@field panExtent number
+---@field scrollBarBottomY number
+---@field scrollBarTopY number
+---@field scrollBarX number
+---@field stepSize number
+local GuildControlUI_bankTabFrame_inset_scrollFrameObject = {}
 ---@return any ...
-function SettingsPanel_CategoryListObject:AddCategoryInternal(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrameObject:GetPanExtent(...) end
 ---@return any ...
-function SettingsPanel_CategoryListObject:CopyDeferredCallbacks(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrameObject:SetPanExtent(...) end
 ---@return any ...
-function SettingsPanel_CategoryListObject:CreateCategories(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:EnumerateCategoryButtons(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:FindCategoryElementData(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:GenerateCallbackEvents(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:GenerateElementList(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:GetAllCategories(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:GetCallbackTable(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:GetCallbackTables(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:GetCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:GetCategory(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:GetCategorySet(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:GetCurrentCategory(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:GetFirstCategoryButton(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:GetOrCreateGroup(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:GetSelectedCategoryButton(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:OnLoad(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:RefreshNewFeatures(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:RegisterCallback(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:SecureInsertEvent(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:SetCategorySet(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:SetCurrentCategory(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:TriggerEvent(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:UnregisterCallback(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:UnregisterEvents(...) end
----@return any ...
-function SettingsPanel_CategoryListObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class SettingsPanel_CategoryList_EventObject
----@field OnCategoriesUpdated string
----@field OnCategoryActivated string
----@field OnCategorySelected string
-local SettingsPanel_CategoryList_EventObject = {}
+function GuildControlUI_bankTabFrame_inset_scrollFrameObject:update(...) end
 end
 
 do
----@class SettingsPanel_CategoryList_ScrollBarObject : Frame
----@field Back SettingsPanel_CategoryList_ScrollBar_BackObject
----@field Defaults SettingsPanel_CategoryList_ScrollBar_DefaultsObject
----@field Directions SettingsPanel_CategoryList_ScrollBar_DirectionsObject
----@field Event SettingsPanel_CategoryList_ScrollBar_EventObject
----@field Forward SettingsPanel_CategoryList_ScrollBar_ForwardObject
----@field Track SettingsPanel_CategoryList_ScrollBar_TrackObject
+---@class GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject : Frame
+---@field Back GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject
+---@field Defaults GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_DefaultsObject
+---@field Directions GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_DirectionsObject
+---@field Event GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_EventObject
+---@field Forward GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject
+---@field Track GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_TrackObject
 ---@field allowScroll boolean
 ---@field callbackTables table
 ---@field canInterpolateScroll boolean
 ---@field deferredCallbacks table
 ---@field executingEvents table
 ---@field hideTrack boolean
----@field hideTrackIfThumbExceedsTrack boolean
----@field interpolator SettingsPanel_CategoryList_ScrollBar_interpolatorObject
+---@field interpolator GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_interpolatorObject
 ---@field isScrollController boolean
 ---@field minThumbExtent number
 ---@field panDelay number
 ---@field panExtentPercentage number
 ---@field panRepeatTime number
----@field registeredScrollBox SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject
----@field scrollPercentage number
 ---@field smartNavigationIgnored boolean
 ---@field snapToInterval boolean
 ---@field thumbAnchor string
 ---@field useProportionalThumb boolean
 ---@field visibleExtentPercentage number
 ---@field wheelPanScalar number
-local SettingsPanel_CategoryList_ScrollBarObject = {}
+local GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject = {}
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:CallInternalScope(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:CallInternalScope(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:CanCursorStepInDirection(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:CanCursorStepInDirection(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:CanInterpolateScroll(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:CanInterpolateScroll(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:CopyDeferredCallbacks(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:DisableControls(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:DisableControls(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:DoesFrameHaveEvent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:EnableInternalPriority(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:EnableInternalPriority(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:EnableSnapToInterval(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:EnableSnapToInterval(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:GenerateCallbackEvents(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:GetBackStepper(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:GetBackStepper(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:GetCallbackTable(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:GetCallbackTable(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:GetCallbackTables(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:GetCallbackTables(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:GetCallbacksByEvent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:GetForwardStepper(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:GetForwardStepper(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:GetFrameExtent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:GetFrameExtent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:GetIntervalRange(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:GetIntervalRange(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:GetLower(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:GetLower(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:GetPanExtentPercentage(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:GetPanRepeatDelay(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:GetPanRepeatDelay(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:GetPanRepeatTime(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:GetPanRepeatTime(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:GetScrollInterpolator(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:GetScrollInterpolator(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:GetScrollPercentage(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:GetScrollPercentage(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:GetThumb(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:GetThumb(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:GetThumbAnchor(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:GetThumbAnchor(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:GetTrack(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:GetTrack(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:GetTrackExtent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:GetTrackExtent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:GetUpper(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:GetUpper(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:GetVisibleExtentPercentage(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:GetWheelPanPercentage(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:HasRegistrantsForEvent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:HasScrollableExtent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:HasScrollableExtent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:Init(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:Init(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:InitializeNarration(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:InitializeNarration(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:Interpolate(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:Interpolate(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:IsAtBegin(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:IsAtBegin(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:IsAtEnd(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:IsAtEnd(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:IsHorizontal(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:IsHorizontal(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:IsScrollAllowed(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:IsScrollAllowed(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:IsThumbMouseDown(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:IsThumbMouseDown(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:OnHide_Intrinsic(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:OnLoad(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:OnLoad(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:OnLoad_Intrinsic(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:OnMouseWheel(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:OnMouseWheel(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:OnShow_Intrinsic(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:OnStepperMouseDown(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:OnStepperMouseDown(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:OnThumbMouseDown(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:OnThumbMouseDown(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:OnTrackMouseDown(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:OnTrackMouseDown(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:RegisterCallback(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:RegisterCallback(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:RegisterCallbackWithHandle(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:ScrollDecrease(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:ScrollDecrease(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:ScrollInDirection(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:ScrollInDirection(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:ScrollIncrease(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:ScrollIncrease(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:ScrollPageInDirection(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:ScrollPageInDirection(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:ScrollStepInDirection(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:ScrollStepInDirection(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:ScrollToBegin(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:ScrollToBegin(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:ScrollToEnd(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:ScrollToEnd(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:ScrollWheelInDirection(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:ScrollWheelInDirection(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:SecureInsertEvent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:SecureInsertEvent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:SelectCursorComponent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:SelectCursorComponent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:SelectPointComponent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:SelectPointComponent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:SetFrameExtent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:SetFrameExtent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:SetHideIfUnscrollable(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:SetHideIfUnscrollable(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:SetHorizontal(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:SetHorizontal(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:SetInterpolateScroll(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:SetInterpolateScroll(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:SetPanExtentPercentage(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:SetScrollAllowed(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:SetScrollAllowed(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:SetScrollPercentage(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:SetScrollPercentage(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:SetScrollPercentageInternal(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:SetThumbExtent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:SetThumbExtent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:SetVisibleExtentPercentage(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:SetVisibleExtentPercentage(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:TriggerEvent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:TriggerEvent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:UnregisterCallback(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:UnregisterCallback(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:UnregisterEvents(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:UnregisterEvents(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:UnregisterEventsByEventTable(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:UnregisterUpdate(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:UnregisterUpdate(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:Update(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:Update(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:onButtonMouseUp(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:onButtonMouseUp(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBarObject:scrollInternal(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBarObject:scrollInternal(...) end
 end
 
 do
----@class SettingsPanel_CategoryList_ScrollBar_BackObject : Button
----@field Event SettingsPanel_CategoryList_ScrollBar_Back_EventObject
----@field Texture SettingsPanel_CategoryList_ScrollBar_Back_TextureObject
+---@class GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject : Button
+---@field Event GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Back_EventObject
+---@field Texture GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Back_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -7215,118 +9783,118 @@ do
 ---@field mouseDownSoundKitID number
 ---@field normalTexture string
 ---@field overTexture string
-local SettingsPanel_CategoryList_ScrollBar_BackObject = {}
+local GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject = {}
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:GetAtlas(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:GetAtlas(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:GetCallbackTable(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:GetCallbackTable(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:GetCallbackTables(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:GetCallbackTables(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:IsDown(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:IsDown(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:IsDownOver(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:IsDownOver(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:IsOver(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:IsOver(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:NarrationGetName(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:NarrationGetName(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:OnButtonStateChanged(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:OnButtonStateChanged(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:OnDisable(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:OnDisable(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:OnEnable(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:OnEnable(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:OnEnter(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:OnEnter(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:OnLeave(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:OnLeave(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:OnLoad(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:OnLoad(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:OnMouseDown(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:OnMouseDown(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:OnMouseUp(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:OnMouseUp(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:OnShow(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:OnShow(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:RegisterCallback(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:RegisterCallback(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:SecureInsertEvent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:SecureInsertEvent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:SetDisplacedRegions(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:SetDisplacedRegions(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:TriggerEvent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:TriggerEvent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:UnregisterCallback(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:UnregisterCallback(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:UnregisterEvents(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:UnregisterEvents(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class SettingsPanel_CategoryList_ScrollBar_Back_EventObject
-local SettingsPanel_CategoryList_ScrollBar_Back_EventObject = {}
+---@class GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Back_EventObject
+local GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Back_EventObject = {}
 end
 
 do
----@class SettingsPanel_CategoryList_ScrollBar_Back_TextureObject : Texture
-local SettingsPanel_CategoryList_ScrollBar_Back_TextureObject = {}
+---@class GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Back_TextureObject : Texture
+local GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Back_TextureObject = {}
 end
 
 do
----@class SettingsPanel_CategoryList_ScrollBar_DefaultsObject
-local SettingsPanel_CategoryList_ScrollBar_DefaultsObject = {}
+---@class GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_DefaultsObject
+local GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_DefaultsObject = {}
 end
 
 do
----@class SettingsPanel_CategoryList_ScrollBar_DirectionsObject
-local SettingsPanel_CategoryList_ScrollBar_DirectionsObject = {}
+---@class GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_DirectionsObject
+local GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_DirectionsObject = {}
 end
 
 do
----@class SettingsPanel_CategoryList_ScrollBar_EventObject
-local SettingsPanel_CategoryList_ScrollBar_EventObject = {}
+---@class GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_EventObject
+local GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_EventObject = {}
 end
 
 do
----@class SettingsPanel_CategoryList_ScrollBar_ForwardObject : Button
----@field Event SettingsPanel_CategoryList_ScrollBar_Forward_EventObject
----@field Texture SettingsPanel_CategoryList_ScrollBar_Forward_TextureObject
+---@class GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject : Button
+---@field Event GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Forward_EventObject
+---@field Texture GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Forward_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -7340,2180 +9908,85 @@ do
 ---@field mouseDownSoundKitID number
 ---@field normalTexture string
 ---@field overTexture string
-local SettingsPanel_CategoryList_ScrollBar_ForwardObject = {}
+local GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject = {}
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:GetAtlas(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:GetAtlas(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:GetCallbackTable(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:GetCallbackTable(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:GetCallbackTables(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:GetCallbackTables(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:IsDown(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:IsDown(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:IsDownOver(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:IsDownOver(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:IsOver(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:IsOver(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:NarrationGetName(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:NarrationGetName(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:OnDisable(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:OnDisable(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:OnEnable(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:OnEnable(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:OnEnter(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:OnEnter(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:OnLeave(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:OnLeave(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:OnLoad(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:OnLoad(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:OnMouseDown(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:OnMouseDown(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:OnMouseUp(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:OnMouseUp(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:OnShow(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:OnShow(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:RegisterCallback(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:RegisterCallback(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:SecureInsertEvent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:TriggerEvent(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:TriggerEvent(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:UnregisterCallback(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:UnregisterCallback(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:UnregisterEvents(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:UnregisterEvents(...) end
 ---@return any ...
-function SettingsPanel_CategoryList_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_Forward_EventObject
-local SettingsPanel_CategoryList_ScrollBar_Forward_EventObject = {}
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_Forward_TextureObject : Texture
-local SettingsPanel_CategoryList_ScrollBar_Forward_TextureObject = {}
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_TrackObject : Frame
----@field Begin SettingsPanel_CategoryList_ScrollBar_Track_BeginObject
----@field End SettingsPanel_CategoryList_ScrollBar_Track_EndObject
----@field Middle SettingsPanel_CategoryList_ScrollBar_Track_MiddleObject
----@field Thumb SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject
-local SettingsPanel_CategoryList_ScrollBar_TrackObject = {}
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_Track_BeginObject : Texture
-local SettingsPanel_CategoryList_ScrollBar_Track_BeginObject = {}
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_Track_EndObject : Texture
-local SettingsPanel_CategoryList_ScrollBar_Track_EndObject = {}
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_Track_MiddleObject : Texture
-local SettingsPanel_CategoryList_ScrollBar_Track_MiddleObject = {}
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject : Button
----@field Begin SettingsPanel_CategoryList_ScrollBar_Track_Thumb_BeginObject
----@field End SettingsPanel_CategoryList_ScrollBar_Track_Thumb_EndObject
----@field Event SettingsPanel_CategoryList_ScrollBar_Track_Thumb_EventObject
----@field Middle SettingsPanel_CategoryList_ScrollBar_Track_Thumb_MiddleObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field downBeginTexture string
----@field downEndTexture string
----@field downMiddleTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field overBeginTexture string
----@field overEndTexture string
----@field overMiddleTexture string
----@field upBeginTexture string
----@field upEndTexture string
----@field upMiddleTexture string
-local SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject = {}
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:GetAtlas(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:IsDown(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:IsDownOver(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:IsOver(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:OnDisable(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:OnEnable(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:OnEnter(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:OnLeave(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:OnLoad(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:OnShow(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_Track_Thumb_BeginObject : Texture
-local SettingsPanel_CategoryList_ScrollBar_Track_Thumb_BeginObject = {}
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_Track_Thumb_EndObject : Texture
-local SettingsPanel_CategoryList_ScrollBar_Track_Thumb_EndObject = {}
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_Track_Thumb_EventObject
-local SettingsPanel_CategoryList_ScrollBar_Track_Thumb_EventObject = {}
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_Track_Thumb_MiddleObject : Texture
-local SettingsPanel_CategoryList_ScrollBar_Track_Thumb_MiddleObject = {}
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_interpolatorObject
-local SettingsPanel_CategoryList_ScrollBar_interpolatorObject = {}
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_interpolatorObject:Cancel(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_interpolatorObject:Interpolate(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_interpolatorObject:interpolateFunc(...) end
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject : Frame
----@field Defaults SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_DefaultsObject
----@field Directions SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_DirectionsObject
----@field DragDelegate SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_DragDelegateObject
----@field Event SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_EventObject
----@field ScrollTarget SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject
----@field Shadows SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ShadowsObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field debugInspectionSystem string
----@field deferredCallbacks table
----@field executingEvents table
----@field isScrollController boolean
----@field panExtentPercentage number
----@field registeredScrollBar SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_registeredScrollBarObject
----@field updateLock boolean
----@field view SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject
----@field wheelPanScalar number
-local SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject = {}
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ApplyEdgeFade(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:CalculateEdgeFade(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:CalculatePanExtentPercentage(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:CalculateScrollPercentage(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:CanInterpolateScroll(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ClearEdgeFade(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ContainsElementDataByPredicate(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:EnableSnapToInterval(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:EnumerateDataProvider(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:EnumerateDataProviderEntireRange(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:EnumerateFrames(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:FindByPredicate(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:FindElementData(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:FindElementDataByPredicate(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:FindElementDataIndex(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:FindElementDataIndexByPredicate(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:FindFrame(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:FindFrameByPredicate(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:FindFrameElementDataIndex(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:Flush(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:FlushDataProvider(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ForEachElementData(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ForEachFrame(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:FullUpdate(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:FullUpdateInternal(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GenerateCallbackEvents(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetBottomPadding(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetCallbackTable(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetCallbackTables(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetDataIndexBegin(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetDataIndexEnd(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetDataProvider(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetDataProviderSize(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetDerivedExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetDerivedScrollOffset(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetDerivedScrollRange(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetElementExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetExtentPadding(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetExtentUntil(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetFrameCount(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetFrameExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetFrames(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetIntervalRange(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetLeftPadding(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetLower(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetLowerPadding(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetLowerShadowTexture(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetPadding(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetPanExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetPanExtentPercentage(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetRightPadding(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetScrollInterpolator(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetScrollPercentage(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetScrollTarget(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetTopPadding(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetUpper(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetUpperPadding(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetUpperShadowTexture(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetView(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetVisibleExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:GetWheelPanPercentage(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:HasDataProvider(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:HasEdgeFade(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:HasScrollableExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:HasView(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:Init(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:Interpolate(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:IsAcquireLocked(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:IsAlignmentOverlapIgnored(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:IsAtBegin(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:IsAtEnd(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:IsHorizontal(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:IsScrollAllowed(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:IsScrollToDataIndexSafe(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:IsUpdateLocked(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:IsVirtualized(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:Layout(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:OnLoad(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:OnMouseWheel(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:OnScrollTargetSizeChanged(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:OnSizeChanged(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:OnViewAcquiredFrame(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:OnViewDataChanged(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:OnViewDataProviderReassigned(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:OnViewInitializedFrame(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:OnViewReleasedFrame(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:Rebuild(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:RecalculateDerivedExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:RegisterCallback(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ReinitializeFrames(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:RemoveDataProvider(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProvider(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ReverseForEachElementData(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ReverseForEachFrame(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SanitizeAlignment(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ScrollDecrease(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ScrollInDirection(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ScrollIncrease(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ScrollToBegin(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ScrollToElementData(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ScrollToElementDataByPredicate(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ScrollToElementDataIndex(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ScrollToEnd(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ScrollToFrame(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ScrollToNearest(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ScrollToNearestByPredicate(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ScrollToOffset(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SecureInsertEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SelectCursorComponent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SelectPointComponent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SetAlignmentOverlapIgnored(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SetDataProvider(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SetEdgeFadeLength(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SetFrameExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SetHorizontal(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SetInterpolateScroll(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SetLowerShadowAtlas(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SetPadding(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SetPanExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SetPanExtentPercentage(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SetScrollAllowed(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SetScrollPercentage(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SetScrollPercentageInternal(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SetScrollTargetOffset(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SetShadowsFrameLevel(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SetShadowsScale(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SetShadowsShown(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SetUpdateLocked(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SetUpperShadowAtlas(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SetUseShadowsForEdgeFade(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:SetView(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:TriggerEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:UnregisterCallback(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:UnregisterEvents(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:Update(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBoxObject:scrollInternal(...) end
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_DefaultsObject
-local SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_DefaultsObject = {}
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_DirectionsObject
-local SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_DirectionsObject = {}
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_DragDelegateObject : Frame
-local SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_DragDelegateObject = {}
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_EventObject
-local SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_EventObject = {}
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject : Frame
----@field Event SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
-local SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject = {}
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTable(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTables(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallback(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject:TriggerEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterCallback(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEvents(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
-local SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ScrollTarget_EventObject = {}
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ShadowsObject : Frame
----@field Lower SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_Shadows_LowerObject
----@field Upper SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_Shadows_UpperObject
-local SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_ShadowsObject = {}
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_Shadows_LowerObject : Texture
-local SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_Shadows_LowerObject = {}
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_Shadows_UpperObject : Texture
-local SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_Shadows_UpperObject = {}
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_registeredScrollBarObject
-local SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_registeredScrollBarObject = {}
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject
----@field Event table
----@field FrameLevelPolicy table
----@field acquireLock boolean
----@field callbackTables table
----@field canSignalWithoutInitializer boolean
----@field dataIndexBegin number
----@field dataIndexEnd number
----@field dataProvider table
----@field deferredCallbacks table
----@field executingEvents table
----@field extent number
----@field frameFactory table
----@field frames table
----@field hasIdenticalTemplateExtent boolean
----@field initialized boolean
----@field initializers table
----@field padding table
----@field scrollBox SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_view_scrollBoxObject
----@field templateExtents table
----@field templateInfoCache table
-local SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject = {}
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:AcquireInternal(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:AcquireRange(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:AssignAccessors(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:AttachDataProviderCallbacks(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:CalculateDataIndices(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:CalculateFrameExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:ClearCachedData(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:ClearElementExtentData(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:ClearInvalidation(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:ContainsElementDataByPredicate(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:DataProviderContentsChanged(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:DetachDataProviderCallbacks(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProvider(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:EnumerateFrames(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:FindByPredicate(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:FindElementData(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:FindElementDataByPredicate(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndex(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:FindFrame(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:FindFrameByPredicate(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:FindFrameElementDataIndex(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:Flush(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:FlushDataProvider(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:ForEachElementData(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:ForEachFrame(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GenerateCallbackEvents(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetCallbackTable(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetCallbackTables(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetDataIndexBegin(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetDataIndexEnd(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetDataProvider(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetDataProviderSize(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetDataRange(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetDataScrollOffset(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetElementExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetElementExtentCalculator(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetElementIndent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetExtentFromInfo(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetExtentSpacing(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetExtentTo(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetExtentUntil(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetFactoryDataFromElementData(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetFirstTemplateInfo(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetFrameCount(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetFrameExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelCounter(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelPolicy(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetFrames(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetIdenticalElementExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetIdenticalStrideExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetInvalidationReason(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetLayoutFunction(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetLower(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetPadding(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetPanExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetScrollBox(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetScrollTarget(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetSpacing(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetStride(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetTemplateInfo(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:GetUpper(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:HasBiaxalLayout(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:HasDataProvider(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:HasElementExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:HasIdenticalElementExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:HasIdenticalStrideExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:Init(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:InitDefaultDrag(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:InvokeInitializer(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:InvokeInitializers(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:IsAcquireLocked(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:IsDataIndexWithinRange(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:IsElementStretchDisabled(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:IsExtentValid(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:IsHorizontal(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:IsInitialized(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:IsInvalidated(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:IsVirtualized(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:Layout(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:LayoutInternal(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSizeChanged(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSort(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:OnLoad(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementData(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:RebuildTemplateInfoCache(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:RecalculateExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:RefreshSmartNav(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:RegisterCallback(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:ReinitializeFrames(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:Release(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:RemoveDataProvider(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:RemoveDataProviderInternal(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:ResizeFrame(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:ReverseForEachElementData(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:ReverseForEachFrame(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SecureInsertEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SelectCursorComponent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SelectPointComponent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SetAcquireLocked(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SetDataProvider(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SetDataRange(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SetElementExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SetElementExtentCalculator(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SetElementFactory(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SetElementIndentCalculator(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SetElementInitializer(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SetElementResetter(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SetElementStretchDisabled(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SetExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SetFrameExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SetFrameFactoryResetter(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SetFrameLevelPolicy(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SetHorizontal(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SetInvalidationReason(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SetMaxPanExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SetPadding(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SetPanExtent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SetScrollBox(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SetVirtualized(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SignalDataChangeEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:SortFrames(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:TriggerEvent(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:UnassignAccessors(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:UnregisterCallback(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:UnregisterEvents(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:ValidateDataRange(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:elementFactory(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:elementIndentCalculator(...) end
----@return any ...
-function SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_viewObject:factory(...) end
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_view_scrollBoxObject
-local SettingsPanel_CategoryList_ScrollBar_registeredScrollBox_view_scrollBoxObject = {}
-end
-
-do
----@class SettingsPanel_CategoryList_ScrollBoxObject
-local SettingsPanel_CategoryList_ScrollBoxObject = {}
-end
-
-do
----@class SettingsPanel_CloseButtonObject : Button
----@field Left SettingsPanel_CloseButton_LeftObject
----@field Middle SettingsPanel_CloseButton_MiddleObject
----@field Right SettingsPanel_CloseButton_RightObject
----@field Text SettingsPanel_CloseButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local SettingsPanel_CloseButtonObject = {}
----@return any ...
-function SettingsPanel_CloseButtonObject:FitToText(...) end
----@return any ...
-function SettingsPanel_CloseButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function SettingsPanel_CloseButtonObject:OnEnter(...) end
----@return any ...
-function SettingsPanel_CloseButtonObject:OnLeave(...) end
----@return any ...
-function SettingsPanel_CloseButtonObject:SetDisabledState(...) end
----@return any ...
-function SettingsPanel_CloseButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function SettingsPanel_CloseButtonObject:SetTextToFit(...) end
-end
-
-do
----@class SettingsPanel_CloseButton_LeftObject : Texture
-local SettingsPanel_CloseButton_LeftObject = {}
-end
-
-do
----@class SettingsPanel_CloseButton_MiddleObject : Texture
-local SettingsPanel_CloseButton_MiddleObject = {}
-end
-
-do
----@class SettingsPanel_CloseButton_RightObject : Texture
-local SettingsPanel_CloseButton_RightObject = {}
-end
-
-do
----@class SettingsPanel_CloseButton_TextObject : FontString
-local SettingsPanel_CloseButton_TextObject = {}
-end
-
-do
----@class SettingsPanel_ClosePanelButtonObject : Button
-local SettingsPanel_ClosePanelButtonObject = {}
----@return any ...
-function SettingsPanel_ClosePanelButtonObject:NarrationGetName(...) end
----@return any ...
-function SettingsPanel_ClosePanelButtonObject:OnLoad(...) end
-end
-
-do
----@class SettingsPanel_ContainerObject : Frame
----@field SettingsCanvas SettingsPanel_Container_SettingsCanvasObject
----@field SettingsList SettingsPanel_Container_SettingsListObject
-local SettingsPanel_ContainerObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsCanvasObject : Frame
-local SettingsPanel_Container_SettingsCanvasObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsListObject : Frame
----@field Event SettingsPanel_Container_SettingsList_EventObject
----@field Header SettingsPanel_Container_SettingsList_HeaderObject
----@field ScrollBar SettingsPanel_Container_SettingsList_ScrollBarObject
----@field ScrollBox SettingsPanel_Container_SettingsList_ScrollBoxObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
-local SettingsPanel_Container_SettingsListObject = {}
----@return any ...
-function SettingsPanel_Container_SettingsListObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_Container_SettingsListObject:Display(...) end
----@return any ...
-function SettingsPanel_Container_SettingsListObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsListObject:GenerateCallbackEvents(...) end
----@return any ...
-function SettingsPanel_Container_SettingsListObject:GetCallbackTable(...) end
----@return any ...
-function SettingsPanel_Container_SettingsListObject:GetCallbackTables(...) end
----@return any ...
-function SettingsPanel_Container_SettingsListObject:GetCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsListObject:GetInputBlocker(...) end
----@return any ...
-function SettingsPanel_Container_SettingsListObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsListObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsListObject:OnLoad(...) end
----@return any ...
-function SettingsPanel_Container_SettingsListObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_Container_SettingsListObject:RegisterCallback(...) end
----@return any ...
-function SettingsPanel_Container_SettingsListObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SettingsPanel_Container_SettingsListObject:RepairDisplay(...) end
----@return any ...
-function SettingsPanel_Container_SettingsListObject:ScrollToElementByName(...) end
----@return any ...
-function SettingsPanel_Container_SettingsListObject:SecureInsertEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsListObject:SetInputBlockerShown(...) end
----@return any ...
-function SettingsPanel_Container_SettingsListObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SettingsPanel_Container_SettingsListObject:TriggerEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsListObject:UnregisterCallback(...) end
----@return any ...
-function SettingsPanel_Container_SettingsListObject:UnregisterEvents(...) end
----@return any ...
-function SettingsPanel_Container_SettingsListObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class SettingsPanel_Container_SettingsList_EventObject
----@field OnSettingsUpdated string
-local SettingsPanel_Container_SettingsList_EventObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_HeaderObject : Frame
----@field DefaultsButton SettingsPanel_Container_SettingsList_Header_DefaultsButtonObject
----@field Title SettingsPanel_Container_SettingsList_Header_TitleObject
----@field TutorialButton SettingsPanel_Container_SettingsList_Header_TutorialButtonObject
-local SettingsPanel_Container_SettingsList_HeaderObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_Header_DefaultsButtonObject : Button
----@field Left SettingsPanel_Container_SettingsList_Header_DefaultsButton_LeftObject
----@field Middle SettingsPanel_Container_SettingsList_Header_DefaultsButton_MiddleObject
----@field Right SettingsPanel_Container_SettingsList_Header_DefaultsButton_RightObject
----@field Text SettingsPanel_Container_SettingsList_Header_DefaultsButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local SettingsPanel_Container_SettingsList_Header_DefaultsButtonObject = {}
----@return any ...
-function SettingsPanel_Container_SettingsList_Header_DefaultsButtonObject:FitToText(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_Header_DefaultsButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_Header_DefaultsButtonObject:OnEnter(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_Header_DefaultsButtonObject:OnLeave(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_Header_DefaultsButtonObject:SetDisabledState(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_Header_DefaultsButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_Header_DefaultsButtonObject:SetTextToFit(...) end
-end
-
-do
----@class SettingsPanel_Container_SettingsList_Header_DefaultsButton_LeftObject : Texture
-local SettingsPanel_Container_SettingsList_Header_DefaultsButton_LeftObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_Header_DefaultsButton_MiddleObject : Texture
-local SettingsPanel_Container_SettingsList_Header_DefaultsButton_MiddleObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_Header_DefaultsButton_RightObject : Texture
-local SettingsPanel_Container_SettingsList_Header_DefaultsButton_RightObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_Header_DefaultsButton_TextObject : FontString
-local SettingsPanel_Container_SettingsList_Header_DefaultsButton_TextObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_Header_TitleObject : FontString
-local SettingsPanel_Container_SettingsList_Header_TitleObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_Header_TutorialButtonObject : Button
----@field BigIPulse SettingsPanel_Container_SettingsList_Header_TutorialButton_BigIPulseObject
----@field I SettingsPanel_Container_SettingsList_Header_TutorialButton_IObject
----@field Pulse SettingsPanel_Container_SettingsList_Header_TutorialButton_PulseObject
----@field Ring SettingsPanel_Container_SettingsList_Header_TutorialButton_RingObject
----@field RingPulse SettingsPanel_Container_SettingsList_Header_TutorialButton_RingPulseObject
----@field mainHelpPlateButtonTooltipText string
----@field smartNavigationIgnored boolean
-local SettingsPanel_Container_SettingsList_Header_TutorialButtonObject = {}
----@return any ...
-function SettingsPanel_Container_SettingsList_Header_TutorialButtonObject:OnEnter(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_Header_TutorialButtonObject:OnHide(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_Header_TutorialButtonObject:OnLeave(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_Header_TutorialButtonObject:OnMouseDown(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_Header_TutorialButtonObject:OnMouseUp(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_Header_TutorialButtonObject:OnShow(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_Header_TutorialButtonObject:ShowTooltip(...) end
-end
-
-do
----@class SettingsPanel_Container_SettingsList_Header_TutorialButton_BigIPulseObject : Texture
-local SettingsPanel_Container_SettingsList_Header_TutorialButton_BigIPulseObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_Header_TutorialButton_IObject : Texture
-local SettingsPanel_Container_SettingsList_Header_TutorialButton_IObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_Header_TutorialButton_PulseObject : AnimationGroup
----@field BigIPulse SettingsPanel_Container_SettingsList_Header_TutorialButton_Pulse_BigIPulseObject
----@field RingPulse SettingsPanel_Container_SettingsList_Header_TutorialButton_Pulse_RingPulseObject
-local SettingsPanel_Container_SettingsList_Header_TutorialButton_PulseObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_Header_TutorialButton_Pulse_BigIPulseObject : Alpha
-local SettingsPanel_Container_SettingsList_Header_TutorialButton_Pulse_BigIPulseObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_Header_TutorialButton_Pulse_RingPulseObject : Alpha
-local SettingsPanel_Container_SettingsList_Header_TutorialButton_Pulse_RingPulseObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_Header_TutorialButton_RingObject : Texture
-local SettingsPanel_Container_SettingsList_Header_TutorialButton_RingObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_Header_TutorialButton_RingPulseObject : Texture
-local SettingsPanel_Container_SettingsList_Header_TutorialButton_RingPulseObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBarObject : Frame
----@field Back SettingsPanel_Container_SettingsList_ScrollBar_BackObject
----@field Defaults SettingsPanel_Container_SettingsList_ScrollBar_DefaultsObject
----@field Directions SettingsPanel_Container_SettingsList_ScrollBar_DirectionsObject
----@field Event SettingsPanel_Container_SettingsList_ScrollBar_EventObject
----@field Forward SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject
----@field Track SettingsPanel_Container_SettingsList_ScrollBar_TrackObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field deferredCallbacks table
----@field executingEvents table
----@field hideTrack boolean
----@field hideTrackIfThumbExceedsTrack boolean
----@field interpolator SettingsPanel_Container_SettingsList_ScrollBar_interpolatorObject
----@field isScrollController boolean
----@field minThumbExtent number
----@field panDelay number
----@field panExtentPercentage number
----@field panRepeatTime number
----@field registeredScrollBox SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject
----@field scrollPercentage number
----@field smartNavigationIgnored boolean
----@field snapToInterval boolean
----@field thumbAnchor string
----@field useProportionalThumb boolean
----@field visibleExtentPercentage number
----@field wheelPanScalar number
-local SettingsPanel_Container_SettingsList_ScrollBarObject = {}
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:CallInternalScope(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:CanCursorStepInDirection(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:CanInterpolateScroll(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:DisableControls(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:EnableInternalPriority(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:EnableSnapToInterval(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:GenerateCallbackEvents(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:GetBackStepper(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:GetCallbackTable(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:GetCallbackTables(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:GetCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:GetForwardStepper(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:GetFrameExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:GetIntervalRange(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:GetLower(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:GetPanExtentPercentage(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:GetPanRepeatDelay(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:GetPanRepeatTime(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:GetScrollInterpolator(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:GetScrollPercentage(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:GetThumb(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:GetThumbAnchor(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:GetTrack(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:GetTrackExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:GetUpper(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:GetWheelPanPercentage(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:HasScrollableExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:Init(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:InitializeNarration(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:Interpolate(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:IsAtBegin(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:IsAtEnd(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:IsHorizontal(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:IsScrollAllowed(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:IsThumbMouseDown(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:OnHide_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:OnLoad(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:OnLoad_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:OnMouseWheel(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:OnShow_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:OnStepperMouseDown(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:OnThumbMouseDown(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:OnTrackMouseDown(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:RegisterCallback(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:ScrollDecrease(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:ScrollInDirection(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:ScrollIncrease(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:ScrollPageInDirection(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:ScrollStepInDirection(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:ScrollToBegin(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:ScrollToEnd(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:ScrollWheelInDirection(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:SecureInsertEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:SelectCursorComponent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:SelectPointComponent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:SetFrameExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:SetHideIfUnscrollable(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:SetHorizontal(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:SetInterpolateScroll(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:SetPanExtentPercentage(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:SetScrollAllowed(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:SetScrollPercentage(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:SetScrollPercentageInternal(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:SetThumbExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:SetVisibleExtentPercentage(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:TriggerEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:UnregisterCallback(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:UnregisterEvents(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:UnregisterUpdate(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:Update(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:onButtonMouseUp(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBarObject:scrollInternal(...) end
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_BackObject : Button
----@field Event SettingsPanel_Container_SettingsList_ScrollBar_Back_EventObject
----@field Texture SettingsPanel_Container_SettingsList_ScrollBar_Back_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local SettingsPanel_Container_SettingsList_ScrollBar_BackObject = {}
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:DesaturateIfDisabled(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:GenerateCallbackEvents(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:GetAtlas(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:GetCallbackTable(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:GetCallbackTables(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:GetCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:IsDown(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:IsDownOver(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:IsOver(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:NarrationGetName(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:OnButtonStateChanged(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:OnClick_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:OnDisable(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:OnEnable(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:OnEnter(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:OnLeave(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:OnLoad(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:OnMouseDown(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:OnMouseUp(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:OnShow(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:RegisterCallback(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:SecureInsertEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:SetDisplacedRegions(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:TriggerEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:UnregisterCallback(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:UnregisterEvents(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_Back_EventObject
-local SettingsPanel_Container_SettingsList_ScrollBar_Back_EventObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_Back_TextureObject : Texture
-local SettingsPanel_Container_SettingsList_ScrollBar_Back_TextureObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_DefaultsObject
-local SettingsPanel_Container_SettingsList_ScrollBar_DefaultsObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_DirectionsObject
-local SettingsPanel_Container_SettingsList_ScrollBar_DirectionsObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_EventObject
-local SettingsPanel_Container_SettingsList_ScrollBar_EventObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject : Button
----@field Event SettingsPanel_Container_SettingsList_ScrollBar_Forward_EventObject
----@field Texture SettingsPanel_Container_SettingsList_ScrollBar_Forward_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject = {}
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:GetAtlas(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:GetCallbackTable(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:GetCallbackTables(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:IsDown(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:IsDownOver(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:IsOver(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:NarrationGetName(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:OnDisable(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:OnEnable(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:OnEnter(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:OnLeave(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:OnLoad(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:OnMouseDown(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:OnMouseUp(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:OnShow(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:RegisterCallback(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:SecureInsertEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:TriggerEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:UnregisterCallback(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:UnregisterEvents(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_Forward_EventObject
-local SettingsPanel_Container_SettingsList_ScrollBar_Forward_EventObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_Forward_TextureObject : Texture
-local SettingsPanel_Container_SettingsList_ScrollBar_Forward_TextureObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_TrackObject : Frame
----@field Begin SettingsPanel_Container_SettingsList_ScrollBar_Track_BeginObject
----@field End SettingsPanel_Container_SettingsList_ScrollBar_Track_EndObject
----@field Middle SettingsPanel_Container_SettingsList_ScrollBar_Track_MiddleObject
----@field Thumb SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject
-local SettingsPanel_Container_SettingsList_ScrollBar_TrackObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_Track_BeginObject : Texture
-local SettingsPanel_Container_SettingsList_ScrollBar_Track_BeginObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_Track_EndObject : Texture
-local SettingsPanel_Container_SettingsList_ScrollBar_Track_EndObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_Track_MiddleObject : Texture
-local SettingsPanel_Container_SettingsList_ScrollBar_Track_MiddleObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject : Button
----@field Begin SettingsPanel_Container_SettingsList_ScrollBar_Track_Thumb_BeginObject
----@field End SettingsPanel_Container_SettingsList_ScrollBar_Track_Thumb_EndObject
----@field Event SettingsPanel_Container_SettingsList_ScrollBar_Track_Thumb_EventObject
----@field Middle SettingsPanel_Container_SettingsList_ScrollBar_Track_Thumb_MiddleObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field downBeginTexture string
----@field downEndTexture string
----@field downMiddleTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field overBeginTexture string
----@field overEndTexture string
----@field overMiddleTexture string
----@field upBeginTexture string
----@field upEndTexture string
----@field upMiddleTexture string
-local SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject = {}
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:GetAtlas(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:IsDown(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:IsDownOver(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:IsOver(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:OnDisable(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:OnEnable(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:OnEnter(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:OnLeave(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:OnLoad(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:OnShow(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_Track_Thumb_BeginObject : Texture
-local SettingsPanel_Container_SettingsList_ScrollBar_Track_Thumb_BeginObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_Track_Thumb_EndObject : Texture
-local SettingsPanel_Container_SettingsList_ScrollBar_Track_Thumb_EndObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_Track_Thumb_EventObject
-local SettingsPanel_Container_SettingsList_ScrollBar_Track_Thumb_EventObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_Track_Thumb_MiddleObject : Texture
-local SettingsPanel_Container_SettingsList_ScrollBar_Track_Thumb_MiddleObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_interpolatorObject
-local SettingsPanel_Container_SettingsList_ScrollBar_interpolatorObject = {}
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_interpolatorObject:Cancel(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_interpolatorObject:Interpolate(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_interpolatorObject:interpolateFunc(...) end
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject : Frame
----@field Defaults SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_DefaultsObject
----@field Directions SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_DirectionsObject
----@field DragDelegate SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_DragDelegateObject
----@field Event SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_EventObject
----@field InputBlocker SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_InputBlockerObject
----@field ScrollTarget SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject
----@field Shadows SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ShadowsObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field debugInspectionSystem string
----@field deferredCallbacks table
----@field executingEvents table
----@field isScrollController boolean
----@field panExtentPercentage number
----@field registeredScrollBar SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_registeredScrollBarObject
----@field view SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject
----@field wheelPanScalar number
-local SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject = {}
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ApplyEdgeFade(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:CalculateEdgeFade(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:CalculatePanExtentPercentage(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:CalculateScrollPercentage(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:CanInterpolateScroll(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ClearEdgeFade(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ContainsElementDataByPredicate(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:EnableSnapToInterval(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:EnumerateDataProvider(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:EnumerateDataProviderEntireRange(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:EnumerateFrames(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:FindByPredicate(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:FindElementData(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:FindElementDataByPredicate(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:FindElementDataIndex(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:FindElementDataIndexByPredicate(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:FindFrame(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:FindFrameByPredicate(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:FindFrameElementDataIndex(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:Flush(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:FlushDataProvider(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ForEachElementData(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ForEachFrame(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:FullUpdate(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:FullUpdateInternal(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GenerateCallbackEvents(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetBottomPadding(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetCallbackTable(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetCallbackTables(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetDataIndexBegin(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetDataIndexEnd(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetDataProvider(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetDataProviderSize(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetDerivedExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetDerivedScrollOffset(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetDerivedScrollRange(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetElementExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetExtentPadding(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetExtentUntil(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetFrameCount(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetFrameExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetFrames(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetIntervalRange(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetLeftPadding(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetLower(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetLowerPadding(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetLowerShadowTexture(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetPadding(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetPanExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetPanExtentPercentage(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetRightPadding(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetScrollInterpolator(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetScrollPercentage(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetScrollTarget(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetTopPadding(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetUpper(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetUpperPadding(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetUpperShadowTexture(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetView(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetVisibleExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:GetWheelPanPercentage(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:HasDataProvider(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:HasEdgeFade(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:HasScrollableExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:HasView(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:Init(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:Interpolate(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:IsAcquireLocked(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:IsAlignmentOverlapIgnored(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:IsAtBegin(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:IsAtEnd(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:IsHorizontal(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:IsScrollAllowed(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:IsScrollToDataIndexSafe(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:IsUpdateLocked(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:IsVirtualized(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:Layout(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:OnLoad(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:OnMouseWheel(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:OnScrollTargetSizeChanged(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:OnSizeChanged(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:OnViewAcquiredFrame(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:OnViewDataChanged(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:OnViewDataProviderReassigned(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:OnViewInitializedFrame(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:OnViewReleasedFrame(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:Rebuild(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:RecalculateDerivedExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:RegisterCallback(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ReinitializeFrames(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:RemoveDataProvider(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProvider(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ReverseForEachElementData(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ReverseForEachFrame(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SanitizeAlignment(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ScrollDecrease(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ScrollInDirection(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ScrollIncrease(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ScrollToBegin(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ScrollToElementData(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ScrollToElementDataByPredicate(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ScrollToElementDataIndex(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ScrollToEnd(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ScrollToFrame(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ScrollToNearest(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ScrollToNearestByPredicate(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ScrollToOffset(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SecureInsertEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SelectCursorComponent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SelectPointComponent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SetAlignmentOverlapIgnored(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SetDataProvider(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SetEdgeFadeLength(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SetFrameExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SetHorizontal(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SetInterpolateScroll(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SetLowerShadowAtlas(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SetPadding(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SetPanExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SetPanExtentPercentage(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SetScrollAllowed(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SetScrollPercentage(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SetScrollPercentageInternal(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SetScrollTargetOffset(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SetShadowsFrameLevel(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SetShadowsScale(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SetShadowsShown(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SetUpdateLocked(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SetUpperShadowAtlas(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SetUseShadowsForEdgeFade(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:SetView(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:TriggerEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:UnregisterCallback(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:UnregisterEvents(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:Update(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBoxObject:scrollInternal(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
 end

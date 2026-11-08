@@ -3,3039 +3,4012 @@
 
 
 do
----@class EditModeLayoutDialog_LayoutNameEditBox_LeftObject : Texture
-local EditModeLayoutDialog_LayoutNameEditBox_LeftObject = {}
+---@class CommunitiesFrame_GuildDetailsFrame_News_ScrollBar_registeredScrollBox_view_scrollBoxObject
+local CommunitiesFrame_GuildDetailsFrame_News_ScrollBar_registeredScrollBox_view_scrollBoxObject = {}
 end
 
 do
----@class EditModeLayoutDialog_LayoutNameEditBox_MiddleObject : Texture
-local EditModeLayoutDialog_LayoutNameEditBox_MiddleObject = {}
+---@class CommunitiesFrame_GuildDetailsFrame_News_ScrollBoxObject
+local CommunitiesFrame_GuildDetailsFrame_News_ScrollBoxObject = {}
 end
 
 do
----@class EditModeLayoutDialog_LayoutNameEditBox_RightObject : Texture
-local EditModeLayoutDialog_LayoutNameEditBox_RightObject = {}
+---@class CommunitiesFrame_GuildDetailsFrame_News_SetFiltersButtonObject : Button
+local CommunitiesFrame_GuildDetailsFrame_News_SetFiltersButtonObject = {}
 end
 
 do
----@class EditModeLayoutDialog_TitleObject : FontString
-local EditModeLayoutDialog_TitleObject = {}
+---@class CommunitiesFrame_GuildDetailsFrame_News_TitleTextObject : FontString
+local CommunitiesFrame_GuildDetailsFrame_News_TitleTextObject = {}
 end
 
 do
----@class EditModeLayoutDialog_layoutManagerObject
-local EditModeLayoutDialog_layoutManagerObject = {}
+---@class CommunitiesFrame_GuildLogButtonObject : Button
+---@field Left CommunitiesFrame_GuildLogButton_LeftObject
+---@field Middle CommunitiesFrame_GuildLogButton_MiddleObject
+---@field Right CommunitiesFrame_GuildLogButton_RightObject
+---@field Text CommunitiesFrame_GuildLogButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+---@field frame CommunitiesFrame_GuildLogButton_frameObject
+local CommunitiesFrame_GuildLogButtonObject = {}
+---@return any ...
+function CommunitiesFrame_GuildLogButtonObject:FitToText(...) end
+---@return any ...
+function CommunitiesFrame_GuildLogButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildLogButtonObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_GuildLogButtonObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_GuildLogButtonObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_GuildLogButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildLogButtonObject:SetTextToFit(...) end
 end
 
 do
----@class EditModeLayoutDialog_modesObject
----@field deleteLayout table
----@field newLayout table
----@field renameLayout table
-local EditModeLayoutDialog_modesObject = {}
+---@class CommunitiesFrame_GuildLogButton_LeftObject : Texture
+local CommunitiesFrame_GuildLogButton_LeftObject = {}
 end
 
 do
----@class EditModeManagerFrameObject : Frame
----@field AccountSettings EditModeManagerFrame_AccountSettingsObject
----@field Border EditModeManagerFrame_BorderObject
----@field CloseButton EditModeManagerFrame_CloseButtonObject
----@field EnableAdvancedOptionsCheckButton EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject
----@field EnableSnapCheckButton EditModeManagerFrame_EnableSnapCheckButtonObject
----@field FramesBlockingEditMode table
----@field Grid EditModeManagerFrame_GridObject
----@field GridSpacingSlider EditModeManagerFrame_GridSpacingSliderObject
----@field LayoutDropdown EditModeManagerFrame_LayoutDropdownObject
----@field LayoutLabel EditModeManagerFrame_LayoutLabelObject
----@field MagnetismPreviewLinesContainer EditModeManagerFrame_MagnetismPreviewLinesContainerObject
----@field RevertAllChangesButton EditModeManagerFrame_RevertAllChangesButtonObject
----@field SaveChangesButton EditModeManagerFrame_SaveChangesButtonObject
----@field ShowGridCheckButton EditModeManagerFrame_ShowGridCheckButtonObject
----@field Title EditModeManagerFrame_TitleObject
----@field Tutorial EditModeManagerFrame_TutorialObject
----@field accountSettingMap table
----@field accountSettings table
----@field advancedOptionsEnabled boolean
----@field dirty boolean
----@field editModeSystemAnchorDirty boolean
----@field fixedWidth number
----@field hasActiveChanges boolean
----@field layoutApplyInProgress boolean
----@field layoutInfo EditModeManagerFrame_layoutInfoObject
----@field numLayouts table
----@field registeredSystemFrames table
----@field snapEnabled boolean
-local EditModeManagerFrameObject = {}
----@return any ...
-function EditModeManagerFrameObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrameObject:AddNewSystemsAndSettings(...) end
----@return any ...
-function EditModeManagerFrameObject:AreAdvancedOptionsEnabled(...) end
----@return any ...
-function EditModeManagerFrameObject:AreLayoutsFullyMaxed(...) end
----@return any ...
-function EditModeManagerFrameObject:AreLayoutsOfTypeMaxed(...) end
----@return any ...
-function EditModeManagerFrameObject:ArePartyFramesForcedShown(...) end
----@return any ...
-function EditModeManagerFrameObject:AreRaidFramesForcedShown(...) end
----@return any ...
-function EditModeManagerFrameObject:BlockEnteringEditMode(...) end
----@return any ...
-function EditModeManagerFrameObject:CanCreateNewLayoutFromDialog(...) end
----@return any ...
-function EditModeManagerFrameObject:CanEnterEditMode(...) end
----@return any ...
-function EditModeManagerFrameObject:CanImportFromDialog(...) end
----@return any ...
-function EditModeManagerFrameObject:CanRenameLayoutFromDialog(...) end
----@return any ...
-function EditModeManagerFrameObject:CheckForSystemActiveChanges(...) end
----@return any ...
-function EditModeManagerFrameObject:CheckHideAndLockEditMode(...) end
----@return any ...
-function EditModeManagerFrameObject:ClearActiveChangesFlags(...) end
----@return any ...
-function EditModeManagerFrameObject:ClearEditModeLockState(...) end
----@return any ...
-function EditModeManagerFrameObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrameObject:ClearOverrideLayout(...) end
----@return any ...
-function EditModeManagerFrameObject:ClearSelectedSystem(...) end
----@return any ...
-function EditModeManagerFrameObject:ClearSnapPreviewFrame(...) end
----@return any ...
-function EditModeManagerFrameObject:ClearUnsavedChangesGlow(...) end
----@return any ...
-function EditModeManagerFrameObject:CopyActiveLayoutToClipboard(...) end
----@return any ...
-function EditModeManagerFrameObject:CreateEnterEditModeMenuButton(...) end
----@return any ...
-function EditModeManagerFrameObject:CreateLayoutTbls(...) end
----@return any ...
-function EditModeManagerFrameObject:CreateNewLayoutFromDialog(...) end
----@return any ...
-function EditModeManagerFrameObject:DeleteAllLayouts(...) end
----@return any ...
-function EditModeManagerFrameObject:DeleteLayout(...) end
----@return any ...
-function EditModeManagerFrameObject:DeleteLayoutFromDialog(...) end
----@return any ...
-function EditModeManagerFrameObject:DoesSettingDisplayValueEqual(...) end
----@return any ...
-function EditModeManagerFrameObject:DoesSettingValueEqual(...) end
----@return any ...
-function EditModeManagerFrameObject:EnterEditMode(...) end
----@return any ...
-function EditModeManagerFrameObject:ExitEditMode(...) end
----@return any ...
-function EditModeManagerFrameObject:GetAccountSettingValue(...) end
----@return any ...
-function EditModeManagerFrameObject:GetAccountSettingValueBool(...) end
----@return any ...
-function EditModeManagerFrameObject:GetActiveLayoutInfo(...) end
----@return any ...
-function EditModeManagerFrameObject:GetActiveLayoutSystemInfo(...) end
----@return any ...
-function EditModeManagerFrameObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrameObject:GetBestLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrameObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrameObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrameObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrameObject:GetDefaultAnchor(...) end
----@return any ...
-function EditModeManagerFrameObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrameObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrameObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrameObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrameObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrameObject:GetLayoutName(...) end
----@return any ...
-function EditModeManagerFrameObject:GetLayouts(...) end
----@return any ...
-function EditModeManagerFrameObject:GetMaxLayoutsErrorText(...) end
----@return any ...
-function EditModeManagerFrameObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrameObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrameObject:GetNumArenaFramesForcedShown(...) end
----@return any ...
-function EditModeManagerFrameObject:GetNumRaidGroupsForcedShown(...) end
----@return any ...
-function EditModeManagerFrameObject:GetNumRaidMembersForcedShown(...) end
----@return any ...
-function EditModeManagerFrameObject:GetRaidFrameAuraOrganizationType(...) end
----@return any ...
-function EditModeManagerFrameObject:GetRaidFrameHeight(...) end
----@return any ...
-function EditModeManagerFrameObject:GetRaidFrameIconScale(...) end
----@return any ...
-function EditModeManagerFrameObject:GetRaidFrameWidth(...) end
----@return any ...
-function EditModeManagerFrameObject:GetRegisteredSystemFrame(...) end
----@return any ...
-function EditModeManagerFrameObject:GetRightActionBarBottomLimit(...) end
----@return any ...
-function EditModeManagerFrameObject:GetRightActionBarTopLimit(...) end
----@return any ...
-function EditModeManagerFrameObject:GetRightActionBars(...) end
----@return any ...
-function EditModeManagerFrameObject:GetSettingValue(...) end
----@return any ...
-function EditModeManagerFrameObject:GetSettingValueBool(...) end
----@return any ...
-function EditModeManagerFrameObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrameObject:HasAccountSettings(...) end
----@return any ...
-function EditModeManagerFrameObject:HasActiveChanges(...) end
----@return any ...
-function EditModeManagerFrameObject:HideSnapPreviewLines(...) end
----@return any ...
-function EditModeManagerFrameObject:HideSystemSelections(...) end
----@return any ...
-function EditModeManagerFrameObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrameObject:ImportLayout(...) end
----@return any ...
-function EditModeManagerFrameObject:ImportLayoutFromDialog(...) end
----@return any ...
-function EditModeManagerFrameObject:InitSystemAnchors(...) end
----@return any ...
-function EditModeManagerFrameObject:InitializeAccountSettings(...) end
----@return any ...
-function EditModeManagerFrameObject:InvokeOnAnyEditModeSystemAnchorChanged(...) end
----@return any ...
-function EditModeManagerFrameObject:IsActiveLayoutPreset(...) end
----@return any ...
-function EditModeManagerFrameObject:IsCharacterSpecificLayout(...) end
----@return any ...
-function EditModeManagerFrameObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrameObject:IsEditModeActive(...) end
----@return any ...
-function EditModeManagerFrameObject:IsEditModeInLockState(...) end
----@return any ...
-function EditModeManagerFrameObject:IsEditModeLocked(...) end
----@return any ...
-function EditModeManagerFrameObject:IsInitialized(...) end
----@return any ...
-function EditModeManagerFrameObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrameObject:IsLayoutSelected(...) end
----@return any ...
-function EditModeManagerFrameObject:IsSnapEnabled(...) end
----@return any ...
-function EditModeManagerFrameObject:Layout(...) end
----@return any ...
-function EditModeManagerFrameObject:MakeNewLayout(...) end
----@return any ...
-function EditModeManagerFrameObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrameObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrameObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrameObject:MirrorSetting(...) end
----@return any ...
-function EditModeManagerFrameObject:NotifyChatOfLayoutChange(...) end
----@return any ...
-function EditModeManagerFrameObject:OnAccountSettingChanged(...) end
----@return any ...
-function EditModeManagerFrameObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrameObject:OnDragStart(...) end
----@return any ...
-function EditModeManagerFrameObject:OnDragStop(...) end
----@return any ...
-function EditModeManagerFrameObject:OnEditModeSystemAnchorChanged(...) end
----@return any ...
-function EditModeManagerFrameObject:OnEvent(...) end
----@return any ...
-function EditModeManagerFrameObject:OnHide(...) end
----@return any ...
-function EditModeManagerFrameObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrameObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrameObject:OnSystemPositionChange(...) end
----@return any ...
-function EditModeManagerFrameObject:OnSystemSettingChange(...) end
----@return any ...
-function EditModeManagerFrameObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrameObject:OnUpdateBottomActionBarPositionsRequested(...) end
----@return any ...
-function EditModeManagerFrameObject:PrepareSystemsForSave(...) end
----@return any ...
-function EditModeManagerFrameObject:ReconcileLayouts(...) end
----@return any ...
-function EditModeManagerFrameObject:ReconcileWith(...) end
----@return any ...
-function EditModeManagerFrameObject:ReconcileWithGamepad(...) end
----@return any ...
-function EditModeManagerFrameObject:ReconcileWithModern(...) end
----@return any ...
-function EditModeManagerFrameObject:RefreshSnapPreviewLines(...) end
----@return any ...
-function EditModeManagerFrameObject:RegisterSystemFrame(...) end
----@return any ...
-function EditModeManagerFrameObject:RemoveOldSystemsAndSettings(...) end
----@return any ...
-function EditModeManagerFrameObject:RenameLayout(...) end
----@return any ...
-function EditModeManagerFrameObject:RenameLayoutFromDialog(...) end
----@return any ...
-function EditModeManagerFrameObject:ResetDropdownToActiveLayout(...) end
----@return any ...
-function EditModeManagerFrameObject:RevertAllChanges(...) end
----@return any ...
-function EditModeManagerFrameObject:RevertSystemChanges(...) end
----@return any ...
-function EditModeManagerFrameObject:SaveLayoutChanges(...) end
----@return any ...
-function EditModeManagerFrameObject:SaveLayouts(...) end
----@return any ...
-function EditModeManagerFrameObject:SelectLayout(...) end
----@return any ...
-function EditModeManagerFrameObject:SelectSystem(...) end
----@return any ...
-function EditModeManagerFrameObject:SetEditModeLockState(...) end
----@return any ...
-function EditModeManagerFrameObject:SetEnableAdvancedOptions(...) end
----@return any ...
-function EditModeManagerFrameObject:SetEnableSnap(...) end
----@return any ...
-function EditModeManagerFrameObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrameObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrameObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrameObject:SetGridShown(...) end
----@return any ...
-function EditModeManagerFrameObject:SetGridSpacing(...) end
----@return any ...
-function EditModeManagerFrameObject:SetHasActiveChanges(...) end
----@return any ...
-function EditModeManagerFrameObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrameObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrameObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrameObject:SetOverrideLayout(...) end
----@return any ...
-function EditModeManagerFrameObject:SetSnapPreviewFrame(...) end
----@return any ...
-function EditModeManagerFrameObject:SetToLayoutAnchor(...) end
----@return any ...
-function EditModeManagerFrameObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrameObject:SetupEditModeDialogs(...) end
----@return any ...
-function EditModeManagerFrameObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrameObject:ShouldRaidFrameDisplayBorder(...) end
----@return any ...
-function EditModeManagerFrameObject:ShouldRaidFrameShowSeparateGroups(...) end
----@return any ...
-function EditModeManagerFrameObject:ShouldRaidFrameUseHorizontalRaidGroups(...) end
----@return any ...
-function EditModeManagerFrameObject:ShouldShowPartyFrameBackground(...) end
----@return any ...
-function EditModeManagerFrameObject:ShouldShowSnapPreviewLines(...) end
----@return any ...
-function EditModeManagerFrameObject:ShowDeleteLayoutDialog(...) end
----@return any ...
-function EditModeManagerFrameObject:ShowIfActive(...) end
----@return any ...
-function EditModeManagerFrameObject:ShowImportLayoutDialog(...) end
----@return any ...
-function EditModeManagerFrameObject:ShowNewLayoutDialog(...) end
----@return any ...
-function EditModeManagerFrameObject:ShowRenameLayoutDialog(...) end
----@return any ...
-function EditModeManagerFrameObject:ShowRevertWarningDialog(...) end
----@return any ...
-function EditModeManagerFrameObject:ShowSystemSelections(...) end
----@return any ...
-function EditModeManagerFrameObject:TryShowUnsavedChangesGlow(...) end
----@return any ...
-function EditModeManagerFrameObject:UnblockEnteringEditMode(...) end
----@return any ...
-function EditModeManagerFrameObject:UpdateAccountSettingMap(...) end
----@return any ...
-function EditModeManagerFrameObject:UpdateActionBarLayout(...) end
----@return any ...
-function EditModeManagerFrameObject:UpdateActionBarPositions(...) end
----@return any ...
-function EditModeManagerFrameObject:UpdateBottomActionBarPositions(...) end
----@return any ...
-function EditModeManagerFrameObject:UpdateDropdownOptions(...) end
----@return any ...
-function EditModeManagerFrameObject:UpdateLayoutCounts(...) end
----@return any ...
-function EditModeManagerFrameObject:UpdateLayoutInfo(...) end
----@return any ...
-function EditModeManagerFrameObject:UpdateRaidContainerFlow(...) end
----@return any ...
-function EditModeManagerFrameObject:UpdateRightActionBarPositions(...) end
----@return any ...
-function EditModeManagerFrameObject:UpdateSystem(...) end
----@return any ...
-function EditModeManagerFrameObject:UpdateSystemAnchorInfo(...) end
----@return any ...
-function EditModeManagerFrameObject:UpdateSystems(...) end
----@return any ...
-function EditModeManagerFrameObject:UpdateTopFramePositions(...) end
----@return any ...
-function EditModeManagerFrameObject:UseRaidStylePartyFrames(...) end
----@return any ...
-function EditModeManagerFrameObject:ValidateLayoutNameFromDialog(...) end
----@return any ...
-function EditModeManagerFrameObject:onCloseCallback(...) end
----@type EditModeManagerFrameObject
-EditModeManagerFrame = EditModeManagerFrameObject
+---@class CommunitiesFrame_GuildLogButton_MiddleObject : Texture
+local CommunitiesFrame_GuildLogButton_MiddleObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettingsObject : Frame
----@field Expander EditModeManagerFrame_AccountSettings_ExpanderObject
----@field SettingsContainer EditModeManagerFrame_AccountSettings_SettingsContainerObject
----@field bottomPadding number
----@field dirty boolean
----@field expanded boolean
----@field settingsCheckButtons EditModeManagerFrame_AccountSettings_settingsCheckButtonsObject
----@field spacing number
-local EditModeManagerFrame_AccountSettingsObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:CalculateFrameSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:EditModeFrameReset(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:EditModeFrameSetup(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:EditModeFrameSetupForCamelotFlavor(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:EditModeFrameSetupForStandardFlavor(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:GetChildPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:GetCooldownViewerFrames(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:GetDamageMeterFrames(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:GetEncounterEventsFrames(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:GetPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:GetSwingTimerFrames(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:LayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:LayoutSettings(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:OnEditModeEnter(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:OnEditModeExit(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:OnEvent(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:PrepareSettingCheckButtonVisibilityForCamelotFlavor(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:PrepareSettingCheckButtonVisibilityForStandardFlavor(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:PrepareSettingsCheckButtonVisibility(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:PrepareSettingsCheckButtons(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshActionBarShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshArchaeologyBar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshArenaFrames(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshBossFrames(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshBuffsAndDebuffs(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshCastBar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshCooldownViewer(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshDamageMeter(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshDurabilityFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshEncounterBar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshEncounterEvents(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshExternalDefensives(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshExtraAbilities(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshGroupFinder(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshHudTooltip(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshLootFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshLossOfControl(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshPartyFrames(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshPersonalResourceDisplay(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshPetFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshRaidFrames(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshRaidWarning(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshStatusTrackingBar2(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshSwingTimer(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshTalkingHeadFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshTargetAndFocus(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshTimerBars(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshTotemActionBar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshVehicleLeaveButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:RefreshVehicleSeatIndicator(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:ResetActionBarShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:ResetArenaFrames(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:ResetHudTooltip(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:ResetPartyFrames(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:ResetRaidFrames(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:ResetRaidWarning(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:ResetTargetAndFocus(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetActionBarShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetArchaeologyBarMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetArchaeologyBarShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetArenaFramesMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetArenaFramesShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetBossFramesMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetBossFramesShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetBuffsAndDebuffsMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetBuffsAndDebuffsShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetCastBarMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetCastBarShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetCooldownViewerMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetCooldownViewerShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetDamageMeterMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetDamageMeterShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetDurabilityFrameMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetDurabilityFrameShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetEncounterBarMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetEncounterBarShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetEncounterEventsMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetEncounterEventsShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetExpandedState(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetExternalDefensivesMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetExternalDefensivesShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetExtraAbilitiesMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetExtraAbilitiesShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetGroupFinderMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetGroupFinderShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetHudTooltipMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetHudTooltipShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetLootFrameMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetLootFrameShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetLossOfControlMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetLossOfControlShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetPartyFramesMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetPartyFramesShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetPersonalResourceDisplayShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetPetActionBarMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetPetActionBarShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetPetFrameMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetPetFrameShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetPossessActionBarMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetPossessActionBarShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetRaidFramesMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetRaidFramesShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetRaidWarningMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetRaidWarningShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetStanceBarMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetStanceBarShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetStatusTrackingBar2MouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetStatusTrackingBar2Shown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetSwingTimerMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetSwingTimerShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetTalkingHeadFrameMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetTalkingHeadFrameShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetTargetAndFocusMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetTargetAndFocusShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetTimerBarsMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetTimerBarsShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetTotemActionBarMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetTotemActionBarShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetVehicleLeaveButtonMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetVehicleLeaveButtonShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetVehicleSeatIndicatorMouseOver(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetVehicleSeatIndicatorShown(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetupActionBar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetupArchaeologyBar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetupDurabilityFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetupEncounterBar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetupPetFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetupStatusTrackingBar2(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetupSwingTimer(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetupTimerBars(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetupTotemActionBar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:SetupVehicleSeatIndicator(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettingsObject:ToggleExpandedState(...) end
+---@class CommunitiesFrame_GuildLogButton_RightObject : Texture
+local CommunitiesFrame_GuildLogButton_RightObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_ExpanderObject : Frame
----@field Divider EditModeManagerFrame_AccountSettings_Expander_DividerObject
----@field Label EditModeManagerFrame_AccountSettings_Expander_LabelObject
----@field align string
----@field dirty boolean
----@field heightPadding number
----@field layoutIndex number
-local EditModeManagerFrame_AccountSettings_ExpanderObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_ExpanderObject:ShouldClearOnUpdateAfterClean(...) end
+---@class CommunitiesFrame_GuildLogButton_TextObject : FontString
+local CommunitiesFrame_GuildLogButton_TextObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_Expander_DividerObject : Texture
-local EditModeManagerFrame_AccountSettings_Expander_DividerObject = {}
+---@class CommunitiesFrame_GuildLogButton_frameObject
+local CommunitiesFrame_GuildLogButton_frameObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_Expander_LabelObject : FontString
-local EditModeManagerFrame_AccountSettings_Expander_LabelObject = {}
+---@class CommunitiesFrame_GuildMemberDetailFrameObject : Frame
+---@field Border CommunitiesFrame_GuildMemberDetailFrame_BorderObject
+---@field CloseButton CommunitiesFrame_GuildMemberDetailFrame_CloseButtonObject
+---@field FocusFrameParent string
+---@field GroupInviteButton CommunitiesFrame_GuildMemberDetailFrame_GroupInviteButtonObject
+---@field Level CommunitiesFrame_GuildMemberDetailFrame_LevelObject
+---@field Name CommunitiesFrame_GuildMemberDetailFrame_NameObject
+---@field NoteBackground CommunitiesFrame_GuildMemberDetailFrame_NoteBackgroundObject
+---@field NoteLabel CommunitiesFrame_GuildMemberDetailFrame_NoteLabelObject
+---@field OfficerNoteBackground CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackgroundObject
+---@field OfficerNoteLabel CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteLabelObject
+---@field OnlineLabel CommunitiesFrame_GuildMemberDetailFrame_OnlineLabelObject
+---@field OnlineText CommunitiesFrame_GuildMemberDetailFrame_OnlineTextObject
+---@field RankDropdown CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject
+---@field RankLabel CommunitiesFrame_GuildMemberDetailFrame_RankLabelObject
+---@field RankText CommunitiesFrame_GuildMemberDetailFrame_RankTextObject
+---@field RemoveButton CommunitiesFrame_GuildMemberDetailFrame_RemoveButtonObject
+---@field ZoneLabel CommunitiesFrame_GuildMemberDetailFrame_ZoneLabelObject
+---@field ZoneText CommunitiesFrame_GuildMemberDetailFrame_ZoneTextObject
+local CommunitiesFrame_GuildMemberDetailFrameObject = {}
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrameObject:DisplayMember(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrameObject:EndFocus(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrameObject:GetClubId(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrameObject:GetFocusFrameGlow(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrameObject:GetFocusFrameRoot(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrameObject:GetMemberInfo(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrameObject:HideFocusJumpHint(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrameObject:HideLeftJumpHint(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrameObject:HideRightJumpHint(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrameObject:InitializeGamepad(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrameObject:LockInFocus(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrameObject:OnEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrameObject:OnHide(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrameObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrameObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrameObject:RefreshFocus(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrameObject:RegisterForTransitions(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrameObject:SetupRankDropdown(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrameObject:ShowFocusJumpHint(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrameObject:ShowLeftJumpHint(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrameObject:ShowRightJumpHint(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrameObject:StartFocus(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrameObject:UninitializeGamepad(...) end
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainerObject : ScrollFrame
----@field ArchaeologyBar EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject
----@field ArenaFrames EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject
----@field BorderArt EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArtObject
----@field BossFrames EditModeManagerFrame_AccountSettings_SettingsContainer_BossFramesObject
----@field BuffsAndDebuffs EditModeManagerFrame_AccountSettings_SettingsContainer_BuffsAndDebuffsObject
----@field CastBar EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject
----@field CooldownViewer EditModeManagerFrame_AccountSettings_SettingsContainer_CooldownViewerObject
----@field DamageMeter EditModeManagerFrame_AccountSettings_SettingsContainer_DamageMeterObject
----@field DurabilityFrame EditModeManagerFrame_AccountSettings_SettingsContainer_DurabilityFrameObject
----@field EncounterBar EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject
----@field EncounterEvents EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject
----@field ExternalDefensives EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject
----@field ExtraAbilities EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject
----@field GroupFinder EditModeManagerFrame_AccountSettings_SettingsContainer_GroupFinderObject
----@field HudTooltip EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject
----@field LootFrame EditModeManagerFrame_AccountSettings_SettingsContainer_LootFrameObject
----@field LossOfControl EditModeManagerFrame_AccountSettings_SettingsContainer_LossOfControlObject
----@field PartyFrames EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject
----@field PersonalResourceDisplay EditModeManagerFrame_AccountSettings_SettingsContainer_PersonalResourceDisplayObject
----@field PetActionBar EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject
----@field PetFrame EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject
----@field PossessActionBar EditModeManagerFrame_AccountSettings_SettingsContainer_PossessActionBarObject
----@field RaidFrames EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject
----@field RaidWarning EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject
----@field ScrollBar EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject
----@field ScrollChild EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject
----@field StanceBar EditModeManagerFrame_AccountSettings_SettingsContainer_StanceBarObject
----@field StatusTrackingBar2 EditModeManagerFrame_AccountSettings_SettingsContainer_StatusTrackingBar2Object
----@field SwingTimer EditModeManagerFrame_AccountSettings_SettingsContainer_SwingTimerObject
----@field TalkingHeadFrame EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject
----@field TargetAndFocus EditModeManagerFrame_AccountSettings_SettingsContainer_TargetAndFocusObject
----@field TimerBars EditModeManagerFrame_AccountSettings_SettingsContainer_TimerBarsObject
----@field TotemActionBar EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject
----@field VehicleLeaveButton EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleLeaveButtonObject
----@field VehicleSeatIndicator EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject
----@field dirty boolean
----@field fixedWidth number
----@field layoutIndex number
----@field maximumHeight number
+---@class CommunitiesFrame_GuildMemberDetailFrame_BorderObject : Frame
+---@field Bg CommunitiesFrame_GuildMemberDetailFrame_Border_BgObject
+---@field BottomEdge CommunitiesFrame_GuildMemberDetailFrame_Border_BottomEdgeObject
+---@field BottomLeftCorner CommunitiesFrame_GuildMemberDetailFrame_Border_BottomLeftCornerObject
+---@field BottomRightCorner CommunitiesFrame_GuildMemberDetailFrame_Border_BottomRightCornerObject
+---@field FocusJumpHint CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject
+---@field FrameGlow CommunitiesFrame_GuildMemberDetailFrame_Border_FrameGlowObject
+---@field LeftEdge CommunitiesFrame_GuildMemberDetailFrame_Border_LeftEdgeObject
+---@field LeftJumpHint CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject
+---@field RightEdge CommunitiesFrame_GuildMemberDetailFrame_Border_RightEdgeObject
+---@field RightJumpHint CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject
+---@field TopEdge CommunitiesFrame_GuildMemberDetailFrame_Border_TopEdgeObject
+---@field TopLeftCorner CommunitiesFrame_GuildMemberDetailFrame_Border_TopLeftCornerObject
+---@field TopRightCorner CommunitiesFrame_GuildMemberDetailFrame_Border_TopRightCornerObject
+---@field layoutType string
+local CommunitiesFrame_GuildMemberDetailFrame_BorderObject = {}
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_BorderObject:GetBorderColor(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_BorderObject:GetCenterColor(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_BorderObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_BorderObject:GetFrameLayoutType(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_BorderObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_BorderObject:SetBlendMode(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_BorderObject:SetBorderBlendMode(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_BorderObject:SetBorderColor(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_BorderObject:SetCenterColor(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_BorderObject:SetVertexColor(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_BgObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_BgObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_BottomEdgeObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_BottomEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_BottomLeftCornerObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_BottomLeftCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_BottomRightCornerObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_BottomRightCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject : Frame
+---@field ActiveTexture CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_HoverTextureObject
+---@field LoadBar CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_LoadBarObject
+---@field LoadBarBG CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_NormalTextureObject
+---@field PressedTexture CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_SpinnerTipObject
+---@field ignoreInLayout boolean
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject = {}
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject:BeginHold(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject:EndHold(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject:SetDisabled(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject:SetEnabled(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject:SetFocused(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject:SetHoldState(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject:SetInputKey(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject:SetPressable(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject:SetTextureState(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject:SetUsableState(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_ActiveTextureObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_DisabledTextureObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_HoldIndicatorObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_HoldIndicatorBGObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_HoverTextureObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_LoadBarObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_LoadBarObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_LoadBarBGObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_LoadBarGlowObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_NormalTextureObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_PressedTextureObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_SpinnerTipObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_FocusJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_FrameGlowObject : Frame
+---@field GlowTexture CommunitiesFrame_GuildMemberDetailFrame_Border_FrameGlow_GlowTextureObject
+---@field glowTextures table
+local CommunitiesFrame_GuildMemberDetailFrame_Border_FrameGlowObject = {}
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FrameGlowObject:GetContainerFrame(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FrameGlowObject:GetFrameLayoutType(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FrameGlowObject:GetHeaderFrame(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_FrameGlowObject:OnLoad(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_FrameGlow_GlowTextureObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_FrameGlow_GlowTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_LeftEdgeObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_LeftEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject : Frame
+---@field ActiveTexture CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_HoverTextureObject
+---@field LoadBar CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_LoadBarObject
+---@field LoadBarBG CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_NormalTextureObject
+---@field PressedTexture CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject = {}
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject:BeginHold(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_ActiveTextureObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_DisabledTextureObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_HoldIndicatorObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_HoldIndicatorBGObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_HoverTextureObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_LoadBarObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_LoadBarBGObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_LoadBarGlowObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_NormalTextureObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_PressedTextureObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_SpinnerTipObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_RightEdgeObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_RightEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject : Frame
+---@field ActiveTexture CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_DisabledTextureObject
+---@field HoldAnim CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_HoldAnimObject
+---@field HoldIndicator CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_HoverTextureObject
+---@field LoadBar CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_LoadBarObject
+---@field LoadBarBG CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_NormalTextureObject
+---@field PressedTexture CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_PressedTextureObject
+---@field SpinnerTip CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject = {}
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_ActiveTextureObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_DisabledTextureObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_HoldAnim_LoadBarAnimObject
+local CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_HoldIndicatorObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_HoldIndicatorBGObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_HoverTextureObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_LoadBarObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_LoadBarBGObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_LoadBarGlowObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_NormalTextureObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_PressedTextureObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_SpinnerTipObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_TopEdgeObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_TopEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_TopLeftCornerObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_TopLeftCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_Border_TopRightCornerObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_Border_TopRightCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_CloseButtonObject : Button
+local CommunitiesFrame_GuildMemberDetailFrame_CloseButtonObject = {}
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_CloseButtonObject:NarrationGetName(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_GroupInviteButtonObject : Button
+---@field Left CommunitiesFrame_GuildMemberDetailFrame_GroupInviteButton_LeftObject
+---@field Middle CommunitiesFrame_GuildMemberDetailFrame_GroupInviteButton_MiddleObject
+---@field Right CommunitiesFrame_GuildMemberDetailFrame_GroupInviteButton_RightObject
+---@field Text CommunitiesFrame_GuildMemberDetailFrame_GroupInviteButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CommunitiesFrame_GuildMemberDetailFrame_GroupInviteButtonObject = {}
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_GroupInviteButtonObject:FitToText(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_GroupInviteButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_GroupInviteButtonObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_GroupInviteButtonObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_GroupInviteButtonObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_GroupInviteButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_GroupInviteButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_GroupInviteButton_LeftObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_GroupInviteButton_LeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_GroupInviteButton_MiddleObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_GroupInviteButton_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_GroupInviteButton_RightObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_GroupInviteButton_RightObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_GroupInviteButton_TextObject : FontString
+local CommunitiesFrame_GuildMemberDetailFrame_GroupInviteButton_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_LevelObject : FontString
+local CommunitiesFrame_GuildMemberDetailFrame_LevelObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_NameObject : FontString
+local CommunitiesFrame_GuildMemberDetailFrame_NameObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_NoteBackgroundObject : Frame
+---@field NineSlice CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSliceObject
+---@field PersonalNoteText CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_PersonalNoteTextObject
+---@field backdropBorderColorAlpha number
+---@field backdropColorAlpha number
+---@field layoutType string
+local CommunitiesFrame_GuildMemberDetailFrame_NoteBackgroundObject = {}
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_NoteBackgroundObject:GetBackdropBorderColor(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_NoteBackgroundObject:GetBackdropColor(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_NoteBackgroundObject:SetBackdropBorderColor(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_NoteBackgroundObject:SetBackdropColor(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_NoteBackgroundObject:SetBorderBlendMode(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_NoteBackgroundObject:TooltipBackdropOnLoad(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSliceObject : Frame
+---@field BottomEdge CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_BottomRightCornerObject
+---@field Center CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_CenterObject
+---@field LeftEdge CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_LeftEdgeObject
+---@field RightEdge CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_RightEdgeObject
+---@field TopEdge CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_TopEdgeObject
+---@field TopLeftCorner CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_TopLeftCornerObject
+---@field TopRightCorner CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_TopRightCornerObject
+local CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSliceObject = {}
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSliceObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_BottomEdgeObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_BottomLeftCornerObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_BottomRightCornerObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_CenterObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_CenterObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_LeftEdgeObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_RightEdgeObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_TopEdgeObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_TopLeftCornerObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_TopRightCornerObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_PersonalNoteTextObject : FontString
+local CommunitiesFrame_GuildMemberDetailFrame_NoteBackground_PersonalNoteTextObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_NoteLabelObject : FontString
+local CommunitiesFrame_GuildMemberDetailFrame_NoteLabelObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackgroundObject : Frame
+---@field NineSlice CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSliceObject
+---@field OfficerNoteText CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_OfficerNoteTextObject
+---@field backdropBorderColorAlpha number
+---@field backdropColorAlpha number
+---@field layoutType string
+local CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackgroundObject = {}
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackgroundObject:GetBackdropBorderColor(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackgroundObject:GetBackdropColor(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackgroundObject:SetBackdropBorderColor(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackgroundObject:SetBackdropColor(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackgroundObject:SetBorderBlendMode(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackgroundObject:TooltipBackdropOnLoad(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSliceObject : Frame
+---@field BottomEdge CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_BottomRightCornerObject
+---@field Center CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_CenterObject
+---@field LeftEdge CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_LeftEdgeObject
+---@field RightEdge CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_RightEdgeObject
+---@field TopEdge CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_TopEdgeObject
+---@field TopLeftCorner CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_TopLeftCornerObject
+---@field TopRightCorner CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_TopRightCornerObject
+local CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSliceObject = {}
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSliceObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_BottomEdgeObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_BottomLeftCornerObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_BottomRightCornerObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_CenterObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_CenterObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_LeftEdgeObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_RightEdgeObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_TopEdgeObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_TopLeftCornerObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_TopRightCornerObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_OfficerNoteTextObject : FontString
+local CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteBackground_OfficerNoteTextObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteLabelObject : FontString
+local CommunitiesFrame_GuildMemberDetailFrame_OfficerNoteLabelObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_OnlineLabelObject : FontString
+local CommunitiesFrame_GuildMemberDetailFrame_OnlineLabelObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_OnlineTextObject : FontString
+local CommunitiesFrame_GuildMemberDetailFrame_OnlineTextObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject : Button
+---@field Arrow CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_ArrowObject
+---@field Background CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_BackgroundObject
+---@field Event CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_EventObject
+---@field Text CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_menuAnchorObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+local CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject = {}
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:ClearMenuState(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:CloseMenu(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:CollectSelectionData(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:CreateRootDescription(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:Decrement(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:GenerateMenu(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:GetArrowAtlas(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:GetDefaultText(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:GetMenuDescription(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:GetSelectionData(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:GetUpdateText(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:HasElements(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:HasStickyFocus(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:Increment(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:IsDown(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:IsDownOver(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:IsMenuOpen(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:IsOver(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:NarrationGetContext(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:NarrationGetName(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:OnDisable(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:OnEnable(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:OnMenuChanged(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:OnMenuClosed(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:OnMenuOpened(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:OnMenuResponse(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:OnMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:OnMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:OpenMenu(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:OverrideText(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:Pick(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:RegisterMenu(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:Rotate(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:SetDefaultText(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:SetMenuOpen(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:SetSelectionText(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:SetTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:SetupMenu(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:ShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:SignalUpdate(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:Update(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:UpdateSelections(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:UpdateText(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdownObject:selectionTranslator(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_ArrowObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_ArrowObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_BackgroundObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_BackgroundObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_EventObject
+local CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_EventObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_TextObject : FontString
+local CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_menuAnchorObject = {}
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_menuAnchor_relativeToObject
+local CommunitiesFrame_GuildMemberDetailFrame_RankDropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_RankLabelObject : FontString
+local CommunitiesFrame_GuildMemberDetailFrame_RankLabelObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_RankTextObject : FontString
+local CommunitiesFrame_GuildMemberDetailFrame_RankTextObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_RemoveButtonObject : Button
+---@field Left CommunitiesFrame_GuildMemberDetailFrame_RemoveButton_LeftObject
+---@field Middle CommunitiesFrame_GuildMemberDetailFrame_RemoveButton_MiddleObject
+---@field Right CommunitiesFrame_GuildMemberDetailFrame_RemoveButton_RightObject
+---@field Text CommunitiesFrame_GuildMemberDetailFrame_RemoveButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CommunitiesFrame_GuildMemberDetailFrame_RemoveButtonObject = {}
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RemoveButtonObject:FitToText(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RemoveButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RemoveButtonObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RemoveButtonObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RemoveButtonObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RemoveButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberDetailFrame_RemoveButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_RemoveButton_LeftObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_RemoveButton_LeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_RemoveButton_MiddleObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_RemoveButton_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_RemoveButton_RightObject : Texture
+local CommunitiesFrame_GuildMemberDetailFrame_RemoveButton_RightObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_RemoveButton_TextObject : FontString
+local CommunitiesFrame_GuildMemberDetailFrame_RemoveButton_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_ZoneLabelObject : FontString
+local CommunitiesFrame_GuildMemberDetailFrame_ZoneLabelObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberDetailFrame_ZoneTextObject : FontString
+local CommunitiesFrame_GuildMemberDetailFrame_ZoneTextObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberListDropdownObject : Button
+---@field Arrow CommunitiesFrame_GuildMemberListDropdown_ArrowObject
+---@field Background CommunitiesFrame_GuildMemberListDropdown_BackgroundObject
+---@field Event CommunitiesFrame_GuildMemberListDropdown_EventObject
+---@field NotificationOverlay CommunitiesFrame_GuildMemberListDropdown_NotificationOverlayObject
+---@field Text CommunitiesFrame_GuildMemberListDropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor CommunitiesFrame_GuildMemberListDropdown_menuAnchorObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+local CommunitiesFrame_GuildMemberListDropdownObject = {}
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:ClearMenuState(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:CloseMenu(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:CollectSelectionData(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:CreateRootDescription(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:Decrement(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:GenerateMenu(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:GetArrowAtlas(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:GetCommunitiesFrame(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:GetDefaultText(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:GetMenuDescription(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:GetSelectionData(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:GetUpdateText(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:HasElements(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:HasStickyFocus(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:Increment(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:IsDown(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:IsDownOver(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:IsMenuOpen(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:IsOver(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:NarrationGetContext(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:NarrationGetName(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:OnCommunitiesClubSelected(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:OnDisable(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:OnEnable(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:OnHide(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:OnMenuChanged(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:OnMenuClosed(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:OnMenuOpened(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:OnMenuResponse(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:OnMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:OnMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:OpenMenu(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:OverrideText(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:Pick(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:RegisterMenu(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:ResetDisplayMode(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:ResetGuildColumnIndex(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:Rotate(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:SetDefaultText(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:SetMenuOpen(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:SetSelectionText(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:SetTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:SetupMenu(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:ShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:SignalUpdate(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:Update(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:UpdateNotificationFlash(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:UpdateSelections(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:UpdateText(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:listFrameOnShow(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdownObject:selectionTranslator(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildMemberListDropdown_ArrowObject : Texture
+local CommunitiesFrame_GuildMemberListDropdown_ArrowObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberListDropdown_BackgroundObject : Texture
+local CommunitiesFrame_GuildMemberListDropdown_BackgroundObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberListDropdown_EventObject
+local CommunitiesFrame_GuildMemberListDropdown_EventObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberListDropdown_NotificationOverlayObject : Frame
+---@field Flash CommunitiesFrame_GuildMemberListDropdown_NotificationOverlay_FlashObject
+---@field UnreadNotificationIcon CommunitiesFrame_GuildMemberListDropdown_NotificationOverlay_UnreadNotificationIconObject
+local CommunitiesFrame_GuildMemberListDropdown_NotificationOverlayObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberListDropdown_NotificationOverlay_FlashObject : Texture
+local CommunitiesFrame_GuildMemberListDropdown_NotificationOverlay_FlashObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberListDropdown_NotificationOverlay_UnreadNotificationIconObject : Texture
+local CommunitiesFrame_GuildMemberListDropdown_NotificationOverlay_UnreadNotificationIconObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberListDropdown_TextObject : FontString
+local CommunitiesFrame_GuildMemberListDropdown_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildMemberListDropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo CommunitiesFrame_GuildMemberListDropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local CommunitiesFrame_GuildMemberListDropdown_menuAnchorObject = {}
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function CommunitiesFrame_GuildMemberListDropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildMemberListDropdown_menuAnchor_relativeToObject
+local CommunitiesFrame_GuildMemberListDropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameAlertFrameObject : Button
+---@field Alert CommunitiesFrame_GuildNameAlertFrame_AlertObject
+---@field BG CommunitiesFrame_GuildNameAlertFrame_BGObject
+---@field ClickText CommunitiesFrame_GuildNameAlertFrame_ClickTextObject
+---@field GlowBottom CommunitiesFrame_GuildNameAlertFrame_GlowBottomObject
+---@field GlowBottomLeft CommunitiesFrame_GuildNameAlertFrame_GlowBottomLeftObject
+---@field GlowBottomRight CommunitiesFrame_GuildNameAlertFrame_GlowBottomRightObject
+---@field GlowLeft CommunitiesFrame_GuildNameAlertFrame_GlowLeftObject
+---@field GlowRight CommunitiesFrame_GuildNameAlertFrame_GlowRightObject
+---@field GlowTop CommunitiesFrame_GuildNameAlertFrame_GlowTopObject
+---@field GlowTopLeft CommunitiesFrame_GuildNameAlertFrame_GlowTopLeftObject
+---@field GlowTopRight CommunitiesFrame_GuildNameAlertFrame_GlowTopRightObject
+---@field ShadowBottom CommunitiesFrame_GuildNameAlertFrame_ShadowBottomObject
+---@field ShadowBottomLeft CommunitiesFrame_GuildNameAlertFrame_ShadowBottomLeftObject
+---@field ShadowBottomRight CommunitiesFrame_GuildNameAlertFrame_ShadowBottomRightObject
+---@field ShadowLeft CommunitiesFrame_GuildNameAlertFrame_ShadowLeftObject
+---@field ShadowRight CommunitiesFrame_GuildNameAlertFrame_ShadowRightObject
+---@field ShadowTop CommunitiesFrame_GuildNameAlertFrame_ShadowTopObject
+---@field ShadowTopLeft CommunitiesFrame_GuildNameAlertFrame_ShadowTopLeftObject
+---@field ShadowTopRight CommunitiesFrame_GuildNameAlertFrame_ShadowTopRightObject
+local CommunitiesFrame_GuildNameAlertFrameObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameAlertFrame_AlertObject : FontString
+local CommunitiesFrame_GuildNameAlertFrame_AlertObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameAlertFrame_BGObject : Texture
+local CommunitiesFrame_GuildNameAlertFrame_BGObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameAlertFrame_ClickTextObject : FontString
+local CommunitiesFrame_GuildNameAlertFrame_ClickTextObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameAlertFrame_GlowBottomObject : Texture
+local CommunitiesFrame_GuildNameAlertFrame_GlowBottomObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameAlertFrame_GlowBottomLeftObject : Texture
+local CommunitiesFrame_GuildNameAlertFrame_GlowBottomLeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameAlertFrame_GlowBottomRightObject : Texture
+local CommunitiesFrame_GuildNameAlertFrame_GlowBottomRightObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameAlertFrame_GlowLeftObject : Texture
+local CommunitiesFrame_GuildNameAlertFrame_GlowLeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameAlertFrame_GlowRightObject : Texture
+local CommunitiesFrame_GuildNameAlertFrame_GlowRightObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameAlertFrame_GlowTopObject : Texture
+local CommunitiesFrame_GuildNameAlertFrame_GlowTopObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameAlertFrame_GlowTopLeftObject : Texture
+local CommunitiesFrame_GuildNameAlertFrame_GlowTopLeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameAlertFrame_GlowTopRightObject : Texture
+local CommunitiesFrame_GuildNameAlertFrame_GlowTopRightObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameAlertFrame_ShadowBottomObject : Texture
+local CommunitiesFrame_GuildNameAlertFrame_ShadowBottomObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameAlertFrame_ShadowBottomLeftObject : Texture
+local CommunitiesFrame_GuildNameAlertFrame_ShadowBottomLeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameAlertFrame_ShadowBottomRightObject : Texture
+local CommunitiesFrame_GuildNameAlertFrame_ShadowBottomRightObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameAlertFrame_ShadowLeftObject : Texture
+local CommunitiesFrame_GuildNameAlertFrame_ShadowLeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameAlertFrame_ShadowRightObject : Texture
+local CommunitiesFrame_GuildNameAlertFrame_ShadowRightObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameAlertFrame_ShadowTopObject : Texture
+local CommunitiesFrame_GuildNameAlertFrame_ShadowTopObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameAlertFrame_ShadowTopLeftObject : Texture
+local CommunitiesFrame_GuildNameAlertFrame_ShadowTopLeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameAlertFrame_ShadowTopRightObject : Texture
+local CommunitiesFrame_GuildNameAlertFrame_ShadowTopRightObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameChangeFrameObject : Frame
+---@field Button CommunitiesFrame_GuildNameChangeFrame_ButtonObject
+---@field CloseButton CommunitiesFrame_GuildNameChangeFrame_CloseButtonObject
+---@field EditBox CommunitiesFrame_GuildNameChangeFrame_EditBoxObject
+---@field Error CommunitiesFrame_GuildNameChangeFrame_ErrorObject
+---@field GMText CommunitiesFrame_GuildNameChangeFrame_GMTextObject
+---@field RenameText CommunitiesFrame_GuildNameChangeFrame_RenameTextObject
+local CommunitiesFrame_GuildNameChangeFrameObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameChangeFrame_ButtonObject : Button
+---@field Left CommunitiesFrame_GuildNameChangeFrame_Button_LeftObject
+---@field Middle CommunitiesFrame_GuildNameChangeFrame_Button_MiddleObject
+---@field Right CommunitiesFrame_GuildNameChangeFrame_Button_RightObject
+---@field Text CommunitiesFrame_GuildNameChangeFrame_Button_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CommunitiesFrame_GuildNameChangeFrame_ButtonObject = {}
+---@return any ...
+function CommunitiesFrame_GuildNameChangeFrame_ButtonObject:FitToText(...) end
+---@return any ...
+function CommunitiesFrame_GuildNameChangeFrame_ButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildNameChangeFrame_ButtonObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_GuildNameChangeFrame_ButtonObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_GuildNameChangeFrame_ButtonObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_GuildNameChangeFrame_ButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildNameChangeFrame_ButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildNameChangeFrame_Button_LeftObject : Texture
+local CommunitiesFrame_GuildNameChangeFrame_Button_LeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameChangeFrame_Button_MiddleObject : Texture
+local CommunitiesFrame_GuildNameChangeFrame_Button_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameChangeFrame_Button_RightObject : Texture
+local CommunitiesFrame_GuildNameChangeFrame_Button_RightObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameChangeFrame_Button_TextObject : FontString
+local CommunitiesFrame_GuildNameChangeFrame_Button_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameChangeFrame_CloseButtonObject : Button
+local CommunitiesFrame_GuildNameChangeFrame_CloseButtonObject = {}
+---@return any ...
+function CommunitiesFrame_GuildNameChangeFrame_CloseButtonObject:NarrationGetName(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildNameChangeFrame_EditBoxObject : EditBox
+---@field Left CommunitiesFrame_GuildNameChangeFrame_EditBox_LeftObject
+---@field Middle CommunitiesFrame_GuildNameChangeFrame_EditBox_MiddleObject
+---@field Right CommunitiesFrame_GuildNameChangeFrame_EditBox_RightObject
+local CommunitiesFrame_GuildNameChangeFrame_EditBoxObject = {}
+---@return any ...
+function CommunitiesFrame_GuildNameChangeFrame_EditBoxObject:NarrationGetContext(...) end
+---@return any ...
+function CommunitiesFrame_GuildNameChangeFrame_EditBoxObject:NarrationGetDescription(...) end
+---@return any ...
+function CommunitiesFrame_GuildNameChangeFrame_EditBoxObject:NarrationGetName(...) end
+---@return any ...
+function CommunitiesFrame_GuildNameChangeFrame_EditBoxObject:SetNarrationLabelRegion(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildNameChangeFrame_EditBox_LeftObject : Texture
+local CommunitiesFrame_GuildNameChangeFrame_EditBox_LeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameChangeFrame_EditBox_MiddleObject : Texture
+local CommunitiesFrame_GuildNameChangeFrame_EditBox_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameChangeFrame_EditBox_RightObject : Texture
+local CommunitiesFrame_GuildNameChangeFrame_EditBox_RightObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameChangeFrame_ErrorObject : FontString
+local CommunitiesFrame_GuildNameChangeFrame_ErrorObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameChangeFrame_GMTextObject : FontString
+local CommunitiesFrame_GuildNameChangeFrame_GMTextObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildNameChangeFrame_RenameTextObject : FontString
+local CommunitiesFrame_GuildNameChangeFrame_RenameTextObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPostingChangeFrameObject : Frame
+---@field Button CommunitiesFrame_GuildPostingChangeFrame_ButtonObject
+---@field CloseButton CommunitiesFrame_GuildPostingChangeFrame_CloseButtonObject
+---@field Error CommunitiesFrame_GuildPostingChangeFrame_ErrorObject
+---@field GMText CommunitiesFrame_GuildPostingChangeFrame_GMTextObject
+local CommunitiesFrame_GuildPostingChangeFrameObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPostingChangeFrame_ButtonObject : Button
+---@field Left CommunitiesFrame_GuildPostingChangeFrame_Button_LeftObject
+---@field Middle CommunitiesFrame_GuildPostingChangeFrame_Button_MiddleObject
+---@field Right CommunitiesFrame_GuildPostingChangeFrame_Button_RightObject
+---@field Text CommunitiesFrame_GuildPostingChangeFrame_Button_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CommunitiesFrame_GuildPostingChangeFrame_ButtonObject = {}
+---@return any ...
+function CommunitiesFrame_GuildPostingChangeFrame_ButtonObject:FitToText(...) end
+---@return any ...
+function CommunitiesFrame_GuildPostingChangeFrame_ButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildPostingChangeFrame_ButtonObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_GuildPostingChangeFrame_ButtonObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_GuildPostingChangeFrame_ButtonObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_GuildPostingChangeFrame_ButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildPostingChangeFrame_ButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildPostingChangeFrame_Button_LeftObject : Texture
+local CommunitiesFrame_GuildPostingChangeFrame_Button_LeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPostingChangeFrame_Button_MiddleObject : Texture
+local CommunitiesFrame_GuildPostingChangeFrame_Button_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPostingChangeFrame_Button_RightObject : Texture
+local CommunitiesFrame_GuildPostingChangeFrame_Button_RightObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPostingChangeFrame_Button_TextObject : FontString
+local CommunitiesFrame_GuildPostingChangeFrame_Button_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPostingChangeFrame_CloseButtonObject : Button
+local CommunitiesFrame_GuildPostingChangeFrame_CloseButtonObject = {}
+---@return any ...
+function CommunitiesFrame_GuildPostingChangeFrame_CloseButtonObject:NarrationGetName(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildPostingChangeFrame_ErrorObject : FontString
+local CommunitiesFrame_GuildPostingChangeFrame_ErrorObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPostingChangeFrame_GMTextObject : FontString
+local CommunitiesFrame_GuildPostingChangeFrame_GMTextObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrameObject : Frame
+---@field DatacenterApplyButton CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterApplyButtonObject
+---@field DatacenterDropdown CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject
+---@field DatacenterLabel CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterLabelObject
+---@field LocaleApplyButton CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleApplyButtonObject
+---@field LocaleDropdown CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject
+---@field LocaleLabel CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleLabelObject
+---@field NotGuildMasterNotice CommunitiesFrame_GuildPreferredPlaySettingsFrame_NotGuildMasterNoticeObject
+---@field Title CommunitiesFrame_GuildPreferredPlaySettingsFrame_TitleObject
+---@field stagedDatacenterLocalityID number
+---@field stagedLocaleID number
+---@field state CommunitiesFrame_GuildPreferredPlaySettingsFrame_stateObject
+local CommunitiesFrame_GuildPreferredPlaySettingsFrameObject = {}
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrameObject:ApplyDatacenterLocalitySelection(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrameObject:ApplyLocaleSelection(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrameObject:InitializeDatacenterDropdown(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrameObject:InitializeLocaleDropdown(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrameObject:OnEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrameObject:OnHide(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrameObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrameObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrameObject:RefreshState(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterApplyButtonObject : Button
+---@field Left CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterApplyButton_LeftObject
+---@field Middle CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterApplyButton_MiddleObject
+---@field Right CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterApplyButton_RightObject
+---@field Text CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterApplyButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterApplyButtonObject = {}
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterApplyButtonObject:FitToText(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterApplyButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterApplyButtonObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterApplyButtonObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterApplyButtonObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterApplyButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterApplyButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterApplyButton_LeftObject : Texture
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterApplyButton_LeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterApplyButton_MiddleObject : Texture
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterApplyButton_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterApplyButton_RightObject : Texture
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterApplyButton_RightObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterApplyButton_TextObject : FontString
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterApplyButton_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject : Button
+---@field Arrow CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_ArrowObject
+---@field Background CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_BackgroundObject
+---@field Event CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_EventObject
+---@field Text CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuAnchorObject
+---@field menuDescription CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuDescriptionObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject = {}
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:ClearMenuState(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:CloseMenu(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:CollectSelectionData(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:CreateRootDescription(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:Decrement(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:GenerateMenu(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:GetArrowAtlas(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:GetDefaultText(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:GetMenuDescription(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:GetSelectionData(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:GetUpdateText(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:HasElements(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:HasStickyFocus(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:Increment(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:IsDown(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:IsDownOver(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:IsMenuOpen(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:IsOver(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:NarrationGetContext(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:NarrationGetName(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:OnDisable(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:OnEnable(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:OnMenuChanged(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:OnMenuClosed(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:OnMenuOpened(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:OnMenuResponse(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:OnMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:OnMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:OpenMenu(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:OverrideText(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:Pick(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:RegisterMenu(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:Rotate(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:SetDefaultText(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:SetMenuOpen(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:SetSelectionText(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:SetTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:SetupMenu(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:ShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:SignalUpdate(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:Update(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:UpdateSelections(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:UpdateText(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:menuGenerator(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdownObject:selectionTranslator(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_ArrowObject : Texture
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_ArrowObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_BackgroundObject : Texture
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_BackgroundObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_EventObject
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_EventObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_TextObject : FontString
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuAnchorObject = {}
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuAnchor_relativeToObject
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuDescriptionObject
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuDescriptionObject = {}
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuDescriptionObject:CreateButton(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuDescriptionObject:CreateCheckbox(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuDescriptionObject:CreateColorSwatch(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuDescriptionObject:CreateDivider(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuDescriptionObject:CreateFrame(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuDescriptionObject:CreateHighlightButton(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuDescriptionObject:CreateHighlightRadio(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuDescriptionObject:CreateRadio(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuDescriptionObject:CreateSearchEntry(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuDescriptionObject:CreateSpacer(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuDescriptionObject:CreateTemplate(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuDescriptionObject:CreateTitle(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuDescriptionObject:QueueDivider(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuDescriptionObject:QueueSpacer(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuDescriptionObject:QueueTitle(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuDescriptionObject:SetTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterDropdown_menuDescriptionObject:private(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterLabelObject : FontString
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_DatacenterLabelObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleApplyButtonObject : Button
+---@field Left CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleApplyButton_LeftObject
+---@field Middle CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleApplyButton_MiddleObject
+---@field Right CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleApplyButton_RightObject
+---@field Text CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleApplyButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleApplyButtonObject = {}
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleApplyButtonObject:FitToText(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleApplyButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleApplyButtonObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleApplyButtonObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleApplyButtonObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleApplyButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleApplyButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleApplyButton_LeftObject : Texture
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleApplyButton_LeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleApplyButton_MiddleObject : Texture
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleApplyButton_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleApplyButton_RightObject : Texture
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleApplyButton_RightObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleApplyButton_TextObject : FontString
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleApplyButton_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject : Button
+---@field Arrow CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_ArrowObject
+---@field Background CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_BackgroundObject
+---@field Event CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_EventObject
+---@field Text CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuAnchorObject
+---@field menuDescription CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuDescriptionObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject = {}
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:ClearMenuState(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:CloseMenu(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:CollectSelectionData(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:CreateRootDescription(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:Decrement(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:GenerateMenu(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:GetArrowAtlas(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:GetDefaultText(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:GetMenuDescription(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:GetSelectionData(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:GetUpdateText(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:HasElements(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:HasStickyFocus(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:Increment(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:IsDown(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:IsDownOver(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:IsMenuOpen(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:IsOver(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:NarrationGetContext(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:NarrationGetName(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:OnDisable(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:OnEnable(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:OnMenuChanged(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:OnMenuClosed(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:OnMenuOpened(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:OnMenuResponse(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:OnMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:OnMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:OpenMenu(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:OverrideText(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:Pick(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:RegisterMenu(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:Rotate(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:SetDefaultText(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:SetMenuOpen(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:SetSelectionText(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:SetTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:SetupMenu(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:ShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:SignalUpdate(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:Update(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:UpdateSelections(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:UpdateText(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:menuGenerator(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdownObject:selectionTranslator(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_ArrowObject : Texture
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_ArrowObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_BackgroundObject : Texture
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_BackgroundObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_EventObject
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_EventObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_TextObject : FontString
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuAnchorObject = {}
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuAnchor_relativeToObject
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuDescriptionObject
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuDescriptionObject = {}
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuDescriptionObject:CreateButton(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuDescriptionObject:CreateCheckbox(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuDescriptionObject:CreateColorSwatch(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuDescriptionObject:CreateDivider(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuDescriptionObject:CreateFrame(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuDescriptionObject:CreateHighlightButton(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuDescriptionObject:CreateHighlightRadio(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuDescriptionObject:CreateRadio(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuDescriptionObject:CreateSearchEntry(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuDescriptionObject:CreateSpacer(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuDescriptionObject:CreateTemplate(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuDescriptionObject:CreateTitle(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuDescriptionObject:QueueDivider(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuDescriptionObject:QueueSpacer(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuDescriptionObject:QueueTitle(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuDescriptionObject:SetTooltip(...) end
+---@return any ...
+function CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleDropdown_menuDescriptionObject:private(...) end
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleLabelObject : FontString
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_LocaleLabelObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_NotGuildMasterNoticeObject : FontString
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_NotGuildMasterNoticeObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_TitleObject : FontString
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_TitleObject = {}
+end
+
+do
+---@class CommunitiesFrame_GuildPreferredPlaySettingsFrame_stateObject
+---@field changeCooldownDays number
+---@field lastPreferredDatacenterLocalityChangeDate number
+---@field lastPreferredLocaleChangeDate number
+---@field loaded boolean
+---@field preferredDatacenterLocalityID number
+---@field preferredLocaleID number
+local CommunitiesFrame_GuildPreferredPlaySettingsFrame_stateObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrameObject : Frame
+---@field AcceptButton CommunitiesFrame_InvitationFrame_AcceptButtonObject
+---@field CircleMask CommunitiesFrame_InvitationFrame_CircleMaskObject
+---@field DeclineButton CommunitiesFrame_InvitationFrame_DeclineButtonObject
+---@field Description CommunitiesFrame_InvitationFrame_DescriptionObject
+---@field Icon CommunitiesFrame_InvitationFrame_IconObject
+---@field IconRing CommunitiesFrame_InvitationFrame_IconRingObject
+---@field InsetFrame CommunitiesFrame_InvitationFrame_InsetFrameObject
+---@field InvitationText CommunitiesFrame_InvitationFrame_InvitationTextObject
+---@field Leader CommunitiesFrame_InvitationFrame_LeaderObject
+---@field MemberCount CommunitiesFrame_InvitationFrame_MemberCountObject
+---@field Name CommunitiesFrame_InvitationFrame_NameObject
+---@field Type CommunitiesFrame_InvitationFrame_TypeObject
+local CommunitiesFrame_InvitationFrameObject = {}
+---@return any ...
+function CommunitiesFrame_InvitationFrameObject:AcceptInvitation(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrameObject:DeclineInvitation(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrameObject:DisplayInvitation(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrameObject:GetCommunitiesFrame(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrameObject:OnEvent(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrameObject:OnHide(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrameObject:OnHyperlinkClick(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrameObject:OnShow(...) end
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_AcceptButtonObject : Button
+---@field Left CommunitiesFrame_InvitationFrame_AcceptButton_LeftObject
+---@field Middle CommunitiesFrame_InvitationFrame_AcceptButton_MiddleObject
+---@field Right CommunitiesFrame_InvitationFrame_AcceptButton_RightObject
+---@field Text CommunitiesFrame_InvitationFrame_AcceptButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CommunitiesFrame_InvitationFrame_AcceptButtonObject = {}
+---@return any ...
+function CommunitiesFrame_InvitationFrame_AcceptButtonObject:FitToText(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrame_AcceptButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrame_AcceptButtonObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrame_AcceptButtonObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrame_AcceptButtonObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrame_AcceptButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrame_AcceptButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_AcceptButton_LeftObject : Texture
+local CommunitiesFrame_InvitationFrame_AcceptButton_LeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_AcceptButton_MiddleObject : Texture
+local CommunitiesFrame_InvitationFrame_AcceptButton_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_AcceptButton_RightObject : Texture
+local CommunitiesFrame_InvitationFrame_AcceptButton_RightObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_AcceptButton_TextObject : FontString
+local CommunitiesFrame_InvitationFrame_AcceptButton_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_CircleMaskObject : MaskTexture
+local CommunitiesFrame_InvitationFrame_CircleMaskObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_DeclineButtonObject : Button
+---@field Left CommunitiesFrame_InvitationFrame_DeclineButton_LeftObject
+---@field Middle CommunitiesFrame_InvitationFrame_DeclineButton_MiddleObject
+---@field Right CommunitiesFrame_InvitationFrame_DeclineButton_RightObject
+---@field Text CommunitiesFrame_InvitationFrame_DeclineButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CommunitiesFrame_InvitationFrame_DeclineButtonObject = {}
+---@return any ...
+function CommunitiesFrame_InvitationFrame_DeclineButtonObject:FitToText(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrame_DeclineButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrame_DeclineButtonObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrame_DeclineButtonObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrame_DeclineButtonObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrame_DeclineButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrame_DeclineButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_DeclineButton_LeftObject : Texture
+local CommunitiesFrame_InvitationFrame_DeclineButton_LeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_DeclineButton_MiddleObject : Texture
+local CommunitiesFrame_InvitationFrame_DeclineButton_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_DeclineButton_RightObject : Texture
+local CommunitiesFrame_InvitationFrame_DeclineButton_RightObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_DeclineButton_TextObject : FontString
+local CommunitiesFrame_InvitationFrame_DeclineButton_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_DescriptionObject : FontString
+local CommunitiesFrame_InvitationFrame_DescriptionObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_IconObject : Texture
+local CommunitiesFrame_InvitationFrame_IconObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_IconRingObject : Texture
+local CommunitiesFrame_InvitationFrame_IconRingObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_InsetFrameObject : Frame
+---@field Bg CommunitiesFrame_InvitationFrame_InsetFrame_BgObject
+---@field NineSlice CommunitiesFrame_InvitationFrame_InsetFrame_NineSliceObject
+---@field layoutType string
+local CommunitiesFrame_InvitationFrame_InsetFrameObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_InsetFrame_BgObject : Texture
+local CommunitiesFrame_InvitationFrame_InsetFrame_BgObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_InsetFrame_NineSliceObject : Frame
+---@field BottomEdge CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_BottomRightCornerObject
+---@field LeftEdge CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_LeftEdgeObject
+---@field RightEdge CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_RightEdgeObject
+---@field TopEdge CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_TopRightCornerObject
+local CommunitiesFrame_InvitationFrame_InsetFrame_NineSliceObject = {}
+---@return any ...
+function CommunitiesFrame_InvitationFrame_InsetFrame_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrame_InsetFrame_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrame_InsetFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrame_InsetFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrame_InsetFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrame_InsetFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrame_InsetFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrame_InsetFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrame_InsetFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function CommunitiesFrame_InvitationFrame_InsetFrame_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_BottomEdgeObject : Texture
+local CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_BottomLeftCornerObject : Texture
+local CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_BottomRightCornerObject : Texture
+local CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_LeftEdgeObject : Texture
+local CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_RightEdgeObject : Texture
+local CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_TopEdgeObject : Texture
+local CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_TopLeftCornerObject : Texture
+local CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_TopRightCornerObject : Texture
+local CommunitiesFrame_InvitationFrame_InsetFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_InvitationTextObject : FontString
+local CommunitiesFrame_InvitationFrame_InvitationTextObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_LeaderObject : FontString
+local CommunitiesFrame_InvitationFrame_LeaderObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_MemberCountObject : FontString
+local CommunitiesFrame_InvitationFrame_MemberCountObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_NameObject : FontString
+local CommunitiesFrame_InvitationFrame_NameObject = {}
+end
+
+do
+---@class CommunitiesFrame_InvitationFrame_TypeObject : FontString
+local CommunitiesFrame_InvitationFrame_TypeObject = {}
+end
+
+do
+---@class CommunitiesFrame_InviteButtonObject : Button
+---@field Left CommunitiesFrame_InviteButton_LeftObject
+---@field Middle CommunitiesFrame_InviteButton_MiddleObject
+---@field Right CommunitiesFrame_InviteButton_RightObject
+---@field Text CommunitiesFrame_InviteButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+---@field padding number
+local CommunitiesFrame_InviteButtonObject = {}
+---@return any ...
+function CommunitiesFrame_InviteButtonObject:FitToText(...) end
+---@return any ...
+function CommunitiesFrame_InviteButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_InviteButtonObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_InviteButtonObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_InviteButtonObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_InviteButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_InviteButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class CommunitiesFrame_InviteButton_LeftObject : Texture
+local CommunitiesFrame_InviteButton_LeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_InviteButton_MiddleObject : Texture
+local CommunitiesFrame_InviteButton_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_InviteButton_RightObject : Texture
+local CommunitiesFrame_InviteButton_RightObject = {}
+end
+
+do
+---@class CommunitiesFrame_InviteButton_TextObject : FontString
+local CommunitiesFrame_InviteButton_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_MaximizeMinimizeFrameObject : Frame
+---@field MaximizeButton table
+---@field MinimizeButton CommunitiesFrame_MaximizeMinimizeFrame_MinimizeButtonObject
+---@field cvar string
+local CommunitiesFrame_MaximizeMinimizeFrameObject = {}
+---@return any ...
+function CommunitiesFrame_MaximizeMinimizeFrameObject:IsMinimized(...) end
+---@return any ...
+function CommunitiesFrame_MaximizeMinimizeFrameObject:Maximize(...) end
+---@return any ...
+function CommunitiesFrame_MaximizeMinimizeFrameObject:Minimize(...) end
+---@return any ...
+function CommunitiesFrame_MaximizeMinimizeFrameObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_MaximizeMinimizeFrameObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_MaximizeMinimizeFrameObject:SetMaximizedLook(...) end
+---@return any ...
+function CommunitiesFrame_MaximizeMinimizeFrameObject:SetMinimizedCVar(...) end
+---@return any ...
+function CommunitiesFrame_MaximizeMinimizeFrameObject:SetMinimizedLook(...) end
+---@return any ...
+function CommunitiesFrame_MaximizeMinimizeFrameObject:SetOnMaximizedCallback(...) end
+---@return any ...
+function CommunitiesFrame_MaximizeMinimizeFrameObject:SetOnMinimizedCallback(...) end
+---@return any ...
+function CommunitiesFrame_MaximizeMinimizeFrameObject:SkipResetOnShow(...) end
+---@return any ...
+function CommunitiesFrame_MaximizeMinimizeFrameObject:maximizedCallback(...) end
+---@return any ...
+function CommunitiesFrame_MaximizeMinimizeFrameObject:minimizedCallback(...) end
+end
+
+do
+---@class CommunitiesFrame_MaximizeMinimizeFrame_MinimizeButtonObject
+---@field [string] any
+local CommunitiesFrame_MaximizeMinimizeFrame_MinimizeButtonObject = {}
+end
+
+do
+---@class CommunitiesFrame_NineSliceObject : Frame
+---@field BottomEdge CommunitiesFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner CommunitiesFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner CommunitiesFrame_NineSlice_BottomRightCornerObject
+---@field Center CommunitiesFrame_NineSlice_CenterObject
+---@field LeftEdge CommunitiesFrame_NineSlice_LeftEdgeObject
+---@field RightEdge CommunitiesFrame_NineSlice_RightEdgeObject
+---@field TopEdge CommunitiesFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner CommunitiesFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner CommunitiesFrame_NineSlice_TopRightCornerObject
+local CommunitiesFrame_NineSliceObject = {}
+---@return any ...
+function CommunitiesFrame_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function CommunitiesFrame_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function CommunitiesFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function CommunitiesFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function CommunitiesFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function CommunitiesFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function CommunitiesFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function CommunitiesFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function CommunitiesFrame_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class CommunitiesFrame_NineSlice_BottomEdgeObject : Texture
+local CommunitiesFrame_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_NineSlice_BottomLeftCornerObject : Texture
+local CommunitiesFrame_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_NineSlice_BottomRightCornerObject : Texture
+local CommunitiesFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_NineSlice_CenterObject : Texture
+local CommunitiesFrame_NineSlice_CenterObject = {}
+end
+
+do
+---@class CommunitiesFrame_NineSlice_LeftEdgeObject : Texture
+local CommunitiesFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_NineSlice_RightEdgeObject : Texture
+local CommunitiesFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_NineSlice_TopEdgeObject : Texture
+local CommunitiesFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_NineSlice_TopLeftCornerObject : Texture
+local CommunitiesFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_NineSlice_TopRightCornerObject : Texture
+local CommunitiesFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialogObject : Frame
+---@field BG CommunitiesFrame_NotificationSettingsDialog_BGObject
+---@field CommunitiesListDropdown CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject
+---@field FocusJumpHint CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject
+---@field FrameGlow CommunitiesFrame_NotificationSettingsDialog_FrameGlowObject
+---@field LeftJumpHint CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject
+---@field RightJumpHint CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject
+---@field ScrollFrame CommunitiesFrame_NotificationSettingsDialog_ScrollFrameObject
+---@field Selector CommunitiesFrame_NotificationSettingsDialog_SelectorObject
+---@field TitleLabel CommunitiesFrame_NotificationSettingsDialog_TitleLabelObject
+---@field buttonPool CommunitiesFrame_NotificationSettingsDialog_buttonPoolObject
+---@field layoutType string
+local CommunitiesFrame_NotificationSettingsDialogObject = {}
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:Cancel(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:CreateGamepadFooter(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:EndFocus(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:FocusGamepad(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:GamepadBaseDialog_OnHide(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:GamepadBaseDialog_OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:GamepadBaseDialog_OnShow(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:GetCommunitiesFrame(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:GetFocusFrameGlow(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:GetFocusFrameRoot(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:GetSelectedClubId(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:HideFocusJumpHint(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:HideLeftJumpHint(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:HideRightJumpHint(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:InitGamepad(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:LockInFocus(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:Refresh(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:RefreshFocus(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:SaveSettings(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:SelectClub(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:SetAll(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:SetupGamepad(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:ShowFocusJumpHint(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:ShowLeftJumpHint(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:ShowRightJumpHint(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:SmartNavigationCloseHandler(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:StartFocus(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:UnfocusGamepad(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialogObject:UninitGamepad(...) end
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_BGObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_BGObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject : Button
+---@field Arrow CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_ArrowObject
+---@field Background CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_BackgroundObject
+---@field Event CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_EventObject
+---@field NotificationOverlay CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_NotificationOverlayObject
+---@field Text CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_menuAnchorObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+local CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject = {}
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:ClearMenuState(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:CloseMenu(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:CollectSelectionData(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:CreateRootDescription(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:Decrement(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:GenerateMenu(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:GetArrowAtlas(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:GetDefaultText(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:GetMenuDescription(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:GetSelectionData(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:GetUpdateText(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:HasElements(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:HasStickyFocus(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:Increment(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:IsDown(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:IsDownOver(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:IsMenuOpen(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:IsOver(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:NarrationGetContext(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:NarrationGetName(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:OnClubSelected(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:OnCommunitiesClubSelected(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:OnDisable(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:OnEnable(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:OnHide(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:OnMenuChanged(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:OnMenuClosed(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:OnMenuOpened(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:OnMenuResponse(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:OnMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:OnMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:OpenMenu(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:OverrideText(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:Pick(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:RegisterMenu(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:Rotate(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:SetDefaultText(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:SetMenuOpen(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:SetSelectionText(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:SetTooltip(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:SetupMenu(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:ShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:SignalUpdate(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:Update(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:UpdateSelections(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:UpdateText(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:UpdateUnreadNotification(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdownObject:selectionTranslator(...) end
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_ArrowObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_ArrowObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_BackgroundObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_BackgroundObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_EventObject
+local CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_EventObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_NotificationOverlayObject : Frame
+---@field UnreadNotificationIcon CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_NotificationOverlay_UnreadNotificationIconObject
+local CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_NotificationOverlayObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_NotificationOverlay_UnreadNotificationIconObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_NotificationOverlay_UnreadNotificationIconObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_TextObject : FontString
+local CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_menuAnchorObject = {}
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_menuAnchor_relativeToObject
+local CommunitiesFrame_NotificationSettingsDialog_CommunitiesListDropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject : Frame
+---@field ActiveTexture CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_HoverTextureObject
+---@field LoadBar CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_LoadBarObject
+---@field LoadBarBG CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_NormalTextureObject
+---@field PressedTexture CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_SpinnerTipObject
+---@field ignoreInLayout boolean
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject = {}
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject:BeginHold(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject:EndHold(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject:SetDisabled(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject:SetEnabled(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject:SetFocused(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject:SetHoldState(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject:SetInputKey(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject:SetPressable(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject:SetTextureState(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject:SetUsableState(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_ActiveTextureObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_DisabledTextureObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_HoldIndicatorObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_HoldIndicatorBGObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_HoverTextureObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_LoadBarObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_LoadBarObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_LoadBarBGObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_LoadBarGlowObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_NormalTextureObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_PressedTextureObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_SpinnerTipObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_FocusJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_FrameGlowObject : Frame
+---@field GlowTexture CommunitiesFrame_NotificationSettingsDialog_FrameGlow_GlowTextureObject
+---@field glowTextures table
+local CommunitiesFrame_NotificationSettingsDialog_FrameGlowObject = {}
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FrameGlowObject:GetContainerFrame(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FrameGlowObject:GetFrameLayoutType(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FrameGlowObject:GetHeaderFrame(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_FrameGlowObject:OnLoad(...) end
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_FrameGlow_GlowTextureObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_FrameGlow_GlowTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject : Frame
+---@field ActiveTexture CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_HoverTextureObject
+---@field LoadBar CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_LoadBarObject
+---@field LoadBarBG CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_NormalTextureObject
+---@field PressedTexture CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject = {}
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject:BeginHold(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_ActiveTextureObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_DisabledTextureObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_HoldIndicatorObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_HoldIndicatorBGObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_HoverTextureObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_LoadBarObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_LoadBarBGObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_LoadBarGlowObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_NormalTextureObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_PressedTextureObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_SpinnerTipObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject : Frame
+---@field ActiveTexture CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_DisabledTextureObject
+---@field HoldAnim CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_HoldAnimObject
+---@field HoldIndicator CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_HoverTextureObject
+---@field LoadBar CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_LoadBarObject
+---@field LoadBarBG CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_NormalTextureObject
+---@field PressedTexture CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_PressedTextureObject
+---@field SpinnerTip CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject = {}
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_ActiveTextureObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_DisabledTextureObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_HoldAnim_LoadBarAnimObject
+local CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_HoldIndicatorObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_HoldIndicatorBGObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_HoverTextureObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_LoadBarObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_LoadBarBGObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_LoadBarGlowObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_NormalTextureObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_PressedTextureObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_SpinnerTipObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrameObject : ScrollFrame
+---@field Child CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ChildObject
+---@field ScrollBar CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject
 ---@field panExtent number
----@field scrollBarHideIfUnscrollable boolean
+---@field scrollBarBottomY number
 ---@field scrollBarTopY number
 ---@field scrollBarX number
-local EditModeManagerFrame_AccountSettings_SettingsContainerObject = {}
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrameObject = {}
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:AddLayoutChildren(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrameObject:GetPanExtent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:GetPanExtent(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:SetPanExtent(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainerObject:ShouldClearOnUpdateAfterClean(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrameObject:SetPanExtent(...) end
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject : Frame
----@field Button EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBar_ButtonObject
----@field Label EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBar_LabelObject
----@field advancedLayoutIndex number
----@field category number
----@field fixedHeight number
----@field fixedWidth number
----@field labelText string
----@field shouldHide boolean
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:AutoEnableCVar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:CheckAddNarrationToButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:EditModeCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:EditModeCheckButton_OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:EditModeManagerSettingCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:GetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:HideButtonTooltip(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:IsControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:IsControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:OnCheckButtonClick(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:OnEnter(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:OnLeave(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:RunMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:SetButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:SetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:SetControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:SetControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:SetLabel(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:SetLabelText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:SetMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:SetTooltipDisabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:SetTooltipText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:ShouldEnable(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:UpdateDisplay(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:UpdateLabelFont(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:mouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBarObject:onBoxToggled(...) end
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ChildObject : Frame
+---@field AllButton CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButtonObject
+---@field NoneButton CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButtonObject
+---@field QuickJoinButton CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_QuickJoinButtonObject
+---@field Separator CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_SeparatorObject
+---@field SettingsLabel CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_SettingsLabelObject
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ChildObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBar_ButtonObject : CheckButton
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBar_ButtonObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButtonObject : Button
+---@field BottomLeft CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_BottomLeftObject
+---@field BottomMiddle CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_BottomMiddleObject
+---@field BottomRight CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_BottomRightObject
+---@field MiddleLeft CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_MiddleLeftObject
+---@field MiddleMiddle CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_MiddleMiddleObject
+---@field MiddleRight CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_MiddleRightObject
+---@field Text CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_TextObject
+---@field TopLeft CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_TopLeftObject
+---@field TopMiddle CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_TopMiddleObject
+---@field TopRight CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_TopRightObject
+---@field filter number
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButtonObject = {}
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBar_ButtonObject:NarrationGetContext(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButtonObject:OnEnable(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBar_ButtonObject:NarrationGetName(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButtonObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButtonObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButtonObject:OnMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButtonObject:OnMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButtonObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButtonObject:SetTextures(...) end
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBar_LabelObject : FontString
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ArchaeologyBar_LabelObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_BottomLeftObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_BottomLeftObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject : Frame
----@field Button EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFrames_ButtonObject
----@field Label EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFrames_LabelObject
----@field advancedLayoutIndex number
----@field category number
----@field fixedHeight number
----@field fixedWidth number
----@field labelText string
----@field shouldHide boolean
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:AutoEnableCVar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:CheckAddNarrationToButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:EditModeCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:EditModeCheckButton_OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:EditModeManagerSettingCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:GetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:HideButtonTooltip(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:IsControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:IsControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:OnCheckButtonClick(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:OnEnter(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:OnLeave(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:RunMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:SetButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:SetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:SetControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:SetControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:SetLabel(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:SetLabelText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:SetMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:SetTooltipDisabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:SetTooltipText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:ShouldEnable(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:UpdateDisplay(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:UpdateLabelFont(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:mouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFramesObject:onBoxToggled(...) end
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_BottomMiddleObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_BottomMiddleObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFrames_ButtonObject : CheckButton
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFrames_ButtonObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFrames_ButtonObject:NarrationGetContext(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFrames_ButtonObject:NarrationGetName(...) end
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_BottomRightObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_BottomRightObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFrames_LabelObject : FontString
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ArenaFrames_LabelObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_MiddleLeftObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_MiddleLeftObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArtObject : Frame
----@field BottomEdge EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_BottomEdgeObject
----@field BottomLeftCorner EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_BottomLeftCornerObject
----@field BottomRightCorner EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_BottomRightCornerObject
----@field Center EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_CenterObject
----@field LeftEdge EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_LeftEdgeObject
----@field RightEdge EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_RightEdgeObject
----@field TopEdge EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_TopEdgeObject
----@field TopLeftCorner EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_TopLeftCornerObject
----@field TopRightCorner EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_TopRightCornerObject
----@field ignoreInLayout boolean
----@field layoutTextureKit string
----@field layoutType string
-local EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArtObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArtObject:GetBorderColor(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArtObject:GetCenterColor(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArtObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArtObject:GetFrameLayoutType(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArtObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArtObject:SetBlendMode(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArtObject:SetBorderBlendMode(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArtObject:SetBorderColor(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArtObject:SetCenterColor(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArtObject:SetVertexColor(...) end
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_MiddleMiddleObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_MiddleMiddleObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_BottomEdgeObject : Texture
-local EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_BottomEdgeObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_MiddleRightObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_MiddleRightObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_BottomLeftCornerObject : Texture
-local EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_BottomLeftCornerObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_TextObject : FontString
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_TextObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_BottomRightCornerObject : Texture
-local EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_BottomRightCornerObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_TopLeftObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_TopLeftObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_CenterObject : Texture
-local EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_CenterObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_TopMiddleObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_TopMiddleObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_LeftEdgeObject : Texture
-local EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_LeftEdgeObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_TopRightObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_AllButton_TopRightObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_RightEdgeObject : Texture
-local EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_RightEdgeObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButtonObject : Button
+---@field BottomLeft CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_BottomLeftObject
+---@field BottomMiddle CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_BottomMiddleObject
+---@field BottomRight CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_BottomRightObject
+---@field MiddleLeft CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_MiddleLeftObject
+---@field MiddleMiddle CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_MiddleMiddleObject
+---@field MiddleRight CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_MiddleRightObject
+---@field Text CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_TextObject
+---@field TopLeft CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_TopLeftObject
+---@field TopMiddle CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_TopMiddleObject
+---@field TopRight CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_TopRightObject
+---@field filter number
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButtonObject = {}
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButtonObject:OnEnable(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButtonObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButtonObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButtonObject:OnMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButtonObject:OnMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButtonObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButtonObject:SetTextures(...) end
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_TopEdgeObject : Texture
-local EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_TopEdgeObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_BottomLeftObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_BottomLeftObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_TopLeftCornerObject : Texture
-local EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_TopLeftCornerObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_BottomMiddleObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_BottomMiddleObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_TopRightCornerObject : Texture
-local EditModeManagerFrame_AccountSettings_SettingsContainer_BorderArt_TopRightCornerObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_BottomRightObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_BottomRightObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_BossFramesObject
-local EditModeManagerFrame_AccountSettings_SettingsContainer_BossFramesObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_MiddleLeftObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_MiddleLeftObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_BuffsAndDebuffsObject
-local EditModeManagerFrame_AccountSettings_SettingsContainer_BuffsAndDebuffsObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_MiddleMiddleObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_MiddleMiddleObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject : Frame
----@field Button EditModeManagerFrame_AccountSettings_SettingsContainer_CastBar_ButtonObject
----@field Label EditModeManagerFrame_AccountSettings_SettingsContainer_CastBar_LabelObject
----@field advancedLayoutIndex number
----@field basicLayoutIndex number
----@field category number
----@field dirty boolean
----@field fixedHeight number
----@field fixedWidth number
----@field isBasicOption boolean
----@field labelText string
----@field layoutIndex number
----@field shouldHide boolean
-local EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:AutoEnableCVar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:CheckAddNarrationToButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:EditModeCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:EditModeCheckButton_OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:EditModeManagerSettingCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:GetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:HideButtonTooltip(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:IsControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:IsControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:OnCheckButtonClick(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:OnEnter(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:OnLeave(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:RunMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:SetButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:SetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:SetControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:SetControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:SetLabel(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:SetLabelText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:SetMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:SetTooltipDisabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:SetTooltipText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:ShouldEnable(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:UpdateDisplay(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:UpdateLabelFont(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:mouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBarObject:onBoxToggled(...) end
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_MiddleRightObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_MiddleRightObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_CastBar_ButtonObject : CheckButton
-local EditModeManagerFrame_AccountSettings_SettingsContainer_CastBar_ButtonObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBar_ButtonObject:NarrationGetContext(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_CastBar_ButtonObject:NarrationGetName(...) end
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_TextObject : FontString
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_TextObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_CastBar_LabelObject : FontString
-local EditModeManagerFrame_AccountSettings_SettingsContainer_CastBar_LabelObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_TopLeftObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_TopLeftObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_CooldownViewerObject
-local EditModeManagerFrame_AccountSettings_SettingsContainer_CooldownViewerObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_TopMiddleObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_TopMiddleObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_DamageMeterObject
-local EditModeManagerFrame_AccountSettings_SettingsContainer_DamageMeterObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_TopRightObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_NoneButton_TopRightObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_DurabilityFrameObject
-local EditModeManagerFrame_AccountSettings_SettingsContainer_DurabilityFrameObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_QuickJoinButtonObject : CheckButton
+---@field Text CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_QuickJoinButton_TextObject
+---@field text CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_QuickJoinButton_textObject
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_QuickJoinButtonObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject : Frame
----@field Button EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBar_ButtonObject
----@field Label EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBar_LabelObject
----@field advancedLayoutIndex number
----@field category number
----@field fixedHeight number
----@field fixedWidth number
----@field labelText string
----@field shouldHide boolean
-local EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:AutoEnableCVar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:CheckAddNarrationToButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:EditModeCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:EditModeCheckButton_OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:EditModeManagerSettingCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:GetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:HideButtonTooltip(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:IsControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:IsControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:OnCheckButtonClick(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:OnEnter(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:OnLeave(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:RunMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:SetButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:SetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:SetControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:SetControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:SetLabel(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:SetLabelText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:SetMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:SetTooltipDisabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:SetTooltipText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:ShouldEnable(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:UpdateDisplay(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:UpdateLabelFont(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:mouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBarObject:onBoxToggled(...) end
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_QuickJoinButton_TextObject : FontString
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_QuickJoinButton_TextObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBar_ButtonObject : CheckButton
-local EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBar_ButtonObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBar_ButtonObject:NarrationGetContext(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBar_ButtonObject:NarrationGetName(...) end
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_QuickJoinButton_textObject
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_QuickJoinButton_textObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBar_LabelObject : FontString
-local EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterBar_LabelObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_SeparatorObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_SeparatorObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject : Frame
----@field Button EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEvents_ButtonObject
----@field Label EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEvents_LabelObject
----@field advancedLayoutIndex number
----@field allowAutoEnableCVar boolean
----@field category number
----@field disabledTooltipText string
----@field fixedHeight number
----@field fixedWidth number
----@field labelText string
----@field shouldEnableCVarName string
----@field shouldHide boolean
-local EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:AutoEnableCVar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:CheckAddNarrationToButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:EditModeCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:EditModeCheckButton_OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:EditModeManagerSettingCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:GetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:HideButtonTooltip(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:IsControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:IsControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:OnCheckButtonClick(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:OnEnter(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:OnLeave(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:RunMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:SetButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:SetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:SetControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:SetControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:SetLabel(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:SetLabelText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:SetMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:SetTooltipDisabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:SetTooltipText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:ShouldEnable(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:UpdateDisplay(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:UpdateLabelFont(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:mouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEventsObject:onBoxToggled(...) end
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_SettingsLabelObject : FontString
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_Child_SettingsLabelObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEvents_ButtonObject : CheckButton
-local EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEvents_ButtonObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEvents_ButtonObject:NarrationGetContext(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEvents_ButtonObject:NarrationGetName(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEvents_LabelObject : FontString
-local EditModeManagerFrame_AccountSettings_SettingsContainer_EncounterEvents_LabelObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject : Frame
----@field Button EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensives_ButtonObject
----@field Label EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensives_LabelObject
----@field advancedLayoutIndex number
----@field allowAutoEnableCVar boolean
----@field category number
----@field dirty boolean
----@field disabledTooltipText string
----@field fixedHeight number
----@field fixedWidth number
----@field labelText string
----@field layoutIndex number
----@field shouldEnableCVarName string
----@field shouldHide boolean
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:AutoEnableCVar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:CheckAddNarrationToButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:EditModeCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:EditModeCheckButton_OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:EditModeManagerSettingCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:GetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:HideButtonTooltip(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:IsControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:IsControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:OnCheckButtonClick(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:OnEnter(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:OnLeave(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:RunMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:SetButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:SetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:SetControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:SetControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:SetLabel(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:SetLabelText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:SetMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:SetTooltipDisabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:SetTooltipText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:ShouldEnable(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:UpdateDisplay(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:UpdateLabelFont(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:mouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensivesObject:onBoxToggled(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensives_ButtonObject : CheckButton
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensives_ButtonObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensives_ButtonObject:NarrationGetContext(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensives_ButtonObject:NarrationGetName(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensives_LabelObject : FontString
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ExternalDefensives_LabelObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject : Frame
----@field Button EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilities_ButtonObject
----@field Label EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilities_LabelObject
----@field advancedLayoutIndex number
----@field category number
----@field fixedHeight number
----@field fixedWidth number
----@field labelText string
----@field shouldHide boolean
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:AutoEnableCVar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:CheckAddNarrationToButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:EditModeCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:EditModeCheckButton_OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:EditModeManagerSettingCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:GetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:HideButtonTooltip(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:IsControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:IsControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:OnCheckButtonClick(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:OnEnter(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:OnLeave(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:RunMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:SetButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:SetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:SetControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:SetControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:SetLabel(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:SetLabelText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:SetMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:SetTooltipDisabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:SetTooltipText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:ShouldEnable(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:UpdateDisplay(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:UpdateLabelFont(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:mouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilitiesObject:onBoxToggled(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilities_ButtonObject : CheckButton
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilities_ButtonObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilities_ButtonObject:NarrationGetContext(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilities_ButtonObject:NarrationGetName(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilities_LabelObject : FontString
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ExtraAbilities_LabelObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_GroupFinderObject
-local EditModeManagerFrame_AccountSettings_SettingsContainer_GroupFinderObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject : Frame
----@field Button EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltip_ButtonObject
----@field Label EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltip_LabelObject
----@field advancedLayoutIndex number
----@field category number
----@field dirty boolean
----@field fixedHeight number
----@field fixedWidth number
----@field labelText string
----@field layoutIndex number
----@field shouldHide boolean
-local EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:AutoEnableCVar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:CheckAddNarrationToButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:EditModeCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:EditModeCheckButton_OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:EditModeManagerSettingCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:GetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:HideButtonTooltip(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:IsControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:IsControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:OnCheckButtonClick(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:OnEnter(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:OnLeave(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:RunMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:SetButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:SetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:SetControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:SetControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:SetLabel(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:SetLabelText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:SetMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:SetTooltipDisabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:SetTooltipText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:ShouldEnable(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:UpdateDisplay(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:UpdateLabelFont(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:mouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltipObject:onBoxToggled(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltip_ButtonObject : CheckButton
-local EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltip_ButtonObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltip_ButtonObject:NarrationGetContext(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltip_ButtonObject:NarrationGetName(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltip_LabelObject : FontString
-local EditModeManagerFrame_AccountSettings_SettingsContainer_HudTooltip_LabelObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_LootFrameObject
-local EditModeManagerFrame_AccountSettings_SettingsContainer_LootFrameObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_LossOfControlObject
-local EditModeManagerFrame_AccountSettings_SettingsContainer_LossOfControlObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject : Frame
----@field Button EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFrames_ButtonObject
----@field Label EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFrames_LabelObject
----@field advancedLayoutIndex number
----@field basicLayoutIndex number
----@field category number
----@field dirty boolean
----@field fixedHeight number
----@field fixedWidth number
----@field isBasicOption boolean
----@field labelText string
----@field layoutIndex number
----@field shouldHide boolean
-local EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:AutoEnableCVar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:CheckAddNarrationToButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:EditModeCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:EditModeCheckButton_OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:EditModeManagerSettingCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:GetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:HideButtonTooltip(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:IsControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:IsControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:OnCheckButtonClick(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:OnEnter(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:OnLeave(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:RunMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:SetButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:SetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:SetControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:SetControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:SetLabel(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:SetLabelText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:SetMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:SetTooltipDisabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:SetTooltipText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:ShouldEnable(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:UpdateDisplay(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:UpdateLabelFont(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:mouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFramesObject:onBoxToggled(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFrames_ButtonObject : CheckButton
-local EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFrames_ButtonObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFrames_ButtonObject:NarrationGetContext(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFrames_ButtonObject:NarrationGetName(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFrames_LabelObject : FontString
-local EditModeManagerFrame_AccountSettings_SettingsContainer_PartyFrames_LabelObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_PersonalResourceDisplayObject
-local EditModeManagerFrame_AccountSettings_SettingsContainer_PersonalResourceDisplayObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject : Frame
----@field Button EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBar_ButtonObject
----@field Label EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBar_LabelObject
----@field advancedLayoutIndex number
----@field category number
----@field dirty boolean
----@field fixedHeight number
----@field fixedWidth number
----@field labelText string
----@field layoutIndex number
----@field shouldHide boolean
-local EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:AutoEnableCVar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:CheckAddNarrationToButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:EditModeCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:EditModeCheckButton_OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:EditModeManagerSettingCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:GetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:HideButtonTooltip(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:IsControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:IsControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:OnCheckButtonClick(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:OnEnter(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:OnLeave(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:RunMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:SetButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:SetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:SetControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:SetControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:SetLabel(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:SetLabelText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:SetMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:SetTooltipDisabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:SetTooltipText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:ShouldEnable(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:UpdateDisplay(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:UpdateLabelFont(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:mouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBarObject:onBoxToggled(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBar_ButtonObject : CheckButton
-local EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBar_ButtonObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBar_ButtonObject:NarrationGetContext(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBar_ButtonObject:NarrationGetName(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBar_LabelObject : FontString
-local EditModeManagerFrame_AccountSettings_SettingsContainer_PetActionBar_LabelObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject : Frame
----@field Button EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrame_ButtonObject
----@field Label EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrame_LabelObject
----@field advancedLayoutIndex number
----@field category number
----@field dirty boolean
----@field fixedHeight number
----@field fixedWidth number
----@field labelText string
----@field layoutIndex number
----@field shouldHide boolean
-local EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:AutoEnableCVar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:CheckAddNarrationToButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:EditModeCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:EditModeCheckButton_OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:EditModeManagerSettingCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:GetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:HideButtonTooltip(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:IsControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:IsControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:OnCheckButtonClick(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:OnEnter(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:OnLeave(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:RunMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:SetButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:SetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:SetControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:SetControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:SetLabel(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:SetLabelText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:SetMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:SetTooltipDisabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:SetTooltipText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:ShouldEnable(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:UpdateDisplay(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:UpdateLabelFont(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:mouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrameObject:onBoxToggled(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrame_ButtonObject : CheckButton
-local EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrame_ButtonObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrame_ButtonObject:NarrationGetContext(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrame_ButtonObject:NarrationGetName(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrame_LabelObject : FontString
-local EditModeManagerFrame_AccountSettings_SettingsContainer_PetFrame_LabelObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_PossessActionBarObject
-local EditModeManagerFrame_AccountSettings_SettingsContainer_PossessActionBarObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject : Frame
----@field Button EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFrames_ButtonObject
----@field Label EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFrames_LabelObject
----@field advancedLayoutIndex number
----@field basicLayoutIndex number
----@field category number
----@field dirty boolean
----@field fixedHeight number
----@field fixedWidth number
----@field isBasicOption boolean
----@field labelText string
----@field layoutIndex number
----@field shouldHide boolean
-local EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:AutoEnableCVar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:CheckAddNarrationToButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:EditModeCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:EditModeCheckButton_OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:EditModeManagerSettingCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:GetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:HideButtonTooltip(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:IsControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:IsControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:OnCheckButtonClick(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:OnEnter(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:OnLeave(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:RunMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:SetButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:SetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:SetControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:SetControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:SetLabel(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:SetLabelText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:SetMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:SetTooltipDisabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:SetTooltipText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:ShouldEnable(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:UpdateDisplay(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:UpdateLabelFont(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:mouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFramesObject:onBoxToggled(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFrames_ButtonObject : CheckButton
-local EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFrames_ButtonObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFrames_ButtonObject:NarrationGetContext(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFrames_ButtonObject:NarrationGetName(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFrames_LabelObject : FontString
-local EditModeManagerFrame_AccountSettings_SettingsContainer_RaidFrames_LabelObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject : Frame
----@field Button EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarning_ButtonObject
----@field Label EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarning_LabelObject
----@field advancedLayoutIndex number
----@field category number
----@field dirty boolean
----@field fixedHeight number
----@field fixedWidth number
----@field labelText string
----@field layoutIndex number
----@field shouldHide boolean
-local EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:AutoEnableCVar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:CheckAddNarrationToButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:EditModeCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:EditModeCheckButton_OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:EditModeManagerSettingCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:GetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:HideButtonTooltip(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:IsControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:IsControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:OnCheckButtonClick(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:OnEnter(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:OnLeave(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:RunMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:SetButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:SetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:SetControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:SetControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:SetLabel(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:SetLabelText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:SetMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:SetTooltipDisabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:SetTooltipText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:ShouldEnable(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:UpdateDisplay(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:UpdateLabelFont(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:mouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarningObject:onBoxToggled(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarning_ButtonObject : CheckButton
-local EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarning_ButtonObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarning_ButtonObject:NarrationGetContext(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarning_ButtonObject:NarrationGetName(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarning_LabelObject : FontString
-local EditModeManagerFrame_AccountSettings_SettingsContainer_RaidWarning_LabelObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject : Frame
----@field Back EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject
----@field Defaults EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_DefaultsObject
----@field Directions EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_DirectionsObject
----@field Event EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_EventObject
----@field Forward EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject
----@field Track EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_TrackObject
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject : Frame
+---@field Back CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject
+---@field Defaults CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_DefaultsObject
+---@field Directions CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_DirectionsObject
+---@field Event CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_EventObject
+---@field Forward CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject
+---@field Track CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_TrackObject
 ---@field allowScroll boolean
 ---@field callbackTables table
 ---@field canInterpolateScroll boolean
 ---@field deferredCallbacks table
 ---@field executingEvents table
----@field hideIfUnscrollable boolean
 ---@field hideTrack boolean
----@field interpolator EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_interpolatorObject
+---@field interpolator CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_interpolatorObject
 ---@field isScrollController boolean
 ---@field minThumbExtent number
 ---@field panDelay number
@@ -3047,179 +4020,179 @@ do
 ---@field useProportionalThumb boolean
 ---@field visibleExtentPercentage number
 ---@field wheelPanScalar number
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject = {}
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject = {}
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:CallInternalScope(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:CallInternalScope(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:CanCursorStepInDirection(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:CanCursorStepInDirection(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:CanInterpolateScroll(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:CanInterpolateScroll(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:CopyDeferredCallbacks(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:DisableControls(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:DisableControls(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:DoesFrameHaveEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:EnableInternalPriority(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:EnableInternalPriority(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:EnableSnapToInterval(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:EnableSnapToInterval(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:GenerateCallbackEvents(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:GetBackStepper(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:GetBackStepper(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:GetCallbackTable(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:GetCallbackTable(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:GetCallbackTables(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:GetCallbackTables(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:GetCallbacksByEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:GetForwardStepper(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:GetForwardStepper(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:GetFrameExtent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:GetFrameExtent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:GetIntervalRange(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:GetIntervalRange(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:GetLower(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:GetLower(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:GetPanExtentPercentage(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:GetPanRepeatDelay(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:GetPanRepeatDelay(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:GetPanRepeatTime(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:GetPanRepeatTime(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:GetScrollInterpolator(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:GetScrollInterpolator(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:GetScrollPercentage(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:GetScrollPercentage(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:GetThumb(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:GetThumb(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:GetThumbAnchor(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:GetThumbAnchor(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:GetTrack(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:GetTrack(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:GetTrackExtent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:GetTrackExtent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:GetUpper(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:GetUpper(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:GetVisibleExtentPercentage(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:GetWheelPanPercentage(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:HasRegistrantsForEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:HasScrollableExtent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:HasScrollableExtent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:Init(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:Init(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:InitializeNarration(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:InitializeNarration(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:Interpolate(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:Interpolate(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:IsAtBegin(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:IsAtBegin(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:IsAtEnd(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:IsAtEnd(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:IsHorizontal(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:IsHorizontal(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:IsScrollAllowed(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:IsScrollAllowed(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:IsThumbMouseDown(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:IsThumbMouseDown(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:OnHide_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:OnLoad(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:OnLoad(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:OnLoad_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:OnMouseWheel(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:OnMouseWheel(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:OnShow_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:OnStepperMouseDown(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:OnStepperMouseDown(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:OnThumbMouseDown(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:OnThumbMouseDown(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:OnTrackMouseDown(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:OnTrackMouseDown(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:RegisterCallback(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:RegisterCallback(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:RegisterCallbackWithHandle(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:ScrollDecrease(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:ScrollDecrease(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:ScrollInDirection(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:ScrollInDirection(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:ScrollIncrease(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:ScrollIncrease(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:ScrollPageInDirection(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:ScrollPageInDirection(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:ScrollStepInDirection(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:ScrollStepInDirection(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:ScrollToBegin(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:ScrollToBegin(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:ScrollToEnd(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:ScrollToEnd(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:ScrollWheelInDirection(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:ScrollWheelInDirection(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:SecureInsertEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:SecureInsertEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:SelectCursorComponent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:SelectCursorComponent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:SelectPointComponent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:SelectPointComponent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:SetFrameExtent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:SetFrameExtent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:SetHideIfUnscrollable(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:SetHideIfUnscrollable(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:SetHorizontal(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:SetHorizontal(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:SetInterpolateScroll(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:SetInterpolateScroll(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:SetPanExtentPercentage(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:SetScrollAllowed(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:SetScrollAllowed(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:SetScrollPercentage(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:SetScrollPercentage(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:SetScrollPercentageInternal(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:SetThumbExtent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:SetThumbExtent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:SetVisibleExtentPercentage(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:SetVisibleExtentPercentage(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:TriggerEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:TriggerEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:UnregisterCallback(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:UnregisterCallback(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:UnregisterEvents(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:UnregisterEvents(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:UnregisterEventsByEventTable(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:UnregisterUpdate(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:UnregisterUpdate(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:Update(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:Update(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:onButtonMouseUp(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:onButtonMouseUp(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBarObject:scrollInternal(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBarObject:scrollInternal(...) end
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject : Button
----@field Event EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Back_EventObject
----@field Texture EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Back_TextureObject
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject : Button
+---@field Event CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Back_EventObject
+---@field Texture CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Back_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -3233,118 +4206,118 @@ do
 ---@field mouseDownSoundKitID number
 ---@field normalTexture string
 ---@field overTexture string
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject = {}
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject = {}
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:GetAtlas(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:GetAtlas(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:GetCallbackTable(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:GetCallbackTable(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:GetCallbackTables(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:GetCallbackTables(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:IsDown(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:IsDown(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:IsDownOver(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:IsDownOver(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:IsOver(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:IsOver(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:NarrationGetName(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:NarrationGetName(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:OnButtonStateChanged(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:OnButtonStateChanged(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:OnDisable(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:OnDisable(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:OnEnable(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:OnEnable(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:OnEnter(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:OnEnter(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:OnLeave(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:OnLeave(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:OnLoad(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:OnLoad(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:OnMouseDown(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:OnMouseDown(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:OnMouseUp(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:OnMouseUp(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:OnShow(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:OnShow(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:RegisterCallback(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:RegisterCallback(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:SecureInsertEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:SecureInsertEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:SetDisplacedRegions(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:SetDisplacedRegions(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:TriggerEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:TriggerEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:UnregisterCallback(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:UnregisterCallback(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:UnregisterEvents(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:UnregisterEvents(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Back_EventObject
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Back_EventObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Back_EventObject
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Back_EventObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Back_TextureObject : Texture
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Back_TextureObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Back_TextureObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Back_TextureObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_DefaultsObject
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_DefaultsObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_DefaultsObject
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_DefaultsObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_DirectionsObject
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_DirectionsObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_DirectionsObject
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_DirectionsObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_EventObject
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_EventObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_EventObject
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_EventObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject : Button
----@field Event EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Forward_EventObject
----@field Texture EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Forward_TextureObject
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject : Button
+---@field Event CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Forward_EventObject
+---@field Texture CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Forward_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -3358,129 +4331,129 @@ do
 ---@field mouseDownSoundKitID number
 ---@field normalTexture string
 ---@field overTexture string
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject = {}
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject = {}
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:GetAtlas(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:GetAtlas(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:GetCallbackTable(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:GetCallbackTable(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:GetCallbackTables(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:GetCallbackTables(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:IsDown(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:IsDown(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:IsDownOver(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:IsDownOver(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:IsOver(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:IsOver(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:NarrationGetName(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:NarrationGetName(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:OnDisable(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:OnDisable(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:OnEnable(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:OnEnable(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:OnEnter(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:OnEnter(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:OnLeave(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:OnLeave(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:OnLoad(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:OnLoad(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:OnMouseDown(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:OnMouseDown(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:OnMouseUp(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:OnMouseUp(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:OnShow(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:OnShow(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:RegisterCallback(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:RegisterCallback(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:SecureInsertEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:TriggerEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:TriggerEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:UnregisterCallback(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:UnregisterCallback(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:UnregisterEvents(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:UnregisterEvents(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Forward_EventObject
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Forward_EventObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Forward_EventObject
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Forward_EventObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Forward_TextureObject : Texture
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Forward_TextureObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Forward_TextureObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Forward_TextureObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_TrackObject : Frame
----@field Begin EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_BeginObject
----@field End EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_EndObject
----@field Middle EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_MiddleObject
----@field Thumb EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_TrackObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_TrackObject : Frame
+---@field Begin CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_BeginObject
+---@field End CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_EndObject
+---@field Middle CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_MiddleObject
+---@field Thumb CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_TrackObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_BeginObject : Texture
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_BeginObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_BeginObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_BeginObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_EndObject : Texture
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_EndObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_EndObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_EndObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_MiddleObject : Texture
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_MiddleObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_MiddleObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_MiddleObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject : Button
----@field Begin EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_Thumb_BeginObject
----@field End EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_Thumb_EndObject
----@field Event EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_Thumb_EventObject
----@field Middle EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_Thumb_MiddleObject
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject : Button
+---@field Begin CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_Thumb_BeginObject
+---@field End CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_Thumb_EndObject
+---@field Event CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_Thumb_EventObject
+---@field Middle CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -3495,4314 +4468,3605 @@ do
 ---@field upBeginTexture string
 ---@field upEndTexture string
 ---@field upMiddleTexture string
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject = {}
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject = {}
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:GetAtlas(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:IsDown(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:IsDown(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:IsDownOver(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:IsOver(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:IsOver(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:OnDisable(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:OnDisable(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:OnEnable(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnable(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:OnEnter(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnter(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:OnLeave(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:OnLeave(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:OnLoad(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:OnLoad(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:OnShow(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:OnShow(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_Thumb_BeginObject : Texture
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_Thumb_BeginObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_Thumb_BeginObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_Thumb_BeginObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_Thumb_EndObject : Texture
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_Thumb_EndObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_Thumb_EndObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_Thumb_EndObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_Thumb_EventObject
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_Thumb_EventObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_Thumb_EventObject
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_Thumb_EventObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_Thumb_MiddleObject : Texture
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_Track_Thumb_MiddleObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject = {}
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_interpolatorObject
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_interpolatorObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_interpolatorObject
+local CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_interpolatorObject = {}
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_interpolatorObject:Cancel(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_interpolatorObject:Cancel(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_interpolatorObject:Interpolate(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_interpolatorObject:Interpolate(...) end
 ---@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollBar_interpolatorObject:interpolateFunc(...) end
+function CommunitiesFrame_NotificationSettingsDialog_ScrollFrame_ScrollBar_interpolatorObject:interpolateFunc(...) end
 end
 
 do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject : Frame
----@field AdvancedOptionsContainer EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject
----@field BasicOptionsContainer EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject
----@field dirty boolean
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChildObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject : Frame
----@field CombatContainer EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject
----@field CombatTitle EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatTitleObject
----@field FramesContainer EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject
----@field FramesTitle EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesTitleObject
----@field MiscContainer EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject
----@field MiscTitle EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscTitleObject
----@field dirty boolean
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:CalculateFrameSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:GetChildPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:GetPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:LayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject : Frame
----@field alwaysUpdateLayout boolean
----@field childXPadding number
----@field childYPadding number
----@field dirty boolean
----@field isHorizontal boolean
----@field layoutFramesGoingRight boolean
----@field layoutFramesGoingUp boolean
----@field layoutIndex number
----@field oldGridSettings EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainer_oldGridSettingsObject
----@field stride number
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:CacheLayoutSettings(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainerObject:ShouldUpdateLayout(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainer_oldGridSettingsObject
----@field childXPadding number
----@field childYPadding number
----@field isHorizontal boolean
----@field layoutChildren table
----@field layoutFramesGoingRight boolean
----@field layoutFramesGoingUp boolean
----@field stride number
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatContainer_oldGridSettingsObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatTitleObject : Frame
----@field Title EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatTitle_TitleObject
----@field layoutIndex number
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatTitleObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatTitle_TitleObject : FontString
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_CombatTitle_TitleObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject : Frame
----@field alwaysUpdateLayout boolean
----@field childXPadding number
----@field childYPadding number
----@field dirty boolean
----@field isHorizontal boolean
----@field layoutFramesGoingRight boolean
----@field layoutFramesGoingUp boolean
----@field layoutIndex number
----@field oldGridSettings EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainer_oldGridSettingsObject
----@field stride number
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:CacheLayoutSettings(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainerObject:ShouldUpdateLayout(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainer_oldGridSettingsObject
----@field childXPadding number
----@field childYPadding number
----@field isHorizontal boolean
----@field layoutChildren table
----@field layoutFramesGoingRight boolean
----@field layoutFramesGoingUp boolean
----@field stride number
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesContainer_oldGridSettingsObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesTitleObject : Frame
----@field Title EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesTitle_TitleObject
----@field layoutIndex number
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesTitleObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesTitle_TitleObject : FontString
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_FramesTitle_TitleObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject : Frame
----@field alwaysUpdateLayout boolean
----@field childXPadding number
----@field childYPadding number
----@field dirty boolean
----@field isHorizontal boolean
----@field layoutFramesGoingRight boolean
----@field layoutFramesGoingUp boolean
----@field layoutIndex number
----@field oldGridSettings EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainer_oldGridSettingsObject
----@field stride number
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:CacheLayoutSettings(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainerObject:ShouldUpdateLayout(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainer_oldGridSettingsObject
----@field childXPadding number
----@field childYPadding number
----@field isHorizontal boolean
----@field layoutChildren table
----@field layoutFramesGoingRight boolean
----@field layoutFramesGoingUp boolean
----@field stride number
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscContainer_oldGridSettingsObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscTitleObject : Frame
----@field Title EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscTitle_TitleObject
----@field layoutIndex number
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscTitleObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscTitle_TitleObject : FontString
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_AdvancedOptionsContainer_MiscTitle_TitleObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject : Frame
----@field alwaysUpdateLayout boolean
----@field childXPadding number
----@field childYPadding number
----@field isHorizontal boolean
----@field layoutFramesGoingRight boolean
----@field layoutFramesGoingUp boolean
----@field stride number
-local EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:CacheLayoutSettings(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_ScrollChild_BasicOptionsContainerObject:ShouldUpdateLayout(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_StanceBarObject
-local EditModeManagerFrame_AccountSettings_SettingsContainer_StanceBarObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_StatusTrackingBar2Object
-local EditModeManagerFrame_AccountSettings_SettingsContainer_StatusTrackingBar2Object = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_SwingTimerObject
-local EditModeManagerFrame_AccountSettings_SettingsContainer_SwingTimerObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject : Frame
----@field Button EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrame_ButtonObject
----@field Label EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrame_LabelObject
----@field advancedLayoutIndex number
----@field basicLayoutIndex number
----@field category number
----@field fixedHeight number
----@field fixedWidth number
----@field isBasicOption boolean
----@field labelText string
----@field shouldHide boolean
-local EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:AutoEnableCVar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:CheckAddNarrationToButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:EditModeCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:EditModeCheckButton_OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:EditModeManagerSettingCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:GetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:HideButtonTooltip(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:IsControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:IsControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:OnCheckButtonClick(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:OnEnter(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:OnLeave(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:RunMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:SetButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:SetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:SetControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:SetControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:SetLabel(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:SetLabelText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:SetMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:SetTooltipDisabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:SetTooltipText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:ShouldEnable(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:UpdateDisplay(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:UpdateLabelFont(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:mouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrameObject:onBoxToggled(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrame_ButtonObject : CheckButton
-local EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrame_ButtonObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrame_ButtonObject:NarrationGetContext(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrame_ButtonObject:NarrationGetName(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrame_LabelObject : FontString
-local EditModeManagerFrame_AccountSettings_SettingsContainer_TalkingHeadFrame_LabelObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_TargetAndFocusObject
-local EditModeManagerFrame_AccountSettings_SettingsContainer_TargetAndFocusObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_TimerBarsObject
-local EditModeManagerFrame_AccountSettings_SettingsContainer_TimerBarsObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject : Frame
----@field Button EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBar_ButtonObject
----@field Label EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBar_LabelObject
----@field advancedLayoutIndex number
----@field category number
----@field dirty boolean
----@field fixedHeight number
----@field fixedWidth number
----@field labelText string
----@field layoutIndex number
----@field shouldHide boolean
-local EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:AutoEnableCVar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:CheckAddNarrationToButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:EditModeCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:EditModeCheckButton_OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:EditModeManagerSettingCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:GetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:HideButtonTooltip(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:IsControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:IsControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:OnCheckButtonClick(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:OnEnter(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:OnLeave(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:RunMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:SetButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:SetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:SetControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:SetControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:SetLabel(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:SetLabelText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:SetMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:SetTooltipDisabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:SetTooltipText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:ShouldEnable(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:UpdateDisplay(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:UpdateLabelFont(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:mouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBarObject:onBoxToggled(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBar_ButtonObject : CheckButton
-local EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBar_ButtonObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBar_ButtonObject:NarrationGetContext(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBar_ButtonObject:NarrationGetName(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBar_LabelObject : FontString
-local EditModeManagerFrame_AccountSettings_SettingsContainer_TotemActionBar_LabelObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleLeaveButtonObject
-local EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleLeaveButtonObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject : Frame
----@field Button EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicator_ButtonObject
----@field Label EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicator_LabelObject
----@field advancedLayoutIndex number
----@field category number
----@field fixedHeight number
----@field fixedWidth number
----@field labelText string
----@field shouldHide boolean
-local EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:AutoEnableCVar(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:CheckAddNarrationToButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:EditModeCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:EditModeCheckButton_OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:EditModeManagerSettingCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:GetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:HideButtonTooltip(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:IsControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:IsControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:OnCheckButtonClick(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:OnEnter(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:OnLeave(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:RunMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:SetButton(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:SetCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:SetControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:SetControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:SetLabel(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:SetLabelText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:SetMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:SetTooltipDisabled(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:SetTooltipText(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:ShouldEnable(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:UpdateDisplay(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:UpdateLabelFont(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:mouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicatorObject:onBoxToggled(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicator_ButtonObject : CheckButton
-local EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicator_ButtonObject = {}
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicator_ButtonObject:NarrationGetContext(...) end
----@return any ...
-function EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicator_ButtonObject:NarrationGetName(...) end
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicator_LabelObject : FontString
-local EditModeManagerFrame_AccountSettings_SettingsContainer_VehicleSeatIndicator_LabelObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtonsObject
----@field ArchaeologyBar EditModeManagerFrame_AccountSettings_settingsCheckButtons_ArchaeologyBarObject
----@field ArenaFrames EditModeManagerFrame_AccountSettings_settingsCheckButtons_ArenaFramesObject
----@field BossFrames EditModeManagerFrame_AccountSettings_settingsCheckButtons_BossFramesObject
----@field BuffsAndDebuffs EditModeManagerFrame_AccountSettings_settingsCheckButtons_BuffsAndDebuffsObject
----@field CastBar EditModeManagerFrame_AccountSettings_settingsCheckButtons_CastBarObject
----@field CooldownViewer EditModeManagerFrame_AccountSettings_settingsCheckButtons_CooldownViewerObject
----@field DamageMeter EditModeManagerFrame_AccountSettings_settingsCheckButtons_DamageMeterObject
----@field DurabilityFrame EditModeManagerFrame_AccountSettings_settingsCheckButtons_DurabilityFrameObject
----@field EncounterBar EditModeManagerFrame_AccountSettings_settingsCheckButtons_EncounterBarObject
----@field EncounterEvents EditModeManagerFrame_AccountSettings_settingsCheckButtons_EncounterEventsObject
----@field ExternalDefensives EditModeManagerFrame_AccountSettings_settingsCheckButtons_ExternalDefensivesObject
----@field ExtraAbilities EditModeManagerFrame_AccountSettings_settingsCheckButtons_ExtraAbilitiesObject
----@field GroupFinder EditModeManagerFrame_AccountSettings_settingsCheckButtons_GroupFinderObject
----@field HudTooltip EditModeManagerFrame_AccountSettings_settingsCheckButtons_HudTooltipObject
----@field LootFrame EditModeManagerFrame_AccountSettings_settingsCheckButtons_LootFrameObject
----@field LossOfControl EditModeManagerFrame_AccountSettings_settingsCheckButtons_LossOfControlObject
----@field PartyFrames EditModeManagerFrame_AccountSettings_settingsCheckButtons_PartyFramesObject
----@field PersonalResourceDisplay EditModeManagerFrame_AccountSettings_settingsCheckButtons_PersonalResourceDisplayObject
----@field PetActionBar EditModeManagerFrame_AccountSettings_settingsCheckButtons_PetActionBarObject
----@field PetFrame EditModeManagerFrame_AccountSettings_settingsCheckButtons_PetFrameObject
----@field PossessActionBar EditModeManagerFrame_AccountSettings_settingsCheckButtons_PossessActionBarObject
----@field RaidFrames EditModeManagerFrame_AccountSettings_settingsCheckButtons_RaidFramesObject
----@field RaidWarning EditModeManagerFrame_AccountSettings_settingsCheckButtons_RaidWarningObject
----@field StanceBar EditModeManagerFrame_AccountSettings_settingsCheckButtons_StanceBarObject
----@field StatusTrackingBar2 EditModeManagerFrame_AccountSettings_settingsCheckButtons_StatusTrackingBar2Object
----@field SwingTimer EditModeManagerFrame_AccountSettings_settingsCheckButtons_SwingTimerObject
----@field TalkingHeadFrame EditModeManagerFrame_AccountSettings_settingsCheckButtons_TalkingHeadFrameObject
----@field TargetAndFocus EditModeManagerFrame_AccountSettings_settingsCheckButtons_TargetAndFocusObject
----@field TimerBars EditModeManagerFrame_AccountSettings_settingsCheckButtons_TimerBarsObject
----@field TotemActionBar EditModeManagerFrame_AccountSettings_settingsCheckButtons_TotemActionBarObject
----@field VehicleLeaveButton EditModeManagerFrame_AccountSettings_settingsCheckButtons_VehicleLeaveButtonObject
----@field VehicleSeatIndicator EditModeManagerFrame_AccountSettings_settingsCheckButtons_VehicleSeatIndicatorObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtonsObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_ArchaeologyBarObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_ArchaeologyBarObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_ArenaFramesObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_ArenaFramesObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_BossFramesObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_BossFramesObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_BuffsAndDebuffsObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_BuffsAndDebuffsObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_CastBarObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_CastBarObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_CooldownViewerObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_CooldownViewerObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_DamageMeterObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_DamageMeterObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_DurabilityFrameObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_DurabilityFrameObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_EncounterBarObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_EncounterBarObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_EncounterEventsObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_EncounterEventsObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_ExternalDefensivesObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_ExternalDefensivesObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_ExtraAbilitiesObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_ExtraAbilitiesObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_GroupFinderObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_GroupFinderObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_HudTooltipObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_HudTooltipObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_LootFrameObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_LootFrameObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_LossOfControlObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_LossOfControlObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_PartyFramesObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_PartyFramesObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_PersonalResourceDisplayObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_PersonalResourceDisplayObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_PetActionBarObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_PetActionBarObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_PetFrameObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_PetFrameObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_PossessActionBarObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_PossessActionBarObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_RaidFramesObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_RaidFramesObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_RaidWarningObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_RaidWarningObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_StanceBarObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_StanceBarObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_StatusTrackingBar2Object
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_StatusTrackingBar2Object = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_SwingTimerObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_SwingTimerObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_TalkingHeadFrameObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_TalkingHeadFrameObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_TargetAndFocusObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_TargetAndFocusObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_TimerBarsObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_TimerBarsObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_TotemActionBarObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_TotemActionBarObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_VehicleLeaveButtonObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_VehicleLeaveButtonObject = {}
-end
-
-do
----@class EditModeManagerFrame_AccountSettings_settingsCheckButtons_VehicleSeatIndicatorObject
-local EditModeManagerFrame_AccountSettings_settingsCheckButtons_VehicleSeatIndicatorObject = {}
-end
-
-do
----@class EditModeManagerFrame_BorderObject : Frame
----@field Bg EditModeManagerFrame_Border_BgObject
----@field BottomEdge EditModeManagerFrame_Border_BottomEdgeObject
----@field BottomLeftCorner EditModeManagerFrame_Border_BottomLeftCornerObject
----@field BottomRightCorner EditModeManagerFrame_Border_BottomRightCornerObject
----@field LeftEdge EditModeManagerFrame_Border_LeftEdgeObject
----@field RightEdge EditModeManagerFrame_Border_RightEdgeObject
----@field TopEdge EditModeManagerFrame_Border_TopEdgeObject
----@field TopLeftCorner EditModeManagerFrame_Border_TopLeftCornerObject
----@field TopRightCorner EditModeManagerFrame_Border_TopRightCornerObject
----@field ignoreInLayout boolean
+---@class CommunitiesFrame_NotificationSettingsDialog_SelectorObject : Frame
+---@field BottomEdge CommunitiesFrame_NotificationSettingsDialog_Selector_BottomEdgeObject
+---@field BottomLeftCorner CommunitiesFrame_NotificationSettingsDialog_Selector_BottomLeftCornerObject
+---@field BottomRightCorner CommunitiesFrame_NotificationSettingsDialog_Selector_BottomRightCornerObject
+---@field CancelButton CommunitiesFrame_NotificationSettingsDialog_Selector_CancelButtonObject
+---@field LeftEdge CommunitiesFrame_NotificationSettingsDialog_Selector_LeftEdgeObject
+---@field OkayButton CommunitiesFrame_NotificationSettingsDialog_Selector_OkayButtonObject
+---@field RightEdge CommunitiesFrame_NotificationSettingsDialog_Selector_RightEdgeObject
+---@field TopEdge CommunitiesFrame_NotificationSettingsDialog_Selector_TopEdgeObject
+---@field TopLeftCorner CommunitiesFrame_NotificationSettingsDialog_Selector_TopLeftCornerObject
+---@field TopRightCorner CommunitiesFrame_NotificationSettingsDialog_Selector_TopRightCornerObject
 ---@field layoutType string
-local EditModeManagerFrame_BorderObject = {}
+local CommunitiesFrame_NotificationSettingsDialog_SelectorObject = {}
 ---@return any ...
-function EditModeManagerFrame_BorderObject:GetBorderColor(...) end
+function CommunitiesFrame_NotificationSettingsDialog_SelectorObject:GetBorderColor(...) end
 ---@return any ...
-function EditModeManagerFrame_BorderObject:GetCenterColor(...) end
+function CommunitiesFrame_NotificationSettingsDialog_SelectorObject:GetCenterColor(...) end
 ---@return any ...
-function EditModeManagerFrame_BorderObject:GetFrameLayoutTextureKit(...) end
+function CommunitiesFrame_NotificationSettingsDialog_SelectorObject:GetFrameLayoutTextureKit(...) end
 ---@return any ...
-function EditModeManagerFrame_BorderObject:GetFrameLayoutType(...) end
+function CommunitiesFrame_NotificationSettingsDialog_SelectorObject:GetFrameLayoutType(...) end
 ---@return any ...
-function EditModeManagerFrame_BorderObject:OnLoad(...) end
+function CommunitiesFrame_NotificationSettingsDialog_SelectorObject:OnCancel(...) end
 ---@return any ...
-function EditModeManagerFrame_BorderObject:SetBlendMode(...) end
+function CommunitiesFrame_NotificationSettingsDialog_SelectorObject:OnLoad(...) end
 ---@return any ...
-function EditModeManagerFrame_BorderObject:SetBorderBlendMode(...) end
+function CommunitiesFrame_NotificationSettingsDialog_SelectorObject:OnOkay(...) end
 ---@return any ...
-function EditModeManagerFrame_BorderObject:SetBorderColor(...) end
+function CommunitiesFrame_NotificationSettingsDialog_SelectorObject:SetBlendMode(...) end
 ---@return any ...
-function EditModeManagerFrame_BorderObject:SetCenterColor(...) end
+function CommunitiesFrame_NotificationSettingsDialog_SelectorObject:SetBorderBlendMode(...) end
 ---@return any ...
-function EditModeManagerFrame_BorderObject:SetVertexColor(...) end
+function CommunitiesFrame_NotificationSettingsDialog_SelectorObject:SetBorderColor(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_SelectorObject:SetCenterColor(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_SelectorObject:SetVertexColor(...) end
 end
 
 do
----@class EditModeManagerFrame_Border_BgObject : Texture
-local EditModeManagerFrame_Border_BgObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_Selector_BottomEdgeObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_Selector_BottomEdgeObject = {}
 end
 
 do
----@class EditModeManagerFrame_Border_BottomEdgeObject : Texture
-local EditModeManagerFrame_Border_BottomEdgeObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_Selector_BottomLeftCornerObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_Selector_BottomLeftCornerObject = {}
 end
 
 do
----@class EditModeManagerFrame_Border_BottomLeftCornerObject : Texture
-local EditModeManagerFrame_Border_BottomLeftCornerObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_Selector_BottomRightCornerObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_Selector_BottomRightCornerObject = {}
 end
 
 do
----@class EditModeManagerFrame_Border_BottomRightCornerObject : Texture
-local EditModeManagerFrame_Border_BottomRightCornerObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_Selector_CancelButtonObject : Button
+---@field Left CommunitiesFrame_NotificationSettingsDialog_Selector_CancelButton_LeftObject
+---@field Middle CommunitiesFrame_NotificationSettingsDialog_Selector_CancelButton_MiddleObject
+---@field Right CommunitiesFrame_NotificationSettingsDialog_Selector_CancelButton_RightObject
+---@field Text CommunitiesFrame_NotificationSettingsDialog_Selector_CancelButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CommunitiesFrame_NotificationSettingsDialog_Selector_CancelButtonObject = {}
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_Selector_CancelButtonObject:FitToText(...) end
+---@return any ...
+function CommunitiesFrame_NotificationSettingsDialog_Selector_CancelButtonObject:SetTextToFit(...) end
 end
 
 do
----@class EditModeManagerFrame_Border_LeftEdgeObject : Texture
-local EditModeManagerFrame_Border_LeftEdgeObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_Selector_CancelButton_LeftObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_Selector_CancelButton_LeftObject = {}
 end
 
 do
----@class EditModeManagerFrame_Border_RightEdgeObject : Texture
-local EditModeManagerFrame_Border_RightEdgeObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_Selector_CancelButton_MiddleObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_Selector_CancelButton_MiddleObject = {}
 end
 
 do
----@class EditModeManagerFrame_Border_TopEdgeObject : Texture
-local EditModeManagerFrame_Border_TopEdgeObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_Selector_CancelButton_RightObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_Selector_CancelButton_RightObject = {}
 end
 
 do
----@class EditModeManagerFrame_Border_TopLeftCornerObject : Texture
-local EditModeManagerFrame_Border_TopLeftCornerObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_Selector_CancelButton_TextObject : FontString
+local CommunitiesFrame_NotificationSettingsDialog_Selector_CancelButton_TextObject = {}
 end
 
 do
----@class EditModeManagerFrame_Border_TopRightCornerObject : Texture
-local EditModeManagerFrame_Border_TopRightCornerObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_Selector_LeftEdgeObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_Selector_LeftEdgeObject = {}
 end
 
 do
----@class EditModeManagerFrame_CloseButtonObject : Button
----@field ignoreInLayout boolean
-local EditModeManagerFrame_CloseButtonObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_Selector_OkayButtonObject : Button
+---@field Left CommunitiesFrame_NotificationSettingsDialog_Selector_OkayButton_LeftObject
+---@field Middle CommunitiesFrame_NotificationSettingsDialog_Selector_OkayButton_MiddleObject
+---@field Right CommunitiesFrame_NotificationSettingsDialog_Selector_OkayButton_RightObject
+---@field Text CommunitiesFrame_NotificationSettingsDialog_Selector_OkayButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CommunitiesFrame_NotificationSettingsDialog_Selector_OkayButtonObject = {}
 ---@return any ...
-function EditModeManagerFrame_CloseButtonObject:NarrationGetName(...) end
+function CommunitiesFrame_NotificationSettingsDialog_Selector_OkayButtonObject:FitToText(...) end
 ---@return any ...
-function EditModeManagerFrame_CloseButtonObject:OnEnter(...) end
----@return any ...
-function EditModeManagerFrame_CloseButtonObject:OnLeave(...) end
+function CommunitiesFrame_NotificationSettingsDialog_Selector_OkayButtonObject:SetTextToFit(...) end
 end
 
 do
----@class EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject : Frame
----@field Button EditModeManagerFrame_EnableAdvancedOptionsCheckButton_ButtonObject
----@field Label EditModeManagerFrame_EnableAdvancedOptionsCheckButton_LabelObject
----@field dirty boolean
----@field fixedWidth number
----@field labelText string
-local EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject = {}
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:AutoEnableCVar(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:CheckAddNarrationToButton(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:EditModeCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:EditModeCheckButton_OnShow(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:GetCallback(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:HideButtonTooltip(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:IsControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:IsControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:OnCheckButtonClick(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:OnEnter(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:OnLeave(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:RunMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:SetButton(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:SetCallback(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:SetControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:SetControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:SetLabel(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:SetLabelText(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:SetMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:SetTooltipDisabled(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:SetTooltipText(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:ShouldEnable(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:UpdateDisplay(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:UpdateLabelFont(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButtonObject:onBoxToggled(...) end
+---@class CommunitiesFrame_NotificationSettingsDialog_Selector_OkayButton_LeftObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_Selector_OkayButton_LeftObject = {}
 end
 
 do
----@class EditModeManagerFrame_EnableAdvancedOptionsCheckButton_ButtonObject : CheckButton
-local EditModeManagerFrame_EnableAdvancedOptionsCheckButton_ButtonObject = {}
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButton_ButtonObject:NarrationGetContext(...) end
----@return any ...
-function EditModeManagerFrame_EnableAdvancedOptionsCheckButton_ButtonObject:NarrationGetName(...) end
+---@class CommunitiesFrame_NotificationSettingsDialog_Selector_OkayButton_MiddleObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_Selector_OkayButton_MiddleObject = {}
 end
 
 do
----@class EditModeManagerFrame_EnableAdvancedOptionsCheckButton_LabelObject : FontString
-local EditModeManagerFrame_EnableAdvancedOptionsCheckButton_LabelObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_Selector_OkayButton_RightObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_Selector_OkayButton_RightObject = {}
 end
 
 do
----@class EditModeManagerFrame_EnableSnapCheckButtonObject : Frame
----@field Button EditModeManagerFrame_EnableSnapCheckButton_ButtonObject
----@field Label EditModeManagerFrame_EnableSnapCheckButton_LabelObject
----@field dirty boolean
----@field fixedWidth number
----@field labelText string
-local EditModeManagerFrame_EnableSnapCheckButtonObject = {}
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:AutoEnableCVar(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:CheckAddNarrationToButton(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:EditModeCheckButton_OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:EditModeCheckButton_OnShow(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:GetCallback(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:HideButtonTooltip(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:IsControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:IsControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:OnCheckButtonClick(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:OnEnter(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:OnLeave(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:RunMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:SetButton(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:SetCallback(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:SetControlChecked(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:SetControlEnabled(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:SetLabel(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:SetLabelText(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:SetMouseOverCallback(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:SetTooltipDisabled(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:SetTooltipText(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:ShouldEnable(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:UpdateDisplay(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:UpdateLabelFont(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButtonObject:onBoxToggled(...) end
+---@class CommunitiesFrame_NotificationSettingsDialog_Selector_OkayButton_TextObject : FontString
+local CommunitiesFrame_NotificationSettingsDialog_Selector_OkayButton_TextObject = {}
 end
 
 do
----@class EditModeManagerFrame_EnableSnapCheckButton_ButtonObject : CheckButton
-local EditModeManagerFrame_EnableSnapCheckButton_ButtonObject = {}
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButton_ButtonObject:NarrationGetContext(...) end
----@return any ...
-function EditModeManagerFrame_EnableSnapCheckButton_ButtonObject:NarrationGetName(...) end
+---@class CommunitiesFrame_NotificationSettingsDialog_Selector_RightEdgeObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_Selector_RightEdgeObject = {}
 end
 
 do
----@class EditModeManagerFrame_EnableSnapCheckButton_LabelObject : FontString
-local EditModeManagerFrame_EnableSnapCheckButton_LabelObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_Selector_TopEdgeObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_Selector_TopEdgeObject = {}
 end
 
 do
----@class EditModeManagerFrame_GridObject : Frame
----@field gridSpacing number
----@field ignoreInLayout boolean
----@field linePool EditModeManagerFrame_Grid_linePoolObject
-local EditModeManagerFrame_GridObject = {}
----@return any ...
-function EditModeManagerFrame_GridObject:OnHide(...) end
----@return any ...
-function EditModeManagerFrame_GridObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_GridObject:SetGridSpacing(...) end
----@return any ...
-function EditModeManagerFrame_GridObject:UpdateGrid(...) end
+---@class CommunitiesFrame_NotificationSettingsDialog_Selector_TopLeftCornerObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_Selector_TopLeftCornerObject = {}
 end
 
 do
----@class EditModeManagerFrame_Grid_linePoolObject
-local EditModeManagerFrame_Grid_linePoolObject = {}
----@return any ...
-function EditModeManagerFrame_Grid_linePoolObject:private(...) end
+---@class CommunitiesFrame_NotificationSettingsDialog_Selector_TopRightCornerObject : Texture
+local CommunitiesFrame_NotificationSettingsDialog_Selector_TopRightCornerObject = {}
 end
 
 do
----@class EditModeManagerFrame_GridSpacingSliderObject : Frame
----@field Slider EditModeManagerFrame_GridSpacingSlider_SliderObject
----@field callbackTables table
----@field cbrHandles EditModeManagerFrame_GridSpacingSlider_cbrHandlesObject
----@field deferredCallbacks table
----@field dirty boolean
----@field executingEvents table
----@field formatters table
-local EditModeManagerFrame_GridSpacingSliderObject = {}
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:ClearFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:GetChildHeight(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:GetChildSize(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:GetChildWidth(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:GetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:GetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:GetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:GetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:GetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:IsDirty(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:Layout(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:MarkClean(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:MarkDirty(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:OnCleaned(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:OnSliderValueChanged(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:OnUpdate(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:SetEnabled(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:SetFixedHeight(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:SetFixedSize(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:SetFixedWidth(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:SetHeightPadding(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:SetWidthPadding(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:SetupSlider(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSliderObject:ShouldClearOnUpdateAfterClean(...) end
+---@class CommunitiesFrame_NotificationSettingsDialog_TitleLabelObject : FontString
+local CommunitiesFrame_NotificationSettingsDialog_TitleLabelObject = {}
 end
 
 do
----@class EditModeManagerFrame_GridSpacingSlider_SliderObject : Frame
----@field Back EditModeManagerFrame_GridSpacingSlider_Slider_BackObject
----@field Event EditModeManagerFrame_GridSpacingSlider_Slider_EventObject
----@field Forward EditModeManagerFrame_GridSpacingSlider_Slider_ForwardObject
----@field InteractionFlags EditModeManagerFrame_GridSpacingSlider_Slider_InteractionFlagsObject
----@field Label EditModeManagerFrame_GridSpacingSlider_Slider_LabelObject
----@field Labels table
----@field LeftText EditModeManagerFrame_GridSpacingSlider_Slider_LeftTextObject
----@field MaxText EditModeManagerFrame_GridSpacingSlider_Slider_MaxTextObject
----@field MinText EditModeManagerFrame_GridSpacingSlider_Slider_MinTextObject
----@field RightText EditModeManagerFrame_GridSpacingSlider_Slider_RightTextObject
----@field Slider EditModeManagerFrame_GridSpacingSlider_Slider_SliderObject
----@field TopText EditModeManagerFrame_GridSpacingSlider_Slider_TopTextObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
----@field formatters EditModeManagerFrame_GridSpacingSlider_Slider_formattersObject
----@field sliderEnabled boolean
-local EditModeManagerFrame_GridSpacingSlider_SliderObject = {}
+---@class CommunitiesFrame_NotificationSettingsDialog_buttonPoolObject
+local CommunitiesFrame_NotificationSettingsDialog_buttonPoolObject = {}
 ---@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:ClearInteractionFlag(...) end
+function CommunitiesFrame_NotificationSettingsDialog_buttonPoolObject:GetTemplate(...) end
 ---@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:CopyDeferredCallbacks(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:DoesFrameHaveEvent(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:FormatValue(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:GenerateCallbackEvents(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:GetCallbackTable(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:GetCallbackTables(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:GetCallbacksByEvent(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:GetNarrationValueText(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:HasRegistrantsForEvent(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:Init(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:InitializeNarration(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:IsSliderEnabled(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:OnStepperClicked(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:RegisterCallback(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:Release(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:SecureInsertEvent(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:SetEnabled(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:SetInteractionFlag(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:SetValue(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:TriggerEvent(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:UnregisterCallback(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:UnregisterEvents(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_SliderObject:UpdateStepperStates(...) end
+function CommunitiesFrame_NotificationSettingsDialog_buttonPoolObject:private(...) end
 end
 
 do
----@class EditModeManagerFrame_GridSpacingSlider_Slider_BackObject : Button
-local EditModeManagerFrame_GridSpacingSlider_Slider_BackObject = {}
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_BackObject:NarrationGetDescription(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_BackObject:NarrationGetName(...) end
+---@class CommunitiesFrame_PostingExpirationTextObject : Frame
+---@field DaysUntilExpire CommunitiesFrame_PostingExpirationText_DaysUntilExpireObject
+---@field ExpirationTimeText CommunitiesFrame_PostingExpirationText_ExpirationTimeTextObject
+---@field ExpiredText CommunitiesFrame_PostingExpirationText_ExpiredTextObject
+---@field InfoButton CommunitiesFrame_PostingExpirationText_InfoButtonObject
+local CommunitiesFrame_PostingExpirationTextObject = {}
 end
 
 do
----@class EditModeManagerFrame_GridSpacingSlider_Slider_EventObject
----@field OnInteractEnd string
----@field OnInteractStart string
----@field OnValueChanged string
-local EditModeManagerFrame_GridSpacingSlider_Slider_EventObject = {}
+---@class CommunitiesFrame_PostingExpirationText_DaysUntilExpireObject : FontString
+local CommunitiesFrame_PostingExpirationText_DaysUntilExpireObject = {}
 end
 
 do
----@class EditModeManagerFrame_GridSpacingSlider_Slider_ForwardObject : Button
-local EditModeManagerFrame_GridSpacingSlider_Slider_ForwardObject = {}
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_ForwardObject:NarrationGetDescription(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_ForwardObject:NarrationGetName(...) end
+---@class CommunitiesFrame_PostingExpirationText_ExpirationTimeTextObject : FontString
+local CommunitiesFrame_PostingExpirationText_ExpirationTimeTextObject = {}
 end
 
 do
----@class EditModeManagerFrame_GridSpacingSlider_Slider_InteractionFlagsObject
----@field flags number
-local EditModeManagerFrame_GridSpacingSlider_Slider_InteractionFlagsObject = {}
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_InteractionFlagsObject:AddNamedFlagsFromTable(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_InteractionFlagsObject:AddNamedMask(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_InteractionFlagsObject:AreAnySet(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_InteractionFlagsObject:AreNoneSet(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_InteractionFlagsObject:Clear(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_InteractionFlagsObject:ClearAll(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_InteractionFlagsObject:GetFlags(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_InteractionFlagsObject:IsAnySet(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_InteractionFlagsObject:IsSet(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_InteractionFlagsObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_InteractionFlagsObject:Set(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_InteractionFlagsObject:SetOrClear(...) end
+---@class CommunitiesFrame_PostingExpirationText_ExpiredTextObject : FontString
+local CommunitiesFrame_PostingExpirationText_ExpiredTextObject = {}
 end
 
 do
----@class EditModeManagerFrame_GridSpacingSlider_Slider_LabelObject
----@field Left number
----@field Max number
----@field Min number
----@field Right number
----@field Top number
-local EditModeManagerFrame_GridSpacingSlider_Slider_LabelObject = {}
+---@class CommunitiesFrame_PostingExpirationText_InfoButtonObject : Button
+---@field I CommunitiesFrame_PostingExpirationText_InfoButton_IObject
+local CommunitiesFrame_PostingExpirationText_InfoButtonObject = {}
 end
 
 do
----@class EditModeManagerFrame_GridSpacingSlider_Slider_LeftTextObject : FontString
-local EditModeManagerFrame_GridSpacingSlider_Slider_LeftTextObject = {}
+---@class CommunitiesFrame_PostingExpirationText_InfoButton_IObject : Texture
+local CommunitiesFrame_PostingExpirationText_InfoButton_IObject = {}
 end
 
 do
----@class EditModeManagerFrame_GridSpacingSlider_Slider_MaxTextObject : FontString
-local EditModeManagerFrame_GridSpacingSlider_Slider_MaxTextObject = {}
+---@class CommunitiesFrame_RecruitmentDialogObject : Frame
+---@field Accept CommunitiesFrame_RecruitmentDialog_AcceptObject
+---@field BG CommunitiesFrame_RecruitmentDialog_BGObject
+---@field Cancel CommunitiesFrame_RecruitmentDialog_CancelObject
+---@field ClubFocusDropdown CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject
+---@field DialogLabel CommunitiesFrame_RecruitmentDialog_DialogLabelObject
+---@field LanguageDropdown CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject
+---@field LookingForDropdown CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject
+---@field MaxLevelOnly CommunitiesFrame_RecruitmentDialog_MaxLevelOnlyObject
+---@field MinIlvlOnly CommunitiesFrame_RecruitmentDialog_MinIlvlOnlyObject
+---@field RecruitmentMessageFrame CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrameObject
+---@field ShouldListClub CommunitiesFrame_RecruitmentDialog_ShouldListClubObject
+local CommunitiesFrame_RecruitmentDialogObject = {}
+---@return any ...
+function CommunitiesFrame_RecruitmentDialogObject:InitDropdowns(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialogObject:OnEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialogObject:OnHide(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialogObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialogObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialogObject:OnUpdatedPostingInformationRecieved(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialogObject:PostClub(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialogObject:ResetClubFinderSettings(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialogObject:SetDisabledStateOnCommunityFinderOptions(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialogObject:UpdateSettingsInfoFromClubInfo(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialogObject:UpdatedPostingInformationInit(...) end
 end
 
 do
----@class EditModeManagerFrame_GridSpacingSlider_Slider_MinTextObject : FontString
-local EditModeManagerFrame_GridSpacingSlider_Slider_MinTextObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_AcceptObject : Button
+---@field Left CommunitiesFrame_RecruitmentDialog_Accept_LeftObject
+---@field Middle CommunitiesFrame_RecruitmentDialog_Accept_MiddleObject
+---@field Right CommunitiesFrame_RecruitmentDialog_Accept_RightObject
+---@field Text CommunitiesFrame_RecruitmentDialog_Accept_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CommunitiesFrame_RecruitmentDialog_AcceptObject = {}
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_AcceptObject:FitToText(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_AcceptObject:GetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_AcceptObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_AcceptObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_AcceptObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_AcceptObject:SetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_AcceptObject:SetTextToFit(...) end
 end
 
 do
----@class EditModeManagerFrame_GridSpacingSlider_Slider_RightTextObject : FontString
-local EditModeManagerFrame_GridSpacingSlider_Slider_RightTextObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_Accept_LeftObject : Texture
+local CommunitiesFrame_RecruitmentDialog_Accept_LeftObject = {}
 end
 
 do
----@class EditModeManagerFrame_GridSpacingSlider_Slider_SliderObject : Slider
----@field Left EditModeManagerFrame_GridSpacingSlider_Slider_Slider_LeftObject
----@field Middle EditModeManagerFrame_GridSpacingSlider_Slider_Slider_MiddleObject
----@field Right EditModeManagerFrame_GridSpacingSlider_Slider_Slider_RightObject
----@field Thumb EditModeManagerFrame_GridSpacingSlider_Slider_Slider_ThumbObject
----@field obeyStepOnDrag boolean
-local EditModeManagerFrame_GridSpacingSlider_Slider_SliderObject = {}
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_SliderObject:NarrationGetContext(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_SliderObject:NarrationGetDescription(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_SliderObject:NarrationGetName(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_SliderObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_SliderObject:Release(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_SliderObject:SetNarrationLabelRegion(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_SliderObject:SetNarrationValueFormatter(...) end
----@return any ...
-function EditModeManagerFrame_GridSpacingSlider_Slider_SliderObject:narrationValueFormatter(...) end
+---@class CommunitiesFrame_RecruitmentDialog_Accept_MiddleObject : Texture
+local CommunitiesFrame_RecruitmentDialog_Accept_MiddleObject = {}
 end
 
 do
----@class EditModeManagerFrame_GridSpacingSlider_Slider_Slider_LeftObject : Texture
-local EditModeManagerFrame_GridSpacingSlider_Slider_Slider_LeftObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_Accept_RightObject : Texture
+local CommunitiesFrame_RecruitmentDialog_Accept_RightObject = {}
 end
 
 do
----@class EditModeManagerFrame_GridSpacingSlider_Slider_Slider_MiddleObject : Texture
-local EditModeManagerFrame_GridSpacingSlider_Slider_Slider_MiddleObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_Accept_TextObject : FontString
+local CommunitiesFrame_RecruitmentDialog_Accept_TextObject = {}
 end
 
 do
----@class EditModeManagerFrame_GridSpacingSlider_Slider_Slider_RightObject : Texture
-local EditModeManagerFrame_GridSpacingSlider_Slider_Slider_RightObject = {}
-end
-
-do
----@class EditModeManagerFrame_GridSpacingSlider_Slider_Slider_ThumbObject : Texture
-local EditModeManagerFrame_GridSpacingSlider_Slider_Slider_ThumbObject = {}
-end
-
-do
----@class EditModeManagerFrame_GridSpacingSlider_Slider_TopTextObject : FontString
-local EditModeManagerFrame_GridSpacingSlider_Slider_TopTextObject = {}
-end
-
-do
----@class EditModeManagerFrame_GridSpacingSlider_Slider_formattersObject
-local EditModeManagerFrame_GridSpacingSlider_Slider_formattersObject = {}
-end
-
-do
----@class EditModeManagerFrame_GridSpacingSlider_cbrHandlesObject
----@field handles table
-local EditModeManagerFrame_GridSpacingSlider_cbrHandlesObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_BGObject : Frame
+---@field Bg CommunitiesFrame_RecruitmentDialog_BG_BgObject
+---@field BottomEdge CommunitiesFrame_RecruitmentDialog_BG_BottomEdgeObject
+---@field BottomLeftCorner CommunitiesFrame_RecruitmentDialog_BG_BottomLeftCornerObject
+---@field BottomRightCorner CommunitiesFrame_RecruitmentDialog_BG_BottomRightCornerObject
+---@field LeftEdge CommunitiesFrame_RecruitmentDialog_BG_LeftEdgeObject
+---@field RightEdge CommunitiesFrame_RecruitmentDialog_BG_RightEdgeObject
+---@field TopEdge CommunitiesFrame_RecruitmentDialog_BG_TopEdgeObject
+---@field TopLeftCorner CommunitiesFrame_RecruitmentDialog_BG_TopLeftCornerObject
+---@field TopRightCorner CommunitiesFrame_RecruitmentDialog_BG_TopRightCornerObject
+---@field layoutType string
+local CommunitiesFrame_RecruitmentDialog_BGObject = {}
 ---@return any ...
-function EditModeManagerFrame_GridSpacingSlider_cbrHandlesObject:AddHandle(...) end
+function CommunitiesFrame_RecruitmentDialog_BGObject:GetBorderColor(...) end
 ---@return any ...
-function EditModeManagerFrame_GridSpacingSlider_cbrHandlesObject:Init(...) end
+function CommunitiesFrame_RecruitmentDialog_BGObject:GetCenterColor(...) end
 ---@return any ...
-function EditModeManagerFrame_GridSpacingSlider_cbrHandlesObject:IsEmpty(...) end
+function CommunitiesFrame_RecruitmentDialog_BGObject:GetFrameLayoutTextureKit(...) end
 ---@return any ...
-function EditModeManagerFrame_GridSpacingSlider_cbrHandlesObject:RegisterCallback(...) end
+function CommunitiesFrame_RecruitmentDialog_BGObject:GetFrameLayoutType(...) end
 ---@return any ...
-function EditModeManagerFrame_GridSpacingSlider_cbrHandlesObject:Unregister(...) end
+function CommunitiesFrame_RecruitmentDialog_BGObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_BGObject:SetBlendMode(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_BGObject:SetBorderBlendMode(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_BGObject:SetBorderColor(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_BGObject:SetCenterColor(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_BGObject:SetVertexColor(...) end
 end
 
 do
----@class EditModeManagerFrame_LayoutDropdownObject : Button
----@field Arrow EditModeManagerFrame_LayoutDropdown_ArrowObject
----@field Background EditModeManagerFrame_LayoutDropdown_BackgroundObject
----@field Event EditModeManagerFrame_LayoutDropdown_EventObject
----@field Text EditModeManagerFrame_LayoutDropdown_TextObject
+---@class CommunitiesFrame_RecruitmentDialog_BG_BgObject : Texture
+local CommunitiesFrame_RecruitmentDialog_BG_BgObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_BG_BottomEdgeObject : Texture
+local CommunitiesFrame_RecruitmentDialog_BG_BottomEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_BG_BottomLeftCornerObject : Texture
+local CommunitiesFrame_RecruitmentDialog_BG_BottomLeftCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_BG_BottomRightCornerObject : Texture
+local CommunitiesFrame_RecruitmentDialog_BG_BottomRightCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_BG_LeftEdgeObject : Texture
+local CommunitiesFrame_RecruitmentDialog_BG_LeftEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_BG_RightEdgeObject : Texture
+local CommunitiesFrame_RecruitmentDialog_BG_RightEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_BG_TopEdgeObject : Texture
+local CommunitiesFrame_RecruitmentDialog_BG_TopEdgeObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_BG_TopLeftCornerObject : Texture
+local CommunitiesFrame_RecruitmentDialog_BG_TopLeftCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_BG_TopRightCornerObject : Texture
+local CommunitiesFrame_RecruitmentDialog_BG_TopRightCornerObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_CancelObject : Button
+---@field Left CommunitiesFrame_RecruitmentDialog_Cancel_LeftObject
+---@field Middle CommunitiesFrame_RecruitmentDialog_Cancel_MiddleObject
+---@field Right CommunitiesFrame_RecruitmentDialog_Cancel_RightObject
+---@field Text CommunitiesFrame_RecruitmentDialog_Cancel_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CommunitiesFrame_RecruitmentDialog_CancelObject = {}
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_CancelObject:FitToText(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_CancelObject:GetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_CancelObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_CancelObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_CancelObject:SetDisabledState(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_CancelObject:SetDisabledTooltip(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_CancelObject:SetTextToFit(...) end
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_Cancel_LeftObject : Texture
+local CommunitiesFrame_RecruitmentDialog_Cancel_LeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_Cancel_MiddleObject : Texture
+local CommunitiesFrame_RecruitmentDialog_Cancel_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_Cancel_RightObject : Texture
+local CommunitiesFrame_RecruitmentDialog_Cancel_RightObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_Cancel_TextObject : FontString
+local CommunitiesFrame_RecruitmentDialog_Cancel_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject : Button
+---@field Arrow CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_ArrowObject
+---@field Background CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_BackgroundObject
+---@field Event CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_EventObject
+---@field Label CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_LabelObject
+---@field Text CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_TextObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field executingEvents table
 ---@field intrinsic string
----@field menuAnchor EditModeManagerFrame_LayoutDropdown_menuAnchorObject
+---@field labelText string
+---@field menuAnchor CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject
+---@field menuDescription CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject
 ---@field menuPoint string
 ---@field menuPointX number
 ---@field menuPointY number
 ---@field menuRelativePoint string
-local EditModeManagerFrame_LayoutDropdownObject = {}
+local CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject = {}
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:ClearMenuState(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:ClearMenuState(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:CloseMenu(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:CloseMenu(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:CollectSelectionData(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:CollectSelectionData(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:CopyDeferredCallbacks(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:CreateDefaultRootMenuDescription(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:CreateDefaultRootMenuDescription(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:CreateRootDescription(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:CreateRootDescription(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:Decrement(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:Decrement(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:DesaturateIfDisabled(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:DoesFrameHaveEvent(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:EnableRegenerateOnResponse(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:EnableRegenerateOnResponse(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:GenerateCallbackEvents(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:GenerateMenu(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:GenerateMenu(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:GetArrowAtlas(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:GetArrowAtlas(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:GetCallbackTable(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:GetCallbackTable(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:GetCallbackTables(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:GetCallbackTables(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:GetCallbacksByEvent(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:GetDefaultText(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:GetDefaultText(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:GetMenuDescription(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:GetMenuDescription(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:GetMutableCallbacksByEvent(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:GetSelectionData(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:GetSelectionData(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:GetUpdateText(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:GetUpdateText(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:HandlesGlobalMouseEvent(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:HandlesGlobalMouseEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:HasAnyRadioDescriptions(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:HasAnyRadioDescriptions(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:HasElements(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:HasElements(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:HasOnlyRadioDescriptions(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:HasOnlyRadioDescriptions(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:HasRegistrantsForEvent(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:HasStickyFocus(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:HasStickyFocus(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:Increment(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:Increment(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:IsDown(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:IsDown(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:IsDownOver(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:IsDownOver(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:IsMenuOpen(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:IsMenuOpen(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:IsOver(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:IsOver(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:NarrationGetContext(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:NarrationGetContext(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:NarrationGetName(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:NarrationGetName(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:OnButtonStateChanged(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnButtonStateChanged(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:OnDisable(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnDisable(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:OnEnable(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnEnable(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:OnEnter(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnEnter(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:OnEnter_Intrinsic(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:OnLeave(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnLeave(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:OnLoad(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnLoad(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:OnLoad_Intrinsic(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:OnMenuAssigned(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnMenuAssigned(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:OnMenuChanged(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnMenuChanged(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:OnMenuClosed(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnMenuClosed(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:OnMenuOpened(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnMenuOpened(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:OnMenuResponse(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnMenuResponse(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:OnMouseDown(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnMouseDown(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:OnMouseDown_Intrinsic(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:OnMouseUp(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnMouseUp(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:OnMouseWheel_Intrinsic(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnMouseWheel_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:OnShow(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnShow(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:OpenMenu(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OpenMenu(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:OverrideText(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OverrideText(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:Pick(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:Pick(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:ReconcileDeferredCallbacks(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:RegisterCallback(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:RegisterCallback(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:RegisterCallbackWithHandle(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:RegisterMenu(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:RegisterMenu(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:Rotate(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:Rotate(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:SecureInsertEvent(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:SecureInsertEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:SetDefaultText(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:SetDefaultText(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:SetDisplacedRegions(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:SetDisplacedRegions(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:SetMenuAnchor(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:SetMenuAnchor(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:SetMenuOpen(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:SetMenuOpen(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:SetSelectionText(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:SetSelectionText(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:SetSelectionTranslator(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:SetSelectionTranslator(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:SetTooltip(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:SetTooltip(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:SetUndefinedEventsAllowed(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:SetupMenu(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:SetupMenu(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:ShouldShowTooltip(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:ShouldShowTooltip(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:ShowTooltip(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:ShowTooltip(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:SignalUpdate(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:SignalUpdate(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:TriggerEvent(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:TriggerEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:UnregisterCallback(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:UnregisterCallback(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:UnregisterEvents(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:UnregisterEvents(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:UnregisterEventsByEventTable(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:Update(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:Update(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:UpdateSelections(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:UpdateSelections(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:UpdateText(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:UpdateText(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:UpdateToMenuSelections(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:UpdateToMenuSelections(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:onMenuClosedCallback(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:menuGenerator(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdownObject:selectionTranslator(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:selectionTranslator(...) end
 end
 
 do
----@class EditModeManagerFrame_LayoutDropdown_ArrowObject : Texture
-local EditModeManagerFrame_LayoutDropdown_ArrowObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_ArrowObject : Texture
+local CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_ArrowObject = {}
 end
 
 do
----@class EditModeManagerFrame_LayoutDropdown_BackgroundObject : Texture
-local EditModeManagerFrame_LayoutDropdown_BackgroundObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_BackgroundObject : Texture
+local CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_BackgroundObject = {}
 end
 
 do
----@class EditModeManagerFrame_LayoutDropdown_EventObject
-local EditModeManagerFrame_LayoutDropdown_EventObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_EventObject
+local CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_EventObject = {}
 end
 
 do
----@class EditModeManagerFrame_LayoutDropdown_TextObject : FontString
-local EditModeManagerFrame_LayoutDropdown_TextObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_LabelObject : FontString
+local CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_LabelObject = {}
 end
 
 do
----@class EditModeManagerFrame_LayoutDropdown_menuAnchorObject
+---@class CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_TextObject : FontString
+local CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject
 ---@field point string
 ---@field relativePoint string
----@field relativeTo EditModeManagerFrame_LayoutDropdown_menuAnchor_relativeToObject
+---@field relativeTo CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchor_relativeToObject
 ---@field x number
 ---@field y number
-local EditModeManagerFrame_LayoutDropdown_menuAnchorObject = {}
+local CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject = {}
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdown_menuAnchorObject:Get(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject:Get(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdown_menuAnchorObject:GetRelativeTo(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject:GetRelativeTo(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdown_menuAnchorObject:Init(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject:Init(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdown_menuAnchorObject:Set(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject:Set(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdown_menuAnchorObject:SetFromPoint(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject:SetFromPoint(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdown_menuAnchorObject:SetOffsets(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject:SetOffsets(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdown_menuAnchorObject:SetPoint(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject:SetPoint(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
 ---@return any ...
-function EditModeManagerFrame_LayoutDropdown_menuAnchorObject:SetRelativeTo(...) end
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject:SetRelativeTo(...) end
 end
 
 do
----@class EditModeManagerFrame_LayoutDropdown_menuAnchor_relativeToObject
-local EditModeManagerFrame_LayoutDropdown_menuAnchor_relativeToObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchor_relativeToObject
+local CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchor_relativeToObject = {}
 end
 
 do
----@class EditModeManagerFrame_LayoutLabelObject : FontString
-local EditModeManagerFrame_LayoutLabelObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject
+---@field tag string
+local CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject = {}
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateButton(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateCheckbox(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateColorSwatch(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateDivider(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateFrame(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateHighlightButton(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateHighlightRadio(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateRadio(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateSearchEntry(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateSpacer(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateTemplate(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateTitle(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:QueueDivider(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:QueueSpacer(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:QueueTitle(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:SetTooltip(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:private(...) end
 end
 
 do
----@class EditModeManagerFrame_MagnetismPreviewLinesContainerObject : Frame
----@field ignoreInLayout boolean
-local EditModeManagerFrame_MagnetismPreviewLinesContainerObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_DialogLabelObject : FontString
+local CommunitiesFrame_RecruitmentDialog_DialogLabelObject = {}
 end
 
 do
----@class EditModeManagerFrame_RevertAllChangesButtonObject : Button
----@field Controller EditModeManagerFrame_RevertAllChangesButton_ControllerObject
----@field Left EditModeManagerFrame_RevertAllChangesButton_LeftObject
----@field Middle EditModeManagerFrame_RevertAllChangesButton_MiddleObject
----@field Right EditModeManagerFrame_RevertAllChangesButton_RightObject
----@field Text EditModeManagerFrame_RevertAllChangesButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local EditModeManagerFrame_RevertAllChangesButtonObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject : Button
+---@field Arrow CommunitiesFrame_RecruitmentDialog_LanguageDropdown_ArrowObject
+---@field Background CommunitiesFrame_RecruitmentDialog_LanguageDropdown_BackgroundObject
+---@field Event CommunitiesFrame_RecruitmentDialog_LanguageDropdown_EventObject
+---@field Label CommunitiesFrame_RecruitmentDialog_LanguageDropdown_LabelObject
+---@field Language CommunitiesFrame_RecruitmentDialog_LanguageDropdown_LanguageObject
+---@field Text CommunitiesFrame_RecruitmentDialog_LanguageDropdown_TextObject
+---@field callbackTables table
+---@field currentLocaleId number
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject
+---@field menuDescription CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+---@field text string
+local CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject = {}
 ---@return any ...
-function EditModeManagerFrame_RevertAllChangesButtonObject:ClearCustomTextFormatter(...) end
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:ClearMenuState(...) end
 ---@return any ...
-function EditModeManagerFrame_RevertAllChangesButtonObject:FitToText(...) end
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:CloseMenu(...) end
 ---@return any ...
-function EditModeManagerFrame_RevertAllChangesButtonObject:GetDisabledTooltip(...) end
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:CollectSelectionData(...) end
 ---@return any ...
-function EditModeManagerFrame_RevertAllChangesButtonObject:GetOnClickSoundKit(...) end
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function EditModeManagerFrame_RevertAllChangesButtonObject:InitButton(...) end
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:CreateDefaultRootMenuDescription(...) end
 ---@return any ...
-function EditModeManagerFrame_RevertAllChangesButtonObject:OnClick(...) end
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:CreateRootDescription(...) end
 ---@return any ...
-function EditModeManagerFrame_RevertAllChangesButtonObject:OnEnter(...) end
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:Decrement(...) end
 ---@return any ...
-function EditModeManagerFrame_RevertAllChangesButtonObject:OnLeave(...) end
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function EditModeManagerFrame_RevertAllChangesButtonObject:RunCustomTextFormatter(...) end
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_RevertAllChangesButtonObject:SetButtonArtKit(...) end
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:EnableRegenerateOnResponse(...) end
 ---@return any ...
-function EditModeManagerFrame_RevertAllChangesButtonObject:SetCustomTextFormatter(...) end
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function EditModeManagerFrame_RevertAllChangesButtonObject:SetDisabledState(...) end
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:GenerateMenu(...) end
 ---@return any ...
-function EditModeManagerFrame_RevertAllChangesButtonObject:SetDisabledTooltip(...) end
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:GetArrowAtlas(...) end
 ---@return any ...
-function EditModeManagerFrame_RevertAllChangesButtonObject:SetOnClickHandler(...) end
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:GetCallbackTable(...) end
 ---@return any ...
-function EditModeManagerFrame_RevertAllChangesButtonObject:SetOnEnterHandler(...) end
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:GetCallbackTables(...) end
 ---@return any ...
-function EditModeManagerFrame_RevertAllChangesButtonObject:SetTextToFit(...) end
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_RevertAllChangesButtonObject:SetTooltipAnchor(...) end
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:GetDefaultText(...) end
 ---@return any ...
-function EditModeManagerFrame_RevertAllChangesButtonObject:SetTooltipInfo(...) end
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:GetMenuDescription(...) end
 ---@return any ...
-function EditModeManagerFrame_RevertAllChangesButtonObject:onClickHandler(...) end
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:GetSelectionData(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:GetUpdateText(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:HasElements(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:HasStickyFocus(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:Increment(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:IsDown(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:IsDownOver(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:IsLocale(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:IsMenuOpen(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:IsOver(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:NarrationGetContext(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:NarrationGetName(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnDisable(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnEnable(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnMenuChanged(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnMenuClosed(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnMenuOpened(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnMenuResponse(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OpenMenu(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OverrideText(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:Pick(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:RegisterMenu(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:Rotate(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SetDefaultText(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SetLocale(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SetMenuOpen(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SetSelectionText(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SetTooltip(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SetupMenu(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:ShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SignalUpdate(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:Update(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:UpdateSelections(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:UpdateText(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:menuGenerator(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:selectionFunc(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:selectionTranslator(...) end
 end
 
 do
----@class EditModeManagerFrame_RevertAllChangesButton_ControllerObject : Frame
-local EditModeManagerFrame_RevertAllChangesButton_ControllerObject = {}
----@return any ...
-function EditModeManagerFrame_RevertAllChangesButton_ControllerObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_RevertAllChangesButton_ControllerObject:OnShow(...) end
+---@class CommunitiesFrame_RecruitmentDialog_LanguageDropdown_ArrowObject : Texture
+local CommunitiesFrame_RecruitmentDialog_LanguageDropdown_ArrowObject = {}
 end
 
 do
----@class EditModeManagerFrame_RevertAllChangesButton_LeftObject : Texture
-local EditModeManagerFrame_RevertAllChangesButton_LeftObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_LanguageDropdown_BackgroundObject : Texture
+local CommunitiesFrame_RecruitmentDialog_LanguageDropdown_BackgroundObject = {}
 end
 
 do
----@class EditModeManagerFrame_RevertAllChangesButton_MiddleObject : Texture
-local EditModeManagerFrame_RevertAllChangesButton_MiddleObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_LanguageDropdown_EventObject
+local CommunitiesFrame_RecruitmentDialog_LanguageDropdown_EventObject = {}
 end
 
 do
----@class EditModeManagerFrame_RevertAllChangesButton_RightObject : Texture
-local EditModeManagerFrame_RevertAllChangesButton_RightObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_LanguageDropdown_LabelObject : FontString
+local CommunitiesFrame_RecruitmentDialog_LanguageDropdown_LabelObject = {}
 end
 
 do
----@class EditModeManagerFrame_RevertAllChangesButton_TextObject : FontString
-local EditModeManagerFrame_RevertAllChangesButton_TextObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_LanguageDropdown_LanguageObject : Texture
+local CommunitiesFrame_RecruitmentDialog_LanguageDropdown_LanguageObject = {}
 end
 
 do
----@class EditModeManagerFrame_SaveChangesButtonObject : Button
----@field Controller EditModeManagerFrame_SaveChangesButton_ControllerObject
----@field Left EditModeManagerFrame_SaveChangesButton_LeftObject
----@field Middle EditModeManagerFrame_SaveChangesButton_MiddleObject
----@field Right EditModeManagerFrame_SaveChangesButton_RightObject
----@field Text EditModeManagerFrame_SaveChangesButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local EditModeManagerFrame_SaveChangesButtonObject = {}
----@return any ...
-function EditModeManagerFrame_SaveChangesButtonObject:ClearCustomTextFormatter(...) end
----@return any ...
-function EditModeManagerFrame_SaveChangesButtonObject:FitToText(...) end
----@return any ...
-function EditModeManagerFrame_SaveChangesButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function EditModeManagerFrame_SaveChangesButtonObject:GetOnClickSoundKit(...) end
----@return any ...
-function EditModeManagerFrame_SaveChangesButtonObject:InitButton(...) end
----@return any ...
-function EditModeManagerFrame_SaveChangesButtonObject:OnClick(...) end
----@return any ...
-function EditModeManagerFrame_SaveChangesButtonObject:OnEnter(...) end
----@return any ...
-function EditModeManagerFrame_SaveChangesButtonObject:OnLeave(...) end
----@return any ...
-function EditModeManagerFrame_SaveChangesButtonObject:RunCustomTextFormatter(...) end
----@return any ...
-function EditModeManagerFrame_SaveChangesButtonObject:SetButtonArtKit(...) end
----@return any ...
-function EditModeManagerFrame_SaveChangesButtonObject:SetCustomTextFormatter(...) end
----@return any ...
-function EditModeManagerFrame_SaveChangesButtonObject:SetDisabledState(...) end
----@return any ...
-function EditModeManagerFrame_SaveChangesButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function EditModeManagerFrame_SaveChangesButtonObject:SetOnClickHandler(...) end
----@return any ...
-function EditModeManagerFrame_SaveChangesButtonObject:SetOnEnterHandler(...) end
----@return any ...
-function EditModeManagerFrame_SaveChangesButtonObject:SetTextToFit(...) end
----@return any ...
-function EditModeManagerFrame_SaveChangesButtonObject:SetTooltipAnchor(...) end
----@return any ...
-function EditModeManagerFrame_SaveChangesButtonObject:SetTooltipInfo(...) end
----@return any ...
-function EditModeManagerFrame_SaveChangesButtonObject:onClickHandler(...) end
+---@class CommunitiesFrame_RecruitmentDialog_LanguageDropdown_TextObject : FontString
+local CommunitiesFrame_RecruitmentDialog_LanguageDropdown_TextObject = {}
 end
 
 do
----@class EditModeManagerFrame_SaveChangesButton_ControllerObject : Frame
-local EditModeManagerFrame_SaveChangesButton_ControllerObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject = {}
 ---@return any ...
-function EditModeManagerFrame_SaveChangesButton_ControllerObject:OnLoad(...) end
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject:Get(...) end
 ---@return any ...
-function EditModeManagerFrame_SaveChangesButton_ControllerObject:OnShow(...) end
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject:SetRelativeTo(...) end
 end
 
 do
----@class EditModeManagerFrame_SaveChangesButton_LeftObject : Texture
-local EditModeManagerFrame_SaveChangesButton_LeftObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchor_relativeToObject
+local CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchor_relativeToObject = {}
 end
 
 do
----@class EditModeManagerFrame_SaveChangesButton_MiddleObject : Texture
-local EditModeManagerFrame_SaveChangesButton_MiddleObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject
+---@field tag string
+local CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject = {}
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateButton(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateCheckbox(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateColorSwatch(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateDivider(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateFrame(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateHighlightButton(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateHighlightRadio(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateRadio(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateSearchEntry(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateSpacer(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateTemplate(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateTitle(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:QueueDivider(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:QueueSpacer(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:QueueTitle(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:SetTooltip(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:private(...) end
 end
 
 do
----@class EditModeManagerFrame_SaveChangesButton_RightObject : Texture
-local EditModeManagerFrame_SaveChangesButton_RightObject = {}
-end
-
-do
----@class EditModeManagerFrame_SaveChangesButton_TextObject : FontString
-local EditModeManagerFrame_SaveChangesButton_TextObject = {}
-end
-
-do
----@class EditModeManagerFrame_ShowGridCheckButtonObject : Frame
----@field Button EditModeManagerFrame_ShowGridCheckButton_ButtonObject
----@field Label EditModeManagerFrame_ShowGridCheckButton_LabelObject
----@field dirty boolean
----@field fixedWidth number
+---@class CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject : Button
+---@field Arrow CommunitiesFrame_RecruitmentDialog_LookingForDropdown_ArrowObject
+---@field Background CommunitiesFrame_RecruitmentDialog_LookingForDropdown_BackgroundObject
+---@field Event CommunitiesFrame_RecruitmentDialog_LookingForDropdown_EventObject
+---@field Label CommunitiesFrame_RecruitmentDialog_LookingForDropdown_LabelObject
+---@field Text CommunitiesFrame_RecruitmentDialog_LookingForDropdown_TextObject
+---@field callbackTables table
+---@field checkedCount number
+---@field checkedList table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
 ---@field labelText string
-local EditModeManagerFrame_ShowGridCheckButtonObject = {}
+---@field menuAnchor CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject
+---@field menuDescription CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+---@field text string
+local CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject = {}
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:AddLayoutChildren(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:CheckOrUncheckAll(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:AutoEnableCVar(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:ClearMenuState(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:CheckAddNarrationToButton(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:CloseMenu(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:ClearFixedSize(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:CollectSelectionData(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:EditModeCheckButton_OnLoad(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:EditModeCheckButton_OnShow(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:CreateDefaultRootMenuDescription(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:GetAdditionalRegions(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:CreateRootDescription(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:GetCallback(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:Decrement(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:GetChildHeight(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:GetChildSize(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:GetChildWidth(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:EnableRegenerateOnResponse(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:GetFixedHeight(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:GetFixedSize(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GenerateMenu(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:GetFixedWidth(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GetArrowAtlas(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:GetHeightPadding(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GetCallbackTable(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:GetLayoutChildren(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GetCallbackTables(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:GetMaximumWidth(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:GetMinimumWidth(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GetDefaultText(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:GetWidthPadding(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GetMenuDescription(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:HideButtonTooltip(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:IgnoreLayoutIndex(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GetSelectionData(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:IsControlChecked(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GetSpecsList(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:IsControlEnabled(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GetUpdateText(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:IsDirty(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:HandlesGlobalMouseEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:IsLayoutFrame(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:HasAnyRadioDescriptions(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:Layout(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:HasElements(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:MarkClean(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:HasOnlyRadioDescriptions(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:MarkDirty(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:MarkIgnoreInLayout(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:HasStickyFocus(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:OnCheckButtonClick(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:Increment(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:OnCleaned(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:IsDown(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:OnEnter(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:IsDownOver(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:OnLeave(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:IsEverySpecCheckedForRole(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:OnLoad(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:IsMenuOpen(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:OnShow(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:IsOver(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:OnUpdate(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:IsSpecInList(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:RunMouseOverCallback(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:ModifyTrackedSpecList(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:SetButton(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:NarrationGetContext(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:SetCallback(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:NarrationGetName(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:SetControlChecked(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnButtonStateChanged(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:SetControlEnabled(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnDisable(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:SetFixedHeight(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnEnable(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:SetFixedSize(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnEnter(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:SetFixedWidth(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:SetHeightPadding(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnLeave(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:SetLabel(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnLoad(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:SetLabelText(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:SetMaximumWidth(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnMenuAssigned(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:SetMinimumWidth(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnMenuChanged(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:SetMouseOverCallback(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnMenuClosed(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:SetTooltipDisabled(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnMenuOpened(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:SetTooltipText(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnMenuResponse(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:SetWidthPadding(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnMouseDown(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:ShouldClearOnUpdateAfterClean(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:ShouldEnable(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnMouseUp(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:UpdateDisplay(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnMouseWheel_Intrinsic(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:UpdateLabelFont(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnShow(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButtonObject:onBoxToggled(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OpenMenu(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OverrideText(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:Pick(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:RegisterMenu(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:Rotate(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SetCheckedList(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SetDefaultText(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SetMenuOpen(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SetSelectionText(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SetTooltip(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SetupMenu(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:ShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SignalUpdate(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:Update(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:UpdateSelections(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:UpdateText(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:menuGenerator(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:selectionFunc(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:selectionTranslator(...) end
 end
 
 do
----@class EditModeManagerFrame_ShowGridCheckButton_ButtonObject : CheckButton
-local EditModeManagerFrame_ShowGridCheckButton_ButtonObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_LookingForDropdown_ArrowObject : Texture
+local CommunitiesFrame_RecruitmentDialog_LookingForDropdown_ArrowObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_LookingForDropdown_BackgroundObject : Texture
+local CommunitiesFrame_RecruitmentDialog_LookingForDropdown_BackgroundObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_LookingForDropdown_EventObject
+local CommunitiesFrame_RecruitmentDialog_LookingForDropdown_EventObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_LookingForDropdown_LabelObject : FontString
+local CommunitiesFrame_RecruitmentDialog_LookingForDropdown_LabelObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_LookingForDropdown_TextObject : FontString
+local CommunitiesFrame_RecruitmentDialog_LookingForDropdown_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject = {}
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButton_ButtonObject:NarrationGetContext(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject:Get(...) end
 ---@return any ...
-function EditModeManagerFrame_ShowGridCheckButton_ButtonObject:NarrationGetName(...) end
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject:SetRelativeTo(...) end
 end
 
 do
----@class EditModeManagerFrame_ShowGridCheckButton_LabelObject : FontString
-local EditModeManagerFrame_ShowGridCheckButton_LabelObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchor_relativeToObject
+local CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchor_relativeToObject = {}
 end
 
 do
----@class EditModeManagerFrame_TitleObject : FontString
-local EditModeManagerFrame_TitleObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject
+---@field tag string
+local CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject = {}
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateButton(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateCheckbox(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateColorSwatch(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateDivider(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateFrame(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateHighlightButton(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateHighlightRadio(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateRadio(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateSearchEntry(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateSpacer(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateTemplate(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateTitle(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:QueueDivider(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:QueueSpacer(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:QueueTitle(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:SetTooltip(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:private(...) end
 end
 
 do
----@class EditModeManagerFrame_TutorialObject : Button
----@field BigIPulse EditModeManagerFrame_Tutorial_BigIPulseObject
----@field I EditModeManagerFrame_Tutorial_IObject
----@field Pulse EditModeManagerFrame_Tutorial_PulseObject
----@field Ring EditModeManagerFrame_Tutorial_RingObject
----@field RingPulse EditModeManagerFrame_Tutorial_RingPulseObject
----@field mainHelpPlateButtonTooltipText string
+---@class CommunitiesFrame_RecruitmentDialog_MaxLevelOnlyObject : Frame
+---@field Button CommunitiesFrame_RecruitmentDialog_MaxLevelOnly_ButtonObject
+---@field Label CommunitiesFrame_RecruitmentDialog_MaxLevelOnly_LabelObject
+local CommunitiesFrame_RecruitmentDialog_MaxLevelOnlyObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_MaxLevelOnly_ButtonObject : CheckButton
+local CommunitiesFrame_RecruitmentDialog_MaxLevelOnly_ButtonObject = {}
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_MaxLevelOnly_ButtonObject:OnClick(...) end
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_MaxLevelOnly_LabelObject : FontString
+local CommunitiesFrame_RecruitmentDialog_MaxLevelOnly_LabelObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_MinIlvlOnlyObject : Frame
+---@field Button CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_ButtonObject
+---@field EditBox CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBoxObject
+---@field Label CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_LabelObject
+local CommunitiesFrame_RecruitmentDialog_MinIlvlOnlyObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_ButtonObject : CheckButton
+local CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_ButtonObject = {}
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_ButtonObject:OnClick(...) end
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBoxObject : EditBox
+---@field Left CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_LeftObject
+---@field Middle CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_MiddleObject
+---@field Right CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_RightObject
+---@field Text CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_TextObject
+local CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBoxObject = {}
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBoxObject:NarrationGetContext(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBoxObject:NarrationGetDescription(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBoxObject:NarrationGetName(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBoxObject:SetNarrationLabelRegion(...) end
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_LeftObject : Texture
+local CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_LeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_MiddleObject : Texture
+local CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_RightObject : Texture
+local CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_RightObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_TextObject : FontString
+local CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_LabelObject : FontString
+local CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_LabelObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrameObject : Frame
+---@field Bottom CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_BottomObject
+---@field BottomLeft CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_BottomLeftObject
+---@field BottomRight CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_BottomRightObject
+---@field Label CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_LabelObject
+---@field Left CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_LeftObject
+---@field Middle CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_MiddleObject
+---@field RecruitmentMessageInput CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInputObject
+---@field Right CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RightObject
+---@field Top CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_TopObject
+---@field TopLeft CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_TopLeftObject
+---@field TopRight CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_TopRightObject
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrameObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_BottomObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_BottomObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_BottomLeftObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_BottomLeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_BottomRightObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_BottomRightObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_LabelObject : FontString
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_LabelObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_LeftObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_LeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_MiddleObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInputObject : ScrollFrame
+---@field BottomLeftTex CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_BottomLeftTexObject
+---@field BottomRightTex CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_BottomRightTexObject
+---@field BottomTex CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_BottomTexObject
+---@field CharCount CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_CharCountObject
+---@field EditBox CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_EditBoxObject
+---@field LeftTex CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_LeftTexObject
+---@field MiddleTex CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_MiddleTexObject
+---@field RightTex CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_RightTexObject
+---@field ScrollBar CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject
+---@field TopLeftTex CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_TopLeftTexObject
+---@field TopRightTex CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_TopRightTexObject
+---@field TopTex CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_TopTexObject
+---@field cursorOffset number
+---@field hideCharCount boolean
+---@field instructions string
+---@field maxLetters number
+---@field panExtent number
+---@field scrollBarBottomY number
+---@field scrollBarHideIfUnscrollable boolean
+---@field scrollBarTopY number
+---@field scrollBarX number
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInputObject = {}
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInputObject:GetPanExtent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInputObject:SetPanExtent(...) end
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_BottomLeftTexObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_BottomLeftTexObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_BottomRightTexObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_BottomRightTexObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_BottomTexObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_BottomTexObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_CharCountObject : FontString
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_CharCountObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_EditBoxObject : EditBox
+---@field Instructions CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_EditBox_InstructionsObject
 ---@field smartNavigationIgnored boolean
-local EditModeManagerFrame_TutorialObject = {}
----@return any ...
-function EditModeManagerFrame_TutorialObject:BeginHelpTips(...) end
----@return any ...
-function EditModeManagerFrame_TutorialObject:HasHelptipsToShow(...) end
----@return any ...
-function EditModeManagerFrame_TutorialObject:OnClick(...) end
----@return any ...
-function EditModeManagerFrame_TutorialObject:OnEnter(...) end
----@return any ...
-function EditModeManagerFrame_TutorialObject:OnHide(...) end
----@return any ...
-function EditModeManagerFrame_TutorialObject:OnLeave(...) end
----@return any ...
-function EditModeManagerFrame_TutorialObject:OnLoad(...) end
----@return any ...
-function EditModeManagerFrame_TutorialObject:OnMouseDown(...) end
----@return any ...
-function EditModeManagerFrame_TutorialObject:OnMouseUp(...) end
----@return any ...
-function EditModeManagerFrame_TutorialObject:OnShow(...) end
----@return any ...
-function EditModeManagerFrame_TutorialObject:ProgressHelpTips(...) end
----@return any ...
-function EditModeManagerFrame_TutorialObject:ShowHelpTip(...) end
----@return any ...
-function EditModeManagerFrame_TutorialObject:ShowTooltip(...) end
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_EditBoxObject = {}
 end
 
 do
----@class EditModeManagerFrame_Tutorial_BigIPulseObject : Texture
-local EditModeManagerFrame_Tutorial_BigIPulseObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_EditBox_InstructionsObject : FontString
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_EditBox_InstructionsObject = {}
 end
 
 do
----@class EditModeManagerFrame_Tutorial_IObject : Texture
-local EditModeManagerFrame_Tutorial_IObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_LeftTexObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_LeftTexObject = {}
 end
 
 do
----@class EditModeManagerFrame_Tutorial_PulseObject : AnimationGroup
----@field BigIPulse EditModeManagerFrame_Tutorial_Pulse_BigIPulseObject
----@field RingPulse EditModeManagerFrame_Tutorial_Pulse_RingPulseObject
-local EditModeManagerFrame_Tutorial_PulseObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_MiddleTexObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_MiddleTexObject = {}
 end
 
 do
----@class EditModeManagerFrame_Tutorial_Pulse_BigIPulseObject : Alpha
-local EditModeManagerFrame_Tutorial_Pulse_BigIPulseObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_RightTexObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_RightTexObject = {}
 end
 
 do
----@class EditModeManagerFrame_Tutorial_Pulse_RingPulseObject : Alpha
-local EditModeManagerFrame_Tutorial_Pulse_RingPulseObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject : Frame
+---@field Back CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject
+---@field Defaults CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_DefaultsObject
+---@field Directions CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_DirectionsObject
+---@field Event CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_EventObject
+---@field Forward CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject
+---@field Track CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_TrackObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field hideIfUnscrollable boolean
+---@field hideTrack boolean
+---@field interpolator CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_interpolatorObject
+---@field isScrollController boolean
+---@field minThumbExtent number
+---@field panDelay number
+---@field panExtentPercentage number
+---@field panRepeatTime number
+---@field smartNavigationIgnored boolean
+---@field snapToInterval boolean
+---@field thumbAnchor string
+---@field useProportionalThumb boolean
+---@field visibleExtentPercentage number
+---@field wheelPanScalar number
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject = {}
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:CallInternalScope(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:CanCursorStepInDirection(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:CanInterpolateScroll(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:DisableControls(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:EnableInternalPriority(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:EnableSnapToInterval(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetBackStepper(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetForwardStepper(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetFrameExtent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetIntervalRange(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetLower(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetPanExtentPercentage(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetPanRepeatDelay(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetPanRepeatTime(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetScrollInterpolator(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetScrollPercentage(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetThumb(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetThumbAnchor(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetTrack(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetTrackExtent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetUpper(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetWheelPanPercentage(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:HasScrollableExtent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:Init(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:InitializeNarration(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:Interpolate(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:IsAtBegin(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:IsAtEnd(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:IsHorizontal(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:IsScrollAllowed(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:IsThumbMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:OnHide_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:OnMouseWheel(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:OnShow_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:OnStepperMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:OnThumbMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:OnTrackMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:ScrollDecrease(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:ScrollInDirection(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:ScrollIncrease(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:ScrollPageInDirection(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:ScrollStepInDirection(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:ScrollToBegin(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:ScrollToEnd(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:ScrollWheelInDirection(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SelectCursorComponent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SelectPointComponent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetFrameExtent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetHideIfUnscrollable(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetHorizontal(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetInterpolateScroll(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetPanExtentPercentage(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetScrollAllowed(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetScrollPercentage(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetThumbExtent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetVisibleExtentPercentage(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:UnregisterUpdate(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:Update(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:onButtonMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:scrollInternal(...) end
 end
 
 do
----@class EditModeManagerFrame_Tutorial_RingObject : Texture
-local EditModeManagerFrame_Tutorial_RingObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject : Button
+---@field Event CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Back_EventObject
+---@field Texture CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Back_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject = {}
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:GetAtlas(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:IsDown(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:IsDownOver(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:IsOver(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:NarrationGetName(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnButtonStateChanged(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnDisable(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnEnable(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:SetDisplacedRegions(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class EditModeManagerFrame_Tutorial_RingPulseObject : Texture
-local EditModeManagerFrame_Tutorial_RingPulseObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Back_EventObject
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Back_EventObject = {}
 end
 
 do
----@class EditModeManagerFrame_layoutInfoObject
----@field activeLayout number
----@field layouts table
-local EditModeManagerFrame_layoutInfoObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Back_TextureObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Back_TextureObject = {}
 end
 
 do
----@class EditModeSystemSettingsDialogObject : Frame
----@field Border EditModeSystemSettingsDialog_BorderObject
----@field Buttons EditModeSystemSettingsDialog_ButtonsObject
----@field CloseButton EditModeSystemSettingsDialog_CloseButtonObject
----@field Settings EditModeSystemSettingsDialog_SettingsObject
----@field Title EditModeSystemSettingsDialog_TitleObject
----@field exclusive boolean
----@field heightPadding number
----@field managerExitCallbackEventName string
----@field pools EditModeSystemSettingsDialog_poolsObject
----@field widthPadding number
-local EditModeSystemSettingsDialogObject = {}
----@return any ...
-function EditModeSystemSettingsDialogObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:AttachToSystemFrame(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:CanAccept(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:ClearFixedSize(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:EditModeDialog_OnHide(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:EditModeDialog_OnLoad(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:EditModeDialog_OnShow(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetAcceptButton(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetCancelButton(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetCharacterSpecificButton(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetChildHeight(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetChildSize(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetChildWidth(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetDesiredLayoutType(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetEditBox(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetEditBoxText(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetFixedHeight(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetFixedSize(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetFixedWidth(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetHeightPadding(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetLayoutIndex(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetLayoutInfo(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetLayoutManager(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetManagerExitCallbackEventName(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetMaximumWidth(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetMinimumWidth(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetModeData(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetOnCancelEvent(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetSettingPool(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:GetWidthPadding(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:IsCharacterSpecificLayoutChecked(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:IsDirty(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:Layout(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:MarkClean(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:MarkDirty(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:OnAccept(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:OnCancel(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:OnCleaned(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:OnDragStart(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:OnDragStop(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:OnEditModeExit(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:OnHide(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:OnKeyDown(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:OnKeyUp(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:OnLoad(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:OnManagerExit(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:OnSettingInteractEnd(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:OnSettingInteractStart(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:OnSettingValueChanged(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:OnShow(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:OnUpdate(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:ReleaseAllNonSliders(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:ReleaseNonDraggingSliders(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:RevertChanges(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:SetFixedHeight(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:SetFixedSize(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:SetFixedWidth(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:SetHeightPadding(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:SetLayoutIndex(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:SetLayoutInfo(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:SetLayoutManager(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:SetMaximumWidth(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:SetMinimumWidth(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:SetMode(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:SetModeData(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:SetWidthPadding(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:SetupButtonClickHandlers(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:SetupControlsForMode(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:SetupEditBoxHandlers(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:ShouldCloseWhenManagerCloses(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:UpdateAcceptButtonEnabledState(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:UpdateButtons(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:UpdateDialog(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:UpdateExtraButtons(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:UpdateSettings(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:UpdateSizeAndAnchors(...) end
----@return any ...
-function EditModeSystemSettingsDialogObject:onCloseCallback(...) end
----@type EditModeSystemSettingsDialogObject
-EditModeSystemSettingsDialog = EditModeSystemSettingsDialogObject
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_DefaultsObject
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_DefaultsObject = {}
 end
 
 do
----@class EditModeSystemSettingsDialog_BorderObject : Frame
----@field Bg EditModeSystemSettingsDialog_Border_BgObject
----@field BottomEdge EditModeSystemSettingsDialog_Border_BottomEdgeObject
----@field BottomLeftCorner EditModeSystemSettingsDialog_Border_BottomLeftCornerObject
----@field BottomRightCorner EditModeSystemSettingsDialog_Border_BottomRightCornerObject
----@field LeftEdge EditModeSystemSettingsDialog_Border_LeftEdgeObject
----@field RightEdge EditModeSystemSettingsDialog_Border_RightEdgeObject
----@field TopEdge EditModeSystemSettingsDialog_Border_TopEdgeObject
----@field TopLeftCorner EditModeSystemSettingsDialog_Border_TopLeftCornerObject
----@field TopRightCorner EditModeSystemSettingsDialog_Border_TopRightCornerObject
----@field ignoreInLayout boolean
----@field layoutType string
-local EditModeSystemSettingsDialog_BorderObject = {}
----@return any ...
-function EditModeSystemSettingsDialog_BorderObject:GetBorderColor(...) end
----@return any ...
-function EditModeSystemSettingsDialog_BorderObject:GetCenterColor(...) end
----@return any ...
-function EditModeSystemSettingsDialog_BorderObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function EditModeSystemSettingsDialog_BorderObject:GetFrameLayoutType(...) end
----@return any ...
-function EditModeSystemSettingsDialog_BorderObject:OnLoad(...) end
----@return any ...
-function EditModeSystemSettingsDialog_BorderObject:SetBlendMode(...) end
----@return any ...
-function EditModeSystemSettingsDialog_BorderObject:SetBorderBlendMode(...) end
----@return any ...
-function EditModeSystemSettingsDialog_BorderObject:SetBorderColor(...) end
----@return any ...
-function EditModeSystemSettingsDialog_BorderObject:SetCenterColor(...) end
----@return any ...
-function EditModeSystemSettingsDialog_BorderObject:SetVertexColor(...) end
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_DirectionsObject
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_DirectionsObject = {}
 end
 
 do
----@class EditModeSystemSettingsDialog_Border_BgObject : Texture
-local EditModeSystemSettingsDialog_Border_BgObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_EventObject
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_EventObject = {}
 end
 
 do
----@class EditModeSystemSettingsDialog_Border_BottomEdgeObject : Texture
-local EditModeSystemSettingsDialog_Border_BottomEdgeObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject : Button
+---@field Event CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Forward_EventObject
+---@field Texture CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Forward_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject = {}
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:GetAtlas(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:IsDown(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:IsDownOver(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:IsOver(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:NarrationGetName(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnDisable(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnEnable(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class EditModeSystemSettingsDialog_Border_BottomLeftCornerObject : Texture
-local EditModeSystemSettingsDialog_Border_BottomLeftCornerObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Forward_EventObject
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Forward_EventObject = {}
 end
 
 do
----@class EditModeSystemSettingsDialog_Border_BottomRightCornerObject : Texture
-local EditModeSystemSettingsDialog_Border_BottomRightCornerObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Forward_TextureObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Forward_TextureObject = {}
 end
 
 do
----@class EditModeSystemSettingsDialog_Border_LeftEdgeObject : Texture
-local EditModeSystemSettingsDialog_Border_LeftEdgeObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_TrackObject : Frame
+---@field Begin CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_BeginObject
+---@field End CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_EndObject
+---@field Middle CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_MiddleObject
+---@field Thumb CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_TrackObject = {}
 end
 
 do
----@class EditModeSystemSettingsDialog_Border_RightEdgeObject : Texture
-local EditModeSystemSettingsDialog_Border_RightEdgeObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_BeginObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_BeginObject = {}
 end
 
 do
----@class EditModeSystemSettingsDialog_Border_TopEdgeObject : Texture
-local EditModeSystemSettingsDialog_Border_TopEdgeObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_EndObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_EndObject = {}
 end
 
 do
----@class EditModeSystemSettingsDialog_Border_TopLeftCornerObject : Texture
-local EditModeSystemSettingsDialog_Border_TopLeftCornerObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_MiddleObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_MiddleObject = {}
 end
 
 do
----@class EditModeSystemSettingsDialog_Border_TopRightCornerObject : Texture
-local EditModeSystemSettingsDialog_Border_TopRightCornerObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject : Button
+---@field Begin CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_BeginObject
+---@field End CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_EndObject
+---@field Event CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_EventObject
+---@field Middle CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_MiddleObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field downBeginTexture string
+---@field downEndTexture string
+---@field downMiddleTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field overBeginTexture string
+---@field overEndTexture string
+---@field overMiddleTexture string
+---@field upBeginTexture string
+---@field upEndTexture string
+---@field upMiddleTexture string
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject = {}
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:IsDown(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:IsOver(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnDisable(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnEnable(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class EditModeSystemSettingsDialog_ButtonsObject : Frame
----@field Divider EditModeSystemSettingsDialog_Buttons_DividerObject
----@field RevertChangesButton EditModeSystemSettingsDialog_Buttons_RevertChangesButtonObject
----@field spacing number
-local EditModeSystemSettingsDialog_ButtonsObject = {}
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:CalculateFrameSize(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:ClearFixedSize(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:GetChildHeight(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:GetChildPadding(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:GetChildSize(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:GetChildWidth(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:GetFixedHeight(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:GetFixedSize(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:GetFixedWidth(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:GetHeightPadding(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:GetPadding(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:GetWidthPadding(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:IsDirty(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:Layout(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:LayoutChildren(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:MarkClean(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:MarkDirty(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:OnCleaned(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:OnShow(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:OnUpdate(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:SetFixedHeight(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:SetFixedSize(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:SetFixedWidth(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:SetHeightPadding(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:SetWidthPadding(...) end
----@return any ...
-function EditModeSystemSettingsDialog_ButtonsObject:ShouldClearOnUpdateAfterClean(...) end
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_BeginObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_BeginObject = {}
 end
 
 do
----@class EditModeSystemSettingsDialog_Buttons_DividerObject : Texture
----@field layoutIndex number
-local EditModeSystemSettingsDialog_Buttons_DividerObject = {}
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_EndObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_EndObject = {}
 end
 
 do
----@class EditModeSystemSettingsDialog_Buttons_RevertChangesButtonObject : Button
----@field Controller EditModeSystemSettingsDialog_Buttons_RevertChangesButton_ControllerObject
----@field Left EditModeSystemSettingsDialog_Buttons_RevertChangesButton_LeftObject
----@field Middle EditModeSystemSettingsDialog_Buttons_RevertChangesButton_MiddleObject
----@field Right EditModeSystemSettingsDialog_Buttons_RevertChangesButton_RightObject
----@field Text EditModeSystemSettingsDialog_Buttons_RevertChangesButton_TextObject
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_EventObject
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_EventObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_MiddleObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_MiddleObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_interpolatorObject
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_interpolatorObject = {}
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_interpolatorObject:Cancel(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_interpolatorObject:Interpolate(...) end
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_interpolatorObject:interpolateFunc(...) end
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_TopLeftTexObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_TopLeftTexObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_TopRightTexObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_TopRightTexObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_TopTexObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_TopTexObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RightObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RightObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_TopObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_TopObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_TopLeftObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_TopLeftObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_TopRightObject : Texture
+local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_TopRightObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_ShouldListClubObject : Frame
+---@field Button CommunitiesFrame_RecruitmentDialog_ShouldListClub_ButtonObject
+---@field Label CommunitiesFrame_RecruitmentDialog_ShouldListClub_LabelObject
+local CommunitiesFrame_RecruitmentDialog_ShouldListClubObject = {}
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_ShouldListClub_ButtonObject : CheckButton
+local CommunitiesFrame_RecruitmentDialog_ShouldListClub_ButtonObject = {}
+---@return any ...
+function CommunitiesFrame_RecruitmentDialog_ShouldListClub_ButtonObject:OnClick(...) end
+end
+
+do
+---@class CommunitiesFrame_RecruitmentDialog_ShouldListClub_LabelObject : FontString
+local CommunitiesFrame_RecruitmentDialog_ShouldListClub_LabelObject = {}
+end
+
+do
+---@class CommunitiesFrame_RightJumpHintObject : Frame
+---@field ActiveTexture CommunitiesFrame_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture CommunitiesFrame_RightJumpHint_DisabledTextureObject
+---@field HoldAnim CommunitiesFrame_RightJumpHint_HoldAnimObject
+---@field HoldIndicator CommunitiesFrame_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG CommunitiesFrame_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture CommunitiesFrame_RightJumpHint_HoverTextureObject
+---@field LoadBar CommunitiesFrame_RightJumpHint_LoadBarObject
+---@field LoadBarBG CommunitiesFrame_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow CommunitiesFrame_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture CommunitiesFrame_RightJumpHint_NormalTextureObject
+---@field PressedTexture CommunitiesFrame_RightJumpHint_PressedTextureObject
+---@field SpinnerTip CommunitiesFrame_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local CommunitiesFrame_RightJumpHintObject = {}
+---@return any ...
+function CommunitiesFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function CommunitiesFrame_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function CommunitiesFrame_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function CommunitiesFrame_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function CommunitiesFrame_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function CommunitiesFrame_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function CommunitiesFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function CommunitiesFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function CommunitiesFrame_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function CommunitiesFrame_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function CommunitiesFrame_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function CommunitiesFrame_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function CommunitiesFrame_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function CommunitiesFrame_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function CommunitiesFrame_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function CommunitiesFrame_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function CommunitiesFrame_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function CommunitiesFrame_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function CommunitiesFrame_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function CommunitiesFrame_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function CommunitiesFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class CommunitiesFrame_RightJumpHint_ActiveTextureObject : Texture
+local CommunitiesFrame_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_RightJumpHint_DisabledTextureObject : Texture
+local CommunitiesFrame_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim CommunitiesFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim CommunitiesFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim CommunitiesFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local CommunitiesFrame_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+local CommunitiesFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local CommunitiesFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local CommunitiesFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_RightJumpHint_HoldIndicatorObject : Texture
+local CommunitiesFrame_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class CommunitiesFrame_RightJumpHint_HoldIndicatorBGObject : Texture
+local CommunitiesFrame_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class CommunitiesFrame_RightJumpHint_HoverTextureObject : Texture
+local CommunitiesFrame_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_RightJumpHint_LoadBarObject : Texture
+local CommunitiesFrame_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class CommunitiesFrame_RightJumpHint_LoadBarBGObject : Texture
+local CommunitiesFrame_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class CommunitiesFrame_RightJumpHint_LoadBarGlowObject : Texture
+local CommunitiesFrame_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class CommunitiesFrame_RightJumpHint_NormalTextureObject : Texture
+local CommunitiesFrame_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_RightJumpHint_PressedTextureObject : Texture
+local CommunitiesFrame_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_RightJumpHint_SpinnerTipObject : Texture
+local CommunitiesFrame_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class CommunitiesFrame_RosterTabObject : CheckButton
+---@field Icon CommunitiesFrame_RosterTab_IconObject
+---@field IconOverlay CommunitiesFrame_RosterTab_IconOverlayObject
+---@field NotificationOverlay CommunitiesFrame_RosterTab_NotificationOverlayObject
+---@field displayMode table
+---@field iconTexture string
+---@field tooltip string
+local CommunitiesFrame_RosterTabObject = {}
+---@return any ...
+function CommunitiesFrame_RosterTabObject:OnClick(...) end
+---@return any ...
+function CommunitiesFrame_RosterTabObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_RosterTabObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_RosterTabObject:OnLoad(...) end
+end
+
+do
+---@class CommunitiesFrame_RosterTab_IconObject : Texture
+local CommunitiesFrame_RosterTab_IconObject = {}
+end
+
+do
+---@class CommunitiesFrame_RosterTab_IconOverlayObject : Texture
+local CommunitiesFrame_RosterTab_IconOverlayObject = {}
+end
+
+do
+---@class CommunitiesFrame_RosterTab_NotificationOverlayObject : Frame
+---@field UnreadNotificationIcon CommunitiesFrame_RosterTab_NotificationOverlay_UnreadNotificationIconObject
+local CommunitiesFrame_RosterTab_NotificationOverlayObject = {}
+end
+
+do
+---@class CommunitiesFrame_RosterTab_NotificationOverlay_UnreadNotificationIconObject : Texture
+local CommunitiesFrame_RosterTab_NotificationOverlay_UnreadNotificationIconObject = {}
+end
+
+do
+---@class CommunitiesFrame_StreamDropdownObject : Button
+---@field Arrow CommunitiesFrame_StreamDropdown_ArrowObject
+---@field Background CommunitiesFrame_StreamDropdown_BackgroundObject
+---@field Event CommunitiesFrame_StreamDropdown_EventObject
+---@field NotificationOverlay CommunitiesFrame_StreamDropdown_NotificationOverlayObject
+---@field Text CommunitiesFrame_StreamDropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor CommunitiesFrame_StreamDropdown_menuAnchorObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+local CommunitiesFrame_StreamDropdownObject = {}
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:ClearMenuState(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:CloseMenu(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:CollectSelectionData(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:CreateRootDescription(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:Decrement(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:GenerateMenu(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:GetArrowAtlas(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:GetCommunitiesFrame(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:GetDefaultText(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:GetMenuDescription(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:GetSelectionData(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:GetUpdateText(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:HasElements(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:HasStickyFocus(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:Increment(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:IsDown(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:IsDownOver(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:IsMenuOpen(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:IsOver(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:NarrationGetContext(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:NarrationGetName(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:OnDisable(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:OnEnable(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:OnMenuChanged(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:OnMenuClosed(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:OnMenuOpened(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:OnMenuResponse(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:OnMouseDown(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:OnMouseUp(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:OpenMenu(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:OverrideText(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:Pick(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:RegisterMenu(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:Rotate(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:SetDefaultText(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:SetMenuOpen(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:SetSelectionText(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:SetTooltip(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:SetupMenu(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:ShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:SignalUpdate(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:Update(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:UpdateSelections(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:UpdateText(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:UpdateUnreadNotification(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdownObject:selectionTranslator(...) end
+end
+
+do
+---@class CommunitiesFrame_StreamDropdown_ArrowObject : Texture
+local CommunitiesFrame_StreamDropdown_ArrowObject = {}
+end
+
+do
+---@class CommunitiesFrame_StreamDropdown_BackgroundObject : Texture
+local CommunitiesFrame_StreamDropdown_BackgroundObject = {}
+end
+
+do
+---@class CommunitiesFrame_StreamDropdown_EventObject
+local CommunitiesFrame_StreamDropdown_EventObject = {}
+end
+
+do
+---@class CommunitiesFrame_StreamDropdown_NotificationOverlayObject : Frame
+---@field UnreadNotificationIcon CommunitiesFrame_StreamDropdown_NotificationOverlay_UnreadNotificationIconObject
+local CommunitiesFrame_StreamDropdown_NotificationOverlayObject = {}
+end
+
+do
+---@class CommunitiesFrame_StreamDropdown_NotificationOverlay_UnreadNotificationIconObject : Texture
+local CommunitiesFrame_StreamDropdown_NotificationOverlay_UnreadNotificationIconObject = {}
+end
+
+do
+---@class CommunitiesFrame_StreamDropdown_TextObject : FontString
+local CommunitiesFrame_StreamDropdown_TextObject = {}
+end
+
+do
+---@class CommunitiesFrame_StreamDropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo CommunitiesFrame_StreamDropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local CommunitiesFrame_StreamDropdown_menuAnchorObject = {}
+---@return any ...
+function CommunitiesFrame_StreamDropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function CommunitiesFrame_StreamDropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class CommunitiesFrame_StreamDropdown_menuAnchor_relativeToObject
+local CommunitiesFrame_StreamDropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class CommunitiesFrame_TicketFrameObject : Frame
+---@field AcceptButton CommunitiesFrame_TicketFrame_AcceptButtonObject
+---@field CircleMask CommunitiesFrame_TicketFrame_CircleMaskObject
+---@field DeclineButton CommunitiesFrame_TicketFrame_DeclineButtonObject
+---@field Description CommunitiesFrame_TicketFrame_DescriptionObject
+---@field Icon CommunitiesFrame_TicketFrame_IconObject
+---@field IconRing CommunitiesFrame_TicketFrame_IconRingObject
+---@field InsetFrame CommunitiesFrame_TicketFrame_InsetFrameObject
+---@field InvitationText CommunitiesFrame_TicketFrame_InvitationTextObject
+---@field Leader CommunitiesFrame_TicketFrame_LeaderObject
+---@field MemberCount CommunitiesFrame_TicketFrame_MemberCountObject
+---@field Name CommunitiesFrame_TicketFrame_NameObject
+---@field Type CommunitiesFrame_TicketFrame_TypeObject
+local CommunitiesFrame_TicketFrameObject = {}
+---@return any ...
+function CommunitiesFrame_TicketFrameObject:AcceptInvitation(...) end
+---@return any ...
+function CommunitiesFrame_TicketFrameObject:AcceptTicket(...) end
+---@return any ...
+function CommunitiesFrame_TicketFrameObject:DeclineInvitation(...) end
+---@return any ...
+function CommunitiesFrame_TicketFrameObject:DeclineTicket(...) end
+---@return any ...
+function CommunitiesFrame_TicketFrameObject:DisplayInvitation(...) end
+---@return any ...
+function CommunitiesFrame_TicketFrameObject:DisplayTicket(...) end
+---@return any ...
+function CommunitiesFrame_TicketFrameObject:GetCommunitiesFrame(...) end
+---@return any ...
+function CommunitiesFrame_TicketFrameObject:OnEvent(...) end
+---@return any ...
+function CommunitiesFrame_TicketFrameObject:OnHide(...) end
+---@return any ...
+function CommunitiesFrame_TicketFrameObject:OnHyperlinkClick(...) end
+---@return any ...
+function CommunitiesFrame_TicketFrameObject:OnShow(...) end
+end
+
+do
+---@class CommunitiesFrame_TicketFrame_AcceptButtonObject : Button
+---@field Left CommunitiesFrame_TicketFrame_AcceptButton_LeftObject
+---@field Middle CommunitiesFrame_TicketFrame_AcceptButton_MiddleObject
+---@field Right CommunitiesFrame_TicketFrame_AcceptButton_RightObject
+---@field Text CommunitiesFrame_TicketFrame_AcceptButton_TextObject
 ---@field fitTextCanWidthDecrease boolean
 ---@field fitTextWidthPadding number
----@field layoutIndex number
-local EditModeSystemSettingsDialog_Buttons_RevertChangesButtonObject = {}
+local CommunitiesFrame_TicketFrame_AcceptButtonObject = {}
 ---@return any ...
-function EditModeSystemSettingsDialog_Buttons_RevertChangesButtonObject:ClearCustomTextFormatter(...) end
+function CommunitiesFrame_TicketFrame_AcceptButtonObject:FitToText(...) end
 ---@return any ...
-function EditModeSystemSettingsDialog_Buttons_RevertChangesButtonObject:FitToText(...) end
+function CommunitiesFrame_TicketFrame_AcceptButtonObject:GetDisabledTooltip(...) end
 ---@return any ...
-function EditModeSystemSettingsDialog_Buttons_RevertChangesButtonObject:GetDisabledTooltip(...) end
+function CommunitiesFrame_TicketFrame_AcceptButtonObject:OnEnter(...) end
 ---@return any ...
-function EditModeSystemSettingsDialog_Buttons_RevertChangesButtonObject:GetOnClickSoundKit(...) end
+function CommunitiesFrame_TicketFrame_AcceptButtonObject:OnLeave(...) end
 ---@return any ...
-function EditModeSystemSettingsDialog_Buttons_RevertChangesButtonObject:InitButton(...) end
+function CommunitiesFrame_TicketFrame_AcceptButtonObject:SetDisabledState(...) end
 ---@return any ...
-function EditModeSystemSettingsDialog_Buttons_RevertChangesButtonObject:OnClick(...) end
+function CommunitiesFrame_TicketFrame_AcceptButtonObject:SetDisabledTooltip(...) end
 ---@return any ...
-function EditModeSystemSettingsDialog_Buttons_RevertChangesButtonObject:OnEnter(...) end
----@return any ...
-function EditModeSystemSettingsDialog_Buttons_RevertChangesButtonObject:OnLeave(...) end
----@return any ...
-function EditModeSystemSettingsDialog_Buttons_RevertChangesButtonObject:RunCustomTextFormatter(...) end
----@return any ...
-function EditModeSystemSettingsDialog_Buttons_RevertChangesButtonObject:SetButtonArtKit(...) end
----@return any ...
-function EditModeSystemSettingsDialog_Buttons_RevertChangesButtonObject:SetCustomTextFormatter(...) end
----@return any ...
-function EditModeSystemSettingsDialog_Buttons_RevertChangesButtonObject:SetDisabledState(...) end
----@return any ...
-function EditModeSystemSettingsDialog_Buttons_RevertChangesButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function EditModeSystemSettingsDialog_Buttons_RevertChangesButtonObject:SetOnClickHandler(...) end
----@return any ...
-function EditModeSystemSettingsDialog_Buttons_RevertChangesButtonObject:SetOnEnterHandler(...) end
----@return any ...
-function EditModeSystemSettingsDialog_Buttons_RevertChangesButtonObject:SetTextToFit(...) end
----@return any ...
-function EditModeSystemSettingsDialog_Buttons_RevertChangesButtonObject:SetTooltipAnchor(...) end
----@return any ...
-function EditModeSystemSettingsDialog_Buttons_RevertChangesButtonObject:SetTooltipInfo(...) end
----@return any ...
-function EditModeSystemSettingsDialog_Buttons_RevertChangesButtonObject:onClickHandler(...) end
+function CommunitiesFrame_TicketFrame_AcceptButtonObject:SetTextToFit(...) end
 end
 
 do
----@class EditModeSystemSettingsDialog_Buttons_RevertChangesButton_ControllerObject : Frame
-local EditModeSystemSettingsDialog_Buttons_RevertChangesButton_ControllerObject = {}
----@return any ...
-function EditModeSystemSettingsDialog_Buttons_RevertChangesButton_ControllerObject:OnLoad(...) end
----@return any ...
-function EditModeSystemSettingsDialog_Buttons_RevertChangesButton_ControllerObject:OnShow(...) end
+---@class CommunitiesFrame_TicketFrame_AcceptButton_LeftObject : Texture
+local CommunitiesFrame_TicketFrame_AcceptButton_LeftObject = {}
 end
 
 do
----@class EditModeSystemSettingsDialog_Buttons_RevertChangesButton_LeftObject : Texture
-local EditModeSystemSettingsDialog_Buttons_RevertChangesButton_LeftObject = {}
+---@class CommunitiesFrame_TicketFrame_AcceptButton_MiddleObject : Texture
+local CommunitiesFrame_TicketFrame_AcceptButton_MiddleObject = {}
 end
 
 do
----@class EditModeSystemSettingsDialog_Buttons_RevertChangesButton_MiddleObject : Texture
-local EditModeSystemSettingsDialog_Buttons_RevertChangesButton_MiddleObject = {}
+---@class CommunitiesFrame_TicketFrame_AcceptButton_RightObject : Texture
+local CommunitiesFrame_TicketFrame_AcceptButton_RightObject = {}
 end
 
 do
----@class EditModeSystemSettingsDialog_Buttons_RevertChangesButton_RightObject : Texture
-local EditModeSystemSettingsDialog_Buttons_RevertChangesButton_RightObject = {}
+---@class CommunitiesFrame_TicketFrame_AcceptButton_TextObject : FontString
+local CommunitiesFrame_TicketFrame_AcceptButton_TextObject = {}
 end
 
 do
----@class EditModeSystemSettingsDialog_Buttons_RevertChangesButton_TextObject : FontString
-local EditModeSystemSettingsDialog_Buttons_RevertChangesButton_TextObject = {}
+---@class CommunitiesFrame_TicketFrame_CircleMaskObject : MaskTexture
+local CommunitiesFrame_TicketFrame_CircleMaskObject = {}
 end
 
 do
----@class EditModeSystemSettingsDialog_CloseButtonObject : Button
----@field ignoreInLayout boolean
-local EditModeSystemSettingsDialog_CloseButtonObject = {}
----@return any ...
-function EditModeSystemSettingsDialog_CloseButtonObject:NarrationGetName(...) end
-end
-
-do
----@class EditModeSystemSettingsDialog_SettingsObject : Frame
----@field spacing number
-local EditModeSystemSettingsDialog_SettingsObject = {}
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:AddLayoutChildren(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:CalculateFrameSize(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:ClearFixedSize(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:GetAdditionalRegions(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:GetChildHeight(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:GetChildPadding(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:GetChildSize(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:GetChildWidth(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:GetFixedHeight(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:GetFixedSize(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:GetFixedWidth(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:GetHeightPadding(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:GetLayoutChildren(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:GetPadding(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:GetWidthPadding(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:IgnoreLayoutIndex(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:IsDirty(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:IsLayoutFrame(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:Layout(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:LayoutChildren(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:MarkClean(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:MarkDirty(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:MarkIgnoreInLayout(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:OnCleaned(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:OnShow(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:OnUpdate(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:SetFixedHeight(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:SetFixedSize(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:SetFixedWidth(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:SetHeightPadding(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:SetWidthPadding(...) end
----@return any ...
-function EditModeSystemSettingsDialog_SettingsObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class EditModeSystemSettingsDialog_TitleObject : FontString
-local EditModeSystemSettingsDialog_TitleObject = {}
-end
-
-do
----@class EditModeSystemSettingsDialog_poolsObject
-local EditModeSystemSettingsDialog_poolsObject = {}
----@return any ...
-function EditModeSystemSettingsDialog_poolsObject:private(...) end
-end
-
-do
----@class EditModeUnsavedChangesDialogObject : Frame
----@field Border EditModeUnsavedChangesDialog_BorderObject
----@field CancelButton EditModeUnsavedChangesDialog_CancelButtonObject
----@field ProceedButton EditModeUnsavedChangesDialog_ProceedButtonObject
----@field SaveAndProceedButton EditModeUnsavedChangesDialog_SaveAndProceedButtonObject
----@field Title EditModeUnsavedChangesDialog_TitleObject
----@field exclusive boolean
----@field managerExitCallbackEventName string
-local EditModeUnsavedChangesDialogObject = {}
----@return any ...
-function EditModeUnsavedChangesDialogObject:CanAccept(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:ClearSavedLayoutsCallback(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:EditModeDialog_OnHide(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:EditModeDialog_OnLoad(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:EditModeDialog_OnShow(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:GetAcceptButton(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:GetCancelButton(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:GetCharacterSpecificButton(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:GetDesiredLayoutType(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:GetEditBox(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:GetEditBoxText(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:GetLayoutIndex(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:GetLayoutInfo(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:GetLayoutManager(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:GetManagerExitCallbackEventName(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:GetModeData(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:GetOnCancelEvent(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:HasPendingSelectedLayout(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:IsCharacterSpecificLayoutChecked(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:OnAccept(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:OnCancel(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:OnEditModeExit(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:OnHide(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:OnLoad(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:OnManagerExit(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:OnProceed(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:OnSaveAndProceed(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:OnShow(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:ResetAndClearCallback(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:SetLayoutIndex(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:SetLayoutInfo(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:SetLayoutManager(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:SetMode(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:SetModeData(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:SetupButtonClickHandlers(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:SetupControlsForMode(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:SetupEditBoxHandlers(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:ShouldCloseWhenManagerCloses(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:ShowDialog(...) end
----@return any ...
-function EditModeUnsavedChangesDialogObject:UpdateAcceptButtonEnabledState(...) end
----@type EditModeUnsavedChangesDialogObject
-EditModeUnsavedChangesDialog = EditModeUnsavedChangesDialogObject
-end
-
-do
----@class EditModeUnsavedChangesDialog_BorderObject : Frame
----@field Bg EditModeUnsavedChangesDialog_Border_BgObject
----@field BottomEdge EditModeUnsavedChangesDialog_Border_BottomEdgeObject
----@field BottomLeftCorner EditModeUnsavedChangesDialog_Border_BottomLeftCornerObject
----@field BottomRightCorner EditModeUnsavedChangesDialog_Border_BottomRightCornerObject
----@field LeftEdge EditModeUnsavedChangesDialog_Border_LeftEdgeObject
----@field RightEdge EditModeUnsavedChangesDialog_Border_RightEdgeObject
----@field TopEdge EditModeUnsavedChangesDialog_Border_TopEdgeObject
----@field TopLeftCorner EditModeUnsavedChangesDialog_Border_TopLeftCornerObject
----@field TopRightCorner EditModeUnsavedChangesDialog_Border_TopRightCornerObject
----@field layoutType string
-local EditModeUnsavedChangesDialog_BorderObject = {}
----@return any ...
-function EditModeUnsavedChangesDialog_BorderObject:GetBorderColor(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_BorderObject:GetCenterColor(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_BorderObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_BorderObject:GetFrameLayoutType(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_BorderObject:OnLoad(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_BorderObject:SetBlendMode(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_BorderObject:SetBorderBlendMode(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_BorderObject:SetBorderColor(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_BorderObject:SetCenterColor(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_BorderObject:SetVertexColor(...) end
-end
-
-do
----@class EditModeUnsavedChangesDialog_Border_BgObject : Texture
-local EditModeUnsavedChangesDialog_Border_BgObject = {}
-end
-
-do
----@class EditModeUnsavedChangesDialog_Border_BottomEdgeObject : Texture
-local EditModeUnsavedChangesDialog_Border_BottomEdgeObject = {}
-end
-
-do
----@class EditModeUnsavedChangesDialog_Border_BottomLeftCornerObject : Texture
-local EditModeUnsavedChangesDialog_Border_BottomLeftCornerObject = {}
-end
-
-do
----@class EditModeUnsavedChangesDialog_Border_BottomRightCornerObject : Texture
-local EditModeUnsavedChangesDialog_Border_BottomRightCornerObject = {}
-end
-
-do
----@class EditModeUnsavedChangesDialog_Border_LeftEdgeObject : Texture
-local EditModeUnsavedChangesDialog_Border_LeftEdgeObject = {}
-end
-
-do
----@class EditModeUnsavedChangesDialog_Border_RightEdgeObject : Texture
-local EditModeUnsavedChangesDialog_Border_RightEdgeObject = {}
-end
-
-do
----@class EditModeUnsavedChangesDialog_Border_TopEdgeObject : Texture
-local EditModeUnsavedChangesDialog_Border_TopEdgeObject = {}
-end
-
-do
----@class EditModeUnsavedChangesDialog_Border_TopLeftCornerObject : Texture
-local EditModeUnsavedChangesDialog_Border_TopLeftCornerObject = {}
-end
-
-do
----@class EditModeUnsavedChangesDialog_Border_TopRightCornerObject : Texture
-local EditModeUnsavedChangesDialog_Border_TopRightCornerObject = {}
-end
-
-do
----@class EditModeUnsavedChangesDialog_CancelButtonObject : Button
----@field Controller EditModeUnsavedChangesDialog_CancelButton_ControllerObject
----@field Left EditModeUnsavedChangesDialog_CancelButton_LeftObject
----@field Middle EditModeUnsavedChangesDialog_CancelButton_MiddleObject
----@field Right EditModeUnsavedChangesDialog_CancelButton_RightObject
----@field Text EditModeUnsavedChangesDialog_CancelButton_TextObject
+---@class CommunitiesFrame_TicketFrame_DeclineButtonObject : Button
+---@field Left CommunitiesFrame_TicketFrame_DeclineButton_LeftObject
+---@field Middle CommunitiesFrame_TicketFrame_DeclineButton_MiddleObject
+---@field Right CommunitiesFrame_TicketFrame_DeclineButton_RightObject
+---@field Text CommunitiesFrame_TicketFrame_DeclineButton_TextObject
 ---@field fitTextCanWidthDecrease boolean
 ---@field fitTextWidthPadding number
-local EditModeUnsavedChangesDialog_CancelButtonObject = {}
+local CommunitiesFrame_TicketFrame_DeclineButtonObject = {}
 ---@return any ...
-function EditModeUnsavedChangesDialog_CancelButtonObject:ClearCustomTextFormatter(...) end
+function CommunitiesFrame_TicketFrame_DeclineButtonObject:FitToText(...) end
 ---@return any ...
-function EditModeUnsavedChangesDialog_CancelButtonObject:FitToText(...) end
+function CommunitiesFrame_TicketFrame_DeclineButtonObject:GetDisabledTooltip(...) end
 ---@return any ...
-function EditModeUnsavedChangesDialog_CancelButtonObject:GetDisabledTooltip(...) end
+function CommunitiesFrame_TicketFrame_DeclineButtonObject:OnEnter(...) end
 ---@return any ...
-function EditModeUnsavedChangesDialog_CancelButtonObject:GetOnClickSoundKit(...) end
+function CommunitiesFrame_TicketFrame_DeclineButtonObject:OnLeave(...) end
 ---@return any ...
-function EditModeUnsavedChangesDialog_CancelButtonObject:InitButton(...) end
+function CommunitiesFrame_TicketFrame_DeclineButtonObject:SetDisabledState(...) end
 ---@return any ...
-function EditModeUnsavedChangesDialog_CancelButtonObject:OnClick(...) end
+function CommunitiesFrame_TicketFrame_DeclineButtonObject:SetDisabledTooltip(...) end
 ---@return any ...
-function EditModeUnsavedChangesDialog_CancelButtonObject:OnEnter(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_CancelButtonObject:OnLeave(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_CancelButtonObject:RunCustomTextFormatter(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_CancelButtonObject:SetButtonArtKit(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_CancelButtonObject:SetCustomTextFormatter(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_CancelButtonObject:SetDisabledState(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_CancelButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_CancelButtonObject:SetOnClickHandler(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_CancelButtonObject:SetOnEnterHandler(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_CancelButtonObject:SetTextToFit(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_CancelButtonObject:SetTooltipAnchor(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_CancelButtonObject:SetTooltipInfo(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_CancelButtonObject:onClickHandler(...) end
+function CommunitiesFrame_TicketFrame_DeclineButtonObject:SetTextToFit(...) end
 end
 
 do
----@class EditModeUnsavedChangesDialog_CancelButton_ControllerObject : Frame
-local EditModeUnsavedChangesDialog_CancelButton_ControllerObject = {}
----@return any ...
-function EditModeUnsavedChangesDialog_CancelButton_ControllerObject:OnLoad(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_CancelButton_ControllerObject:OnShow(...) end
+---@class CommunitiesFrame_TicketFrame_DeclineButton_LeftObject : Texture
+local CommunitiesFrame_TicketFrame_DeclineButton_LeftObject = {}
 end
 
 do
----@class EditModeUnsavedChangesDialog_CancelButton_LeftObject : Texture
-local EditModeUnsavedChangesDialog_CancelButton_LeftObject = {}
+---@class CommunitiesFrame_TicketFrame_DeclineButton_MiddleObject : Texture
+local CommunitiesFrame_TicketFrame_DeclineButton_MiddleObject = {}
 end
 
 do
----@class EditModeUnsavedChangesDialog_CancelButton_MiddleObject : Texture
-local EditModeUnsavedChangesDialog_CancelButton_MiddleObject = {}
+---@class CommunitiesFrame_TicketFrame_DeclineButton_RightObject : Texture
+local CommunitiesFrame_TicketFrame_DeclineButton_RightObject = {}
 end
 
 do
----@class EditModeUnsavedChangesDialog_CancelButton_RightObject : Texture
-local EditModeUnsavedChangesDialog_CancelButton_RightObject = {}
+---@class CommunitiesFrame_TicketFrame_DeclineButton_TextObject : FontString
+local CommunitiesFrame_TicketFrame_DeclineButton_TextObject = {}
 end
 
 do
----@class EditModeUnsavedChangesDialog_CancelButton_TextObject : FontString
-local EditModeUnsavedChangesDialog_CancelButton_TextObject = {}
+---@class CommunitiesFrame_TicketFrame_DescriptionObject : FontString
+local CommunitiesFrame_TicketFrame_DescriptionObject = {}
 end
 
 do
----@class EditModeUnsavedChangesDialog_ProceedButtonObject : Button
----@field Controller EditModeUnsavedChangesDialog_ProceedButton_ControllerObject
----@field Left EditModeUnsavedChangesDialog_ProceedButton_LeftObject
----@field Middle EditModeUnsavedChangesDialog_ProceedButton_MiddleObject
----@field Right EditModeUnsavedChangesDialog_ProceedButton_RightObject
----@field Text EditModeUnsavedChangesDialog_ProceedButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local EditModeUnsavedChangesDialog_ProceedButtonObject = {}
----@return any ...
-function EditModeUnsavedChangesDialog_ProceedButtonObject:ClearCustomTextFormatter(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_ProceedButtonObject:FitToText(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_ProceedButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_ProceedButtonObject:GetOnClickSoundKit(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_ProceedButtonObject:InitButton(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_ProceedButtonObject:OnClick(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_ProceedButtonObject:OnEnter(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_ProceedButtonObject:OnLeave(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_ProceedButtonObject:RunCustomTextFormatter(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_ProceedButtonObject:SetButtonArtKit(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_ProceedButtonObject:SetCustomTextFormatter(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_ProceedButtonObject:SetDisabledState(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_ProceedButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_ProceedButtonObject:SetOnClickHandler(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_ProceedButtonObject:SetOnEnterHandler(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_ProceedButtonObject:SetTextToFit(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_ProceedButtonObject:SetTooltipAnchor(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_ProceedButtonObject:SetTooltipInfo(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_ProceedButtonObject:onClickHandler(...) end
+---@class CommunitiesFrame_TicketFrame_IconObject : Texture
+local CommunitiesFrame_TicketFrame_IconObject = {}
 end
 
 do
----@class EditModeUnsavedChangesDialog_ProceedButton_ControllerObject : Frame
-local EditModeUnsavedChangesDialog_ProceedButton_ControllerObject = {}
----@return any ...
-function EditModeUnsavedChangesDialog_ProceedButton_ControllerObject:OnLoad(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_ProceedButton_ControllerObject:OnShow(...) end
+---@class CommunitiesFrame_TicketFrame_IconRingObject : Texture
+local CommunitiesFrame_TicketFrame_IconRingObject = {}
 end
 
 do
----@class EditModeUnsavedChangesDialog_ProceedButton_LeftObject : Texture
-local EditModeUnsavedChangesDialog_ProceedButton_LeftObject = {}
-end
-
-do
----@class EditModeUnsavedChangesDialog_ProceedButton_MiddleObject : Texture
-local EditModeUnsavedChangesDialog_ProceedButton_MiddleObject = {}
-end
-
-do
----@class EditModeUnsavedChangesDialog_ProceedButton_RightObject : Texture
-local EditModeUnsavedChangesDialog_ProceedButton_RightObject = {}
-end
-
-do
----@class EditModeUnsavedChangesDialog_ProceedButton_TextObject : FontString
-local EditModeUnsavedChangesDialog_ProceedButton_TextObject = {}
-end
-
-do
----@class EditModeUnsavedChangesDialog_SaveAndProceedButtonObject : Button
----@field Controller EditModeUnsavedChangesDialog_SaveAndProceedButton_ControllerObject
----@field Left EditModeUnsavedChangesDialog_SaveAndProceedButton_LeftObject
----@field Middle EditModeUnsavedChangesDialog_SaveAndProceedButton_MiddleObject
----@field Right EditModeUnsavedChangesDialog_SaveAndProceedButton_RightObject
----@field Text EditModeUnsavedChangesDialog_SaveAndProceedButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local EditModeUnsavedChangesDialog_SaveAndProceedButtonObject = {}
----@return any ...
-function EditModeUnsavedChangesDialog_SaveAndProceedButtonObject:ClearCustomTextFormatter(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_SaveAndProceedButtonObject:FitToText(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_SaveAndProceedButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_SaveAndProceedButtonObject:GetOnClickSoundKit(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_SaveAndProceedButtonObject:InitButton(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_SaveAndProceedButtonObject:OnClick(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_SaveAndProceedButtonObject:OnEnter(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_SaveAndProceedButtonObject:OnLeave(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_SaveAndProceedButtonObject:RunCustomTextFormatter(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_SaveAndProceedButtonObject:SetButtonArtKit(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_SaveAndProceedButtonObject:SetCustomTextFormatter(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_SaveAndProceedButtonObject:SetDisabledState(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_SaveAndProceedButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_SaveAndProceedButtonObject:SetOnClickHandler(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_SaveAndProceedButtonObject:SetOnEnterHandler(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_SaveAndProceedButtonObject:SetTextToFit(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_SaveAndProceedButtonObject:SetTooltipAnchor(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_SaveAndProceedButtonObject:SetTooltipInfo(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_SaveAndProceedButtonObject:onClickHandler(...) end
-end
-
-do
----@class EditModeUnsavedChangesDialog_SaveAndProceedButton_ControllerObject : Frame
-local EditModeUnsavedChangesDialog_SaveAndProceedButton_ControllerObject = {}
----@return any ...
-function EditModeUnsavedChangesDialog_SaveAndProceedButton_ControllerObject:OnLoad(...) end
----@return any ...
-function EditModeUnsavedChangesDialog_SaveAndProceedButton_ControllerObject:OnShow(...) end
-end
-
-do
----@class EditModeUnsavedChangesDialog_SaveAndProceedButton_LeftObject : Texture
-local EditModeUnsavedChangesDialog_SaveAndProceedButton_LeftObject = {}
-end
-
-do
----@class EditModeUnsavedChangesDialog_SaveAndProceedButton_MiddleObject : Texture
-local EditModeUnsavedChangesDialog_SaveAndProceedButton_MiddleObject = {}
-end
-
-do
----@class EditModeUnsavedChangesDialog_SaveAndProceedButton_RightObject : Texture
-local EditModeUnsavedChangesDialog_SaveAndProceedButton_RightObject = {}
-end
-
-do
----@class EditModeUnsavedChangesDialog_SaveAndProceedButton_TextObject : FontString
-local EditModeUnsavedChangesDialog_SaveAndProceedButton_TextObject = {}
-end
-
-do
----@class EditModeUnsavedChangesDialog_TitleObject : FontString
-local EditModeUnsavedChangesDialog_TitleObject = {}
-end
-
-do
----@class EmbeddedItemTooltipObject : GameTooltip
----@field BottomFontString EmbeddedItemTooltip_BottomFontStringObject
----@field BottomOverlay EmbeddedItemTooltip_BottomOverlayObject
----@field ItemTooltip EmbeddedItemTooltip_ItemTooltipObject
----@field NineSlice EmbeddedItemTooltip_NineSliceObject
----@field StatusBar EmbeddedItemTooltip_StatusBarObject
----@field TextLeft1 EmbeddedItemTooltip_TextLeft1Object
----@field TextLeft2 EmbeddedItemTooltip_TextLeft2Object
----@field TextRight1 EmbeddedItemTooltip_TextRight1Object
----@field TextRight2 EmbeddedItemTooltip_TextRight2Object
----@field TopOverlay EmbeddedItemTooltip_TopOverlayObject
+---@class CommunitiesFrame_TicketFrame_InsetFrameObject : Frame
+---@field Bg CommunitiesFrame_TicketFrame_InsetFrame_BgObject
+---@field NineSlice CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject
 ---@field layoutType string
----@field shoppingTooltips table
----@field supportsDataRefresh boolean
----@field textLeft1Font string
----@field textLeft2Font string
----@field textRight1Font string
----@field textRight2Font string
----@field updateTooltipTimer number
-local EmbeddedItemTooltipObject = {}
----@return any ...
-function EmbeddedItemTooltipObject:AddLineDataText(...) end
----@return any ...
-function EmbeddedItemTooltipObject:AppendInfo(...) end
----@return any ...
-function EmbeddedItemTooltipObject:AppendInfoWithSpacer(...) end
----@return any ...
-function EmbeddedItemTooltipObject:ClearHandlerInfo(...) end
----@return any ...
-function EmbeddedItemTooltipObject:GetItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:GetPrimaryTooltipData(...) end
----@return any ...
-function EmbeddedItemTooltipObject:GetPrimaryTooltipInfo(...) end
----@return any ...
-function EmbeddedItemTooltipObject:GetProcessingTooltipInfo(...) end
----@return any ...
-function EmbeddedItemTooltipObject:GetSpell(...) end
----@return any ...
-function EmbeddedItemTooltipObject:GetTooltipData(...) end
----@return any ...
-function EmbeddedItemTooltipObject:GetUnit(...) end
----@return any ...
-function EmbeddedItemTooltipObject:HasDataInstanceID(...) end
----@return any ...
-function EmbeddedItemTooltipObject:InternalProcessInfo(...) end
----@return any ...
-function EmbeddedItemTooltipObject:IsTooltipType(...) end
----@return any ...
-function EmbeddedItemTooltipObject:OnEvent(...) end
----@return any ...
-function EmbeddedItemTooltipObject:OnLoad(...) end
----@return any ...
-function EmbeddedItemTooltipObject:ProcessInfo(...) end
----@return any ...
-function EmbeddedItemTooltipObject:ProcessLineData(...) end
----@return any ...
-function EmbeddedItemTooltipObject:ProcessLines(...) end
----@return any ...
-function EmbeddedItemTooltipObject:RebuildFromTooltipInfo(...) end
----@return any ...
-function EmbeddedItemTooltipObject:RefreshData(...) end
----@return any ...
-function EmbeddedItemTooltipObject:RefreshDataNextUpdate(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetAchievementByID(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetAction(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetArtifactItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetArtifactPowerByID(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetAzeriteEssence(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetAzeriteEssenceSlot(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetAzeritePower(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetBackpackToken(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetBagItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetBagItemChild(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetBuybackItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetCompanionPet(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetConduit(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetCurrencyByID(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetCurrencyToken(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetEnhancedConduit(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetEquipmentSet(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetExistingSocketGem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetGuildBankItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetHeirloomByItemID(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetHyperlink(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetInboxItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetInfoBackdropStyle(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetInstanceLockEncountersComplete(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetInventoryItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetInventoryItemByID(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetItemByGUID(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetItemByID(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetItemByItemModifiedAppearanceID(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetItemInteractionItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetItemKey(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetLFGDungeonReward(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetLFGDungeonShortageReward(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetLootCurrency(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetLootItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetLootRollItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetMerchantCostItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetMerchantItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetMinimapMouseover(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetMountBySpellID(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetOutfit(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetOwnedItemByID(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetPetAction(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetPossession(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetPvpBrawl(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetPvpTalent(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetQuestCurrency(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetQuestItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetQuestLogCurrency(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetQuestLogItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetQuestLogSpecialItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetQuestPartyProgress(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetRecipeRankInfo(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetRecipeReagentItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetRecipeResultItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetRecipeResultItemForOrder(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetRuneforgeResultItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetSendMailItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetShapeshift(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetSlottedKeystone(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetSocketGem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetSocketedItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetSocketedRelic(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetSpellBookItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetSpellByID(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetTalent(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetTotem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetToyByItemID(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetTradePlayerItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetTradeTargetItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetTrainerService(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetTraitEntry(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetUnit(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetUnitAura(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetUnitAuraByAuraInstanceID(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetUnitBuff(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetUnitBuffByAuraInstanceID(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetUnitDebuff(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetUnitDebuffByAuraInstanceID(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetUpgradeItem(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetWeeklyReward(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetWorldCursor(...) end
----@return any ...
-function EmbeddedItemTooltipObject:SetWorldLootObject(...) end
----@type EmbeddedItemTooltipObject
-EmbeddedItemTooltip = EmbeddedItemTooltipObject
+local CommunitiesFrame_TicketFrame_InsetFrameObject = {}
 end
 
 do
----@class EmbeddedItemTooltip_BottomFontStringObject : FontString
-local EmbeddedItemTooltip_BottomFontStringObject = {}
+---@class CommunitiesFrame_TicketFrame_InsetFrame_BgObject : Texture
+local CommunitiesFrame_TicketFrame_InsetFrame_BgObject = {}
 end
 
 do
----@class EmbeddedItemTooltip_BottomOverlayObject : Texture
-local EmbeddedItemTooltip_BottomOverlayObject = {}
-end
-
-do
----@class EmbeddedItemTooltip_ItemTooltipObject : Frame
----@field Count EmbeddedItemTooltip_ItemTooltip_CountObject
----@field FollowerTooltip EmbeddedItemTooltip_ItemTooltip_FollowerTooltipObject
----@field Icon EmbeddedItemTooltip_ItemTooltip_IconObject
----@field IconBorder EmbeddedItemTooltip_ItemTooltip_IconBorderObject
----@field IconOverlay EmbeddedItemTooltip_ItemTooltip_IconOverlayObject
----@field IconOverlay2 EmbeddedItemTooltip_ItemTooltip_IconOverlay2Object
----@field Text EmbeddedItemTooltip_ItemTooltip_TextObject
----@field Tooltip EmbeddedItemTooltip_ItemTooltip_TooltipObject
-local EmbeddedItemTooltip_ItemTooltipObject = {}
-end
-
-do
----@class EmbeddedItemTooltip_ItemTooltip_CountObject : FontString
-local EmbeddedItemTooltip_ItemTooltip_CountObject = {}
-end
-
-do
----@class EmbeddedItemTooltip_ItemTooltip_FollowerTooltipObject : Frame
----@field Abilities table
----@field AbilitiesLabel EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_AbilitiesLabelObject
----@field Class EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_ClassObject
----@field ClassSpecName EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_ClassSpecNameObject
----@field ILevel EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_ILevelObject
----@field Name EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_NameObject
----@field PortraitFrame EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrameObject
----@field Quality EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_QualityObject
----@field SpecializationLabel EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_SpecializationLabelObject
----@field Traits table
----@field TraitsLabel EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_TraitsLabelObject
----@field UnderBiased EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_UnderBiasedObject
----@field XP EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_XPObject
----@field XPBar EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_XPBarObject
----@field XPBarBackground EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_XPBarBackgroundObject
-local EmbeddedItemTooltip_ItemTooltip_FollowerTooltipObject = {}
-end
-
-do
----@class EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_AbilitiesLabelObject : FontString
-local EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_AbilitiesLabelObject = {}
-end
-
-do
----@class EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_ClassObject : Texture
-local EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_ClassObject = {}
-end
-
-do
----@class EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_ClassSpecNameObject : FontString
-local EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_ClassSpecNameObject = {}
-end
-
-do
----@class EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_ILevelObject : FontString
-local EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_ILevelObject = {}
-end
-
-do
----@class EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_NameObject : FontString
-local EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_NameObject = {}
-end
-
-do
----@class EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrameObject : Frame
----@field Level EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_LevelObject
----@field LevelBorder EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_LevelBorderObject
----@field Portrait EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitObject
----@field PortraitRing EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitRingObject
----@field PortraitRingCover EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitRingCoverObject
----@field PortraitRingQuality EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitRingQualityObject
-local EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrameObject = {}
+---@class CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject : Frame
+---@field BottomEdge CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_BottomRightCornerObject
+---@field LeftEdge CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_LeftEdgeObject
+---@field RightEdge CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_RightEdgeObject
+---@field TopEdge CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_TopRightCornerObject
+local CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject = {}
 ---@return any ...
-function EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrameObject:SetILevel(...) end
+function CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject:GetBorderColor(...) end
 ---@return any ...
-function EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrameObject:SetLevel(...) end
+function CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject:GetCenterColor(...) end
 ---@return any ...
-function EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrameObject:SetNoLevel(...) end
+function CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
 ---@return any ...
-function EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrameObject:SetPortraitIcon(...) end
+function CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject:GetFrameLayoutType(...) end
 ---@return any ...
-function EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrameObject:SetQuality(...) end
+function CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject:OnLoad(...) end
 ---@return any ...
-function EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrameObject:SetQualityColor(...) end
+function CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject:SetBlendMode(...) end
 ---@return any ...
-function EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrameObject:SetupPortrait(...) end
+function CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject:SetVertexColor(...) end
 end
 
 do
----@class EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_LevelObject : FontString
-local EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_LevelObject = {}
+---@class CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_BottomEdgeObject : Texture
+local CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_BottomEdgeObject = {}
 end
 
 do
----@class EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_LevelBorderObject : Texture
-local EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_LevelBorderObject = {}
+---@class CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_BottomLeftCornerObject : Texture
+local CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_BottomLeftCornerObject = {}
 end
 
 do
----@class EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitObject : Texture
-local EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitObject = {}
+---@class CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_BottomRightCornerObject : Texture
+local CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_BottomRightCornerObject = {}
 end
 
 do
----@class EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitRingObject : Texture
-local EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitRingObject = {}
+---@class CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_LeftEdgeObject : Texture
+local CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_LeftEdgeObject = {}
 end
 
 do
----@class EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitRingCoverObject : Texture
-local EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitRingCoverObject = {}
+---@class CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_RightEdgeObject : Texture
+local CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_RightEdgeObject = {}
 end
 
 do
----@class EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitRingQualityObject : Texture
-local EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitRingQualityObject = {}
+---@class CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_TopEdgeObject : Texture
+local CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_TopEdgeObject = {}
 end
 
 do
----@class EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_QualityObject : FontString
-local EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_QualityObject = {}
+---@class CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_TopLeftCornerObject : Texture
+local CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_TopLeftCornerObject = {}
 end
 
 do
----@class EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_SpecializationLabelObject : FontString
-local EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_SpecializationLabelObject = {}
+---@class CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_TopRightCornerObject : Texture
+local CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_TopRightCornerObject = {}
 end
 
 do
----@class EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_TraitsLabelObject : FontString
-local EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_TraitsLabelObject = {}
+---@class CommunitiesFrame_TicketFrame_InvitationTextObject : FontString
+local CommunitiesFrame_TicketFrame_InvitationTextObject = {}
 end
 
 do
----@class EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_UnderBiasedObject : FontString
-local EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_UnderBiasedObject = {}
+---@class CommunitiesFrame_TicketFrame_LeaderObject : FontString
+local CommunitiesFrame_TicketFrame_LeaderObject = {}
 end
 
 do
----@class EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_XPObject : FontString
-local EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_XPObject = {}
+---@class CommunitiesFrame_TicketFrame_MemberCountObject : FontString
+local CommunitiesFrame_TicketFrame_MemberCountObject = {}
 end
 
 do
----@class EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_XPBarObject : Texture
-local EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_XPBarObject = {}
+---@class CommunitiesFrame_TicketFrame_NameObject : FontString
+local CommunitiesFrame_TicketFrame_NameObject = {}
 end
 
 do
----@class EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_XPBarBackgroundObject : Texture
-local EmbeddedItemTooltip_ItemTooltip_FollowerTooltip_XPBarBackgroundObject = {}
+---@class CommunitiesFrame_TicketFrame_TypeObject : FontString
+local CommunitiesFrame_TicketFrame_TypeObject = {}
 end
 
 do
----@class EmbeddedItemTooltip_ItemTooltip_IconObject : Texture
-local EmbeddedItemTooltip_ItemTooltip_IconObject = {}
+---@class CommunitiesFrame_TitleContainerObject : Frame
+---@field TitleText CommunitiesFrame_TitleContainer_TitleTextObject
+local CommunitiesFrame_TitleContainerObject = {}
 end
 
 do
----@class EmbeddedItemTooltip_ItemTooltip_IconBorderObject : Texture
-local EmbeddedItemTooltip_ItemTooltip_IconBorderObject = {}
+---@class CommunitiesFrame_TitleContainer_TitleTextObject : FontString
+local CommunitiesFrame_TitleContainer_TitleTextObject = {}
 end
 
 do
----@class EmbeddedItemTooltip_ItemTooltip_IconOverlayObject : Texture
-local EmbeddedItemTooltip_ItemTooltip_IconOverlayObject = {}
+---@class CommunitiesFrame_VoiceChatHeadsetObject : Frame
+---@field Button CommunitiesFrame_VoiceChatHeadset_ButtonObject
+---@field PendingDots CommunitiesFrame_VoiceChatHeadset_PendingDotsObject
+---@field Transcription CommunitiesFrame_VoiceChatHeadset_TranscriptionObject
+local CommunitiesFrame_VoiceChatHeadsetObject = {}
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadsetObject:SetChannelName(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadsetObject:SetChannelType(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadsetObject:SetCommunityInfo(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadsetObject:SetOnClickCallback(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadsetObject:SetPendingState(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadsetObject:SetVoiceChannel(...) end
 end
 
 do
----@class EmbeddedItemTooltip_ItemTooltip_IconOverlay2Object : Texture
-local EmbeddedItemTooltip_ItemTooltip_IconOverlay2Object = {}
+---@class CommunitiesFrame_VoiceChatHeadset_ButtonObject : Button
+---@field DisabledTexture CommunitiesFrame_VoiceChatHeadset_Button_DisabledTextureObject
+---@field HighlightTexture CommunitiesFrame_VoiceChatHeadset_Button_HighlightTextureObject
+---@field NormalTexture CommunitiesFrame_VoiceChatHeadset_Button_NormalTextureObject
+local CommunitiesFrame_VoiceChatHeadset_ButtonObject = {}
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:ClearPendingState(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:ClearVoiceChannel(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:GetChannelName(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:GetChannelType(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:GetClubErrorReason(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:GetClubID(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:GetStreamID(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:GetVoiceChannel(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:GetVoiceChannelID(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:IsCommunityChannel(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:IsVoiceActive(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnClick(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnEvent(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnVoiceChannelActivated(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnVoiceChannelDeactivated(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnVoiceChannelJoined(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnVoiceChannelRemoved(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnVoiceChannelRequestCompleted(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnVoiceChatError(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnVoiceChatPendingChannelJoinState(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:SetChannelName(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:SetChannelType(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:SetCommunityInfo(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:SetOnClickCallback(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:SetVoiceActive(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:SetVoiceChannel(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:ShouldEnable(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:ShouldShow(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:ShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:Update(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:VoiceChannelIDMatches(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_ButtonObject:VoiceChannelInfoMatches(...) end
 end
 
 do
----@class EmbeddedItemTooltip_ItemTooltip_TextObject : FontString
-local EmbeddedItemTooltip_ItemTooltip_TextObject = {}
+---@class CommunitiesFrame_VoiceChatHeadset_Button_DisabledTextureObject : Texture
+local CommunitiesFrame_VoiceChatHeadset_Button_DisabledTextureObject = {}
 end
 
 do
----@class EmbeddedItemTooltip_ItemTooltip_TooltipObject : GameTooltip
----@field BottomOverlay EmbeddedItemTooltip_ItemTooltip_Tooltip_BottomOverlayObject
----@field IsEmbedded boolean
----@field NineSlice EmbeddedItemTooltip_ItemTooltip_Tooltip_NineSliceObject
----@field StatusBar EmbeddedItemTooltip_ItemTooltip_Tooltip_StatusBarObject
----@field TextLeft1 EmbeddedItemTooltip_ItemTooltip_Tooltip_TextLeft1Object
----@field TextLeft2 EmbeddedItemTooltip_ItemTooltip_Tooltip_TextLeft2Object
----@field TextRight1 EmbeddedItemTooltip_ItemTooltip_Tooltip_TextRight1Object
----@field TextRight2 EmbeddedItemTooltip_ItemTooltip_Tooltip_TextRight2Object
----@field TopOverlay EmbeddedItemTooltip_ItemTooltip_Tooltip_TopOverlayObject
+---@class CommunitiesFrame_VoiceChatHeadset_Button_HighlightTextureObject : Texture
+local CommunitiesFrame_VoiceChatHeadset_Button_HighlightTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_VoiceChatHeadset_Button_NormalTextureObject : Texture
+local CommunitiesFrame_VoiceChatHeadset_Button_NormalTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_VoiceChatHeadset_PendingDotsObject : Frame
+---@field Dot1 CommunitiesFrame_VoiceChatHeadset_PendingDots_Dot1Object
+---@field Dot2 CommunitiesFrame_VoiceChatHeadset_PendingDots_Dot2Object
+---@field Dot3 CommunitiesFrame_VoiceChatHeadset_PendingDots_Dot3Object
+---@field PendingAnim CommunitiesFrame_VoiceChatHeadset_PendingDots_PendingAnimObject
+local CommunitiesFrame_VoiceChatHeadset_PendingDotsObject = {}
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_PendingDotsObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_PendingDotsObject:PlayAnimation(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_PendingDotsObject:StopAnimation(...) end
+end
+
+do
+---@class CommunitiesFrame_VoiceChatHeadset_PendingDots_Dot1Object : Texture
+local CommunitiesFrame_VoiceChatHeadset_PendingDots_Dot1Object = {}
+end
+
+do
+---@class CommunitiesFrame_VoiceChatHeadset_PendingDots_Dot2Object : Texture
+local CommunitiesFrame_VoiceChatHeadset_PendingDots_Dot2Object = {}
+end
+
+do
+---@class CommunitiesFrame_VoiceChatHeadset_PendingDots_Dot3Object : Texture
+local CommunitiesFrame_VoiceChatHeadset_PendingDots_Dot3Object = {}
+end
+
+do
+---@class CommunitiesFrame_VoiceChatHeadset_PendingDots_PendingAnimObject : AnimationGroup
+local CommunitiesFrame_VoiceChatHeadset_PendingDots_PendingAnimObject = {}
+end
+
+do
+---@class CommunitiesFrame_VoiceChatHeadset_TranscriptionObject : Frame
+---@field Button CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject
+---@field PendingDots CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDotsObject
+local CommunitiesFrame_VoiceChatHeadset_TranscriptionObject = {}
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_TranscriptionObject:SetPendingState(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_TranscriptionObject:SetVoiceChannel(...) end
+end
+
+do
+---@class CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject : Button
+---@field HighlightTexture CommunitiesFrame_VoiceChatHeadset_Transcription_Button_HighlightTextureObject
+---@field NormalTexture CommunitiesFrame_VoiceChatHeadset_Transcription_Button_NormalTextureObject
+local CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject = {}
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:ClearPendingState(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:ClearVoiceChannel(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:GetVoiceChannel(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:GetVoiceChannelID(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:IsTranscriptionActive(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:IsVoiceActive(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnClick(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnEnter(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnEvent(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnHide(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnLeave(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnShow(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnVoiceChannelActivated(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnVoiceChannelDeactivated(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnVoiceChannelRemoved(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnVoiceChannelTranscribingChanged(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnVoiceChatError(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:SetOnClickCallback(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:SetTranscriptionActive(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:SetVoiceActive(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:SetVoiceChannel(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:ShouldEnable(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:ShowTooltip(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:Update(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:VoiceChannelIDMatches(...) end
+end
+
+do
+---@class CommunitiesFrame_VoiceChatHeadset_Transcription_Button_HighlightTextureObject : Texture
+local CommunitiesFrame_VoiceChatHeadset_Transcription_Button_HighlightTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_VoiceChatHeadset_Transcription_Button_NormalTextureObject : Texture
+local CommunitiesFrame_VoiceChatHeadset_Transcription_Button_NormalTextureObject = {}
+end
+
+do
+---@class CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDotsObject : Frame
+---@field Dot1 CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_Dot1Object
+---@field Dot2 CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_Dot2Object
+---@field Dot3 CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_Dot3Object
+---@field PendingAnim CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_PendingAnimObject
+local CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDotsObject = {}
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDotsObject:OnLoad(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDotsObject:PlayAnimation(...) end
+---@return any ...
+function CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDotsObject:StopAnimation(...) end
+end
+
+do
+---@class CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_Dot1Object : Texture
+local CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_Dot1Object = {}
+end
+
+do
+---@class CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_Dot2Object : Texture
+local CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_Dot2Object = {}
+end
+
+do
+---@class CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_Dot3Object : Texture
+local CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_Dot3Object = {}
+end
+
+do
+---@class CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_PendingAnimObject : AnimationGroup
+local CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_PendingAnimObject = {}
+end
+
+do
+---@class CommunitiesGuildLogFrameObject : Frame
+---@field Bg CommunitiesGuildLogFrame_BgObject
+---@field BottomBorder CommunitiesGuildLogFrame_BottomBorderObject
+---@field BottomLeftCorner CommunitiesGuildLogFrame_BottomLeftCornerObject
+---@field BottomRightCorner CommunitiesGuildLogFrame_BottomRightCornerObject
+---@field Container CommunitiesGuildLogFrame_ContainerObject
+---@field LeftBorder CommunitiesGuildLogFrame_LeftBorderObject
+---@field RightBorder CommunitiesGuildLogFrame_RightBorderObject
+---@field TopBorder CommunitiesGuildLogFrame_TopBorderObject
+---@field TopLeftCorner CommunitiesGuildLogFrame_TopLeftCornerObject
+---@field TopRightCorner CommunitiesGuildLogFrame_TopRightCornerObject
+local CommunitiesGuildLogFrameObject = {}
+---@type CommunitiesGuildLogFrameObject
+CommunitiesGuildLogFrame = CommunitiesGuildLogFrameObject
+end
+
+do
+---@class CommunitiesGuildLogFrame_BgObject : Texture
+local CommunitiesGuildLogFrame_BgObject = {}
+end
+
+do
+---@class CommunitiesGuildLogFrame_BottomBorderObject : Texture
+local CommunitiesGuildLogFrame_BottomBorderObject = {}
+end
+
+do
+---@class CommunitiesGuildLogFrame_BottomLeftCornerObject : Texture
+local CommunitiesGuildLogFrame_BottomLeftCornerObject = {}
+end
+
+do
+---@class CommunitiesGuildLogFrame_BottomRightCornerObject : Texture
+local CommunitiesGuildLogFrame_BottomRightCornerObject = {}
+end
+
+do
+---@class CommunitiesGuildLogFrame_ContainerObject : Frame
+---@field NineSlice CommunitiesGuildLogFrame_Container_NineSliceObject
+---@field ScrollFrame CommunitiesGuildLogFrame_Container_ScrollFrameObject
+---@field backdropColor CommunitiesGuildLogFrame_Container_backdropColorObject
+---@field backdropColorAlpha number
 ---@field layoutType string
----@field shoppingTooltips table
----@field supportsDataRefresh boolean
----@field textLeft1Font string
----@field textLeft2Font string
----@field textRight1Font string
----@field textRight2Font string
----@field updateTooltipTimer number
-local EmbeddedItemTooltip_ItemTooltip_TooltipObject = {}
+local CommunitiesGuildLogFrame_ContainerObject = {}
 ---@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:AddLineDataText(...) end
+function CommunitiesGuildLogFrame_ContainerObject:GetBackdropBorderColor(...) end
 ---@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:AppendInfo(...) end
+function CommunitiesGuildLogFrame_ContainerObject:GetBackdropColor(...) end
 ---@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:AppendInfoWithSpacer(...) end
+function CommunitiesGuildLogFrame_ContainerObject:SetBackdropBorderColor(...) end
 ---@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:ClearHandlerInfo(...) end
+function CommunitiesGuildLogFrame_ContainerObject:SetBackdropColor(...) end
 ---@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:GetItem(...) end
+function CommunitiesGuildLogFrame_ContainerObject:SetBorderBlendMode(...) end
 ---@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:GetPrimaryTooltipData(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:GetPrimaryTooltipInfo(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:GetProcessingTooltipInfo(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:GetSpell(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:GetTooltipData(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:GetUnit(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:HasDataInstanceID(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:InternalProcessInfo(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:IsTooltipType(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:OnEvent(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:OnLoad(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:ProcessInfo(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:ProcessLineData(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:ProcessLines(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:RebuildFromTooltipInfo(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:RefreshData(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:RefreshDataNextUpdate(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetAchievementByID(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetAction(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetArtifactItem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetArtifactPowerByID(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetAzeriteEssence(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetAzeriteEssenceSlot(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetAzeritePower(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetBackpackToken(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetBagItem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetBagItemChild(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetBuybackItem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetCompanionPet(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetConduit(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetCurrencyByID(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetCurrencyToken(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetEnhancedConduit(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetEquipmentSet(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetExistingSocketGem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetGuildBankItem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetHeirloomByItemID(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetHyperlink(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetInboxItem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetInfoBackdropStyle(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetInstanceLockEncountersComplete(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetInventoryItem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetInventoryItemByID(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetItemByGUID(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetItemByID(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetItemByItemModifiedAppearanceID(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetItemInteractionItem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetItemKey(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetLFGDungeonReward(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetLFGDungeonShortageReward(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetLootCurrency(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetLootItem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetLootRollItem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetMerchantCostItem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetMerchantItem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetMinimapMouseover(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetMountBySpellID(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetOutfit(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetOwnedItemByID(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetPetAction(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetPossession(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetPvpBrawl(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetPvpTalent(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetQuestCurrency(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetQuestItem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetQuestLogCurrency(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetQuestLogItem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetQuestLogSpecialItem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetQuestPartyProgress(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetRecipeRankInfo(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetRecipeReagentItem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetRecipeResultItem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetRecipeResultItemForOrder(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetRuneforgeResultItem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetSendMailItem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetShapeshift(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetSlottedKeystone(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetSocketGem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetSocketedItem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetSocketedRelic(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetSpellBookItem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetSpellByID(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetTalent(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetTotem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetToyByItemID(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetTradePlayerItem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetTradeTargetItem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetTrainerService(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetTraitEntry(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetUnit(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetUnitAura(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetUnitAuraByAuraInstanceID(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetUnitBuff(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetUnitBuffByAuraInstanceID(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetUnitDebuff(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetUnitDebuffByAuraInstanceID(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetUpgradeItem(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetWeeklyReward(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetWorldCursor(...) end
----@return any ...
-function EmbeddedItemTooltip_ItemTooltip_TooltipObject:SetWorldLootObject(...) end
+function CommunitiesGuildLogFrame_ContainerObject:TooltipBackdropOnLoad(...) end
 end
 
 do
----@class EmbeddedItemTooltip_ItemTooltip_Tooltip_BottomOverlayObject : Texture
-local EmbeddedItemTooltip_ItemTooltip_Tooltip_BottomOverlayObject = {}
+---@class CommunitiesGuildLogFrame_Container_NineSliceObject : Frame
+---@field BottomEdge CommunitiesGuildLogFrame_Container_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner CommunitiesGuildLogFrame_Container_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner CommunitiesGuildLogFrame_Container_NineSlice_BottomRightCornerObject
+---@field Center CommunitiesGuildLogFrame_Container_NineSlice_CenterObject
+---@field LeftEdge CommunitiesGuildLogFrame_Container_NineSlice_LeftEdgeObject
+---@field RightEdge CommunitiesGuildLogFrame_Container_NineSlice_RightEdgeObject
+---@field TopEdge CommunitiesGuildLogFrame_Container_NineSlice_TopEdgeObject
+---@field TopLeftCorner CommunitiesGuildLogFrame_Container_NineSlice_TopLeftCornerObject
+---@field TopRightCorner CommunitiesGuildLogFrame_Container_NineSlice_TopRightCornerObject
+local CommunitiesGuildLogFrame_Container_NineSliceObject = {}
+---@return any ...
+function CommunitiesGuildLogFrame_Container_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_NineSliceObject:OnLoad(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_NineSliceObject:SetVertexColor(...) end
 end
 
 do
----@class EmbeddedItemTooltip_ItemTooltip_Tooltip_NineSliceObject : Frame
----@field BottomEdge EmbeddedItemTooltip_ItemTooltip_Tooltip_NineSlice_BottomEdgeObject
----@field BottomLeftCorner EmbeddedItemTooltip_ItemTooltip_Tooltip_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner EmbeddedItemTooltip_ItemTooltip_Tooltip_NineSlice_BottomRightCornerObject
----@field Center EmbeddedItemTooltip_ItemTooltip_Tooltip_NineSlice_CenterObject
----@field LeftEdge EmbeddedItemTooltip_ItemTooltip_Tooltip_NineSlice_LeftEdgeObject
----@field RightEdge EmbeddedItemTooltip_ItemTooltip_Tooltip_NineSlice_RightEdgeObject
----@field TopEdge EmbeddedItemTooltip_ItemTooltip_Tooltip_NineSlice_TopEdgeObject
----@field TopLeftCorner EmbeddedItemTooltip_ItemTooltip_Tooltip_NineSlice_TopLeftCornerObject
----@field TopRightCorner EmbeddedItemTooltip_ItemTooltip_Tooltip_NineSlice_TopRightCornerObject
-local EmbeddedItemTooltip_ItemTooltip_Tooltip_NineSliceObject = {}
+---@class CommunitiesGuildLogFrame_Container_NineSlice_BottomEdgeObject : Texture
+local CommunitiesGuildLogFrame_Container_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class CommunitiesGuildLogFrame_Container_NineSlice_BottomLeftCornerObject : Texture
+local CommunitiesGuildLogFrame_Container_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class CommunitiesGuildLogFrame_Container_NineSlice_BottomRightCornerObject : Texture
+local CommunitiesGuildLogFrame_Container_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class CommunitiesGuildLogFrame_Container_NineSlice_CenterObject : Texture
+local CommunitiesGuildLogFrame_Container_NineSlice_CenterObject = {}
+end
+
+do
+---@class CommunitiesGuildLogFrame_Container_NineSlice_LeftEdgeObject : Texture
+local CommunitiesGuildLogFrame_Container_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class CommunitiesGuildLogFrame_Container_NineSlice_RightEdgeObject : Texture
+local CommunitiesGuildLogFrame_Container_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class CommunitiesGuildLogFrame_Container_NineSlice_TopEdgeObject : Texture
+local CommunitiesGuildLogFrame_Container_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class CommunitiesGuildLogFrame_Container_NineSlice_TopLeftCornerObject : Texture
+local CommunitiesGuildLogFrame_Container_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class CommunitiesGuildLogFrame_Container_NineSlice_TopRightCornerObject : Texture
+local CommunitiesGuildLogFrame_Container_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class CommunitiesGuildLogFrame_Container_ScrollFrameObject : ScrollFrame
+---@field Child CommunitiesGuildLogFrame_Container_ScrollFrame_ChildObject
+---@field ScrollBar CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject
+---@field panExtent number
+local CommunitiesGuildLogFrame_Container_ScrollFrameObject = {}
 ---@return any ...
-function EmbeddedItemTooltip_ItemTooltip_Tooltip_NineSliceObject:GetBorderColor(...) end
+function CommunitiesGuildLogFrame_Container_ScrollFrameObject:GetPanExtent(...) end
 ---@return any ...
-function EmbeddedItemTooltip_ItemTooltip_Tooltip_NineSliceObject:GetCenterColor(...) end
+function CommunitiesGuildLogFrame_Container_ScrollFrameObject:SetPanExtent(...) end
+end
+
+do
+---@class CommunitiesGuildLogFrame_Container_ScrollFrame_ChildObject : Frame
+---@field HTMLFrame CommunitiesGuildLogFrame_Container_ScrollFrame_Child_HTMLFrameObject
+local CommunitiesGuildLogFrame_Container_ScrollFrame_ChildObject = {}
+end
+
+do
+---@class CommunitiesGuildLogFrame_Container_ScrollFrame_Child_HTMLFrameObject : SimpleHTML
+local CommunitiesGuildLogFrame_Container_ScrollFrame_Child_HTMLFrameObject = {}
+end
+
+do
+---@class CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject : Frame
+---@field Back CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject
+---@field Defaults CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_DefaultsObject
+---@field Directions CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_DirectionsObject
+---@field Event CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_EventObject
+---@field Forward CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject
+---@field Track CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_TrackObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field hideTrack boolean
+---@field interpolator CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_interpolatorObject
+---@field isScrollController boolean
+---@field minThumbExtent number
+---@field panDelay number
+---@field panExtentPercentage number
+---@field panRepeatTime number
+---@field smartNavigationIgnored boolean
+---@field snapToInterval boolean
+---@field thumbAnchor string
+---@field useProportionalThumb boolean
+---@field visibleExtentPercentage number
+---@field wheelPanScalar number
+local CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject = {}
 ---@return any ...
-function EmbeddedItemTooltip_ItemTooltip_Tooltip_NineSliceObject:GetFrameLayoutTextureKit(...) end
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:CallInternalScope(...) end
 ---@return any ...
-function EmbeddedItemTooltip_ItemTooltip_Tooltip_NineSliceObject:GetFrameLayoutType(...) end
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:CanCursorStepInDirection(...) end
 ---@return any ...
-function EmbeddedItemTooltip_ItemTooltip_Tooltip_NineSliceObject:OnLoad(...) end
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:CanInterpolateScroll(...) end
 ---@return any ...
-function EmbeddedItemTooltip_ItemTooltip_Tooltip_NineSliceObject:SetBlendMode(...) end
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function EmbeddedItemTooltip_ItemTooltip_Tooltip_NineSliceObject:SetBorderBlendMode(...) end
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:DisableControls(...) end
 ---@return any ...
-function EmbeddedItemTooltip_ItemTooltip_Tooltip_NineSliceObject:SetBorderColor(...) end
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function EmbeddedItemTooltip_ItemTooltip_Tooltip_NineSliceObject:SetCenterColor(...) end
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:EnableInternalPriority(...) end
 ---@return any ...
-function EmbeddedItemTooltip_ItemTooltip_Tooltip_NineSliceObject:SetVertexColor(...) end
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:EnableSnapToInterval(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetBackStepper(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetCallbackTable(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetCallbackTables(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetForwardStepper(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetFrameExtent(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetIntervalRange(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetLower(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetPanExtentPercentage(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetPanRepeatDelay(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetPanRepeatTime(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetScrollInterpolator(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetScrollPercentage(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetThumb(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetThumbAnchor(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetTrack(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetTrackExtent(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetUpper(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetWheelPanPercentage(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:HasScrollableExtent(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:Init(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:InitializeNarration(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:Interpolate(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:IsAtBegin(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:IsAtEnd(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:IsHorizontal(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:IsScrollAllowed(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:IsThumbMouseDown(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:OnHide_Intrinsic(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:OnLoad(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:OnMouseWheel(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:OnShow_Intrinsic(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:OnStepperMouseDown(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:OnThumbMouseDown(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:OnTrackMouseDown(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:RegisterCallback(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:ScrollDecrease(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:ScrollInDirection(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:ScrollIncrease(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:ScrollPageInDirection(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:ScrollStepInDirection(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:ScrollToBegin(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:ScrollToEnd(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:ScrollWheelInDirection(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SecureInsertEvent(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SelectCursorComponent(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SelectPointComponent(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetFrameExtent(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetHideIfUnscrollable(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetHorizontal(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetInterpolateScroll(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetPanExtentPercentage(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetScrollAllowed(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetScrollPercentage(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetThumbExtent(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetVisibleExtentPercentage(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:TriggerEvent(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:UnregisterCallback(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:UnregisterEvents(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:UnregisterUpdate(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:Update(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:onButtonMouseUp(...) end
+---@return any ...
+function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:scrollInternal(...) end
 end

@@ -3,6459 +3,7027 @@
 
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ArrowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ArrowObject = {}
+---@class DamageMeter_Selection_MouseOverHighlight_BottomEdgeObject : Texture
+local DamageMeter_Selection_MouseOverHighlight_BottomEdgeObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_AutoCastOverlayObject : Frame
----@field Corners GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_AutoCastOverlay_CornersObject
----@field Mask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_AutoCastOverlay_MaskObject
----@field Shine GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_AutoCastOverlay_ShineObject
----@field autoCastEnabled boolean
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_AutoCastOverlayObject = {}
+---@class DamageMeter_Selection_MouseOverHighlight_BottomLeftCornerObject : Texture
+local DamageMeter_Selection_MouseOverHighlight_BottomLeftCornerObject = {}
+end
+
+do
+---@class DamageMeter_Selection_MouseOverHighlight_BottomRightCornerObject : Texture
+local DamageMeter_Selection_MouseOverHighlight_BottomRightCornerObject = {}
+end
+
+do
+---@class DamageMeter_Selection_MouseOverHighlight_CenterObject : Texture
+local DamageMeter_Selection_MouseOverHighlight_CenterObject = {}
+end
+
+do
+---@class DamageMeter_Selection_MouseOverHighlight_LeftEdgeObject : Texture
+local DamageMeter_Selection_MouseOverHighlight_LeftEdgeObject = {}
+end
+
+do
+---@class DamageMeter_Selection_MouseOverHighlight_RightEdgeObject : Texture
+local DamageMeter_Selection_MouseOverHighlight_RightEdgeObject = {}
+end
+
+do
+---@class DamageMeter_Selection_MouseOverHighlight_TopEdgeObject : Texture
+local DamageMeter_Selection_MouseOverHighlight_TopEdgeObject = {}
+end
+
+do
+---@class DamageMeter_Selection_MouseOverHighlight_TopLeftCornerObject : Texture
+local DamageMeter_Selection_MouseOverHighlight_TopLeftCornerObject = {}
+end
+
+do
+---@class DamageMeter_Selection_MouseOverHighlight_TopRightCornerObject : Texture
+local DamageMeter_Selection_MouseOverHighlight_TopRightCornerObject = {}
+end
+
+do
+---@class DamageMeter_Selection_parentObject
+local DamageMeter_Selection_parentObject = {}
+end
+
+do
+---@class DamageMeter_Selection_systemObject
+local DamageMeter_Selection_systemObject = {}
+end
+
+do
+---@class DamageMeter_savedSystemInfoObject
+---@field anchorInfo table
+---@field isInDefaultPosition boolean
+---@field settings table
+---@field system number
+local DamageMeter_savedSystemInfoObject = {}
+end
+
+do
+---@class DamageMeter_settingsDialogAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo DamageMeter_settingsDialogAnchor_relativeToObject
+---@field x number
+---@field y number
+local DamageMeter_settingsDialogAnchorObject = {}
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_AutoCastOverlayObject:OnHide(...) end
+function DamageMeter_settingsDialogAnchorObject:Get(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_AutoCastOverlayObject:OnShow(...) end
+function DamageMeter_settingsDialogAnchorObject:GetRelativeTo(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_AutoCastOverlayObject:ShowAutoCastEnabled(...) end
+function DamageMeter_settingsDialogAnchorObject:Init(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_AutoCastOverlayObject:UpdateShineAnim(...) end
+function DamageMeter_settingsDialogAnchorObject:Set(...) end
+---@return any ...
+function DamageMeter_settingsDialogAnchorObject:SetFromPoint(...) end
+---@return any ...
+function DamageMeter_settingsDialogAnchorObject:SetOffsets(...) end
+---@return any ...
+function DamageMeter_settingsDialogAnchorObject:SetPoint(...) end
+---@return any ...
+function DamageMeter_settingsDialogAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function DamageMeter_settingsDialogAnchorObject:SetRelativeTo(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_AutoCastOverlay_CornersObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_AutoCastOverlay_CornersObject = {}
+---@class DamageMeter_settingsDialogAnchor_relativeToObject
+local DamageMeter_settingsDialogAnchor_relativeToObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_AutoCastOverlay_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_AutoCastOverlay_MaskObject = {}
+---@class DamageMeter_systemInfoObject
+---@field anchorInfo table
+---@field isInDefaultPosition boolean
+---@field settings table
+---@field system number
+local DamageMeter_systemInfoObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_AutoCastOverlay_ShineObject : Texture
----@field Anim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_AutoCastOverlay_Shine_AnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_AutoCastOverlay_ShineObject = {}
+---@class DeadlyDebuffFrameObject : Frame
+---@field Debuff DeadlyDebuffFrame_DebuffObject
+---@field WarningText DeadlyDebuffFrame_WarningTextObject
+local DeadlyDebuffFrameObject = {}
+---@return any ...
+function DeadlyDebuffFrameObject:OnHide(...) end
+---@return any ...
+function DeadlyDebuffFrameObject:OnShow(...) end
+---@return any ...
+function DeadlyDebuffFrameObject:Setup(...) end
+---@type DeadlyDebuffFrameObject
+DeadlyDebuffFrame = DeadlyDebuffFrameObject
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_AutoCastOverlay_Shine_AnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_AutoCastOverlay_Shine_AnimObject = {}
+---@class DeadlyDebuffFrame_DebuffObject : Button
+---@field Count DeadlyDebuffFrame_Debuff_CountObject
+---@field DebuffBorder DeadlyDebuffFrame_Debuff_DebuffBorderObject
+---@field Duration DeadlyDebuffFrame_Debuff_DurationObject
+---@field Icon DeadlyDebuffFrame_Debuff_IconObject
+---@field Symbol DeadlyDebuffFrame_Debuff_SymbolObject
+---@field TempEnchantBorder DeadlyDebuffFrame_Debuff_TempEnchantBorderObject
+---@field buttonContext string
+local DeadlyDebuffFrame_DebuffObject = {}
+---@return any ...
+function DeadlyDebuffFrame_DebuffObject:CalculateTimeLeft(...) end
+---@return any ...
+function DeadlyDebuffFrame_DebuffObject:GetFilter(...) end
+---@return any ...
+function DeadlyDebuffFrame_DebuffObject:OnClick(...) end
+---@return any ...
+function DeadlyDebuffFrame_DebuffObject:OnEnter(...) end
+---@return any ...
+function DeadlyDebuffFrame_DebuffObject:OnLeave(...) end
+---@return any ...
+function DeadlyDebuffFrame_DebuffObject:OnLoad(...) end
+---@return any ...
+function DeadlyDebuffFrame_DebuffObject:OnUpdate(...) end
+---@return any ...
+function DeadlyDebuffFrame_DebuffObject:SetupDebuffBorderTexture(...) end
+---@return any ...
+function DeadlyDebuffFrame_DebuffObject:Update(...) end
+---@return any ...
+function DeadlyDebuffFrame_DebuffObject:UpdateAuraType(...) end
+---@return any ...
+function DeadlyDebuffFrame_DebuffObject:UpdateDuration(...) end
+---@return any ...
+function DeadlyDebuffFrame_DebuffObject:UpdateExpirationTime(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_BorderObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_BorderObject = {}
+---@class DeadlyDebuffFrame_Debuff_CountObject : FontString
+local DeadlyDebuffFrame_Debuff_CountObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_BorderShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_BorderShadowObject = {}
+---@class DeadlyDebuffFrame_Debuff_DebuffBorderObject : Texture
+local DeadlyDebuffFrame_Debuff_DebuffBorderObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject : Frame
----@field ActiveTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_ActiveTextureObject
----@field DisabledTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_DisabledTextureObject
----@field HoldAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_HoldAnimObject
----@field HoldIndicator GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_HoldIndicatorObject
----@field HoldIndicatorBG GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_HoldIndicatorBGObject
----@field HoverTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_HoverTextureObject
----@field LoadBar GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_LoadBarObject
----@field LoadBarBG GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_LoadBarBGObject
----@field LoadBarGlow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_LoadBarGlowObject
----@field NormalTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_NormalTextureObject
----@field PressedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_PressedTextureObject
----@field SpinnerTip GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_SpinnerTipObject
+---@class DeadlyDebuffFrame_Debuff_DurationObject : FontString
+local DeadlyDebuffFrame_Debuff_DurationObject = {}
+end
+
+do
+---@class DeadlyDebuffFrame_Debuff_IconObject : Texture
+local DeadlyDebuffFrame_Debuff_IconObject = {}
+end
+
+do
+---@class DeadlyDebuffFrame_Debuff_SymbolObject : FontString
+local DeadlyDebuffFrame_Debuff_SymbolObject = {}
+end
+
+do
+---@class DeadlyDebuffFrame_Debuff_TempEnchantBorderObject : Texture
+local DeadlyDebuffFrame_Debuff_TempEnchantBorderObject = {}
+end
+
+do
+---@class DeadlyDebuffFrame_WarningTextObject : FontString
+local DeadlyDebuffFrame_WarningTextObject = {}
+end
+
+do
+---@class DebuffFrameObject : Frame
+---@field AuraContainer DebuffFrame_AuraContainerObject
+---@field PrivateAuraAnchors table
+---@field Selection DebuffFrame_SelectionObject
+---@field auraFrames table
+---@field auraInfo table
+---@field deadlyDebuffInfo table
+---@field defaultHideSelection boolean
+---@field dirtySettings table
+---@field doNotAnchorDisabledFrames boolean
+---@field downKeys table
+---@field exampleAuraType string
+---@field hasActiveChanges boolean
+---@field hasInitializedForEditMode boolean
+---@field maxAuras number
+---@field maxPrivateAuras number
+---@field privateAuraAnchor1 DebuffFrame_privateAuraAnchor1Object
+---@field privateAuraAnchor2 DebuffFrame_privateAuraAnchor2Object
+---@field privateAuraAnchor3 DebuffFrame_privateAuraAnchor3Object
+---@field privateAuraAnchor4 DebuffFrame_privateAuraAnchor4Object
+---@field privateAuraAnchor5 DebuffFrame_privateAuraAnchor5Object
+---@field privateAuraAnchor6 DebuffFrame_privateAuraAnchor6Object
+---@field savedSystemInfo DebuffFrame_savedSystemInfoObject
+---@field settingDisplayInfoMap DebuffFrame_settingDisplayInfoMapObject
+---@field settingMap table
+---@field settingsDialogAnchor DebuffFrame_settingsDialogAnchorObject
+---@field snappedFrames table
+---@field system number
+---@field systemIndex number
+---@field systemInfo DebuffFrame_systemInfoObject
+---@field systemNameString string
+---@field unit string
+local DebuffFrameObject = {}
+---@return any ...
+function DebuffFrameObject:AddExtraButtons(...) end
+---@return any ...
+function DebuffFrameObject:AddSnappedFrame(...) end
+---@return any ...
+function DebuffFrameObject:AnchorSelectionFrame(...) end
+---@return any ...
+function DebuffFrameObject:AnySettingsDirty(...) end
+---@return any ...
+function DebuffFrameObject:ApplySystemAnchor(...) end
+---@return any ...
+function DebuffFrameObject:AreAllSystemSettingsDefault(...) end
+---@return any ...
+function DebuffFrameObject:AuraFrameEventListener_OnEvent(...) end
+---@return any ...
+function DebuffFrameObject:AuraFrameEventListener_OnLoad(...) end
+---@return any ...
+function DebuffFrameObject:AuraFrame_OnLoad(...) end
+---@return any ...
+function DebuffFrameObject:BreakFrameSnap(...) end
+---@return any ...
+function DebuffFrameObject:BreakFromFrameManager(...) end
+---@return any ...
+function DebuffFrameObject:BreakSnappedFrames(...) end
+---@return any ...
+function DebuffFrameObject:CanBeMoved(...) end
+---@return any ...
+function DebuffFrameObject:ClearAllPointsBase(...) end
+---@return any ...
+function DebuffFrameObject:ClearAllPointsOverride(...) end
+---@return any ...
+function DebuffFrameObject:ClearDirtySetting(...) end
+---@return any ...
+function DebuffFrameObject:ClearDownKeys(...) end
+---@return any ...
+function DebuffFrameObject:ClearFrameSnap(...) end
+---@return any ...
+function DebuffFrameObject:ClearGamepadFocus(...) end
+---@return any ...
+function DebuffFrameObject:ClearHighlight(...) end
+---@return any ...
+function DebuffFrameObject:ConvertSettingDisplayValueToRawValue(...) end
+---@return any ...
+function DebuffFrameObject:DoesSettingDisplayValueEqual(...) end
+---@return any ...
+function DebuffFrameObject:DoesSettingValueEqual(...) end
+---@return any ...
+function DebuffFrameObject:FocusGamepad(...) end
+---@return any ...
+function DebuffFrameObject:GetBottomOffset(...) end
+---@return any ...
+function DebuffFrameObject:GetCombinedCenterOffset(...) end
+---@return any ...
+function DebuffFrameObject:GetCombinedSelectionOffset(...) end
+---@return any ...
+function DebuffFrameObject:GetCompositeNumberSettingValue(...) end
+---@return any ...
+function DebuffFrameObject:GetFrameMagneticEligibility(...) end
+---@return any ...
+function DebuffFrameObject:GetIconLimitSettingEnum(...) end
+---@return any ...
+function DebuffFrameObject:GetLastActiveAuraFrame(...) end
+---@return any ...
+function DebuffFrameObject:GetLeftOffset(...) end
+---@return any ...
+function DebuffFrameObject:GetManagedFrameContainer(...) end
+---@return any ...
+function DebuffFrameObject:GetRightOffset(...) end
+---@return any ...
+function DebuffFrameObject:GetScaledCenter(...) end
+---@return any ...
+function DebuffFrameObject:GetScaledSelectionCenter(...) end
+---@return any ...
+function DebuffFrameObject:GetScaledSelectionSides(...) end
+---@return any ...
+function DebuffFrameObject:GetSelectionOffset(...) end
+---@return any ...
+function DebuffFrameObject:GetSettingValue(...) end
+---@return any ...
+function DebuffFrameObject:GetSettingValueBool(...) end
+---@return any ...
+function DebuffFrameObject:GetSettingsDialogAnchor(...) end
+---@return any ...
+function DebuffFrameObject:GetSnapOffsets(...) end
+---@return any ...
+function DebuffFrameObject:GetSystemName(...) end
+---@return any ...
+function DebuffFrameObject:GetTopOffset(...) end
+---@return any ...
+function DebuffFrameObject:HasActiveAura(...) end
+---@return any ...
+function DebuffFrameObject:HasActiveChanges(...) end
+---@return any ...
+function DebuffFrameObject:HasCompositeNumberSetting(...) end
+---@return any ...
+function DebuffFrameObject:HasSetting(...) end
+---@return any ...
+function DebuffFrameObject:HasValidSelectionRect(...) end
+---@return any ...
+function DebuffFrameObject:HideBase(...) end
+---@return any ...
+function DebuffFrameObject:HideOverride(...) end
+---@return any ...
+function DebuffFrameObject:HighlightSystem(...) end
+---@return any ...
+function DebuffFrameObject:IsAboveFrame(...) end
+---@return any ...
+function DebuffFrameObject:IsBelowFrame(...) end
+---@return any ...
+function DebuffFrameObject:IsEditModeDragging(...) end
+---@return any ...
+function DebuffFrameObject:IsEditing(...) end
+---@return any ...
+function DebuffFrameObject:IsExpanded(...) end
+---@return any ...
+function DebuffFrameObject:IsFrameAnchoredToMe(...) end
+---@return any ...
+function DebuffFrameObject:IsHorizontallyAlignedWithFrame(...) end
+---@return any ...
+function DebuffFrameObject:IsInDefaultPosition(...) end
+---@return any ...
+function DebuffFrameObject:IsInitialized(...) end
+---@return any ...
+function DebuffFrameObject:IsSettingDirty(...) end
+---@return any ...
+function DebuffFrameObject:IsShiftKeyDown(...) end
+---@return any ...
+function DebuffFrameObject:IsSystemSettingDefault(...) end
+---@return any ...
+function DebuffFrameObject:IsToTheLeftOfFrame(...) end
+---@return any ...
+function DebuffFrameObject:IsToTheRightOfFrame(...) end
+---@return any ...
+function DebuffFrameObject:IsVerticallyAlignedWithFrame(...) end
+---@return any ...
+function DebuffFrameObject:MarkAllSettingsDirty(...) end
+---@return any ...
+function DebuffFrameObject:OnAnyEditModeSystemAnchorChanged(...) end
+---@return any ...
+function DebuffFrameObject:OnDragStart(...) end
+---@return any ...
+function DebuffFrameObject:OnDragStop(...) end
+---@return any ...
+function DebuffFrameObject:OnEditModeEnter(...) end
+---@return any ...
+function DebuffFrameObject:OnEditModeExit(...) end
+---@return any ...
+function DebuffFrameObject:OnKeyDown(...) end
+---@return any ...
+function DebuffFrameObject:OnKeyUp(...) end
+---@return any ...
+function DebuffFrameObject:OnLoad(...) end
+---@return any ...
+function DebuffFrameObject:OnSystemHide(...) end
+---@return any ...
+function DebuffFrameObject:OnSystemLoad(...) end
+---@return any ...
+function DebuffFrameObject:OnSystemPositionChange(...) end
+---@return any ...
+function DebuffFrameObject:OnUpdateSystem(...) end
+---@return any ...
+function DebuffFrameObject:PrepareForSave(...) end
+---@return any ...
+function DebuffFrameObject:ProcessMovementKey(...) end
+---@return any ...
+function DebuffFrameObject:RegisterForTransitions(...) end
+---@return any ...
+function DebuffFrameObject:RemoveSnappedFrame(...) end
+---@return any ...
+function DebuffFrameObject:ResetToDefaultPosition(...) end
+---@return any ...
+function DebuffFrameObject:SelectSystem(...) end
+---@return any ...
+function DebuffFrameObject:SetGamepadFocus(...) end
+---@return any ...
+function DebuffFrameObject:SetHasActiveChanges(...) end
+---@return any ...
+function DebuffFrameObject:SetIsEditing(...) end
+---@return any ...
+function DebuffFrameObject:SetPointBase(...) end
+---@return any ...
+function DebuffFrameObject:SetPointOverride(...) end
+---@return any ...
+function DebuffFrameObject:SetScaleBase(...) end
+---@return any ...
+function DebuffFrameObject:SetScaleOverride(...) end
+---@return any ...
+function DebuffFrameObject:SetSelectionShown(...) end
+---@return any ...
+function DebuffFrameObject:SetShownBase(...) end
+---@return any ...
+function DebuffFrameObject:SetShownOverride(...) end
+---@return any ...
+function DebuffFrameObject:SetSnappedToFrame(...) end
+---@return any ...
+function DebuffFrameObject:SetupGamepad(...) end
+---@return any ...
+function DebuffFrameObject:SetupSettingsDialogAnchor(...) end
+---@return any ...
+function DebuffFrameObject:SetupVisibilityFunctionOverrides(...) end
+---@return any ...
+function DebuffFrameObject:ShouldBeShown(...) end
+---@return any ...
+function DebuffFrameObject:ShouldBreakSnappedFramesOnHide(...) end
+---@return any ...
+function DebuffFrameObject:ShouldResetSettingsDialogAnchors(...) end
+---@return any ...
+function DebuffFrameObject:ShouldShowAura(...) end
+---@return any ...
+function DebuffFrameObject:ShouldShowSetting(...) end
+---@return any ...
+function DebuffFrameObject:ShowEditInstructions(...) end
+---@return any ...
+function DebuffFrameObject:SmartNavigationCloseHandler(...) end
+---@return any ...
+function DebuffFrameObject:SnapToFrame(...) end
+---@return any ...
+function DebuffFrameObject:TryEditModeUpdateAuraButtons(...) end
+---@return any ...
+function DebuffFrameObject:TrySetCompositeNumberSettingValue(...) end
+---@return any ...
+function DebuffFrameObject:UnfocusGamepad(...) end
+---@return any ...
+function DebuffFrameObject:Update(...) end
+---@return any ...
+function DebuffFrameObject:UpdateAuraButtons(...) end
+---@return any ...
+function DebuffFrameObject:UpdateAuraContainerAnchor(...) end
+---@return any ...
+function DebuffFrameObject:UpdateAuras(...) end
+---@return any ...
+function DebuffFrameObject:UpdateClampOffsets(...) end
+---@return any ...
+function DebuffFrameObject:UpdateDeadlyDebuffs(...) end
+---@return any ...
+function DebuffFrameObject:UpdateDirtySettings(...) end
+---@return any ...
+function DebuffFrameObject:UpdateDisplayInfoOptions(...) end
+---@return any ...
+function DebuffFrameObject:UpdateGridLayout(...) end
+---@return any ...
+function DebuffFrameObject:UpdateMagnetismRegistration(...) end
+---@return any ...
+function DebuffFrameObject:UpdatePrivateAuraAnchors(...) end
+---@return any ...
+function DebuffFrameObject:UpdateSettingMap(...) end
+---@return any ...
+function DebuffFrameObject:UpdateShownState(...) end
+---@return any ...
+function DebuffFrameObject:UpdateSize(...) end
+---@return any ...
+function DebuffFrameObject:UpdateSystem(...) end
+---@return any ...
+function DebuffFrameObject:UpdateSystemSetting(...) end
+---@return any ...
+function DebuffFrameObject:UpdateSystemSettingIconDirection(...) end
+---@return any ...
+function DebuffFrameObject:UpdateSystemSettingIconLimit(...) end
+---@return any ...
+function DebuffFrameObject:UpdateSystemSettingIconPadding(...) end
+---@return any ...
+function DebuffFrameObject:UpdateSystemSettingIconSize(...) end
+---@return any ...
+function DebuffFrameObject:UpdateSystemSettingIconWrap(...) end
+---@return any ...
+function DebuffFrameObject:UpdateSystemSettingOpacity(...) end
+---@return any ...
+function DebuffFrameObject:UpdateSystemSettingOrientation(...) end
+---@return any ...
+function DebuffFrameObject:UpdateSystemSettingShowDispelType(...) end
+---@return any ...
+function DebuffFrameObject:UpdateSystemSettingValue(...) end
+---@return any ...
+function DebuffFrameObject:UpdateSystemSettingVisibleSetting(...) end
+---@return any ...
+function DebuffFrameObject:UseSettingAltName(...) end
+---@type DebuffFrameObject
+DebuffFrame = DebuffFrameObject
+end
+
+do
+---@class DebuffFrame_AuraContainerObject : Frame
+---@field WarningFader DebuffFrame_AuraContainer_WarningFaderObject
+---@field addIconsToRight boolean
+---@field addIconsToTop boolean
+---@field auraWarningFlashPeriod number
+---@field auraWarningMaxAlpha number
+---@field auraWarningMinAlpha number
+---@field currentGridLayoutInfo DebuffFrame_AuraContainer_currentGridLayoutInfoObject
+---@field iconPadding number
+---@field iconScale number
+---@field iconStride number
+---@field isHorizontal boolean
+---@field showDispelType boolean
+local DebuffFrame_AuraContainerObject = {}
+---@return any ...
+function DebuffFrame_AuraContainerObject:GetAuraWarningAlphaForDuration(...) end
+---@return any ...
+function DebuffFrame_AuraContainerObject:OnLoad(...) end
+---@return any ...
+function DebuffFrame_AuraContainerObject:UpdateGridLayout(...) end
+end
+
+do
+---@class DebuffFrame_AuraContainer_WarningFaderObject : AnimationGroup
+---@field Animation DebuffFrame_AuraContainer_WarningFader_AnimationObject
+---@field maxAlpha number
+---@field minAlpha number
+---@field period number
+local DebuffFrame_AuraContainer_WarningFaderObject = {}
+---@return any ...
+function DebuffFrame_AuraContainer_WarningFaderObject:GetSmoothAlpha(...) end
+---@return any ...
+function DebuffFrame_AuraContainer_WarningFaderObject:Init(...) end
+end
+
+do
+---@class DebuffFrame_AuraContainer_WarningFader_AnimationObject : Animation
+local DebuffFrame_AuraContainer_WarningFader_AnimationObject = {}
+end
+
+do
+---@class DebuffFrame_AuraContainer_currentGridLayoutInfoObject
+---@field addIconsToRight boolean
+---@field addIconsToTop boolean
+---@field anchor table
+---@field iconPadding number
+---@field iconStride number
+---@field isHorizontal boolean
+---@field layout table
+local DebuffFrame_AuraContainer_currentGridLayoutInfoObject = {}
+end
+
+do
+---@class DebuffFrame_SelectionObject : Frame
+---@field Label DebuffFrame_Selection_LabelObject
+---@field MouseOverHighlight DebuffFrame_Selection_MouseOverHighlightObject
+---@field highlightTextureKit string
+---@field ignoreInLayout boolean
+---@field parent DebuffFrame_Selection_parentObject
+---@field selectedTextureKit string
+---@field system DebuffFrame_Selection_systemObject
+local DebuffFrame_SelectionObject = {}
+---@return any ...
+function DebuffFrame_SelectionObject:CheckShowInstructionalTooltip(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:GetBorderColor(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:GetCenterColor(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:GetFrameLayoutType(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:GetLabelText(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:HideInstructionalTooltip(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:IsSelected(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:IsShowingEditInstructions(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:OnDragStart(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:OnDragStop(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:OnEnter(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:OnLeave(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:OnLoad(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:OnMouseDown(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:SetBlendMode(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:SetBorderBlendMode(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:SetBorderColor(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:SetCenterColor(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:SetSystem(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:SetVertexColor(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:ShouldShowLabelText(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:ShowEditInstructions(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:ShowHighlighted(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:ShowSelected(...) end
+---@return any ...
+function DebuffFrame_SelectionObject:UpdateLabelVisibility(...) end
+end
+
+do
+---@class DebuffFrame_Selection_LabelObject : FontString
+---@field fontObjectsToTry table
+local DebuffFrame_Selection_LabelObject = {}
+---@return any ...
+function DebuffFrame_Selection_LabelObject:ApplyFontObjects(...) end
+---@return any ...
+function DebuffFrame_Selection_LabelObject:SetFontObjectsToTry(...) end
+end
+
+do
+---@class DebuffFrame_Selection_MouseOverHighlightObject : Frame
+---@field BottomEdge DebuffFrame_Selection_MouseOverHighlight_BottomEdgeObject
+---@field BottomLeftCorner DebuffFrame_Selection_MouseOverHighlight_BottomLeftCornerObject
+---@field BottomRightCorner DebuffFrame_Selection_MouseOverHighlight_BottomRightCornerObject
+---@field Center DebuffFrame_Selection_MouseOverHighlight_CenterObject
+---@field LeftEdge DebuffFrame_Selection_MouseOverHighlight_LeftEdgeObject
+---@field RightEdge DebuffFrame_Selection_MouseOverHighlight_RightEdgeObject
+---@field TopEdge DebuffFrame_Selection_MouseOverHighlight_TopEdgeObject
+---@field TopLeftCorner DebuffFrame_Selection_MouseOverHighlight_TopLeftCornerObject
+---@field TopRightCorner DebuffFrame_Selection_MouseOverHighlight_TopRightCornerObject
+local DebuffFrame_Selection_MouseOverHighlightObject = {}
+---@return any ...
+function DebuffFrame_Selection_MouseOverHighlightObject:GetBorderColor(...) end
+---@return any ...
+function DebuffFrame_Selection_MouseOverHighlightObject:GetCenterColor(...) end
+---@return any ...
+function DebuffFrame_Selection_MouseOverHighlightObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function DebuffFrame_Selection_MouseOverHighlightObject:GetFrameLayoutType(...) end
+---@return any ...
+function DebuffFrame_Selection_MouseOverHighlightObject:OnLoad(...) end
+---@return any ...
+function DebuffFrame_Selection_MouseOverHighlightObject:SetBlendMode(...) end
+---@return any ...
+function DebuffFrame_Selection_MouseOverHighlightObject:SetBorderBlendMode(...) end
+---@return any ...
+function DebuffFrame_Selection_MouseOverHighlightObject:SetBorderColor(...) end
+---@return any ...
+function DebuffFrame_Selection_MouseOverHighlightObject:SetCenterColor(...) end
+---@return any ...
+function DebuffFrame_Selection_MouseOverHighlightObject:SetVertexColor(...) end
+end
+
+do
+---@class DebuffFrame_Selection_MouseOverHighlight_BottomEdgeObject : Texture
+local DebuffFrame_Selection_MouseOverHighlight_BottomEdgeObject = {}
+end
+
+do
+---@class DebuffFrame_Selection_MouseOverHighlight_BottomLeftCornerObject : Texture
+local DebuffFrame_Selection_MouseOverHighlight_BottomLeftCornerObject = {}
+end
+
+do
+---@class DebuffFrame_Selection_MouseOverHighlight_BottomRightCornerObject : Texture
+local DebuffFrame_Selection_MouseOverHighlight_BottomRightCornerObject = {}
+end
+
+do
+---@class DebuffFrame_Selection_MouseOverHighlight_CenterObject : Texture
+local DebuffFrame_Selection_MouseOverHighlight_CenterObject = {}
+end
+
+do
+---@class DebuffFrame_Selection_MouseOverHighlight_LeftEdgeObject : Texture
+local DebuffFrame_Selection_MouseOverHighlight_LeftEdgeObject = {}
+end
+
+do
+---@class DebuffFrame_Selection_MouseOverHighlight_RightEdgeObject : Texture
+local DebuffFrame_Selection_MouseOverHighlight_RightEdgeObject = {}
+end
+
+do
+---@class DebuffFrame_Selection_MouseOverHighlight_TopEdgeObject : Texture
+local DebuffFrame_Selection_MouseOverHighlight_TopEdgeObject = {}
+end
+
+do
+---@class DebuffFrame_Selection_MouseOverHighlight_TopLeftCornerObject : Texture
+local DebuffFrame_Selection_MouseOverHighlight_TopLeftCornerObject = {}
+end
+
+do
+---@class DebuffFrame_Selection_MouseOverHighlight_TopRightCornerObject : Texture
+local DebuffFrame_Selection_MouseOverHighlight_TopRightCornerObject = {}
+end
+
+do
+---@class DebuffFrame_Selection_parentObject
+local DebuffFrame_Selection_parentObject = {}
+end
+
+do
+---@class DebuffFrame_Selection_systemObject
+local DebuffFrame_Selection_systemObject = {}
+end
+
+do
+---@class DebuffFrame_privateAuraAnchor1Object : Frame
+---@field Duration DebuffFrame_privateAuraAnchor1_DurationObject
+---@field Icon DebuffFrame_privateAuraAnchor1_IconObject
+---@field anchorID number
+---@field auraIndex number
+---@field isAuraAnchor boolean
+---@field unit string
+local DebuffFrame_privateAuraAnchor1Object = {}
+---@return any ...
+function DebuffFrame_privateAuraAnchor1Object:SetUnit(...) end
+end
+
+do
+---@class DebuffFrame_privateAuraAnchor1_DurationObject : Frame
+local DebuffFrame_privateAuraAnchor1_DurationObject = {}
+end
+
+do
+---@class DebuffFrame_privateAuraAnchor1_IconObject : Frame
+local DebuffFrame_privateAuraAnchor1_IconObject = {}
+end
+
+do
+---@class DebuffFrame_privateAuraAnchor2Object : Frame
+---@field Duration DebuffFrame_privateAuraAnchor2_DurationObject
+---@field Icon DebuffFrame_privateAuraAnchor2_IconObject
+---@field anchorID number
+---@field auraIndex number
+---@field isAuraAnchor boolean
+---@field unit string
+local DebuffFrame_privateAuraAnchor2Object = {}
+---@return any ...
+function DebuffFrame_privateAuraAnchor2Object:SetUnit(...) end
+end
+
+do
+---@class DebuffFrame_privateAuraAnchor2_DurationObject : Frame
+local DebuffFrame_privateAuraAnchor2_DurationObject = {}
+end
+
+do
+---@class DebuffFrame_privateAuraAnchor2_IconObject : Frame
+local DebuffFrame_privateAuraAnchor2_IconObject = {}
+end
+
+do
+---@class DebuffFrame_privateAuraAnchor3Object : Frame
+---@field Duration DebuffFrame_privateAuraAnchor3_DurationObject
+---@field Icon DebuffFrame_privateAuraAnchor3_IconObject
+---@field anchorID number
+---@field auraIndex number
+---@field isAuraAnchor boolean
+---@field unit string
+local DebuffFrame_privateAuraAnchor3Object = {}
+---@return any ...
+function DebuffFrame_privateAuraAnchor3Object:SetUnit(...) end
+end
+
+do
+---@class DebuffFrame_privateAuraAnchor3_DurationObject : Frame
+local DebuffFrame_privateAuraAnchor3_DurationObject = {}
+end
+
+do
+---@class DebuffFrame_privateAuraAnchor3_IconObject : Frame
+local DebuffFrame_privateAuraAnchor3_IconObject = {}
+end
+
+do
+---@class DebuffFrame_privateAuraAnchor4Object : Frame
+---@field Duration DebuffFrame_privateAuraAnchor4_DurationObject
+---@field Icon DebuffFrame_privateAuraAnchor4_IconObject
+---@field anchorID number
+---@field auraIndex number
+---@field isAuraAnchor boolean
+---@field unit string
+local DebuffFrame_privateAuraAnchor4Object = {}
+---@return any ...
+function DebuffFrame_privateAuraAnchor4Object:SetUnit(...) end
+end
+
+do
+---@class DebuffFrame_privateAuraAnchor4_DurationObject : Frame
+local DebuffFrame_privateAuraAnchor4_DurationObject = {}
+end
+
+do
+---@class DebuffFrame_privateAuraAnchor4_IconObject : Frame
+local DebuffFrame_privateAuraAnchor4_IconObject = {}
+end
+
+do
+---@class DebuffFrame_privateAuraAnchor5Object : Frame
+---@field Duration DebuffFrame_privateAuraAnchor5_DurationObject
+---@field Icon DebuffFrame_privateAuraAnchor5_IconObject
+---@field anchorID number
+---@field auraIndex number
+---@field isAuraAnchor boolean
+---@field unit string
+local DebuffFrame_privateAuraAnchor5Object = {}
+---@return any ...
+function DebuffFrame_privateAuraAnchor5Object:SetUnit(...) end
+end
+
+do
+---@class DebuffFrame_privateAuraAnchor5_DurationObject : Frame
+local DebuffFrame_privateAuraAnchor5_DurationObject = {}
+end
+
+do
+---@class DebuffFrame_privateAuraAnchor5_IconObject : Frame
+local DebuffFrame_privateAuraAnchor5_IconObject = {}
+end
+
+do
+---@class DebuffFrame_privateAuraAnchor6Object : Frame
+---@field Duration DebuffFrame_privateAuraAnchor6_DurationObject
+---@field Icon DebuffFrame_privateAuraAnchor6_IconObject
+---@field anchorID number
+---@field auraIndex number
+---@field isAuraAnchor boolean
+---@field unit string
+local DebuffFrame_privateAuraAnchor6Object = {}
+---@return any ...
+function DebuffFrame_privateAuraAnchor6Object:SetUnit(...) end
+end
+
+do
+---@class DebuffFrame_privateAuraAnchor6_DurationObject : Frame
+local DebuffFrame_privateAuraAnchor6_DurationObject = {}
+end
+
+do
+---@class DebuffFrame_privateAuraAnchor6_IconObject : Frame
+local DebuffFrame_privateAuraAnchor6_IconObject = {}
+end
+
+do
+---@class DebuffFrame_savedSystemInfoObject
+---@field anchorInfo table
+---@field isInDefaultPosition boolean
+---@field settings table
+---@field system number
+---@field systemIndex number
+local DebuffFrame_savedSystemInfoObject = {}
+end
+
+do
+---@class DebuffFrame_settingDisplayInfoMapObject
+local DebuffFrame_settingDisplayInfoMapObject = {}
+end
+
+do
+---@class DebuffFrame_settingsDialogAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo DebuffFrame_settingsDialogAnchor_relativeToObject
+---@field x number
+---@field y number
+local DebuffFrame_settingsDialogAnchorObject = {}
+---@return any ...
+function DebuffFrame_settingsDialogAnchorObject:Get(...) end
+---@return any ...
+function DebuffFrame_settingsDialogAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function DebuffFrame_settingsDialogAnchorObject:Init(...) end
+---@return any ...
+function DebuffFrame_settingsDialogAnchorObject:Set(...) end
+---@return any ...
+function DebuffFrame_settingsDialogAnchorObject:SetFromPoint(...) end
+---@return any ...
+function DebuffFrame_settingsDialogAnchorObject:SetOffsets(...) end
+---@return any ...
+function DebuffFrame_settingsDialogAnchorObject:SetPoint(...) end
+---@return any ...
+function DebuffFrame_settingsDialogAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function DebuffFrame_settingsDialogAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class DebuffFrame_settingsDialogAnchor_relativeToObject
+local DebuffFrame_settingsDialogAnchor_relativeToObject = {}
+end
+
+do
+---@class DebuffFrame_systemInfoObject
+---@field anchorInfo table
+---@field isInDefaultPosition boolean
+---@field settings table
+---@field system number
+---@field systemIndex number
+local DebuffFrame_systemInfoObject = {}
+end
+
+do
+---@class DeclensionFrameObject : Frame
+---@field BottomEdge DeclensionFrame_BottomEdgeObject
+---@field BottomLeftCorner DeclensionFrame_BottomLeftCornerObject
+---@field BottomRightCorner DeclensionFrame_BottomRightCornerObject
+---@field Center DeclensionFrame_CenterObject
+---@field LeftEdge DeclensionFrame_LeftEdgeObject
+---@field RightEdge DeclensionFrame_RightEdgeObject
+---@field TopEdge DeclensionFrame_TopEdgeObject
+---@field TopLeftCorner DeclensionFrame_TopLeftCornerObject
+---@field TopRightCorner DeclensionFrame_TopRightCornerObject
+---@field backdropInfo DeclensionFrame_backdropInfoObject
+---@field set number
+local DeclensionFrameObject = {}
+---@return any ...
+function DeclensionFrameObject:ApplyBackdrop(...) end
+---@return any ...
+function DeclensionFrameObject:ClearBackdrop(...) end
+---@return any ...
+function DeclensionFrameObject:GetBackdrop(...) end
+---@return any ...
+function DeclensionFrameObject:GetBackdropBorderColor(...) end
+---@return any ...
+function DeclensionFrameObject:GetBackdropColor(...) end
+---@return any ...
+function DeclensionFrameObject:GetEdgeSize(...) end
+---@return any ...
+function DeclensionFrameObject:HasBackdropInfo(...) end
+---@return any ...
+function DeclensionFrameObject:OnBackdropLoaded(...) end
+---@return any ...
+function DeclensionFrameObject:OnBackdropSizeChanged(...) end
+---@return any ...
+function DeclensionFrameObject:SetBackdrop(...) end
+---@return any ...
+function DeclensionFrameObject:SetBackdropBorderColor(...) end
+---@return any ...
+function DeclensionFrameObject:SetBackdropColor(...) end
+---@return any ...
+function DeclensionFrameObject:SetBorderBlendMode(...) end
+---@return any ...
+function DeclensionFrameObject:SetupPieceVisuals(...) end
+---@return any ...
+function DeclensionFrameObject:SetupTextureCoordinates(...) end
+---@type DeclensionFrameObject
+DeclensionFrame = DeclensionFrameObject
+end
+
+do
+---@class DeclensionFrame_BottomEdgeObject : Texture
+local DeclensionFrame_BottomEdgeObject = {}
+end
+
+do
+---@class DeclensionFrame_BottomLeftCornerObject : Texture
+local DeclensionFrame_BottomLeftCornerObject = {}
+end
+
+do
+---@class DeclensionFrame_BottomRightCornerObject : Texture
+local DeclensionFrame_BottomRightCornerObject = {}
+end
+
+do
+---@class DeclensionFrame_CenterObject : Texture
+local DeclensionFrame_CenterObject = {}
+end
+
+do
+---@class DeclensionFrame_LeftEdgeObject : Texture
+local DeclensionFrame_LeftEdgeObject = {}
+end
+
+do
+---@class DeclensionFrame_RightEdgeObject : Texture
+local DeclensionFrame_RightEdgeObject = {}
+end
+
+do
+---@class DeclensionFrame_TopEdgeObject : Texture
+local DeclensionFrame_TopEdgeObject = {}
+end
+
+do
+---@class DeclensionFrame_TopLeftCornerObject : Texture
+local DeclensionFrame_TopLeftCornerObject = {}
+end
+
+do
+---@class DeclensionFrame_TopRightCornerObject : Texture
+local DeclensionFrame_TopRightCornerObject = {}
+end
+
+do
+---@class DeclensionFrame_backdropInfoObject
+---@field bgFile string
+---@field edgeFile string
+---@field edgeSize number
+---@field insets table
+---@field tile boolean
+---@field tileEdge boolean
+---@field tileSize number
+local DeclensionFrame_backdropInfoObject = {}
+end
+
+do
+---@class DelvesCompanionAbilityListFrameObject : Frame
+---@field AnimationHolder DelvesCompanionAbilityListFrame_AnimationHolderObject
+---@field BackgroundFlash DelvesCompanionAbilityListFrame_BackgroundFlashObject
+---@field Bg DelvesCompanionAbilityListFrame_BgObject
+---@field ButtonsParent DelvesCompanionAbilityListFrame_ButtonsParentObject
+---@field CloseButton DelvesCompanionAbilityListFrame_CloseButtonObject
+---@field CommitSpinner DelvesCompanionAbilityListFrame_CommitSpinnerObject
+---@field CommitUpdateReasons DelvesCompanionAbilityListFrame_CommitUpdateReasonsObject
+---@field CompanionAbilityListBackground DelvesCompanionAbilityListFrame_CompanionAbilityListBackgroundObject
+---@field DelvesCompanionAbilityListPagingControls DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject
+---@field DelvesCompanionRoleDropdown DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject
+---@field DisabledOverlay DelvesCompanionAbilityListFrame_DisabledOverlayObject
+---@field Event DelvesCompanionAbilityListFrame_EventObject
+---@field FocusJumpHint DelvesCompanionAbilityListFrame_FocusJumpHintObject
+---@field FrameGlow DelvesCompanionAbilityListFrame_FrameGlowObject
+---@field LeftJumpHint DelvesCompanionAbilityListFrame_LeftJumpHintObject
+---@field NineSlice DelvesCompanionAbilityListFrame_NineSliceObject
+---@field PortraitContainer DelvesCompanionAbilityListFrame_PortraitContainerObject
+---@field RightJumpHint DelvesCompanionAbilityListFrame_RightJumpHintObject
+---@field SelectionChoiceFrame DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject
+---@field TitleContainer DelvesCompanionAbilityListFrame_TitleContainerObject
+---@field TopTileStreaks DelvesCompanionAbilityListFrame_TopTileStreaksObject
+---@field VisualsUpdateReasons DelvesCompanionAbilityListFrame_VisualsUpdateReasonsObject
+---@field areBaseCommitVisualsActive boolean
+---@field basePanOffsetX number
+---@field basePanOffsetY number
+---@field bottomPadding number
+---@field buttonSize number
+---@field buttons DelvesCompanionAbilityListFrame_buttonsObject
+---@field buttonsWithDirtyEdges table
+---@field callbackTables table
+---@field condInfoCache table
+---@field deferredCallbacks table
+---@field definitionInfoCache table
+---@field dirtyCondIDSet table
+---@field dirtyDefinitionIDSet table
+---@field dirtyEntryIDSet table
+---@field dirtyNodeIDSet table
+---@field dirtySubTreeIDSet table
+---@field disabledOverlayAlpha number
+---@field edgePool DelvesCompanionAbilityListFrame_edgePoolObject
+---@field enableCommitCastBar boolean
+---@field enableCommitEndFlash boolean
+---@field enableCommitSpinner boolean
+---@field enableZoomAndPan boolean
+---@field entryInfoCache table
+---@field eventRegisteredNodes table
+---@field excludeStagedChangesForCurrencies boolean
+---@field executingEvents table
+---@field gatePool DelvesCompanionAbilityListFrame_gatePoolObject
+---@field layoutType string
+---@field leftPadding number
+---@field maximumCommitTime number
+---@field nodeIDToButton table
+---@field nodeInfoCache table
+---@field panOffsetX number
+---@field panOffsetY number
+---@field rightPadding number
+---@field subTreeInfoCache table
+---@field talentAnimationFramePoolCollection DelvesCompanionAbilityListFrame_talentAnimationFramePoolCollectionObject
+---@field talentButtonCollection DelvesCompanionAbilityListFrame_talentButtonCollectionObject
+---@field talentCardPool DelvesCompanionAbilityListFrame_talentCardPoolObject
+---@field talentDisplayFramePool DelvesCompanionAbilityListFrame_talentDisplayFramePoolObject
+---@field topPadding number
+---@field treeInfoDirty boolean
+local DelvesCompanionAbilityListFrameObject = {}
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:AcquireAnimation(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:AcquireEdge(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:AcquireTalentButton(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:AcquireTalentCard(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:AcquireTalentDisplayFrame(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:AddConditionsToTooltip(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:AddCostToTooltip(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:AddEdgeRequirementsToTooltip(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:AdjustPanOffset(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:AdjustZoomLevel(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:AnchorGate(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:AreSelectionsOpen(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:AttemptConfigOperation(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:AttemptConfigOperationWithErrorsSuppressed(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:CanAfford(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:CanCommitInstantly(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:CascadeRepurchaseRanks(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:CheckAndReportCommitOperation(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ClearButtons(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ClearCascadeRepurchaseHistory(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ClearInfoCaches(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ClearSuppressedSounds(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:CommitConfig(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:CommitConfigInternal(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:DeregisterNodeForUpdateInfoEvent(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:DisableZoomAndPan(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:EndFocus(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:EnumerateAllTalentButtons(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:EnumerateSubTreeInfoCache(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ForceCondInfoUpdate(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ForceDefinitionInfoUpdate(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ForceEntryInfoCacheUpdate(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ForceNodeInfoUpdate(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ForceSubTreeInfoUpdate(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GenerateCallbackEvents(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetAndCacheCondInfo(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetAndCacheDefinitionInfo(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetAndCacheEntryInfo(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetAndCacheNodeInfo(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetAndCacheSubTreeInfo(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetButtonAnimationStates(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetButtonSize(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetButtonsInDefaultOrder(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetButtonsInEdgeOrder(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetButtonsInOrder(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetCallbackTable(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetCallbackTables(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetCallbacksByEvent(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetComparisonFunction(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetConfigCommitErrorString(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetConfigID(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetCostStrings(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetFocusFrameGlow(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetFocusFrameRoot(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetFrameLevelForButton(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetFrameLevelForEdge(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetIncomingEdgeInfoForNode(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetIndexFromNodePosition(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetIndexFromTalentButtonPosition(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetInspectUnit(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetItemModifiedAppearanceIDs(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetMaximumCommitTime(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetNodeCost(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetPanExtents(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetPanOffset(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetPanViewCornerPosition(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetPanViewSize(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetPortrait(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetRootTalentButton(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetSpecializedSelectionChoiceMixin(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetSubTreeInfo(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetTalentButtonByNodeID(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetTalentTreeID(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetTemplateForTalentType(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetTitleText(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetTraitTreeName(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetTreeCurrencyDisplayText(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetTreeCurrencyInfo(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetTreeCurrencyTextByIndex(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetTreeInfo(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetTreeInfoOrLayoutDefaults(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetTreeNodes(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:GetZoomLevel(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:HasAnyPurchasedRanks(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:HasMassPurchase(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:HasPortraitTexture(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:HideFocusJumpHint(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:HideLeftJumpHint(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:HideRightJumpHint(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:HideSelections(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:InstantiateTalentButton(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:InvokeTalentButtonMethodByNodeID(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:IsCommitCastBarActive(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:IsCommitInProgress(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:IsCondInfoCacheDirty(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:IsDefinitionInfoCacheDirty(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:IsEdgePanningEnabled(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:IsEntryInfoCacheDirty(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:IsInspecting(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:IsLocked(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:IsMouseOverSelections(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:IsNodeInfoCacheDirty(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:IsPanning(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:IsSubTreeInfoCacheDirty(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:IsTreeDirty(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:LoadTalentTree(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:LoadTalentTreeInternal(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:LockInFocus(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:MarkCondInfoCacheDirty(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:MarkDefinitionInfoCacheDirty(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:MarkEdgesDirty(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:MarkEntryInfoCacheDirty(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:MarkNodeInfoCacheDirty(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:MarkSubTreeInfoCacheDirty(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:MarkTreeClean(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:MarkTreeDirty(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:MarkTreeInfoDirty(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:OnButtonNodeIDSet(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:OnButtonUpdateNodeInfo(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:OnCommitCastBarShow(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:OnDefinitionInfoUpdated(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:OnEvent(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:OnGateDisplayed(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:OnHide(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:OnLoad(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:OnMouseWheel(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:OnNodeInfoUpdated(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:OnShow(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:OnSubTreeInfoUpdated(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:OnTraitConfigUpdated(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:OnUpdate(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:PlayCommitConfigSound(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:PlayDeselectSoundForButton(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:PlayRollbackConfigSound(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:PlaySelectSoundForButton(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:PurchaseRank(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:Refresh(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:RefreshConditionsCache(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:RefreshFocus(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:RefreshGates(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:RefundAllRanks(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:RefundRank(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:RegisterCallback(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:RegisterNodeForUpdateInfoEvent(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:RegisterOnUpdate(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ReleaseAllTalentButtons(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ReleaseAndReinstantiateTalentButton(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ReleaseAndReinstantiateTalentButtonByID(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ReleaseAnimation(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ReleaseEdge(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ReleaseEdgesByCondition(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ReleaseTalentButton(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ReleaseTalentCard(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ReleaseTalentDisplayFrame(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ReportConfigCommitError(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:RollbackConfig(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SecureInsertEvent(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetBasePanOffset(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetBorder(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetCardTemplateCallback(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetCommitCastBarActive(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetCommitCompleteVisualsActive(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetCommitSpinnerShown(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetCommitStarted(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetCommitVisualsActive(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetConfigID(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetConfigIDBySystemID(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetDisabledOverlayShown(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetEdgePanningEnabled(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetElementFrameLevel(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetFrameLevelsFromBaseLevel(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetNodesFilter(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetPanOffset(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetPortraitAtlasRaw(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetPortraitShown(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetPortraitTexCoord(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetPortraitTextureRaw(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetPortraitTextureSizeAndOffset(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetPortraitToAsset(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetPortraitToBag(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetPortraitToClassIcon(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetPortraitToSpecIcon(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetPortraitToUnit(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetSelection(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetSuppressedSounds(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetSuppressingConfigOperationErrors(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetTalentTreeID(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetTitle(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetTitleColor(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetTitleFormatted(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetTitleMaxLinesAndHeight(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetTitleOffsets(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetTreeCurrencyDisplayTextCallback(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetZoomLevel(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:SetZoomLevelInternal(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ShouldAddEdgeRequirementsToTooltip(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ShouldButtonShowEdges(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ShouldDisplayGate(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ShouldHideSingleRankNumbers(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ShouldInstantiateInvisibleButtons(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ShouldInstantiateNode(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ShouldShowConfirmation(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ShowFocusJumpHint(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ShowLeftJumpHint(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ShowOrHideGlowOnChangesPending(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ShowRightJumpHint(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ShowSelections(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:StartFocus(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:TalentButtonCollectionReset(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:ToggleSelections(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:TriggerEvent(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:TryPlaySound(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:UnregisterCallback(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:UnregisterEvents(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:UpdateAllButtons(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:UpdateAllGatePositions(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:UpdateAllTalentButtonPositions(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:UpdateButtonFrameLevel(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:UpdateColorBlindModeUI(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:UpdateEdgeFrameLevel(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:UpdateEdgesForButton(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:UpdatePadding(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:UpdatePaginatedButtonDisplay(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:UpdateSelections(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:UpdateTalentButtonPosition(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:UpdateTreeCurrencyInfo(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:UpdateTreeInfo(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:getEdgeTemplateType(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:getSpecializedChoiceMixin(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:getSpecializedMixin(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrameObject:getTemplateType(...) end
+---@type DelvesCompanionAbilityListFrameObject
+DelvesCompanionAbilityListFrame = DelvesCompanionAbilityListFrameObject
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_AnimationHolderObject : Frame
+---@field BackgroundFlashAnim DelvesCompanionAbilityListFrame_AnimationHolder_BackgroundFlashAnimObject
+local DelvesCompanionAbilityListFrame_AnimationHolderObject = {}
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_AnimationHolder_BackgroundFlashAnimObject : AnimationGroup
+local DelvesCompanionAbilityListFrame_AnimationHolder_BackgroundFlashAnimObject = {}
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_BackgroundFlashObject : Texture
+local DelvesCompanionAbilityListFrame_BackgroundFlashObject = {}
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_BgObject : Texture
+local DelvesCompanionAbilityListFrame_BgObject = {}
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_ButtonsParentObject : Frame
+---@field smartNavigationIgnoredDontPropagate boolean
+local DelvesCompanionAbilityListFrame_ButtonsParentObject = {}
+---@return any ...
+function DelvesCompanionAbilityListFrame_ButtonsParentObject:IsEdgePanningEnabled(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_ButtonsParentObject:IsPanning(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_ButtonsParentObject:IsPanningMouseButtonDown(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_ButtonsParentObject:MarkPanningPosition(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_ButtonsParentObject:OnMouseDown(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_ButtonsParentObject:OnMouseWheel(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_ButtonsParentObject:OnUpdate(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_ButtonsParentObject:SetEdgePanningEnabled(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_ButtonsParentObject:StartPanning(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_ButtonsParentObject:StopPanning(...) end
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_CloseButtonObject : Button
+local DelvesCompanionAbilityListFrame_CloseButtonObject = {}
+---@return any ...
+function DelvesCompanionAbilityListFrame_CloseButtonObject:NarrationGetName(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_CloseButtonObject:OnLoad(...) end
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_CommitSpinnerObject : Frame
+---@field Anim DelvesCompanionAbilityListFrame_CommitSpinner_AnimObject
+---@field Ring DelvesCompanionAbilityListFrame_CommitSpinner_RingObject
+---@field Sparks DelvesCompanionAbilityListFrame_CommitSpinner_SparksObject
+local DelvesCompanionAbilityListFrame_CommitSpinnerObject = {}
+---@return any ...
+function DelvesCompanionAbilityListFrame_CommitSpinnerObject:GetShadowAlpha(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_CommitSpinnerObject:OnHide(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_CommitSpinnerObject:OnShow(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_CommitSpinnerObject:OnSizeChanged(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_CommitSpinnerObject:SetDesaturated(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_CommitSpinnerObject:SetShadowEnabled(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_CommitSpinnerObject:UpdateShadowSize(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_CommitSpinnerObject:UpdateTheme(...) end
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_CommitSpinner_AnimObject : AnimationGroup
+local DelvesCompanionAbilityListFrame_CommitSpinner_AnimObject = {}
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_CommitSpinner_RingObject : Texture
+local DelvesCompanionAbilityListFrame_CommitSpinner_RingObject = {}
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_CommitSpinner_SparksObject : Texture
+local DelvesCompanionAbilityListFrame_CommitSpinner_SparksObject = {}
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_CommitUpdateReasonsObject
+---@field CommitFailed number
+---@field CommitStarted number
+---@field CommitSucceeded number
+---@field InstantCommit number
+local DelvesCompanionAbilityListFrame_CommitUpdateReasonsObject = {}
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_CompanionAbilityListBackgroundObject : Texture
+local DelvesCompanionAbilityListFrame_CompanionAbilityListBackgroundObject = {}
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject : Frame
+---@field NextPageButton DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControls_NextPageButtonObject
+---@field PageText DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControls_PageTextObject
+---@field PrevPageButton DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControls_PrevPageButtonObject
+---@field currentPage number
+---@field currentPageOnlyText string
+---@field currentPageWithMaxText string
+---@field dirty boolean
+---@field displayMaxPages boolean
+---@field hideWhenSinglePage boolean
+---@field maxPages number
+---@field spacing number
+local DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject = {}
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:AddLayoutChildren(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:CalculateFrameSize(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:ClearFixedSize(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetAdditionalRegions(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetChildHeight(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetChildPadding(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetChildSize(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetChildWidth(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetCurrentPage(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetFixedHeight(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetFixedSize(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetFixedWidth(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetHeightPadding(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetLayoutChildren(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetMaxPages(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetPadding(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetPageDelta(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:GetWidthPadding(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:Init(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:IsDirty(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:IsLayoutFrame(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:Layout(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:LayoutChildren(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:MarkClean(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:MarkDirty(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:NextPage(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:OnCleaned(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:OnLoad(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:OnMouseWheel(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:OnPageButtonEnter(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:OnPageButtonLeave(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:OnShow(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:OnUpdate(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:PreviousPage(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:Refresh(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:SetButtonHoverCallbacks(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:SetCurrentPage(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:SetFixedHeight(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:SetFixedSize(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:SetFixedWidth(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:SetHeightPadding(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:SetMaxPages(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:SetOverridePagedContentFrame(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:SetWidthPadding(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:ShouldClearOnUpdateAfterClean(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControlsObject:UpdateControls(...) end
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControls_NextPageButtonObject : Button
+---@field layoutIndex number
+local DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControls_NextPageButtonObject = {}
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControls_PageTextObject : FontString
+---@field align string
+---@field layoutIndex number
+local DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControls_PageTextObject = {}
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControls_PrevPageButtonObject : Button
+---@field layoutIndex number
+local DelvesCompanionAbilityListFrame_DelvesCompanionAbilityListPagingControls_PrevPageButtonObject = {}
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject : Button
+---@field Arrow DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_ArrowObject
+---@field Background DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_BackgroundObject
+---@field Event DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_EventObject
+---@field Text DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+local DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject = {}
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:ClearMenuState(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:CloseMenu(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:CollectSelectionData(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:CreateRootDescription(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:Decrement(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:GenerateMenu(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:GetArrowAtlas(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:GetCallbackTable(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:GetCallbackTables(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:GetDefaultText(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:GetMenuDescription(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:GetSelectionData(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:GetUpdateText(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:HasElements(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:HasStickyFocus(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:Increment(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:IsDown(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:IsDownOver(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:IsMenuOpen(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:IsOver(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:NarrationGetContext(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:NarrationGetName(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnDisable(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnEnable(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnEnter(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnLeave(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnLoad(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnMenuChanged(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnMenuClosed(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnMenuOpened(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnMenuResponse(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnMouseDown(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnMouseUp(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OnShow(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OpenMenu(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:OverrideText(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:Pick(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:Refresh(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:RegisterCallback(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:RegisterMenu(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:Rotate(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:SetDefaultText(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:SetMenuOpen(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:SetSelectionText(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:SetTooltip(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:SetupMenu(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:ShowTooltip(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:SignalUpdate(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:TriggerEvent(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:UnregisterCallback(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:UnregisterEvents(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:Update(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:UpdateSelections(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:UpdateText(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdownObject:selectionTranslator(...) end
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_ArrowObject : Texture
+local DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_ArrowObject = {}
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_BackgroundObject : Texture
+local DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_BackgroundObject = {}
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_EventObject
+local DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_EventObject = {}
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_TextObject : FontString
+local DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_TextObject = {}
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject = {}
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchor_relativeToObject
+local DelvesCompanionAbilityListFrame_DelvesCompanionRoleDropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_DisabledOverlayObject : Frame
+---@field GrayOverlay DelvesCompanionAbilityListFrame_DisabledOverlay_GrayOverlayObject
+local DelvesCompanionAbilityListFrame_DisabledOverlayObject = {}
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_DisabledOverlay_GrayOverlayObject : Texture
+local DelvesCompanionAbilityListFrame_DisabledOverlay_GrayOverlayObject = {}
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_EventObject
+---@field ClosePvPTalentList string
+---@field CommitStatusChanged string
+---@field ConfigCommitted string
+---@field OpenPvPTalentList string
+---@field PvPTalentListClosed string
+---@field SelectTalentIDForSlot string
+---@field TalentButtonAcquired string
+---@field TalentButtonNodeUpdated string
+---@field TalentButtonReleased string
+---@field TreeCurrencyInfoUpdated string
+local DelvesCompanionAbilityListFrame_EventObject = {}
+end
+
+do
+---@class DelvesCompanionAbilityListFrame_FocusJumpHintObject : Frame
+---@field ActiveTexture DelvesCompanionAbilityListFrame_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture DelvesCompanionAbilityListFrame_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator DelvesCompanionAbilityListFrame_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG DelvesCompanionAbilityListFrame_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture DelvesCompanionAbilityListFrame_FocusJumpHint_HoverTextureObject
+---@field LoadBar DelvesCompanionAbilityListFrame_FocusJumpHint_LoadBarObject
+---@field LoadBarBG DelvesCompanionAbilityListFrame_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow DelvesCompanionAbilityListFrame_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture DelvesCompanionAbilityListFrame_FocusJumpHint_NormalTextureObject
+---@field PressedTexture DelvesCompanionAbilityListFrame_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip DelvesCompanionAbilityListFrame_FocusJumpHint_SpinnerTipObject
+---@field ignoreInLayout boolean
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
 ---@field textureState number
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject = {}
+local DelvesCompanionAbilityListFrame_FocusJumpHintObject = {}
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject:ApplyTextureLayout(...) end
+function DelvesCompanionAbilityListFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject:BeginHold(...) end
+function DelvesCompanionAbilityListFrame_FocusJumpHintObject:BeginHold(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject:CanEnterTextureState(...) end
+function DelvesCompanionAbilityListFrame_FocusJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject:DisableDropShadow(...) end
+function DelvesCompanionAbilityListFrame_FocusJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject:EnableDropShadow(...) end
+function DelvesCompanionAbilityListFrame_FocusJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject:EndHold(...) end
+function DelvesCompanionAbilityListFrame_FocusJumpHintObject:EndHold(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject:OnHoldAnimFinished(...) end
+function DelvesCompanionAbilityListFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject:OnHoldAnimStopped(...) end
+function DelvesCompanionAbilityListFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject:OnLoad(...) end
+function DelvesCompanionAbilityListFrame_FocusJumpHintObject:OnLoad(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject:RefreshIconTextures(...) end
+function DelvesCompanionAbilityListFrame_FocusJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject:SetDisabled(...) end
+function DelvesCompanionAbilityListFrame_FocusJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject:SetEnabled(...) end
+function DelvesCompanionAbilityListFrame_FocusJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject:SetFocused(...) end
+function DelvesCompanionAbilityListFrame_FocusJumpHintObject:SetFocused(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject:SetHoldState(...) end
+function DelvesCompanionAbilityListFrame_FocusJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject:SetInputKey(...) end
+function DelvesCompanionAbilityListFrame_FocusJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject:SetIsHoldAction(...) end
+function DelvesCompanionAbilityListFrame_FocusJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject:SetPressable(...) end
+function DelvesCompanionAbilityListFrame_FocusJumpHintObject:SetPressable(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject:SetTextureHeight(...) end
+function DelvesCompanionAbilityListFrame_FocusJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject:SetTextureState(...) end
+function DelvesCompanionAbilityListFrame_FocusJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject:SetTextureWidth(...) end
+function DelvesCompanionAbilityListFrame_FocusJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject:SetUsableState(...) end
+function DelvesCompanionAbilityListFrame_FocusJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject:ShouldUseAdjustedTextureBounds(...) end
+function DelvesCompanionAbilityListFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_ActiveTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_ActiveTextureObject = {}
+---@class DelvesCompanionAbilityListFrame_FocusJumpHint_ActiveTextureObject : Texture
+local DelvesCompanionAbilityListFrame_FocusJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_DisabledTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_DisabledTextureObject = {}
+---@class DelvesCompanionAbilityListFrame_FocusJumpHint_DisabledTextureObject : Texture
+local DelvesCompanionAbilityListFrame_FocusJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_HoldAnimObject : AnimationGroup
----@field LoadBarAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_HoldAnim_SpinnerTipAnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_HoldAnimObject = {}
+---@class DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnimObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_HoldAnim_LoadBarAnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_HoldAnim_LoadBarAnimObject = {}
+---@class DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_HoldAnim_LoadBarGlowAnimObject = {}
+---@class DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_HoldAnim_SpinnerTipAnimObject : Rotation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_HoldAnim_SpinnerTipAnimObject = {}
+---@class DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local DelvesCompanionAbilityListFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_HoldIndicatorObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_HoldIndicatorObject = {}
+---@class DelvesCompanionAbilityListFrame_FocusJumpHint_HoldIndicatorObject : Texture
+local DelvesCompanionAbilityListFrame_FocusJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_HoldIndicatorBGObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_HoldIndicatorBGObject = {}
+---@class DelvesCompanionAbilityListFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
+local DelvesCompanionAbilityListFrame_FocusJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_HoverTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_HoverTextureObject = {}
+---@class DelvesCompanionAbilityListFrame_FocusJumpHint_HoverTextureObject : Texture
+local DelvesCompanionAbilityListFrame_FocusJumpHint_HoverTextureObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_LoadBarObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_LoadBarObject = {}
+---@class DelvesCompanionAbilityListFrame_FocusJumpHint_LoadBarObject : Texture
+local DelvesCompanionAbilityListFrame_FocusJumpHint_LoadBarObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_LoadBarBGObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_LoadBarBGObject = {}
+---@class DelvesCompanionAbilityListFrame_FocusJumpHint_LoadBarBGObject : Texture
+local DelvesCompanionAbilityListFrame_FocusJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_LoadBarGlowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_LoadBarGlowObject = {}
+---@class DelvesCompanionAbilityListFrame_FocusJumpHint_LoadBarGlowObject : Texture
+local DelvesCompanionAbilityListFrame_FocusJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_NormalTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_NormalTextureObject = {}
+---@class DelvesCompanionAbilityListFrame_FocusJumpHint_NormalTextureObject : Texture
+local DelvesCompanionAbilityListFrame_FocusJumpHint_NormalTextureObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_PressedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_PressedTextureObject = {}
+---@class DelvesCompanionAbilityListFrame_FocusJumpHint_PressedTextureObject : Texture
+local DelvesCompanionAbilityListFrame_FocusJumpHint_PressedTextureObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_SpinnerTipObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIcon_SpinnerTipObject = {}
+---@class DelvesCompanionAbilityListFrame_FocusJumpHint_SpinnerTipObject : Texture
+local DelvesCompanionAbilityListFrame_FocusJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CheckedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CheckedTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CircleGlowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CircleGlowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CircleMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CircleMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CircleShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CircleShadowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CircleShadowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CircleShadowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CooldownFlashObject : Frame
----@field FlashAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CooldownFlash_FlashAnimObject
----@field Flipbook GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CooldownFlash_FlipbookObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CooldownFlashObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CooldownFlashObject:Setup(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CooldownFlash_FlashAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CooldownFlash_FlashAnimObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CooldownFlash_FlashAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CooldownFlash_FlipbookObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CooldownFlash_FlipbookObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CountObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CountObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_EditModeCircleFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_EditModeCircleFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_EditModeSquareFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_EditModeSquareFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_FlashObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_FlashObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_GameplayModeCircleFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_GameplayModeCircleFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_GameplayModeSquareFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_GameplayModeSquareFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_HighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_HighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_HotKeyObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_HotKeyObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_IconMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_IconMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplayObject : Frame
----@field Base GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_BaseObject
----@field Highlight GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_HighlightObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplayObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplayObject:OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplayObject:OnShow(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_BaseObject : Frame
----@field AnimIn GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_Base_AnimInObject
----@field Base GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_Base_BaseObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_BaseObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_Base_AnimInObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_Base_AnimInObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_Base_AnimInObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_Base_BaseObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_Base_BaseObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_HighlightObject : Frame
----@field AnimIn GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_Highlight_AnimInObject
----@field HighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_Highlight_HighlightTextureObject
----@field Mask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_Highlight_MaskObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_HighlightObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_Highlight_AnimInObject : AnimationGroup
----@field Translation GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_Highlight_AnimIn_TranslationObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_Highlight_AnimInObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_Highlight_AnimIn_TranslationObject : Translation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_Highlight_AnimIn_TranslationObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_Highlight_HighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_Highlight_HighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_Highlight_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplay_Highlight_MaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_LevelLinkLockIconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_LevelLinkLockIconObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_NameObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_NameObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_NewActionTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_NewActionTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_NormalTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_NormalTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_PermaboundOverlayObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_PermaboundOverlayObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_PushedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_PushedTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_QuickKeybindHighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_QuickKeybindHighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_RangeIndicatorObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_RangeIndicatorObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SlotArtObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SlotArtObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SlotBackgroundObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SlotBackgroundObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpecialActionIconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpecialActionIconObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrameObject : Frame
----@field EndBurst GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_EndBurstObject
----@field Fill GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_FillObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrameObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrameObject:FinishAnimAndPlayBurst(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrameObject:GetCooldownFrameAlpha(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrameObject:OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrameObject:Setup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrameObject:SetupAnimAtlases(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_EndBurstObject : Frame
----@field EndMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_EndBurst_EndMaskObject
----@field FinishCastAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_EndBurst_FinishCastAnimObject
----@field GlowRing GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_EndBurst_GlowRingObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_EndBurstObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_EndBurst_EndMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_EndBurst_EndMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_EndBurst_FinishCastAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_EndBurst_FinishCastAnimObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_EndBurst_FinishCastAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_EndBurst_GlowRingObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_EndBurst_GlowRingObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_FillObject : Frame
----@field CastFill GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_Fill_CastFillObject
----@field CastingAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_Fill_CastingAnimObject
----@field FillMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_Fill_FillMaskObject
----@field InnerGlowTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_Fill_InnerGlowTextureObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_FillObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_Fill_CastFillObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_Fill_CastFillObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_Fill_CastingAnimObject : AnimationGroup
----@field CastFillTranslation GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_Fill_CastingAnimObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_Fill_CastingAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject : Translation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_Fill_FillMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_Fill_FillMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_Fill_InnerGlowTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrame_Fill_InnerGlowTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellHighlightAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellHighlightAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellHighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellHighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SquareGlowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SquareGlowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SquareMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SquareMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SquareShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SquareShadowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SquareShadowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SquareShadowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TargetReticleAnimFrameObject : Frame
----@field Base GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TargetReticleAnimFrame_BaseObject
----@field Highlight GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TargetReticleAnimFrame_HighlightObject
----@field HighlightAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TargetReticleAnimFrame_HighlightAnimObject
----@field Mask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TargetReticleAnimFrame_MaskObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TargetReticleAnimFrameObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TargetReticleAnimFrameObject:Setup(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TargetReticleAnimFrame_BaseObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TargetReticleAnimFrame_BaseObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TargetReticleAnimFrame_HighlightObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TargetReticleAnimFrame_HighlightObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TargetReticleAnimFrame_HighlightAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TargetReticleAnimFrame_HighlightAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TargetReticleAnimFrame_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TargetReticleAnimFrame_MaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TextOverlayContainerObject : Frame
----@field Count GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TextOverlayContainer_CountObject
----@field HotKey GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TextOverlayContainer_HotKeyObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TextOverlayContainerObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TextOverlayContainerObject:OnLoad(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TextOverlayContainer_CountObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TextOverlayContainer_CountObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TextOverlayContainer_HotKeyObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TextOverlayContainer_HotKeyObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_chargeCooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_chargeCooldownObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_cooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_cooldownObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_iconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_iconObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_lossOfControlCooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_lossOfControlCooldownObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_parentActionBarObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_parentActionBarObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_LeftButtonFrameObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_LeftButtonFrameObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_RightObject : Frame
----@field ActionButton1 GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object
----@field ActionButton2 GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object
----@field ActionButton3 GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object
----@field ActionButton4 GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object
----@field EditModeFocusParticlesSingle GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_EditModeFocusParticlesSingleObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_RightObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object : CheckButton
----@field Arrow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ArrowObject
----@field AutoCastOverlay GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_AutoCastOverlayObject
----@field Border GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_BorderObject
----@field BorderShadow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_BorderShadowObject
----@field ButtonIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject
----@field CheckedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CheckedTextureObject
----@field CircleGlowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CircleGlowFocusObject
----@field CircleMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CircleMaskObject
----@field CircleShadow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CircleShadowObject
----@field CircleShadowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CircleShadowFocusObject
----@field CooldownFlash GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CooldownFlashObject
----@field Count GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CountObject
----@field EditModeCircleFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_EditModeCircleFocusStartAnimObject
----@field EditModeSquareFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_EditModeSquareFocusStartAnimObject
----@field Flash GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_FlashObject
----@field GameplayModeCircleFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_GameplayModeCircleFocusStartAnimObject
----@field GameplayModeSquareFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_GameplayModeSquareFocusStartAnimObject
----@field HighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_HighlightTextureObject
----@field HotKey GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_HotKeyObject
----@field IconMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_IconMaskObject
----@field InterruptDisplay GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplayObject
----@field LevelLinkLockIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_LevelLinkLockIconObject
----@field Name GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_NameObject
----@field NewActionTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_NewActionTextureObject
----@field NormalTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_NormalTextureObject
----@field PermaboundOverlay GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_PermaboundOverlayObject
----@field PushedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_PushedTextureObject
----@field QuickKeybindHighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_QuickKeybindHighlightTextureObject
----@field RangeIndicator GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_RangeIndicatorObject
----@field SlotArt GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SlotArtObject
----@field SlotBackground GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SlotBackgroundObject
----@field SpecialActionIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpecialActionIconObject
----@field SpellCastAnimFrame GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrameObject
----@field SpellHighlightAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellHighlightAnimObject
----@field SpellHighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellHighlightTextureObject
----@field SquareGlowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SquareGlowFocusObject
----@field SquareMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SquareMaskObject
----@field SquareShadow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SquareShadowObject
----@field SquareShadowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SquareShadowFocusObject
----@field TargetReticleAnimFrame GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TargetReticleAnimFrameObject
----@field TextOverlayContainer GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TextOverlayContainerObject
----@field action number
----@field activeButtonShape string
----@field arrowCrossAxisSize number
----@field arrowDownTexture string
----@field arrowMainAxisSize number
----@field arrowNormalTexture string
----@field arrowOverTexture string
----@field bindingAction string
----@field buttonIndexOnActionBar number
----@field chargeCooldown GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_chargeCooldownObject
----@field closedArrowOffset number
----@field collapsed boolean
----@field cooldown GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_cooldownObject
----@field enableLOCCooldown boolean
----@field enableSpellFX boolean
----@field feedback_action number
----@field flashing number
----@field flashtime number
----@field flyoutArrowAngleRads number
----@field hotkeyTextGamepadX number
----@field hotkeyTextGamepadY number
----@field hotkeyTextKeyboardX number
----@field hotkeyTextKeyboardY number
----@field icon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_iconObject
----@field isFlyoutAction boolean
----@field lossOfControlCooldown GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_lossOfControlCooldownObject
----@field openArrowOffset number
----@field parentActionBar GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_parentActionBarObject
----@field popupCrossAxisSize number
----@field popupDirection string
----@field popupOffset number
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnAttributeChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnDragStop(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnEvent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnPostClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnReceiveDrag(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnShow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ActionBarButtonMixin_OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ActionBarButtonMixin_OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ActionBarButtonMixin_OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ActionBarButtonMixin_OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ApplyExtraButtonStylesForState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ApplyGamepadAOETargetAnchorPoints(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ApplyGamepadInterruptAnchorPoints(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ApplyPressedStyle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:BaseActionButtonMixin_OnAttributeChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:BaseActionButtonMixin_OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:BaseActionButtonMixin_OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:BaseActionButtonMixin_OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:BaseActionButtonMixin_OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:CacheFlyoutSpellInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:CalculateAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:CheckNeedsUpdate(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ClearFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ClearInterruptDisplay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ClearPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ClearProfessionQuality(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ClearPushedStateAfterAOETargeting(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ClearReticle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ClearTypeOverlay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ClosePopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:Collapse(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:CreateTextureOverlayFrame(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:DesaturateIfDisabled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:DisableGameplayFeedback(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:DoModeChange(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:EnumFlyoutSlotInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:EvaluateState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:EvaluateTutorials(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:Expand(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:Flyout_OnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:GetActionBarParent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:GetActionButtonInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:GetActiveSpellID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:GetAllowRadialWheel(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:GetArrowRotation(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:GetGamepadPageUnitSlotID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:GetIsPingable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:GetOrCreateTypeOverlay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:GetPagedID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:GetPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:GetPopupDirection(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:GetShowGrid(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:GetSingleSpellID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:GetTargetInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:HandleFlyoutClickOverride(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:HasAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:HasPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:IsDown(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:IsDownOver(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:IsFlashing(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:IsOver(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:IsPopupOpen(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:MatchesActiveButtonSpellID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:OnActionBarSlotChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:OnAttributeChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:OnButtonStateChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:OnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:OnDisable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:OnEnable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:OnEvent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:OnFlyoutClosed(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:OnFlyoutOpened(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:OnMouseDown(...) end
+---@class DelvesCompanionAbilityListFrame_FrameGlowObject : Frame
+---@field GlowTexture DelvesCompanionAbilityListFrame_FrameGlow_GlowTextureObject
+---@field glowTextures table
+local DelvesCompanionAbilityListFrame_FrameGlowObject = {}
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:OnMouseUp(...) end
+function DelvesCompanionAbilityListFrame_FrameGlowObject:GetContainerFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:OnPopupHidden(...) end
+function DelvesCompanionAbilityListFrame_FrameGlowObject:GetFrameLayoutType(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:OnPopupToggled(...) end
+function DelvesCompanionAbilityListFrame_FrameGlowObject:GetHeaderFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:OnReceiveDrag(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:OnShow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:OnUpdate(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:PlaySpellCastAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:PlaySpellInterruptedAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:PlayTargettingReticleAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:QuickKeybindButtonOnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:QuickKeybindButtonOnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:QuickKeybindButtonOnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:QuickKeybindButtonOnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:QuickKeybindButtonOnMouseWheel(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:QuickKeybindButtonOnShow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:QuickKeybindButtonOnUpdate(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:QuickKeybindButtonSetTooltip(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:ReapplyStyle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:RefreshRange(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:RegisterActionBarButtonCheckFrames(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:SetActionBarParent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:SetArrowRotationRadians(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:SetButtonArt(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:SetButtonIndexOnActionBar(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:SetButtonStateBase(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:SetButtonStateOverride(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:SetCircleCastingTextures(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:SetDisplacedRegions(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:SetGamepadPageUnitSlotID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:SetPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:SetPopupDirection(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:SetShapeToCircle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:SetShapeToSquare(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:SetShowGrid(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:SetSquareCastingTextures(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:SetTooltip(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:SetupCastingAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:SpellFXEnabled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:StartFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:StopFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:StopSpellCastAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:StopTargettingReticleAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:TogglePopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:TriggerSecureClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UnregisterActionBarButtonCheckFrames(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:Update(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateArrowPosition(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateArrowRotation(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateArrowShown(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateArrowTexture(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateAssistedCombatRotationFrame(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateAutoCastAnchors(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateBorderShadow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateButtonArt(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateButtonArtAnchoring(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateCastingAnimSizeAndPositioning(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateCastingAnimation(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateCooldown(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateCount(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateEmptySlotBackgroundTexture(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateFlyout(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateFlyoutActionIcon(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateFlyoutActionInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateFlyoutPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateHighlightMark(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateHotkeys(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateInterruptHighlightAnimAnchors(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateMouseWheelHandler(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdatePageableGamepadButtonAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdatePingAttributes(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdatePressAndHoldAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateProfessionQuality(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateSpellAlert(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateSpellHighlightMark(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateTypeOverlay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateUsable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:UpdateWithStorageId(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1Object:castingAnimTextureSetupFunc(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ArrowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ArrowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_AutoCastOverlayObject : Frame
----@field Corners GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_AutoCastOverlay_CornersObject
----@field Mask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_AutoCastOverlay_MaskObject
----@field Shine GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_AutoCastOverlay_ShineObject
----@field autoCastEnabled boolean
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_AutoCastOverlayObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_AutoCastOverlayObject:OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_AutoCastOverlayObject:OnShow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_AutoCastOverlayObject:ShowAutoCastEnabled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_AutoCastOverlayObject:UpdateShineAnim(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_AutoCastOverlay_CornersObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_AutoCastOverlay_CornersObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_AutoCastOverlay_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_AutoCastOverlay_MaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_AutoCastOverlay_ShineObject : Texture
----@field Anim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_AutoCastOverlay_Shine_AnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_AutoCastOverlay_ShineObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_AutoCastOverlay_Shine_AnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_AutoCastOverlay_Shine_AnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_BorderObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_BorderObject = {}
+function DelvesCompanionAbilityListFrame_FrameGlowObject:OnLoad(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_BorderShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_BorderShadowObject = {}
+---@class DelvesCompanionAbilityListFrame_FrameGlow_GlowTextureObject : Texture
+local DelvesCompanionAbilityListFrame_FrameGlow_GlowTextureObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject : Frame
----@field ActiveTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_ActiveTextureObject
----@field DisabledTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_DisabledTextureObject
----@field HoldAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_HoldAnimObject
----@field HoldIndicator GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_HoldIndicatorObject
----@field HoldIndicatorBG GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_HoldIndicatorBGObject
----@field HoverTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_HoverTextureObject
----@field LoadBar GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_LoadBarObject
----@field LoadBarBG GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_LoadBarBGObject
----@field LoadBarGlow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_LoadBarGlowObject
----@field NormalTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_NormalTextureObject
----@field PressedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_PressedTextureObject
----@field SpinnerTip GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_SpinnerTipObject
+---@class DelvesCompanionAbilityListFrame_LeftJumpHintObject : Frame
+---@field ActiveTexture DelvesCompanionAbilityListFrame_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture DelvesCompanionAbilityListFrame_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator DelvesCompanionAbilityListFrame_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG DelvesCompanionAbilityListFrame_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture DelvesCompanionAbilityListFrame_LeftJumpHint_HoverTextureObject
+---@field LoadBar DelvesCompanionAbilityListFrame_LeftJumpHint_LoadBarObject
+---@field LoadBarBG DelvesCompanionAbilityListFrame_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow DelvesCompanionAbilityListFrame_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture DelvesCompanionAbilityListFrame_LeftJumpHint_NormalTextureObject
+---@field PressedTexture DelvesCompanionAbilityListFrame_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip DelvesCompanionAbilityListFrame_LeftJumpHint_SpinnerTipObject
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
 ---@field textureState number
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject = {}
+local DelvesCompanionAbilityListFrame_LeftJumpHintObject = {}
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject:ApplyTextureLayout(...) end
+function DelvesCompanionAbilityListFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject:BeginHold(...) end
+function DelvesCompanionAbilityListFrame_LeftJumpHintObject:BeginHold(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject:CanEnterTextureState(...) end
+function DelvesCompanionAbilityListFrame_LeftJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject:DisableDropShadow(...) end
+function DelvesCompanionAbilityListFrame_LeftJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject:EnableDropShadow(...) end
+function DelvesCompanionAbilityListFrame_LeftJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject:EndHold(...) end
+function DelvesCompanionAbilityListFrame_LeftJumpHintObject:EndHold(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject:OnHoldAnimFinished(...) end
+function DelvesCompanionAbilityListFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject:OnHoldAnimStopped(...) end
+function DelvesCompanionAbilityListFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject:OnLoad(...) end
+function DelvesCompanionAbilityListFrame_LeftJumpHintObject:OnLoad(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject:RefreshIconTextures(...) end
+function DelvesCompanionAbilityListFrame_LeftJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject:SetDisabled(...) end
+function DelvesCompanionAbilityListFrame_LeftJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject:SetEnabled(...) end
+function DelvesCompanionAbilityListFrame_LeftJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject:SetFocused(...) end
+function DelvesCompanionAbilityListFrame_LeftJumpHintObject:SetFocused(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject:SetHoldState(...) end
+function DelvesCompanionAbilityListFrame_LeftJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject:SetInputKey(...) end
+function DelvesCompanionAbilityListFrame_LeftJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject:SetIsHoldAction(...) end
+function DelvesCompanionAbilityListFrame_LeftJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject:SetPressable(...) end
+function DelvesCompanionAbilityListFrame_LeftJumpHintObject:SetPressable(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject:SetTextureHeight(...) end
+function DelvesCompanionAbilityListFrame_LeftJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject:SetTextureState(...) end
+function DelvesCompanionAbilityListFrame_LeftJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject:SetTextureWidth(...) end
+function DelvesCompanionAbilityListFrame_LeftJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject:SetUsableState(...) end
+function DelvesCompanionAbilityListFrame_LeftJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIconObject:ShouldUseAdjustedTextureBounds(...) end
+function DelvesCompanionAbilityListFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_ActiveTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_ActiveTextureObject = {}
+---@class DelvesCompanionAbilityListFrame_LeftJumpHint_ActiveTextureObject : Texture
+local DelvesCompanionAbilityListFrame_LeftJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_DisabledTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_DisabledTextureObject = {}
+---@class DelvesCompanionAbilityListFrame_LeftJumpHint_DisabledTextureObject : Texture
+local DelvesCompanionAbilityListFrame_LeftJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_HoldAnimObject : AnimationGroup
----@field LoadBarAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_HoldAnim_SpinnerTipAnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_HoldAnimObject = {}
+---@class DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnimObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_HoldAnim_LoadBarAnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_HoldAnim_LoadBarAnimObject = {}
+---@class DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_HoldAnim_LoadBarGlowAnimObject = {}
+---@class DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_HoldAnim_SpinnerTipAnimObject : Rotation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_HoldAnim_SpinnerTipAnimObject = {}
+---@class DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local DelvesCompanionAbilityListFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_HoldIndicatorObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_HoldIndicatorObject = {}
+---@class DelvesCompanionAbilityListFrame_LeftJumpHint_HoldIndicatorObject : Texture
+local DelvesCompanionAbilityListFrame_LeftJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_HoldIndicatorBGObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_HoldIndicatorBGObject = {}
+---@class DelvesCompanionAbilityListFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
+local DelvesCompanionAbilityListFrame_LeftJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_HoverTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_HoverTextureObject = {}
+---@class DelvesCompanionAbilityListFrame_LeftJumpHint_HoverTextureObject : Texture
+local DelvesCompanionAbilityListFrame_LeftJumpHint_HoverTextureObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_LoadBarObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_LoadBarObject = {}
+---@class DelvesCompanionAbilityListFrame_LeftJumpHint_LoadBarObject : Texture
+local DelvesCompanionAbilityListFrame_LeftJumpHint_LoadBarObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_LoadBarBGObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_LoadBarBGObject = {}
+---@class DelvesCompanionAbilityListFrame_LeftJumpHint_LoadBarBGObject : Texture
+local DelvesCompanionAbilityListFrame_LeftJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_LoadBarGlowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_LoadBarGlowObject = {}
+---@class DelvesCompanionAbilityListFrame_LeftJumpHint_LoadBarGlowObject : Texture
+local DelvesCompanionAbilityListFrame_LeftJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_NormalTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_NormalTextureObject = {}
+---@class DelvesCompanionAbilityListFrame_LeftJumpHint_NormalTextureObject : Texture
+local DelvesCompanionAbilityListFrame_LeftJumpHint_NormalTextureObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_PressedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_PressedTextureObject = {}
+---@class DelvesCompanionAbilityListFrame_LeftJumpHint_PressedTextureObject : Texture
+local DelvesCompanionAbilityListFrame_LeftJumpHint_PressedTextureObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_SpinnerTipObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_ButtonIcon_SpinnerTipObject = {}
+---@class DelvesCompanionAbilityListFrame_LeftJumpHint_SpinnerTipObject : Texture
+local DelvesCompanionAbilityListFrame_LeftJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CheckedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CheckedTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CircleGlowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CircleGlowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CircleMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CircleMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CircleShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CircleShadowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CircleShadowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CircleShadowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CooldownFlashObject : Frame
----@field FlashAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CooldownFlash_FlashAnimObject
----@field Flipbook GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CooldownFlash_FlipbookObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CooldownFlashObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CooldownFlashObject:Setup(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CooldownFlash_FlashAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CooldownFlash_FlashAnimObject = {}
+---@class DelvesCompanionAbilityListFrame_NineSliceObject : Frame
+---@field BottomEdge DelvesCompanionAbilityListFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner DelvesCompanionAbilityListFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner DelvesCompanionAbilityListFrame_NineSlice_BottomRightCornerObject
+---@field Center DelvesCompanionAbilityListFrame_NineSlice_CenterObject
+---@field LeftEdge DelvesCompanionAbilityListFrame_NineSlice_LeftEdgeObject
+---@field RightEdge DelvesCompanionAbilityListFrame_NineSlice_RightEdgeObject
+---@field TopEdge DelvesCompanionAbilityListFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner DelvesCompanionAbilityListFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner DelvesCompanionAbilityListFrame_NineSlice_TopRightCornerObject
+local DelvesCompanionAbilityListFrame_NineSliceObject = {}
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CooldownFlash_FlashAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CooldownFlash_FlipbookObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CooldownFlash_FlipbookObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CountObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_CountObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_EditModeCircleFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_EditModeCircleFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_EditModeSquareFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_EditModeSquareFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_FlashObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_FlashObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_GameplayModeCircleFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_GameplayModeCircleFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_GameplayModeSquareFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_GameplayModeSquareFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_HighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_HighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_HotKeyObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_HotKeyObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_IconMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_IconMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplayObject : Frame
----@field Base GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_BaseObject
----@field Highlight GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_HighlightObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplayObject = {}
+function DelvesCompanionAbilityListFrame_NineSliceObject:GetBorderColor(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplayObject:OnHide(...) end
+function DelvesCompanionAbilityListFrame_NineSliceObject:GetCenterColor(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplayObject:OnShow(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_BaseObject : Frame
----@field AnimIn GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_Base_AnimInObject
----@field Base GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_Base_BaseObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_BaseObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_Base_AnimInObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_Base_AnimInObject = {}
+function DelvesCompanionAbilityListFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_Base_AnimInObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_Base_BaseObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_Base_BaseObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_HighlightObject : Frame
----@field AnimIn GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_Highlight_AnimInObject
----@field HighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_Highlight_HighlightTextureObject
----@field Mask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_Highlight_MaskObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_HighlightObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_Highlight_AnimInObject : AnimationGroup
----@field Translation GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_Highlight_AnimIn_TranslationObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_Highlight_AnimInObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_Highlight_AnimIn_TranslationObject : Translation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_Highlight_AnimIn_TranslationObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_Highlight_HighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_Highlight_HighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_Highlight_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_InterruptDisplay_Highlight_MaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_LevelLinkLockIconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_LevelLinkLockIconObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_NameObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_NameObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_NewActionTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_NewActionTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_NormalTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_NormalTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_PermaboundOverlayObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_PermaboundOverlayObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_PushedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_PushedTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_QuickKeybindHighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_QuickKeybindHighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_RangeIndicatorObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_RangeIndicatorObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SlotArtObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SlotArtObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SlotBackgroundObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SlotBackgroundObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpecialActionIconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpecialActionIconObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrameObject : Frame
----@field EndBurst GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_EndBurstObject
----@field Fill GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_FillObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrameObject = {}
+function DelvesCompanionAbilityListFrame_NineSliceObject:GetFrameLayoutType(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrameObject:FinishAnimAndPlayBurst(...) end
+function DelvesCompanionAbilityListFrame_NineSliceObject:OnLoad(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrameObject:GetCooldownFrameAlpha(...) end
+function DelvesCompanionAbilityListFrame_NineSliceObject:SetBlendMode(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrameObject:OnHide(...) end
+function DelvesCompanionAbilityListFrame_NineSliceObject:SetBorderBlendMode(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrameObject:Setup(...) end
+function DelvesCompanionAbilityListFrame_NineSliceObject:SetBorderColor(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrameObject:SetupAnimAtlases(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_EndBurstObject : Frame
----@field EndMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_EndBurst_EndMaskObject
----@field FinishCastAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject
----@field GlowRing GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_EndBurst_GlowRingObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_EndBurstObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_EndBurst_EndMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_EndBurst_EndMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject = {}
+function DelvesCompanionAbilityListFrame_NineSliceObject:SetCenterColor(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_EndBurst_GlowRingObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_EndBurst_GlowRingObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_FillObject : Frame
----@field CastFill GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_Fill_CastFillObject
----@field CastingAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_Fill_CastingAnimObject
----@field FillMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_Fill_FillMaskObject
----@field InnerGlowTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_Fill_InnerGlowTextureObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_FillObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_Fill_CastFillObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_Fill_CastFillObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_Fill_CastingAnimObject : AnimationGroup
----@field CastFillTranslation GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_Fill_CastingAnimObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_Fill_CastingAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject : Translation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_Fill_FillMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_Fill_FillMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_Fill_InnerGlowTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellCastAnimFrame_Fill_InnerGlowTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellHighlightAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellHighlightAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellHighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SpellHighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SquareGlowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SquareGlowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SquareMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SquareMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SquareShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SquareShadowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SquareShadowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_SquareShadowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TargetReticleAnimFrameObject : Frame
----@field Base GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TargetReticleAnimFrame_BaseObject
----@field Highlight GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TargetReticleAnimFrame_HighlightObject
----@field HighlightAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TargetReticleAnimFrame_HighlightAnimObject
----@field Mask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TargetReticleAnimFrame_MaskObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TargetReticleAnimFrameObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TargetReticleAnimFrameObject:Setup(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TargetReticleAnimFrame_BaseObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TargetReticleAnimFrame_BaseObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TargetReticleAnimFrame_HighlightObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TargetReticleAnimFrame_HighlightObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TargetReticleAnimFrame_HighlightAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TargetReticleAnimFrame_HighlightAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TargetReticleAnimFrame_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TargetReticleAnimFrame_MaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TextOverlayContainerObject : Frame
----@field Count GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TextOverlayContainer_CountObject
----@field HotKey GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TextOverlayContainer_HotKeyObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TextOverlayContainerObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TextOverlayContainerObject:OnLoad(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TextOverlayContainer_CountObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TextOverlayContainer_CountObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TextOverlayContainer_HotKeyObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_TextOverlayContainer_HotKeyObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_chargeCooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_chargeCooldownObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_cooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_cooldownObject = {}
+function DelvesCompanionAbilityListFrame_NineSliceObject:SetVertexColor(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_iconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_iconObject = {}
+---@class DelvesCompanionAbilityListFrame_NineSlice_BottomEdgeObject : Texture
+local DelvesCompanionAbilityListFrame_NineSlice_BottomEdgeObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_lossOfControlCooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_lossOfControlCooldownObject = {}
+---@class DelvesCompanionAbilityListFrame_NineSlice_BottomLeftCornerObject : Texture
+local DelvesCompanionAbilityListFrame_NineSlice_BottomLeftCornerObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_parentActionBarObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton1_parentActionBarObject = {}
+---@class DelvesCompanionAbilityListFrame_NineSlice_BottomRightCornerObject : Texture
+local DelvesCompanionAbilityListFrame_NineSlice_BottomRightCornerObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object : CheckButton
----@field Arrow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ArrowObject
----@field AutoCastOverlay GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_AutoCastOverlayObject
----@field Border GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_BorderObject
----@field BorderShadow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_BorderShadowObject
----@field ButtonIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject
----@field CheckedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CheckedTextureObject
----@field CircleGlowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CircleGlowFocusObject
----@field CircleMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CircleMaskObject
----@field CircleShadow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CircleShadowObject
----@field CircleShadowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CircleShadowFocusObject
----@field CooldownFlash GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CooldownFlashObject
----@field Count GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CountObject
----@field EditModeCircleFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_EditModeCircleFocusStartAnimObject
----@field EditModeSquareFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_EditModeSquareFocusStartAnimObject
----@field Flash GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_FlashObject
----@field GameplayModeCircleFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_GameplayModeCircleFocusStartAnimObject
----@field GameplayModeSquareFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_GameplayModeSquareFocusStartAnimObject
----@field HighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_HighlightTextureObject
----@field HotKey GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_HotKeyObject
----@field IconMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_IconMaskObject
----@field InterruptDisplay GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplayObject
----@field LevelLinkLockIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_LevelLinkLockIconObject
----@field Name GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_NameObject
----@field NewActionTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_NewActionTextureObject
----@field NormalTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_NormalTextureObject
----@field PermaboundOverlay GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_PermaboundOverlayObject
----@field PushedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_PushedTextureObject
----@field QuickKeybindHighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_QuickKeybindHighlightTextureObject
----@field RangeIndicator GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_RangeIndicatorObject
----@field SlotArt GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SlotArtObject
----@field SlotBackground GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SlotBackgroundObject
----@field SpecialActionIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpecialActionIconObject
----@field SpellCastAnimFrame GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrameObject
----@field SpellHighlightAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellHighlightAnimObject
----@field SpellHighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellHighlightTextureObject
----@field SquareGlowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SquareGlowFocusObject
----@field SquareMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SquareMaskObject
----@field SquareShadow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SquareShadowObject
----@field SquareShadowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SquareShadowFocusObject
----@field TargetReticleAnimFrame GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TargetReticleAnimFrameObject
----@field TextOverlayContainer GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TextOverlayContainerObject
----@field action number
----@field activeButtonShape string
----@field arrowCrossAxisSize number
----@field arrowDownTexture string
----@field arrowMainAxisSize number
----@field arrowNormalTexture string
----@field arrowOverTexture string
----@field bindingAction string
----@field buttonIndexOnActionBar number
----@field chargeCooldown GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_chargeCooldownObject
----@field closedArrowOffset number
----@field collapsed boolean
----@field cooldown GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_cooldownObject
----@field enableLOCCooldown boolean
----@field enableSpellFX boolean
----@field feedback_action number
----@field flashing number
----@field flashtime number
----@field flyoutArrowAngleRads number
----@field hotkeyTextGamepadX number
----@field hotkeyTextGamepadY number
----@field hotkeyTextKeyboardX number
----@field hotkeyTextKeyboardY number
----@field icon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_iconObject
----@field isFlyoutAction boolean
----@field lossOfControlCooldown GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_lossOfControlCooldownObject
----@field openArrowOffset number
----@field parentActionBar GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_parentActionBarObject
----@field popupCrossAxisSize number
----@field popupDirection string
----@field popupOffset number
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnAttributeChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnDragStop(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnEvent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnPostClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnReceiveDrag(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnShow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ActionBarButtonMixin_OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ActionBarButtonMixin_OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ActionBarButtonMixin_OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ActionBarButtonMixin_OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ApplyExtraButtonStylesForState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ApplyGamepadAOETargetAnchorPoints(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ApplyGamepadInterruptAnchorPoints(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ApplyPressedStyle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:BaseActionButtonMixin_OnAttributeChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:BaseActionButtonMixin_OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:BaseActionButtonMixin_OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:BaseActionButtonMixin_OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:BaseActionButtonMixin_OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:CacheFlyoutSpellInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:CalculateAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:CheckNeedsUpdate(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ClearFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ClearInterruptDisplay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ClearPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ClearProfessionQuality(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ClearPushedStateAfterAOETargeting(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ClearReticle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ClearTypeOverlay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ClosePopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:Collapse(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:CreateTextureOverlayFrame(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:DesaturateIfDisabled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:DisableGameplayFeedback(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:DoModeChange(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:EnumFlyoutSlotInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:EvaluateState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:EvaluateTutorials(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:Expand(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:Flyout_OnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:GetActionBarParent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:GetActionButtonInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:GetActiveSpellID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:GetAllowRadialWheel(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:GetArrowRotation(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:GetGamepadPageUnitSlotID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:GetIsPingable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:GetOrCreateTypeOverlay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:GetPagedID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:GetPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:GetPopupDirection(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:GetShowGrid(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:GetSingleSpellID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:GetTargetInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:HandleFlyoutClickOverride(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:HasAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:HasPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:IsDown(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:IsDownOver(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:IsFlashing(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:IsOver(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:IsPopupOpen(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:MatchesActiveButtonSpellID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:OnActionBarSlotChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:OnAttributeChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:OnButtonStateChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:OnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:OnDisable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:OnEnable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:OnEvent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:OnFlyoutClosed(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:OnFlyoutOpened(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:OnMouseDown(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:OnMouseUp(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:OnPopupHidden(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:OnPopupToggled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:OnReceiveDrag(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:OnShow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:OnUpdate(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:PlaySpellCastAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:PlaySpellInterruptedAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:PlayTargettingReticleAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:QuickKeybindButtonOnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:QuickKeybindButtonOnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:QuickKeybindButtonOnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:QuickKeybindButtonOnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:QuickKeybindButtonOnMouseWheel(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:QuickKeybindButtonOnShow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:QuickKeybindButtonOnUpdate(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:QuickKeybindButtonSetTooltip(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:ReapplyStyle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:RefreshRange(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:RegisterActionBarButtonCheckFrames(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:SetActionBarParent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:SetArrowRotationRadians(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:SetButtonArt(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:SetButtonIndexOnActionBar(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:SetButtonStateBase(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:SetButtonStateOverride(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:SetCircleCastingTextures(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:SetDisplacedRegions(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:SetGamepadPageUnitSlotID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:SetPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:SetPopupDirection(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:SetShapeToCircle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:SetShapeToSquare(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:SetShowGrid(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:SetSquareCastingTextures(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:SetTooltip(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:SetupCastingAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:SpellFXEnabled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:StartFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:StopFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:StopSpellCastAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:StopTargettingReticleAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:TogglePopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:TriggerSecureClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UnregisterActionBarButtonCheckFrames(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:Update(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateArrowPosition(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateArrowRotation(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateArrowShown(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateArrowTexture(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateAssistedCombatRotationFrame(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateAutoCastAnchors(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateBorderShadow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateButtonArt(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateButtonArtAnchoring(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateCastingAnimSizeAndPositioning(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateCastingAnimation(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateCooldown(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateCount(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateEmptySlotBackgroundTexture(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateFlyout(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateFlyoutActionIcon(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateFlyoutActionInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateFlyoutPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateHighlightMark(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateHotkeys(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateInterruptHighlightAnimAnchors(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateMouseWheelHandler(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdatePageableGamepadButtonAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdatePingAttributes(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdatePressAndHoldAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateProfessionQuality(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateSpellAlert(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateSpellHighlightMark(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateTypeOverlay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateUsable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:UpdateWithStorageId(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2Object:castingAnimTextureSetupFunc(...) end
+---@class DelvesCompanionAbilityListFrame_NineSlice_CenterObject : Texture
+local DelvesCompanionAbilityListFrame_NineSlice_CenterObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ArrowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ArrowObject = {}
+---@class DelvesCompanionAbilityListFrame_NineSlice_LeftEdgeObject : Texture
+local DelvesCompanionAbilityListFrame_NineSlice_LeftEdgeObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_AutoCastOverlayObject : Frame
----@field Corners GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_AutoCastOverlay_CornersObject
----@field Mask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_AutoCastOverlay_MaskObject
----@field Shine GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_AutoCastOverlay_ShineObject
----@field autoCastEnabled boolean
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_AutoCastOverlayObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_AutoCastOverlayObject:OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_AutoCastOverlayObject:OnShow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_AutoCastOverlayObject:ShowAutoCastEnabled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_AutoCastOverlayObject:UpdateShineAnim(...) end
+---@class DelvesCompanionAbilityListFrame_NineSlice_RightEdgeObject : Texture
+local DelvesCompanionAbilityListFrame_NineSlice_RightEdgeObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_AutoCastOverlay_CornersObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_AutoCastOverlay_CornersObject = {}
+---@class DelvesCompanionAbilityListFrame_NineSlice_TopEdgeObject : Texture
+local DelvesCompanionAbilityListFrame_NineSlice_TopEdgeObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_AutoCastOverlay_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_AutoCastOverlay_MaskObject = {}
+---@class DelvesCompanionAbilityListFrame_NineSlice_TopLeftCornerObject : Texture
+local DelvesCompanionAbilityListFrame_NineSlice_TopLeftCornerObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_AutoCastOverlay_ShineObject : Texture
----@field Anim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_AutoCastOverlay_Shine_AnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_AutoCastOverlay_ShineObject = {}
+---@class DelvesCompanionAbilityListFrame_NineSlice_TopRightCornerObject : Texture
+local DelvesCompanionAbilityListFrame_NineSlice_TopRightCornerObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_AutoCastOverlay_Shine_AnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_AutoCastOverlay_Shine_AnimObject = {}
+---@class DelvesCompanionAbilityListFrame_PortraitContainerObject : Frame
+---@field CircleMask DelvesCompanionAbilityListFrame_PortraitContainer_CircleMaskObject
+---@field portrait DelvesCompanionAbilityListFrame_PortraitContainer_portraitObject
+local DelvesCompanionAbilityListFrame_PortraitContainerObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_BorderObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_BorderObject = {}
+---@class DelvesCompanionAbilityListFrame_PortraitContainer_CircleMaskObject : MaskTexture
+local DelvesCompanionAbilityListFrame_PortraitContainer_CircleMaskObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_BorderShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_BorderShadowObject = {}
+---@class DelvesCompanionAbilityListFrame_PortraitContainer_portraitObject : Texture
+local DelvesCompanionAbilityListFrame_PortraitContainer_portraitObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject : Frame
----@field ActiveTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_ActiveTextureObject
----@field DisabledTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_DisabledTextureObject
----@field HoldAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_HoldAnimObject
----@field HoldIndicator GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_HoldIndicatorObject
----@field HoldIndicatorBG GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_HoldIndicatorBGObject
----@field HoverTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_HoverTextureObject
----@field LoadBar GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_LoadBarObject
----@field LoadBarBG GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_LoadBarBGObject
----@field LoadBarGlow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_LoadBarGlowObject
----@field NormalTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_NormalTextureObject
----@field PressedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_PressedTextureObject
----@field SpinnerTip GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_SpinnerTipObject
+---@class DelvesCompanionAbilityListFrame_RightJumpHintObject : Frame
+---@field ActiveTexture DelvesCompanionAbilityListFrame_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture DelvesCompanionAbilityListFrame_RightJumpHint_DisabledTextureObject
+---@field HoldAnim DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnimObject
+---@field HoldIndicator DelvesCompanionAbilityListFrame_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG DelvesCompanionAbilityListFrame_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture DelvesCompanionAbilityListFrame_RightJumpHint_HoverTextureObject
+---@field LoadBar DelvesCompanionAbilityListFrame_RightJumpHint_LoadBarObject
+---@field LoadBarBG DelvesCompanionAbilityListFrame_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow DelvesCompanionAbilityListFrame_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture DelvesCompanionAbilityListFrame_RightJumpHint_NormalTextureObject
+---@field PressedTexture DelvesCompanionAbilityListFrame_RightJumpHint_PressedTextureObject
+---@field SpinnerTip DelvesCompanionAbilityListFrame_RightJumpHint_SpinnerTipObject
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
 ---@field textureState number
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject = {}
+local DelvesCompanionAbilityListFrame_RightJumpHintObject = {}
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject:ApplyTextureLayout(...) end
+function DelvesCompanionAbilityListFrame_RightJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject:BeginHold(...) end
+function DelvesCompanionAbilityListFrame_RightJumpHintObject:BeginHold(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject:CanEnterTextureState(...) end
+function DelvesCompanionAbilityListFrame_RightJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject:DisableDropShadow(...) end
+function DelvesCompanionAbilityListFrame_RightJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject:EnableDropShadow(...) end
+function DelvesCompanionAbilityListFrame_RightJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject:EndHold(...) end
+function DelvesCompanionAbilityListFrame_RightJumpHintObject:EndHold(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject:OnHoldAnimFinished(...) end
+function DelvesCompanionAbilityListFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject:OnHoldAnimStopped(...) end
+function DelvesCompanionAbilityListFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject:OnLoad(...) end
+function DelvesCompanionAbilityListFrame_RightJumpHintObject:OnLoad(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject:RefreshIconTextures(...) end
+function DelvesCompanionAbilityListFrame_RightJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject:SetDisabled(...) end
+function DelvesCompanionAbilityListFrame_RightJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject:SetEnabled(...) end
+function DelvesCompanionAbilityListFrame_RightJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject:SetFocused(...) end
+function DelvesCompanionAbilityListFrame_RightJumpHintObject:SetFocused(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject:SetHoldState(...) end
+function DelvesCompanionAbilityListFrame_RightJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject:SetInputKey(...) end
+function DelvesCompanionAbilityListFrame_RightJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject:SetIsHoldAction(...) end
+function DelvesCompanionAbilityListFrame_RightJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject:SetPressable(...) end
+function DelvesCompanionAbilityListFrame_RightJumpHintObject:SetPressable(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject:SetTextureHeight(...) end
+function DelvesCompanionAbilityListFrame_RightJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject:SetTextureState(...) end
+function DelvesCompanionAbilityListFrame_RightJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject:SetTextureWidth(...) end
+function DelvesCompanionAbilityListFrame_RightJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject:SetUsableState(...) end
+function DelvesCompanionAbilityListFrame_RightJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIconObject:ShouldUseAdjustedTextureBounds(...) end
+function DelvesCompanionAbilityListFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_ActiveTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_ActiveTextureObject = {}
+---@class DelvesCompanionAbilityListFrame_RightJumpHint_ActiveTextureObject : Texture
+local DelvesCompanionAbilityListFrame_RightJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_DisabledTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_DisabledTextureObject = {}
+---@class DelvesCompanionAbilityListFrame_RightJumpHint_DisabledTextureObject : Texture
+local DelvesCompanionAbilityListFrame_RightJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_HoldAnimObject : AnimationGroup
----@field LoadBarAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_HoldAnim_SpinnerTipAnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_HoldAnimObject = {}
+---@class DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnimObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_HoldAnim_LoadBarAnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_HoldAnim_LoadBarAnimObject = {}
+---@class DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+local DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_HoldAnim_LoadBarGlowAnimObject = {}
+---@class DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_HoldAnim_SpinnerTipAnimObject : Rotation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_HoldAnim_SpinnerTipAnimObject = {}
+---@class DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local DelvesCompanionAbilityListFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_HoldIndicatorObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_HoldIndicatorObject = {}
+---@class DelvesCompanionAbilityListFrame_RightJumpHint_HoldIndicatorObject : Texture
+local DelvesCompanionAbilityListFrame_RightJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_HoldIndicatorBGObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_HoldIndicatorBGObject = {}
+---@class DelvesCompanionAbilityListFrame_RightJumpHint_HoldIndicatorBGObject : Texture
+local DelvesCompanionAbilityListFrame_RightJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_HoverTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_HoverTextureObject = {}
+---@class DelvesCompanionAbilityListFrame_RightJumpHint_HoverTextureObject : Texture
+local DelvesCompanionAbilityListFrame_RightJumpHint_HoverTextureObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_LoadBarObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_LoadBarObject = {}
+---@class DelvesCompanionAbilityListFrame_RightJumpHint_LoadBarObject : Texture
+local DelvesCompanionAbilityListFrame_RightJumpHint_LoadBarObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_LoadBarBGObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_LoadBarBGObject = {}
+---@class DelvesCompanionAbilityListFrame_RightJumpHint_LoadBarBGObject : Texture
+local DelvesCompanionAbilityListFrame_RightJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_LoadBarGlowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_LoadBarGlowObject = {}
+---@class DelvesCompanionAbilityListFrame_RightJumpHint_LoadBarGlowObject : Texture
+local DelvesCompanionAbilityListFrame_RightJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_NormalTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_NormalTextureObject = {}
+---@class DelvesCompanionAbilityListFrame_RightJumpHint_NormalTextureObject : Texture
+local DelvesCompanionAbilityListFrame_RightJumpHint_NormalTextureObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_PressedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_PressedTextureObject = {}
+---@class DelvesCompanionAbilityListFrame_RightJumpHint_PressedTextureObject : Texture
+local DelvesCompanionAbilityListFrame_RightJumpHint_PressedTextureObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_SpinnerTipObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_ButtonIcon_SpinnerTipObject = {}
+---@class DelvesCompanionAbilityListFrame_RightJumpHint_SpinnerTipObject : Texture
+local DelvesCompanionAbilityListFrame_RightJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CheckedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CheckedTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CircleGlowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CircleGlowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CircleMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CircleMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CircleShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CircleShadowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CircleShadowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CircleShadowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CooldownFlashObject : Frame
----@field FlashAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CooldownFlash_FlashAnimObject
----@field Flipbook GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CooldownFlash_FlipbookObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CooldownFlashObject = {}
+---@class DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject : Frame
+---@field HorizontalSelectionPosition DelvesCompanionAbilityListFrame_SelectionChoiceFrame_HorizontalSelectionPositionObject
+---@field alwaysUpdateLayout boolean
+---@field childXPadding number
+---@field childYPadding number
+---@field dialogStyle boolean
+---@field dirty boolean
+---@field isHorizontal boolean
+---@field layoutFramesGoingRight boolean
+---@field oldGridSettings DelvesCompanionAbilityListFrame_SelectionChoiceFrame_oldGridSettingsObject
+---@field selectionFrameArray table
+---@field stride number
+---@field talentFrame DelvesCompanionAbilityListFrame_SelectionChoiceFrame_talentFrameObject
+local DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject = {}
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CooldownFlashObject:Setup(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CooldownFlash_FlashAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CooldownFlash_FlashAnimObject = {}
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:AddLayoutChildren(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CooldownFlash_FlashAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CooldownFlash_FlipbookObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CooldownFlash_FlipbookObject = {}
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:CacheLayoutSettings(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:ClearFixedSize(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetAdditionalRegions(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetBaseButton(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetBaseTraitCurrenciesCost(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetChildHeight(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetChildSize(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetChildWidth(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetFixedHeight(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetFixedSize(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetFixedWidth(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetHeightPadding(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetHorizontalSelectionPositionForIndex(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetLayoutChildren(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetMaximumWidth(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetMinimumWidth(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetSelectionCount(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetTalentFrame(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:GetWidthPadding(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:IsDirty(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:IsDraggingSpell(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:IsLayoutFrame(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:Layout(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:MarkClean(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:MarkDirty(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:OnCleaned(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:OnEvent(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:OnHide(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:OnLoad(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:OnShow(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:OnUpdate(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:SetFixedHeight(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:SetFixedSize(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:SetFixedWidth(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:SetHeightPadding(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:SetMaximumWidth(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:SetMinimumWidth(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:SetSelectedEntryID(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:SetSelectionOptions(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:SetTalentFrame(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:SetWidthPadding(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:ShouldClearOnUpdateAfterClean(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:ShouldUpdateLayout(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:UpdateSelectionOptions(...) end
+---@return any ...
+function DelvesCompanionAbilityListFrame_SelectionChoiceFrameObject:UpdateVisualState(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CountObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_CountObject = {}
+---@class DelvesCompanionAbilityListFrame_SelectionChoiceFrame_HorizontalSelectionPositionObject
+---@field Inner number
+---@field OuterLeft number
+---@field OuterRight number
+local DelvesCompanionAbilityListFrame_SelectionChoiceFrame_HorizontalSelectionPositionObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_EditModeCircleFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_EditModeCircleFocusStartAnimObject = {}
+---@class DelvesCompanionAbilityListFrame_SelectionChoiceFrame_oldGridSettingsObject
+---@field childXPadding number
+---@field childYPadding number
+---@field isHorizontal boolean
+---@field layoutChildren table
+---@field layoutFramesGoingRight boolean
+---@field stride number
+local DelvesCompanionAbilityListFrame_SelectionChoiceFrame_oldGridSettingsObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_EditModeSquareFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_EditModeSquareFocusStartAnimObject = {}
+---@class DelvesCompanionAbilityListFrame_SelectionChoiceFrame_talentFrameObject
+local DelvesCompanionAbilityListFrame_SelectionChoiceFrame_talentFrameObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_FlashObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_FlashObject = {}
+---@class DelvesCompanionAbilityListFrame_TitleContainerObject : Frame
+---@field TitleText DelvesCompanionAbilityListFrame_TitleContainer_TitleTextObject
+local DelvesCompanionAbilityListFrame_TitleContainerObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_GameplayModeCircleFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_GameplayModeCircleFocusStartAnimObject = {}
+---@class DelvesCompanionAbilityListFrame_TitleContainer_TitleTextObject : FontString
+local DelvesCompanionAbilityListFrame_TitleContainer_TitleTextObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_GameplayModeSquareFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_GameplayModeSquareFocusStartAnimObject = {}
+---@class DelvesCompanionAbilityListFrame_TopTileStreaksObject : Texture
+local DelvesCompanionAbilityListFrame_TopTileStreaksObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_HighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_HighlightTextureObject = {}
+---@class DelvesCompanionAbilityListFrame_VisualsUpdateReasonsObject
+---@field CommitOngoing number
+---@field CommitStoppedComplete number
+---@field CommitStoppedIncomplete number
+---@field FrameHidden number
+---@field TalentTreeReset number
+local DelvesCompanionAbilityListFrame_VisualsUpdateReasonsObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_HotKeyObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_HotKeyObject = {}
+---@class DelvesCompanionAbilityListFrame_buttonsObject
+---@field nodeIDs table
+local DelvesCompanionAbilityListFrame_buttonsObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_IconMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_IconMaskObject = {}
+---@class DelvesCompanionAbilityListFrame_edgePoolObject
+local DelvesCompanionAbilityListFrame_edgePoolObject = {}
+---@return any ...
+function DelvesCompanionAbilityListFrame_edgePoolObject:private(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplayObject : Frame
----@field Base GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_BaseObject
----@field Highlight GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_HighlightObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplayObject = {}
+---@class DelvesCompanionAbilityListFrame_gatePoolObject
+local DelvesCompanionAbilityListFrame_gatePoolObject = {}
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplayObject:OnHide(...) end
+function DelvesCompanionAbilityListFrame_gatePoolObject:GetTemplate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplayObject:OnShow(...) end
+function DelvesCompanionAbilityListFrame_gatePoolObject:private(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_BaseObject : Frame
----@field AnimIn GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_Base_AnimInObject
----@field Base GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_Base_BaseObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_BaseObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_Base_AnimInObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_Base_AnimInObject = {}
+---@class DelvesCompanionAbilityListFrame_talentAnimationFramePoolCollectionObject
+local DelvesCompanionAbilityListFrame_talentAnimationFramePoolCollectionObject = {}
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_Base_AnimInObject:OnFinished(...) end
+function DelvesCompanionAbilityListFrame_talentAnimationFramePoolCollectionObject:private(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_Base_BaseObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_Base_BaseObject = {}
+---@class DelvesCompanionAbilityListFrame_talentButtonCollectionObject
+local DelvesCompanionAbilityListFrame_talentButtonCollectionObject = {}
+---@return any ...
+function DelvesCompanionAbilityListFrame_talentButtonCollectionObject:private(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_HighlightObject : Frame
----@field AnimIn GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_Highlight_AnimInObject
----@field HighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_Highlight_HighlightTextureObject
----@field Mask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_Highlight_MaskObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_HighlightObject = {}
+---@class DelvesCompanionAbilityListFrame_talentCardPoolObject
+local DelvesCompanionAbilityListFrame_talentCardPoolObject = {}
+---@return any ...
+function DelvesCompanionAbilityListFrame_talentCardPoolObject:private(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_Highlight_AnimInObject : AnimationGroup
----@field Translation GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_Highlight_AnimIn_TranslationObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_Highlight_AnimInObject = {}
+---@class DelvesCompanionAbilityListFrame_talentDisplayFramePoolObject
+local DelvesCompanionAbilityListFrame_talentDisplayFramePoolObject = {}
+---@return any ...
+function DelvesCompanionAbilityListFrame_talentDisplayFramePoolObject:private(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_Highlight_AnimIn_TranslationObject : Translation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_Highlight_AnimIn_TranslationObject = {}
+---@class DelvesCompanionConfigurationFrameObject : Frame
+---@field Background DelvesCompanionConfigurationFrame_BackgroundObject
+---@field Bg DelvesCompanionConfigurationFrame_BgObject
+---@field Border DelvesCompanionConfigurationFrame_BorderObject
+---@field CloseButton DelvesCompanionConfigurationFrame_CloseButtonObject
+---@field CompanionConfigShowAbilitiesButton DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButtonObject
+---@field CompanionExperienceRingFrame DelvesCompanionConfigurationFrame_CompanionExperienceRingFrameObject
+---@field CompanionInfoFrame DelvesCompanionConfigurationFrame_CompanionInfoFrameObject
+---@field CompanionLevelFrame DelvesCompanionConfigurationFrame_CompanionLevelFrameObject
+---@field CompanionPortraitFrame DelvesCompanionConfigurationFrame_CompanionPortraitFrameObject
+---@field CompanionSlots DelvesCompanionConfigurationFrame_CompanionSlotsObject
+---@field NineSlice DelvesCompanionConfigurationFrame_NineSliceObject
+---@field layoutType string
+---@field unseenCuriosAcknowledged boolean
+local DelvesCompanionConfigurationFrameObject = {}
+---@return any ...
+function DelvesCompanionConfigurationFrameObject:OnEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrameObject:OnHide(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrameObject:OnLoad(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrameObject:OnShow(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrameObject:Refresh(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrameObject:TryShowSeasonHelptip(...) end
+---@type DelvesCompanionConfigurationFrameObject
+DelvesCompanionConfigurationFrame = DelvesCompanionConfigurationFrameObject
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_Highlight_HighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_Highlight_HighlightTextureObject = {}
+---@class DelvesCompanionConfigurationFrame_BackgroundObject : Texture
+local DelvesCompanionConfigurationFrame_BackgroundObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_Highlight_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_InterruptDisplay_Highlight_MaskObject = {}
+---@class DelvesCompanionConfigurationFrame_BgObject : Texture
+local DelvesCompanionConfigurationFrame_BgObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_LevelLinkLockIconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_LevelLinkLockIconObject = {}
+---@class DelvesCompanionConfigurationFrame_BorderObject : Frame
+---@field Bg DelvesCompanionConfigurationFrame_Border_BgObject
+---@field BottomEdge DelvesCompanionConfigurationFrame_Border_BottomEdgeObject
+---@field BottomLeftCorner DelvesCompanionConfigurationFrame_Border_BottomLeftCornerObject
+---@field BottomRightCorner DelvesCompanionConfigurationFrame_Border_BottomRightCornerObject
+---@field LeftEdge DelvesCompanionConfigurationFrame_Border_LeftEdgeObject
+---@field RightEdge DelvesCompanionConfigurationFrame_Border_RightEdgeObject
+---@field TopEdge DelvesCompanionConfigurationFrame_Border_TopEdgeObject
+---@field TopLeftCorner DelvesCompanionConfigurationFrame_Border_TopLeftCornerObject
+---@field TopRightCorner DelvesCompanionConfigurationFrame_Border_TopRightCornerObject
+---@field layoutType string
+local DelvesCompanionConfigurationFrame_BorderObject = {}
+---@return any ...
+function DelvesCompanionConfigurationFrame_BorderObject:GetBorderColor(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_BorderObject:GetCenterColor(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_BorderObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_BorderObject:GetFrameLayoutType(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_BorderObject:OnLoad(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_BorderObject:SetBlendMode(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_BorderObject:SetBorderBlendMode(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_BorderObject:SetBorderColor(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_BorderObject:SetCenterColor(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_BorderObject:SetVertexColor(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_NameObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_NameObject = {}
+---@class DelvesCompanionConfigurationFrame_Border_BgObject : Texture
+local DelvesCompanionConfigurationFrame_Border_BgObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_NewActionTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_NewActionTextureObject = {}
+---@class DelvesCompanionConfigurationFrame_Border_BottomEdgeObject : Texture
+local DelvesCompanionConfigurationFrame_Border_BottomEdgeObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_NormalTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_NormalTextureObject = {}
+---@class DelvesCompanionConfigurationFrame_Border_BottomLeftCornerObject : Texture
+local DelvesCompanionConfigurationFrame_Border_BottomLeftCornerObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_PermaboundOverlayObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_PermaboundOverlayObject = {}
+---@class DelvesCompanionConfigurationFrame_Border_BottomRightCornerObject : Texture
+local DelvesCompanionConfigurationFrame_Border_BottomRightCornerObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_PushedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_PushedTextureObject = {}
+---@class DelvesCompanionConfigurationFrame_Border_LeftEdgeObject : Texture
+local DelvesCompanionConfigurationFrame_Border_LeftEdgeObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_QuickKeybindHighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_QuickKeybindHighlightTextureObject = {}
+---@class DelvesCompanionConfigurationFrame_Border_RightEdgeObject : Texture
+local DelvesCompanionConfigurationFrame_Border_RightEdgeObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_RangeIndicatorObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_RangeIndicatorObject = {}
+---@class DelvesCompanionConfigurationFrame_Border_TopEdgeObject : Texture
+local DelvesCompanionConfigurationFrame_Border_TopEdgeObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SlotArtObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SlotArtObject = {}
+---@class DelvesCompanionConfigurationFrame_Border_TopLeftCornerObject : Texture
+local DelvesCompanionConfigurationFrame_Border_TopLeftCornerObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SlotBackgroundObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SlotBackgroundObject = {}
+---@class DelvesCompanionConfigurationFrame_Border_TopRightCornerObject : Texture
+local DelvesCompanionConfigurationFrame_Border_TopRightCornerObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpecialActionIconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpecialActionIconObject = {}
+---@class DelvesCompanionConfigurationFrame_CloseButtonObject : Button
+local DelvesCompanionConfigurationFrame_CloseButtonObject = {}
+---@return any ...
+function DelvesCompanionConfigurationFrame_CloseButtonObject:NarrationGetName(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrameObject : Frame
----@field EndBurst GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_EndBurstObject
----@field Fill GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_FillObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrameObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButtonObject : Button
+---@field Left DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_LeftObject
+---@field Middle DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_MiddleObject
+---@field Right DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_RightObject
+---@field Text DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButtonObject = {}
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButtonObject:FitToText(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrameObject:FinishAnimAndPlayBurst(...) end
+function DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButtonObject:GetDisabledTooltip(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrameObject:GetCooldownFrameAlpha(...) end
+function DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButtonObject:OnClick(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrameObject:OnHide(...) end
+function DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButtonObject:OnEnter(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrameObject:Setup(...) end
+function DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButtonObject:OnLeave(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrameObject:SetupAnimAtlases(...) end
+function DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButtonObject:SetDisabledState(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButtonObject:SetTextToFit(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_EndBurstObject : Frame
----@field EndMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_EndBurst_EndMaskObject
----@field FinishCastAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject
----@field GlowRing GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_EndBurst_GlowRingObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_EndBurstObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_LeftObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_LeftObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_EndBurst_EndMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_EndBurst_EndMaskObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_MiddleObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_MiddleObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject:OnFinished(...) end
+---@class DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_RightObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_RightObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_TextObject : FontString
+local DelvesCompanionConfigurationFrame_CompanionConfigShowAbilitiesButton_TextObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_EndBurst_GlowRingObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_EndBurst_GlowRingObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionExperienceRingFrameObject : Cooldown
+local DelvesCompanionConfigurationFrame_CompanionExperienceRingFrameObject = {}
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionExperienceRingFrameObject:Refresh(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_FillObject : Frame
----@field CastFill GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_Fill_CastFillObject
----@field CastingAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_Fill_CastingAnimObject
----@field FillMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_Fill_FillMaskObject
----@field InnerGlowTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_Fill_InnerGlowTextureObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_FillObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionInfoFrameObject : Frame
+---@field CompanionDescription DelvesCompanionConfigurationFrame_CompanionInfoFrame_CompanionDescriptionObject
+---@field CompanionName DelvesCompanionConfigurationFrame_CompanionInfoFrame_CompanionNameObject
+---@field InfoFrameShadow DelvesCompanionConfigurationFrame_CompanionInfoFrame_InfoFrameShadowObject
+local DelvesCompanionConfigurationFrame_CompanionInfoFrameObject = {}
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionInfoFrameObject:Refresh(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_Fill_CastFillObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_Fill_CastFillObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionInfoFrame_CompanionDescriptionObject : FontString
+local DelvesCompanionConfigurationFrame_CompanionInfoFrame_CompanionDescriptionObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_Fill_CastingAnimObject : AnimationGroup
----@field CastFillTranslation GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_Fill_CastingAnimObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_Fill_CastingAnimObject:OnFinished(...) end
+---@class DelvesCompanionConfigurationFrame_CompanionInfoFrame_CompanionNameObject : FontString
+local DelvesCompanionConfigurationFrame_CompanionInfoFrame_CompanionNameObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject : Translation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionInfoFrame_InfoFrameShadowObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionInfoFrame_InfoFrameShadowObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_Fill_FillMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_Fill_FillMaskObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionLevelFrameObject : Frame
+---@field CompanionLevel DelvesCompanionConfigurationFrame_CompanionLevelFrame_CompanionLevelObject
+local DelvesCompanionConfigurationFrame_CompanionLevelFrameObject = {}
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionLevelFrameObject:Refresh(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_Fill_InnerGlowTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellCastAnimFrame_Fill_InnerGlowTextureObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionLevelFrame_CompanionLevelObject : FontString
+local DelvesCompanionConfigurationFrame_CompanionLevelFrame_CompanionLevelObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellHighlightAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellHighlightAnimObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionPortraitFrameObject : Frame
+---@field Border DelvesCompanionConfigurationFrame_CompanionPortraitFrame_BorderObject
+---@field Icon DelvesCompanionConfigurationFrame_CompanionPortraitFrame_IconObject
+local DelvesCompanionConfigurationFrame_CompanionPortraitFrameObject = {}
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionPortraitFrameObject:OnEnter(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionPortraitFrameObject:OnLeave(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionPortraitFrameObject:Refresh(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellHighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SpellHighlightTextureObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionPortraitFrame_BorderObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionPortraitFrame_BorderObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SquareGlowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SquareGlowFocusObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionPortraitFrame_IconObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionPortraitFrame_IconObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SquareMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SquareMaskObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlotsObject : Frame
+---@field CompanionCombatRoleSlot DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject
+---@field CompanionCombatTrinketSlot DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject
+---@field CompanionFlavorSlot DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlotObject
+---@field CompanionUtilityTrinketSlot DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlotObject
+---@field spacing number
+local DelvesCompanionConfigurationFrame_CompanionSlotsObject = {}
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:AddLayoutChildren(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:CalculateFrameSize(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:ClearFixedSize(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetAdditionalRegions(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetChildHeight(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetChildPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetChildSize(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetChildWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetFixedHeight(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetFixedSize(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetFixedWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetHeightPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetLayoutChildren(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:GetWidthPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:IsDirty(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:IsLayoutFrame(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:Layout(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:LayoutChildren(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:MarkClean(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:MarkDirty(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:OnCleaned(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:OnShow(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:OnUpdate(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:SetFixedHeight(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:SetFixedSize(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:SetFixedWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:SetHeightPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:SetWidthPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlotsObject:ShouldClearOnUpdateAfterClean(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SquareShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SquareShadowObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject : Button
+---@field Border DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_BorderObject
+---@field BorderHighlight DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_BorderHighlightObject
+---@field HighlightTexture DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_HighlightTextureObject
+---@field Label DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_LabelObject
+---@field NewGlowHighlight DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewGlowHighlightObject
+---@field NewGlowHighlightAnimIn DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewGlowHighlightAnimInObject
+---@field NewLabel DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject
+---@field OptionsList DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsListObject
+---@field Shadow DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_ShadowObject
+---@field Texture DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_TextureObject
+---@field TextureMask DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_TextureMaskObject
+---@field Value DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_ValueObject
+---@field layoutIndex number
+---@field selectionNodeID number
+---@field type string
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject = {}
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:BuildSelectionNodeOptions(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:CheckToggleAllowed(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:GetSelectionNodeID(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:GetSlotLabelText(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:HasActiveEntry(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:HasSelectionAndInfo(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:OnEnter(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:OnEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:OnHide(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:OnLeave(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:OnLoad(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:OnMouseDown(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:OnShow(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:PopulateOptionsList(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:Refresh(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlotObject:SetSeenCurios(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SquareShadowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_SquareShadowFocusObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_BorderObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_BorderObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TargetReticleAnimFrameObject : Frame
----@field Base GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TargetReticleAnimFrame_BaseObject
----@field Highlight GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TargetReticleAnimFrame_HighlightObject
----@field HighlightAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TargetReticleAnimFrame_HighlightAnimObject
----@field Mask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TargetReticleAnimFrame_MaskObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TargetReticleAnimFrameObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TargetReticleAnimFrameObject:Setup(...) end
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_BorderHighlightObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_BorderHighlightObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TargetReticleAnimFrame_BaseObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TargetReticleAnimFrame_BaseObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_HighlightTextureObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_HighlightTextureObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TargetReticleAnimFrame_HighlightObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TargetReticleAnimFrame_HighlightObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_LabelObject : FontString
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_LabelObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TargetReticleAnimFrame_HighlightAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TargetReticleAnimFrame_HighlightAnimObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewGlowHighlightObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewGlowHighlightObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TargetReticleAnimFrame_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TargetReticleAnimFrame_MaskObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewGlowHighlightAnimInObject : AnimationGroup
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewGlowHighlightAnimInObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TextOverlayContainerObject : Frame
----@field Count GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TextOverlayContainer_CountObject
----@field HotKey GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TextOverlayContainer_HotKeyObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TextOverlayContainerObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject : Frame
+---@field BGLabel DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_BGLabelObject
+---@field Fade DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_FadeObject
+---@field Glow DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_GlowObject
+---@field Label DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_LabelObject
+---@field animateGlow boolean
+---@field justifyH string
+---@field label string
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject = {}
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:AddLayoutChildren(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:ClearAlert(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:ClearFixedSize(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetAdditionalRegions(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetChildHeight(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetChildSize(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TextOverlayContainerObject:OnLoad(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetChildWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetFixedHeight(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetFixedSize(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetFixedWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetHeightPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetLayoutChildren(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetMaximumWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetMinimumWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetTextWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:GetWidthPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:IsDirty(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:IsLayoutFrame(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:Layout(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:MarkClean(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:MarkDirty(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:NewFeatureLabel_OnShow(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:OnCleaned(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:OnHide(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:OnLoad(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:OnShow(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:OnUpdate(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:SetFixedHeight(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:SetFixedSize(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:SetFixedWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:SetHeightPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:SetMaximumWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:SetMinimumWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:SetWidthPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabelObject:ShouldClearOnUpdateAfterClean(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TextOverlayContainer_CountObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TextOverlayContainer_CountObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_BGLabelObject : FontString
+---@field ignoreInLayout boolean
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_BGLabelObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TextOverlayContainer_HotKeyObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_TextOverlayContainer_HotKeyObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_FadeObject : AnimationGroup
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_FadeObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_chargeCooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_chargeCooldownObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_GlowObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_GlowObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_cooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_cooldownObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_LabelObject : FontString
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_NewLabel_LabelObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_iconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_iconObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsListObject : Frame
+---@field Bottom DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_BottomObject
+---@field Middle DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_MiddleObject
+---@field ScrollBox DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject
+---@field Top DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_TopObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsListObject = {}
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsListObject:OnHide(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsListObject:OnShow(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_lossOfControlCooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_lossOfControlCooldownObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_BottomObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_BottomObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_parentActionBarObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton2_parentActionBarObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_MiddleObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_MiddleObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object : CheckButton
----@field Arrow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ArrowObject
----@field AutoCastOverlay GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_AutoCastOverlayObject
----@field Border GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_BorderObject
----@field BorderShadow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_BorderShadowObject
----@field ButtonIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject
----@field CheckedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CheckedTextureObject
----@field CircleGlowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CircleGlowFocusObject
----@field CircleMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CircleMaskObject
----@field CircleShadow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CircleShadowObject
----@field CircleShadowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CircleShadowFocusObject
----@field CooldownFlash GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CooldownFlashObject
----@field Count GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CountObject
----@field EditModeCircleFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_EditModeCircleFocusStartAnimObject
----@field EditModeSquareFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_EditModeSquareFocusStartAnimObject
----@field Flash GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_FlashObject
----@field GameplayModeCircleFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_GameplayModeCircleFocusStartAnimObject
----@field GameplayModeSquareFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_GameplayModeSquareFocusStartAnimObject
----@field HighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_HighlightTextureObject
----@field HotKey GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_HotKeyObject
----@field IconMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_IconMaskObject
----@field InterruptDisplay GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplayObject
----@field LevelLinkLockIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_LevelLinkLockIconObject
----@field Name GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_NameObject
----@field NewActionTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_NewActionTextureObject
----@field NormalTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_NormalTextureObject
----@field PermaboundOverlay GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_PermaboundOverlayObject
----@field PushedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_PushedTextureObject
----@field QuickKeybindHighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_QuickKeybindHighlightTextureObject
----@field RangeIndicator GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_RangeIndicatorObject
----@field SlotArt GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SlotArtObject
----@field SlotBackground GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SlotBackgroundObject
----@field SpecialActionIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpecialActionIconObject
----@field SpellCastAnimFrame GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrameObject
----@field SpellHighlightAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellHighlightAnimObject
----@field SpellHighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellHighlightTextureObject
----@field SquareGlowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SquareGlowFocusObject
----@field SquareMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SquareMaskObject
----@field SquareShadow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SquareShadowObject
----@field SquareShadowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SquareShadowFocusObject
----@field TargetReticleAnimFrame GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TargetReticleAnimFrameObject
----@field TextOverlayContainer GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TextOverlayContainerObject
----@field action number
----@field activeButtonShape string
----@field arrowCrossAxisSize number
----@field arrowDownTexture string
----@field arrowMainAxisSize number
----@field arrowNormalTexture string
----@field arrowOverTexture string
----@field bindingAction string
----@field buttonIndexOnActionBar number
----@field chargeCooldown GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_chargeCooldownObject
----@field closedArrowOffset number
----@field collapsed boolean
----@field cooldown GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_cooldownObject
----@field enableLOCCooldown boolean
----@field enableSpellFX boolean
----@field feedback_action number
----@field flashing number
----@field flashtime number
----@field flyoutArrowAngleRads number
----@field hotkeyTextGamepadX number
----@field hotkeyTextGamepadY number
----@field hotkeyTextKeyboardX number
----@field hotkeyTextKeyboardY number
----@field icon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_iconObject
----@field isFlyoutAction boolean
----@field lossOfControlCooldown GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_lossOfControlCooldownObject
----@field openArrowOffset number
----@field parentActionBar GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_parentActionBarObject
----@field popupCrossAxisSize number
----@field popupDirection string
----@field popupOffset number
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject : Frame
+---@field Defaults DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_DefaultsObject
+---@field Directions DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_DirectionsObject
+---@field DragDelegate DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_DragDelegateObject
+---@field Event DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_EventObject
+---@field ScrollTarget DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject
+---@field Shadows DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ShadowsObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field debugInspectionSystem string
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field isScrollController boolean
+---@field panExtentPercentage number
+---@field view DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject
+---@field wheelPanScalar number
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject = {}
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnAttributeChanged(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ApplyEdgeFade(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:CalculateEdgeFade(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnDragStart(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:CalculatePanExtentPercentage(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnDragStop(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:CalculateScrollPercentage(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnEnter(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:CanInterpolateScroll(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnEvent(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ClearEdgeFade(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnHide(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ContainsElementDataByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnLeave(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnLoad(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnPostClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:EnableSnapToInterval(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnReceiveDrag(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:EnumerateDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnShow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:EnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ActionBarButtonMixin_OnDragStart(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:EnumerateFrames(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ActionBarButtonMixin_OnEnter(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:FindByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ActionBarButtonMixin_OnLeave(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:FindElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ActionBarButtonMixin_OnLoad(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:FindElementDataByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ApplyExtraButtonStylesForState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:FindElementDataIndex(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ApplyGamepadAOETargetAnchorPoints(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:FindElementDataIndexByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ApplyGamepadInterruptAnchorPoints(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:FindFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ApplyPressedStyle(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:FindFrameByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:BaseActionButtonMixin_OnAttributeChanged(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:FindFrameElementDataIndex(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:BaseActionButtonMixin_OnDragStart(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:Flush(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:BaseActionButtonMixin_OnEnter(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:FlushDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:BaseActionButtonMixin_OnLeave(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ForEachElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:BaseActionButtonMixin_OnLoad(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ForEachFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:CacheFlyoutSpellInfo(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:FullUpdate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:CalculateAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:FullUpdateInternal(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:CheckNeedsUpdate(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ClearFlash(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetBottomPadding(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ClearInterruptDisplay(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetCallbackTable(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ClearPopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetCallbackTables(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ClearProfessionQuality(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ClearPushedStateAfterAOETargeting(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetDataIndexBegin(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ClearReticle(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetDataIndexEnd(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ClearTypeOverlay(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ClosePopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetDataProviderSize(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:Collapse(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetDerivedExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:CreateTextureOverlayFrame(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetDerivedScrollOffset(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:DesaturateIfDisabled(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetDerivedScrollRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:DisableGameplayFeedback(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetElementExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:DoModeChange(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:EnumFlyoutSlotInfo(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetExtentPadding(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:EvaluateState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetExtentUntil(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:EvaluateTutorials(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetFrameCount(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:Expand(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetFrameExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:Flyout_OnClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetFrames(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:GetActionBarParent(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetIntervalRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:GetActionButtonInfo(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetLeftPadding(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:GetActiveSpellID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetLower(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:GetAllowRadialWheel(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetLowerPadding(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:GetArrowRotation(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetLowerShadowTexture(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:GetGamepadPageUnitSlotID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:GetIsPingable(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetPadding(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:GetOrCreateTypeOverlay(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetPanExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:GetPagedID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:GetPopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetRightPadding(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:GetPopupDirection(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetScrollInterpolator(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:GetShowGrid(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetScrollPercentage(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:GetSingleSpellID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetScrollTarget(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:GetTargetInfo(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetTopPadding(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:HandleFlyoutClickOverride(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetUpper(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:HasAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetUpperPadding(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:HasPopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetUpperShadowTexture(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:IsDown(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetView(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:IsDownOver(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetVisibleExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:IsFlashing(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:IsOver(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:IsPopupOpen(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:HasDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:MatchesActiveButtonSpellID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:HasEdgeFade(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:OnActionBarSlotChanged(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:OnAttributeChanged(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:HasScrollableExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:OnButtonStateChanged(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:HasView(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:OnClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:Init(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:OnDisable(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:Interpolate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:OnDragStart(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:IsAcquireLocked(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:OnEnable(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:IsAlignmentOverlapIgnored(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:OnEnter(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:IsAtBegin(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:OnEvent(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:IsAtEnd(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:OnFlyoutClosed(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:IsHorizontal(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:OnFlyoutOpened(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:IsScrollAllowed(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:OnHide(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:IsScrollToDataIndexSafe(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:OnLeave(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:IsUpdateLocked(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:OnLoad(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:IsVirtualized(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:OnMouseDown(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:Layout(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:OnMouseUp(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:OnLoad(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:OnPopupHidden(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:OnMouseWheel(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:OnPopupToggled(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:OnScrollTargetSizeChanged(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:OnReceiveDrag(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:OnSizeChanged(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:OnShow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:OnViewAcquiredFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:OnUpdate(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:OnViewDataChanged(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:PlaySpellCastAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:OnViewDataProviderReassigned(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:PlaySpellInterruptedAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:OnViewInitializedFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:PlayTargettingReticleAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:OnViewReleasedFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:QuickKeybindButtonOnClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:Rebuild(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:QuickKeybindButtonOnEnter(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:RecalculateDerivedExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:QuickKeybindButtonOnHide(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:QuickKeybindButtonOnLeave(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:RegisterCallback(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:QuickKeybindButtonOnMouseWheel(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:QuickKeybindButtonOnShow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ReinitializeFrames(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:QuickKeybindButtonOnUpdate(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:RemoveDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:QuickKeybindButtonSetTooltip(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ReverseEnumerateDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:ReapplyStyle(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:RefreshRange(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ReverseForEachElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:RegisterActionBarButtonCheckFrames(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ReverseForEachFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:SetActionBarParent(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SanitizeAlignment(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:SetArrowRotationRadians(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollDecrease(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:SetButtonArt(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollInDirection(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:SetButtonIndexOnActionBar(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollIncrease(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:SetButtonStateBase(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollToBegin(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:SetButtonStateOverride(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollToElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:SetCircleCastingTextures(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollToElementDataByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:SetDisplacedRegions(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollToElementDataIndex(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:SetGamepadPageUnitSlotID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollToEnd(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:SetPopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollToFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:SetPopupDirection(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollToNearest(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:SetShapeToCircle(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollToNearestByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:SetShapeToSquare(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollToOffset(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:SetShowGrid(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:SetSquareCastingTextures(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SecureInsertEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:SetTooltip(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SelectCursorComponent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:SetupCastingAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SelectPointComponent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:SpellFXEnabled(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetAlignmentOverlapIgnored(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:StartFlash(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:StopFlash(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetEdgeFadeLength(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:StopSpellCastAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetFrameExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:StopTargettingReticleAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetHorizontal(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:TogglePopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetInterpolateScroll(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:TriggerSecureClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetLowerShadowAtlas(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UnregisterActionBarButtonCheckFrames(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetPadding(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:Update(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetPanExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateArrowPosition(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetScrollAllowed(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateArrowRotation(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetScrollPercentage(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateArrowShown(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateArrowTexture(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetScrollTargetOffset(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateAssistedCombatRotationFrame(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetShadowsFrameLevel(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateAutoCastAnchors(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetShadowsScale(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateBorderShadow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetShadowsShown(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateButtonArt(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateButtonArtAnchoring(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetUpdateLocked(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateCastingAnimSizeAndPositioning(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetUpperShadowAtlas(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateCastingAnimation(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetUseShadowsForEdgeFade(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateCooldown(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:SetView(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateCount(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateEmptySlotBackgroundTexture(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:TriggerEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateFlash(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:UnregisterCallback(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateFlyout(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:UnregisterEvents(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateFlyoutActionIcon(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateFlyoutActionInfo(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:Update(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateFlyoutPopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBoxObject:scrollInternal(...) end
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_DefaultsObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_DefaultsObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_DirectionsObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_DirectionsObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_DragDelegateObject : Frame
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_DragDelegateObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_EventObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_EventObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject : Frame
+---@field Event DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTarget_EventObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject = {}
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateHighlightMark(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateHotkeys(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateInterruptHighlightAnimAnchors(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateMouseWheelHandler(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:GetCallbackTable(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdatePageableGamepadButtonAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:GetCallbackTables(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdatePingAttributes(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdatePressAndHoldAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateProfessionQuality(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateSpellAlert(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateSpellHighlightMark(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:OnLoad(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateTypeOverlay(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateUsable(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:UpdateWithStorageId(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3Object:castingAnimTextureSetupFunc(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ArrowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ArrowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_AutoCastOverlayObject : Frame
----@field Corners GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_AutoCastOverlay_CornersObject
----@field Mask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_AutoCastOverlay_MaskObject
----@field Shine GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_AutoCastOverlay_ShineObject
----@field autoCastEnabled boolean
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_AutoCastOverlayObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:RegisterCallback(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_AutoCastOverlayObject:OnHide(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_AutoCastOverlayObject:OnShow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_AutoCastOverlayObject:ShowAutoCastEnabled(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_AutoCastOverlayObject:UpdateShineAnim(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_AutoCastOverlay_CornersObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_AutoCastOverlay_CornersObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_AutoCastOverlay_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_AutoCastOverlay_MaskObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:TriggerEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:UnregisterCallback(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:UnregisterEvents(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_AutoCastOverlay_ShineObject : Texture
----@field Anim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_AutoCastOverlay_Shine_AnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_AutoCastOverlay_ShineObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTarget_EventObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ScrollTarget_EventObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_AutoCastOverlay_Shine_AnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_AutoCastOverlay_Shine_AnimObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ShadowsObject : Frame
+---@field Lower DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_Shadows_LowerObject
+---@field Upper DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_Shadows_UpperObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_ShadowsObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_BorderObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_BorderObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_Shadows_LowerObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_Shadows_LowerObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_BorderShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_BorderShadowObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_Shadows_UpperObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_Shadows_UpperObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject : Frame
----@field ActiveTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_ActiveTextureObject
----@field DisabledTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_DisabledTextureObject
----@field HoldAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_HoldAnimObject
----@field HoldIndicator GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_HoldIndicatorObject
----@field HoldIndicatorBG GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_HoldIndicatorBGObject
----@field HoverTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_HoverTextureObject
----@field LoadBar GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_LoadBarObject
----@field LoadBarBG GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_LoadBarBGObject
----@field LoadBarGlow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_LoadBarGlowObject
----@field NormalTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_NormalTextureObject
----@field PressedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_PressedTextureObject
----@field SpinnerTip GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject
+---@field Event table
+---@field FrameLevelPolicy table
+---@field callbackTables table
+---@field canSignalWithoutInitializer boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field frameFactory table
+---@field frames table
+---@field initialized boolean
+---@field initializers table
+---@field padding table
+---@field scrollBox DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_view_scrollBoxObject
+---@field templateInfoCache table
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject = {}
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject:ApplyTextureLayout(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:AcquireInternal(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject:BeginHold(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:AcquireRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject:CanEnterTextureState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:AssignAccessors(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject:DisableDropShadow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:AttachDataProviderCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject:EnableDropShadow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject:EndHold(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:CalculateDataIndices(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject:OnHoldAnimFinished(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:CalculateFrameExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject:OnHoldAnimStopped(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ClearCachedData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject:OnLoad(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ClearElementExtentData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject:RefreshIconTextures(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ClearInvalidation(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject:SetDisabled(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ContainsElementDataByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject:SetEnabled(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject:SetFocused(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:DataProviderContentsChanged(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject:SetHoldState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:DetachDataProviderCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject:SetInputKey(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject:SetIsHoldAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:EnumerateDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject:SetPressable(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject:SetTextureHeight(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:EnumerateFrames(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject:SetTextureState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:FindByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject:SetTextureWidth(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:FindElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject:SetUsableState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:FindElementDataByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIconObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_ActiveTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_ActiveTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_DisabledTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_DisabledTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_HoldAnimObject : AnimationGroup
----@field LoadBarAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_HoldAnim_SpinnerTipAnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_HoldAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_HoldAnim_LoadBarAnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_HoldAnim_SpinnerTipAnimObject : Rotation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_HoldIndicatorObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_HoldIndicatorObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_HoldIndicatorBGObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_HoldIndicatorBGObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_HoverTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_HoverTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_LoadBarObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_LoadBarObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_LoadBarBGObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_LoadBarBGObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_LoadBarGlowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_LoadBarGlowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_NormalTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_NormalTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_PressedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_PressedTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_SpinnerTipObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_ButtonIcon_SpinnerTipObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CheckedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CheckedTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CircleGlowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CircleGlowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CircleMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CircleMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CircleShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CircleShadowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CircleShadowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CircleShadowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CooldownFlashObject : Frame
----@field FlashAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CooldownFlash_FlashAnimObject
----@field Flipbook GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CooldownFlash_FlipbookObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CooldownFlashObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:FindElementDataIndex(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CooldownFlashObject:Setup(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CooldownFlash_FlashAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CooldownFlash_FlashAnimObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CooldownFlash_FlashAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CooldownFlash_FlipbookObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CooldownFlash_FlipbookObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CountObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_CountObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_EditModeCircleFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_EditModeCircleFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_EditModeSquareFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_EditModeSquareFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_FlashObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_FlashObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_GameplayModeCircleFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_GameplayModeCircleFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_GameplayModeSquareFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_GameplayModeSquareFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_HighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_HighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_HotKeyObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_HotKeyObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_IconMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_IconMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplayObject : Frame
----@field Base GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_BaseObject
----@field Highlight GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_HighlightObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplayObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:FindFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplayObject:OnHide(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:FindFrameByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplayObject:OnShow(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_BaseObject : Frame
----@field AnimIn GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_Base_AnimInObject
----@field Base GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_Base_BaseObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_BaseObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_Base_AnimInObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_Base_AnimInObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:FindFrameElementDataIndex(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_Base_AnimInObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_Base_BaseObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_Base_BaseObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_HighlightObject : Frame
----@field AnimIn GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_Highlight_AnimInObject
----@field HighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_Highlight_HighlightTextureObject
----@field Mask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_Highlight_MaskObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_HighlightObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_Highlight_AnimInObject : AnimationGroup
----@field Translation GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_Highlight_AnimIn_TranslationObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_Highlight_AnimInObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_Highlight_AnimIn_TranslationObject : Translation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_Highlight_AnimIn_TranslationObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_Highlight_HighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_Highlight_HighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_Highlight_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_InterruptDisplay_Highlight_MaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_LevelLinkLockIconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_LevelLinkLockIconObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_NameObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_NameObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_NewActionTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_NewActionTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_NormalTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_NormalTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_PermaboundOverlayObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_PermaboundOverlayObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_PushedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_PushedTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_QuickKeybindHighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_QuickKeybindHighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_RangeIndicatorObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_RangeIndicatorObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SlotArtObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SlotArtObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SlotBackgroundObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SlotBackgroundObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpecialActionIconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpecialActionIconObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrameObject : Frame
----@field EndBurst GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_EndBurstObject
----@field Fill GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_FillObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrameObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:Flush(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrameObject:FinishAnimAndPlayBurst(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:FlushDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrameObject:GetCooldownFrameAlpha(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ForEachElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrameObject:OnHide(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ForEachFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrameObject:Setup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrameObject:SetupAnimAtlases(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_EndBurstObject : Frame
----@field EndMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_EndBurst_EndMaskObject
----@field FinishCastAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_EndBurst_FinishCastAnimObject
----@field GlowRing GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_EndBurst_GlowRingObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_EndBurstObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_EndBurst_EndMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_EndBurst_EndMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_EndBurst_FinishCastAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_EndBurst_FinishCastAnimObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetCallbackTable(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_EndBurst_FinishCastAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_EndBurst_GlowRingObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_EndBurst_GlowRingObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_FillObject : Frame
----@field CastFill GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_Fill_CastFillObject
----@field CastingAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_Fill_CastingAnimObject
----@field FillMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_Fill_FillMaskObject
----@field InnerGlowTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_Fill_InnerGlowTextureObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_FillObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_Fill_CastFillObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_Fill_CastFillObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_Fill_CastingAnimObject : AnimationGroup
----@field CastFillTranslation GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_Fill_CastingAnimObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetCallbackTables(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_Fill_CastingAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject : Translation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_Fill_FillMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_Fill_FillMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_Fill_InnerGlowTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellCastAnimFrame_Fill_InnerGlowTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellHighlightAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellHighlightAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellHighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SpellHighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SquareGlowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SquareGlowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SquareMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SquareMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SquareShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SquareShadowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SquareShadowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_SquareShadowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TargetReticleAnimFrameObject : Frame
----@field Base GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TargetReticleAnimFrame_BaseObject
----@field Highlight GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TargetReticleAnimFrame_HighlightObject
----@field HighlightAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TargetReticleAnimFrame_HighlightAnimObject
----@field Mask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TargetReticleAnimFrame_MaskObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TargetReticleAnimFrameObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TargetReticleAnimFrameObject:Setup(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TargetReticleAnimFrame_BaseObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TargetReticleAnimFrame_BaseObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TargetReticleAnimFrame_HighlightObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TargetReticleAnimFrame_HighlightObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TargetReticleAnimFrame_HighlightAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TargetReticleAnimFrame_HighlightAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TargetReticleAnimFrame_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TargetReticleAnimFrame_MaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TextOverlayContainerObject : Frame
----@field Count GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TextOverlayContainer_CountObject
----@field HotKey GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TextOverlayContainer_HotKeyObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TextOverlayContainerObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetDataIndexBegin(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TextOverlayContainerObject:OnLoad(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TextOverlayContainer_CountObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TextOverlayContainer_CountObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TextOverlayContainer_HotKeyObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_TextOverlayContainer_HotKeyObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_chargeCooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_chargeCooldownObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_cooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_cooldownObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_iconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_iconObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_lossOfControlCooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_lossOfControlCooldownObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_parentActionBarObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton3_parentActionBarObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object : CheckButton
----@field Arrow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ArrowObject
----@field AutoCastOverlay GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_AutoCastOverlayObject
----@field Border GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_BorderObject
----@field BorderShadow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_BorderShadowObject
----@field ButtonIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject
----@field CheckedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CheckedTextureObject
----@field CircleGlowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CircleGlowFocusObject
----@field CircleMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CircleMaskObject
----@field CircleShadow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CircleShadowObject
----@field CircleShadowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CircleShadowFocusObject
----@field CooldownFlash GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CooldownFlashObject
----@field Count GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CountObject
----@field EditModeCircleFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_EditModeCircleFocusStartAnimObject
----@field EditModeSquareFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_EditModeSquareFocusStartAnimObject
----@field Flash GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_FlashObject
----@field GameplayModeCircleFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_GameplayModeCircleFocusStartAnimObject
----@field GameplayModeSquareFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_GameplayModeSquareFocusStartAnimObject
----@field HighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_HighlightTextureObject
----@field HotKey GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_HotKeyObject
----@field IconMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_IconMaskObject
----@field InterruptDisplay GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplayObject
----@field LevelLinkLockIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_LevelLinkLockIconObject
----@field Name GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_NameObject
----@field NewActionTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_NewActionTextureObject
----@field NormalTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_NormalTextureObject
----@field PermaboundOverlay GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_PermaboundOverlayObject
----@field PushedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_PushedTextureObject
----@field QuickKeybindHighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_QuickKeybindHighlightTextureObject
----@field RangeIndicator GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_RangeIndicatorObject
----@field SlotArt GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SlotArtObject
----@field SlotBackground GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SlotBackgroundObject
----@field SpecialActionIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpecialActionIconObject
----@field SpellCastAnimFrame GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrameObject
----@field SpellHighlightAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellHighlightAnimObject
----@field SpellHighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellHighlightTextureObject
----@field SquareGlowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SquareGlowFocusObject
----@field SquareMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SquareMaskObject
----@field SquareShadow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SquareShadowObject
----@field SquareShadowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SquareShadowFocusObject
----@field TargetReticleAnimFrame GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TargetReticleAnimFrameObject
----@field TextOverlayContainer GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TextOverlayContainerObject
----@field action number
----@field activeButtonShape string
----@field arrowCrossAxisSize number
----@field arrowDownTexture string
----@field arrowMainAxisSize number
----@field arrowNormalTexture string
----@field arrowOverTexture string
----@field bindingAction string
----@field buttonIndexOnActionBar number
----@field chargeCooldown GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_chargeCooldownObject
----@field closedArrowOffset number
----@field collapsed boolean
----@field cooldown GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_cooldownObject
----@field enableLOCCooldown boolean
----@field enableSpellFX boolean
----@field eventsRegistered boolean
----@field feedback_action number
----@field flashing number
----@field flashtime number
----@field flyoutArrowAngleRads number
----@field hotkeyTextGamepadX number
----@field hotkeyTextGamepadY number
----@field hotkeyTextKeyboardX number
----@field hotkeyTextKeyboardY number
----@field icon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_iconObject
----@field isFlyoutAction boolean
----@field lossOfControlCooldown GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_lossOfControlCooldownObject
----@field openArrowOffset number
----@field parentActionBar GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_parentActionBarObject
----@field popupCrossAxisSize number
----@field popupDirection string
----@field popupOffset number
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetDataIndexEnd(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnAttributeChanged(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetDataProviderSize(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnDragStart(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetDataRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnDragStop(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetDataScrollOffset(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnEnter(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetElementExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnEvent(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetElementExtentCalculator(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnHide(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetElementIndent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnLeave(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnLoad(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetExtentFromInfo(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnPostClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetExtentSpacing(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnReceiveDrag(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetExtentTo(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnShow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetExtentUntil(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ActionBarButtonMixin_OnDragStart(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetFactoryDataFromElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ActionBarButtonMixin_OnEnter(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetFirstTemplateInfo(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ActionBarButtonMixin_OnLeave(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetFrameCount(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ActionBarButtonMixin_OnLoad(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetFrameExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ApplyExtraButtonStylesForState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetFrameLevelCounter(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ApplyGamepadAOETargetAnchorPoints(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetFrameLevelPolicy(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ApplyGamepadInterruptAnchorPoints(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetFrames(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ApplyPressedStyle(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetIdenticalElementExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:BaseActionButtonMixin_OnAttributeChanged(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetIdenticalStrideExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:BaseActionButtonMixin_OnDragStart(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetInvalidationReason(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:BaseActionButtonMixin_OnEnter(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetLayoutFunction(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:BaseActionButtonMixin_OnLeave(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetLower(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:BaseActionButtonMixin_OnLoad(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:CacheFlyoutSpellInfo(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetPadding(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:CalculateAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetPanExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:CheckNeedsUpdate(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetScrollBox(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ClearFlash(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetScrollTarget(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ClearInterruptDisplay(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetSpacing(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ClearPopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetStride(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ClearProfessionQuality(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetTemplateExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ClearPushedStateAfterAOETargeting(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ClearReticle(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetTemplateInfo(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ClearTypeOverlay(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:GetUpper(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ClosePopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:Collapse(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:HasBiaxalLayout(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:CreateTextureOverlayFrame(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:HasDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:DesaturateIfDisabled(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:HasElementExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:DisableGameplayFeedback(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:HasIdenticalElementExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:DoModeChange(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:HasIdenticalStrideExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:EnumFlyoutSlotInfo(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:EvaluateState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:Init(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:EvaluateTutorials(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:InitDefaultDrag(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:Expand(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:InvokeInitializer(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:Flyout_OnClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:InvokeInitializers(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:GetActionBarParent(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:IsAcquireLocked(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:GetActionButtonInfo(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:IsDataIndexWithinRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:GetActiveSpellID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:IsElementStretchDisabled(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:GetAllowRadialWheel(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:IsExtentValid(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:GetArrowRotation(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:IsHorizontal(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:GetGamepadPageUnitSlotID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:IsInitialized(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:GetIsPingable(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:IsInvalidated(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:GetOrCreateTypeOverlay(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:GetPagedID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:IsVirtualized(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:GetPopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:Layout(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:GetPopupDirection(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:LayoutInternal(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:GetShowGrid(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:OnDataProviderSizeChanged(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:GetSingleSpellID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:OnDataProviderSort(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:GetTargetInfo(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:OnLoad(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:HandleFlyoutClickOverride(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:PrepareScrollToElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:HasAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:HasPopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:RebuildTemplateInfoCache(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:IsDown(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:RecalculateExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:IsDownOver(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:IsFlashing(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:RefreshSmartNav(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:IsOver(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:RegisterCallback(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:IsPopupOpen(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:MatchesActiveButtonSpellID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ReinitializeFrames(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:OnActionBarSlotChanged(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:Release(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:OnAttributeChanged(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:RemoveDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:OnButtonStateChanged(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:RemoveDataProviderInternal(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:OnClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ResizeFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:OnDisable(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:OnDragStart(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:OnEnable(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ReverseForEachElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:OnEnter(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ReverseForEachFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:OnEvent(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SecureInsertEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:OnFlyoutClosed(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SelectCursorComponent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:OnFlyoutOpened(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SelectPointComponent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:OnHide(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetAcquireLocked(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:OnLeave(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:OnLoad(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetDataRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:OnMouseDown(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetElementExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:OnMouseUp(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetElementExtentCalculator(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:OnPopupHidden(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetElementFactory(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:OnPopupToggled(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetElementIndentCalculator(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:OnReceiveDrag(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetElementInitializer(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:OnShow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetElementResetter(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:OnUpdate(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetElementStretchDisabled(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:PlaySpellCastAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:PlaySpellInterruptedAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetFrameExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:PlayTargettingReticleAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetFrameFactoryResetter(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:QuickKeybindButtonOnClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetFrameLevelPolicy(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:QuickKeybindButtonOnEnter(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetHorizontal(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:QuickKeybindButtonOnHide(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetInvalidationReason(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:QuickKeybindButtonOnLeave(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetMaxPanExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:QuickKeybindButtonOnMouseWheel(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetPadding(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:QuickKeybindButtonOnShow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetPanExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:QuickKeybindButtonOnUpdate(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetScrollBox(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:QuickKeybindButtonSetTooltip(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:ReapplyStyle(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SetVirtualized(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:RefreshRange(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SignalDataChangeEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:RegisterActionBarButtonCheckFrames(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:SortFrames(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:SetActionBarParent(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:SetArrowRotationRadians(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:TriggerEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:SetButtonArt(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:UnassignAccessors(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:SetButtonIndexOnActionBar(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:UnregisterCallback(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:SetButtonStateBase(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:UnregisterEvents(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:SetButtonStateOverride(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:SetCircleCastingTextures(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:ValidateDataRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:SetDisplacedRegions(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:elementFactory(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_viewObject:factory(...) end
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_view_scrollBoxObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_ScrollBox_view_scrollBoxObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_TopObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_OptionsList_TopObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_ShadowObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_ShadowObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_TextureObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_TextureObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_TextureMaskObject : MaskTexture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_TextureMaskObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_ValueObject : FontString
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatRoleSlot_ValueObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject : Button
+---@field Border DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_BorderObject
+---@field BorderHighlight DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_BorderHighlightObject
+---@field HighlightTexture DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_HighlightTextureObject
+---@field Label DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_LabelObject
+---@field NewGlowHighlight DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewGlowHighlightObject
+---@field NewGlowHighlightAnimIn DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewGlowHighlightAnimInObject
+---@field NewLabel DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject
+---@field OptionsList DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsListObject
+---@field Shadow DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_ShadowObject
+---@field Texture DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_TextureObject
+---@field TextureMask DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_TextureMaskObject
+---@field Value DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_ValueObject
+---@field layoutIndex number
+---@field selectionNodeID number
+---@field type string
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject = {}
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:SetGamepadPageUnitSlotID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:BuildSelectionNodeOptions(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:SetPopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:CheckToggleAllowed(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:SetPopupDirection(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:GetSelectionNodeID(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:SetShapeToCircle(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:GetSlotLabelText(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:SetShapeToSquare(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:HasActiveEntry(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:SetShowGrid(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:HasSelectionAndInfo(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:SetSquareCastingTextures(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:OnEnter(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:SetTooltip(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:OnEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:SetupCastingAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:OnHide(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:SpellFXEnabled(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:OnLeave(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:StartFlash(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:OnLoad(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:StopFlash(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:OnMouseDown(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:StopSpellCastAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:OnShow(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:StopTargettingReticleAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:PopulateOptionsList(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:TogglePopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:Refresh(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:TriggerSecureClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlotObject:SetSeenCurios(...) end
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_BorderObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_BorderObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_BorderHighlightObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_BorderHighlightObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_HighlightTextureObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_HighlightTextureObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_LabelObject : FontString
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_LabelObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewGlowHighlightObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewGlowHighlightObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewGlowHighlightAnimInObject : AnimationGroup
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewGlowHighlightAnimInObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject : Frame
+---@field BGLabel DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_BGLabelObject
+---@field Fade DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_FadeObject
+---@field Glow DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_GlowObject
+---@field Label DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_LabelObject
+---@field animateGlow boolean
+---@field justifyH string
+---@field label string
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject = {}
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UnregisterActionBarButtonCheckFrames(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:AddLayoutChildren(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:Update(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:ClearAlert(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:ClearFixedSize(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateArrowPosition(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetAdditionalRegions(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateArrowRotation(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetChildHeight(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateArrowShown(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetChildSize(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateArrowTexture(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetChildWidth(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateAssistedCombatRotationFrame(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetFixedHeight(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateAutoCastAnchors(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetFixedSize(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateBorderShadow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetFixedWidth(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateButtonArt(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetHeightPadding(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateButtonArtAnchoring(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetLayoutChildren(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateCastingAnimSizeAndPositioning(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetMaximumWidth(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateCastingAnimation(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetMinimumWidth(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateCooldown(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetTextWidth(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateCount(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:GetWidthPadding(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateEmptySlotBackgroundTexture(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:IgnoreLayoutIndex(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateFlash(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:IsDirty(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateFlyout(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:IsLayoutFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateFlyoutActionIcon(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:Layout(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateFlyoutActionInfo(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:MarkClean(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateFlyoutPopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:MarkDirty(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateHighlightMark(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:MarkIgnoreInLayout(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateHotkeys(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:NewFeatureLabel_OnShow(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateInterruptHighlightAnimAnchors(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:OnCleaned(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateMouseWheelHandler(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:OnHide(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdatePageableGamepadButtonAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:OnLoad(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdatePingAttributes(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:OnShow(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdatePressAndHoldAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:OnUpdate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateProfessionQuality(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:SetFixedHeight(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateSpellAlert(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:SetFixedSize(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateSpellHighlightMark(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:SetFixedWidth(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:SetHeightPadding(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateTypeOverlay(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:SetMaximumWidth(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateUsable(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:SetMinimumWidth(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:UpdateWithStorageId(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:SetWidthPadding(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4Object:castingAnimTextureSetupFunc(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabelObject:ShouldClearOnUpdateAfterClean(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ArrowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ArrowObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_BGLabelObject : FontString
+---@field ignoreInLayout boolean
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_BGLabelObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_AutoCastOverlayObject : Frame
----@field Corners GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_AutoCastOverlay_CornersObject
----@field Mask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_AutoCastOverlay_MaskObject
----@field Shine GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_AutoCastOverlay_ShineObject
----@field autoCastEnabled boolean
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_AutoCastOverlayObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_AutoCastOverlayObject:OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_AutoCastOverlayObject:OnShow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_AutoCastOverlayObject:ShowAutoCastEnabled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_AutoCastOverlayObject:UpdateShineAnim(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_AutoCastOverlay_CornersObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_AutoCastOverlay_CornersObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_FadeObject : AnimationGroup
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_FadeObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_AutoCastOverlay_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_AutoCastOverlay_MaskObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_GlowObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_GlowObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_AutoCastOverlay_ShineObject : Texture
----@field Anim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_AutoCastOverlay_Shine_AnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_AutoCastOverlay_ShineObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_LabelObject : FontString
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_NewLabel_LabelObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_AutoCastOverlay_Shine_AnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_AutoCastOverlay_Shine_AnimObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsListObject : Frame
+---@field Bottom DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_BottomObject
+---@field Middle DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_MiddleObject
+---@field ScrollBox DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject
+---@field Top DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_TopObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsListObject = {}
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsListObject:OnHide(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsListObject:OnShow(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_BorderObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_BorderObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_BottomObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_BottomObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_BorderShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_BorderShadowObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_MiddleObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_MiddleObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject : Frame
----@field ActiveTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_ActiveTextureObject
----@field DisabledTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_DisabledTextureObject
----@field HoldAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_HoldAnimObject
----@field HoldIndicator GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_HoldIndicatorObject
----@field HoldIndicatorBG GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_HoldIndicatorBGObject
----@field HoverTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_HoverTextureObject
----@field LoadBar GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_LoadBarObject
----@field LoadBarBG GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_LoadBarBGObject
----@field LoadBarGlow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_LoadBarGlowObject
----@field NormalTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_NormalTextureObject
----@field PressedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_PressedTextureObject
----@field SpinnerTip GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject : Frame
+---@field Defaults DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_DefaultsObject
+---@field Directions DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_DirectionsObject
+---@field DragDelegate DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_DragDelegateObject
+---@field Event DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_EventObject
+---@field ScrollTarget DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject
+---@field Shadows DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ShadowsObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field debugInspectionSystem string
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field isScrollController boolean
+---@field panExtentPercentage number
+---@field view DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject
+---@field wheelPanScalar number
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject = {}
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject:ApplyTextureLayout(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ApplyEdgeFade(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject:BeginHold(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:CalculateEdgeFade(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject:CanEnterTextureState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:CalculatePanExtentPercentage(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject:DisableDropShadow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:CalculateScrollPercentage(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject:EnableDropShadow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:CanInterpolateScroll(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject:EndHold(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ClearEdgeFade(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject:OnHoldAnimFinished(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ContainsElementDataByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject:OnHoldAnimStopped(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject:OnLoad(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject:RefreshIconTextures(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:EnableSnapToInterval(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject:SetDisabled(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:EnumerateDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject:SetEnabled(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:EnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject:SetFocused(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:EnumerateFrames(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject:SetHoldState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:FindByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject:SetInputKey(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:FindElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject:SetIsHoldAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:FindElementDataByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject:SetPressable(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:FindElementDataIndex(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject:SetTextureHeight(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:FindElementDataIndexByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject:SetTextureState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:FindFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject:SetTextureWidth(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:FindFrameByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject:SetUsableState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:FindFrameElementDataIndex(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIconObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_ActiveTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_ActiveTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_DisabledTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_DisabledTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_HoldAnimObject : AnimationGroup
----@field LoadBarAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_HoldAnim_SpinnerTipAnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_HoldAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_HoldAnim_LoadBarAnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_HoldAnim_SpinnerTipAnimObject : Rotation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_HoldIndicatorObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_HoldIndicatorObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_HoldIndicatorBGObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_HoldIndicatorBGObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_HoverTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_HoverTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_LoadBarObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_LoadBarObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_LoadBarBGObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_LoadBarBGObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_LoadBarGlowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_LoadBarGlowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_NormalTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_NormalTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_PressedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_PressedTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_SpinnerTipObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_ButtonIcon_SpinnerTipObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CheckedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CheckedTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CircleGlowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CircleGlowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CircleMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CircleMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CircleShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CircleShadowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CircleShadowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CircleShadowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CooldownFlashObject : Frame
----@field FlashAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CooldownFlash_FlashAnimObject
----@field Flipbook GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CooldownFlash_FlipbookObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CooldownFlashObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:Flush(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CooldownFlashObject:Setup(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CooldownFlash_FlashAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CooldownFlash_FlashAnimObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:FlushDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CooldownFlash_FlashAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CooldownFlash_FlipbookObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CooldownFlash_FlipbookObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CountObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_CountObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_EditModeCircleFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_EditModeCircleFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_EditModeSquareFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_EditModeSquareFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_FlashObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_FlashObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_GameplayModeCircleFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_GameplayModeCircleFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_GameplayModeSquareFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_GameplayModeSquareFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_HighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_HighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_HotKeyObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_HotKeyObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_IconMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_IconMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplayObject : Frame
----@field Base GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_BaseObject
----@field Highlight GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_HighlightObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplayObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ForEachElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplayObject:OnHide(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ForEachFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplayObject:OnShow(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_BaseObject : Frame
----@field AnimIn GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_Base_AnimInObject
----@field Base GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_Base_BaseObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_BaseObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_Base_AnimInObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_Base_AnimInObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:FullUpdate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_Base_AnimInObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_Base_BaseObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_Base_BaseObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_HighlightObject : Frame
----@field AnimIn GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_Highlight_AnimInObject
----@field HighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_Highlight_HighlightTextureObject
----@field Mask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_Highlight_MaskObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_HighlightObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_Highlight_AnimInObject : AnimationGroup
----@field Translation GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_Highlight_AnimIn_TranslationObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_Highlight_AnimInObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_Highlight_AnimIn_TranslationObject : Translation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_Highlight_AnimIn_TranslationObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_Highlight_HighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_Highlight_HighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_Highlight_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_InterruptDisplay_Highlight_MaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_LevelLinkLockIconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_LevelLinkLockIconObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_NameObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_NameObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_NewActionTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_NewActionTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_NormalTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_NormalTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_PermaboundOverlayObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_PermaboundOverlayObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_PushedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_PushedTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_QuickKeybindHighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_QuickKeybindHighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_RangeIndicatorObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_RangeIndicatorObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SlotArtObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SlotArtObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SlotBackgroundObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SlotBackgroundObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpecialActionIconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpecialActionIconObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrameObject : Frame
----@field EndBurst GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_EndBurstObject
----@field Fill GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_FillObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrameObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:FullUpdateInternal(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrameObject:FinishAnimAndPlayBurst(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrameObject:GetCooldownFrameAlpha(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetBottomPadding(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrameObject:OnHide(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetCallbackTable(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrameObject:Setup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetCallbackTables(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrameObject:SetupAnimAtlases(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_EndBurstObject : Frame
----@field EndMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_EndBurst_EndMaskObject
----@field FinishCastAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_EndBurst_FinishCastAnimObject
----@field GlowRing GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_EndBurst_GlowRingObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_EndBurstObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_EndBurst_EndMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_EndBurst_EndMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_EndBurst_FinishCastAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_EndBurst_FinishCastAnimObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_EndBurst_FinishCastAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_EndBurst_GlowRingObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_EndBurst_GlowRingObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_FillObject : Frame
----@field CastFill GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_Fill_CastFillObject
----@field CastingAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_Fill_CastingAnimObject
----@field FillMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_Fill_FillMaskObject
----@field InnerGlowTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_Fill_InnerGlowTextureObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_FillObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_Fill_CastFillObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_Fill_CastFillObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_Fill_CastingAnimObject : AnimationGroup
----@field CastFillTranslation GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_Fill_CastingAnimObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetDataIndexBegin(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_Fill_CastingAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject : Translation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_Fill_FillMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_Fill_FillMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_Fill_InnerGlowTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellCastAnimFrame_Fill_InnerGlowTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellHighlightAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellHighlightAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellHighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SpellHighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SquareGlowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SquareGlowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SquareMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SquareMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SquareShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SquareShadowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SquareShadowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_SquareShadowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TargetReticleAnimFrameObject : Frame
----@field Base GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TargetReticleAnimFrame_BaseObject
----@field Highlight GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TargetReticleAnimFrame_HighlightObject
----@field HighlightAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TargetReticleAnimFrame_HighlightAnimObject
----@field Mask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TargetReticleAnimFrame_MaskObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TargetReticleAnimFrameObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetDataIndexEnd(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TargetReticleAnimFrameObject:Setup(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TargetReticleAnimFrame_BaseObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TargetReticleAnimFrame_BaseObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TargetReticleAnimFrame_HighlightObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TargetReticleAnimFrame_HighlightObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TargetReticleAnimFrame_HighlightAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TargetReticleAnimFrame_HighlightAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TargetReticleAnimFrame_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TargetReticleAnimFrame_MaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TextOverlayContainerObject : Frame
----@field Count GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TextOverlayContainer_CountObject
----@field HotKey GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TextOverlayContainer_HotKeyObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TextOverlayContainerObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TextOverlayContainerObject:OnLoad(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TextOverlayContainer_CountObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TextOverlayContainer_CountObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TextOverlayContainer_HotKeyObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_TextOverlayContainer_HotKeyObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_chargeCooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_chargeCooldownObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_cooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_cooldownObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetDataProviderSize(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetDerivedExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetDerivedScrollOffset(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetDerivedScrollRange(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetElementExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetExtentPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetExtentUntil(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetFrameCount(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetFrameExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetFrames(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetIntervalRange(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetLeftPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetLower(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetLowerPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetLowerShadowTexture(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetPanExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetPanExtentPercentage(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetRightPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetScrollInterpolator(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetScrollPercentage(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetScrollTarget(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetTopPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetUpper(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetUpperPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetUpperShadowTexture(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetView(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetVisibleExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:GetWheelPanPercentage(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:HasDataProvider(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:HasEdgeFade(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:HasScrollableExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:HasView(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:Init(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:Interpolate(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:IsAcquireLocked(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:IsAlignmentOverlapIgnored(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:IsAtBegin(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:IsAtEnd(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:IsHorizontal(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:IsScrollAllowed(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:IsScrollToDataIndexSafe(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:IsUpdateLocked(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:IsVirtualized(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:Layout(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:OnLoad(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:OnMouseWheel(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:OnScrollTargetSizeChanged(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:OnSizeChanged(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:OnViewAcquiredFrame(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:OnViewDataChanged(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:OnViewDataProviderReassigned(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:OnViewInitializedFrame(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:OnViewReleasedFrame(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:Rebuild(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:RecalculateDerivedExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:RegisterCallback(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ReinitializeFrames(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:RemoveDataProvider(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ReverseEnumerateDataProvider(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ReverseForEachElementData(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ReverseForEachFrame(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SanitizeAlignment(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollDecrease(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollInDirection(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollIncrease(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollToBegin(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollToElementData(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollToElementDataByPredicate(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollToElementDataIndex(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollToEnd(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollToFrame(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollToNearest(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollToNearestByPredicate(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollToOffset(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SecureInsertEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SelectCursorComponent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SelectPointComponent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetAlignmentOverlapIgnored(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetDataProvider(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetEdgeFadeLength(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetFrameExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetHorizontal(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetInterpolateScroll(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetLowerShadowAtlas(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetPanExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetPanExtentPercentage(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetScrollAllowed(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetScrollPercentage(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetScrollTargetOffset(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetShadowsFrameLevel(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetShadowsScale(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetShadowsShown(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetUpdateLocked(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetUpperShadowAtlas(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetUseShadowsForEdgeFade(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:SetView(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:TriggerEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:UnregisterCallback(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:UnregisterEvents(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:Update(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBoxObject:scrollInternal(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_iconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_iconObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_DefaultsObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_DefaultsObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_lossOfControlCooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_lossOfControlCooldownObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_DirectionsObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_DirectionsObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_parentActionBarObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_ActionButton4_parentActionBarObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_DragDelegateObject : Frame
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_DragDelegateObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_EditModeFocusParticlesSingleObject : Frame
----@field FocusParticles1 GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_EditModeFocusParticlesSingle_FocusParticles1Object
----@field FocusParticles2 GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_EditModeFocusParticlesSingle_FocusParticles2Object
----@field FocusParticles3 GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_EditModeFocusParticlesSingle_FocusParticles3Object
----@field FocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_EditModeFocusParticlesSingle_FocusStartAnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_EditModeFocusParticlesSingleObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_EventObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_EventObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_EditModeFocusParticlesSingle_FocusParticles1Object : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_EditModeFocusParticlesSingle_FocusParticles1Object = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject : Frame
+---@field Event DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTarget_EventObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject = {}
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:GetCallbackTable(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:GetCallbackTables(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:OnLoad(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:RegisterCallback(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:TriggerEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:UnregisterCallback(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:UnregisterEvents(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_EditModeFocusParticlesSingle_FocusParticles2Object : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_EditModeFocusParticlesSingle_FocusParticles2Object = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTarget_EventObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ScrollTarget_EventObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_EditModeFocusParticlesSingle_FocusParticles3Object : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_EditModeFocusParticlesSingle_FocusParticles3Object = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ShadowsObject : Frame
+---@field Lower DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_Shadows_LowerObject
+---@field Upper DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_Shadows_UpperObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_ShadowsObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_EditModeFocusParticlesSingle_FocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Right_EditModeFocusParticlesSingle_FocusStartAnimObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_Shadows_LowerObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_Shadows_LowerObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_RightButtonFrameObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_RightButtonFrameObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_Shadows_UpperObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_Shadows_UpperObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_collapseSequenceObject
----@field actionBar GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_collapseSequence_actionBarObject
----@field animationsData table
----@field isLooping boolean
----@field isPlaying boolean
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_collapseSequenceObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject
+---@field Event table
+---@field FrameLevelPolicy table
+---@field callbackTables table
+---@field canSignalWithoutInitializer boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field frameFactory table
+---@field frames table
+---@field initialized boolean
+---@field initializers table
+---@field padding table
+---@field scrollBox DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_view_scrollBoxObject
+---@field templateInfoCache table
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject = {}
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_collapseSequenceObject:DebugPrint(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:AcquireInternal(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_collapseSequenceObject:ForEachActionBarSlot(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:AcquireRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_collapseSequenceObject:ForEachModifierIcon(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:AssignAccessors(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_collapseSequenceObject:GetSequenceDebugName(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:AttachDataProviderCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_collapseSequenceObject:Init(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_collapseSequenceObject:InitAnimations(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:CalculateDataIndices(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_collapseSequenceObject:IsPlaying(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:CalculateFrameExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_collapseSequenceObject:Reinitialize(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:ClearCachedData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_collapseSequenceObject:Start(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:ClearElementExtentData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_collapseSequenceObject:Stop(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_collapseSequence_actionBarObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_collapseSequence_actionBarObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_expandSequenceObject
----@field actionBar GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_expandSequence_actionBarObject
----@field animationsData table
----@field isLooping boolean
----@field isPlaying boolean
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_expandSequenceObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:ClearInvalidation(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_expandSequenceObject:DebugPrint(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:ContainsElementDataByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_expandSequenceObject:ForEachActionBarSlot(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_expandSequenceObject:ForEachModifierIcon(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:DataProviderContentsChanged(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_expandSequenceObject:GetSequenceDebugName(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:DetachDataProviderCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_expandSequenceObject:Init(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_expandSequenceObject:InitAnimations(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:EnumerateDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_expandSequenceObject:IsPlaying(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_expandSequenceObject:Reinitialize(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:EnumerateFrames(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_expandSequenceObject:Start(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:FindByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_expandSequenceObject:Stop(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_expandSequence_actionBarObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_expandSequence_actionBarObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject : Frame
----@field ActiveTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_ActiveTextureObject
----@field DisabledTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_DisabledTextureObject
----@field HoldAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_HoldAnimObject
----@field HoldIndicator GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_HoldIndicatorObject
----@field HoldIndicatorBG GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_HoldIndicatorBGObject
----@field HoverTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_HoverTextureObject
----@field LoadBar GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_LoadBarObject
----@field LoadBarBG GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_LoadBarBGObject
----@field LoadBarGlow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_LoadBarGlowObject
----@field NormalTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_NormalTextureObject
----@field PressedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_PressedTextureObject
----@field SpinnerTip GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_SpinnerTipObject
----@field animatedGlowBottom GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_animatedGlowBottomObject
----@field animatedGlowTop GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_animatedGlowTopObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:FindElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject:ApplyTextureLayout(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:FindElementDataByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject:BeginHold(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:FindElementDataIndex(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject:CanEnterTextureState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject:DisableDropShadow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:FindFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject:EnableDropShadow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:FindFrameByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject:EndHold(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:FindFrameElementDataIndex(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject:OnHoldAnimFinished(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:Flush(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject:OnHoldAnimStopped(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:FlushDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject:OnLoad(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:ForEachElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject:RefreshIconTextures(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:ForEachFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject:SetDisabled(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject:SetEnabled(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetCallbackTable(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject:SetFocused(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetCallbackTables(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject:SetHoldState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject:SetInputKey(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetDataIndexBegin(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject:SetIsHoldAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetDataIndexEnd(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject:SetPressable(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject:SetTextureHeight(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetDataProviderSize(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject:SetTextureState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetDataRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject:SetTextureWidth(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetDataScrollOffset(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject:SetUsableState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetElementExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_ActiveTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_ActiveTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_DisabledTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_DisabledTextureObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetElementExtentCalculator(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetElementIndent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetExtentFromInfo(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetExtentSpacing(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetExtentTo(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetExtentUntil(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetFactoryDataFromElementData(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetFirstTemplateInfo(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetFrameCount(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetFrameExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetFrameLevelCounter(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetFrameLevelPolicy(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetFrames(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetIdenticalElementExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetIdenticalStrideExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetInvalidationReason(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetLayoutFunction(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetLower(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetPanExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetScrollBox(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetScrollTarget(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetSpacing(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetStride(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetTemplateExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetTemplateInfo(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:GetUpper(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:HasBiaxalLayout(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:HasDataProvider(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:HasElementExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:HasIdenticalElementExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:HasIdenticalStrideExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:Init(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:InitDefaultDrag(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:InvokeInitializer(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:InvokeInitializers(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:IsAcquireLocked(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:IsDataIndexWithinRange(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:IsElementStretchDisabled(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:IsExtentValid(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:IsHorizontal(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:IsInitialized(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:IsInvalidated(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:IsVirtualized(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:Layout(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:LayoutInternal(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:OnDataProviderSizeChanged(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:OnDataProviderSort(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:OnLoad(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:PrepareScrollToElementData(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:RebuildTemplateInfoCache(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:RecalculateExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:RefreshSmartNav(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:RegisterCallback(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:ReinitializeFrames(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:Release(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:RemoveDataProvider(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:RemoveDataProviderInternal(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:ResizeFrame(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:ReverseForEachElementData(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:ReverseForEachFrame(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SecureInsertEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SelectCursorComponent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SelectPointComponent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SetAcquireLocked(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SetDataProvider(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SetDataRange(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SetElementExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SetElementExtentCalculator(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SetElementFactory(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SetElementIndentCalculator(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SetElementInitializer(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SetElementResetter(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SetElementStretchDisabled(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SetExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SetFrameExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SetFrameFactoryResetter(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SetFrameLevelPolicy(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SetHorizontal(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SetInvalidationReason(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SetMaxPanExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SetPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SetPanExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SetScrollBox(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SetVirtualized(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SignalDataChangeEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:SortFrames(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:TriggerEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:UnassignAccessors(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:UnregisterCallback(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:UnregisterEvents(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:ValidateDataRange(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:elementFactory(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_viewObject:factory(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_HoldAnimObject : AnimationGroup
----@field LoadBarAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_HoldAnim_SpinnerTipAnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_HoldAnimObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_view_scrollBoxObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_ScrollBox_view_scrollBoxObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_HoldAnim_LoadBarAnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_HoldAnim_LoadBarAnimObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_TopObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_OptionsList_TopObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_HoldAnim_LoadBarGlowAnimObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_ShadowObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_ShadowObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_HoldAnim_SpinnerTipAnimObject : Rotation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_HoldAnim_SpinnerTipAnimObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_TextureObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_TextureObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_HoldIndicatorObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_HoldIndicatorObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_TextureMaskObject : MaskTexture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_TextureMaskObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_HoldIndicatorBGObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_HoldIndicatorBGObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_ValueObject : FontString
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionCombatTrinketSlot_ValueObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_HoverTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_HoverTextureObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlotObject : Button
+---@field Border DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_BorderObject
+---@field BorderHighlight DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_BorderHighlightObject
+---@field HighlightTexture DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_HighlightTextureObject
+---@field Label DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_LabelObject
+---@field NewGlowHighlight DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewGlowHighlightObject
+---@field NewGlowHighlightAnimIn DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewGlowHighlightAnimInObject
+---@field NewLabel DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject
+---@field OptionsList DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsListObject
+---@field Shadow DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_ShadowObject
+---@field Texture DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_TextureObject
+---@field TextureMask DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_TextureMaskObject
+---@field Value DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_ValueObject
+---@field layoutIndex number
+---@field selectionNodeID number
+---@field type string
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlotObject = {}
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlotObject:BuildSelectionNodeOptions(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlotObject:CheckToggleAllowed(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlotObject:GetSelectionNodeID(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlotObject:GetSlotLabelText(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlotObject:HasActiveEntry(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlotObject:HasSelectionAndInfo(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlotObject:OnEnter(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlotObject:OnEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlotObject:OnHide(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlotObject:OnLeave(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlotObject:OnLoad(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlotObject:OnMouseDown(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlotObject:OnShow(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlotObject:PopulateOptionsList(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlotObject:Refresh(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlotObject:SetSeenCurios(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_LoadBarObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_LoadBarObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_BorderObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_BorderObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_LoadBarBGObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_LoadBarBGObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_BorderHighlightObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_BorderHighlightObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_LoadBarGlowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_LoadBarGlowObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_HighlightTextureObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_HighlightTextureObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_NormalTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_NormalTextureObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_LabelObject : FontString
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_LabelObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_PressedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_PressedTextureObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewGlowHighlightObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewGlowHighlightObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_SpinnerTipObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_SpinnerTipObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewGlowHighlightAnimInObject : AnimationGroup
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewGlowHighlightAnimInObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_animatedGlowBottomObject : Frame
----@field FocusEndAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_animatedGlowBottom_FocusEndAnimObject
----@field FocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_animatedGlowBottom_FocusStartAnimObject
----@field GlowBottomTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_animatedGlowBottom_GlowBottomTextureObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_animatedGlowBottomObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject : Frame
+---@field BGLabel DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabel_BGLabelObject
+---@field Fade DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabel_FadeObject
+---@field Glow DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabel_GlowObject
+---@field Label DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabel_LabelObject
+---@field animateGlow boolean
+---@field justifyH string
+---@field label string
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject = {}
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:AddLayoutChildren(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:ClearAlert(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:ClearFixedSize(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:GetAdditionalRegions(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:GetChildHeight(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:GetChildSize(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:GetChildWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:GetFixedHeight(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:GetFixedSize(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:GetFixedWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:GetHeightPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:GetLayoutChildren(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:GetMaximumWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:GetMinimumWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:GetTextWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:GetWidthPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:IsDirty(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:IsLayoutFrame(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:Layout(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:MarkClean(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:MarkDirty(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:NewFeatureLabel_OnShow(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:OnCleaned(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:OnHide(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:OnLoad(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:OnShow(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:OnUpdate(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:SetFixedHeight(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:SetFixedSize(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:SetFixedWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:SetHeightPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:SetMaximumWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:SetMinimumWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:SetWidthPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabelObject:ShouldClearOnUpdateAfterClean(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_animatedGlowBottom_FocusEndAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_animatedGlowBottom_FocusEndAnimObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabel_BGLabelObject : FontString
+---@field ignoreInLayout boolean
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabel_BGLabelObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_animatedGlowBottom_FocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_animatedGlowBottom_FocusStartAnimObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabel_FadeObject : AnimationGroup
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabel_FadeObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_animatedGlowBottom_GlowBottomTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_animatedGlowBottom_GlowBottomTextureObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabel_GlowObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabel_GlowObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_animatedGlowTopObject : Frame
----@field FocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_animatedGlowTop_FocusStartAnimObject
----@field GlowTopTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_animatedGlowTop_GlowTopTextureObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_animatedGlowTopObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabel_LabelObject : FontString
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_NewLabel_LabelObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_animatedGlowTop_FocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_animatedGlowTop_FocusStartAnimObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsListObject : Frame
+---@field Bottom DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_BottomObject
+---@field Middle DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_MiddleObject
+---@field ScrollBox DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject
+---@field Top DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_TopObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsListObject = {}
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsListObject:OnHide(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsListObject:OnShow(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_animatedGlowTop_GlowTopTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIcon_animatedGlowTop_GlowTopTextureObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_BottomObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_BottomObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_pagingUnitOwnerObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_pagingUnitOwnerObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_MiddleObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_MiddleObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBarObject : Frame
----@field BackgroundFocus GamepadActionBarEditFrame_PageUnit_activeBar_BackgroundFocusObject
----@field BackgroundWatermark GamepadActionBarEditFrame_PageUnit_activeBar_BackgroundWatermarkObject
----@field DisplayName string
----@field EditModeFocusBackground GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackgroundObject
----@field IdentifierIcon GamepadActionBarEditFrame_PageUnit_activeBar_IdentifierIconObject
----@field Left GamepadActionBarEditFrame_PageUnit_activeBar_LeftObject
----@field LeftButtonFrame GamepadActionBarEditFrame_PageUnit_activeBar_LeftButtonFrameObject
----@field Right GamepadActionBarEditFrame_PageUnit_activeBar_RightObject
----@field RightButtonFrame GamepadActionBarEditFrame_PageUnit_activeBar_RightButtonFrameObject
----@field actionButtons table
----@field appliedStyle number
----@field collapseSequence GamepadActionBarEditFrame_PageUnit_activeBar_collapseSequenceObject
----@field expandSequence GamepadActionBarEditFrame_PageUnit_activeBar_expandSequenceObject
----@field pagingUnitOwner GamepadActionBarEditFrame_PageUnit_activeBar_pagingUnitOwnerObject
----@field showCheckedStateOnOnExpand boolean
----@field supportsActionButtonPaging boolean
-local GamepadActionBarEditFrame_PageUnit_activeBarObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject : Frame
+---@field Defaults DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_DefaultsObject
+---@field Directions DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_DirectionsObject
+---@field DragDelegate DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_DragDelegateObject
+---@field Event DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_EventObject
+---@field ScrollTarget DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject
+---@field Shadows DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ShadowsObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field debugInspectionSystem string
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field isScrollController boolean
+---@field panExtentPercentage number
+---@field view DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject
+---@field wheelPanScalar number
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject = {}
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ApplyEdgeFade(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:CalculateEdgeFade(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:CalculatePanExtentPercentage(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:CalculateScrollPercentage(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:CanInterpolateScroll(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ClearEdgeFade(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ContainsElementDataByPredicate(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:EnableSnapToInterval(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:EnumerateDataProvider(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:EnumerateDataProviderEntireRange(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:EnumerateFrames(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:FindByPredicate(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:FindElementData(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:FindElementDataByPredicate(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:FindElementDataIndex(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:FindElementDataIndexByPredicate(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:FindFrame(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:FindFrameByPredicate(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:FindFrameElementDataIndex(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:Flush(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:FlushDataProvider(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ForEachElementData(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ForEachFrame(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:FullUpdate(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:FullUpdateInternal(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GenerateCallbackEvents(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetBottomPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetCallbackTable(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetCallbackTables(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetCallbacksByEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetDataIndexBegin(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetDataIndexEnd(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetDataProvider(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetDataProviderSize(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetDerivedExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetDerivedScrollOffset(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetDerivedScrollRange(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetElementExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetExtentPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetExtentUntil(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetFrameCount(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetFrameExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetFrames(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetIntervalRange(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetLeftPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetLower(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetLowerPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetLowerShadowTexture(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetPanExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetPanExtentPercentage(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetRightPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetScrollInterpolator(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetScrollPercentage(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetScrollTarget(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetTopPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetUpper(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetUpperPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetUpperShadowTexture(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetView(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetVisibleExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:GetWheelPanPercentage(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:HasDataProvider(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:HasEdgeFade(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:HasScrollableExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:HasView(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:ApplyKeyValueCustomizations(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:Init(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:CollapseActionButtons(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:Interpolate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:DebugPrintActionBarButtonInfoForPage(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:IsAcquireLocked(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:DisableActionButtonGameplayFeedback(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:IsAlignmentOverlapIgnored(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:ExpandActionButtons(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:IsAtBegin(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:GetActionButtonByIndex(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:IsAtEnd(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:GetActionButtonUsingButtonName(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:IsHorizontal(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:GetPermaboundState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:IsScrollAllowed(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:HideButtonIcons(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:IsScrollToDataIndexSafe(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:HideHighlight(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:IsUpdateLocked(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:InitActionButtons(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:IsVirtualized(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:IsActionBarUsable(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:Layout(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:IsBarEmpty(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:OnLoad(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:IsBarEmptyOnPage(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:OnMouseWheel(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:MarkBarAsPageable(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:OnScrollTargetSizeChanged(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:OnEvent(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:OnSizeChanged(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:OnLoad(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:OnViewAcquiredFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:RefreshActionBarVisibility(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:OnViewDataChanged(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:RefreshSpellHighlights(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:OnViewDataProviderReassigned(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:ReinitializeSequences(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:OnViewInitializedFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:SetActionBarShowSetting(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:OnViewReleasedFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:SetActionButtonsSaturation(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:Rebuild(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:SetCollapseSequence(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:RecalculateDerivedExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:SetExpandSequence(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:SetIsActionBarUsableFunc(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:RegisterCallback(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:SetPagingUnitOwner(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:SetShowCheckedStateOnExpand(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ReinitializeFrames(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:ShowButtonIcons(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:RemoveDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:ShowHighlight(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ReverseEnumerateDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:UpdateActionButtonsStateAndFlash(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:UpdateButtonsEmptySlotBackgroundTexture(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ReverseForEachElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBarObject:UpdateDisplayedActionsToPageUnitCurrentPage(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_BackgroundFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_BackgroundFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_BackgroundWatermarkObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_BackgroundWatermarkObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackgroundObject : Frame
----@field AnimEditBgLeft GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_AnimEditBgLeftObject
----@field AnimEditBgRight GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_AnimEditBgRightObject
----@field AnimEditDustLeft GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_AnimEditDustLeftObject
----@field AnimEditDustRight GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_AnimEditDustRightObject
----@field EditBackgroundFocus GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_EditBackgroundFocusObject
----@field EditFocusAllStart GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_EditFocusAllStartObject
----@field EditFocusLeftStart GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_EditFocusLeftStartObject
----@field EditFocusRightStart GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_EditFocusRightStartObject
----@field FocusParticles1 GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_FocusParticles1Object
----@field FocusParticles2 GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_FocusParticles2Object
----@field FocusParticles3 GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_FocusParticles3Object
-local GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackgroundObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_AnimEditBgLeftObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_AnimEditBgLeftObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_AnimEditBgRightObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_AnimEditBgRightObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_AnimEditDustLeftObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_AnimEditDustLeftObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_AnimEditDustRightObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_AnimEditDustRightObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_EditBackgroundFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_EditBackgroundFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_EditFocusAllStartObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_EditFocusAllStartObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_EditFocusLeftStartObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_EditFocusLeftStartObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_EditFocusRightStartObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_EditFocusRightStartObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_FocusParticles1Object : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_FocusParticles1Object = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_FocusParticles2Object : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_FocusParticles2Object = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_FocusParticles3Object : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_EditModeFocusBackground_FocusParticles3Object = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_IdentifierIconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_IdentifierIconObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_LeftObject : Frame
----@field ActionButton1 GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object
----@field ActionButton2 GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object
----@field ActionButton3 GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton3Object
----@field ActionButton4 GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton4Object
----@field EditModeFocusParticlesSingle GamepadActionBarEditFrame_PageUnit_activeBar_Left_EditModeFocusParticlesSingleObject
-local GamepadActionBarEditFrame_PageUnit_activeBar_LeftObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object : CheckButton
----@field Arrow GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ArrowObject
----@field AutoCastOverlay GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_AutoCastOverlayObject
----@field Border GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_BorderObject
----@field BorderShadow GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_BorderShadowObject
----@field ButtonIcon GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject
----@field CheckedTexture GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CheckedTextureObject
----@field CircleGlowFocus GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CircleGlowFocusObject
----@field CircleMask GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CircleMaskObject
----@field CircleShadow GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CircleShadowObject
----@field CircleShadowFocus GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CircleShadowFocusObject
----@field CooldownFlash GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CooldownFlashObject
----@field Count GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CountObject
----@field EditModeCircleFocusStartAnim GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_EditModeCircleFocusStartAnimObject
----@field EditModeSquareFocusStartAnim GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_EditModeSquareFocusStartAnimObject
----@field Flash GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_FlashObject
----@field GameplayModeCircleFocusStartAnim GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_GameplayModeCircleFocusStartAnimObject
----@field GameplayModeSquareFocusStartAnim GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_GameplayModeSquareFocusStartAnimObject
----@field HighlightTexture GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_HighlightTextureObject
----@field HotKey GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_HotKeyObject
----@field IconMask GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_IconMaskObject
----@field InterruptDisplay GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplayObject
----@field LevelLinkLockIcon GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_LevelLinkLockIconObject
----@field Name GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_NameObject
----@field NewActionTexture GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_NewActionTextureObject
----@field NormalTexture GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_NormalTextureObject
----@field PermaboundOverlay GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_PermaboundOverlayObject
----@field PushedTexture GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_PushedTextureObject
----@field QuickKeybindHighlightTexture GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_QuickKeybindHighlightTextureObject
----@field RangeIndicator GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_RangeIndicatorObject
----@field SlotArt GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SlotArtObject
----@field SlotBackground GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SlotBackgroundObject
----@field SpecialActionIcon GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpecialActionIconObject
----@field SpellCastAnimFrame GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrameObject
----@field SpellHighlightAnim GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellHighlightAnimObject
----@field SpellHighlightTexture GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellHighlightTextureObject
----@field SquareGlowFocus GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SquareGlowFocusObject
----@field SquareMask GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SquareMaskObject
----@field SquareShadow GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SquareShadowObject
----@field SquareShadowFocus GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SquareShadowFocusObject
----@field TargetReticleAnimFrame GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TargetReticleAnimFrameObject
----@field TextOverlayContainer GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TextOverlayContainerObject
----@field action number
----@field activeButtonShape string
----@field arrowCrossAxisSize number
----@field arrowDownTexture string
----@field arrowMainAxisSize number
----@field arrowNormalTexture string
----@field arrowOverTexture string
----@field bindingAction string
----@field buttonIndexOnActionBar number
----@field chargeCooldown GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_chargeCooldownObject
----@field closedArrowOffset number
----@field collapsed boolean
----@field cooldown GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_cooldownObject
----@field enableLOCCooldown boolean
----@field enableSpellFX boolean
----@field eventsRegistered boolean
----@field feedback_action number
----@field flashing number
----@field flashtime number
----@field flyoutArrowAngleRads number
----@field hotkeyTextGamepadX number
----@field hotkeyTextGamepadY number
----@field hotkeyTextKeyboardX number
----@field hotkeyTextKeyboardY number
----@field icon GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_iconObject
----@field isFlyoutAction boolean
----@field lossOfControlCooldown GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_lossOfControlCooldownObject
----@field openArrowOffset number
----@field pageUnitSlotID number
----@field parentActionBar GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_parentActionBarObject
----@field popupCrossAxisSize number
----@field popupDirection string
----@field popupOffset number
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ReverseForEachFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnAttributeChanged(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SanitizeAlignment(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ScrollDecrease(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnDragStart(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ScrollInDirection(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnDragStop(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ScrollIncrease(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnEnter(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ScrollToBegin(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnEvent(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ScrollToElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnHide(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ScrollToElementDataByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnLeave(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ScrollToElementDataIndex(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnLoad(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ScrollToEnd(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnPostClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ScrollToFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnReceiveDrag(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ScrollToNearest(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnShow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ScrollToNearestByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ActionBarButtonMixin_OnDragStart(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ScrollToOffset(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ActionBarButtonMixin_OnEnter(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ActionBarButtonMixin_OnLeave(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SecureInsertEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ActionBarButtonMixin_OnLoad(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SelectCursorComponent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ApplyExtraButtonStylesForState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SelectPointComponent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ApplyGamepadAOETargetAnchorPoints(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SetAlignmentOverlapIgnored(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ApplyGamepadInterruptAnchorPoints(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SetDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ApplyPressedStyle(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SetEdgeFadeLength(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:BaseActionButtonMixin_OnAttributeChanged(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SetFrameExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:BaseActionButtonMixin_OnDragStart(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SetHorizontal(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:BaseActionButtonMixin_OnEnter(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SetInterpolateScroll(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:BaseActionButtonMixin_OnLeave(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SetLowerShadowAtlas(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:BaseActionButtonMixin_OnLoad(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SetPadding(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:CacheFlyoutSpellInfo(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SetPanExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:CalculateAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:CheckNeedsUpdate(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SetScrollAllowed(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ClearFlash(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SetScrollPercentage(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ClearInterruptDisplay(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ClearPopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SetScrollTargetOffset(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ClearProfessionQuality(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SetShadowsFrameLevel(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ClearPushedStateAfterAOETargeting(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SetShadowsScale(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ClearReticle(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SetShadowsShown(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ClearTypeOverlay(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ClosePopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SetUpdateLocked(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:Collapse(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SetUpperShadowAtlas(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:CreateTextureOverlayFrame(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SetUseShadowsForEdgeFade(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:DesaturateIfDisabled(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:SetView(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:DisableGameplayFeedback(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:DoModeChange(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:TriggerEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:EnumFlyoutSlotInfo(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:UnregisterCallback(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:EvaluateState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:UnregisterEvents(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:EvaluateTutorials(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:Expand(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:Update(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:Flyout_OnClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBoxObject:scrollInternal(...) end
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_DefaultsObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_DefaultsObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_DirectionsObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_DirectionsObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_DragDelegateObject : Frame
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_DragDelegateObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_EventObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_EventObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject : Frame
+---@field Event DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTarget_EventObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject = {}
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:GetActionBarParent(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:GetActionButtonInfo(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:GetActiveSpellID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:GetAllowRadialWheel(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject:GetCallbackTable(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:GetArrowRotation(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject:GetCallbackTables(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:GetGamepadPageUnitSlotID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:GetIsPingable(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:GetOrCreateTypeOverlay(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:GetPagedID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:GetPopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject:OnLoad(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:GetPopupDirection(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:GetShowGrid(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:GetSingleSpellID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:GetTargetInfo(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:HandleFlyoutClickOverride(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject:RegisterCallback(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:HasAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:HasPopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:IsDown(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:IsDownOver(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject:TriggerEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:IsFlashing(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject:UnregisterCallback(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:IsOver(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject:UnregisterEvents(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:IsPopupOpen(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTarget_EventObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ScrollTarget_EventObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ShadowsObject : Frame
+---@field Lower DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_Shadows_LowerObject
+---@field Upper DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_Shadows_UpperObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_ShadowsObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_Shadows_LowerObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_Shadows_LowerObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_Shadows_UpperObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_Shadows_UpperObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject
+---@field Event table
+---@field FrameLevelPolicy table
+---@field callbackTables table
+---@field canSignalWithoutInitializer boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field frameFactory table
+---@field frames table
+---@field initialized boolean
+---@field initializers table
+---@field padding table
+---@field scrollBox DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_view_scrollBoxObject
+---@field templateInfoCache table
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject = {}
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:MatchesActiveButtonSpellID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:AcquireInternal(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:OnActionBarSlotChanged(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:AcquireRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:OnAttributeChanged(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:AssignAccessors(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:OnButtonStateChanged(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:AttachDataProviderCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:OnClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:OnDisable(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:CalculateDataIndices(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:OnDragStart(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:CalculateFrameExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:OnEnable(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:ClearCachedData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:OnEnter(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:ClearElementExtentData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:OnEvent(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:ClearInvalidation(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:OnFlyoutClosed(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:ContainsElementDataByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:OnFlyoutOpened(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:OnHide(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:DataProviderContentsChanged(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:OnLeave(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:DetachDataProviderCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:OnLoad(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:OnMouseDown(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:EnumerateDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:OnMouseUp(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:OnPopupHidden(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:EnumerateFrames(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:OnPopupToggled(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:FindByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:OnReceiveDrag(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:FindElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:OnShow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:FindElementDataByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:OnUpdate(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:FindElementDataIndex(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:PlaySpellCastAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:PlaySpellInterruptedAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:FindFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:PlayTargettingReticleAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:FindFrameByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:QuickKeybindButtonOnClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:FindFrameElementDataIndex(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:QuickKeybindButtonOnEnter(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:Flush(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:QuickKeybindButtonOnHide(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:FlushDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:QuickKeybindButtonOnLeave(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:ForEachElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:QuickKeybindButtonOnMouseWheel(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:ForEachFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:QuickKeybindButtonOnShow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:QuickKeybindButtonOnUpdate(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetCallbackTable(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:QuickKeybindButtonSetTooltip(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetCallbackTables(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:ReapplyStyle(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:RefreshRange(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetDataIndexBegin(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:RegisterActionBarButtonCheckFrames(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetDataIndexEnd(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:SetActionBarParent(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:SetArrowRotationRadians(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetDataProviderSize(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:SetButtonArt(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetDataRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:SetButtonIndexOnActionBar(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetDataScrollOffset(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:SetButtonStateBase(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetElementExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:SetButtonStateOverride(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetElementExtentCalculator(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:SetCircleCastingTextures(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetElementIndent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:SetDisplacedRegions(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:SetGamepadPageUnitSlotID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetExtentFromInfo(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:SetPopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetExtentSpacing(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:SetPopupDirection(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetExtentTo(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:SetShapeToCircle(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetExtentUntil(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:SetShapeToSquare(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetFactoryDataFromElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:SetShowGrid(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetFirstTemplateInfo(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:SetSquareCastingTextures(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetFrameCount(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:SetTooltip(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetFrameExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:SetupCastingAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetFrameLevelCounter(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:SpellFXEnabled(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetFrameLevelPolicy(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:StartFlash(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetFrames(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:StopFlash(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetIdenticalElementExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:StopSpellCastAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetIdenticalStrideExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:StopTargettingReticleAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetInvalidationReason(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:TogglePopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetLayoutFunction(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:TriggerSecureClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetLower(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UnregisterActionBarButtonCheckFrames(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:Update(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetPadding(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetPanExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateArrowPosition(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetScrollBox(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateArrowRotation(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetScrollTarget(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateArrowShown(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetSpacing(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateArrowTexture(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetStride(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateAssistedCombatRotationFrame(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetTemplateExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateAutoCastAnchors(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateBorderShadow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetTemplateInfo(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateButtonArt(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:GetUpper(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateButtonArtAnchoring(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateCastingAnimSizeAndPositioning(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:HasBiaxalLayout(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateCastingAnimation(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:HasDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateCooldown(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:HasElementExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateCount(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:HasIdenticalElementExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateEmptySlotBackgroundTexture(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:HasIdenticalStrideExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateFlash(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateFlyout(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:Init(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateFlyoutActionIcon(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:InitDefaultDrag(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateFlyoutActionInfo(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:InvokeInitializer(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateFlyoutPopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:InvokeInitializers(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateHighlightMark(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:IsAcquireLocked(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateHotkeys(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:IsDataIndexWithinRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateInterruptHighlightAnimAnchors(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:IsElementStretchDisabled(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateMouseWheelHandler(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:IsExtentValid(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdatePageableGamepadButtonAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:IsHorizontal(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdatePingAttributes(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:IsInitialized(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdatePressAndHoldAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:IsInvalidated(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateProfessionQuality(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateSpellAlert(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:IsVirtualized(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateSpellHighlightMark(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:Layout(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:LayoutInternal(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateTypeOverlay(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:OnDataProviderSizeChanged(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateUsable(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:OnDataProviderSort(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:UpdateWithStorageId(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:OnLoad(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1Object:castingAnimTextureSetupFunc(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ArrowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ArrowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_AutoCastOverlayObject : Frame
----@field Corners GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_AutoCastOverlay_CornersObject
----@field Mask GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_AutoCastOverlay_MaskObject
----@field Shine GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_AutoCastOverlay_ShineObject
----@field autoCastEnabled boolean
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_AutoCastOverlayObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:PrepareScrollToElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_AutoCastOverlayObject:OnHide(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_AutoCastOverlayObject:OnShow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:RebuildTemplateInfoCache(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_AutoCastOverlayObject:ShowAutoCastEnabled(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:RecalculateExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_AutoCastOverlayObject:UpdateShineAnim(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_AutoCastOverlay_CornersObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_AutoCastOverlay_CornersObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_AutoCastOverlay_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_AutoCastOverlay_MaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_AutoCastOverlay_ShineObject : Texture
----@field Anim GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_AutoCastOverlay_Shine_AnimObject
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_AutoCastOverlay_ShineObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_AutoCastOverlay_Shine_AnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_AutoCastOverlay_Shine_AnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_BorderObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_BorderObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_BorderShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_BorderShadowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject : Frame
----@field ActiveTexture GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_ActiveTextureObject
----@field DisabledTexture GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_DisabledTextureObject
----@field HoldAnim GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_HoldAnimObject
----@field HoldIndicator GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_HoldIndicatorObject
----@field HoldIndicatorBG GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_HoldIndicatorBGObject
----@field HoverTexture GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_HoverTextureObject
----@field LoadBar GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_LoadBarObject
----@field LoadBarBG GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_LoadBarBGObject
----@field LoadBarGlow GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_LoadBarGlowObject
----@field NormalTexture GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_NormalTextureObject
----@field PressedTexture GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_PressedTextureObject
----@field SpinnerTip GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject:ApplyTextureLayout(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:RefreshSmartNav(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject:BeginHold(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:RegisterCallback(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject:CanEnterTextureState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject:DisableDropShadow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:ReinitializeFrames(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject:EnableDropShadow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:Release(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject:EndHold(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:RemoveDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject:OnHoldAnimFinished(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:RemoveDataProviderInternal(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject:OnHoldAnimStopped(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:ResizeFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject:OnLoad(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject:RefreshIconTextures(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject:SetDisabled(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:ReverseForEachElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject:SetEnabled(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:ReverseForEachFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject:SetFocused(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SecureInsertEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject:SetHoldState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SelectCursorComponent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject:SetInputKey(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SelectPointComponent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject:SetIsHoldAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SetAcquireLocked(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject:SetPressable(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SetDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject:SetTextureHeight(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SetDataRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject:SetTextureState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SetElementExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject:SetTextureWidth(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SetElementExtentCalculator(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject:SetUsableState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SetElementFactory(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIconObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_ActiveTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_ActiveTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_DisabledTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_DisabledTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_HoldAnimObject : AnimationGroup
----@field LoadBarAnim GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_HoldAnim_SpinnerTipAnimObject
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_HoldAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_HoldAnim_LoadBarAnimObject
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_HoldAnim_SpinnerTipAnimObject : Rotation
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_HoldIndicatorObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_HoldIndicatorObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_HoldIndicatorBGObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_HoldIndicatorBGObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_HoverTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_HoverTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_LoadBarObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_LoadBarObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_LoadBarBGObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_LoadBarBGObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_LoadBarGlowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_LoadBarGlowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_NormalTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_NormalTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_PressedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_PressedTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_SpinnerTipObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_ButtonIcon_SpinnerTipObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CheckedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CheckedTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CircleGlowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CircleGlowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CircleMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CircleMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CircleShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CircleShadowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CircleShadowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CircleShadowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CooldownFlashObject : Frame
----@field FlashAnim GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CooldownFlash_FlashAnimObject
----@field Flipbook GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CooldownFlash_FlipbookObject
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CooldownFlashObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SetElementIndentCalculator(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CooldownFlashObject:Setup(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CooldownFlash_FlashAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CooldownFlash_FlashAnimObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SetElementInitializer(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CooldownFlash_FlashAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CooldownFlash_FlipbookObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CooldownFlash_FlipbookObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CountObject : FontString
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_CountObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_EditModeCircleFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_EditModeCircleFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_EditModeSquareFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_EditModeSquareFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_FlashObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_FlashObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_GameplayModeCircleFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_GameplayModeCircleFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_GameplayModeSquareFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_GameplayModeSquareFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_HighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_HighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_HotKeyObject
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_HotKeyObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_IconMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_IconMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplayObject : Frame
----@field Base GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_BaseObject
----@field Highlight GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_HighlightObject
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplayObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SetElementResetter(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplayObject:OnHide(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SetElementStretchDisabled(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplayObject:OnShow(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_BaseObject : Frame
----@field AnimIn GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_Base_AnimInObject
----@field Base GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_Base_BaseObject
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_BaseObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_Base_AnimInObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_Base_AnimInObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SetExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_Base_AnimInObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_Base_BaseObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_Base_BaseObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_HighlightObject : Frame
----@field AnimIn GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_Highlight_AnimInObject
----@field HighlightTexture GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_Highlight_HighlightTextureObject
----@field Mask GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_Highlight_MaskObject
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_HighlightObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_Highlight_AnimInObject : AnimationGroup
----@field Translation GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_Highlight_AnimIn_TranslationObject
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_Highlight_AnimInObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_Highlight_AnimIn_TranslationObject : Translation
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_Highlight_AnimIn_TranslationObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_Highlight_HighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_Highlight_HighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_Highlight_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_InterruptDisplay_Highlight_MaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_LevelLinkLockIconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_LevelLinkLockIconObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_NameObject : FontString
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_NameObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_NewActionTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_NewActionTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_NormalTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_NormalTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_PermaboundOverlayObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_PermaboundOverlayObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SetFrameExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SetFrameFactoryResetter(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SetFrameLevelPolicy(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SetHorizontal(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SetInvalidationReason(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SetMaxPanExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SetPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SetPanExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SetScrollBox(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SetVirtualized(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SignalDataChangeEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:SortFrames(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:TriggerEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:UnassignAccessors(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:UnregisterCallback(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:UnregisterEvents(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:ValidateDataRange(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:elementFactory(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_viewObject:factory(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_PushedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_PushedTextureObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_view_scrollBoxObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_ScrollBox_view_scrollBoxObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_QuickKeybindHighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_QuickKeybindHighlightTextureObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_TopObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_OptionsList_TopObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_RangeIndicatorObject : FontString
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_RangeIndicatorObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_ShadowObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_ShadowObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SlotArtObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SlotArtObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_TextureObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_TextureObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SlotBackgroundObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SlotBackgroundObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_TextureMaskObject : MaskTexture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_TextureMaskObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpecialActionIconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpecialActionIconObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_ValueObject : FontString
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionFlavorSlot_ValueObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrameObject : Frame
----@field EndBurst GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_EndBurstObject
----@field Fill GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_FillObject
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrameObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlotObject : Button
+---@field Border DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_BorderObject
+---@field BorderHighlight DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_BorderHighlightObject
+---@field HighlightTexture DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_HighlightTextureObject
+---@field Label DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_LabelObject
+---@field NewGlowHighlight DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewGlowHighlightObject
+---@field NewGlowHighlightAnimIn DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewGlowHighlightAnimInObject
+---@field NewLabel DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject
+---@field OptionsList DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsListObject
+---@field Shadow DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_ShadowObject
+---@field Texture DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_TextureObject
+---@field TextureMask DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_TextureMaskObject
+---@field Value DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_ValueObject
+---@field layoutIndex number
+---@field selectionNodeID number
+---@field type string
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlotObject = {}
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrameObject:FinishAnimAndPlayBurst(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlotObject:BuildSelectionNodeOptions(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrameObject:GetCooldownFrameAlpha(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlotObject:CheckToggleAllowed(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrameObject:OnHide(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlotObject:GetSelectionNodeID(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrameObject:Setup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlotObject:GetSlotLabelText(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrameObject:SetupAnimAtlases(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_EndBurstObject : Frame
----@field EndMask GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_EndBurst_EndMaskObject
----@field FinishCastAnim GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject
----@field GlowRing GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_EndBurst_GlowRingObject
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_EndBurstObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_EndBurst_EndMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_EndBurst_EndMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlotObject:HasActiveEntry(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_EndBurst_GlowRingObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_EndBurst_GlowRingObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_FillObject : Frame
----@field CastFill GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_Fill_CastFillObject
----@field CastingAnim GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_Fill_CastingAnimObject
----@field FillMask GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_Fill_FillMaskObject
----@field InnerGlowTexture GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_Fill_InnerGlowTextureObject
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_FillObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_Fill_CastFillObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_Fill_CastFillObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_Fill_CastingAnimObject : AnimationGroup
----@field CastFillTranslation GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_Fill_CastingAnimObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlotObject:HasSelectionAndInfo(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_Fill_CastingAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject : Translation
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_Fill_FillMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_Fill_FillMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_Fill_InnerGlowTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellCastAnimFrame_Fill_InnerGlowTextureObject = {}
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlotObject:OnEnter(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlotObject:OnEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlotObject:OnHide(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlotObject:OnLeave(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlotObject:OnLoad(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlotObject:OnMouseDown(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlotObject:OnShow(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlotObject:PopulateOptionsList(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlotObject:Refresh(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlotObject:SetSeenCurios(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellHighlightAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellHighlightAnimObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_BorderObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_BorderObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellHighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SpellHighlightTextureObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_BorderHighlightObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_BorderHighlightObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SquareGlowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SquareGlowFocusObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_HighlightTextureObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_HighlightTextureObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SquareMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SquareMaskObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_LabelObject : FontString
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_LabelObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SquareShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SquareShadowObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewGlowHighlightObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewGlowHighlightObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SquareShadowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_SquareShadowFocusObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewGlowHighlightAnimInObject : AnimationGroup
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewGlowHighlightAnimInObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TargetReticleAnimFrameObject : Frame
----@field Base GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TargetReticleAnimFrame_BaseObject
----@field Highlight GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TargetReticleAnimFrame_HighlightObject
----@field HighlightAnim GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TargetReticleAnimFrame_HighlightAnimObject
----@field Mask GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TargetReticleAnimFrame_MaskObject
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TargetReticleAnimFrameObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject : Frame
+---@field BGLabel DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabel_BGLabelObject
+---@field Fade DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabel_FadeObject
+---@field Glow DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabel_GlowObject
+---@field Label DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabel_LabelObject
+---@field animateGlow boolean
+---@field justifyH string
+---@field label string
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject = {}
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:AddLayoutChildren(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:ClearAlert(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:ClearFixedSize(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:GetAdditionalRegions(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:GetChildHeight(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:GetChildSize(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:GetChildWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:GetFixedHeight(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:GetFixedSize(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:GetFixedWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:GetHeightPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:GetLayoutChildren(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:GetMaximumWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:GetMinimumWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:GetTextWidth(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TargetReticleAnimFrameObject:Setup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:GetWidthPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:IsDirty(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:IsLayoutFrame(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:Layout(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:MarkClean(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:MarkDirty(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:NewFeatureLabel_OnShow(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:OnCleaned(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:OnHide(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:OnLoad(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:OnShow(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:OnUpdate(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:SetFixedHeight(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:SetFixedSize(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:SetFixedWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:SetHeightPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:SetMaximumWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:SetMinimumWidth(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:SetWidthPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabelObject:ShouldClearOnUpdateAfterClean(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TargetReticleAnimFrame_BaseObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TargetReticleAnimFrame_BaseObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabel_BGLabelObject : FontString
+---@field ignoreInLayout boolean
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabel_BGLabelObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TargetReticleAnimFrame_HighlightObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TargetReticleAnimFrame_HighlightObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabel_FadeObject : AnimationGroup
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabel_FadeObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TargetReticleAnimFrame_HighlightAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TargetReticleAnimFrame_HighlightAnimObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabel_GlowObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabel_GlowObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TargetReticleAnimFrame_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TargetReticleAnimFrame_MaskObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabel_LabelObject : FontString
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_NewLabel_LabelObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TextOverlayContainerObject : Frame
----@field Count GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TextOverlayContainer_CountObject
----@field HotKey GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TextOverlayContainer_HotKeyObject
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TextOverlayContainerObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsListObject : Frame
+---@field Bottom DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_BottomObject
+---@field Middle DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_MiddleObject
+---@field ScrollBox DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject
+---@field Top DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_TopObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsListObject = {}
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsListObject:OnHide(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TextOverlayContainerObject:OnLoad(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsListObject:OnShow(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TextOverlayContainer_CountObject
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TextOverlayContainer_CountObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_BottomObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_BottomObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TextOverlayContainer_HotKeyObject : FontString
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_TextOverlayContainer_HotKeyObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_MiddleObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_MiddleObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_chargeCooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_chargeCooldownObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject : Frame
+---@field Defaults DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_DefaultsObject
+---@field Directions DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_DirectionsObject
+---@field DragDelegate DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_DragDelegateObject
+---@field Event DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_EventObject
+---@field ScrollTarget DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject
+---@field Shadows DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ShadowsObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field debugInspectionSystem string
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field isScrollController boolean
+---@field panExtentPercentage number
+---@field view DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject
+---@field wheelPanScalar number
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject = {}
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ApplyEdgeFade(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:CalculateEdgeFade(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:CalculatePanExtentPercentage(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:CalculateScrollPercentage(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:CanInterpolateScroll(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ClearEdgeFade(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ContainsElementDataByPredicate(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:EnableSnapToInterval(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:EnumerateDataProvider(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:EnumerateDataProviderEntireRange(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:EnumerateFrames(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:FindByPredicate(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:FindElementData(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:FindElementDataByPredicate(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:FindElementDataIndex(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:FindElementDataIndexByPredicate(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:FindFrame(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:FindFrameByPredicate(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:FindFrameElementDataIndex(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:Flush(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:FlushDataProvider(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ForEachElementData(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ForEachFrame(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:FullUpdate(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:FullUpdateInternal(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GenerateCallbackEvents(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetBottomPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetCallbackTable(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetCallbackTables(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetCallbacksByEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetDataIndexBegin(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetDataIndexEnd(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetDataProvider(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetDataProviderSize(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetDerivedExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetDerivedScrollOffset(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetDerivedScrollRange(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetElementExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetExtentPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetExtentUntil(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetFrameCount(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetFrameExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetFrames(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetIntervalRange(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetLeftPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetLower(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetLowerPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetLowerShadowTexture(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetPanExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetPanExtentPercentage(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetRightPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetScrollInterpolator(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetScrollPercentage(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetScrollTarget(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetTopPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetUpper(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetUpperPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetUpperShadowTexture(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetView(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetVisibleExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:GetWheelPanPercentage(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:HasDataProvider(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:HasEdgeFade(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:HasScrollableExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:HasView(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:Init(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:Interpolate(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:IsAcquireLocked(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:IsAlignmentOverlapIgnored(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:IsAtBegin(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:IsAtEnd(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:IsHorizontal(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:IsScrollAllowed(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:IsScrollToDataIndexSafe(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:IsUpdateLocked(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:IsVirtualized(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:Layout(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:OnLoad(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:OnMouseWheel(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:OnScrollTargetSizeChanged(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:OnSizeChanged(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:OnViewAcquiredFrame(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:OnViewDataChanged(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:OnViewDataProviderReassigned(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:OnViewInitializedFrame(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:OnViewReleasedFrame(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:Rebuild(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:RecalculateDerivedExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:RegisterCallback(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ReinitializeFrames(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:RemoveDataProvider(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ReverseEnumerateDataProvider(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ReverseForEachElementData(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ReverseForEachFrame(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SanitizeAlignment(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ScrollDecrease(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ScrollInDirection(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ScrollIncrease(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ScrollToBegin(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ScrollToElementData(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ScrollToElementDataByPredicate(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ScrollToElementDataIndex(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ScrollToEnd(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ScrollToFrame(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ScrollToNearest(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ScrollToNearestByPredicate(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ScrollToOffset(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SecureInsertEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SelectCursorComponent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SelectPointComponent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SetAlignmentOverlapIgnored(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SetDataProvider(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SetEdgeFadeLength(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SetFrameExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SetHorizontal(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SetInterpolateScroll(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SetLowerShadowAtlas(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SetPadding(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SetPanExtent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SetPanExtentPercentage(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SetScrollAllowed(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SetScrollPercentage(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SetScrollTargetOffset(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SetShadowsFrameLevel(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SetShadowsScale(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SetShadowsShown(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SetUpdateLocked(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SetUpperShadowAtlas(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SetUseShadowsForEdgeFade(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:SetView(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:TriggerEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:UnregisterCallback(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:UnregisterEvents(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:Update(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBoxObject:scrollInternal(...) end
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_cooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_cooldownObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_DefaultsObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_DefaultsObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_iconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_iconObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_DirectionsObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_DirectionsObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_lossOfControlCooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_lossOfControlCooldownObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_DragDelegateObject : Frame
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_DragDelegateObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_parentActionBarObject
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton1_parentActionBarObject = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_EventObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_EventObject = {}
 end
 
 do
----@class GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object : CheckButton
----@field Arrow GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_ArrowObject
----@field AutoCastOverlay GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_AutoCastOverlayObject
----@field Border GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_BorderObject
----@field BorderShadow GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_BorderShadowObject
----@field ButtonIcon GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIconObject
----@field CheckedTexture GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_CheckedTextureObject
----@field CircleGlowFocus GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_CircleGlowFocusObject
----@field CircleMask GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_CircleMaskObject
----@field CircleShadow GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_CircleShadowObject
----@field CircleShadowFocus GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_CircleShadowFocusObject
----@field CooldownFlash GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_CooldownFlashObject
----@field Count GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_CountObject
----@field EditModeCircleFocusStartAnim GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_EditModeCircleFocusStartAnimObject
----@field EditModeSquareFocusStartAnim GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_EditModeSquareFocusStartAnimObject
----@field Flash GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_FlashObject
----@field GameplayModeCircleFocusStartAnim GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_GameplayModeCircleFocusStartAnimObject
----@field GameplayModeSquareFocusStartAnim GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_GameplayModeSquareFocusStartAnimObject
----@field HighlightTexture GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_HighlightTextureObject
----@field HotKey GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_HotKeyObject
----@field IconMask GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_IconMaskObject
----@field InterruptDisplay GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplayObject
----@field LevelLinkLockIcon GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_LevelLinkLockIconObject
----@field Name GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_NameObject
----@field NewActionTexture GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_NewActionTextureObject
----@field NormalTexture GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_NormalTextureObject
----@field PermaboundOverlay GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_PermaboundOverlayObject
----@field PushedTexture GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_PushedTextureObject
----@field QuickKeybindHighlightTexture GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_QuickKeybindHighlightTextureObject
----@field RangeIndicator GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_RangeIndicatorObject
----@field SlotArt GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_SlotArtObject
----@field SlotBackground GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_SlotBackgroundObject
----@field SpecialActionIcon GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_SpecialActionIconObject
----@field SpellCastAnimFrame GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrameObject
----@field SpellHighlightAnim GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_SpellHighlightAnimObject
----@field SpellHighlightTexture GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_SpellHighlightTextureObject
----@field SquareGlowFocus GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_SquareGlowFocusObject
----@field SquareMask GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_SquareMaskObject
----@field SquareShadow GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_SquareShadowObject
----@field SquareShadowFocus GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_SquareShadowFocusObject
----@field TargetReticleAnimFrame GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_TargetReticleAnimFrameObject
----@field TextOverlayContainer GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_TextOverlayContainerObject
----@field action number
----@field activeButtonShape string
----@field arrowCrossAxisSize number
----@field arrowDownTexture string
----@field arrowMainAxisSize number
----@field arrowNormalTexture string
----@field arrowOverTexture string
----@field bindingAction string
----@field buttonIndexOnActionBar number
----@field chargeCooldown GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_chargeCooldownObject
----@field closedArrowOffset number
----@field collapsed boolean
----@field cooldown GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_cooldownObject
----@field enableLOCCooldown boolean
----@field enableSpellFX boolean
----@field feedback_action number
----@field flashing number
----@field flashtime number
----@field flyoutArrowAngleRads number
----@field hotkeyTextGamepadX number
----@field hotkeyTextGamepadY number
----@field hotkeyTextKeyboardX number
----@field hotkeyTextKeyboardY number
----@field icon GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_iconObject
----@field isFlyoutAction boolean
----@field lossOfControlCooldown GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_lossOfControlCooldownObject
----@field openArrowOffset number
----@field pageUnitSlotID number
----@field parentActionBar GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2_parentActionBarObject
----@field popupCrossAxisSize number
----@field popupDirection string
----@field popupOffset number
-local GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object = {}
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject : Frame
+---@field Event DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTarget_EventObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject = {}
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:GetCallbackTable(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnAttributeChanged(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:GetCallbackTables(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnDragStart(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnDragStop(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnEnter(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnEvent(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:OnLoad(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnHide(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnLeave(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnLoad(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnPostClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnReceiveDrag(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:RegisterCallback(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnShow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ActionBarButtonMixin_OnDragStart(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ActionBarButtonMixin_OnEnter(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ActionBarButtonMixin_OnLeave(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:TriggerEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ActionBarButtonMixin_OnLoad(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:UnregisterCallback(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:UnregisterEvents(...) end
+---@return any ...
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTarget_EventObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ScrollTarget_EventObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ShadowsObject : Frame
+---@field Lower DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_Shadows_LowerObject
+---@field Upper DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_Shadows_UpperObject
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_ShadowsObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_Shadows_LowerObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_Shadows_LowerObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_Shadows_UpperObject : Texture
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_Shadows_UpperObject = {}
+end
+
+do
+---@class DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject
+---@field Event table
+---@field FrameLevelPolicy table
+---@field callbackTables table
+---@field canSignalWithoutInitializer boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field frameFactory table
+---@field frames table
+---@field initialized boolean
+---@field initializers table
+---@field padding table
+---@field scrollBox DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_view_scrollBoxObject
+---@field templateInfoCache table
+local DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject = {}
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ApplyExtraButtonStylesForState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:AcquireInternal(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ApplyGamepadAOETargetAnchorPoints(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:AcquireRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ApplyGamepadInterruptAnchorPoints(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:AssignAccessors(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ApplyPressedStyle(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:AttachDataProviderCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:BaseActionButtonMixin_OnAttributeChanged(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:BaseActionButtonMixin_OnDragStart(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:CalculateDataIndices(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:BaseActionButtonMixin_OnEnter(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:CalculateFrameExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:BaseActionButtonMixin_OnLeave(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:ClearCachedData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:BaseActionButtonMixin_OnLoad(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:ClearElementExtentData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:CacheFlyoutSpellInfo(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:ClearInvalidation(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:CalculateAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:ContainsElementDataByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:CheckNeedsUpdate(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ClearFlash(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:DataProviderContentsChanged(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ClearInterruptDisplay(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:DetachDataProviderCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ClearPopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ClearProfessionQuality(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:EnumerateDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ClearPushedStateAfterAOETargeting(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ClearReticle(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:EnumerateFrames(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ClearTypeOverlay(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:FindByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ClosePopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:FindElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:Collapse(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:FindElementDataByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:CreateTextureOverlayFrame(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:FindElementDataIndex(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:DesaturateIfDisabled(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:DisableGameplayFeedback(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:FindFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:DoModeChange(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:FindFrameByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:EnumFlyoutSlotInfo(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:FindFrameElementDataIndex(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:EvaluateState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:Flush(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:EvaluateTutorials(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:FlushDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:Expand(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:ForEachElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:Flyout_OnClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:ForEachFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:GetActionBarParent(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:GetActionButtonInfo(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetCallbackTable(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:GetActiveSpellID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetCallbackTables(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:GetAllowRadialWheel(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:GetArrowRotation(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetDataIndexBegin(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:GetGamepadPageUnitSlotID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetDataIndexEnd(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:GetIsPingable(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:GetOrCreateTypeOverlay(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetDataProviderSize(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:GetPagedID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetDataRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:GetPopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetDataScrollOffset(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:GetPopupDirection(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetElementExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:GetShowGrid(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetElementExtentCalculator(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:GetSingleSpellID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetElementIndent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:GetTargetInfo(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:HandleFlyoutClickOverride(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetExtentFromInfo(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:HasAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetExtentSpacing(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:HasPopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetExtentTo(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:IsDown(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetExtentUntil(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:IsDownOver(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetFactoryDataFromElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:IsFlashing(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetFirstTemplateInfo(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:IsOver(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetFrameCount(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:IsPopupOpen(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetFrameExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:MatchesActiveButtonSpellID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetFrameLevelCounter(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:OnActionBarSlotChanged(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetFrameLevelPolicy(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:OnAttributeChanged(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetFrames(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:OnButtonStateChanged(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetIdenticalElementExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:OnClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetIdenticalStrideExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:OnDisable(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetInvalidationReason(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:OnDragStart(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetLayoutFunction(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:OnEnable(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetLower(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:OnEnter(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:OnEvent(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetPadding(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:OnFlyoutClosed(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetPanExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:OnFlyoutOpened(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetScrollBox(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:OnHide(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetScrollTarget(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:OnLeave(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetSpacing(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:OnLoad(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetStride(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:OnMouseDown(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetTemplateExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:OnMouseUp(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:OnPopupHidden(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetTemplateInfo(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:OnPopupToggled(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:GetUpper(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:OnReceiveDrag(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:OnShow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:HasBiaxalLayout(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:OnUpdate(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:HasDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:PlaySpellCastAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:HasElementExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:PlaySpellInterruptedAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:HasIdenticalElementExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:PlayTargettingReticleAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:HasIdenticalStrideExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:QuickKeybindButtonOnClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:QuickKeybindButtonOnEnter(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:Init(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:QuickKeybindButtonOnHide(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:InitDefaultDrag(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:QuickKeybindButtonOnLeave(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:InvokeInitializer(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:QuickKeybindButtonOnMouseWheel(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:InvokeInitializers(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:QuickKeybindButtonOnShow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:IsAcquireLocked(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:QuickKeybindButtonOnUpdate(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:IsDataIndexWithinRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:QuickKeybindButtonSetTooltip(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:IsElementStretchDisabled(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:ReapplyStyle(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:IsExtentValid(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:RefreshRange(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:IsHorizontal(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:RegisterActionBarButtonCheckFrames(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:IsInitialized(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:SetActionBarParent(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:IsInvalidated(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:SetArrowRotationRadians(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:SetButtonArt(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:IsVirtualized(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:SetButtonIndexOnActionBar(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:Layout(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:SetButtonStateBase(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:LayoutInternal(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:SetButtonStateOverride(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:OnDataProviderSizeChanged(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:SetCircleCastingTextures(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:OnDataProviderSort(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:SetDisplacedRegions(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:OnLoad(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:SetGamepadPageUnitSlotID(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:PrepareScrollToElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:SetPopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:SetPopupDirection(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:RebuildTemplateInfoCache(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:SetShapeToCircle(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:RecalculateExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:SetShapeToSquare(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:SetShowGrid(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:RefreshSmartNav(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:SetSquareCastingTextures(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:RegisterCallback(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:SetTooltip(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:SetupCastingAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:ReinitializeFrames(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:SpellFXEnabled(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:Release(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:StartFlash(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:RemoveDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:StopFlash(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:RemoveDataProviderInternal(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:StopSpellCastAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:ResizeFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:StopTargettingReticleAnim(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:TogglePopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:TriggerSecureClick(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:ReverseForEachElementData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UnregisterActionBarButtonCheckFrames(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:ReverseForEachFrame(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:Update(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SecureInsertEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SelectCursorComponent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateArrowPosition(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SelectPointComponent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateArrowRotation(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SetAcquireLocked(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateArrowShown(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SetDataProvider(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateArrowTexture(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SetDataRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateAssistedCombatRotationFrame(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SetElementExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateAutoCastAnchors(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SetElementExtentCalculator(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateBorderShadow(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SetElementFactory(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateButtonArt(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SetElementIndentCalculator(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateButtonArtAnchoring(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SetElementInitializer(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateCastingAnimSizeAndPositioning(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SetElementResetter(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateCastingAnimation(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SetElementStretchDisabled(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateCooldown(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SetExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateCount(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SetFrameExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateEmptySlotBackgroundTexture(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SetFrameFactoryResetter(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateFlash(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SetFrameLevelPolicy(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateFlyout(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SetHorizontal(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateFlyoutActionIcon(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SetInvalidationReason(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateFlyoutActionInfo(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SetMaxPanExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateFlyoutPopup(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SetPadding(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateHighlightMark(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SetPanExtent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateHotkeys(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SetScrollBox(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateInterruptHighlightAnimAnchors(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateMouseWheelHandler(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SetVirtualized(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdatePageableGamepadButtonAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SignalDataChangeEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdatePingAttributes(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:SortFrames(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdatePressAndHoldAction(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateProfessionQuality(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:TriggerEvent(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateSpellAlert(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:UnassignAccessors(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateSpellHighlightMark(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:UnregisterCallback(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateState(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:UnregisterEvents(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateTypeOverlay(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateUsable(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:ValidateDataRange(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:UpdateWithStorageId(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:elementFactory(...) end
 ---@return any ...
-function GamepadActionBarEditFrame_PageUnit_activeBar_Left_ActionButton2Object:castingAnimTextureSetupFunc(...) end
+function DelvesCompanionConfigurationFrame_CompanionSlots_CompanionUtilityTrinketSlot_OptionsList_ScrollBox_viewObject:factory(...) end
 end

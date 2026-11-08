@@ -3,34 +3,1191 @@
 
 
 do
----@class FriendsFriendsFrame_ScrollBar_Back_EventObject
-local FriendsFriendsFrame_ScrollBar_Back_EventObject = {}
+---@class ContainerFrameCombinedBags_PortraitButton_EventObject
+local ContainerFrameCombinedBags_PortraitButton_EventObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_Back_TextureObject : Texture
-local FriendsFriendsFrame_ScrollBar_Back_TextureObject = {}
+---@class ContainerFrameCombinedBags_PortraitButton_HighlightObject : Texture
+local ContainerFrameCombinedBags_PortraitButton_HighlightObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_DefaultsObject
-local FriendsFriendsFrame_ScrollBar_DefaultsObject = {}
+---@class ContainerFrameCombinedBags_PortraitButton_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo ContainerFrameCombinedBags_PortraitButton_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local ContainerFrameCombinedBags_PortraitButton_menuAnchorObject = {}
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuAnchorObject:Get(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuAnchorObject:Init(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuAnchorObject:Set(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuAnchorObject:SetRelativeTo(...) end
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_DirectionsObject
-local FriendsFriendsFrame_ScrollBar_DirectionsObject = {}
+---@class ContainerFrameCombinedBags_PortraitButton_menuAnchor_relativeToObject
+local ContainerFrameCombinedBags_PortraitButton_menuAnchor_relativeToObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_EventObject
-local FriendsFriendsFrame_ScrollBar_EventObject = {}
+---@class ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject
+---@field tag string
+local ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject = {}
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateButton(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateCheckbox(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateColorSwatch(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateDivider(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateFrame(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateHighlightButton(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateHighlightRadio(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateRadio(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateRedHighlightButton(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateSearchEntry(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateSpacer(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateTemplate(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateTitle(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:QueueDivider(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:QueueSpacer(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:QueueTitle(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:SetTitleAndTextTooltip(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:SetTooltip(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:private(...) end
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_ForwardObject : Button
----@field Event FriendsFriendsFrame_ScrollBar_Forward_EventObject
----@field Texture FriendsFriendsFrame_ScrollBar_Forward_TextureObject
+---@class ContainerFrameCombinedBags_PortraitContainerObject : Frame
+---@field CircleMask ContainerFrameCombinedBags_PortraitContainer_CircleMaskObject
+---@field portrait ContainerFrameCombinedBags_PortraitContainer_portraitObject
+local ContainerFrameCombinedBags_PortraitContainerObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_PortraitContainer_CircleMaskObject : MaskTexture
+local ContainerFrameCombinedBags_PortraitContainer_CircleMaskObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_PortraitContainer_portraitObject : Texture
+local ContainerFrameCombinedBags_PortraitContainer_portraitObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHintObject : Frame
+---@field ActiveTexture ContainerFrameCombinedBags_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture ContainerFrameCombinedBags_RightJumpHint_DisabledTextureObject
+---@field HoldAnim ContainerFrameCombinedBags_RightJumpHint_HoldAnimObject
+---@field HoldIndicator ContainerFrameCombinedBags_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG ContainerFrameCombinedBags_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture ContainerFrameCombinedBags_RightJumpHint_HoverTextureObject
+---@field LoadBar ContainerFrameCombinedBags_RightJumpHint_LoadBarObject
+---@field LoadBarBG ContainerFrameCombinedBags_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow ContainerFrameCombinedBags_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture ContainerFrameCombinedBags_RightJumpHint_NormalTextureObject
+---@field PressedTexture ContainerFrameCombinedBags_RightJumpHint_PressedTextureObject
+---@field SpinnerTip ContainerFrameCombinedBags_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local ContainerFrameCombinedBags_RightJumpHintObject = {}
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_ActiveTextureObject : Texture
+local ContainerFrameCombinedBags_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_DisabledTextureObject : Texture
+local ContainerFrameCombinedBags_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim ContainerFrameCombinedBags_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim ContainerFrameCombinedBags_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim ContainerFrameCombinedBags_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local ContainerFrameCombinedBags_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_HoldAnim_LoadBarAnimObject
+local ContainerFrameCombinedBags_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local ContainerFrameCombinedBags_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local ContainerFrameCombinedBags_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_HoldIndicatorObject : Texture
+local ContainerFrameCombinedBags_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_HoldIndicatorBGObject : Texture
+local ContainerFrameCombinedBags_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_HoverTextureObject : Texture
+local ContainerFrameCombinedBags_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_LoadBarObject : Texture
+local ContainerFrameCombinedBags_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_LoadBarBGObject : Texture
+local ContainerFrameCombinedBags_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_LoadBarGlowObject : Texture
+local ContainerFrameCombinedBags_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_NormalTextureObject : Texture
+local ContainerFrameCombinedBags_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_PressedTextureObject : Texture
+local ContainerFrameCombinedBags_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_SpinnerTipObject : Texture
+local ContainerFrameCombinedBags_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIconObject : Frame
+---@field ActiveTexture ContainerFrameCombinedBags_SearchBoxIcon_ActiveTextureObject
+---@field DisabledTexture ContainerFrameCombinedBags_SearchBoxIcon_DisabledTextureObject
+---@field HoldAnim ContainerFrameCombinedBags_SearchBoxIcon_HoldAnimObject
+---@field HoldIndicator ContainerFrameCombinedBags_SearchBoxIcon_HoldIndicatorObject
+---@field HoldIndicatorBG ContainerFrameCombinedBags_SearchBoxIcon_HoldIndicatorBGObject
+---@field HoverTexture ContainerFrameCombinedBags_SearchBoxIcon_HoverTextureObject
+---@field LoadBar ContainerFrameCombinedBags_SearchBoxIcon_LoadBarObject
+---@field LoadBarBG ContainerFrameCombinedBags_SearchBoxIcon_LoadBarBGObject
+---@field LoadBarGlow ContainerFrameCombinedBags_SearchBoxIcon_LoadBarGlowObject
+---@field NormalTexture ContainerFrameCombinedBags_SearchBoxIcon_NormalTextureObject
+---@field PressedTexture ContainerFrameCombinedBags_SearchBoxIcon_PressedTextureObject
+---@field SpinnerTip ContainerFrameCombinedBags_SearchBoxIcon_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local ContainerFrameCombinedBags_SearchBoxIconObject = {}
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:ApplyTextureLayout(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:BeginHold(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:CanEnterTextureState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:DisableDropShadow(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:EnableDropShadow(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:EndHold(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:OnHoldAnimFinished(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:OnHoldAnimStopped(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:OnLoad(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:RefreshIconTextures(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:SetDisabled(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:SetEnabled(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:SetFocused(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:SetHoldState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:SetInputKey(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:SetIsHoldAction(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:SetPressable(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:SetTextureHeight(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:SetTextureState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:SetTextureWidth(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:SetUsableState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_ActiveTextureObject : Texture
+local ContainerFrameCombinedBags_SearchBoxIcon_ActiveTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_DisabledTextureObject : Texture
+local ContainerFrameCombinedBags_SearchBoxIcon_DisabledTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim ContainerFrameCombinedBags_SearchBoxIcon_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim ContainerFrameCombinedBags_SearchBoxIcon_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim ContainerFrameCombinedBags_SearchBoxIcon_HoldAnim_SpinnerTipAnimObject
+local ContainerFrameCombinedBags_SearchBoxIcon_HoldAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_HoldAnim_LoadBarAnimObject
+local ContainerFrameCombinedBags_SearchBoxIcon_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
+local ContainerFrameCombinedBags_SearchBoxIcon_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_HoldAnim_SpinnerTipAnimObject : Rotation
+local ContainerFrameCombinedBags_SearchBoxIcon_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_HoldIndicatorObject : Texture
+local ContainerFrameCombinedBags_SearchBoxIcon_HoldIndicatorObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_HoldIndicatorBGObject : Texture
+local ContainerFrameCombinedBags_SearchBoxIcon_HoldIndicatorBGObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_HoverTextureObject : Texture
+local ContainerFrameCombinedBags_SearchBoxIcon_HoverTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_LoadBarObject : Texture
+local ContainerFrameCombinedBags_SearchBoxIcon_LoadBarObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_LoadBarBGObject : Texture
+local ContainerFrameCombinedBags_SearchBoxIcon_LoadBarBGObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_LoadBarGlowObject : Texture
+local ContainerFrameCombinedBags_SearchBoxIcon_LoadBarGlowObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_NormalTextureObject : Texture
+local ContainerFrameCombinedBags_SearchBoxIcon_NormalTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_PressedTextureObject : Texture
+local ContainerFrameCombinedBags_SearchBoxIcon_PressedTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_SpinnerTipObject : Texture
+local ContainerFrameCombinedBags_SearchBoxIcon_SpinnerTipObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_TitleContainerObject : Frame
+---@field TitleText ContainerFrameCombinedBags_TitleContainer_TitleTextObject
+local ContainerFrameCombinedBags_TitleContainerObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_TitleContainer_TitleTextObject : FontString
+local ContainerFrameCombinedBags_TitleContainer_TitleTextObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_itemButtonPoolObject
+local ContainerFrameCombinedBags_itemButtonPoolObject = {}
+---@return any ...
+function ContainerFrameCombinedBags_itemButtonPoolObject:GetTemplate(...) end
+---@return any ...
+function ContainerFrameCombinedBags_itemButtonPoolObject:private(...) end
+end
+
+do
+---@class ContainerFrameContainerObject : Frame
+---@field ContainerFrames table
+local ContainerFrameContainerObject = {}
+---@type ContainerFrameContainerObject
+ContainerFrameContainer = ContainerFrameContainerObject
+end
+
+do
+---@class CooldownViewerImportLayoutDialogObject : Frame
+---@field AcceptButton CooldownViewerImportLayoutDialog_AcceptButtonObject
+---@field Border CooldownViewerImportLayoutDialog_BorderObject
+---@field CancelButton CooldownViewerImportLayoutDialog_CancelButtonObject
+---@field CharacterSpecificLayoutCheckButton CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject
+---@field EditBoxLabel CooldownViewerImportLayoutDialog_EditBoxLabelObject
+---@field ImportBox CooldownViewerImportLayoutDialog_ImportBoxObject
+---@field LayoutNameEditBox CooldownViewerImportLayoutDialog_LayoutNameEditBoxObject
+---@field NameEditBoxLabel CooldownViewerImportLayoutDialog_NameEditBoxLabelObject
+---@field Title CooldownViewerImportLayoutDialog_TitleObject
+---@field exclusive boolean
+---@field layoutManager CooldownViewerImportLayoutDialog_layoutManagerObject
+---@field managerExitCallbackEventName string
+---@field modes CooldownViewerImportLayoutDialog_modesObject
+local CooldownViewerImportLayoutDialogObject = {}
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:CanAccept(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:DeleteImportedLayouts(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:EditModeDialog_OnHide(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:EditModeDialog_OnLoad(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:EditModeDialog_OnShow(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:GetAcceptButton(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:GetCancelButton(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:GetCharacterSpecificButton(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:GetDesiredLayoutType(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:GetEditBox(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:GetEditBoxLabel(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:GetEditBoxText(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:GetImportBox(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:GetImportBoxLabel(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:GetImportEditBox(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:GetImportedLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:GetLayoutIDs(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:GetLayoutIndex(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:GetLayoutInfo(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:GetLayoutManager(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:GetManagerExitCallbackEventName(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:GetModeData(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:GetOnCancelEvent(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:IsCharacterSpecificLayoutChecked(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:OnAccept(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:OnCancel(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:OnEditModeExit(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:OnImportTextChanged(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:OnManagerExit(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:ProcessImportText(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:SetLayoutIDs(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:SetLayoutIndex(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:SetLayoutInfo(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:SetLayoutManager(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:SetMode(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:SetModeData(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:SetupButtonClickHandlers(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:SetupControlsForMode(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:SetupEditBoxHandlers(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:ShouldCloseWhenManagerCloses(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:ShowImportLayoutDialog(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:UpdateAcceptButtonEnabledState(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialogObject:UpdateLayoutNameFromCreatedLayout(...) end
+---@type CooldownViewerImportLayoutDialogObject
+CooldownViewerImportLayoutDialog = CooldownViewerImportLayoutDialogObject
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_AcceptButtonObject : Button
+---@field Controller CooldownViewerImportLayoutDialog_AcceptButton_ControllerObject
+---@field Left CooldownViewerImportLayoutDialog_AcceptButton_LeftObject
+---@field Middle CooldownViewerImportLayoutDialog_AcceptButton_MiddleObject
+---@field Right CooldownViewerImportLayoutDialog_AcceptButton_RightObject
+---@field Text CooldownViewerImportLayoutDialog_AcceptButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CooldownViewerImportLayoutDialog_AcceptButtonObject = {}
+---@return any ...
+function CooldownViewerImportLayoutDialog_AcceptButtonObject:ClearCustomTextFormatter(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_AcceptButtonObject:FitToText(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_AcceptButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_AcceptButtonObject:GetOnClickSoundKit(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_AcceptButtonObject:InitButton(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_AcceptButtonObject:OnClick(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_AcceptButtonObject:OnEnter(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_AcceptButtonObject:OnLeave(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_AcceptButtonObject:RunCustomTextFormatter(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_AcceptButtonObject:SetButtonArtKit(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_AcceptButtonObject:SetCustomTextFormatter(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_AcceptButtonObject:SetDisabledState(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_AcceptButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_AcceptButtonObject:SetOnClickHandler(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_AcceptButtonObject:SetOnEnterHandler(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_AcceptButtonObject:SetTextToFit(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_AcceptButtonObject:SetTooltipAnchor(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_AcceptButtonObject:SetTooltipInfo(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_AcceptButtonObject:onClickHandler(...) end
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_AcceptButton_ControllerObject : Frame
+local CooldownViewerImportLayoutDialog_AcceptButton_ControllerObject = {}
+---@return any ...
+function CooldownViewerImportLayoutDialog_AcceptButton_ControllerObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_AcceptButton_ControllerObject:OnShow(...) end
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_AcceptButton_LeftObject : Texture
+local CooldownViewerImportLayoutDialog_AcceptButton_LeftObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_AcceptButton_MiddleObject : Texture
+local CooldownViewerImportLayoutDialog_AcceptButton_MiddleObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_AcceptButton_RightObject : Texture
+local CooldownViewerImportLayoutDialog_AcceptButton_RightObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_AcceptButton_TextObject : FontString
+local CooldownViewerImportLayoutDialog_AcceptButton_TextObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_BorderObject : Frame
+---@field Bg CooldownViewerImportLayoutDialog_Border_BgObject
+---@field BottomEdge CooldownViewerImportLayoutDialog_Border_BottomEdgeObject
+---@field BottomLeftCorner CooldownViewerImportLayoutDialog_Border_BottomLeftCornerObject
+---@field BottomRightCorner CooldownViewerImportLayoutDialog_Border_BottomRightCornerObject
+---@field LeftEdge CooldownViewerImportLayoutDialog_Border_LeftEdgeObject
+---@field RightEdge CooldownViewerImportLayoutDialog_Border_RightEdgeObject
+---@field TopEdge CooldownViewerImportLayoutDialog_Border_TopEdgeObject
+---@field TopLeftCorner CooldownViewerImportLayoutDialog_Border_TopLeftCornerObject
+---@field TopRightCorner CooldownViewerImportLayoutDialog_Border_TopRightCornerObject
+---@field layoutType string
+local CooldownViewerImportLayoutDialog_BorderObject = {}
+---@return any ...
+function CooldownViewerImportLayoutDialog_BorderObject:GetBorderColor(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_BorderObject:GetCenterColor(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_BorderObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_BorderObject:GetFrameLayoutType(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_BorderObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_BorderObject:SetBlendMode(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_BorderObject:SetBorderBlendMode(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_BorderObject:SetBorderColor(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_BorderObject:SetCenterColor(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_BorderObject:SetVertexColor(...) end
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_Border_BgObject : Texture
+local CooldownViewerImportLayoutDialog_Border_BgObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_Border_BottomEdgeObject : Texture
+local CooldownViewerImportLayoutDialog_Border_BottomEdgeObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_Border_BottomLeftCornerObject : Texture
+local CooldownViewerImportLayoutDialog_Border_BottomLeftCornerObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_Border_BottomRightCornerObject : Texture
+local CooldownViewerImportLayoutDialog_Border_BottomRightCornerObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_Border_LeftEdgeObject : Texture
+local CooldownViewerImportLayoutDialog_Border_LeftEdgeObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_Border_RightEdgeObject : Texture
+local CooldownViewerImportLayoutDialog_Border_RightEdgeObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_Border_TopEdgeObject : Texture
+local CooldownViewerImportLayoutDialog_Border_TopEdgeObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_Border_TopLeftCornerObject : Texture
+local CooldownViewerImportLayoutDialog_Border_TopLeftCornerObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_Border_TopRightCornerObject : Texture
+local CooldownViewerImportLayoutDialog_Border_TopRightCornerObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_CancelButtonObject : Button
+---@field Controller CooldownViewerImportLayoutDialog_CancelButton_ControllerObject
+---@field Left CooldownViewerImportLayoutDialog_CancelButton_LeftObject
+---@field Middle CooldownViewerImportLayoutDialog_CancelButton_MiddleObject
+---@field Right CooldownViewerImportLayoutDialog_CancelButton_RightObject
+---@field Text CooldownViewerImportLayoutDialog_CancelButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CooldownViewerImportLayoutDialog_CancelButtonObject = {}
+---@return any ...
+function CooldownViewerImportLayoutDialog_CancelButtonObject:ClearCustomTextFormatter(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CancelButtonObject:FitToText(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CancelButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CancelButtonObject:GetOnClickSoundKit(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CancelButtonObject:InitButton(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CancelButtonObject:OnClick(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CancelButtonObject:OnEnter(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CancelButtonObject:OnLeave(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CancelButtonObject:RunCustomTextFormatter(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CancelButtonObject:SetButtonArtKit(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CancelButtonObject:SetCustomTextFormatter(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CancelButtonObject:SetDisabledState(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CancelButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CancelButtonObject:SetOnClickHandler(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CancelButtonObject:SetOnEnterHandler(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CancelButtonObject:SetTextToFit(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CancelButtonObject:SetTooltipAnchor(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CancelButtonObject:SetTooltipInfo(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CancelButtonObject:onClickHandler(...) end
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_CancelButton_ControllerObject : Frame
+local CooldownViewerImportLayoutDialog_CancelButton_ControllerObject = {}
+---@return any ...
+function CooldownViewerImportLayoutDialog_CancelButton_ControllerObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CancelButton_ControllerObject:OnShow(...) end
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_CancelButton_LeftObject : Texture
+local CooldownViewerImportLayoutDialog_CancelButton_LeftObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_CancelButton_MiddleObject : Texture
+local CooldownViewerImportLayoutDialog_CancelButton_MiddleObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_CancelButton_RightObject : Texture
+local CooldownViewerImportLayoutDialog_CancelButton_RightObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_CancelButton_TextObject : FontString
+local CooldownViewerImportLayoutDialog_CancelButton_TextObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject : Frame
+---@field Button CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButton_ButtonObject
+---@field Label CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButton_LabelObject
+---@field labelText string
+local CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject = {}
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:AddLayoutChildren(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:AutoEnableCVar(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:CheckAddNarrationToButton(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:ClearFixedSize(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:EditModeCheckButton_OnLoad(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:EditModeCheckButton_OnShow(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetAdditionalRegions(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetCallback(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetChildHeight(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetChildSize(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetChildWidth(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetFixedHeight(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetFixedSize(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetFixedWidth(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetHeightPadding(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetLayoutChildren(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetMaximumWidth(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetMinimumWidth(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetWidthPadding(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:HideButtonTooltip(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:IsControlChecked(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:IsControlEnabled(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:IsDirty(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:IsLayoutFrame(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:Layout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:MarkClean(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:MarkDirty(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:OnCheckButtonClick(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:OnCleaned(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:OnEnter(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:OnLeave(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:OnShow(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:OnUpdate(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:RunMouseOverCallback(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetButton(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetCallback(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetControlChecked(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetControlEnabled(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetFixedHeight(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetFixedSize(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetFixedWidth(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetHeightPadding(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetLabel(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetLabelText(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetMaximumWidth(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetMinimumWidth(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetMouseOverCallback(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetTooltipDisabled(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetTooltipText(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetWidthPadding(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:ShouldClearOnUpdateAfterClean(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:ShouldEnable(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:UpdateDisplay(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:UpdateLabelFont(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButtonObject:onBoxToggled(...) end
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButton_ButtonObject : CheckButton
+local CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButton_ButtonObject = {}
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButton_ButtonObject:NarrationGetContext(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButton_ButtonObject:NarrationGetName(...) end
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButton_LabelObject : FontString
+local CooldownViewerImportLayoutDialog_CharacterSpecificLayoutCheckButton_LabelObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_EditBoxLabelObject : FontString
+local CooldownViewerImportLayoutDialog_EditBoxLabelObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_ImportBoxObject : ScrollFrame
+---@field BottomLeftTex CooldownViewerImportLayoutDialog_ImportBox_BottomLeftTexObject
+---@field BottomRightTex CooldownViewerImportLayoutDialog_ImportBox_BottomRightTexObject
+---@field BottomTex CooldownViewerImportLayoutDialog_ImportBox_BottomTexObject
+---@field CharCount CooldownViewerImportLayoutDialog_ImportBox_CharCountObject
+---@field EditBox CooldownViewerImportLayoutDialog_ImportBox_EditBoxObject
+---@field LeftTex CooldownViewerImportLayoutDialog_ImportBox_LeftTexObject
+---@field MiddleTex CooldownViewerImportLayoutDialog_ImportBox_MiddleTexObject
+---@field RightTex CooldownViewerImportLayoutDialog_ImportBox_RightTexObject
+---@field ScrollBar CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject
+---@field TopLeftTex CooldownViewerImportLayoutDialog_ImportBox_TopLeftTexObject
+---@field TopRightTex CooldownViewerImportLayoutDialog_ImportBox_TopRightTexObject
+---@field TopTex CooldownViewerImportLayoutDialog_ImportBox_TopTexObject
+---@field hideCharCount boolean
+---@field maxLetters number
+---@field panExtent number
+---@field scrollBarBottomY number
+---@field scrollBarHideIfUnscrollable boolean
+---@field scrollBarTopY number
+---@field scrollBarX number
+local CooldownViewerImportLayoutDialog_ImportBoxObject = {}
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBoxObject:GetPanExtent(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBoxObject:SetPanExtent(...) end
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_ImportBox_BottomLeftTexObject : Texture
+local CooldownViewerImportLayoutDialog_ImportBox_BottomLeftTexObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_ImportBox_BottomRightTexObject : Texture
+local CooldownViewerImportLayoutDialog_ImportBox_BottomRightTexObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_ImportBox_BottomTexObject : Texture
+local CooldownViewerImportLayoutDialog_ImportBox_BottomTexObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_ImportBox_CharCountObject : FontString
+local CooldownViewerImportLayoutDialog_ImportBox_CharCountObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_ImportBox_EditBoxObject : EditBox
+---@field Instructions CooldownViewerImportLayoutDialog_ImportBox_EditBox_InstructionsObject
+---@field smartNavigationIgnored boolean
+local CooldownViewerImportLayoutDialog_ImportBox_EditBoxObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_ImportBox_EditBox_InstructionsObject : FontString
+local CooldownViewerImportLayoutDialog_ImportBox_EditBox_InstructionsObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_ImportBox_LeftTexObject : Texture
+local CooldownViewerImportLayoutDialog_ImportBox_LeftTexObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_ImportBox_MiddleTexObject : Texture
+local CooldownViewerImportLayoutDialog_ImportBox_MiddleTexObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_ImportBox_RightTexObject : Texture
+local CooldownViewerImportLayoutDialog_ImportBox_RightTexObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject : Frame
+---@field Back CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject
+---@field Defaults CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_DefaultsObject
+---@field Directions CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_DirectionsObject
+---@field Event CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_EventObject
+---@field Forward CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject
+---@field Track CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_TrackObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field hideIfUnscrollable boolean
+---@field hideTrack boolean
+---@field interpolator CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_interpolatorObject
+---@field isScrollController boolean
+---@field minThumbExtent number
+---@field panDelay number
+---@field panExtentPercentage number
+---@field panRepeatTime number
+---@field smartNavigationIgnored boolean
+---@field snapToInterval boolean
+---@field thumbAnchor string
+---@field useProportionalThumb boolean
+---@field visibleExtentPercentage number
+---@field wheelPanScalar number
+local CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject = {}
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:CallInternalScope(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:CanCursorStepInDirection(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:CanInterpolateScroll(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:DisableControls(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:EnableInternalPriority(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:EnableSnapToInterval(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:GetBackStepper(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:GetCallbackTable(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:GetCallbackTables(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:GetForwardStepper(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:GetFrameExtent(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:GetIntervalRange(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:GetLower(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:GetPanExtentPercentage(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:GetPanRepeatDelay(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:GetPanRepeatTime(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:GetScrollInterpolator(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:GetScrollPercentage(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:GetThumb(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:GetThumbAnchor(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:GetTrack(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:GetTrackExtent(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:GetUpper(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:GetWheelPanPercentage(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:HasScrollableExtent(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:Init(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:InitializeNarration(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:Interpolate(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:IsAtBegin(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:IsAtEnd(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:IsHorizontal(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:IsScrollAllowed(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:IsThumbMouseDown(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:OnHide_Intrinsic(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:OnMouseWheel(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:OnShow_Intrinsic(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:OnStepperMouseDown(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:OnThumbMouseDown(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:OnTrackMouseDown(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:RegisterCallback(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:ScrollDecrease(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:ScrollInDirection(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:ScrollIncrease(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:ScrollPageInDirection(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:ScrollStepInDirection(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:ScrollToBegin(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:ScrollToEnd(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:ScrollWheelInDirection(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:SecureInsertEvent(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:SelectCursorComponent(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:SelectPointComponent(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:SetFrameExtent(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:SetHideIfUnscrollable(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:SetHorizontal(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:SetInterpolateScroll(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:SetPanExtentPercentage(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:SetScrollAllowed(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:SetScrollPercentage(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:SetThumbExtent(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:SetVisibleExtentPercentage(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:TriggerEvent(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:UnregisterCallback(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:UnregisterEvents(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:UnregisterUpdate(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:Update(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:onButtonMouseUp(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBarObject:scrollInternal(...) end
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject : Button
+---@field Event CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Back_EventObject
+---@field Texture CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Back_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -44,129 +1201,254 @@ do
 ---@field mouseDownSoundKitID number
 ---@field normalTexture string
 ---@field overTexture string
-local FriendsFriendsFrame_ScrollBar_ForwardObject = {}
+local CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject = {}
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:GetAtlas(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:GetAtlas(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:GetCallbackTable(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:GetCallbackTable(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:GetCallbackTables(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:GetCallbackTables(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:IsDown(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:IsDown(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:IsDownOver(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:IsDownOver(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:IsOver(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:IsOver(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:NarrationGetName(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:NarrationGetName(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:OnButtonStateChanged(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:OnDisable(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:OnDisable(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:OnEnable(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:OnEnable(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:OnEnter(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:OnEnter(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:OnLeave(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:OnLeave(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:OnLoad(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:OnLoad(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:OnMouseDown(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:OnMouseDown(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:OnMouseUp(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:OnMouseUp(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:OnShow(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:OnShow(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:RegisterCallback(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:RegisterCallback(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:SecureInsertEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:SetDisplacedRegions(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:TriggerEvent(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:TriggerEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:UnregisterCallback(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:UnregisterCallback(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:UnregisterEvents(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:UnregisterEvents(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_Forward_EventObject
-local FriendsFriendsFrame_ScrollBar_Forward_EventObject = {}
+---@class CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Back_EventObject
+local CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Back_EventObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_Forward_TextureObject : Texture
-local FriendsFriendsFrame_ScrollBar_Forward_TextureObject = {}
+---@class CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Back_TextureObject : Texture
+local CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Back_TextureObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_TrackObject : Frame
----@field Begin FriendsFriendsFrame_ScrollBar_Track_BeginObject
----@field End FriendsFriendsFrame_ScrollBar_Track_EndObject
----@field Middle FriendsFriendsFrame_ScrollBar_Track_MiddleObject
----@field Thumb FriendsFriendsFrame_ScrollBar_Track_ThumbObject
-local FriendsFriendsFrame_ScrollBar_TrackObject = {}
+---@class CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_DefaultsObject
+local CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_DefaultsObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_Track_BeginObject : Texture
-local FriendsFriendsFrame_ScrollBar_Track_BeginObject = {}
+---@class CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_DirectionsObject
+local CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_DirectionsObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_Track_EndObject : Texture
-local FriendsFriendsFrame_ScrollBar_Track_EndObject = {}
+---@class CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_EventObject
+local CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_EventObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_Track_MiddleObject : Texture
-local FriendsFriendsFrame_ScrollBar_Track_MiddleObject = {}
+---@class CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject : Button
+---@field Event CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Forward_EventObject
+---@field Texture CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Forward_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject = {}
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:GetAtlas(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:GetCallbackTable(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:GetCallbackTables(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:IsDown(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:IsDownOver(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:IsOver(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:NarrationGetName(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:OnDisable(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:OnEnable(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:OnEnter(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:OnLeave(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:OnMouseDown(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:OnMouseUp(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:OnShow(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:RegisterCallback(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:TriggerEvent(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:UnregisterCallback(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:UnregisterEvents(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_Track_ThumbObject : Button
----@field Begin FriendsFriendsFrame_ScrollBar_Track_Thumb_BeginObject
----@field End FriendsFriendsFrame_ScrollBar_Track_Thumb_EndObject
----@field Event FriendsFriendsFrame_ScrollBar_Track_Thumb_EventObject
----@field Middle FriendsFriendsFrame_ScrollBar_Track_Thumb_MiddleObject
+---@class CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Forward_EventObject
+local CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Forward_EventObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Forward_TextureObject : Texture
+local CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Forward_TextureObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_TrackObject : Frame
+---@field Begin CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_BeginObject
+---@field End CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_EndObject
+---@field Middle CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_MiddleObject
+---@field Thumb CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject
+local CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_TrackObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_BeginObject : Texture
+local CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_BeginObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_EndObject : Texture
+local CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_EndObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_MiddleObject : Texture
+local CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_MiddleObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject : Button
+---@field Begin CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_Thumb_BeginObject
+---@field End CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_Thumb_EndObject
+---@field Event CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_Thumb_EventObject
+---@field Middle CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_Thumb_MiddleObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -181,1364 +1463,4898 @@ do
 ---@field upBeginTexture string
 ---@field upEndTexture string
 ---@field upMiddleTexture string
-local FriendsFriendsFrame_ScrollBar_Track_ThumbObject = {}
+local CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject = {}
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:GetAtlas(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:IsDown(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:IsDown(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:IsDownOver(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:IsOver(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:IsOver(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:OnDisable(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:OnDisable(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:OnEnable(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:OnEnable(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:OnEnter(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:OnEnter(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:OnLeave(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:OnLeave(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:OnLoad(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:OnLoad(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:OnShow(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:OnShow(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_Track_Thumb_BeginObject : Texture
-local FriendsFriendsFrame_ScrollBar_Track_Thumb_BeginObject = {}
+---@class CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_Thumb_BeginObject : Texture
+local CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_Thumb_BeginObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_Track_Thumb_EndObject : Texture
-local FriendsFriendsFrame_ScrollBar_Track_Thumb_EndObject = {}
+---@class CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_Thumb_EndObject : Texture
+local CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_Thumb_EndObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_Track_Thumb_EventObject
-local FriendsFriendsFrame_ScrollBar_Track_Thumb_EventObject = {}
+---@class CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_Thumb_EventObject
+local CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_Thumb_EventObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_Track_Thumb_MiddleObject : Texture
-local FriendsFriendsFrame_ScrollBar_Track_Thumb_MiddleObject = {}
+---@class CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_Thumb_MiddleObject : Texture
+local CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_Track_Thumb_MiddleObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_interpolatorObject
-local FriendsFriendsFrame_ScrollBar_interpolatorObject = {}
+---@class CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_interpolatorObject
+local CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_interpolatorObject = {}
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_interpolatorObject:Cancel(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_interpolatorObject:Cancel(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_interpolatorObject:Interpolate(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_interpolatorObject:Interpolate(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_interpolatorObject:interpolateFunc(...) end
+function CooldownViewerImportLayoutDialog_ImportBox_ScrollBar_interpolatorObject:interpolateFunc(...) end
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject : Frame
----@field Defaults FriendsFriendsFrame_ScrollBar_registeredScrollBox_DefaultsObject
----@field Directions FriendsFriendsFrame_ScrollBar_registeredScrollBox_DirectionsObject
----@field DragDelegate FriendsFriendsFrame_ScrollBar_registeredScrollBox_DragDelegateObject
----@field Event FriendsFriendsFrame_ScrollBar_registeredScrollBox_EventObject
----@field ScrollTarget FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject
----@field Shadows FriendsFriendsFrame_ScrollBar_registeredScrollBox_ShadowsObject
+---@class CooldownViewerImportLayoutDialog_ImportBox_TopLeftTexObject : Texture
+local CooldownViewerImportLayoutDialog_ImportBox_TopLeftTexObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_ImportBox_TopRightTexObject : Texture
+local CooldownViewerImportLayoutDialog_ImportBox_TopRightTexObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_ImportBox_TopTexObject : Texture
+local CooldownViewerImportLayoutDialog_ImportBox_TopTexObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_LayoutNameEditBoxObject : EditBox
+---@field Left CooldownViewerImportLayoutDialog_LayoutNameEditBox_LeftObject
+---@field Middle CooldownViewerImportLayoutDialog_LayoutNameEditBox_MiddleObject
+---@field Right CooldownViewerImportLayoutDialog_LayoutNameEditBox_RightObject
+local CooldownViewerImportLayoutDialog_LayoutNameEditBoxObject = {}
+---@return any ...
+function CooldownViewerImportLayoutDialog_LayoutNameEditBoxObject:NarrationGetContext(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_LayoutNameEditBoxObject:NarrationGetDescription(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_LayoutNameEditBoxObject:NarrationGetName(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_LayoutNameEditBoxObject:SetNarrationLabelRegion(...) end
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_LayoutNameEditBox_LeftObject : Texture
+local CooldownViewerImportLayoutDialog_LayoutNameEditBox_LeftObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_LayoutNameEditBox_MiddleObject : Texture
+local CooldownViewerImportLayoutDialog_LayoutNameEditBox_MiddleObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_LayoutNameEditBox_RightObject : Texture
+local CooldownViewerImportLayoutDialog_LayoutNameEditBox_RightObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_NameEditBoxLabelObject : FontString
+local CooldownViewerImportLayoutDialog_NameEditBoxLabelObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_TitleObject : FontString
+local CooldownViewerImportLayoutDialog_TitleObject = {}
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_layoutManagerObject
+---@field currentSpecTag number
+---@field dataProvider table
+---@field hasPendingChanges boolean
+---@field lastActiveLayoutIDsPerSpec table
+---@field layouts table
+---@field needsNotificationAfterUnlock boolean
+---@field notificationLockCount number
+---@field notificationsCompletelyDisabled boolean
+---@field notifying boolean
+---@field serializer table
+local CooldownViewerImportLayoutDialog_layoutManagerObject = {}
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:AddAlert(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:AddLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:AreChangesAllowed(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:AreLayoutsFullyMaxed(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:AreLayoutsOfTypeMaxed(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:AreNotificationsLocked(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:CanActivateLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:CanUseRestorePoint(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:CheckAddFullLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:CheckDisableNotifications(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:CheckGetLayoutID(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:ClearActiveLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:CopyLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:CopyLayoutToClipboard(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:CreateLayoutsFromSerializedData(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:CreateRestorePoint(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:DeserializeCooldownInfo(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:DestroyRestorePoint(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:EnableNotifications(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:EnsureLayoutHasUniqueID(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:EnumerateLayouts(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:EnumeratePreviouslyActiveLayoutIDs(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:FindExactAlert(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:FindExistingAlert(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetActiveLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetActiveLayoutID(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetAddAlertStatus(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetAddLayoutStatus(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetAlerts(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetAlertsForLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetBestLayoutForSpec(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetCooldownCategoryChangeStatus(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetCooldownIDDataBlock(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetCooldownIDDataBlockForLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetCooldownInfoDataBlock(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetCooldownOrderChangeStatus(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetCurrentSpecTag(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetDataProvider(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetDefaultLayoutID(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetLayoutByName(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetLayoutCountOfType(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetLayoutName(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetMaxLayoutsErrorText(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetMaxLayoutsForType(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetMaxNumAlertsPerItem(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetNumAlerts(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetPreviouslyActiveLayoutIDForSpec(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:GetSerializer(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:HasActiveChanges(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:HasPendingChanges(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:ImportLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:Init(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:InitMemberVariables(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:IsCharacterSpecificLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:IsDefaultLayoutID(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:IsLoaded(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:IsPreviouslyActiveLayoutForSpecDefault(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:IsUsingDefaultLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:IsValidLayoutName(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:LockNotifications(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:NotifyListeners(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:RemoveAlert(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:RemoveAllAlerts(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:RemoveCooldownInfoDataBlock(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:RemoveLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:RemovePreviouslyActiveLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:RenameLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:ResetCurrentToDefaults(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:ResetToDefaults(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:ResetToRestorePoint(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:SaveLayouts(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:SetActiveLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:SetActiveLayoutByID(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:SetHasPendingChanges(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:SetLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:SetPreviouslyActiveLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:SetPreviouslyActiveLayoutByName(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:SetPreviouslyActiveLayoutForSpecToDefault(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:SetShouldCheckAddLayoutStatus(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:ShouldCheckAddLayoutStatus(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:SwitchToBestLayoutForSpec(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:UnlockNotifications(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:UpdateAlert(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:UseDefaultLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:WriteCooldownAlertsToLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:WriteCooldownCategoryToLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:WriteCooldownInfo_Category(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:WriteCooldownInfo_KeyValue(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:WriteCooldownOrderToActiveLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:WriteCooldownOrderToLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:WriteGroupBuffVisualAlertsToActiveLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:WriteGroupBuffVisualAlertsToLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:WriteHiddenGroupBuffsToActiveLayout(...) end
+---@return any ...
+function CooldownViewerImportLayoutDialog_layoutManagerObject:WriteHiddenGroupBuffsToLayout(...) end
+end
+
+do
+---@class CooldownViewerImportLayoutDialog_modesObject
+---@field importLayout table
+local CooldownViewerImportLayoutDialog_modesObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialogObject : Frame
+---@field AcceptButton CooldownViewerLayoutDialog_AcceptButtonObject
+---@field Border CooldownViewerLayoutDialog_BorderObject
+---@field CancelButton CooldownViewerLayoutDialog_CancelButtonObject
+---@field CharacterSpecificLayoutCheckButton CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject
+---@field LayoutNameEditBox CooldownViewerLayoutDialog_LayoutNameEditBoxObject
+---@field Title CooldownViewerLayoutDialog_TitleObject
+---@field exclusive boolean
+---@field layoutManager CooldownViewerLayoutDialog_layoutManagerObject
+---@field managerExitCallbackEventName string
+---@field modes CooldownViewerLayoutDialog_modesObject
+local CooldownViewerLayoutDialogObject = {}
+---@return any ...
+function CooldownViewerLayoutDialogObject:CanAccept(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:EditModeDialog_OnHide(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:EditModeDialog_OnLoad(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:EditModeDialog_OnShow(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:GetAcceptButton(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:GetCancelButton(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:GetCharacterSpecificButton(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:GetDesiredLayoutType(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:GetEditBox(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:GetEditBoxText(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:GetLayoutIndex(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:GetLayoutInfo(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:GetLayoutManager(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:GetManagerExitCallbackEventName(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:GetModeData(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:GetOnCancelEvent(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:IsCharacterSpecificLayoutChecked(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:OnAccept(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:OnCancel(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:OnEditModeExit(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:OnManagerExit(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:SetLayoutIndex(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:SetLayoutInfo(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:SetLayoutManager(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:SetMode(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:SetModeData(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:SetupButtonClickHandlers(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:SetupControlsForMode(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:SetupEditBoxHandlers(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:ShouldCloseWhenManagerCloses(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:ShowDeleteLayoutDialog(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:ShowNewLayoutDialog(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:ShowRenameLayoutDialog(...) end
+---@return any ...
+function CooldownViewerLayoutDialogObject:UpdateAcceptButtonEnabledState(...) end
+---@type CooldownViewerLayoutDialogObject
+CooldownViewerLayoutDialog = CooldownViewerLayoutDialogObject
+end
+
+do
+---@class CooldownViewerLayoutDialog_AcceptButtonObject : Button
+---@field Controller CooldownViewerLayoutDialog_AcceptButton_ControllerObject
+---@field Left CooldownViewerLayoutDialog_AcceptButton_LeftObject
+---@field Middle CooldownViewerLayoutDialog_AcceptButton_MiddleObject
+---@field Right CooldownViewerLayoutDialog_AcceptButton_RightObject
+---@field Text CooldownViewerLayoutDialog_AcceptButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CooldownViewerLayoutDialog_AcceptButtonObject = {}
+---@return any ...
+function CooldownViewerLayoutDialog_AcceptButtonObject:ClearCustomTextFormatter(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_AcceptButtonObject:FitToText(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_AcceptButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_AcceptButtonObject:GetOnClickSoundKit(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_AcceptButtonObject:InitButton(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_AcceptButtonObject:OnClick(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_AcceptButtonObject:OnEnter(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_AcceptButtonObject:OnLeave(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_AcceptButtonObject:RunCustomTextFormatter(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_AcceptButtonObject:SetButtonArtKit(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_AcceptButtonObject:SetCustomTextFormatter(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_AcceptButtonObject:SetDisabledState(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_AcceptButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_AcceptButtonObject:SetOnClickHandler(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_AcceptButtonObject:SetOnEnterHandler(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_AcceptButtonObject:SetTextToFit(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_AcceptButtonObject:SetTooltipAnchor(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_AcceptButtonObject:SetTooltipInfo(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_AcceptButtonObject:onClickHandler(...) end
+end
+
+do
+---@class CooldownViewerLayoutDialog_AcceptButton_ControllerObject : Frame
+local CooldownViewerLayoutDialog_AcceptButton_ControllerObject = {}
+---@return any ...
+function CooldownViewerLayoutDialog_AcceptButton_ControllerObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_AcceptButton_ControllerObject:OnShow(...) end
+end
+
+do
+---@class CooldownViewerLayoutDialog_AcceptButton_LeftObject : Texture
+local CooldownViewerLayoutDialog_AcceptButton_LeftObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialog_AcceptButton_MiddleObject : Texture
+local CooldownViewerLayoutDialog_AcceptButton_MiddleObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialog_AcceptButton_RightObject : Texture
+local CooldownViewerLayoutDialog_AcceptButton_RightObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialog_AcceptButton_TextObject : FontString
+local CooldownViewerLayoutDialog_AcceptButton_TextObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialog_BorderObject : Frame
+---@field Bg CooldownViewerLayoutDialog_Border_BgObject
+---@field BottomEdge CooldownViewerLayoutDialog_Border_BottomEdgeObject
+---@field BottomLeftCorner CooldownViewerLayoutDialog_Border_BottomLeftCornerObject
+---@field BottomRightCorner CooldownViewerLayoutDialog_Border_BottomRightCornerObject
+---@field LeftEdge CooldownViewerLayoutDialog_Border_LeftEdgeObject
+---@field RightEdge CooldownViewerLayoutDialog_Border_RightEdgeObject
+---@field TopEdge CooldownViewerLayoutDialog_Border_TopEdgeObject
+---@field TopLeftCorner CooldownViewerLayoutDialog_Border_TopLeftCornerObject
+---@field TopRightCorner CooldownViewerLayoutDialog_Border_TopRightCornerObject
+---@field layoutType string
+local CooldownViewerLayoutDialog_BorderObject = {}
+---@return any ...
+function CooldownViewerLayoutDialog_BorderObject:GetBorderColor(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_BorderObject:GetCenterColor(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_BorderObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_BorderObject:GetFrameLayoutType(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_BorderObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_BorderObject:SetBlendMode(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_BorderObject:SetBorderBlendMode(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_BorderObject:SetBorderColor(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_BorderObject:SetCenterColor(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_BorderObject:SetVertexColor(...) end
+end
+
+do
+---@class CooldownViewerLayoutDialog_Border_BgObject : Texture
+local CooldownViewerLayoutDialog_Border_BgObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialog_Border_BottomEdgeObject : Texture
+local CooldownViewerLayoutDialog_Border_BottomEdgeObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialog_Border_BottomLeftCornerObject : Texture
+local CooldownViewerLayoutDialog_Border_BottomLeftCornerObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialog_Border_BottomRightCornerObject : Texture
+local CooldownViewerLayoutDialog_Border_BottomRightCornerObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialog_Border_LeftEdgeObject : Texture
+local CooldownViewerLayoutDialog_Border_LeftEdgeObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialog_Border_RightEdgeObject : Texture
+local CooldownViewerLayoutDialog_Border_RightEdgeObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialog_Border_TopEdgeObject : Texture
+local CooldownViewerLayoutDialog_Border_TopEdgeObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialog_Border_TopLeftCornerObject : Texture
+local CooldownViewerLayoutDialog_Border_TopLeftCornerObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialog_Border_TopRightCornerObject : Texture
+local CooldownViewerLayoutDialog_Border_TopRightCornerObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialog_CancelButtonObject : Button
+---@field Controller CooldownViewerLayoutDialog_CancelButton_ControllerObject
+---@field Left CooldownViewerLayoutDialog_CancelButton_LeftObject
+---@field Middle CooldownViewerLayoutDialog_CancelButton_MiddleObject
+---@field Right CooldownViewerLayoutDialog_CancelButton_RightObject
+---@field Text CooldownViewerLayoutDialog_CancelButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CooldownViewerLayoutDialog_CancelButtonObject = {}
+---@return any ...
+function CooldownViewerLayoutDialog_CancelButtonObject:ClearCustomTextFormatter(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CancelButtonObject:FitToText(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CancelButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CancelButtonObject:GetOnClickSoundKit(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CancelButtonObject:InitButton(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CancelButtonObject:OnClick(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CancelButtonObject:OnEnter(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CancelButtonObject:OnLeave(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CancelButtonObject:RunCustomTextFormatter(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CancelButtonObject:SetButtonArtKit(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CancelButtonObject:SetCustomTextFormatter(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CancelButtonObject:SetDisabledState(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CancelButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CancelButtonObject:SetOnClickHandler(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CancelButtonObject:SetOnEnterHandler(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CancelButtonObject:SetTextToFit(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CancelButtonObject:SetTooltipAnchor(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CancelButtonObject:SetTooltipInfo(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CancelButtonObject:onClickHandler(...) end
+end
+
+do
+---@class CooldownViewerLayoutDialog_CancelButton_ControllerObject : Frame
+local CooldownViewerLayoutDialog_CancelButton_ControllerObject = {}
+---@return any ...
+function CooldownViewerLayoutDialog_CancelButton_ControllerObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CancelButton_ControllerObject:OnShow(...) end
+end
+
+do
+---@class CooldownViewerLayoutDialog_CancelButton_LeftObject : Texture
+local CooldownViewerLayoutDialog_CancelButton_LeftObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialog_CancelButton_MiddleObject : Texture
+local CooldownViewerLayoutDialog_CancelButton_MiddleObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialog_CancelButton_RightObject : Texture
+local CooldownViewerLayoutDialog_CancelButton_RightObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialog_CancelButton_TextObject : FontString
+local CooldownViewerLayoutDialog_CancelButton_TextObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject : Frame
+---@field Button CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButton_ButtonObject
+---@field Label CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButton_LabelObject
+---@field labelText string
+local CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject = {}
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:AddLayoutChildren(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:AutoEnableCVar(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:CheckAddNarrationToButton(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:ClearFixedSize(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:EditModeCheckButton_OnLoad(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:EditModeCheckButton_OnShow(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetAdditionalRegions(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetCallback(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetChildHeight(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetChildSize(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetChildWidth(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetFixedHeight(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetFixedSize(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetFixedWidth(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetHeightPadding(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetLayoutChildren(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetMaximumWidth(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetMinimumWidth(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:GetWidthPadding(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:HideButtonTooltip(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:IsControlChecked(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:IsControlEnabled(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:IsDirty(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:IsLayoutFrame(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:Layout(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:MarkClean(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:MarkDirty(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:OnCheckButtonClick(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:OnCleaned(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:OnEnter(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:OnLeave(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:OnShow(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:OnUpdate(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:RunMouseOverCallback(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetButton(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetCallback(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetControlChecked(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetControlEnabled(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetFixedHeight(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetFixedSize(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetFixedWidth(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetHeightPadding(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetLabel(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetLabelText(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetMaximumWidth(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetMinimumWidth(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetMouseOverCallback(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetTooltipDisabled(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetTooltipText(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:SetWidthPadding(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:ShouldClearOnUpdateAfterClean(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:ShouldEnable(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:UpdateDisplay(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:UpdateLabelFont(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButtonObject:onBoxToggled(...) end
+end
+
+do
+---@class CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButton_ButtonObject : CheckButton
+local CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButton_ButtonObject = {}
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButton_ButtonObject:NarrationGetContext(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButton_ButtonObject:NarrationGetName(...) end
+end
+
+do
+---@class CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButton_LabelObject : FontString
+local CooldownViewerLayoutDialog_CharacterSpecificLayoutCheckButton_LabelObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialog_LayoutNameEditBoxObject : EditBox
+---@field Left CooldownViewerLayoutDialog_LayoutNameEditBox_LeftObject
+---@field Middle CooldownViewerLayoutDialog_LayoutNameEditBox_MiddleObject
+---@field Right CooldownViewerLayoutDialog_LayoutNameEditBox_RightObject
+local CooldownViewerLayoutDialog_LayoutNameEditBoxObject = {}
+---@return any ...
+function CooldownViewerLayoutDialog_LayoutNameEditBoxObject:NarrationGetContext(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_LayoutNameEditBoxObject:NarrationGetDescription(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_LayoutNameEditBoxObject:NarrationGetName(...) end
+---@return any ...
+function CooldownViewerLayoutDialog_LayoutNameEditBoxObject:SetNarrationLabelRegion(...) end
+end
+
+do
+---@class CooldownViewerLayoutDialog_LayoutNameEditBox_LeftObject : Texture
+local CooldownViewerLayoutDialog_LayoutNameEditBox_LeftObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialog_LayoutNameEditBox_MiddleObject : Texture
+local CooldownViewerLayoutDialog_LayoutNameEditBox_MiddleObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialog_LayoutNameEditBox_RightObject : Texture
+local CooldownViewerLayoutDialog_LayoutNameEditBox_RightObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialog_TitleObject : FontString
+local CooldownViewerLayoutDialog_TitleObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialog_layoutManagerObject
+local CooldownViewerLayoutDialog_layoutManagerObject = {}
+end
+
+do
+---@class CooldownViewerLayoutDialog_modesObject
+---@field deleteLayout table
+---@field newLayout table
+---@field renameLayout table
+local CooldownViewerLayoutDialog_modesObject = {}
+end
+
+do
+---@class CooldownViewerSettingsObject : Frame
+---@field AurasTab CooldownViewerSettings_AurasTabObject
+---@field Background CooldownViewerSettings_BackgroundObject
+---@field Bg CooldownViewerSettings_BgObject
+---@field CloseButton CooldownViewerSettings_CloseButtonObject
+---@field CooldownScroll CooldownViewerSettings_CooldownScrollObject
+---@field FocusJumpHint CooldownViewerSettings_FocusJumpHintObject
+---@field FrameGlow CooldownViewerSettings_FrameGlowObject
+---@field GroupBuffFilter CooldownViewerSettings_GroupBuffFilterObject
+---@field GroupBuffsTab CooldownViewerSettings_GroupBuffsTabObject
+---@field Inset CooldownViewerSettings_InsetObject
+---@field LayoutDropdown CooldownViewerSettings_LayoutDropdownObject
+---@field LeftJumpHint CooldownViewerSettings_LeftJumpHintObject
+---@field NineSlice CooldownViewerSettings_NineSliceObject
+---@field PortraitContainer CooldownViewerSettings_PortraitContainerObject
+---@field ReorderMarker CooldownViewerSettings_ReorderMarkerObject
+---@field RightJumpHint CooldownViewerSettings_RightJumpHintObject
+---@field SearchBox CooldownViewerSettings_SearchBoxObject
+---@field SettingsDropdown CooldownViewerSettings_SettingsDropdownObject
+---@field SpellsTab CooldownViewerSettings_SpellsTabObject
+---@field TabButtons table
+---@field TitleContainer CooldownViewerSettings_TitleContainerObject
+---@field TopTileStreaks CooldownViewerSettings_TopTileStreaksObject
+---@field UndoButton CooldownViewerSettings_UndoButtonObject
+---@field callbackRegistrantHandlers table
+---@field categoryObjects table
+---@field categoryPool CooldownViewerSettings_categoryPoolObject
+---@field dataProvider CooldownViewerSettings_dataProviderObject
+---@field dataSerialization CooldownViewerSettings_dataSerializationObject
+---@field layoutManager CooldownViewerSettings_layoutManagerObject
+---@field layoutType string
+local CooldownViewerSettingsObject = {}
+---@return any ...
+function CooldownViewerSettingsObject:AddCategory(...) end
+---@return any ...
+function CooldownViewerSettingsObject:AddDynamicEventMethod(...) end
+---@return any ...
+function CooldownViewerSettingsObject:AddEventMethodInternal(...) end
+---@return any ...
+function CooldownViewerSettingsObject:AddStaticEventMethod(...) end
+---@return any ...
+function CooldownViewerSettingsObject:ApplyFilter(...) end
+---@return any ...
+function CooldownViewerSettingsObject:BeginOrderChange(...) end
+---@return any ...
+function CooldownViewerSettingsObject:CanCreateNewLayoutFromDialog(...) end
+---@return any ...
+function CooldownViewerSettingsObject:CanImportFromDialog(...) end
+---@return any ...
+function CooldownViewerSettingsObject:CanRenameLayoutFromDialog(...) end
+---@return any ...
+function CooldownViewerSettingsObject:CancelOrderChange(...) end
+---@return any ...
+function CooldownViewerSettingsObject:CheckAddScrollFramePadding(...) end
+---@return any ...
+function CooldownViewerSettingsObject:CheckDisplayActionStatus(...) end
+---@return any ...
+function CooldownViewerSettingsObject:CheckSaveCurrentLayout(...) end
+---@return any ...
+function CooldownViewerSettingsObject:ClearDisplayCategories(...) end
+---@return any ...
+function CooldownViewerSettingsObject:ClearReorderTargets(...) end
+---@return any ...
+function CooldownViewerSettingsObject:CopyLayoutToClipboard(...) end
+---@return any ...
+function CooldownViewerSettingsObject:CreateEventRegistrationInfo(...) end
+---@return any ...
+function CooldownViewerSettingsObject:CreateNewLayoutFromDialog(...) end
+---@return any ...
+function CooldownViewerSettingsObject:DeleteLayoutFromDialog(...) end
+---@return any ...
+function CooldownViewerSettingsObject:DoesCooldownMatchTextFilter(...) end
+---@return any ...
+function CooldownViewerSettingsObject:EndFocus(...) end
+---@return any ...
+function CooldownViewerSettingsObject:EndOrderChange(...) end
+---@return any ...
+function CooldownViewerSettingsObject:GetActionStatusText(...) end
+---@return any ...
+function CooldownViewerSettingsObject:GetCategoryTemplate(...) end
+---@return any ...
+function CooldownViewerSettingsObject:GetDataProvider(...) end
+---@return any ...
+function CooldownViewerSettingsObject:GetDynamicCallbackRegistrantHandlers(...) end
+---@return any ...
+function CooldownViewerSettingsObject:GetExtraPanelWidth(...) end
+---@return any ...
+function CooldownViewerSettingsObject:GetFilterText(...) end
+---@return any ...
+function CooldownViewerSettingsObject:GetFocusFrameGlow(...) end
+---@return any ...
+function CooldownViewerSettingsObject:GetFocusFrameRoot(...) end
+---@return any ...
+function CooldownViewerSettingsObject:GetLayoutManager(...) end
+---@return any ...
+function CooldownViewerSettingsObject:GetLayoutName(...) end
+---@return any ...
+function CooldownViewerSettingsObject:GetPortrait(...) end
+---@return any ...
+function CooldownViewerSettingsObject:GetReorderSourceItem(...) end
+---@return any ...
+function CooldownViewerSettingsObject:GetReorderTarget(...) end
+---@return any ...
+function CooldownViewerSettingsObject:GetReorderTargetItem(...) end
+---@return any ...
+function CooldownViewerSettingsObject:GetSerializer(...) end
+---@return any ...
+function CooldownViewerSettingsObject:GetStaticCallbackRegistrantHandlers(...) end
+---@return any ...
+function CooldownViewerSettingsObject:GetTitleText(...) end
+---@return any ...
+function CooldownViewerSettingsObject:GetValidAssignmentCategories(...) end
+---@return any ...
+function CooldownViewerSettingsObject:HasPortraitTexture(...) end
+---@return any ...
+function CooldownViewerSettingsObject:HideFocusJumpHint(...) end
+---@return any ...
+function CooldownViewerSettingsObject:HideLeftJumpHint(...) end
+---@return any ...
+function CooldownViewerSettingsObject:HideRightJumpHint(...) end
+---@return any ...
+function CooldownViewerSettingsObject:ImportLayoutFromDialog(...) end
+---@return any ...
+function CooldownViewerSettingsObject:IsCharacterSpecificLayout(...) end
+---@return any ...
+function CooldownViewerSettingsObject:IsReordering(...) end
+---@return any ...
+function CooldownViewerSettingsObject:LockInFocus(...) end
+---@return any ...
+function CooldownViewerSettingsObject:MarkTabsSeen(...) end
+---@return any ...
+function CooldownViewerSettingsObject:OnEnterItem(...) end
+---@return any ...
+function CooldownViewerSettingsObject:OnEvent(...) end
+---@return any ...
+function CooldownViewerSettingsObject:OnGlobalMouseUp(...) end
+---@return any ...
+function CooldownViewerSettingsObject:OnHide(...) end
+---@return any ...
+function CooldownViewerSettingsObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerSettingsObject:OnShow(...) end
+---@return any ...
+function CooldownViewerSettingsObject:OnUpdate(...) end
+---@return any ...
+function CooldownViewerSettingsObject:RefreshFocus(...) end
+---@return any ...
+function CooldownViewerSettingsObject:RefreshLayout(...) end
+---@return any ...
+function CooldownViewerSettingsObject:RefreshVisibleCategories(...) end
+---@return any ...
+function CooldownViewerSettingsObject:RegisterFromRegistrationInfo(...) end
+---@return any ...
+function CooldownViewerSettingsObject:RemoveScrollFramePadding(...) end
+---@return any ...
+function CooldownViewerSettingsObject:RemoveStaticEventMethod(...) end
+---@return any ...
+function CooldownViewerSettingsObject:RenameLayoutFromDialog(...) end
+---@return any ...
+function CooldownViewerSettingsObject:ResetCurrentToDefaults(...) end
+---@return any ...
+function CooldownViewerSettingsObject:ResetToRestorePoint(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SaveCurrentLayout(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetActiveLayoutByID(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetBorder(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetCurrentCategories(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetDataProvider(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetDisplayMode(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetFilterText(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetFrameLevelsFromBaseLevel(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetLayoutManager(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetPortraitAtlasRaw(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetPortraitShown(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetPortraitTexCoord(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetPortraitTextureRaw(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetPortraitTextureSizeAndOffset(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetPortraitToAsset(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetPortraitToBag(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetPortraitToClassIcon(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetPortraitToSpecIcon(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetPortraitToUnit(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetReorderSourceItem(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetReorderTarget(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetReorderTargetItem(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetSerializer(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetTitle(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetTitleColor(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetTitleFormatted(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetTitleMaxLinesAndHeight(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetTitleOffsets(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetupEventEditFrame(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetupEventHandlers(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetupLayoutManagerDialog(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetupLayoutManagerDropdown(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetupPanelButtons(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetupScrollFrame(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetupSettingsMenu(...) end
+---@return any ...
+function CooldownViewerSettingsObject:SetupTabs(...) end
+---@return any ...
+function CooldownViewerSettingsObject:ShowFocusJumpHint(...) end
+---@return any ...
+function CooldownViewerSettingsObject:ShowLeftJumpHint(...) end
+---@return any ...
+function CooldownViewerSettingsObject:ShowOptionsPanel(...) end
+---@return any ...
+function CooldownViewerSettingsObject:ShowRightJumpHint(...) end
+---@return any ...
+function CooldownViewerSettingsObject:ShowUIPanel(...) end
+---@return any ...
+function CooldownViewerSettingsObject:StartFocus(...) end
+---@return any ...
+function CooldownViewerSettingsObject:TogglePanel(...) end
+---@return any ...
+function CooldownViewerSettingsObject:UnregisterAllEventMethods(...) end
+---@return any ...
+function CooldownViewerSettingsObject:UnregisterAllInternal(...) end
+---@return any ...
+function CooldownViewerSettingsObject:UnregisterFromRegistrationInfo(...) end
+---@return any ...
+function CooldownViewerSettingsObject:UpdateGroupBuffsTabState(...) end
+---@return any ...
+function CooldownViewerSettingsObject:UpdateReorderMarker(...) end
+---@return any ...
+function CooldownViewerSettingsObject:UpdateReorderMarkerState(...) end
+---@return any ...
+function CooldownViewerSettingsObject:UpdateSaveButtonStates(...) end
+---@return any ...
+function CooldownViewerSettingsObject:UseDefaultLayout(...) end
+---@return any ...
+function CooldownViewerSettingsObject:ValidateLayoutNameFromDialog(...) end
+---@type CooldownViewerSettingsObject
+CooldownViewerSettings = CooldownViewerSettingsObject
+end
+
+do
+---@class CooldownViewerSettings_AurasTabObject : Frame
+---@field Background CooldownViewerSettings_AurasTab_BackgroundObject
+---@field HighlightTexture CooldownViewerSettings_AurasTab_HighlightTextureObject
+---@field Icon CooldownViewerSettings_AurasTab_IconObject
+---@field Mask CooldownViewerSettings_AurasTab_MaskObject
+---@field NewOptionsFrame CooldownViewerSettings_AurasTab_NewOptionsFrameObject
+---@field SelectedTexture CooldownViewerSettings_AurasTab_SelectedTextureObject
+---@field TabGlow CooldownViewerSettings_AurasTab_TabGlowObject
+---@field TabGlowAnimation CooldownViewerSettings_AurasTab_TabGlowAnimationObject
+---@field activeAtlas string
+---@field displayMode string
+---@field inactiveAtlas string
+---@field newTagID string
+---@field tooltipText string
+local CooldownViewerSettings_AurasTabObject = {}
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:CalculateTabSizeBasedOnTabArt(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:CheckNewTagID(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:GetFinalIconAnchorOffsets(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:GetIconAnchorOffsetsForTabArt(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:GetNewOptionDisplay(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:GetNewTagID(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:GetPressedIconAnchorOffsets(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:GetTooltipTextSetupFunction(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:HideNewOptionDisplay(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:InitializeIconAnchoring(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:InitializeSizeForTabArt(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:IsTabGlowAnimationPlaying(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:MarkSeen(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:NDCM_OnHide(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:NDCM_OnShow(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:OnEnter(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:OnLeave(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:OnMouseDown(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:OnMouseUp(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:SetChecked(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:SetCustomOnMouseUpHandler(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:SetFillToInterior(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:SetNewOptionAnchor(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:SetNewTagID(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:SetTabGlowAnimationPlaying(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:SetTooltipTextSetupFunction(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:UpdateIconInterior(...) end
+---@return any ...
+function CooldownViewerSettings_AurasTabObject:customMouseUpHandler(...) end
+end
+
+do
+---@class CooldownViewerSettings_AurasTab_BackgroundObject : Texture
+local CooldownViewerSettings_AurasTab_BackgroundObject = {}
+end
+
+do
+---@class CooldownViewerSettings_AurasTab_HighlightTextureObject : Texture
+local CooldownViewerSettings_AurasTab_HighlightTextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_AurasTab_IconObject : Texture
+local CooldownViewerSettings_AurasTab_IconObject = {}
+end
+
+do
+---@class CooldownViewerSettings_AurasTab_MaskObject : MaskTexture
+local CooldownViewerSettings_AurasTab_MaskObject = {}
+end
+
+do
+---@class CooldownViewerSettings_AurasTab_NewOptionsFrameObject : Texture
+local CooldownViewerSettings_AurasTab_NewOptionsFrameObject = {}
+end
+
+do
+---@class CooldownViewerSettings_AurasTab_SelectedTextureObject : Texture
+local CooldownViewerSettings_AurasTab_SelectedTextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_AurasTab_TabGlowObject : Texture
+local CooldownViewerSettings_AurasTab_TabGlowObject = {}
+end
+
+do
+---@class CooldownViewerSettings_AurasTab_TabGlowAnimationObject : AnimationGroup
+local CooldownViewerSettings_AurasTab_TabGlowAnimationObject = {}
+end
+
+do
+---@class CooldownViewerSettings_BackgroundObject : Texture
+local CooldownViewerSettings_BackgroundObject = {}
+end
+
+do
+---@class CooldownViewerSettings_BgObject : Texture
+local CooldownViewerSettings_BgObject = {}
+end
+
+do
+---@class CooldownViewerSettings_CloseButtonObject : Button
+local CooldownViewerSettings_CloseButtonObject = {}
+---@return any ...
+function CooldownViewerSettings_CloseButtonObject:NarrationGetName(...) end
+---@return any ...
+function CooldownViewerSettings_CloseButtonObject:OnLoad(...) end
+end
+
+do
+---@class CooldownViewerSettings_CooldownScrollObject : ScrollFrame
+---@field Content CooldownViewerSettings_CooldownScroll_ContentObject
+---@field ScrollBar CooldownViewerSettings_CooldownScroll_ScrollBarObject
+---@field panExtent number
+---@field scrollBarBottomY number
+---@field scrollBarHideIfUnscrollable boolean
+---@field scrollBarHideTrackIfThumbExceedsTrack boolean
+---@field scrollBarTopY number
+local CooldownViewerSettings_CooldownScrollObject = {}
+---@return any ...
+function CooldownViewerSettings_CooldownScrollObject:GetPanExtent(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScrollObject:SetPanExtent(...) end
+end
+
+do
+---@class CooldownViewerSettings_CooldownScroll_ContentObject : Frame
+---@field ReorderMarker CooldownViewerSettings_CooldownScroll_Content_ReorderMarkerObject
+local CooldownViewerSettings_CooldownScroll_ContentObject = {}
+end
+
+do
+---@class CooldownViewerSettings_CooldownScroll_Content_ReorderMarkerObject : Frame
+---@field Texture CooldownViewerSettings_CooldownScroll_Content_ReorderMarker_TextureObject
+local CooldownViewerSettings_CooldownScroll_Content_ReorderMarkerObject = {}
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_Content_ReorderMarkerObject:SetHorizontal(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_Content_ReorderMarkerObject:SetIsLegalTarget(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_Content_ReorderMarkerObject:SetVertical(...) end
+end
+
+do
+---@class CooldownViewerSettings_CooldownScroll_Content_ReorderMarker_TextureObject : Texture
+local CooldownViewerSettings_CooldownScroll_Content_ReorderMarker_TextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_CooldownScroll_ScrollBarObject : Frame
+---@field Back CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject
+---@field Defaults CooldownViewerSettings_CooldownScroll_ScrollBar_DefaultsObject
+---@field Directions CooldownViewerSettings_CooldownScroll_ScrollBar_DirectionsObject
+---@field Event CooldownViewerSettings_CooldownScroll_ScrollBar_EventObject
+---@field Forward CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject
+---@field Track CooldownViewerSettings_CooldownScroll_ScrollBar_TrackObject
 ---@field allowScroll boolean
 ---@field callbackTables table
 ---@field canInterpolateScroll boolean
----@field debugInspectionSystem string
 ---@field deferredCallbacks table
 ---@field executingEvents table
+---@field hideIfUnscrollable boolean
+---@field hideTrack boolean
+---@field hideTrackIfThumbExceedsTrack boolean
+---@field interpolator CooldownViewerSettings_CooldownScroll_ScrollBar_interpolatorObject
 ---@field isScrollController boolean
+---@field minThumbExtent number
+---@field panDelay number
 ---@field panExtentPercentage number
----@field registeredScrollBar FriendsFriendsFrame_ScrollBar_registeredScrollBox_registeredScrollBarObject
----@field updateLock boolean
----@field view FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject
+---@field panRepeatTime number
+---@field smartNavigationIgnored boolean
+---@field snapToInterval boolean
+---@field thumbAnchor string
+---@field useProportionalThumb boolean
+---@field visibleExtentPercentage number
 ---@field wheelPanScalar number
-local FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject = {}
+local CooldownViewerSettings_CooldownScroll_ScrollBarObject = {}
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ApplyEdgeFade(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:CallInternalScope(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:CalculateEdgeFade(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:CanCursorStepInDirection(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:CalculatePanExtentPercentage(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:CanInterpolateScroll(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:CalculateScrollPercentage(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:CanInterpolateScroll(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:DisableControls(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ClearEdgeFade(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ContainsElementDataByPredicate(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:EnableInternalPriority(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:CopyDeferredCallbacks(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:EnableSnapToInterval(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:DoesFrameHaveEvent(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:EnableSnapToInterval(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:GetBackStepper(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:EnumerateDataProvider(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:GetCallbackTable(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:EnumerateDataProviderEntireRange(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:GetCallbackTables(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:EnumerateFrames(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:FindByPredicate(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:GetForwardStepper(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:FindElementData(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:GetFrameExtent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:FindElementDataByPredicate(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:GetIntervalRange(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:FindElementDataIndex(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:GetLower(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:FindElementDataIndexByPredicate(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:FindFrame(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:FindFrameByPredicate(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:GetPanRepeatDelay(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:FindFrameElementDataIndex(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:GetPanRepeatTime(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:Flush(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:GetScrollInterpolator(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:FlushDataProvider(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:GetScrollPercentage(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ForEachElementData(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:GetThumb(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ForEachFrame(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:GetThumbAnchor(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:FullUpdate(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:GetTrack(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:FullUpdateInternal(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:GetTrackExtent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GenerateCallbackEvents(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:GetUpper(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetBottomPadding(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetCallbackTable(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetCallbackTables(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetCallbacksByEvent(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:HasScrollableExtent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetDataIndexBegin(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:Init(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetDataIndexEnd(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:InitializeNarration(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetDataProvider(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:Interpolate(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetDataProviderSize(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:IsAtBegin(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetDerivedExtent(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:IsAtEnd(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetDerivedScrollOffset(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:IsHorizontal(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetDerivedScrollRange(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:IsScrollAllowed(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetElementExtent(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:IsThumbMouseDown(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetExtent(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetExtentPadding(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:OnLoad(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetExtentUntil(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetFrameCount(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:OnMouseWheel(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetFrameExtent(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetFrames(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetIntervalRange(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:OnStepperMouseDown(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetLeftPadding(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:OnThumbMouseDown(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetLower(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:OnTrackMouseDown(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetLowerPadding(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetLowerShadowTexture(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:RegisterCallback(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetMutableCallbacksByEvent(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetPadding(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:ScrollDecrease(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetPanExtent(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:ScrollInDirection(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetPanExtentPercentage(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:ScrollIncrease(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetRightPadding(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:ScrollPageInDirection(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetScrollInterpolator(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:ScrollStepInDirection(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetScrollPercentage(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:ScrollToBegin(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetScrollTarget(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:ScrollToEnd(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetTopPadding(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:ScrollWheelInDirection(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetUpper(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:SecureInsertEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetUpperPadding(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:SelectCursorComponent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetUpperShadowTexture(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:SelectPointComponent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetView(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:SetFrameExtent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetVisibleExtent(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:SetHideIfUnscrollable(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetVisibleExtentPercentage(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:GetWheelPanPercentage(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:SetHorizontal(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:HasDataProvider(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:SetInterpolateScroll(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:HasEdgeFade(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:HasRegistrantsForEvent(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:SetScrollAllowed(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:HasScrollableExtent(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:SetScrollPercentage(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:HasView(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:Init(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:SetThumbExtent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:Interpolate(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:IsAcquireLocked(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:SetVisibleExtentPercentage(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:IsAlignmentOverlapIgnored(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:TriggerEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:IsAtBegin(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:UnregisterCallback(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:IsAtEnd(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:UnregisterEvents(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:IsHorizontal(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:IsScrollAllowed(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:UnregisterUpdate(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:IsScrollToDataIndexSafe(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:Update(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:IsUpdateLocked(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:onButtonMouseUp(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:IsVirtualized(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:Layout(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:OnLoad(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:OnMouseWheel(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:OnScrollTargetSizeChanged(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:OnSizeChanged(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:OnViewAcquiredFrame(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:OnViewDataChanged(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:OnViewDataProviderReassigned(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:OnViewInitializedFrame(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:OnViewReleasedFrame(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:Rebuild(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:RecalculateDerivedExtent(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:RegisterCallback(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ReinitializeFrames(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:RemoveDataProvider(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProvider(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ReverseForEachElementData(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ReverseForEachFrame(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SanitizeAlignment(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ScrollDecrease(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ScrollInDirection(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ScrollIncrease(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ScrollToBegin(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ScrollToElementData(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ScrollToElementDataByPredicate(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ScrollToElementDataIndex(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ScrollToEnd(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ScrollToFrame(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ScrollToNearest(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ScrollToNearestByPredicate(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ScrollToOffset(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SecureInsertEvent(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SelectCursorComponent(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SelectPointComponent(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SetAlignmentOverlapIgnored(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SetDataProvider(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SetEdgeFadeLength(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SetFrameExtent(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SetHorizontal(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SetInterpolateScroll(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SetLowerShadowAtlas(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SetPadding(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SetPanExtent(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SetPanExtentPercentage(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SetScrollAllowed(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SetScrollPercentage(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SetScrollPercentageInternal(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SetScrollTargetOffset(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SetShadowsFrameLevel(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SetShadowsScale(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SetShadowsShown(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SetUpdateLocked(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SetUpperShadowAtlas(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SetUseShadowsForEdgeFade(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:SetView(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:TriggerEvent(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:UnregisterCallback(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:UnregisterEvents(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:Update(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBoxObject:scrollInternal(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBarObject:scrollInternal(...) end
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_registeredScrollBox_DefaultsObject
-local FriendsFriendsFrame_ScrollBar_registeredScrollBox_DefaultsObject = {}
-end
-
-do
----@class FriendsFriendsFrame_ScrollBar_registeredScrollBox_DirectionsObject
-local FriendsFriendsFrame_ScrollBar_registeredScrollBox_DirectionsObject = {}
-end
-
-do
----@class FriendsFriendsFrame_ScrollBar_registeredScrollBox_DragDelegateObject : Frame
-local FriendsFriendsFrame_ScrollBar_registeredScrollBox_DragDelegateObject = {}
-end
-
-do
----@class FriendsFriendsFrame_ScrollBar_registeredScrollBox_EventObject
-local FriendsFriendsFrame_ScrollBar_registeredScrollBox_EventObject = {}
-end
-
-do
----@class FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject : Frame
----@field Event FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
+---@class CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject : Button
+---@field Event CooldownViewerSettings_CooldownScroll_ScrollBar_Back_EventObject
+---@field Texture CooldownViewerSettings_CooldownScroll_ScrollBar_Back_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
 ---@field executingEvents table
-local FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject = {}
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject = {}
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTable(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTables(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:GetAtlas(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:GetCallbackTable(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:GetCallbackTables(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:IsDown(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:IsDownOver(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:IsOver(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:NarrationGetName(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallback(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:OnButtonStateChanged(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:OnDisable(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:OnEnable(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:TriggerEvent(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:OnEnter(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterCallback(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEvents(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:OnLeave(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:OnMouseDown(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:OnMouseUp(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:OnShow(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:RegisterCallback(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:SecureInsertEvent(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:SetDisplacedRegions(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:TriggerEvent(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:UnregisterCallback(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:UnregisterEvents(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
-local FriendsFriendsFrame_ScrollBar_registeredScrollBox_ScrollTarget_EventObject = {}
+---@class CooldownViewerSettings_CooldownScroll_ScrollBar_Back_EventObject
+local CooldownViewerSettings_CooldownScroll_ScrollBar_Back_EventObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_registeredScrollBox_ShadowsObject : Frame
----@field Lower FriendsFriendsFrame_ScrollBar_registeredScrollBox_Shadows_LowerObject
----@field Upper FriendsFriendsFrame_ScrollBar_registeredScrollBox_Shadows_UpperObject
-local FriendsFriendsFrame_ScrollBar_registeredScrollBox_ShadowsObject = {}
+---@class CooldownViewerSettings_CooldownScroll_ScrollBar_Back_TextureObject : Texture
+local CooldownViewerSettings_CooldownScroll_ScrollBar_Back_TextureObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_registeredScrollBox_Shadows_LowerObject : Texture
-local FriendsFriendsFrame_ScrollBar_registeredScrollBox_Shadows_LowerObject = {}
+---@class CooldownViewerSettings_CooldownScroll_ScrollBar_DefaultsObject
+local CooldownViewerSettings_CooldownScroll_ScrollBar_DefaultsObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_registeredScrollBox_Shadows_UpperObject : Texture
-local FriendsFriendsFrame_ScrollBar_registeredScrollBox_Shadows_UpperObject = {}
+---@class CooldownViewerSettings_CooldownScroll_ScrollBar_DirectionsObject
+local CooldownViewerSettings_CooldownScroll_ScrollBar_DirectionsObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_registeredScrollBox_registeredScrollBarObject
-local FriendsFriendsFrame_ScrollBar_registeredScrollBox_registeredScrollBarObject = {}
+---@class CooldownViewerSettings_CooldownScroll_ScrollBar_EventObject
+local CooldownViewerSettings_CooldownScroll_ScrollBar_EventObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject
----@field Event table
----@field FrameLevelPolicy table
+---@class CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject : Button
+---@field Event CooldownViewerSettings_CooldownScroll_ScrollBar_Forward_EventObject
+---@field Texture CooldownViewerSettings_CooldownScroll_ScrollBar_Forward_TextureObject
 ---@field callbackTables table
----@field canSignalWithoutInitializer boolean
----@field dataIndexBegin number
----@field dataIndexEnd number
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject = {}
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:GetAtlas(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:GetCallbackTable(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:GetCallbackTables(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:IsDown(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:IsDownOver(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:IsOver(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:NarrationGetName(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:OnDisable(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:OnEnable(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:OnEnter(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:OnLeave(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:OnMouseDown(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:OnMouseUp(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:OnShow(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:RegisterCallback(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:TriggerEvent(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:UnregisterCallback(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:UnregisterEvents(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class CooldownViewerSettings_CooldownScroll_ScrollBar_Forward_EventObject
+local CooldownViewerSettings_CooldownScroll_ScrollBar_Forward_EventObject = {}
+end
+
+do
+---@class CooldownViewerSettings_CooldownScroll_ScrollBar_Forward_TextureObject : Texture
+local CooldownViewerSettings_CooldownScroll_ScrollBar_Forward_TextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_CooldownScroll_ScrollBar_TrackObject : Frame
+---@field Begin CooldownViewerSettings_CooldownScroll_ScrollBar_Track_BeginObject
+---@field End CooldownViewerSettings_CooldownScroll_ScrollBar_Track_EndObject
+---@field Middle CooldownViewerSettings_CooldownScroll_ScrollBar_Track_MiddleObject
+---@field Thumb CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject
+local CooldownViewerSettings_CooldownScroll_ScrollBar_TrackObject = {}
+end
+
+do
+---@class CooldownViewerSettings_CooldownScroll_ScrollBar_Track_BeginObject : Texture
+local CooldownViewerSettings_CooldownScroll_ScrollBar_Track_BeginObject = {}
+end
+
+do
+---@class CooldownViewerSettings_CooldownScroll_ScrollBar_Track_EndObject : Texture
+local CooldownViewerSettings_CooldownScroll_ScrollBar_Track_EndObject = {}
+end
+
+do
+---@class CooldownViewerSettings_CooldownScroll_ScrollBar_Track_MiddleObject : Texture
+local CooldownViewerSettings_CooldownScroll_ScrollBar_Track_MiddleObject = {}
+end
+
+do
+---@class CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject : Button
+---@field Begin CooldownViewerSettings_CooldownScroll_ScrollBar_Track_Thumb_BeginObject
+---@field End CooldownViewerSettings_CooldownScroll_ScrollBar_Track_Thumb_EndObject
+---@field Event CooldownViewerSettings_CooldownScroll_ScrollBar_Track_Thumb_EventObject
+---@field Middle CooldownViewerSettings_CooldownScroll_ScrollBar_Track_Thumb_MiddleObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field downBeginTexture string
+---@field downEndTexture string
+---@field downMiddleTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field overBeginTexture string
+---@field overEndTexture string
+---@field overMiddleTexture string
+---@field upBeginTexture string
+---@field upEndTexture string
+---@field upMiddleTexture string
+local CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject = {}
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:IsDown(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:IsOver(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:OnDisable(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:OnEnable(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:OnEnter(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:OnLeave(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:OnShow(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class CooldownViewerSettings_CooldownScroll_ScrollBar_Track_Thumb_BeginObject : Texture
+local CooldownViewerSettings_CooldownScroll_ScrollBar_Track_Thumb_BeginObject = {}
+end
+
+do
+---@class CooldownViewerSettings_CooldownScroll_ScrollBar_Track_Thumb_EndObject : Texture
+local CooldownViewerSettings_CooldownScroll_ScrollBar_Track_Thumb_EndObject = {}
+end
+
+do
+---@class CooldownViewerSettings_CooldownScroll_ScrollBar_Track_Thumb_EventObject
+local CooldownViewerSettings_CooldownScroll_ScrollBar_Track_Thumb_EventObject = {}
+end
+
+do
+---@class CooldownViewerSettings_CooldownScroll_ScrollBar_Track_Thumb_MiddleObject : Texture
+local CooldownViewerSettings_CooldownScroll_ScrollBar_Track_Thumb_MiddleObject = {}
+end
+
+do
+---@class CooldownViewerSettings_CooldownScroll_ScrollBar_interpolatorObject
+local CooldownViewerSettings_CooldownScroll_ScrollBar_interpolatorObject = {}
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_interpolatorObject:Cancel(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_interpolatorObject:Interpolate(...) end
+---@return any ...
+function CooldownViewerSettings_CooldownScroll_ScrollBar_interpolatorObject:interpolateFunc(...) end
+end
+
+do
+---@class CooldownViewerSettings_FocusJumpHintObject : Frame
+---@field ActiveTexture CooldownViewerSettings_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture CooldownViewerSettings_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim CooldownViewerSettings_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator CooldownViewerSettings_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG CooldownViewerSettings_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture CooldownViewerSettings_FocusJumpHint_HoverTextureObject
+---@field LoadBar CooldownViewerSettings_FocusJumpHint_LoadBarObject
+---@field LoadBarBG CooldownViewerSettings_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow CooldownViewerSettings_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture CooldownViewerSettings_FocusJumpHint_NormalTextureObject
+---@field PressedTexture CooldownViewerSettings_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip CooldownViewerSettings_FocusJumpHint_SpinnerTipObject
+---@field ignoreInLayout boolean
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local CooldownViewerSettings_FocusJumpHintObject = {}
+---@return any ...
+function CooldownViewerSettings_FocusJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function CooldownViewerSettings_FocusJumpHintObject:BeginHold(...) end
+---@return any ...
+function CooldownViewerSettings_FocusJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function CooldownViewerSettings_FocusJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function CooldownViewerSettings_FocusJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function CooldownViewerSettings_FocusJumpHintObject:EndHold(...) end
+---@return any ...
+function CooldownViewerSettings_FocusJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function CooldownViewerSettings_FocusJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function CooldownViewerSettings_FocusJumpHintObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerSettings_FocusJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function CooldownViewerSettings_FocusJumpHintObject:SetDisabled(...) end
+---@return any ...
+function CooldownViewerSettings_FocusJumpHintObject:SetEnabled(...) end
+---@return any ...
+function CooldownViewerSettings_FocusJumpHintObject:SetFocused(...) end
+---@return any ...
+function CooldownViewerSettings_FocusJumpHintObject:SetHoldState(...) end
+---@return any ...
+function CooldownViewerSettings_FocusJumpHintObject:SetInputKey(...) end
+---@return any ...
+function CooldownViewerSettings_FocusJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function CooldownViewerSettings_FocusJumpHintObject:SetPressable(...) end
+---@return any ...
+function CooldownViewerSettings_FocusJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function CooldownViewerSettings_FocusJumpHintObject:SetTextureState(...) end
+---@return any ...
+function CooldownViewerSettings_FocusJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function CooldownViewerSettings_FocusJumpHintObject:SetUsableState(...) end
+---@return any ...
+function CooldownViewerSettings_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class CooldownViewerSettings_FocusJumpHint_ActiveTextureObject : Texture
+local CooldownViewerSettings_FocusJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_FocusJumpHint_DisabledTextureObject : Texture
+local CooldownViewerSettings_FocusJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim CooldownViewerSettings_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim CooldownViewerSettings_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim CooldownViewerSettings_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local CooldownViewerSettings_FocusJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class CooldownViewerSettings_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local CooldownViewerSettings_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class CooldownViewerSettings_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local CooldownViewerSettings_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class CooldownViewerSettings_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local CooldownViewerSettings_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class CooldownViewerSettings_FocusJumpHint_HoldIndicatorObject : Texture
+local CooldownViewerSettings_FocusJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class CooldownViewerSettings_FocusJumpHint_HoldIndicatorBGObject : Texture
+local CooldownViewerSettings_FocusJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class CooldownViewerSettings_FocusJumpHint_HoverTextureObject : Texture
+local CooldownViewerSettings_FocusJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_FocusJumpHint_LoadBarObject : Texture
+local CooldownViewerSettings_FocusJumpHint_LoadBarObject = {}
+end
+
+do
+---@class CooldownViewerSettings_FocusJumpHint_LoadBarBGObject : Texture
+local CooldownViewerSettings_FocusJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class CooldownViewerSettings_FocusJumpHint_LoadBarGlowObject : Texture
+local CooldownViewerSettings_FocusJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class CooldownViewerSettings_FocusJumpHint_NormalTextureObject : Texture
+local CooldownViewerSettings_FocusJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_FocusJumpHint_PressedTextureObject : Texture
+local CooldownViewerSettings_FocusJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_FocusJumpHint_SpinnerTipObject : Texture
+local CooldownViewerSettings_FocusJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class CooldownViewerSettings_FrameGlowObject : Frame
+---@field GlowTexture CooldownViewerSettings_FrameGlow_GlowTextureObject
+---@field glowTextures table
+local CooldownViewerSettings_FrameGlowObject = {}
+---@return any ...
+function CooldownViewerSettings_FrameGlowObject:GetContainerFrame(...) end
+---@return any ...
+function CooldownViewerSettings_FrameGlowObject:GetFrameLayoutType(...) end
+---@return any ...
+function CooldownViewerSettings_FrameGlowObject:GetHeaderFrame(...) end
+---@return any ...
+function CooldownViewerSettings_FrameGlowObject:OnLoad(...) end
+end
+
+do
+---@class CooldownViewerSettings_FrameGlow_GlowTextureObject : Texture
+local CooldownViewerSettings_FrameGlow_GlowTextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffFilterObject : Frame
+---@field Scroll CooldownViewerSettings_GroupBuffFilter_ScrollObject
+---@field filterText string
+---@field hiddenSection CooldownViewerSettings_GroupBuffFilter_hiddenSectionObject
+---@field shownSection CooldownViewerSettings_GroupBuffFilter_shownSectionObject
+local CooldownViewerSettings_GroupBuffFilterObject = {}
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilterObject:ApplyFilter(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilterObject:BeginGroupBuffItemDrag(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilterObject:CancelGroupBuffItemDrag(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilterObject:DisplayContextMenu(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilterObject:EndGroupBuffItemDrag(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilterObject:ForceSync(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilterObject:GetDropSound(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilterObject:GetFilterText(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilterObject:IsGroupBuffHidden(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilterObject:MoveGroupBuffItem(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilterObject:OnEvent(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilterObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilterObject:Refresh(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilterObject:RemoveVisualAlert(...) end
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffFilter_ScrollObject : ScrollFrame
+---@field Content CooldownViewerSettings_GroupBuffFilter_Scroll_ContentObject
+---@field ScrollBar CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject
+---@field panExtent number
+---@field scrollBarBottomY number
+---@field scrollBarHideIfUnscrollable boolean
+---@field scrollBarHideTrackIfThumbExceedsTrack boolean
+---@field scrollBarTopY number
+local CooldownViewerSettings_GroupBuffFilter_ScrollObject = {}
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_ScrollObject:GetPanExtent(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_ScrollObject:SetPanExtent(...) end
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffFilter_Scroll_ContentObject : Frame
+local CooldownViewerSettings_GroupBuffFilter_Scroll_ContentObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject : Frame
+---@field Back CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject
+---@field Defaults CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_DefaultsObject
+---@field Directions CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_DirectionsObject
+---@field Event CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_EventObject
+---@field Forward CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject
+---@field Track CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_TrackObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
 ---@field deferredCallbacks table
 ---@field executingEvents table
----@field frameFactory table
----@field frameTemplateOrFrameType string
----@field frames table
----@field initialized boolean
----@field initializers table
----@field padding table
----@field scrollBox FriendsFriendsFrame_ScrollBar_registeredScrollBox_view_scrollBoxObject
----@field templateInfoCache table
-local FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject = {}
+---@field hideIfUnscrollable boolean
+---@field hideTrack boolean
+---@field hideTrackIfThumbExceedsTrack boolean
+---@field interpolator CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_interpolatorObject
+---@field isScrollController boolean
+---@field minThumbExtent number
+---@field panDelay number
+---@field panExtentPercentage number
+---@field panRepeatTime number
+---@field smartNavigationIgnored boolean
+---@field snapToInterval boolean
+---@field thumbAnchor string
+---@field useProportionalThumb boolean
+---@field visibleExtentPercentage number
+---@field wheelPanScalar number
+local CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject = {}
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:AcquireInternal(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:CallInternalScope(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:AcquireRange(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:CanCursorStepInDirection(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:AssignAccessors(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:CanInterpolateScroll(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:AttachDataProviderCallbacks(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:DisableControls(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:CalculateDataIndices(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:CalculateFrameExtent(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:EnableInternalPriority(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:ClearCachedData(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:EnableSnapToInterval(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:ClearElementExtentData(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:ClearInvalidation(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:GetBackStepper(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:ContainsElementDataByPredicate(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:GetCallbackTable(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:CopyDeferredCallbacks(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:GetCallbackTables(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:DataProviderContentsChanged(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:DetachDataProviderCallbacks(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:GetForwardStepper(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:DoesFrameHaveEvent(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:GetFrameExtent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProvider(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:GetIntervalRange(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:GetLower(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:EnumerateFrames(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:FindByPredicate(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:FindElementData(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:GetPanRepeatDelay(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:FindElementDataByPredicate(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:GetPanRepeatTime(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndex(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:GetScrollInterpolator(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:GetScrollPercentage(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:FindFrame(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:GetThumb(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:FindFrameByPredicate(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:GetThumbAnchor(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:FindFrameElementDataIndex(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:GetTrack(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:Flush(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:GetTrackExtent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:FlushDataProvider(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:GetUpper(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:ForEachElementData(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:ForEachFrame(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GenerateCallbackEvents(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetCallbackTable(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:HasScrollableExtent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetCallbackTables(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:Init(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetCallbacksByEvent(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:InitializeNarration(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetDataIndexBegin(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:Interpolate(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetDataIndexEnd(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:IsAtBegin(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetDataProvider(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:IsAtEnd(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetDataProviderSize(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:IsHorizontal(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetDataRange(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:IsScrollAllowed(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetDataScrollOffset(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:IsThumbMouseDown(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetElementExtent(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetElementExtentCalculator(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:OnLoad(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetElementIndent(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetExtent(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:OnMouseWheel(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetExtentFromInfo(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetExtentSpacing(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetExtentTo(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:OnStepperMouseDown(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetExtentUntil(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:OnThumbMouseDown(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetFactoryDataFromElementData(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:OnTrackMouseDown(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetFirstTemplateInfo(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetFrameCount(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:RegisterCallback(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetFrameExtent(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelCounter(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:ScrollDecrease(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelPolicy(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:ScrollInDirection(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetFrames(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:ScrollIncrease(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetIdenticalElementExtent(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:ScrollPageInDirection(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetIdenticalStrideExtent(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:ScrollStepInDirection(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetInvalidationReason(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:ScrollToBegin(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetLayoutFunction(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:ScrollToEnd(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetLower(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:ScrollWheelInDirection(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:SecureInsertEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetPadding(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:SelectCursorComponent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetPanExtent(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:SelectPointComponent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetScrollBox(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:SetFrameExtent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetScrollTarget(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:SetHideIfUnscrollable(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetSpacing(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetStride(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:SetHorizontal(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtent(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:SetInterpolateScroll(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetTemplateInfo(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:SetScrollAllowed(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:GetUpper(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:SetScrollPercentage(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:HasBiaxalLayout(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:SetThumbExtent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:HasDataProvider(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:HasElementExtent(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:SetVisibleExtentPercentage(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:HasIdenticalElementExtent(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:TriggerEvent(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:HasIdenticalStrideExtent(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:UnregisterCallback(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:HasRegistrantsForEvent(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:UnregisterEvents(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:Init(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:InitDefaultDrag(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:UnregisterUpdate(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:InvokeInitializer(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:Update(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:InvokeInitializers(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:onButtonMouseUp(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:IsAcquireLocked(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:IsDataIndexWithinRange(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:IsElementStretchDisabled(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:IsExtentValid(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:IsHorizontal(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:IsInitialized(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:IsInvalidated(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:IsVirtualized(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:Layout(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:LayoutInternal(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSizeChanged(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSort(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:OnLoad(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementData(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:RebuildTemplateInfoCache(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:RecalculateExtent(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:RefreshSmartNav(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:RegisterCallback(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:ReinitializeFrames(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:Release(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:RemoveDataProvider(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:RemoveDataProviderInternal(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:ResizeFrame(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:ReverseForEachElementData(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:ReverseForEachFrame(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SecureInsertEvent(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SelectCursorComponent(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SelectPointComponent(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SetAcquireLocked(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SetDataProvider(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SetDataRange(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SetElementExtent(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SetElementExtentCalculator(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SetElementFactory(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SetElementIndentCalculator(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SetElementInitializer(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SetElementResetter(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SetElementStretchDisabled(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SetExtent(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SetFrameExtent(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SetFrameFactoryResetter(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SetFrameLevelPolicy(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SetHorizontal(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SetInvalidationReason(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SetMaxPanExtent(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SetPadding(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SetPanExtent(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SetScrollBox(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SetVirtualized(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SignalDataChangeEvent(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:SortFrames(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:TriggerEvent(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:UnassignAccessors(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:UnregisterCallback(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:UnregisterEvents(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:ValidateDataRange(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:elementExtentCalculator(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:elementFactory(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollBar_registeredScrollBox_viewObject:factory(...) end
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBarObject:scrollInternal(...) end
 end
 
 do
----@class FriendsFriendsFrame_ScrollBar_registeredScrollBox_view_scrollBoxObject
-local FriendsFriendsFrame_ScrollBar_registeredScrollBox_view_scrollBoxObject = {}
+---@class CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject : Button
+---@field Event CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Back_EventObject
+---@field Texture CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Back_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject = {}
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:GetAtlas(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:GetCallbackTable(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:GetCallbackTables(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:IsDown(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:IsDownOver(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:IsOver(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:NarrationGetName(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:OnButtonStateChanged(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:OnDisable(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:OnEnable(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:OnEnter(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:OnLeave(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:OnMouseDown(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:OnMouseUp(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:OnShow(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:RegisterCallback(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:SecureInsertEvent(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:SetDisplacedRegions(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:TriggerEvent(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:UnregisterCallback(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:UnregisterEvents(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class FriendsFriendsFrame_ScrollBoxObject
-local FriendsFriendsFrame_ScrollBoxObject = {}
+---@class CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Back_EventObject
+local CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Back_EventObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollFrameBorderObject : Frame
----@field NineSlice FriendsFriendsFrame_ScrollFrameBorder_NineSliceObject
----@field backdropColor FriendsFriendsFrame_ScrollFrameBorder_backdropColorObject
+---@class CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Back_TextureObject : Texture
+local CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Back_TextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_DefaultsObject
+local CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_DefaultsObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_DirectionsObject
+local CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_DirectionsObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_EventObject
+local CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_EventObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject : Button
+---@field Event CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Forward_EventObject
+---@field Texture CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Forward_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject = {}
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:GetAtlas(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:GetCallbackTable(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:GetCallbackTables(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:IsDown(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:IsDownOver(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:IsOver(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:NarrationGetName(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:OnDisable(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:OnEnable(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:OnEnter(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:OnLeave(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:OnMouseDown(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:OnMouseUp(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:OnShow(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:RegisterCallback(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:TriggerEvent(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:UnregisterCallback(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:UnregisterEvents(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Forward_EventObject
+local CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Forward_EventObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Forward_TextureObject : Texture
+local CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Forward_TextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_TrackObject : Frame
+---@field Begin CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_BeginObject
+---@field End CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_EndObject
+---@field Middle CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_MiddleObject
+---@field Thumb CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject
+local CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_TrackObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_BeginObject : Texture
+local CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_BeginObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_EndObject : Texture
+local CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_EndObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_MiddleObject : Texture
+local CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_MiddleObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject : Button
+---@field Begin CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_Thumb_BeginObject
+---@field End CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_Thumb_EndObject
+---@field Event CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_Thumb_EventObject
+---@field Middle CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_Thumb_MiddleObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field downBeginTexture string
+---@field downEndTexture string
+---@field downMiddleTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field overBeginTexture string
+---@field overEndTexture string
+---@field overMiddleTexture string
+---@field upBeginTexture string
+---@field upEndTexture string
+---@field upMiddleTexture string
+local CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject = {}
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:IsDown(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:IsOver(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:OnDisable(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:OnEnable(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:OnEnter(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:OnLeave(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:OnShow(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_Thumb_BeginObject : Texture
+local CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_Thumb_BeginObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_Thumb_EndObject : Texture
+local CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_Thumb_EndObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_Thumb_EventObject
+local CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_Thumb_EventObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_Thumb_MiddleObject : Texture
+local CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_Track_Thumb_MiddleObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_interpolatorObject
+local CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_interpolatorObject = {}
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_interpolatorObject:Cancel(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_interpolatorObject:Interpolate(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffFilter_Scroll_ScrollBar_interpolatorObject:interpolateFunc(...) end
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffFilter_hiddenSectionObject
+local CooldownViewerSettings_GroupBuffFilter_hiddenSectionObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffFilter_shownSectionObject
+local CooldownViewerSettings_GroupBuffFilter_shownSectionObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffsTabObject : Frame
+---@field Background CooldownViewerSettings_GroupBuffsTab_BackgroundObject
+---@field HighlightTexture CooldownViewerSettings_GroupBuffsTab_HighlightTextureObject
+---@field Icon CooldownViewerSettings_GroupBuffsTab_IconObject
+---@field Mask CooldownViewerSettings_GroupBuffsTab_MaskObject
+---@field SelectedTexture CooldownViewerSettings_GroupBuffsTab_SelectedTextureObject
+---@field TabGlow CooldownViewerSettings_GroupBuffsTab_TabGlowObject
+---@field TabGlowAnimation CooldownViewerSettings_GroupBuffsTab_TabGlowAnimationObject
+---@field activeAtlas string
+---@field displayMode string
+---@field inactiveAtlas string
+---@field tooltipText string
+local CooldownViewerSettings_GroupBuffsTabObject = {}
+---@return any ...
+function CooldownViewerSettings_GroupBuffsTabObject:CalculateTabSizeBasedOnTabArt(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffsTabObject:GetFinalIconAnchorOffsets(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffsTabObject:GetIconAnchorOffsetsForTabArt(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffsTabObject:GetPressedIconAnchorOffsets(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffsTabObject:GetTooltipTextSetupFunction(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffsTabObject:InitializeIconAnchoring(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffsTabObject:InitializeSizeForTabArt(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffsTabObject:IsTabGlowAnimationPlaying(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffsTabObject:OnEnter(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffsTabObject:OnLeave(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffsTabObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffsTabObject:OnMouseDown(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffsTabObject:OnMouseUp(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffsTabObject:SetChecked(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffsTabObject:SetCustomOnMouseUpHandler(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffsTabObject:SetFillToInterior(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffsTabObject:SetTabGlowAnimationPlaying(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffsTabObject:SetTooltipTextSetupFunction(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffsTabObject:UpdateIconInterior(...) end
+---@return any ...
+function CooldownViewerSettings_GroupBuffsTabObject:customMouseUpHandler(...) end
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffsTab_BackgroundObject : Texture
+local CooldownViewerSettings_GroupBuffsTab_BackgroundObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffsTab_HighlightTextureObject : Texture
+local CooldownViewerSettings_GroupBuffsTab_HighlightTextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffsTab_IconObject : Texture
+local CooldownViewerSettings_GroupBuffsTab_IconObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffsTab_MaskObject : MaskTexture
+local CooldownViewerSettings_GroupBuffsTab_MaskObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffsTab_SelectedTextureObject : Texture
+local CooldownViewerSettings_GroupBuffsTab_SelectedTextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffsTab_TabGlowObject : Texture
+local CooldownViewerSettings_GroupBuffsTab_TabGlowObject = {}
+end
+
+do
+---@class CooldownViewerSettings_GroupBuffsTab_TabGlowAnimationObject : AnimationGroup
+local CooldownViewerSettings_GroupBuffsTab_TabGlowAnimationObject = {}
+end
+
+do
+---@class CooldownViewerSettings_InsetObject : Frame
+---@field Bg CooldownViewerSettings_Inset_BgObject
+---@field NineSlice CooldownViewerSettings_Inset_NineSliceObject
 ---@field layoutType string
-local FriendsFriendsFrame_ScrollFrameBorderObject = {}
----@return any ...
-function FriendsFriendsFrame_ScrollFrameBorderObject:GetBackdropBorderColor(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollFrameBorderObject:GetBackdropColor(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollFrameBorderObject:SetBackdropBorderColor(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollFrameBorderObject:SetBackdropColor(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollFrameBorderObject:SetBorderBlendMode(...) end
----@return any ...
-function FriendsFriendsFrame_ScrollFrameBorderObject:TooltipBackdropOnLoad(...) end
+local CooldownViewerSettings_InsetObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollFrameBorder_NineSliceObject : Frame
----@field BottomEdge FriendsFriendsFrame_ScrollFrameBorder_NineSlice_BottomEdgeObject
----@field BottomLeftCorner FriendsFriendsFrame_ScrollFrameBorder_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner FriendsFriendsFrame_ScrollFrameBorder_NineSlice_BottomRightCornerObject
----@field Center FriendsFriendsFrame_ScrollFrameBorder_NineSlice_CenterObject
----@field LeftEdge FriendsFriendsFrame_ScrollFrameBorder_NineSlice_LeftEdgeObject
----@field RightEdge FriendsFriendsFrame_ScrollFrameBorder_NineSlice_RightEdgeObject
----@field TopEdge FriendsFriendsFrame_ScrollFrameBorder_NineSlice_TopEdgeObject
----@field TopLeftCorner FriendsFriendsFrame_ScrollFrameBorder_NineSlice_TopLeftCornerObject
----@field TopRightCorner FriendsFriendsFrame_ScrollFrameBorder_NineSlice_TopRightCornerObject
-local FriendsFriendsFrame_ScrollFrameBorder_NineSliceObject = {}
+---@class CooldownViewerSettings_Inset_BgObject : Texture
+local CooldownViewerSettings_Inset_BgObject = {}
+end
+
+do
+---@class CooldownViewerSettings_Inset_NineSliceObject : Frame
+---@field BottomEdge CooldownViewerSettings_Inset_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner CooldownViewerSettings_Inset_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner CooldownViewerSettings_Inset_NineSlice_BottomRightCornerObject
+---@field LeftEdge CooldownViewerSettings_Inset_NineSlice_LeftEdgeObject
+---@field RightEdge CooldownViewerSettings_Inset_NineSlice_RightEdgeObject
+---@field TopEdge CooldownViewerSettings_Inset_NineSlice_TopEdgeObject
+---@field TopLeftCorner CooldownViewerSettings_Inset_NineSlice_TopLeftCornerObject
+---@field TopRightCorner CooldownViewerSettings_Inset_NineSlice_TopRightCornerObject
+local CooldownViewerSettings_Inset_NineSliceObject = {}
 ---@return any ...
-function FriendsFriendsFrame_ScrollFrameBorder_NineSliceObject:GetBorderColor(...) end
+function CooldownViewerSettings_Inset_NineSliceObject:GetBorderColor(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollFrameBorder_NineSliceObject:GetCenterColor(...) end
+function CooldownViewerSettings_Inset_NineSliceObject:GetCenterColor(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollFrameBorder_NineSliceObject:GetFrameLayoutTextureKit(...) end
+function CooldownViewerSettings_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollFrameBorder_NineSliceObject:GetFrameLayoutType(...) end
+function CooldownViewerSettings_Inset_NineSliceObject:GetFrameLayoutType(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollFrameBorder_NineSliceObject:OnLoad(...) end
+function CooldownViewerSettings_Inset_NineSliceObject:OnLoad(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollFrameBorder_NineSliceObject:SetBlendMode(...) end
+function CooldownViewerSettings_Inset_NineSliceObject:SetBlendMode(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollFrameBorder_NineSliceObject:SetBorderBlendMode(...) end
+function CooldownViewerSettings_Inset_NineSliceObject:SetBorderBlendMode(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollFrameBorder_NineSliceObject:SetBorderColor(...) end
+function CooldownViewerSettings_Inset_NineSliceObject:SetBorderColor(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollFrameBorder_NineSliceObject:SetCenterColor(...) end
+function CooldownViewerSettings_Inset_NineSliceObject:SetCenterColor(...) end
 ---@return any ...
-function FriendsFriendsFrame_ScrollFrameBorder_NineSliceObject:SetVertexColor(...) end
+function CooldownViewerSettings_Inset_NineSliceObject:SetVertexColor(...) end
 end
 
 do
----@class FriendsFriendsFrame_ScrollFrameBorder_NineSlice_BottomEdgeObject : Texture
-local FriendsFriendsFrame_ScrollFrameBorder_NineSlice_BottomEdgeObject = {}
+---@class CooldownViewerSettings_Inset_NineSlice_BottomEdgeObject : Texture
+local CooldownViewerSettings_Inset_NineSlice_BottomEdgeObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollFrameBorder_NineSlice_BottomLeftCornerObject : Texture
-local FriendsFriendsFrame_ScrollFrameBorder_NineSlice_BottomLeftCornerObject = {}
+---@class CooldownViewerSettings_Inset_NineSlice_BottomLeftCornerObject : Texture
+local CooldownViewerSettings_Inset_NineSlice_BottomLeftCornerObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollFrameBorder_NineSlice_BottomRightCornerObject : Texture
-local FriendsFriendsFrame_ScrollFrameBorder_NineSlice_BottomRightCornerObject = {}
+---@class CooldownViewerSettings_Inset_NineSlice_BottomRightCornerObject : Texture
+local CooldownViewerSettings_Inset_NineSlice_BottomRightCornerObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollFrameBorder_NineSlice_CenterObject : Texture
-local FriendsFriendsFrame_ScrollFrameBorder_NineSlice_CenterObject = {}
+---@class CooldownViewerSettings_Inset_NineSlice_LeftEdgeObject : Texture
+local CooldownViewerSettings_Inset_NineSlice_LeftEdgeObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollFrameBorder_NineSlice_LeftEdgeObject : Texture
-local FriendsFriendsFrame_ScrollFrameBorder_NineSlice_LeftEdgeObject = {}
+---@class CooldownViewerSettings_Inset_NineSlice_RightEdgeObject : Texture
+local CooldownViewerSettings_Inset_NineSlice_RightEdgeObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollFrameBorder_NineSlice_RightEdgeObject : Texture
-local FriendsFriendsFrame_ScrollFrameBorder_NineSlice_RightEdgeObject = {}
+---@class CooldownViewerSettings_Inset_NineSlice_TopEdgeObject : Texture
+local CooldownViewerSettings_Inset_NineSlice_TopEdgeObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollFrameBorder_NineSlice_TopEdgeObject : Texture
-local FriendsFriendsFrame_ScrollFrameBorder_NineSlice_TopEdgeObject = {}
+---@class CooldownViewerSettings_Inset_NineSlice_TopLeftCornerObject : Texture
+local CooldownViewerSettings_Inset_NineSlice_TopLeftCornerObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollFrameBorder_NineSlice_TopLeftCornerObject : Texture
-local FriendsFriendsFrame_ScrollFrameBorder_NineSlice_TopLeftCornerObject = {}
+---@class CooldownViewerSettings_Inset_NineSlice_TopRightCornerObject : Texture
+local CooldownViewerSettings_Inset_NineSlice_TopRightCornerObject = {}
 end
 
 do
----@class FriendsFriendsFrame_ScrollFrameBorder_NineSlice_TopRightCornerObject : Texture
-local FriendsFriendsFrame_ScrollFrameBorder_NineSlice_TopRightCornerObject = {}
+---@class CooldownViewerSettings_LayoutDropdownObject : Button
+---@field Arrow CooldownViewerSettings_LayoutDropdown_ArrowObject
+---@field Background CooldownViewerSettings_LayoutDropdown_BackgroundObject
+---@field Event CooldownViewerSettings_LayoutDropdown_EventObject
+---@field Text CooldownViewerSettings_LayoutDropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor CooldownViewerSettings_LayoutDropdown_menuAnchorObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+local CooldownViewerSettings_LayoutDropdownObject = {}
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:ClearMenuState(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:CloseMenu(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:CollectSelectionData(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:CreateRootDescription(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:Decrement(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:GenerateMenu(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:GetArrowAtlas(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:GetCallbackTable(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:GetCallbackTables(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:GetDefaultText(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:GetMenuDescription(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:GetSelectionData(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:GetUpdateText(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:HasElements(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:HasStickyFocus(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:Increment(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:IsDown(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:IsDownOver(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:IsMenuOpen(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:IsOver(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:NarrationGetContext(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:NarrationGetName(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:OnDisable(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:OnEnable(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:OnEnter(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:OnLeave(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:OnMenuChanged(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:OnMenuClosed(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:OnMenuOpened(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:OnMenuResponse(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:OnMouseDown(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:OnMouseUp(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:OnShow(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:OpenMenu(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:OverrideText(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:Pick(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:RegisterCallback(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:RegisterMenu(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:Rotate(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:SetDefaultText(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:SetMenuOpen(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:SetSelectionText(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:SetTooltip(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:SetupMenu(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:ShowTooltip(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:SignalUpdate(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:TriggerEvent(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:UnregisterCallback(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:UnregisterEvents(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:Update(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:UpdateSelections(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:UpdateText(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdownObject:selectionTranslator(...) end
 end
 
 do
----@class FriendsFriendsFrame_ScrollFrameBorder_backdropColorObject
-local FriendsFriendsFrame_ScrollFrameBorder_backdropColorObject = {}
+---@class CooldownViewerSettings_LayoutDropdown_ArrowObject : Texture
+local CooldownViewerSettings_LayoutDropdown_ArrowObject = {}
 end
 
 do
----@class FriendsFriendsFrame_SendRequestButtonObject : Button
----@field Left FriendsFriendsFrame_SendRequestButton_LeftObject
----@field Middle FriendsFriendsFrame_SendRequestButton_MiddleObject
----@field Right FriendsFriendsFrame_SendRequestButton_RightObject
----@field Text FriendsFriendsFrame_SendRequestButton_TextObject
----@field baseHeight number
----@field baseWidth number
+---@class CooldownViewerSettings_LayoutDropdown_BackgroundObject : Texture
+local CooldownViewerSettings_LayoutDropdown_BackgroundObject = {}
+end
+
+do
+---@class CooldownViewerSettings_LayoutDropdown_EventObject
+local CooldownViewerSettings_LayoutDropdown_EventObject = {}
+end
+
+do
+---@class CooldownViewerSettings_LayoutDropdown_TextObject : FontString
+local CooldownViewerSettings_LayoutDropdown_TextObject = {}
+end
+
+do
+---@class CooldownViewerSettings_LayoutDropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo CooldownViewerSettings_LayoutDropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local CooldownViewerSettings_LayoutDropdown_menuAnchorObject = {}
+---@return any ...
+function CooldownViewerSettings_LayoutDropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function CooldownViewerSettings_LayoutDropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class CooldownViewerSettings_LayoutDropdown_menuAnchor_relativeToObject
+local CooldownViewerSettings_LayoutDropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class CooldownViewerSettings_LeftJumpHintObject : Frame
+---@field ActiveTexture CooldownViewerSettings_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture CooldownViewerSettings_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim CooldownViewerSettings_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator CooldownViewerSettings_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG CooldownViewerSettings_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture CooldownViewerSettings_LeftJumpHint_HoverTextureObject
+---@field LoadBar CooldownViewerSettings_LeftJumpHint_LoadBarObject
+---@field LoadBarBG CooldownViewerSettings_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow CooldownViewerSettings_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture CooldownViewerSettings_LeftJumpHint_NormalTextureObject
+---@field PressedTexture CooldownViewerSettings_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip CooldownViewerSettings_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local CooldownViewerSettings_LeftJumpHintObject = {}
+---@return any ...
+function CooldownViewerSettings_LeftJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function CooldownViewerSettings_LeftJumpHintObject:BeginHold(...) end
+---@return any ...
+function CooldownViewerSettings_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function CooldownViewerSettings_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function CooldownViewerSettings_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function CooldownViewerSettings_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function CooldownViewerSettings_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function CooldownViewerSettings_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function CooldownViewerSettings_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerSettings_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function CooldownViewerSettings_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function CooldownViewerSettings_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function CooldownViewerSettings_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function CooldownViewerSettings_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function CooldownViewerSettings_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function CooldownViewerSettings_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function CooldownViewerSettings_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function CooldownViewerSettings_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function CooldownViewerSettings_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function CooldownViewerSettings_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function CooldownViewerSettings_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function CooldownViewerSettings_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class CooldownViewerSettings_LeftJumpHint_ActiveTextureObject : Texture
+local CooldownViewerSettings_LeftJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_LeftJumpHint_DisabledTextureObject : Texture
+local CooldownViewerSettings_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim CooldownViewerSettings_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim CooldownViewerSettings_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim CooldownViewerSettings_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local CooldownViewerSettings_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class CooldownViewerSettings_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local CooldownViewerSettings_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class CooldownViewerSettings_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local CooldownViewerSettings_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class CooldownViewerSettings_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local CooldownViewerSettings_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class CooldownViewerSettings_LeftJumpHint_HoldIndicatorObject : Texture
+local CooldownViewerSettings_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class CooldownViewerSettings_LeftJumpHint_HoldIndicatorBGObject : Texture
+local CooldownViewerSettings_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class CooldownViewerSettings_LeftJumpHint_HoverTextureObject : Texture
+local CooldownViewerSettings_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_LeftJumpHint_LoadBarObject : Texture
+local CooldownViewerSettings_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class CooldownViewerSettings_LeftJumpHint_LoadBarBGObject : Texture
+local CooldownViewerSettings_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class CooldownViewerSettings_LeftJumpHint_LoadBarGlowObject : Texture
+local CooldownViewerSettings_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class CooldownViewerSettings_LeftJumpHint_NormalTextureObject : Texture
+local CooldownViewerSettings_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_LeftJumpHint_PressedTextureObject : Texture
+local CooldownViewerSettings_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_LeftJumpHint_SpinnerTipObject : Texture
+local CooldownViewerSettings_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class CooldownViewerSettings_NineSliceObject : Frame
+---@field BottomEdge CooldownViewerSettings_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner CooldownViewerSettings_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner CooldownViewerSettings_NineSlice_BottomRightCornerObject
+---@field Center CooldownViewerSettings_NineSlice_CenterObject
+---@field LeftEdge CooldownViewerSettings_NineSlice_LeftEdgeObject
+---@field RightEdge CooldownViewerSettings_NineSlice_RightEdgeObject
+---@field TopEdge CooldownViewerSettings_NineSlice_TopEdgeObject
+---@field TopLeftCorner CooldownViewerSettings_NineSlice_TopLeftCornerObject
+---@field TopRightCorner CooldownViewerSettings_NineSlice_TopRightCornerObject
+local CooldownViewerSettings_NineSliceObject = {}
+---@return any ...
+function CooldownViewerSettings_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function CooldownViewerSettings_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function CooldownViewerSettings_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function CooldownViewerSettings_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function CooldownViewerSettings_NineSliceObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerSettings_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function CooldownViewerSettings_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function CooldownViewerSettings_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function CooldownViewerSettings_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function CooldownViewerSettings_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class CooldownViewerSettings_NineSlice_BottomEdgeObject : Texture
+local CooldownViewerSettings_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class CooldownViewerSettings_NineSlice_BottomLeftCornerObject : Texture
+local CooldownViewerSettings_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class CooldownViewerSettings_NineSlice_BottomRightCornerObject : Texture
+local CooldownViewerSettings_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class CooldownViewerSettings_NineSlice_CenterObject : Texture
+local CooldownViewerSettings_NineSlice_CenterObject = {}
+end
+
+do
+---@class CooldownViewerSettings_NineSlice_LeftEdgeObject : Texture
+local CooldownViewerSettings_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class CooldownViewerSettings_NineSlice_RightEdgeObject : Texture
+local CooldownViewerSettings_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class CooldownViewerSettings_NineSlice_TopEdgeObject : Texture
+local CooldownViewerSettings_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class CooldownViewerSettings_NineSlice_TopLeftCornerObject : Texture
+local CooldownViewerSettings_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class CooldownViewerSettings_NineSlice_TopRightCornerObject : Texture
+local CooldownViewerSettings_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class CooldownViewerSettings_PortraitContainerObject : Frame
+---@field CircleMask CooldownViewerSettings_PortraitContainer_CircleMaskObject
+---@field portrait CooldownViewerSettings_PortraitContainer_portraitObject
+local CooldownViewerSettings_PortraitContainerObject = {}
+end
+
+do
+---@class CooldownViewerSettings_PortraitContainer_CircleMaskObject : MaskTexture
+local CooldownViewerSettings_PortraitContainer_CircleMaskObject = {}
+end
+
+do
+---@class CooldownViewerSettings_PortraitContainer_portraitObject : Texture
+local CooldownViewerSettings_PortraitContainer_portraitObject = {}
+end
+
+do
+---@class CooldownViewerSettings_ReorderMarkerObject
+local CooldownViewerSettings_ReorderMarkerObject = {}
+end
+
+do
+---@class CooldownViewerSettings_RightJumpHintObject : Frame
+---@field ActiveTexture CooldownViewerSettings_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture CooldownViewerSettings_RightJumpHint_DisabledTextureObject
+---@field HoldAnim CooldownViewerSettings_RightJumpHint_HoldAnimObject
+---@field HoldIndicator CooldownViewerSettings_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG CooldownViewerSettings_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture CooldownViewerSettings_RightJumpHint_HoverTextureObject
+---@field LoadBar CooldownViewerSettings_RightJumpHint_LoadBarObject
+---@field LoadBarBG CooldownViewerSettings_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow CooldownViewerSettings_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture CooldownViewerSettings_RightJumpHint_NormalTextureObject
+---@field PressedTexture CooldownViewerSettings_RightJumpHint_PressedTextureObject
+---@field SpinnerTip CooldownViewerSettings_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local CooldownViewerSettings_RightJumpHintObject = {}
+---@return any ...
+function CooldownViewerSettings_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function CooldownViewerSettings_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function CooldownViewerSettings_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function CooldownViewerSettings_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function CooldownViewerSettings_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function CooldownViewerSettings_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function CooldownViewerSettings_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function CooldownViewerSettings_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function CooldownViewerSettings_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerSettings_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function CooldownViewerSettings_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function CooldownViewerSettings_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function CooldownViewerSettings_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function CooldownViewerSettings_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function CooldownViewerSettings_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function CooldownViewerSettings_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function CooldownViewerSettings_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function CooldownViewerSettings_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function CooldownViewerSettings_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function CooldownViewerSettings_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function CooldownViewerSettings_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function CooldownViewerSettings_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class CooldownViewerSettings_RightJumpHint_ActiveTextureObject : Texture
+local CooldownViewerSettings_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_RightJumpHint_DisabledTextureObject : Texture
+local CooldownViewerSettings_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim CooldownViewerSettings_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim CooldownViewerSettings_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim CooldownViewerSettings_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local CooldownViewerSettings_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class CooldownViewerSettings_RightJumpHint_HoldAnim_LoadBarAnimObject
+local CooldownViewerSettings_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class CooldownViewerSettings_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local CooldownViewerSettings_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class CooldownViewerSettings_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local CooldownViewerSettings_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class CooldownViewerSettings_RightJumpHint_HoldIndicatorObject : Texture
+local CooldownViewerSettings_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class CooldownViewerSettings_RightJumpHint_HoldIndicatorBGObject : Texture
+local CooldownViewerSettings_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class CooldownViewerSettings_RightJumpHint_HoverTextureObject : Texture
+local CooldownViewerSettings_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_RightJumpHint_LoadBarObject : Texture
+local CooldownViewerSettings_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class CooldownViewerSettings_RightJumpHint_LoadBarBGObject : Texture
+local CooldownViewerSettings_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class CooldownViewerSettings_RightJumpHint_LoadBarGlowObject : Texture
+local CooldownViewerSettings_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class CooldownViewerSettings_RightJumpHint_NormalTextureObject : Texture
+local CooldownViewerSettings_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_RightJumpHint_PressedTextureObject : Texture
+local CooldownViewerSettings_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_RightJumpHint_SpinnerTipObject : Texture
+local CooldownViewerSettings_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class CooldownViewerSettings_SearchBoxObject : EditBox
+---@field Instructions CooldownViewerSettings_SearchBox_InstructionsObject
+---@field Left CooldownViewerSettings_SearchBox_LeftObject
+---@field Middle CooldownViewerSettings_SearchBox_MiddleObject
+---@field Right CooldownViewerSettings_SearchBox_RightObject
+---@field clearButton CooldownViewerSettings_SearchBox_clearButtonObject
+---@field instructionText string
+---@field searchIcon CooldownViewerSettings_SearchBox_searchIconObject
+local CooldownViewerSettings_SearchBoxObject = {}
+---@return any ...
+function CooldownViewerSettings_SearchBoxObject:CooldownViewerSettingsSearch_OnTextChanged(...) end
+---@return any ...
+function CooldownViewerSettings_SearchBoxObject:NarrationGetContext(...) end
+---@return any ...
+function CooldownViewerSettings_SearchBoxObject:NarrationGetDescription(...) end
+---@return any ...
+function CooldownViewerSettings_SearchBoxObject:NarrationGetName(...) end
+---@return any ...
+function CooldownViewerSettings_SearchBoxObject:SetNarrationLabelRegion(...) end
+end
+
+do
+---@class CooldownViewerSettings_SearchBox_InstructionsObject : FontString
+local CooldownViewerSettings_SearchBox_InstructionsObject = {}
+end
+
+do
+---@class CooldownViewerSettings_SearchBox_LeftObject : Texture
+local CooldownViewerSettings_SearchBox_LeftObject = {}
+end
+
+do
+---@class CooldownViewerSettings_SearchBox_MiddleObject : Texture
+local CooldownViewerSettings_SearchBox_MiddleObject = {}
+end
+
+do
+---@class CooldownViewerSettings_SearchBox_RightObject : Texture
+local CooldownViewerSettings_SearchBox_RightObject = {}
+end
+
+do
+---@class CooldownViewerSettings_SearchBox_clearButtonObject : Button
+---@field Icon CooldownViewerSettings_SearchBox_clearButton_IconObject
+local CooldownViewerSettings_SearchBox_clearButtonObject = {}
+---@return any ...
+function CooldownViewerSettings_SearchBox_clearButtonObject:NarrationGetName(...) end
+---@return any ...
+function CooldownViewerSettings_SearchBox_clearButtonObject:OnClick(...) end
+---@return any ...
+function CooldownViewerSettings_SearchBox_clearButtonObject:OnEnter(...) end
+---@return any ...
+function CooldownViewerSettings_SearchBox_clearButtonObject:OnLeave(...) end
+---@return any ...
+function CooldownViewerSettings_SearchBox_clearButtonObject:OnMouseDown(...) end
+---@return any ...
+function CooldownViewerSettings_SearchBox_clearButtonObject:OnMouseUp(...) end
+end
+
+do
+---@class CooldownViewerSettings_SearchBox_clearButton_IconObject : Texture
+local CooldownViewerSettings_SearchBox_clearButton_IconObject = {}
+end
+
+do
+---@class CooldownViewerSettings_SearchBox_searchIconObject : Texture
+local CooldownViewerSettings_SearchBox_searchIconObject = {}
+end
+
+do
+---@class CooldownViewerSettings_SettingsDropdownObject : Button
+---@field Event CooldownViewerSettings_SettingsDropdown_EventObject
+---@field Icon CooldownViewerSettings_SettingsDropdown_IconObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor CooldownViewerSettings_SettingsDropdown_menuAnchorObject
+---@field menuDescription CooldownViewerSettings_SettingsDropdown_menuDescriptionObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+local CooldownViewerSettings_SettingsDropdownObject = {}
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:ClearMenuState(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:CloseMenu(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:CollectSelectionData(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:CreateRootDescription(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:Decrement(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:GenerateMenu(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:GetCallbackTable(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:GetCallbackTables(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:GetMenuDescription(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:GetSelectionData(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:HasElements(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:HasStickyFocus(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:Increment(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:IsMenuOpen(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:OnMenuChanged(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:OnMenuClosed(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:OnMenuOpened(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:OnMenuResponse(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:OnMouseDown(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:OnMouseUp(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:OpenMenu(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:Pick(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:RegisterCallback(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:RegisterMenu(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:Rotate(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:SetMenuOpen(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:SetupMenu(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:SignalUpdate(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:TriggerEvent(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:UnregisterCallback(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:UnregisterEvents(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:Update(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:UpdateSelections(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:menuGenerator(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdownObject:onMenuClosedCallback(...) end
+end
+
+do
+---@class CooldownViewerSettings_SettingsDropdown_EventObject
+local CooldownViewerSettings_SettingsDropdown_EventObject = {}
+end
+
+do
+---@class CooldownViewerSettings_SettingsDropdown_IconObject : Texture
+local CooldownViewerSettings_SettingsDropdown_IconObject = {}
+end
+
+do
+---@class CooldownViewerSettings_SettingsDropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo CooldownViewerSettings_SettingsDropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local CooldownViewerSettings_SettingsDropdown_menuAnchorObject = {}
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class CooldownViewerSettings_SettingsDropdown_menuAnchor_relativeToObject
+local CooldownViewerSettings_SettingsDropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class CooldownViewerSettings_SettingsDropdown_menuDescriptionObject
+---@field tag string
+local CooldownViewerSettings_SettingsDropdown_menuDescriptionObject = {}
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateButton(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateCheckbox(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateColorSwatch(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateDivider(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateFrame(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateHighlightButton(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateHighlightRadio(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateRadio(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateSearchEntry(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateSpacer(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateTemplate(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateTitle(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:QueueDivider(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:QueueSpacer(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:QueueTitle(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:SetTooltip(...) end
+---@return any ...
+function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:private(...) end
+end
+
+do
+---@class CooldownViewerSettings_SpellsTabObject : Frame
+---@field Background CooldownViewerSettings_SpellsTab_BackgroundObject
+---@field HighlightTexture CooldownViewerSettings_SpellsTab_HighlightTextureObject
+---@field Icon CooldownViewerSettings_SpellsTab_IconObject
+---@field Mask CooldownViewerSettings_SpellsTab_MaskObject
+---@field NewOptionsFrame CooldownViewerSettings_SpellsTab_NewOptionsFrameObject
+---@field SelectedTexture CooldownViewerSettings_SpellsTab_SelectedTextureObject
+---@field TabGlow CooldownViewerSettings_SpellsTab_TabGlowObject
+---@field TabGlowAnimation CooldownViewerSettings_SpellsTab_TabGlowAnimationObject
+---@field activeAtlas string
+---@field displayMode string
+---@field inactiveAtlas string
+---@field newTagID string
+---@field tooltipText string
+local CooldownViewerSettings_SpellsTabObject = {}
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:CalculateTabSizeBasedOnTabArt(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:CheckNewTagID(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:GetFinalIconAnchorOffsets(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:GetIconAnchorOffsetsForTabArt(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:GetNewOptionDisplay(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:GetNewTagID(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:GetPressedIconAnchorOffsets(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:GetTooltipTextSetupFunction(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:HideNewOptionDisplay(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:InitializeIconAnchoring(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:InitializeSizeForTabArt(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:IsTabGlowAnimationPlaying(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:MarkSeen(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:NDCM_OnHide(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:NDCM_OnShow(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:OnEnter(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:OnLeave(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:OnLoad(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:OnMouseDown(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:OnMouseUp(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:SetChecked(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:SetCustomOnMouseUpHandler(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:SetFillToInterior(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:SetNewOptionAnchor(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:SetNewTagID(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:SetTabGlowAnimationPlaying(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:SetTooltipTextSetupFunction(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:UpdateIconInterior(...) end
+---@return any ...
+function CooldownViewerSettings_SpellsTabObject:customMouseUpHandler(...) end
+end
+
+do
+---@class CooldownViewerSettings_SpellsTab_BackgroundObject : Texture
+local CooldownViewerSettings_SpellsTab_BackgroundObject = {}
+end
+
+do
+---@class CooldownViewerSettings_SpellsTab_HighlightTextureObject : Texture
+local CooldownViewerSettings_SpellsTab_HighlightTextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_SpellsTab_IconObject : Texture
+local CooldownViewerSettings_SpellsTab_IconObject = {}
+end
+
+do
+---@class CooldownViewerSettings_SpellsTab_MaskObject : MaskTexture
+local CooldownViewerSettings_SpellsTab_MaskObject = {}
+end
+
+do
+---@class CooldownViewerSettings_SpellsTab_NewOptionsFrameObject : Texture
+local CooldownViewerSettings_SpellsTab_NewOptionsFrameObject = {}
+end
+
+do
+---@class CooldownViewerSettings_SpellsTab_SelectedTextureObject : Texture
+local CooldownViewerSettings_SpellsTab_SelectedTextureObject = {}
+end
+
+do
+---@class CooldownViewerSettings_SpellsTab_TabGlowObject : Texture
+local CooldownViewerSettings_SpellsTab_TabGlowObject = {}
+end
+
+do
+---@class CooldownViewerSettings_SpellsTab_TabGlowAnimationObject : AnimationGroup
+local CooldownViewerSettings_SpellsTab_TabGlowAnimationObject = {}
+end
+
+do
+---@class CooldownViewerSettings_TitleContainerObject : Frame
+---@field TitleText CooldownViewerSettings_TitleContainer_TitleTextObject
+local CooldownViewerSettings_TitleContainerObject = {}
+end
+
+do
+---@class CooldownViewerSettings_TitleContainer_TitleTextObject : FontString
+local CooldownViewerSettings_TitleContainer_TitleTextObject = {}
+end
+
+do
+---@class CooldownViewerSettings_TopTileStreaksObject : Texture
+local CooldownViewerSettings_TopTileStreaksObject = {}
+end
+
+do
+---@class CooldownViewerSettings_UndoButtonObject : Button
+---@field Controller CooldownViewerSettings_UndoButton_ControllerObject
+---@field Left CooldownViewerSettings_UndoButton_LeftObject
+---@field Middle CooldownViewerSettings_UndoButton_MiddleObject
+---@field Right CooldownViewerSettings_UndoButton_RightObject
+---@field Text CooldownViewerSettings_UndoButton_TextObject
+---@field disabledTooltip string
 ---@field fitTextCanWidthDecrease boolean
 ---@field fitTextWidthPadding number
-local FriendsFriendsFrame_SendRequestButtonObject = {}
+---@field tooltipTitle string
+local CooldownViewerSettings_UndoButtonObject = {}
 ---@return any ...
-function FriendsFriendsFrame_SendRequestButtonObject:FitToText(...) end
+function CooldownViewerSettings_UndoButtonObject:ClearCustomTextFormatter(...) end
 ---@return any ...
-function FriendsFriendsFrame_SendRequestButtonObject:GetDesiredHeight(...) end
+function CooldownViewerSettings_UndoButtonObject:FitToText(...) end
 ---@return any ...
-function FriendsFriendsFrame_SendRequestButtonObject:GetDesiredWidth(...) end
+function CooldownViewerSettings_UndoButtonObject:GetOnClickSoundKit(...) end
 ---@return any ...
-function FriendsFriendsFrame_SendRequestButtonObject:GetDisabledTooltip(...) end
+function CooldownViewerSettings_UndoButtonObject:InitButton(...) end
 ---@return any ...
-function FriendsFriendsFrame_SendRequestButtonObject:GetScaledDesiredDimension(...) end
+function CooldownViewerSettings_UndoButtonObject:OnClick(...) end
 ---@return any ...
-function FriendsFriendsFrame_SendRequestButtonObject:GetScaledDesiredHeight(...) end
+function CooldownViewerSettings_UndoButtonObject:OnEnter(...) end
 ---@return any ...
-function FriendsFriendsFrame_SendRequestButtonObject:GetScaledDesiredWidth(...) end
+function CooldownViewerSettings_UndoButtonObject:OnLeave(...) end
 ---@return any ...
-function FriendsFriendsFrame_SendRequestButtonObject:GetWeightedScale(...) end
+function CooldownViewerSettings_UndoButtonObject:RunCustomTextFormatter(...) end
 ---@return any ...
-function FriendsFriendsFrame_SendRequestButtonObject:OnEnter(...) end
+function CooldownViewerSettings_UndoButtonObject:SetButtonArtKit(...) end
 ---@return any ...
-function FriendsFriendsFrame_SendRequestButtonObject:OnLeave(...) end
+function CooldownViewerSettings_UndoButtonObject:SetCustomTextFormatter(...) end
 ---@return any ...
-function FriendsFriendsFrame_SendRequestButtonObject:OnLoad_UserScaledElement(...) end
+function CooldownViewerSettings_UndoButtonObject:SetDisabledTooltip(...) end
 ---@return any ...
-function FriendsFriendsFrame_SendRequestButtonObject:OnTextScaleUpdated(...) end
+function CooldownViewerSettings_UndoButtonObject:SetOnClickHandler(...) end
 ---@return any ...
-function FriendsFriendsFrame_SendRequestButtonObject:SetDesiredWidth(...) end
+function CooldownViewerSettings_UndoButtonObject:SetOnEnterHandler(...) end
 ---@return any ...
-function FriendsFriendsFrame_SendRequestButtonObject:SetDisabledState(...) end
+function CooldownViewerSettings_UndoButtonObject:SetTextToFit(...) end
 ---@return any ...
-function FriendsFriendsFrame_SendRequestButtonObject:SetDisabledTooltip(...) end
+function CooldownViewerSettings_UndoButtonObject:SetTooltipAnchor(...) end
 ---@return any ...
-function FriendsFriendsFrame_SendRequestButtonObject:SetTextToFit(...) end
+function CooldownViewerSettings_UndoButtonObject:SetTooltipInfo(...) end
 ---@return any ...
-function FriendsFriendsFrame_SendRequestButtonObject:UpdateWidth(...) end
+function CooldownViewerSettings_UndoButtonObject:customTextFormatter(...) end
+---@return any ...
+function CooldownViewerSettings_UndoButtonObject:onClickHandler(...) end
+---@return any ...
+function CooldownViewerSettings_UndoButtonObject:originalOnDisableScript(...) end
+---@return any ...
+function CooldownViewerSettings_UndoButtonObject:originalOnEnableScript(...) end
 end
 
 do
----@class FriendsFriendsFrame_SendRequestButton_LeftObject : Texture
-local FriendsFriendsFrame_SendRequestButton_LeftObject = {}
-end
-
-do
----@class FriendsFriendsFrame_SendRequestButton_MiddleObject : Texture
-local FriendsFriendsFrame_SendRequestButton_MiddleObject = {}
-end
-
-do
----@class FriendsFriendsFrame_SendRequestButton_RightObject : Texture
-local FriendsFriendsFrame_SendRequestButton_RightObject = {}
-end
-
-do
----@class FriendsFriendsFrame_SendRequestButton_TextObject : FontString
-local FriendsFriendsFrame_SendRequestButton_TextObject = {}
-end
-
-do
----@class FriendsFriendsFrame_TemplateExtentCacheObject
----@field FriendsFriendsButtonTemplate number
-local FriendsFriendsFrame_TemplateExtentCacheObject = {}
-end
-
-do
----@class FriendsFriendsFrame_TemplateRegistrationsObject
----@field FriendsFriendsButtonTemplate table
-local FriendsFriendsFrame_TemplateRegistrationsObject = {}
-end
-
-do
----@class FriendsFriendsFrame_TitleObject : FontString
-local FriendsFriendsFrame_TitleObject = {}
+---@class CooldownViewerSettings_UndoButton_ControllerObject : Frame
+local CooldownViewerSettings_UndoButton_ControllerObject = {}
 ---@return any ...
-function FriendsFriendsFrame_TitleObject:OnEnter(...) end
+function CooldownViewerSettings_UndoButton_ControllerObject:OnLoad(...) end
 ---@return any ...
-function FriendsFriendsFrame_TitleObject:OnEnterInternal(...) end
----@return any ...
-function FriendsFriendsFrame_TitleObject:OnLeave(...) end
+function CooldownViewerSettings_UndoButton_ControllerObject:OnShow(...) end
 end
 
 do
----@class FriendsFriendsFrame_WaitFrameObject : Frame
-local FriendsFriendsFrame_WaitFrameObject = {}
----@return any ...
-function FriendsFriendsFrame_WaitFrameObject:OnShow(...) end
+---@class CooldownViewerSettings_UndoButton_LeftObject : Texture
+local CooldownViewerSettings_UndoButton_LeftObject = {}
 end
 
 do
----@class GameMenuFrameObject : Frame
----@field Border GameMenuFrame_BorderObject
----@field EditModeNotification GameMenuFrame_EditModeNotificationObject
----@field FocusJumpHint GameMenuFrame_FocusJumpHintObject
----@field FrameGlow GameMenuFrame_FrameGlowObject
----@field Header GameMenuFrame_HeaderObject
----@field LeftJumpHint GameMenuFrame_LeftJumpHintObject
----@field NewExternalEventFrame GameMenuFrame_NewExternalEventFrameObject
----@field NewOptionsFrame GameMenuFrame_NewOptionsFrameObject
----@field RightJumpHint GameMenuFrame_RightJumpHintObject
----@field bottomPadding number
----@field buttonCount number
----@field buttonPool GameMenuFrame_buttonPoolObject
----@field buttonTemplate string
----@field buttons table
----@field dialogHeaderFont string
+---@class CooldownViewerSettings_UndoButton_MiddleObject : Texture
+local CooldownViewerSettings_UndoButton_MiddleObject = {}
+end
+
+do
+---@class CooldownViewerSettings_UndoButton_RightObject : Texture
+local CooldownViewerSettings_UndoButton_RightObject = {}
+end
+
+do
+---@class CooldownViewerSettings_UndoButton_TextObject : FontString
+local CooldownViewerSettings_UndoButton_TextObject = {}
+end
+
+do
+---@class CooldownViewerSettings_categoryPoolObject
+local CooldownViewerSettings_categoryPoolObject = {}
+---@return any ...
+function CooldownViewerSettings_categoryPoolObject:private(...) end
+end
+
+do
+---@class CooldownViewerSettings_dataProviderObject
+---@field displayData table
+---@field displayDataDirty boolean
+---@field layoutManager table
+local CooldownViewerSettings_dataProviderObject = {}
+---@return any ...
+function CooldownViewerSettings_dataProviderObject:ChangeCooldownInfoCategoryByID(...) end
+---@return any ...
+function CooldownViewerSettings_dataProviderObject:ChangeCooldownInfoInternal(...) end
+---@return any ...
+function CooldownViewerSettings_dataProviderObject:ChangeOrderIndex(...) end
+---@return any ...
+function CooldownViewerSettings_dataProviderObject:CheckBuildDisplayData(...) end
+---@return any ...
+function CooldownViewerSettings_dataProviderObject:GetCooldownDefaults(...) end
+---@return any ...
+function CooldownViewerSettings_dataProviderObject:GetCooldownInfoForID(...) end
+---@return any ...
+function CooldownViewerSettings_dataProviderObject:GetDefaultOrderedCooldownIDs(...) end
+---@return any ...
+function CooldownViewerSettings_dataProviderObject:GetDisplayData(...) end
+---@return any ...
+function CooldownViewerSettings_dataProviderObject:GetLayoutManager(...) end
+---@return any ...
+function CooldownViewerSettings_dataProviderObject:GetOrderedCooldownIDs(...) end
+---@return any ...
+function CooldownViewerSettings_dataProviderObject:GetOrderedCooldownIDsForCategory(...) end
+---@return any ...
+function CooldownViewerSettings_dataProviderObject:Init(...) end
+---@return any ...
+function CooldownViewerSettings_dataProviderObject:IsDefaultValue(...) end
+---@return any ...
+function CooldownViewerSettings_dataProviderObject:IsDirty(...) end
+---@return any ...
+function CooldownViewerSettings_dataProviderObject:IsLayoutUpdateQueued(...) end
+---@return any ...
+function CooldownViewerSettings_dataProviderObject:MarkDirty(...) end
+---@return any ...
+function CooldownViewerSettings_dataProviderObject:ResetCurrentToDefaults(...) end
+---@return any ...
+function CooldownViewerSettings_dataProviderObject:ResetToRestorePoint(...) end
+---@return any ...
+function CooldownViewerSettings_dataProviderObject:SetActiveLayoutByID(...) end
+---@return any ...
+function CooldownViewerSettings_dataProviderObject:SetCooldownToCategory(...) end
+---@return any ...
+function CooldownViewerSettings_dataProviderObject:SetLayoutManager(...) end
+---@return any ...
+function CooldownViewerSettings_dataProviderObject:SwitchToBestLayoutForSpec(...) end
+---@return any ...
+function CooldownViewerSettings_dataProviderObject:UseDefaultLayout(...) end
+end
+
+do
+---@class CooldownViewerSettings_dataSerializationObject
+---@field cachedSerializedData string
+---@field layoutManager table
+local CooldownViewerSettings_dataSerializationObject = {}
+---@return any ...
+function CooldownViewerSettings_dataSerializationObject:AddLayout(...) end
+---@return any ...
+function CooldownViewerSettings_dataSerializationObject:ClearSerializedData(...) end
+---@return any ...
+function CooldownViewerSettings_dataSerializationObject:CreateEncodeOutput(...) end
+---@return any ...
+function CooldownViewerSettings_dataSerializationObject:DeserializeLayouts(...) end
+---@return any ...
+function CooldownViewerSettings_dataSerializationObject:GetCurrentEncodingVersion(...) end
+---@return any ...
+function CooldownViewerSettings_dataSerializationObject:GetCurrentSaveFormatVersion(...) end
+---@return any ...
+function CooldownViewerSettings_dataSerializationObject:GetLayoutManager(...) end
+---@return any ...
+function CooldownViewerSettings_dataSerializationObject:GetSerializedData(...) end
+---@return any ...
+function CooldownViewerSettings_dataSerializationObject:Init(...) end
+---@return any ...
+function CooldownViewerSettings_dataSerializationObject:IsLoaded(...) end
+---@return any ...
+function CooldownViewerSettings_dataSerializationObject:ReadData(...) end
+---@return any ...
+function CooldownViewerSettings_dataSerializationObject:ResetToDefaults(...) end
+---@return any ...
+function CooldownViewerSettings_dataSerializationObject:SerializeLayouts(...) end
+---@return any ...
+function CooldownViewerSettings_dataSerializationObject:SetSerializationPersistenceObject(...) end
+---@return any ...
+function CooldownViewerSettings_dataSerializationObject:SetSerializedData(...) end
+---@return any ...
+function CooldownViewerSettings_dataSerializationObject:WriteData(...) end
+end
+
+do
+---@class CooldownViewerSettings_layoutManagerObject
+local CooldownViewerSettings_layoutManagerObject = {}
+end
+
+do
+---@class CovenantChoiceToastObject : Frame
+---@field CovenantName CovenantChoiceToast_CovenantNameObject
+---@field GlowLineTop CovenantChoiceToast_GlowLineTopObject
+---@field GlowLineTopAdditive CovenantChoiceToast_GlowLineTopAdditiveObject
+---@field HeaderText CovenantChoiceToast_HeaderTextObject
+---@field Icon CovenantChoiceToast_IconObject
+---@field IconSwirlModelScene CovenantChoiceToast_IconSwirlModelSceneObject
+---@field ShowAnim CovenantChoiceToast_ShowAnimObject
+---@field Stars1 CovenantChoiceToast_Stars1Object
+---@field Stars2 CovenantChoiceToast_Stars2Object
+---@field ToastBG CovenantChoiceToast_ToastBGObject
+local CovenantChoiceToastObject = {}
+---@return any ...
+function CovenantChoiceToastObject:AddSwirlEffects(...) end
+---@return any ...
+function CovenantChoiceToastObject:CancelIconSwirlEffects(...) end
+---@return any ...
+function CovenantChoiceToastObject:OnAnimFinished(...) end
+---@return any ...
+function CovenantChoiceToastObject:OnEvent(...) end
+---@return any ...
+function CovenantChoiceToastObject:OnHide(...) end
+---@return any ...
+function CovenantChoiceToastObject:OnLoad(...) end
+---@return any ...
+function CovenantChoiceToastObject:PlayBanner(...) end
+---@return any ...
+function CovenantChoiceToastObject:PlayCovenantChoiceToast(...) end
+---@return any ...
+function CovenantChoiceToastObject:SetCovenantTextureKit(...) end
+---@return any ...
+function CovenantChoiceToastObject:StopBanner(...) end
+---@type CovenantChoiceToastObject
+CovenantChoiceToast = CovenantChoiceToastObject
+end
+
+do
+---@class CovenantChoiceToast_CovenantNameObject : FontString
+local CovenantChoiceToast_CovenantNameObject = {}
+end
+
+do
+---@class CovenantChoiceToast_GlowLineTopObject : Texture
+local CovenantChoiceToast_GlowLineTopObject = {}
+end
+
+do
+---@class CovenantChoiceToast_GlowLineTopAdditiveObject : Texture
+local CovenantChoiceToast_GlowLineTopAdditiveObject = {}
+end
+
+do
+---@class CovenantChoiceToast_HeaderTextObject : FontString
+local CovenantChoiceToast_HeaderTextObject = {}
+end
+
+do
+---@class CovenantChoiceToast_IconObject : Frame
+---@field Tex CovenantChoiceToast_Icon_TexObject
+local CovenantChoiceToast_IconObject = {}
+end
+
+do
+---@class CovenantChoiceToast_Icon_TexObject : Texture
+local CovenantChoiceToast_Icon_TexObject = {}
+end
+
+do
+---@class CovenantChoiceToast_IconSwirlModelSceneObject
+---@field actorTemplate string
+---@field cameras table
+---@field centerX number
+---@field centerY number
+---@field delayedActions table
+---@field effectControllers table
+---@field pixelsPerSceneUnit number
+---@field tagToActor table
+---@field tagToCamera table
+---@field useViewInsetNormalization boolean
+local CovenantChoiceToast_IconSwirlModelSceneObject = {}
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:AcquireActor(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:AcquireAndInitializeActor(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:AddCamera(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:AddDynamicEffect(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:AddEffect(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:AddOrUpdateDropShadow(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:AdjustCameraYaw(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:AttachPlayerToMount(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:CalculatePixelsPerSceneUnit(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:ClearEffects(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:ClearScene(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:CreateActorFromScene(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:CreateCameraFromScene(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:CreateOrTransitionActorFromScene(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:CreateOrTransitionCameraFromScene(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:EnumerateActiveActors(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:ExecuteOrDelayUntilSceneSet(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:GetActiveCamera(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:GetActorByTag(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:GetCameraByTag(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:GetEffectSpeed(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:GetModelSceneID(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:GetNumActiveActors(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:GetOrAcquireDropShadow(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:GetPixelsPerSceneUnit(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:GetPlayerActor(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:GetSceneSize(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:HasActiveCamera(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:HasActiveEffects(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:InitializeActor(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:InternalAddEffect(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:IsLeftMouseButtonDown(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:IsModelSceneSet(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:IsRightMouseButtonDown(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:OnEnter(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:OnEvent(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:OnHide(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:OnLeave(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:OnLoad(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:OnMouseDown(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:OnMouseUp(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:OnMouseWheel(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:OnShow(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:OnSizeChanged(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:OnUpdate(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:RefreshModelScene(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:ReleaseActor(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:ReleaseAllActors(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:ReleaseAllCameras(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:RemoveEffectController(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:Reset(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:SetActiveCamera(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:SetActorPositionFromPixels(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:SetEffectSpeed(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:SetFromModelSceneID(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:SetResetCallback(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:ShowAndAnimateActors(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:StopCameraYaw(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:SynchronizeActiveCamera(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:Transform3DPointTo2D(...) end
+---@return any ...
+function CovenantChoiceToast_IconSwirlModelSceneObject:TransitionToModelSceneID(...) end
+end
+
+do
+---@class CovenantChoiceToast_ShowAnimObject : AnimationGroup
+local CovenantChoiceToast_ShowAnimObject = {}
+end
+
+do
+---@class CovenantChoiceToast_Stars1Object : Texture
+local CovenantChoiceToast_Stars1Object = {}
+end
+
+do
+---@class CovenantChoiceToast_Stars2Object : Texture
+local CovenantChoiceToast_Stars2Object = {}
+end
+
+do
+---@class CovenantChoiceToast_ToastBGObject : Texture
+local CovenantChoiceToast_ToastBGObject = {}
+end
+
+do
+---@class CovenantRenownToastObject : Frame
+---@field GlowLineTop CovenantRenownToast_GlowLineTopObject
+---@field GlowLineTopAdditive CovenantRenownToast_GlowLineTopAdditiveObject
+---@field GlowLineTopBottom CovenantRenownToast_GlowLineTopBottomObject
+---@field Icon CovenantRenownToast_IconObject
+---@field IconSwirlModelScene CovenantRenownToast_IconSwirlModelSceneObject
+---@field RenownLabel CovenantRenownToast_RenownLabelObject
+---@field RewardDescription CovenantRenownToast_RewardDescriptionObject
+---@field RewardIcon CovenantRenownToast_RewardIconObject
+---@field RewardIconMask CovenantRenownToast_RewardIconMaskObject
+---@field RewardIconMouseOver CovenantRenownToast_RewardIconMouseOverObject
+---@field RewardIconRing CovenantRenownToast_RewardIconRingObject
+---@field ShowAnim CovenantRenownToast_ShowAnimObject
+---@field Stars1 CovenantRenownToast_Stars1Object
+---@field Stars2 CovenantRenownToast_Stars2Object
+---@field ToastBG CovenantRenownToast_ToastBGObject
+local CovenantRenownToastObject = {}
+---@return any ...
+function CovenantRenownToastObject:AddSwirlEffects(...) end
+---@return any ...
+function CovenantRenownToastObject:CancelIconSwirlEffects(...) end
+---@return any ...
+function CovenantRenownToastObject:OnAnimFinished(...) end
+---@return any ...
+function CovenantRenownToastObject:OnEvent(...) end
+---@return any ...
+function CovenantRenownToastObject:OnHide(...) end
+---@return any ...
+function CovenantRenownToastObject:OnHoldAnimStarted(...) end
+---@return any ...
+function CovenantRenownToastObject:OnLoad(...) end
+---@return any ...
+function CovenantRenownToastObject:OnMouseEnter(...) end
+---@return any ...
+function CovenantRenownToastObject:OnMouseLeave(...) end
+---@return any ...
+function CovenantRenownToastObject:PlayBanner(...) end
+---@return any ...
+function CovenantRenownToastObject:RefreshTooltip(...) end
+---@return any ...
+function CovenantRenownToastObject:SetCovenantTextureKit(...) end
+---@return any ...
+function CovenantRenownToastObject:SetupRewardVisuals(...) end
+---@return any ...
+function CovenantRenownToastObject:ShowRenownLevelUpToast(...) end
+---@return any ...
+function CovenantRenownToastObject:StopBanner(...) end
+---@type CovenantRenownToastObject
+CovenantRenownToast = CovenantRenownToastObject
+end
+
+do
+---@class CovenantRenownToast_GlowLineTopObject : Texture
+local CovenantRenownToast_GlowLineTopObject = {}
+end
+
+do
+---@class CovenantRenownToast_GlowLineTopAdditiveObject : Texture
+local CovenantRenownToast_GlowLineTopAdditiveObject = {}
+end
+
+do
+---@class CovenantRenownToast_GlowLineTopBottomObject : Texture
+local CovenantRenownToast_GlowLineTopBottomObject = {}
+end
+
+do
+---@class CovenantRenownToast_IconObject : Frame
+---@field Tex CovenantRenownToast_Icon_TexObject
+local CovenantRenownToast_IconObject = {}
+end
+
+do
+---@class CovenantRenownToast_Icon_TexObject : Texture
+local CovenantRenownToast_Icon_TexObject = {}
+end
+
+do
+---@class CovenantRenownToast_IconSwirlModelSceneObject
+---@field actorTemplate string
+---@field cameras table
+---@field centerX number
+---@field centerY number
+---@field delayedActions table
+---@field effectControllers table
+---@field pixelsPerSceneUnit number
+---@field tagToActor table
+---@field tagToCamera table
+---@field useViewInsetNormalization boolean
+local CovenantRenownToast_IconSwirlModelSceneObject = {}
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:AcquireActor(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:AcquireAndInitializeActor(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:AddCamera(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:AddDynamicEffect(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:AddEffect(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:AddOrUpdateDropShadow(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:AdjustCameraYaw(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:AttachPlayerToMount(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:CalculatePixelsPerSceneUnit(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:ClearEffects(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:ClearScene(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:CreateActorFromScene(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:CreateCameraFromScene(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:CreateOrTransitionActorFromScene(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:CreateOrTransitionCameraFromScene(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:EnumerateActiveActors(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:ExecuteOrDelayUntilSceneSet(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:GetActiveCamera(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:GetActorByTag(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:GetCameraByTag(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:GetEffectSpeed(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:GetModelSceneID(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:GetNumActiveActors(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:GetOrAcquireDropShadow(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:GetPixelsPerSceneUnit(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:GetPlayerActor(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:GetSceneSize(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:HasActiveCamera(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:HasActiveEffects(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:InitializeActor(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:InternalAddEffect(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:IsLeftMouseButtonDown(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:IsModelSceneSet(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:IsRightMouseButtonDown(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:OnEnter(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:OnEvent(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:OnHide(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:OnLeave(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:OnLoad(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:OnMouseDown(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:OnMouseUp(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:OnMouseWheel(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:OnShow(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:OnSizeChanged(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:OnUpdate(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:RefreshModelScene(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:ReleaseActor(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:ReleaseAllActors(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:ReleaseAllCameras(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:RemoveEffectController(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:Reset(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:SetActiveCamera(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:SetActorPositionFromPixels(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:SetEffectSpeed(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:SetFromModelSceneID(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:SetResetCallback(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:ShowAndAnimateActors(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:StopCameraYaw(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:SynchronizeActiveCamera(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:Transform3DPointTo2D(...) end
+---@return any ...
+function CovenantRenownToast_IconSwirlModelSceneObject:TransitionToModelSceneID(...) end
+end
+
+do
+---@class CovenantRenownToast_RenownLabelObject : FontString
+local CovenantRenownToast_RenownLabelObject = {}
+end
+
+do
+---@class CovenantRenownToast_RewardDescriptionObject : FontString
+local CovenantRenownToast_RewardDescriptionObject = {}
+end
+
+do
+---@class CovenantRenownToast_RewardIconObject : Texture
+local CovenantRenownToast_RewardIconObject = {}
+end
+
+do
+---@class CovenantRenownToast_RewardIconMaskObject : MaskTexture
+local CovenantRenownToast_RewardIconMaskObject = {}
+end
+
+do
+---@class CovenantRenownToast_RewardIconMouseOverObject : Frame
+local CovenantRenownToast_RewardIconMouseOverObject = {}
+end
+
+do
+---@class CovenantRenownToast_RewardIconRingObject : Texture
+local CovenantRenownToast_RewardIconRingObject = {}
+end
+
+do
+---@class CovenantRenownToast_ShowAnimObject : AnimationGroup
+---@field FadeAlpha CovenantRenownToast_ShowAnim_FadeAlphaObject
+---@field HoldAlpha CovenantRenownToast_ShowAnim_HoldAlphaObject
+local CovenantRenownToast_ShowAnimObject = {}
+end
+
+do
+---@class CovenantRenownToast_ShowAnim_FadeAlphaObject : Alpha
+local CovenantRenownToast_ShowAnim_FadeAlphaObject = {}
+end
+
+do
+---@class CovenantRenownToast_ShowAnim_HoldAlphaObject : Alpha
+local CovenantRenownToast_ShowAnim_HoldAlphaObject = {}
+end
+
+do
+---@class CovenantRenownToast_Stars1Object : Texture
+local CovenantRenownToast_Stars1Object = {}
+end
+
+do
+---@class CovenantRenownToast_Stars2Object : Texture
+local CovenantRenownToast_Stars2Object = {}
+end
+
+do
+---@class CovenantRenownToast_ToastBGObject : Texture
+local CovenantRenownToast_ToastBGObject = {}
+end
+
+do
+---@class CreateChannelPopupObject : Frame
+---@field BG CreateChannelPopup_BGObject
+---@field CancelButton CreateChannelPopup_CancelButtonObject
+---@field CloseButton CreateChannelPopup_CloseButtonObject
+---@field FocusJumpHint CreateChannelPopup_FocusJumpHintObject
+---@field FrameGlow CreateChannelPopup_FrameGlowObject
+---@field Header CreateChannelPopup_HeaderObject
+---@field LeftJumpHint CreateChannelPopup_LeftJumpHintObject
+---@field Name CreateChannelPopup_NameObject
+---@field OKButton CreateChannelPopup_OKButtonObject
+---@field Password CreateChannelPopup_PasswordObject
+---@field RightJumpHint CreateChannelPopup_RightJumpHintObject
+---@field UseVoiceChat CreateChannelPopup_UseVoiceChatObject
 ---@field layoutType string
----@field leftPadding number
----@field nextLayoutIndex number
----@field rightPadding number
----@field spacing number
----@field staticCallbackRegistrantHandlers table
----@field topPadding number
-local GameMenuFrameObject = {}
+---@field tabGroup CreateChannelPopup_tabGroupObject
+local CreateChannelPopupObject = {}
 ---@return any ...
-function GameMenuFrameObject:AddButton(...) end
+function CreateChannelPopupObject:DoCallback(...) end
 ---@return any ...
-function GameMenuFrameObject:AddCloseButton(...) end
+function CreateChannelPopupObject:EndFocus(...) end
 ---@return any ...
-function GameMenuFrameObject:AddDynamicEventMethod(...) end
+function CreateChannelPopupObject:FocusGamepad(...) end
 ---@return any ...
-function GameMenuFrameObject:AddEventMethodInternal(...) end
+function CreateChannelPopupObject:GetFocusFrameGlow(...) end
 ---@return any ...
-function GameMenuFrameObject:AddLayoutChildren(...) end
+function CreateChannelPopupObject:GetFocusFrameRoot(...) end
 ---@return any ...
-function GameMenuFrameObject:AddSection(...) end
+function CreateChannelPopupObject:HideFocusJumpHint(...) end
 ---@return any ...
-function GameMenuFrameObject:AddStaticEventMethod(...) end
+function CreateChannelPopupObject:HideLeftJumpHint(...) end
 ---@return any ...
-function GameMenuFrameObject:CalculateFrameSize(...) end
+function CreateChannelPopupObject:HideRightJumpHint(...) end
 ---@return any ...
-function GameMenuFrameObject:ClearFixedSize(...) end
+function CreateChannelPopupObject:InitializeGamepad(...) end
 ---@return any ...
-function GameMenuFrameObject:CloseMenu(...) end
+function CreateChannelPopupObject:LockInFocus(...) end
 ---@return any ...
-function GameMenuFrameObject:CreateEventRegistrationInfo(...) end
+function CreateChannelPopupObject:OnCancelClicked(...) end
 ---@return any ...
-function GameMenuFrameObject:EndFocus(...) end
+function CreateChannelPopupObject:OnHide(...) end
 ---@return any ...
-function GameMenuFrameObject:ExternalEventClickCallback(...) end
+function CreateChannelPopupObject:OnLoad(...) end
 ---@return any ...
-function GameMenuFrameObject:FocusGamepad(...) end
+function CreateChannelPopupObject:OnOKClicked(...) end
 ---@return any ...
-function GameMenuFrameObject:GetAdditionalRegions(...) end
+function CreateChannelPopupObject:OnShow(...) end
 ---@return any ...
-function GameMenuFrameObject:GetChildHeight(...) end
+function CreateChannelPopupObject:OnTabPressed(...) end
 ---@return any ...
-function GameMenuFrameObject:GetChildPadding(...) end
+function CreateChannelPopupObject:RefreshFocus(...) end
 ---@return any ...
-function GameMenuFrameObject:GetChildSize(...) end
+function CreateChannelPopupObject:RegisterForTransitions(...) end
 ---@return any ...
-function GameMenuFrameObject:GetChildWidth(...) end
+function CreateChannelPopupObject:SetCallback(...) end
 ---@return any ...
-function GameMenuFrameObject:GetDynamicCallbackRegistrantHandlers(...) end
+function CreateChannelPopupObject:SetupGamepad(...) end
 ---@return any ...
-function GameMenuFrameObject:GetFixedHeight(...) end
+function CreateChannelPopupObject:ShowFocusJumpHint(...) end
 ---@return any ...
-function GameMenuFrameObject:GetFixedSize(...) end
+function CreateChannelPopupObject:ShowLeftJumpHint(...) end
 ---@return any ...
-function GameMenuFrameObject:GetFixedWidth(...) end
+function CreateChannelPopupObject:ShowRightJumpHint(...) end
 ---@return any ...
-function GameMenuFrameObject:GetFocusFrameGlow(...) end
+function CreateChannelPopupObject:StartFocus(...) end
 ---@return any ...
-function GameMenuFrameObject:GetFocusFrameRoot(...) end
----@return any ...
-function GameMenuFrameObject:GetHeightPadding(...) end
----@return any ...
-function GameMenuFrameObject:GetLayoutChildren(...) end
----@return any ...
-function GameMenuFrameObject:GetLogoutText(...) end
----@return any ...
-function GameMenuFrameObject:GetPadding(...) end
----@return any ...
-function GameMenuFrameObject:GetRatingsButtonShown(...) end
----@return any ...
-function GameMenuFrameObject:GetStaticCallbackRegistrantHandlers(...) end
----@return any ...
-function GameMenuFrameObject:GetWidthPadding(...) end
----@return any ...
-function GameMenuFrameObject:HideFocusJumpHint(...) end
----@return any ...
-function GameMenuFrameObject:HideLeftJumpHint(...) end
----@return any ...
-function GameMenuFrameObject:HideRightJumpHint(...) end
----@return any ...
-function GameMenuFrameObject:IgnoreLayoutIndex(...) end
----@return any ...
-function GameMenuFrameObject:InitButtons(...) end
----@return any ...
-function GameMenuFrameObject:IsDirty(...) end
----@return any ...
-function GameMenuFrameObject:IsLayoutFrame(...) end
----@return any ...
-function GameMenuFrameObject:Layout(...) end
----@return any ...
-function GameMenuFrameObject:LayoutChildren(...) end
----@return any ...
-function GameMenuFrameObject:LockInFocus(...) end
----@return any ...
-function GameMenuFrameObject:MarkClean(...) end
----@return any ...
-function GameMenuFrameObject:MarkDirty(...) end
----@return any ...
-function GameMenuFrameObject:MarkIgnoreInLayout(...) end
----@return any ...
-function GameMenuFrameObject:OnCleaned(...) end
----@return any ...
-function GameMenuFrameObject:OnEvent(...) end
----@return any ...
-function GameMenuFrameObject:OnExternalEventLaunchUrlResult(...) end
----@return any ...
-function GameMenuFrameObject:OnHide(...) end
----@return any ...
-function GameMenuFrameObject:OnLoad(...) end
----@return any ...
-function GameMenuFrameObject:OnShow(...) end
----@return any ...
-function GameMenuFrameObject:OnStoreFrameClosed(...) end
----@return any ...
-function GameMenuFrameObject:OnUIPanelHidden(...) end
----@return any ...
-function GameMenuFrameObject:OnUpdate(...) end
----@return any ...
-function GameMenuFrameObject:RefreshFocus(...) end
----@return any ...
-function GameMenuFrameObject:RegisterForTransitions(...) end
----@return any ...
-function GameMenuFrameObject:RegisterFromRegistrationInfo(...) end
----@return any ...
-function GameMenuFrameObject:RemoveStaticEventMethod(...) end
----@return any ...
-function GameMenuFrameObject:Reset(...) end
----@return any ...
-function GameMenuFrameObject:ResetGamepadButtons(...) end
----@return any ...
-function GameMenuFrameObject:SetFixedHeight(...) end
----@return any ...
-function GameMenuFrameObject:SetFixedSize(...) end
----@return any ...
-function GameMenuFrameObject:SetFixedWidth(...) end
----@return any ...
-function GameMenuFrameObject:SetHeightPadding(...) end
----@return any ...
-function GameMenuFrameObject:SetRatingsButtonShown(...) end
----@return any ...
-function GameMenuFrameObject:SetWidthPadding(...) end
----@return any ...
-function GameMenuFrameObject:SetupGamepad(...) end
----@return any ...
-function GameMenuFrameObject:SetupGamepadButtons(...) end
----@return any ...
-function GameMenuFrameObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function GameMenuFrameObject:ShowFocusJumpHint(...) end
----@return any ...
-function GameMenuFrameObject:ShowLeftJumpHint(...) end
----@return any ...
-function GameMenuFrameObject:ShowRightJumpHint(...) end
----@return any ...
-function GameMenuFrameObject:SmartNavigationCloseHandler(...) end
----@return any ...
-function GameMenuFrameObject:StartFocus(...) end
----@return any ...
-function GameMenuFrameObject:UnfocusGamepad(...) end
----@return any ...
-function GameMenuFrameObject:UninitializeGamepad(...) end
----@return any ...
-function GameMenuFrameObject:UnregisterAllEventMethods(...) end
----@return any ...
-function GameMenuFrameObject:UnregisterAllInternal(...) end
----@return any ...
-function GameMenuFrameObject:UnregisterFromRegistrationInfo(...) end
----@type GameMenuFrameObject
-GameMenuFrame = GameMenuFrameObject
+function CreateChannelPopupObject:UnfocusGamepad(...) end
+---@type CreateChannelPopupObject
+CreateChannelPopup = CreateChannelPopupObject
 end
 
 do
----@class GameMenuFrame_BorderObject : Frame
----@field Bg GameMenuFrame_Border_BgObject
----@field BottomEdge GameMenuFrame_Border_BottomEdgeObject
----@field BottomLeftCorner GameMenuFrame_Border_BottomLeftCornerObject
----@field BottomRightCorner GameMenuFrame_Border_BottomRightCornerObject
----@field LeftEdge GameMenuFrame_Border_LeftEdgeObject
----@field RightEdge GameMenuFrame_Border_RightEdgeObject
----@field TopEdge GameMenuFrame_Border_TopEdgeObject
----@field TopLeftCorner GameMenuFrame_Border_TopLeftCornerObject
----@field TopRightCorner GameMenuFrame_Border_TopRightCornerObject
----@field ignoreInLayout boolean
+---@class CreateChannelPopup_BGObject : Frame
+---@field Bg CreateChannelPopup_BG_BgObject
+---@field BottomEdge CreateChannelPopup_BG_BottomEdgeObject
+---@field BottomLeftCorner CreateChannelPopup_BG_BottomLeftCornerObject
+---@field BottomRightCorner CreateChannelPopup_BG_BottomRightCornerObject
+---@field LeftEdge CreateChannelPopup_BG_LeftEdgeObject
+---@field RightEdge CreateChannelPopup_BG_RightEdgeObject
+---@field TopEdge CreateChannelPopup_BG_TopEdgeObject
+---@field TopLeftCorner CreateChannelPopup_BG_TopLeftCornerObject
+---@field TopRightCorner CreateChannelPopup_BG_TopRightCornerObject
 ---@field layoutType string
-local GameMenuFrame_BorderObject = {}
+local CreateChannelPopup_BGObject = {}
 ---@return any ...
-function GameMenuFrame_BorderObject:GetBorderColor(...) end
+function CreateChannelPopup_BGObject:GetBorderColor(...) end
 ---@return any ...
-function GameMenuFrame_BorderObject:GetCenterColor(...) end
+function CreateChannelPopup_BGObject:GetCenterColor(...) end
 ---@return any ...
-function GameMenuFrame_BorderObject:GetFrameLayoutTextureKit(...) end
+function CreateChannelPopup_BGObject:GetFrameLayoutTextureKit(...) end
 ---@return any ...
-function GameMenuFrame_BorderObject:GetFrameLayoutType(...) end
+function CreateChannelPopup_BGObject:GetFrameLayoutType(...) end
 ---@return any ...
-function GameMenuFrame_BorderObject:OnLoad(...) end
+function CreateChannelPopup_BGObject:OnLoad(...) end
 ---@return any ...
-function GameMenuFrame_BorderObject:SetBlendMode(...) end
+function CreateChannelPopup_BGObject:SetBlendMode(...) end
 ---@return any ...
-function GameMenuFrame_BorderObject:SetBorderBlendMode(...) end
+function CreateChannelPopup_BGObject:SetBorderBlendMode(...) end
 ---@return any ...
-function GameMenuFrame_BorderObject:SetBorderColor(...) end
+function CreateChannelPopup_BGObject:SetBorderColor(...) end
 ---@return any ...
-function GameMenuFrame_BorderObject:SetCenterColor(...) end
+function CreateChannelPopup_BGObject:SetCenterColor(...) end
 ---@return any ...
-function GameMenuFrame_BorderObject:SetVertexColor(...) end
+function CreateChannelPopup_BGObject:SetVertexColor(...) end
 end
 
 do
----@class GameMenuFrame_Border_BgObject : Texture
-local GameMenuFrame_Border_BgObject = {}
+---@class CreateChannelPopup_BG_BgObject : Texture
+local CreateChannelPopup_BG_BgObject = {}
 end
 
 do
----@class GameMenuFrame_Border_BottomEdgeObject : Texture
-local GameMenuFrame_Border_BottomEdgeObject = {}
+---@class CreateChannelPopup_BG_BottomEdgeObject : Texture
+local CreateChannelPopup_BG_BottomEdgeObject = {}
 end
 
 do
----@class GameMenuFrame_Border_BottomLeftCornerObject : Texture
-local GameMenuFrame_Border_BottomLeftCornerObject = {}
+---@class CreateChannelPopup_BG_BottomLeftCornerObject : Texture
+local CreateChannelPopup_BG_BottomLeftCornerObject = {}
 end
 
 do
----@class GameMenuFrame_Border_BottomRightCornerObject : Texture
-local GameMenuFrame_Border_BottomRightCornerObject = {}
+---@class CreateChannelPopup_BG_BottomRightCornerObject : Texture
+local CreateChannelPopup_BG_BottomRightCornerObject = {}
 end
 
 do
----@class GameMenuFrame_Border_LeftEdgeObject : Texture
-local GameMenuFrame_Border_LeftEdgeObject = {}
+---@class CreateChannelPopup_BG_LeftEdgeObject : Texture
+local CreateChannelPopup_BG_LeftEdgeObject = {}
 end
 
 do
----@class GameMenuFrame_Border_RightEdgeObject : Texture
-local GameMenuFrame_Border_RightEdgeObject = {}
+---@class CreateChannelPopup_BG_RightEdgeObject : Texture
+local CreateChannelPopup_BG_RightEdgeObject = {}
 end
 
 do
----@class GameMenuFrame_Border_TopEdgeObject : Texture
-local GameMenuFrame_Border_TopEdgeObject = {}
+---@class CreateChannelPopup_BG_TopEdgeObject : Texture
+local CreateChannelPopup_BG_TopEdgeObject = {}
 end
 
 do
----@class GameMenuFrame_Border_TopLeftCornerObject : Texture
-local GameMenuFrame_Border_TopLeftCornerObject = {}
+---@class CreateChannelPopup_BG_TopLeftCornerObject : Texture
+local CreateChannelPopup_BG_TopLeftCornerObject = {}
 end
 
 do
----@class GameMenuFrame_Border_TopRightCornerObject : Texture
-local GameMenuFrame_Border_TopRightCornerObject = {}
+---@class CreateChannelPopup_BG_TopRightCornerObject : Texture
+local CreateChannelPopup_BG_TopRightCornerObject = {}
 end
 
 do
----@class GameMenuFrame_EditModeNotificationObject : Frame
-local GameMenuFrame_EditModeNotificationObject = {}
+---@class CreateChannelPopup_CancelButtonObject : Button
+---@field Left CreateChannelPopup_CancelButton_LeftObject
+---@field Middle CreateChannelPopup_CancelButton_MiddleObject
+---@field Right CreateChannelPopup_CancelButton_RightObject
+---@field Text CreateChannelPopup_CancelButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CreateChannelPopup_CancelButtonObject = {}
+---@return any ...
+function CreateChannelPopup_CancelButtonObject:FitToText(...) end
+---@return any ...
+function CreateChannelPopup_CancelButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function CreateChannelPopup_CancelButtonObject:OnEnter(...) end
+---@return any ...
+function CreateChannelPopup_CancelButtonObject:OnLeave(...) end
+---@return any ...
+function CreateChannelPopup_CancelButtonObject:SetDisabledState(...) end
+---@return any ...
+function CreateChannelPopup_CancelButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function CreateChannelPopup_CancelButtonObject:SetTextToFit(...) end
 end
 
 do
----@class GameMenuFrame_FocusJumpHintObject : Frame
----@field ActiveTexture GameMenuFrame_FocusJumpHint_ActiveTextureObject
----@field DisabledTexture GameMenuFrame_FocusJumpHint_DisabledTextureObject
----@field HoldAnim GameMenuFrame_FocusJumpHint_HoldAnimObject
----@field HoldIndicator GameMenuFrame_FocusJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG GameMenuFrame_FocusJumpHint_HoldIndicatorBGObject
----@field HoverTexture GameMenuFrame_FocusJumpHint_HoverTextureObject
----@field LoadBar GameMenuFrame_FocusJumpHint_LoadBarObject
----@field LoadBarBG GameMenuFrame_FocusJumpHint_LoadBarBGObject
----@field LoadBarGlow GameMenuFrame_FocusJumpHint_LoadBarGlowObject
----@field NormalTexture GameMenuFrame_FocusJumpHint_NormalTextureObject
----@field PressedTexture GameMenuFrame_FocusJumpHint_PressedTextureObject
----@field SpinnerTip GameMenuFrame_FocusJumpHint_SpinnerTipObject
+---@class CreateChannelPopup_CancelButton_LeftObject : Texture
+local CreateChannelPopup_CancelButton_LeftObject = {}
+end
+
+do
+---@class CreateChannelPopup_CancelButton_MiddleObject : Texture
+local CreateChannelPopup_CancelButton_MiddleObject = {}
+end
+
+do
+---@class CreateChannelPopup_CancelButton_RightObject : Texture
+local CreateChannelPopup_CancelButton_RightObject = {}
+end
+
+do
+---@class CreateChannelPopup_CancelButton_TextObject : FontString
+local CreateChannelPopup_CancelButton_TextObject = {}
+end
+
+do
+---@class CreateChannelPopup_CloseButtonObject : Button
+local CreateChannelPopup_CloseButtonObject = {}
+---@return any ...
+function CreateChannelPopup_CloseButtonObject:NarrationGetName(...) end
+end
+
+do
+---@class CreateChannelPopup_FocusJumpHintObject : Frame
+---@field ActiveTexture CreateChannelPopup_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture CreateChannelPopup_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim CreateChannelPopup_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator CreateChannelPopup_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG CreateChannelPopup_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture CreateChannelPopup_FocusJumpHint_HoverTextureObject
+---@field LoadBar CreateChannelPopup_FocusJumpHint_LoadBarObject
+---@field LoadBarBG CreateChannelPopup_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow CreateChannelPopup_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture CreateChannelPopup_FocusJumpHint_NormalTextureObject
+---@field PressedTexture CreateChannelPopup_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip CreateChannelPopup_FocusJumpHint_SpinnerTipObject
 ---@field ignoreInLayout boolean
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
@@ -1546,6372 +6362,2848 @@ do
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local GameMenuFrame_FocusJumpHintObject = {}
+local CreateChannelPopup_FocusJumpHintObject = {}
 ---@return any ...
-function GameMenuFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
+function CreateChannelPopup_FocusJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function GameMenuFrame_FocusJumpHintObject:BeginHold(...) end
+function CreateChannelPopup_FocusJumpHintObject:BeginHold(...) end
 ---@return any ...
-function GameMenuFrame_FocusJumpHintObject:CanEnterTextureState(...) end
+function CreateChannelPopup_FocusJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function GameMenuFrame_FocusJumpHintObject:DisableDropShadow(...) end
+function CreateChannelPopup_FocusJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function GameMenuFrame_FocusJumpHintObject:EnableDropShadow(...) end
+function CreateChannelPopup_FocusJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function GameMenuFrame_FocusJumpHintObject:EndHold(...) end
+function CreateChannelPopup_FocusJumpHintObject:EndHold(...) end
 ---@return any ...
-function GameMenuFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
+function CreateChannelPopup_FocusJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function GameMenuFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
+function CreateChannelPopup_FocusJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function GameMenuFrame_FocusJumpHintObject:OnLoad(...) end
+function CreateChannelPopup_FocusJumpHintObject:OnLoad(...) end
 ---@return any ...
-function GameMenuFrame_FocusJumpHintObject:RefreshIconTextures(...) end
+function CreateChannelPopup_FocusJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function GameMenuFrame_FocusJumpHintObject:SetDisabled(...) end
+function CreateChannelPopup_FocusJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function GameMenuFrame_FocusJumpHintObject:SetEnabled(...) end
+function CreateChannelPopup_FocusJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function GameMenuFrame_FocusJumpHintObject:SetFocused(...) end
+function CreateChannelPopup_FocusJumpHintObject:SetFocused(...) end
 ---@return any ...
-function GameMenuFrame_FocusJumpHintObject:SetHoldState(...) end
+function CreateChannelPopup_FocusJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function GameMenuFrame_FocusJumpHintObject:SetInputKey(...) end
+function CreateChannelPopup_FocusJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function GameMenuFrame_FocusJumpHintObject:SetIsHoldAction(...) end
+function CreateChannelPopup_FocusJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function GameMenuFrame_FocusJumpHintObject:SetPressable(...) end
+function CreateChannelPopup_FocusJumpHintObject:SetPressable(...) end
 ---@return any ...
-function GameMenuFrame_FocusJumpHintObject:SetTextureHeight(...) end
+function CreateChannelPopup_FocusJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function GameMenuFrame_FocusJumpHintObject:SetTextureState(...) end
+function CreateChannelPopup_FocusJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function GameMenuFrame_FocusJumpHintObject:SetTextureWidth(...) end
+function CreateChannelPopup_FocusJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function GameMenuFrame_FocusJumpHintObject:SetUsableState(...) end
+function CreateChannelPopup_FocusJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function GameMenuFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+function CreateChannelPopup_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class GameMenuFrame_FocusJumpHint_ActiveTextureObject : Texture
-local GameMenuFrame_FocusJumpHint_ActiveTextureObject = {}
+---@class CreateChannelPopup_FocusJumpHint_ActiveTextureObject : Texture
+local CreateChannelPopup_FocusJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class GameMenuFrame_FocusJumpHint_DisabledTextureObject : Texture
-local GameMenuFrame_FocusJumpHint_DisabledTextureObject = {}
+---@class CreateChannelPopup_FocusJumpHint_DisabledTextureObject : Texture
+local CreateChannelPopup_FocusJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class GameMenuFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim GameMenuFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim GameMenuFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim GameMenuFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
-local GameMenuFrame_FocusJumpHint_HoldAnimObject = {}
+---@class CreateChannelPopup_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim CreateChannelPopup_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim CreateChannelPopup_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim CreateChannelPopup_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local CreateChannelPopup_FocusJumpHint_HoldAnimObject = {}
 end
 
 do
----@class GameMenuFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
-local GameMenuFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+---@class CreateChannelPopup_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local CreateChannelPopup_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class GameMenuFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local GameMenuFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+---@class CreateChannelPopup_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local CreateChannelPopup_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class GameMenuFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local GameMenuFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+---@class CreateChannelPopup_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local CreateChannelPopup_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class GameMenuFrame_FocusJumpHint_HoldIndicatorObject : Texture
-local GameMenuFrame_FocusJumpHint_HoldIndicatorObject = {}
+---@class CreateChannelPopup_FocusJumpHint_HoldIndicatorObject : Texture
+local CreateChannelPopup_FocusJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class GameMenuFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
-local GameMenuFrame_FocusJumpHint_HoldIndicatorBGObject = {}
+---@class CreateChannelPopup_FocusJumpHint_HoldIndicatorBGObject : Texture
+local CreateChannelPopup_FocusJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class GameMenuFrame_FocusJumpHint_HoverTextureObject : Texture
-local GameMenuFrame_FocusJumpHint_HoverTextureObject = {}
+---@class CreateChannelPopup_FocusJumpHint_HoverTextureObject : Texture
+local CreateChannelPopup_FocusJumpHint_HoverTextureObject = {}
 end
 
 do
----@class GameMenuFrame_FocusJumpHint_LoadBarObject : Texture
-local GameMenuFrame_FocusJumpHint_LoadBarObject = {}
+---@class CreateChannelPopup_FocusJumpHint_LoadBarObject : Texture
+local CreateChannelPopup_FocusJumpHint_LoadBarObject = {}
 end
 
 do
----@class GameMenuFrame_FocusJumpHint_LoadBarBGObject : Texture
-local GameMenuFrame_FocusJumpHint_LoadBarBGObject = {}
+---@class CreateChannelPopup_FocusJumpHint_LoadBarBGObject : Texture
+local CreateChannelPopup_FocusJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class GameMenuFrame_FocusJumpHint_LoadBarGlowObject : Texture
-local GameMenuFrame_FocusJumpHint_LoadBarGlowObject = {}
+---@class CreateChannelPopup_FocusJumpHint_LoadBarGlowObject : Texture
+local CreateChannelPopup_FocusJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class GameMenuFrame_FocusJumpHint_NormalTextureObject : Texture
-local GameMenuFrame_FocusJumpHint_NormalTextureObject = {}
+---@class CreateChannelPopup_FocusJumpHint_NormalTextureObject : Texture
+local CreateChannelPopup_FocusJumpHint_NormalTextureObject = {}
 end
 
 do
----@class GameMenuFrame_FocusJumpHint_PressedTextureObject : Texture
-local GameMenuFrame_FocusJumpHint_PressedTextureObject = {}
+---@class CreateChannelPopup_FocusJumpHint_PressedTextureObject : Texture
+local CreateChannelPopup_FocusJumpHint_PressedTextureObject = {}
 end
 
 do
----@class GameMenuFrame_FocusJumpHint_SpinnerTipObject : Texture
-local GameMenuFrame_FocusJumpHint_SpinnerTipObject = {}
+---@class CreateChannelPopup_FocusJumpHint_SpinnerTipObject : Texture
+local CreateChannelPopup_FocusJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class GameMenuFrame_FrameGlowObject : Frame
----@field GlowTexture GameMenuFrame_FrameGlow_GlowTextureObject
----@field HeaderGlowTexture GameMenuFrame_FrameGlow_HeaderGlowTextureObject
+---@class CreateChannelPopup_FrameGlowObject : Frame
+---@field GlowTexture CreateChannelPopup_FrameGlow_GlowTextureObject
+---@field HeaderGlowTexture CreateChannelPopup_FrameGlow_HeaderGlowTextureObject
 ---@field glowTextures table
-local GameMenuFrame_FrameGlowObject = {}
+local CreateChannelPopup_FrameGlowObject = {}
 ---@return any ...
-function GameMenuFrame_FrameGlowObject:GetContainerFrame(...) end
+function CreateChannelPopup_FrameGlowObject:GetContainerFrame(...) end
 ---@return any ...
-function GameMenuFrame_FrameGlowObject:GetFrameLayoutType(...) end
+function CreateChannelPopup_FrameGlowObject:GetFrameLayoutType(...) end
 ---@return any ...
-function GameMenuFrame_FrameGlowObject:GetHeaderFrame(...) end
+function CreateChannelPopup_FrameGlowObject:GetHeaderFrame(...) end
 ---@return any ...
-function GameMenuFrame_FrameGlowObject:OnLoad(...) end
+function CreateChannelPopup_FrameGlowObject:OnLoad(...) end
 end
 
 do
----@class GameMenuFrame_FrameGlow_GlowTextureObject : Texture
-local GameMenuFrame_FrameGlow_GlowTextureObject = {}
+---@class CreateChannelPopup_FrameGlow_GlowTextureObject : Texture
+local CreateChannelPopup_FrameGlow_GlowTextureObject = {}
 end
 
 do
----@class GameMenuFrame_FrameGlow_HeaderGlowTextureObject : Texture
-local GameMenuFrame_FrameGlow_HeaderGlowTextureObject = {}
+---@class CreateChannelPopup_FrameGlow_HeaderGlowTextureObject : Texture
+local CreateChannelPopup_FrameGlow_HeaderGlowTextureObject = {}
 end
 
 do
----@class GameMenuFrame_HeaderObject : Frame
----@field CenterBG GameMenuFrame_Header_CenterBGObject
----@field LeftBG GameMenuFrame_Header_LeftBGObject
----@field RightBG GameMenuFrame_Header_RightBGObject
----@field Text GameMenuFrame_Header_TextObject
+---@class CreateChannelPopup_HeaderObject : Frame
+---@field CenterBG CreateChannelPopup_Header_CenterBGObject
+---@field LeftBG CreateChannelPopup_Header_LeftBGObject
+---@field RightBG CreateChannelPopup_Header_RightBGObject
+---@field Text CreateChannelPopup_Header_TextObject
 ---@field headerTextPadding number
----@field ignoreInLayout boolean
 ---@field textString string
-local GameMenuFrame_HeaderObject = {}
+local CreateChannelPopup_HeaderObject = {}
 ---@return any ...
-function GameMenuFrame_HeaderObject:OnLoad(...) end
+function CreateChannelPopup_HeaderObject:OnLoad(...) end
 ---@return any ...
-function GameMenuFrame_HeaderObject:SetHeaderFont(...) end
+function CreateChannelPopup_HeaderObject:SetHeaderFont(...) end
 ---@return any ...
-function GameMenuFrame_HeaderObject:Setup(...) end
+function CreateChannelPopup_HeaderObject:Setup(...) end
 ---@return any ...
-function GameMenuFrame_HeaderObject:UpdateWidth(...) end
+function CreateChannelPopup_HeaderObject:UpdateWidth(...) end
 end
 
 do
----@class GameMenuFrame_Header_CenterBGObject : Texture
-local GameMenuFrame_Header_CenterBGObject = {}
+---@class CreateChannelPopup_Header_CenterBGObject : Texture
+local CreateChannelPopup_Header_CenterBGObject = {}
 end
 
 do
----@class GameMenuFrame_Header_LeftBGObject : Texture
-local GameMenuFrame_Header_LeftBGObject = {}
+---@class CreateChannelPopup_Header_LeftBGObject : Texture
+local CreateChannelPopup_Header_LeftBGObject = {}
 end
 
 do
----@class GameMenuFrame_Header_RightBGObject : Texture
-local GameMenuFrame_Header_RightBGObject = {}
+---@class CreateChannelPopup_Header_RightBGObject : Texture
+local CreateChannelPopup_Header_RightBGObject = {}
 end
 
 do
----@class GameMenuFrame_Header_TextObject : FontString
-local GameMenuFrame_Header_TextObject = {}
+---@class CreateChannelPopup_Header_TextObject : FontString
+local CreateChannelPopup_Header_TextObject = {}
 end
 
 do
----@class GameMenuFrame_LeftJumpHintObject : Frame
----@field ActiveTexture GameMenuFrame_LeftJumpHint_ActiveTextureObject
----@field DisabledTexture GameMenuFrame_LeftJumpHint_DisabledTextureObject
----@field HoldAnim GameMenuFrame_LeftJumpHint_HoldAnimObject
----@field HoldIndicator GameMenuFrame_LeftJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG GameMenuFrame_LeftJumpHint_HoldIndicatorBGObject
----@field HoverTexture GameMenuFrame_LeftJumpHint_HoverTextureObject
----@field LoadBar GameMenuFrame_LeftJumpHint_LoadBarObject
----@field LoadBarBG GameMenuFrame_LeftJumpHint_LoadBarBGObject
----@field LoadBarGlow GameMenuFrame_LeftJumpHint_LoadBarGlowObject
----@field NormalTexture GameMenuFrame_LeftJumpHint_NormalTextureObject
----@field PressedTexture GameMenuFrame_LeftJumpHint_PressedTextureObject
----@field SpinnerTip GameMenuFrame_LeftJumpHint_SpinnerTipObject
+---@class CreateChannelPopup_LeftJumpHintObject : Frame
+---@field ActiveTexture CreateChannelPopup_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture CreateChannelPopup_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim CreateChannelPopup_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator CreateChannelPopup_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG CreateChannelPopup_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture CreateChannelPopup_LeftJumpHint_HoverTextureObject
+---@field LoadBar CreateChannelPopup_LeftJumpHint_LoadBarObject
+---@field LoadBarBG CreateChannelPopup_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow CreateChannelPopup_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture CreateChannelPopup_LeftJumpHint_NormalTextureObject
+---@field PressedTexture CreateChannelPopup_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip CreateChannelPopup_LeftJumpHint_SpinnerTipObject
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
 ---@field textureState number
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local GameMenuFrame_LeftJumpHintObject = {}
+local CreateChannelPopup_LeftJumpHintObject = {}
 ---@return any ...
-function GameMenuFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
+function CreateChannelPopup_LeftJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function GameMenuFrame_LeftJumpHintObject:BeginHold(...) end
+function CreateChannelPopup_LeftJumpHintObject:BeginHold(...) end
 ---@return any ...
-function GameMenuFrame_LeftJumpHintObject:CanEnterTextureState(...) end
+function CreateChannelPopup_LeftJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function GameMenuFrame_LeftJumpHintObject:DisableDropShadow(...) end
+function CreateChannelPopup_LeftJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function GameMenuFrame_LeftJumpHintObject:EnableDropShadow(...) end
+function CreateChannelPopup_LeftJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function GameMenuFrame_LeftJumpHintObject:EndHold(...) end
+function CreateChannelPopup_LeftJumpHintObject:EndHold(...) end
 ---@return any ...
-function GameMenuFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
+function CreateChannelPopup_LeftJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function GameMenuFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
+function CreateChannelPopup_LeftJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function GameMenuFrame_LeftJumpHintObject:OnLoad(...) end
+function CreateChannelPopup_LeftJumpHintObject:OnLoad(...) end
 ---@return any ...
-function GameMenuFrame_LeftJumpHintObject:RefreshIconTextures(...) end
+function CreateChannelPopup_LeftJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function GameMenuFrame_LeftJumpHintObject:SetDisabled(...) end
+function CreateChannelPopup_LeftJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function GameMenuFrame_LeftJumpHintObject:SetEnabled(...) end
+function CreateChannelPopup_LeftJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function GameMenuFrame_LeftJumpHintObject:SetFocused(...) end
+function CreateChannelPopup_LeftJumpHintObject:SetFocused(...) end
 ---@return any ...
-function GameMenuFrame_LeftJumpHintObject:SetHoldState(...) end
+function CreateChannelPopup_LeftJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function GameMenuFrame_LeftJumpHintObject:SetInputKey(...) end
+function CreateChannelPopup_LeftJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function GameMenuFrame_LeftJumpHintObject:SetIsHoldAction(...) end
+function CreateChannelPopup_LeftJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function GameMenuFrame_LeftJumpHintObject:SetPressable(...) end
+function CreateChannelPopup_LeftJumpHintObject:SetPressable(...) end
 ---@return any ...
-function GameMenuFrame_LeftJumpHintObject:SetTextureHeight(...) end
+function CreateChannelPopup_LeftJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function GameMenuFrame_LeftJumpHintObject:SetTextureState(...) end
+function CreateChannelPopup_LeftJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function GameMenuFrame_LeftJumpHintObject:SetTextureWidth(...) end
+function CreateChannelPopup_LeftJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function GameMenuFrame_LeftJumpHintObject:SetUsableState(...) end
+function CreateChannelPopup_LeftJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function GameMenuFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+function CreateChannelPopup_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class GameMenuFrame_LeftJumpHint_ActiveTextureObject : Texture
-local GameMenuFrame_LeftJumpHint_ActiveTextureObject = {}
+---@class CreateChannelPopup_LeftJumpHint_ActiveTextureObject : Texture
+local CreateChannelPopup_LeftJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class GameMenuFrame_LeftJumpHint_DisabledTextureObject : Texture
-local GameMenuFrame_LeftJumpHint_DisabledTextureObject = {}
+---@class CreateChannelPopup_LeftJumpHint_DisabledTextureObject : Texture
+local CreateChannelPopup_LeftJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class GameMenuFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim GameMenuFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim GameMenuFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim GameMenuFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
-local GameMenuFrame_LeftJumpHint_HoldAnimObject = {}
+---@class CreateChannelPopup_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim CreateChannelPopup_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim CreateChannelPopup_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim CreateChannelPopup_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local CreateChannelPopup_LeftJumpHint_HoldAnimObject = {}
 end
 
 do
----@class GameMenuFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
-local GameMenuFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+---@class CreateChannelPopup_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local CreateChannelPopup_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class GameMenuFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local GameMenuFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+---@class CreateChannelPopup_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local CreateChannelPopup_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class GameMenuFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local GameMenuFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+---@class CreateChannelPopup_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local CreateChannelPopup_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class GameMenuFrame_LeftJumpHint_HoldIndicatorObject : Texture
-local GameMenuFrame_LeftJumpHint_HoldIndicatorObject = {}
+---@class CreateChannelPopup_LeftJumpHint_HoldIndicatorObject : Texture
+local CreateChannelPopup_LeftJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class GameMenuFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
-local GameMenuFrame_LeftJumpHint_HoldIndicatorBGObject = {}
+---@class CreateChannelPopup_LeftJumpHint_HoldIndicatorBGObject : Texture
+local CreateChannelPopup_LeftJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class GameMenuFrame_LeftJumpHint_HoverTextureObject : Texture
-local GameMenuFrame_LeftJumpHint_HoverTextureObject = {}
+---@class CreateChannelPopup_LeftJumpHint_HoverTextureObject : Texture
+local CreateChannelPopup_LeftJumpHint_HoverTextureObject = {}
 end
 
 do
----@class GameMenuFrame_LeftJumpHint_LoadBarObject : Texture
-local GameMenuFrame_LeftJumpHint_LoadBarObject = {}
+---@class CreateChannelPopup_LeftJumpHint_LoadBarObject : Texture
+local CreateChannelPopup_LeftJumpHint_LoadBarObject = {}
 end
 
 do
----@class GameMenuFrame_LeftJumpHint_LoadBarBGObject : Texture
-local GameMenuFrame_LeftJumpHint_LoadBarBGObject = {}
+---@class CreateChannelPopup_LeftJumpHint_LoadBarBGObject : Texture
+local CreateChannelPopup_LeftJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class GameMenuFrame_LeftJumpHint_LoadBarGlowObject : Texture
-local GameMenuFrame_LeftJumpHint_LoadBarGlowObject = {}
+---@class CreateChannelPopup_LeftJumpHint_LoadBarGlowObject : Texture
+local CreateChannelPopup_LeftJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class GameMenuFrame_LeftJumpHint_NormalTextureObject : Texture
-local GameMenuFrame_LeftJumpHint_NormalTextureObject = {}
+---@class CreateChannelPopup_LeftJumpHint_NormalTextureObject : Texture
+local CreateChannelPopup_LeftJumpHint_NormalTextureObject = {}
 end
 
 do
----@class GameMenuFrame_LeftJumpHint_PressedTextureObject : Texture
-local GameMenuFrame_LeftJumpHint_PressedTextureObject = {}
+---@class CreateChannelPopup_LeftJumpHint_PressedTextureObject : Texture
+local CreateChannelPopup_LeftJumpHint_PressedTextureObject = {}
 end
 
 do
----@class GameMenuFrame_LeftJumpHint_SpinnerTipObject : Texture
-local GameMenuFrame_LeftJumpHint_SpinnerTipObject = {}
+---@class CreateChannelPopup_LeftJumpHint_SpinnerTipObject : Texture
+local CreateChannelPopup_LeftJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class GameMenuFrame_NewExternalEventFrameObject : Frame
----@field BGLabel GameMenuFrame_NewExternalEventFrame_BGLabelObject
----@field Fade GameMenuFrame_NewExternalEventFrame_FadeObject
----@field Glow GameMenuFrame_NewExternalEventFrame_GlowObject
----@field Label GameMenuFrame_NewExternalEventFrame_LabelObject
----@field animateGlow boolean
----@field justifyH string
----@field label string
-local GameMenuFrame_NewExternalEventFrameObject = {}
+---@class CreateChannelPopup_NameObject : EditBox
+---@field Label CreateChannelPopup_Name_LabelObject
+---@field Left CreateChannelPopup_Name_LeftObject
+---@field Middle CreateChannelPopup_Name_MiddleObject
+---@field Right CreateChannelPopup_Name_RightObject
+local CreateChannelPopup_NameObject = {}
 ---@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:AddLayoutChildren(...) end
+function CreateChannelPopup_NameObject:NarrationGetContext(...) end
 ---@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:ClearAlert(...) end
+function CreateChannelPopup_NameObject:NarrationGetDescription(...) end
 ---@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:ClearFixedSize(...) end
+function CreateChannelPopup_NameObject:NarrationGetName(...) end
 ---@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:GetAdditionalRegions(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:GetChildHeight(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:GetChildSize(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:GetChildWidth(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:GetFixedHeight(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:GetFixedSize(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:GetFixedWidth(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:GetHeightPadding(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:GetLayoutChildren(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:GetMaximumWidth(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:GetMinimumWidth(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:GetTextWidth(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:GetWidthPadding(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:IgnoreLayoutIndex(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:IsDirty(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:IsLayoutFrame(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:Layout(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:MarkClean(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:MarkDirty(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:MarkIgnoreInLayout(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:NewFeatureLabel_OnShow(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:OnCleaned(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:OnHide(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:OnLoad(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:OnShow(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:OnUpdate(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:SetFixedHeight(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:SetFixedSize(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:SetFixedWidth(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:SetHeightPadding(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:SetMaximumWidth(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:SetMinimumWidth(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:SetWidthPadding(...) end
----@return any ...
-function GameMenuFrame_NewExternalEventFrameObject:ShouldClearOnUpdateAfterClean(...) end
+function CreateChannelPopup_NameObject:SetNarrationLabelRegion(...) end
 end
 
 do
----@class GameMenuFrame_NewExternalEventFrame_BGLabelObject : FontString
----@field ignoreInLayout boolean
-local GameMenuFrame_NewExternalEventFrame_BGLabelObject = {}
+---@class CreateChannelPopup_Name_LabelObject : FontString
+local CreateChannelPopup_Name_LabelObject = {}
 end
 
 do
----@class GameMenuFrame_NewExternalEventFrame_FadeObject : AnimationGroup
-local GameMenuFrame_NewExternalEventFrame_FadeObject = {}
+---@class CreateChannelPopup_Name_LeftObject : Texture
+local CreateChannelPopup_Name_LeftObject = {}
 end
 
 do
----@class GameMenuFrame_NewExternalEventFrame_GlowObject : Texture
-local GameMenuFrame_NewExternalEventFrame_GlowObject = {}
+---@class CreateChannelPopup_Name_MiddleObject : Texture
+local CreateChannelPopup_Name_MiddleObject = {}
 end
 
 do
----@class GameMenuFrame_NewExternalEventFrame_LabelObject : FontString
-local GameMenuFrame_NewExternalEventFrame_LabelObject = {}
+---@class CreateChannelPopup_Name_RightObject : Texture
+local CreateChannelPopup_Name_RightObject = {}
 end
 
 do
----@class GameMenuFrame_NewOptionsFrameObject : Frame
----@field BGLabel GameMenuFrame_NewOptionsFrame_BGLabelObject
----@field Fade GameMenuFrame_NewOptionsFrame_FadeObject
----@field Glow GameMenuFrame_NewOptionsFrame_GlowObject
----@field Label GameMenuFrame_NewOptionsFrame_LabelObject
----@field animateGlow boolean
----@field justifyH string
----@field label string
-local GameMenuFrame_NewOptionsFrameObject = {}
+---@class CreateChannelPopup_OKButtonObject : Button
+---@field Left CreateChannelPopup_OKButton_LeftObject
+---@field Middle CreateChannelPopup_OKButton_MiddleObject
+---@field Right CreateChannelPopup_OKButton_RightObject
+---@field Text CreateChannelPopup_OKButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CreateChannelPopup_OKButtonObject = {}
 ---@return any ...
-function GameMenuFrame_NewOptionsFrameObject:AddLayoutChildren(...) end
+function CreateChannelPopup_OKButtonObject:FitToText(...) end
 ---@return any ...
-function GameMenuFrame_NewOptionsFrameObject:ClearAlert(...) end
+function CreateChannelPopup_OKButtonObject:GetDisabledTooltip(...) end
 ---@return any ...
-function GameMenuFrame_NewOptionsFrameObject:ClearFixedSize(...) end
+function CreateChannelPopup_OKButtonObject:OnEnter(...) end
 ---@return any ...
-function GameMenuFrame_NewOptionsFrameObject:GetAdditionalRegions(...) end
+function CreateChannelPopup_OKButtonObject:OnLeave(...) end
 ---@return any ...
-function GameMenuFrame_NewOptionsFrameObject:GetChildHeight(...) end
+function CreateChannelPopup_OKButtonObject:SetDisabledState(...) end
 ---@return any ...
-function GameMenuFrame_NewOptionsFrameObject:GetChildSize(...) end
+function CreateChannelPopup_OKButtonObject:SetDisabledTooltip(...) end
 ---@return any ...
-function GameMenuFrame_NewOptionsFrameObject:GetChildWidth(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:GetFixedHeight(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:GetFixedSize(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:GetFixedWidth(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:GetHeightPadding(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:GetLayoutChildren(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:GetMaximumWidth(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:GetMinimumWidth(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:GetTextWidth(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:GetWidthPadding(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:IgnoreLayoutIndex(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:IsDirty(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:IsLayoutFrame(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:Layout(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:MarkClean(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:MarkDirty(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:MarkIgnoreInLayout(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:NewFeatureLabel_OnShow(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:OnCleaned(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:OnHide(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:OnLoad(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:OnShow(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:OnUpdate(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:SetFixedHeight(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:SetFixedSize(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:SetFixedWidth(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:SetHeightPadding(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:SetMaximumWidth(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:SetMinimumWidth(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:SetWidthPadding(...) end
----@return any ...
-function GameMenuFrame_NewOptionsFrameObject:ShouldClearOnUpdateAfterClean(...) end
+function CreateChannelPopup_OKButtonObject:SetTextToFit(...) end
 end
 
 do
----@class GameMenuFrame_NewOptionsFrame_BGLabelObject : FontString
----@field ignoreInLayout boolean
-local GameMenuFrame_NewOptionsFrame_BGLabelObject = {}
+---@class CreateChannelPopup_OKButton_LeftObject : Texture
+local CreateChannelPopup_OKButton_LeftObject = {}
 end
 
 do
----@class GameMenuFrame_NewOptionsFrame_FadeObject : AnimationGroup
-local GameMenuFrame_NewOptionsFrame_FadeObject = {}
+---@class CreateChannelPopup_OKButton_MiddleObject : Texture
+local CreateChannelPopup_OKButton_MiddleObject = {}
 end
 
 do
----@class GameMenuFrame_NewOptionsFrame_GlowObject : Texture
-local GameMenuFrame_NewOptionsFrame_GlowObject = {}
+---@class CreateChannelPopup_OKButton_RightObject : Texture
+local CreateChannelPopup_OKButton_RightObject = {}
 end
 
 do
----@class GameMenuFrame_NewOptionsFrame_LabelObject : FontString
-local GameMenuFrame_NewOptionsFrame_LabelObject = {}
+---@class CreateChannelPopup_OKButton_TextObject : FontString
+local CreateChannelPopup_OKButton_TextObject = {}
 end
 
 do
----@class GameMenuFrame_RightJumpHintObject : Frame
----@field ActiveTexture GameMenuFrame_RightJumpHint_ActiveTextureObject
----@field DisabledTexture GameMenuFrame_RightJumpHint_DisabledTextureObject
----@field HoldAnim GameMenuFrame_RightJumpHint_HoldAnimObject
----@field HoldIndicator GameMenuFrame_RightJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG GameMenuFrame_RightJumpHint_HoldIndicatorBGObject
----@field HoverTexture GameMenuFrame_RightJumpHint_HoverTextureObject
----@field LoadBar GameMenuFrame_RightJumpHint_LoadBarObject
----@field LoadBarBG GameMenuFrame_RightJumpHint_LoadBarBGObject
----@field LoadBarGlow GameMenuFrame_RightJumpHint_LoadBarGlowObject
----@field NormalTexture GameMenuFrame_RightJumpHint_NormalTextureObject
----@field PressedTexture GameMenuFrame_RightJumpHint_PressedTextureObject
----@field SpinnerTip GameMenuFrame_RightJumpHint_SpinnerTipObject
+---@class CreateChannelPopup_PasswordObject : EditBox
+---@field Label CreateChannelPopup_Password_LabelObject
+---@field Left CreateChannelPopup_Password_LeftObject
+---@field Middle CreateChannelPopup_Password_MiddleObject
+---@field Right CreateChannelPopup_Password_RightObject
+local CreateChannelPopup_PasswordObject = {}
+---@return any ...
+function CreateChannelPopup_PasswordObject:NarrationGetContext(...) end
+---@return any ...
+function CreateChannelPopup_PasswordObject:NarrationGetDescription(...) end
+---@return any ...
+function CreateChannelPopup_PasswordObject:NarrationGetName(...) end
+---@return any ...
+function CreateChannelPopup_PasswordObject:SetNarrationLabelRegion(...) end
+end
+
+do
+---@class CreateChannelPopup_Password_LabelObject : FontString
+local CreateChannelPopup_Password_LabelObject = {}
+end
+
+do
+---@class CreateChannelPopup_Password_LeftObject : Texture
+local CreateChannelPopup_Password_LeftObject = {}
+end
+
+do
+---@class CreateChannelPopup_Password_MiddleObject : Texture
+local CreateChannelPopup_Password_MiddleObject = {}
+end
+
+do
+---@class CreateChannelPopup_Password_RightObject : Texture
+local CreateChannelPopup_Password_RightObject = {}
+end
+
+do
+---@class CreateChannelPopup_RightJumpHintObject : Frame
+---@field ActiveTexture CreateChannelPopup_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture CreateChannelPopup_RightJumpHint_DisabledTextureObject
+---@field HoldAnim CreateChannelPopup_RightJumpHint_HoldAnimObject
+---@field HoldIndicator CreateChannelPopup_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG CreateChannelPopup_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture CreateChannelPopup_RightJumpHint_HoverTextureObject
+---@field LoadBar CreateChannelPopup_RightJumpHint_LoadBarObject
+---@field LoadBarBG CreateChannelPopup_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow CreateChannelPopup_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture CreateChannelPopup_RightJumpHint_NormalTextureObject
+---@field PressedTexture CreateChannelPopup_RightJumpHint_PressedTextureObject
+---@field SpinnerTip CreateChannelPopup_RightJumpHint_SpinnerTipObject
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
 ---@field textureState number
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local GameMenuFrame_RightJumpHintObject = {}
+local CreateChannelPopup_RightJumpHintObject = {}
 ---@return any ...
-function GameMenuFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+function CreateChannelPopup_RightJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function GameMenuFrame_RightJumpHintObject:BeginHold(...) end
+function CreateChannelPopup_RightJumpHintObject:BeginHold(...) end
 ---@return any ...
-function GameMenuFrame_RightJumpHintObject:CanEnterTextureState(...) end
+function CreateChannelPopup_RightJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function GameMenuFrame_RightJumpHintObject:DisableDropShadow(...) end
+function CreateChannelPopup_RightJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function GameMenuFrame_RightJumpHintObject:EnableDropShadow(...) end
+function CreateChannelPopup_RightJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function GameMenuFrame_RightJumpHintObject:EndHold(...) end
+function CreateChannelPopup_RightJumpHintObject:EndHold(...) end
 ---@return any ...
-function GameMenuFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+function CreateChannelPopup_RightJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function GameMenuFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+function CreateChannelPopup_RightJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function GameMenuFrame_RightJumpHintObject:OnLoad(...) end
+function CreateChannelPopup_RightJumpHintObject:OnLoad(...) end
 ---@return any ...
-function GameMenuFrame_RightJumpHintObject:RefreshIconTextures(...) end
+function CreateChannelPopup_RightJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function GameMenuFrame_RightJumpHintObject:SetDisabled(...) end
+function CreateChannelPopup_RightJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function GameMenuFrame_RightJumpHintObject:SetEnabled(...) end
+function CreateChannelPopup_RightJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function GameMenuFrame_RightJumpHintObject:SetFocused(...) end
+function CreateChannelPopup_RightJumpHintObject:SetFocused(...) end
 ---@return any ...
-function GameMenuFrame_RightJumpHintObject:SetHoldState(...) end
+function CreateChannelPopup_RightJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function GameMenuFrame_RightJumpHintObject:SetInputKey(...) end
+function CreateChannelPopup_RightJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function GameMenuFrame_RightJumpHintObject:SetIsHoldAction(...) end
+function CreateChannelPopup_RightJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function GameMenuFrame_RightJumpHintObject:SetPressable(...) end
+function CreateChannelPopup_RightJumpHintObject:SetPressable(...) end
 ---@return any ...
-function GameMenuFrame_RightJumpHintObject:SetTextureHeight(...) end
+function CreateChannelPopup_RightJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function GameMenuFrame_RightJumpHintObject:SetTextureState(...) end
+function CreateChannelPopup_RightJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function GameMenuFrame_RightJumpHintObject:SetTextureWidth(...) end
+function CreateChannelPopup_RightJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function GameMenuFrame_RightJumpHintObject:SetUsableState(...) end
+function CreateChannelPopup_RightJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function GameMenuFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+function CreateChannelPopup_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class GameMenuFrame_RightJumpHint_ActiveTextureObject : Texture
-local GameMenuFrame_RightJumpHint_ActiveTextureObject = {}
+---@class CreateChannelPopup_RightJumpHint_ActiveTextureObject : Texture
+local CreateChannelPopup_RightJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class GameMenuFrame_RightJumpHint_DisabledTextureObject : Texture
-local GameMenuFrame_RightJumpHint_DisabledTextureObject = {}
+---@class CreateChannelPopup_RightJumpHint_DisabledTextureObject : Texture
+local CreateChannelPopup_RightJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class GameMenuFrame_RightJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim GameMenuFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim GameMenuFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim GameMenuFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
-local GameMenuFrame_RightJumpHint_HoldAnimObject = {}
+---@class CreateChannelPopup_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim CreateChannelPopup_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim CreateChannelPopup_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim CreateChannelPopup_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local CreateChannelPopup_RightJumpHint_HoldAnimObject = {}
 end
 
 do
----@class GameMenuFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
-local GameMenuFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+---@class CreateChannelPopup_RightJumpHint_HoldAnim_LoadBarAnimObject
+local CreateChannelPopup_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class GameMenuFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local GameMenuFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+---@class CreateChannelPopup_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local CreateChannelPopup_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class GameMenuFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local GameMenuFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+---@class CreateChannelPopup_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local CreateChannelPopup_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class GameMenuFrame_RightJumpHint_HoldIndicatorObject : Texture
-local GameMenuFrame_RightJumpHint_HoldIndicatorObject = {}
+---@class CreateChannelPopup_RightJumpHint_HoldIndicatorObject : Texture
+local CreateChannelPopup_RightJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class GameMenuFrame_RightJumpHint_HoldIndicatorBGObject : Texture
-local GameMenuFrame_RightJumpHint_HoldIndicatorBGObject = {}
+---@class CreateChannelPopup_RightJumpHint_HoldIndicatorBGObject : Texture
+local CreateChannelPopup_RightJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class GameMenuFrame_RightJumpHint_HoverTextureObject : Texture
-local GameMenuFrame_RightJumpHint_HoverTextureObject = {}
+---@class CreateChannelPopup_RightJumpHint_HoverTextureObject : Texture
+local CreateChannelPopup_RightJumpHint_HoverTextureObject = {}
 end
 
 do
----@class GameMenuFrame_RightJumpHint_LoadBarObject : Texture
-local GameMenuFrame_RightJumpHint_LoadBarObject = {}
+---@class CreateChannelPopup_RightJumpHint_LoadBarObject : Texture
+local CreateChannelPopup_RightJumpHint_LoadBarObject = {}
 end
 
 do
----@class GameMenuFrame_RightJumpHint_LoadBarBGObject : Texture
-local GameMenuFrame_RightJumpHint_LoadBarBGObject = {}
+---@class CreateChannelPopup_RightJumpHint_LoadBarBGObject : Texture
+local CreateChannelPopup_RightJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class GameMenuFrame_RightJumpHint_LoadBarGlowObject : Texture
-local GameMenuFrame_RightJumpHint_LoadBarGlowObject = {}
+---@class CreateChannelPopup_RightJumpHint_LoadBarGlowObject : Texture
+local CreateChannelPopup_RightJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class GameMenuFrame_RightJumpHint_NormalTextureObject : Texture
-local GameMenuFrame_RightJumpHint_NormalTextureObject = {}
+---@class CreateChannelPopup_RightJumpHint_NormalTextureObject : Texture
+local CreateChannelPopup_RightJumpHint_NormalTextureObject = {}
 end
 
 do
----@class GameMenuFrame_RightJumpHint_PressedTextureObject : Texture
-local GameMenuFrame_RightJumpHint_PressedTextureObject = {}
+---@class CreateChannelPopup_RightJumpHint_PressedTextureObject : Texture
+local CreateChannelPopup_RightJumpHint_PressedTextureObject = {}
 end
 
 do
----@class GameMenuFrame_RightJumpHint_SpinnerTipObject : Texture
-local GameMenuFrame_RightJumpHint_SpinnerTipObject = {}
+---@class CreateChannelPopup_RightJumpHint_SpinnerTipObject : Texture
+local CreateChannelPopup_RightJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class GameMenuFrame_buttonPoolObject
-local GameMenuFrame_buttonPoolObject = {}
+---@class CreateChannelPopup_UseVoiceChatObject : CheckButton
+---@field Text CreateChannelPopup_UseVoiceChat_TextObject
+---@field text CreateChannelPopup_UseVoiceChat_textObject
+local CreateChannelPopup_UseVoiceChatObject = {}
+end
+
+do
+---@class CreateChannelPopup_UseVoiceChat_TextObject : FontString
+local CreateChannelPopup_UseVoiceChat_TextObject = {}
+end
+
+do
+---@class CreateChannelPopup_UseVoiceChat_textObject
+local CreateChannelPopup_UseVoiceChat_textObject = {}
+end
+
+do
+---@class CreateChannelPopup_tabGroupObject
+---@field frames table
+---@field isTabGroup boolean
+local CreateChannelPopup_tabGroupObject = {}
 ---@return any ...
-function GameMenuFrame_buttonPoolObject:GetTemplate(...) end
+function CreateChannelPopup_tabGroupObject:AddFrame(...) end
 ---@return any ...
-function GameMenuFrame_buttonPoolObject:private(...) end
+function CreateChannelPopup_tabGroupObject:DiscoverFocusIndex(...) end
+---@return any ...
+function CreateChannelPopup_tabGroupObject:GetFocusIndex(...) end
+---@return any ...
+function CreateChannelPopup_tabGroupObject:HasFocus(...) end
+---@return any ...
+function CreateChannelPopup_tabGroupObject:IsValidFocusIndex(...) end
+---@return any ...
+function CreateChannelPopup_tabGroupObject:OnLoad(...) end
+---@return any ...
+function CreateChannelPopup_tabGroupObject:OnTabPressed(...) end
+---@return any ...
+function CreateChannelPopup_tabGroupObject:SetFocus(...) end
+---@return any ...
+function CreateChannelPopup_tabGroupObject:WrapFocusIndex(...) end
 end
 
 do
----@class GameNoHeaderTooltipObject : GameTooltip
----@field BottomOverlay GameNoHeaderTooltip_BottomOverlayObject
----@field NineSlice GameNoHeaderTooltip_NineSliceObject
----@field StatusBar GameNoHeaderTooltip_StatusBarObject
----@field TextLeft1 GameNoHeaderTooltip_TextLeft1Object
----@field TextLeft2 GameNoHeaderTooltip_TextLeft2Object
----@field TextRight1 GameNoHeaderTooltip_TextRight1Object
----@field TextRight2 GameNoHeaderTooltip_TextRight2Object
----@field TopOverlay GameNoHeaderTooltip_TopOverlayObject
+---@class CurrencyTransferMenuObject : Frame
+---@field AnimationHolder CurrencyTransferMenu_AnimationHolderObject
+---@field Background CurrencyTransferMenu_BackgroundObject
+---@field Bg CurrencyTransferMenu_BgObject
+---@field CelebrationBackgroundFlash CurrencyTransferMenu_CelebrationBackgroundFlashObject
+---@field CloseButton CurrencyTransferMenu_CloseButtonObject
+---@field Content CurrencyTransferMenu_ContentObject
+---@field Event CurrencyTransferMenu_EventObject
+---@field FocusJumpHint CurrencyTransferMenu_FocusJumpHintObject
+---@field FrameGlow CurrencyTransferMenu_FrameGlowObject
+---@field Inset CurrencyTransferMenu_InsetObject
+---@field LeftJumpHint CurrencyTransferMenu_LeftJumpHintObject
+---@field NineSlice CurrencyTransferMenu_NineSliceObject
+---@field PortraitContainer CurrencyTransferMenu_PortraitContainerObject
+---@field RightJumpHint CurrencyTransferMenu_RightJumpHintObject
+---@field TitleContainer CurrencyTransferMenu_TitleContainerObject
+---@field TopTileStreaks CurrencyTransferMenu_TopTileStreaksObject
+---@field TransferringSpinner CurrencyTransferMenu_TransferringSpinnerObject
+---@field callbackRegistrantHandlers table
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
 ---@field layoutType string
----@field supportsDataRefresh boolean
----@field textLeft1Font string
----@field textLeft2Font string
----@field textRight1Font string
----@field textRight2Font string
----@field updateTooltipTimer number
-local GameNoHeaderTooltipObject = {}
+---@field staticCallbackRegistrantHandlers table
+local CurrencyTransferMenuObject = {}
 ---@return any ...
-function GameNoHeaderTooltipObject:AddLineDataText(...) end
+function CurrencyTransferMenuObject:AddDynamicEventMethod(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:AppendInfo(...) end
+function CurrencyTransferMenuObject:AddEventMethodInternal(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:AppendInfoWithSpacer(...) end
+function CurrencyTransferMenuObject:AddStaticEventMethod(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:ClearHandlerInfo(...) end
+function CurrencyTransferMenuObject:CalculateEarnableCurrencyLimit(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:GetItem(...) end
+function CurrencyTransferMenuObject:CheckPlayTransferringSpinner(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:GetPrimaryTooltipData(...) end
+function CurrencyTransferMenuObject:ClearTransferData(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:GetPrimaryTooltipInfo(...) end
+function CurrencyTransferMenuObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:GetProcessingTooltipInfo(...) end
+function CurrencyTransferMenuObject:CreateEventRegistrationInfo(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:GetSpell(...) end
+function CurrencyTransferMenuObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:GetTooltipData(...) end
+function CurrencyTransferMenuObject:EndFocus(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:GetUnit(...) end
+function CurrencyTransferMenuObject:FullRefresh(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:HasDataInstanceID(...) end
+function CurrencyTransferMenuObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:InternalProcessInfo(...) end
+function CurrencyTransferMenuObject:GetCallbackTable(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:IsTooltipType(...) end
+function CurrencyTransferMenuObject:GetCallbackTables(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:OnEvent(...) end
+function CurrencyTransferMenuObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:OnLoad(...) end
+function CurrencyTransferMenuObject:GetCurrencyID(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:ProcessInfo(...) end
+function CurrencyTransferMenuObject:GetCurrencyIcon(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:ProcessLineData(...) end
+function CurrencyTransferMenuObject:GetCurrencyInfo(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:ProcessLines(...) end
+function CurrencyTransferMenuObject:GetCurrencyTransferLoss(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:RebuildFromTooltipInfo(...) end
+function CurrencyTransferMenuObject:GetDynamicCallbackRegistrantHandlers(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:RefreshData(...) end
+function CurrencyTransferMenuObject:GetFocusFrameGlow(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:RefreshDataNextUpdate(...) end
+function CurrencyTransferMenuObject:GetFocusFrameRoot(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetAchievementByID(...) end
+function CurrencyTransferMenuObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetAction(...) end
+function CurrencyTransferMenuObject:GetPlayerCurrencyQuantity(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetArtifactItem(...) end
+function CurrencyTransferMenuObject:GetPortrait(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetArtifactPowerByID(...) end
+function CurrencyTransferMenuObject:GetRequestedCurrencyTransferAmount(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetAzeriteEssence(...) end
+function CurrencyTransferMenuObject:GetSourceCharacterCurrencyQuantity(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetAzeriteEssenceSlot(...) end
+function CurrencyTransferMenuObject:GetSourceCharacterData(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetAzeritePower(...) end
+function CurrencyTransferMenuObject:GetSourceCharacterName(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetBackpackToken(...) end
+function CurrencyTransferMenuObject:GetStaticCallbackRegistrantHandlers(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetBagItem(...) end
+function CurrencyTransferMenuObject:GetTitleText(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetBagItemChild(...) end
+function CurrencyTransferMenuObject:GetTotalCurrencyTransferCost(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetBuybackItem(...) end
+function CurrencyTransferMenuObject:HasPortraitTexture(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetCompanionPet(...) end
+function CurrencyTransferMenuObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetConduit(...) end
+function CurrencyTransferMenuObject:HideFocusJumpHint(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetCurrencyByID(...) end
+function CurrencyTransferMenuObject:HideLeftJumpHint(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetCurrencyToken(...) end
+function CurrencyTransferMenuObject:HideRightJumpHint(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetEnhancedConduit(...) end
+function CurrencyTransferMenuObject:InitializeFrameVisuals(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetEquipmentSet(...) end
+function CurrencyTransferMenuObject:LockInFocus(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetExistingSocketGem(...) end
+function CurrencyTransferMenuObject:OnCurrencyTransferAmountUpdated(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetGuildBankItem(...) end
+function CurrencyTransferMenuObject:OnCurrencyTransferRequested(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetHeirloomByItemID(...) end
+function CurrencyTransferMenuObject:OnCurrencyTransferSourceSelected(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetHyperlink(...) end
+function CurrencyTransferMenuObject:OnEvent(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetInboxItem(...) end
+function CurrencyTransferMenuObject:OnHide(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetInfoBackdropStyle(...) end
+function CurrencyTransferMenuObject:OnLoad(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetInstanceLockEncountersComplete(...) end
+function CurrencyTransferMenuObject:OnShow(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetInventoryItem(...) end
+function CurrencyTransferMenuObject:PlayTransferCelebration(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetInventoryItemByID(...) end
+function CurrencyTransferMenuObject:QueueTransferringSpinner(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetItemByGUID(...) end
+function CurrencyTransferMenuObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetItemByID(...) end
+function CurrencyTransferMenuObject:RefreshCurrencyInfo(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetItemByItemModifiedAppearanceID(...) end
+function CurrencyTransferMenuObject:RefreshFocus(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetItemInteractionItem(...) end
+function CurrencyTransferMenuObject:RefreshMenuTitle(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetItemKey(...) end
+function CurrencyTransferMenuObject:RefreshPlayerBalancePreview(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetLFGDungeonReward(...) end
+function CurrencyTransferMenuObject:RefreshSourceCharacterBalancePreview(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetLFGDungeonShortageReward(...) end
+function CurrencyTransferMenuObject:RegisterCallback(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetLootCurrency(...) end
+function CurrencyTransferMenuObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetLootItem(...) end
+function CurrencyTransferMenuObject:RegisterFromRegistrationInfo(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetLootRollItem(...) end
+function CurrencyTransferMenuObject:RemoveStaticEventMethod(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetMerchantCostItem(...) end
+function CurrencyTransferMenuObject:ResetCurrencyAmountSelector(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetMerchantItem(...) end
+function CurrencyTransferMenuObject:SecureInsertEvent(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetMinimapMouseover(...) end
+function CurrencyTransferMenuObject:SetBorder(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetMountBySpellID(...) end
+function CurrencyTransferMenuObject:SetCurrency(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetOutfit(...) end
+function CurrencyTransferMenuObject:SetFrameLevelsFromBaseLevel(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetOwnedItemByID(...) end
+function CurrencyTransferMenuObject:SetPortraitAtlasRaw(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetPetAction(...) end
+function CurrencyTransferMenuObject:SetPortraitShown(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetPossession(...) end
+function CurrencyTransferMenuObject:SetPortraitTexCoord(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetPvpBrawl(...) end
+function CurrencyTransferMenuObject:SetPortraitTextureRaw(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetPvpTalent(...) end
+function CurrencyTransferMenuObject:SetPortraitTextureSizeAndOffset(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetQuestCurrency(...) end
+function CurrencyTransferMenuObject:SetPortraitToAsset(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetQuestItem(...) end
+function CurrencyTransferMenuObject:SetPortraitToBag(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetQuestLogCurrency(...) end
+function CurrencyTransferMenuObject:SetPortraitToClassIcon(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetQuestLogItem(...) end
+function CurrencyTransferMenuObject:SetPortraitToSpecIcon(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetQuestLogSpecialItem(...) end
+function CurrencyTransferMenuObject:SetPortraitToUnit(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetQuestPartyProgress(...) end
+function CurrencyTransferMenuObject:SetTitle(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetRecipeRankInfo(...) end
+function CurrencyTransferMenuObject:SetTitleColor(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetRecipeReagentItem(...) end
+function CurrencyTransferMenuObject:SetTitleFormatted(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetRecipeResultItem(...) end
+function CurrencyTransferMenuObject:SetTitleMaxLinesAndHeight(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetRecipeResultItemForOrder(...) end
+function CurrencyTransferMenuObject:SetTitleOffsets(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetRuneforgeResultItem(...) end
+function CurrencyTransferMenuObject:SetTransferringSpinnerShown(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetSendMailItem(...) end
+function CurrencyTransferMenuObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetShapeshift(...) end
+function CurrencyTransferMenuObject:ShowFocusJumpHint(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetSlottedKeystone(...) end
+function CurrencyTransferMenuObject:ShowLeftJumpHint(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetSocketGem(...) end
+function CurrencyTransferMenuObject:ShowRightJumpHint(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetSocketedItem(...) end
+function CurrencyTransferMenuObject:StartFocus(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetSocketedRelic(...) end
+function CurrencyTransferMenuObject:StopTransferCelebration(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetSpellBookItem(...) end
+function CurrencyTransferMenuObject:TriggerEvent(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetSpellByID(...) end
+function CurrencyTransferMenuObject:UnregisterAllEventMethods(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetTalent(...) end
+function CurrencyTransferMenuObject:UnregisterAllInternal(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetTotem(...) end
+function CurrencyTransferMenuObject:UnregisterCallback(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetToyByItemID(...) end
+function CurrencyTransferMenuObject:UnregisterEvents(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetTradePlayerItem(...) end
+function CurrencyTransferMenuObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function GameNoHeaderTooltipObject:SetTradeTargetItem(...) end
----@return any ...
-function GameNoHeaderTooltipObject:SetTrainerService(...) end
----@return any ...
-function GameNoHeaderTooltipObject:SetTraitEntry(...) end
----@return any ...
-function GameNoHeaderTooltipObject:SetUnit(...) end
----@return any ...
-function GameNoHeaderTooltipObject:SetUnitAura(...) end
----@return any ...
-function GameNoHeaderTooltipObject:SetUnitAuraByAuraInstanceID(...) end
----@return any ...
-function GameNoHeaderTooltipObject:SetUnitBuff(...) end
----@return any ...
-function GameNoHeaderTooltipObject:SetUnitBuffByAuraInstanceID(...) end
----@return any ...
-function GameNoHeaderTooltipObject:SetUnitDebuff(...) end
----@return any ...
-function GameNoHeaderTooltipObject:SetUnitDebuffByAuraInstanceID(...) end
----@return any ...
-function GameNoHeaderTooltipObject:SetUpgradeItem(...) end
----@return any ...
-function GameNoHeaderTooltipObject:SetWeeklyReward(...) end
----@return any ...
-function GameNoHeaderTooltipObject:SetWorldCursor(...) end
----@return any ...
-function GameNoHeaderTooltipObject:SetWorldLootObject(...) end
----@type GameNoHeaderTooltipObject
-GameNoHeaderTooltip = GameNoHeaderTooltipObject
+function CurrencyTransferMenuObject:UnregisterFromRegistrationInfo(...) end
+---@type CurrencyTransferMenuObject
+CurrencyTransferMenu = CurrencyTransferMenuObject
 end
 
 do
----@class GameNoHeaderTooltip_BottomOverlayObject : Texture
-local GameNoHeaderTooltip_BottomOverlayObject = {}
+---@class CurrencyTransferMenu_AnimationHolderObject : Frame
+---@field TransferCelebration CurrencyTransferMenu_AnimationHolder_TransferCelebrationObject
+local CurrencyTransferMenu_AnimationHolderObject = {}
 end
 
 do
----@class GameNoHeaderTooltip_NineSliceObject : Frame
----@field BottomEdge GameNoHeaderTooltip_NineSlice_BottomEdgeObject
----@field BottomLeftCorner GameNoHeaderTooltip_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner GameNoHeaderTooltip_NineSlice_BottomRightCornerObject
----@field Center GameNoHeaderTooltip_NineSlice_CenterObject
----@field LeftEdge GameNoHeaderTooltip_NineSlice_LeftEdgeObject
----@field RightEdge GameNoHeaderTooltip_NineSlice_RightEdgeObject
----@field TopEdge GameNoHeaderTooltip_NineSlice_TopEdgeObject
----@field TopLeftCorner GameNoHeaderTooltip_NineSlice_TopLeftCornerObject
----@field TopRightCorner GameNoHeaderTooltip_NineSlice_TopRightCornerObject
-local GameNoHeaderTooltip_NineSliceObject = {}
----@return any ...
-function GameNoHeaderTooltip_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function GameNoHeaderTooltip_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function GameNoHeaderTooltip_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function GameNoHeaderTooltip_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function GameNoHeaderTooltip_NineSliceObject:OnLoad(...) end
----@return any ...
-function GameNoHeaderTooltip_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function GameNoHeaderTooltip_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function GameNoHeaderTooltip_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function GameNoHeaderTooltip_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function GameNoHeaderTooltip_NineSliceObject:SetVertexColor(...) end
+---@class CurrencyTransferMenu_AnimationHolder_TransferCelebrationObject : AnimationGroup
+local CurrencyTransferMenu_AnimationHolder_TransferCelebrationObject = {}
 end
 
 do
----@class GameNoHeaderTooltip_NineSlice_BottomEdgeObject : Texture
-local GameNoHeaderTooltip_NineSlice_BottomEdgeObject = {}
+---@class CurrencyTransferMenu_BackgroundObject : Texture
+local CurrencyTransferMenu_BackgroundObject = {}
 end
 
 do
----@class GameNoHeaderTooltip_NineSlice_BottomLeftCornerObject : Texture
-local GameNoHeaderTooltip_NineSlice_BottomLeftCornerObject = {}
+---@class CurrencyTransferMenu_BgObject : Texture
+local CurrencyTransferMenu_BgObject = {}
 end
 
 do
----@class GameNoHeaderTooltip_NineSlice_BottomRightCornerObject : Texture
-local GameNoHeaderTooltip_NineSlice_BottomRightCornerObject = {}
+---@class CurrencyTransferMenu_CelebrationBackgroundFlashObject : Texture
+local CurrencyTransferMenu_CelebrationBackgroundFlashObject = {}
 end
 
 do
----@class GameNoHeaderTooltip_NineSlice_CenterObject : Texture
-local GameNoHeaderTooltip_NineSlice_CenterObject = {}
-end
-
-do
----@class GameNoHeaderTooltip_NineSlice_LeftEdgeObject : Texture
-local GameNoHeaderTooltip_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class GameNoHeaderTooltip_NineSlice_RightEdgeObject : Texture
-local GameNoHeaderTooltip_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class GameNoHeaderTooltip_NineSlice_TopEdgeObject : Texture
-local GameNoHeaderTooltip_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class GameNoHeaderTooltip_NineSlice_TopLeftCornerObject : Texture
-local GameNoHeaderTooltip_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class GameNoHeaderTooltip_NineSlice_TopRightCornerObject : Texture
-local GameNoHeaderTooltip_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class GameNoHeaderTooltip_StatusBarObject : StatusBar
-local GameNoHeaderTooltip_StatusBarObject = {}
+---@class CurrencyTransferMenu_CloseButtonObject : Button
+local CurrencyTransferMenu_CloseButtonObject = {}
 ---@return any ...
-function GameNoHeaderTooltip_StatusBarObject:ClearWatch(...) end
+function CurrencyTransferMenu_CloseButtonObject:NarrationGetName(...) end
 ---@return any ...
-function GameNoHeaderTooltip_StatusBarObject:OnLoad(...) end
----@return any ...
-function GameNoHeaderTooltip_StatusBarObject:OnUpdate(...) end
----@return any ...
-function GameNoHeaderTooltip_StatusBarObject:ResetUnitHealth(...) end
----@return any ...
-function GameNoHeaderTooltip_StatusBarObject:SetWatch(...) end
----@return any ...
-function GameNoHeaderTooltip_StatusBarObject:StopUpdates(...) end
----@return any ...
-function GameNoHeaderTooltip_StatusBarObject:UpdateUnitHealth(...) end
+function CurrencyTransferMenu_CloseButtonObject:OnLoad(...) end
 end
 
 do
----@class GameNoHeaderTooltip_TextLeft1Object : FontString
-local GameNoHeaderTooltip_TextLeft1Object = {}
+---@class CurrencyTransferMenu_ContentObject : Frame
+---@field AmountSelector CurrencyTransferMenu_Content_AmountSelectorObject
+---@field CancelButton CurrencyTransferMenu_Content_CancelButtonObject
+---@field ConfirmButton CurrencyTransferMenu_Content_ConfirmButtonObject
+---@field PlayerBalancePreview CurrencyTransferMenu_Content_PlayerBalancePreviewObject
+---@field SourceBalancePreview CurrencyTransferMenu_Content_SourceBalancePreviewObject
+---@field SourceSelector CurrencyTransferMenu_Content_SourceSelectorObject
+---@field TransactionDivider CurrencyTransferMenu_Content_TransactionDividerObject
+local CurrencyTransferMenu_ContentObject = {}
 end
 
 do
----@class GameNoHeaderTooltip_TextLeft2Object : FontString
-local GameNoHeaderTooltip_TextLeft2Object = {}
+---@class CurrencyTransferMenu_Content_AmountSelectorObject : Frame
+---@field Event CurrencyTransferMenu_Content_AmountSelector_EventObject
+---@field InputBox CurrencyTransferMenu_Content_AmountSelector_InputBoxObject
+---@field MaxQuantityButton CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButtonObject
+---@field TransferAmountLabel CurrencyTransferMenu_Content_AmountSelector_TransferAmountLabelObject
+---@field callbackRegistrantHandlers table
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+local CurrencyTransferMenu_Content_AmountSelectorObject = {}
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:AddDynamicEventMethod(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:AddEventMethodInternal(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:AddStaticEventMethod(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:CalculateCurrencyTransferLoss(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:CalculateTotalCurrencyTransferCost(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:CreateEventRegistrationInfo(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:GetCallbackTable(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:GetCallbackTables(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:GetDynamicCallbackRegistrantHandlers(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:GetRequestedCurrencyTransferAmount(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:GetStaticCallbackRegistrantHandlers(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:OnHide(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:OnLoad(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:OnRequestSetSourceCharacterMaxQuantity(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:OnShow(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:RegisterCallback(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:RegisterFromRegistrationInfo(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:RemoveStaticEventMethod(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:Reset(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:SecureInsertEvent(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:TriggerEvent(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:UnregisterAllEventMethods(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:UnregisterAllInternal(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:UnregisterCallback(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:UnregisterEvents(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:UnregisterFromRegistrationInfo(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelectorObject:ValidateAndSetValue(...) end
 end
 
 do
----@class GameNoHeaderTooltip_TextRight1Object : FontString
-local GameNoHeaderTooltip_TextRight1Object = {}
+---@class CurrencyTransferMenu_Content_AmountSelector_EventObject
+---@field RequestSetSourceCharacterMaxQuantity string
+local CurrencyTransferMenu_Content_AmountSelector_EventObject = {}
 end
 
 do
----@class GameNoHeaderTooltip_TextRight2Object : FontString
-local GameNoHeaderTooltip_TextRight2Object = {}
+---@class CurrencyTransferMenu_Content_AmountSelector_InputBoxObject : EditBox
+---@field Left CurrencyTransferMenu_Content_AmountSelector_InputBox_LeftObject
+---@field Middle CurrencyTransferMenu_Content_AmountSelector_InputBox_MiddleObject
+---@field Right CurrencyTransferMenu_Content_AmountSelector_InputBox_RightObject
+local CurrencyTransferMenu_Content_AmountSelector_InputBoxObject = {}
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:GetClampedInputAmount(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:GetCurrencyTransferMenu(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:GetMaxTransferAmountPerTransaction(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:NarrationGetContext(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:NarrationGetDescription(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:NarrationGetName(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:OnEditFocusLost(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:OnTextChanged(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:Reset(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:SetNarrationLabelRegion(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:TrySetFullSourceCharacterCurrencyQuantity(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelector_InputBoxObject:ValidateAndSetValue(...) end
 end
 
 do
----@class GameNoHeaderTooltip_TopOverlayObject : Texture
-local GameNoHeaderTooltip_TopOverlayObject = {}
+---@class CurrencyTransferMenu_Content_AmountSelector_InputBox_LeftObject : Texture
+local CurrencyTransferMenu_Content_AmountSelector_InputBox_LeftObject = {}
 end
 
 do
----@class GameSmallHeaderTooltipObject : GameTooltip
----@field BottomOverlay GameSmallHeaderTooltip_BottomOverlayObject
----@field NineSlice GameSmallHeaderTooltip_NineSliceObject
----@field StatusBar GameSmallHeaderTooltip_StatusBarObject
----@field TextLeft1 GameSmallHeaderTooltip_TextLeft1Object
----@field TextLeft2 GameSmallHeaderTooltip_TextLeft2Object
----@field TextRight1 GameSmallHeaderTooltip_TextRight1Object
----@field TextRight2 GameSmallHeaderTooltip_TextRight2Object
----@field TopOverlay GameSmallHeaderTooltip_TopOverlayObject
+---@class CurrencyTransferMenu_Content_AmountSelector_InputBox_MiddleObject : Texture
+local CurrencyTransferMenu_Content_AmountSelector_InputBox_MiddleObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_AmountSelector_InputBox_RightObject : Texture
+local CurrencyTransferMenu_Content_AmountSelector_InputBox_RightObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButtonObject : Button
+---@field Left CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_LeftObject
+---@field Middle CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_MiddleObject
+---@field Right CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_RightObject
+---@field Text CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButtonObject = {}
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButtonObject:FitToText(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButtonObject:OnEnter(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButtonObject:OnLeave(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButtonObject:SetDisabledState(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_LeftObject : Texture
+local CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_LeftObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_MiddleObject : Texture
+local CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_MiddleObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_RightObject : Texture
+local CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_RightObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_TextObject : FontString
+local CurrencyTransferMenu_Content_AmountSelector_MaxQuantityButton_TextObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_AmountSelector_TransferAmountLabelObject : FontString
+local CurrencyTransferMenu_Content_AmountSelector_TransferAmountLabelObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_CancelButtonObject : Button
+---@field Left CurrencyTransferMenu_Content_CancelButton_LeftObject
+---@field Middle CurrencyTransferMenu_Content_CancelButton_MiddleObject
+---@field Right CurrencyTransferMenu_Content_CancelButton_RightObject
+---@field Text CurrencyTransferMenu_Content_CancelButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CurrencyTransferMenu_Content_CancelButtonObject = {}
+---@return any ...
+function CurrencyTransferMenu_Content_CancelButtonObject:FitToText(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_CancelButtonObject:GetCurrencyTransferMenu(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_CancelButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_CancelButtonObject:OnClick(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_CancelButtonObject:OnEnter(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_CancelButtonObject:OnLeave(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_CancelButtonObject:SetDisabledState(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_CancelButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_CancelButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class CurrencyTransferMenu_Content_CancelButton_LeftObject : Texture
+local CurrencyTransferMenu_Content_CancelButton_LeftObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_CancelButton_MiddleObject : Texture
+local CurrencyTransferMenu_Content_CancelButton_MiddleObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_CancelButton_RightObject : Texture
+local CurrencyTransferMenu_Content_CancelButton_RightObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_CancelButton_TextObject : FontString
+local CurrencyTransferMenu_Content_CancelButton_TextObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_ConfirmButtonObject : Button
+---@field Left CurrencyTransferMenu_Content_ConfirmButton_LeftObject
+---@field Middle CurrencyTransferMenu_Content_ConfirmButton_MiddleObject
+---@field Right CurrencyTransferMenu_Content_ConfirmButton_RightObject
+---@field Text CurrencyTransferMenu_Content_ConfirmButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local CurrencyTransferMenu_Content_ConfirmButtonObject = {}
+---@return any ...
+function CurrencyTransferMenu_Content_ConfirmButtonObject:FitToText(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_ConfirmButtonObject:GetCurrencyTransferMenu(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_ConfirmButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_ConfirmButtonObject:OnClick(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_ConfirmButtonObject:OnEnter(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_ConfirmButtonObject:OnLeave(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_ConfirmButtonObject:SetDisabledState(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_ConfirmButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_ConfirmButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class CurrencyTransferMenu_Content_ConfirmButton_LeftObject : Texture
+local CurrencyTransferMenu_Content_ConfirmButton_LeftObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_ConfirmButton_MiddleObject : Texture
+local CurrencyTransferMenu_Content_ConfirmButton_MiddleObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_ConfirmButton_RightObject : Texture
+local CurrencyTransferMenu_Content_ConfirmButton_RightObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_ConfirmButton_TextObject : FontString
+local CurrencyTransferMenu_Content_ConfirmButton_TextObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_PlayerBalancePreviewObject : Frame
+---@field BalanceInfo CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfoObject
+---@field Label CurrencyTransferMenu_Content_PlayerBalancePreview_LabelObject
+---@field showTransferCost boolean
+local CurrencyTransferMenu_Content_PlayerBalancePreviewObject = {}
+---@return any ...
+function CurrencyTransferMenu_Content_PlayerBalancePreviewObject:GetCurrencyTransferMenu(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_PlayerBalancePreviewObject:RefreshTransferCostDisplay(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_PlayerBalancePreviewObject:SetCharacterAndCurrencyBalance(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_PlayerBalancePreviewObject:SetCharacterName(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_PlayerBalancePreviewObject:SetCurrencyBalance(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_PlayerBalancePreviewObject:SetCurrencyIcon(...) end
+end
+
+do
+---@class CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfoObject : Frame
+---@field Amount CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_AmountObject
+---@field CurrencyIcon CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_CurrencyIconObject
+---@field TransferCostDisplay CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_TransferCostDisplayObject
+local CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfoObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_AmountObject : FontString
+---@field minLineHeight number
+local CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_AmountObject = {}
+---@return any ...
+function CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_AmountObject:ScaleTextToFit(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_AmountObject:SetMinLineHeight(...) end
+end
+
+do
+---@class CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_CurrencyIconObject : Texture
+local CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_CurrencyIconObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_TransferCostDisplayObject : Button
+---@field Icon CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_TransferCostDisplay_IconObject
+local CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_TransferCostDisplayObject = {}
+---@return any ...
+function CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_TransferCostDisplayObject:GetCurrencyTransferMenu(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_TransferCostDisplayObject:OnEnter(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_TransferCostDisplayObject:OnLeave(...) end
+end
+
+do
+---@class CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_TransferCostDisplay_IconObject : Texture
+local CurrencyTransferMenu_Content_PlayerBalancePreview_BalanceInfo_TransferCostDisplay_IconObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_PlayerBalancePreview_LabelObject : FontString
+---@field minLineHeight number
+local CurrencyTransferMenu_Content_PlayerBalancePreview_LabelObject = {}
+---@return any ...
+function CurrencyTransferMenu_Content_PlayerBalancePreview_LabelObject:ScaleTextToFit(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_PlayerBalancePreview_LabelObject:SetMinLineHeight(...) end
+end
+
+do
+---@class CurrencyTransferMenu_Content_SourceBalancePreviewObject : Frame
+---@field BalanceInfo CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfoObject
+---@field Label CurrencyTransferMenu_Content_SourceBalancePreview_LabelObject
+---@field showTransferCost boolean
+local CurrencyTransferMenu_Content_SourceBalancePreviewObject = {}
+---@return any ...
+function CurrencyTransferMenu_Content_SourceBalancePreviewObject:GetCurrencyTransferMenu(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceBalancePreviewObject:RefreshTransferCostDisplay(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceBalancePreviewObject:SetCharacterAndCurrencyBalance(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceBalancePreviewObject:SetCharacterName(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceBalancePreviewObject:SetCurrencyBalance(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceBalancePreviewObject:SetCurrencyIcon(...) end
+end
+
+do
+---@class CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfoObject : Frame
+---@field Amount CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_AmountObject
+---@field CurrencyIcon CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_CurrencyIconObject
+---@field TransferCostDisplay CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_TransferCostDisplayObject
+local CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfoObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_AmountObject : FontString
+---@field minLineHeight number
+local CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_AmountObject = {}
+---@return any ...
+function CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_AmountObject:ScaleTextToFit(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_AmountObject:SetMinLineHeight(...) end
+end
+
+do
+---@class CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_CurrencyIconObject : Texture
+local CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_CurrencyIconObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_TransferCostDisplayObject : Button
+---@field Icon CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_TransferCostDisplay_IconObject
+local CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_TransferCostDisplayObject = {}
+---@return any ...
+function CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_TransferCostDisplayObject:GetCurrencyTransferMenu(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_TransferCostDisplayObject:OnEnter(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_TransferCostDisplayObject:OnLeave(...) end
+end
+
+do
+---@class CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_TransferCostDisplay_IconObject : Texture
+local CurrencyTransferMenu_Content_SourceBalancePreview_BalanceInfo_TransferCostDisplay_IconObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_SourceBalancePreview_LabelObject : FontString
+---@field minLineHeight number
+local CurrencyTransferMenu_Content_SourceBalancePreview_LabelObject = {}
+---@return any ...
+function CurrencyTransferMenu_Content_SourceBalancePreview_LabelObject:ScaleTextToFit(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceBalancePreview_LabelObject:SetMinLineHeight(...) end
+end
+
+do
+---@class CurrencyTransferMenu_Content_SourceSelectorObject : Frame
+---@field Dropdown CurrencyTransferMenu_Content_SourceSelector_DropdownObject
+---@field PlayerName CurrencyTransferMenu_Content_SourceSelector_PlayerNameObject
+---@field SourceLabel CurrencyTransferMenu_Content_SourceSelector_SourceLabelObject
+local CurrencyTransferMenu_Content_SourceSelectorObject = {}
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelectorObject:AutoSelectHighestQuantitySource(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelectorObject:GetCurrencyTransferMenu(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelectorObject:GetRosterCurrencyData(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelectorObject:OnLoad(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelectorObject:OnShow(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelectorObject:RefreshPlayerName(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelectorObject:RefreshRosterCurrencyData(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelectorObject:RefreshSelectedSource(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelectorObject:SetupCharacterDropdown(...) end
+end
+
+do
+---@class CurrencyTransferMenu_Content_SourceSelector_DropdownObject : Button
+---@field Arrow CurrencyTransferMenu_Content_SourceSelector_Dropdown_ArrowObject
+---@field Background CurrencyTransferMenu_Content_SourceSelector_Dropdown_BackgroundObject
+---@field Event CurrencyTransferMenu_Content_SourceSelector_Dropdown_EventObject
+---@field LongArrow CurrencyTransferMenu_Content_SourceSelector_Dropdown_LongArrowObject
+---@field Text CurrencyTransferMenu_Content_SourceSelector_Dropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+local CurrencyTransferMenu_Content_SourceSelector_DropdownObject = {}
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:ClearMenuState(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:CloseMenu(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:CollectSelectionData(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:CreateRootDescription(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:Decrement(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:GenerateMenu(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:GetArrowAtlas(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:GetCallbackTable(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:GetCallbackTables(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:GetDefaultText(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:GetMenuDescription(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:GetSelectionData(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:GetUpdateText(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:HasElements(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:HasStickyFocus(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:Increment(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:IsDown(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:IsDownOver(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:IsMenuOpen(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:IsOver(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:NarrationGetContext(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:NarrationGetName(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnDisable(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnEnable(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnEnter(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnLeave(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnLoad(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnMenuChanged(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnMenuClosed(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnMenuOpened(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnMenuResponse(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnMouseDown(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnMouseUp(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OnShow(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OpenMenu(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:OverrideText(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:Pick(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:RegisterCallback(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:RegisterMenu(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:Rotate(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:SetDefaultText(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:SetMenuOpen(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:SetSelectionText(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:SetTooltip(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:SetupMenu(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:ShowTooltip(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:SignalUpdate(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:TriggerEvent(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:UnregisterCallback(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:UnregisterEvents(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:Update(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:UpdateSelections(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:UpdateText(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_DropdownObject:selectionTranslator(...) end
+end
+
+do
+---@class CurrencyTransferMenu_Content_SourceSelector_Dropdown_ArrowObject : Texture
+local CurrencyTransferMenu_Content_SourceSelector_Dropdown_ArrowObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_SourceSelector_Dropdown_BackgroundObject : Texture
+local CurrencyTransferMenu_Content_SourceSelector_Dropdown_BackgroundObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_SourceSelector_Dropdown_EventObject
+local CurrencyTransferMenu_Content_SourceSelector_Dropdown_EventObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_SourceSelector_Dropdown_LongArrowObject : Texture
+local CurrencyTransferMenu_Content_SourceSelector_Dropdown_LongArrowObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_SourceSelector_Dropdown_TextObject : FontString
+local CurrencyTransferMenu_Content_SourceSelector_Dropdown_TextObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject = {}
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchor_relativeToObject
+local CurrencyTransferMenu_Content_SourceSelector_Dropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_Content_SourceSelector_PlayerNameObject : FontString
+---@field baseLineHeight number
+local CurrencyTransferMenu_Content_SourceSelector_PlayerNameObject = {}
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_PlayerNameObject:ScaleTextToFit(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_PlayerNameObject:SetMinLineHeight(...) end
+end
+
+do
+---@class CurrencyTransferMenu_Content_SourceSelector_SourceLabelObject : FontString
+local CurrencyTransferMenu_Content_SourceSelector_SourceLabelObject = {}
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_SourceLabelObject:ScaleTextToFit(...) end
+---@return any ...
+function CurrencyTransferMenu_Content_SourceSelector_SourceLabelObject:SetMinLineHeight(...) end
+end
+
+do
+---@class CurrencyTransferMenu_Content_TransactionDividerObject : Texture
+local CurrencyTransferMenu_Content_TransactionDividerObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_EventObject
+---@field CurrencyTransferAmountUpdated string
+---@field CurrencyTransferRequested string
+---@field CurrencyTransferSourceSelected string
+local CurrencyTransferMenu_EventObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_FocusJumpHintObject : Frame
+---@field ActiveTexture CurrencyTransferMenu_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture CurrencyTransferMenu_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim CurrencyTransferMenu_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator CurrencyTransferMenu_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG CurrencyTransferMenu_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture CurrencyTransferMenu_FocusJumpHint_HoverTextureObject
+---@field LoadBar CurrencyTransferMenu_FocusJumpHint_LoadBarObject
+---@field LoadBarBG CurrencyTransferMenu_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow CurrencyTransferMenu_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture CurrencyTransferMenu_FocusJumpHint_NormalTextureObject
+---@field PressedTexture CurrencyTransferMenu_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip CurrencyTransferMenu_FocusJumpHint_SpinnerTipObject
+---@field ignoreInLayout boolean
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local CurrencyTransferMenu_FocusJumpHintObject = {}
+---@return any ...
+function CurrencyTransferMenu_FocusJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function CurrencyTransferMenu_FocusJumpHintObject:BeginHold(...) end
+---@return any ...
+function CurrencyTransferMenu_FocusJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function CurrencyTransferMenu_FocusJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function CurrencyTransferMenu_FocusJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function CurrencyTransferMenu_FocusJumpHintObject:EndHold(...) end
+---@return any ...
+function CurrencyTransferMenu_FocusJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function CurrencyTransferMenu_FocusJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function CurrencyTransferMenu_FocusJumpHintObject:OnLoad(...) end
+---@return any ...
+function CurrencyTransferMenu_FocusJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function CurrencyTransferMenu_FocusJumpHintObject:SetDisabled(...) end
+---@return any ...
+function CurrencyTransferMenu_FocusJumpHintObject:SetEnabled(...) end
+---@return any ...
+function CurrencyTransferMenu_FocusJumpHintObject:SetFocused(...) end
+---@return any ...
+function CurrencyTransferMenu_FocusJumpHintObject:SetHoldState(...) end
+---@return any ...
+function CurrencyTransferMenu_FocusJumpHintObject:SetInputKey(...) end
+---@return any ...
+function CurrencyTransferMenu_FocusJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function CurrencyTransferMenu_FocusJumpHintObject:SetPressable(...) end
+---@return any ...
+function CurrencyTransferMenu_FocusJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function CurrencyTransferMenu_FocusJumpHintObject:SetTextureState(...) end
+---@return any ...
+function CurrencyTransferMenu_FocusJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function CurrencyTransferMenu_FocusJumpHintObject:SetUsableState(...) end
+---@return any ...
+function CurrencyTransferMenu_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class CurrencyTransferMenu_FocusJumpHint_ActiveTextureObject : Texture
+local CurrencyTransferMenu_FocusJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_FocusJumpHint_DisabledTextureObject : Texture
+local CurrencyTransferMenu_FocusJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim CurrencyTransferMenu_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim CurrencyTransferMenu_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim CurrencyTransferMenu_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local CurrencyTransferMenu_FocusJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local CurrencyTransferMenu_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local CurrencyTransferMenu_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local CurrencyTransferMenu_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_FocusJumpHint_HoldIndicatorObject : Texture
+local CurrencyTransferMenu_FocusJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_FocusJumpHint_HoldIndicatorBGObject : Texture
+local CurrencyTransferMenu_FocusJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_FocusJumpHint_HoverTextureObject : Texture
+local CurrencyTransferMenu_FocusJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_FocusJumpHint_LoadBarObject : Texture
+local CurrencyTransferMenu_FocusJumpHint_LoadBarObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_FocusJumpHint_LoadBarBGObject : Texture
+local CurrencyTransferMenu_FocusJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_FocusJumpHint_LoadBarGlowObject : Texture
+local CurrencyTransferMenu_FocusJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_FocusJumpHint_NormalTextureObject : Texture
+local CurrencyTransferMenu_FocusJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_FocusJumpHint_PressedTextureObject : Texture
+local CurrencyTransferMenu_FocusJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_FocusJumpHint_SpinnerTipObject : Texture
+local CurrencyTransferMenu_FocusJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_FrameGlowObject : Frame
+---@field GlowTexture CurrencyTransferMenu_FrameGlow_GlowTextureObject
+---@field glowTextures table
+local CurrencyTransferMenu_FrameGlowObject = {}
+---@return any ...
+function CurrencyTransferMenu_FrameGlowObject:GetContainerFrame(...) end
+---@return any ...
+function CurrencyTransferMenu_FrameGlowObject:GetFrameLayoutType(...) end
+---@return any ...
+function CurrencyTransferMenu_FrameGlowObject:GetHeaderFrame(...) end
+---@return any ...
+function CurrencyTransferMenu_FrameGlowObject:OnLoad(...) end
+end
+
+do
+---@class CurrencyTransferMenu_FrameGlow_GlowTextureObject : Texture
+local CurrencyTransferMenu_FrameGlow_GlowTextureObject = {}
+end
+
+do
+---@class CurrencyTransferMenu_InsetObject : Frame
+---@field Bg CurrencyTransferMenu_Inset_BgObject
+---@field NineSlice CurrencyTransferMenu_Inset_NineSliceObject
 ---@field layoutType string
----@field supportsDataRefresh boolean
----@field textLeft1Font string
----@field textLeft2Font string
----@field textRight1Font string
----@field textRight2Font string
----@field updateTooltipTimer number
-local GameSmallHeaderTooltipObject = {}
----@return any ...
-function GameSmallHeaderTooltipObject:AddLineDataText(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:AppendInfo(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:AppendInfoWithSpacer(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:ClearHandlerInfo(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:GetItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:GetPrimaryTooltipData(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:GetPrimaryTooltipInfo(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:GetProcessingTooltipInfo(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:GetSpell(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:GetTooltipData(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:GetUnit(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:HasDataInstanceID(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:InternalProcessInfo(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:IsTooltipType(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:OnEvent(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:OnLoad(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:ProcessInfo(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:ProcessLineData(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:ProcessLines(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:RebuildFromTooltipInfo(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:RefreshData(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:RefreshDataNextUpdate(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetAchievementByID(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetAction(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetArtifactItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetArtifactPowerByID(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetAzeriteEssence(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetAzeriteEssenceSlot(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetAzeritePower(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetBackpackToken(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetBagItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetBagItemChild(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetBuybackItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetCompanionPet(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetConduit(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetCurrencyByID(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetCurrencyToken(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetEnhancedConduit(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetEquipmentSet(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetExistingSocketGem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetGuildBankItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetHeirloomByItemID(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetHyperlink(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetInboxItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetInfoBackdropStyle(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetInstanceLockEncountersComplete(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetInventoryItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetInventoryItemByID(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetItemByGUID(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetItemByID(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetItemByItemModifiedAppearanceID(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetItemInteractionItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetItemKey(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetLFGDungeonReward(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetLFGDungeonShortageReward(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetLootCurrency(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetLootItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetLootRollItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetMerchantCostItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetMerchantItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetMinimapMouseover(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetMountBySpellID(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetOutfit(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetOwnedItemByID(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetPetAction(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetPossession(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetPvpBrawl(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetPvpTalent(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetQuestCurrency(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetQuestItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetQuestLogCurrency(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetQuestLogItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetQuestLogSpecialItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetQuestPartyProgress(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetRecipeRankInfo(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetRecipeReagentItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetRecipeResultItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetRecipeResultItemForOrder(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetRuneforgeResultItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetSendMailItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetShapeshift(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetSlottedKeystone(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetSocketGem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetSocketedItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetSocketedRelic(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetSpellBookItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetSpellByID(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetTalent(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetTotem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetToyByItemID(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetTradePlayerItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetTradeTargetItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetTrainerService(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetTraitEntry(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetUnit(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetUnitAura(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetUnitAuraByAuraInstanceID(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetUnitBuff(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetUnitBuffByAuraInstanceID(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetUnitDebuff(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetUnitDebuffByAuraInstanceID(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetUpgradeItem(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetWeeklyReward(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetWorldCursor(...) end
----@return any ...
-function GameSmallHeaderTooltipObject:SetWorldLootObject(...) end
----@type GameSmallHeaderTooltipObject
-GameSmallHeaderTooltip = GameSmallHeaderTooltipObject
+local CurrencyTransferMenu_InsetObject = {}
 end
 
 do
----@class GameSmallHeaderTooltip_BottomOverlayObject : Texture
-local GameSmallHeaderTooltip_BottomOverlayObject = {}
+---@class CurrencyTransferMenu_Inset_BgObject : Texture
+local CurrencyTransferMenu_Inset_BgObject = {}
 end
 
 do
----@class GameSmallHeaderTooltip_NineSliceObject : Frame
----@field BottomEdge GameSmallHeaderTooltip_NineSlice_BottomEdgeObject
----@field BottomLeftCorner GameSmallHeaderTooltip_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner GameSmallHeaderTooltip_NineSlice_BottomRightCornerObject
----@field Center GameSmallHeaderTooltip_NineSlice_CenterObject
----@field LeftEdge GameSmallHeaderTooltip_NineSlice_LeftEdgeObject
----@field RightEdge GameSmallHeaderTooltip_NineSlice_RightEdgeObject
----@field TopEdge GameSmallHeaderTooltip_NineSlice_TopEdgeObject
----@field TopLeftCorner GameSmallHeaderTooltip_NineSlice_TopLeftCornerObject
----@field TopRightCorner GameSmallHeaderTooltip_NineSlice_TopRightCornerObject
-local GameSmallHeaderTooltip_NineSliceObject = {}
+---@class CurrencyTransferMenu_Inset_NineSliceObject : Frame
+---@field BottomEdge CurrencyTransferMenu_Inset_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner CurrencyTransferMenu_Inset_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner CurrencyTransferMenu_Inset_NineSlice_BottomRightCornerObject
+---@field LeftEdge CurrencyTransferMenu_Inset_NineSlice_LeftEdgeObject
+---@field RightEdge CurrencyTransferMenu_Inset_NineSlice_RightEdgeObject
+---@field TopEdge CurrencyTransferMenu_Inset_NineSlice_TopEdgeObject
+---@field TopLeftCorner CurrencyTransferMenu_Inset_NineSlice_TopLeftCornerObject
+---@field TopRightCorner CurrencyTransferMenu_Inset_NineSlice_TopRightCornerObject
+local CurrencyTransferMenu_Inset_NineSliceObject = {}
 ---@return any ...
-function GameSmallHeaderTooltip_NineSliceObject:GetBorderColor(...) end
+function CurrencyTransferMenu_Inset_NineSliceObject:GetBorderColor(...) end
 ---@return any ...
-function GameSmallHeaderTooltip_NineSliceObject:GetCenterColor(...) end
+function CurrencyTransferMenu_Inset_NineSliceObject:GetCenterColor(...) end
 ---@return any ...
-function GameSmallHeaderTooltip_NineSliceObject:GetFrameLayoutTextureKit(...) end
+function CurrencyTransferMenu_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
 ---@return any ...
-function GameSmallHeaderTooltip_NineSliceObject:GetFrameLayoutType(...) end
+function CurrencyTransferMenu_Inset_NineSliceObject:GetFrameLayoutType(...) end
 ---@return any ...
-function GameSmallHeaderTooltip_NineSliceObject:OnLoad(...) end
+function CurrencyTransferMenu_Inset_NineSliceObject:OnLoad(...) end
 ---@return any ...
-function GameSmallHeaderTooltip_NineSliceObject:SetBlendMode(...) end
+function CurrencyTransferMenu_Inset_NineSliceObject:SetBlendMode(...) end
 ---@return any ...
-function GameSmallHeaderTooltip_NineSliceObject:SetBorderBlendMode(...) end
+function CurrencyTransferMenu_Inset_NineSliceObject:SetBorderBlendMode(...) end
 ---@return any ...
-function GameSmallHeaderTooltip_NineSliceObject:SetBorderColor(...) end
+function CurrencyTransferMenu_Inset_NineSliceObject:SetBorderColor(...) end
 ---@return any ...
-function GameSmallHeaderTooltip_NineSliceObject:SetCenterColor(...) end
+function CurrencyTransferMenu_Inset_NineSliceObject:SetCenterColor(...) end
 ---@return any ...
-function GameSmallHeaderTooltip_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class GameSmallHeaderTooltip_NineSlice_BottomEdgeObject : Texture
-local GameSmallHeaderTooltip_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class GameSmallHeaderTooltip_NineSlice_BottomLeftCornerObject : Texture
-local GameSmallHeaderTooltip_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class GameSmallHeaderTooltip_NineSlice_BottomRightCornerObject : Texture
-local GameSmallHeaderTooltip_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class GameSmallHeaderTooltip_NineSlice_CenterObject : Texture
-local GameSmallHeaderTooltip_NineSlice_CenterObject = {}
-end
-
-do
----@class GameSmallHeaderTooltip_NineSlice_LeftEdgeObject : Texture
-local GameSmallHeaderTooltip_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class GameSmallHeaderTooltip_NineSlice_RightEdgeObject : Texture
-local GameSmallHeaderTooltip_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class GameSmallHeaderTooltip_NineSlice_TopEdgeObject : Texture
-local GameSmallHeaderTooltip_NineSlice_TopEdgeObject = {}
+function CurrencyTransferMenu_Inset_NineSliceObject:SetVertexColor(...) end
 end
 
 do
----@class GameSmallHeaderTooltip_NineSlice_TopLeftCornerObject : Texture
-local GameSmallHeaderTooltip_NineSlice_TopLeftCornerObject = {}
+---@class CurrencyTransferMenu_Inset_NineSlice_BottomEdgeObject : Texture
+local CurrencyTransferMenu_Inset_NineSlice_BottomEdgeObject = {}
 end
 
 do
----@class GameSmallHeaderTooltip_NineSlice_TopRightCornerObject : Texture
-local GameSmallHeaderTooltip_NineSlice_TopRightCornerObject = {}
+---@class CurrencyTransferMenu_Inset_NineSlice_BottomLeftCornerObject : Texture
+local CurrencyTransferMenu_Inset_NineSlice_BottomLeftCornerObject = {}
 end
 
 do
----@class GameSmallHeaderTooltip_StatusBarObject : StatusBar
-local GameSmallHeaderTooltip_StatusBarObject = {}
----@return any ...
-function GameSmallHeaderTooltip_StatusBarObject:ClearWatch(...) end
----@return any ...
-function GameSmallHeaderTooltip_StatusBarObject:OnLoad(...) end
----@return any ...
-function GameSmallHeaderTooltip_StatusBarObject:OnUpdate(...) end
----@return any ...
-function GameSmallHeaderTooltip_StatusBarObject:ResetUnitHealth(...) end
----@return any ...
-function GameSmallHeaderTooltip_StatusBarObject:SetWatch(...) end
----@return any ...
-function GameSmallHeaderTooltip_StatusBarObject:StopUpdates(...) end
----@return any ...
-function GameSmallHeaderTooltip_StatusBarObject:UpdateUnitHealth(...) end
+---@class CurrencyTransferMenu_Inset_NineSlice_BottomRightCornerObject : Texture
+local CurrencyTransferMenu_Inset_NineSlice_BottomRightCornerObject = {}
 end
 
 do
----@class GameSmallHeaderTooltip_TextLeft1Object : FontString
-local GameSmallHeaderTooltip_TextLeft1Object = {}
+---@class CurrencyTransferMenu_Inset_NineSlice_LeftEdgeObject : Texture
+local CurrencyTransferMenu_Inset_NineSlice_LeftEdgeObject = {}
 end
 
 do
----@class GameSmallHeaderTooltip_TextLeft2Object : FontString
-local GameSmallHeaderTooltip_TextLeft2Object = {}
+---@class CurrencyTransferMenu_Inset_NineSlice_RightEdgeObject : Texture
+local CurrencyTransferMenu_Inset_NineSlice_RightEdgeObject = {}
 end
 
 do
----@class GameSmallHeaderTooltip_TextRight1Object : FontString
-local GameSmallHeaderTooltip_TextRight1Object = {}
+---@class CurrencyTransferMenu_Inset_NineSlice_TopEdgeObject : Texture
+local CurrencyTransferMenu_Inset_NineSlice_TopEdgeObject = {}
 end
 
 do
----@class GameSmallHeaderTooltip_TextRight2Object : FontString
-local GameSmallHeaderTooltip_TextRight2Object = {}
+---@class CurrencyTransferMenu_Inset_NineSlice_TopLeftCornerObject : Texture
+local CurrencyTransferMenu_Inset_NineSlice_TopLeftCornerObject = {}
 end
 
 do
----@class GameSmallHeaderTooltip_TopOverlayObject : Texture
-local GameSmallHeaderTooltip_TopOverlayObject = {}
+---@class CurrencyTransferMenu_Inset_NineSlice_TopRightCornerObject : Texture
+local CurrencyTransferMenu_Inset_NineSlice_TopRightCornerObject = {}
 end
 
 do
----@class GameTooltipObject : GameTooltip
----@field BottomOverlay GameTooltip_BottomOverlayObject
----@field ItemTooltip GameTooltip_ItemTooltipObject
----@field NineSlice GameTooltip_NineSliceObject
----@field StatusBar GameTooltip_StatusBarObject
----@field TextLeft1 GameTooltip_TextLeft1Object
----@field TextLeft2 GameTooltip_TextLeft2Object
----@field TextRight1 GameTooltip_TextRight1Object
----@field TextRight2 GameTooltip_TextRight2Object
----@field TopOverlay GameTooltip_TopOverlayObject
----@field layoutType string
----@field shoppingTooltips table
----@field supportsDataRefresh boolean
----@field supportsItemComparison boolean
----@field suppressAutomaticCompareItem boolean
----@field textLeft1Font string
----@field textLeft2Font string
----@field textRight1Font string
----@field textRight2Font string
----@field updateTooltipTimer number
----@field waitingForData boolean
-local GameTooltipObject = {}
----@return any ...
-function GameTooltipObject:AddLineDataText(...) end
----@return any ...
-function GameTooltipObject:AppendInfo(...) end
----@return any ...
-function GameTooltipObject:AppendInfoWithSpacer(...) end
----@return any ...
-function GameTooltipObject:ClearHandlerInfo(...) end
----@return any ...
-function GameTooltipObject:GetItem(...) end
----@return any ...
-function GameTooltipObject:GetPrimaryTooltipData(...) end
----@return any ...
-function GameTooltipObject:GetPrimaryTooltipInfo(...) end
----@return any ...
-function GameTooltipObject:GetProcessingTooltipInfo(...) end
----@return any ...
-function GameTooltipObject:GetSpell(...) end
----@return any ...
-function GameTooltipObject:GetTooltipData(...) end
----@return any ...
-function GameTooltipObject:GetUnit(...) end
----@return any ...
-function GameTooltipObject:HasDataInstanceID(...) end
----@return any ...
-function GameTooltipObject:InternalProcessInfo(...) end
----@return any ...
-function GameTooltipObject:IsTooltipType(...) end
----@return any ...
-function GameTooltipObject:OnEvent(...) end
----@return any ...
-function GameTooltipObject:OnLoad(...) end
----@return any ...
-function GameTooltipObject:ProcessInfo(...) end
----@return any ...
-function GameTooltipObject:ProcessLineData(...) end
----@return any ...
-function GameTooltipObject:ProcessLines(...) end
----@return any ...
-function GameTooltipObject:RebuildFromTooltipInfo(...) end
----@return any ...
-function GameTooltipObject:RefreshData(...) end
----@return any ...
-function GameTooltipObject:RefreshDataNextUpdate(...) end
----@return any ...
-function GameTooltipObject:SetAchievementByID(...) end
----@return any ...
-function GameTooltipObject:SetAction(...) end
----@return any ...
-function GameTooltipObject:SetArtifactItem(...) end
----@return any ...
-function GameTooltipObject:SetArtifactPowerByID(...) end
----@return any ...
-function GameTooltipObject:SetAzeriteEssence(...) end
----@return any ...
-function GameTooltipObject:SetAzeriteEssenceSlot(...) end
----@return any ...
-function GameTooltipObject:SetAzeritePower(...) end
----@return any ...
-function GameTooltipObject:SetBackpackToken(...) end
----@return any ...
-function GameTooltipObject:SetBagItem(...) end
----@return any ...
-function GameTooltipObject:SetBagItemChild(...) end
----@return any ...
-function GameTooltipObject:SetBuybackItem(...) end
----@return any ...
-function GameTooltipObject:SetCompanionPet(...) end
----@return any ...
-function GameTooltipObject:SetConduit(...) end
----@return any ...
-function GameTooltipObject:SetCurrencyByID(...) end
----@return any ...
-function GameTooltipObject:SetEnhancedConduit(...) end
----@return any ...
-function GameTooltipObject:SetEquipmentSet(...) end
----@return any ...
-function GameTooltipObject:SetExistingSocketGem(...) end
----@return any ...
-function GameTooltipObject:SetGuildBankItem(...) end
----@return any ...
-function GameTooltipObject:SetHeirloomByItemID(...) end
----@return any ...
-function GameTooltipObject:SetHyperlink(...) end
----@return any ...
-function GameTooltipObject:SetInboxItem(...) end
----@return any ...
-function GameTooltipObject:SetInfoBackdropStyle(...) end
----@return any ...
-function GameTooltipObject:SetInstanceLockEncountersComplete(...) end
----@return any ...
-function GameTooltipObject:SetInventoryItem(...) end
----@return any ...
-function GameTooltipObject:SetInventoryItemByID(...) end
----@return any ...
-function GameTooltipObject:SetItemByGUID(...) end
----@return any ...
-function GameTooltipObject:SetItemByID(...) end
----@return any ...
-function GameTooltipObject:SetItemByItemModifiedAppearanceID(...) end
----@return any ...
-function GameTooltipObject:SetItemInteractionItem(...) end
+---@class CurrencyTransferMenu_LeftJumpHintObject : Frame
+---@field ActiveTexture CurrencyTransferMenu_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture CurrencyTransferMenu_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim CurrencyTransferMenu_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator CurrencyTransferMenu_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG CurrencyTransferMenu_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture CurrencyTransferMenu_LeftJumpHint_HoverTextureObject
+---@field LoadBar CurrencyTransferMenu_LeftJumpHint_LoadBarObject
+---@field LoadBarBG CurrencyTransferMenu_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow CurrencyTransferMenu_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture CurrencyTransferMenu_LeftJumpHint_NormalTextureObject
+---@field PressedTexture CurrencyTransferMenu_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip CurrencyTransferMenu_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local CurrencyTransferMenu_LeftJumpHintObject = {}
 ---@return any ...
-function GameTooltipObject:SetItemKey(...) end
+function CurrencyTransferMenu_LeftJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function GameTooltipObject:SetLFGDungeonReward(...) end
+function CurrencyTransferMenu_LeftJumpHintObject:BeginHold(...) end
 ---@return any ...
-function GameTooltipObject:SetLFGDungeonShortageReward(...) end
+function CurrencyTransferMenu_LeftJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function GameTooltipObject:SetLootCurrency(...) end
+function CurrencyTransferMenu_LeftJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function GameTooltipObject:SetLootItem(...) end
+function CurrencyTransferMenu_LeftJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function GameTooltipObject:SetLootRollItem(...) end
+function CurrencyTransferMenu_LeftJumpHintObject:EndHold(...) end
 ---@return any ...
-function GameTooltipObject:SetMerchantCostItem(...) end
+function CurrencyTransferMenu_LeftJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function GameTooltipObject:SetMerchantItem(...) end
+function CurrencyTransferMenu_LeftJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function GameTooltipObject:SetMinimapMouseover(...) end
+function CurrencyTransferMenu_LeftJumpHintObject:OnLoad(...) end
 ---@return any ...
-function GameTooltipObject:SetMountBySpellID(...) end
+function CurrencyTransferMenu_LeftJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function GameTooltipObject:SetOutfit(...) end
+function CurrencyTransferMenu_LeftJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function GameTooltipObject:SetOwnedItemByID(...) end
+function CurrencyTransferMenu_LeftJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function GameTooltipObject:SetPetAction(...) end
+function CurrencyTransferMenu_LeftJumpHintObject:SetFocused(...) end
 ---@return any ...
-function GameTooltipObject:SetPossession(...) end
+function CurrencyTransferMenu_LeftJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function GameTooltipObject:SetPvpBrawl(...) end
+function CurrencyTransferMenu_LeftJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function GameTooltipObject:SetPvpTalent(...) end
+function CurrencyTransferMenu_LeftJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function GameTooltipObject:SetQuestCurrency(...) end
+function CurrencyTransferMenu_LeftJumpHintObject:SetPressable(...) end
 ---@return any ...
-function GameTooltipObject:SetQuestLogCurrency(...) end
+function CurrencyTransferMenu_LeftJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function GameTooltipObject:SetQuestLogSpecialItem(...) end
+function CurrencyTransferMenu_LeftJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function GameTooltipObject:SetQuestPartyProgress(...) end
+function CurrencyTransferMenu_LeftJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function GameTooltipObject:SetRecipeRankInfo(...) end
+function CurrencyTransferMenu_LeftJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function GameTooltipObject:SetRecipeResultItemForOrder(...) end
----@return any ...
-function GameTooltipObject:SetRuneforgeResultItem(...) end
----@return any ...
-function GameTooltipObject:SetSendMailItem(...) end
----@return any ...
-function GameTooltipObject:SetShapeshift(...) end
----@return any ...
-function GameTooltipObject:SetSlottedKeystone(...) end
----@return any ...
-function GameTooltipObject:SetSocketGem(...) end
----@return any ...
-function GameTooltipObject:SetSocketedItem(...) end
----@return any ...
-function GameTooltipObject:SetSocketedRelic(...) end
----@return any ...
-function GameTooltipObject:SetSpellBookItem(...) end
----@return any ...
-function GameTooltipObject:SetSpellByID(...) end
----@return any ...
-function GameTooltipObject:SetTalent(...) end
----@return any ...
-function GameTooltipObject:SetTotem(...) end
----@return any ...
-function GameTooltipObject:SetToyByItemID(...) end
----@return any ...
-function GameTooltipObject:SetTradePlayerItem(...) end
----@return any ...
-function GameTooltipObject:SetTradeTargetItem(...) end
----@return any ...
-function GameTooltipObject:SetTrainerService(...) end
----@return any ...
-function GameTooltipObject:SetTraitEntry(...) end
----@return any ...
-function GameTooltipObject:SetUnit(...) end
----@return any ...
-function GameTooltipObject:SetUnitAura(...) end
----@return any ...
-function GameTooltipObject:SetUnitAuraByAuraInstanceID(...) end
----@return any ...
-function GameTooltipObject:SetUnitBuff(...) end
----@return any ...
-function GameTooltipObject:SetUnitBuffByAuraInstanceID(...) end
----@return any ...
-function GameTooltipObject:SetUnitDebuff(...) end
----@return any ...
-function GameTooltipObject:SetUnitDebuffByAuraInstanceID(...) end
----@return any ...
-function GameTooltipObject:SetUpgradeItem(...) end
----@return any ...
-function GameTooltipObject:SetWeeklyReward(...) end
----@return any ...
-function GameTooltipObject:SetWorldCursor(...) end
----@return any ...
-function GameTooltipObject:SetWorldLootObject(...) end
----@type GameTooltipObject
-GameTooltip = GameTooltipObject
+function CurrencyTransferMenu_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class GameTooltip_BottomOverlayObject : Texture
-local GameTooltip_BottomOverlayObject = {}
+---@class CurrencyTransferMenu_LeftJumpHint_ActiveTextureObject : Texture
+local CurrencyTransferMenu_LeftJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltipObject : Frame
----@field Count GameTooltip_ItemTooltip_CountObject
----@field FollowerTooltip GameTooltip_ItemTooltip_FollowerTooltipObject
----@field Icon GameTooltip_ItemTooltip_IconObject
----@field IconBorder GameTooltip_ItemTooltip_IconBorderObject
----@field IconOverlay GameTooltip_ItemTooltip_IconOverlayObject
----@field IconOverlay2 GameTooltip_ItemTooltip_IconOverlay2Object
----@field Text GameTooltip_ItemTooltip_TextObject
----@field Tooltip GameTooltip_ItemTooltip_TooltipObject
----@field yspacing number
-local GameTooltip_ItemTooltipObject = {}
+---@class CurrencyTransferMenu_LeftJumpHint_DisabledTextureObject : Texture
+local CurrencyTransferMenu_LeftJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_CountObject : FontString
-local GameTooltip_ItemTooltip_CountObject = {}
+---@class CurrencyTransferMenu_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim CurrencyTransferMenu_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim CurrencyTransferMenu_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim CurrencyTransferMenu_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local CurrencyTransferMenu_LeftJumpHint_HoldAnimObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_FollowerTooltipObject : Frame
----@field Abilities table
----@field AbilitiesLabel GameTooltip_ItemTooltip_FollowerTooltip_AbilitiesLabelObject
----@field Class GameTooltip_ItemTooltip_FollowerTooltip_ClassObject
----@field ClassSpecName GameTooltip_ItemTooltip_FollowerTooltip_ClassSpecNameObject
----@field ILevel GameTooltip_ItemTooltip_FollowerTooltip_ILevelObject
----@field Name GameTooltip_ItemTooltip_FollowerTooltip_NameObject
----@field PortraitFrame GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrameObject
----@field Quality GameTooltip_ItemTooltip_FollowerTooltip_QualityObject
----@field SpecializationLabel GameTooltip_ItemTooltip_FollowerTooltip_SpecializationLabelObject
----@field Traits table
----@field TraitsLabel GameTooltip_ItemTooltip_FollowerTooltip_TraitsLabelObject
----@field UnderBiased GameTooltip_ItemTooltip_FollowerTooltip_UnderBiasedObject
----@field XP GameTooltip_ItemTooltip_FollowerTooltip_XPObject
----@field XPBar GameTooltip_ItemTooltip_FollowerTooltip_XPBarObject
----@field XPBarBackground GameTooltip_ItemTooltip_FollowerTooltip_XPBarBackgroundObject
-local GameTooltip_ItemTooltip_FollowerTooltipObject = {}
+---@class CurrencyTransferMenu_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local CurrencyTransferMenu_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_FollowerTooltip_AbilitiesLabelObject : FontString
-local GameTooltip_ItemTooltip_FollowerTooltip_AbilitiesLabelObject = {}
+---@class CurrencyTransferMenu_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local CurrencyTransferMenu_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_FollowerTooltip_ClassObject : Texture
-local GameTooltip_ItemTooltip_FollowerTooltip_ClassObject = {}
+---@class CurrencyTransferMenu_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local CurrencyTransferMenu_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_FollowerTooltip_ClassSpecNameObject : FontString
-local GameTooltip_ItemTooltip_FollowerTooltip_ClassSpecNameObject = {}
+---@class CurrencyTransferMenu_LeftJumpHint_HoldIndicatorObject : Texture
+local CurrencyTransferMenu_LeftJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_FollowerTooltip_ILevelObject : FontString
-local GameTooltip_ItemTooltip_FollowerTooltip_ILevelObject = {}
+---@class CurrencyTransferMenu_LeftJumpHint_HoldIndicatorBGObject : Texture
+local CurrencyTransferMenu_LeftJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_FollowerTooltip_NameObject : FontString
-local GameTooltip_ItemTooltip_FollowerTooltip_NameObject = {}
+---@class CurrencyTransferMenu_LeftJumpHint_HoverTextureObject : Texture
+local CurrencyTransferMenu_LeftJumpHint_HoverTextureObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrameObject : Frame
----@field Level GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_LevelObject
----@field LevelBorder GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_LevelBorderObject
----@field Portrait GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitObject
----@field PortraitRing GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitRingObject
----@field PortraitRingCover GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitRingCoverObject
----@field PortraitRingQuality GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitRingQualityObject
-local GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrameObject = {}
----@return any ...
-function GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrameObject:SetILevel(...) end
----@return any ...
-function GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrameObject:SetLevel(...) end
----@return any ...
-function GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrameObject:SetNoLevel(...) end
----@return any ...
-function GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrameObject:SetPortraitIcon(...) end
----@return any ...
-function GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrameObject:SetQuality(...) end
----@return any ...
-function GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrameObject:SetQualityColor(...) end
----@return any ...
-function GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrameObject:SetupPortrait(...) end
+---@class CurrencyTransferMenu_LeftJumpHint_LoadBarObject : Texture
+local CurrencyTransferMenu_LeftJumpHint_LoadBarObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_LevelObject : FontString
-local GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_LevelObject = {}
+---@class CurrencyTransferMenu_LeftJumpHint_LoadBarBGObject : Texture
+local CurrencyTransferMenu_LeftJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_LevelBorderObject : Texture
-local GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_LevelBorderObject = {}
+---@class CurrencyTransferMenu_LeftJumpHint_LoadBarGlowObject : Texture
+local CurrencyTransferMenu_LeftJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitObject : Texture
-local GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitObject = {}
+---@class CurrencyTransferMenu_LeftJumpHint_NormalTextureObject : Texture
+local CurrencyTransferMenu_LeftJumpHint_NormalTextureObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitRingObject : Texture
-local GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitRingObject = {}
+---@class CurrencyTransferMenu_LeftJumpHint_PressedTextureObject : Texture
+local CurrencyTransferMenu_LeftJumpHint_PressedTextureObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitRingCoverObject : Texture
-local GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitRingCoverObject = {}
+---@class CurrencyTransferMenu_LeftJumpHint_SpinnerTipObject : Texture
+local CurrencyTransferMenu_LeftJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitRingQualityObject : Texture
-local GameTooltip_ItemTooltip_FollowerTooltip_PortraitFrame_PortraitRingQualityObject = {}
+---@class CurrencyTransferMenu_NineSliceObject : Frame
+---@field BottomEdge CurrencyTransferMenu_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner CurrencyTransferMenu_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner CurrencyTransferMenu_NineSlice_BottomRightCornerObject
+---@field Center CurrencyTransferMenu_NineSlice_CenterObject
+---@field LeftEdge CurrencyTransferMenu_NineSlice_LeftEdgeObject
+---@field RightEdge CurrencyTransferMenu_NineSlice_RightEdgeObject
+---@field TopEdge CurrencyTransferMenu_NineSlice_TopEdgeObject
+---@field TopLeftCorner CurrencyTransferMenu_NineSlice_TopLeftCornerObject
+---@field TopRightCorner CurrencyTransferMenu_NineSlice_TopRightCornerObject
+local CurrencyTransferMenu_NineSliceObject = {}
+---@return any ...
+function CurrencyTransferMenu_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function CurrencyTransferMenu_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function CurrencyTransferMenu_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function CurrencyTransferMenu_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function CurrencyTransferMenu_NineSliceObject:OnLoad(...) end
+---@return any ...
+function CurrencyTransferMenu_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function CurrencyTransferMenu_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function CurrencyTransferMenu_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function CurrencyTransferMenu_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function CurrencyTransferMenu_NineSliceObject:SetVertexColor(...) end
 end
 
 do
----@class GameTooltip_ItemTooltip_FollowerTooltip_QualityObject : FontString
-local GameTooltip_ItemTooltip_FollowerTooltip_QualityObject = {}
+---@class CurrencyTransferMenu_NineSlice_BottomEdgeObject : Texture
+local CurrencyTransferMenu_NineSlice_BottomEdgeObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_FollowerTooltip_SpecializationLabelObject : FontString
-local GameTooltip_ItemTooltip_FollowerTooltip_SpecializationLabelObject = {}
+---@class CurrencyTransferMenu_NineSlice_BottomLeftCornerObject : Texture
+local CurrencyTransferMenu_NineSlice_BottomLeftCornerObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_FollowerTooltip_TraitsLabelObject : FontString
-local GameTooltip_ItemTooltip_FollowerTooltip_TraitsLabelObject = {}
+---@class CurrencyTransferMenu_NineSlice_BottomRightCornerObject : Texture
+local CurrencyTransferMenu_NineSlice_BottomRightCornerObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_FollowerTooltip_UnderBiasedObject : FontString
-local GameTooltip_ItemTooltip_FollowerTooltip_UnderBiasedObject = {}
+---@class CurrencyTransferMenu_NineSlice_CenterObject : Texture
+local CurrencyTransferMenu_NineSlice_CenterObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_FollowerTooltip_XPObject : FontString
-local GameTooltip_ItemTooltip_FollowerTooltip_XPObject = {}
+---@class CurrencyTransferMenu_NineSlice_LeftEdgeObject : Texture
+local CurrencyTransferMenu_NineSlice_LeftEdgeObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_FollowerTooltip_XPBarObject : Texture
-local GameTooltip_ItemTooltip_FollowerTooltip_XPBarObject = {}
+---@class CurrencyTransferMenu_NineSlice_RightEdgeObject : Texture
+local CurrencyTransferMenu_NineSlice_RightEdgeObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_FollowerTooltip_XPBarBackgroundObject : Texture
-local GameTooltip_ItemTooltip_FollowerTooltip_XPBarBackgroundObject = {}
+---@class CurrencyTransferMenu_NineSlice_TopEdgeObject : Texture
+local CurrencyTransferMenu_NineSlice_TopEdgeObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_IconObject : Texture
-local GameTooltip_ItemTooltip_IconObject = {}
+---@class CurrencyTransferMenu_NineSlice_TopLeftCornerObject : Texture
+local CurrencyTransferMenu_NineSlice_TopLeftCornerObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_IconBorderObject : Texture
-local GameTooltip_ItemTooltip_IconBorderObject = {}
+---@class CurrencyTransferMenu_NineSlice_TopRightCornerObject : Texture
+local CurrencyTransferMenu_NineSlice_TopRightCornerObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_IconOverlayObject : Texture
-local GameTooltip_ItemTooltip_IconOverlayObject = {}
+---@class CurrencyTransferMenu_PortraitContainerObject : Frame
+---@field CircleMask CurrencyTransferMenu_PortraitContainer_CircleMaskObject
+---@field portrait CurrencyTransferMenu_PortraitContainer_portraitObject
+local CurrencyTransferMenu_PortraitContainerObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_IconOverlay2Object : Texture
-local GameTooltip_ItemTooltip_IconOverlay2Object = {}
+---@class CurrencyTransferMenu_PortraitContainer_CircleMaskObject : MaskTexture
+local CurrencyTransferMenu_PortraitContainer_CircleMaskObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_TextObject : FontString
-local GameTooltip_ItemTooltip_TextObject = {}
+---@class CurrencyTransferMenu_PortraitContainer_portraitObject : Texture
+local CurrencyTransferMenu_PortraitContainer_portraitObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_TooltipObject : GameTooltip
----@field BottomOverlay GameTooltip_ItemTooltip_Tooltip_BottomOverlayObject
----@field IsEmbedded boolean
----@field NineSlice GameTooltip_ItemTooltip_Tooltip_NineSliceObject
----@field StatusBar GameTooltip_ItemTooltip_Tooltip_StatusBarObject
----@field TextLeft1 GameTooltip_ItemTooltip_Tooltip_TextLeft1Object
----@field TextLeft2 GameTooltip_ItemTooltip_Tooltip_TextLeft2Object
----@field TextRight1 GameTooltip_ItemTooltip_Tooltip_TextRight1Object
----@field TextRight2 GameTooltip_ItemTooltip_Tooltip_TextRight2Object
----@field TopOverlay GameTooltip_ItemTooltip_Tooltip_TopOverlayObject
----@field layoutType string
----@field shoppingTooltips table
----@field supportsDataRefresh boolean
----@field textLeft1Font string
----@field textLeft2Font string
----@field textRight1Font string
----@field textRight2Font string
----@field updateTooltipTimer number
-local GameTooltip_ItemTooltip_TooltipObject = {}
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:AddLineDataText(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:AppendInfo(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:AppendInfoWithSpacer(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:ClearHandlerInfo(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:GetItem(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:GetPrimaryTooltipData(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:GetPrimaryTooltipInfo(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:GetProcessingTooltipInfo(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:GetSpell(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:GetTooltipData(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:GetUnit(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:HasDataInstanceID(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:InternalProcessInfo(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:IsTooltipType(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:OnEvent(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:OnLoad(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:ProcessInfo(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:ProcessLineData(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:ProcessLines(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:RebuildFromTooltipInfo(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:RefreshData(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:RefreshDataNextUpdate(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetAchievementByID(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetAction(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetArtifactItem(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetArtifactPowerByID(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetAzeriteEssence(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetAzeriteEssenceSlot(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetAzeritePower(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetBackpackToken(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetBagItem(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetBagItemChild(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetBuybackItem(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetCompanionPet(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetConduit(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetCurrencyByID(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetCurrencyToken(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetEnhancedConduit(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetEquipmentSet(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetExistingSocketGem(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetGuildBankItem(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetHeirloomByItemID(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetHyperlink(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetInboxItem(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetInfoBackdropStyle(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetInstanceLockEncountersComplete(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetInventoryItem(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetInventoryItemByID(...) end
+---@class CurrencyTransferMenu_RightJumpHintObject : Frame
+---@field ActiveTexture CurrencyTransferMenu_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture CurrencyTransferMenu_RightJumpHint_DisabledTextureObject
+---@field HoldAnim CurrencyTransferMenu_RightJumpHint_HoldAnimObject
+---@field HoldIndicator CurrencyTransferMenu_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG CurrencyTransferMenu_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture CurrencyTransferMenu_RightJumpHint_HoverTextureObject
+---@field LoadBar CurrencyTransferMenu_RightJumpHint_LoadBarObject
+---@field LoadBarBG CurrencyTransferMenu_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow CurrencyTransferMenu_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture CurrencyTransferMenu_RightJumpHint_NormalTextureObject
+---@field PressedTexture CurrencyTransferMenu_RightJumpHint_PressedTextureObject
+---@field SpinnerTip CurrencyTransferMenu_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local CurrencyTransferMenu_RightJumpHintObject = {}
 ---@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetItemByGUID(...) end
+function CurrencyTransferMenu_RightJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetItemByID(...) end
+function CurrencyTransferMenu_RightJumpHintObject:BeginHold(...) end
 ---@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetItemByItemModifiedAppearanceID(...) end
+function CurrencyTransferMenu_RightJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetItemInteractionItem(...) end
+function CurrencyTransferMenu_RightJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetItemKey(...) end
+function CurrencyTransferMenu_RightJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetLFGDungeonReward(...) end
+function CurrencyTransferMenu_RightJumpHintObject:EndHold(...) end
 ---@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetLFGDungeonShortageReward(...) end
+function CurrencyTransferMenu_RightJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetLootCurrency(...) end
+function CurrencyTransferMenu_RightJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetLootItem(...) end
+function CurrencyTransferMenu_RightJumpHintObject:OnLoad(...) end
 ---@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetLootRollItem(...) end
+function CurrencyTransferMenu_RightJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetMerchantCostItem(...) end
+function CurrencyTransferMenu_RightJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetMerchantItem(...) end
+function CurrencyTransferMenu_RightJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetMinimapMouseover(...) end
+function CurrencyTransferMenu_RightJumpHintObject:SetFocused(...) end
 ---@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetMountBySpellID(...) end
+function CurrencyTransferMenu_RightJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetOutfit(...) end
+function CurrencyTransferMenu_RightJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetOwnedItemByID(...) end
+function CurrencyTransferMenu_RightJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetPetAction(...) end
+function CurrencyTransferMenu_RightJumpHintObject:SetPressable(...) end
 ---@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetPossession(...) end
+function CurrencyTransferMenu_RightJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetPvpBrawl(...) end
+function CurrencyTransferMenu_RightJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetPvpTalent(...) end
+function CurrencyTransferMenu_RightJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetQuestCurrency(...) end
+function CurrencyTransferMenu_RightJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetQuestItem(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetQuestLogCurrency(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetQuestLogItem(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetQuestLogSpecialItem(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetQuestPartyProgress(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetRecipeRankInfo(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetRecipeReagentItem(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetRecipeResultItem(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetRecipeResultItemForOrder(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetRuneforgeResultItem(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetSendMailItem(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetShapeshift(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetSlottedKeystone(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetSocketGem(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetSocketedItem(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetSocketedRelic(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetSpellBookItem(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetSpellByID(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetTalent(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetTotem(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetToyByItemID(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetTradePlayerItem(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetTradeTargetItem(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetTrainerService(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetTraitEntry(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetUnit(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetUnitAura(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetUnitAuraByAuraInstanceID(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetUnitBuff(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetUnitBuffByAuraInstanceID(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetUnitDebuff(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetUnitDebuffByAuraInstanceID(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetUpgradeItem(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetWeeklyReward(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetWorldCursor(...) end
----@return any ...
-function GameTooltip_ItemTooltip_TooltipObject:SetWorldLootObject(...) end
-end
-
-do
----@class GameTooltip_ItemTooltip_Tooltip_BottomOverlayObject : Texture
-local GameTooltip_ItemTooltip_Tooltip_BottomOverlayObject = {}
-end
-
-do
----@class GameTooltip_ItemTooltip_Tooltip_NineSliceObject : Frame
----@field BottomEdge GameTooltip_ItemTooltip_Tooltip_NineSlice_BottomEdgeObject
----@field BottomLeftCorner GameTooltip_ItemTooltip_Tooltip_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner GameTooltip_ItemTooltip_Tooltip_NineSlice_BottomRightCornerObject
----@field Center GameTooltip_ItemTooltip_Tooltip_NineSlice_CenterObject
----@field LeftEdge GameTooltip_ItemTooltip_Tooltip_NineSlice_LeftEdgeObject
----@field RightEdge GameTooltip_ItemTooltip_Tooltip_NineSlice_RightEdgeObject
----@field TopEdge GameTooltip_ItemTooltip_Tooltip_NineSlice_TopEdgeObject
----@field TopLeftCorner GameTooltip_ItemTooltip_Tooltip_NineSlice_TopLeftCornerObject
----@field TopRightCorner GameTooltip_ItemTooltip_Tooltip_NineSlice_TopRightCornerObject
-local GameTooltip_ItemTooltip_Tooltip_NineSliceObject = {}
----@return any ...
-function GameTooltip_ItemTooltip_Tooltip_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function GameTooltip_ItemTooltip_Tooltip_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function GameTooltip_ItemTooltip_Tooltip_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function GameTooltip_ItemTooltip_Tooltip_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function GameTooltip_ItemTooltip_Tooltip_NineSliceObject:OnLoad(...) end
----@return any ...
-function GameTooltip_ItemTooltip_Tooltip_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function GameTooltip_ItemTooltip_Tooltip_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function GameTooltip_ItemTooltip_Tooltip_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function GameTooltip_ItemTooltip_Tooltip_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function GameTooltip_ItemTooltip_Tooltip_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class GameTooltip_ItemTooltip_Tooltip_NineSlice_BottomEdgeObject : Texture
-local GameTooltip_ItemTooltip_Tooltip_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class GameTooltip_ItemTooltip_Tooltip_NineSlice_BottomLeftCornerObject : Texture
-local GameTooltip_ItemTooltip_Tooltip_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class GameTooltip_ItemTooltip_Tooltip_NineSlice_BottomRightCornerObject : Texture
-local GameTooltip_ItemTooltip_Tooltip_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class GameTooltip_ItemTooltip_Tooltip_NineSlice_CenterObject : Texture
-local GameTooltip_ItemTooltip_Tooltip_NineSlice_CenterObject = {}
-end
-
-do
----@class GameTooltip_ItemTooltip_Tooltip_NineSlice_LeftEdgeObject : Texture
-local GameTooltip_ItemTooltip_Tooltip_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class GameTooltip_ItemTooltip_Tooltip_NineSlice_RightEdgeObject : Texture
-local GameTooltip_ItemTooltip_Tooltip_NineSlice_RightEdgeObject = {}
+function CurrencyTransferMenu_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class GameTooltip_ItemTooltip_Tooltip_NineSlice_TopEdgeObject : Texture
-local GameTooltip_ItemTooltip_Tooltip_NineSlice_TopEdgeObject = {}
+---@class CurrencyTransferMenu_RightJumpHint_ActiveTextureObject : Texture
+local CurrencyTransferMenu_RightJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_Tooltip_NineSlice_TopLeftCornerObject : Texture
-local GameTooltip_ItemTooltip_Tooltip_NineSlice_TopLeftCornerObject = {}
+---@class CurrencyTransferMenu_RightJumpHint_DisabledTextureObject : Texture
+local CurrencyTransferMenu_RightJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_Tooltip_NineSlice_TopRightCornerObject : Texture
-local GameTooltip_ItemTooltip_Tooltip_NineSlice_TopRightCornerObject = {}
+---@class CurrencyTransferMenu_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim CurrencyTransferMenu_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim CurrencyTransferMenu_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim CurrencyTransferMenu_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local CurrencyTransferMenu_RightJumpHint_HoldAnimObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_Tooltip_StatusBarObject : StatusBar
-local GameTooltip_ItemTooltip_Tooltip_StatusBarObject = {}
----@return any ...
-function GameTooltip_ItemTooltip_Tooltip_StatusBarObject:ClearWatch(...) end
----@return any ...
-function GameTooltip_ItemTooltip_Tooltip_StatusBarObject:OnLoad(...) end
----@return any ...
-function GameTooltip_ItemTooltip_Tooltip_StatusBarObject:OnUpdate(...) end
----@return any ...
-function GameTooltip_ItemTooltip_Tooltip_StatusBarObject:ResetUnitHealth(...) end
----@return any ...
-function GameTooltip_ItemTooltip_Tooltip_StatusBarObject:SetWatch(...) end
----@return any ...
-function GameTooltip_ItemTooltip_Tooltip_StatusBarObject:StopUpdates(...) end
----@return any ...
-function GameTooltip_ItemTooltip_Tooltip_StatusBarObject:UpdateUnitHealth(...) end
-end
-
-do
----@class GameTooltip_ItemTooltip_Tooltip_TextLeft1Object : FontString
-local GameTooltip_ItemTooltip_Tooltip_TextLeft1Object = {}
+---@class CurrencyTransferMenu_RightJumpHint_HoldAnim_LoadBarAnimObject
+local CurrencyTransferMenu_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_Tooltip_TextLeft2Object : FontString
-local GameTooltip_ItemTooltip_Tooltip_TextLeft2Object = {}
+---@class CurrencyTransferMenu_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local CurrencyTransferMenu_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_Tooltip_TextRight1Object : FontString
-local GameTooltip_ItemTooltip_Tooltip_TextRight1Object = {}
+---@class CurrencyTransferMenu_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local CurrencyTransferMenu_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_Tooltip_TextRight2Object : FontString
-local GameTooltip_ItemTooltip_Tooltip_TextRight2Object = {}
+---@class CurrencyTransferMenu_RightJumpHint_HoldIndicatorObject : Texture
+local CurrencyTransferMenu_RightJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class GameTooltip_ItemTooltip_Tooltip_TopOverlayObject : Texture
-local GameTooltip_ItemTooltip_Tooltip_TopOverlayObject = {}
+---@class CurrencyTransferMenu_RightJumpHint_HoldIndicatorBGObject : Texture
+local CurrencyTransferMenu_RightJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class GameTooltip_NineSliceObject : Frame
----@field BottomEdge GameTooltip_NineSlice_BottomEdgeObject
----@field BottomLeftCorner GameTooltip_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner GameTooltip_NineSlice_BottomRightCornerObject
----@field Center GameTooltip_NineSlice_CenterObject
----@field LeftEdge GameTooltip_NineSlice_LeftEdgeObject
----@field RightEdge GameTooltip_NineSlice_RightEdgeObject
----@field TopEdge GameTooltip_NineSlice_TopEdgeObject
----@field TopLeftCorner GameTooltip_NineSlice_TopLeftCornerObject
----@field TopRightCorner GameTooltip_NineSlice_TopRightCornerObject
-local GameTooltip_NineSliceObject = {}
----@return any ...
-function GameTooltip_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function GameTooltip_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function GameTooltip_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function GameTooltip_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function GameTooltip_NineSliceObject:OnLoad(...) end
----@return any ...
-function GameTooltip_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function GameTooltip_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function GameTooltip_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function GameTooltip_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function GameTooltip_NineSliceObject:SetVertexColor(...) end
+---@class CurrencyTransferMenu_RightJumpHint_HoverTextureObject : Texture
+local CurrencyTransferMenu_RightJumpHint_HoverTextureObject = {}
 end
 
 do
----@class GameTooltip_NineSlice_BottomEdgeObject : Texture
-local GameTooltip_NineSlice_BottomEdgeObject = {}
+---@class CurrencyTransferMenu_RightJumpHint_LoadBarObject : Texture
+local CurrencyTransferMenu_RightJumpHint_LoadBarObject = {}
 end
 
 do
----@class GameTooltip_NineSlice_BottomLeftCornerObject : Texture
-local GameTooltip_NineSlice_BottomLeftCornerObject = {}
+---@class CurrencyTransferMenu_RightJumpHint_LoadBarBGObject : Texture
+local CurrencyTransferMenu_RightJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class GameTooltip_NineSlice_BottomRightCornerObject : Texture
-local GameTooltip_NineSlice_BottomRightCornerObject = {}
+---@class CurrencyTransferMenu_RightJumpHint_LoadBarGlowObject : Texture
+local CurrencyTransferMenu_RightJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class GameTooltip_NineSlice_CenterObject : Texture
-local GameTooltip_NineSlice_CenterObject = {}
+---@class CurrencyTransferMenu_RightJumpHint_NormalTextureObject : Texture
+local CurrencyTransferMenu_RightJumpHint_NormalTextureObject = {}
 end
 
 do
----@class GameTooltip_NineSlice_LeftEdgeObject : Texture
-local GameTooltip_NineSlice_LeftEdgeObject = {}
+---@class CurrencyTransferMenu_RightJumpHint_PressedTextureObject : Texture
+local CurrencyTransferMenu_RightJumpHint_PressedTextureObject = {}
 end
 
 do
----@class GameTooltip_NineSlice_RightEdgeObject : Texture
-local GameTooltip_NineSlice_RightEdgeObject = {}
+---@class CurrencyTransferMenu_RightJumpHint_SpinnerTipObject : Texture
+local CurrencyTransferMenu_RightJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class GameTooltip_NineSlice_TopEdgeObject : Texture
-local GameTooltip_NineSlice_TopEdgeObject = {}
+---@class CurrencyTransferMenu_TitleContainerObject : Frame
+---@field TitleText CurrencyTransferMenu_TitleContainer_TitleTextObject
+local CurrencyTransferMenu_TitleContainerObject = {}
 end
 
 do
----@class GameTooltip_NineSlice_TopLeftCornerObject : Texture
-local GameTooltip_NineSlice_TopLeftCornerObject = {}
+---@class CurrencyTransferMenu_TitleContainer_TitleTextObject : FontString
+local CurrencyTransferMenu_TitleContainer_TitleTextObject = {}
 end
 
 do
----@class GameTooltip_NineSlice_TopRightCornerObject : Texture
-local GameTooltip_NineSlice_TopRightCornerObject = {}
+---@class CurrencyTransferMenu_TopTileStreaksObject : Texture
+local CurrencyTransferMenu_TopTileStreaksObject = {}
 end
 
 do
----@class GameTooltip_StatusBarObject : StatusBar
-local GameTooltip_StatusBarObject = {}
+---@class CurrencyTransferMenu_TransferringSpinnerObject : Frame
+---@field Anim CurrencyTransferMenu_TransferringSpinner_AnimObject
+---@field Ring CurrencyTransferMenu_TransferringSpinner_RingObject
+---@field Sparks CurrencyTransferMenu_TransferringSpinner_SparksObject
+local CurrencyTransferMenu_TransferringSpinnerObject = {}
 ---@return any ...
-function GameTooltip_StatusBarObject:ClearWatch(...) end
+function CurrencyTransferMenu_TransferringSpinnerObject:GetShadowAlpha(...) end
 ---@return any ...
-function GameTooltip_StatusBarObject:OnLoad(...) end
+function CurrencyTransferMenu_TransferringSpinnerObject:OnHide(...) end
 ---@return any ...
-function GameTooltip_StatusBarObject:OnUpdate(...) end
+function CurrencyTransferMenu_TransferringSpinnerObject:OnShow(...) end
 ---@return any ...
-function GameTooltip_StatusBarObject:ResetUnitHealth(...) end
+function CurrencyTransferMenu_TransferringSpinnerObject:OnSizeChanged(...) end
 ---@return any ...
-function GameTooltip_StatusBarObject:SetWatch(...) end
+function CurrencyTransferMenu_TransferringSpinnerObject:SetDesaturated(...) end
 ---@return any ...
-function GameTooltip_StatusBarObject:StopUpdates(...) end
+function CurrencyTransferMenu_TransferringSpinnerObject:SetShadowEnabled(...) end
 ---@return any ...
-function GameTooltip_StatusBarObject:UpdateUnitHealth(...) end
-end
-
-do
----@class GameTooltip_TextLeft1Object : FontString
-local GameTooltip_TextLeft1Object = {}
+function CurrencyTransferMenu_TransferringSpinnerObject:UpdateShadowSize(...) end
+---@return any ...
+function CurrencyTransferMenu_TransferringSpinnerObject:UpdateTheme(...) end
 end
 
 do
----@class GameTooltip_TextLeft2Object : FontString
-local GameTooltip_TextLeft2Object = {}
+---@class CurrencyTransferMenu_TransferringSpinner_AnimObject : AnimationGroup
+local CurrencyTransferMenu_TransferringSpinner_AnimObject = {}
 end
 
 do
----@class GameTooltip_TextRight1Object : FontString
-local GameTooltip_TextRight1Object = {}
+---@class CurrencyTransferMenu_TransferringSpinner_RingObject : Texture
+local CurrencyTransferMenu_TransferringSpinner_RingObject = {}
 end
 
 do
----@class GameTooltip_TextRight2Object : FontString
-local GameTooltip_TextRight2Object = {}
+---@class CurrencyTransferMenu_TransferringSpinner_SparksObject : Texture
+local CurrencyTransferMenu_TransferringSpinner_SparksObject = {}
 end
 
 do
----@class GameTooltip_TopOverlayObject : Texture
-local GameTooltip_TopOverlayObject = {}
+---@class CustomizationDebugFrameObject : Frame
+---@field updateTime number
+local CustomizationDebugFrameObject = {}
+---@type CustomizationDebugFrameObject
+CustomizationDebugFrame = CustomizationDebugFrameObject
 end
 
 do
----@class GameTooltipDefaultContainerObject : Frame
----@field Selection GameTooltipDefaultContainer_SelectionObject
+---@class DamageMeterObject : Frame
+---@field EditModeResizeButton DamageMeter_EditModeResizeButtonObject
+---@field Selection DamageMeter_SelectionObject
+---@field backgroundAlpha number
+---@field barHeight number
+---@field barSpacing number
+---@field defaultHideSelection boolean
 ---@field dirtySettings table
 ---@field downKeys table
 ---@field hasActiveChanges boolean
----@field savedSystemInfo GameTooltipDefaultContainer_savedSystemInfoObject
+---@field numberDisplayType number
+---@field savedSystemInfo DamageMeter_savedSystemInfoObject
+---@field sessionType number
 ---@field settingDisplayInfoMap table
 ---@field settingMap table
----@field settingsDialogAnchor GameTooltipDefaultContainer_settingsDialogAnchorObject
+---@field settingsDialogAnchor DamageMeter_settingsDialogAnchorObject
+---@field showBarIcons boolean
 ---@field snappedFrames table
+---@field style number
 ---@field system number
----@field systemInfo GameTooltipDefaultContainer_systemInfoObject
+---@field systemInfo DamageMeter_systemInfoObject
 ---@field systemNameString string
-local GameTooltipDefaultContainerObject = {}
+---@field useClassColor boolean
+---@field visibility number
+---@field windowDataList table
+local DamageMeterObject = {}
 ---@return any ...
-function GameTooltipDefaultContainerObject:AddExtraButtons(...) end
+function DamageMeterObject:AddExtraButtons(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:AddSnappedFrame(...) end
+function DamageMeterObject:AddSnappedFrame(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:AnchorSelectionFrame(...) end
+function DamageMeterObject:AnchorSelectionFrame(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:AnySettingsDirty(...) end
+function DamageMeterObject:AnySettingsDirty(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:ApplySystemAnchor(...) end
+function DamageMeterObject:ApplySystemAnchor(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:AreAllSystemSettingsDefault(...) end
+function DamageMeterObject:AreAllSystemSettingsDefault(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:BreakFrameSnap(...) end
+function DamageMeterObject:BreakFrameSnap(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:BreakFromFrameManager(...) end
+function DamageMeterObject:BreakFromFrameManager(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:BreakSnappedFrames(...) end
+function DamageMeterObject:BreakSnappedFrames(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:CanBeMoved(...) end
+function DamageMeterObject:CanBeMoved(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:ClearAllPointsBase(...) end
+function DamageMeterObject:CanHideSessionWindow(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:ClearAllPointsOverride(...) end
+function DamageMeterObject:CanMoveOrResizeSessionWindow(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:ClearDirtySetting(...) end
+function DamageMeterObject:CanShowNewSecondarySessionWindow(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:ClearDownKeys(...) end
+function DamageMeterObject:ClearAllPointsBase(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:ClearFrameSnap(...) end
+function DamageMeterObject:ClearAllPointsOverride(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:ClearHighlight(...) end
+function DamageMeterObject:ClearDirtySetting(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:ConvertSettingDisplayValueToRawValue(...) end
+function DamageMeterObject:ClearDownKeys(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:DoesSettingDisplayValueEqual(...) end
+function DamageMeterObject:ClearFrameSnap(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:DoesSettingValueEqual(...) end
+function DamageMeterObject:ClearHighlight(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:GetBottomOffset(...) end
+function DamageMeterObject:ConvertSettingDisplayValueToRawValue(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:GetCombinedCenterOffset(...) end
+function DamageMeterObject:CreateWindowData(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:GetCombinedSelectionOffset(...) end
+function DamageMeterObject:DoesSettingDisplayValueEqual(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:GetCompositeNumberSettingValue(...) end
+function DamageMeterObject:DoesSettingValueEqual(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:GetFrameMagneticEligibility(...) end
+function DamageMeterObject:ForEachSessionWindow(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:GetLeftOffset(...) end
+function DamageMeterObject:GetAvailableSecondarySessionWindowIndex(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:GetManagedFrameContainer(...) end
+function DamageMeterObject:GetAvailableSecondaryWindowDataIndex(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:GetRightOffset(...) end
+function DamageMeterObject:GetBackgroundAlpha(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:GetScaledCenter(...) end
+function DamageMeterObject:GetBackgroundTransparency(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:GetScaledSelectionCenter(...) end
+function DamageMeterObject:GetBarHeight(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:GetScaledSelectionSides(...) end
+function DamageMeterObject:GetBarSpacing(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:GetSelectionOffset(...) end
+function DamageMeterObject:GetBottomOffset(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:GetSettingValue(...) end
+function DamageMeterObject:GetCombinedCenterOffset(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:GetSettingValueBool(...) end
+function DamageMeterObject:GetCombinedSelectionOffset(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:GetSettingsDialogAnchor(...) end
+function DamageMeterObject:GetCompositeNumberSettingValue(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:GetSnapOffsets(...) end
+function DamageMeterObject:GetCurrentSessionWindowCount(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:GetSystemName(...) end
+function DamageMeterObject:GetDefaultWindowData(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:GetTopOffset(...) end
+function DamageMeterObject:GetFrameMagneticEligibility(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:HasActiveChanges(...) end
+function DamageMeterObject:GetLeftOffset(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:HasCompositeNumberSetting(...) end
+function DamageMeterObject:GetManagedFrameContainer(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:HasSetting(...) end
+function DamageMeterObject:GetMaxSessionWindowCount(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:HasValidSelectionRect(...) end
+function DamageMeterObject:GetNumberDisplayType(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:HideBase(...) end
+function DamageMeterObject:GetPrimarySessionWindow(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:HideOverride(...) end
+function DamageMeterObject:GetRightOffset(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:HighlightSystem(...) end
+function DamageMeterObject:GetScaledCenter(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:IsAboveFrame(...) end
+function DamageMeterObject:GetScaledSelectionCenter(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:IsBelowFrame(...) end
+function DamageMeterObject:GetScaledSelectionSides(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:IsEditModeDragging(...) end
+function DamageMeterObject:GetSelectionOffset(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:IsFrameAnchoredToMe(...) end
+function DamageMeterObject:GetSessionID(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:IsHorizontallyAlignedWithFrame(...) end
+function DamageMeterObject:GetSessionType(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:IsInDefaultPosition(...) end
+function DamageMeterObject:GetSessionWindow(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:IsInitialized(...) end
+function DamageMeterObject:GetSessionWindowDamageMeterType(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:IsSettingDirty(...) end
+function DamageMeterObject:GetSessionWindowData(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:IsShiftKeyDown(...) end
+function DamageMeterObject:GetSettingValue(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:IsSystemSettingDefault(...) end
+function DamageMeterObject:GetSettingValueBool(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:IsToTheLeftOfFrame(...) end
+function DamageMeterObject:GetSettingsDialogAnchor(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:IsToTheRightOfFrame(...) end
+function DamageMeterObject:GetSnapOffsets(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:IsVerticallyAlignedWithFrame(...) end
+function DamageMeterObject:GetStyle(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:MarkAllSettingsDirty(...) end
+function DamageMeterObject:GetSystemName(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:OnAnyEditModeSystemAnchorChanged(...) end
+function DamageMeterObject:GetTextScale(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:OnDragStart(...) end
+function DamageMeterObject:GetTextSize(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:OnDragStop(...) end
+function DamageMeterObject:GetTopOffset(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:OnEditModeEnter(...) end
+function DamageMeterObject:GetWindowAlpha(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:OnEditModeExit(...) end
+function DamageMeterObject:GetWindowDataList(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:OnKeyDown(...) end
+function DamageMeterObject:GetWindowTransparency(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:OnKeyUp(...) end
+function DamageMeterObject:HasActiveChanges(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:OnSystemHide(...) end
+function DamageMeterObject:HasCompositeNumberSetting(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:OnSystemLoad(...) end
+function DamageMeterObject:HasSetting(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:OnSystemPositionChange(...) end
+function DamageMeterObject:HasValidSelectionRect(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:OnUpdateSystem(...) end
+function DamageMeterObject:HideAllSessionWindows(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:PrepareForSave(...) end
+function DamageMeterObject:HideBase(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:ProcessMovementKey(...) end
+function DamageMeterObject:HideOverride(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:RemoveSnappedFrame(...) end
+function DamageMeterObject:HideSessionWindow(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:ResetToDefaultPosition(...) end
+function DamageMeterObject:HighlightSystem(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:SelectSystem(...) end
+function DamageMeterObject:InitializeWindowDataList(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:SetHasActiveChanges(...) end
+function DamageMeterObject:IsAboveFrame(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:SetPointBase(...) end
+function DamageMeterObject:IsBelowFrame(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:SetPointOverride(...) end
+function DamageMeterObject:IsEditModeDragging(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:SetScaleBase(...) end
+function DamageMeterObject:IsEditing(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:SetScaleOverride(...) end
+function DamageMeterObject:IsFrameAnchoredToMe(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:SetSelectionShown(...) end
+function DamageMeterObject:IsHorizontallyAlignedWithFrame(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:SetShownBase(...) end
+function DamageMeterObject:IsInDefaultPosition(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:SetShownOverride(...) end
+function DamageMeterObject:IsInitialized(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:SetSnappedToFrame(...) end
+function DamageMeterObject:IsPlayerInCombat(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:SetupSettingsDialogAnchor(...) end
+function DamageMeterObject:IsPlayerInGroup(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:SetupVisibilityFunctionOverrides(...) end
+function DamageMeterObject:IsSettingDirty(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:ShouldBreakSnappedFramesOnHide(...) end
+function DamageMeterObject:IsShiftKeyDown(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:ShouldResetSettingsDialogAnchors(...) end
+function DamageMeterObject:IsSystemSettingDefault(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:ShouldShowSetting(...) end
+function DamageMeterObject:IsToTheLeftOfFrame(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:ShowEditInstructions(...) end
+function DamageMeterObject:IsToTheRightOfFrame(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:SnapToFrame(...) end
+function DamageMeterObject:IsVerticallyAlignedWithFrame(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:TrySetCompositeNumberSettingValue(...) end
+function DamageMeterObject:LoadSavedWindowDataList(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:UpdateClampOffsets(...) end
+function DamageMeterObject:MarkAllSettingsDirty(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:UpdateDirtySettings(...) end
+function DamageMeterObject:OnAnyEditModeSystemAnchorChanged(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:UpdateDisplayInfoOptions(...) end
+function DamageMeterObject:OnBackgroundAlphaChanged(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:UpdateMagnetismRegistration(...) end
+function DamageMeterObject:OnBarHeightChanged(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:UpdateSettingMap(...) end
+function DamageMeterObject:OnBarSpacingChanged(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:UpdateSystem(...) end
+function DamageMeterObject:OnDragStart(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:UpdateSystemSetting(...) end
+function DamageMeterObject:OnDragStop(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:UpdateSystemSettingValue(...) end
+function DamageMeterObject:OnEditModeEnter(...) end
 ---@return any ...
-function GameTooltipDefaultContainerObject:UseSettingAltName(...) end
----@type GameTooltipDefaultContainerObject
-GameTooltipDefaultContainer = GameTooltipDefaultContainerObject
+function DamageMeterObject:OnEditModeExit(...) end
+---@return any ...
+function DamageMeterObject:OnEnabledCVarChanged(...) end
+---@return any ...
+function DamageMeterObject:OnEvent(...) end
+---@return any ...
+function DamageMeterObject:OnKeyDown(...) end
+---@return any ...
+function DamageMeterObject:OnKeyUp(...) end
+---@return any ...
+function DamageMeterObject:OnLoad(...) end
+---@return any ...
+function DamageMeterObject:OnNumberDisplayTypeChanged(...) end
+---@return any ...
+function DamageMeterObject:OnShowBarIconsChanged(...) end
+---@return any ...
+function DamageMeterObject:OnStyleChanged(...) end
+---@return any ...
+function DamageMeterObject:OnSystemHide(...) end
+---@return any ...
+function DamageMeterObject:OnSystemLoad(...) end
+---@return any ...
+function DamageMeterObject:OnSystemPositionChange(...) end
+---@return any ...
+function DamageMeterObject:OnTextScaleChanged(...) end
+---@return any ...
+function DamageMeterObject:OnUpdateSystem(...) end
+---@return any ...
+function DamageMeterObject:OnUseClassColorChanged(...) end
+---@return any ...
+function DamageMeterObject:OnVariablesLoaded(...) end
+---@return any ...
+function DamageMeterObject:OnWindowAlphaChanged(...) end
+---@return any ...
+function DamageMeterObject:PrepareForSave(...) end
+---@return any ...
+function DamageMeterObject:ProcessMovementKey(...) end
+---@return any ...
+function DamageMeterObject:RefreshLayout(...) end
+---@return any ...
+function DamageMeterObject:RemoveSnappedFrame(...) end
+---@return any ...
+function DamageMeterObject:ResetToDefaultPosition(...) end
+---@return any ...
+function DamageMeterObject:SelectSystem(...) end
+---@return any ...
+function DamageMeterObject:SetBackgroundAlpha(...) end
+---@return any ...
+function DamageMeterObject:SetBackgroundTransparency(...) end
+---@return any ...
+function DamageMeterObject:SetBarHeight(...) end
+---@return any ...
+function DamageMeterObject:SetBarSpacing(...) end
+---@return any ...
+function DamageMeterObject:SetHasActiveChanges(...) end
+---@return any ...
+function DamageMeterObject:SetIsEditing(...) end
+---@return any ...
+function DamageMeterObject:SetNumberDisplayType(...) end
+---@return any ...
+function DamageMeterObject:SetPointBase(...) end
+---@return any ...
+function DamageMeterObject:SetPointOverride(...) end
+---@return any ...
+function DamageMeterObject:SetScaleBase(...) end
+---@return any ...
+function DamageMeterObject:SetScaleOverride(...) end
+---@return any ...
+function DamageMeterObject:SetSelectionShown(...) end
+---@return any ...
+function DamageMeterObject:SetSessionWindowDamageMeterType(...) end
+---@return any ...
+function DamageMeterObject:SetSessionWindowLocked(...) end
+---@return any ...
+function DamageMeterObject:SetSessionWindowMinimized(...) end
+---@return any ...
+function DamageMeterObject:SetSessionWindowNonInteractive(...) end
+---@return any ...
+function DamageMeterObject:SetSessionWindowSessionID(...) end
+---@return any ...
+function DamageMeterObject:SetShowBarIcons(...) end
+---@return any ...
+function DamageMeterObject:SetShownBase(...) end
+---@return any ...
+function DamageMeterObject:SetShownOverride(...) end
+---@return any ...
+function DamageMeterObject:SetSnappedToFrame(...) end
+---@return any ...
+function DamageMeterObject:SetStyle(...) end
+---@return any ...
+function DamageMeterObject:SetTextScale(...) end
+---@return any ...
+function DamageMeterObject:SetTextSize(...) end
+---@return any ...
+function DamageMeterObject:SetUseClassColor(...) end
+---@return any ...
+function DamageMeterObject:SetWindowAlpha(...) end
+---@return any ...
+function DamageMeterObject:SetWindowTransparency(...) end
+---@return any ...
+function DamageMeterObject:SetupSessionWindow(...) end
+---@return any ...
+function DamageMeterObject:SetupSettingsDialogAnchor(...) end
+---@return any ...
+function DamageMeterObject:SetupVisibilityFunctionOverrides(...) end
+---@return any ...
+function DamageMeterObject:ShouldBeShown(...) end
+---@return any ...
+function DamageMeterObject:ShouldBreakSnappedFramesOnHide(...) end
+---@return any ...
+function DamageMeterObject:ShouldResetSettingsDialogAnchors(...) end
+---@return any ...
+function DamageMeterObject:ShouldShowBarIcons(...) end
+---@return any ...
+function DamageMeterObject:ShouldShowSetting(...) end
+---@return any ...
+function DamageMeterObject:ShouldUseClassColor(...) end
+---@return any ...
+function DamageMeterObject:ShowEditInstructions(...) end
+---@return any ...
+function DamageMeterObject:ShowNewSecondarySessionWindow(...) end
+---@return any ...
+function DamageMeterObject:SnapToFrame(...) end
+---@return any ...
+function DamageMeterObject:TrySetCompositeNumberSettingValue(...) end
+---@return any ...
+function DamageMeterObject:UpdateClampOffsets(...) end
+---@return any ...
+function DamageMeterObject:UpdateDirtySettings(...) end
+---@return any ...
+function DamageMeterObject:UpdateDisplayInfoOptions(...) end
+---@return any ...
+function DamageMeterObject:UpdateMagnetismRegistration(...) end
+---@return any ...
+function DamageMeterObject:UpdateSessionTimerState(...) end
+---@return any ...
+function DamageMeterObject:UpdateSettingMap(...) end
+---@return any ...
+function DamageMeterObject:UpdateShownState(...) end
+---@return any ...
+function DamageMeterObject:UpdateSystem(...) end
+---@return any ...
+function DamageMeterObject:UpdateSystemSetting(...) end
+---@return any ...
+function DamageMeterObject:UpdateSystemSettingBackgroundTransparency(...) end
+---@return any ...
+function DamageMeterObject:UpdateSystemSettingBarHeight(...) end
+---@return any ...
+function DamageMeterObject:UpdateSystemSettingFrameHeight(...) end
+---@return any ...
+function DamageMeterObject:UpdateSystemSettingFrameWidth(...) end
+---@return any ...
+function DamageMeterObject:UpdateSystemSettingNumberDisplayType(...) end
+---@return any ...
+function DamageMeterObject:UpdateSystemSettingPadding(...) end
+---@return any ...
+function DamageMeterObject:UpdateSystemSettingShowClassColor(...) end
+---@return any ...
+function DamageMeterObject:UpdateSystemSettingShowSpecIcon(...) end
+---@return any ...
+function DamageMeterObject:UpdateSystemSettingStyle(...) end
+---@return any ...
+function DamageMeterObject:UpdateSystemSettingTextSize(...) end
+---@return any ...
+function DamageMeterObject:UpdateSystemSettingTransparency(...) end
+---@return any ...
+function DamageMeterObject:UpdateSystemSettingValue(...) end
+---@return any ...
+function DamageMeterObject:UpdateSystemSettingVisibility(...) end
+---@return any ...
+function DamageMeterObject:UseSettingAltName(...) end
+---@type DamageMeterObject
+DamageMeter = DamageMeterObject
 end
 
 do
----@class GameTooltipDefaultContainer_SelectionObject : Frame
----@field Label GameTooltipDefaultContainer_Selection_LabelObject
----@field MouseOverHighlight GameTooltipDefaultContainer_Selection_MouseOverHighlightObject
+---@class DamageMeter_EditModeResizeButtonObject : Button
+local DamageMeter_EditModeResizeButtonObject = {}
+end
+
+do
+---@class DamageMeter_SelectionObject : Frame
+---@field Label DamageMeter_Selection_LabelObject
+---@field MouseOverHighlight DamageMeter_Selection_MouseOverHighlightObject
 ---@field highlightTextureKit string
 ---@field ignoreInLayout boolean
----@field parent GameTooltipDefaultContainer_Selection_parentObject
+---@field parent DamageMeter_Selection_parentObject
 ---@field selectedTextureKit string
----@field system GameTooltipDefaultContainer_Selection_systemObject
-local GameTooltipDefaultContainer_SelectionObject = {}
+---@field system DamageMeter_Selection_systemObject
+local DamageMeter_SelectionObject = {}
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:CheckShowInstructionalTooltip(...) end
+function DamageMeter_SelectionObject:CheckShowInstructionalTooltip(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:GetBorderColor(...) end
+function DamageMeter_SelectionObject:GetBorderColor(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:GetCenterColor(...) end
+function DamageMeter_SelectionObject:GetCenterColor(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:GetFrameLayoutTextureKit(...) end
+function DamageMeter_SelectionObject:GetFrameLayoutTextureKit(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:GetFrameLayoutType(...) end
+function DamageMeter_SelectionObject:GetFrameLayoutType(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:GetLabelText(...) end
+function DamageMeter_SelectionObject:GetLabelText(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:HideInstructionalTooltip(...) end
+function DamageMeter_SelectionObject:HideInstructionalTooltip(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:IsSelected(...) end
+function DamageMeter_SelectionObject:IsSelected(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:IsShowingEditInstructions(...) end
+function DamageMeter_SelectionObject:IsShowingEditInstructions(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:OnDragStart(...) end
+function DamageMeter_SelectionObject:OnDragStart(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:OnDragStop(...) end
+function DamageMeter_SelectionObject:OnDragStop(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:OnEnter(...) end
+function DamageMeter_SelectionObject:OnEnter(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:OnLeave(...) end
+function DamageMeter_SelectionObject:OnLeave(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:OnLoad(...) end
+function DamageMeter_SelectionObject:OnLoad(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:OnMouseDown(...) end
+function DamageMeter_SelectionObject:OnMouseDown(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:SetBlendMode(...) end
+function DamageMeter_SelectionObject:SetBlendMode(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:SetBorderBlendMode(...) end
+function DamageMeter_SelectionObject:SetBorderBlendMode(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:SetBorderColor(...) end
+function DamageMeter_SelectionObject:SetBorderColor(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:SetCenterColor(...) end
+function DamageMeter_SelectionObject:SetCenterColor(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:SetSystem(...) end
+function DamageMeter_SelectionObject:SetSystem(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:SetVertexColor(...) end
+function DamageMeter_SelectionObject:SetVertexColor(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:ShouldShowLabelText(...) end
+function DamageMeter_SelectionObject:ShouldShowLabelText(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:ShowEditInstructions(...) end
+function DamageMeter_SelectionObject:ShowEditInstructions(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:ShowHighlighted(...) end
+function DamageMeter_SelectionObject:ShowHighlighted(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:ShowSelected(...) end
+function DamageMeter_SelectionObject:ShowSelected(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_SelectionObject:UpdateLabelVisibility(...) end
+function DamageMeter_SelectionObject:UpdateLabelVisibility(...) end
 end
 
 do
----@class GameTooltipDefaultContainer_Selection_LabelObject : FontString
+---@class DamageMeter_Selection_LabelObject : FontString
 ---@field fontObjectsToTry table
-local GameTooltipDefaultContainer_Selection_LabelObject = {}
+local DamageMeter_Selection_LabelObject = {}
 ---@return any ...
-function GameTooltipDefaultContainer_Selection_LabelObject:ApplyFontObjects(...) end
+function DamageMeter_Selection_LabelObject:ApplyFontObjects(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_Selection_LabelObject:SetFontObjectsToTry(...) end
+function DamageMeter_Selection_LabelObject:SetFontObjectsToTry(...) end
 end
 
 do
----@class GameTooltipDefaultContainer_Selection_MouseOverHighlightObject : Frame
----@field BottomEdge GameTooltipDefaultContainer_Selection_MouseOverHighlight_BottomEdgeObject
----@field BottomLeftCorner GameTooltipDefaultContainer_Selection_MouseOverHighlight_BottomLeftCornerObject
----@field BottomRightCorner GameTooltipDefaultContainer_Selection_MouseOverHighlight_BottomRightCornerObject
----@field Center GameTooltipDefaultContainer_Selection_MouseOverHighlight_CenterObject
----@field LeftEdge GameTooltipDefaultContainer_Selection_MouseOverHighlight_LeftEdgeObject
----@field RightEdge GameTooltipDefaultContainer_Selection_MouseOverHighlight_RightEdgeObject
----@field TopEdge GameTooltipDefaultContainer_Selection_MouseOverHighlight_TopEdgeObject
----@field TopLeftCorner GameTooltipDefaultContainer_Selection_MouseOverHighlight_TopLeftCornerObject
----@field TopRightCorner GameTooltipDefaultContainer_Selection_MouseOverHighlight_TopRightCornerObject
-local GameTooltipDefaultContainer_Selection_MouseOverHighlightObject = {}
+---@class DamageMeter_Selection_MouseOverHighlightObject : Frame
+---@field BottomEdge DamageMeter_Selection_MouseOverHighlight_BottomEdgeObject
+---@field BottomLeftCorner DamageMeter_Selection_MouseOverHighlight_BottomLeftCornerObject
+---@field BottomRightCorner DamageMeter_Selection_MouseOverHighlight_BottomRightCornerObject
+---@field Center DamageMeter_Selection_MouseOverHighlight_CenterObject
+---@field LeftEdge DamageMeter_Selection_MouseOverHighlight_LeftEdgeObject
+---@field RightEdge DamageMeter_Selection_MouseOverHighlight_RightEdgeObject
+---@field TopEdge DamageMeter_Selection_MouseOverHighlight_TopEdgeObject
+---@field TopLeftCorner DamageMeter_Selection_MouseOverHighlight_TopLeftCornerObject
+---@field TopRightCorner DamageMeter_Selection_MouseOverHighlight_TopRightCornerObject
+local DamageMeter_Selection_MouseOverHighlightObject = {}
 ---@return any ...
-function GameTooltipDefaultContainer_Selection_MouseOverHighlightObject:GetBorderColor(...) end
+function DamageMeter_Selection_MouseOverHighlightObject:GetBorderColor(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_Selection_MouseOverHighlightObject:GetCenterColor(...) end
+function DamageMeter_Selection_MouseOverHighlightObject:GetCenterColor(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_Selection_MouseOverHighlightObject:GetFrameLayoutTextureKit(...) end
+function DamageMeter_Selection_MouseOverHighlightObject:GetFrameLayoutTextureKit(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_Selection_MouseOverHighlightObject:GetFrameLayoutType(...) end
+function DamageMeter_Selection_MouseOverHighlightObject:GetFrameLayoutType(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_Selection_MouseOverHighlightObject:OnLoad(...) end
+function DamageMeter_Selection_MouseOverHighlightObject:OnLoad(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_Selection_MouseOverHighlightObject:SetBlendMode(...) end
+function DamageMeter_Selection_MouseOverHighlightObject:SetBlendMode(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_Selection_MouseOverHighlightObject:SetBorderBlendMode(...) end
+function DamageMeter_Selection_MouseOverHighlightObject:SetBorderBlendMode(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_Selection_MouseOverHighlightObject:SetBorderColor(...) end
+function DamageMeter_Selection_MouseOverHighlightObject:SetBorderColor(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_Selection_MouseOverHighlightObject:SetCenterColor(...) end
+function DamageMeter_Selection_MouseOverHighlightObject:SetCenterColor(...) end
 ---@return any ...
-function GameTooltipDefaultContainer_Selection_MouseOverHighlightObject:SetVertexColor(...) end
-end
-
-do
----@class GameTooltipDefaultContainer_Selection_MouseOverHighlight_BottomEdgeObject : Texture
-local GameTooltipDefaultContainer_Selection_MouseOverHighlight_BottomEdgeObject = {}
-end
-
-do
----@class GameTooltipDefaultContainer_Selection_MouseOverHighlight_BottomLeftCornerObject : Texture
-local GameTooltipDefaultContainer_Selection_MouseOverHighlight_BottomLeftCornerObject = {}
-end
-
-do
----@class GameTooltipDefaultContainer_Selection_MouseOverHighlight_BottomRightCornerObject : Texture
-local GameTooltipDefaultContainer_Selection_MouseOverHighlight_BottomRightCornerObject = {}
-end
-
-do
----@class GameTooltipDefaultContainer_Selection_MouseOverHighlight_CenterObject : Texture
-local GameTooltipDefaultContainer_Selection_MouseOverHighlight_CenterObject = {}
-end
-
-do
----@class GameTooltipDefaultContainer_Selection_MouseOverHighlight_LeftEdgeObject : Texture
-local GameTooltipDefaultContainer_Selection_MouseOverHighlight_LeftEdgeObject = {}
-end
-
-do
----@class GameTooltipDefaultContainer_Selection_MouseOverHighlight_RightEdgeObject : Texture
-local GameTooltipDefaultContainer_Selection_MouseOverHighlight_RightEdgeObject = {}
-end
-
-do
----@class GameTooltipDefaultContainer_Selection_MouseOverHighlight_TopEdgeObject : Texture
-local GameTooltipDefaultContainer_Selection_MouseOverHighlight_TopEdgeObject = {}
-end
-
-do
----@class GameTooltipDefaultContainer_Selection_MouseOverHighlight_TopLeftCornerObject : Texture
-local GameTooltipDefaultContainer_Selection_MouseOverHighlight_TopLeftCornerObject = {}
-end
-
-do
----@class GameTooltipDefaultContainer_Selection_MouseOverHighlight_TopRightCornerObject : Texture
-local GameTooltipDefaultContainer_Selection_MouseOverHighlight_TopRightCornerObject = {}
-end
-
-do
----@class GameTooltipDefaultContainer_Selection_parentObject
-local GameTooltipDefaultContainer_Selection_parentObject = {}
-end
-
-do
----@class GameTooltipDefaultContainer_Selection_systemObject
-local GameTooltipDefaultContainer_Selection_systemObject = {}
-end
-
-do
----@class GameTooltipDefaultContainer_savedSystemInfoObject
----@field anchorInfo table
----@field isInDefaultPosition boolean
----@field settings table
----@field system number
-local GameTooltipDefaultContainer_savedSystemInfoObject = {}
-end
-
-do
----@class GameTooltipDefaultContainer_settingsDialogAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo GameTooltipDefaultContainer_settingsDialogAnchor_relativeToObject
----@field x number
----@field y number
-local GameTooltipDefaultContainer_settingsDialogAnchorObject = {}
----@return any ...
-function GameTooltipDefaultContainer_settingsDialogAnchorObject:Get(...) end
----@return any ...
-function GameTooltipDefaultContainer_settingsDialogAnchorObject:GetRelativeTo(...) end
----@return any ...
-function GameTooltipDefaultContainer_settingsDialogAnchorObject:Init(...) end
----@return any ...
-function GameTooltipDefaultContainer_settingsDialogAnchorObject:Set(...) end
----@return any ...
-function GameTooltipDefaultContainer_settingsDialogAnchorObject:SetFromPoint(...) end
----@return any ...
-function GameTooltipDefaultContainer_settingsDialogAnchorObject:SetOffsets(...) end
----@return any ...
-function GameTooltipDefaultContainer_settingsDialogAnchorObject:SetPoint(...) end
----@return any ...
-function GameTooltipDefaultContainer_settingsDialogAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function GameTooltipDefaultContainer_settingsDialogAnchorObject:SetRelativeTo(...) end
-end
-
-do
----@class GameTooltipDefaultContainer_settingsDialogAnchor_relativeToObject
-local GameTooltipDefaultContainer_settingsDialogAnchor_relativeToObject = {}
-end
-
-do
----@class GameTooltipDefaultContainer_systemInfoObject
----@field anchorInfo table
----@field isInDefaultPosition boolean
----@field settings table
----@field system number
-local GameTooltipDefaultContainer_systemInfoObject = {}
-end
-
-do
----@class GamepadActionBarEditFrameObject : Frame
----@field ActionTooltip table
----@field Background table
----@field BindingInfoFrame table
----@field EDIT_FRAME_MOVE_DISPLAY_UPDATE_FUNC table
----@field EditActionBarsInfoFrame table
----@field PageUnit GamepadActionBarEditFrame_PageUnitObject
----@field activeMode string
----@field bindingModeFooter table
----@field buttonBindingInfos table
----@field clickHandlers GamepadActionBarEditFrame_clickHandlersObject
----@field disableFrameFocusPagingWhenFocused boolean
----@field dismissOnUnfocus boolean
----@field displayedActionType string
----@field editModeFooter table
----@field inputBindingGroups table
----@field shouldExpand boolean
----@field showButtonIcons boolean
----@field showEmptyBars boolean
----@field showHighlight boolean
----@field useCompactLayout boolean
----@field useCustomNavigation boolean
-local GamepadActionBarEditFrameObject = {}
----@return any ...
-function GamepadActionBarEditFrameObject:AttemptBindDown(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:BindEquipmentSet(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:BindItem(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:BindMacro(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:BindOutfit(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:BindSpell(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:BindSpellBookItem(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:CaptureActionInput(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:ClearBindings(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:CreateInputBindingGroups(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:DisplayEquipmentSetAction(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:DisplayItemAction(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:DisplayMacroAction(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:DisplayOutfitAction(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:DisplaySpellAction(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:DisplaySpellBookItem(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:EnterBindingMode(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:EnterEditMode(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:ExitActiveMode(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:ExitBindingMode(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:ExitEditMode(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:GetTooltip(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:InitializeGamepad(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:InitializePageUnit(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:NextActionBarPage(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:OnEvent(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:OnInputModifierStateChanged(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:OnShow(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:PlaceOrClearHeldActionCapturedInputHandler(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:PostVariableSetUp(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:PreviousActionBarPage(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:RepositionActionDisplayTooltip(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:RestoreSlot(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:SelectActionToPickupCapturedInputHandler(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:SetDisplayedActionPickupInfo(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:SetModifiedBindingModeActionsEnabled(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:SetModifiedEditingModeActionsEnabled(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:SetUpInfoFrameFooters(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:SetupNonBindableActionArt(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:ShowBindingModeFrameAndBindings(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:ShowEditModeFrameAndBindings(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:StartListeningForButtons(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:StopListeningForButtons(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:SwitchFromBindingModeToEditMode(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:TransitionToSelectActionToPickup(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:TryClearHeldAction(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:UndoEdit(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:UnfocusGamepad(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:UpdateActionDisplay(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:UpdateButtonToListenFor(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:UpdateSelectedMoveDisplay_EquipmentSet(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:UpdateSelectedMoveDisplay_Flyout(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:UpdateSelectedMoveDisplay_Item(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:UpdateSelectedMoveDisplay_Macro(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:UpdateSelectedMoveDisplay_Outfit(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:UpdateSelectedMoveDisplay_PetAction(...) end
----@return any ...
-function GamepadActionBarEditFrameObject:UpdateSelectedMoveDisplay_Spell(...) end
----@type GamepadActionBarEditFrameObject
-GamepadActionBarEditFrame = GamepadActionBarEditFrameObject
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnitObject : Frame
----@field BottomCenteredAnchor table
----@field CenteredIcons table
----@field Event table
----@field LeftCenteredAnchor table
----@field LeftIcon table
----@field ModifierIcons table
----@field PageTracker table
----@field RightCenteredAnchor table
----@field RightIcon table
----@field TopCenteredAnchor GamepadActionBarEditFrame_PageUnit_TopCenteredAnchorObject
----@field actionBars table
----@field activeBar GamepadActionBarEditFrame_PageUnit_activeBarObject
----@field anchorPoints table
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
----@field overrideBars table
----@field pageableActionBarsIndexOrder table
----@field targetingBarsSharedState table
-local GamepadActionBarEditFrame_PageUnitObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:ActionBarModKeyDownStateCheck(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:AddPageChangeCallback(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:ClearSpellMappingHighlights(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:ClickChangePageButton(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:CopyDeferredCallbacks(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:DebugPrintPageableActionBarsForPage(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:DisableActionButtonGameplayFeedback(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:DoesFrameHaveEvent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:GenerateCallbackEvents(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:GetActiveBar(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:GetBottomAnchorFrame(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:GetCallbackTable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:GetCallbackTables(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:GetCallbacksByEvent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:GetControllerActionButtonFromSlot(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:GetCurrentPage(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:GetLeftAnchorFrame(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:GetPageableActionBarsInIndexOrder(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:GetRightAnchorFrame(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:GetTopAnchorFrame(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:HandleSpecialPageActiveStateChange(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:HasRegistrantsForEvent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:InitializeCompactLayout(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:InitializeGamepad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:InitializePossessBar(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:InitializeStanceBar(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:InitializeTargetingBars(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:IsAnyOverrideBarOverridingActionBar(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:IsPossessBarActiveAndOnSpecialPage(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:IsPossessBarActiveBarForPageUnit(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:IsSpecialPageAvailableForSelection(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:OnEvent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:OnFlyoutClosed(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:OnFlyoutOpened(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:OnInputDeviceIconSetUpdated(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:OnPageChange(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:OnSelectedActionBarModifierStateChange(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:PostVariableSetUp(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:ReevaluatePageTrackerWidth(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:RefreshActionBarVisibilities(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:RefreshCompactLayout(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:RefreshPageTracker(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:RefreshPageTrackerSpecialPageSlotVisibility(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:RegisterActiveActionBarUpdatedCallback(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:RegisterCallback(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:SecureInsertEvent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:SetActiveActionBar(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:SetAllPageUnitActionButtonsSaturation(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:SetCurrentPage(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:SetGamepadActionBarSlotIDs(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:SetInitialPageDisplay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:SetPageTrackerPagingPromptVisibility(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:ShouldUseCompactLayout(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:ShowActionBarPageTracker(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:ShowModifierIcons(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:StartListeningForModifierUpdates(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:StopListeningForModifierUpdates(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:TriggerEvent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:UninitializeGamepad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:UnregisterCallback(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:UnregisterEvents(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnitObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchorObject : Frame
----@field Bar table
----@field PossessBar table
----@field StanceBar GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchorObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject : Frame
----@field BackgroundFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_BackgroundFocusObject
----@field BackgroundWatermark GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_BackgroundWatermarkObject
----@field DisplayName string
----@field EditModeFocusBackground table
----@field IdentifierIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_IdentifierIconObject
----@field Left GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_LeftObject
----@field LeftButtonFrame GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_LeftButtonFrameObject
----@field Right GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_RightObject
----@field RightButtonFrame GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_RightButtonFrameObject
----@field actionButtons table
----@field appliedStyle number
----@field collapseSequence GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_collapseSequenceObject
----@field expandSequence GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_expandSequenceObject
----@field isOverrideBarActive boolean
----@field modifierIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_modifierIconObject
----@field overrideCVar string
----@field overrideCVarChangedEvent string
----@field overrideMap table
----@field pagingUnitOwner GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_pagingUnitOwnerObject
----@field showCheckedStateOnOnExpand boolean
----@field supportsActionButtonPaging boolean
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:ActivateOrDeactivateOverrideBar(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:ActivateOverrideBar(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:ApplyInitialOverridePositioning(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:ApplyKeyValueCustomizations(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:ApplyOverrideBarModifications(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:CollapseActionButtons(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:DeactivateOverrideBar(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:DebugPrintActionBarButtonInfoForPage(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:DisableActionButtonGameplayFeedback(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:ExpandActionButtons(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:GetActionBarLinkedWithOverrideBar(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:GetActionButtonByIndex(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:GetActionButtonUsingButtonName(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:GetLinkedOverrideBarAnchorFrame(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:GetLinkedOverrideBarPage(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:GetOverrideCVarValue(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:GetPermaboundState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:HideButtonIcons(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:HideHighlight(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:InitActionButtons(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:IsActionBarUsable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:IsBarActivelyOverridingActionBar(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:IsBarEmpty(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:IsBarEmptyOnPage(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:IsOverrideBarActive(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:MarkBarAsPageable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:OnEvent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:OnOverrideCVarChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:PageChangeHandler(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:RefreshActionBarVisibility(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:RefreshSpellHighlights(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:ReinitializeSequences(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:RevertOverrideBarModifications(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:SetActionBarShowSetting(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:SetActionButtonsSaturation(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:SetCollapseSequence(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:SetExpandSequence(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:SetIsActionBarUsableFunc(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:SetOverrideMapping(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:SetPagingUnitOwner(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:SetShowCheckedStateOnExpand(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:ShowButtonIcons(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:ShowHighlight(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:UpdateActionButtonsStateAndFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:UpdateButtonsEmptySlotBackgroundTexture(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:UpdateDisplayedActionsToPageUnitCurrentPage(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:UpdateOverrideBarPositioning(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBarObject:UpdateStanceBarState(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_BackgroundFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_BackgroundFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_BackgroundWatermarkObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_BackgroundWatermarkObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_IdentifierIconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_IdentifierIconObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_LeftObject : Frame
----@field ActionButton1 GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object
----@field ActionButton2 GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object
----@field ActionButton3 GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object
----@field ActionButton4 GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object
----@field EditModeFocusParticlesSingle table
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_LeftObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object : CheckButton
----@field Arrow table
----@field AutoCastOverlay table
----@field Border table
----@field BorderShadow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_BorderShadowObject
----@field ButtonIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject
----@field CheckedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_CheckedTextureObject
----@field CircleGlowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_CircleGlowFocusObject
----@field CircleMask table
----@field CircleShadow table
----@field CircleShadowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_CircleShadowFocusObject
----@field CooldownFlash GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_CooldownFlashObject
----@field Count GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_CountObject
----@field EditModeCircleFocusStartAnim table
----@field EditModeSquareFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_EditModeSquareFocusStartAnimObject
----@field Flash table
----@field GameplayModeCircleFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_GameplayModeCircleFocusStartAnimObject
----@field GameplayModeSquareFocusStartAnim table
----@field HighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_HighlightTextureObject
----@field HotKey table
----@field IconMask table
----@field InterruptDisplay table
----@field LevelLinkLockIcon table
----@field Name GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_NameObject
----@field NewActionTexture table
----@field NormalTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_NormalTextureObject
----@field PermaboundOverlay GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_PermaboundOverlayObject
----@field PushedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_PushedTextureObject
----@field QuickKeybindHighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_QuickKeybindHighlightTextureObject
----@field RangeIndicator GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_RangeIndicatorObject
----@field SlotArt table
----@field SlotBackground table
----@field SpecialActionIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpecialActionIconObject
----@field SpellCastAnimFrame GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrameObject
----@field SpellHighlightAnim table
----@field SpellHighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellHighlightTextureObject
----@field SquareGlowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SquareGlowFocusObject
----@field SquareMask table
----@field SquareShadow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SquareShadowObject
----@field SquareShadowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SquareShadowFocusObject
----@field TargetReticleAnimFrame table
----@field TextOverlayContainer table
----@field action number
----@field activeButtonShape string
----@field arrowCrossAxisSize number
----@field arrowDownTexture string
----@field arrowMainAxisSize number
----@field arrowNormalTexture string
----@field arrowOverTexture string
----@field bindingAction string
----@field buttonIndexOnActionBar number
----@field chargeCooldown table
----@field closedArrowOffset number
----@field collapsed boolean
----@field cooldown GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_cooldownObject
----@field enableLOCCooldown boolean
----@field enableSpellFX boolean
----@field feedback_action number
----@field flashing number
----@field flashtime number
----@field flyoutArrowAngleRads number
----@field hotkeyTextGamepadX number
----@field hotkeyTextGamepadY number
----@field hotkeyTextKeyboardX number
----@field hotkeyTextKeyboardY number
----@field icon table
----@field isFlyoutAction boolean
----@field lossOfControlCooldown GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_lossOfControlCooldownObject
----@field openArrowOffset number
----@field parentActionBar GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_parentActionBarObject
----@field popupCrossAxisSize number
----@field popupDirection string
----@field popupOffset number
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnAttributeChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnDragStop(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnEvent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnPostClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnReceiveDrag(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ActionBarActionButtonDerivedMixin_OnShow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ActionBarButtonMixin_OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ActionBarButtonMixin_OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ActionBarButtonMixin_OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ActionBarButtonMixin_OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ApplyExtraButtonStylesForState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ApplyGamepadAOETargetAnchorPoints(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ApplyGamepadInterruptAnchorPoints(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ApplyPressedStyle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:BaseActionButtonMixin_OnAttributeChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:BaseActionButtonMixin_OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:BaseActionButtonMixin_OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:BaseActionButtonMixin_OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:BaseActionButtonMixin_OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:CacheFlyoutSpellInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:CalculateAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:CheckNeedsUpdate(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ClearFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ClearInterruptDisplay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ClearPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ClearProfessionQuality(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ClearPushedStateAfterAOETargeting(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ClearReticle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ClearTypeOverlay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ClosePopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:Collapse(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:CreateTextureOverlayFrame(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:DesaturateIfDisabled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:DisableGameplayFeedback(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:DoModeChange(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:EnumFlyoutSlotInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:EvaluateState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:EvaluateTutorials(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:Expand(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:Flyout_OnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:GetActionBarParent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:GetActionButtonInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:GetActiveSpellID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:GetAllowRadialWheel(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:GetArrowRotation(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:GetGamepadPageUnitSlotID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:GetIsPingable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:GetOrCreateTypeOverlay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:GetPagedID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:GetPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:GetPopupDirection(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:GetShowGrid(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:GetSingleSpellID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:GetTargetInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:HandleFlyoutClickOverride(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:HasAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:HasPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:IsDown(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:IsDownOver(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:IsFlashing(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:IsOver(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:IsPopupOpen(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:MatchesActiveButtonSpellID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:OnActionBarSlotChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:OnAttributeChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:OnButtonStateChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:OnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:OnDisable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:OnEnable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:OnEvent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:OnFlyoutClosed(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:OnFlyoutOpened(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:OnMouseDown(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:OnMouseUp(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:OnPopupHidden(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:OnPopupToggled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:OnReceiveDrag(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:OnShow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:OnUpdate(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:PlaySpellCastAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:PlaySpellInterruptedAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:PlayTargettingReticleAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:QuickKeybindButtonOnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:QuickKeybindButtonOnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:QuickKeybindButtonOnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:QuickKeybindButtonOnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:QuickKeybindButtonOnMouseWheel(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:QuickKeybindButtonOnShow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:QuickKeybindButtonOnUpdate(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:QuickKeybindButtonSetTooltip(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:ReapplyStyle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:RefreshRange(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:RegisterActionBarButtonCheckFrames(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:SetActionBarParent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:SetArrowRotationRadians(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:SetButtonArt(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:SetButtonIndexOnActionBar(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:SetButtonStateBase(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:SetButtonStateOverride(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:SetCircleCastingTextures(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:SetDisplacedRegions(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:SetGamepadPageUnitSlotID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:SetPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:SetPopupDirection(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:SetShapeToCircle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:SetShapeToSquare(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:SetShowGrid(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:SetSquareCastingTextures(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:SetTooltip(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:SetupCastingAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:SpellFXEnabled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:StartFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:StopFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:StopSpellCastAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:StopTargettingReticleAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:TogglePopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:TriggerSecureClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UnregisterActionBarButtonCheckFrames(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:Update(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateArrowPosition(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateArrowRotation(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateArrowShown(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateArrowTexture(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateAssistedCombatRotationFrame(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateAutoCastAnchors(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateBorderShadow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateButtonArt(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateButtonArtAnchoring(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateCastingAnimSizeAndPositioning(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateCastingAnimation(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateCooldown(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateCount(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateEmptySlotBackgroundTexture(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateFlyout(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateFlyoutActionIcon(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateFlyoutActionInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateFlyoutPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateHighlightMark(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateHotkeys(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateInterruptHighlightAnimAnchors(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateMouseWheelHandler(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdatePageableGamepadButtonAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdatePingAttributes(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdatePressAndHoldAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateProfessionQuality(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateSpellAlert(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateSpellHighlightMark(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateTypeOverlay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateUsable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:UpdateWithStorageId(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1Object:castingAnimTextureSetupFunc(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_BorderShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_BorderShadowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject : Frame
----@field ActiveTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_ActiveTextureObject
----@field DisabledTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_DisabledTextureObject
----@field HoldAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_HoldAnimObject
----@field HoldIndicator GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_HoldIndicatorObject
----@field HoldIndicatorBG GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_HoldIndicatorBGObject
----@field HoverTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_HoverTextureObject
----@field LoadBar GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_LoadBarObject
----@field LoadBarBG GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_LoadBarBGObject
----@field LoadBarGlow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_LoadBarGlowObject
----@field NormalTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_NormalTextureObject
----@field PressedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_PressedTextureObject
----@field SpinnerTip GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject:ApplyTextureLayout(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject:BeginHold(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject:CanEnterTextureState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject:DisableDropShadow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject:EnableDropShadow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject:EndHold(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject:OnHoldAnimFinished(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject:OnHoldAnimStopped(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject:OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject:RefreshIconTextures(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject:SetDisabled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject:SetEnabled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject:SetFocused(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject:SetHoldState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject:SetInputKey(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject:SetIsHoldAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject:SetPressable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject:SetTextureHeight(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject:SetTextureState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject:SetTextureWidth(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject:SetUsableState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIconObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_ActiveTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_ActiveTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_DisabledTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_DisabledTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_HoldAnimObject : AnimationGroup
----@field LoadBarAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_HoldAnim_SpinnerTipAnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_HoldAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_HoldAnim_LoadBarAnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_HoldAnim_SpinnerTipAnimObject : Rotation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_HoldIndicatorObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_HoldIndicatorObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_HoldIndicatorBGObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_HoldIndicatorBGObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_HoverTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_HoverTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_LoadBarObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_LoadBarObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_LoadBarBGObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_LoadBarBGObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_LoadBarGlowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_LoadBarGlowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_NormalTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_NormalTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_PressedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_PressedTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_SpinnerTipObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_ButtonIcon_SpinnerTipObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_CheckedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_CheckedTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_CircleGlowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_CircleGlowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_CircleShadowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_CircleShadowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_CooldownFlashObject : Frame
----@field FlashAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_CooldownFlash_FlashAnimObject
----@field Flipbook GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_CooldownFlash_FlipbookObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_CooldownFlashObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_CooldownFlashObject:Setup(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_CooldownFlash_FlashAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_CooldownFlash_FlashAnimObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_CooldownFlash_FlashAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_CooldownFlash_FlipbookObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_CooldownFlash_FlipbookObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_CountObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_CountObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_EditModeSquareFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_EditModeSquareFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_GameplayModeCircleFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_GameplayModeCircleFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_HighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_HighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_NameObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_NameObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_NormalTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_NormalTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_PermaboundOverlayObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_PermaboundOverlayObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_PushedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_PushedTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_QuickKeybindHighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_QuickKeybindHighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_RangeIndicatorObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_RangeIndicatorObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpecialActionIconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpecialActionIconObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrameObject : Frame
----@field EndBurst GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_EndBurstObject
----@field Fill GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_FillObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrameObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrameObject:FinishAnimAndPlayBurst(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrameObject:GetCooldownFrameAlpha(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrameObject:OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrameObject:Setup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrameObject:SetupAnimAtlases(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_EndBurstObject : Frame
----@field EndMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_EndBurst_EndMaskObject
----@field FinishCastAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject
----@field GlowRing GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_EndBurst_GlowRingObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_EndBurstObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_EndBurst_EndMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_EndBurst_EndMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_EndBurst_GlowRingObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_EndBurst_GlowRingObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_FillObject : Frame
----@field CastFill GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_Fill_CastFillObject
----@field CastingAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_Fill_CastingAnimObject
----@field FillMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_Fill_FillMaskObject
----@field InnerGlowTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_Fill_InnerGlowTextureObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_FillObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_Fill_CastFillObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_Fill_CastFillObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_Fill_CastingAnimObject : AnimationGroup
----@field CastFillTranslation GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_Fill_CastingAnimObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_Fill_CastingAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject : Translation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_Fill_FillMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_Fill_FillMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_Fill_InnerGlowTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellCastAnimFrame_Fill_InnerGlowTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellHighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SpellHighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SquareGlowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SquareGlowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SquareShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SquareShadowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SquareShadowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_SquareShadowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_cooldownObject
----@field [string] any
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_cooldownObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_lossOfControlCooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_lossOfControlCooldownObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_parentActionBarObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton1_parentActionBarObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object : CheckButton
----@field Arrow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ArrowObject
----@field AutoCastOverlay GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_AutoCastOverlayObject
----@field Border GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_BorderObject
----@field BorderShadow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_BorderShadowObject
----@field ButtonIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject
----@field CheckedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CheckedTextureObject
----@field CircleGlowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CircleGlowFocusObject
----@field CircleMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CircleMaskObject
----@field CircleShadow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CircleShadowObject
----@field CircleShadowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CircleShadowFocusObject
----@field CooldownFlash GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CooldownFlashObject
----@field Count GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CountObject
----@field EditModeCircleFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_EditModeCircleFocusStartAnimObject
----@field EditModeSquareFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_EditModeSquareFocusStartAnimObject
----@field Flash GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_FlashObject
----@field GameplayModeCircleFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_GameplayModeCircleFocusStartAnimObject
----@field GameplayModeSquareFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_GameplayModeSquareFocusStartAnimObject
----@field HighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_HighlightTextureObject
----@field HotKey GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_HotKeyObject
----@field IconMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_IconMaskObject
----@field InterruptDisplay GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplayObject
----@field LevelLinkLockIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_LevelLinkLockIconObject
----@field Name GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_NameObject
----@field NewActionTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_NewActionTextureObject
----@field NormalTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_NormalTextureObject
----@field PermaboundOverlay GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_PermaboundOverlayObject
----@field PushedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_PushedTextureObject
----@field QuickKeybindHighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_QuickKeybindHighlightTextureObject
----@field RangeIndicator GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_RangeIndicatorObject
----@field SlotArt GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SlotArtObject
----@field SlotBackground GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SlotBackgroundObject
----@field SpecialActionIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpecialActionIconObject
----@field SpellCastAnimFrame GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrameObject
----@field SpellHighlightAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellHighlightAnimObject
----@field SpellHighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellHighlightTextureObject
----@field SquareGlowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SquareGlowFocusObject
----@field SquareMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SquareMaskObject
----@field SquareShadow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SquareShadowObject
----@field SquareShadowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SquareShadowFocusObject
----@field TargetReticleAnimFrame GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TargetReticleAnimFrameObject
----@field TextOverlayContainer GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TextOverlayContainerObject
----@field action number
----@field activeButtonShape string
----@field arrowCrossAxisSize number
----@field arrowDownTexture string
----@field arrowMainAxisSize number
----@field arrowNormalTexture string
----@field arrowOverTexture string
----@field bindingAction string
----@field buttonIndexOnActionBar number
----@field chargeCooldown GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_chargeCooldownObject
----@field closedArrowOffset number
----@field collapsed boolean
----@field cooldown GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_cooldownObject
----@field enableLOCCooldown boolean
----@field enableSpellFX boolean
----@field feedback_action number
----@field flashing number
----@field flashtime number
----@field flyoutArrowAngleRads number
----@field hotkeyTextGamepadX number
----@field hotkeyTextGamepadY number
----@field hotkeyTextKeyboardX number
----@field hotkeyTextKeyboardY number
----@field icon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_iconObject
----@field isFlyoutAction boolean
----@field lossOfControlCooldown GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_lossOfControlCooldownObject
----@field openArrowOffset number
----@field parentActionBar GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_parentActionBarObject
----@field popupCrossAxisSize number
----@field popupDirection string
----@field popupOffset number
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnAttributeChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnDragStop(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnEvent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnPostClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnReceiveDrag(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ActionBarActionButtonDerivedMixin_OnShow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ActionBarButtonMixin_OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ActionBarButtonMixin_OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ActionBarButtonMixin_OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ActionBarButtonMixin_OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ApplyExtraButtonStylesForState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ApplyGamepadAOETargetAnchorPoints(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ApplyGamepadInterruptAnchorPoints(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ApplyPressedStyle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:BaseActionButtonMixin_OnAttributeChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:BaseActionButtonMixin_OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:BaseActionButtonMixin_OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:BaseActionButtonMixin_OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:BaseActionButtonMixin_OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:CacheFlyoutSpellInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:CalculateAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:CheckNeedsUpdate(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ClearFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ClearInterruptDisplay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ClearPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ClearProfessionQuality(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ClearPushedStateAfterAOETargeting(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ClearReticle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ClearTypeOverlay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ClosePopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:Collapse(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:CreateTextureOverlayFrame(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:DesaturateIfDisabled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:DisableGameplayFeedback(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:DoModeChange(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:EnumFlyoutSlotInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:EvaluateState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:EvaluateTutorials(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:Expand(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:Flyout_OnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:GetActionBarParent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:GetActionButtonInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:GetActiveSpellID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:GetAllowRadialWheel(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:GetArrowRotation(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:GetGamepadPageUnitSlotID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:GetIsPingable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:GetOrCreateTypeOverlay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:GetPagedID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:GetPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:GetPopupDirection(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:GetShowGrid(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:GetSingleSpellID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:GetTargetInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:HandleFlyoutClickOverride(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:HasAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:HasPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:IsDown(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:IsDownOver(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:IsFlashing(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:IsOver(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:IsPopupOpen(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:MatchesActiveButtonSpellID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:OnActionBarSlotChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:OnAttributeChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:OnButtonStateChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:OnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:OnDisable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:OnEnable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:OnEvent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:OnFlyoutClosed(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:OnFlyoutOpened(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:OnMouseDown(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:OnMouseUp(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:OnPopupHidden(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:OnPopupToggled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:OnReceiveDrag(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:OnShow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:OnUpdate(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:PlaySpellCastAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:PlaySpellInterruptedAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:PlayTargettingReticleAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:QuickKeybindButtonOnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:QuickKeybindButtonOnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:QuickKeybindButtonOnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:QuickKeybindButtonOnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:QuickKeybindButtonOnMouseWheel(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:QuickKeybindButtonOnShow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:QuickKeybindButtonOnUpdate(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:QuickKeybindButtonSetTooltip(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:ReapplyStyle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:RefreshRange(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:RegisterActionBarButtonCheckFrames(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:SetActionBarParent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:SetArrowRotationRadians(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:SetButtonArt(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:SetButtonIndexOnActionBar(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:SetButtonStateBase(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:SetButtonStateOverride(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:SetCircleCastingTextures(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:SetDisplacedRegions(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:SetGamepadPageUnitSlotID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:SetPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:SetPopupDirection(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:SetShapeToCircle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:SetShapeToSquare(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:SetShowGrid(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:SetSquareCastingTextures(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:SetTooltip(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:SetupCastingAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:SpellFXEnabled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:StartFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:StopFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:StopSpellCastAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:StopTargettingReticleAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:TogglePopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:TriggerSecureClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UnregisterActionBarButtonCheckFrames(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:Update(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateArrowPosition(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateArrowRotation(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateArrowShown(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateArrowTexture(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateAssistedCombatRotationFrame(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateAutoCastAnchors(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateBorderShadow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateButtonArt(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateButtonArtAnchoring(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateCastingAnimSizeAndPositioning(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateCastingAnimation(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateCooldown(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateCount(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateEmptySlotBackgroundTexture(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateFlyout(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateFlyoutActionIcon(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateFlyoutActionInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateFlyoutPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateHighlightMark(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateHotkeys(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateInterruptHighlightAnimAnchors(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateMouseWheelHandler(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdatePageableGamepadButtonAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdatePingAttributes(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdatePressAndHoldAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateProfessionQuality(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateSpellAlert(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateSpellHighlightMark(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateTypeOverlay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateUsable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:UpdateWithStorageId(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2Object:castingAnimTextureSetupFunc(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ArrowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ArrowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_AutoCastOverlayObject : Frame
----@field Corners GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_AutoCastOverlay_CornersObject
----@field Mask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_AutoCastOverlay_MaskObject
----@field Shine GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_AutoCastOverlay_ShineObject
----@field autoCastEnabled boolean
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_AutoCastOverlayObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_AutoCastOverlayObject:OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_AutoCastOverlayObject:OnShow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_AutoCastOverlayObject:ShowAutoCastEnabled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_AutoCastOverlayObject:UpdateShineAnim(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_AutoCastOverlay_CornersObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_AutoCastOverlay_CornersObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_AutoCastOverlay_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_AutoCastOverlay_MaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_AutoCastOverlay_ShineObject : Texture
----@field Anim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_AutoCastOverlay_Shine_AnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_AutoCastOverlay_ShineObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_AutoCastOverlay_Shine_AnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_AutoCastOverlay_Shine_AnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_BorderObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_BorderObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_BorderShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_BorderShadowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject : Frame
----@field ActiveTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_ActiveTextureObject
----@field DisabledTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_DisabledTextureObject
----@field HoldAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_HoldAnimObject
----@field HoldIndicator GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_HoldIndicatorObject
----@field HoldIndicatorBG GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_HoldIndicatorBGObject
----@field HoverTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_HoverTextureObject
----@field LoadBar GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_LoadBarObject
----@field LoadBarBG GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_LoadBarBGObject
----@field LoadBarGlow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_LoadBarGlowObject
----@field NormalTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_NormalTextureObject
----@field PressedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_PressedTextureObject
----@field SpinnerTip GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject:ApplyTextureLayout(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject:BeginHold(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject:CanEnterTextureState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject:DisableDropShadow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject:EnableDropShadow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject:EndHold(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject:OnHoldAnimFinished(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject:OnHoldAnimStopped(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject:OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject:RefreshIconTextures(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject:SetDisabled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject:SetEnabled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject:SetFocused(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject:SetHoldState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject:SetInputKey(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject:SetIsHoldAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject:SetPressable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject:SetTextureHeight(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject:SetTextureState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject:SetTextureWidth(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject:SetUsableState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIconObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_ActiveTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_ActiveTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_DisabledTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_DisabledTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_HoldAnimObject : AnimationGroup
----@field LoadBarAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_HoldAnim_SpinnerTipAnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_HoldAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_HoldAnim_LoadBarAnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_HoldAnim_SpinnerTipAnimObject : Rotation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_HoldIndicatorObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_HoldIndicatorObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_HoldIndicatorBGObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_HoldIndicatorBGObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_HoverTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_HoverTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_LoadBarObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_LoadBarObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_LoadBarBGObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_LoadBarBGObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_LoadBarGlowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_LoadBarGlowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_NormalTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_NormalTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_PressedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_PressedTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_SpinnerTipObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_ButtonIcon_SpinnerTipObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CheckedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CheckedTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CircleGlowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CircleGlowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CircleMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CircleMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CircleShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CircleShadowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CircleShadowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CircleShadowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CooldownFlashObject : Frame
----@field FlashAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CooldownFlash_FlashAnimObject
----@field Flipbook GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CooldownFlash_FlipbookObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CooldownFlashObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CooldownFlashObject:Setup(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CooldownFlash_FlashAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CooldownFlash_FlashAnimObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CooldownFlash_FlashAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CooldownFlash_FlipbookObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CooldownFlash_FlipbookObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CountObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_CountObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_EditModeCircleFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_EditModeCircleFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_EditModeSquareFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_EditModeSquareFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_FlashObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_FlashObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_GameplayModeCircleFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_GameplayModeCircleFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_GameplayModeSquareFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_GameplayModeSquareFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_HighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_HighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_HotKeyObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_HotKeyObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_IconMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_IconMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplayObject : Frame
----@field Base GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_BaseObject
----@field Highlight GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_HighlightObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplayObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplayObject:OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplayObject:OnShow(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_BaseObject : Frame
----@field AnimIn GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_Base_AnimInObject
----@field Base GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_Base_BaseObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_BaseObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_Base_AnimInObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_Base_AnimInObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_Base_AnimInObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_Base_BaseObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_Base_BaseObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_HighlightObject : Frame
----@field AnimIn GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_Highlight_AnimInObject
----@field HighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_Highlight_HighlightTextureObject
----@field Mask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_Highlight_MaskObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_HighlightObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_Highlight_AnimInObject : AnimationGroup
----@field Translation GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_Highlight_AnimIn_TranslationObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_Highlight_AnimInObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_Highlight_AnimIn_TranslationObject : Translation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_Highlight_AnimIn_TranslationObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_Highlight_HighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_Highlight_HighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_Highlight_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_InterruptDisplay_Highlight_MaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_LevelLinkLockIconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_LevelLinkLockIconObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_NameObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_NameObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_NewActionTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_NewActionTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_NormalTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_NormalTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_PermaboundOverlayObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_PermaboundOverlayObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_PushedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_PushedTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_QuickKeybindHighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_QuickKeybindHighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_RangeIndicatorObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_RangeIndicatorObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SlotArtObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SlotArtObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SlotBackgroundObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SlotBackgroundObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpecialActionIconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpecialActionIconObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrameObject : Frame
----@field EndBurst GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_EndBurstObject
----@field Fill GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_FillObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrameObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrameObject:FinishAnimAndPlayBurst(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrameObject:GetCooldownFrameAlpha(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrameObject:OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrameObject:Setup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrameObject:SetupAnimAtlases(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_EndBurstObject : Frame
----@field EndMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_EndBurst_EndMaskObject
----@field FinishCastAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject
----@field GlowRing GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_EndBurst_GlowRingObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_EndBurstObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_EndBurst_EndMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_EndBurst_EndMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_EndBurst_GlowRingObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_EndBurst_GlowRingObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_FillObject : Frame
----@field CastFill GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_Fill_CastFillObject
----@field CastingAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_Fill_CastingAnimObject
----@field FillMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_Fill_FillMaskObject
----@field InnerGlowTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_Fill_InnerGlowTextureObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_FillObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_Fill_CastFillObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_Fill_CastFillObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_Fill_CastingAnimObject : AnimationGroup
----@field CastFillTranslation GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_Fill_CastingAnimObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_Fill_CastingAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject : Translation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_Fill_FillMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_Fill_FillMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_Fill_InnerGlowTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellCastAnimFrame_Fill_InnerGlowTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellHighlightAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellHighlightAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellHighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SpellHighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SquareGlowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SquareGlowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SquareMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SquareMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SquareShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SquareShadowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SquareShadowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_SquareShadowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TargetReticleAnimFrameObject : Frame
----@field Base GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TargetReticleAnimFrame_BaseObject
----@field Highlight GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TargetReticleAnimFrame_HighlightObject
----@field HighlightAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TargetReticleAnimFrame_HighlightAnimObject
----@field Mask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TargetReticleAnimFrame_MaskObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TargetReticleAnimFrameObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TargetReticleAnimFrameObject:Setup(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TargetReticleAnimFrame_BaseObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TargetReticleAnimFrame_BaseObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TargetReticleAnimFrame_HighlightObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TargetReticleAnimFrame_HighlightObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TargetReticleAnimFrame_HighlightAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TargetReticleAnimFrame_HighlightAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TargetReticleAnimFrame_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TargetReticleAnimFrame_MaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TextOverlayContainerObject : Frame
----@field Count GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TextOverlayContainer_CountObject
----@field HotKey GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TextOverlayContainer_HotKeyObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TextOverlayContainerObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TextOverlayContainerObject:OnLoad(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TextOverlayContainer_CountObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TextOverlayContainer_CountObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TextOverlayContainer_HotKeyObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_TextOverlayContainer_HotKeyObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_chargeCooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_chargeCooldownObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_cooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_cooldownObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_iconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_iconObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_lossOfControlCooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_lossOfControlCooldownObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_parentActionBarObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton2_parentActionBarObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object : CheckButton
----@field Arrow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ArrowObject
----@field AutoCastOverlay GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_AutoCastOverlayObject
----@field Border GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_BorderObject
----@field BorderShadow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_BorderShadowObject
----@field ButtonIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject
----@field CheckedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CheckedTextureObject
----@field CircleGlowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CircleGlowFocusObject
----@field CircleMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CircleMaskObject
----@field CircleShadow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CircleShadowObject
----@field CircleShadowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CircleShadowFocusObject
----@field CooldownFlash GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CooldownFlashObject
----@field Count GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CountObject
----@field EditModeCircleFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_EditModeCircleFocusStartAnimObject
----@field EditModeSquareFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_EditModeSquareFocusStartAnimObject
----@field Flash GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_FlashObject
----@field GameplayModeCircleFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_GameplayModeCircleFocusStartAnimObject
----@field GameplayModeSquareFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_GameplayModeSquareFocusStartAnimObject
----@field HighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_HighlightTextureObject
----@field HotKey GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_HotKeyObject
----@field IconMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_IconMaskObject
----@field InterruptDisplay GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplayObject
----@field LevelLinkLockIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_LevelLinkLockIconObject
----@field Name GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_NameObject
----@field NewActionTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_NewActionTextureObject
----@field NormalTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_NormalTextureObject
----@field PermaboundOverlay GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_PermaboundOverlayObject
----@field PushedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_PushedTextureObject
----@field QuickKeybindHighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_QuickKeybindHighlightTextureObject
----@field RangeIndicator GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_RangeIndicatorObject
----@field SlotArt GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SlotArtObject
----@field SlotBackground GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SlotBackgroundObject
----@field SpecialActionIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpecialActionIconObject
----@field SpellCastAnimFrame GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrameObject
----@field SpellHighlightAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellHighlightAnimObject
----@field SpellHighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellHighlightTextureObject
----@field SquareGlowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SquareGlowFocusObject
----@field SquareMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SquareMaskObject
----@field SquareShadow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SquareShadowObject
----@field SquareShadowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SquareShadowFocusObject
----@field TargetReticleAnimFrame GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TargetReticleAnimFrameObject
----@field TextOverlayContainer GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TextOverlayContainerObject
----@field action number
----@field activeButtonShape string
----@field arrowCrossAxisSize number
----@field arrowDownTexture string
----@field arrowMainAxisSize number
----@field arrowNormalTexture string
----@field arrowOverTexture string
----@field bindingAction string
----@field buttonIndexOnActionBar number
----@field chargeCooldown GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_chargeCooldownObject
----@field closedArrowOffset number
----@field collapsed boolean
----@field cooldown GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_cooldownObject
----@field enableLOCCooldown boolean
----@field enableSpellFX boolean
----@field feedback_action number
----@field flashing number
----@field flashtime number
----@field flyoutArrowAngleRads number
----@field hotkeyTextGamepadX number
----@field hotkeyTextGamepadY number
----@field hotkeyTextKeyboardX number
----@field hotkeyTextKeyboardY number
----@field icon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_iconObject
----@field isFlyoutAction boolean
----@field lossOfControlCooldown GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_lossOfControlCooldownObject
----@field openArrowOffset number
----@field parentActionBar GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_parentActionBarObject
----@field popupCrossAxisSize number
----@field popupDirection string
----@field popupOffset number
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnAttributeChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnDragStop(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnEvent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnPostClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnReceiveDrag(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnShow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ActionBarButtonMixin_OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ActionBarButtonMixin_OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ActionBarButtonMixin_OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ActionBarButtonMixin_OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ApplyExtraButtonStylesForState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ApplyGamepadAOETargetAnchorPoints(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ApplyGamepadInterruptAnchorPoints(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ApplyPressedStyle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:BaseActionButtonMixin_OnAttributeChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:BaseActionButtonMixin_OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:BaseActionButtonMixin_OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:BaseActionButtonMixin_OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:BaseActionButtonMixin_OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:CacheFlyoutSpellInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:CalculateAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:CheckNeedsUpdate(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ClearFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ClearInterruptDisplay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ClearPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ClearProfessionQuality(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ClearPushedStateAfterAOETargeting(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ClearReticle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ClearTypeOverlay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ClosePopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:Collapse(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:CreateTextureOverlayFrame(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:DesaturateIfDisabled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:DisableGameplayFeedback(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:DoModeChange(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:EnumFlyoutSlotInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:EvaluateState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:EvaluateTutorials(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:Expand(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:Flyout_OnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:GetActionBarParent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:GetActionButtonInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:GetActiveSpellID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:GetAllowRadialWheel(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:GetArrowRotation(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:GetGamepadPageUnitSlotID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:GetIsPingable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:GetOrCreateTypeOverlay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:GetPagedID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:GetPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:GetPopupDirection(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:GetShowGrid(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:GetSingleSpellID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:GetTargetInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:HandleFlyoutClickOverride(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:HasAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:HasPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:IsDown(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:IsDownOver(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:IsFlashing(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:IsOver(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:IsPopupOpen(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:MatchesActiveButtonSpellID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:OnActionBarSlotChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:OnAttributeChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:OnButtonStateChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:OnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:OnDisable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:OnEnable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:OnEvent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:OnFlyoutClosed(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:OnFlyoutOpened(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:OnMouseDown(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:OnMouseUp(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:OnPopupHidden(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:OnPopupToggled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:OnReceiveDrag(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:OnShow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:OnUpdate(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:PlaySpellCastAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:PlaySpellInterruptedAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:PlayTargettingReticleAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:QuickKeybindButtonOnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:QuickKeybindButtonOnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:QuickKeybindButtonOnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:QuickKeybindButtonOnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:QuickKeybindButtonOnMouseWheel(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:QuickKeybindButtonOnShow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:QuickKeybindButtonOnUpdate(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:QuickKeybindButtonSetTooltip(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:ReapplyStyle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:RefreshRange(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:RegisterActionBarButtonCheckFrames(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:SetActionBarParent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:SetArrowRotationRadians(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:SetButtonArt(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:SetButtonIndexOnActionBar(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:SetButtonStateBase(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:SetButtonStateOverride(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:SetCircleCastingTextures(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:SetDisplacedRegions(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:SetGamepadPageUnitSlotID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:SetPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:SetPopupDirection(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:SetShapeToCircle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:SetShapeToSquare(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:SetShowGrid(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:SetSquareCastingTextures(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:SetTooltip(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:SetupCastingAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:SpellFXEnabled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:StartFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:StopFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:StopSpellCastAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:StopTargettingReticleAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:TogglePopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:TriggerSecureClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UnregisterActionBarButtonCheckFrames(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:Update(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateArrowPosition(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateArrowRotation(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateArrowShown(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateArrowTexture(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateAssistedCombatRotationFrame(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateAutoCastAnchors(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateBorderShadow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateButtonArt(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateButtonArtAnchoring(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateCastingAnimSizeAndPositioning(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateCastingAnimation(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateCooldown(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateCount(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateEmptySlotBackgroundTexture(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateFlyout(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateFlyoutActionIcon(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateFlyoutActionInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateFlyoutPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateHighlightMark(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateHotkeys(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateInterruptHighlightAnimAnchors(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateMouseWheelHandler(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdatePageableGamepadButtonAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdatePingAttributes(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdatePressAndHoldAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateProfessionQuality(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateSpellAlert(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateSpellHighlightMark(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateTypeOverlay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateUsable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:UpdateWithStorageId(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3Object:castingAnimTextureSetupFunc(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ArrowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ArrowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_AutoCastOverlayObject : Frame
----@field Corners GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_AutoCastOverlay_CornersObject
----@field Mask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_AutoCastOverlay_MaskObject
----@field Shine GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_AutoCastOverlay_ShineObject
----@field autoCastEnabled boolean
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_AutoCastOverlayObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_AutoCastOverlayObject:OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_AutoCastOverlayObject:OnShow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_AutoCastOverlayObject:ShowAutoCastEnabled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_AutoCastOverlayObject:UpdateShineAnim(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_AutoCastOverlay_CornersObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_AutoCastOverlay_CornersObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_AutoCastOverlay_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_AutoCastOverlay_MaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_AutoCastOverlay_ShineObject : Texture
----@field Anim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_AutoCastOverlay_Shine_AnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_AutoCastOverlay_ShineObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_AutoCastOverlay_Shine_AnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_AutoCastOverlay_Shine_AnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_BorderObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_BorderObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_BorderShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_BorderShadowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject : Frame
----@field ActiveTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_ActiveTextureObject
----@field DisabledTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_DisabledTextureObject
----@field HoldAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_HoldAnimObject
----@field HoldIndicator GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_HoldIndicatorObject
----@field HoldIndicatorBG GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_HoldIndicatorBGObject
----@field HoverTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_HoverTextureObject
----@field LoadBar GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_LoadBarObject
----@field LoadBarBG GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_LoadBarBGObject
----@field LoadBarGlow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_LoadBarGlowObject
----@field NormalTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_NormalTextureObject
----@field PressedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_PressedTextureObject
----@field SpinnerTip GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject:ApplyTextureLayout(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject:BeginHold(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject:CanEnterTextureState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject:DisableDropShadow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject:EnableDropShadow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject:EndHold(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject:OnHoldAnimFinished(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject:OnHoldAnimStopped(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject:OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject:RefreshIconTextures(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject:SetDisabled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject:SetEnabled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject:SetFocused(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject:SetHoldState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject:SetInputKey(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject:SetIsHoldAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject:SetPressable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject:SetTextureHeight(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject:SetTextureState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject:SetTextureWidth(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject:SetUsableState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIconObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_ActiveTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_ActiveTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_DisabledTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_DisabledTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_HoldAnimObject : AnimationGroup
----@field LoadBarAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_HoldAnim_SpinnerTipAnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_HoldAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_HoldAnim_LoadBarAnimObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_HoldAnim_SpinnerTipAnimObject : Rotation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_HoldIndicatorObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_HoldIndicatorObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_HoldIndicatorBGObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_HoldIndicatorBGObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_HoverTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_HoverTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_LoadBarObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_LoadBarObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_LoadBarBGObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_LoadBarBGObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_LoadBarGlowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_LoadBarGlowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_NormalTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_NormalTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_PressedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_PressedTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_SpinnerTipObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_ButtonIcon_SpinnerTipObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CheckedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CheckedTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CircleGlowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CircleGlowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CircleMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CircleMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CircleShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CircleShadowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CircleShadowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CircleShadowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CooldownFlashObject : Frame
----@field FlashAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CooldownFlash_FlashAnimObject
----@field Flipbook GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CooldownFlash_FlipbookObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CooldownFlashObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CooldownFlashObject:Setup(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CooldownFlash_FlashAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CooldownFlash_FlashAnimObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CooldownFlash_FlashAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CooldownFlash_FlipbookObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CooldownFlash_FlipbookObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CountObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_CountObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_EditModeCircleFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_EditModeCircleFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_EditModeSquareFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_EditModeSquareFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_FlashObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_FlashObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_GameplayModeCircleFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_GameplayModeCircleFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_GameplayModeSquareFocusStartAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_GameplayModeSquareFocusStartAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_HighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_HighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_HotKeyObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_HotKeyObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_IconMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_IconMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplayObject : Frame
----@field Base GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_BaseObject
----@field Highlight GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_HighlightObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplayObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplayObject:OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplayObject:OnShow(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_BaseObject : Frame
----@field AnimIn GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_Base_AnimInObject
----@field Base GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_Base_BaseObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_BaseObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_Base_AnimInObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_Base_AnimInObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_Base_AnimInObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_Base_BaseObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_Base_BaseObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_HighlightObject : Frame
----@field AnimIn GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_Highlight_AnimInObject
----@field HighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_Highlight_HighlightTextureObject
----@field Mask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_Highlight_MaskObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_HighlightObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_Highlight_AnimInObject : AnimationGroup
----@field Translation GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_Highlight_AnimIn_TranslationObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_Highlight_AnimInObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_Highlight_AnimIn_TranslationObject : Translation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_Highlight_AnimIn_TranslationObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_Highlight_HighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_Highlight_HighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_Highlight_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_InterruptDisplay_Highlight_MaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_LevelLinkLockIconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_LevelLinkLockIconObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_NameObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_NameObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_NewActionTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_NewActionTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_NormalTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_NormalTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_PermaboundOverlayObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_PermaboundOverlayObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_PushedTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_PushedTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_QuickKeybindHighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_QuickKeybindHighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_RangeIndicatorObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_RangeIndicatorObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SlotArtObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SlotArtObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SlotBackgroundObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SlotBackgroundObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpecialActionIconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpecialActionIconObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrameObject : Frame
----@field EndBurst GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_EndBurstObject
----@field Fill GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_FillObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrameObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrameObject:FinishAnimAndPlayBurst(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrameObject:GetCooldownFrameAlpha(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrameObject:OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrameObject:Setup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrameObject:SetupAnimAtlases(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_EndBurstObject : Frame
----@field EndMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_EndBurst_EndMaskObject
----@field FinishCastAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_EndBurst_FinishCastAnimObject
----@field GlowRing GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_EndBurst_GlowRingObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_EndBurstObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_EndBurst_EndMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_EndBurst_EndMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_EndBurst_FinishCastAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_EndBurst_FinishCastAnimObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_EndBurst_FinishCastAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_EndBurst_GlowRingObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_EndBurst_GlowRingObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_FillObject : Frame
----@field CastFill GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_Fill_CastFillObject
----@field CastingAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_Fill_CastingAnimObject
----@field FillMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_Fill_FillMaskObject
----@field InnerGlowTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_Fill_InnerGlowTextureObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_FillObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_Fill_CastFillObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_Fill_CastFillObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_Fill_CastingAnimObject : AnimationGroup
----@field CastFillTranslation GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_Fill_CastingAnimObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_Fill_CastingAnimObject:OnFinished(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject : Translation
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_Fill_FillMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_Fill_FillMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_Fill_InnerGlowTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellCastAnimFrame_Fill_InnerGlowTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellHighlightAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellHighlightAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellHighlightTextureObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SpellHighlightTextureObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SquareGlowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SquareGlowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SquareMaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SquareMaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SquareShadowObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SquareShadowObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SquareShadowFocusObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_SquareShadowFocusObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TargetReticleAnimFrameObject : Frame
----@field Base GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TargetReticleAnimFrame_BaseObject
----@field Highlight GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TargetReticleAnimFrame_HighlightObject
----@field HighlightAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TargetReticleAnimFrame_HighlightAnimObject
----@field Mask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TargetReticleAnimFrame_MaskObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TargetReticleAnimFrameObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TargetReticleAnimFrameObject:Setup(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TargetReticleAnimFrame_BaseObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TargetReticleAnimFrame_BaseObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TargetReticleAnimFrame_HighlightObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TargetReticleAnimFrame_HighlightObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TargetReticleAnimFrame_HighlightAnimObject : AnimationGroup
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TargetReticleAnimFrame_HighlightAnimObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TargetReticleAnimFrame_MaskObject : MaskTexture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TargetReticleAnimFrame_MaskObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TextOverlayContainerObject : Frame
----@field Count GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TextOverlayContainer_CountObject
----@field HotKey GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TextOverlayContainer_HotKeyObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TextOverlayContainerObject = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TextOverlayContainerObject:OnLoad(...) end
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TextOverlayContainer_CountObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TextOverlayContainer_CountObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TextOverlayContainer_HotKeyObject : FontString
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_TextOverlayContainer_HotKeyObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_chargeCooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_chargeCooldownObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_cooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_cooldownObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_iconObject : Texture
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_iconObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_lossOfControlCooldownObject : Cooldown
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_lossOfControlCooldownObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_parentActionBarObject
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton3_parentActionBarObject = {}
-end
-
-do
----@class GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object : CheckButton
----@field Arrow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ArrowObject
----@field AutoCastOverlay GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_AutoCastOverlayObject
----@field Border GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_BorderObject
----@field BorderShadow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_BorderShadowObject
----@field ButtonIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_ButtonIconObject
----@field CheckedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CheckedTextureObject
----@field CircleGlowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CircleGlowFocusObject
----@field CircleMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CircleMaskObject
----@field CircleShadow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CircleShadowObject
----@field CircleShadowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CircleShadowFocusObject
----@field CooldownFlash GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CooldownFlashObject
----@field Count GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_CountObject
----@field EditModeCircleFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_EditModeCircleFocusStartAnimObject
----@field EditModeSquareFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_EditModeSquareFocusStartAnimObject
----@field Flash GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_FlashObject
----@field GameplayModeCircleFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_GameplayModeCircleFocusStartAnimObject
----@field GameplayModeSquareFocusStartAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_GameplayModeSquareFocusStartAnimObject
----@field HighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_HighlightTextureObject
----@field HotKey GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_HotKeyObject
----@field IconMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_IconMaskObject
----@field InterruptDisplay GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_InterruptDisplayObject
----@field LevelLinkLockIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_LevelLinkLockIconObject
----@field Name GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_NameObject
----@field NewActionTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_NewActionTextureObject
----@field NormalTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_NormalTextureObject
----@field PermaboundOverlay GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_PermaboundOverlayObject
----@field PushedTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_PushedTextureObject
----@field QuickKeybindHighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_QuickKeybindHighlightTextureObject
----@field RangeIndicator GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_RangeIndicatorObject
----@field SlotArt GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SlotArtObject
----@field SlotBackground GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SlotBackgroundObject
----@field SpecialActionIcon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpecialActionIconObject
----@field SpellCastAnimFrame GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellCastAnimFrameObject
----@field SpellHighlightAnim GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellHighlightAnimObject
----@field SpellHighlightTexture GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SpellHighlightTextureObject
----@field SquareGlowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SquareGlowFocusObject
----@field SquareMask GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SquareMaskObject
----@field SquareShadow GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SquareShadowObject
----@field SquareShadowFocus GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_SquareShadowFocusObject
----@field TargetReticleAnimFrame GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TargetReticleAnimFrameObject
----@field TextOverlayContainer GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_TextOverlayContainerObject
----@field action number
----@field activeButtonShape string
----@field arrowCrossAxisSize number
----@field arrowDownTexture string
----@field arrowMainAxisSize number
----@field arrowNormalTexture string
----@field arrowOverTexture string
----@field bindingAction string
----@field buttonIndexOnActionBar number
----@field chargeCooldown GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_chargeCooldownObject
----@field closedArrowOffset number
----@field collapsed boolean
----@field cooldown GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_cooldownObject
----@field enableLOCCooldown boolean
----@field enableSpellFX boolean
----@field feedback_action number
----@field flashing number
----@field flashtime number
----@field flyoutArrowAngleRads number
----@field hotkeyTextGamepadX number
----@field hotkeyTextGamepadY number
----@field hotkeyTextKeyboardX number
----@field hotkeyTextKeyboardY number
----@field icon GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_iconObject
----@field isFlyoutAction boolean
----@field lossOfControlCooldown GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_lossOfControlCooldownObject
----@field openArrowOffset number
----@field parentActionBar GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4_parentActionBarObject
----@field popupCrossAxisSize number
----@field popupDirection string
----@field popupOffset number
-local GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object = {}
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnAttributeChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnDragStop(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnEvent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnPostClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnReceiveDrag(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ActionBarActionButtonDerivedMixin_OnShow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ActionBarButtonMixin_OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ActionBarButtonMixin_OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ActionBarButtonMixin_OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ActionBarButtonMixin_OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ApplyExtraButtonStylesForState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ApplyGamepadAOETargetAnchorPoints(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ApplyGamepadInterruptAnchorPoints(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ApplyPressedStyle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:BaseActionButtonMixin_OnAttributeChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:BaseActionButtonMixin_OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:BaseActionButtonMixin_OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:BaseActionButtonMixin_OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:BaseActionButtonMixin_OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:CacheFlyoutSpellInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:CalculateAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:CheckNeedsUpdate(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ClearFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ClearInterruptDisplay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ClearPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ClearProfessionQuality(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ClearPushedStateAfterAOETargeting(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ClearReticle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ClearTypeOverlay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ClosePopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:Collapse(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:CreateTextureOverlayFrame(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:DesaturateIfDisabled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:DisableGameplayFeedback(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:DoModeChange(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:EnumFlyoutSlotInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:EvaluateState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:EvaluateTutorials(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:Expand(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:Flyout_OnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:GetActionBarParent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:GetActionButtonInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:GetActiveSpellID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:GetAllowRadialWheel(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:GetArrowRotation(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:GetGamepadPageUnitSlotID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:GetIsPingable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:GetOrCreateTypeOverlay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:GetPagedID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:GetPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:GetPopupDirection(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:GetShowGrid(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:GetSingleSpellID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:GetTargetInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:HandleFlyoutClickOverride(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:HasAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:HasPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:IsDown(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:IsDownOver(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:IsFlashing(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:IsOver(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:IsPopupOpen(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:MatchesActiveButtonSpellID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:OnActionBarSlotChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:OnAttributeChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:OnButtonStateChanged(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:OnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:OnDisable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:OnDragStart(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:OnEnable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:OnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:OnEvent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:OnFlyoutClosed(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:OnFlyoutOpened(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:OnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:OnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:OnLoad(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:OnMouseDown(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:OnMouseUp(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:OnPopupHidden(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:OnPopupToggled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:OnReceiveDrag(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:OnShow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:OnUpdate(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:PlaySpellCastAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:PlaySpellInterruptedAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:PlayTargettingReticleAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:QuickKeybindButtonOnClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:QuickKeybindButtonOnEnter(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:QuickKeybindButtonOnHide(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:QuickKeybindButtonOnLeave(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:QuickKeybindButtonOnMouseWheel(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:QuickKeybindButtonOnShow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:QuickKeybindButtonOnUpdate(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:QuickKeybindButtonSetTooltip(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:ReapplyStyle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:RefreshRange(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:RegisterActionBarButtonCheckFrames(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:SetActionBarParent(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:SetArrowRotationRadians(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:SetButtonArt(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:SetButtonIndexOnActionBar(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:SetButtonStateBase(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:SetButtonStateOverride(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:SetCircleCastingTextures(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:SetDisplacedRegions(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:SetGamepadPageUnitSlotID(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:SetPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:SetPopupDirection(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:SetShapeToCircle(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:SetShapeToSquare(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:SetShowGrid(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:SetSquareCastingTextures(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:SetTooltip(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:SetupCastingAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:SpellFXEnabled(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:StartFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:StopFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:StopSpellCastAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:StopTargettingReticleAnim(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:TogglePopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:TriggerSecureClick(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UnregisterActionBarButtonCheckFrames(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:Update(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateArrowPosition(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateArrowRotation(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateArrowShown(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateArrowTexture(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateAssistedCombatRotationFrame(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateAutoCastAnchors(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateBorderShadow(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateButtonArt(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateButtonArtAnchoring(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateCastingAnimSizeAndPositioning(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateCastingAnimation(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateCooldown(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateCount(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateEmptySlotBackgroundTexture(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateFlash(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateFlyout(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateFlyoutActionIcon(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateFlyoutActionInfo(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateFlyoutPopup(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateHighlightMark(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateHotkeys(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateInterruptHighlightAnimAnchors(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateMouseWheelHandler(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdatePageableGamepadButtonAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdatePingAttributes(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdatePressAndHoldAction(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateProfessionQuality(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateSpellAlert(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateSpellHighlightMark(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateState(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateTypeOverlay(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateUsable(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:UpdateWithStorageId(...) end
----@return any ...
-function GamepadActionBarEditFrame_PageUnit_TopCenteredAnchor_StanceBar_Left_ActionButton4Object:castingAnimTextureSetupFunc(...) end
+function DamageMeter_Selection_MouseOverHighlightObject:SetVertexColor(...) end
 end

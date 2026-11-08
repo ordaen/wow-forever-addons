@@ -3,9403 +3,8599 @@
 
 
 do
----@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_DefaultsObject
-local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_DefaultsObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ArrowObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ArrowObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_DirectionsObject
-local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_DirectionsObject = {}
-end
-
-do
----@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_DragDelegateObject : Frame
-local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_DragDelegateObject = {}
-end
-
-do
----@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_EventObject
-local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_EventObject = {}
-end
-
-do
----@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject : Frame
----@field Event PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
-local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject = {}
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTable(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTables(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_AutoCastOverlayObject : Frame
+---@field Corners GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_AutoCastOverlay_CornersObject
+---@field Mask GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_AutoCastOverlay_MaskObject
+---@field Shine GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_AutoCastOverlay_ShineObject
+---@field autoCastEnabled boolean
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_AutoCastOverlayObject = {}
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_AutoCastOverlayObject:OnHide(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_AutoCastOverlayObject:OnShow(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_AutoCastOverlayObject:ShowAutoCastEnabled(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallback(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:TriggerEvent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterCallback(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEvents(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_AutoCastOverlayObject:UpdateShineAnim(...) end
 end
 
 do
----@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
-local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ScrollTarget_EventObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_AutoCastOverlay_CornersObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_AutoCastOverlay_CornersObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ShadowsObject : Frame
----@field Lower PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_Shadows_LowerObject
----@field Upper PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_Shadows_UpperObject
-local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_ShadowsObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_AutoCastOverlay_MaskObject : MaskTexture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_AutoCastOverlay_MaskObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_Shadows_LowerObject : Texture
-local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_Shadows_LowerObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_AutoCastOverlay_ShineObject : Texture
+---@field Anim GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_AutoCastOverlay_Shine_AnimObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_AutoCastOverlay_ShineObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_Shadows_UpperObject : Texture
-local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_Shadows_UpperObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_AutoCastOverlay_Shine_AnimObject : AnimationGroup
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_AutoCastOverlay_Shine_AnimObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject
----@field x number
----@field y number
-local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject = {}
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:Add(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:Clone(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:Cross(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:DivideBy(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:Dot(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:GetLength(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:GetLengthSquared(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:GetXY(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:IsEqualTo(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:IsZero(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:Normalize(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:OnLoad(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:RotateDirection(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:ScaleBy(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:SetXY(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_edgeFadeObject:Subtract(...) end
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_BorderObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_BorderObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_registeredScrollBarObject
-local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_registeredScrollBarObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_BorderShadowObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_BorderShadowObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject
----@field Event table
----@field FrameLevelPolicy table
----@field callbackTables table
----@field canSignalWithoutInitializer boolean
----@field dataIndexBegin number
----@field dataIndexEnd number
----@field deferredCallbacks table
----@field executingEvents table
----@field frameFactory table
----@field frameTemplateOrFrameType string
----@field frames table
----@field initialized boolean
----@field initializers table
----@field padding table
----@field scrollBox PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_view_scrollBoxObject
----@field templateInfoCache table
-local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject = {}
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:AcquireInternal(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:AcquireRange(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:AssignAccessors(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:AttachDataProviderCallbacks(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:CalculateDataIndices(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:CalculateFrameExtent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ClearCachedData(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ClearElementExtentData(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ClearInvalidation(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ContainsElementDataByPredicate(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:CopyDeferredCallbacks(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:DataProviderContentsChanged(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:DetachDataProviderCallbacks(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:DoesFrameHaveEvent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProvider(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:EnumerateFrames(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:FindByPredicate(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:FindElementData(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:FindElementDataByPredicate(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndex(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:FindFrame(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:FindFrameByPredicate(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:FindFrameElementDataIndex(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:Flush(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:FlushDataProvider(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ForEachElementData(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ForEachFrame(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GenerateCallbackEvents(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetCallbackTable(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetCallbackTables(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetCallbacksByEvent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetDataIndexBegin(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetDataIndexEnd(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetDataProvider(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetDataProviderSize(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetDataRange(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetDataScrollOffset(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetElementExtent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetElementExtentCalculator(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetElementIndent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetExtent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetExtentFromInfo(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetExtentSpacing(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetExtentTo(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetExtentUntil(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetFactoryDataFromElementData(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetFirstTemplateInfo(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetFrameCount(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetFrameExtent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelCounter(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelPolicy(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetFrames(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetIdenticalElementExtent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetIdenticalStrideExtent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetInvalidationReason(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetLayoutFunction(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetLower(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetPadding(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetPanExtent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetScrollBox(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetScrollTarget(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetSpacing(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetStride(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetTemplateInfo(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:GetUpper(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:HasBiaxalLayout(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:HasDataProvider(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:HasElementExtent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:HasIdenticalElementExtent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:HasIdenticalStrideExtent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:HasRegistrantsForEvent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:Init(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:InitDefaultDrag(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:InvokeInitializer(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:InvokeInitializers(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:IsAcquireLocked(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:IsDataIndexWithinRange(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:IsElementStretchDisabled(...) end
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject : Frame
+---@field ActiveTexture GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_ActiveTextureObject
+---@field DisabledTexture GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_DisabledTextureObject
+---@field HoldAnim GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_HoldAnimObject
+---@field HoldIndicator GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_HoldIndicatorBGObject
+---@field HoverTexture GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_HoverTextureObject
+---@field LoadBar GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_LoadBarObject
+---@field LoadBarBG GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_LoadBarBGObject
+---@field LoadBarGlow GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_LoadBarGlowObject
+---@field NormalTexture GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_NormalTextureObject
+---@field PressedTexture GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_PressedTextureObject
+---@field SpinnerTip GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject = {}
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:IsExtentValid(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject:ApplyTextureLayout(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:IsHorizontal(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject:BeginHold(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:IsInitialized(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject:CanEnterTextureState(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:IsInvalidated(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject:DisableDropShadow(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject:EnableDropShadow(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:IsVirtualized(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject:EndHold(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:Layout(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:LayoutInternal(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSizeChanged(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject:OnLoad(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSort(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject:RefreshIconTextures(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:OnLoad(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject:SetDisabled(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementData(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject:SetEnabled(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject:SetFocused(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:RebuildTemplateInfoCache(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject:SetHoldState(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:RecalculateExtent(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject:SetInputKey(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject:SetIsHoldAction(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:RefreshSmartNav(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject:SetPressable(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:RegisterCallback(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject:SetTextureHeight(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:RegisterCallbackWithHandle(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject:SetTextureState(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ReinitializeFrames(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject:SetTextureWidth(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:Release(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject:SetUsableState(...) end
 ---@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:RemoveDataProvider(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:RemoveDataProviderInternal(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ResizeFrame(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ReverseForEachElementData(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ReverseForEachFrame(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SecureInsertEvent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SelectCursorComponent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SelectPointComponent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetAcquireLocked(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetDataProvider(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetDataRange(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetElementExtent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetElementExtentCalculator(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetElementFactory(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetElementIndentCalculator(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetElementInitializer(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetElementResetter(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetElementStretchDisabled(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetExtent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetFrameExtent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetFrameFactoryResetter(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetFrameLevelPolicy(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetHorizontal(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetInvalidationReason(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetMaxPanExtent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetPadding(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetPanExtent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetScrollBox(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SetVirtualized(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SignalDataChangeEvent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:SortFrames(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:TriggerEvent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:UnassignAccessors(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:UnregisterCallback(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:UnregisterEvents(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:ValidateDataRange(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:elementFactory(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:factory(...) end
----@return any ...
-function PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_viewObject:frameResetter(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIconObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_view_scrollBoxObject
-local PVPMatchScoreboard_Content_ScrollBar_registeredScrollBox_view_scrollBoxObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_ActiveTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_ActiveTextureObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_ScrollBoxObject
-local PVPMatchScoreboard_Content_ScrollBoxObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_DisabledTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_DisabledTextureObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_ScrollCategoriesObject
-local PVPMatchScoreboard_Content_ScrollCategoriesObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_HoldAnim_SpinnerTipAnimObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_HoldAnimObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainerObject : Frame
----@field TabGroup PVPMatchScoreboard_Content_TabContainer_TabGroupObject
-local PVPMatchScoreboard_Content_TabContainerObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_HoldAnim_LoadBarAnimObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroupObject : Frame
----@field Tab1 PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1Object
----@field Tab2 PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2Object
----@field Tab3 PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3Object
----@field Tabs table
-local PVPMatchScoreboard_Content_TabContainer_TabGroupObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1Object : Button
----@field Left PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_LeftObject
----@field LeftActive PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_LeftActiveObject
----@field LeftHighlight PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_LeftHighlightObject
----@field Middle PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_MiddleObject
----@field MiddleActive PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_MiddleActiveObject
----@field MiddleHighlight PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_MiddleHighlightObject
----@field Right PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_RightObject
----@field RightActive PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_RightActiveObject
----@field RightHighlight PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_RightHighlightObject
----@field TabTextures table
----@field Text PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_TextObject
----@field factionEnum number
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1Object = {}
----@return any ...
-function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1Object:OnEnter(...) end
----@return any ...
-function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1Object:OnEvent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1Object:OnLeave(...) end
----@return any ...
-function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1Object:OnLoad(...) end
----@return any ...
-function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1Object:OnShow(...) end
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_LeftObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_LeftObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_HoldIndicatorObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_HoldIndicatorObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_LeftActiveObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_LeftActiveObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_HoldIndicatorBGObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_HoldIndicatorBGObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_LeftHighlightObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_LeftHighlightObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_HoverTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_HoverTextureObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_MiddleObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_MiddleObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_LoadBarObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_LoadBarObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_MiddleActiveObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_MiddleActiveObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_LoadBarBGObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_LoadBarBGObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_MiddleHighlightObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_MiddleHighlightObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_LoadBarGlowObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_LoadBarGlowObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_RightObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_RightObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_NormalTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_NormalTextureObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_RightActiveObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_RightActiveObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_PressedTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_PressedTextureObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_RightHighlightObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_RightHighlightObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_SpinnerTipObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_ButtonIcon_SpinnerTipObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_TextObject : FontString
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab1_TextObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_CheckedTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_CheckedTextureObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2Object : Button
----@field Left PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_LeftObject
----@field LeftActive PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_LeftActiveObject
----@field LeftHighlight PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_LeftHighlightObject
----@field Middle PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_MiddleObject
----@field MiddleActive PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_MiddleActiveObject
----@field MiddleHighlight PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_MiddleHighlightObject
----@field Right PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_RightObject
----@field RightActive PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_RightActiveObject
----@field RightHighlight PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_RightHighlightObject
----@field TabTextures table
----@field Text PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_TextObject
----@field factionEnum number
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2Object = {}
----@return any ...
-function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2Object:OnEnter(...) end
----@return any ...
-function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2Object:OnEvent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2Object:OnLeave(...) end
----@return any ...
-function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2Object:OnLoad(...) end
----@return any ...
-function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2Object:OnShow(...) end
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_CircleGlowFocusObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_CircleGlowFocusObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_LeftObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_LeftObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_CircleMaskObject : MaskTexture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_CircleMaskObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_LeftActiveObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_LeftActiveObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_CircleShadowObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_CircleShadowObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_LeftHighlightObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_LeftHighlightObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_CircleShadowFocusObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_CircleShadowFocusObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_MiddleObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_MiddleObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_CooldownFlashObject : Frame
+---@field FlashAnim GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_CooldownFlash_FlashAnimObject
+---@field Flipbook GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_CooldownFlash_FlipbookObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_CooldownFlashObject = {}
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_CooldownFlashObject:Setup(...) end
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_MiddleActiveObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_MiddleActiveObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_CooldownFlash_FlashAnimObject : AnimationGroup
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_CooldownFlash_FlashAnimObject = {}
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_CooldownFlash_FlashAnimObject:OnFinished(...) end
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_MiddleHighlightObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_MiddleHighlightObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_CooldownFlash_FlipbookObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_CooldownFlash_FlipbookObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_RightObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_RightObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_CountObject : FontString
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_CountObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_RightActiveObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_RightActiveObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_EditModeCircleFocusStartAnimObject : AnimationGroup
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_EditModeCircleFocusStartAnimObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_RightHighlightObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_RightHighlightObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_EditModeSquareFocusStartAnimObject : AnimationGroup
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_EditModeSquareFocusStartAnimObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_TextObject : FontString
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab2_TextObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_FlashObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_FlashObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3Object : Button
----@field Left PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_LeftObject
----@field LeftActive PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_LeftActiveObject
----@field LeftHighlight PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_LeftHighlightObject
----@field Middle PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_MiddleObject
----@field MiddleActive PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_MiddleActiveObject
----@field MiddleHighlight PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_MiddleHighlightObject
----@field Right PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_RightObject
----@field RightActive PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_RightActiveObject
----@field RightHighlight PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_RightHighlightObject
----@field TabTextures table
----@field Text PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_TextObject
----@field factionEnum number
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3Object = {}
----@return any ...
-function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3Object:OnEnter(...) end
----@return any ...
-function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3Object:OnEvent(...) end
----@return any ...
-function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3Object:OnLeave(...) end
----@return any ...
-function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3Object:OnLoad(...) end
----@return any ...
-function PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3Object:OnShow(...) end
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_GameplayModeCircleFocusStartAnimObject : AnimationGroup
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_GameplayModeCircleFocusStartAnimObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_LeftObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_LeftObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_GameplayModeSquareFocusStartAnimObject : AnimationGroup
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_GameplayModeSquareFocusStartAnimObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_LeftActiveObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_LeftActiveObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_HighlightTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_HighlightTextureObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_LeftHighlightObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_LeftHighlightObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_HotKeyObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_HotKeyObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_MiddleObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_MiddleObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_IconMaskObject : MaskTexture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_IconMaskObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_MiddleActiveObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_MiddleActiveObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplayObject : Frame
+---@field Base GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_BaseObject
+---@field Highlight GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_HighlightObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplayObject = {}
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplayObject:OnHide(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplayObject:OnShow(...) end
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_MiddleHighlightObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_MiddleHighlightObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_BaseObject : Frame
+---@field AnimIn GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_Base_AnimInObject
+---@field Base GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_Base_BaseObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_BaseObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_RightObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_RightObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_Base_AnimInObject : AnimationGroup
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_Base_AnimInObject = {}
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_Base_AnimInObject:OnFinished(...) end
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_RightActiveObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_RightActiveObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_Base_BaseObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_Base_BaseObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_RightHighlightObject : Texture
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_RightHighlightObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_HighlightObject : Frame
+---@field AnimIn GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_Highlight_AnimInObject
+---@field HighlightTexture GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_Highlight_HighlightTextureObject
+---@field Mask GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_Highlight_MaskObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_HighlightObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_TextObject : FontString
-local PVPMatchScoreboard_Content_TabContainer_TabGroup_Tab3_TextObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_Highlight_AnimInObject : AnimationGroup
+---@field Translation GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_Highlight_AnimIn_TranslationObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_Highlight_AnimInObject = {}
 end
 
 do
----@class PVPMatchScoreboard_HeaderContainerObject : Frame
----@field Text PVPMatchScoreboard_HeaderContainer_TextObject
-local PVPMatchScoreboard_HeaderContainerObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_Highlight_AnimIn_TranslationObject : Translation
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_Highlight_AnimIn_TranslationObject = {}
 end
 
 do
----@class PVPMatchScoreboard_HeaderContainer_TextObject : FontString
-local PVPMatchScoreboard_HeaderContainer_TextObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_Highlight_HighlightTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_Highlight_HighlightTextureObject = {}
 end
 
 do
----@class PVPMatchScoreboard_NineSliceObject : Frame
----@field BottomEdge PVPMatchScoreboard_NineSlice_BottomEdgeObject
----@field BottomLeftCorner PVPMatchScoreboard_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner PVPMatchScoreboard_NineSlice_BottomRightCornerObject
----@field Center PVPMatchScoreboard_NineSlice_CenterObject
----@field LeftEdge PVPMatchScoreboard_NineSlice_LeftEdgeObject
----@field RightEdge PVPMatchScoreboard_NineSlice_RightEdgeObject
----@field TopEdge PVPMatchScoreboard_NineSlice_TopEdgeObject
----@field TopLeftCorner PVPMatchScoreboard_NineSlice_TopLeftCornerObject
----@field TopRightCorner PVPMatchScoreboard_NineSlice_TopRightCornerObject
----@field layoutType string
-local PVPMatchScoreboard_NineSliceObject = {}
----@return any ...
-function PVPMatchScoreboard_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function PVPMatchScoreboard_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function PVPMatchScoreboard_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function PVPMatchScoreboard_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function PVPMatchScoreboard_NineSliceObject:OnLoad(...) end
----@return any ...
-function PVPMatchScoreboard_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function PVPMatchScoreboard_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function PVPMatchScoreboard_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function PVPMatchScoreboard_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function PVPMatchScoreboard_NineSliceObject:SetVertexColor(...) end
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_Highlight_MaskObject : MaskTexture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_InterruptDisplay_Highlight_MaskObject = {}
 end
 
 do
----@class PVPMatchScoreboard_NineSlice_BottomEdgeObject : Texture
-local PVPMatchScoreboard_NineSlice_BottomEdgeObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_LevelLinkLockIconObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_LevelLinkLockIconObject = {}
 end
 
 do
----@class PVPMatchScoreboard_NineSlice_BottomLeftCornerObject : Texture
-local PVPMatchScoreboard_NineSlice_BottomLeftCornerObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_NameObject : FontString
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_NameObject = {}
 end
 
 do
----@class PVPMatchScoreboard_NineSlice_BottomRightCornerObject : Texture
-local PVPMatchScoreboard_NineSlice_BottomRightCornerObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_NewActionTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_NewActionTextureObject = {}
 end
 
 do
----@class PVPMatchScoreboard_NineSlice_CenterObject : Texture
-local PVPMatchScoreboard_NineSlice_CenterObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_NormalTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_NormalTextureObject = {}
 end
 
 do
----@class PVPMatchScoreboard_NineSlice_LeftEdgeObject : Texture
-local PVPMatchScoreboard_NineSlice_LeftEdgeObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_PermaboundOverlayObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_PermaboundOverlayObject = {}
 end
 
 do
----@class PVPMatchScoreboard_NineSlice_RightEdgeObject : Texture
-local PVPMatchScoreboard_NineSlice_RightEdgeObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_PushedTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_PushedTextureObject = {}
 end
 
 do
----@class PVPMatchScoreboard_NineSlice_TopEdgeObject : Texture
-local PVPMatchScoreboard_NineSlice_TopEdgeObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_QuickKeybindHighlightTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_QuickKeybindHighlightTextureObject = {}
 end
 
 do
----@class PVPMatchScoreboard_NineSlice_TopLeftCornerObject : Texture
-local PVPMatchScoreboard_NineSlice_TopLeftCornerObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_RangeIndicatorObject : FontString
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_RangeIndicatorObject = {}
 end
 
 do
----@class PVPMatchScoreboard_NineSlice_TopRightCornerObject : Texture
-local PVPMatchScoreboard_NineSlice_TopRightCornerObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SlotArtObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SlotArtObject = {}
 end
 
 do
----@class PVPMatchScoreboard_ScrollBarObject
-local PVPMatchScoreboard_ScrollBarObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SlotBackgroundObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SlotBackgroundObject = {}
 end
 
 do
----@class PVPMatchScoreboard_ScrollBoxObject
-local PVPMatchScoreboard_ScrollBoxObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpecialActionIconObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpecialActionIconObject = {}
 end
 
 do
----@class PVPMatchScoreboard_ScrollCategoriesObject
-local PVPMatchScoreboard_ScrollCategoriesObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrameObject : Frame
+---@field EndBurst GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_EndBurstObject
+---@field Fill GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_FillObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrameObject = {}
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrameObject:FinishAnimAndPlayBurst(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrameObject:GetCooldownFrameAlpha(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrameObject:OnHide(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrameObject:Setup(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrameObject:SetupAnimAtlases(...) end
 end
 
 do
----@class PVPMatchScoreboard_Tab1Object
-local PVPMatchScoreboard_Tab1Object = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_EndBurstObject : Frame
+---@field EndMask GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_EndBurst_EndMaskObject
+---@field FinishCastAnim GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_EndBurst_FinishCastAnimObject
+---@field GlowRing GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_EndBurst_GlowRingObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_EndBurstObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Tab2Object
-local PVPMatchScoreboard_Tab2Object = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_EndBurst_EndMaskObject : MaskTexture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_EndBurst_EndMaskObject = {}
 end
 
 do
----@class PVPMatchScoreboard_Tab3Object
-local PVPMatchScoreboard_Tab3Object = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_EndBurst_FinishCastAnimObject : AnimationGroup
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_EndBurst_FinishCastAnimObject = {}
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_EndBurst_FinishCastAnimObject:OnFinished(...) end
 end
 
 do
----@class PVPMatchScoreboard_TabContainerObject
-local PVPMatchScoreboard_TabContainerObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_EndBurst_GlowRingObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_EndBurst_GlowRingObject = {}
 end
 
 do
----@class PVPMatchScoreboard_TabGroupObject
-local PVPMatchScoreboard_TabGroupObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_FillObject : Frame
+---@field CastFill GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_Fill_CastFillObject
+---@field CastingAnim GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_Fill_CastingAnimObject
+---@field FillMask GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_Fill_FillMaskObject
+---@field InnerGlowTexture GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_Fill_InnerGlowTextureObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_FillObject = {}
 end
 
 do
----@class PVPMatchScoreboard_tableBuilderObject
----@field columnHeaderOverlap number
----@field columns table
----@field headerContainer PVPMatchScoreboard_tableBuilder_headerContainerObject
----@field headerPoolCollection table
----@field leftMargin number
----@field rightMargin number
----@field rows table
----@field tableWidth number
-local PVPMatchScoreboard_tableBuilderObject = {}
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:AddColumn(...) end
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:AddRow(...) end
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:Arrange(...) end
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:ArrangeCells(...) end
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:ArrangeHeaders(...) end
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:ArrangeHorizontally(...) end
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:CalculateColumnSpacing(...) end
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:ConstructHeader(...) end
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:EnumerateHeaders(...) end
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:GetColumnHeaderOverlap(...) end
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:GetColumns(...) end
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:GetDataProvider(...) end
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:GetDataProviderData(...) end
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:GetHeaderContainer(...) end
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:GetHeaderPoolCollection(...) end
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:GetTableMargins(...) end
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:GetTableWidth(...) end
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:Init(...) end
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:RemoveRow(...) end
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:Reset(...) end
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:SetColumnHeaderOverlap(...) end
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:SetDataProvider(...) end
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:SetHeaderContainer(...) end
----@return any ...
-function PVPMatchScoreboard_tableBuilderObject:SetTableMargins(...) end
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_Fill_CastFillObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_Fill_CastFillObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_Fill_CastingAnimObject : AnimationGroup
+---@field CastFillTranslation GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_Fill_CastingAnimObject = {}
 ---@return any ...
-function PVPMatchScoreboard_tableBuilderObject:SetTableWidth(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_Fill_CastingAnimObject:OnFinished(...) end
 end
 
 do
----@class PVPMatchScoreboard_tableBuilder_headerContainerObject : Frame
-local PVPMatchScoreboard_tableBuilder_headerContainerObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject : Translation
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject = {}
 end
 
 do
----@class PVPReadyDialogObject : Frame
----@field Border PVPReadyDialog_BorderObject
----@field background PVPReadyDialog_backgroundObject
----@field bottomArt PVPReadyDialog_bottomArtObject
----@field enterButton PVPReadyDialog_enterButtonObject
----@field instanceInfo PVPReadyDialog_instanceInfoObject
----@field label PVPReadyDialog_labelObject
----@field leaveButton PVPReadyDialog_leaveButtonObject
----@field roleDescription PVPReadyDialog_roleDescriptionObject
----@field roleIcon PVPReadyDialog_roleIconObject
----@field roleLabel PVPReadyDialog_roleLabelObject
-local PVPReadyDialogObject = {}
----@type PVPReadyDialogObject
-PVPReadyDialog = PVPReadyDialogObject
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_Fill_FillMaskObject : MaskTexture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_Fill_FillMaskObject = {}
 end
 
 do
----@class PVPReadyDialog_BorderObject : Frame
----@field Bg PVPReadyDialog_Border_BgObject
----@field BottomEdge PVPReadyDialog_Border_BottomEdgeObject
----@field BottomLeftCorner PVPReadyDialog_Border_BottomLeftCornerObject
----@field BottomRightCorner PVPReadyDialog_Border_BottomRightCornerObject
----@field LeftEdge PVPReadyDialog_Border_LeftEdgeObject
----@field RightEdge PVPReadyDialog_Border_RightEdgeObject
----@field TopEdge PVPReadyDialog_Border_TopEdgeObject
----@field TopLeftCorner PVPReadyDialog_Border_TopLeftCornerObject
----@field TopRightCorner PVPReadyDialog_Border_TopRightCornerObject
----@field layoutType string
-local PVPReadyDialog_BorderObject = {}
----@return any ...
-function PVPReadyDialog_BorderObject:GetBorderColor(...) end
----@return any ...
-function PVPReadyDialog_BorderObject:GetCenterColor(...) end
----@return any ...
-function PVPReadyDialog_BorderObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function PVPReadyDialog_BorderObject:GetFrameLayoutType(...) end
----@return any ...
-function PVPReadyDialog_BorderObject:OnLoad(...) end
----@return any ...
-function PVPReadyDialog_BorderObject:SetBlendMode(...) end
----@return any ...
-function PVPReadyDialog_BorderObject:SetBorderBlendMode(...) end
----@return any ...
-function PVPReadyDialog_BorderObject:SetBorderColor(...) end
----@return any ...
-function PVPReadyDialog_BorderObject:SetCenterColor(...) end
----@return any ...
-function PVPReadyDialog_BorderObject:SetVertexColor(...) end
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_Fill_InnerGlowTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellCastAnimFrame_Fill_InnerGlowTextureObject = {}
 end
 
 do
----@class PVPReadyDialog_Border_BgObject : Texture
-local PVPReadyDialog_Border_BgObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellHighlightAnimObject : AnimationGroup
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellHighlightAnimObject = {}
 end
 
 do
----@class PVPReadyDialog_Border_BottomEdgeObject : Texture
-local PVPReadyDialog_Border_BottomEdgeObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellHighlightTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SpellHighlightTextureObject = {}
 end
 
 do
----@class PVPReadyDialog_Border_BottomLeftCornerObject : Texture
-local PVPReadyDialog_Border_BottomLeftCornerObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SquareGlowFocusObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SquareGlowFocusObject = {}
 end
 
 do
----@class PVPReadyDialog_Border_BottomRightCornerObject : Texture
-local PVPReadyDialog_Border_BottomRightCornerObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SquareMaskObject : MaskTexture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SquareMaskObject = {}
 end
 
 do
----@class PVPReadyDialog_Border_LeftEdgeObject : Texture
-local PVPReadyDialog_Border_LeftEdgeObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SquareShadowObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SquareShadowObject = {}
 end
 
 do
----@class PVPReadyDialog_Border_RightEdgeObject : Texture
-local PVPReadyDialog_Border_RightEdgeObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SquareShadowFocusObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_SquareShadowFocusObject = {}
 end
 
 do
----@class PVPReadyDialog_Border_TopEdgeObject : Texture
-local PVPReadyDialog_Border_TopEdgeObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TargetReticleAnimFrameObject : Frame
+---@field Base GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TargetReticleAnimFrame_BaseObject
+---@field Highlight GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TargetReticleAnimFrame_HighlightObject
+---@field HighlightAnim GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TargetReticleAnimFrame_HighlightAnimObject
+---@field Mask GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TargetReticleAnimFrame_MaskObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TargetReticleAnimFrameObject = {}
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TargetReticleAnimFrameObject:Setup(...) end
 end
 
 do
----@class PVPReadyDialog_Border_TopLeftCornerObject : Texture
-local PVPReadyDialog_Border_TopLeftCornerObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TargetReticleAnimFrame_BaseObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TargetReticleAnimFrame_BaseObject = {}
 end
 
 do
----@class PVPReadyDialog_Border_TopRightCornerObject : Texture
-local PVPReadyDialog_Border_TopRightCornerObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TargetReticleAnimFrame_HighlightObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TargetReticleAnimFrame_HighlightObject = {}
 end
 
 do
----@class PVPReadyDialog_backgroundObject : Texture
-local PVPReadyDialog_backgroundObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TargetReticleAnimFrame_HighlightAnimObject : AnimationGroup
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TargetReticleAnimFrame_HighlightAnimObject = {}
 end
 
 do
----@class PVPReadyDialog_bottomArtObject : Texture
-local PVPReadyDialog_bottomArtObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TargetReticleAnimFrame_MaskObject : MaskTexture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TargetReticleAnimFrame_MaskObject = {}
 end
 
 do
----@class PVPReadyDialog_enterButtonObject : Button
----@field Left PVPReadyDialog_enterButton_LeftObject
----@field Middle PVPReadyDialog_enterButton_MiddleObject
----@field Right PVPReadyDialog_enterButton_RightObject
----@field Text PVPReadyDialog_enterButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local PVPReadyDialog_enterButtonObject = {}
----@return any ...
-function PVPReadyDialog_enterButtonObject:FitToText(...) end
----@return any ...
-function PVPReadyDialog_enterButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function PVPReadyDialog_enterButtonObject:OnClick(...) end
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TextOverlayContainerObject : Frame
+---@field Count GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TextOverlayContainer_CountObject
+---@field HotKey GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TextOverlayContainer_HotKeyObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TextOverlayContainerObject = {}
 ---@return any ...
-function PVPReadyDialog_enterButtonObject:OnEnter(...) end
----@return any ...
-function PVPReadyDialog_enterButtonObject:OnLeave(...) end
----@return any ...
-function PVPReadyDialog_enterButtonObject:SetDisabledState(...) end
----@return any ...
-function PVPReadyDialog_enterButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function PVPReadyDialog_enterButtonObject:SetTextToFit(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TextOverlayContainerObject:OnLoad(...) end
 end
 
 do
----@class PVPReadyDialog_enterButton_LeftObject : Texture
-local PVPReadyDialog_enterButton_LeftObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TextOverlayContainer_CountObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TextOverlayContainer_CountObject = {}
 end
 
 do
----@class PVPReadyDialog_enterButton_MiddleObject : Texture
-local PVPReadyDialog_enterButton_MiddleObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TextOverlayContainer_HotKeyObject : FontString
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_TextOverlayContainer_HotKeyObject = {}
 end
 
 do
----@class PVPReadyDialog_enterButton_RightObject : Texture
-local PVPReadyDialog_enterButton_RightObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_chargeCooldownObject : Cooldown
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_chargeCooldownObject = {}
 end
 
 do
----@class PVPReadyDialog_enterButton_TextObject : FontString
-local PVPReadyDialog_enterButton_TextObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_cooldownObject : Cooldown
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_cooldownObject = {}
 end
 
 do
----@class PVPReadyDialog_instanceInfoObject : Frame
----@field name PVPReadyDialog_instanceInfo_nameObject
----@field statusText PVPReadyDialog_instanceInfo_statusTextObject
----@field underline PVPReadyDialog_instanceInfo_underlineObject
-local PVPReadyDialog_instanceInfoObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_iconObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_iconObject = {}
 end
 
 do
----@class PVPReadyDialog_instanceInfo_nameObject : FontString
-local PVPReadyDialog_instanceInfo_nameObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_lossOfControlCooldownObject : Cooldown
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_lossOfControlCooldownObject = {}
 end
 
 do
----@class PVPReadyDialog_instanceInfo_statusTextObject : FontString
-local PVPReadyDialog_instanceInfo_statusTextObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_parentActionBarObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_ActionButton4_parentActionBarObject = {}
 end
 
 do
----@class PVPReadyDialog_instanceInfo_underlineObject : Texture
-local PVPReadyDialog_instanceInfo_underlineObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_EditModeFocusParticlesSingleObject : Frame
+---@field FocusParticles1 GamepadMainActionBarFrame_PageUnit_activeBar_Right_EditModeFocusParticlesSingle_FocusParticles1Object
+---@field FocusParticles2 GamepadMainActionBarFrame_PageUnit_activeBar_Right_EditModeFocusParticlesSingle_FocusParticles2Object
+---@field FocusParticles3 GamepadMainActionBarFrame_PageUnit_activeBar_Right_EditModeFocusParticlesSingle_FocusParticles3Object
+---@field FocusStartAnim GamepadMainActionBarFrame_PageUnit_activeBar_Right_EditModeFocusParticlesSingle_FocusStartAnimObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_EditModeFocusParticlesSingleObject = {}
 end
 
 do
----@class PVPReadyDialog_labelObject : FontString
-local PVPReadyDialog_labelObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_EditModeFocusParticlesSingle_FocusParticles1Object : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_EditModeFocusParticlesSingle_FocusParticles1Object = {}
 end
 
 do
----@class PVPReadyDialog_leaveButtonObject : Button
----@field Left PVPReadyDialog_leaveButton_LeftObject
----@field Middle PVPReadyDialog_leaveButton_MiddleObject
----@field Right PVPReadyDialog_leaveButton_RightObject
----@field Text PVPReadyDialog_leaveButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local PVPReadyDialog_leaveButtonObject = {}
----@return any ...
-function PVPReadyDialog_leaveButtonObject:FitToText(...) end
----@return any ...
-function PVPReadyDialog_leaveButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function PVPReadyDialog_leaveButtonObject:OnClick(...) end
----@return any ...
-function PVPReadyDialog_leaveButtonObject:OnEnter(...) end
----@return any ...
-function PVPReadyDialog_leaveButtonObject:OnLeave(...) end
----@return any ...
-function PVPReadyDialog_leaveButtonObject:SetDisabledState(...) end
----@return any ...
-function PVPReadyDialog_leaveButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function PVPReadyDialog_leaveButtonObject:SetTextToFit(...) end
-end
-
-do
----@class PVPReadyDialog_leaveButton_LeftObject : Texture
-local PVPReadyDialog_leaveButton_LeftObject = {}
-end
-
-do
----@class PVPReadyDialog_leaveButton_MiddleObject : Texture
-local PVPReadyDialog_leaveButton_MiddleObject = {}
-end
-
-do
----@class PVPReadyDialog_leaveButton_RightObject : Texture
-local PVPReadyDialog_leaveButton_RightObject = {}
-end
-
-do
----@class PVPReadyDialog_leaveButton_TextObject : FontString
-local PVPReadyDialog_leaveButton_TextObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_EditModeFocusParticlesSingle_FocusParticles2Object : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_EditModeFocusParticlesSingle_FocusParticles2Object = {}
 end
 
 do
----@class PVPReadyDialog_roleDescriptionObject : FontString
-local PVPReadyDialog_roleDescriptionObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_EditModeFocusParticlesSingle_FocusParticles3Object : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_EditModeFocusParticlesSingle_FocusParticles3Object = {}
 end
 
 do
----@class PVPReadyDialog_roleIconObject : Frame
----@field texture PVPReadyDialog_roleIcon_textureObject
-local PVPReadyDialog_roleIconObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Right_EditModeFocusParticlesSingle_FocusStartAnimObject : AnimationGroup
+local GamepadMainActionBarFrame_PageUnit_activeBar_Right_EditModeFocusParticlesSingle_FocusStartAnimObject = {}
 end
 
 do
----@class PVPReadyDialog_roleIcon_textureObject : Texture
-local PVPReadyDialog_roleIcon_textureObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_RightButtonFrameObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_RightButtonFrameObject = {}
 end
 
 do
----@class PVPReadyDialog_roleLabelObject : FontString
-local PVPReadyDialog_roleLabelObject = {}
-end
-
-do
----@class PVPReadyPopupObject : Frame
----@field RolePool PVPReadyPopup_RolePoolObject
----@field RolelessButton PVPReadyPopup_RolelessButtonObject
-local PVPReadyPopupObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_collapseSequenceObject
+---@field actionBar GamepadMainActionBarFrame_PageUnit_activeBar_collapseSequence_actionBarObject
+---@field animationsData table
+---@field isPlaying boolean
+local GamepadMainActionBarFrame_PageUnit_activeBar_collapseSequenceObject = {}
 ---@return any ...
-function PVPReadyPopupObject:GetCenterOffsetBasedOffNumRoles(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_collapseSequenceObject:DebugPrint(...) end
 ---@return any ...
-function PVPReadyPopupObject:OnEvent(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_collapseSequenceObject:ForEachActionBarSlot(...) end
 ---@return any ...
-function PVPReadyPopupObject:OnLoad(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_collapseSequenceObject:ForEachModifierIcon(...) end
 ---@return any ...
-function PVPReadyPopupObject:OnUpdate(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_collapseSequenceObject:GetSequenceDebugName(...) end
 ---@return any ...
-function PVPReadyPopupObject:Reset(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_collapseSequenceObject:Init(...) end
 ---@return any ...
-function PVPReadyPopupObject:Setup(...) end
----@return any ...
-function PVPReadyPopupObject:SetupRole(...) end
----@return any ...
-function PVPReadyPopupObject:SetupRoleButtons(...) end
----@return any ...
-function PVPReadyPopupObject:SetupRolelessButton(...) end
----@type PVPReadyPopupObject
-PVPReadyPopup = PVPReadyPopupObject
-end
-
-do
----@class PVPReadyPopup_RolePoolObject
-local PVPReadyPopup_RolePoolObject = {}
+function GamepadMainActionBarFrame_PageUnit_activeBar_collapseSequenceObject:InitAnimations(...) end
 ---@return any ...
-function PVPReadyPopup_RolePoolObject:GetTemplate(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_collapseSequenceObject:IsPlaying(...) end
 ---@return any ...
-function PVPReadyPopup_RolePoolObject:private(...) end
-end
-
-do
----@class PVPReadyPopup_RolelessButtonObject : Frame
----@field Count PVPReadyPopup_RolelessButton_CountObject
----@field StatusIcon PVPReadyPopup_RolelessButton_StatusIconObject
----@field Texture PVPReadyPopup_RolelessButton_TextureObject
-local PVPReadyPopup_RolelessButtonObject = {}
+function GamepadMainActionBarFrame_PageUnit_activeBar_collapseSequenceObject:Reinitialize(...) end
 ---@return any ...
-function PVPReadyPopup_RolelessButtonObject:OnLoad(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_collapseSequenceObject:Start(...) end
 ---@return any ...
-function PVPReadyPopup_RolelessButtonObject:Setup(...) end
-end
-
-do
----@class PVPReadyPopup_RolelessButton_CountObject : FontString
-local PVPReadyPopup_RolelessButton_CountObject = {}
+function GamepadMainActionBarFrame_PageUnit_activeBar_collapseSequenceObject:Stop(...) end
 end
 
 do
----@class PVPReadyPopup_RolelessButton_StatusIconObject : Texture
-local PVPReadyPopup_RolelessButton_StatusIconObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_collapseSequence_actionBarObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_collapseSequence_actionBarObject = {}
 end
 
 do
----@class PVPReadyPopup_RolelessButton_TextureObject : Texture
-local PVPReadyPopup_RolelessButton_TextureObject = {}
-end
-
-do
----@class PVPRoleCheckPopupObject : Frame
----@field Border PVPRoleCheckPopup_BorderObject
----@field DPSIcon PVPRoleCheckPopup_DPSIconObject
----@field Description PVPRoleCheckPopup_DescriptionObject
----@field HealerIcon PVPRoleCheckPopup_HealerIconObject
----@field TankIcon PVPRoleCheckPopup_TankIconObject
-local PVPRoleCheckPopupObject = {}
----@type PVPRoleCheckPopupObject
-PVPRoleCheckPopup = PVPRoleCheckPopupObject
-end
-
-do
----@class PVPRoleCheckPopup_BorderObject : Frame
----@field Bg PVPRoleCheckPopup_Border_BgObject
----@field BottomEdge PVPRoleCheckPopup_Border_BottomEdgeObject
----@field BottomLeftCorner PVPRoleCheckPopup_Border_BottomLeftCornerObject
----@field BottomRightCorner PVPRoleCheckPopup_Border_BottomRightCornerObject
----@field LeftEdge PVPRoleCheckPopup_Border_LeftEdgeObject
----@field RightEdge PVPRoleCheckPopup_Border_RightEdgeObject
----@field TopEdge PVPRoleCheckPopup_Border_TopEdgeObject
----@field TopLeftCorner PVPRoleCheckPopup_Border_TopLeftCornerObject
----@field TopRightCorner PVPRoleCheckPopup_Border_TopRightCornerObject
----@field layoutType string
-local PVPRoleCheckPopup_BorderObject = {}
----@return any ...
-function PVPRoleCheckPopup_BorderObject:GetBorderColor(...) end
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_expandSequenceObject
+---@field actionBar GamepadMainActionBarFrame_PageUnit_activeBar_expandSequence_actionBarObject
+---@field animationsData table
+---@field isLooping boolean
+---@field isPlaying boolean
+local GamepadMainActionBarFrame_PageUnit_activeBar_expandSequenceObject = {}
 ---@return any ...
-function PVPRoleCheckPopup_BorderObject:GetCenterColor(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_expandSequenceObject:DebugPrint(...) end
 ---@return any ...
-function PVPRoleCheckPopup_BorderObject:GetFrameLayoutTextureKit(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_expandSequenceObject:ForEachActionBarSlot(...) end
 ---@return any ...
-function PVPRoleCheckPopup_BorderObject:GetFrameLayoutType(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_expandSequenceObject:ForEachModifierIcon(...) end
 ---@return any ...
-function PVPRoleCheckPopup_BorderObject:OnLoad(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_expandSequenceObject:GetSequenceDebugName(...) end
 ---@return any ...
-function PVPRoleCheckPopup_BorderObject:SetBlendMode(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_expandSequenceObject:Init(...) end
 ---@return any ...
-function PVPRoleCheckPopup_BorderObject:SetBorderBlendMode(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_expandSequenceObject:InitAnimations(...) end
 ---@return any ...
-function PVPRoleCheckPopup_BorderObject:SetBorderColor(...) end
----@return any ...
-function PVPRoleCheckPopup_BorderObject:SetCenterColor(...) end
----@return any ...
-function PVPRoleCheckPopup_BorderObject:SetVertexColor(...) end
-end
-
-do
----@class PVPRoleCheckPopup_Border_BgObject : Texture
-local PVPRoleCheckPopup_Border_BgObject = {}
-end
-
-do
----@class PVPRoleCheckPopup_Border_BottomEdgeObject : Texture
-local PVPRoleCheckPopup_Border_BottomEdgeObject = {}
-end
-
-do
----@class PVPRoleCheckPopup_Border_BottomLeftCornerObject : Texture
-local PVPRoleCheckPopup_Border_BottomLeftCornerObject = {}
-end
-
-do
----@class PVPRoleCheckPopup_Border_BottomRightCornerObject : Texture
-local PVPRoleCheckPopup_Border_BottomRightCornerObject = {}
-end
-
-do
----@class PVPRoleCheckPopup_Border_LeftEdgeObject : Texture
-local PVPRoleCheckPopup_Border_LeftEdgeObject = {}
-end
-
-do
----@class PVPRoleCheckPopup_Border_RightEdgeObject : Texture
-local PVPRoleCheckPopup_Border_RightEdgeObject = {}
-end
-
-do
----@class PVPRoleCheckPopup_Border_TopEdgeObject : Texture
-local PVPRoleCheckPopup_Border_TopEdgeObject = {}
-end
-
-do
----@class PVPRoleCheckPopup_Border_TopLeftCornerObject : Texture
-local PVPRoleCheckPopup_Border_TopLeftCornerObject = {}
-end
-
-do
----@class PVPRoleCheckPopup_Border_TopRightCornerObject : Texture
-local PVPRoleCheckPopup_Border_TopRightCornerObject = {}
-end
-
-do
----@class PVPRoleCheckPopup_DPSIconObject : Button
----@field alert PVPRoleCheckPopup_DPSIcon_alertObject
----@field checkButton PVPRoleCheckPopup_DPSIcon_checkButtonObject
----@field lockedIndicator PVPRoleCheckPopup_DPSIcon_lockedIndicatorObject
----@field permDisabledTip string
----@field role string
-local PVPRoleCheckPopup_DPSIconObject = {}
-end
-
-do
----@class PVPRoleCheckPopup_DPSIcon_alertObject : Frame
-local PVPRoleCheckPopup_DPSIcon_alertObject = {}
-end
-
-do
----@class PVPRoleCheckPopup_DPSIcon_checkButtonObject : CheckButton
-local PVPRoleCheckPopup_DPSIcon_checkButtonObject = {}
+function GamepadMainActionBarFrame_PageUnit_activeBar_expandSequenceObject:IsPlaying(...) end
 ---@return any ...
-function PVPRoleCheckPopup_DPSIcon_checkButtonObject:onClick(...) end
-end
-
-do
----@class PVPRoleCheckPopup_DPSIcon_lockedIndicatorObject : Frame
-local PVPRoleCheckPopup_DPSIcon_lockedIndicatorObject = {}
-end
-
-do
----@class PVPRoleCheckPopup_DescriptionObject : Frame
----@field Text PVPRoleCheckPopup_Description_TextObject
-local PVPRoleCheckPopup_DescriptionObject = {}
-end
-
-do
----@class PVPRoleCheckPopup_Description_TextObject : FontString
-local PVPRoleCheckPopup_Description_TextObject = {}
-end
-
-do
----@class PVPRoleCheckPopup_HealerIconObject : Button
----@field alert PVPRoleCheckPopup_HealerIcon_alertObject
----@field checkButton PVPRoleCheckPopup_HealerIcon_checkButtonObject
----@field lockedIndicator PVPRoleCheckPopup_HealerIcon_lockedIndicatorObject
----@field permDisabledTip string
----@field role string
-local PVPRoleCheckPopup_HealerIconObject = {}
-end
-
-do
----@class PVPRoleCheckPopup_HealerIcon_alertObject : Frame
-local PVPRoleCheckPopup_HealerIcon_alertObject = {}
-end
-
-do
----@class PVPRoleCheckPopup_HealerIcon_checkButtonObject : CheckButton
-local PVPRoleCheckPopup_HealerIcon_checkButtonObject = {}
+function GamepadMainActionBarFrame_PageUnit_activeBar_expandSequenceObject:Reinitialize(...) end
 ---@return any ...
-function PVPRoleCheckPopup_HealerIcon_checkButtonObject:onClick(...) end
-end
-
-do
----@class PVPRoleCheckPopup_HealerIcon_lockedIndicatorObject : Frame
-local PVPRoleCheckPopup_HealerIcon_lockedIndicatorObject = {}
-end
-
-do
----@class PVPRoleCheckPopup_TankIconObject : Button
----@field alert PVPRoleCheckPopup_TankIcon_alertObject
----@field checkButton PVPRoleCheckPopup_TankIcon_checkButtonObject
----@field lockedIndicator PVPRoleCheckPopup_TankIcon_lockedIndicatorObject
----@field permDisabledTip string
----@field role string
-local PVPRoleCheckPopup_TankIconObject = {}
-end
-
-do
----@class PVPRoleCheckPopup_TankIcon_alertObject : Frame
-local PVPRoleCheckPopup_TankIcon_alertObject = {}
-end
-
-do
----@class PVPRoleCheckPopup_TankIcon_checkButtonObject : CheckButton
-local PVPRoleCheckPopup_TankIcon_checkButtonObject = {}
+function GamepadMainActionBarFrame_PageUnit_activeBar_expandSequenceObject:Start(...) end
 ---@return any ...
-function PVPRoleCheckPopup_TankIcon_checkButtonObject:onClick(...) end
+function GamepadMainActionBarFrame_PageUnit_activeBar_expandSequenceObject:Stop(...) end
 end
 
 do
----@class PVPRoleCheckPopup_TankIcon_lockedIndicatorObject : Frame
-local PVPRoleCheckPopup_TankIcon_lockedIndicatorObject = {}
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_expandSequence_actionBarObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_expandSequence_actionBarObject = {}
 end
 
 do
----@class PartyFrameObject : Frame
----@field Background PartyFrame_BackgroundObject
----@field MemberFrame1 PartyFrame_MemberFrame1Object
----@field MemberFrame2 PartyFrame_MemberFrame2Object
----@field MemberFrame3 PartyFrame_MemberFrame3Object
----@field MemberFrame4 PartyFrame_MemberFrame4Object
----@field PartyMemberFramePool PartyFrame_PartyMemberFramePoolObject
----@field Selection PartyFrame_SelectionObject
----@field TargetingActiveDPadFooterinputLegend PartyFrame_TargetingActiveDPadFooterinputLegendObject
----@field alwaysUseTopLeftAnchor boolean
----@field bottomPadding number
----@field breakSnappedFramesOnSave boolean
----@field defaultHideSelection boolean
----@field dirty boolean
----@field dirtySettings table
----@field downKeys table
----@field hasActiveChanges boolean
----@field lastSystemIndex number
----@field leftPadding number
----@field rightPadding number
----@field savedSystemInfo PartyFrame_savedSystemInfoObject
----@field settingDisplayInfoMap PartyFrame_settingDisplayInfoMapObject
----@field settingMap table
----@field settingsDialogAnchor PartyFrame_settingsDialogAnchorObject
----@field snappedFrames table
----@field spacing number
----@field system number
----@field systemIndex number
----@field systemInfo PartyFrame_systemInfoObject
----@field systemNameString string
-local PartyFrameObject = {}
----@return any ...
-function PartyFrameObject:AddExtraButtons(...) end
----@return any ...
-function PartyFrameObject:AddLayoutChildren(...) end
----@return any ...
-function PartyFrameObject:AddSnappedFrame(...) end
----@return any ...
-function PartyFrameObject:AnchorSelectionFrame(...) end
----@return any ...
-function PartyFrameObject:AnySettingsDirty(...) end
----@return any ...
-function PartyFrameObject:ApplySystemAnchor(...) end
----@return any ...
-function PartyFrameObject:AreAllSystemSettingsDefault(...) end
----@return any ...
-function PartyFrameObject:BreakFrameSnap(...) end
----@return any ...
-function PartyFrameObject:BreakFromFrameManager(...) end
----@return any ...
-function PartyFrameObject:BreakSnappedFrames(...) end
----@return any ...
-function PartyFrameObject:CalculateFrameSize(...) end
----@return any ...
-function PartyFrameObject:CanBeMoved(...) end
----@return any ...
-function PartyFrameObject:ClearAllPointsBase(...) end
----@return any ...
-function PartyFrameObject:ClearAllPointsOverride(...) end
----@return any ...
-function PartyFrameObject:ClearDirtySetting(...) end
----@return any ...
-function PartyFrameObject:ClearDownKeys(...) end
----@return any ...
-function PartyFrameObject:ClearFixedSize(...) end
----@return any ...
-function PartyFrameObject:ClearFrameSnap(...) end
----@return any ...
-function PartyFrameObject:ClearHighlight(...) end
----@return any ...
-function PartyFrameObject:ConvertSettingDisplayValueToRawValue(...) end
----@return any ...
-function PartyFrameObject:DoesSettingDisplayValueEqual(...) end
----@return any ...
-function PartyFrameObject:DoesSettingValueEqual(...) end
----@return any ...
-function PartyFrameObject:GetAdditionalRegions(...) end
----@return any ...
-function PartyFrameObject:GetBottomOffset(...) end
----@return any ...
-function PartyFrameObject:GetChildHeight(...) end
----@return any ...
-function PartyFrameObject:GetChildPadding(...) end
----@return any ...
-function PartyFrameObject:GetChildSize(...) end
----@return any ...
-function PartyFrameObject:GetChildWidth(...) end
----@return any ...
-function PartyFrameObject:GetCombinedCenterOffset(...) end
----@return any ...
-function PartyFrameObject:GetCombinedSelectionOffset(...) end
----@return any ...
-function PartyFrameObject:GetCompositeNumberSettingValue(...) end
----@return any ...
-function PartyFrameObject:GetFixedHeight(...) end
----@return any ...
-function PartyFrameObject:GetFixedSize(...) end
----@return any ...
-function PartyFrameObject:GetFixedWidth(...) end
----@return any ...
-function PartyFrameObject:GetFrameMagneticEligibility(...) end
----@return any ...
-function PartyFrameObject:GetHeightPadding(...) end
----@return any ...
-function PartyFrameObject:GetLayoutChildren(...) end
----@return any ...
-function PartyFrameObject:GetLeftOffset(...) end
----@return any ...
-function PartyFrameObject:GetManagedFrameContainer(...) end
----@return any ...
-function PartyFrameObject:GetPadding(...) end
----@return any ...
-function PartyFrameObject:GetPartyMemberFrame(...) end
----@return any ...
-function PartyFrameObject:GetRightOffset(...) end
----@return any ...
-function PartyFrameObject:GetScaledCenter(...) end
----@return any ...
-function PartyFrameObject:GetScaledSelectionCenter(...) end
----@return any ...
-function PartyFrameObject:GetScaledSelectionSides(...) end
----@return any ...
-function PartyFrameObject:GetSelectionOffset(...) end
----@return any ...
-function PartyFrameObject:GetSettingValue(...) end
----@return any ...
-function PartyFrameObject:GetSettingValueBool(...) end
----@return any ...
-function PartyFrameObject:GetSettingsDialogAnchor(...) end
----@return any ...
-function PartyFrameObject:GetSnapOffsets(...) end
----@return any ...
-function PartyFrameObject:GetSystemName(...) end
----@return any ...
-function PartyFrameObject:GetTopOffset(...) end
----@return any ...
-function PartyFrameObject:GetWidthPadding(...) end
----@return any ...
-function PartyFrameObject:HasActiveChanges(...) end
----@return any ...
-function PartyFrameObject:HasCompositeNumberSetting(...) end
----@return any ...
-function PartyFrameObject:HasSetting(...) end
----@return any ...
-function PartyFrameObject:HasValidSelectionRect(...) end
----@return any ...
-function PartyFrameObject:HideBase(...) end
----@return any ...
-function PartyFrameObject:HideOverride(...) end
----@return any ...
-function PartyFrameObject:HidePartyFrames(...) end
----@return any ...
-function PartyFrameObject:HighlightSystem(...) end
----@return any ...
-function PartyFrameObject:IgnoreLayoutIndex(...) end
----@return any ...
-function PartyFrameObject:InitializePartyMemberFrames(...) end
----@return any ...
-function PartyFrameObject:IsAboveFrame(...) end
----@return any ...
-function PartyFrameObject:IsBelowFrame(...) end
----@return any ...
-function PartyFrameObject:IsDirty(...) end
----@return any ...
-function PartyFrameObject:IsEditModeDragging(...) end
----@return any ...
-function PartyFrameObject:IsFrameAnchoredToMe(...) end
----@return any ...
-function PartyFrameObject:IsHorizontallyAlignedWithFrame(...) end
----@return any ...
-function PartyFrameObject:IsInDefaultPosition(...) end
----@return any ...
-function PartyFrameObject:IsInitialized(...) end
----@return any ...
-function PartyFrameObject:IsLayoutFrame(...) end
----@return any ...
-function PartyFrameObject:IsSettingDirty(...) end
----@return any ...
-function PartyFrameObject:IsShiftKeyDown(...) end
----@return any ...
-function PartyFrameObject:IsSystemSettingDefault(...) end
----@return any ...
-function PartyFrameObject:IsToTheLeftOfFrame(...) end
----@return any ...
-function PartyFrameObject:IsToTheRightOfFrame(...) end
----@return any ...
-function PartyFrameObject:IsVerticallyAlignedWithFrame(...) end
----@return any ...
-function PartyFrameObject:Layout(...) end
----@return any ...
-function PartyFrameObject:LayoutChildren(...) end
----@return any ...
-function PartyFrameObject:MarkAllSettingsDirty(...) end
----@return any ...
-function PartyFrameObject:MarkClean(...) end
----@return any ...
-function PartyFrameObject:MarkDirty(...) end
----@return any ...
-function PartyFrameObject:MarkIgnoreInLayout(...) end
----@return any ...
-function PartyFrameObject:OnAnyEditModeSystemAnchorChanged(...) end
----@return any ...
-function PartyFrameObject:OnCleaned(...) end
----@return any ...
-function PartyFrameObject:OnDragStart(...) end
----@return any ...
-function PartyFrameObject:OnDragStop(...) end
----@return any ...
-function PartyFrameObject:OnEditModeEnter(...) end
----@return any ...
-function PartyFrameObject:OnEditModeExit(...) end
----@return any ...
-function PartyFrameObject:OnEvent(...) end
----@return any ...
-function PartyFrameObject:OnKeyDown(...) end
----@return any ...
-function PartyFrameObject:OnKeyUp(...) end
----@return any ...
-function PartyFrameObject:OnLoad(...) end
----@return any ...
-function PartyFrameObject:OnShow(...) end
----@return any ...
-function PartyFrameObject:OnSystemHide(...) end
----@return any ...
-function PartyFrameObject:OnSystemLoad(...) end
----@return any ...
-function PartyFrameObject:OnSystemPositionChange(...) end
----@return any ...
-function PartyFrameObject:OnUpdate(...) end
----@return any ...
-function PartyFrameObject:OnUpdateSystem(...) end
----@return any ...
-function PartyFrameObject:PrepareForSave(...) end
----@return any ...
-function PartyFrameObject:ProcessMovementKey(...) end
----@return any ...
-function PartyFrameObject:RemoveSnappedFrame(...) end
----@return any ...
-function PartyFrameObject:ResetToDefaultPosition(...) end
----@return any ...
-function PartyFrameObject:SelectSystem(...) end
----@return any ...
-function PartyFrameObject:SetFixedHeight(...) end
----@return any ...
-function PartyFrameObject:SetFixedSize(...) end
----@return any ...
-function PartyFrameObject:SetFixedWidth(...) end
----@return any ...
-function PartyFrameObject:SetHasActiveChanges(...) end
----@return any ...
-function PartyFrameObject:SetHeightPadding(...) end
----@return any ...
-function PartyFrameObject:SetPointBase(...) end
----@return any ...
-function PartyFrameObject:SetPointOverride(...) end
----@return any ...
-function PartyFrameObject:SetScaleBase(...) end
----@return any ...
-function PartyFrameObject:SetScaleOverride(...) end
----@return any ...
-function PartyFrameObject:SetSelectionShown(...) end
----@return any ...
-function PartyFrameObject:SetShownBase(...) end
----@return any ...
-function PartyFrameObject:SetShownOverride(...) end
----@return any ...
-function PartyFrameObject:SetSnappedToFrame(...) end
----@return any ...
-function PartyFrameObject:SetWidthPadding(...) end
----@return any ...
-function PartyFrameObject:SetupSettingsDialogAnchor(...) end
----@return any ...
-function PartyFrameObject:SetupVisibilityFunctionOverrides(...) end
----@return any ...
-function PartyFrameObject:ShouldBreakSnappedFramesOnHide(...) end
----@return any ...
-function PartyFrameObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function PartyFrameObject:ShouldResetSettingsDialogAnchors(...) end
----@return any ...
-function PartyFrameObject:ShouldShow(...) end
----@return any ...
-function PartyFrameObject:ShouldShowSetting(...) end
----@return any ...
-function PartyFrameObject:ShowEditInstructions(...) end
----@return any ...
-function PartyFrameObject:SnapToFrame(...) end
----@return any ...
-function PartyFrameObject:TrySetCompositeNumberSettingValue(...) end
----@return any ...
-function PartyFrameObject:UpdateClampOffsets(...) end
----@return any ...
-function PartyFrameObject:UpdateCompactRaidFrameContainerSetting(...) end
----@return any ...
-function PartyFrameObject:UpdateDirtySettings(...) end
----@return any ...
-function PartyFrameObject:UpdateDisplayInfoOptions(...) end
----@return any ...
-function PartyFrameObject:UpdateMagnetismRegistration(...) end
----@return any ...
-function PartyFrameObject:UpdateMemberFrames(...) end
----@return any ...
-function PartyFrameObject:UpdatePaddingAndLayout(...) end
----@return any ...
-function PartyFrameObject:UpdatePartyFrames(...) end
----@return any ...
-function PartyFrameObject:UpdatePartyMemberBackground(...) end
----@return any ...
-function PartyFrameObject:UpdateSelectionVerticalState(...) end
----@return any ...
-function PartyFrameObject:UpdateSettingMap(...) end
----@return any ...
-function PartyFrameObject:UpdateSpacingAndLayout(...) end
----@return any ...
-function PartyFrameObject:UpdateSystem(...) end
----@return any ...
-function PartyFrameObject:UpdateSystemSetting(...) end
----@return any ...
-function PartyFrameObject:UpdateSystemSettingAuraOrganizationType(...) end
----@return any ...
-function PartyFrameObject:UpdateSystemSettingBigDefensiveIconSize(...) end
----@return any ...
-function PartyFrameObject:UpdateSystemSettingBuffIconSize(...) end
----@return any ...
-function PartyFrameObject:UpdateSystemSettingBuffsOnTop(...) end
----@return any ...
-function PartyFrameObject:UpdateSystemSettingCastBarOnSide(...) end
----@return any ...
-function PartyFrameObject:UpdateSystemSettingDebuffIconSize(...) end
----@return any ...
-function PartyFrameObject:UpdateSystemSettingDisplayBorder(...) end
----@return any ...
-function PartyFrameObject:UpdateSystemSettingFrameHeight(...) end
----@return any ...
-function PartyFrameObject:UpdateSystemSettingFrameSize(...) end
----@return any ...
-function PartyFrameObject:UpdateSystemSettingFrameWidth(...) end
----@return any ...
-function PartyFrameObject:UpdateSystemSettingOpacity(...) end
----@return any ...
-function PartyFrameObject:UpdateSystemSettingRaidGroupDisplayType(...) end
----@return any ...
-function PartyFrameObject:UpdateSystemSettingRowSize(...) end
----@return any ...
-function PartyFrameObject:UpdateSystemSettingShowCastTime(...) end
----@return any ...
-function PartyFrameObject:UpdateSystemSettingShowPartyFrameBackground(...) end
----@return any ...
-function PartyFrameObject:UpdateSystemSettingSortPlayersBy(...) end
----@return any ...
-function PartyFrameObject:UpdateSystemSettingUseHorizontalGroups(...) end
----@return any ...
-function PartyFrameObject:UpdateSystemSettingUseLargerFrame(...) end
----@return any ...
-function PartyFrameObject:UpdateSystemSettingUseRaidStylePartyFrames(...) end
----@return any ...
-function PartyFrameObject:UpdateSystemSettingValue(...) end
----@return any ...
-function PartyFrameObject:UpdateSystemSettingViewArenaSize(...) end
----@return any ...
-function PartyFrameObject:UpdateSystemSettingViewRaidSize(...) end
----@return any ...
-function PartyFrameObject:UseCombinedGroups(...) end
----@return any ...
-function PartyFrameObject:UseSettingAltName(...) end
----@type PartyFrameObject
-PartyFrame = PartyFrameObject
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_pagingUnitOwnerObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_pagingUnitOwnerObject = {}
 end
 
 do
----@class PartyFrame_BackgroundObject : Frame
----@field BottomEdge PartyFrame_Background_BottomEdgeObject
----@field BottomLeftCorner PartyFrame_Background_BottomLeftCornerObject
----@field BottomRightCorner PartyFrame_Background_BottomRightCornerObject
----@field Center PartyFrame_Background_CenterObject
----@field LeftEdge PartyFrame_Background_LeftEdgeObject
----@field RightEdge PartyFrame_Background_RightEdgeObject
----@field TopEdge PartyFrame_Background_TopEdgeObject
----@field TopLeftCorner PartyFrame_Background_TopLeftCornerObject
----@field TopRightCorner PartyFrame_Background_TopRightCornerObject
----@field backdropInfo PartyFrame_Background_backdropInfoObject
-local PartyFrame_BackgroundObject = {}
----@return any ...
-function PartyFrame_BackgroundObject:ApplyBackdrop(...) end
+---@class GamepadPersistentInputLegendObject : Frame
+---@field columns GamepadPersistentInputLegend_columnsObject
+---@field friendlyDpadEntries GamepadPersistentInputLegend_friendlyDpadEntriesObject
+---@field friendlyFaceEntries GamepadPersistentInputLegend_friendlyFaceEntriesObject
+---@field friendlyShortcutsEntry GamepadPersistentInputLegend_friendlyShortcutsEntryObject
+---@field friendlyTargetingHeader GamepadPersistentInputLegend_friendlyTargetingHeaderObject
+---@field groups GamepadPersistentInputLegend_groupsObject
+---@field headers GamepadPersistentInputLegend_headersObject
+---@field hostileDpadEntries table
+---@field hostileFaceEntries GamepadPersistentInputLegend_hostileFaceEntriesObject
+---@field hostileShortcutsEntry GamepadPersistentInputLegend_hostileShortcutsEntryObject
+---@field hostileTargetingHeader GamepadPersistentInputLegend_hostileTargetingHeaderObject
+---@field leftTargetingModEntry GamepadPersistentInputLegend_leftTargetingModEntryObject
+---@field rightTargetingModEntry GamepadPersistentInputLegend_rightTargetingModEntryObject
+local GamepadPersistentInputLegendObject = {}
 ---@return any ...
-function PartyFrame_BackgroundObject:ClearBackdrop(...) end
+function GamepadPersistentInputLegendObject:AddToGroup(...) end
 ---@return any ...
-function PartyFrame_BackgroundObject:GetBackdrop(...) end
+function GamepadPersistentInputLegendObject:CreateBackground(...) end
 ---@return any ...
-function PartyFrame_BackgroundObject:GetBackdropBorderColor(...) end
+function GamepadPersistentInputLegendObject:CreateEntry(...) end
 ---@return any ...
-function PartyFrame_BackgroundObject:GetBackdropColor(...) end
+function GamepadPersistentInputLegendObject:DoesGroupUseHeader(...) end
 ---@return any ...
-function PartyFrame_BackgroundObject:GetEdgeSize(...) end
+function GamepadPersistentInputLegendObject:GetColumnWidth(...) end
 ---@return any ...
-function PartyFrame_BackgroundObject:HasBackdropInfo(...) end
+function GamepadPersistentInputLegendObject:GetGroupWidth(...) end
 ---@return any ...
-function PartyFrame_BackgroundObject:OnBackdropLoaded(...) end
+function GamepadPersistentInputLegendObject:HideAllGroups(...) end
 ---@return any ...
-function PartyFrame_BackgroundObject:OnBackdropSizeChanged(...) end
+function GamepadPersistentInputLegendObject:OnGamepadShowPersistentInputLegendChanged(...) end
 ---@return any ...
-function PartyFrame_BackgroundObject:OnEvent(...) end
+function GamepadPersistentInputLegendObject:OnLoad(...) end
 ---@return any ...
-function PartyFrame_BackgroundObject:OnLoad(...) end
+function GamepadPersistentInputLegendObject:PostVariableSetUp(...) end
 ---@return any ...
-function PartyFrame_BackgroundObject:OnMouseUp(...) end
+function GamepadPersistentInputLegendObject:RefreshFriendlyTargetingModifierIcons(...) end
 ---@return any ...
-function PartyFrame_BackgroundObject:OnShow(...) end
+function GamepadPersistentInputLegendObject:RefreshHostileTargetingModifierIcons(...) end
 ---@return any ...
-function PartyFrame_BackgroundObject:SaveOpacity(...) end
+function GamepadPersistentInputLegendObject:RefreshTargetingModifiers(...) end
 ---@return any ...
-function PartyFrame_BackgroundObject:SetBackdrop(...) end
+function GamepadPersistentInputLegendObject:RefreshVisibility(...) end
 ---@return any ...
-function PartyFrame_BackgroundObject:SetBackdropBorderColor(...) end
+function GamepadPersistentInputLegendObject:SetEntryPromptText(...) end
 ---@return any ...
-function PartyFrame_BackgroundObject:SetBackdropColor(...) end
+function GamepadPersistentInputLegendObject:SetGroupColumns(...) end
 ---@return any ...
-function PartyFrame_BackgroundObject:SetBorderBlendMode(...) end
+function GamepadPersistentInputLegendObject:SetGroupUsesHeader(...) end
 ---@return any ...
-function PartyFrame_BackgroundObject:SetOpacity(...) end
----@return any ...
-function PartyFrame_BackgroundObject:SetupPieceVisuals(...) end
----@return any ...
-function PartyFrame_BackgroundObject:SetupTextureCoordinates(...) end
----@return any ...
-function PartyFrame_BackgroundObject:ToggleOpacity(...) end
-end
-
-do
----@class PartyFrame_Background_BottomEdgeObject : Texture
-local PartyFrame_Background_BottomEdgeObject = {}
-end
-
-do
----@class PartyFrame_Background_BottomLeftCornerObject : Texture
-local PartyFrame_Background_BottomLeftCornerObject = {}
-end
-
-do
----@class PartyFrame_Background_BottomRightCornerObject : Texture
-local PartyFrame_Background_BottomRightCornerObject = {}
-end
-
-do
----@class PartyFrame_Background_CenterObject : Texture
-local PartyFrame_Background_CenterObject = {}
-end
-
-do
----@class PartyFrame_Background_LeftEdgeObject : Texture
-local PartyFrame_Background_LeftEdgeObject = {}
-end
-
-do
----@class PartyFrame_Background_RightEdgeObject : Texture
-local PartyFrame_Background_RightEdgeObject = {}
-end
-
-do
----@class PartyFrame_Background_TopEdgeObject : Texture
-local PartyFrame_Background_TopEdgeObject = {}
-end
-
-do
----@class PartyFrame_Background_TopLeftCornerObject : Texture
-local PartyFrame_Background_TopLeftCornerObject = {}
+function GamepadPersistentInputLegendObject:ShowGroup(...) end
+---@type GamepadPersistentInputLegendObject
+GamepadPersistentInputLegend = GamepadPersistentInputLegendObject
 end
 
 do
----@class PartyFrame_Background_TopRightCornerObject : Texture
-local PartyFrame_Background_TopRightCornerObject = {}
+---@class GamepadPersistentInputLegend_columnsObject
+---@field FRIENDLY_TARGETING table
+---@field GAMEPLAY table
+---@field HOSTILE_TARGETING table
+---@field HUD table
+---@field MENU table
+---@field MODIFIER table
+local GamepadPersistentInputLegend_columnsObject = {}
 end
 
 do
----@class PartyFrame_Background_backdropInfoObject
----@field bgFile string
----@field edgeFile string
----@field edgeSize number
----@field insets table
----@field tile boolean
----@field tileEdge boolean
----@field tileSize number
-local PartyFrame_Background_backdropInfoObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntriesObject
+---@field bottom GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject
+---@field left GamepadPersistentInputLegend_friendlyDpadEntries_leftObject
+---@field right GamepadPersistentInputLegend_friendlyDpadEntries_rightObject
+---@field top GamepadPersistentInputLegend_friendlyDpadEntries_topObject
+local GamepadPersistentInputLegend_friendlyDpadEntriesObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1Object : Button
----@field ArtLayoutInfo PartyFrame_MemberFrame1_ArtLayoutInfoObject
----@field AuraFrameContainer PartyFrame_MemberFrame1_AuraFrameContainerObject
----@field AuraFramePool PartyFrame_MemberFrame1_AuraFramePoolObject
----@field Flash PartyFrame_MemberFrame1_FlashObject
----@field HealthBarContainer PartyFrame_MemberFrame1_HealthBarContainerObject
----@field ManaBar PartyFrame_MemberFrame1_ManaBarObject
----@field Name PartyFrame_MemberFrame1_NameObject
----@field NotPresentIcon PartyFrame_MemberFrame1_NotPresentIconObject
----@field PartyMemberOverlay PartyFrame_MemberFrame1_PartyMemberOverlayObject
----@field PetFrame PartyFrame_MemberFrame1_PetFrameObject
----@field Portrait PartyFrame_MemberFrame1_PortraitObject
----@field PortraitMask PartyFrame_MemberFrame1_PortraitMaskObject
----@field PowerBarAlt PartyFrame_MemberFrame1_PowerBarAltObject
----@field ReadyCheck PartyFrame_MemberFrame1_ReadyCheckObject
----@field ResurrectableIndicator PartyFrame_MemberFrame1_ResurrectableIndicatorObject
----@field Texture PartyFrame_MemberFrame1_TextureObject
----@field VehicleTexture PartyFrame_MemberFrame1_VehicleTextureObject
----@field debuffCountdown number
----@field frameType string
----@field healAbsorbBar PartyFrame_MemberFrame1_healAbsorbBarObject
----@field healthbar PartyFrame_MemberFrame1_healthbarObject
----@field initialized boolean
----@field layoutIndex number
----@field manabar PartyFrame_MemberFrame1_manabarObject
----@field myHealPredictionBar PartyFrame_MemberFrame1_myHealPredictionBarObject
----@field name PartyFrame_MemberFrame1_nameObject
----@field noContextActions boolean
----@field numDebuffs number
----@field otherHealPredictionBar PartyFrame_MemberFrame1_otherHealPredictionBarObject
----@field overAbsorbGlow PartyFrame_MemberFrame1_overAbsorbGlowObject
----@field overHealAbsorbGlow PartyFrame_MemberFrame1_overHealAbsorbGlowObject
----@field petUnitToken string
----@field portrait PartyFrame_MemberFrame1_portraitObject
----@field replacePortraitSettingChangedHandlers table
----@field state string
----@field statusCounter number
----@field statusSign number
----@field tempMaxHealthLossBar PartyFrame_MemberFrame1_tempMaxHealthLossBarObject
----@field threatIndicator PartyFrame_MemberFrame1_threatIndicatorObject
----@field totalAbsorbBar PartyFrame_MemberFrame1_totalAbsorbBarObject
----@field unit string
----@field unitHPPercent number
----@field unitToken string
-local PartyFrame_MemberFrame1Object = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject : Frame
+---@field ControlDescText GamepadPersistentInputLegend_friendlyDpadEntries_bottom_ControlDescTextObject
+---@field InputIcon1 GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object
+---@field InputIcons table
+local GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject = {}
 ---@return any ...
-function PartyFrame_MemberFrame1Object:GetAllowRadialWheel(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:ApplyInactiveEnabledPromptStyling(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:GetIsPingable(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:BeginHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:GetTargetInfo(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:DisablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:GetUnit(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:EnableOrDisablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:OnEnter(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:EnablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:OnEvent(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:EndHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:OnLeave(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:GROUP_JOINED(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:OnUpdate(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:GROUP_LEFT(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:ParseAllAuras(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:GetDividerSpacingForPrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:PartyMemberHealthCheck(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:GetDividerSpacingInfo(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:Setup(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:GetIconDividerControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:ToCharacterStyleArt(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:GetInputIconControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:ToPlayerArt(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:GetPromptTextControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:ToVehicleArt(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:OnEvent(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:UpdateArt(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:UpdateAssignedRoles(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:OnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:UpdateAuras(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:RefreshInputPromptSize(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:UpdateAurasInternal(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:SetCustomRefreshOnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:UpdateHealthBarTextAnchors(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:SetCustomRefreshWithCVar(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:UpdateLeader(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:SetCustomRefreshWithEvent(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:UpdateManaBarTextAnchors(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:SetCustomRefreshWithEvents(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:UpdateMember(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:UpdateMemberAuras(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:SetDividerType(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:UpdateMemberHealth(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:SetFocused(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:UpdateNameTextAnchors(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:SetInputIconSize(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:UpdateNotPresentIcon(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:UpdateOnlineStatus(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:SetPressable(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:UpdatePet(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:SetPromptFont(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:UpdatePingAttributes(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:SetPromptInputIconKey(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:UpdatePvPStatus(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:SetPromptText(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1Object:UpdateReadyCheck(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:UpdateVoiceActivityNotification(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:VoiceActivityNotificationCreatedCallback(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottomObject:SetUseDropShadow(...) end
 end
 
 do
----@class PartyFrame_MemberFrame1_ArtLayoutInfoObject
-local PartyFrame_MemberFrame1_ArtLayoutInfoObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_bottom_ControlDescTextObject : Frame
+---@field FontString GamepadPersistentInputLegend_friendlyDpadEntries_bottom_ControlDescText_FontStringObject
+local GamepadPersistentInputLegend_friendlyDpadEntries_bottom_ControlDescTextObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_AuraFrameContainerObject : Frame
----@field spacing number
-local PartyFrame_MemberFrame1_AuraFrameContainerObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:AddLayoutChildren(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:CalculateFrameSize(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:ClearFixedSize(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetChildHeight(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetChildPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetChildSize(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetChildWidth(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetFixedHeight(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetFixedSize(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetFixedWidth(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetHeightPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetLayoutChildren(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetWidthPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:IsDirty(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:IsLayoutFrame(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:Layout(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:LayoutChildren(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:MarkClean(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:MarkDirty(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:OnCleaned(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:OnShow(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:OnUpdate(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:SetFixedHeight(...) end
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_bottom_ControlDescText_FontStringObject : FontString
+local GamepadPersistentInputLegend_friendlyDpadEntries_bottom_ControlDescText_FontStringObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object : Frame
+---@field ActiveTexture GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_ActiveTextureObject
+---@field DisabledTexture GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_DisabledTextureObject
+---@field HoldAnim GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_HoldAnimObject
+---@field HoldIndicator GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_HoverTextureObject
+---@field LoadBar GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_LoadBarObject
+---@field LoadBarBG GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_LoadBarGlowObject
+---@field NormalTexture GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_NormalTextureObject
+---@field PressedTexture GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_PressedTextureObject
+---@field SpinnerTip GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object = {}
 ---@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:SetFixedSize(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object:ApplyTextureLayout(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:SetFixedWidth(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object:BeginHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:SetHeightPadding(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object:CanEnterTextureState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:SetWidthPadding(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object:DisableDropShadow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_AuraFramePoolObject
-local PartyFrame_MemberFrame1_AuraFramePoolObject = {}
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object:EnableDropShadow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_AuraFramePoolObject:GetTemplate(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object:EndHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_AuraFramePoolObject:private(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_FlashObject
-local PartyFrame_MemberFrame1_FlashObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_HealthBarContainerObject
-local PartyFrame_MemberFrame1_HealthBarContainerObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_ManaBarObject : StatusBar
----@field CenterText PartyFrame_MemberFrame1_ManaBar_CenterTextObject
----@field LeftText PartyFrame_MemberFrame1_ManaBar_LeftTextObject
----@field ManaBarMask PartyFrame_MemberFrame1_ManaBar_ManaBarMaskObject
----@field RightText PartyFrame_MemberFrame1_ManaBar_RightTextObject
----@field TextString PartyFrame_MemberFrame1_ManaBar_TextStringObject
----@field Texture PartyFrame_MemberFrame1_ManaBar_TextureObject
----@field capNumericDisplay boolean
----@field controlsShownState boolean
----@field currValue number
----@field cvar string
----@field cvarLabel string
----@field disconnected boolean
----@field frequentUpdates boolean
----@field lockColor boolean
----@field lockShow number
----@field smartNavigationIgnored boolean
----@field textLockable number
----@field texture PartyFrame_MemberFrame1_ManaBar_textureObject
----@field unit string
----@field unitFrame PartyFrame_MemberFrame1_ManaBar_unitFrameObject
-local PartyFrame_MemberFrame1_ManaBarObject = {}
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object:OnHoldAnimFinished(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:GetNumericDisplay(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object:OnHoldAnimStopped(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:HideStatusBarText(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:InitializeTextStatusBar(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object:RefreshIconTextures(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:OnStatusBarEnter(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:OnStatusBarLeave(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object:SetEnabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:OnStatusBarMinMaxChanged(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object:SetFocused(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:OnStatusBarValueChanged(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object:SetHoldState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:SetBarText(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object:SetInputKey(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:SetBarTextPrefix(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:SetBarTextZeroText(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object:SetPressable(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:SetForceShow(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object:SetTextureHeight(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:ShowStatusBarText(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object:SetTextureState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:TextStatusBarOnEvent(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object:SetTextureWidth(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:UpdateTextString(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object:SetUsableState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:UpdateTextStringWithValues(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_ManaBar_CenterTextObject
-local PartyFrame_MemberFrame1_ManaBar_CenterTextObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_ManaBar_LeftTextObject : FontString
-local PartyFrame_MemberFrame1_ManaBar_LeftTextObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_ManaBar_ManaBarMaskObject : MaskTexture
-local PartyFrame_MemberFrame1_ManaBar_ManaBarMaskObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_ManaBar_RightTextObject : FontString
-local PartyFrame_MemberFrame1_ManaBar_RightTextObject = {}
+function GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PartyFrame_MemberFrame1_ManaBar_TextStringObject : FontString
-local PartyFrame_MemberFrame1_ManaBar_TextStringObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_ActiveTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_ActiveTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_ManaBar_TextureObject : Texture
-local PartyFrame_MemberFrame1_ManaBar_TextureObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_DisabledTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_DisabledTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_ManaBar_textureObject
-local PartyFrame_MemberFrame1_ManaBar_textureObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_HoldAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_ManaBar_unitFrameObject
-local PartyFrame_MemberFrame1_ManaBar_unitFrameObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_HoldAnim_LoadBarAnimObject
+local GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_NameObject : FontString
-local PartyFrame_MemberFrame1_NameObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_NotPresentIconObject : Frame
----@field Border PartyFrame_MemberFrame1_NotPresentIcon_BorderObject
----@field smartNavigationIgnored boolean
----@field texture PartyFrame_MemberFrame1_NotPresentIcon_textureObject
-local PartyFrame_MemberFrame1_NotPresentIconObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_NotPresentIcon_BorderObject : Texture
-local PartyFrame_MemberFrame1_NotPresentIcon_BorderObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_HoldIndicatorObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_HoldIndicatorObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_NotPresentIcon_textureObject : Texture
-local PartyFrame_MemberFrame1_NotPresentIcon_textureObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_HoldIndicatorBGObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_HoldIndicatorBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PartyMemberOverlayObject : Frame
----@field Disconnect PartyFrame_MemberFrame1_PartyMemberOverlay_DisconnectObject
----@field GuideIcon PartyFrame_MemberFrame1_PartyMemberOverlay_GuideIconObject
----@field LeaderIcon PartyFrame_MemberFrame1_PartyMemberOverlay_LeaderIconObject
----@field PVPIcon PartyFrame_MemberFrame1_PartyMemberOverlay_PVPIconObject
----@field RoleIcon PartyFrame_MemberFrame1_PartyMemberOverlay_RoleIconObject
----@field Status PartyFrame_MemberFrame1_PartyMemberOverlay_StatusObject
----@field smartNavigationIgnored boolean
-local PartyFrame_MemberFrame1_PartyMemberOverlayObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_HoverTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_HoverTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PartyMemberOverlay_DisconnectObject : Texture
-local PartyFrame_MemberFrame1_PartyMemberOverlay_DisconnectObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_LoadBarObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_LoadBarObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PartyMemberOverlay_GuideIconObject : Texture
-local PartyFrame_MemberFrame1_PartyMemberOverlay_GuideIconObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_LoadBarBGObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_LoadBarBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PartyMemberOverlay_LeaderIconObject : Texture
-local PartyFrame_MemberFrame1_PartyMemberOverlay_LeaderIconObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_LoadBarGlowObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_LoadBarGlowObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PartyMemberOverlay_PVPIconObject : Texture
-local PartyFrame_MemberFrame1_PartyMemberOverlay_PVPIconObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_NormalTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_NormalTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PartyMemberOverlay_RoleIconObject : Texture
-local PartyFrame_MemberFrame1_PartyMemberOverlay_RoleIconObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_PressedTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_PressedTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PartyMemberOverlay_StatusObject : Texture
-local PartyFrame_MemberFrame1_PartyMemberOverlay_StatusObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrameObject : Button
----@field AuraFrameContainer PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject
----@field AuraFramePool PartyFrame_MemberFrame1_PetFrame_AuraFramePoolObject
----@field Flash PartyFrame_MemberFrame1_PetFrame_FlashObject
----@field HealthBar PartyFrame_MemberFrame1_PetFrame_HealthBarObject
----@field Name PartyFrame_MemberFrame1_PetFrame_NameObject
----@field Portrait PartyFrame_MemberFrame1_PetFrame_PortraitObject
----@field PortraitMask PartyFrame_MemberFrame1_PetFrame_PortraitMaskObject
----@field Texture PartyFrame_MemberFrame1_PetFrame_TextureObject
----@field buffs PartyFrame_MemberFrame1_PetFrame_buffsObject
----@field debuffs PartyFrame_MemberFrame1_PetFrame_debuffsObject
----@field healthbar PartyFrame_MemberFrame1_PetFrame_healthbarObject
----@field name PartyFrame_MemberFrame1_PetFrame_nameObject
----@field noContextActions boolean
----@field portrait PartyFrame_MemberFrame1_PetFrame_portraitObject
----@field replacePortraitSettingChangedHandlers table
----@field threatIndicator PartyFrame_MemberFrame1_PetFrame_threatIndicatorObject
----@field unit string
----@field unitToken string
-local PartyFrame_MemberFrame1_PetFrameObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_PetFrameObject:OnEnter(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrameObject:OnEvent(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrameObject:OnLeave(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrameObject:OnShow(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrameObject:ParseAllAuras(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrameObject:Setup(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrameObject:UpdateAuras(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrameObject:UpdateAurasInternal(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrameObject:UpdateMemberAuras(...) end
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_SpinnerTipObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_bottom_InputIcon1_SpinnerTipObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject : Frame
----@field dirty boolean
----@field smartNavigationIgnored boolean
----@field spacing number
-local PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:AddLayoutChildren(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:CalculateFrameSize(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:ClearFixedSize(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetChildHeight(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetChildPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetChildSize(...) end
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_leftObject : Frame
+---@field ControlDescText GamepadPersistentInputLegend_friendlyDpadEntries_left_ControlDescTextObject
+---@field InputIcon1 GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object
+---@field InputIcons table
+local GamepadPersistentInputLegend_friendlyDpadEntries_leftObject = {}
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetChildWidth(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:ApplyInactiveEnabledPromptStyling(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetFixedHeight(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:BeginHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetFixedSize(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:DisablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetFixedWidth(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:EnableOrDisablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetHeightPadding(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:EnablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetLayoutChildren(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:EndHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetPadding(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:GROUP_JOINED(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetWidthPadding(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:GROUP_LEFT(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:IgnoreLayoutIndex(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:GetDividerSpacingForPrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:IsDirty(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:GetDividerSpacingInfo(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:IsLayoutFrame(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:GetIconDividerControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:Layout(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:GetInputIconControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:LayoutChildren(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:GetPromptTextControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:MarkClean(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:OnEvent(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:MarkDirty(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:OnCleaned(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:OnShow(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:OnUpdate(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:SetFixedHeight(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:SetFixedSize(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:SetFixedWidth(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:SetHeightPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:SetWidthPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_AuraFramePoolObject
-local PartyFrame_MemberFrame1_PetFrame_AuraFramePoolObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFramePoolObject:GetTemplate(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFramePoolObject:private(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_FlashObject
-local PartyFrame_MemberFrame1_PetFrame_FlashObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_HealthBarObject : StatusBar
----@field capNumericDisplay boolean
----@field controlsShownState boolean
----@field currValue number
----@field disconnected boolean
----@field forceHideText boolean
----@field frequentUpdates boolean
----@field lockShow number
----@field smartNavigationIgnored boolean
----@field unit string
----@field unitFrame PartyFrame_MemberFrame1_PetFrame_HealthBar_unitFrameObject
-local PartyFrame_MemberFrame1_PetFrame_HealthBarObject = {}
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:OnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:GetNumericDisplay(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:RefreshInputPromptSize(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:HideStatusBarText(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:SetCustomRefreshOnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:InitializeTextStatusBar(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:SetCustomRefreshWithCVar(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:OnStatusBarEnter(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:SetCustomRefreshWithEvent(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:OnStatusBarLeave(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:SetCustomRefreshWithEvents(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:OnStatusBarMinMaxChanged(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:OnStatusBarValueChanged(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:SetDividerType(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:SetBarText(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:SetFocused(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:SetBarTextPrefix(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:SetInputIconSize(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:SetBarTextZeroText(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:SetForceShow(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:SetPressable(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:ShowStatusBarText(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:SetPromptFont(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:TextStatusBarOnEvent(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:SetPromptInputIconKey(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:UpdateTextString(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:SetPromptText(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:UpdateTextStringWithValues(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_HealthBar_unitFrameObject
-local PartyFrame_MemberFrame1_PetFrame_HealthBar_unitFrameObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_NameObject : FontString
-local PartyFrame_MemberFrame1_PetFrame_NameObject = {}
+function GamepadPersistentInputLegend_friendlyDpadEntries_leftObject:SetUseDropShadow(...) end
 end
 
 do
----@class PartyFrame_MemberFrame1_PetFrame_PortraitObject
-local PartyFrame_MemberFrame1_PetFrame_PortraitObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_ControlDescTextObject : Frame
+---@field FontString GamepadPersistentInputLegend_friendlyDpadEntries_left_ControlDescText_FontStringObject
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_ControlDescTextObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PetFrame_PortraitMaskObject : MaskTexture
-local PartyFrame_MemberFrame1_PetFrame_PortraitMaskObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_ControlDescText_FontStringObject : FontString
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_ControlDescText_FontStringObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PetFrame_TextureObject : Texture
-local PartyFrame_MemberFrame1_PetFrame_TextureObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_buffsObject
-local PartyFrame_MemberFrame1_PetFrame_buffsObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_buffsObject:Clear(...) end
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object : Frame
+---@field ActiveTexture GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_ActiveTextureObject
+---@field DisabledTexture GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_DisabledTextureObject
+---@field HoldAnim GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnimObject
+---@field HoldIndicator GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoverTextureObject
+---@field LoadBar GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_LoadBarObject
+---@field LoadBarBG GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_LoadBarGlowObject
+---@field NormalTexture GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_NormalTextureObject
+---@field PressedTexture GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_PressedTextureObject
+---@field SpinnerTip GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object = {}
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_buffsObject:Get(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:ApplyTextureLayout(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_buffsObject:GetBottom(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:BeginHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_buffsObject:GetTop(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:CanEnterTextureState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_buffsObject:Iterate(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:DisableDropShadow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_buffsObject:Pop(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:EnableDropShadow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_buffsObject:Remove(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:EndHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_buffsObject:Size(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_debuffsObject
-local PartyFrame_MemberFrame1_PetFrame_debuffsObject = {}
+function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:OnHoldAnimFinished(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Clear(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:OnHoldAnimStopped(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Get(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_debuffsObject:GetBottom(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:RefreshIconTextures(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_debuffsObject:GetTop(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Iterate(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Pop(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Remove(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Size(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_healthbarObject
-local PartyFrame_MemberFrame1_PetFrame_healthbarObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_nameObject
-local PartyFrame_MemberFrame1_PetFrame_nameObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_portraitObject : Texture
-local PartyFrame_MemberFrame1_PetFrame_portraitObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_threatIndicatorObject : Texture
----@field feedbackUnit string
----@field unit string
-local PartyFrame_MemberFrame1_PetFrame_threatIndicatorObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PortraitObject : Texture
-local PartyFrame_MemberFrame1_PortraitObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PortraitMaskObject : MaskTexture
-local PartyFrame_MemberFrame1_PortraitMaskObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAltObject : Frame
----@field background PartyFrame_MemberFrame1_PowerBarAlt_backgroundObject
----@field counterBar PartyFrame_MemberFrame1_PowerBarAlt_counterBarObject
----@field fill PartyFrame_MemberFrame1_PowerBarAlt_fillObject
----@field flash PartyFrame_MemberFrame1_PowerBarAlt_flashObject
----@field flashAnim PartyFrame_MemberFrame1_PowerBarAlt_flashAnimObject
----@field flashOutAnim PartyFrame_MemberFrame1_PowerBarAlt_flashOutAnimObject
----@field frame PartyFrame_MemberFrame1_PowerBarAlt_frameObject
----@field pillFrames table
----@field scale number
----@field smartNavigationIgnored boolean
----@field spark PartyFrame_MemberFrame1_PowerBarAlt_sparkObject
----@field statusFrame PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject
----@field unit string
----@field updateAllEvent string
-local PartyFrame_MemberFrame1_PowerBarAltObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_backgroundObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_backgroundObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBarObject : Frame
----@field BG PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGObject
----@field BGL PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGLObject
----@field BGR PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGRObject
----@field artBottom PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artBottomObject
----@field artTop PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artTopObject
----@field digit1 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1Object
----@field digit2 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2Object
----@field digit3 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3Object
----@field digit4 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4Object
----@field digit5 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5Object
----@field digit6 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6Object
----@field digit7 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7Object
----@field unit string
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBarObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGLObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGLObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGRObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGRObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artBottomObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artBottomObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artTopObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artTopObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1Object : Frame
----@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberObject
----@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberMaskObject
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1Object = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberMaskObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberMaskObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2Object : Frame
----@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberObject
----@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberMaskObject
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2Object = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberMaskObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberMaskObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3Object : Frame
----@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberObject
----@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberMaskObject
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3Object = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberMaskObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberMaskObject = {}
+function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:SetEnabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:SetHoldState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:SetInputKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:SetTextureHeight(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:SetTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:SetTextureWidth(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:SetUsableState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4Object : Frame
----@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberObject
----@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberMaskObject
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4Object = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_ActiveTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_ActiveTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_DisabledTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_DisabledTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberMaskObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberMaskObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5Object : Frame
----@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberObject
----@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberMaskObject
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5Object = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_LoadBarAnimObject
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberMaskObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberMaskObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6Object : Frame
----@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberObject
----@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberMaskObject
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6Object = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldIndicatorObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldIndicatorObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldIndicatorBGObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldIndicatorBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberMaskObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberMaskObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoverTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoverTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7Object : Frame
----@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberObject
----@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberMaskObject
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7Object = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_LoadBarObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_LoadBarObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_LoadBarBGObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_LoadBarBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberMaskObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberMaskObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_LoadBarGlowObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_LoadBarGlowObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PowerBarAlt_fillObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_fillObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_NormalTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_NormalTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PowerBarAlt_flashObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_flashObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_PressedTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_PressedTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PowerBarAlt_flashAnimObject : AnimationGroup
-local PartyFrame_MemberFrame1_PowerBarAlt_flashAnimObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_SpinnerTipObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_SpinnerTipObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PowerBarAlt_flashOutAnimObject : AnimationGroup
-local PartyFrame_MemberFrame1_PowerBarAlt_flashOutAnimObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_rightObject : Frame
+---@field ControlDescText GamepadPersistentInputLegend_friendlyDpadEntries_right_ControlDescTextObject
+---@field InputIcon1 GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object
+---@field InputIcons table
+local GamepadPersistentInputLegend_friendlyDpadEntries_rightObject = {}
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:ApplyInactiveEnabledPromptStyling(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:DisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:EnableOrDisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:EnablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:GROUP_JOINED(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:GROUP_LEFT(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:GetDividerSpacingForPrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:GetDividerSpacingInfo(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:GetIconDividerControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:GetInputIconControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:GetPromptTextControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:OnEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:OnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:RefreshInputPromptSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetCustomRefreshOnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetCustomRefreshWithCVar(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetCustomRefreshWithEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetCustomRefreshWithEvents(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetDividerType(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetInputIconSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetPromptFont(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetPromptInputIconKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetPromptText(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetUseDropShadow(...) end
 end
 
 do
----@class PartyFrame_MemberFrame1_PowerBarAlt_frameObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_frameObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_ControlDescTextObject : Frame
+---@field FontString GamepadPersistentInputLegend_friendlyDpadEntries_right_ControlDescText_FontStringObject
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_ControlDescTextObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PowerBarAlt_sparkObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_sparkObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_ControlDescText_FontStringObject : FontString
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_ControlDescText_FontStringObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject : StatusBar
----@field alwaysShow number
----@field cvar string
----@field cvarLabel string
----@field lockShow number
----@field text PartyFrame_MemberFrame1_PowerBarAlt_statusFrame_textObject
----@field textLockable number
-local PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object : Frame
+---@field ActiveTexture GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_ActiveTextureObject
+---@field DisabledTexture GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_DisabledTextureObject
+---@field HoldAnim GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnimObject
+---@field HoldIndicator GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoverTextureObject
+---@field LoadBar GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarObject
+---@field LoadBarBG GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarGlowObject
+---@field NormalTexture GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_NormalTextureObject
+---@field PressedTexture GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_PressedTextureObject
+---@field SpinnerTip GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object = {}
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:ApplyTextureLayout(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:CanEnterTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:DisableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:EnableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:OnHoldAnimFinished(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:GetNumericDisplay(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:OnHoldAnimStopped(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:HideStatusBarText(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:InitializeTextStatusBar(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:RefreshIconTextures(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:OnStatusBarEnter(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:OnStatusBarLeave(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetEnabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:OnStatusBarMinMaxChanged(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetFocused(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:OnStatusBarValueChanged(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetHoldState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:SetBarText(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetInputKey(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:SetBarTextPrefix(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:SetBarTextZeroText(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetPressable(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:SetForceShow(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetTextureHeight(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:ShowStatusBarText(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetTextureState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:TextStatusBarOnEvent(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetTextureWidth(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:UpdateTextString(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetUsableState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:UpdateTextStringWithValues(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PartyFrame_MemberFrame1_PowerBarAlt_statusFrame_textObject : FontString
-local PartyFrame_MemberFrame1_PowerBarAlt_statusFrame_textObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_ActiveTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_ActiveTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_ReadyCheckObject : Frame
----@field Texture PartyFrame_MemberFrame1_ReadyCheck_TextureObject
----@field smartNavigationIgnored boolean
-local PartyFrame_MemberFrame1_ReadyCheckObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_DisabledTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_DisabledTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_ReadyCheck_TextureObject : Texture
-local PartyFrame_MemberFrame1_ReadyCheck_TextureObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_ResurrectableIndicatorObject : FontString
-local PartyFrame_MemberFrame1_ResurrectableIndicatorObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_ResurrectableIndicatorObject:OnEnter(...) end
----@return any ...
-function PartyFrame_MemberFrame1_ResurrectableIndicatorObject:OnLeave(...) end
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_LoadBarAnimObject
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_TextureObject : Texture
-local PartyFrame_MemberFrame1_TextureObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_VehicleTextureObject : Texture
-local PartyFrame_MemberFrame1_VehicleTextureObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_healAbsorbBarObject
-local PartyFrame_MemberFrame1_healAbsorbBarObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldIndicatorObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldIndicatorObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_healthbarObject
-local PartyFrame_MemberFrame1_healthbarObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldIndicatorBGObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldIndicatorBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_manabarObject
-local PartyFrame_MemberFrame1_manabarObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoverTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoverTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_myHealPredictionBarObject
-local PartyFrame_MemberFrame1_myHealPredictionBarObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_nameObject
-local PartyFrame_MemberFrame1_nameObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarBGObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_otherHealPredictionBarObject
-local PartyFrame_MemberFrame1_otherHealPredictionBarObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarGlowObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarGlowObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_overAbsorbGlowObject
-local PartyFrame_MemberFrame1_overAbsorbGlowObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_NormalTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_NormalTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_overHealAbsorbGlowObject
-local PartyFrame_MemberFrame1_overHealAbsorbGlowObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_PressedTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_PressedTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_portraitObject
-local PartyFrame_MemberFrame1_portraitObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_SpinnerTipObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_SpinnerTipObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBarObject : StatusBar
----@field Texture PartyFrame_MemberFrame1_tempMaxHealthLossBar_TextureObject
----@field healthBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject
----@field initialized boolean
----@field myHealthBarContainer PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainerObject
-local PartyFrame_MemberFrame1_tempMaxHealthLossBarObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_topObject : Frame
+---@field ControlDescText GamepadPersistentInputLegend_friendlyDpadEntries_top_ControlDescTextObject
+---@field InputIcon1 GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object
+---@field InputIcons table
+local GamepadPersistentInputLegend_friendlyDpadEntries_topObject = {}
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBarObject:InitializeMaxHealthLossBar(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:ApplyInactiveEnabledPromptStyling(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBarObject:OnMaxHealthModifiersChanged(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:BeginHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBarObject:SetShouldAdjustHealthBarAnchor(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:DisablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBarObject:Update_MaxHealthLoss(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_TextureObject : Texture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_TextureObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject : StatusBar
----@field Background PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_BackgroundObject
----@field HealAbsorbBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject
----@field HealthBarTexture PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealthBarTextureObject
----@field LeftText PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_LeftTextObject
----@field MyHealPredictionBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject
----@field OtherHealPredictionBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject
----@field OverAbsorbGlow PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject
----@field OverHealAbsorbGlow PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject
----@field RightText PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_RightTextObject
----@field TextString PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TextStringObject
----@field TotalAbsorbBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject
----@field capNumericDisplay boolean
----@field controlsShownState boolean
----@field currValue number
----@field cvar string
----@field cvarLabel string
----@field disconnected boolean
----@field forceHideText boolean
----@field frequentUpdates boolean
----@field lockColor boolean
----@field lockShow number
----@field partyFrame PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_partyFrameObject
----@field textLockable number
----@field unit string
----@field unitFrame PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_unitFrameObject
----@field zeroText string
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject = {}
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:EnableOrDisablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:GetNumericDisplay(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:EnablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:HideStatusBarText(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:EndHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:InitializeTextStatusBar(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:GROUP_JOINED(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:OnStatusBarEnter(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:GROUP_LEFT(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:OnStatusBarLeave(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:GetDividerSpacingForPrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:OnStatusBarMinMaxChanged(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:GetDividerSpacingInfo(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:OnStatusBarValueChanged(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:GetIconDividerControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:SetBarText(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:GetInputIconControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:SetBarTextPrefix(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:GetPromptTextControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:SetBarTextZeroText(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:OnEvent(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:SetForceShow(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:ShowStatusBarText(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:OnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:TextStatusBarOnEvent(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:RefreshInputPromptSize(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:UpdateTextString(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetCustomRefreshOnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:UpdateTextStringWithValues(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_BackgroundObject : Texture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_BackgroundObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject : Frame
----@field Fill PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject
----@field FillMask PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject
----@field LeftShadow PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject
----@field RightShadow PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject
----@field fillAtlas string
----@field fillColor PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject
----@field fillOverlays table
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject = {}
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetCustomRefreshWithCVar(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:Initialize(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetCustomRefreshWithEvent(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:OnLoad(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetCustomRefreshWithEvents(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:SetFillColor(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:SetStatusBar(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetDividerType(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:UpdateFillPosition(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject : Texture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject : MaskTexture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject : Texture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject : Texture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealthBarTextureObject : Texture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealthBarTextureObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_LeftTextObject : FontString
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_LeftTextObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject : Frame
----@field Fill PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject
----@field FillMask PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject
----@field fillAtlas string
----@field fillColor PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject
----@field initialized boolean
----@field statusBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject = {}
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetFocused(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:Initialize(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetInputIconSize(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:OnLoad(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:SetFillColor(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetPressable(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:SetStatusBar(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetPromptFont(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:UpdateFillPosition(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject : Texture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject : MaskTexture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject = {}
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetPromptInputIconKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetPromptText(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetUseDropShadow(...) end
 end
 
 do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_ControlDescTextObject : Frame
+---@field FontString GamepadPersistentInputLegend_friendlyDpadEntries_top_ControlDescText_FontStringObject
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_ControlDescTextObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_ControlDescText_FontStringObject : FontString
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_ControlDescText_FontStringObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject : Frame
----@field Fill PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject
----@field FillMask PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject
----@field fillAtlas string
----@field fillColor PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject
----@field initialized boolean
----@field statusBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object : Frame
+---@field ActiveTexture GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_ActiveTextureObject
+---@field DisabledTexture GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_DisabledTextureObject
+---@field HoldAnim GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnimObject
+---@field HoldIndicator GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoverTextureObject
+---@field LoadBar GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarObject
+---@field LoadBarBG GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarGlowObject
+---@field NormalTexture GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_NormalTextureObject
+---@field PressedTexture GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_PressedTextureObject
+---@field SpinnerTip GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object = {}
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:Initialize(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:ApplyTextureLayout(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:OnLoad(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:BeginHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:SetFillColor(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:CanEnterTextureState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:SetStatusBar(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:DisableDropShadow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:UpdateFillPosition(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject : Texture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject : MaskTexture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject : Texture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject : Texture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_RightTextObject : FontString
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_RightTextObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TextStringObject : FontString
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TextStringObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject : Frame
----@field Fill PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject
----@field FillMask PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject
----@field TiledFillOverlay PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject
----@field fillAtlas string
----@field fillColor PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject
----@field fillOverlays table
----@field initialized boolean
----@field statusBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject
----@field tiledFillOverlaySize number
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject = {}
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:EnableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:OnHoldAnimFinished(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:OnHoldAnimStopped(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:RefreshIconTextures(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetEnabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:Initialize(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetFocused(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:OnLoad(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetHoldState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:SetFillColor(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetInputKey(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:SetStatusBar(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:UpdateFillPosition(...) end
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetTextureHeight(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetTextureWidth(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetUsableState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject : Texture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_ActiveTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_ActiveTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject : MaskTexture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_DisabledTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_DisabledTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject : Texture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_LoadBarAnimObject
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_partyFrameObject
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_partyFrameObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_unitFrameObject
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_unitFrameObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldIndicatorObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldIndicatorObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainerObject : Frame
----@field CenterText PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject
----@field HealthBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject
----@field HealthBarMask PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject
----@field LeftText PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject
----@field RightText PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject
----@field TempMaxHealthLoss PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject
----@field smartNavigationIgnored boolean
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainerObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldIndicatorBGObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldIndicatorBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoverTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoverTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject : MaskTexture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarBGObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarGlowObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarGlowObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_NormalTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_NormalTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_PressedTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_PressedTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_threatIndicatorObject : Texture
----@field feedbackUnit string
----@field unit string
-local PartyFrame_MemberFrame1_threatIndicatorObject = {}
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_SpinnerTipObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_SpinnerTipObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame1_totalAbsorbBarObject
-local PartyFrame_MemberFrame1_totalAbsorbBarObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntriesObject
+---@field bottom GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject
+---@field left GamepadPersistentInputLegend_friendlyFaceEntries_leftObject
+---@field right GamepadPersistentInputLegend_friendlyFaceEntries_rightObject
+---@field top GamepadPersistentInputLegend_friendlyFaceEntries_topObject
+local GamepadPersistentInputLegend_friendlyFaceEntriesObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2Object : Button
----@field ArtLayoutInfo PartyFrame_MemberFrame2_ArtLayoutInfoObject
----@field AuraFrameContainer PartyFrame_MemberFrame2_AuraFrameContainerObject
----@field AuraFramePool PartyFrame_MemberFrame2_AuraFramePoolObject
----@field Flash PartyFrame_MemberFrame2_FlashObject
----@field HealthBarContainer PartyFrame_MemberFrame2_HealthBarContainerObject
----@field ManaBar PartyFrame_MemberFrame2_ManaBarObject
----@field Name PartyFrame_MemberFrame2_NameObject
----@field NotPresentIcon PartyFrame_MemberFrame2_NotPresentIconObject
----@field PartyMemberOverlay PartyFrame_MemberFrame2_PartyMemberOverlayObject
----@field PetFrame PartyFrame_MemberFrame2_PetFrameObject
----@field Portrait PartyFrame_MemberFrame2_PortraitObject
----@field PortraitMask PartyFrame_MemberFrame2_PortraitMaskObject
----@field PowerBarAlt PartyFrame_MemberFrame2_PowerBarAltObject
----@field ReadyCheck PartyFrame_MemberFrame2_ReadyCheckObject
----@field ResurrectableIndicator PartyFrame_MemberFrame2_ResurrectableIndicatorObject
----@field Texture PartyFrame_MemberFrame2_TextureObject
----@field VehicleTexture PartyFrame_MemberFrame2_VehicleTextureObject
----@field debuffCountdown number
----@field frameType string
----@field healAbsorbBar PartyFrame_MemberFrame2_healAbsorbBarObject
----@field healthbar PartyFrame_MemberFrame2_healthbarObject
----@field initialized boolean
----@field layoutIndex number
----@field manabar PartyFrame_MemberFrame2_manabarObject
----@field myHealPredictionBar PartyFrame_MemberFrame2_myHealPredictionBarObject
----@field name PartyFrame_MemberFrame2_nameObject
----@field noContextActions boolean
----@field numDebuffs number
----@field otherHealPredictionBar PartyFrame_MemberFrame2_otherHealPredictionBarObject
----@field overAbsorbGlow PartyFrame_MemberFrame2_overAbsorbGlowObject
----@field overHealAbsorbGlow PartyFrame_MemberFrame2_overHealAbsorbGlowObject
----@field petUnitToken string
----@field portrait PartyFrame_MemberFrame2_portraitObject
----@field replacePortraitSettingChangedHandlers table
----@field state string
----@field statusCounter number
----@field statusSign number
----@field tempMaxHealthLossBar PartyFrame_MemberFrame2_tempMaxHealthLossBarObject
----@field threatIndicator PartyFrame_MemberFrame2_threatIndicatorObject
----@field totalAbsorbBar PartyFrame_MemberFrame2_totalAbsorbBarObject
----@field unit string
----@field unitHPPercent number
----@field unitToken string
-local PartyFrame_MemberFrame2Object = {}
----@return any ...
-function PartyFrame_MemberFrame2Object:GetAllowRadialWheel(...) end
----@return any ...
-function PartyFrame_MemberFrame2Object:GetIsPingable(...) end
----@return any ...
-function PartyFrame_MemberFrame2Object:GetTargetInfo(...) end
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject : Frame
+---@field ControlDescText GamepadPersistentInputLegend_friendlyFaceEntries_bottom_ControlDescTextObject
+---@field InputIcon1 GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object
+---@field InputIcons table
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject = {}
 ---@return any ...
-function PartyFrame_MemberFrame2Object:GetUnit(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:ApplyInactiveEnabledPromptStyling(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:OnEnter(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:BeginHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:OnEvent(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:DisablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:OnLeave(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:EnableOrDisablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:OnUpdate(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:EnablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:ParseAllAuras(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:EndHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:PartyMemberHealthCheck(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:GetDividerSpacingForPrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:Setup(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:GetDividerSpacingInfo(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:ToCharacterStyleArt(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:GetIconDividerControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:ToPlayerArt(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:GetInputIconControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:ToVehicleArt(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:GetPromptTextControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:UpdateArt(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:OnEvent(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:UpdateAssignedRoles(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:UpdateAuras(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:OnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:UpdateAurasInternal(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:RefreshInputPromptSize(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:UpdateHealthBarTextAnchors(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetCustomRefreshOnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:UpdateLeader(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetCustomRefreshWithCVar(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:UpdateManaBarTextAnchors(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetCustomRefreshWithEvent(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:UpdateMember(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetCustomRefreshWithEvents(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:UpdateMemberAuras(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:UpdateMemberHealth(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetDividerType(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:UpdateNameTextAnchors(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetFocused(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:UpdateNotPresentIcon(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetInputIconSize(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:UpdateOnlineStatus(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:UpdatePet(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetPressable(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:UpdatePingAttributes(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetPromptFont(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:UpdatePvPStatus(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetPromptInputIconKey(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:UpdateReadyCheck(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetPromptText(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2Object:UpdateVoiceActivityNotification(...) end
----@return any ...
-function PartyFrame_MemberFrame2Object:VoiceActivityNotificationCreatedCallback(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetUseDropShadow(...) end
 end
 
 do
----@class PartyFrame_MemberFrame2_ArtLayoutInfoObject
-local PartyFrame_MemberFrame2_ArtLayoutInfoObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_ControlDescTextObject : Frame
+---@field FontString GamepadPersistentInputLegend_friendlyFaceEntries_bottom_ControlDescText_FontStringObject
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_ControlDescTextObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_AuraFrameContainerObject : Frame
----@field spacing number
-local PartyFrame_MemberFrame2_AuraFrameContainerObject = {}
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:AddLayoutChildren(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:CalculateFrameSize(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:ClearFixedSize(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetChildHeight(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetChildPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetChildSize(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetChildWidth(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetFixedHeight(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetFixedSize(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetFixedWidth(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetHeightPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetLayoutChildren(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:GetWidthPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:IsDirty(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:IsLayoutFrame(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:Layout(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:LayoutChildren(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:MarkClean(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:MarkDirty(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:OnCleaned(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:OnShow(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:OnUpdate(...) end
----@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:SetFixedHeight(...) end
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_ControlDescText_FontStringObject : FontString
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_ControlDescText_FontStringObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object : Frame
+---@field ActiveTexture GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_ActiveTextureObject
+---@field DisabledTexture GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_DisabledTextureObject
+---@field HoldAnim GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnimObject
+---@field HoldIndicator GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoverTextureObject
+---@field LoadBar GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarObject
+---@field LoadBarBG GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarGlowObject
+---@field NormalTexture GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_NormalTextureObject
+---@field PressedTexture GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_PressedTextureObject
+---@field SpinnerTip GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object = {}
 ---@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:SetFixedSize(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:ApplyTextureLayout(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:SetFixedWidth(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:BeginHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:SetHeightPadding(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:CanEnterTextureState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:SetWidthPadding(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:DisableDropShadow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_AuraFrameContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class PartyFrame_MemberFrame2_AuraFramePoolObject
-local PartyFrame_MemberFrame2_AuraFramePoolObject = {}
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:EnableDropShadow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_AuraFramePoolObject:GetTemplate(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:EndHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_AuraFramePoolObject:private(...) end
-end
-
-do
----@class PartyFrame_MemberFrame2_FlashObject
-local PartyFrame_MemberFrame2_FlashObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame2_HealthBarContainerObject
-local PartyFrame_MemberFrame2_HealthBarContainerObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame2_ManaBarObject : StatusBar
----@field CenterText PartyFrame_MemberFrame2_ManaBar_CenterTextObject
----@field LeftText PartyFrame_MemberFrame2_ManaBar_LeftTextObject
----@field ManaBarMask PartyFrame_MemberFrame2_ManaBar_ManaBarMaskObject
----@field RightText PartyFrame_MemberFrame2_ManaBar_RightTextObject
----@field TextString PartyFrame_MemberFrame2_ManaBar_TextStringObject
----@field Texture PartyFrame_MemberFrame2_ManaBar_TextureObject
----@field capNumericDisplay boolean
----@field controlsShownState boolean
----@field currValue number
----@field cvar string
----@field cvarLabel string
----@field disconnected boolean
----@field frequentUpdates boolean
----@field lockColor boolean
----@field lockShow number
----@field smartNavigationIgnored boolean
----@field textLockable number
----@field texture PartyFrame_MemberFrame2_ManaBar_textureObject
----@field unit string
----@field unitFrame PartyFrame_MemberFrame2_ManaBar_unitFrameObject
-local PartyFrame_MemberFrame2_ManaBarObject = {}
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:OnHoldAnimFinished(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_ManaBarObject:GetNumericDisplay(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:OnHoldAnimStopped(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_ManaBarObject:HideStatusBarText(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_ManaBarObject:InitializeTextStatusBar(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:RefreshIconTextures(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_ManaBarObject:OnStatusBarEnter(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_ManaBarObject:OnStatusBarLeave(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetEnabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_ManaBarObject:OnStatusBarMinMaxChanged(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetFocused(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_ManaBarObject:OnStatusBarValueChanged(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetHoldState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_ManaBarObject:SetBarText(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetInputKey(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_ManaBarObject:SetBarTextPrefix(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_ManaBarObject:SetBarTextZeroText(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetPressable(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_ManaBarObject:SetForceShow(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetTextureHeight(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_ManaBarObject:ShowStatusBarText(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetTextureState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_ManaBarObject:TextStatusBarOnEvent(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetTextureWidth(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_ManaBarObject:UpdateTextString(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetUsableState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_ManaBarObject:UpdateTextStringWithValues(...) end
-end
-
-do
----@class PartyFrame_MemberFrame2_ManaBar_CenterTextObject
-local PartyFrame_MemberFrame2_ManaBar_CenterTextObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame2_ManaBar_LeftTextObject : FontString
-local PartyFrame_MemberFrame2_ManaBar_LeftTextObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame2_ManaBar_ManaBarMaskObject : MaskTexture
-local PartyFrame_MemberFrame2_ManaBar_ManaBarMaskObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame2_ManaBar_RightTextObject : FontString
-local PartyFrame_MemberFrame2_ManaBar_RightTextObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame2_ManaBar_TextStringObject : FontString
-local PartyFrame_MemberFrame2_ManaBar_TextStringObject = {}
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PartyFrame_MemberFrame2_ManaBar_TextureObject : Texture
-local PartyFrame_MemberFrame2_ManaBar_TextureObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_ActiveTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_ActiveTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_ManaBar_textureObject
-local PartyFrame_MemberFrame2_ManaBar_textureObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_DisabledTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_DisabledTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_ManaBar_unitFrameObject
-local PartyFrame_MemberFrame2_ManaBar_unitFrameObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_NameObject : FontString
-local PartyFrame_MemberFrame2_NameObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarAnimObject
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_NotPresentIconObject : Frame
----@field Border PartyFrame_MemberFrame2_NotPresentIcon_BorderObject
----@field smartNavigationIgnored boolean
----@field texture PartyFrame_MemberFrame2_NotPresentIcon_textureObject
-local PartyFrame_MemberFrame2_NotPresentIconObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_NotPresentIcon_BorderObject : Texture
-local PartyFrame_MemberFrame2_NotPresentIcon_BorderObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_NotPresentIcon_textureObject : Texture
-local PartyFrame_MemberFrame2_NotPresentIcon_textureObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldIndicatorObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldIndicatorObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PartyMemberOverlayObject : Frame
----@field Disconnect PartyFrame_MemberFrame2_PartyMemberOverlay_DisconnectObject
----@field GuideIcon PartyFrame_MemberFrame2_PartyMemberOverlay_GuideIconObject
----@field LeaderIcon PartyFrame_MemberFrame2_PartyMemberOverlay_LeaderIconObject
----@field PVPIcon PartyFrame_MemberFrame2_PartyMemberOverlay_PVPIconObject
----@field RoleIcon PartyFrame_MemberFrame2_PartyMemberOverlay_RoleIconObject
----@field Status PartyFrame_MemberFrame2_PartyMemberOverlay_StatusObject
----@field smartNavigationIgnored boolean
-local PartyFrame_MemberFrame2_PartyMemberOverlayObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldIndicatorBGObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldIndicatorBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PartyMemberOverlay_DisconnectObject : Texture
-local PartyFrame_MemberFrame2_PartyMemberOverlay_DisconnectObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoverTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoverTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PartyMemberOverlay_GuideIconObject : Texture
-local PartyFrame_MemberFrame2_PartyMemberOverlay_GuideIconObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PartyMemberOverlay_LeaderIconObject : Texture
-local PartyFrame_MemberFrame2_PartyMemberOverlay_LeaderIconObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarBGObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PartyMemberOverlay_PVPIconObject : Texture
-local PartyFrame_MemberFrame2_PartyMemberOverlay_PVPIconObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarGlowObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarGlowObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PartyMemberOverlay_RoleIconObject : Texture
-local PartyFrame_MemberFrame2_PartyMemberOverlay_RoleIconObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_NormalTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_NormalTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PartyMemberOverlay_StatusObject : Texture
-local PartyFrame_MemberFrame2_PartyMemberOverlay_StatusObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_PressedTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_PressedTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PetFrameObject : Button
----@field AuraFrameContainer PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject
----@field AuraFramePool PartyFrame_MemberFrame2_PetFrame_AuraFramePoolObject
----@field Flash PartyFrame_MemberFrame2_PetFrame_FlashObject
----@field HealthBar PartyFrame_MemberFrame2_PetFrame_HealthBarObject
----@field Name PartyFrame_MemberFrame2_PetFrame_NameObject
----@field Portrait PartyFrame_MemberFrame2_PetFrame_PortraitObject
----@field PortraitMask PartyFrame_MemberFrame2_PetFrame_PortraitMaskObject
----@field Texture PartyFrame_MemberFrame2_PetFrame_TextureObject
----@field buffs PartyFrame_MemberFrame2_PetFrame_buffsObject
----@field debuffs PartyFrame_MemberFrame2_PetFrame_debuffsObject
----@field healthbar PartyFrame_MemberFrame2_PetFrame_healthbarObject
----@field name PartyFrame_MemberFrame2_PetFrame_nameObject
----@field noContextActions boolean
----@field portrait PartyFrame_MemberFrame2_PetFrame_portraitObject
----@field replacePortraitSettingChangedHandlers table
----@field threatIndicator PartyFrame_MemberFrame2_PetFrame_threatIndicatorObject
----@field unit string
----@field unitToken string
-local PartyFrame_MemberFrame2_PetFrameObject = {}
----@return any ...
-function PartyFrame_MemberFrame2_PetFrameObject:OnEnter(...) end
----@return any ...
-function PartyFrame_MemberFrame2_PetFrameObject:OnEvent(...) end
----@return any ...
-function PartyFrame_MemberFrame2_PetFrameObject:OnLeave(...) end
----@return any ...
-function PartyFrame_MemberFrame2_PetFrameObject:OnShow(...) end
----@return any ...
-function PartyFrame_MemberFrame2_PetFrameObject:ParseAllAuras(...) end
----@return any ...
-function PartyFrame_MemberFrame2_PetFrameObject:Setup(...) end
----@return any ...
-function PartyFrame_MemberFrame2_PetFrameObject:UpdateAuras(...) end
----@return any ...
-function PartyFrame_MemberFrame2_PetFrameObject:UpdateAurasInternal(...) end
----@return any ...
-function PartyFrame_MemberFrame2_PetFrameObject:UpdateMemberAuras(...) end
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_SpinnerTipObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_SpinnerTipObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject : Frame
----@field dirty boolean
----@field smartNavigationIgnored boolean
----@field spacing number
-local PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject = {}
----@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:AddLayoutChildren(...) end
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_leftObject : Frame
+---@field ControlDescText GamepadPersistentInputLegend_friendlyFaceEntries_left_ControlDescTextObject
+---@field InputIcon1 GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object
+---@field InputIcons table
+local GamepadPersistentInputLegend_friendlyFaceEntries_leftObject = {}
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:CalculateFrameSize(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:ApplyInactiveEnabledPromptStyling(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:ClearFixedSize(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:BeginHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetAdditionalRegions(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:DisablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetChildHeight(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:EnableOrDisablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetChildPadding(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:EnablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetChildSize(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:EndHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetChildWidth(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:GetDividerSpacingForPrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetFixedHeight(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:GetDividerSpacingInfo(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetFixedSize(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:GetIconDividerControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetFixedWidth(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:GetInputIconControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetHeightPadding(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:GetPromptTextControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetLayoutChildren(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:OnEvent(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetPadding(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:GetWidthPadding(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:OnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:IgnoreLayoutIndex(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:RefreshInputPromptSize(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:IsDirty(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetCustomRefreshOnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:IsLayoutFrame(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetCustomRefreshWithCVar(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:Layout(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetCustomRefreshWithEvent(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:LayoutChildren(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetCustomRefreshWithEvents(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:MarkClean(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:MarkDirty(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetDividerType(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:MarkIgnoreInLayout(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetFocused(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:OnCleaned(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetInputIconSize(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:OnShow(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:OnUpdate(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetPressable(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:SetFixedHeight(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetPromptFont(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:SetFixedSize(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetPromptInputIconKey(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:SetFixedWidth(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetPromptText(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:SetHeightPadding(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetUseDropShadow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:SetWidthPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFrameContainerObject:ShouldClearOnUpdateAfterClean(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:UNIT_PET(...) end
 end
 
 do
----@class PartyFrame_MemberFrame2_PetFrame_AuraFramePoolObject
-local PartyFrame_MemberFrame2_PetFrame_AuraFramePoolObject = {}
----@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFramePoolObject:GetTemplate(...) end
----@return any ...
-function PartyFrame_MemberFrame2_PetFrame_AuraFramePoolObject:private(...) end
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_ControlDescTextObject : Frame
+---@field FontString GamepadPersistentInputLegend_friendlyFaceEntries_left_ControlDescText_FontStringObject
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_ControlDescTextObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PetFrame_FlashObject
-local PartyFrame_MemberFrame2_PetFrame_FlashObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_ControlDescText_FontStringObject : FontString
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_ControlDescText_FontStringObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PetFrame_HealthBarObject : StatusBar
----@field capNumericDisplay boolean
----@field controlsShownState boolean
----@field currValue number
----@field disconnected boolean
----@field forceHideText boolean
----@field frequentUpdates boolean
----@field lockShow number
----@field smartNavigationIgnored boolean
----@field unit string
----@field unitFrame PartyFrame_MemberFrame2_PetFrame_HealthBar_unitFrameObject
-local PartyFrame_MemberFrame2_PetFrame_HealthBarObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object : Frame
+---@field ActiveTexture GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_ActiveTextureObject
+---@field DisabledTexture GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_DisabledTextureObject
+---@field HoldAnim GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnimObject
+---@field HoldIndicator GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoverTextureObject
+---@field LoadBar GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarObject
+---@field LoadBarBG GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarGlowObject
+---@field NormalTexture GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_NormalTextureObject
+---@field PressedTexture GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_PressedTextureObject
+---@field SpinnerTip GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object = {}
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:ApplyTextureLayout(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:GetNumericDisplay(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:BeginHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:HideStatusBarText(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:CanEnterTextureState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:InitializeTextStatusBar(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:DisableDropShadow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:OnStatusBarEnter(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:EnableDropShadow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:OnStatusBarLeave(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:EndHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:OnStatusBarMinMaxChanged(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:OnHoldAnimFinished(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:OnStatusBarValueChanged(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:OnHoldAnimStopped(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:SetBarText(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:SetBarTextPrefix(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:RefreshIconTextures(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:SetBarTextZeroText(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:SetForceShow(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetEnabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:ShowStatusBarText(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetFocused(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:TextStatusBarOnEvent(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetHoldState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:UpdateTextString(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetInputKey(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_HealthBarObject:UpdateTextStringWithValues(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetTextureHeight(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetTextureWidth(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetUsableState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_ActiveTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_ActiveTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_DisabledTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_DisabledTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_LoadBarAnimObject
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldIndicatorObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldIndicatorObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldIndicatorBGObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoverTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoverTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PetFrame_HealthBar_unitFrameObject
-local PartyFrame_MemberFrame2_PetFrame_HealthBar_unitFrameObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarBGObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PetFrame_NameObject : FontString
-local PartyFrame_MemberFrame2_PetFrame_NameObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarGlowObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarGlowObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PetFrame_PortraitObject
-local PartyFrame_MemberFrame2_PetFrame_PortraitObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_NormalTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_NormalTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PetFrame_PortraitMaskObject : MaskTexture
-local PartyFrame_MemberFrame2_PetFrame_PortraitMaskObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_PressedTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_PressedTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PetFrame_TextureObject : Texture
-local PartyFrame_MemberFrame2_PetFrame_TextureObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_SpinnerTipObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_SpinnerTipObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PetFrame_buffsObject
-local PartyFrame_MemberFrame2_PetFrame_buffsObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_rightObject : Frame
+---@field ControlDescText GamepadPersistentInputLegend_friendlyFaceEntries_right_ControlDescTextObject
+---@field InputIcon1 GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object
+---@field InputIcons table
+local GamepadPersistentInputLegend_friendlyFaceEntries_rightObject = {}
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:ApplyInactiveEnabledPromptStyling(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:DisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:EnableOrDisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:EnablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:GetDividerSpacingForPrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:GetDividerSpacingInfo(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:GetIconDividerControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:GetInputIconControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:GetPromptTextControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:OnEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_buffsObject:Clear(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:OnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_buffsObject:Get(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:RefreshInputPromptSize(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_buffsObject:GetBottom(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetCustomRefreshOnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_buffsObject:GetTop(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetCustomRefreshWithCVar(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_buffsObject:Iterate(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetCustomRefreshWithEvent(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_buffsObject:Pop(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetCustomRefreshWithEvents(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_buffsObject:Remove(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_buffsObject:Size(...) end
-end
-
-do
----@class PartyFrame_MemberFrame2_PetFrame_debuffsObject
-local PartyFrame_MemberFrame2_PetFrame_debuffsObject = {}
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetDividerType(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_debuffsObject:Clear(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetFocused(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_debuffsObject:Get(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetInputIconSize(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_debuffsObject:GetBottom(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_debuffsObject:GetTop(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetPressable(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_debuffsObject:Iterate(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetPromptFont(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_debuffsObject:Pop(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetPromptInputIconKey(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_debuffsObject:Remove(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetPromptText(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PetFrame_debuffsObject:Size(...) end
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetUseDropShadow(...) end
 end
 
 do
----@class PartyFrame_MemberFrame2_PetFrame_healthbarObject
-local PartyFrame_MemberFrame2_PetFrame_healthbarObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_right_ControlDescTextObject : Frame
+---@field FontString GamepadPersistentInputLegend_friendlyFaceEntries_right_ControlDescText_FontStringObject
+local GamepadPersistentInputLegend_friendlyFaceEntries_right_ControlDescTextObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PetFrame_nameObject
-local PartyFrame_MemberFrame2_PetFrame_nameObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_right_ControlDescText_FontStringObject : FontString
+local GamepadPersistentInputLegend_friendlyFaceEntries_right_ControlDescText_FontStringObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PetFrame_portraitObject : Texture
-local PartyFrame_MemberFrame2_PetFrame_portraitObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object : Frame
+---@field ActiveTexture GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_ActiveTextureObject
+---@field DisabledTexture GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_DisabledTextureObject
+---@field HoldAnim GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldAnimObject
+---@field HoldIndicator GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoverTextureObject
+---@field LoadBar GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_LoadBarObject
+---@field LoadBarBG GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_LoadBarGlowObject
+---@field NormalTexture GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_NormalTextureObject
+---@field PressedTexture GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_PressedTextureObject
+---@field SpinnerTip GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object = {}
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:ApplyTextureLayout(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:CanEnterTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:DisableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:EnableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:OnHoldAnimFinished(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:OnHoldAnimStopped(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:RefreshIconTextures(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetEnabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetHoldState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetInputKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetTextureHeight(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetTextureWidth(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetUsableState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PartyFrame_MemberFrame2_PetFrame_threatIndicatorObject : Texture
----@field feedbackUnit string
----@field unit string
-local PartyFrame_MemberFrame2_PetFrame_threatIndicatorObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_ActiveTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_ActiveTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PortraitObject : Texture
-local PartyFrame_MemberFrame2_PortraitObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_DisabledTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_DisabledTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PortraitMaskObject : MaskTexture
-local PartyFrame_MemberFrame2_PortraitMaskObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAltObject : Frame
----@field background PartyFrame_MemberFrame2_PowerBarAlt_backgroundObject
----@field counterBar PartyFrame_MemberFrame2_PowerBarAlt_counterBarObject
----@field fill PartyFrame_MemberFrame2_PowerBarAlt_fillObject
----@field flash PartyFrame_MemberFrame2_PowerBarAlt_flashObject
----@field flashAnim PartyFrame_MemberFrame2_PowerBarAlt_flashAnimObject
----@field flashOutAnim PartyFrame_MemberFrame2_PowerBarAlt_flashOutAnimObject
----@field frame PartyFrame_MemberFrame2_PowerBarAlt_frameObject
----@field pillFrames table
----@field scale number
----@field smartNavigationIgnored boolean
----@field spark PartyFrame_MemberFrame2_PowerBarAlt_sparkObject
----@field statusFrame PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject
----@field unit string
----@field updateAllEvent string
-local PartyFrame_MemberFrame2_PowerBarAltObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldAnim_LoadBarAnimObject
+local GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_backgroundObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_backgroundObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBarObject : Frame
----@field BG PartyFrame_MemberFrame2_PowerBarAlt_counterBar_BGObject
----@field BGL PartyFrame_MemberFrame2_PowerBarAlt_counterBar_BGLObject
----@field BGR PartyFrame_MemberFrame2_PowerBarAlt_counterBar_BGRObject
----@field artBottom PartyFrame_MemberFrame2_PowerBarAlt_counterBar_artBottomObject
----@field artTop PartyFrame_MemberFrame2_PowerBarAlt_counterBar_artTopObject
----@field digit1 PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit1Object
----@field digit2 PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit2Object
----@field digit3 PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit3Object
----@field digit4 PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit4Object
----@field digit5 PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit5Object
----@field digit6 PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit6Object
----@field digit7 PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit7Object
----@field unit string
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBarObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_BGObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_BGObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldIndicatorObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldIndicatorObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_BGLObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_BGLObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldIndicatorBGObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldIndicatorBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_BGRObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_BGRObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoverTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoverTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_artBottomObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_artBottomObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_LoadBarObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_LoadBarObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_artTopObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_artTopObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_LoadBarBGObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_LoadBarBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit1Object : Frame
----@field number PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit1_numberObject
----@field numberMask PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit1_numberMaskObject
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit1Object = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_LoadBarGlowObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_LoadBarGlowObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit1_numberObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit1_numberObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_NormalTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_NormalTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit1_numberMaskObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit1_numberMaskObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_PressedTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_PressedTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit2Object : Frame
----@field number PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit2_numberObject
----@field numberMask PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit2_numberMaskObject
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit2Object = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_SpinnerTipObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_SpinnerTipObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit2_numberObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit2_numberObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_topObject : Frame
+---@field ControlDescText GamepadPersistentInputLegend_friendlyFaceEntries_top_ControlDescTextObject
+---@field InputIcon1 GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object
+---@field InputIcons table
+---@field MarkerDisplayTexture GamepadPersistentInputLegend_friendlyFaceEntries_top_MarkerDisplayTextureObject
+local GamepadPersistentInputLegend_friendlyFaceEntries_topObject = {}
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:ApplyInactiveEnabledPromptStyling(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:DisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:EnableOrDisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:EnablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:GetDividerSpacingForPrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:GetDividerSpacingInfo(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:GetIconDividerControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:GetInputIconControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:GetPromptTextControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:OnEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:OnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:PLAYER_TARGET_CHANGED(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:RAID_TARGET_UPDATE(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:RefreshInputPromptSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:RefreshOnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:SetCustomRefreshOnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:SetCustomRefreshWithCVar(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:SetCustomRefreshWithEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:SetCustomRefreshWithEvents(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:SetDividerType(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:SetInputIconSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:SetPromptFont(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:SetPromptInputIconKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:SetPromptText(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_topObject:SetUseDropShadow(...) end
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit2_numberMaskObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit2_numberMaskObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_top_ControlDescTextObject : Frame
+---@field FontString GamepadPersistentInputLegend_friendlyFaceEntries_top_ControlDescText_FontStringObject
+local GamepadPersistentInputLegend_friendlyFaceEntries_top_ControlDescTextObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit3Object : Frame
----@field number PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit3_numberObject
----@field numberMask PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit3_numberMaskObject
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit3Object = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_top_ControlDescText_FontStringObject : FontString
+local GamepadPersistentInputLegend_friendlyFaceEntries_top_ControlDescText_FontStringObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit3_numberObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit3_numberObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object : Frame
+---@field ActiveTexture GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_ActiveTextureObject
+---@field DisabledTexture GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_DisabledTextureObject
+---@field HoldAnim GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_HoldAnimObject
+---@field HoldIndicator GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_HoverTextureObject
+---@field LoadBar GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_LoadBarObject
+---@field LoadBarBG GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_LoadBarGlowObject
+---@field NormalTexture GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_NormalTextureObject
+---@field PressedTexture GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_PressedTextureObject
+---@field SpinnerTip GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object = {}
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object:ApplyTextureLayout(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object:CanEnterTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object:DisableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object:EnableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object:OnHoldAnimFinished(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object:OnHoldAnimStopped(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object:RefreshIconTextures(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object:SetEnabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object:SetHoldState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object:SetInputKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object:SetTextureHeight(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object:SetTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object:SetTextureWidth(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object:SetUsableState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit3_numberMaskObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit3_numberMaskObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_ActiveTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_ActiveTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit4Object : Frame
----@field number PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit4_numberObject
----@field numberMask PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit4_numberMaskObject
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit4Object = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_DisabledTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_DisabledTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit4_numberObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit4_numberObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_HoldAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit4_numberMaskObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit4_numberMaskObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_HoldAnim_LoadBarAnimObject
+local GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit5Object : Frame
----@field number PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit5_numberObject
----@field numberMask PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit5_numberMaskObject
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit5Object = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit5_numberObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit5_numberObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit5_numberMaskObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit5_numberMaskObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_HoldIndicatorObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_HoldIndicatorObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit6Object : Frame
----@field number PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit6_numberObject
----@field numberMask PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit6_numberMaskObject
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit6Object = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_HoldIndicatorBGObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_HoldIndicatorBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit6_numberObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit6_numberObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_HoverTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_HoverTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit6_numberMaskObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit6_numberMaskObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_LoadBarObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_LoadBarObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit7Object : Frame
----@field number PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit7_numberObject
----@field numberMask PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit7_numberMaskObject
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit7Object = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_LoadBarBGObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_LoadBarBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit7_numberObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit7_numberObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_LoadBarGlowObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_LoadBarGlowObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit7_numberMaskObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_counterBar_digit7_numberMaskObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_NormalTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_NormalTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_fillObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_fillObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_PressedTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_PressedTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_flashObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_flashObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_SpinnerTipObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_top_InputIcon1_SpinnerTipObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_flashAnimObject : AnimationGroup
-local PartyFrame_MemberFrame2_PowerBarAlt_flashAnimObject = {}
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_top_MarkerDisplayTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_top_MarkerDisplayTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_flashOutAnimObject : AnimationGroup
-local PartyFrame_MemberFrame2_PowerBarAlt_flashOutAnimObject = {}
+---@class GamepadPersistentInputLegend_friendlyShortcutsEntryObject : Frame
+---@field ControlDescText GamepadPersistentInputLegend_friendlyShortcutsEntry_ControlDescTextObject
+---@field InputIcon1 GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object
+---@field InputIcons table
+local GamepadPersistentInputLegend_friendlyShortcutsEntryObject = {}
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:ApplyInactiveEnabledPromptStyling(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:DisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:EnableOrDisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:EnablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:GetDividerSpacingForPrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:GetDividerSpacingInfo(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:GetIconDividerControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:GetInputIconControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:GetPromptTextControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:OnEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:OnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:RefreshInputPromptSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:SetCustomRefreshOnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:SetCustomRefreshWithCVar(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:SetCustomRefreshWithEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:SetCustomRefreshWithEvents(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:SetDividerType(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:SetInputIconSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:SetPromptFont(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:SetPromptInputIconKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:SetPromptText(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntryObject:SetUseDropShadow(...) end
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_frameObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_frameObject = {}
+---@class GamepadPersistentInputLegend_friendlyShortcutsEntry_ControlDescTextObject : Frame
+---@field FontString GamepadPersistentInputLegend_friendlyShortcutsEntry_ControlDescText_FontStringObject
+local GamepadPersistentInputLegend_friendlyShortcutsEntry_ControlDescTextObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_sparkObject : Texture
-local PartyFrame_MemberFrame2_PowerBarAlt_sparkObject = {}
+---@class GamepadPersistentInputLegend_friendlyShortcutsEntry_ControlDescText_FontStringObject : FontString
+local GamepadPersistentInputLegend_friendlyShortcutsEntry_ControlDescText_FontStringObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject : StatusBar
----@field alwaysShow number
----@field cvar string
----@field cvarLabel string
----@field lockShow number
----@field text PartyFrame_MemberFrame2_PowerBarAlt_statusFrame_textObject
----@field textLockable number
-local PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject = {}
+---@class GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object : Frame
+---@field ActiveTexture GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_ActiveTextureObject
+---@field DisabledTexture GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_DisabledTextureObject
+---@field HoldAnim GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_HoldAnimObject
+---@field HoldIndicator GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_HoverTextureObject
+---@field LoadBar GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_LoadBarObject
+---@field LoadBarBG GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_LoadBarGlowObject
+---@field NormalTexture GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_NormalTextureObject
+---@field PressedTexture GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_PressedTextureObject
+---@field SpinnerTip GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object = {}
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object:ApplyTextureLayout(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object:CanEnterTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object:DisableDropShadow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:GetNumericDisplay(...) end
+function GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object:EnableDropShadow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:HideStatusBarText(...) end
+function GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object:EndHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:InitializeTextStatusBar(...) end
+function GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object:OnHoldAnimFinished(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:OnStatusBarEnter(...) end
+function GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object:OnHoldAnimStopped(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:OnStatusBarLeave(...) end
+function GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:OnStatusBarMinMaxChanged(...) end
+function GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object:RefreshIconTextures(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:OnStatusBarValueChanged(...) end
+function GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:SetBarText(...) end
+function GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object:SetEnabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:SetBarTextPrefix(...) end
+function GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object:SetFocused(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:SetBarTextZeroText(...) end
+function GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object:SetHoldState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:SetForceShow(...) end
+function GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object:SetInputKey(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:ShowStatusBarText(...) end
+function GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:TextStatusBarOnEvent(...) end
+function GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object:SetPressable(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:UpdateTextString(...) end
+function GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object:SetTextureHeight(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_PowerBarAlt_statusFrameObject:UpdateTextStringWithValues(...) end
+function GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object:SetTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object:SetTextureWidth(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object:SetUsableState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PartyFrame_MemberFrame2_PowerBarAlt_statusFrame_textObject : FontString
-local PartyFrame_MemberFrame2_PowerBarAlt_statusFrame_textObject = {}
+---@class GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_ActiveTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_ActiveTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_ReadyCheckObject : Frame
----@field Texture PartyFrame_MemberFrame2_ReadyCheck_TextureObject
----@field smartNavigationIgnored boolean
-local PartyFrame_MemberFrame2_ReadyCheckObject = {}
+---@class GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_DisabledTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_DisabledTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_ReadyCheck_TextureObject : Texture
-local PartyFrame_MemberFrame2_ReadyCheck_TextureObject = {}
+---@class GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_HoldAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_ResurrectableIndicatorObject : FontString
-local PartyFrame_MemberFrame2_ResurrectableIndicatorObject = {}
----@return any ...
-function PartyFrame_MemberFrame2_ResurrectableIndicatorObject:OnEnter(...) end
----@return any ...
-function PartyFrame_MemberFrame2_ResurrectableIndicatorObject:OnLeave(...) end
+---@class GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_HoldAnim_LoadBarAnimObject
+local GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_TextureObject : Texture
-local PartyFrame_MemberFrame2_TextureObject = {}
+---@class GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_VehicleTextureObject : Texture
-local PartyFrame_MemberFrame2_VehicleTextureObject = {}
+---@class GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_healAbsorbBarObject
-local PartyFrame_MemberFrame2_healAbsorbBarObject = {}
+---@class GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_HoldIndicatorObject : Texture
+local GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_HoldIndicatorObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_healthbarObject
-local PartyFrame_MemberFrame2_healthbarObject = {}
+---@class GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_HoldIndicatorBGObject : Texture
+local GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_HoldIndicatorBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_manabarObject
-local PartyFrame_MemberFrame2_manabarObject = {}
+---@class GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_HoverTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_HoverTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_myHealPredictionBarObject
-local PartyFrame_MemberFrame2_myHealPredictionBarObject = {}
+---@class GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_LoadBarObject : Texture
+local GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_LoadBarObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_nameObject
-local PartyFrame_MemberFrame2_nameObject = {}
+---@class GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_LoadBarBGObject : Texture
+local GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_LoadBarBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_otherHealPredictionBarObject
-local PartyFrame_MemberFrame2_otherHealPredictionBarObject = {}
+---@class GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_LoadBarGlowObject : Texture
+local GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_LoadBarGlowObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_overAbsorbGlowObject
-local PartyFrame_MemberFrame2_overAbsorbGlowObject = {}
+---@class GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_NormalTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_NormalTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_overHealAbsorbGlowObject
-local PartyFrame_MemberFrame2_overHealAbsorbGlowObject = {}
+---@class GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_PressedTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_PressedTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_portraitObject
-local PartyFrame_MemberFrame2_portraitObject = {}
+---@class GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_SpinnerTipObject : Texture
+local GamepadPersistentInputLegend_friendlyShortcutsEntry_InputIcon1_SpinnerTipObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBarObject : StatusBar
----@field Texture PartyFrame_MemberFrame2_tempMaxHealthLossBar_TextureObject
----@field healthBar PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject
----@field initialized boolean
----@field myHealthBarContainer PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainerObject
-local PartyFrame_MemberFrame2_tempMaxHealthLossBarObject = {}
+---@class GamepadPersistentInputLegend_friendlyTargetingHeaderObject : Frame
+---@field ControlDescText GamepadPersistentInputLegend_friendlyTargetingHeader_ControlDescTextObject
+---@field InputIcon1 GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object
+---@field InputIcons table
+local GamepadPersistentInputLegend_friendlyTargetingHeaderObject = {}
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBarObject:InitializeMaxHealthLossBar(...) end
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:ApplyInactiveEnabledPromptStyling(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBarObject:OnMaxHealthModifiersChanged(...) end
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:BeginHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBarObject:SetShouldAdjustHealthBarAnchor(...) end
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:DisablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBarObject:Update_MaxHealthLoss(...) end
-end
-
-do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_TextureObject : Texture
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_TextureObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject : StatusBar
----@field Background PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_BackgroundObject
----@field HealAbsorbBar PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject
----@field HealthBarTexture PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealthBarTextureObject
----@field LeftText PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_LeftTextObject
----@field MyHealPredictionBar PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject
----@field OtherHealPredictionBar PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject
----@field OverAbsorbGlow PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject
----@field OverHealAbsorbGlow PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject
----@field RightText PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_RightTextObject
----@field TextString PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TextStringObject
----@field TotalAbsorbBar PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject
----@field capNumericDisplay boolean
----@field controlsShownState boolean
----@field currValue number
----@field cvar string
----@field cvarLabel string
----@field disconnected boolean
----@field forceHideText boolean
----@field frequentUpdates boolean
----@field lockColor boolean
----@field lockShow number
----@field partyFrame PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_partyFrameObject
----@field textLockable number
----@field unit string
----@field unitFrame PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_unitFrameObject
----@field zeroText string
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject = {}
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:EnableOrDisablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:GetNumericDisplay(...) end
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:EnablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:HideStatusBarText(...) end
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:EndHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:InitializeTextStatusBar(...) end
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:GetDividerSpacingForPrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:OnStatusBarEnter(...) end
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:GetDividerSpacingInfo(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:OnStatusBarLeave(...) end
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:GetIconDividerControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:OnStatusBarMinMaxChanged(...) end
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:GetInputIconControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:OnStatusBarValueChanged(...) end
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:GetPromptTextControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:SetBarText(...) end
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:OnEvent(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:SetBarTextPrefix(...) end
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:SetBarTextZeroText(...) end
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:OnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:SetForceShow(...) end
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:RefreshInputPromptSize(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:ShowStatusBarText(...) end
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:SetCustomRefreshOnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:TextStatusBarOnEvent(...) end
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:SetCustomRefreshWithCVar(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:UpdateTextString(...) end
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:SetCustomRefreshWithEvent(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBarObject:UpdateTextStringWithValues(...) end
-end
-
-do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_BackgroundObject : Texture
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_BackgroundObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject : Frame
----@field Fill PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject
----@field FillMask PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject
----@field LeftShadow PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject
----@field RightShadow PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject
----@field fillAtlas string
----@field fillColor PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject
----@field fillOverlays table
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject = {}
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:SetCustomRefreshWithEvents(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:SetDividerType(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:SetFocused(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:Initialize(...) end
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:SetInputIconSize(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:OnLoad(...) end
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:SetFillColor(...) end
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:SetPressable(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:SetStatusBar(...) end
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:SetPromptFont(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:UpdateFillPosition(...) end
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:SetPromptInputIconKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:SetPromptText(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeaderObject:SetUseDropShadow(...) end
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject : Texture
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject = {}
+---@class GamepadPersistentInputLegend_friendlyTargetingHeader_ControlDescTextObject : Frame
+---@field FontString GamepadPersistentInputLegend_friendlyTargetingHeader_ControlDescText_FontStringObject
+local GamepadPersistentInputLegend_friendlyTargetingHeader_ControlDescTextObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject : MaskTexture
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject = {}
+---@class GamepadPersistentInputLegend_friendlyTargetingHeader_ControlDescText_FontStringObject : FontString
+local GamepadPersistentInputLegend_friendlyTargetingHeader_ControlDescText_FontStringObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject : Texture
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject = {}
+---@class GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object : Frame
+---@field ActiveTexture GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_ActiveTextureObject
+---@field DisabledTexture GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_DisabledTextureObject
+---@field HoldAnim GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_HoldAnimObject
+---@field HoldIndicator GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_HoverTextureObject
+---@field LoadBar GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_LoadBarObject
+---@field LoadBarBG GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_LoadBarGlowObject
+---@field NormalTexture GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_NormalTextureObject
+---@field PressedTexture GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_PressedTextureObject
+---@field SpinnerTip GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object = {}
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object:ApplyTextureLayout(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object:CanEnterTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object:DisableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object:EnableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object:OnHoldAnimFinished(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object:OnHoldAnimStopped(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object:RefreshIconTextures(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object:SetEnabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object:SetHoldState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object:SetInputKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object:SetTextureHeight(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object:SetTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object:SetTextureWidth(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object:SetUsableState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject : Texture
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject = {}
+---@class GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_ActiveTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_ActiveTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject = {}
+---@class GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_DisabledTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_DisabledTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealthBarTextureObject : Texture
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_HealthBarTextureObject = {}
+---@class GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_HoldAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_LeftTextObject : FontString
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_LeftTextObject = {}
+---@class GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_HoldAnim_LoadBarAnimObject
+local GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject : Frame
----@field Fill PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject
----@field FillMask PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject
----@field fillAtlas string
----@field fillColor PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject
----@field initialized boolean
----@field statusBar PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject = {}
----@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:Initialize(...) end
----@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:OnLoad(...) end
----@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:SetFillColor(...) end
----@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:SetStatusBar(...) end
----@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:UpdateFillPosition(...) end
+---@class GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject : Texture
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject = {}
+---@class GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject : MaskTexture
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject = {}
+---@class GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_HoldIndicatorObject : Texture
+local GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_HoldIndicatorObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject = {}
+---@class GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_HoldIndicatorBGObject : Texture
+local GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_HoldIndicatorBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject = {}
+---@class GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_HoverTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_HoverTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject : Frame
----@field Fill PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject
----@field FillMask PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject
----@field fillAtlas string
----@field fillColor PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject
----@field initialized boolean
----@field statusBar PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject = {}
----@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:Initialize(...) end
----@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:OnLoad(...) end
----@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:SetFillColor(...) end
----@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:SetStatusBar(...) end
----@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:UpdateFillPosition(...) end
+---@class GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_LoadBarObject : Texture
+local GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_LoadBarObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject : Texture
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject = {}
+---@class GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_LoadBarBGObject : Texture
+local GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_LoadBarBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject : MaskTexture
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject = {}
+---@class GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_LoadBarGlowObject : Texture
+local GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_LoadBarGlowObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject = {}
+---@class GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_NormalTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_NormalTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject = {}
+---@class GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_PressedTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_PressedTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject : Texture
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject = {}
+---@class GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_SpinnerTipObject : Texture
+local GamepadPersistentInputLegend_friendlyTargetingHeader_InputIcon1_SpinnerTipObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject : Texture
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject = {}
+---@class GamepadPersistentInputLegend_groupsObject
+---@field FRIENDLY_TARGETING table
+---@field GAMEPLAY table
+---@field HOSTILE_TARGETING table
+---@field HUD table
+---@field MENU table
+---@field MODIFIER table
+local GamepadPersistentInputLegend_groupsObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_RightTextObject : FontString
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_RightTextObject = {}
+---@class GamepadPersistentInputLegend_headersObject
+---@field FRIENDLY_TARGETING boolean
+---@field HOSTILE_TARGETING boolean
+---@field HUD boolean
+---@field MODIFIER boolean
+local GamepadPersistentInputLegend_headersObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TextStringObject : FontString
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TextStringObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntriesObject
+---@field bottom GamepadPersistentInputLegend_hostileFaceEntries_bottomObject
+---@field left GamepadPersistentInputLegend_hostileFaceEntries_leftObject
+---@field right GamepadPersistentInputLegend_hostileFaceEntries_rightObject
+---@field top GamepadPersistentInputLegend_hostileFaceEntries_topObject
+local GamepadPersistentInputLegend_hostileFaceEntriesObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject : Frame
----@field Fill PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject
----@field FillMask PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject
----@field TiledFillOverlay PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject
----@field fillAtlas string
----@field fillColor PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject
----@field fillOverlays table
----@field initialized boolean
----@field statusBar PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject
----@field tiledFillOverlaySize number
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_bottomObject : Frame
+---@field ControlDescText GamepadPersistentInputLegend_hostileFaceEntries_bottom_ControlDescTextObject
+---@field InputIcon1 GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object
+---@field InputIcons table
+local GamepadPersistentInputLegend_hostileFaceEntries_bottomObject = {}
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:ApplyInactiveEnabledPromptStyling(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:DisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:EnableOrDisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:EnablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:GetDividerSpacingForPrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:GetDividerSpacingInfo(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:GetIconDividerControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:GetInputIconControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:Initialize(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:GetPromptTextControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:OnLoad(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:OnEvent(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:SetFillColor(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:SetStatusBar(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:OnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:UpdateFillPosition(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:RefreshInputPromptSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:SetCustomRefreshOnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:SetCustomRefreshWithCVar(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:SetCustomRefreshWithEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:SetCustomRefreshWithEvents(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:SetDividerType(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:SetInputIconSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:SetPromptFont(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:SetPromptInputIconKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:SetPromptText(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottomObject:SetUseDropShadow(...) end
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject : Texture
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_bottom_ControlDescTextObject : Frame
+---@field FontString GamepadPersistentInputLegend_hostileFaceEntries_bottom_ControlDescText_FontStringObject
+local GamepadPersistentInputLegend_hostileFaceEntries_bottom_ControlDescTextObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject : MaskTexture
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_bottom_ControlDescText_FontStringObject : FontString
+local GamepadPersistentInputLegend_hostileFaceEntries_bottom_ControlDescText_FontStringObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject : Texture
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object : Frame
+---@field ActiveTexture GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_ActiveTextureObject
+---@field DisabledTexture GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_DisabledTextureObject
+---@field HoldAnim GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_HoldAnimObject
+---@field HoldIndicator GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_HoverTextureObject
+---@field LoadBar GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_LoadBarObject
+---@field LoadBarBG GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_LoadBarGlowObject
+---@field NormalTexture GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_NormalTextureObject
+---@field PressedTexture GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_PressedTextureObject
+---@field SpinnerTip GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object = {}
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object:ApplyTextureLayout(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object:CanEnterTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object:DisableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object:EnableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object:OnHoldAnimFinished(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object:OnHoldAnimStopped(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object:RefreshIconTextures(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object:SetEnabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object:SetHoldState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object:SetInputKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object:SetTextureHeight(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object:SetTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object:SetTextureWidth(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object:SetUsableState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_ActiveTextureObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_ActiveTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_DisabledTextureObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_DisabledTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_partyFrameObject
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_partyFrameObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_HoldAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_unitFrameObject
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_healthBar_unitFrameObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarAnimObject
+local GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainerObject : Frame
----@field CenterText PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject
----@field HealthBar PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject
----@field HealthBarMask PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject
----@field LeftText PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject
----@field RightText PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject
----@field TempMaxHealthLoss PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject
----@field smartNavigationIgnored boolean
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainerObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_HoldIndicatorObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_HoldIndicatorObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject : MaskTexture
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_HoldIndicatorBGObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_HoldIndicatorBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_HoverTextureObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_HoverTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_LoadBarObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_LoadBarObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject
-local PartyFrame_MemberFrame2_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_LoadBarBGObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_LoadBarBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_threatIndicatorObject : Texture
----@field feedbackUnit string
----@field unit string
-local PartyFrame_MemberFrame2_threatIndicatorObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_LoadBarGlowObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_LoadBarGlowObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame2_totalAbsorbBarObject
-local PartyFrame_MemberFrame2_totalAbsorbBarObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_NormalTextureObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_NormalTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3Object : Button
----@field ArtLayoutInfo PartyFrame_MemberFrame3_ArtLayoutInfoObject
----@field AuraFrameContainer PartyFrame_MemberFrame3_AuraFrameContainerObject
----@field AuraFramePool PartyFrame_MemberFrame3_AuraFramePoolObject
----@field Flash PartyFrame_MemberFrame3_FlashObject
----@field HealthBarContainer PartyFrame_MemberFrame3_HealthBarContainerObject
----@field ManaBar PartyFrame_MemberFrame3_ManaBarObject
----@field Name PartyFrame_MemberFrame3_NameObject
----@field NotPresentIcon PartyFrame_MemberFrame3_NotPresentIconObject
----@field PartyMemberOverlay PartyFrame_MemberFrame3_PartyMemberOverlayObject
----@field PetFrame PartyFrame_MemberFrame3_PetFrameObject
----@field Portrait PartyFrame_MemberFrame3_PortraitObject
----@field PortraitMask PartyFrame_MemberFrame3_PortraitMaskObject
----@field PowerBarAlt PartyFrame_MemberFrame3_PowerBarAltObject
----@field ReadyCheck PartyFrame_MemberFrame3_ReadyCheckObject
----@field ResurrectableIndicator PartyFrame_MemberFrame3_ResurrectableIndicatorObject
----@field Texture PartyFrame_MemberFrame3_TextureObject
----@field VehicleTexture PartyFrame_MemberFrame3_VehicleTextureObject
----@field debuffCountdown number
----@field frameType string
----@field healAbsorbBar PartyFrame_MemberFrame3_healAbsorbBarObject
----@field healthbar PartyFrame_MemberFrame3_healthbarObject
----@field initialized boolean
----@field layoutIndex number
----@field manabar PartyFrame_MemberFrame3_manabarObject
----@field myHealPredictionBar PartyFrame_MemberFrame3_myHealPredictionBarObject
----@field name PartyFrame_MemberFrame3_nameObject
----@field noContextActions boolean
----@field numDebuffs number
----@field otherHealPredictionBar PartyFrame_MemberFrame3_otherHealPredictionBarObject
----@field overAbsorbGlow PartyFrame_MemberFrame3_overAbsorbGlowObject
----@field overHealAbsorbGlow PartyFrame_MemberFrame3_overHealAbsorbGlowObject
----@field petUnitToken string
----@field portrait PartyFrame_MemberFrame3_portraitObject
----@field replacePortraitSettingChangedHandlers table
----@field state string
----@field statusCounter number
----@field statusSign number
----@field tempMaxHealthLossBar PartyFrame_MemberFrame3_tempMaxHealthLossBarObject
----@field threatIndicator PartyFrame_MemberFrame3_threatIndicatorObject
----@field totalAbsorbBar PartyFrame_MemberFrame3_totalAbsorbBarObject
----@field unit string
----@field unitHPPercent number
----@field unitToken string
-local PartyFrame_MemberFrame3Object = {}
----@return any ...
-function PartyFrame_MemberFrame3Object:GetAllowRadialWheel(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:GetIsPingable(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:GetTargetInfo(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:GetUnit(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:OnEnter(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:OnEvent(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:OnLeave(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:OnUpdate(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:ParseAllAuras(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:PartyMemberHealthCheck(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:Setup(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:ToCharacterStyleArt(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:ToPlayerArt(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:ToVehicleArt(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:UpdateArt(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:UpdateAssignedRoles(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:UpdateAuras(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:UpdateAurasInternal(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:UpdateHealthBarTextAnchors(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:UpdateLeader(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:UpdateManaBarTextAnchors(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:UpdateMember(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:UpdateMemberAuras(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:UpdateMemberHealth(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:UpdateNameTextAnchors(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:UpdateNotPresentIcon(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:UpdateOnlineStatus(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:UpdatePet(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:UpdatePingAttributes(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:UpdatePvPStatus(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:UpdateReadyCheck(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:UpdateVoiceActivityNotification(...) end
----@return any ...
-function PartyFrame_MemberFrame3Object:VoiceActivityNotificationCreatedCallback(...) end
+---@class GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_PressedTextureObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_PressedTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_ArtLayoutInfoObject
----@field Character table
----@field Player table
----@field Vehicle table
-local PartyFrame_MemberFrame3_ArtLayoutInfoObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_SpinnerTipObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_bottom_InputIcon1_SpinnerTipObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_AuraFrameContainerObject : Frame
----@field spacing number
-local PartyFrame_MemberFrame3_AuraFrameContainerObject = {}
----@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:AddLayoutChildren(...) end
----@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:CalculateFrameSize(...) end
----@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:ClearFixedSize(...) end
+---@class GamepadPersistentInputLegend_hostileFaceEntries_leftObject : Frame
+---@field ControlDescText GamepadPersistentInputLegend_hostileFaceEntries_left_ControlDescTextObject
+---@field InputIcon1 GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object
+---@field InputIcons table
+local GamepadPersistentInputLegend_hostileFaceEntries_leftObject = {}
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetAdditionalRegions(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:ApplyInactiveEnabledPromptStyling(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetChildHeight(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:BeginHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetChildPadding(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:DisablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetChildSize(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:EnableOrDisablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetChildWidth(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:EnablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetFixedHeight(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:EndHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetFixedSize(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:GetDividerSpacingForPrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetFixedWidth(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:GetDividerSpacingInfo(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetHeightPadding(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:GetIconDividerControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetLayoutChildren(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:GetInputIconControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetPadding(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:GetPromptTextControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:GetWidthPadding(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:OnEvent(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:IgnoreLayoutIndex(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:IsDirty(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:OnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:IsLayoutFrame(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:RefreshInputPromptSize(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:Layout(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:SetCustomRefreshOnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:LayoutChildren(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:SetCustomRefreshWithCVar(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:MarkClean(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:SetCustomRefreshWithEvent(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:MarkDirty(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:SetCustomRefreshWithEvents(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:MarkIgnoreInLayout(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:OnCleaned(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:SetDividerType(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:OnShow(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:SetFocused(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:OnUpdate(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:SetInputIconSize(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:SetFixedHeight(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:SetFixedSize(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:SetPressable(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:SetFixedWidth(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:SetPromptFont(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:SetHeightPadding(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:SetPromptInputIconKey(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:SetWidthPadding(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:SetPromptText(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_AuraFrameContainerObject:ShouldClearOnUpdateAfterClean(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_leftObject:SetUseDropShadow(...) end
 end
 
 do
----@class PartyFrame_MemberFrame3_AuraFramePoolObject
-local PartyFrame_MemberFrame3_AuraFramePoolObject = {}
----@return any ...
-function PartyFrame_MemberFrame3_AuraFramePoolObject:GetTemplate(...) end
----@return any ...
-function PartyFrame_MemberFrame3_AuraFramePoolObject:private(...) end
-end
-
-do
----@class PartyFrame_MemberFrame3_FlashObject
-local PartyFrame_MemberFrame3_FlashObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_left_ControlDescTextObject : Frame
+---@field FontString GamepadPersistentInputLegend_hostileFaceEntries_left_ControlDescText_FontStringObject
+local GamepadPersistentInputLegend_hostileFaceEntries_left_ControlDescTextObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_HealthBarContainerObject
-local PartyFrame_MemberFrame3_HealthBarContainerObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_left_ControlDescText_FontStringObject : FontString
+local GamepadPersistentInputLegend_hostileFaceEntries_left_ControlDescText_FontStringObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_ManaBarObject : StatusBar
----@field CenterText PartyFrame_MemberFrame3_ManaBar_CenterTextObject
----@field LeftText PartyFrame_MemberFrame3_ManaBar_LeftTextObject
----@field ManaBarMask PartyFrame_MemberFrame3_ManaBar_ManaBarMaskObject
----@field RightText PartyFrame_MemberFrame3_ManaBar_RightTextObject
----@field TextString PartyFrame_MemberFrame3_ManaBar_TextStringObject
----@field Texture PartyFrame_MemberFrame3_ManaBar_TextureObject
----@field capNumericDisplay boolean
----@field controlsShownState boolean
----@field currValue number
----@field cvar string
----@field cvarLabel string
----@field disconnected boolean
----@field frequentUpdates boolean
----@field lockColor boolean
----@field lockShow number
----@field smartNavigationIgnored boolean
----@field textLockable number
----@field texture PartyFrame_MemberFrame3_ManaBar_textureObject
----@field unit string
----@field unitFrame PartyFrame_MemberFrame3_ManaBar_unitFrameObject
-local PartyFrame_MemberFrame3_ManaBarObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object : Frame
+---@field ActiveTexture GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_ActiveTextureObject
+---@field DisabledTexture GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_DisabledTextureObject
+---@field HoldAnim GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_HoldAnimObject
+---@field HoldIndicator GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_HoverTextureObject
+---@field LoadBar GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_LoadBarObject
+---@field LoadBarBG GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_LoadBarGlowObject
+---@field NormalTexture GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_NormalTextureObject
+---@field PressedTexture GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_PressedTextureObject
+---@field SpinnerTip GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object = {}
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object:ApplyTextureLayout(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object:CanEnterTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object:DisableDropShadow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_ManaBarObject:GetNumericDisplay(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object:EnableDropShadow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_ManaBarObject:HideStatusBarText(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object:EndHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_ManaBarObject:InitializeTextStatusBar(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object:OnHoldAnimFinished(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_ManaBarObject:OnStatusBarEnter(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object:OnHoldAnimStopped(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_ManaBarObject:OnStatusBarLeave(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_ManaBarObject:OnStatusBarMinMaxChanged(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object:RefreshIconTextures(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_ManaBarObject:OnStatusBarValueChanged(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_ManaBarObject:SetBarText(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object:SetEnabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_ManaBarObject:SetBarTextPrefix(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object:SetFocused(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_ManaBarObject:SetBarTextZeroText(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object:SetHoldState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_ManaBarObject:SetForceShow(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object:SetInputKey(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_ManaBarObject:ShowStatusBarText(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_ManaBarObject:TextStatusBarOnEvent(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object:SetPressable(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_ManaBarObject:UpdateTextString(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object:SetTextureHeight(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_ManaBarObject:UpdateTextStringWithValues(...) end
-end
-
-do
----@class PartyFrame_MemberFrame3_ManaBar_CenterTextObject
-local PartyFrame_MemberFrame3_ManaBar_CenterTextObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame3_ManaBar_LeftTextObject : FontString
-local PartyFrame_MemberFrame3_ManaBar_LeftTextObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame3_ManaBar_ManaBarMaskObject : MaskTexture
-local PartyFrame_MemberFrame3_ManaBar_ManaBarMaskObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame3_ManaBar_RightTextObject : FontString
-local PartyFrame_MemberFrame3_ManaBar_RightTextObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame3_ManaBar_TextStringObject : FontString
-local PartyFrame_MemberFrame3_ManaBar_TextStringObject = {}
+function GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object:SetTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object:SetTextureWidth(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object:SetUsableState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PartyFrame_MemberFrame3_ManaBar_TextureObject : Texture
-local PartyFrame_MemberFrame3_ManaBar_TextureObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_ActiveTextureObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_ActiveTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_ManaBar_textureObject
-local PartyFrame_MemberFrame3_ManaBar_textureObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_DisabledTextureObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_DisabledTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_ManaBar_unitFrameObject
-local PartyFrame_MemberFrame3_ManaBar_unitFrameObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_HoldAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_NameObject : FontString
-local PartyFrame_MemberFrame3_NameObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_HoldAnim_LoadBarAnimObject
+local GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_NotPresentIconObject : Frame
----@field Border PartyFrame_MemberFrame3_NotPresentIcon_BorderObject
----@field smartNavigationIgnored boolean
----@field texture PartyFrame_MemberFrame3_NotPresentIcon_textureObject
-local PartyFrame_MemberFrame3_NotPresentIconObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_NotPresentIcon_BorderObject : Texture
-local PartyFrame_MemberFrame3_NotPresentIcon_BorderObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_NotPresentIcon_textureObject : Texture
-local PartyFrame_MemberFrame3_NotPresentIcon_textureObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_HoldIndicatorObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_HoldIndicatorObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PartyMemberOverlayObject : Frame
----@field Disconnect PartyFrame_MemberFrame3_PartyMemberOverlay_DisconnectObject
----@field GuideIcon PartyFrame_MemberFrame3_PartyMemberOverlay_GuideIconObject
----@field LeaderIcon PartyFrame_MemberFrame3_PartyMemberOverlay_LeaderIconObject
----@field PVPIcon PartyFrame_MemberFrame3_PartyMemberOverlay_PVPIconObject
----@field RoleIcon PartyFrame_MemberFrame3_PartyMemberOverlay_RoleIconObject
----@field Status PartyFrame_MemberFrame3_PartyMemberOverlay_StatusObject
----@field smartNavigationIgnored boolean
-local PartyFrame_MemberFrame3_PartyMemberOverlayObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_HoldIndicatorBGObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_HoldIndicatorBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PartyMemberOverlay_DisconnectObject : Texture
-local PartyFrame_MemberFrame3_PartyMemberOverlay_DisconnectObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_HoverTextureObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_HoverTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PartyMemberOverlay_GuideIconObject : Texture
-local PartyFrame_MemberFrame3_PartyMemberOverlay_GuideIconObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_LoadBarObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_LoadBarObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PartyMemberOverlay_LeaderIconObject : Texture
-local PartyFrame_MemberFrame3_PartyMemberOverlay_LeaderIconObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_LoadBarBGObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_LoadBarBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PartyMemberOverlay_PVPIconObject : Texture
-local PartyFrame_MemberFrame3_PartyMemberOverlay_PVPIconObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_LoadBarGlowObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_LoadBarGlowObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PartyMemberOverlay_RoleIconObject : Texture
-local PartyFrame_MemberFrame3_PartyMemberOverlay_RoleIconObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_NormalTextureObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_NormalTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PartyMemberOverlay_StatusObject : Texture
-local PartyFrame_MemberFrame3_PartyMemberOverlay_StatusObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_PressedTextureObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_PressedTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PetFrameObject : Button
----@field AuraFrameContainer PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject
----@field AuraFramePool PartyFrame_MemberFrame3_PetFrame_AuraFramePoolObject
----@field Flash PartyFrame_MemberFrame3_PetFrame_FlashObject
----@field HealthBar PartyFrame_MemberFrame3_PetFrame_HealthBarObject
----@field Name PartyFrame_MemberFrame3_PetFrame_NameObject
----@field Portrait PartyFrame_MemberFrame3_PetFrame_PortraitObject
----@field PortraitMask PartyFrame_MemberFrame3_PetFrame_PortraitMaskObject
----@field Texture PartyFrame_MemberFrame3_PetFrame_TextureObject
----@field buffs PartyFrame_MemberFrame3_PetFrame_buffsObject
----@field debuffs PartyFrame_MemberFrame3_PetFrame_debuffsObject
----@field healthbar PartyFrame_MemberFrame3_PetFrame_healthbarObject
----@field name PartyFrame_MemberFrame3_PetFrame_nameObject
----@field noContextActions boolean
----@field portrait PartyFrame_MemberFrame3_PetFrame_portraitObject
----@field replacePortraitSettingChangedHandlers table
----@field threatIndicator PartyFrame_MemberFrame3_PetFrame_threatIndicatorObject
----@field unit string
----@field unitToken string
-local PartyFrame_MemberFrame3_PetFrameObject = {}
----@return any ...
-function PartyFrame_MemberFrame3_PetFrameObject:OnEnter(...) end
----@return any ...
-function PartyFrame_MemberFrame3_PetFrameObject:OnEvent(...) end
----@return any ...
-function PartyFrame_MemberFrame3_PetFrameObject:OnLeave(...) end
----@return any ...
-function PartyFrame_MemberFrame3_PetFrameObject:OnShow(...) end
----@return any ...
-function PartyFrame_MemberFrame3_PetFrameObject:ParseAllAuras(...) end
----@return any ...
-function PartyFrame_MemberFrame3_PetFrameObject:Setup(...) end
----@return any ...
-function PartyFrame_MemberFrame3_PetFrameObject:UpdateAuras(...) end
----@return any ...
-function PartyFrame_MemberFrame3_PetFrameObject:UpdateAurasInternal(...) end
----@return any ...
-function PartyFrame_MemberFrame3_PetFrameObject:UpdateMemberAuras(...) end
+---@class GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_SpinnerTipObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_left_InputIcon1_SpinnerTipObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject : Frame
----@field dirty boolean
----@field smartNavigationIgnored boolean
----@field spacing number
-local PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject = {}
----@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:AddLayoutChildren(...) end
+---@class GamepadPersistentInputLegend_hostileFaceEntries_rightObject : Frame
+---@field ControlDescText GamepadPersistentInputLegend_hostileFaceEntries_right_ControlDescTextObject
+---@field InputIcon1 GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object
+---@field InputIcons table
+local GamepadPersistentInputLegend_hostileFaceEntries_rightObject = {}
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:CalculateFrameSize(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:ApplyInactiveEnabledPromptStyling(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:ClearFixedSize(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:BeginHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetAdditionalRegions(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:DisablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetChildHeight(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:EnableOrDisablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetChildPadding(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:EnablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetChildSize(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:EndHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetChildWidth(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:GetDividerSpacingForPrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetFixedHeight(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:GetDividerSpacingInfo(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetFixedSize(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:GetIconDividerControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetFixedWidth(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:GetInputIconControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetHeightPadding(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:GetPromptTextControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetLayoutChildren(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:OnEvent(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetPadding(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:GetWidthPadding(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:OnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:IgnoreLayoutIndex(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:RefreshInputPromptSize(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:IsDirty(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:SetCustomRefreshOnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:IsLayoutFrame(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:SetCustomRefreshWithCVar(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:Layout(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:SetCustomRefreshWithEvent(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:LayoutChildren(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:SetCustomRefreshWithEvents(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:MarkClean(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:MarkDirty(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:SetDividerType(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:MarkIgnoreInLayout(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:SetFocused(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:OnCleaned(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:SetInputIconSize(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:OnShow(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:OnUpdate(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:SetPressable(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:SetFixedHeight(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:SetPromptFont(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:SetFixedSize(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:SetPromptInputIconKey(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:SetFixedWidth(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:SetPromptText(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:SetHeightPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:SetWidthPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFrameContainerObject:ShouldClearOnUpdateAfterClean(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_rightObject:SetUseDropShadow(...) end
 end
 
 do
----@class PartyFrame_MemberFrame3_PetFrame_AuraFramePoolObject
-local PartyFrame_MemberFrame3_PetFrame_AuraFramePoolObject = {}
----@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFramePoolObject:GetTemplate(...) end
----@return any ...
-function PartyFrame_MemberFrame3_PetFrame_AuraFramePoolObject:private(...) end
+---@class GamepadPersistentInputLegend_hostileFaceEntries_right_ControlDescTextObject : Frame
+---@field FontString GamepadPersistentInputLegend_hostileFaceEntries_right_ControlDescText_FontStringObject
+local GamepadPersistentInputLegend_hostileFaceEntries_right_ControlDescTextObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PetFrame_FlashObject
-local PartyFrame_MemberFrame3_PetFrame_FlashObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_right_ControlDescText_FontStringObject : FontString
+local GamepadPersistentInputLegend_hostileFaceEntries_right_ControlDescText_FontStringObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PetFrame_HealthBarObject : StatusBar
----@field capNumericDisplay boolean
----@field controlsShownState boolean
----@field currValue number
----@field disconnected boolean
----@field forceHideText boolean
----@field frequentUpdates boolean
----@field lockShow number
----@field smartNavigationIgnored boolean
----@field unit string
----@field unitFrame PartyFrame_MemberFrame3_PetFrame_HealthBar_unitFrameObject
-local PartyFrame_MemberFrame3_PetFrame_HealthBarObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object : Frame
+---@field ActiveTexture GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_ActiveTextureObject
+---@field DisabledTexture GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_DisabledTextureObject
+---@field HoldAnim GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_HoldAnimObject
+---@field HoldIndicator GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_HoverTextureObject
+---@field LoadBar GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_LoadBarObject
+---@field LoadBarBG GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_LoadBarGlowObject
+---@field NormalTexture GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_NormalTextureObject
+---@field PressedTexture GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_PressedTextureObject
+---@field SpinnerTip GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object = {}
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:GetNumericDisplay(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object:ApplyTextureLayout(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:HideStatusBarText(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object:BeginHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:InitializeTextStatusBar(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object:CanEnterTextureState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:OnStatusBarEnter(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object:DisableDropShadow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:OnStatusBarLeave(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object:EnableDropShadow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:OnStatusBarMinMaxChanged(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object:EndHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:OnStatusBarValueChanged(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object:OnHoldAnimFinished(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:SetBarText(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object:OnHoldAnimStopped(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:SetBarTextPrefix(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:SetBarTextZeroText(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object:RefreshIconTextures(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:SetForceShow(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:ShowStatusBarText(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object:SetEnabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:TextStatusBarOnEvent(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object:SetFocused(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:UpdateTextString(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object:SetHoldState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_HealthBarObject:UpdateTextStringWithValues(...) end
-end
-
-do
----@class PartyFrame_MemberFrame3_PetFrame_HealthBar_unitFrameObject
-local PartyFrame_MemberFrame3_PetFrame_HealthBar_unitFrameObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame3_PetFrame_NameObject : FontString
-local PartyFrame_MemberFrame3_PetFrame_NameObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame3_PetFrame_PortraitObject
-local PartyFrame_MemberFrame3_PetFrame_PortraitObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame3_PetFrame_PortraitMaskObject : MaskTexture
-local PartyFrame_MemberFrame3_PetFrame_PortraitMaskObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame3_PetFrame_TextureObject : Texture
-local PartyFrame_MemberFrame3_PetFrame_TextureObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame3_PetFrame_buffsObject
-local PartyFrame_MemberFrame3_PetFrame_buffsObject = {}
----@return any ...
-function PartyFrame_MemberFrame3_PetFrame_buffsObject:Clear(...) end
----@return any ...
-function PartyFrame_MemberFrame3_PetFrame_buffsObject:Get(...) end
----@return any ...
-function PartyFrame_MemberFrame3_PetFrame_buffsObject:GetBottom(...) end
----@return any ...
-function PartyFrame_MemberFrame3_PetFrame_buffsObject:GetTop(...) end
----@return any ...
-function PartyFrame_MemberFrame3_PetFrame_buffsObject:Iterate(...) end
----@return any ...
-function PartyFrame_MemberFrame3_PetFrame_buffsObject:Pop(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object:SetInputKey(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_buffsObject:Remove(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_buffsObject:Size(...) end
-end
-
-do
----@class PartyFrame_MemberFrame3_PetFrame_debuffsObject
-local PartyFrame_MemberFrame3_PetFrame_debuffsObject = {}
----@return any ...
-function PartyFrame_MemberFrame3_PetFrame_debuffsObject:Clear(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object:SetPressable(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_debuffsObject:Get(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object:SetTextureHeight(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_debuffsObject:GetBottom(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object:SetTextureState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_debuffsObject:GetTop(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object:SetTextureWidth(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_debuffsObject:Iterate(...) end
+function GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object:SetUsableState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PetFrame_debuffsObject:Pop(...) end
----@return any ...
-function PartyFrame_MemberFrame3_PetFrame_debuffsObject:Remove(...) end
----@return any ...
-function PartyFrame_MemberFrame3_PetFrame_debuffsObject:Size(...) end
-end
-
-do
----@class PartyFrame_MemberFrame3_PetFrame_healthbarObject
-local PartyFrame_MemberFrame3_PetFrame_healthbarObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame3_PetFrame_nameObject
-local PartyFrame_MemberFrame3_PetFrame_nameObject = {}
+function GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PartyFrame_MemberFrame3_PetFrame_portraitObject : Texture
-local PartyFrame_MemberFrame3_PetFrame_portraitObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_ActiveTextureObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_ActiveTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PetFrame_threatIndicatorObject : Texture
----@field feedbackUnit string
----@field unit string
-local PartyFrame_MemberFrame3_PetFrame_threatIndicatorObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_DisabledTextureObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_DisabledTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PortraitObject : Texture
-local PartyFrame_MemberFrame3_PortraitObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_HoldAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PortraitMaskObject : MaskTexture
-local PartyFrame_MemberFrame3_PortraitMaskObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_HoldAnim_LoadBarAnimObject
+local GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAltObject : Frame
----@field background PartyFrame_MemberFrame3_PowerBarAlt_backgroundObject
----@field counterBar PartyFrame_MemberFrame3_PowerBarAlt_counterBarObject
----@field fill PartyFrame_MemberFrame3_PowerBarAlt_fillObject
----@field flash PartyFrame_MemberFrame3_PowerBarAlt_flashObject
----@field flashAnim PartyFrame_MemberFrame3_PowerBarAlt_flashAnimObject
----@field flashOutAnim PartyFrame_MemberFrame3_PowerBarAlt_flashOutAnimObject
----@field frame PartyFrame_MemberFrame3_PowerBarAlt_frameObject
----@field pillFrames table
----@field scale number
----@field smartNavigationIgnored boolean
----@field spark PartyFrame_MemberFrame3_PowerBarAlt_sparkObject
----@field statusFrame PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject
----@field unit string
----@field updateAllEvent string
-local PartyFrame_MemberFrame3_PowerBarAltObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_backgroundObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_backgroundObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBarObject : Frame
----@field BG PartyFrame_MemberFrame3_PowerBarAlt_counterBar_BGObject
----@field BGL PartyFrame_MemberFrame3_PowerBarAlt_counterBar_BGLObject
----@field BGR PartyFrame_MemberFrame3_PowerBarAlt_counterBar_BGRObject
----@field artBottom PartyFrame_MemberFrame3_PowerBarAlt_counterBar_artBottomObject
----@field artTop PartyFrame_MemberFrame3_PowerBarAlt_counterBar_artTopObject
----@field digit1 PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit1Object
----@field digit2 PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit2Object
----@field digit3 PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit3Object
----@field digit4 PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit4Object
----@field digit5 PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit5Object
----@field digit6 PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit6Object
----@field digit7 PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit7Object
----@field unit string
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBarObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_HoldIndicatorObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_HoldIndicatorObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_BGObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_BGObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_HoldIndicatorBGObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_HoldIndicatorBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_BGLObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_BGLObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_HoverTextureObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_HoverTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_BGRObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_BGRObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_LoadBarObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_LoadBarObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_artBottomObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_artBottomObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_LoadBarBGObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_LoadBarBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_artTopObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_artTopObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_LoadBarGlowObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_LoadBarGlowObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit1Object : Frame
----@field number PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit1_numberObject
----@field numberMask PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit1_numberMaskObject
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit1Object = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_NormalTextureObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_NormalTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit1_numberObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit1_numberObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_PressedTextureObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_PressedTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit1_numberMaskObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit1_numberMaskObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_SpinnerTipObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_right_InputIcon1_SpinnerTipObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit2Object : Frame
----@field number PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit2_numberObject
----@field numberMask PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit2_numberMaskObject
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit2Object = {}
-end
-
-do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit2_numberObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit2_numberObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_topObject : Frame
+---@field ControlDescText GamepadPersistentInputLegend_hostileFaceEntries_top_ControlDescTextObject
+---@field InputIcon1 GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object
+---@field InputIcons table
+---@field MarkerDisplayTexture GamepadPersistentInputLegend_hostileFaceEntries_top_MarkerDisplayTextureObject
+local GamepadPersistentInputLegend_hostileFaceEntries_topObject = {}
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:ApplyInactiveEnabledPromptStyling(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:DisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:EnableOrDisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:EnablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:GetDividerSpacingForPrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:GetDividerSpacingInfo(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:GetIconDividerControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:GetInputIconControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:GetPromptTextControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:OnEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:OnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:PLAYER_TARGET_CHANGED(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:RAID_TARGET_UPDATE(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:RefreshInputPromptSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:RefreshOnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:SetCustomRefreshOnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:SetCustomRefreshWithCVar(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:SetCustomRefreshWithEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:SetCustomRefreshWithEvents(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:SetDividerType(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:SetInputIconSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:SetPromptFont(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:SetPromptInputIconKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:SetPromptText(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_topObject:SetUseDropShadow(...) end
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit2_numberMaskObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit2_numberMaskObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_top_ControlDescTextObject : Frame
+---@field FontString GamepadPersistentInputLegend_hostileFaceEntries_top_ControlDescText_FontStringObject
+local GamepadPersistentInputLegend_hostileFaceEntries_top_ControlDescTextObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit3Object : Frame
----@field number PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit3_numberObject
----@field numberMask PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit3_numberMaskObject
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit3Object = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_top_ControlDescText_FontStringObject : FontString
+local GamepadPersistentInputLegend_hostileFaceEntries_top_ControlDescText_FontStringObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit3_numberObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit3_numberObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object : Frame
+---@field ActiveTexture GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_ActiveTextureObject
+---@field DisabledTexture GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_DisabledTextureObject
+---@field HoldAnim GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_HoldAnimObject
+---@field HoldIndicator GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_HoverTextureObject
+---@field LoadBar GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_LoadBarObject
+---@field LoadBarBG GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_LoadBarGlowObject
+---@field NormalTexture GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_NormalTextureObject
+---@field PressedTexture GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_PressedTextureObject
+---@field SpinnerTip GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object = {}
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object:ApplyTextureLayout(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object:CanEnterTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object:DisableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object:EnableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object:OnHoldAnimFinished(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object:OnHoldAnimStopped(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object:RefreshIconTextures(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object:SetEnabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object:SetHoldState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object:SetInputKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object:SetTextureHeight(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object:SetTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object:SetTextureWidth(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object:SetUsableState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit3_numberMaskObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit3_numberMaskObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_ActiveTextureObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_ActiveTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit4Object : Frame
----@field number PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit4_numberObject
----@field numberMask PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit4_numberMaskObject
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit4Object = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_DisabledTextureObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_DisabledTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit4_numberObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit4_numberObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_HoldAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit4_numberMaskObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit4_numberMaskObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_HoldAnim_LoadBarAnimObject
+local GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit5Object : Frame
----@field number PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit5_numberObject
----@field numberMask PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit5_numberMaskObject
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit5Object = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit5_numberObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit5_numberObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit5_numberMaskObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit5_numberMaskObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_HoldIndicatorObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_HoldIndicatorObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit6Object : Frame
----@field number PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit6_numberObject
----@field numberMask PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit6_numberMaskObject
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit6Object = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_HoldIndicatorBGObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_HoldIndicatorBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit6_numberObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit6_numberObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_HoverTextureObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_HoverTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit6_numberMaskObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit6_numberMaskObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_LoadBarObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_LoadBarObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit7Object : Frame
----@field number PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit7_numberObject
----@field numberMask PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit7_numberMaskObject
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit7Object = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_LoadBarBGObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_LoadBarBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit7_numberObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit7_numberObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_LoadBarGlowObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_LoadBarGlowObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit7_numberMaskObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_counterBar_digit7_numberMaskObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_NormalTextureObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_NormalTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_fillObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_fillObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_PressedTextureObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_PressedTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_flashObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_flashObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_SpinnerTipObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_top_InputIcon1_SpinnerTipObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_flashAnimObject : AnimationGroup
-local PartyFrame_MemberFrame3_PowerBarAlt_flashAnimObject = {}
+---@class GamepadPersistentInputLegend_hostileFaceEntries_top_MarkerDisplayTextureObject : Texture
+local GamepadPersistentInputLegend_hostileFaceEntries_top_MarkerDisplayTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_flashOutAnimObject : AnimationGroup
-local PartyFrame_MemberFrame3_PowerBarAlt_flashOutAnimObject = {}
+---@class GamepadPersistentInputLegend_hostileShortcutsEntryObject : Frame
+---@field ControlDescText GamepadPersistentInputLegend_hostileShortcutsEntry_ControlDescTextObject
+---@field InputIcon1 GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object
+---@field InputIcons table
+local GamepadPersistentInputLegend_hostileShortcutsEntryObject = {}
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:ApplyInactiveEnabledPromptStyling(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:DisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:EnableOrDisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:EnablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:GetDividerSpacingForPrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:GetDividerSpacingInfo(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:GetIconDividerControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:GetInputIconControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:GetPromptTextControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:OnEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:OnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:RefreshInputPromptSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:SetCustomRefreshOnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:SetCustomRefreshWithCVar(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:SetCustomRefreshWithEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:SetCustomRefreshWithEvents(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:SetDividerType(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:SetInputIconSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:SetPromptFont(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:SetPromptInputIconKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:SetPromptText(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntryObject:SetUseDropShadow(...) end
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_frameObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_frameObject = {}
+---@class GamepadPersistentInputLegend_hostileShortcutsEntry_ControlDescTextObject : Frame
+---@field FontString GamepadPersistentInputLegend_hostileShortcutsEntry_ControlDescText_FontStringObject
+local GamepadPersistentInputLegend_hostileShortcutsEntry_ControlDescTextObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_sparkObject : Texture
-local PartyFrame_MemberFrame3_PowerBarAlt_sparkObject = {}
+---@class GamepadPersistentInputLegend_hostileShortcutsEntry_ControlDescText_FontStringObject : FontString
+local GamepadPersistentInputLegend_hostileShortcutsEntry_ControlDescText_FontStringObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject : StatusBar
----@field alwaysShow number
----@field cvar string
----@field cvarLabel string
----@field lockShow number
----@field text PartyFrame_MemberFrame3_PowerBarAlt_statusFrame_textObject
----@field textLockable number
-local PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject = {}
+---@class GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object : Frame
+---@field ActiveTexture GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_ActiveTextureObject
+---@field DisabledTexture GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_DisabledTextureObject
+---@field HoldAnim GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_HoldAnimObject
+---@field HoldIndicator GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_HoverTextureObject
+---@field LoadBar GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_LoadBarObject
+---@field LoadBarBG GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_LoadBarGlowObject
+---@field NormalTexture GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_NormalTextureObject
+---@field PressedTexture GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_PressedTextureObject
+---@field SpinnerTip GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object = {}
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object:ApplyTextureLayout(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object:CanEnterTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object:DisableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object:EnableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object:EndHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:GetNumericDisplay(...) end
+function GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object:OnHoldAnimFinished(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:HideStatusBarText(...) end
+function GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object:OnHoldAnimStopped(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:InitializeTextStatusBar(...) end
+function GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:OnStatusBarEnter(...) end
+function GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object:RefreshIconTextures(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:OnStatusBarLeave(...) end
+function GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:OnStatusBarMinMaxChanged(...) end
+function GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object:SetEnabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:OnStatusBarValueChanged(...) end
+function GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object:SetFocused(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:SetBarText(...) end
+function GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object:SetHoldState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:SetBarTextPrefix(...) end
+function GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object:SetInputKey(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:SetBarTextZeroText(...) end
+function GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:SetForceShow(...) end
+function GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object:SetPressable(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:ShowStatusBarText(...) end
+function GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object:SetTextureHeight(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:TextStatusBarOnEvent(...) end
+function GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object:SetTextureState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:UpdateTextString(...) end
+function GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object:SetTextureWidth(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_PowerBarAlt_statusFrameObject:UpdateTextStringWithValues(...) end
+function GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object:SetUsableState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PartyFrame_MemberFrame3_PowerBarAlt_statusFrame_textObject : FontString
-local PartyFrame_MemberFrame3_PowerBarAlt_statusFrame_textObject = {}
+---@class GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_ActiveTextureObject : Texture
+local GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_ActiveTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_ReadyCheckObject : Frame
----@field Texture PartyFrame_MemberFrame3_ReadyCheck_TextureObject
----@field smartNavigationIgnored boolean
-local PartyFrame_MemberFrame3_ReadyCheckObject = {}
+---@class GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_DisabledTextureObject : Texture
+local GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_DisabledTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_ReadyCheck_TextureObject : Texture
-local PartyFrame_MemberFrame3_ReadyCheck_TextureObject = {}
+---@class GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_HoldAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_ResurrectableIndicatorObject : FontString
-local PartyFrame_MemberFrame3_ResurrectableIndicatorObject = {}
----@return any ...
-function PartyFrame_MemberFrame3_ResurrectableIndicatorObject:OnEnter(...) end
----@return any ...
-function PartyFrame_MemberFrame3_ResurrectableIndicatorObject:OnLeave(...) end
+---@class GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_HoldAnim_LoadBarAnimObject
+local GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_TextureObject : Texture
-local PartyFrame_MemberFrame3_TextureObject = {}
+---@class GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_VehicleTextureObject : Texture
-local PartyFrame_MemberFrame3_VehicleTextureObject = {}
+---@class GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_healAbsorbBarObject
-local PartyFrame_MemberFrame3_healAbsorbBarObject = {}
+---@class GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_HoldIndicatorObject : Texture
+local GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_HoldIndicatorObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_healthbarObject
-local PartyFrame_MemberFrame3_healthbarObject = {}
+---@class GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_HoldIndicatorBGObject : Texture
+local GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_HoldIndicatorBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_manabarObject
-local PartyFrame_MemberFrame3_manabarObject = {}
+---@class GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_HoverTextureObject : Texture
+local GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_HoverTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_myHealPredictionBarObject
-local PartyFrame_MemberFrame3_myHealPredictionBarObject = {}
+---@class GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_LoadBarObject : Texture
+local GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_LoadBarObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_nameObject
-local PartyFrame_MemberFrame3_nameObject = {}
+---@class GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_LoadBarBGObject : Texture
+local GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_LoadBarBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_otherHealPredictionBarObject
-local PartyFrame_MemberFrame3_otherHealPredictionBarObject = {}
+---@class GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_LoadBarGlowObject : Texture
+local GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_LoadBarGlowObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_overAbsorbGlowObject
-local PartyFrame_MemberFrame3_overAbsorbGlowObject = {}
+---@class GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_NormalTextureObject : Texture
+local GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_NormalTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_overHealAbsorbGlowObject
-local PartyFrame_MemberFrame3_overHealAbsorbGlowObject = {}
+---@class GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_PressedTextureObject : Texture
+local GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_PressedTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_portraitObject
-local PartyFrame_MemberFrame3_portraitObject = {}
+---@class GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_SpinnerTipObject : Texture
+local GamepadPersistentInputLegend_hostileShortcutsEntry_InputIcon1_SpinnerTipObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBarObject : StatusBar
----@field Texture PartyFrame_MemberFrame3_tempMaxHealthLossBar_TextureObject
----@field healthBar PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject
----@field initialized boolean
----@field myHealthBarContainer PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainerObject
-local PartyFrame_MemberFrame3_tempMaxHealthLossBarObject = {}
+---@class GamepadPersistentInputLegend_hostileTargetingHeaderObject : Frame
+---@field ControlDescText GamepadPersistentInputLegend_hostileTargetingHeader_ControlDescTextObject
+---@field InputIcon1 GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object
+---@field InputIcons table
+local GamepadPersistentInputLegend_hostileTargetingHeaderObject = {}
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBarObject:InitializeMaxHealthLossBar(...) end
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:ApplyInactiveEnabledPromptStyling(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBarObject:OnMaxHealthModifiersChanged(...) end
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:BeginHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBarObject:SetShouldAdjustHealthBarAnchor(...) end
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:DisablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBarObject:Update_MaxHealthLoss(...) end
-end
-
-do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_TextureObject : Texture
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_TextureObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject : StatusBar
----@field Background PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_BackgroundObject
----@field HealAbsorbBar PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject
----@field HealthBarTexture PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealthBarTextureObject
----@field LeftText PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_LeftTextObject
----@field MyHealPredictionBar PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject
----@field OtherHealPredictionBar PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject
----@field OverAbsorbGlow PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject
----@field OverHealAbsorbGlow PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject
----@field RightText PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_RightTextObject
----@field TextString PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TextStringObject
----@field TotalAbsorbBar PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject
----@field capNumericDisplay boolean
----@field controlsShownState boolean
----@field currValue number
----@field cvar string
----@field cvarLabel string
----@field disconnected boolean
----@field forceHideText boolean
----@field frequentUpdates boolean
----@field lockColor boolean
----@field lockShow number
----@field partyFrame PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_partyFrameObject
----@field textLockable number
----@field unit string
----@field unitFrame PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_unitFrameObject
----@field zeroText string
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject = {}
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:EnableOrDisablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:GetNumericDisplay(...) end
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:EnablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:HideStatusBarText(...) end
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:EndHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:InitializeTextStatusBar(...) end
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:GetDividerSpacingForPrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:OnStatusBarEnter(...) end
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:GetDividerSpacingInfo(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:OnStatusBarLeave(...) end
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:GetIconDividerControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:OnStatusBarMinMaxChanged(...) end
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:GetInputIconControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:OnStatusBarValueChanged(...) end
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:GetPromptTextControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:SetBarText(...) end
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:OnEvent(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:SetBarTextPrefix(...) end
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:SetBarTextZeroText(...) end
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:OnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:SetForceShow(...) end
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:RefreshInputPromptSize(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:ShowStatusBarText(...) end
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:SetCustomRefreshOnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:TextStatusBarOnEvent(...) end
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:SetCustomRefreshWithCVar(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:UpdateTextString(...) end
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:SetCustomRefreshWithEvent(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBarObject:UpdateTextStringWithValues(...) end
-end
-
-do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_BackgroundObject : Texture
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_BackgroundObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject : Frame
----@field Fill PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject
----@field FillMask PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject
----@field LeftShadow PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject
----@field RightShadow PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject
----@field fillAtlas string
----@field fillColor PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject
----@field fillOverlays table
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject = {}
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:SetCustomRefreshWithEvents(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:Initialize(...) end
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:SetDividerType(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:OnLoad(...) end
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:SetFocused(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:SetFillColor(...) end
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:SetInputIconSize(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:SetStatusBar(...) end
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:UpdateFillPosition(...) end
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:SetPromptFont(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:SetPromptInputIconKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:SetPromptText(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeaderObject:SetUseDropShadow(...) end
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject : Texture
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject = {}
+---@class GamepadPersistentInputLegend_hostileTargetingHeader_ControlDescTextObject : Frame
+---@field FontString GamepadPersistentInputLegend_hostileTargetingHeader_ControlDescText_FontStringObject
+local GamepadPersistentInputLegend_hostileTargetingHeader_ControlDescTextObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject : MaskTexture
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject = {}
+---@class GamepadPersistentInputLegend_hostileTargetingHeader_ControlDescText_FontStringObject : FontString
+local GamepadPersistentInputLegend_hostileTargetingHeader_ControlDescText_FontStringObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject : Texture
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject = {}
+---@class GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object : Frame
+---@field ActiveTexture GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_ActiveTextureObject
+---@field DisabledTexture GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_DisabledTextureObject
+---@field HoldAnim GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_HoldAnimObject
+---@field HoldIndicator GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_HoverTextureObject
+---@field LoadBar GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_LoadBarObject
+---@field LoadBarBG GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_LoadBarGlowObject
+---@field NormalTexture GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_NormalTextureObject
+---@field PressedTexture GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_PressedTextureObject
+---@field SpinnerTip GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object = {}
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object:ApplyTextureLayout(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object:CanEnterTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object:DisableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object:EnableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object:OnHoldAnimFinished(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object:OnHoldAnimStopped(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object:RefreshIconTextures(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object:SetEnabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object:SetHoldState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object:SetInputKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object:SetTextureHeight(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object:SetTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object:SetTextureWidth(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object:SetUsableState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject : Texture
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject = {}
+---@class GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_ActiveTextureObject : Texture
+local GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_ActiveTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject = {}
+---@class GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_DisabledTextureObject : Texture
+local GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_DisabledTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealthBarTextureObject : Texture
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_HealthBarTextureObject = {}
+---@class GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_HoldAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_LeftTextObject : FontString
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_LeftTextObject = {}
+---@class GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_HoldAnim_LoadBarAnimObject
+local GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject : Frame
----@field Fill PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject
----@field FillMask PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject
----@field fillAtlas string
----@field fillColor PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject
----@field initialized boolean
----@field statusBar PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject = {}
----@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:Initialize(...) end
----@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:OnLoad(...) end
----@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:SetFillColor(...) end
----@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:SetStatusBar(...) end
----@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:UpdateFillPosition(...) end
+---@class GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject : Texture
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject = {}
+---@class GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject : MaskTexture
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject = {}
+---@class GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_HoldIndicatorObject : Texture
+local GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_HoldIndicatorObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject = {}
+---@class GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_HoldIndicatorBGObject : Texture
+local GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_HoldIndicatorBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject = {}
+---@class GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_HoverTextureObject : Texture
+local GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_HoverTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject : Frame
----@field Fill PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject
----@field FillMask PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject
----@field fillAtlas string
----@field fillColor PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject
----@field initialized boolean
----@field statusBar PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject = {}
----@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:Initialize(...) end
----@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:OnLoad(...) end
----@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:SetFillColor(...) end
----@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:SetStatusBar(...) end
----@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:UpdateFillPosition(...) end
+---@class GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_LoadBarObject : Texture
+local GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_LoadBarObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject : Texture
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject = {}
+---@class GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_LoadBarBGObject : Texture
+local GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_LoadBarBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject : MaskTexture
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject = {}
+---@class GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_LoadBarGlowObject : Texture
+local GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_LoadBarGlowObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject = {}
+---@class GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_NormalTextureObject : Texture
+local GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_NormalTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject = {}
+---@class GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_PressedTextureObject : Texture
+local GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_PressedTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject : Texture
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject = {}
+---@class GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_SpinnerTipObject : Texture
+local GamepadPersistentInputLegend_hostileTargetingHeader_InputIcon1_SpinnerTipObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject : Texture
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject = {}
+---@class GamepadPersistentInputLegend_leftTargetingModEntryObject : Frame
+---@field ControlDescText GamepadPersistentInputLegend_leftTargetingModEntry_ControlDescTextObject
+---@field InputIcon1 GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object
+---@field InputIcons table
+local GamepadPersistentInputLegend_leftTargetingModEntryObject = {}
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:ApplyInactiveEnabledPromptStyling(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:DisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:EnableOrDisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:EnablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:GetDividerSpacingForPrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:GetDividerSpacingInfo(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:GetIconDividerControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:GetInputIconControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:GetPromptTextControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:OnEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:OnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:RefreshInputPromptSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:SetCustomRefreshOnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:SetCustomRefreshWithCVar(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:SetCustomRefreshWithEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:SetCustomRefreshWithEvents(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:SetDividerType(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:SetInputIconSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:SetPromptFont(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:SetPromptInputIconKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:SetPromptText(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntryObject:SetUseDropShadow(...) end
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_RightTextObject : FontString
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_RightTextObject = {}
+---@class GamepadPersistentInputLegend_leftTargetingModEntry_ControlDescTextObject : Frame
+---@field FontString GamepadPersistentInputLegend_leftTargetingModEntry_ControlDescText_FontStringObject
+local GamepadPersistentInputLegend_leftTargetingModEntry_ControlDescTextObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TextStringObject : FontString
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TextStringObject = {}
+---@class GamepadPersistentInputLegend_leftTargetingModEntry_ControlDescText_FontStringObject : FontString
+local GamepadPersistentInputLegend_leftTargetingModEntry_ControlDescText_FontStringObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject : Frame
----@field Fill PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject
----@field FillMask PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject
----@field TiledFillOverlay PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject
----@field fillAtlas string
----@field fillColor PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject
----@field fillOverlays table
----@field initialized boolean
----@field statusBar PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject
----@field tiledFillOverlaySize number
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject = {}
+---@class GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object : Frame
+---@field ActiveTexture GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_ActiveTextureObject
+---@field DisabledTexture GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_DisabledTextureObject
+---@field HoldAnim GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_HoldAnimObject
+---@field HoldIndicator GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_HoverTextureObject
+---@field LoadBar GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_LoadBarObject
+---@field LoadBarBG GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_LoadBarGlowObject
+---@field NormalTexture GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_NormalTextureObject
+---@field PressedTexture GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_PressedTextureObject
+---@field SpinnerTip GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object = {}
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object:ApplyTextureLayout(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object:CanEnterTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object:DisableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object:EnableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object:OnHoldAnimFinished(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object:OnHoldAnimStopped(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object:RefreshIconTextures(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object:SetEnabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object:SetHoldState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object:SetInputKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:Initialize(...) end
+function GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object:SetPressable(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:OnLoad(...) end
+function GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object:SetTextureHeight(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:SetFillColor(...) end
+function GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object:SetTextureState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:SetStatusBar(...) end
+function GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object:SetTextureWidth(...) end
 ---@return any ...
-function PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:UpdateFillPosition(...) end
-end
-
-do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject : Texture
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject = {}
+function GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object:SetUsableState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject : MaskTexture
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject = {}
+---@class GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_ActiveTextureObject : Texture
+local GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_ActiveTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject : Texture
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject = {}
+---@class GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_DisabledTextureObject : Texture
+local GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_DisabledTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject = {}
+---@class GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_HoldAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject = {}
+---@class GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_HoldAnim_LoadBarAnimObject
+local GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_partyFrameObject
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_partyFrameObject = {}
+---@class GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_unitFrameObject
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_healthBar_unitFrameObject = {}
+---@class GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainerObject : Frame
----@field CenterText PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject
----@field HealthBar PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject
----@field HealthBarMask PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject
----@field LeftText PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject
----@field RightText PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject
----@field TempMaxHealthLoss PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject
----@field smartNavigationIgnored boolean
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainerObject = {}
+---@class GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_HoldIndicatorObject : Texture
+local GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_HoldIndicatorObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject = {}
+---@class GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_HoldIndicatorBGObject : Texture
+local GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_HoldIndicatorBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject = {}
+---@class GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_HoverTextureObject : Texture
+local GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_HoverTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject : MaskTexture
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject = {}
+---@class GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_LoadBarObject : Texture
+local GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_LoadBarObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject = {}
+---@class GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_LoadBarBGObject : Texture
+local GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_LoadBarBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject = {}
+---@class GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_LoadBarGlowObject : Texture
+local GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_LoadBarGlowObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject
-local PartyFrame_MemberFrame3_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject = {}
+---@class GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_NormalTextureObject : Texture
+local GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_NormalTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_threatIndicatorObject : Texture
----@field feedbackUnit string
----@field unit string
-local PartyFrame_MemberFrame3_threatIndicatorObject = {}
+---@class GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_PressedTextureObject : Texture
+local GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_PressedTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame3_totalAbsorbBarObject
-local PartyFrame_MemberFrame3_totalAbsorbBarObject = {}
+---@class GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_SpinnerTipObject : Texture
+local GamepadPersistentInputLegend_leftTargetingModEntry_InputIcon1_SpinnerTipObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4Object : Button
----@field ArtLayoutInfo PartyFrame_MemberFrame4_ArtLayoutInfoObject
----@field AuraFrameContainer PartyFrame_MemberFrame4_AuraFrameContainerObject
----@field AuraFramePool PartyFrame_MemberFrame4_AuraFramePoolObject
----@field Flash PartyFrame_MemberFrame4_FlashObject
----@field HealthBarContainer PartyFrame_MemberFrame4_HealthBarContainerObject
----@field ManaBar PartyFrame_MemberFrame4_ManaBarObject
----@field Name PartyFrame_MemberFrame4_NameObject
----@field NotPresentIcon PartyFrame_MemberFrame4_NotPresentIconObject
----@field PartyMemberOverlay PartyFrame_MemberFrame4_PartyMemberOverlayObject
----@field PetFrame PartyFrame_MemberFrame4_PetFrameObject
----@field Portrait PartyFrame_MemberFrame4_PortraitObject
----@field PortraitMask PartyFrame_MemberFrame4_PortraitMaskObject
----@field PowerBarAlt PartyFrame_MemberFrame4_PowerBarAltObject
----@field ReadyCheck PartyFrame_MemberFrame4_ReadyCheckObject
----@field ResurrectableIndicator PartyFrame_MemberFrame4_ResurrectableIndicatorObject
----@field Texture PartyFrame_MemberFrame4_TextureObject
----@field VehicleTexture PartyFrame_MemberFrame4_VehicleTextureObject
----@field debuffCountdown number
----@field frameType string
----@field healAbsorbBar PartyFrame_MemberFrame4_healAbsorbBarObject
----@field healthbar PartyFrame_MemberFrame4_healthbarObject
----@field initialized boolean
----@field layoutIndex number
----@field manabar PartyFrame_MemberFrame4_manabarObject
----@field myHealPredictionBar PartyFrame_MemberFrame4_myHealPredictionBarObject
----@field name PartyFrame_MemberFrame4_nameObject
----@field noContextActions boolean
----@field numDebuffs number
----@field otherHealPredictionBar PartyFrame_MemberFrame4_otherHealPredictionBarObject
----@field overAbsorbGlow PartyFrame_MemberFrame4_overAbsorbGlowObject
----@field overHealAbsorbGlow PartyFrame_MemberFrame4_overHealAbsorbGlowObject
----@field petUnitToken string
----@field portrait PartyFrame_MemberFrame4_portraitObject
----@field replacePortraitSettingChangedHandlers table
----@field state string
----@field statusCounter number
----@field statusSign number
----@field tempMaxHealthLossBar PartyFrame_MemberFrame4_tempMaxHealthLossBarObject
----@field threatIndicator PartyFrame_MemberFrame4_threatIndicatorObject
----@field totalAbsorbBar PartyFrame_MemberFrame4_totalAbsorbBarObject
----@field unit string
----@field unitHPPercent number
----@field unitToken string
-local PartyFrame_MemberFrame4Object = {}
----@return any ...
-function PartyFrame_MemberFrame4Object:GetAllowRadialWheel(...) end
----@return any ...
-function PartyFrame_MemberFrame4Object:GetIsPingable(...) end
----@return any ...
-function PartyFrame_MemberFrame4Object:GetTargetInfo(...) end
----@return any ...
-function PartyFrame_MemberFrame4Object:GetUnit(...) end
+---@class GamepadPersistentInputLegend_rightTargetingModEntryObject : Frame
+---@field ControlDescText GamepadPersistentInputLegend_rightTargetingModEntry_ControlDescTextObject
+---@field InputIcon1 GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object
+---@field InputIcons table
+local GamepadPersistentInputLegend_rightTargetingModEntryObject = {}
 ---@return any ...
-function PartyFrame_MemberFrame4Object:OnEnter(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:ApplyInactiveEnabledPromptStyling(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:OnEvent(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:BeginHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:OnLeave(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:DisablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:OnUpdate(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:EnableOrDisablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:ParseAllAuras(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:EnablePrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:PartyMemberHealthCheck(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:EndHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:Setup(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:GetDividerSpacingForPrompt(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:ToCharacterStyleArt(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:GetDividerSpacingInfo(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:ToPlayerArt(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:GetIconDividerControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:ToVehicleArt(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:GetInputIconControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:UpdateArt(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:GetPromptTextControl(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:UpdateAssignedRoles(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:OnEvent(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:UpdateAuras(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:UpdateAurasInternal(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:OnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:UpdateHealthBarTextAnchors(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:RefreshInputPromptSize(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:UpdateLeader(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:SetCustomRefreshOnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:UpdateManaBarTextAnchors(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:SetCustomRefreshWithCVar(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:UpdateMember(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:SetCustomRefreshWithEvent(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:UpdateMemberAuras(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:SetCustomRefreshWithEvents(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:UpdateMemberHealth(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:UpdateNameTextAnchors(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:SetDividerType(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:UpdateNotPresentIcon(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:SetFocused(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:UpdateOnlineStatus(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:SetInputIconSize(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:UpdatePet(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:UpdatePingAttributes(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:SetPressable(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:UpdatePvPStatus(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:SetPromptFont(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:UpdateReadyCheck(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:SetPromptInputIconKey(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:UpdateVoiceActivityNotification(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:SetPromptText(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4Object:VoiceActivityNotificationCreatedCallback(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntryObject:SetUseDropShadow(...) end
 end
 
 do
----@class PartyFrame_MemberFrame4_ArtLayoutInfoObject
-local PartyFrame_MemberFrame4_ArtLayoutInfoObject = {}
+---@class GamepadPersistentInputLegend_rightTargetingModEntry_ControlDescTextObject : Frame
+---@field FontString GamepadPersistentInputLegend_rightTargetingModEntry_ControlDescText_FontStringObject
+local GamepadPersistentInputLegend_rightTargetingModEntry_ControlDescTextObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_AuraFrameContainerObject : Frame
----@field spacing number
-local PartyFrame_MemberFrame4_AuraFrameContainerObject = {}
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:AddLayoutChildren(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:CalculateFrameSize(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:ClearFixedSize(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetChildHeight(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetChildPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetChildSize(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetChildWidth(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetFixedHeight(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetFixedSize(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetFixedWidth(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetHeightPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetLayoutChildren(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:GetWidthPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:IsDirty(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:IsLayoutFrame(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:Layout(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:LayoutChildren(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:MarkClean(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:MarkDirty(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:OnCleaned(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:OnShow(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:OnUpdate(...) end
----@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:SetFixedHeight(...) end
+---@class GamepadPersistentInputLegend_rightTargetingModEntry_ControlDescText_FontStringObject : FontString
+local GamepadPersistentInputLegend_rightTargetingModEntry_ControlDescText_FontStringObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object : Frame
+---@field ActiveTexture GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_ActiveTextureObject
+---@field DisabledTexture GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_DisabledTextureObject
+---@field HoldAnim GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_HoldAnimObject
+---@field HoldIndicator GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_HoverTextureObject
+---@field LoadBar GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_LoadBarObject
+---@field LoadBarBG GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_LoadBarGlowObject
+---@field NormalTexture GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_NormalTextureObject
+---@field PressedTexture GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_PressedTextureObject
+---@field SpinnerTip GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object = {}
 ---@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:SetFixedSize(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object:ApplyTextureLayout(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:SetFixedWidth(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object:BeginHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:SetHeightPadding(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object:CanEnterTextureState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:SetWidthPadding(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object:DisableDropShadow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_AuraFrameContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class PartyFrame_MemberFrame4_AuraFramePoolObject
-local PartyFrame_MemberFrame4_AuraFramePoolObject = {}
+function GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object:EnableDropShadow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_AuraFramePoolObject:GetTemplate(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object:EndHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_AuraFramePoolObject:private(...) end
-end
-
-do
----@class PartyFrame_MemberFrame4_FlashObject
-local PartyFrame_MemberFrame4_FlashObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame4_HealthBarContainerObject
-local PartyFrame_MemberFrame4_HealthBarContainerObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame4_ManaBarObject : StatusBar
----@field CenterText PartyFrame_MemberFrame4_ManaBar_CenterTextObject
----@field LeftText PartyFrame_MemberFrame4_ManaBar_LeftTextObject
----@field ManaBarMask PartyFrame_MemberFrame4_ManaBar_ManaBarMaskObject
----@field RightText PartyFrame_MemberFrame4_ManaBar_RightTextObject
----@field TextString PartyFrame_MemberFrame4_ManaBar_TextStringObject
----@field Texture PartyFrame_MemberFrame4_ManaBar_TextureObject
----@field capNumericDisplay boolean
----@field controlsShownState boolean
----@field currValue number
----@field cvar string
----@field cvarLabel string
----@field disconnected boolean
----@field frequentUpdates boolean
----@field lockColor boolean
----@field lockShow number
----@field smartNavigationIgnored boolean
----@field textLockable number
----@field texture PartyFrame_MemberFrame4_ManaBar_textureObject
----@field unit string
----@field unitFrame PartyFrame_MemberFrame4_ManaBar_unitFrameObject
-local PartyFrame_MemberFrame4_ManaBarObject = {}
+function GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object:OnHoldAnimFinished(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_ManaBarObject:GetNumericDisplay(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object:OnHoldAnimStopped(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_ManaBarObject:HideStatusBarText(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_ManaBarObject:InitializeTextStatusBar(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object:RefreshIconTextures(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_ManaBarObject:OnStatusBarEnter(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_ManaBarObject:OnStatusBarLeave(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object:SetEnabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_ManaBarObject:OnStatusBarMinMaxChanged(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object:SetFocused(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_ManaBarObject:OnStatusBarValueChanged(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object:SetHoldState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_ManaBarObject:SetBarText(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object:SetInputKey(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_ManaBarObject:SetBarTextPrefix(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_ManaBarObject:SetBarTextZeroText(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object:SetPressable(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_ManaBarObject:SetForceShow(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object:SetTextureHeight(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_ManaBarObject:ShowStatusBarText(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object:SetTextureState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_ManaBarObject:TextStatusBarOnEvent(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object:SetTextureWidth(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_ManaBarObject:UpdateTextString(...) end
+function GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object:SetUsableState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_ManaBarObject:UpdateTextStringWithValues(...) end
-end
-
-do
----@class PartyFrame_MemberFrame4_ManaBar_CenterTextObject
-local PartyFrame_MemberFrame4_ManaBar_CenterTextObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame4_ManaBar_LeftTextObject : FontString
-local PartyFrame_MemberFrame4_ManaBar_LeftTextObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame4_ManaBar_ManaBarMaskObject : MaskTexture
-local PartyFrame_MemberFrame4_ManaBar_ManaBarMaskObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame4_ManaBar_RightTextObject : FontString
-local PartyFrame_MemberFrame4_ManaBar_RightTextObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame4_ManaBar_TextStringObject : FontString
-local PartyFrame_MemberFrame4_ManaBar_TextStringObject = {}
+function GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PartyFrame_MemberFrame4_ManaBar_TextureObject : Texture
-local PartyFrame_MemberFrame4_ManaBar_TextureObject = {}
+---@class GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_ActiveTextureObject : Texture
+local GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_ActiveTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_ManaBar_textureObject
-local PartyFrame_MemberFrame4_ManaBar_textureObject = {}
+---@class GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_DisabledTextureObject : Texture
+local GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_DisabledTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_ManaBar_unitFrameObject
-local PartyFrame_MemberFrame4_ManaBar_unitFrameObject = {}
+---@class GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_HoldAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_NameObject : FontString
-local PartyFrame_MemberFrame4_NameObject = {}
+---@class GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_HoldAnim_LoadBarAnimObject
+local GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_NotPresentIconObject : Frame
----@field Border PartyFrame_MemberFrame4_NotPresentIcon_BorderObject
----@field smartNavigationIgnored boolean
----@field texture PartyFrame_MemberFrame4_NotPresentIcon_textureObject
-local PartyFrame_MemberFrame4_NotPresentIconObject = {}
+---@class GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_NotPresentIcon_BorderObject : Texture
-local PartyFrame_MemberFrame4_NotPresentIcon_BorderObject = {}
+---@class GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_NotPresentIcon_textureObject : Texture
-local PartyFrame_MemberFrame4_NotPresentIcon_textureObject = {}
+---@class GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_HoldIndicatorObject : Texture
+local GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_HoldIndicatorObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PartyMemberOverlayObject : Frame
----@field Disconnect PartyFrame_MemberFrame4_PartyMemberOverlay_DisconnectObject
----@field GuideIcon PartyFrame_MemberFrame4_PartyMemberOverlay_GuideIconObject
----@field LeaderIcon PartyFrame_MemberFrame4_PartyMemberOverlay_LeaderIconObject
----@field PVPIcon PartyFrame_MemberFrame4_PartyMemberOverlay_PVPIconObject
----@field RoleIcon PartyFrame_MemberFrame4_PartyMemberOverlay_RoleIconObject
----@field Status PartyFrame_MemberFrame4_PartyMemberOverlay_StatusObject
----@field smartNavigationIgnored boolean
-local PartyFrame_MemberFrame4_PartyMemberOverlayObject = {}
+---@class GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_HoldIndicatorBGObject : Texture
+local GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_HoldIndicatorBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PartyMemberOverlay_DisconnectObject : Texture
-local PartyFrame_MemberFrame4_PartyMemberOverlay_DisconnectObject = {}
+---@class GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_HoverTextureObject : Texture
+local GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_HoverTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PartyMemberOverlay_GuideIconObject : Texture
-local PartyFrame_MemberFrame4_PartyMemberOverlay_GuideIconObject = {}
+---@class GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_LoadBarObject : Texture
+local GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_LoadBarObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PartyMemberOverlay_LeaderIconObject : Texture
-local PartyFrame_MemberFrame4_PartyMemberOverlay_LeaderIconObject = {}
+---@class GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_LoadBarBGObject : Texture
+local GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_LoadBarBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PartyMemberOverlay_PVPIconObject : Texture
-local PartyFrame_MemberFrame4_PartyMemberOverlay_PVPIconObject = {}
+---@class GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_LoadBarGlowObject : Texture
+local GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_LoadBarGlowObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PartyMemberOverlay_RoleIconObject : Texture
-local PartyFrame_MemberFrame4_PartyMemberOverlay_RoleIconObject = {}
+---@class GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_NormalTextureObject : Texture
+local GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_NormalTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PartyMemberOverlay_StatusObject : Texture
-local PartyFrame_MemberFrame4_PartyMemberOverlay_StatusObject = {}
+---@class GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_PressedTextureObject : Texture
+local GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_PressedTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PetFrameObject : Button
----@field AuraFrameContainer PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject
----@field AuraFramePool PartyFrame_MemberFrame4_PetFrame_AuraFramePoolObject
----@field Flash PartyFrame_MemberFrame4_PetFrame_FlashObject
----@field HealthBar PartyFrame_MemberFrame4_PetFrame_HealthBarObject
----@field Name PartyFrame_MemberFrame4_PetFrame_NameObject
----@field Portrait PartyFrame_MemberFrame4_PetFrame_PortraitObject
----@field PortraitMask PartyFrame_MemberFrame4_PetFrame_PortraitMaskObject
----@field Texture PartyFrame_MemberFrame4_PetFrame_TextureObject
----@field buffs PartyFrame_MemberFrame4_PetFrame_buffsObject
----@field debuffs PartyFrame_MemberFrame4_PetFrame_debuffsObject
----@field healthbar PartyFrame_MemberFrame4_PetFrame_healthbarObject
----@field name PartyFrame_MemberFrame4_PetFrame_nameObject
----@field noContextActions boolean
----@field portrait PartyFrame_MemberFrame4_PetFrame_portraitObject
----@field replacePortraitSettingChangedHandlers table
----@field threatIndicator PartyFrame_MemberFrame4_PetFrame_threatIndicatorObject
----@field unit string
----@field unitToken string
-local PartyFrame_MemberFrame4_PetFrameObject = {}
----@return any ...
-function PartyFrame_MemberFrame4_PetFrameObject:OnEnter(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrameObject:OnEvent(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrameObject:OnLeave(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrameObject:OnShow(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrameObject:ParseAllAuras(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrameObject:Setup(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrameObject:UpdateAuras(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrameObject:UpdateAurasInternal(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrameObject:UpdateMemberAuras(...) end
+---@class GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_SpinnerTipObject : Texture
+local GamepadPersistentInputLegend_rightTargetingModEntry_InputIcon1_SpinnerTipObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject : Frame
----@field dirty boolean
----@field smartNavigationIgnored boolean
----@field spacing number
-local PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject = {}
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:AddLayoutChildren(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:CalculateFrameSize(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:ClearFixedSize(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetChildHeight(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetChildPadding(...) end
+---@class GamepadRadialObject : Frame
+---@field Background GamepadRadial_BackgroundObject
+---@field ContextActionSelector GamepadRadial_ContextActionSelectorObject
+---@field HeaderText GamepadRadial_HeaderTextObject
+---@field PageIndicatorBackground GamepadRadial_PageIndicatorBackgroundObject
+---@field PageIndicatorCenter GamepadRadial_PageIndicatorCenterObject
+---@field PageIndicatorLeft GamepadRadial_PageIndicatorLeftObject
+---@field PageIndicatorRight GamepadRadial_PageIndicatorRightObject
+---@field PageLeftInputPrompt GamepadRadial_PageLeftInputPromptObject
+---@field PageRightInputPrompt GamepadRadial_PageRightInputPromptObject
+---@field Segment1 GamepadRadial_Segment1Object
+---@field Segment2 GamepadRadial_Segment2Object
+---@field Segment3 GamepadRadial_Segment3Object
+---@field Segment4 GamepadRadial_Segment4Object
+---@field Segment5 GamepadRadial_Segment5Object
+---@field Segment6 GamepadRadial_Segment6Object
+---@field Segment7 GamepadRadial_Segment7Object
+---@field Segment8 GamepadRadial_Segment8Object
+---@field SegmentHighlight GamepadRadial_SegmentHighlightObject
+---@field SegmentList table
+---@field inputBindings GamepadRadial_inputBindingsObject
+---@field mainMenuPages table
+---@field segmentOptions GamepadRadial_segmentOptionsObject
+local GamepadRadialObject = {}
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetChildSize(...) end
+function GamepadRadialObject:ActivateMainMenuOrExit(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetChildWidth(...) end
+function GamepadRadialObject:ActivateRadial(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetFixedHeight(...) end
+function GamepadRadialObject:BeginSelection(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetFixedSize(...) end
+function GamepadRadialObject:CancelSelection(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetFixedWidth(...) end
+function GamepadRadialObject:EndSelection(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetHeightPadding(...) end
+function GamepadRadialObject:FillSegmentData(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetLayoutChildren(...) end
+function GamepadRadialObject:InitializeRadialData(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetPadding(...) end
+function GamepadRadialObject:IsSelecting(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:GetWidthPadding(...) end
+function GamepadRadialObject:NextPage(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:IgnoreLayoutIndex(...) end
+function GamepadRadialObject:OnHide(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:IsDirty(...) end
+function GamepadRadialObject:OnKeyDown(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:IsLayoutFrame(...) end
+function GamepadRadialObject:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:Layout(...) end
+function GamepadRadialObject:OnShow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:LayoutChildren(...) end
+function GamepadRadialObject:PositionDisabledHighlight(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:MarkClean(...) end
+function GamepadRadialObject:PreviousPage(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:MarkDirty(...) end
+function GamepadRadialObject:ProcessInput(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:MarkIgnoreInLayout(...) end
+function GamepadRadialObject:SendRadialChat(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:OnCleaned(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:OnShow(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:OnUpdate(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:SetFixedHeight(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:SetFixedSize(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:SetFixedWidth(...) end
+function GamepadRadialObject:SetPagingIconVisibility(...) end
+---@type GamepadRadialObject
+GamepadRadial = GamepadRadialObject
+end
+
+do
+---@class GamepadRadial_BackgroundObject : Texture
+local GamepadRadial_BackgroundObject = {}
+end
+
+do
+---@class GamepadRadial_ContextActionSelectorObject : Frame
+---@field ContextIcon GamepadRadial_ContextActionSelector_ContextIconObject
+---@field CustomIndicatorList table
+---@field IndicatorBottom GamepadRadial_ContextActionSelector_IndicatorBottomObject
+---@field IndicatorLeft GamepadRadial_ContextActionSelector_IndicatorLeftObject
+---@field IndicatorRight GamepadRadial_ContextActionSelector_IndicatorRightObject
+---@field IndicatorTop GamepadRadial_ContextActionSelector_IndicatorTopObject
+---@field InputIndicator GamepadRadial_ContextActionSelector_InputIndicatorObject
+---@field RadialSelectorBackground GamepadRadial_ContextActionSelector_RadialSelectorBackgroundObject
+---@field defaultOptions GamepadRadial_ContextActionSelector_defaultOptionsObject
+---@field indicators GamepadRadial_ContextActionSelector_indicatorsObject
+---@field isDown table
+---@field options GamepadRadial_ContextActionSelector_optionsObject
+---@field radial GamepadRadial_ContextActionSelector_radialObject
+local GamepadRadial_ContextActionSelectorObject = {}
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:SetHeightPadding(...) end
+function GamepadRadial_ContextActionSelectorObject:Init(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:SetWidthPadding(...) end
+function GamepadRadial_ContextActionSelectorObject:OnButton(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFrameContainerObject:ShouldClearOnUpdateAfterClean(...) end
+function GamepadRadial_ContextActionSelectorObject:SetMenuOptions(...) end
 end
 
 do
----@class PartyFrame_MemberFrame4_PetFrame_AuraFramePoolObject
-local PartyFrame_MemberFrame4_PetFrame_AuraFramePoolObject = {}
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFramePoolObject:GetTemplate(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_AuraFramePoolObject:private(...) end
+---@class GamepadRadial_ContextActionSelector_ContextIconObject : Texture
+local GamepadRadial_ContextActionSelector_ContextIconObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PetFrame_FlashObject
-local PartyFrame_MemberFrame4_PetFrame_FlashObject = {}
+---@class GamepadRadial_ContextActionSelector_IndicatorBottomObject
+local GamepadRadial_ContextActionSelector_IndicatorBottomObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PetFrame_HealthBarObject : StatusBar
----@field capNumericDisplay boolean
----@field controlsShownState boolean
----@field currValue number
----@field disconnected boolean
----@field forceHideText boolean
----@field frequentUpdates boolean
----@field lockShow number
----@field smartNavigationIgnored boolean
----@field unit string
----@field unitFrame PartyFrame_MemberFrame4_PetFrame_HealthBar_unitFrameObject
-local PartyFrame_MemberFrame4_PetFrame_HealthBarObject = {}
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:GetNumericDisplay(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:HideStatusBarText(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:InitializeTextStatusBar(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:OnStatusBarEnter(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:OnStatusBarLeave(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:OnStatusBarMinMaxChanged(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:OnStatusBarValueChanged(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:SetBarText(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:SetBarTextPrefix(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:SetBarTextZeroText(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:SetForceShow(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:ShowStatusBarText(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:TextStatusBarOnEvent(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:UpdateTextString(...) end
----@return any ...
-function PartyFrame_MemberFrame4_PetFrame_HealthBarObject:UpdateTextStringWithValues(...) end
+---@class GamepadRadial_ContextActionSelector_IndicatorLeftObject
+local GamepadRadial_ContextActionSelector_IndicatorLeftObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PetFrame_HealthBar_unitFrameObject
-local PartyFrame_MemberFrame4_PetFrame_HealthBar_unitFrameObject = {}
+---@class GamepadRadial_ContextActionSelector_IndicatorRightObject : Frame
+---@field Highlight GamepadRadial_ContextActionSelector_IndicatorRight_HighlightObject
+---@field Label GamepadRadial_ContextActionSelector_IndicatorRight_LabelObject
+---@field contextMenu GamepadRadial_ContextActionSelector_IndicatorRight_contextMenuObject
+---@field radial GamepadRadial_ContextActionSelector_IndicatorRight_radialObject
+local GamepadRadial_ContextActionSelector_IndicatorRightObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PetFrame_NameObject : FontString
-local PartyFrame_MemberFrame4_PetFrame_NameObject = {}
+---@class GamepadRadial_ContextActionSelector_IndicatorRight_HighlightObject : Texture
+local GamepadRadial_ContextActionSelector_IndicatorRight_HighlightObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PetFrame_PortraitObject
-local PartyFrame_MemberFrame4_PetFrame_PortraitObject = {}
+---@class GamepadRadial_ContextActionSelector_IndicatorRight_LabelObject : FontString
+local GamepadRadial_ContextActionSelector_IndicatorRight_LabelObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PetFrame_PortraitMaskObject : MaskTexture
-local PartyFrame_MemberFrame4_PetFrame_PortraitMaskObject = {}
+---@class GamepadRadial_ContextActionSelector_IndicatorRight_contextMenuObject
+local GamepadRadial_ContextActionSelector_IndicatorRight_contextMenuObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PetFrame_TextureObject : Texture
-local PartyFrame_MemberFrame4_PetFrame_TextureObject = {}
+---@class GamepadRadial_ContextActionSelector_IndicatorRight_radialObject
+local GamepadRadial_ContextActionSelector_IndicatorRight_radialObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PetFrame_buffsObject
-local PartyFrame_MemberFrame4_PetFrame_buffsObject = {}
+---@class GamepadRadial_ContextActionSelector_IndicatorTopObject
+local GamepadRadial_ContextActionSelector_IndicatorTopObject = {}
+end
+
+do
+---@class GamepadRadial_ContextActionSelector_InputIndicatorObject : Frame
+---@field ActiveTexture GamepadRadial_ContextActionSelector_InputIndicator_ActiveTextureObject
+---@field DisabledTexture GamepadRadial_ContextActionSelector_InputIndicator_DisabledTextureObject
+---@field HoldAnim GamepadRadial_ContextActionSelector_InputIndicator_HoldAnimObject
+---@field HoldIndicator GamepadRadial_ContextActionSelector_InputIndicator_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadRadial_ContextActionSelector_InputIndicator_HoldIndicatorBGObject
+---@field HoverTexture GamepadRadial_ContextActionSelector_InputIndicator_HoverTextureObject
+---@field LoadBar GamepadRadial_ContextActionSelector_InputIndicator_LoadBarObject
+---@field LoadBarBG GamepadRadial_ContextActionSelector_InputIndicator_LoadBarBGObject
+---@field LoadBarGlow GamepadRadial_ContextActionSelector_InputIndicator_LoadBarGlowObject
+---@field NormalTexture GamepadRadial_ContextActionSelector_InputIndicator_NormalTextureObject
+---@field PressedTexture GamepadRadial_ContextActionSelector_InputIndicator_PressedTextureObject
+---@field SpinnerTip GamepadRadial_ContextActionSelector_InputIndicator_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadRadial_ContextActionSelector_InputIndicatorObject = {}
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_buffsObject:Clear(...) end
+function GamepadRadial_ContextActionSelector_InputIndicatorObject:ApplyTextureLayout(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_buffsObject:Get(...) end
+function GamepadRadial_ContextActionSelector_InputIndicatorObject:BeginHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_buffsObject:GetBottom(...) end
+function GamepadRadial_ContextActionSelector_InputIndicatorObject:CanEnterTextureState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_buffsObject:GetTop(...) end
+function GamepadRadial_ContextActionSelector_InputIndicatorObject:DisableDropShadow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_buffsObject:Iterate(...) end
+function GamepadRadial_ContextActionSelector_InputIndicatorObject:EnableDropShadow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_buffsObject:Pop(...) end
+function GamepadRadial_ContextActionSelector_InputIndicatorObject:EndHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_buffsObject:Remove(...) end
+function GamepadRadial_ContextActionSelector_InputIndicatorObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_buffsObject:Size(...) end
-end
-
-do
----@class PartyFrame_MemberFrame4_PetFrame_debuffsObject
-local PartyFrame_MemberFrame4_PetFrame_debuffsObject = {}
+function GamepadRadial_ContextActionSelector_InputIndicatorObject:OnHoldAnimStopped(...) end
+---@return any ...
+function GamepadRadial_ContextActionSelector_InputIndicatorObject:OnLoad(...) end
+---@return any ...
+function GamepadRadial_ContextActionSelector_InputIndicatorObject:RefreshIconTextures(...) end
+---@return any ...
+function GamepadRadial_ContextActionSelector_InputIndicatorObject:SetDisabled(...) end
+---@return any ...
+function GamepadRadial_ContextActionSelector_InputIndicatorObject:SetEnabled(...) end
+---@return any ...
+function GamepadRadial_ContextActionSelector_InputIndicatorObject:SetFocused(...) end
+---@return any ...
+function GamepadRadial_ContextActionSelector_InputIndicatorObject:SetHoldState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_debuffsObject:Clear(...) end
+function GamepadRadial_ContextActionSelector_InputIndicatorObject:SetInputKey(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_debuffsObject:Get(...) end
+function GamepadRadial_ContextActionSelector_InputIndicatorObject:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_debuffsObject:GetBottom(...) end
+function GamepadRadial_ContextActionSelector_InputIndicatorObject:SetPressable(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_debuffsObject:GetTop(...) end
+function GamepadRadial_ContextActionSelector_InputIndicatorObject:SetTextureHeight(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_debuffsObject:Iterate(...) end
+function GamepadRadial_ContextActionSelector_InputIndicatorObject:SetTextureState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_debuffsObject:Pop(...) end
+function GamepadRadial_ContextActionSelector_InputIndicatorObject:SetTextureWidth(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_debuffsObject:Remove(...) end
+function GamepadRadial_ContextActionSelector_InputIndicatorObject:SetUsableState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PetFrame_debuffsObject:Size(...) end
+function GamepadRadial_ContextActionSelector_InputIndicatorObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PartyFrame_MemberFrame4_PetFrame_healthbarObject
-local PartyFrame_MemberFrame4_PetFrame_healthbarObject = {}
+---@class GamepadRadial_ContextActionSelector_InputIndicator_ActiveTextureObject : Texture
+local GamepadRadial_ContextActionSelector_InputIndicator_ActiveTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PetFrame_nameObject
-local PartyFrame_MemberFrame4_PetFrame_nameObject = {}
+---@class GamepadRadial_ContextActionSelector_InputIndicator_DisabledTextureObject : Texture
+local GamepadRadial_ContextActionSelector_InputIndicator_DisabledTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PetFrame_portraitObject : Texture
-local PartyFrame_MemberFrame4_PetFrame_portraitObject = {}
+---@class GamepadRadial_ContextActionSelector_InputIndicator_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadRadial_ContextActionSelector_InputIndicator_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadRadial_ContextActionSelector_InputIndicator_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadRadial_ContextActionSelector_InputIndicator_HoldAnim_SpinnerTipAnimObject
+local GamepadRadial_ContextActionSelector_InputIndicator_HoldAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PetFrame_threatIndicatorObject : Texture
----@field feedbackUnit string
----@field unit string
-local PartyFrame_MemberFrame4_PetFrame_threatIndicatorObject = {}
+---@class GamepadRadial_ContextActionSelector_InputIndicator_HoldAnim_LoadBarAnimObject
+local GamepadRadial_ContextActionSelector_InputIndicator_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PortraitObject : Texture
-local PartyFrame_MemberFrame4_PortraitObject = {}
+---@class GamepadRadial_ContextActionSelector_InputIndicator_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadRadial_ContextActionSelector_InputIndicator_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PortraitMaskObject : MaskTexture
-local PartyFrame_MemberFrame4_PortraitMaskObject = {}
+---@class GamepadRadial_ContextActionSelector_InputIndicator_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadRadial_ContextActionSelector_InputIndicator_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAltObject : Frame
----@field background PartyFrame_MemberFrame4_PowerBarAlt_backgroundObject
----@field counterBar PartyFrame_MemberFrame4_PowerBarAlt_counterBarObject
----@field fill PartyFrame_MemberFrame4_PowerBarAlt_fillObject
----@field flash PartyFrame_MemberFrame4_PowerBarAlt_flashObject
----@field flashAnim PartyFrame_MemberFrame4_PowerBarAlt_flashAnimObject
----@field flashOutAnim PartyFrame_MemberFrame4_PowerBarAlt_flashOutAnimObject
----@field frame PartyFrame_MemberFrame4_PowerBarAlt_frameObject
----@field pillFrames table
----@field scale number
----@field smartNavigationIgnored boolean
----@field spark PartyFrame_MemberFrame4_PowerBarAlt_sparkObject
----@field statusFrame PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject
----@field unit string
----@field updateAllEvent string
-local PartyFrame_MemberFrame4_PowerBarAltObject = {}
+---@class GamepadRadial_ContextActionSelector_InputIndicator_HoldIndicatorObject : Texture
+local GamepadRadial_ContextActionSelector_InputIndicator_HoldIndicatorObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_backgroundObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_backgroundObject = {}
+---@class GamepadRadial_ContextActionSelector_InputIndicator_HoldIndicatorBGObject : Texture
+local GamepadRadial_ContextActionSelector_InputIndicator_HoldIndicatorBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBarObject : Frame
----@field BG PartyFrame_MemberFrame4_PowerBarAlt_counterBar_BGObject
----@field BGL PartyFrame_MemberFrame4_PowerBarAlt_counterBar_BGLObject
----@field BGR PartyFrame_MemberFrame4_PowerBarAlt_counterBar_BGRObject
----@field artBottom PartyFrame_MemberFrame4_PowerBarAlt_counterBar_artBottomObject
----@field artTop PartyFrame_MemberFrame4_PowerBarAlt_counterBar_artTopObject
----@field digit1 PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit1Object
----@field digit2 PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit2Object
----@field digit3 PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit3Object
----@field digit4 PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit4Object
----@field digit5 PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit5Object
----@field digit6 PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit6Object
----@field digit7 PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit7Object
----@field unit string
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBarObject = {}
+---@class GamepadRadial_ContextActionSelector_InputIndicator_HoverTextureObject : Texture
+local GamepadRadial_ContextActionSelector_InputIndicator_HoverTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_BGObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_BGObject = {}
+---@class GamepadRadial_ContextActionSelector_InputIndicator_LoadBarObject : Texture
+local GamepadRadial_ContextActionSelector_InputIndicator_LoadBarObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_BGLObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_BGLObject = {}
+---@class GamepadRadial_ContextActionSelector_InputIndicator_LoadBarBGObject : Texture
+local GamepadRadial_ContextActionSelector_InputIndicator_LoadBarBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_BGRObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_BGRObject = {}
+---@class GamepadRadial_ContextActionSelector_InputIndicator_LoadBarGlowObject : Texture
+local GamepadRadial_ContextActionSelector_InputIndicator_LoadBarGlowObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_artBottomObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_artBottomObject = {}
+---@class GamepadRadial_ContextActionSelector_InputIndicator_NormalTextureObject : Texture
+local GamepadRadial_ContextActionSelector_InputIndicator_NormalTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_artTopObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_artTopObject = {}
+---@class GamepadRadial_ContextActionSelector_InputIndicator_PressedTextureObject : Texture
+local GamepadRadial_ContextActionSelector_InputIndicator_PressedTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit1Object : Frame
----@field number PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit1_numberObject
----@field numberMask PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit1_numberMaskObject
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit1Object = {}
+---@class GamepadRadial_ContextActionSelector_InputIndicator_SpinnerTipObject : Texture
+local GamepadRadial_ContextActionSelector_InputIndicator_SpinnerTipObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit1_numberObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit1_numberObject = {}
+---@class GamepadRadial_ContextActionSelector_RadialSelectorBackgroundObject : Texture
+local GamepadRadial_ContextActionSelector_RadialSelectorBackgroundObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit1_numberMaskObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit1_numberMaskObject = {}
+---@class GamepadRadial_ContextActionSelector_defaultOptionsObject
+local GamepadRadial_ContextActionSelector_defaultOptionsObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit2Object : Frame
----@field number PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit2_numberObject
----@field numberMask PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit2_numberMaskObject
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit2Object = {}
+---@class GamepadRadial_ContextActionSelector_indicatorsObject
+---@field PADDDOWN GamepadRadial_ContextActionSelector_indicators_PADDDOWNObject
+---@field PADDLEFT GamepadRadial_ContextActionSelector_indicators_PADDLEFTObject
+---@field PADDRIGHT GamepadRadial_ContextActionSelector_indicators_PADDRIGHTObject
+---@field PADDUP GamepadRadial_ContextActionSelector_indicators_PADDUPObject
+local GamepadRadial_ContextActionSelector_indicatorsObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit2_numberObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit2_numberObject = {}
+---@class GamepadRadial_ContextActionSelector_indicators_PADDDOWNObject : Frame
+---@field Highlight GamepadRadial_ContextActionSelector_indicators_PADDDOWN_HighlightObject
+---@field Label GamepadRadial_ContextActionSelector_indicators_PADDDOWN_LabelObject
+---@field contextMenu GamepadRadial_ContextActionSelector_indicators_PADDDOWN_contextMenuObject
+---@field radial GamepadRadial_ContextActionSelector_indicators_PADDDOWN_radialObject
+local GamepadRadial_ContextActionSelector_indicators_PADDDOWNObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit2_numberMaskObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit2_numberMaskObject = {}
+---@class GamepadRadial_ContextActionSelector_indicators_PADDDOWN_HighlightObject : Texture
+local GamepadRadial_ContextActionSelector_indicators_PADDDOWN_HighlightObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit3Object : Frame
----@field number PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit3_numberObject
----@field numberMask PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit3_numberMaskObject
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit3Object = {}
+---@class GamepadRadial_ContextActionSelector_indicators_PADDDOWN_LabelObject : FontString
+local GamepadRadial_ContextActionSelector_indicators_PADDDOWN_LabelObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit3_numberObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit3_numberObject = {}
+---@class GamepadRadial_ContextActionSelector_indicators_PADDDOWN_contextMenuObject
+local GamepadRadial_ContextActionSelector_indicators_PADDDOWN_contextMenuObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit3_numberMaskObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit3_numberMaskObject = {}
+---@class GamepadRadial_ContextActionSelector_indicators_PADDDOWN_radialObject
+local GamepadRadial_ContextActionSelector_indicators_PADDDOWN_radialObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit4Object : Frame
----@field number PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit4_numberObject
----@field numberMask PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit4_numberMaskObject
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit4Object = {}
+---@class GamepadRadial_ContextActionSelector_indicators_PADDLEFTObject : Frame
+---@field Highlight GamepadRadial_ContextActionSelector_indicators_PADDLEFT_HighlightObject
+---@field Label GamepadRadial_ContextActionSelector_indicators_PADDLEFT_LabelObject
+---@field contextMenu GamepadRadial_ContextActionSelector_indicators_PADDLEFT_contextMenuObject
+---@field radial GamepadRadial_ContextActionSelector_indicators_PADDLEFT_radialObject
+local GamepadRadial_ContextActionSelector_indicators_PADDLEFTObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit4_numberObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit4_numberObject = {}
+---@class GamepadRadial_ContextActionSelector_indicators_PADDLEFT_HighlightObject : Texture
+local GamepadRadial_ContextActionSelector_indicators_PADDLEFT_HighlightObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit4_numberMaskObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit4_numberMaskObject = {}
+---@class GamepadRadial_ContextActionSelector_indicators_PADDLEFT_LabelObject : FontString
+local GamepadRadial_ContextActionSelector_indicators_PADDLEFT_LabelObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit5Object : Frame
----@field number PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit5_numberObject
----@field numberMask PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit5_numberMaskObject
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit5Object = {}
+---@class GamepadRadial_ContextActionSelector_indicators_PADDLEFT_contextMenuObject
+local GamepadRadial_ContextActionSelector_indicators_PADDLEFT_contextMenuObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit5_numberObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit5_numberObject = {}
+---@class GamepadRadial_ContextActionSelector_indicators_PADDLEFT_radialObject
+local GamepadRadial_ContextActionSelector_indicators_PADDLEFT_radialObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit5_numberMaskObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit5_numberMaskObject = {}
+---@class GamepadRadial_ContextActionSelector_indicators_PADDRIGHTObject
+local GamepadRadial_ContextActionSelector_indicators_PADDRIGHTObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit6Object : Frame
----@field number PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit6_numberObject
----@field numberMask PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit6_numberMaskObject
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit6Object = {}
+---@class GamepadRadial_ContextActionSelector_indicators_PADDUPObject : Frame
+---@field Highlight GamepadRadial_ContextActionSelector_indicators_PADDUP_HighlightObject
+---@field Label GamepadRadial_ContextActionSelector_indicators_PADDUP_LabelObject
+---@field contextMenu GamepadRadial_ContextActionSelector_indicators_PADDUP_contextMenuObject
+---@field radial GamepadRadial_ContextActionSelector_indicators_PADDUP_radialObject
+local GamepadRadial_ContextActionSelector_indicators_PADDUPObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit6_numberObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit6_numberObject = {}
+---@class GamepadRadial_ContextActionSelector_indicators_PADDUP_HighlightObject : Texture
+local GamepadRadial_ContextActionSelector_indicators_PADDUP_HighlightObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit6_numberMaskObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit6_numberMaskObject = {}
+---@class GamepadRadial_ContextActionSelector_indicators_PADDUP_LabelObject : FontString
+local GamepadRadial_ContextActionSelector_indicators_PADDUP_LabelObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit7Object : Frame
----@field number PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit7_numberObject
----@field numberMask PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit7_numberMaskObject
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit7Object = {}
+---@class GamepadRadial_ContextActionSelector_indicators_PADDUP_contextMenuObject
+local GamepadRadial_ContextActionSelector_indicators_PADDUP_contextMenuObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit7_numberObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit7_numberObject = {}
+---@class GamepadRadial_ContextActionSelector_indicators_PADDUP_radialObject
+local GamepadRadial_ContextActionSelector_indicators_PADDUP_radialObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit7_numberMaskObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_counterBar_digit7_numberMaskObject = {}
+---@class GamepadRadial_ContextActionSelector_optionsObject
+---@field PADDDOWN table
+---@field PADDUP table
+local GamepadRadial_ContextActionSelector_optionsObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_fillObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_fillObject = {}
+---@class GamepadRadial_ContextActionSelector_radialObject
+local GamepadRadial_ContextActionSelector_radialObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_flashObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_flashObject = {}
+---@class GamepadRadial_HeaderTextObject : FontString
+local GamepadRadial_HeaderTextObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_flashAnimObject : AnimationGroup
-local PartyFrame_MemberFrame4_PowerBarAlt_flashAnimObject = {}
+---@class GamepadRadial_PageIndicatorBackgroundObject : Texture
+local GamepadRadial_PageIndicatorBackgroundObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_flashOutAnimObject : AnimationGroup
-local PartyFrame_MemberFrame4_PowerBarAlt_flashOutAnimObject = {}
+---@class GamepadRadial_PageIndicatorCenterObject : Texture
+local GamepadRadial_PageIndicatorCenterObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_frameObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_frameObject = {}
+---@class GamepadRadial_PageIndicatorLeftObject : Texture
+local GamepadRadial_PageIndicatorLeftObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_sparkObject : Texture
-local PartyFrame_MemberFrame4_PowerBarAlt_sparkObject = {}
+---@class GamepadRadial_PageIndicatorRightObject : Texture
+local GamepadRadial_PageIndicatorRightObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject : StatusBar
----@field alwaysShow number
----@field cvar string
----@field cvarLabel string
----@field lockShow number
----@field text PartyFrame_MemberFrame4_PowerBarAlt_statusFrame_textObject
----@field textLockable number
-local PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject = {}
+---@class GamepadRadial_PageLeftInputPromptObject : Frame
+---@field ActiveTexture GamepadRadial_PageLeftInputPrompt_ActiveTextureObject
+---@field DisabledTexture GamepadRadial_PageLeftInputPrompt_DisabledTextureObject
+---@field HoldAnim GamepadRadial_PageLeftInputPrompt_HoldAnimObject
+---@field HoldIndicator GamepadRadial_PageLeftInputPrompt_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadRadial_PageLeftInputPrompt_HoldIndicatorBGObject
+---@field HoverTexture GamepadRadial_PageLeftInputPrompt_HoverTextureObject
+---@field LoadBar GamepadRadial_PageLeftInputPrompt_LoadBarObject
+---@field LoadBarBG GamepadRadial_PageLeftInputPrompt_LoadBarBGObject
+---@field LoadBarGlow GamepadRadial_PageLeftInputPrompt_LoadBarGlowObject
+---@field NormalTexture GamepadRadial_PageLeftInputPrompt_NormalTextureObject
+---@field PressedTexture GamepadRadial_PageLeftInputPrompt_PressedTextureObject
+---@field SpinnerTip GamepadRadial_PageLeftInputPrompt_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadRadial_PageLeftInputPromptObject = {}
 ---@return any ...
-function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:GetNumericDisplay(...) end
+function GamepadRadial_PageLeftInputPromptObject:ApplyTextureLayout(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:HideStatusBarText(...) end
+function GamepadRadial_PageLeftInputPromptObject:BeginHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:InitializeTextStatusBar(...) end
+function GamepadRadial_PageLeftInputPromptObject:CanEnterTextureState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:OnStatusBarEnter(...) end
+function GamepadRadial_PageLeftInputPromptObject:DisableDropShadow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:OnStatusBarLeave(...) end
+function GamepadRadial_PageLeftInputPromptObject:EnableDropShadow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:OnStatusBarMinMaxChanged(...) end
+function GamepadRadial_PageLeftInputPromptObject:EndHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:OnStatusBarValueChanged(...) end
+function GamepadRadial_PageLeftInputPromptObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:SetBarText(...) end
+function GamepadRadial_PageLeftInputPromptObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:SetBarTextPrefix(...) end
+function GamepadRadial_PageLeftInputPromptObject:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:SetBarTextZeroText(...) end
+function GamepadRadial_PageLeftInputPromptObject:RefreshIconTextures(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:SetForceShow(...) end
+function GamepadRadial_PageLeftInputPromptObject:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:ShowStatusBarText(...) end
+function GamepadRadial_PageLeftInputPromptObject:SetEnabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:TextStatusBarOnEvent(...) end
+function GamepadRadial_PageLeftInputPromptObject:SetFocused(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:UpdateTextString(...) end
+function GamepadRadial_PageLeftInputPromptObject:SetHoldState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_PowerBarAlt_statusFrameObject:UpdateTextStringWithValues(...) end
+function GamepadRadial_PageLeftInputPromptObject:SetInputKey(...) end
+---@return any ...
+function GamepadRadial_PageLeftInputPromptObject:SetIsHoldAction(...) end
+---@return any ...
+function GamepadRadial_PageLeftInputPromptObject:SetPressable(...) end
+---@return any ...
+function GamepadRadial_PageLeftInputPromptObject:SetTextureHeight(...) end
+---@return any ...
+function GamepadRadial_PageLeftInputPromptObject:SetTextureState(...) end
+---@return any ...
+function GamepadRadial_PageLeftInputPromptObject:SetTextureWidth(...) end
+---@return any ...
+function GamepadRadial_PageLeftInputPromptObject:SetUsableState(...) end
+---@return any ...
+function GamepadRadial_PageLeftInputPromptObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PartyFrame_MemberFrame4_PowerBarAlt_statusFrame_textObject : FontString
-local PartyFrame_MemberFrame4_PowerBarAlt_statusFrame_textObject = {}
+---@class GamepadRadial_PageLeftInputPrompt_ActiveTextureObject : Texture
+local GamepadRadial_PageLeftInputPrompt_ActiveTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_ReadyCheckObject : Frame
----@field Texture PartyFrame_MemberFrame4_ReadyCheck_TextureObject
----@field smartNavigationIgnored boolean
-local PartyFrame_MemberFrame4_ReadyCheckObject = {}
+---@class GamepadRadial_PageLeftInputPrompt_DisabledTextureObject : Texture
+local GamepadRadial_PageLeftInputPrompt_DisabledTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_ReadyCheck_TextureObject : Texture
-local PartyFrame_MemberFrame4_ReadyCheck_TextureObject = {}
+---@class GamepadRadial_PageLeftInputPrompt_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadRadial_PageLeftInputPrompt_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadRadial_PageLeftInputPrompt_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadRadial_PageLeftInputPrompt_HoldAnim_SpinnerTipAnimObject
+local GamepadRadial_PageLeftInputPrompt_HoldAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_ResurrectableIndicatorObject : FontString
-local PartyFrame_MemberFrame4_ResurrectableIndicatorObject = {}
----@return any ...
-function PartyFrame_MemberFrame4_ResurrectableIndicatorObject:OnEnter(...) end
----@return any ...
-function PartyFrame_MemberFrame4_ResurrectableIndicatorObject:OnLeave(...) end
+---@class GamepadRadial_PageLeftInputPrompt_HoldAnim_LoadBarAnimObject
+local GamepadRadial_PageLeftInputPrompt_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_TextureObject : Texture
-local PartyFrame_MemberFrame4_TextureObject = {}
+---@class GamepadRadial_PageLeftInputPrompt_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadRadial_PageLeftInputPrompt_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_VehicleTextureObject : Texture
-local PartyFrame_MemberFrame4_VehicleTextureObject = {}
+---@class GamepadRadial_PageLeftInputPrompt_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadRadial_PageLeftInputPrompt_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_healAbsorbBarObject
-local PartyFrame_MemberFrame4_healAbsorbBarObject = {}
+---@class GamepadRadial_PageLeftInputPrompt_HoldIndicatorObject : Texture
+local GamepadRadial_PageLeftInputPrompt_HoldIndicatorObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_healthbarObject
-local PartyFrame_MemberFrame4_healthbarObject = {}
+---@class GamepadRadial_PageLeftInputPrompt_HoldIndicatorBGObject : Texture
+local GamepadRadial_PageLeftInputPrompt_HoldIndicatorBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_manabarObject
-local PartyFrame_MemberFrame4_manabarObject = {}
+---@class GamepadRadial_PageLeftInputPrompt_HoverTextureObject : Texture
+local GamepadRadial_PageLeftInputPrompt_HoverTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_myHealPredictionBarObject
-local PartyFrame_MemberFrame4_myHealPredictionBarObject = {}
+---@class GamepadRadial_PageLeftInputPrompt_LoadBarObject : Texture
+local GamepadRadial_PageLeftInputPrompt_LoadBarObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_nameObject
-local PartyFrame_MemberFrame4_nameObject = {}
+---@class GamepadRadial_PageLeftInputPrompt_LoadBarBGObject : Texture
+local GamepadRadial_PageLeftInputPrompt_LoadBarBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_otherHealPredictionBarObject
-local PartyFrame_MemberFrame4_otherHealPredictionBarObject = {}
+---@class GamepadRadial_PageLeftInputPrompt_LoadBarGlowObject : Texture
+local GamepadRadial_PageLeftInputPrompt_LoadBarGlowObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_overAbsorbGlowObject
-local PartyFrame_MemberFrame4_overAbsorbGlowObject = {}
+---@class GamepadRadial_PageLeftInputPrompt_NormalTextureObject : Texture
+local GamepadRadial_PageLeftInputPrompt_NormalTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_overHealAbsorbGlowObject
-local PartyFrame_MemberFrame4_overHealAbsorbGlowObject = {}
+---@class GamepadRadial_PageLeftInputPrompt_PressedTextureObject : Texture
+local GamepadRadial_PageLeftInputPrompt_PressedTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_portraitObject
-local PartyFrame_MemberFrame4_portraitObject = {}
+---@class GamepadRadial_PageLeftInputPrompt_SpinnerTipObject : Texture
+local GamepadRadial_PageLeftInputPrompt_SpinnerTipObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBarObject : StatusBar
----@field Texture PartyFrame_MemberFrame4_tempMaxHealthLossBar_TextureObject
----@field healthBar PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject
----@field initialized boolean
----@field myHealthBarContainer PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainerObject
-local PartyFrame_MemberFrame4_tempMaxHealthLossBarObject = {}
+---@class GamepadRadial_PageRightInputPromptObject : Frame
+---@field ActiveTexture GamepadRadial_PageRightInputPrompt_ActiveTextureObject
+---@field DisabledTexture GamepadRadial_PageRightInputPrompt_DisabledTextureObject
+---@field HoldAnim GamepadRadial_PageRightInputPrompt_HoldAnimObject
+---@field HoldIndicator GamepadRadial_PageRightInputPrompt_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadRadial_PageRightInputPrompt_HoldIndicatorBGObject
+---@field HoverTexture GamepadRadial_PageRightInputPrompt_HoverTextureObject
+---@field LoadBar GamepadRadial_PageRightInputPrompt_LoadBarObject
+---@field LoadBarBG GamepadRadial_PageRightInputPrompt_LoadBarBGObject
+---@field LoadBarGlow GamepadRadial_PageRightInputPrompt_LoadBarGlowObject
+---@field NormalTexture GamepadRadial_PageRightInputPrompt_NormalTextureObject
+---@field PressedTexture GamepadRadial_PageRightInputPrompt_PressedTextureObject
+---@field SpinnerTip GamepadRadial_PageRightInputPrompt_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadRadial_PageRightInputPromptObject = {}
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBarObject:InitializeMaxHealthLossBar(...) end
+function GamepadRadial_PageRightInputPromptObject:ApplyTextureLayout(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBarObject:OnMaxHealthModifiersChanged(...) end
+function GamepadRadial_PageRightInputPromptObject:BeginHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBarObject:SetShouldAdjustHealthBarAnchor(...) end
+function GamepadRadial_PageRightInputPromptObject:CanEnterTextureState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBarObject:Update_MaxHealthLoss(...) end
-end
-
-do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_TextureObject : Texture
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_TextureObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject : StatusBar
----@field Background PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_BackgroundObject
----@field HealAbsorbBar PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject
----@field HealthBarTexture PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealthBarTextureObject
----@field LeftText PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_LeftTextObject
----@field MyHealPredictionBar PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject
----@field OtherHealPredictionBar PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject
----@field OverAbsorbGlow PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject
----@field OverHealAbsorbGlow PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject
----@field RightText PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_RightTextObject
----@field TextString PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TextStringObject
----@field TotalAbsorbBar PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject
----@field capNumericDisplay boolean
----@field controlsShownState boolean
----@field currValue number
----@field cvar string
----@field cvarLabel string
----@field disconnected boolean
----@field forceHideText boolean
----@field frequentUpdates boolean
----@field lockColor boolean
----@field lockShow number
----@field partyFrame PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_partyFrameObject
----@field textLockable number
----@field unit string
----@field unitFrame PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_unitFrameObject
----@field zeroText string
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject = {}
+function GamepadRadial_PageRightInputPromptObject:DisableDropShadow(...) end
+---@return any ...
+function GamepadRadial_PageRightInputPromptObject:EnableDropShadow(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:GetNumericDisplay(...) end
+function GamepadRadial_PageRightInputPromptObject:EndHold(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:HideStatusBarText(...) end
+function GamepadRadial_PageRightInputPromptObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:InitializeTextStatusBar(...) end
+function GamepadRadial_PageRightInputPromptObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:OnStatusBarEnter(...) end
+function GamepadRadial_PageRightInputPromptObject:OnLoad(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:OnStatusBarLeave(...) end
+function GamepadRadial_PageRightInputPromptObject:RefreshIconTextures(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:OnStatusBarMinMaxChanged(...) end
+function GamepadRadial_PageRightInputPromptObject:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:OnStatusBarValueChanged(...) end
+function GamepadRadial_PageRightInputPromptObject:SetEnabled(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:SetBarText(...) end
+function GamepadRadial_PageRightInputPromptObject:SetFocused(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:SetBarTextPrefix(...) end
+function GamepadRadial_PageRightInputPromptObject:SetHoldState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:SetBarTextZeroText(...) end
+function GamepadRadial_PageRightInputPromptObject:SetInputKey(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:SetForceShow(...) end
+function GamepadRadial_PageRightInputPromptObject:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:ShowStatusBarText(...) end
+function GamepadRadial_PageRightInputPromptObject:SetPressable(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:TextStatusBarOnEvent(...) end
+function GamepadRadial_PageRightInputPromptObject:SetTextureHeight(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:UpdateTextString(...) end
+function GamepadRadial_PageRightInputPromptObject:SetTextureState(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBarObject:UpdateTextStringWithValues(...) end
+function GamepadRadial_PageRightInputPromptObject:SetTextureWidth(...) end
+---@return any ...
+function GamepadRadial_PageRightInputPromptObject:SetUsableState(...) end
+---@return any ...
+function GamepadRadial_PageRightInputPromptObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_BackgroundObject : Texture
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_BackgroundObject = {}
+---@class GamepadRadial_PageRightInputPrompt_ActiveTextureObject : Texture
+local GamepadRadial_PageRightInputPrompt_ActiveTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject : Frame
----@field Fill PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject
----@field FillMask PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject
----@field LeftShadow PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject
----@field RightShadow PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject
----@field fillAtlas string
----@field fillColor PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject
----@field fillOverlays table
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject = {}
----@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:Initialize(...) end
----@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:OnLoad(...) end
----@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:SetFillColor(...) end
----@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:SetStatusBar(...) end
----@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:UpdateFillPosition(...) end
+---@class GamepadRadial_PageRightInputPrompt_DisabledTextureObject : Texture
+local GamepadRadial_PageRightInputPrompt_DisabledTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject : Texture
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject = {}
+---@class GamepadRadial_PageRightInputPrompt_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadRadial_PageRightInputPrompt_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadRadial_PageRightInputPrompt_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadRadial_PageRightInputPrompt_HoldAnim_SpinnerTipAnimObject
+local GamepadRadial_PageRightInputPrompt_HoldAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject : MaskTexture
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject = {}
+---@class GamepadRadial_PageRightInputPrompt_HoldAnim_LoadBarAnimObject
+local GamepadRadial_PageRightInputPrompt_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject : Texture
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject = {}
+---@class GamepadRadial_PageRightInputPrompt_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadRadial_PageRightInputPrompt_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject : Texture
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject = {}
+---@class GamepadRadial_PageRightInputPrompt_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadRadial_PageRightInputPrompt_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject = {}
+---@class GamepadRadial_PageRightInputPrompt_HoldIndicatorObject : Texture
+local GamepadRadial_PageRightInputPrompt_HoldIndicatorObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealthBarTextureObject : Texture
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_HealthBarTextureObject = {}
+---@class GamepadRadial_PageRightInputPrompt_HoldIndicatorBGObject : Texture
+local GamepadRadial_PageRightInputPrompt_HoldIndicatorBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_LeftTextObject : FontString
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_LeftTextObject = {}
+---@class GamepadRadial_PageRightInputPrompt_HoverTextureObject : Texture
+local GamepadRadial_PageRightInputPrompt_HoverTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject : Frame
----@field Fill PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject
----@field FillMask PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject
----@field fillAtlas string
----@field fillColor PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject
----@field initialized boolean
----@field statusBar PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject = {}
----@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:Initialize(...) end
----@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:OnLoad(...) end
----@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:SetFillColor(...) end
----@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:SetStatusBar(...) end
----@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:UpdateFillPosition(...) end
+---@class GamepadRadial_PageRightInputPrompt_LoadBarObject : Texture
+local GamepadRadial_PageRightInputPrompt_LoadBarObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject : Texture
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject = {}
+---@class GamepadRadial_PageRightInputPrompt_LoadBarBGObject : Texture
+local GamepadRadial_PageRightInputPrompt_LoadBarBGObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject : MaskTexture
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject = {}
+---@class GamepadRadial_PageRightInputPrompt_LoadBarGlowObject : Texture
+local GamepadRadial_PageRightInputPrompt_LoadBarGlowObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject = {}
+---@class GamepadRadial_PageRightInputPrompt_NormalTextureObject : Texture
+local GamepadRadial_PageRightInputPrompt_NormalTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject = {}
+---@class GamepadRadial_PageRightInputPrompt_PressedTextureObject : Texture
+local GamepadRadial_PageRightInputPrompt_PressedTextureObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject : Frame
----@field Fill PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject
----@field FillMask PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject
----@field fillAtlas string
----@field fillColor PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject
----@field initialized boolean
----@field statusBar PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject = {}
+---@class GamepadRadial_PageRightInputPrompt_SpinnerTipObject : Texture
+local GamepadRadial_PageRightInputPrompt_SpinnerTipObject = {}
+end
+
+do
+---@class GamepadRadial_Segment1Object : Frame
+---@field IconLabel GamepadRadial_Segment1_IconLabelObject
+---@field NotificationOverlay GamepadRadial_Segment1_NotificationOverlayObject
+---@field SegmentDisabled GamepadRadial_Segment1_SegmentDisabledObject
+---@field SegmentIcon GamepadRadial_Segment1_SegmentIconObject
+---@field TextContainerLabel GamepadRadial_Segment1_TextContainerLabelObject
+---@field radial GamepadRadial_Segment1_radialObject
+local GamepadRadial_Segment1Object = {}
+---@return any ...
+function GamepadRadial_Segment1Object:Activate(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:Initialize(...) end
+function GamepadRadial_Segment1Object:Deactivate(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:OnLoad(...) end
+function GamepadRadial_Segment1Object:GetIconLabelAnchor(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:SetFillColor(...) end
+function GamepadRadial_Segment1Object:GetIconOffset(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:SetStatusBar(...) end
+function GamepadRadial_Segment1Object:GetLabel(...) end
 ---@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:UpdateFillPosition(...) end
+function GamepadRadial_Segment1Object:GetSegmentRotationAndOffset(...) end
+---@return any ...
+function GamepadRadial_Segment1Object:IsEmpty(...) end
+---@return any ...
+function GamepadRadial_Segment1Object:IsEnabled(...) end
+---@return any ...
+function GamepadRadial_Segment1Object:SetHandler(...) end
+---@return any ...
+function GamepadRadial_Segment1Object:Trigger(...) end
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject : Texture
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject = {}
+---@class GamepadRadial_Segment1_IconLabelObject : FontString
+local GamepadRadial_Segment1_IconLabelObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject : MaskTexture
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject = {}
+---@class GamepadRadial_Segment1_NotificationOverlayObject : Texture
+local GamepadRadial_Segment1_NotificationOverlayObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject = {}
+---@class GamepadRadial_Segment1_SegmentDisabledObject : Texture
+local GamepadRadial_Segment1_SegmentDisabledObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject = {}
+---@class GamepadRadial_Segment1_SegmentIconObject : Texture
+local GamepadRadial_Segment1_SegmentIconObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject : Texture
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject = {}
+---@class GamepadRadial_Segment1_TextContainerLabelObject : FontString
+local GamepadRadial_Segment1_TextContainerLabelObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject : Texture
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject = {}
+---@class GamepadRadial_Segment1_radialObject
+local GamepadRadial_Segment1_radialObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_RightTextObject : FontString
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_RightTextObject = {}
+---@class GamepadRadial_Segment2Object : Frame
+---@field IconLabel GamepadRadial_Segment2_IconLabelObject
+---@field NotificationOverlay GamepadRadial_Segment2_NotificationOverlayObject
+---@field SegmentDisabled GamepadRadial_Segment2_SegmentDisabledObject
+---@field SegmentIcon GamepadRadial_Segment2_SegmentIconObject
+---@field TextContainerLabel GamepadRadial_Segment2_TextContainerLabelObject
+---@field radial GamepadRadial_Segment2_radialObject
+local GamepadRadial_Segment2Object = {}
+---@return any ...
+function GamepadRadial_Segment2Object:Activate(...) end
+---@return any ...
+function GamepadRadial_Segment2Object:Deactivate(...) end
+---@return any ...
+function GamepadRadial_Segment2Object:GetIconLabelAnchor(...) end
+---@return any ...
+function GamepadRadial_Segment2Object:GetIconOffset(...) end
+---@return any ...
+function GamepadRadial_Segment2Object:GetLabel(...) end
+---@return any ...
+function GamepadRadial_Segment2Object:GetSegmentRotationAndOffset(...) end
+---@return any ...
+function GamepadRadial_Segment2Object:IsEmpty(...) end
+---@return any ...
+function GamepadRadial_Segment2Object:IsEnabled(...) end
+---@return any ...
+function GamepadRadial_Segment2Object:SetHandler(...) end
+---@return any ...
+function GamepadRadial_Segment2Object:Trigger(...) end
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TextStringObject : FontString
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TextStringObject = {}
+---@class GamepadRadial_Segment2_IconLabelObject : FontString
+local GamepadRadial_Segment2_IconLabelObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject : Frame
----@field Fill PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject
----@field FillMask PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject
----@field TiledFillOverlay PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject
----@field fillAtlas string
----@field fillColor PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject
----@field fillOverlays table
----@field initialized boolean
----@field statusBar PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject
----@field tiledFillOverlaySize number
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject = {}
----@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:Initialize(...) end
----@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:OnLoad(...) end
----@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:SetFillColor(...) end
----@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:SetStatusBar(...) end
----@return any ...
-function PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject:UpdateFillPosition(...) end
+---@class GamepadRadial_Segment2_NotificationOverlayObject : Texture
+local GamepadRadial_Segment2_NotificationOverlayObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject : Texture
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillObject = {}
+---@class GamepadRadial_Segment2_SegmentDisabledObject : Texture
+local GamepadRadial_Segment2_SegmentDisabledObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject : MaskTexture
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_FillMaskObject = {}
+---@class GamepadRadial_Segment2_SegmentIconObject : Texture
+local GamepadRadial_Segment2_SegmentIconObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject : Texture
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_TiledFillOverlayObject = {}
+---@class GamepadRadial_Segment2_TextContainerLabelObject : FontString
+local GamepadRadial_Segment2_TextContainerLabelObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_fillColorObject = {}
+---@class GamepadRadial_Segment2_radialObject
+local GamepadRadial_Segment2_radialObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_TotalAbsorbBar_statusBarObject = {}
+---@class GamepadRadial_Segment3Object : Frame
+---@field IconLabel GamepadRadial_Segment3_IconLabelObject
+---@field NotificationOverlay GamepadRadial_Segment3_NotificationOverlayObject
+---@field SegmentDisabled GamepadRadial_Segment3_SegmentDisabledObject
+---@field SegmentIcon GamepadRadial_Segment3_SegmentIconObject
+---@field TextContainerLabel GamepadRadial_Segment3_TextContainerLabelObject
+---@field radial GamepadRadial_Segment3_radialObject
+local GamepadRadial_Segment3Object = {}
+---@return any ...
+function GamepadRadial_Segment3Object:Activate(...) end
+---@return any ...
+function GamepadRadial_Segment3Object:Deactivate(...) end
+---@return any ...
+function GamepadRadial_Segment3Object:GetIconLabelAnchor(...) end
+---@return any ...
+function GamepadRadial_Segment3Object:GetIconOffset(...) end
+---@return any ...
+function GamepadRadial_Segment3Object:GetLabel(...) end
+---@return any ...
+function GamepadRadial_Segment3Object:GetSegmentRotationAndOffset(...) end
+---@return any ...
+function GamepadRadial_Segment3Object:IsEmpty(...) end
+---@return any ...
+function GamepadRadial_Segment3Object:IsEnabled(...) end
+---@return any ...
+function GamepadRadial_Segment3Object:SetHandler(...) end
+---@return any ...
+function GamepadRadial_Segment3Object:Trigger(...) end
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_partyFrameObject
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_partyFrameObject = {}
+---@class GamepadRadial_Segment3_IconLabelObject : FontString
+local GamepadRadial_Segment3_IconLabelObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_unitFrameObject
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_healthBar_unitFrameObject = {}
+---@class GamepadRadial_Segment3_NotificationOverlayObject : Texture
+local GamepadRadial_Segment3_NotificationOverlayObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainerObject : Frame
----@field CenterText PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject
----@field HealthBar PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject
----@field HealthBarMask PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject
----@field LeftText PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject
----@field RightText PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject
----@field TempMaxHealthLoss PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject
----@field smartNavigationIgnored boolean
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainerObject = {}
+---@class GamepadRadial_Segment3_SegmentDisabledObject : Texture
+local GamepadRadial_Segment3_SegmentDisabledObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_CenterTextObject = {}
+---@class GamepadRadial_Segment3_SegmentIconObject : Texture
+local GamepadRadial_Segment3_SegmentIconObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_HealthBarObject = {}
+---@class GamepadRadial_Segment3_TextContainerLabelObject : FontString
+local GamepadRadial_Segment3_TextContainerLabelObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject : MaskTexture
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_HealthBarMaskObject = {}
+---@class GamepadRadial_Segment3_radialObject
+local GamepadRadial_Segment3_radialObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_LeftTextObject = {}
+---@class GamepadRadial_Segment4Object : Frame
+---@field IconLabel GamepadRadial_Segment4_IconLabelObject
+---@field NotificationOverlay GamepadRadial_Segment4_NotificationOverlayObject
+---@field SegmentDisabled GamepadRadial_Segment4_SegmentDisabledObject
+---@field SegmentIcon GamepadRadial_Segment4_SegmentIconObject
+---@field TextContainerLabel GamepadRadial_Segment4_TextContainerLabelObject
+---@field radial GamepadRadial_Segment4_radialObject
+local GamepadRadial_Segment4Object = {}
+---@return any ...
+function GamepadRadial_Segment4Object:Activate(...) end
+---@return any ...
+function GamepadRadial_Segment4Object:Deactivate(...) end
+---@return any ...
+function GamepadRadial_Segment4Object:GetIconLabelAnchor(...) end
+---@return any ...
+function GamepadRadial_Segment4Object:GetIconOffset(...) end
+---@return any ...
+function GamepadRadial_Segment4Object:GetLabel(...) end
+---@return any ...
+function GamepadRadial_Segment4Object:GetSegmentRotationAndOffset(...) end
+---@return any ...
+function GamepadRadial_Segment4Object:IsEmpty(...) end
+---@return any ...
+function GamepadRadial_Segment4Object:IsEnabled(...) end
+---@return any ...
+function GamepadRadial_Segment4Object:SetHandler(...) end
+---@return any ...
+function GamepadRadial_Segment4Object:Trigger(...) end
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_RightTextObject = {}
+---@class GamepadRadial_Segment4_IconLabelObject : FontString
+local GamepadRadial_Segment4_IconLabelObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject
-local PartyFrame_MemberFrame4_tempMaxHealthLossBar_myHealthBarContainer_TempMaxHealthLossObject = {}
+---@class GamepadRadial_Segment4_NotificationOverlayObject : Texture
+local GamepadRadial_Segment4_NotificationOverlayObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_threatIndicatorObject : Texture
----@field feedbackUnit string
----@field unit string
-local PartyFrame_MemberFrame4_threatIndicatorObject = {}
+---@class GamepadRadial_Segment4_SegmentDisabledObject : Texture
+local GamepadRadial_Segment4_SegmentDisabledObject = {}
 end
 
 do
----@class PartyFrame_MemberFrame4_totalAbsorbBarObject
-local PartyFrame_MemberFrame4_totalAbsorbBarObject = {}
+---@class GamepadRadial_Segment4_SegmentIconObject : Texture
+local GamepadRadial_Segment4_SegmentIconObject = {}
 end
 
 do
----@class PartyFrame_PartyMemberFramePoolObject
-local PartyFrame_PartyMemberFramePoolObject = {}
----@return any ...
-function PartyFrame_PartyMemberFramePoolObject:GetTemplate(...) end
----@return any ...
-function PartyFrame_PartyMemberFramePoolObject:private(...) end
+---@class GamepadRadial_Segment4_TextContainerLabelObject : FontString
+local GamepadRadial_Segment4_TextContainerLabelObject = {}
 end
 
 do
----@class PartyFrame_SelectionObject : Frame
----@field HorizontalLabel PartyFrame_Selection_HorizontalLabelObject
----@field MouseOverHighlight PartyFrame_Selection_MouseOverHighlightObject
----@field VerticalLabel PartyFrame_Selection_VerticalLabelObject
----@field highlightTextureKit string
----@field ignoreInLayout boolean
----@field isVertical boolean
----@field parent PartyFrame_Selection_parentObject
----@field selectedTextureKit string
----@field system PartyFrame_Selection_systemObject
-local PartyFrame_SelectionObject = {}
----@return any ...
-function PartyFrame_SelectionObject:CheckShowInstructionalTooltip(...) end
----@return any ...
-function PartyFrame_SelectionObject:GetBorderColor(...) end
----@return any ...
-function PartyFrame_SelectionObject:GetCenterColor(...) end
----@return any ...
-function PartyFrame_SelectionObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function PartyFrame_SelectionObject:GetFrameLayoutType(...) end
----@return any ...
-function PartyFrame_SelectionObject:GetLabelText(...) end
----@return any ...
-function PartyFrame_SelectionObject:HideInstructionalTooltip(...) end
+---@class GamepadRadial_Segment4_radialObject
+local GamepadRadial_Segment4_radialObject = {}
+end
+
+do
+---@class GamepadRadial_Segment5Object : Frame
+---@field IconLabel GamepadRadial_Segment5_IconLabelObject
+---@field NotificationOverlay GamepadRadial_Segment5_NotificationOverlayObject
+---@field SegmentDisabled GamepadRadial_Segment5_SegmentDisabledObject
+---@field SegmentIcon GamepadRadial_Segment5_SegmentIconObject
+---@field TextContainerLabel GamepadRadial_Segment5_TextContainerLabelObject
+---@field radial GamepadRadial_Segment5_radialObject
+local GamepadRadial_Segment5Object = {}
 ---@return any ...
-function PartyFrame_SelectionObject:IsSelected(...) end
+function GamepadRadial_Segment5Object:Activate(...) end
 ---@return any ...
-function PartyFrame_SelectionObject:IsShowingEditInstructions(...) end
+function GamepadRadial_Segment5Object:Deactivate(...) end
 ---@return any ...
-function PartyFrame_SelectionObject:OnDragStart(...) end
+function GamepadRadial_Segment5Object:GetIconLabelAnchor(...) end
 ---@return any ...
-function PartyFrame_SelectionObject:OnDragStop(...) end
+function GamepadRadial_Segment5Object:GetIconOffset(...) end
 ---@return any ...
-function PartyFrame_SelectionObject:OnEnter(...) end
+function GamepadRadial_Segment5Object:GetLabel(...) end
 ---@return any ...
-function PartyFrame_SelectionObject:OnLeave(...) end
+function GamepadRadial_Segment5Object:GetSegmentRotationAndOffset(...) end
 ---@return any ...
-function PartyFrame_SelectionObject:OnLoad(...) end
+function GamepadRadial_Segment5Object:IsEmpty(...) end
 ---@return any ...
-function PartyFrame_SelectionObject:OnMouseDown(...) end
+function GamepadRadial_Segment5Object:IsEnabled(...) end
 ---@return any ...
-function PartyFrame_SelectionObject:SetBlendMode(...) end
+function GamepadRadial_Segment5Object:SetHandler(...) end
 ---@return any ...
-function PartyFrame_SelectionObject:SetBorderBlendMode(...) end
+function GamepadRadial_Segment5Object:Trigger(...) end
+end
+
+do
+---@class GamepadRadial_Segment5_IconLabelObject : FontString
+local GamepadRadial_Segment5_IconLabelObject = {}
+end
+
+do
+---@class GamepadRadial_Segment5_NotificationOverlayObject : Texture
+local GamepadRadial_Segment5_NotificationOverlayObject = {}
+end
+
+do
+---@class GamepadRadial_Segment5_SegmentDisabledObject : Texture
+local GamepadRadial_Segment5_SegmentDisabledObject = {}
+end
+
+do
+---@class GamepadRadial_Segment5_SegmentIconObject : Texture
+local GamepadRadial_Segment5_SegmentIconObject = {}
+end
+
+do
+---@class GamepadRadial_Segment5_TextContainerLabelObject : FontString
+local GamepadRadial_Segment5_TextContainerLabelObject = {}
+end
+
+do
+---@class GamepadRadial_Segment5_radialObject
+local GamepadRadial_Segment5_radialObject = {}
+end
+
+do
+---@class GamepadRadial_Segment6Object : Frame
+---@field IconLabel GamepadRadial_Segment6_IconLabelObject
+---@field NotificationOverlay GamepadRadial_Segment6_NotificationOverlayObject
+---@field SegmentDisabled GamepadRadial_Segment6_SegmentDisabledObject
+---@field SegmentIcon GamepadRadial_Segment6_SegmentIconObject
+---@field TextContainerLabel GamepadRadial_Segment6_TextContainerLabelObject
+---@field radial GamepadRadial_Segment6_radialObject
+local GamepadRadial_Segment6Object = {}
 ---@return any ...
-function PartyFrame_SelectionObject:SetBorderColor(...) end
+function GamepadRadial_Segment6Object:Activate(...) end
 ---@return any ...
-function PartyFrame_SelectionObject:SetCenterColor(...) end
+function GamepadRadial_Segment6Object:Deactivate(...) end
 ---@return any ...
-function PartyFrame_SelectionObject:SetSystem(...) end
+function GamepadRadial_Segment6Object:GetIconLabelAnchor(...) end
 ---@return any ...
-function PartyFrame_SelectionObject:SetVertexColor(...) end
+function GamepadRadial_Segment6Object:GetIconOffset(...) end
 ---@return any ...
-function PartyFrame_SelectionObject:SetVerticalState(...) end
+function GamepadRadial_Segment6Object:GetLabel(...) end
 ---@return any ...
-function PartyFrame_SelectionObject:ShouldShowLabelText(...) end
+function GamepadRadial_Segment6Object:GetSegmentRotationAndOffset(...) end
 ---@return any ...
-function PartyFrame_SelectionObject:ShowEditInstructions(...) end
+function GamepadRadial_Segment6Object:IsEmpty(...) end
 ---@return any ...
-function PartyFrame_SelectionObject:ShowHighlighted(...) end
+function GamepadRadial_Segment6Object:IsEnabled(...) end
 ---@return any ...
-function PartyFrame_SelectionObject:ShowSelected(...) end
+function GamepadRadial_Segment6Object:SetHandler(...) end
 ---@return any ...
-function PartyFrame_SelectionObject:UpdateLabelVisibility(...) end
+function GamepadRadial_Segment6Object:Trigger(...) end
 end
 
 do
----@class PartyFrame_Selection_HorizontalLabelObject : FontString
----@field fontObjectsToTry table
-local PartyFrame_Selection_HorizontalLabelObject = {}
----@return any ...
-function PartyFrame_Selection_HorizontalLabelObject:ApplyFontObjects(...) end
----@return any ...
-function PartyFrame_Selection_HorizontalLabelObject:SetFontObjectsToTry(...) end
+---@class GamepadRadial_Segment6_IconLabelObject : FontString
+local GamepadRadial_Segment6_IconLabelObject = {}
+end
+
+do
+---@class GamepadRadial_Segment6_NotificationOverlayObject : Texture
+local GamepadRadial_Segment6_NotificationOverlayObject = {}
+end
+
+do
+---@class GamepadRadial_Segment6_SegmentDisabledObject : Texture
+local GamepadRadial_Segment6_SegmentDisabledObject = {}
+end
+
+do
+---@class GamepadRadial_Segment6_SegmentIconObject : Texture
+local GamepadRadial_Segment6_SegmentIconObject = {}
+end
+
+do
+---@class GamepadRadial_Segment6_TextContainerLabelObject : FontString
+local GamepadRadial_Segment6_TextContainerLabelObject = {}
+end
+
+do
+---@class GamepadRadial_Segment6_radialObject
+local GamepadRadial_Segment6_radialObject = {}
 end
 
 do
----@class PartyFrame_Selection_MouseOverHighlightObject : Frame
----@field BottomEdge PartyFrame_Selection_MouseOverHighlight_BottomEdgeObject
----@field BottomLeftCorner PartyFrame_Selection_MouseOverHighlight_BottomLeftCornerObject
----@field BottomRightCorner PartyFrame_Selection_MouseOverHighlight_BottomRightCornerObject
----@field Center PartyFrame_Selection_MouseOverHighlight_CenterObject
----@field LeftEdge PartyFrame_Selection_MouseOverHighlight_LeftEdgeObject
----@field RightEdge PartyFrame_Selection_MouseOverHighlight_RightEdgeObject
----@field TopEdge PartyFrame_Selection_MouseOverHighlight_TopEdgeObject
----@field TopLeftCorner PartyFrame_Selection_MouseOverHighlight_TopLeftCornerObject
----@field TopRightCorner PartyFrame_Selection_MouseOverHighlight_TopRightCornerObject
-local PartyFrame_Selection_MouseOverHighlightObject = {}
+---@class GamepadRadial_Segment7Object : Frame
+---@field IconLabel GamepadRadial_Segment7_IconLabelObject
+---@field NotificationOverlay GamepadRadial_Segment7_NotificationOverlayObject
+---@field SegmentDisabled GamepadRadial_Segment7_SegmentDisabledObject
+---@field SegmentIcon GamepadRadial_Segment7_SegmentIconObject
+---@field TextContainerLabel GamepadRadial_Segment7_TextContainerLabelObject
+---@field radial GamepadRadial_Segment7_radialObject
+local GamepadRadial_Segment7Object = {}
 ---@return any ...
-function PartyFrame_Selection_MouseOverHighlightObject:GetBorderColor(...) end
+function GamepadRadial_Segment7Object:Activate(...) end
 ---@return any ...
-function PartyFrame_Selection_MouseOverHighlightObject:GetCenterColor(...) end
+function GamepadRadial_Segment7Object:Deactivate(...) end
 ---@return any ...
-function PartyFrame_Selection_MouseOverHighlightObject:GetFrameLayoutTextureKit(...) end
+function GamepadRadial_Segment7Object:GetIconLabelAnchor(...) end
 ---@return any ...
-function PartyFrame_Selection_MouseOverHighlightObject:GetFrameLayoutType(...) end
+function GamepadRadial_Segment7Object:GetIconOffset(...) end
 ---@return any ...
-function PartyFrame_Selection_MouseOverHighlightObject:OnLoad(...) end
+function GamepadRadial_Segment7Object:GetLabel(...) end
 ---@return any ...
-function PartyFrame_Selection_MouseOverHighlightObject:SetBlendMode(...) end
+function GamepadRadial_Segment7Object:GetSegmentRotationAndOffset(...) end
 ---@return any ...
-function PartyFrame_Selection_MouseOverHighlightObject:SetBorderBlendMode(...) end
+function GamepadRadial_Segment7Object:IsEmpty(...) end
 ---@return any ...
-function PartyFrame_Selection_MouseOverHighlightObject:SetBorderColor(...) end
+function GamepadRadial_Segment7Object:IsEnabled(...) end
 ---@return any ...
-function PartyFrame_Selection_MouseOverHighlightObject:SetCenterColor(...) end
+function GamepadRadial_Segment7Object:SetHandler(...) end
 ---@return any ...
-function PartyFrame_Selection_MouseOverHighlightObject:SetVertexColor(...) end
+function GamepadRadial_Segment7Object:Trigger(...) end
+end
+
+do
+---@class GamepadRadial_Segment7_IconLabelObject : FontString
+local GamepadRadial_Segment7_IconLabelObject = {}
 end
 
 do
----@class PartyFrame_Selection_MouseOverHighlight_BottomEdgeObject : Texture
-local PartyFrame_Selection_MouseOverHighlight_BottomEdgeObject = {}
+---@class GamepadRadial_Segment7_NotificationOverlayObject : Texture
+local GamepadRadial_Segment7_NotificationOverlayObject = {}
 end
 
 do
----@class PartyFrame_Selection_MouseOverHighlight_BottomLeftCornerObject : Texture
-local PartyFrame_Selection_MouseOverHighlight_BottomLeftCornerObject = {}
+---@class GamepadRadial_Segment7_SegmentDisabledObject : Texture
+local GamepadRadial_Segment7_SegmentDisabledObject = {}
 end
 
 do
----@class PartyFrame_Selection_MouseOverHighlight_BottomRightCornerObject : Texture
-local PartyFrame_Selection_MouseOverHighlight_BottomRightCornerObject = {}
+---@class GamepadRadial_Segment7_SegmentIconObject : Texture
+local GamepadRadial_Segment7_SegmentIconObject = {}
 end
 
 do
----@class PartyFrame_Selection_MouseOverHighlight_CenterObject : Texture
-local PartyFrame_Selection_MouseOverHighlight_CenterObject = {}
+---@class GamepadRadial_Segment7_TextContainerLabelObject : FontString
+local GamepadRadial_Segment7_TextContainerLabelObject = {}
 end
 
 do
----@class PartyFrame_Selection_MouseOverHighlight_LeftEdgeObject : Texture
-local PartyFrame_Selection_MouseOverHighlight_LeftEdgeObject = {}
+---@class GamepadRadial_Segment7_radialObject
+local GamepadRadial_Segment7_radialObject = {}
+end
+
+do
+---@class GamepadRadial_Segment8Object : Frame
+---@field IconLabel GamepadRadial_Segment8_IconLabelObject
+---@field NotificationOverlay GamepadRadial_Segment8_NotificationOverlayObject
+---@field SegmentDisabled GamepadRadial_Segment8_SegmentDisabledObject
+---@field SegmentIcon GamepadRadial_Segment8_SegmentIconObject
+---@field TextContainerLabel GamepadRadial_Segment8_TextContainerLabelObject
+---@field radial GamepadRadial_Segment8_radialObject
+local GamepadRadial_Segment8Object = {}
+---@return any ...
+function GamepadRadial_Segment8Object:Activate(...) end
+---@return any ...
+function GamepadRadial_Segment8Object:Deactivate(...) end
+---@return any ...
+function GamepadRadial_Segment8Object:GetIconLabelAnchor(...) end
+---@return any ...
+function GamepadRadial_Segment8Object:GetIconOffset(...) end
+---@return any ...
+function GamepadRadial_Segment8Object:GetLabel(...) end
+---@return any ...
+function GamepadRadial_Segment8Object:GetSegmentRotationAndOffset(...) end
+---@return any ...
+function GamepadRadial_Segment8Object:IsEmpty(...) end
+---@return any ...
+function GamepadRadial_Segment8Object:IsEnabled(...) end
+---@return any ...
+function GamepadRadial_Segment8Object:SetHandler(...) end
+---@return any ...
+function GamepadRadial_Segment8Object:Trigger(...) end
 end
 
 do
----@class PartyFrame_Selection_MouseOverHighlight_RightEdgeObject : Texture
-local PartyFrame_Selection_MouseOverHighlight_RightEdgeObject = {}
+---@class GamepadRadial_Segment8_IconLabelObject : FontString
+local GamepadRadial_Segment8_IconLabelObject = {}
 end
 
 do
----@class PartyFrame_Selection_MouseOverHighlight_TopEdgeObject : Texture
-local PartyFrame_Selection_MouseOverHighlight_TopEdgeObject = {}
+---@class GamepadRadial_Segment8_NotificationOverlayObject : Texture
+local GamepadRadial_Segment8_NotificationOverlayObject = {}
 end
 
 do
----@class PartyFrame_Selection_MouseOverHighlight_TopLeftCornerObject : Texture
-local PartyFrame_Selection_MouseOverHighlight_TopLeftCornerObject = {}
+---@class GamepadRadial_Segment8_SegmentDisabledObject : Texture
+local GamepadRadial_Segment8_SegmentDisabledObject = {}
 end
 
 do
----@class PartyFrame_Selection_MouseOverHighlight_TopRightCornerObject : Texture
-local PartyFrame_Selection_MouseOverHighlight_TopRightCornerObject = {}
+---@class GamepadRadial_Segment8_SegmentIconObject : Texture
+local GamepadRadial_Segment8_SegmentIconObject = {}
 end
 
 do
----@class PartyFrame_Selection_VerticalLabelObject : FontString
-local PartyFrame_Selection_VerticalLabelObject = {}
+---@class GamepadRadial_Segment8_TextContainerLabelObject : FontString
+local GamepadRadial_Segment8_TextContainerLabelObject = {}
 end
 
 do
----@class PartyFrame_Selection_parentObject
-local PartyFrame_Selection_parentObject = {}
+---@class GamepadRadial_Segment8_radialObject
+local GamepadRadial_Segment8_radialObject = {}
 end
 
 do
----@class PartyFrame_Selection_systemObject
-local PartyFrame_Selection_systemObject = {}
+---@class GamepadRadial_SegmentHighlightObject : Texture
+local GamepadRadial_SegmentHighlightObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegendObject : Frame
+---@class GamepadRadial_inputBindingsObject
 ---@field actions table
----@field promptContainerFrame PartyFrame_TargetingActiveDPadFooterinputLegend_promptContainerFrameObject
----@field promptFrames PartyFrame_TargetingActiveDPadFooterinputLegend_promptFramesObject
----@field promptFramesAddOrder table
----@field promptMap table
----@field wrapAroundRowWidth boolean
-local PartyFrame_TargetingActiveDPadFooterinputLegendObject = {}
+---@field axes table
+---@field buttons table
+---@field functions table
+---@field name string
+---@field nextButtonId number
+---@field nextFunctionId number
+---@field treatBindsAsCore boolean
+local GamepadRadial_inputBindingsObject = {}
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegendObject:AddModifierSection(...) end
+function GamepadRadial_inputBindingsObject:AddAxisBinding(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegendObject:ApplyDefaultPromptPositioning(...) end
+function GamepadRadial_inputBindingsObject:AddButtonBinding(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegendObject:ApplyDefaultStyle(...) end
+function GamepadRadial_inputBindingsObject:AddFunctionBinding(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegendObject:ApplyEnabledStyleToModifierSection(...) end
+function GamepadRadial_inputBindingsObject:BlockDpad(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegendObject:ApplyFocusedStyleToModifierSection(...) end
+function GamepadRadial_inputBindingsObject:BlockDpadAndFaceButtons(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegendObject:ApplyFocusedStyleToPromptContainer(...) end
+function GamepadRadial_inputBindingsObject:BlockEverything(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegendObject:ApplyNeutralStyleToPromptContainer(...) end
+function GamepadRadial_inputBindingsObject:BlockKeys(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegendObject:ApplyWideStyle(...) end
+function GamepadRadial_inputBindingsObject:BlockKeysWithModifiers(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegendObject:GetOrCreatePromptFrameUsingTemplateAndInputs(...) end
+function GamepadRadial_inputBindingsObject:BlockKeysWithoutModifiers(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegendObject:InitializePrompts(...) end
+function GamepadRadial_inputBindingsObject:Init(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegendObject:OnBackgroundAlphaChanged(...) end
+function GamepadRadial_inputBindingsObject:RemoveKeys(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegendObject:RefreshWithPromptedBindings(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegendObject:SetLegendWidth(...) end
+function GamepadRadial_inputBindingsObject:TreatAsCore(...) end
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptContainerFrameObject : Frame
----@field backgroundBorder PartyFrame_TargetingActiveDPadFooterinputLegend_promptContainerFrame_backgroundBorderObject
----@field backgroundSlot PartyFrame_TargetingActiveDPadFooterinputLegend_promptContainerFrame_backgroundSlotObject
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptContainerFrameObject = {}
+---@class GamepadRadial_segmentOptionsObject
+---@field bags table
+---@field buffs table
+---@field calendar table
+---@field character table
+---@field chat table
+---@field collections table
+---@field guild table
+---@field legacy table
+---@field lfd table
+---@field map table
+---@field menu table
+---@field professions table
+---@field pvp table
+---@field social table
+---@field spellbook table
+---@field store table
+---@field talents table
+---@field time table
+---@field tracking table
+local GamepadRadial_segmentOptionsObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptContainerFrame_backgroundBorderObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptContainerFrame_backgroundBorderObject = {}
+---@class GamepadReticleObject : Frame
+---@field Icons GamepadReticle_IconsObject
+---@field SwingTimer GamepadReticle_SwingTimerObject
+local GamepadReticleObject = {}
+---@return any ...
+function GamepadReticleObject:InitForGamepad(...) end
+---@return any ...
+function GamepadReticleObject:OnEvent(...) end
+---@return any ...
+function GamepadReticleObject:OnLoad(...) end
+---@return any ...
+function GamepadReticleObject:OnSwingTimerHide(...) end
+---@return any ...
+function GamepadReticleObject:OnSwingTimerShow(...) end
+---@return any ...
+function GamepadReticleObject:OnUpdate(...) end
+---@return any ...
+function GamepadReticleObject:Recenter(...) end
+---@return any ...
+function GamepadReticleObject:UninitForGamepad(...) end
+---@type GamepadReticleObject
+GamepadReticle = GamepadReticleObject
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptContainerFrame_backgroundSlotObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptContainerFrame_backgroundSlotObject = {}
+---@class GamepadReticle_IconsObject : Frame
+---@field StandardIcon GamepadReticle_Icons_StandardIconObject
+local GamepadReticle_IconsObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFramesObject
----@field StandardOneIconDIRPADSLASH PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject
----@field StandardOneIconPADLSHOULDERSLASH PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFramesObject = {}
+---@class GamepadReticle_Icons_StandardIconObject : Texture
+local GamepadReticle_Icons_StandardIconObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject : Frame
----@field ControlDescText PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_ControlDescTextObject
----@field InputIcon1 PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object
----@field InputIcons table
----@field template string
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject = {}
+---@class GamepadReticle_SwingTimerObject : Frame
+---@field FullCircleAnim GamepadReticle_SwingTimer_FullCircleAnimObject
+---@field LeftSideAnim GamepadReticle_SwingTimer_LeftSideAnimObject
+---@field LeftSideLoadBar GamepadReticle_SwingTimer_LeftSideLoadBarObject
+---@field LeftSideLoadBarGlow GamepadReticle_SwingTimer_LeftSideLoadBarGlowObject
+---@field LeftSideSpinnerTip GamepadReticle_SwingTimer_LeftSideSpinnerTipObject
+---@field LoadBar GamepadReticle_SwingTimer_LoadBarObject
+---@field LoadBarBG GamepadReticle_SwingTimer_LoadBarBGObject
+---@field LoadBarGlow GamepadReticle_SwingTimer_LoadBarGlowObject
+---@field RightSideAnim GamepadReticle_SwingTimer_RightSideAnimObject
+---@field RightSideLoadBar GamepadReticle_SwingTimer_RightSideLoadBarObject
+---@field RightSideLoadBarGlow GamepadReticle_SwingTimer_RightSideLoadBarGlowObject
+---@field RightSideSpinnerTip GamepadReticle_SwingTimer_RightSideSpinnerTipObject
+---@field SpinnerTip GamepadReticle_SwingTimer_SpinnerTipObject
+---@field enabled boolean
+---@field enabledCursorVis boolean
+local GamepadReticle_SwingTimerObject = {}
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:ApplyInactiveEnabledPromptStyling(...) end
+function GamepadReticle_SwingTimerObject:IsAnyVisibleAnimationPlaying(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:BeginHold(...) end
+function GamepadReticle_SwingTimerObject:OnAnimEnded(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:DisablePrompt(...) end
+function GamepadReticle_SwingTimerObject:OnEnableCVarChanged(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:EnableOrDisablePrompt(...) end
+function GamepadReticle_SwingTimerObject:OnEvent(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:EnablePrompt(...) end
+function GamepadReticle_SwingTimerObject:OnLoad(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:EndHold(...) end
+function GamepadReticle_SwingTimerObject:PlaySwingAnim(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:GetDividerSpacingForPrompt(...) end
+function GamepadReticle_SwingTimerObject:RefreshEnabled(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:GetDividerSpacingInfo(...) end
+function GamepadReticle_SwingTimerObject:RefreshOffHand(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:GetIconDividerControl(...) end
+function GamepadReticle_SwingTimerObject:RefreshVisibility(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:GetInputIconControl(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:GetPromptTextControl(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:OnLoad(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:RefreshInputPromptSize(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:SetDisabled(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:SetDividerType(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:SetFocused(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:SetInputIconSize(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:SetIsHoldAction(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:SetPressable(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:SetPromptFont(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:SetPromptInputIconKey(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:SetPromptText(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASHObject:SetUseDropShadow(...) end
+function GamepadReticle_SwingTimerObject:SetVisibility(...) end
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_ControlDescTextObject : Frame
----@field FontString PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_ControlDescText_FontStringObject
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_ControlDescTextObject = {}
+---@class GamepadReticle_SwingTimer_FullCircleAnimObject : AnimationGroup
+local GamepadReticle_SwingTimer_FullCircleAnimObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_ControlDescText_FontStringObject : FontString
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_ControlDescText_FontStringObject = {}
+---@class GamepadReticle_SwingTimer_LeftSideAnimObject : AnimationGroup
+local GamepadReticle_SwingTimer_LeftSideAnimObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object : Frame
----@field ActiveTexture PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_ActiveTextureObject
----@field DisabledTexture PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_DisabledTextureObject
----@field HoldAnim PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_HoldAnimObject
----@field HoldIndicator PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_HoverTextureObject
----@field LoadBar PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_LoadBarObject
----@field LoadBarBG PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_LoadBarBGObject
----@field LoadBarGlow PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_LoadBarGlowObject
----@field NormalTexture PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_NormalTextureObject
----@field PressedTexture PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_PressedTextureObject
----@field SpinnerTip PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_SpinnerTipObject
+---@class GamepadReticle_SwingTimer_LeftSideLoadBarObject : Texture
+local GamepadReticle_SwingTimer_LeftSideLoadBarObject = {}
+end
+
+do
+---@class GamepadReticle_SwingTimer_LeftSideLoadBarGlowObject : Texture
+local GamepadReticle_SwingTimer_LeftSideLoadBarGlowObject = {}
+end
+
+do
+---@class GamepadReticle_SwingTimer_LeftSideSpinnerTipObject : Texture
+local GamepadReticle_SwingTimer_LeftSideSpinnerTipObject = {}
+end
+
+do
+---@class GamepadReticle_SwingTimer_LoadBarObject : Texture
+local GamepadReticle_SwingTimer_LoadBarObject = {}
+end
+
+do
+---@class GamepadReticle_SwingTimer_LoadBarBGObject : Texture
+local GamepadReticle_SwingTimer_LoadBarBGObject = {}
+end
+
+do
+---@class GamepadReticle_SwingTimer_LoadBarGlowObject : Texture
+local GamepadReticle_SwingTimer_LoadBarGlowObject = {}
+end
+
+do
+---@class GamepadReticle_SwingTimer_RightSideAnimObject : AnimationGroup
+local GamepadReticle_SwingTimer_RightSideAnimObject = {}
+end
+
+do
+---@class GamepadReticle_SwingTimer_RightSideLoadBarObject : Texture
+local GamepadReticle_SwingTimer_RightSideLoadBarObject = {}
+end
+
+do
+---@class GamepadReticle_SwingTimer_RightSideLoadBarGlowObject : Texture
+local GamepadReticle_SwingTimer_RightSideLoadBarGlowObject = {}
+end
+
+do
+---@class GamepadReticle_SwingTimer_RightSideSpinnerTipObject : Texture
+local GamepadReticle_SwingTimer_RightSideSpinnerTipObject = {}
+end
+
+do
+---@class GamepadReticle_SwingTimer_SpinnerTipObject : Texture
+local GamepadReticle_SwingTimer_SpinnerTipObject = {}
+end
+
+do
+---@class GamepadScrollBarHintObject : Frame
+---@field Texture GamepadScrollBarHint_TextureObject
+local GamepadScrollBarHintObject = {}
+---@return any ...
+function GamepadScrollBarHintObject:GamepadUninit(...) end
+---@return any ...
+function GamepadScrollBarHintObject:OnLoad(...) end
+---@return any ...
+function GamepadScrollBarHintObject:SetOwner(...) end
+---@type GamepadScrollBarHintObject
+GamepadScrollBarHint = GamepadScrollBarHintObject
+end
+
+do
+---@class GamepadScrollBarHint_TextureObject : Texture
+local GamepadScrollBarHint_TextureObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityTooltipObject : Frame
+---@field CounterIcon GarrisonFollowerAbilityTooltip_CounterIconObject
+---@field CounterIconBorder GarrisonFollowerAbilityTooltip_CounterIconBorderObject
+---@field CountersLabel GarrisonFollowerAbilityTooltip_CountersLabelObject
+---@field Description GarrisonFollowerAbilityTooltip_DescriptionObject
+---@field Details GarrisonFollowerAbilityTooltip_DetailsObject
+---@field Icon GarrisonFollowerAbilityTooltip_IconObject
+---@field Name GarrisonFollowerAbilityTooltip_NameObject
+---@field NineSlice GarrisonFollowerAbilityTooltip_NineSliceObject
+---@field abilityFrameHeightBase number
+---@field layoutType string
+---@field spacingBetweenDescriptionAndDetails number
+---@field spacingBetweenNameAndDescription number
+local GarrisonFollowerAbilityTooltipObject = {}
+---@return any ...
+function GarrisonFollowerAbilityTooltipObject:GetBackdropBorderColor(...) end
+---@return any ...
+function GarrisonFollowerAbilityTooltipObject:GetBackdropColor(...) end
+---@return any ...
+function GarrisonFollowerAbilityTooltipObject:SetBackdropBorderColor(...) end
+---@return any ...
+function GarrisonFollowerAbilityTooltipObject:SetBackdropColor(...) end
+---@return any ...
+function GarrisonFollowerAbilityTooltipObject:SetBorderBlendMode(...) end
+---@return any ...
+function GarrisonFollowerAbilityTooltipObject:TooltipBackdropOnLoad(...) end
+---@type GarrisonFollowerAbilityTooltipObject
+GarrisonFollowerAbilityTooltip = GarrisonFollowerAbilityTooltipObject
+end
+
+do
+---@class GarrisonFollowerAbilityTooltip_CounterIconObject : Texture
+local GarrisonFollowerAbilityTooltip_CounterIconObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityTooltip_CounterIconBorderObject : Texture
+local GarrisonFollowerAbilityTooltip_CounterIconBorderObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityTooltip_CountersLabelObject : FontString
+local GarrisonFollowerAbilityTooltip_CountersLabelObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityTooltip_DescriptionObject : FontString
+local GarrisonFollowerAbilityTooltip_DescriptionObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityTooltip_DetailsObject : FontString
+local GarrisonFollowerAbilityTooltip_DetailsObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityTooltip_IconObject : Texture
+local GarrisonFollowerAbilityTooltip_IconObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityTooltip_NameObject : FontString
+local GarrisonFollowerAbilityTooltip_NameObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityTooltip_NineSliceObject : Frame
+---@field BottomEdge GarrisonFollowerAbilityTooltip_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner GarrisonFollowerAbilityTooltip_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner GarrisonFollowerAbilityTooltip_NineSlice_BottomRightCornerObject
+---@field Center GarrisonFollowerAbilityTooltip_NineSlice_CenterObject
+---@field LeftEdge GarrisonFollowerAbilityTooltip_NineSlice_LeftEdgeObject
+---@field RightEdge GarrisonFollowerAbilityTooltip_NineSlice_RightEdgeObject
+---@field TopEdge GarrisonFollowerAbilityTooltip_NineSlice_TopEdgeObject
+---@field TopLeftCorner GarrisonFollowerAbilityTooltip_NineSlice_TopLeftCornerObject
+---@field TopRightCorner GarrisonFollowerAbilityTooltip_NineSlice_TopRightCornerObject
+local GarrisonFollowerAbilityTooltip_NineSliceObject = {}
+---@return any ...
+function GarrisonFollowerAbilityTooltip_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function GarrisonFollowerAbilityTooltip_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function GarrisonFollowerAbilityTooltip_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function GarrisonFollowerAbilityTooltip_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function GarrisonFollowerAbilityTooltip_NineSliceObject:OnLoad(...) end
+---@return any ...
+function GarrisonFollowerAbilityTooltip_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function GarrisonFollowerAbilityTooltip_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function GarrisonFollowerAbilityTooltip_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function GarrisonFollowerAbilityTooltip_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function GarrisonFollowerAbilityTooltip_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class GarrisonFollowerAbilityTooltip_NineSlice_BottomEdgeObject : Texture
+local GarrisonFollowerAbilityTooltip_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityTooltip_NineSlice_BottomLeftCornerObject : Texture
+local GarrisonFollowerAbilityTooltip_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityTooltip_NineSlice_BottomRightCornerObject : Texture
+local GarrisonFollowerAbilityTooltip_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityTooltip_NineSlice_CenterObject : Texture
+local GarrisonFollowerAbilityTooltip_NineSlice_CenterObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityTooltip_NineSlice_LeftEdgeObject : Texture
+local GarrisonFollowerAbilityTooltip_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityTooltip_NineSlice_RightEdgeObject : Texture
+local GarrisonFollowerAbilityTooltip_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityTooltip_NineSlice_TopEdgeObject : Texture
+local GarrisonFollowerAbilityTooltip_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityTooltip_NineSlice_TopLeftCornerObject : Texture
+local GarrisonFollowerAbilityTooltip_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityTooltip_NineSlice_TopRightCornerObject : Texture
+local GarrisonFollowerAbilityTooltip_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityWithoutCountersTooltipObject : Frame
+---@field AbilityBorder GarrisonFollowerAbilityWithoutCountersTooltip_AbilityBorderObject
+---@field Description GarrisonFollowerAbilityWithoutCountersTooltip_DescriptionObject
+---@field Icon GarrisonFollowerAbilityWithoutCountersTooltip_IconObject
+---@field Name GarrisonFollowerAbilityWithoutCountersTooltip_NameObject
+---@field NineSlice GarrisonFollowerAbilityWithoutCountersTooltip_NineSliceObject
+---@field abilityFrameHeightBase number
+---@field layoutType string
+---@field spacingBetweenDescriptionAndDetails number
+---@field spacingBetweenNameAndDescription number
+local GarrisonFollowerAbilityWithoutCountersTooltipObject = {}
+---@return any ...
+function GarrisonFollowerAbilityWithoutCountersTooltipObject:GetBackdropBorderColor(...) end
+---@return any ...
+function GarrisonFollowerAbilityWithoutCountersTooltipObject:GetBackdropColor(...) end
+---@return any ...
+function GarrisonFollowerAbilityWithoutCountersTooltipObject:SetBackdropBorderColor(...) end
+---@return any ...
+function GarrisonFollowerAbilityWithoutCountersTooltipObject:SetBackdropColor(...) end
+---@return any ...
+function GarrisonFollowerAbilityWithoutCountersTooltipObject:SetBorderBlendMode(...) end
+---@return any ...
+function GarrisonFollowerAbilityWithoutCountersTooltipObject:TooltipBackdropOnLoad(...) end
+---@type GarrisonFollowerAbilityWithoutCountersTooltipObject
+GarrisonFollowerAbilityWithoutCountersTooltip = GarrisonFollowerAbilityWithoutCountersTooltipObject
+end
+
+do
+---@class GarrisonFollowerAbilityWithoutCountersTooltip_AbilityBorderObject : Texture
+local GarrisonFollowerAbilityWithoutCountersTooltip_AbilityBorderObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityWithoutCountersTooltip_DescriptionObject : FontString
+local GarrisonFollowerAbilityWithoutCountersTooltip_DescriptionObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityWithoutCountersTooltip_IconObject : Texture
+local GarrisonFollowerAbilityWithoutCountersTooltip_IconObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityWithoutCountersTooltip_NameObject : FontString
+local GarrisonFollowerAbilityWithoutCountersTooltip_NameObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityWithoutCountersTooltip_NineSliceObject : Frame
+---@field BottomEdge GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_BottomRightCornerObject
+---@field Center GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_CenterObject
+---@field LeftEdge GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_LeftEdgeObject
+---@field RightEdge GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_RightEdgeObject
+---@field TopEdge GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_TopEdgeObject
+---@field TopLeftCorner GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_TopLeftCornerObject
+---@field TopRightCorner GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_TopRightCornerObject
+local GarrisonFollowerAbilityWithoutCountersTooltip_NineSliceObject = {}
+---@return any ...
+function GarrisonFollowerAbilityWithoutCountersTooltip_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function GarrisonFollowerAbilityWithoutCountersTooltip_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function GarrisonFollowerAbilityWithoutCountersTooltip_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function GarrisonFollowerAbilityWithoutCountersTooltip_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function GarrisonFollowerAbilityWithoutCountersTooltip_NineSliceObject:OnLoad(...) end
+---@return any ...
+function GarrisonFollowerAbilityWithoutCountersTooltip_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function GarrisonFollowerAbilityWithoutCountersTooltip_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function GarrisonFollowerAbilityWithoutCountersTooltip_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function GarrisonFollowerAbilityWithoutCountersTooltip_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function GarrisonFollowerAbilityWithoutCountersTooltip_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_BottomEdgeObject : Texture
+local GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_BottomLeftCornerObject : Texture
+local GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_BottomRightCornerObject : Texture
+local GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_CenterObject : Texture
+local GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_CenterObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_LeftEdgeObject : Texture
+local GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_RightEdgeObject : Texture
+local GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_TopEdgeObject : Texture
+local GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_TopLeftCornerObject : Texture
+local GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_TopRightCornerObject : Texture
+local GarrisonFollowerAbilityWithoutCountersTooltip_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class GarrisonFollowerMissionAbilityWithoutCountersTooltipObject : Frame
+---@field AbilityBorder GarrisonFollowerMissionAbilityWithoutCountersTooltip_AbilityBorderObject
+---@field Description GarrisonFollowerMissionAbilityWithoutCountersTooltip_DescriptionObject
+---@field Header GarrisonFollowerMissionAbilityWithoutCountersTooltip_HeaderObject
+---@field Icon GarrisonFollowerMissionAbilityWithoutCountersTooltip_IconObject
+---@field Name GarrisonFollowerMissionAbilityWithoutCountersTooltip_NameObject
+---@field NineSlice GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSliceObject
+---@field abilityFrameHeightBase number
+---@field layoutType string
+---@field spacingBetweenDescriptionAndDetails number
+---@field spacingBetweenNameAndDescription number
+local GarrisonFollowerMissionAbilityWithoutCountersTooltipObject = {}
+---@return any ...
+function GarrisonFollowerMissionAbilityWithoutCountersTooltipObject:GetBackdropBorderColor(...) end
+---@return any ...
+function GarrisonFollowerMissionAbilityWithoutCountersTooltipObject:GetBackdropColor(...) end
+---@return any ...
+function GarrisonFollowerMissionAbilityWithoutCountersTooltipObject:SetBackdropBorderColor(...) end
+---@return any ...
+function GarrisonFollowerMissionAbilityWithoutCountersTooltipObject:SetBackdropColor(...) end
+---@return any ...
+function GarrisonFollowerMissionAbilityWithoutCountersTooltipObject:SetBorderBlendMode(...) end
+---@return any ...
+function GarrisonFollowerMissionAbilityWithoutCountersTooltipObject:TooltipBackdropOnLoad(...) end
+---@type GarrisonFollowerMissionAbilityWithoutCountersTooltipObject
+GarrisonFollowerMissionAbilityWithoutCountersTooltip = GarrisonFollowerMissionAbilityWithoutCountersTooltipObject
+end
+
+do
+---@class GarrisonFollowerMissionAbilityWithoutCountersTooltip_AbilityBorderObject : Texture
+local GarrisonFollowerMissionAbilityWithoutCountersTooltip_AbilityBorderObject = {}
+end
+
+do
+---@class GarrisonFollowerMissionAbilityWithoutCountersTooltip_DescriptionObject : FontString
+local GarrisonFollowerMissionAbilityWithoutCountersTooltip_DescriptionObject = {}
+end
+
+do
+---@class GarrisonFollowerMissionAbilityWithoutCountersTooltip_HeaderObject : FontString
+local GarrisonFollowerMissionAbilityWithoutCountersTooltip_HeaderObject = {}
+end
+
+do
+---@class GarrisonFollowerMissionAbilityWithoutCountersTooltip_IconObject : Texture
+local GarrisonFollowerMissionAbilityWithoutCountersTooltip_IconObject = {}
+end
+
+do
+---@class GarrisonFollowerMissionAbilityWithoutCountersTooltip_NameObject : FontString
+local GarrisonFollowerMissionAbilityWithoutCountersTooltip_NameObject = {}
+end
+
+do
+---@class GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSliceObject : Frame
+---@field BottomEdge GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_BottomRightCornerObject
+---@field Center GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_CenterObject
+---@field LeftEdge GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_LeftEdgeObject
+---@field RightEdge GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_RightEdgeObject
+---@field TopEdge GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_TopEdgeObject
+---@field TopLeftCorner GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_TopLeftCornerObject
+---@field TopRightCorner GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_TopRightCornerObject
+local GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSliceObject = {}
+---@return any ...
+function GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSliceObject:OnLoad(...) end
+---@return any ...
+function GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_BottomEdgeObject : Texture
+local GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_BottomLeftCornerObject : Texture
+local GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_BottomRightCornerObject : Texture
+local GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_CenterObject : Texture
+local GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_CenterObject = {}
+end
+
+do
+---@class GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_LeftEdgeObject : Texture
+local GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_RightEdgeObject : Texture
+local GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_TopEdgeObject : Texture
+local GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_TopLeftCornerObject : Texture
+local GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_TopRightCornerObject : Texture
+local GarrisonFollowerMissionAbilityWithoutCountersTooltip_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltipObject : Frame
+---@field Abilities table
+---@field AbilitiesLabel GarrisonFollowerTooltip_AbilitiesLabelObject
+---@field Class GarrisonFollowerTooltip_ClassObject
+---@field ClassSpecName GarrisonFollowerTooltip_ClassSpecNameObject
+---@field ILevel GarrisonFollowerTooltip_ILevelObject
+---@field Name GarrisonFollowerTooltip_NameObject
+---@field NineSlice GarrisonFollowerTooltip_NineSliceObject
+---@field PortraitFrame GarrisonFollowerTooltip_PortraitFrameObject
+---@field Quality GarrisonFollowerTooltip_QualityObject
+---@field SpecializationLabel GarrisonFollowerTooltip_SpecializationLabelObject
+---@field Traits table
+---@field TraitsLabel GarrisonFollowerTooltip_TraitsLabelObject
+---@field UnderBiased GarrisonFollowerTooltip_UnderBiasedObject
+---@field XP GarrisonFollowerTooltip_XPObject
+---@field XPBar GarrisonFollowerTooltip_XPBarObject
+---@field XPBarBackground GarrisonFollowerTooltip_XPBarBackgroundObject
+---@field layoutType string
+local GarrisonFollowerTooltipObject = {}
+---@return any ...
+function GarrisonFollowerTooltipObject:GetBackdropBorderColor(...) end
+---@return any ...
+function GarrisonFollowerTooltipObject:GetBackdropColor(...) end
+---@return any ...
+function GarrisonFollowerTooltipObject:SetBackdropBorderColor(...) end
+---@return any ...
+function GarrisonFollowerTooltipObject:SetBackdropColor(...) end
+---@return any ...
+function GarrisonFollowerTooltipObject:SetBorderBlendMode(...) end
+---@return any ...
+function GarrisonFollowerTooltipObject:TooltipBackdropOnLoad(...) end
+---@type GarrisonFollowerTooltipObject
+GarrisonFollowerTooltip = GarrisonFollowerTooltipObject
+end
+
+do
+---@class GarrisonFollowerTooltip_AbilitiesLabelObject : FontString
+local GarrisonFollowerTooltip_AbilitiesLabelObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_ClassObject : Texture
+local GarrisonFollowerTooltip_ClassObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_ClassSpecNameObject : FontString
+local GarrisonFollowerTooltip_ClassSpecNameObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_ILevelObject : FontString
+local GarrisonFollowerTooltip_ILevelObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_NameObject : FontString
+local GarrisonFollowerTooltip_NameObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_NineSliceObject : Frame
+---@field BottomEdge GarrisonFollowerTooltip_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner GarrisonFollowerTooltip_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner GarrisonFollowerTooltip_NineSlice_BottomRightCornerObject
+---@field Center GarrisonFollowerTooltip_NineSlice_CenterObject
+---@field LeftEdge GarrisonFollowerTooltip_NineSlice_LeftEdgeObject
+---@field RightEdge GarrisonFollowerTooltip_NineSlice_RightEdgeObject
+---@field TopEdge GarrisonFollowerTooltip_NineSlice_TopEdgeObject
+---@field TopLeftCorner GarrisonFollowerTooltip_NineSlice_TopLeftCornerObject
+---@field TopRightCorner GarrisonFollowerTooltip_NineSlice_TopRightCornerObject
+local GarrisonFollowerTooltip_NineSliceObject = {}
+---@return any ...
+function GarrisonFollowerTooltip_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function GarrisonFollowerTooltip_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function GarrisonFollowerTooltip_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function GarrisonFollowerTooltip_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function GarrisonFollowerTooltip_NineSliceObject:OnLoad(...) end
+---@return any ...
+function GarrisonFollowerTooltip_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function GarrisonFollowerTooltip_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function GarrisonFollowerTooltip_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function GarrisonFollowerTooltip_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function GarrisonFollowerTooltip_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class GarrisonFollowerTooltip_NineSlice_BottomEdgeObject : Texture
+local GarrisonFollowerTooltip_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_NineSlice_BottomLeftCornerObject : Texture
+local GarrisonFollowerTooltip_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_NineSlice_BottomRightCornerObject : Texture
+local GarrisonFollowerTooltip_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_NineSlice_CenterObject : Texture
+local GarrisonFollowerTooltip_NineSlice_CenterObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_NineSlice_LeftEdgeObject : Texture
+local GarrisonFollowerTooltip_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_NineSlice_RightEdgeObject : Texture
+local GarrisonFollowerTooltip_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_NineSlice_TopEdgeObject : Texture
+local GarrisonFollowerTooltip_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_NineSlice_TopLeftCornerObject : Texture
+local GarrisonFollowerTooltip_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_NineSlice_TopRightCornerObject : Texture
+local GarrisonFollowerTooltip_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_PortraitFrameObject : Frame
+---@field Level GarrisonFollowerTooltip_PortraitFrame_LevelObject
+---@field LevelBorder GarrisonFollowerTooltip_PortraitFrame_LevelBorderObject
+---@field Portrait GarrisonFollowerTooltip_PortraitFrame_PortraitObject
+---@field PortraitRing GarrisonFollowerTooltip_PortraitFrame_PortraitRingObject
+---@field PortraitRingCover GarrisonFollowerTooltip_PortraitFrame_PortraitRingCoverObject
+---@field PortraitRingQuality GarrisonFollowerTooltip_PortraitFrame_PortraitRingQualityObject
+local GarrisonFollowerTooltip_PortraitFrameObject = {}
+---@return any ...
+function GarrisonFollowerTooltip_PortraitFrameObject:SetILevel(...) end
+---@return any ...
+function GarrisonFollowerTooltip_PortraitFrameObject:SetLevel(...) end
+---@return any ...
+function GarrisonFollowerTooltip_PortraitFrameObject:SetNoLevel(...) end
+---@return any ...
+function GarrisonFollowerTooltip_PortraitFrameObject:SetPortraitIcon(...) end
+---@return any ...
+function GarrisonFollowerTooltip_PortraitFrameObject:SetQuality(...) end
+---@return any ...
+function GarrisonFollowerTooltip_PortraitFrameObject:SetQualityColor(...) end
+---@return any ...
+function GarrisonFollowerTooltip_PortraitFrameObject:SetupPortrait(...) end
+end
+
+do
+---@class GarrisonFollowerTooltip_PortraitFrame_LevelObject : FontString
+local GarrisonFollowerTooltip_PortraitFrame_LevelObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_PortraitFrame_LevelBorderObject : Texture
+local GarrisonFollowerTooltip_PortraitFrame_LevelBorderObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_PortraitFrame_PortraitObject : Texture
+local GarrisonFollowerTooltip_PortraitFrame_PortraitObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_PortraitFrame_PortraitRingObject : Texture
+local GarrisonFollowerTooltip_PortraitFrame_PortraitRingObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_PortraitFrame_PortraitRingCoverObject : Texture
+local GarrisonFollowerTooltip_PortraitFrame_PortraitRingCoverObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_PortraitFrame_PortraitRingQualityObject : Texture
+local GarrisonFollowerTooltip_PortraitFrame_PortraitRingQualityObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_QualityObject : FontString
+local GarrisonFollowerTooltip_QualityObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_SpecializationLabelObject : FontString
+local GarrisonFollowerTooltip_SpecializationLabelObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_TraitsLabelObject : FontString
+local GarrisonFollowerTooltip_TraitsLabelObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_UnderBiasedObject : FontString
+local GarrisonFollowerTooltip_UnderBiasedObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_XPObject : FontString
+local GarrisonFollowerTooltip_XPObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_XPBarObject : Texture
+local GarrisonFollowerTooltip_XPBarObject = {}
+end
+
+do
+---@class GarrisonFollowerTooltip_XPBarBackgroundObject : Texture
+local GarrisonFollowerTooltip_XPBarBackgroundObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltipObject : Frame
+---@field ClassSpecName GarrisonShipyardFollowerTooltip_ClassSpecNameObject
+---@field Name GarrisonShipyardFollowerTooltip_NameObject
+---@field NineSlice GarrisonShipyardFollowerTooltip_NineSliceObject
+---@field Properties table
+---@field Property1 GarrisonShipyardFollowerTooltip_Property1Object
+---@field Property2 GarrisonShipyardFollowerTooltip_Property2Object
+---@field Property3 GarrisonShipyardFollowerTooltip_Property3Object
+---@field Property4 GarrisonShipyardFollowerTooltip_Property4Object
+---@field Quality GarrisonShipyardFollowerTooltip_QualityObject
+---@field XP GarrisonShipyardFollowerTooltip_XPObject
+---@field XPBar GarrisonShipyardFollowerTooltip_XPBarObject
+---@field XPBarBackground GarrisonShipyardFollowerTooltip_XPBarBackgroundObject
+---@field layoutType string
+local GarrisonShipyardFollowerTooltipObject = {}
+---@return any ...
+function GarrisonShipyardFollowerTooltipObject:GetBackdropBorderColor(...) end
+---@return any ...
+function GarrisonShipyardFollowerTooltipObject:GetBackdropColor(...) end
+---@return any ...
+function GarrisonShipyardFollowerTooltipObject:SetBackdropBorderColor(...) end
+---@return any ...
+function GarrisonShipyardFollowerTooltipObject:SetBackdropColor(...) end
+---@return any ...
+function GarrisonShipyardFollowerTooltipObject:SetBorderBlendMode(...) end
+---@return any ...
+function GarrisonShipyardFollowerTooltipObject:TooltipBackdropOnLoad(...) end
+---@type GarrisonShipyardFollowerTooltipObject
+GarrisonShipyardFollowerTooltip = GarrisonShipyardFollowerTooltipObject
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_ClassSpecNameObject : FontString
+local GarrisonShipyardFollowerTooltip_ClassSpecNameObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_NameObject : FontString
+local GarrisonShipyardFollowerTooltip_NameObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_NineSliceObject : Frame
+---@field BottomEdge GarrisonShipyardFollowerTooltip_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner GarrisonShipyardFollowerTooltip_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner GarrisonShipyardFollowerTooltip_NineSlice_BottomRightCornerObject
+---@field Center GarrisonShipyardFollowerTooltip_NineSlice_CenterObject
+---@field LeftEdge GarrisonShipyardFollowerTooltip_NineSlice_LeftEdgeObject
+---@field RightEdge GarrisonShipyardFollowerTooltip_NineSlice_RightEdgeObject
+---@field TopEdge GarrisonShipyardFollowerTooltip_NineSlice_TopEdgeObject
+---@field TopLeftCorner GarrisonShipyardFollowerTooltip_NineSlice_TopLeftCornerObject
+---@field TopRightCorner GarrisonShipyardFollowerTooltip_NineSlice_TopRightCornerObject
+local GarrisonShipyardFollowerTooltip_NineSliceObject = {}
+---@return any ...
+function GarrisonShipyardFollowerTooltip_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function GarrisonShipyardFollowerTooltip_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function GarrisonShipyardFollowerTooltip_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function GarrisonShipyardFollowerTooltip_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function GarrisonShipyardFollowerTooltip_NineSliceObject:OnLoad(...) end
+---@return any ...
+function GarrisonShipyardFollowerTooltip_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function GarrisonShipyardFollowerTooltip_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function GarrisonShipyardFollowerTooltip_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function GarrisonShipyardFollowerTooltip_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function GarrisonShipyardFollowerTooltip_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_NineSlice_BottomEdgeObject : Texture
+local GarrisonShipyardFollowerTooltip_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_NineSlice_BottomLeftCornerObject : Texture
+local GarrisonShipyardFollowerTooltip_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_NineSlice_BottomRightCornerObject : Texture
+local GarrisonShipyardFollowerTooltip_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_NineSlice_CenterObject : Texture
+local GarrisonShipyardFollowerTooltip_NineSlice_CenterObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_NineSlice_LeftEdgeObject : Texture
+local GarrisonShipyardFollowerTooltip_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_NineSlice_RightEdgeObject : Texture
+local GarrisonShipyardFollowerTooltip_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_NineSlice_TopEdgeObject : Texture
+local GarrisonShipyardFollowerTooltip_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_NineSlice_TopLeftCornerObject : Texture
+local GarrisonShipyardFollowerTooltip_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_NineSlice_TopRightCornerObject : Texture
+local GarrisonShipyardFollowerTooltip_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property1Object : Frame
+---@field Border GarrisonShipyardFollowerTooltip_Property1_BorderObject
+---@field CounterIcon GarrisonShipyardFollowerTooltip_Property1_CounterIconObject
+---@field CounterIconBorder GarrisonShipyardFollowerTooltip_Property1_CounterIconBorderObject
+---@field Description GarrisonShipyardFollowerTooltip_Property1_DescriptionObject
+---@field Details GarrisonShipyardFollowerTooltip_Property1_DetailsObject
+---@field Icon GarrisonShipyardFollowerTooltip_Property1_IconObject
+---@field Name GarrisonShipyardFollowerTooltip_Property1_NameObject
+local GarrisonShipyardFollowerTooltip_Property1Object = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property1_BorderObject : Texture
+local GarrisonShipyardFollowerTooltip_Property1_BorderObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property1_CounterIconObject : Texture
+local GarrisonShipyardFollowerTooltip_Property1_CounterIconObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property1_CounterIconBorderObject : Texture
+local GarrisonShipyardFollowerTooltip_Property1_CounterIconBorderObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property1_DescriptionObject : FontString
+local GarrisonShipyardFollowerTooltip_Property1_DescriptionObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property1_DetailsObject : FontString
+local GarrisonShipyardFollowerTooltip_Property1_DetailsObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property1_IconObject : Texture
+local GarrisonShipyardFollowerTooltip_Property1_IconObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property1_NameObject : FontString
+local GarrisonShipyardFollowerTooltip_Property1_NameObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property2Object : Frame
+---@field Border GarrisonShipyardFollowerTooltip_Property2_BorderObject
+---@field CounterIcon GarrisonShipyardFollowerTooltip_Property2_CounterIconObject
+---@field CounterIconBorder GarrisonShipyardFollowerTooltip_Property2_CounterIconBorderObject
+---@field Description GarrisonShipyardFollowerTooltip_Property2_DescriptionObject
+---@field Details GarrisonShipyardFollowerTooltip_Property2_DetailsObject
+---@field Icon GarrisonShipyardFollowerTooltip_Property2_IconObject
+---@field Name GarrisonShipyardFollowerTooltip_Property2_NameObject
+local GarrisonShipyardFollowerTooltip_Property2Object = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property2_BorderObject : Texture
+local GarrisonShipyardFollowerTooltip_Property2_BorderObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property2_CounterIconObject : Texture
+local GarrisonShipyardFollowerTooltip_Property2_CounterIconObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property2_CounterIconBorderObject : Texture
+local GarrisonShipyardFollowerTooltip_Property2_CounterIconBorderObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property2_DescriptionObject : FontString
+local GarrisonShipyardFollowerTooltip_Property2_DescriptionObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property2_DetailsObject : FontString
+local GarrisonShipyardFollowerTooltip_Property2_DetailsObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property2_IconObject : Texture
+local GarrisonShipyardFollowerTooltip_Property2_IconObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property2_NameObject : FontString
+local GarrisonShipyardFollowerTooltip_Property2_NameObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property3Object : Frame
+---@field Border GarrisonShipyardFollowerTooltip_Property3_BorderObject
+---@field CounterIcon GarrisonShipyardFollowerTooltip_Property3_CounterIconObject
+---@field CounterIconBorder GarrisonShipyardFollowerTooltip_Property3_CounterIconBorderObject
+---@field Description GarrisonShipyardFollowerTooltip_Property3_DescriptionObject
+---@field Details GarrisonShipyardFollowerTooltip_Property3_DetailsObject
+---@field Icon GarrisonShipyardFollowerTooltip_Property3_IconObject
+---@field Name GarrisonShipyardFollowerTooltip_Property3_NameObject
+local GarrisonShipyardFollowerTooltip_Property3Object = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property3_BorderObject : Texture
+local GarrisonShipyardFollowerTooltip_Property3_BorderObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property3_CounterIconObject : Texture
+local GarrisonShipyardFollowerTooltip_Property3_CounterIconObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property3_CounterIconBorderObject : Texture
+local GarrisonShipyardFollowerTooltip_Property3_CounterIconBorderObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property3_DescriptionObject : FontString
+local GarrisonShipyardFollowerTooltip_Property3_DescriptionObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property3_DetailsObject : FontString
+local GarrisonShipyardFollowerTooltip_Property3_DetailsObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property3_IconObject : Texture
+local GarrisonShipyardFollowerTooltip_Property3_IconObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property3_NameObject : FontString
+local GarrisonShipyardFollowerTooltip_Property3_NameObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property4Object : Frame
+---@field Border GarrisonShipyardFollowerTooltip_Property4_BorderObject
+---@field CounterIcon GarrisonShipyardFollowerTooltip_Property4_CounterIconObject
+---@field CounterIconBorder GarrisonShipyardFollowerTooltip_Property4_CounterIconBorderObject
+---@field Description GarrisonShipyardFollowerTooltip_Property4_DescriptionObject
+---@field Details GarrisonShipyardFollowerTooltip_Property4_DetailsObject
+---@field Icon GarrisonShipyardFollowerTooltip_Property4_IconObject
+---@field Name GarrisonShipyardFollowerTooltip_Property4_NameObject
+local GarrisonShipyardFollowerTooltip_Property4Object = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property4_BorderObject : Texture
+local GarrisonShipyardFollowerTooltip_Property4_BorderObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property4_CounterIconObject : Texture
+local GarrisonShipyardFollowerTooltip_Property4_CounterIconObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property4_CounterIconBorderObject : Texture
+local GarrisonShipyardFollowerTooltip_Property4_CounterIconBorderObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property4_DescriptionObject : FontString
+local GarrisonShipyardFollowerTooltip_Property4_DescriptionObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property4_DetailsObject : FontString
+local GarrisonShipyardFollowerTooltip_Property4_DetailsObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property4_IconObject : Texture
+local GarrisonShipyardFollowerTooltip_Property4_IconObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_Property4_NameObject : FontString
+local GarrisonShipyardFollowerTooltip_Property4_NameObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_QualityObject : FontString
+local GarrisonShipyardFollowerTooltip_QualityObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_XPObject : FontString
+local GarrisonShipyardFollowerTooltip_XPObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_XPBarObject : Texture
+local GarrisonShipyardFollowerTooltip_XPBarObject = {}
+end
+
+do
+---@class GarrisonShipyardFollowerTooltip_XPBarBackgroundObject : Texture
+local GarrisonShipyardFollowerTooltip_XPBarBackgroundObject = {}
+end
+
+do
+---@class GeneralDockManagerObject : Frame
+---@field DOCKED_CHAT_FRAMES table
+---@field LeftTabHint GeneralDockManager_LeftTabHintObject
+---@field RightTabHint GeneralDockManager_RightTabHintObject
+---@field insertHighlight GeneralDockManager_insertHighlightObject
+---@field isDirty boolean
+---@field leftTab number
+---@field overflowButton GeneralDockManager_overflowButtonObject
+---@field primary GeneralDockManager_primaryObject
+---@field scrollFrame GeneralDockManager_scrollFrameObject
+---@field selected GeneralDockManager_selectedObject
+local GeneralDockManagerObject = {}
+---@return any ...
+function GeneralDockManagerObject:ActivateFooterBindings(...) end
+---@return any ...
+function GeneralDockManagerObject:DeactivateFooterBindings(...) end
+---@return any ...
+function GeneralDockManagerObject:OnLoad(...) end
+---@return any ...
+function GeneralDockManagerObject:RefreshFooterBindings(...) end
+---@return any ...
+function GeneralDockManagerObject:RegisterForInterfaceTransitions(...) end
+---@return any ...
+function GeneralDockManagerObject:SelectNextWindow(...) end
+---@return any ...
+function GeneralDockManagerObject:SelectPrevWindow(...) end
+---@return any ...
+function GeneralDockManagerObject:SetUpGamepad(...) end
+---@type GeneralDockManagerObject
+GeneralDockManager = GeneralDockManagerObject
+end
+
+do
+---@class GeneralDockManager_LeftTabHintObject : Frame
+---@field ActiveTexture GeneralDockManager_LeftTabHint_ActiveTextureObject
+---@field DisabledTexture GeneralDockManager_LeftTabHint_DisabledTextureObject
+---@field HoldAnim GeneralDockManager_LeftTabHint_HoldAnimObject
+---@field HoldIndicator GeneralDockManager_LeftTabHint_HoldIndicatorObject
+---@field HoldIndicatorBG GeneralDockManager_LeftTabHint_HoldIndicatorBGObject
+---@field HoverTexture GeneralDockManager_LeftTabHint_HoverTextureObject
+---@field LoadBar GeneralDockManager_LeftTabHint_LoadBarObject
+---@field LoadBarBG GeneralDockManager_LeftTabHint_LoadBarBGObject
+---@field LoadBarGlow GeneralDockManager_LeftTabHint_LoadBarGlowObject
+---@field NormalTexture GeneralDockManager_LeftTabHint_NormalTextureObject
+---@field PressedTexture GeneralDockManager_LeftTabHint_PressedTextureObject
+---@field SpinnerTip GeneralDockManager_LeftTabHint_SpinnerTipObject
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
 ---@field textureState number
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object = {}
+local GeneralDockManager_LeftTabHintObject = {}
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object:ApplyTextureLayout(...) end
+function GeneralDockManager_LeftTabHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object:BeginHold(...) end
+function GeneralDockManager_LeftTabHintObject:BeginHold(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object:CanEnterTextureState(...) end
+function GeneralDockManager_LeftTabHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object:DisableDropShadow(...) end
+function GeneralDockManager_LeftTabHintObject:DisableDropShadow(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object:EnableDropShadow(...) end
+function GeneralDockManager_LeftTabHintObject:EnableDropShadow(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object:EndHold(...) end
+function GeneralDockManager_LeftTabHintObject:EndHold(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object:OnHoldAnimFinished(...) end
+function GeneralDockManager_LeftTabHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object:OnHoldAnimStopped(...) end
+function GeneralDockManager_LeftTabHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object:OnLoad(...) end
+function GeneralDockManager_LeftTabHintObject:OnLoad(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object:RefreshIconTextures(...) end
+function GeneralDockManager_LeftTabHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object:SetDisabled(...) end
+function GeneralDockManager_LeftTabHintObject:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object:SetEnabled(...) end
+function GeneralDockManager_LeftTabHintObject:SetEnabled(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object:SetFocused(...) end
+function GeneralDockManager_LeftTabHintObject:SetFocused(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object:SetHoldState(...) end
+function GeneralDockManager_LeftTabHintObject:SetHoldState(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object:SetInputKey(...) end
+function GeneralDockManager_LeftTabHintObject:SetInputKey(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object:SetIsHoldAction(...) end
+function GeneralDockManager_LeftTabHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object:SetPressable(...) end
+function GeneralDockManager_LeftTabHintObject:SetPressable(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object:SetTextureHeight(...) end
+function GeneralDockManager_LeftTabHintObject:SetTextureHeight(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object:SetTextureState(...) end
+function GeneralDockManager_LeftTabHintObject:SetTextureState(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object:SetTextureWidth(...) end
+function GeneralDockManager_LeftTabHintObject:SetTextureWidth(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object:SetUsableState(...) end
+function GeneralDockManager_LeftTabHintObject:SetUsableState(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
+function GeneralDockManager_LeftTabHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_ActiveTextureObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_ActiveTextureObject = {}
+---@class GeneralDockManager_LeftTabHint_ActiveTextureObject : Texture
+local GeneralDockManager_LeftTabHint_ActiveTextureObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_DisabledTextureObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_DisabledTextureObject = {}
+---@class GeneralDockManager_LeftTabHint_DisabledTextureObject : Texture
+local GeneralDockManager_LeftTabHint_DisabledTextureObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_HoldAnimObject = {}
+---@class GeneralDockManager_LeftTabHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GeneralDockManager_LeftTabHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GeneralDockManager_LeftTabHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GeneralDockManager_LeftTabHint_HoldAnim_SpinnerTipAnimObject
+local GeneralDockManager_LeftTabHint_HoldAnimObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
+---@class GeneralDockManager_LeftTabHint_HoldAnim_LoadBarAnimObject
+local GeneralDockManager_LeftTabHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
+---@class GeneralDockManager_LeftTabHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GeneralDockManager_LeftTabHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
+---@class GeneralDockManager_LeftTabHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GeneralDockManager_LeftTabHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_HoldIndicatorObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_HoldIndicatorObject = {}
+---@class GeneralDockManager_LeftTabHint_HoldIndicatorObject : Texture
+local GeneralDockManager_LeftTabHint_HoldIndicatorObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_HoldIndicatorBGObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_HoldIndicatorBGObject = {}
+---@class GeneralDockManager_LeftTabHint_HoldIndicatorBGObject : Texture
+local GeneralDockManager_LeftTabHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_HoverTextureObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_HoverTextureObject = {}
+---@class GeneralDockManager_LeftTabHint_HoverTextureObject : Texture
+local GeneralDockManager_LeftTabHint_HoverTextureObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_LoadBarObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_LoadBarObject = {}
+---@class GeneralDockManager_LeftTabHint_LoadBarObject : Texture
+local GeneralDockManager_LeftTabHint_LoadBarObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_LoadBarBGObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_LoadBarBGObject = {}
+---@class GeneralDockManager_LeftTabHint_LoadBarBGObject : Texture
+local GeneralDockManager_LeftTabHint_LoadBarBGObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_LoadBarGlowObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_LoadBarGlowObject = {}
+---@class GeneralDockManager_LeftTabHint_LoadBarGlowObject : Texture
+local GeneralDockManager_LeftTabHint_LoadBarGlowObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_NormalTextureObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_NormalTextureObject = {}
+---@class GeneralDockManager_LeftTabHint_NormalTextureObject : Texture
+local GeneralDockManager_LeftTabHint_NormalTextureObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_PressedTextureObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_PressedTextureObject = {}
+---@class GeneralDockManager_LeftTabHint_PressedTextureObject : Texture
+local GeneralDockManager_LeftTabHint_PressedTextureObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_SpinnerTipObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconDIRPADSLASH_InputIcon1_SpinnerTipObject = {}
+---@class GeneralDockManager_LeftTabHint_SpinnerTipObject : Texture
+local GeneralDockManager_LeftTabHint_SpinnerTipObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject : Frame
----@field ControlDescText PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescTextObject
----@field InputIcon1 PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object
----@field InputIcons table
----@field template string
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject = {}
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:BeginHold(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:DisablePrompt(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:EnableOrDisablePrompt(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:EnablePrompt(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:EndHold(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:GetDividerSpacingInfo(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:GetIconDividerControl(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:GetInputIconControl(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:GetPromptTextControl(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:OnLoad(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:RefreshInputPromptSize(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetDisabled(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetDividerType(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetFocused(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetInputIconSize(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetIsHoldAction(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetPressable(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetPromptFont(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetPromptInputIconKey(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetPromptText(...) end
----@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetUseDropShadow(...) end
-end
-
-do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescTextObject : Frame
----@field FontString PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescText_FontStringObject
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescTextObject = {}
-end
-
-do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescText_FontStringObject : FontString
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescText_FontStringObject = {}
-end
-
-do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object : Frame
----@field ActiveTexture PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_ActiveTextureObject
----@field DisabledTexture PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_DisabledTextureObject
----@field HoldAnim PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnimObject
----@field HoldIndicator PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoverTextureObject
----@field LoadBar PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarObject
----@field LoadBarBG PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarBGObject
----@field LoadBarGlow PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarGlowObject
----@field NormalTexture PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_NormalTextureObject
----@field PressedTexture PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_PressedTextureObject
----@field SpinnerTip PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_SpinnerTipObject
+---@class GeneralDockManager_RightTabHintObject : Frame
+---@field ActiveTexture GeneralDockManager_RightTabHint_ActiveTextureObject
+---@field DisabledTexture GeneralDockManager_RightTabHint_DisabledTextureObject
+---@field HoldAnim GeneralDockManager_RightTabHint_HoldAnimObject
+---@field HoldIndicator GeneralDockManager_RightTabHint_HoldIndicatorObject
+---@field HoldIndicatorBG GeneralDockManager_RightTabHint_HoldIndicatorBGObject
+---@field HoverTexture GeneralDockManager_RightTabHint_HoverTextureObject
+---@field LoadBar GeneralDockManager_RightTabHint_LoadBarObject
+---@field LoadBarBG GeneralDockManager_RightTabHint_LoadBarBGObject
+---@field LoadBarGlow GeneralDockManager_RightTabHint_LoadBarGlowObject
+---@field NormalTexture GeneralDockManager_RightTabHint_NormalTextureObject
+---@field PressedTexture GeneralDockManager_RightTabHint_PressedTextureObject
+---@field SpinnerTip GeneralDockManager_RightTabHint_SpinnerTipObject
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
 ---@field textureState number
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object = {}
+local GeneralDockManager_RightTabHintObject = {}
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:ApplyTextureLayout(...) end
+function GeneralDockManager_RightTabHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:BeginHold(...) end
+function GeneralDockManager_RightTabHintObject:BeginHold(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:CanEnterTextureState(...) end
+function GeneralDockManager_RightTabHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:DisableDropShadow(...) end
+function GeneralDockManager_RightTabHintObject:DisableDropShadow(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:EnableDropShadow(...) end
+function GeneralDockManager_RightTabHintObject:EnableDropShadow(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:EndHold(...) end
+function GeneralDockManager_RightTabHintObject:EndHold(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:OnHoldAnimFinished(...) end
+function GeneralDockManager_RightTabHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:OnHoldAnimStopped(...) end
+function GeneralDockManager_RightTabHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:OnLoad(...) end
+function GeneralDockManager_RightTabHintObject:OnLoad(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:RefreshIconTextures(...) end
+function GeneralDockManager_RightTabHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetDisabled(...) end
+function GeneralDockManager_RightTabHintObject:SetDisabled(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetEnabled(...) end
+function GeneralDockManager_RightTabHintObject:SetEnabled(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetFocused(...) end
+function GeneralDockManager_RightTabHintObject:SetFocused(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetHoldState(...) end
+function GeneralDockManager_RightTabHintObject:SetHoldState(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetInputKey(...) end
+function GeneralDockManager_RightTabHintObject:SetInputKey(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetIsHoldAction(...) end
+function GeneralDockManager_RightTabHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetPressable(...) end
+function GeneralDockManager_RightTabHintObject:SetPressable(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetTextureHeight(...) end
+function GeneralDockManager_RightTabHintObject:SetTextureHeight(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetTextureState(...) end
+function GeneralDockManager_RightTabHintObject:SetTextureState(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetTextureWidth(...) end
+function GeneralDockManager_RightTabHintObject:SetTextureWidth(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetUsableState(...) end
+function GeneralDockManager_RightTabHintObject:SetUsableState(...) end
 ---@return any ...
-function PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
+function GeneralDockManager_RightTabHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_ActiveTextureObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_ActiveTextureObject = {}
+---@class GeneralDockManager_RightTabHint_ActiveTextureObject : Texture
+local GeneralDockManager_RightTabHint_ActiveTextureObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_DisabledTextureObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_DisabledTextureObject = {}
+---@class GeneralDockManager_RightTabHint_DisabledTextureObject : Texture
+local GeneralDockManager_RightTabHint_DisabledTextureObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnimObject = {}
+---@class GeneralDockManager_RightTabHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GeneralDockManager_RightTabHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GeneralDockManager_RightTabHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GeneralDockManager_RightTabHint_HoldAnim_SpinnerTipAnimObject
+local GeneralDockManager_RightTabHint_HoldAnimObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
+---@class GeneralDockManager_RightTabHint_HoldAnim_LoadBarAnimObject
+local GeneralDockManager_RightTabHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
+---@class GeneralDockManager_RightTabHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GeneralDockManager_RightTabHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
+---@class GeneralDockManager_RightTabHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GeneralDockManager_RightTabHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorObject = {}
+---@class GeneralDockManager_RightTabHint_HoldIndicatorObject : Texture
+local GeneralDockManager_RightTabHint_HoldIndicatorObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorBGObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorBGObject = {}
+---@class GeneralDockManager_RightTabHint_HoldIndicatorBGObject : Texture
+local GeneralDockManager_RightTabHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoverTextureObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoverTextureObject = {}
+---@class GeneralDockManager_RightTabHint_HoverTextureObject : Texture
+local GeneralDockManager_RightTabHint_HoverTextureObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarObject = {}
+---@class GeneralDockManager_RightTabHint_LoadBarObject : Texture
+local GeneralDockManager_RightTabHint_LoadBarObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarBGObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarBGObject = {}
+---@class GeneralDockManager_RightTabHint_LoadBarBGObject : Texture
+local GeneralDockManager_RightTabHint_LoadBarBGObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarGlowObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarGlowObject = {}
+---@class GeneralDockManager_RightTabHint_LoadBarGlowObject : Texture
+local GeneralDockManager_RightTabHint_LoadBarGlowObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_NormalTextureObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_NormalTextureObject = {}
+---@class GeneralDockManager_RightTabHint_NormalTextureObject : Texture
+local GeneralDockManager_RightTabHint_NormalTextureObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_PressedTextureObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_PressedTextureObject = {}
+---@class GeneralDockManager_RightTabHint_PressedTextureObject : Texture
+local GeneralDockManager_RightTabHint_PressedTextureObject = {}
 end
 
 do
----@class PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_SpinnerTipObject : Texture
-local PartyFrame_TargetingActiveDPadFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_SpinnerTipObject = {}
+---@class GeneralDockManager_RightTabHint_SpinnerTipObject : Texture
+local GeneralDockManager_RightTabHint_SpinnerTipObject = {}
 end
 
 do
----@class PartyFrame_savedSystemInfoObject
----@field anchorInfo table
----@field isInDefaultPosition boolean
----@field settings table
----@field system number
----@field systemIndex number
-local PartyFrame_savedSystemInfoObject = {}
+---@class GeneralDockManager_insertHighlightObject : Texture
+local GeneralDockManager_insertHighlightObject = {}
 end
 
 do
----@class PartyFrame_settingDisplayInfoMapObject
-local PartyFrame_settingDisplayInfoMapObject = {}
+---@class GeneralDockManager_overflowButtonObject : Button
+---@field list GeneralDockManager_overflowButton_listObject
+---@field width number
+local GeneralDockManager_overflowButtonObject = {}
 end
 
 do
----@class PartyFrame_settingsDialogAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo PartyFrame_settingsDialogAnchor_relativeToObject
----@field x number
----@field y number
-local PartyFrame_settingsDialogAnchorObject = {}
+---@class GeneralDockManager_overflowButton_listObject : Frame
+---@field NineSlice GeneralDockManager_overflowButton_list_NineSliceObject
+---@field buttons table
+---@field layoutType string
+---@field numTabs GeneralDockManager_overflowButton_list_numTabsObject
+local GeneralDockManager_overflowButton_listObject = {}
 ---@return any ...
-function PartyFrame_settingsDialogAnchorObject:Get(...) end
+function GeneralDockManager_overflowButton_listObject:GetBackdropBorderColor(...) end
 ---@return any ...
-function PartyFrame_settingsDialogAnchorObject:GetRelativeTo(...) end
+function GeneralDockManager_overflowButton_listObject:GetBackdropColor(...) end
 ---@return any ...
-function PartyFrame_settingsDialogAnchorObject:Init(...) end
+function GeneralDockManager_overflowButton_listObject:SetBackdropBorderColor(...) end
 ---@return any ...
-function PartyFrame_settingsDialogAnchorObject:Set(...) end
+function GeneralDockManager_overflowButton_listObject:SetBackdropColor(...) end
 ---@return any ...
-function PartyFrame_settingsDialogAnchorObject:SetFromPoint(...) end
+function GeneralDockManager_overflowButton_listObject:SetBorderBlendMode(...) end
 ---@return any ...
-function PartyFrame_settingsDialogAnchorObject:SetOffsets(...) end
+function GeneralDockManager_overflowButton_listObject:TooltipBackdropOnLoad(...) end
+end
+
+do
+---@class GeneralDockManager_overflowButton_list_NineSliceObject : Frame
+---@field BottomEdge GeneralDockManager_overflowButton_list_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner GeneralDockManager_overflowButton_list_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner GeneralDockManager_overflowButton_list_NineSlice_BottomRightCornerObject
+---@field Center GeneralDockManager_overflowButton_list_NineSlice_CenterObject
+---@field LeftEdge GeneralDockManager_overflowButton_list_NineSlice_LeftEdgeObject
+---@field RightEdge GeneralDockManager_overflowButton_list_NineSlice_RightEdgeObject
+---@field TopEdge GeneralDockManager_overflowButton_list_NineSlice_TopEdgeObject
+---@field TopLeftCorner GeneralDockManager_overflowButton_list_NineSlice_TopLeftCornerObject
+---@field TopRightCorner GeneralDockManager_overflowButton_list_NineSlice_TopRightCornerObject
+local GeneralDockManager_overflowButton_list_NineSliceObject = {}
+---@return any ...
+function GeneralDockManager_overflowButton_list_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function GeneralDockManager_overflowButton_list_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function GeneralDockManager_overflowButton_list_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function GeneralDockManager_overflowButton_list_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function GeneralDockManager_overflowButton_list_NineSliceObject:OnLoad(...) end
 ---@return any ...
-function PartyFrame_settingsDialogAnchorObject:SetPoint(...) end
+function GeneralDockManager_overflowButton_list_NineSliceObject:SetBlendMode(...) end
 ---@return any ...
-function PartyFrame_settingsDialogAnchorObject:SetPointWithExtraOffset(...) end
+function GeneralDockManager_overflowButton_list_NineSliceObject:SetBorderBlendMode(...) end
 ---@return any ...
-function PartyFrame_settingsDialogAnchorObject:SetRelativeTo(...) end
+function GeneralDockManager_overflowButton_list_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function GeneralDockManager_overflowButton_list_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function GeneralDockManager_overflowButton_list_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class GeneralDockManager_overflowButton_list_NineSlice_BottomEdgeObject : Texture
+local GeneralDockManager_overflowButton_list_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class GeneralDockManager_overflowButton_list_NineSlice_BottomLeftCornerObject : Texture
+local GeneralDockManager_overflowButton_list_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class GeneralDockManager_overflowButton_list_NineSlice_BottomRightCornerObject : Texture
+local GeneralDockManager_overflowButton_list_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class GeneralDockManager_overflowButton_list_NineSlice_CenterObject : Texture
+local GeneralDockManager_overflowButton_list_NineSlice_CenterObject = {}
+end
+
+do
+---@class GeneralDockManager_overflowButton_list_NineSlice_LeftEdgeObject : Texture
+local GeneralDockManager_overflowButton_list_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class GeneralDockManager_overflowButton_list_NineSlice_RightEdgeObject : Texture
+local GeneralDockManager_overflowButton_list_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class GeneralDockManager_overflowButton_list_NineSlice_TopEdgeObject : Texture
+local GeneralDockManager_overflowButton_list_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class GeneralDockManager_overflowButton_list_NineSlice_TopLeftCornerObject : Texture
+local GeneralDockManager_overflowButton_list_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class GeneralDockManager_overflowButton_list_NineSlice_TopRightCornerObject : Texture
+local GeneralDockManager_overflowButton_list_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class GeneralDockManager_overflowButton_list_numTabsObject : FontString
+local GeneralDockManager_overflowButton_list_numTabsObject = {}
 end
 
 do
----@class PartyFrame_settingsDialogAnchor_relativeToObject
-local PartyFrame_settingsDialogAnchor_relativeToObject = {}
+---@class GeneralDockManager_primaryObject
+local GeneralDockManager_primaryObject = {}
 end
 
 do
----@class PartyFrame_systemInfoObject
----@field anchorInfo table
----@field isInDefaultPosition boolean
----@field settings table
----@field system number
----@field systemIndex number
-local PartyFrame_systemInfoObject = {}
+---@class GeneralDockManager_scrollFrameObject : ScrollFrame
+---@field child GeneralDockManager_scrollFrame_childObject
+---@field dynTabSize number
+---@field numDynFrames number
+local GeneralDockManager_scrollFrameObject = {}
 end
 
 do
----@class PersonalResourceDisplayFrameObject : Frame
----@field AlternatePowerBar PersonalResourceDisplayFrame_AlternatePowerBarObject
----@field ClassFrameContainer PersonalResourceDisplayFrame_ClassFrameContainerObject
----@field HealthBarsContainer PersonalResourceDisplayFrame_HealthBarsContainerObject
----@field PowerBar PersonalResourceDisplayFrame_PowerBarObject
----@field Selection PersonalResourceDisplayFrame_SelectionObject
----@field barPadding number
----@field barWidthPercent number
----@field classID number
----@field currPowerValue number
----@field defaultBarWidth number
----@field defaultHideSelection boolean
----@field dirtySettings table
----@field downKeys table
----@field hasActiveChanges boolean
----@field hasBeenSetup boolean
----@field healthbar PersonalResourceDisplayFrame_healthbarObject
----@field hideAltPower boolean
----@field hideClassInfo boolean
----@field hideHealth boolean
----@field hidePower boolean
----@field lastKnownSpec number
----@field powerToken string
----@field powerType number
----@field predictedPowerCost number
----@field savedSystemInfo PersonalResourceDisplayFrame_savedSystemInfoObject
----@field settingDisplayInfoMap table
----@field settingMap table
----@field settingsDialogAnchor PersonalResourceDisplayFrame_settingsDialogAnchorObject
----@field showBarText boolean
----@field showClassColor boolean
----@field snappedFrames table
----@field system number
----@field systemInfo PersonalResourceDisplayFrame_systemInfoObject
----@field systemNameString string
----@field tempMaxHealthLossBar PersonalResourceDisplayFrame_tempMaxHealthLossBarObject
----@field visibleSetting number
-local PersonalResourceDisplayFrameObject = {}
+---@class GeneralDockManager_scrollFrame_childObject : Frame
+local GeneralDockManager_scrollFrame_childObject = {}
+end
+
+do
+---@class GeneralDockManager_selectedObject
+local GeneralDockManager_selectedObject = {}
+end
+
+do
+---@class GhostFrameObject : Button
+local GhostFrameObject = {}
 ---@return any ...
-function PersonalResourceDisplayFrameObject:AddExtraButtons(...) end
+function GhostFrameObject:OnEvent(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:AddSnappedFrame(...) end
+function GhostFrameObject:OnLoad(...) end
+---@type GhostFrameObject
+GhostFrame = GhostFrameObject
+end
+
+do
+---@class GlobalFXBackgroundModelSceneObject
+---@field activeCamera GlobalFXBackgroundModelScene_activeCameraObject
+---@field actorTemplate string
+---@field cameras table
+---@field centerX number
+---@field centerY number
+---@field effectControllers table
+---@field modelSceneID number
+---@field modelSceneSet boolean
+---@field pixelsPerSceneUnit number
+---@field tagToActor table
+---@field tagToCamera GlobalFXBackgroundModelScene_tagToCameraObject
+---@field useViewInsetNormalization boolean
+local GlobalFXBackgroundModelSceneObject = {}
 ---@return any ...
-function PersonalResourceDisplayFrameObject:AnchorSelectionFrame(...) end
+function GlobalFXBackgroundModelSceneObject:AbortDrag(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:AnySettingsDirty(...) end
+function GlobalFXBackgroundModelSceneObject:AcquireActor(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:ApplySystemAnchor(...) end
+function GlobalFXBackgroundModelSceneObject:AcquireAndInitializeActor(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:AreAllSystemSettingsDefault(...) end
+function GlobalFXBackgroundModelSceneObject:AddAccessRestrictions(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:BreakFrameSnap(...) end
+function GlobalFXBackgroundModelSceneObject:AddCamera(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:BreakFromFrameManager(...) end
+function GlobalFXBackgroundModelSceneObject:AddDynamicEffect(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:BreakSnappedFrames(...) end
+function GlobalFXBackgroundModelSceneObject:AddEffect(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:CanBeMoved(...) end
+function GlobalFXBackgroundModelSceneObject:AddForbiddenAspects(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:ClearAllPointsBase(...) end
+function GlobalFXBackgroundModelSceneObject:AddOrUpdateDropShadow(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:ClearAllPointsOverride(...) end
+function GlobalFXBackgroundModelSceneObject:AddRoleset(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:ClearDirtySetting(...) end
+function GlobalFXBackgroundModelSceneObject:AddSecretAspect(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:ClearDownKeys(...) end
+function GlobalFXBackgroundModelSceneObject:AdjustCameraYaw(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:ClearFrameSnap(...) end
+function GlobalFXBackgroundModelSceneObject:AdjustPointsOffset(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:ClearHighlight(...) end
+function GlobalFXBackgroundModelSceneObject:AttachPlayerToMount(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:ConvertSettingDisplayValueToRawValue(...) end
+function GlobalFXBackgroundModelSceneObject:CalculatePixelsPerSceneUnit(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:DoesSettingDisplayValueEqual(...) end
+function GlobalFXBackgroundModelSceneObject:CanBeAccessedInContext(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:DoesSettingValueEqual(...) end
+function GlobalFXBackgroundModelSceneObject:CanChangeAttribute(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetBarPadding(...) end
+function GlobalFXBackgroundModelSceneObject:CanChangeProtectedState(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetBarWidth(...) end
+function GlobalFXBackgroundModelSceneObject:CanPropagateMouseClicks(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetBottomOffset(...) end
+function GlobalFXBackgroundModelSceneObject:CanPropagateMouseMotion(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetClassFrameInfo(...) end
+function GlobalFXBackgroundModelSceneObject:ClearAllPoints(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetCombinedCenterOffset(...) end
+function GlobalFXBackgroundModelSceneObject:ClearAlphaGradient(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetCombinedSelectionOffset(...) end
+function GlobalFXBackgroundModelSceneObject:ClearAttribute(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetCompositeNumberSettingValue(...) end
+function GlobalFXBackgroundModelSceneObject:ClearAttributes(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetDefaultHealthColor(...) end
+function GlobalFXBackgroundModelSceneObject:ClearEffects(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetDesiredHealthColor(...) end
+function GlobalFXBackgroundModelSceneObject:ClearFog(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetFrameMagneticEligibility(...) end
+function GlobalFXBackgroundModelSceneObject:ClearParentKey(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetLeftOffset(...) end
+function GlobalFXBackgroundModelSceneObject:ClearPoint(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetManagedFrameContainer(...) end
+function GlobalFXBackgroundModelSceneObject:ClearPointsOffset(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetMinimumBarPadding(...) end
+function GlobalFXBackgroundModelSceneObject:ClearScene(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetMinimumFrameHeight(...) end
+function GlobalFXBackgroundModelSceneObject:ClearScripts(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetRightOffset(...) end
+function GlobalFXBackgroundModelSceneObject:CollapsesLayout(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetScaledCenter(...) end
+function GlobalFXBackgroundModelSceneObject:CreateActor(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetScaledSelectionCenter(...) end
+function GlobalFXBackgroundModelSceneObject:CreateActorFromScene(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetScaledSelectionSides(...) end
+function GlobalFXBackgroundModelSceneObject:CreateAnimationGroup(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetSelectionOffset(...) end
+function GlobalFXBackgroundModelSceneObject:CreateCameraFromScene(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetSettingValue(...) end
+function GlobalFXBackgroundModelSceneObject:CreateFontString(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetSettingValueBool(...) end
+function GlobalFXBackgroundModelSceneObject:CreateLine(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetSettingsDialogAnchor(...) end
+function GlobalFXBackgroundModelSceneObject:CreateMaskTexture(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetSnapOffsets(...) end
+function GlobalFXBackgroundModelSceneObject:CreateOrTransitionActorFromScene(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetSystemName(...) end
+function GlobalFXBackgroundModelSceneObject:CreateOrTransitionCameraFromScene(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetTopOffset(...) end
+function GlobalFXBackgroundModelSceneObject:CreateTexture(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:GetVisibleSetting(...) end
+function GlobalFXBackgroundModelSceneObject:CreateVectorGraphics(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:HasActiveChanges(...) end
+function GlobalFXBackgroundModelSceneObject:DesaturateHierarchy(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:HasAlternatePowerBar(...) end
+function GlobalFXBackgroundModelSceneObject:DisableDrawLayer(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:HasClassInfo(...) end
+function GlobalFXBackgroundModelSceneObject:DoesClipChildren(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:HasCompositeNumberSetting(...) end
+function GlobalFXBackgroundModelSceneObject:DoesHyperlinkPropagateToParent(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:HasSetting(...) end
+function GlobalFXBackgroundModelSceneObject:EnableDrawLayer(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:HasValidSelectionRect(...) end
+function GlobalFXBackgroundModelSceneObject:EnableGamePadButton(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:HideBase(...) end
+function GlobalFXBackgroundModelSceneObject:EnableGamePadStick(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:HideOverride(...) end
+function GlobalFXBackgroundModelSceneObject:EnableKeyboard(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:HighlightSystem(...) end
+function GlobalFXBackgroundModelSceneObject:EnableMouse(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:IsAboveFrame(...) end
+function GlobalFXBackgroundModelSceneObject:EnableMouseMotion(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:IsBelowFrame(...) end
+function GlobalFXBackgroundModelSceneObject:EnableMouseWheel(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:IsEditModeDragging(...) end
+function GlobalFXBackgroundModelSceneObject:EnumerateActiveActors(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:IsFrameAnchoredToMe(...) end
+function GlobalFXBackgroundModelSceneObject:ExecuteAttribute(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:IsHorizontallyAlignedWithFrame(...) end
+function GlobalFXBackgroundModelSceneObject:ExecuteOrDelayUntilSceneSet(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:IsInDefaultPosition(...) end
+function GlobalFXBackgroundModelSceneObject:FocusEnter(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:IsInitialized(...) end
+function GlobalFXBackgroundModelSceneObject:FocusExit(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:IsSettingDirty(...) end
+function GlobalFXBackgroundModelSceneObject:GetAccessRestrictions(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:IsShiftKeyDown(...) end
+function GlobalFXBackgroundModelSceneObject:GetActiveCamera(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:IsSystemSettingDefault(...) end
+function GlobalFXBackgroundModelSceneObject:GetActorAtIndex(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:IsToTheLeftOfFrame(...) end
+function GlobalFXBackgroundModelSceneObject:GetActorByTag(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:IsToTheRightOfFrame(...) end
+function GlobalFXBackgroundModelSceneObject:GetAllowOverlappedModels(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:IsVerticallyAlignedWithFrame(...) end
+function GlobalFXBackgroundModelSceneObject:GetAlpha(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:MarkAllSettingsDirty(...) end
+function GlobalFXBackgroundModelSceneObject:GetAnimationGroups(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:OnAnyEditModeSystemAnchorChanged(...) end
+function GlobalFXBackgroundModelSceneObject:GetAttribute(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:OnDragStart(...) end
+function GlobalFXBackgroundModelSceneObject:GetBottom(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:OnDragStop(...) end
+function GlobalFXBackgroundModelSceneObject:GetBoundsRect(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:OnEditModeEnter(...) end
+function GlobalFXBackgroundModelSceneObject:GetCameraByTag(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:OnEditModeExit(...) end
+function GlobalFXBackgroundModelSceneObject:GetCameraFarClip(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:OnEditModeRefreshPersonalResourceDisplay(...) end
+function GlobalFXBackgroundModelSceneObject:GetCameraFieldOfView(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:OnEvent(...) end
+function GlobalFXBackgroundModelSceneObject:GetCameraForward(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:OnHide(...) end
+function GlobalFXBackgroundModelSceneObject:GetCameraNearClip(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:OnKeyDown(...) end
+function GlobalFXBackgroundModelSceneObject:GetCameraPosition(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:OnKeyUp(...) end
+function GlobalFXBackgroundModelSceneObject:GetCameraRight(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:OnLoad(...) end
+function GlobalFXBackgroundModelSceneObject:GetCameraUp(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:OnShow(...) end
+function GlobalFXBackgroundModelSceneObject:GetCenter(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:OnSystemHide(...) end
+function GlobalFXBackgroundModelSceneObject:GetChildren(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:OnSystemLoad(...) end
+function GlobalFXBackgroundModelSceneObject:GetClampRectInsets(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:OnSystemPositionChange(...) end
+function GlobalFXBackgroundModelSceneObject:GetDebugName(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:OnUpdate(...) end
+function GlobalFXBackgroundModelSceneObject:GetDontSavePosition(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:OnUpdateSystem(...) end
+function GlobalFXBackgroundModelSceneObject:GetDrawLayer(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:PrepareForSave(...) end
+function GlobalFXBackgroundModelSceneObject:GetEffectSpeed(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:ProcessMovementKey(...) end
+function GlobalFXBackgroundModelSceneObject:GetEffectiveAlpha(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:RemoveSnappedFrame(...) end
+function GlobalFXBackgroundModelSceneObject:GetEffectiveScale(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:ResetToDefaultPosition(...) end
+function GlobalFXBackgroundModelSceneObject:GetEffectivelyFlattensRenderLayers(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SelectSystem(...) end
+function GlobalFXBackgroundModelSceneObject:GetFlattensRenderLayers(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetBarPadding(...) end
+function GlobalFXBackgroundModelSceneObject:GetFogColor(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetBarWidth(...) end
+function GlobalFXBackgroundModelSceneObject:GetFogFar(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetHasActiveChanges(...) end
+function GlobalFXBackgroundModelSceneObject:GetFogNear(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetHealthBarHeight(...) end
+function GlobalFXBackgroundModelSceneObject:GetForbiddenAspects(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetHideAltPower(...) end
+function GlobalFXBackgroundModelSceneObject:GetFrameLevel(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetHideClassInfo(...) end
+function GlobalFXBackgroundModelSceneObject:GetFrameStrata(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetHideClassInfoOnPlayerFrame(...) end
+function GlobalFXBackgroundModelSceneObject:GetHeight(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetHideHealth(...) end
+function GlobalFXBackgroundModelSceneObject:GetHighestFrameLevel(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetHidePower(...) end
+function GlobalFXBackgroundModelSceneObject:GetHitRectInsets(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetIsInEditMode(...) end
+function GlobalFXBackgroundModelSceneObject:GetHyperlinksEnabled(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetPointBase(...) end
+function GlobalFXBackgroundModelSceneObject:GetID(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetPointOverride(...) end
+function GlobalFXBackgroundModelSceneObject:GetInheritableForbiddenAspects(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetPowerBarHeight(...) end
+function GlobalFXBackgroundModelSceneObject:GetLeft(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetScaleBase(...) end
+function GlobalFXBackgroundModelSceneObject:GetLightAmbientColor(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetScaleOverride(...) end
+function GlobalFXBackgroundModelSceneObject:GetLightDiffuseColor(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetSelectionShown(...) end
+function GlobalFXBackgroundModelSceneObject:GetLightDirection(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetShowBarText(...) end
+function GlobalFXBackgroundModelSceneObject:GetLightPosition(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetShowClassColor(...) end
+function GlobalFXBackgroundModelSceneObject:GetLightType(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetShownBase(...) end
+function GlobalFXBackgroundModelSceneObject:GetModelSceneID(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetShownOverride(...) end
+function GlobalFXBackgroundModelSceneObject:GetName(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetSnappedToFrame(...) end
+function GlobalFXBackgroundModelSceneObject:GetNumActiveActors(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetVisibleSetting(...) end
+function GlobalFXBackgroundModelSceneObject:GetNumActors(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:Setup(...) end
+function GlobalFXBackgroundModelSceneObject:GetNumChildren(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetupAlternatePowerBar(...) end
+function GlobalFXBackgroundModelSceneObject:GetNumPoints(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetupClass(...) end
+function GlobalFXBackgroundModelSceneObject:GetNumRegions(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetupClassBar(...) end
+function GlobalFXBackgroundModelSceneObject:GetObjectTable(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetupHealthBar(...) end
+function GlobalFXBackgroundModelSceneObject:GetObjectType(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetupPowerBar(...) end
+function GlobalFXBackgroundModelSceneObject:GetOnUpdateMode(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetupSettingsDialogAnchor(...) end
+function GlobalFXBackgroundModelSceneObject:GetOrAcquireDropShadow(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SetupVisibilityFunctionOverrides(...) end
+function GlobalFXBackgroundModelSceneObject:GetParent(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:ShouldBreakSnappedFramesOnHide(...) end
+function GlobalFXBackgroundModelSceneObject:GetParentKey(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:ShouldResetSettingsDialogAnchors(...) end
+function GlobalFXBackgroundModelSceneObject:GetPixelsPerSceneUnit(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:ShouldShowSetting(...) end
+function GlobalFXBackgroundModelSceneObject:GetPlayerActor(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:ShowEditInstructions(...) end
+function GlobalFXBackgroundModelSceneObject:GetPoint(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:SnapToFrame(...) end
+function GlobalFXBackgroundModelSceneObject:GetPointByName(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:TrySetCompositeNumberSettingValue(...) end
+function GlobalFXBackgroundModelSceneObject:GetPropagateKeyboardInput(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateAdditionalBarAnchors(...) end
+function GlobalFXBackgroundModelSceneObject:GetRaisedFrameLevel(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateAlternatePowerBar(...) end
+function GlobalFXBackgroundModelSceneObject:GetRect(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateBarWidth(...) end
+function GlobalFXBackgroundModelSceneObject:GetRegions(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateClampOffsets(...) end
+function GlobalFXBackgroundModelSceneObject:GetResizeBounds(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateDirtySettings(...) end
+function GlobalFXBackgroundModelSceneObject:GetRight(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateDisplayInfoOptions(...) end
+function GlobalFXBackgroundModelSceneObject:GetRolesetNames(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateFrameHeight(...) end
+function GlobalFXBackgroundModelSceneObject:GetRoundLayoutToNearestPixel(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateHealth(...) end
+function GlobalFXBackgroundModelSceneObject:GetScale(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateHealthColor(...) end
+function GlobalFXBackgroundModelSceneObject:GetScaledRect(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateHealthPrediction(...) end
+function GlobalFXBackgroundModelSceneObject:GetSceneSize(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateMagnetismRegistration(...) end
+function GlobalFXBackgroundModelSceneObject:GetScript(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateMaxHealth(...) end
+function GlobalFXBackgroundModelSceneObject:GetSize(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateMaxPower(...) end
+function GlobalFXBackgroundModelSceneObject:GetSourceLocation(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdatePower(...) end
+function GlobalFXBackgroundModelSceneObject:GetTop(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdatePowerBar(...) end
+function GlobalFXBackgroundModelSceneObject:GetViewInsets(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdatePowerBarAnchor(...) end
+function GlobalFXBackgroundModelSceneObject:GetViewTranslation(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdatePredictedPowerCost(...) end
+function GlobalFXBackgroundModelSceneObject:GetWidth(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateSettingMap(...) end
+function GlobalFXBackgroundModelSceneObject:GetWindow(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateShownState(...) end
+function GlobalFXBackgroundModelSceneObject:HasAccessConstraints(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateSystem(...) end
+function GlobalFXBackgroundModelSceneObject:HasActiveCamera(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateSystemSetting(...) end
+function GlobalFXBackgroundModelSceneObject:HasActiveEffects(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateSystemSettingBarWidth(...) end
+function GlobalFXBackgroundModelSceneObject:HasAlphaGradient(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateSystemSettingHealthBarHeight(...) end
+function GlobalFXBackgroundModelSceneObject:HasAnyAccessRestrictions(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateSystemSettingHideAltPower(...) end
+function GlobalFXBackgroundModelSceneObject:HasAnyForbiddenAspects(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateSystemSettingHideClassInfo(...) end
+function GlobalFXBackgroundModelSceneObject:HasAnySecretAspect(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateSystemSettingHideClassInfoOnPlayerFrame(...) end
+function GlobalFXBackgroundModelSceneObject:HasFixedFrameLevel(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateSystemSettingHideHealth(...) end
+function GlobalFXBackgroundModelSceneObject:HasFixedFrameStrata(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateSystemSettingHidePower(...) end
+function GlobalFXBackgroundModelSceneObject:HasScript(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateSystemSettingOpacity(...) end
+function GlobalFXBackgroundModelSceneObject:HasSecretAspect(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateSystemSettingPadding(...) end
+function GlobalFXBackgroundModelSceneObject:HasSecretValues(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateSystemSettingPowerBarHeight(...) end
+function GlobalFXBackgroundModelSceneObject:Hide(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateSystemSettingShowBarText(...) end
+function GlobalFXBackgroundModelSceneObject:HookScript(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateSystemSettingShowClassColor(...) end
+function GlobalFXBackgroundModelSceneObject:InitializeActor(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateSystemSettingSize(...) end
+function GlobalFXBackgroundModelSceneObject:InterceptStartDrag(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateSystemSettingValue(...) end
+function GlobalFXBackgroundModelSceneObject:InternalAddEffect(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UpdateSystemSettingVisibleSetting(...) end
+function GlobalFXBackgroundModelSceneObject:Intersects(...) end
 ---@return any ...
-function PersonalResourceDisplayFrameObject:UseSettingAltName(...) end
----@type PersonalResourceDisplayFrameObject
-PersonalResourceDisplayFrame = PersonalResourceDisplayFrameObject
-end
-
-do
----@class PersonalResourceDisplayFrame_AlternatePowerBarObject : StatusBar
----@field LeftText PersonalResourceDisplayFrame_AlternatePowerBar_LeftTextObject
----@field RightText PersonalResourceDisplayFrame_AlternatePowerBar_RightTextObject
----@field TextString PersonalResourceDisplayFrame_AlternatePowerBar_TextStringObject
----@field alternatePowerRequirementsMet boolean
----@field capNumericDisplay boolean
----@field controlsShownState boolean
----@field disableMaxValue boolean
----@field forceShow boolean
----@field lockShow number
----@field showNumeric boolean
----@field showPercentage boolean
-local PersonalResourceDisplayFrame_AlternatePowerBarObject = {}
+function GlobalFXBackgroundModelSceneObject:IsAnchoringRestricted(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_AlternatePowerBarObject:GetNumericDisplay(...) end
+function GlobalFXBackgroundModelSceneObject:IsAnchoringSecret(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_AlternatePowerBarObject:HideStatusBarText(...) end
+function GlobalFXBackgroundModelSceneObject:IsClampedToScreen(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_AlternatePowerBarObject:InitializeTextStatusBar(...) end
+function GlobalFXBackgroundModelSceneObject:IsCollapsed(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_AlternatePowerBarObject:OnStatusBarEnter(...) end
+function GlobalFXBackgroundModelSceneObject:IsDragging(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_AlternatePowerBarObject:OnStatusBarLeave(...) end
+function GlobalFXBackgroundModelSceneObject:IsDrawLayerEnabled(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_AlternatePowerBarObject:OnStatusBarMinMaxChanged(...) end
+function GlobalFXBackgroundModelSceneObject:IsEventRegistered(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_AlternatePowerBarObject:OnStatusBarValueChanged(...) end
+function GlobalFXBackgroundModelSceneObject:IsForbidden(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_AlternatePowerBarObject:SetBarText(...) end
+function GlobalFXBackgroundModelSceneObject:IsFrameBuffer(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_AlternatePowerBarObject:SetBarTextPrefix(...) end
+function GlobalFXBackgroundModelSceneObject:IsGamePadButtonEnabled(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_AlternatePowerBarObject:SetBarTextZeroText(...) end
+function GlobalFXBackgroundModelSceneObject:IsGamePadStickEnabled(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_AlternatePowerBarObject:SetForceShow(...) end
+function GlobalFXBackgroundModelSceneObject:IsHighlightLocked(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_AlternatePowerBarObject:ShowStatusBarText(...) end
+function GlobalFXBackgroundModelSceneObject:IsIgnoringChildrenForBounds(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_AlternatePowerBarObject:TextStatusBarOnEvent(...) end
+function GlobalFXBackgroundModelSceneObject:IsIgnoringParentAlpha(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_AlternatePowerBarObject:UpdateTextString(...) end
+function GlobalFXBackgroundModelSceneObject:IsIgnoringParentScale(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_AlternatePowerBarObject:UpdateTextStringWithValues(...) end
-end
-
-do
----@class PersonalResourceDisplayFrame_AlternatePowerBar_LeftTextObject : FontString
-local PersonalResourceDisplayFrame_AlternatePowerBar_LeftTextObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_AlternatePowerBar_RightTextObject : FontString
-local PersonalResourceDisplayFrame_AlternatePowerBar_RightTextObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_AlternatePowerBar_TextStringObject : FontString
-local PersonalResourceDisplayFrame_AlternatePowerBar_TextStringObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_ClassFrameContainerObject : Frame
-local PersonalResourceDisplayFrame_ClassFrameContainerObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_HealthBarsContainerObject : Frame
----@field TempMaxHealthLoss PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLossObject
----@field healthBar PersonalResourceDisplayFrame_HealthBarsContainer_healthBarObject
-local PersonalResourceDisplayFrame_HealthBarsContainerObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLossObject : StatusBar
----@field TempMaxHealthLossTexture PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_TempMaxHealthLossTextureObject
----@field healthBar PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBarObject
----@field initialized boolean
----@field myHealthBarContainer PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_myHealthBarContainerObject
-local PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLossObject = {}
+function GlobalFXBackgroundModelSceneObject:IsKeyboardEnabled(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLossObject:InitializeMaxHealthLossBar(...) end
+function GlobalFXBackgroundModelSceneObject:IsLeftMouseButtonDown(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLossObject:OnMaxHealthModifiersChanged(...) end
+function GlobalFXBackgroundModelSceneObject:IsLightVisible(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLossObject:SetShouldAdjustHealthBarAnchor(...) end
+function GlobalFXBackgroundModelSceneObject:IsModelSceneSet(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLossObject:Update_MaxHealthLoss(...) end
-end
-
-do
----@class PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_TempMaxHealthLossTextureObject : Texture
-local PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_TempMaxHealthLossTextureObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBarObject : StatusBar
----@field LeftText PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_LeftTextObject
----@field RightText PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_RightTextObject
----@field TextString PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_TextStringObject
----@field capNumericDisplay boolean
----@field controlsShownState boolean
----@field forceShow boolean
----@field lockShow number
----@field myHealAbsorb PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_myHealAbsorbObject
----@field myHealAbsorbLeftShadow PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_myHealAbsorbLeftShadowObject
----@field myHealAbsorbRightShadow PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_myHealAbsorbRightShadowObject
----@field myHealPrediction PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_myHealPredictionObject
----@field otherHealPrediction PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_otherHealPredictionObject
----@field overAbsorbGlow PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_overAbsorbGlowObject
----@field overHealAbsorbGlow PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_overHealAbsorbGlowObject
----@field showNumeric boolean
----@field showPercentage boolean
----@field totalAbsorb PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_totalAbsorbObject
----@field totalAbsorbOverlay PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_totalAbsorbOverlayObject
-local PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBarObject = {}
+function GlobalFXBackgroundModelSceneObject:IsMouseClickEnabled(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBarObject:GetNumericDisplay(...) end
+function GlobalFXBackgroundModelSceneObject:IsMouseEnabled(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBarObject:HideStatusBarText(...) end
+function GlobalFXBackgroundModelSceneObject:IsMouseMotionEnabled(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBarObject:InitializeTextStatusBar(...) end
+function GlobalFXBackgroundModelSceneObject:IsMouseMotionFocus(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBarObject:OnStatusBarEnter(...) end
+function GlobalFXBackgroundModelSceneObject:IsMouseOver(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBarObject:OnStatusBarLeave(...) end
+function GlobalFXBackgroundModelSceneObject:IsMouseWheelEnabled(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBarObject:OnStatusBarMinMaxChanged(...) end
+function GlobalFXBackgroundModelSceneObject:IsMovable(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBarObject:OnStatusBarValueChanged(...) end
+function GlobalFXBackgroundModelSceneObject:IsObjectLoaded(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBarObject:SetBarText(...) end
+function GlobalFXBackgroundModelSceneObject:IsObjectType(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBarObject:SetBarTextPrefix(...) end
+function GlobalFXBackgroundModelSceneObject:IsPreventingSecretValues(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBarObject:SetBarTextZeroText(...) end
+function GlobalFXBackgroundModelSceneObject:IsProtected(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBarObject:SetForceShow(...) end
+function GlobalFXBackgroundModelSceneObject:IsRectValid(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBarObject:ShowStatusBarText(...) end
+function GlobalFXBackgroundModelSceneObject:IsResizable(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBarObject:TextStatusBarOnEvent(...) end
+function GlobalFXBackgroundModelSceneObject:IsRightMouseButtonDown(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBarObject:UpdateTextString(...) end
+function GlobalFXBackgroundModelSceneObject:IsRolesetFiltered(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBarObject:UpdateTextStringWithValues(...) end
-end
-
-do
----@class PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_LeftTextObject : FontString
-local PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_LeftTextObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_RightTextObject : FontString
-local PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_RightTextObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_TextStringObject : FontString
-local PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_TextStringObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_myHealAbsorbObject : Texture
-local PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_myHealAbsorbObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_myHealAbsorbLeftShadowObject : Texture
-local PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_myHealAbsorbLeftShadowObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_myHealAbsorbRightShadowObject : Texture
-local PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_myHealAbsorbRightShadowObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_myHealPredictionObject : Texture
-local PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_myHealPredictionObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_otherHealPredictionObject : Texture
-local PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_otherHealPredictionObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_overAbsorbGlowObject : Texture
-local PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_overAbsorbGlowObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_overHealAbsorbGlowObject : Texture
-local PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_overHealAbsorbGlowObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_totalAbsorbObject : Texture
----@field overlay PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_totalAbsorb_overlayObject
-local PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_totalAbsorbObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_totalAbsorb_overlayObject
-local PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_totalAbsorb_overlayObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_totalAbsorbOverlayObject : Texture
----@field tileSize number
-local PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_healthBar_totalAbsorbOverlayObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_myHealthBarContainerObject
-local PersonalResourceDisplayFrame_HealthBarsContainer_TempMaxHealthLoss_myHealthBarContainerObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_HealthBarsContainer_healthBarObject
-local PersonalResourceDisplayFrame_HealthBarsContainer_healthBarObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_PowerBarObject : StatusBar
----@field FeedbackFrame PersonalResourceDisplayFrame_PowerBar_FeedbackFrameObject
----@field FullPowerFrame PersonalResourceDisplayFrame_PowerBar_FullPowerFrameObject
----@field LeftText PersonalResourceDisplayFrame_PowerBar_LeftTextObject
----@field ManaCostPredictionBar PersonalResourceDisplayFrame_PowerBar_ManaCostPredictionBarObject
----@field RightText PersonalResourceDisplayFrame_PowerBar_RightTextObject
----@field TextString PersonalResourceDisplayFrame_PowerBar_TextStringObject
----@field capNumericDisplay boolean
----@field controlsShownState boolean
----@field forceShow boolean
----@field lockShow number
----@field showNumeric boolean
----@field showPercentage boolean
-local PersonalResourceDisplayFrame_PowerBarObject = {}
+function GlobalFXBackgroundModelSceneObject:IsShown(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBarObject:GetNumericDisplay(...) end
+function GlobalFXBackgroundModelSceneObject:IsToplevel(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBarObject:HideStatusBarText(...) end
+function GlobalFXBackgroundModelSceneObject:IsUserPlaced(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBarObject:InitializeTextStatusBar(...) end
+function GlobalFXBackgroundModelSceneObject:IsUsingParentLevel(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBarObject:OnStatusBarEnter(...) end
+function GlobalFXBackgroundModelSceneObject:IsVisible(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBarObject:OnStatusBarLeave(...) end
+function GlobalFXBackgroundModelSceneObject:LockHighlight(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBarObject:OnStatusBarMinMaxChanged(...) end
+function GlobalFXBackgroundModelSceneObject:Lower(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBarObject:OnStatusBarValueChanged(...) end
+function GlobalFXBackgroundModelSceneObject:MouseDown(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBarObject:SetBarText(...) end
+function GlobalFXBackgroundModelSceneObject:MouseUp(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBarObject:SetBarTextPrefix(...) end
+function GlobalFXBackgroundModelSceneObject:OnEnter(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBarObject:SetBarTextZeroText(...) end
+function GlobalFXBackgroundModelSceneObject:OnEvent(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBarObject:SetForceShow(...) end
+function GlobalFXBackgroundModelSceneObject:OnHide(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBarObject:ShowStatusBarText(...) end
+function GlobalFXBackgroundModelSceneObject:OnLeave(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBarObject:TextStatusBarOnEvent(...) end
+function GlobalFXBackgroundModelSceneObject:OnLoad(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBarObject:UpdateTextString(...) end
+function GlobalFXBackgroundModelSceneObject:OnMouseDown(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBarObject:UpdateTextStringWithValues(...) end
-end
-
-do
----@class PersonalResourceDisplayFrame_PowerBar_FeedbackFrameObject : Frame
----@field BarTexture PersonalResourceDisplayFrame_PowerBar_FeedbackFrame_BarTextureObject
----@field GainGlowTexture PersonalResourceDisplayFrame_PowerBar_FeedbackFrame_GainGlowTextureObject
----@field LossGlowTexture PersonalResourceDisplayFrame_PowerBar_FeedbackFrame_LossGlowTextureObject
----@field initialized boolean
----@field maxValue number
----@field powerType number
----@field unit string
-local PersonalResourceDisplayFrame_PowerBar_FeedbackFrameObject = {}
+function GlobalFXBackgroundModelSceneObject:OnMouseUp(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBar_FeedbackFrameObject:AddMaskTexture(...) end
+function GlobalFXBackgroundModelSceneObject:OnMouseWheel(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBar_FeedbackFrameObject:EndFeedbackGain(...) end
+function GlobalFXBackgroundModelSceneObject:OnShow(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBar_FeedbackFrameObject:EndFeedbackLoss(...) end
+function GlobalFXBackgroundModelSceneObject:OnSizeChanged(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBar_FeedbackFrameObject:GetMaxValue(...) end
+function GlobalFXBackgroundModelSceneObject:OnUpdate(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBar_FeedbackFrameObject:Initialize(...) end
+function GlobalFXBackgroundModelSceneObject:Project3DPointTo2D(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBar_FeedbackFrameObject:OnLoad(...) end
+function GlobalFXBackgroundModelSceneObject:Raise(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBar_FeedbackFrameObject:SetMaxValue(...) end
+function GlobalFXBackgroundModelSceneObject:RefreshModelScene(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBar_FeedbackFrameObject:StartFeedbackAnim(...) end
+function GlobalFXBackgroundModelSceneObject:RegisterAllEvents(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBar_FeedbackFrameObject:StopFeedbackAnim(...) end
-end
-
-do
----@class PersonalResourceDisplayFrame_PowerBar_FeedbackFrame_BarTextureObject : Texture
-local PersonalResourceDisplayFrame_PowerBar_FeedbackFrame_BarTextureObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_PowerBar_FeedbackFrame_GainGlowTextureObject : Texture
-local PersonalResourceDisplayFrame_PowerBar_FeedbackFrame_GainGlowTextureObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_PowerBar_FeedbackFrame_LossGlowTextureObject : Texture
-local PersonalResourceDisplayFrame_PowerBar_FeedbackFrame_LossGlowTextureObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_PowerBar_FullPowerFrameObject : Frame
----@field FadeoutAnim PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_FadeoutAnimObject
----@field PulseFrame PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_PulseFrameObject
----@field SpikeFrame PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_SpikeFrameObject
----@field active boolean
----@field maxValue number
-local PersonalResourceDisplayFrame_PowerBar_FullPowerFrameObject = {}
+function GlobalFXBackgroundModelSceneObject:RegisterEvent(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBar_FullPowerFrameObject:GetMaxValue(...) end
+function GlobalFXBackgroundModelSceneObject:RegisterEventCallback(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBar_FullPowerFrameObject:Initialize(...) end
+function GlobalFXBackgroundModelSceneObject:RegisterForDrag(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBar_FullPowerFrameObject:RemoveAnims(...) end
+function GlobalFXBackgroundModelSceneObject:RegisterUnitEvent(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBar_FullPowerFrameObject:SetMaxValue(...) end
+function GlobalFXBackgroundModelSceneObject:RegisterUnitEventCallback(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_PowerBar_FullPowerFrameObject:StartAnimIfFull(...) end
-end
-
-do
----@class PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_FadeoutAnimObject : AnimationGroup
-local PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_FadeoutAnimObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_PulseFrameObject : Frame
----@field PulseAnim PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_PulseFrame_PulseAnimObject
----@field SoftGlow PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_PulseFrame_SoftGlowObject
----@field YellowGlow PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_PulseFrame_YellowGlowObject
-local PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_PulseFrameObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_PulseFrame_PulseAnimObject : AnimationGroup
-local PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_PulseFrame_PulseAnimObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_PulseFrame_SoftGlowObject : Texture
-local PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_PulseFrame_SoftGlowObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_PulseFrame_YellowGlowObject : Texture
-local PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_PulseFrame_YellowGlowObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_SpikeFrameObject : Frame
----@field AlertSpikeStay PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_SpikeFrame_AlertSpikeStayObject
----@field BigSpikeGlow PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_SpikeFrame_BigSpikeGlowObject
----@field SpikeAnim PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_SpikeFrame_SpikeAnimObject
-local PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_SpikeFrameObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_SpikeFrame_AlertSpikeStayObject : Texture
-local PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_SpikeFrame_AlertSpikeStayObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_SpikeFrame_BigSpikeGlowObject : Texture
-local PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_SpikeFrame_BigSpikeGlowObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_SpikeFrame_SpikeAnimObject : AnimationGroup
-local PersonalResourceDisplayFrame_PowerBar_FullPowerFrame_SpikeFrame_SpikeAnimObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_PowerBar_LeftTextObject : FontString
-local PersonalResourceDisplayFrame_PowerBar_LeftTextObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_PowerBar_ManaCostPredictionBarObject : Texture
-local PersonalResourceDisplayFrame_PowerBar_ManaCostPredictionBarObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_PowerBar_RightTextObject : FontString
-local PersonalResourceDisplayFrame_PowerBar_RightTextObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_PowerBar_TextStringObject : FontString
-local PersonalResourceDisplayFrame_PowerBar_TextStringObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_SelectionObject : Frame
----@field Label PersonalResourceDisplayFrame_Selection_LabelObject
----@field MouseOverHighlight PersonalResourceDisplayFrame_Selection_MouseOverHighlightObject
----@field highlightTextureKit string
----@field ignoreInLayout boolean
----@field parent PersonalResourceDisplayFrame_Selection_parentObject
----@field selectedTextureKit string
----@field system PersonalResourceDisplayFrame_Selection_systemObject
-local PersonalResourceDisplayFrame_SelectionObject = {}
+function GlobalFXBackgroundModelSceneObject:ReleaseActor(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:CheckShowInstructionalTooltip(...) end
+function GlobalFXBackgroundModelSceneObject:ReleaseAllActors(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:GetBorderColor(...) end
+function GlobalFXBackgroundModelSceneObject:ReleaseAllCameras(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:GetCenterColor(...) end
+function GlobalFXBackgroundModelSceneObject:RemoveEffectController(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:GetFrameLayoutTextureKit(...) end
+function GlobalFXBackgroundModelSceneObject:RemoveRoleset(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:GetFrameLayoutType(...) end
+function GlobalFXBackgroundModelSceneObject:Reset(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:GetLabelText(...) end
+function GlobalFXBackgroundModelSceneObject:ResizeToBoundsRect(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:HideInstructionalTooltip(...) end
+function GlobalFXBackgroundModelSceneObject:RotateTextures(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:IsSelected(...) end
+function GlobalFXBackgroundModelSceneObject:SetActiveCamera(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:IsShowingEditInstructions(...) end
+function GlobalFXBackgroundModelSceneObject:SetActorPositionFromPixels(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:OnDragStart(...) end
+function GlobalFXBackgroundModelSceneObject:SetAllPoints(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:OnDragStop(...) end
+function GlobalFXBackgroundModelSceneObject:SetAllowOverlappedModels(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:OnEnter(...) end
+function GlobalFXBackgroundModelSceneObject:SetAlpha(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:OnLeave(...) end
+function GlobalFXBackgroundModelSceneObject:SetAlphaFromBoolean(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:OnLoad(...) end
+function GlobalFXBackgroundModelSceneObject:SetAlphaGradient(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:OnMouseDown(...) end
+function GlobalFXBackgroundModelSceneObject:SetAttribute(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:SetBlendMode(...) end
+function GlobalFXBackgroundModelSceneObject:SetAttributeNoHandler(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:SetBorderBlendMode(...) end
+function GlobalFXBackgroundModelSceneObject:SetCameraFarClip(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:SetBorderColor(...) end
+function GlobalFXBackgroundModelSceneObject:SetCameraFieldOfView(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:SetCenterColor(...) end
+function GlobalFXBackgroundModelSceneObject:SetCameraNearClip(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:SetSystem(...) end
+function GlobalFXBackgroundModelSceneObject:SetCameraOrientationByAxisVectors(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:SetVertexColor(...) end
+function GlobalFXBackgroundModelSceneObject:SetCameraOrientationByYawPitchRoll(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:ShouldShowLabelText(...) end
+function GlobalFXBackgroundModelSceneObject:SetCameraPosition(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:ShowEditInstructions(...) end
+function GlobalFXBackgroundModelSceneObject:SetClampRectInsets(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:ShowHighlighted(...) end
+function GlobalFXBackgroundModelSceneObject:SetClampedToScreen(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:ShowSelected(...) end
+function GlobalFXBackgroundModelSceneObject:SetClipsChildren(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_SelectionObject:UpdateLabelVisibility(...) end
-end
-
-do
----@class PersonalResourceDisplayFrame_Selection_LabelObject : FontString
----@field fontObjectsToTry table
-local PersonalResourceDisplayFrame_Selection_LabelObject = {}
+function GlobalFXBackgroundModelSceneObject:SetCollapsesLayout(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_Selection_LabelObject:ApplyFontObjects(...) end
+function GlobalFXBackgroundModelSceneObject:SetDesaturation(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_Selection_LabelObject:SetFontObjectsToTry(...) end
-end
-
-do
----@class PersonalResourceDisplayFrame_Selection_MouseOverHighlightObject : Frame
----@field BottomEdge PersonalResourceDisplayFrame_Selection_MouseOverHighlight_BottomEdgeObject
----@field BottomLeftCorner PersonalResourceDisplayFrame_Selection_MouseOverHighlight_BottomLeftCornerObject
----@field BottomRightCorner PersonalResourceDisplayFrame_Selection_MouseOverHighlight_BottomRightCornerObject
----@field Center PersonalResourceDisplayFrame_Selection_MouseOverHighlight_CenterObject
----@field LeftEdge PersonalResourceDisplayFrame_Selection_MouseOverHighlight_LeftEdgeObject
----@field RightEdge PersonalResourceDisplayFrame_Selection_MouseOverHighlight_RightEdgeObject
----@field TopEdge PersonalResourceDisplayFrame_Selection_MouseOverHighlight_TopEdgeObject
----@field TopLeftCorner PersonalResourceDisplayFrame_Selection_MouseOverHighlight_TopLeftCornerObject
----@field TopRightCorner PersonalResourceDisplayFrame_Selection_MouseOverHighlight_TopRightCornerObject
-local PersonalResourceDisplayFrame_Selection_MouseOverHighlightObject = {}
+function GlobalFXBackgroundModelSceneObject:SetDontSavePosition(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_Selection_MouseOverHighlightObject:GetBorderColor(...) end
+function GlobalFXBackgroundModelSceneObject:SetDrawLayer(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_Selection_MouseOverHighlightObject:GetCenterColor(...) end
+function GlobalFXBackgroundModelSceneObject:SetDrawLayerEnabled(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_Selection_MouseOverHighlightObject:GetFrameLayoutTextureKit(...) end
+function GlobalFXBackgroundModelSceneObject:SetEffectSpeed(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_Selection_MouseOverHighlightObject:GetFrameLayoutType(...) end
+function GlobalFXBackgroundModelSceneObject:SetFixedFrameLevel(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_Selection_MouseOverHighlightObject:OnLoad(...) end
+function GlobalFXBackgroundModelSceneObject:SetFixedFrameStrata(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_Selection_MouseOverHighlightObject:SetBlendMode(...) end
+function GlobalFXBackgroundModelSceneObject:SetFlattensRenderLayers(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_Selection_MouseOverHighlightObject:SetBorderBlendMode(...) end
+function GlobalFXBackgroundModelSceneObject:SetFogColor(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_Selection_MouseOverHighlightObject:SetBorderColor(...) end
+function GlobalFXBackgroundModelSceneObject:SetFogFar(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_Selection_MouseOverHighlightObject:SetCenterColor(...) end
+function GlobalFXBackgroundModelSceneObject:SetFogNear(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_Selection_MouseOverHighlightObject:SetVertexColor(...) end
-end
-
-do
----@class PersonalResourceDisplayFrame_Selection_MouseOverHighlight_BottomEdgeObject : Texture
-local PersonalResourceDisplayFrame_Selection_MouseOverHighlight_BottomEdgeObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_Selection_MouseOverHighlight_BottomLeftCornerObject : Texture
-local PersonalResourceDisplayFrame_Selection_MouseOverHighlight_BottomLeftCornerObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_Selection_MouseOverHighlight_BottomRightCornerObject : Texture
-local PersonalResourceDisplayFrame_Selection_MouseOverHighlight_BottomRightCornerObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_Selection_MouseOverHighlight_CenterObject : Texture
-local PersonalResourceDisplayFrame_Selection_MouseOverHighlight_CenterObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_Selection_MouseOverHighlight_LeftEdgeObject : Texture
-local PersonalResourceDisplayFrame_Selection_MouseOverHighlight_LeftEdgeObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_Selection_MouseOverHighlight_RightEdgeObject : Texture
-local PersonalResourceDisplayFrame_Selection_MouseOverHighlight_RightEdgeObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_Selection_MouseOverHighlight_TopEdgeObject : Texture
-local PersonalResourceDisplayFrame_Selection_MouseOverHighlight_TopEdgeObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_Selection_MouseOverHighlight_TopLeftCornerObject : Texture
-local PersonalResourceDisplayFrame_Selection_MouseOverHighlight_TopLeftCornerObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_Selection_MouseOverHighlight_TopRightCornerObject : Texture
-local PersonalResourceDisplayFrame_Selection_MouseOverHighlight_TopRightCornerObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_Selection_parentObject
-local PersonalResourceDisplayFrame_Selection_parentObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_Selection_systemObject
-local PersonalResourceDisplayFrame_Selection_systemObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_healthbarObject
-local PersonalResourceDisplayFrame_healthbarObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_savedSystemInfoObject
----@field anchorInfo table
----@field isInDefaultPosition boolean
----@field settings table
----@field system number
-local PersonalResourceDisplayFrame_savedSystemInfoObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_settingsDialogAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo PersonalResourceDisplayFrame_settingsDialogAnchor_relativeToObject
----@field x number
----@field y number
-local PersonalResourceDisplayFrame_settingsDialogAnchorObject = {}
+function GlobalFXBackgroundModelSceneObject:SetForbidden(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_settingsDialogAnchorObject:Get(...) end
+function GlobalFXBackgroundModelSceneObject:SetFrameLevel(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_settingsDialogAnchorObject:GetRelativeTo(...) end
+function GlobalFXBackgroundModelSceneObject:SetFrameStrata(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_settingsDialogAnchorObject:Init(...) end
+function GlobalFXBackgroundModelSceneObject:SetFromModelSceneID(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_settingsDialogAnchorObject:Set(...) end
+function GlobalFXBackgroundModelSceneObject:SetHeight(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_settingsDialogAnchorObject:SetFromPoint(...) end
+function GlobalFXBackgroundModelSceneObject:SetHighlightLocked(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_settingsDialogAnchorObject:SetOffsets(...) end
+function GlobalFXBackgroundModelSceneObject:SetHitRectInsets(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_settingsDialogAnchorObject:SetPoint(...) end
+function GlobalFXBackgroundModelSceneObject:SetHyperlinkPropagateToParent(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_settingsDialogAnchorObject:SetPointWithExtraOffset(...) end
+function GlobalFXBackgroundModelSceneObject:SetHyperlinksEnabled(...) end
 ---@return any ...
-function PersonalResourceDisplayFrame_settingsDialogAnchorObject:SetRelativeTo(...) end
-end
-
-do
----@class PersonalResourceDisplayFrame_settingsDialogAnchor_relativeToObject
-local PersonalResourceDisplayFrame_settingsDialogAnchor_relativeToObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_systemInfoObject
----@field anchorInfo table
----@field isInDefaultPosition boolean
----@field settings table
----@field system number
-local PersonalResourceDisplayFrame_systemInfoObject = {}
-end
-
-do
----@class PersonalResourceDisplayFrame_tempMaxHealthLossBarObject
-local PersonalResourceDisplayFrame_tempMaxHealthLossBarObject = {}
-end
-
-do
----@class PetBattleFrameObject : Frame
----@field ActiveAlly PetBattleFrame_ActiveAllyObject
----@field ActiveEnemy PetBattleFrame_ActiveEnemyObject
----@field Ally2 PetBattleFrame_Ally2Object
----@field Ally3 PetBattleFrame_Ally3Object
----@field AllyBuffFrame PetBattleFrame_AllyBuffFrameObject
----@field AllyDebuffFrame PetBattleFrame_AllyDebuffFrameObject
----@field AllyPadBuffFrame PetBattleFrame_AllyPadBuffFrameObject
----@field AllyPadDebuffFrame PetBattleFrame_AllyPadDebuffFrameObject
----@field BottomFrame PetBattleFrame_BottomFrameObject
----@field Enemy2 PetBattleFrame_Enemy2Object
----@field Enemy3 PetBattleFrame_Enemy3Object
----@field EnemyBuffFrame PetBattleFrame_EnemyBuffFrameObject
----@field EnemyDebuffFrame PetBattleFrame_EnemyDebuffFrameObject
----@field EnemyPadBuffFrame PetBattleFrame_EnemyPadBuffFrameObject
----@field EnemyPadDebuffFrame PetBattleFrame_EnemyPadDebuffFrameObject
----@field TopArtLeft PetBattleFrame_TopArtLeftObject
----@field TopArtRight PetBattleFrame_TopArtRightObject
----@field TopVersus PetBattleFrame_TopVersusObject
----@field TopVersusText PetBattleFrame_TopVersusTextObject
----@field WeatherFrame PetBattleFrame_WeatherFrameObject
-local PetBattleFrameObject = {}
----@type PetBattleFrameObject
-PetBattleFrame = PetBattleFrameObject
-end
-
-do
----@class PetBattleFrame_ActiveAllyObject : Button
----@field ActualHealthBar PetBattleFrame_ActiveAlly_ActualHealthBarObject
----@field Border PetBattleFrame_ActiveAlly_BorderObject
----@field Border2 PetBattleFrame_ActiveAlly_Border2Object
----@field BorderFlash PetBattleFrame_ActiveAlly_BorderFlashObject
----@field HealthBarBG PetBattleFrame_ActiveAlly_HealthBarBGObject
----@field HealthBarFrame PetBattleFrame_ActiveAlly_HealthBarFrameObject
----@field HealthText PetBattleFrame_ActiveAlly_HealthTextObject
----@field Icon PetBattleFrame_ActiveAlly_IconObject
----@field Level PetBattleFrame_ActiveAlly_LevelObject
----@field LevelUnderlay PetBattleFrame_ActiveAlly_LevelUnderlayObject
----@field Name PetBattleFrame_ActiveAlly_NameObject
----@field PetType PetBattleFrame_ActiveAlly_PetTypeObject
----@field SpeedFlash PetBattleFrame_ActiveAlly_SpeedFlashObject
----@field SpeedIcon PetBattleFrame_ActiveAlly_SpeedIconObject
----@field SpeedUnderlay PetBattleFrame_ActiveAlly_SpeedUnderlayObject
----@field healthBarWidth number
-local PetBattleFrame_ActiveAllyObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveAlly_ActualHealthBarObject : Texture
-local PetBattleFrame_ActiveAlly_ActualHealthBarObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveAlly_BorderObject : Texture
-local PetBattleFrame_ActiveAlly_BorderObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveAlly_Border2Object : Texture
-local PetBattleFrame_ActiveAlly_Border2Object = {}
-end
-
-do
----@class PetBattleFrame_ActiveAlly_BorderFlashObject : Texture
-local PetBattleFrame_ActiveAlly_BorderFlashObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveAlly_HealthBarBGObject : Texture
-local PetBattleFrame_ActiveAlly_HealthBarBGObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveAlly_HealthBarFrameObject : Texture
-local PetBattleFrame_ActiveAlly_HealthBarFrameObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveAlly_HealthTextObject : FontString
-local PetBattleFrame_ActiveAlly_HealthTextObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveAlly_IconObject : Texture
-local PetBattleFrame_ActiveAlly_IconObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveAlly_LevelObject : FontString
-local PetBattleFrame_ActiveAlly_LevelObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveAlly_LevelUnderlayObject : Texture
-local PetBattleFrame_ActiveAlly_LevelUnderlayObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveAlly_NameObject : FontString
-local PetBattleFrame_ActiveAlly_NameObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveAlly_PetTypeObject : Frame
----@field ActiveStatus PetBattleFrame_ActiveAlly_PetType_ActiveStatusObject
----@field Background PetBattleFrame_ActiveAlly_PetType_BackgroundObject
----@field Icon PetBattleFrame_ActiveAlly_PetType_IconObject
-local PetBattleFrame_ActiveAlly_PetTypeObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveAlly_PetType_ActiveStatusObject : Texture
-local PetBattleFrame_ActiveAlly_PetType_ActiveStatusObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveAlly_PetType_BackgroundObject : Texture
-local PetBattleFrame_ActiveAlly_PetType_BackgroundObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveAlly_PetType_IconObject : Texture
-local PetBattleFrame_ActiveAlly_PetType_IconObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveAlly_SpeedFlashObject : AnimationGroup
-local PetBattleFrame_ActiveAlly_SpeedFlashObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveAlly_SpeedIconObject : Texture
-local PetBattleFrame_ActiveAlly_SpeedIconObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveAlly_SpeedUnderlayObject : Texture
-local PetBattleFrame_ActiveAlly_SpeedUnderlayObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveEnemyObject : Button
----@field ActualHealthBar PetBattleFrame_ActiveEnemy_ActualHealthBarObject
----@field Border PetBattleFrame_ActiveEnemy_BorderObject
----@field Border2 PetBattleFrame_ActiveEnemy_Border2Object
----@field BorderFlash PetBattleFrame_ActiveEnemy_BorderFlashObject
----@field HealthBarBG PetBattleFrame_ActiveEnemy_HealthBarBGObject
----@field HealthBarFrame PetBattleFrame_ActiveEnemy_HealthBarFrameObject
----@field HealthText PetBattleFrame_ActiveEnemy_HealthTextObject
----@field Icon PetBattleFrame_ActiveEnemy_IconObject
----@field Level PetBattleFrame_ActiveEnemy_LevelObject
----@field LevelUnderlay PetBattleFrame_ActiveEnemy_LevelUnderlayObject
----@field Name PetBattleFrame_ActiveEnemy_NameObject
----@field PetType PetBattleFrame_ActiveEnemy_PetTypeObject
----@field SpeedFlash PetBattleFrame_ActiveEnemy_SpeedFlashObject
----@field SpeedIcon PetBattleFrame_ActiveEnemy_SpeedIconObject
----@field SpeedUnderlay PetBattleFrame_ActiveEnemy_SpeedUnderlayObject
----@field healthBarWidth number
-local PetBattleFrame_ActiveEnemyObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveEnemy_ActualHealthBarObject : Texture
-local PetBattleFrame_ActiveEnemy_ActualHealthBarObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveEnemy_BorderObject : Texture
-local PetBattleFrame_ActiveEnemy_BorderObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveEnemy_Border2Object : Texture
-local PetBattleFrame_ActiveEnemy_Border2Object = {}
-end
-
-do
----@class PetBattleFrame_ActiveEnemy_BorderFlashObject : Texture
-local PetBattleFrame_ActiveEnemy_BorderFlashObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveEnemy_HealthBarBGObject : Texture
-local PetBattleFrame_ActiveEnemy_HealthBarBGObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveEnemy_HealthBarFrameObject : Texture
-local PetBattleFrame_ActiveEnemy_HealthBarFrameObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveEnemy_HealthTextObject : FontString
-local PetBattleFrame_ActiveEnemy_HealthTextObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveEnemy_IconObject : Texture
-local PetBattleFrame_ActiveEnemy_IconObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveEnemy_LevelObject : FontString
-local PetBattleFrame_ActiveEnemy_LevelObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveEnemy_LevelUnderlayObject : Texture
-local PetBattleFrame_ActiveEnemy_LevelUnderlayObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveEnemy_NameObject : FontString
-local PetBattleFrame_ActiveEnemy_NameObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveEnemy_PetTypeObject : Frame
----@field ActiveStatus PetBattleFrame_ActiveEnemy_PetType_ActiveStatusObject
----@field Background PetBattleFrame_ActiveEnemy_PetType_BackgroundObject
----@field Icon PetBattleFrame_ActiveEnemy_PetType_IconObject
-local PetBattleFrame_ActiveEnemy_PetTypeObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveEnemy_PetType_ActiveStatusObject : Texture
-local PetBattleFrame_ActiveEnemy_PetType_ActiveStatusObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveEnemy_PetType_BackgroundObject : Texture
-local PetBattleFrame_ActiveEnemy_PetType_BackgroundObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveEnemy_PetType_IconObject : Texture
-local PetBattleFrame_ActiveEnemy_PetType_IconObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveEnemy_SpeedFlashObject : AnimationGroup
-local PetBattleFrame_ActiveEnemy_SpeedFlashObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveEnemy_SpeedIconObject : Texture
-local PetBattleFrame_ActiveEnemy_SpeedIconObject = {}
-end
-
-do
----@class PetBattleFrame_ActiveEnemy_SpeedUnderlayObject : Texture
-local PetBattleFrame_ActiveEnemy_SpeedUnderlayObject = {}
-end
-
-do
----@class PetBattleFrame_Ally2Object : Button
----@field ActualHealthBar PetBattleFrame_Ally2_ActualHealthBarObject
----@field BorderAlive PetBattleFrame_Ally2_BorderAliveObject
----@field BorderDead PetBattleFrame_Ally2_BorderDeadObject
----@field HealthBarBG PetBattleFrame_Ally2_HealthBarBGObject
----@field HealthDivider PetBattleFrame_Ally2_HealthDividerObject
----@field Icon PetBattleFrame_Ally2_IconObject
----@field healthBarWidth number
----@field hideWhenDeadList table
-local PetBattleFrame_Ally2Object = {}
-end
-
-do
----@class PetBattleFrame_Ally2_ActualHealthBarObject : Texture
-local PetBattleFrame_Ally2_ActualHealthBarObject = {}
-end
-
-do
----@class PetBattleFrame_Ally2_BorderAliveObject : Texture
-local PetBattleFrame_Ally2_BorderAliveObject = {}
-end
-
-do
----@class PetBattleFrame_Ally2_BorderDeadObject : Texture
-local PetBattleFrame_Ally2_BorderDeadObject = {}
-end
-
-do
----@class PetBattleFrame_Ally2_HealthBarBGObject : Texture
-local PetBattleFrame_Ally2_HealthBarBGObject = {}
-end
-
-do
----@class PetBattleFrame_Ally2_HealthDividerObject : Texture
-local PetBattleFrame_Ally2_HealthDividerObject = {}
-end
-
-do
----@class PetBattleFrame_Ally2_IconObject : Texture
-local PetBattleFrame_Ally2_IconObject = {}
-end
-
-do
----@class PetBattleFrame_Ally3Object : Button
----@field ActualHealthBar PetBattleFrame_Ally3_ActualHealthBarObject
----@field BorderAlive PetBattleFrame_Ally3_BorderAliveObject
----@field BorderDead PetBattleFrame_Ally3_BorderDeadObject
----@field HealthBarBG PetBattleFrame_Ally3_HealthBarBGObject
----@field HealthDivider PetBattleFrame_Ally3_HealthDividerObject
----@field Icon PetBattleFrame_Ally3_IconObject
----@field healthBarWidth number
----@field hideWhenDeadList table
-local PetBattleFrame_Ally3Object = {}
-end
-
-do
----@class PetBattleFrame_Ally3_ActualHealthBarObject : Texture
-local PetBattleFrame_Ally3_ActualHealthBarObject = {}
-end
-
-do
----@class PetBattleFrame_Ally3_BorderAliveObject : Texture
-local PetBattleFrame_Ally3_BorderAliveObject = {}
-end
-
-do
----@class PetBattleFrame_Ally3_BorderDeadObject : Texture
-local PetBattleFrame_Ally3_BorderDeadObject = {}
-end
-
-do
----@class PetBattleFrame_Ally3_HealthBarBGObject : Texture
-local PetBattleFrame_Ally3_HealthBarBGObject = {}
-end
-
-do
----@class PetBattleFrame_Ally3_HealthDividerObject : Texture
-local PetBattleFrame_Ally3_HealthDividerObject = {}
-end
-
-do
----@class PetBattleFrame_Ally3_IconObject : Texture
-local PetBattleFrame_Ally3_IconObject = {}
-end
-
-do
----@class PetBattleFrame_AllyBuffFrameObject : Frame
----@field displayBuffs boolean
----@field displayDebuffs boolean
----@field frames table
----@field growsToDirection string
----@field numPerRow number
----@field template string
-local PetBattleFrame_AllyBuffFrameObject = {}
-end
-
-do
----@class PetBattleFrame_AllyDebuffFrameObject : Frame
----@field displayBuffs boolean
----@field displayDebuffs boolean
----@field frames table
----@field growsToDirection string
----@field numPerRow number
----@field template string
-local PetBattleFrame_AllyDebuffFrameObject = {}
-end
-
-do
----@class PetBattleFrame_AllyPadBuffFrameObject : Frame
----@field displayBuffs boolean
----@field displayDebuffs boolean
----@field frames table
----@field growsToDirection string
----@field numPerRow number
----@field template string
-local PetBattleFrame_AllyPadBuffFrameObject = {}
-end
-
-do
----@class PetBattleFrame_AllyPadDebuffFrameObject : Frame
----@field displayBuffs boolean
----@field displayDebuffs boolean
----@field frames table
----@field growsToDirection string
----@field numPerRow number
----@field template string
-local PetBattleFrame_AllyPadDebuffFrameObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrameObject : Frame
----@field Background PetBattleFrame_BottomFrame_BackgroundObject
----@field CatchButton PetBattleFrame_BottomFrame_CatchButtonObject
----@field Delimiter PetBattleFrame_BottomFrame_DelimiterObject
----@field FlowFrame PetBattleFrame_BottomFrame_FlowFrameObject
----@field ForfeitButton PetBattleFrame_BottomFrame_ForfeitButtonObject
----@field LeftEndCap PetBattleFrame_BottomFrame_LeftEndCapObject
----@field MicroButtonFrame PetBattleFrame_BottomFrame_MicroButtonFrameObject
----@field PetSelectionFrame PetBattleFrame_BottomFrame_PetSelectionFrameObject
----@field RightEndCap PetBattleFrame_BottomFrame_RightEndCapObject
----@field SwitchPetButton PetBattleFrame_BottomFrame_SwitchPetButtonObject
----@field TurnTimer PetBattleFrame_BottomFrame_TurnTimerObject
----@field abilityButtons table
----@field xpBar PetBattleFrame_BottomFrame_xpBarObject
-local PetBattleFrame_BottomFrameObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_BackgroundObject : Texture
-local PetBattleFrame_BottomFrame_BackgroundObject = {}
+function GlobalFXBackgroundModelSceneObject:SetID(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetIgnoreParentAlpha(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetIgnoreParentScale(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetIgnoringChildrenForBounds(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetIsFrameBuffer(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetLightAmbientColor(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetLightDiffuseColor(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetLightDirection(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetLightPosition(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetLightType(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetLightVisible(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetMouseClickEnabled(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetMouseMotionEnabled(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetMovable(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetOnUpdateMode(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetParent(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetParentKey(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetPassThroughButtons(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetPaused(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetPoint(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetPointsOffset(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetPropagateKeyboardInput(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetPropagateMouseClicks(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetPropagateMouseMotion(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetResetCallback(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetResizable(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetResizeBounds(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetRolesets(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetRoundLayoutToNearestPixel(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetScale(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetScript(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetShown(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetSize(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetToDefaults(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetToplevel(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetUserPlaced(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetUsingParentLevel(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetViewInsets(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetViewTranslation(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetWidth(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SetWindow(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:ShouldButtonPassThrough(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:Show(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:ShowAndAnimateActors(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:StartMoving(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:StartSizing(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:StopAnimating(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:StopCameraYaw(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:StopMovingOrSizing(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:SynchronizeActiveCamera(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:TakeActor(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:Transform3DPointTo2D(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:TransitionToModelSceneID(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:UnlockHighlight(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:UnregisterAllEvents(...) end
+---@return any ...
+function GlobalFXBackgroundModelSceneObject:UnregisterEvent(...) end
+---@type GlobalFXBackgroundModelSceneObject
+GlobalFXBackgroundModelScene = GlobalFXBackgroundModelSceneObject
 end
 
 do
----@class PetBattleFrame_BottomFrame_CatchButtonObject : Button
----@field BetterIcon PetBattleFrame_BottomFrame_CatchButton_BetterIconObject
----@field Cooldown PetBattleFrame_BottomFrame_CatchButton_CooldownObject
----@field CooldownFlash PetBattleFrame_BottomFrame_CatchButton_CooldownFlashObject
----@field CooldownFlashAnim PetBattleFrame_BottomFrame_CatchButton_CooldownFlashAnimObject
----@field CooldownShadow PetBattleFrame_BottomFrame_CatchButton_CooldownShadowObject
----@field HotKey PetBattleFrame_BottomFrame_CatchButton_HotKeyObject
----@field Icon PetBattleFrame_BottomFrame_CatchButton_IconObject
----@field Lock PetBattleFrame_BottomFrame_CatchButton_LockObject
----@field NormalTexture PetBattleFrame_BottomFrame_CatchButton_NormalTextureObject
----@field SelectedHighlight PetBattleFrame_BottomFrame_CatchButton_SelectedHighlightObject
----@field actionType number
----@field playedSound boolean
-local PetBattleFrame_BottomFrame_CatchButtonObject = {}
+---@class GlobalFXBackgroundModelScene_activeCameraObject
+---@field buttonModes table
+---@field maxZoomDistance number
+---@field minZoomDistance number
+---@field modelSceneCameraInfo table
+---@field owningScene GlobalFXBackgroundModelScene_activeCamera_owningSceneObject
+---@field panningXOffset number
+---@field panningYOffset number
+---@field pitch number
+---@field pitchInterpolationAmount number
+---@field roll number
+---@field rollInterpolationAmount number
+---@field targetInterpolationAmount number
+---@field targetX number
+---@field targetY number
+---@field targetZ number
+---@field yaw number
+---@field yawInterpolationAmount number
+---@field zoomInterpolationAmount number
+---@field zoomPercent number
+local GlobalFXBackgroundModelScene_activeCameraObject = {}
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:AdjustYaw(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:ApplyFromModelSceneCameraInfo(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:CalculatePositionByDistanceFromTarget(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:CalculateTransitionalValues(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:CalculateZoomDistanceFromPercent(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:CalculateZoomPercentFromDistance(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetCameraType(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetDeltaModifierForCameraMode(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetDerivedOrientation(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetDerivedTarget(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetDerivedZoomDistance(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetForwardVector(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetInterpolatedOrientation(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetInterpolatedTarget(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetInterpolatedZoomDistance(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetLeftMouseButtonXMode(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetLeftYMouseButtonYMode(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetMaxZoomDistance(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetMinZoomDistance(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetMouseWheelMode(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetOrientationSpline(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetOwningScene(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetPitch(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetPitchInterpolationAmount(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetPosition(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetRightMouseButtonXMode(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetRightMouseButtonYMode(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetRightVector(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetRoll(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetRollInterpolationAmount(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetTarget(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetTargetInterpolationAmount(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetTargetSpline(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetUpVector(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetYaw(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetYawInterpolationAmount(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetZoomAvailable(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetZoomDistance(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetZoomInterpolationAmount(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetZoomPercent(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:GetZoomSpline(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:HandleMouseMovement(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:IsLeftMouseButtonDown(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:IsRightMouseButtonDown(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:OnActivated(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:OnAdded(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:OnDeactivated(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:OnMouseDown(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:OnMouseUp(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:OnMouseWheel(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:OnRemoved(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:OnUpdate(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:ResetDefaultInputModes(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetAlignLightToOrbitDelta(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetLeftMouseButtonXMode(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetLeftMouseButtonYMode(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetMaxZoomDistance(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetMinZoomDistance(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetMouseWheelMode(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetOrientationSpline(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetOwningScene(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetPitch(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetPitchInterpolationAmount(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetPosition(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetRightMouseButtonXMode(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetRightMouseButtonYMode(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetRoll(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetRollInterpolationAmount(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetTarget(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetTargetInterpolationAmount(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetTargetSpline(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetYaw(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetYawInterpolationAmount(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetZoomDistance(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetZoomInterpolationAmount(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetZoomPercent(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SetZoomSpline(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:ShouldAlignLightToOrbitDelta(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SnapAllInterpolatedValues(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SnapToTargetInterpolationPitch(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SnapToTargetInterpolationRoll(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SnapToTargetInterpolationTarget(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SnapToTargetInterpolationYaw(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SnapToTargetInterpolationZoom(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:SynchronizeCamera(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:UpdateCameraOrientationAndPosition(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:UpdateInterpolationTargets(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:UpdateLight(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:ZoomBy(...) end
+---@return any ...
+function GlobalFXBackgroundModelScene_activeCameraObject:ZoomByPercent(...) end
 end

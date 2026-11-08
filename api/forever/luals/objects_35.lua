@@ -3,1607 +3,2503 @@
 
 
 do
----@class UIWidgetTopCenterContainerFrame_FrontModelScene_activeCamera_owningSceneObject
-local UIWidgetTopCenterContainerFrame_FrontModelScene_activeCamera_owningSceneObject = {}
+---@class NamePlatesTutorial_LeftJumpHint_ActiveTextureObject : Texture
+local NamePlatesTutorial_LeftJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class UIWidgetTopCenterContainerFrame_FrontModelScene_tagToCameraObject
+---@class NamePlatesTutorial_LeftJumpHint_DisabledTextureObject : Texture
+local NamePlatesTutorial_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class NamePlatesTutorial_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim NamePlatesTutorial_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim NamePlatesTutorial_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim NamePlatesTutorial_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local NamePlatesTutorial_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class NamePlatesTutorial_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local NamePlatesTutorial_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class NamePlatesTutorial_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local NamePlatesTutorial_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class NamePlatesTutorial_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local NamePlatesTutorial_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class NamePlatesTutorial_LeftJumpHint_HoldIndicatorObject : Texture
+local NamePlatesTutorial_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class NamePlatesTutorial_LeftJumpHint_HoldIndicatorBGObject : Texture
+local NamePlatesTutorial_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class NamePlatesTutorial_LeftJumpHint_HoverTextureObject : Texture
+local NamePlatesTutorial_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class NamePlatesTutorial_LeftJumpHint_LoadBarObject : Texture
+local NamePlatesTutorial_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class NamePlatesTutorial_LeftJumpHint_LoadBarBGObject : Texture
+local NamePlatesTutorial_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class NamePlatesTutorial_LeftJumpHint_LoadBarGlowObject : Texture
+local NamePlatesTutorial_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class NamePlatesTutorial_LeftJumpHint_NormalTextureObject : Texture
+local NamePlatesTutorial_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class NamePlatesTutorial_LeftJumpHint_PressedTextureObject : Texture
+local NamePlatesTutorial_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class NamePlatesTutorial_LeftJumpHint_SpinnerTipObject : Texture
+local NamePlatesTutorial_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class NamePlatesTutorial_NineSliceObject : Frame
+---@field BottomEdge NamePlatesTutorial_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner NamePlatesTutorial_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner NamePlatesTutorial_NineSlice_BottomRightCornerObject
+---@field Center NamePlatesTutorial_NineSlice_CenterObject
+---@field LeftEdge NamePlatesTutorial_NineSlice_LeftEdgeObject
+---@field RightEdge NamePlatesTutorial_NineSlice_RightEdgeObject
+---@field TopEdge NamePlatesTutorial_NineSlice_TopEdgeObject
+---@field TopLeftCorner NamePlatesTutorial_NineSlice_TopLeftCornerObject
+---@field TopRightCorner NamePlatesTutorial_NineSlice_TopRightCornerObject
+local NamePlatesTutorial_NineSliceObject = {}
+---@return any ...
+function NamePlatesTutorial_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function NamePlatesTutorial_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function NamePlatesTutorial_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function NamePlatesTutorial_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function NamePlatesTutorial_NineSliceObject:OnLoad(...) end
+---@return any ...
+function NamePlatesTutorial_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function NamePlatesTutorial_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function NamePlatesTutorial_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function NamePlatesTutorial_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function NamePlatesTutorial_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class NamePlatesTutorial_NineSlice_BottomEdgeObject : Texture
+local NamePlatesTutorial_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class NamePlatesTutorial_NineSlice_BottomLeftCornerObject : Texture
+local NamePlatesTutorial_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class NamePlatesTutorial_NineSlice_BottomRightCornerObject : Texture
+local NamePlatesTutorial_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class NamePlatesTutorial_NineSlice_CenterObject : Texture
+local NamePlatesTutorial_NineSlice_CenterObject = {}
+end
+
+do
+---@class NamePlatesTutorial_NineSlice_LeftEdgeObject : Texture
+local NamePlatesTutorial_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class NamePlatesTutorial_NineSlice_RightEdgeObject : Texture
+local NamePlatesTutorial_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class NamePlatesTutorial_NineSlice_TopEdgeObject : Texture
+local NamePlatesTutorial_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class NamePlatesTutorial_NineSlice_TopLeftCornerObject : Texture
+local NamePlatesTutorial_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class NamePlatesTutorial_NineSlice_TopRightCornerObject : Texture
+local NamePlatesTutorial_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class NamePlatesTutorial_PortraitContainerObject : Frame
+---@field CircleMask NamePlatesTutorial_PortraitContainer_CircleMaskObject
+---@field portrait NamePlatesTutorial_PortraitContainer_portraitObject
+local NamePlatesTutorial_PortraitContainerObject = {}
+end
+
+do
+---@class NamePlatesTutorial_PortraitContainer_CircleMaskObject : MaskTexture
+local NamePlatesTutorial_PortraitContainer_CircleMaskObject = {}
+end
+
+do
+---@class NamePlatesTutorial_PortraitContainer_portraitObject : Texture
+local NamePlatesTutorial_PortraitContainer_portraitObject = {}
+end
+
+do
+---@class NamePlatesTutorial_RightJumpHintObject : Frame
+---@field ActiveTexture NamePlatesTutorial_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture NamePlatesTutorial_RightJumpHint_DisabledTextureObject
+---@field HoldAnim NamePlatesTutorial_RightJumpHint_HoldAnimObject
+---@field HoldIndicator NamePlatesTutorial_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG NamePlatesTutorial_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture NamePlatesTutorial_RightJumpHint_HoverTextureObject
+---@field LoadBar NamePlatesTutorial_RightJumpHint_LoadBarObject
+---@field LoadBarBG NamePlatesTutorial_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow NamePlatesTutorial_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture NamePlatesTutorial_RightJumpHint_NormalTextureObject
+---@field PressedTexture NamePlatesTutorial_RightJumpHint_PressedTextureObject
+---@field SpinnerTip NamePlatesTutorial_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local NamePlatesTutorial_RightJumpHintObject = {}
+---@return any ...
+function NamePlatesTutorial_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function NamePlatesTutorial_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function NamePlatesTutorial_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function NamePlatesTutorial_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function NamePlatesTutorial_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function NamePlatesTutorial_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function NamePlatesTutorial_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function NamePlatesTutorial_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function NamePlatesTutorial_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function NamePlatesTutorial_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function NamePlatesTutorial_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function NamePlatesTutorial_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function NamePlatesTutorial_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function NamePlatesTutorial_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function NamePlatesTutorial_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function NamePlatesTutorial_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function NamePlatesTutorial_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function NamePlatesTutorial_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function NamePlatesTutorial_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function NamePlatesTutorial_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function NamePlatesTutorial_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function NamePlatesTutorial_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class NamePlatesTutorial_RightJumpHint_ActiveTextureObject : Texture
+local NamePlatesTutorial_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class NamePlatesTutorial_RightJumpHint_DisabledTextureObject : Texture
+local NamePlatesTutorial_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class NamePlatesTutorial_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim NamePlatesTutorial_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim NamePlatesTutorial_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim NamePlatesTutorial_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local NamePlatesTutorial_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class NamePlatesTutorial_RightJumpHint_HoldAnim_LoadBarAnimObject
+local NamePlatesTutorial_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class NamePlatesTutorial_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local NamePlatesTutorial_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class NamePlatesTutorial_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local NamePlatesTutorial_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class NamePlatesTutorial_RightJumpHint_HoldIndicatorObject : Texture
+local NamePlatesTutorial_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class NamePlatesTutorial_RightJumpHint_HoldIndicatorBGObject : Texture
+local NamePlatesTutorial_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class NamePlatesTutorial_RightJumpHint_HoverTextureObject : Texture
+local NamePlatesTutorial_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class NamePlatesTutorial_RightJumpHint_LoadBarObject : Texture
+local NamePlatesTutorial_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class NamePlatesTutorial_RightJumpHint_LoadBarBGObject : Texture
+local NamePlatesTutorial_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class NamePlatesTutorial_RightJumpHint_LoadBarGlowObject : Texture
+local NamePlatesTutorial_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class NamePlatesTutorial_RightJumpHint_NormalTextureObject : Texture
+local NamePlatesTutorial_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class NamePlatesTutorial_RightJumpHint_PressedTextureObject : Texture
+local NamePlatesTutorial_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class NamePlatesTutorial_RightJumpHint_SpinnerTipObject : Texture
+local NamePlatesTutorial_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class NamePlatesTutorial_StyleOptionsObject : Texture
+local NamePlatesTutorial_StyleOptionsObject = {}
+end
+
+do
+---@class NamePlatesTutorial_TitleContainerObject : Frame
+---@field TitleText NamePlatesTutorial_TitleContainer_TitleTextObject
+local NamePlatesTutorial_TitleContainerObject = {}
+end
+
+do
+---@class NamePlatesTutorial_TitleContainer_TitleTextObject : FontString
+local NamePlatesTutorial_TitleContainer_TitleTextObject = {}
+end
+
+do
+---@class NamePlatesTutorial_TopTileStreaksObject : Texture
+local NamePlatesTutorial_TopTileStreaksObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrameObject : Frame
+---@field Header ObjectiveTrackerFrame_HeaderObject
+---@field NineSlice ObjectiveTrackerFrame_NineSliceObject
+---@field QuestTimerFrame ObjectiveTrackerFrame_QuestTimerFrameObject
+---@field Selection ObjectiveTrackerFrame_SelectionObject
+---@field align string
+---@field bottomModulePadding number
+---@field breakSnappedFramesOnSave boolean
+---@field dirtySettings table
+---@field downKeys table
+---@field editModeHeight number
+---@field hasActiveChanges boolean
+---@field headerText string
+---@field hideWhenActionBarIsOverriden boolean
+---@field ignoreFramePositionManager boolean
+---@field init boolean
+---@field isCollapsed boolean
+---@field isManagedFrame boolean
+---@field isRightManagedFrame boolean
+---@field layoutIndex number
+---@field layoutParent ObjectiveTrackerFrame_layoutParentObject
+---@field moduleSpacing number
+---@field modules table
+---@field needsSorting boolean
+---@field savedSystemInfo ObjectiveTrackerFrame_savedSystemInfoObject
+---@field selectedAnchored boolean
+---@field settingDisplayInfoMap table
+---@field settingMap table
+---@field settingsDialogAnchor ObjectiveTrackerFrame_settingsDialogAnchorObject
+---@field snappedFrames table
+---@field system number
+---@field systemInfo ObjectiveTrackerFrame_systemInfoObject
+---@field systemNameString string
+---@field topModulePadding number
+---@field topPadding number
+---@field topPaddingProviders table
+local ObjectiveTrackerFrameObject = {}
+---@return any ...
+function ObjectiveTrackerFrameObject:AddExtraButtons(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:AddModule(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:AddSnappedFrame(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:AddTopPaddingProvider(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:AnchorSelectionFrame(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:AnySettingsDirty(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:ApplySystemAnchor(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:AreAllSystemSettingsDefault(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:BindQuestItemFromTracker(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:BreakFrameSnap(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:BreakFromFrameManager(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:BreakSnappedFrames(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:CanBeMoved(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:ClearAllPointsBase(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:ClearAllPointsOverride(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:ClearDirtySetting(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:ClearDownKeys(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:ClearFrameSnap(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:ClearHighlight(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:ConvertSettingDisplayValueToRawValue(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:DoesSettingDisplayValueEqual(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:DoesSettingValueEqual(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:FocusGamepad(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:FocusQuestFromTracker(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:ForEachModule(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:ForceExpand(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:GetAvailableHeight(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:GetBottomOffset(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:GetCombinedCenterOffset(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:GetCombinedSelectionOffset(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:GetCompositeNumberSettingValue(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:GetFrameMagneticEligibility(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:GetHeightToModule(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:GetLeftOffset(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:GetManagedFrameContainer(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:GetRightOffset(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:GetScaledCenter(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:GetScaledSelectionCenter(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:GetScaledSelectionSides(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:GetSelectionOffset(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:GetSettingValue(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:GetSettingValueBool(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:GetSettingsDialogAnchor(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:GetSnapOffsets(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:GetSystemName(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:GetTopOffset(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:HasActiveChanges(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:HasAnyModules(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:HasCompositeNumberSetting(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:HasModule(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:HasSetting(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:HasValidSelectionRect(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:HideBase(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:HideOverride(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:HighlightSystem(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:Init(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:InitializeGamepad(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:IsAboveFrame(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:IsBelowFrame(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:IsEditModeDragging(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:IsFrameAnchoredToMe(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:IsHorizontallyAlignedWithFrame(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:IsInDefaultPosition(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:IsInitialized(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:IsSettingDirty(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:IsShiftKeyDown(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:IsSystemSettingDefault(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:IsToTheLeftOfFrame(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:IsToTheRightOfFrame(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:IsVerticallyAlignedWithFrame(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:MarkAllSettingsDirty(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:MarkDirty(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:MinimizeTrackerModule(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:OnAdded(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:OnAnyEditModeSystemAnchorChanged(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:OnDragStart(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:OnDragStop(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:OnEditModeEnter(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:OnEditModeExit(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:OnEvent(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:OnHide(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:OnKeyDown(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:OnKeyUp(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:OnLoad(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:OnShow(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:OnSizeChanged(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:OnSmartNavFocus(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:OnSystemHide(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:OnSystemLoad(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:OnSystemPositionChange(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:OnUpdateSystem(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:OpenQuestDetailsFromTracker(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:OpenQuestOptionsFromTracker(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:PrepareForSave(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:ProcessMovementKey(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:RegisterForTransitions(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:RemoveAllModules(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:RemoveModule(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:RemoveSnappedFrame(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:ResetToDefaultPosition(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:SelectFirstButton(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:SelectSystem(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:SetBackgroundAlpha(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:SetCollapsed(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:SetDirtyMethod(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:SetHasActiveChanges(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:SetPointBase(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:SetPointOverride(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:SetScaleBase(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:SetScaleOverride(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:SetSelectionShown(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:SetShownBase(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:SetShownOverride(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:SetSnappedToFrame(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:SetTrackerTargetButton(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:SetUpGamepad(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:SetupSettingsDialogAnchor(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:SetupVisibilityFunctionOverrides(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:ShouldBreakSnappedFramesOnHide(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:ShouldResetSettingsDialogAnchors(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:ShouldShowHeader(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:ShouldShowSetting(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:ShowEditInstructions(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:SmartNavigationCloseHandler(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:SnapToFrame(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:ToggleCollapsed(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:TrySetCompositeNumberSettingValue(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:UnfocusGamepad(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:UninitializeGamepad(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:UntrackQuestFromTracker(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:Update(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:UpdateClampOffsets(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:UpdateDirtySettings(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:UpdateDisplayInfoOptions(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:UpdateHeaderPosition(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:UpdateHeight(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:UpdateMagnetismRegistration(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:UpdateSettingMap(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:UpdateSmartNavigationOverrides(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:UpdateSystem(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:UpdateSystemSetting(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:UpdateSystemSettingHeight(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:UpdateSystemSettingOpacity(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:UpdateSystemSettingTextSize(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:UpdateSystemSettingValue(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:UpdateTopPadding(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:UseSettingAltName(...) end
+---@return any ...
+function ObjectiveTrackerFrameObject:dirtyCallback(...) end
+---@type ObjectiveTrackerFrameObject
+ObjectiveTrackerFrame = ObjectiveTrackerFrameObject
+end
+
+do
+---@class ObjectiveTrackerFrame_HeaderObject : Frame
+---@field Background ObjectiveTrackerFrame_Header_BackgroundObject
+---@field FilterButton ObjectiveTrackerFrame_Header_FilterButtonObject
+---@field MinimizeButton ObjectiveTrackerFrame_Header_MinimizeButtonObject
+---@field Text ObjectiveTrackerFrame_Header_TextObject
+local ObjectiveTrackerFrame_HeaderObject = {}
+---@return any ...
+function ObjectiveTrackerFrame_HeaderObject:OnLoad(...) end
+---@return any ...
+function ObjectiveTrackerFrame_HeaderObject:OnToggle(...) end
+---@return any ...
+function ObjectiveTrackerFrame_HeaderObject:SetCollapsed(...) end
+end
+
+do
+---@class ObjectiveTrackerFrame_Header_BackgroundObject : Texture
+local ObjectiveTrackerFrame_Header_BackgroundObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_Header_FilterButtonObject : Button
+---@field buttonType string
+local ObjectiveTrackerFrame_Header_FilterButtonObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_Header_MinimizeButtonObject : Button
+---@field buttonType string
+local ObjectiveTrackerFrame_Header_MinimizeButtonObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_Header_TextObject : FontString
+---@field baseLineHeight number
+---@field minLineHeight number
+local ObjectiveTrackerFrame_Header_TextObject = {}
+---@return any ...
+function ObjectiveTrackerFrame_Header_TextObject:ScaleTextToFit(...) end
+---@return any ...
+function ObjectiveTrackerFrame_Header_TextObject:SetMinLineHeight(...) end
+end
+
+do
+---@class ObjectiveTrackerFrame_NineSliceObject : Frame
+---@field BottomEdge ObjectiveTrackerFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner ObjectiveTrackerFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner ObjectiveTrackerFrame_NineSlice_BottomRightCornerObject
+---@field Center ObjectiveTrackerFrame_NineSlice_CenterObject
+---@field LeftEdge ObjectiveTrackerFrame_NineSlice_LeftEdgeObject
+---@field RightEdge ObjectiveTrackerFrame_NineSlice_RightEdgeObject
+---@field TopEdge ObjectiveTrackerFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner ObjectiveTrackerFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner ObjectiveTrackerFrame_NineSlice_TopRightCornerObject
+---@field layoutTextureKit string
+---@field layoutType string
+local ObjectiveTrackerFrame_NineSliceObject = {}
+---@return any ...
+function ObjectiveTrackerFrame_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function ObjectiveTrackerFrame_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function ObjectiveTrackerFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function ObjectiveTrackerFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function ObjectiveTrackerFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function ObjectiveTrackerFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function ObjectiveTrackerFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function ObjectiveTrackerFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function ObjectiveTrackerFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function ObjectiveTrackerFrame_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class ObjectiveTrackerFrame_NineSlice_BottomEdgeObject : Texture
+local ObjectiveTrackerFrame_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_NineSlice_BottomLeftCornerObject : Texture
+local ObjectiveTrackerFrame_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_NineSlice_BottomRightCornerObject : Texture
+local ObjectiveTrackerFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_NineSlice_CenterObject : Texture
+local ObjectiveTrackerFrame_NineSlice_CenterObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_NineSlice_LeftEdgeObject : Texture
+local ObjectiveTrackerFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_NineSlice_RightEdgeObject : Texture
+local ObjectiveTrackerFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_NineSlice_TopEdgeObject : Texture
+local ObjectiveTrackerFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_NineSlice_TopLeftCornerObject : Texture
+local ObjectiveTrackerFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_NineSlice_TopRightCornerObject : Texture
+local ObjectiveTrackerFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_QuestTimerFrameObject : Frame
+---@field Border ObjectiveTrackerFrame_QuestTimerFrame_BorderObject
+---@field Header ObjectiveTrackerFrame_QuestTimerFrame_HeaderObject
+---@field activeElements table
+---@field backdropInfo ObjectiveTrackerFrame_QuestTimerFrame_backdropInfoObject
+---@field layoutIndex number
+---@field numTimers number
+---@field pools ObjectiveTrackerFrame_QuestTimerFrame_poolsObject
+---@field templateName string
+---@field topPadding number
+local ObjectiveTrackerFrame_QuestTimerFrameObject = {}
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrameObject:GetFrameHeight(...) end
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrameObject:GetTopPadding(...) end
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrameObject:OnEvent(...) end
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrameObject:OnHide(...) end
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrameObject:OnLoad(...) end
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrameObject:OnUpdate(...) end
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrameObject:Update(...) end
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrameObject:UpdateIfNeeded(...) end
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrameObject:UpdateQuestTimers(...) end
+end
+
+do
+---@class ObjectiveTrackerFrame_QuestTimerFrame_BorderObject : Frame
+---@field Bg ObjectiveTrackerFrame_QuestTimerFrame_Border_BgObject
+---@field BottomEdge ObjectiveTrackerFrame_QuestTimerFrame_Border_BottomEdgeObject
+---@field BottomLeftCorner ObjectiveTrackerFrame_QuestTimerFrame_Border_BottomLeftCornerObject
+---@field BottomRightCorner ObjectiveTrackerFrame_QuestTimerFrame_Border_BottomRightCornerObject
+---@field LeftEdge ObjectiveTrackerFrame_QuestTimerFrame_Border_LeftEdgeObject
+---@field RightEdge ObjectiveTrackerFrame_QuestTimerFrame_Border_RightEdgeObject
+---@field TopEdge ObjectiveTrackerFrame_QuestTimerFrame_Border_TopEdgeObject
+---@field TopLeftCorner ObjectiveTrackerFrame_QuestTimerFrame_Border_TopLeftCornerObject
+---@field TopRightCorner ObjectiveTrackerFrame_QuestTimerFrame_Border_TopRightCornerObject
+---@field ignoreInLayout boolean
+---@field layoutType string
+local ObjectiveTrackerFrame_QuestTimerFrame_BorderObject = {}
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrame_BorderObject:GetBorderColor(...) end
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrame_BorderObject:GetCenterColor(...) end
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrame_BorderObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrame_BorderObject:GetFrameLayoutType(...) end
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrame_BorderObject:OnLoad(...) end
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrame_BorderObject:SetBlendMode(...) end
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrame_BorderObject:SetBorderBlendMode(...) end
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrame_BorderObject:SetBorderColor(...) end
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrame_BorderObject:SetCenterColor(...) end
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrame_BorderObject:SetVertexColor(...) end
+end
+
+do
+---@class ObjectiveTrackerFrame_QuestTimerFrame_Border_BgObject : Texture
+local ObjectiveTrackerFrame_QuestTimerFrame_Border_BgObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_QuestTimerFrame_Border_BottomEdgeObject : Texture
+local ObjectiveTrackerFrame_QuestTimerFrame_Border_BottomEdgeObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_QuestTimerFrame_Border_BottomLeftCornerObject : Texture
+local ObjectiveTrackerFrame_QuestTimerFrame_Border_BottomLeftCornerObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_QuestTimerFrame_Border_BottomRightCornerObject : Texture
+local ObjectiveTrackerFrame_QuestTimerFrame_Border_BottomRightCornerObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_QuestTimerFrame_Border_LeftEdgeObject : Texture
+local ObjectiveTrackerFrame_QuestTimerFrame_Border_LeftEdgeObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_QuestTimerFrame_Border_RightEdgeObject : Texture
+local ObjectiveTrackerFrame_QuestTimerFrame_Border_RightEdgeObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_QuestTimerFrame_Border_TopEdgeObject : Texture
+local ObjectiveTrackerFrame_QuestTimerFrame_Border_TopEdgeObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_QuestTimerFrame_Border_TopLeftCornerObject : Texture
+local ObjectiveTrackerFrame_QuestTimerFrame_Border_TopLeftCornerObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_QuestTimerFrame_Border_TopRightCornerObject : Texture
+local ObjectiveTrackerFrame_QuestTimerFrame_Border_TopRightCornerObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_QuestTimerFrame_HeaderObject : Frame
+---@field CenterBG ObjectiveTrackerFrame_QuestTimerFrame_Header_CenterBGObject
+---@field LeftBG ObjectiveTrackerFrame_QuestTimerFrame_Header_LeftBGObject
+---@field RightBG ObjectiveTrackerFrame_QuestTimerFrame_Header_RightBGObject
+---@field Text ObjectiveTrackerFrame_QuestTimerFrame_Header_TextObject
+---@field headerTextPadding number
+---@field textString string
+local ObjectiveTrackerFrame_QuestTimerFrame_HeaderObject = {}
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrame_HeaderObject:OnLoad(...) end
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrame_HeaderObject:SetHeaderFont(...) end
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrame_HeaderObject:Setup(...) end
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrame_HeaderObject:UpdateWidth(...) end
+end
+
+do
+---@class ObjectiveTrackerFrame_QuestTimerFrame_Header_CenterBGObject : Texture
+local ObjectiveTrackerFrame_QuestTimerFrame_Header_CenterBGObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_QuestTimerFrame_Header_LeftBGObject : Texture
+local ObjectiveTrackerFrame_QuestTimerFrame_Header_LeftBGObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_QuestTimerFrame_Header_RightBGObject : Texture
+local ObjectiveTrackerFrame_QuestTimerFrame_Header_RightBGObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_QuestTimerFrame_Header_TextObject : FontString
+local ObjectiveTrackerFrame_QuestTimerFrame_Header_TextObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_QuestTimerFrame_backdropInfoObject
+local ObjectiveTrackerFrame_QuestTimerFrame_backdropInfoObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_QuestTimerFrame_poolsObject
+local ObjectiveTrackerFrame_QuestTimerFrame_poolsObject = {}
+---@return any ...
+function ObjectiveTrackerFrame_QuestTimerFrame_poolsObject:private(...) end
+end
+
+do
+---@class ObjectiveTrackerFrame_SelectionObject : Frame
+---@field Label ObjectiveTrackerFrame_Selection_LabelObject
+---@field MouseOverHighlight ObjectiveTrackerFrame_Selection_MouseOverHighlightObject
+---@field highlightTextureKit string
+---@field ignoreInLayout boolean
+---@field parent ObjectiveTrackerFrame_Selection_parentObject
+---@field selectedTextureKit string
+---@field system ObjectiveTrackerFrame_Selection_systemObject
+local ObjectiveTrackerFrame_SelectionObject = {}
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:CheckShowInstructionalTooltip(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:GetBorderColor(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:GetCenterColor(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:GetFrameLayoutType(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:GetLabelText(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:HideInstructionalTooltip(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:IsSelected(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:IsShowingEditInstructions(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:OnDragStart(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:OnDragStop(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:OnEnter(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:OnLeave(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:OnLoad(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:OnMouseDown(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:SetBlendMode(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:SetBorderBlendMode(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:SetBorderColor(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:SetCenterColor(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:SetSystem(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:SetVertexColor(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:ShouldShowLabelText(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:ShowEditInstructions(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:ShowHighlighted(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:ShowSelected(...) end
+---@return any ...
+function ObjectiveTrackerFrame_SelectionObject:UpdateLabelVisibility(...) end
+end
+
+do
+---@class ObjectiveTrackerFrame_Selection_LabelObject : FontString
+---@field fontObjectsToTry table
+local ObjectiveTrackerFrame_Selection_LabelObject = {}
+---@return any ...
+function ObjectiveTrackerFrame_Selection_LabelObject:ApplyFontObjects(...) end
+---@return any ...
+function ObjectiveTrackerFrame_Selection_LabelObject:SetFontObjectsToTry(...) end
+end
+
+do
+---@class ObjectiveTrackerFrame_Selection_MouseOverHighlightObject : Frame
+---@field BottomEdge ObjectiveTrackerFrame_Selection_MouseOverHighlight_BottomEdgeObject
+---@field BottomLeftCorner ObjectiveTrackerFrame_Selection_MouseOverHighlight_BottomLeftCornerObject
+---@field BottomRightCorner ObjectiveTrackerFrame_Selection_MouseOverHighlight_BottomRightCornerObject
+---@field Center ObjectiveTrackerFrame_Selection_MouseOverHighlight_CenterObject
+---@field LeftEdge ObjectiveTrackerFrame_Selection_MouseOverHighlight_LeftEdgeObject
+---@field RightEdge ObjectiveTrackerFrame_Selection_MouseOverHighlight_RightEdgeObject
+---@field TopEdge ObjectiveTrackerFrame_Selection_MouseOverHighlight_TopEdgeObject
+---@field TopLeftCorner ObjectiveTrackerFrame_Selection_MouseOverHighlight_TopLeftCornerObject
+---@field TopRightCorner ObjectiveTrackerFrame_Selection_MouseOverHighlight_TopRightCornerObject
+local ObjectiveTrackerFrame_Selection_MouseOverHighlightObject = {}
+---@return any ...
+function ObjectiveTrackerFrame_Selection_MouseOverHighlightObject:GetBorderColor(...) end
+---@return any ...
+function ObjectiveTrackerFrame_Selection_MouseOverHighlightObject:GetCenterColor(...) end
+---@return any ...
+function ObjectiveTrackerFrame_Selection_MouseOverHighlightObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function ObjectiveTrackerFrame_Selection_MouseOverHighlightObject:GetFrameLayoutType(...) end
+---@return any ...
+function ObjectiveTrackerFrame_Selection_MouseOverHighlightObject:OnLoad(...) end
+---@return any ...
+function ObjectiveTrackerFrame_Selection_MouseOverHighlightObject:SetBlendMode(...) end
+---@return any ...
+function ObjectiveTrackerFrame_Selection_MouseOverHighlightObject:SetBorderBlendMode(...) end
+---@return any ...
+function ObjectiveTrackerFrame_Selection_MouseOverHighlightObject:SetBorderColor(...) end
+---@return any ...
+function ObjectiveTrackerFrame_Selection_MouseOverHighlightObject:SetCenterColor(...) end
+---@return any ...
+function ObjectiveTrackerFrame_Selection_MouseOverHighlightObject:SetVertexColor(...) end
+end
+
+do
+---@class ObjectiveTrackerFrame_Selection_MouseOverHighlight_BottomEdgeObject : Texture
+local ObjectiveTrackerFrame_Selection_MouseOverHighlight_BottomEdgeObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_Selection_MouseOverHighlight_BottomLeftCornerObject : Texture
+local ObjectiveTrackerFrame_Selection_MouseOverHighlight_BottomLeftCornerObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_Selection_MouseOverHighlight_BottomRightCornerObject : Texture
+local ObjectiveTrackerFrame_Selection_MouseOverHighlight_BottomRightCornerObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_Selection_MouseOverHighlight_CenterObject : Texture
+local ObjectiveTrackerFrame_Selection_MouseOverHighlight_CenterObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_Selection_MouseOverHighlight_LeftEdgeObject : Texture
+local ObjectiveTrackerFrame_Selection_MouseOverHighlight_LeftEdgeObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_Selection_MouseOverHighlight_RightEdgeObject : Texture
+local ObjectiveTrackerFrame_Selection_MouseOverHighlight_RightEdgeObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_Selection_MouseOverHighlight_TopEdgeObject : Texture
+local ObjectiveTrackerFrame_Selection_MouseOverHighlight_TopEdgeObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_Selection_MouseOverHighlight_TopLeftCornerObject : Texture
+local ObjectiveTrackerFrame_Selection_MouseOverHighlight_TopLeftCornerObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_Selection_MouseOverHighlight_TopRightCornerObject : Texture
+local ObjectiveTrackerFrame_Selection_MouseOverHighlight_TopRightCornerObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_Selection_parentObject
+local ObjectiveTrackerFrame_Selection_parentObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_Selection_systemObject
+local ObjectiveTrackerFrame_Selection_systemObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_layoutParentObject
+local ObjectiveTrackerFrame_layoutParentObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_savedSystemInfoObject
+---@field anchorInfo table
+---@field isInDefaultPosition boolean
+---@field settings table
+---@field system number
+local ObjectiveTrackerFrame_savedSystemInfoObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_settingsDialogAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo ObjectiveTrackerFrame_settingsDialogAnchor_relativeToObject
+---@field x number
+---@field y number
+local ObjectiveTrackerFrame_settingsDialogAnchorObject = {}
+---@return any ...
+function ObjectiveTrackerFrame_settingsDialogAnchorObject:Get(...) end
+---@return any ...
+function ObjectiveTrackerFrame_settingsDialogAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function ObjectiveTrackerFrame_settingsDialogAnchorObject:Init(...) end
+---@return any ...
+function ObjectiveTrackerFrame_settingsDialogAnchorObject:Set(...) end
+---@return any ...
+function ObjectiveTrackerFrame_settingsDialogAnchorObject:SetFromPoint(...) end
+---@return any ...
+function ObjectiveTrackerFrame_settingsDialogAnchorObject:SetOffsets(...) end
+---@return any ...
+function ObjectiveTrackerFrame_settingsDialogAnchorObject:SetPoint(...) end
+---@return any ...
+function ObjectiveTrackerFrame_settingsDialogAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function ObjectiveTrackerFrame_settingsDialogAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class ObjectiveTrackerFrame_settingsDialogAnchor_relativeToObject
+local ObjectiveTrackerFrame_settingsDialogAnchor_relativeToObject = {}
+end
+
+do
+---@class ObjectiveTrackerFrame_systemInfoObject
+---@field anchorInfo table
+---@field isInDefaultPosition boolean
+---@field settings table
+---@field system number
+local ObjectiveTrackerFrame_systemInfoObject = {}
+end
+
+do
+---@class ObjectiveTrackerTopBannerFrameObject : Frame
+---@field BlackBar ObjectiveTrackerTopBannerFrame_BlackBarObject
+---@field DownLine ObjectiveTrackerTopBannerFrame_DownLineObject
+---@field DownLineGlow ObjectiveTrackerTopBannerFrame_DownLineGlowObject
+---@field Filigree ObjectiveTrackerTopBannerFrame_FiligreeObject
+---@field FiligreeGlow ObjectiveTrackerTopBannerFrame_FiligreeGlowObject
+---@field PopAnim ObjectiveTrackerTopBannerFrame_PopAnimObject
+---@field SlideAnim ObjectiveTrackerTopBannerFrame_SlideAnimObject
+---@field Spark ObjectiveTrackerTopBannerFrame_SparkObject
+---@field Subtitle ObjectiveTrackerTopBannerFrame_SubtitleObject
+---@field Title ObjectiveTrackerTopBannerFrame_TitleObject
+---@field UpLine ObjectiveTrackerTopBannerFrame_UpLineObject
+---@field UpLineGlow ObjectiveTrackerTopBannerFrame_UpLineGlowObject
+local ObjectiveTrackerTopBannerFrameObject = {}
+---@return any ...
+function ObjectiveTrackerTopBannerFrameObject:DisplayForQuest(...) end
+---@return any ...
+function ObjectiveTrackerTopBannerFrameObject:Finish(...) end
+---@return any ...
+function ObjectiveTrackerTopBannerFrameObject:GetQuestID(...) end
+---@return any ...
+function ObjectiveTrackerTopBannerFrameObject:OnHide(...) end
+---@return any ...
+function ObjectiveTrackerTopBannerFrameObject:OnLoad(...) end
+---@return any ...
+function ObjectiveTrackerTopBannerFrameObject:OnPopAnimFinished(...) end
+---@return any ...
+function ObjectiveTrackerTopBannerFrameObject:OnSlideAnimFinished(...) end
+---@return any ...
+function ObjectiveTrackerTopBannerFrameObject:PlayBanner(...) end
+---@return any ...
+function ObjectiveTrackerTopBannerFrameObject:StopBanner(...) end
+---@type ObjectiveTrackerTopBannerFrameObject
+ObjectiveTrackerTopBannerFrame = ObjectiveTrackerTopBannerFrameObject
+end
+
+do
+---@class ObjectiveTrackerTopBannerFrame_BlackBarObject : Texture
+local ObjectiveTrackerTopBannerFrame_BlackBarObject = {}
+end
+
+do
+---@class ObjectiveTrackerTopBannerFrame_DownLineObject : Texture
+local ObjectiveTrackerTopBannerFrame_DownLineObject = {}
+end
+
+do
+---@class ObjectiveTrackerTopBannerFrame_DownLineGlowObject : Texture
+local ObjectiveTrackerTopBannerFrame_DownLineGlowObject = {}
+end
+
+do
+---@class ObjectiveTrackerTopBannerFrame_FiligreeObject : Texture
+local ObjectiveTrackerTopBannerFrame_FiligreeObject = {}
+end
+
+do
+---@class ObjectiveTrackerTopBannerFrame_FiligreeGlowObject : Texture
+local ObjectiveTrackerTopBannerFrame_FiligreeGlowObject = {}
+end
+
+do
+---@class ObjectiveTrackerTopBannerFrame_PopAnimObject : AnimationGroup
+local ObjectiveTrackerTopBannerFrame_PopAnimObject = {}
+end
+
+do
+---@class ObjectiveTrackerTopBannerFrame_SlideAnimObject : AnimationGroup
+---@field Translation ObjectiveTrackerTopBannerFrame_SlideAnim_TranslationObject
+local ObjectiveTrackerTopBannerFrame_SlideAnimObject = {}
+end
+
+do
+---@class ObjectiveTrackerTopBannerFrame_SlideAnim_TranslationObject : Translation
+local ObjectiveTrackerTopBannerFrame_SlideAnim_TranslationObject = {}
+end
+
+do
+---@class ObjectiveTrackerTopBannerFrame_SparkObject : Texture
+local ObjectiveTrackerTopBannerFrame_SparkObject = {}
+end
+
+do
+---@class ObjectiveTrackerTopBannerFrame_SubtitleObject : FontString
+local ObjectiveTrackerTopBannerFrame_SubtitleObject = {}
+end
+
+do
+---@class ObjectiveTrackerTopBannerFrame_TitleObject : FontString
+local ObjectiveTrackerTopBannerFrame_TitleObject = {}
+end
+
+do
+---@class ObjectiveTrackerTopBannerFrame_UpLineObject : Texture
+local ObjectiveTrackerTopBannerFrame_UpLineObject = {}
+end
+
+do
+---@class ObjectiveTrackerTopBannerFrame_UpLineGlowObject : Texture
+local ObjectiveTrackerTopBannerFrame_UpLineGlowObject = {}
+end
+
+do
+---@class ObjectiveTrackerUIWidgetContainerObject : Frame
+---@field BackModelScene ObjectiveTrackerUIWidgetContainer_BackModelSceneObject
+---@field FrontModelScene ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject
+---@field dirty boolean
+---@field dirtyLayout boolean
+---@field horizontalAnchorPoint string
+---@field horizontalAnchorXOffset number
+---@field horizontalRelativePoint string
+---@field horizontalRowContainerPool ObjectiveTrackerUIWidgetContainer_horizontalRowContainerPoolObject
+---@field numTimers number
+---@field numWidgetsShowing number
+---@field showAndHideOnWidgetSetRegistration boolean
+---@field timerWidgets table
+---@field verticalAnchorPoint string
+---@field verticalAnchorYOffset number
+---@field verticalRelativePoint string
+---@field widgetFrames table
+---@field widgetPools ObjectiveTrackerUIWidgetContainer_widgetPoolsObject
+---@field widgetSetID number
+---@field widgetSetLayoutDirection number
+local ObjectiveTrackerUIWidgetContainerObject = {}
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:AddLayoutChildren(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:AnimateOutAllMarkedWidgets(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:AttachToBlockAndShow(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:ClearFixedSize(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:CreateWidget(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:GatherWidgetsByWidgetTag(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:GetAdditionalRegions(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:GetChildHeight(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:GetChildSize(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:GetChildWidth(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:GetFixedHeight(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:GetFixedSize(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:GetFixedWidth(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:GetHeightPadding(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:GetLayoutChildren(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:GetMaximumWidth(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:GetMinimumWidth(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:GetNumWidgetsShowing(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:GetWidgetFromPools(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:GetWidthPadding(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:HasAnyWidgetsShowing(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:IsDirty(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:IsLayoutFrame(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:IsRegisteredForWidgetSet(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:Layout(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:MarkAllWidgetsForRemoval(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:MarkClean(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:MarkCleanLayout(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:MarkDirty(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:MarkDirtyLayout(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:NeedsOnUpdate(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:OnCleaned(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:OnEvent(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:OnLoad(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:OnShow(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:OnUpdate(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:OverrideOnUpdate(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:ProcessAllWidgets(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:ProcessWidget(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:RegisterForWidgetSet(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:RegisterTimerWidget(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:RemoveAllWidgets(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:RemoveWidget(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:SetAttachedUnitAndType(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:SetFixedHeight(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:SetFixedSize(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:SetFixedWidth(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:SetHeightPadding(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:SetMaximumWidth(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:SetMinimumWidth(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:SetModelScenesShown(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:SetWidthPadding(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:ShouldClearOnUpdateAfterClean(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:ShouldRegisterOnUpdate(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:UnattachFromBlockAndHide(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:UnregisterForWidgetSet(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:UnregisterTimerWidget(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:UpdateOnUpdateRegistration(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:UpdateWidgetLayout(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainerObject:layoutFunc(...) end
+---@type ObjectiveTrackerUIWidgetContainerObject
+ObjectiveTrackerUIWidgetContainer = ObjectiveTrackerUIWidgetContainerObject
+end
+
+do
+---@class ObjectiveTrackerUIWidgetContainer_BackModelSceneObject
+---@field activeCamera ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject
+---@field actorTemplate string
+---@field cameras table
+---@field centerX number
+---@field centerY number
+---@field effectControllers table
+---@field ignoreInLayout boolean
+---@field modelSceneID number
+---@field modelSceneSet boolean
+---@field pixelsPerSceneUnit number
+---@field tagToActor table
+---@field tagToCamera ObjectiveTrackerUIWidgetContainer_BackModelScene_tagToCameraObject
+---@field useViewInsetNormalization boolean
+local ObjectiveTrackerUIWidgetContainer_BackModelSceneObject = {}
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:AcquireActor(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:AcquireAndInitializeActor(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:AddCamera(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:AddDynamicEffect(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:AddEffect(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:AddOrUpdateDropShadow(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:AdjustCameraYaw(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:AttachPlayerToMount(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:CalculatePixelsPerSceneUnit(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:ClearEffects(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:ClearScene(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:CreateActorFromScene(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:CreateCameraFromScene(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:CreateOrTransitionActorFromScene(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:CreateOrTransitionCameraFromScene(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:EnumerateActiveActors(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:ExecuteOrDelayUntilSceneSet(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:GetActiveCamera(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:GetActorByTag(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:GetCameraByTag(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:GetEffectSpeed(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:GetModelSceneID(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:GetNumActiveActors(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:GetOrAcquireDropShadow(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:GetPixelsPerSceneUnit(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:GetPlayerActor(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:GetSceneSize(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:HasActiveCamera(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:HasActiveEffects(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:InitializeActor(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:InternalAddEffect(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:IsLeftMouseButtonDown(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:IsModelSceneSet(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:IsRightMouseButtonDown(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:OnEnter(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:OnEvent(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:OnHide(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:OnLeave(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:OnLoad(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:OnMouseDown(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:OnMouseUp(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:OnMouseWheel(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:OnShow(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:OnSizeChanged(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:OnUpdate(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:RefreshModelScene(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:ReleaseActor(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:ReleaseAllActors(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:ReleaseAllCameras(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:RemoveEffectController(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:Reset(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:SetActiveCamera(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:SetActorPositionFromPixels(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:SetEffectSpeed(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:SetFromModelSceneID(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:SetResetCallback(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:ShowAndAnimateActors(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:StopCameraYaw(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:SynchronizeActiveCamera(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:Transform3DPointTo2D(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelSceneObject:TransitionToModelSceneID(...) end
+end
+
+do
+---@class ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject
+---@field buttonModes table
+---@field maxZoomDistance number
+---@field minZoomDistance number
+---@field modelSceneCameraInfo table
+---@field owningScene ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCamera_owningSceneObject
+---@field panningXOffset number
+---@field panningYOffset number
+---@field pitch number
+---@field pitchInterpolationAmount number
+---@field roll number
+---@field rollInterpolationAmount number
+---@field targetInterpolationAmount number
+---@field targetX number
+---@field targetY number
+---@field targetZ number
+---@field yaw number
+---@field yawInterpolationAmount number
+---@field zoomInterpolationAmount number
+---@field zoomPercent number
+local ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject = {}
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:AdjustYaw(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:ApplyFromModelSceneCameraInfo(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:CalculatePositionByDistanceFromTarget(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:CalculateTransitionalValues(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:CalculateZoomDistanceFromPercent(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:CalculateZoomPercentFromDistance(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetCameraType(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetDeltaModifierForCameraMode(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetDerivedOrientation(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetDerivedTarget(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetDerivedZoomDistance(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetForwardVector(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetInterpolatedOrientation(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetInterpolatedTarget(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetInterpolatedZoomDistance(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetLeftMouseButtonXMode(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetLeftYMouseButtonYMode(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetMaxZoomDistance(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetMinZoomDistance(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetMouseWheelMode(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetOrientationSpline(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetOwningScene(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetPitch(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetPitchInterpolationAmount(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetPosition(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetRightMouseButtonXMode(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetRightMouseButtonYMode(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetRightVector(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetRoll(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetRollInterpolationAmount(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetTarget(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetTargetInterpolationAmount(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetTargetSpline(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetUpVector(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetYaw(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetYawInterpolationAmount(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetZoomAvailable(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetZoomDistance(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetZoomInterpolationAmount(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetZoomPercent(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:GetZoomSpline(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:HandleMouseMovement(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:IsLeftMouseButtonDown(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:IsRightMouseButtonDown(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:OnActivated(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:OnAdded(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:OnDeactivated(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:OnMouseDown(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:OnMouseUp(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:OnMouseWheel(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:OnRemoved(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:OnUpdate(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:ResetDefaultInputModes(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetAlignLightToOrbitDelta(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetLeftMouseButtonXMode(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetLeftMouseButtonYMode(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetMaxZoomDistance(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetMinZoomDistance(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetMouseWheelMode(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetOrientationSpline(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetOwningScene(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetPitch(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetPitchInterpolationAmount(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetPosition(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetRightMouseButtonXMode(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetRightMouseButtonYMode(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetRoll(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetRollInterpolationAmount(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetTarget(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetTargetInterpolationAmount(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetTargetSpline(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetYaw(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetYawInterpolationAmount(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetZoomDistance(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetZoomInterpolationAmount(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetZoomPercent(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SetZoomSpline(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:ShouldAlignLightToOrbitDelta(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SnapAllInterpolatedValues(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SnapToTargetInterpolationPitch(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SnapToTargetInterpolationRoll(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SnapToTargetInterpolationTarget(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SnapToTargetInterpolationYaw(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SnapToTargetInterpolationZoom(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:SynchronizeCamera(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:UpdateCameraOrientationAndPosition(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:UpdateInterpolationTargets(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:UpdateLight(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:ZoomBy(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCameraObject:ZoomByPercent(...) end
+end
+
+do
+---@class ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCamera_owningSceneObject
+local ObjectiveTrackerUIWidgetContainer_BackModelScene_activeCamera_owningSceneObject = {}
+end
+
+do
+---@class ObjectiveTrackerUIWidgetContainer_BackModelScene_tagToCameraObject
 ---@field primary table
-local UIWidgetTopCenterContainerFrame_FrontModelScene_tagToCameraObject = {}
+local ObjectiveTrackerUIWidgetContainer_BackModelScene_tagToCameraObject = {}
 end
 
 do
----@class UIWidgetTopCenterContainerFrame_horizontalRowContainerPoolObject
-local UIWidgetTopCenterContainerFrame_horizontalRowContainerPoolObject = {}
+---@class ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject
+---@field activeCamera ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject
+---@field actorTemplate string
+---@field cameras table
+---@field centerX number
+---@field centerY number
+---@field effectControllers table
+---@field ignoreInLayout boolean
+---@field modelSceneID number
+---@field modelSceneSet boolean
+---@field pixelsPerSceneUnit number
+---@field tagToActor table
+---@field tagToCamera ObjectiveTrackerUIWidgetContainer_FrontModelScene_tagToCameraObject
+---@field useViewInsetNormalization boolean
+local ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject = {}
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_horizontalRowContainerPoolObject:GetTemplate(...) end
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:AcquireActor(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_horizontalRowContainerPoolObject:private(...) end
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:AcquireAndInitializeActor(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:AddCamera(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:AddDynamicEffect(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:AddEffect(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:AddOrUpdateDropShadow(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:AdjustCameraYaw(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:AttachPlayerToMount(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:CalculatePixelsPerSceneUnit(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:ClearEffects(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:ClearScene(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:CreateActorFromScene(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:CreateCameraFromScene(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:CreateOrTransitionActorFromScene(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:CreateOrTransitionCameraFromScene(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:EnumerateActiveActors(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:ExecuteOrDelayUntilSceneSet(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:GetActiveCamera(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:GetActorByTag(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:GetCameraByTag(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:GetEffectSpeed(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:GetModelSceneID(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:GetNumActiveActors(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:GetOrAcquireDropShadow(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:GetPixelsPerSceneUnit(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:GetPlayerActor(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:GetSceneSize(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:HasActiveCamera(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:HasActiveEffects(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:InitializeActor(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:InternalAddEffect(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:IsLeftMouseButtonDown(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:IsModelSceneSet(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:IsRightMouseButtonDown(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:OnEnter(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:OnEvent(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:OnHide(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:OnLeave(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:OnLoad(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:OnMouseDown(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:OnMouseUp(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:OnMouseWheel(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:OnShow(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:OnSizeChanged(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:OnUpdate(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:RefreshModelScene(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:ReleaseActor(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:ReleaseAllActors(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:ReleaseAllCameras(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:RemoveEffectController(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:Reset(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:SetActiveCamera(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:SetActorPositionFromPixels(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:SetEffectSpeed(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:SetFromModelSceneID(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:SetResetCallback(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:ShowAndAnimateActors(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:StopCameraYaw(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:SynchronizeActiveCamera(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:Transform3DPointTo2D(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelSceneObject:TransitionToModelSceneID(...) end
 end
 
 do
----@class UIWidgetTopCenterContainerFrame_widgetPoolsObject
-local UIWidgetTopCenterContainerFrame_widgetPoolsObject = {}
+---@class ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject
+---@field buttonModes table
+---@field maxZoomDistance number
+---@field minZoomDistance number
+---@field modelSceneCameraInfo table
+---@field owningScene ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCamera_owningSceneObject
+---@field panningXOffset number
+---@field panningYOffset number
+---@field pitch number
+---@field pitchInterpolationAmount number
+---@field roll number
+---@field rollInterpolationAmount number
+---@field targetInterpolationAmount number
+---@field targetX number
+---@field targetY number
+---@field targetZ number
+---@field yaw number
+---@field yawInterpolationAmount number
+---@field zoomInterpolationAmount number
+---@field zoomPercent number
+local ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject = {}
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_widgetPoolsObject:private(...) end
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:AdjustYaw(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:ApplyFromModelSceneCameraInfo(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:CalculatePositionByDistanceFromTarget(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:CalculateTransitionalValues(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:CalculateZoomDistanceFromPercent(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:CalculateZoomPercentFromDistance(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetCameraType(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetDeltaModifierForCameraMode(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetDerivedOrientation(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetDerivedTarget(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetDerivedZoomDistance(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetForwardVector(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetInterpolatedOrientation(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetInterpolatedTarget(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetInterpolatedZoomDistance(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetLeftMouseButtonXMode(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetLeftYMouseButtonYMode(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetMaxZoomDistance(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetMinZoomDistance(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetMouseWheelMode(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetOrientationSpline(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetOwningScene(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetPitch(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetPitchInterpolationAmount(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetPosition(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetRightMouseButtonXMode(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetRightMouseButtonYMode(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetRightVector(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetRoll(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetRollInterpolationAmount(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetTarget(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetTargetInterpolationAmount(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetTargetSpline(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetUpVector(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetYaw(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetYawInterpolationAmount(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetZoomAvailable(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetZoomDistance(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetZoomInterpolationAmount(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetZoomPercent(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:GetZoomSpline(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:HandleMouseMovement(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:IsLeftMouseButtonDown(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:IsRightMouseButtonDown(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:OnActivated(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:OnAdded(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:OnDeactivated(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:OnMouseDown(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:OnMouseUp(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:OnMouseWheel(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:OnRemoved(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:OnUpdate(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:ResetDefaultInputModes(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetAlignLightToOrbitDelta(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetLeftMouseButtonXMode(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetLeftMouseButtonYMode(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetMaxZoomDistance(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetMinZoomDistance(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetMouseWheelMode(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetOrientationSpline(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetOwningScene(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetPitch(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetPitchInterpolationAmount(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetPosition(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetRightMouseButtonXMode(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetRightMouseButtonYMode(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetRoll(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetRollInterpolationAmount(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetTarget(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetTargetInterpolationAmount(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetTargetSpline(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetYaw(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetYawInterpolationAmount(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetZoomDistance(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetZoomInterpolationAmount(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetZoomPercent(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SetZoomSpline(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:ShouldAlignLightToOrbitDelta(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SnapAllInterpolatedValues(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SnapToTargetInterpolationPitch(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SnapToTargetInterpolationRoll(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SnapToTargetInterpolationTarget(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SnapToTargetInterpolationYaw(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SnapToTargetInterpolationZoom(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:SynchronizeCamera(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:UpdateCameraOrientationAndPosition(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:UpdateInterpolationTargets(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:UpdateLight(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:ZoomBy(...) end
+---@return any ...
+function ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCameraObject:ZoomByPercent(...) end
 end
 
 do
----@class VoiceActivityManagerObject : Frame
----@field alertNotificationList VoiceActivityManager_alertNotificationListObject
----@field externalNotificationOwnerToGuid table
----@field externalNotificationTemplates table
----@field guidToExternalNotificationInfo table
----@field notificationFrameToParentFrame table
----@field notificationMembers table
----@field notificationPools VoiceActivityManager_notificationPoolsObject
----@field notificationTemplates table
----@field parentFrameNotificationFrames table
----@field releaseTimers table
-local VoiceActivityManagerObject = {}
----@return any ...
-function VoiceActivityManagerObject:CheckForAlertOnAdd(...) end
----@return any ...
-function VoiceActivityManagerObject:CheckForAlertOnRemove(...) end
----@return any ...
-function VoiceActivityManagerObject:ClearChannelExistingNotifications(...) end
----@return any ...
-function VoiceActivityManagerObject:ClearMemberHasExistingNotification(...) end
----@return any ...
-function VoiceActivityManagerObject:ClearReleaseTimer(...) end
----@return any ...
-function VoiceActivityManagerObject:CreateNotification(...) end
----@return any ...
-function VoiceActivityManagerObject:GetShowingInternalNotificationForGuid(...) end
----@return any ...
-function VoiceActivityManagerObject:LinkFrameNotificationAndGuid(...) end
----@return any ...
-function VoiceActivityManagerObject:MemberHasExistingNotification(...) end
----@return any ...
-function VoiceActivityManagerObject:OnChannelDeactivated(...) end
----@return any ...
-function VoiceActivityManagerObject:OnChannelRemoved(...) end
----@return any ...
-function VoiceActivityManagerObject:OnEvent(...) end
----@return any ...
-function VoiceActivityManagerObject:OnLoad(...) end
----@return any ...
-function VoiceActivityManagerObject:OnMemberRemoved(...) end
----@return any ...
-function VoiceActivityManagerObject:OnVoiceChannelMemberSpeakingStateChanged(...) end
----@return any ...
-function VoiceActivityManagerObject:OnVoiceChatChannelMemberEnergyChanged(...) end
----@return any ...
-function VoiceActivityManagerObject:OnVoiceChatChannelTransmitChanged(...) end
----@return any ...
-function VoiceActivityManagerObject:OnVoiceChatCommunicationModeChanged(...) end
----@return any ...
-function VoiceActivityManagerObject:RegisterExternalNotificationTemplate(...) end
----@return any ...
-function VoiceActivityManagerObject:RegisterFrameForVoiceActivityNotifications(...) end
----@return any ...
-function VoiceActivityManagerObject:ReleaseNotification(...) end
----@return any ...
-function VoiceActivityManagerObject:ReleaseNotifications(...) end
----@return any ...
-function VoiceActivityManagerObject:SetMemberHasExistingNotification(...) end
----@return any ...
-function VoiceActivityManagerObject:ShowExternalNotifications(...) end
----@return any ...
-function VoiceActivityManagerObject:ShowInternalNotifications(...) end
----@return any ...
-function VoiceActivityManagerObject:ShowNotifications(...) end
----@return any ...
-function VoiceActivityManagerObject:StartReleaseTimer(...) end
----@return any ...
-function VoiceActivityManagerObject:UnregisterFrameForVoiceActivityNotifications(...) end
----@return any ...
-function VoiceActivityManagerObject:UpdateAlertNotificationVisibility(...) end
----@type VoiceActivityManagerObject
-VoiceActivityManager = VoiceActivityManagerObject
+---@class ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCamera_owningSceneObject
+local ObjectiveTrackerUIWidgetContainer_FrontModelScene_activeCamera_owningSceneObject = {}
 end
 
 do
----@class VoiceActivityManager_alertNotificationListObject
----@field nodeCount number
-local VoiceActivityManager_alertNotificationListObject = {}
----@return any ...
-function VoiceActivityManager_alertNotificationListObject:EnumerateNodes(...) end
----@return any ...
-function VoiceActivityManager_alertNotificationListObject:EnumerateNodesReverse(...) end
----@return any ...
-function VoiceActivityManager_alertNotificationListObject:InsertAfter(...) end
----@return any ...
-function VoiceActivityManager_alertNotificationListObject:InsertBefore(...) end
----@return any ...
-function VoiceActivityManager_alertNotificationListObject:PopBack(...) end
----@return any ...
-function VoiceActivityManager_alertNotificationListObject:PopFront(...) end
----@return any ...
-function VoiceActivityManager_alertNotificationListObject:PushBack(...) end
----@return any ...
-function VoiceActivityManager_alertNotificationListObject:PushFront(...) end
----@return any ...
-function VoiceActivityManager_alertNotificationListObject:Remove(...) end
+---@class ObjectiveTrackerUIWidgetContainer_FrontModelScene_tagToCameraObject
+---@field primary table
+local ObjectiveTrackerUIWidgetContainer_FrontModelScene_tagToCameraObject = {}
 end
 
 do
----@class VoiceActivityManager_notificationPoolsObject
----@field pools table
-local VoiceActivityManager_notificationPoolsObject = {}
+---@class ObjectiveTrackerUIWidgetContainer_horizontalRowContainerPoolObject
+local ObjectiveTrackerUIWidgetContainer_horizontalRowContainerPoolObject = {}
 ---@return any ...
-function VoiceActivityManager_notificationPoolsObject:Acquire(...) end
+function ObjectiveTrackerUIWidgetContainer_horizontalRowContainerPoolObject:GetTemplate(...) end
 ---@return any ...
-function VoiceActivityManager_notificationPoolsObject:CreatePool(...) end
----@return any ...
-function VoiceActivityManager_notificationPoolsObject:CreatePoolInternal(...) end
----@return any ...
-function VoiceActivityManager_notificationPoolsObject:CreatePoolKeyFromPoolArgs(...) end
----@return any ...
-function VoiceActivityManager_notificationPoolsObject:CreatePoolWithArgs(...) end
----@return any ...
-function VoiceActivityManager_notificationPoolsObject:DoesObjectBelongToPool(...) end
----@return any ...
-function VoiceActivityManager_notificationPoolsObject:Dump(...) end
----@return any ...
-function VoiceActivityManager_notificationPoolsObject:EnumerateActive(...) end
----@return any ...
-function VoiceActivityManager_notificationPoolsObject:EnumerateActiveByTemplate(...) end
----@return any ...
-function VoiceActivityManager_notificationPoolsObject:GetNumActive(...) end
----@return any ...
-function VoiceActivityManager_notificationPoolsObject:GetOrCreatePool(...) end
----@return any ...
-function VoiceActivityManager_notificationPoolsObject:GetOrCreatePoolWithArgs(...) end
----@return any ...
-function VoiceActivityManager_notificationPoolsObject:GetPool(...) end
----@return any ...
-function VoiceActivityManager_notificationPoolsObject:GetPoolByKey(...) end
----@return any ...
-function VoiceActivityManager_notificationPoolsObject:HasPool(...) end
----@return any ...
-function VoiceActivityManager_notificationPoolsObject:Init(...) end
----@return any ...
-function VoiceActivityManager_notificationPoolsObject:Release(...) end
----@return any ...
-function VoiceActivityManager_notificationPoolsObject:ReleaseAll(...) end
----@return any ...
-function VoiceActivityManager_notificationPoolsObject:ReleaseAllByTemplate(...) end
----@return any ...
-function VoiceActivityManager_notificationPoolsObject:SetPool(...) end
+function ObjectiveTrackerUIWidgetContainer_horizontalRowContainerPoolObject:private(...) end
 end
 
 do
----@class VoiceChatChannelActivatedNotificationObject : Button
----@field BottomEdge VoiceChatChannelActivatedNotification_BottomEdgeObject
----@field BottomLeftCorner VoiceChatChannelActivatedNotification_BottomLeftCornerObject
----@field BottomRightCorner VoiceChatChannelActivatedNotification_BottomRightCornerObject
----@field Center VoiceChatChannelActivatedNotification_CenterObject
----@field CloseButton VoiceChatChannelActivatedNotification_CloseButtonObject
----@field Icon VoiceChatChannelActivatedNotification_IconObject
----@field LeftEdge VoiceChatChannelActivatedNotification_LeftEdgeObject
----@field RightEdge VoiceChatChannelActivatedNotification_RightEdgeObject
----@field Text VoiceChatChannelActivatedNotification_TextObject
----@field Text2 VoiceChatChannelActivatedNotification_Text2Object
----@field TopEdge VoiceChatChannelActivatedNotification_TopEdgeObject
----@field TopLeftCorner VoiceChatChannelActivatedNotification_TopLeftCornerObject
----@field TopRightCorner VoiceChatChannelActivatedNotification_TopRightCornerObject
----@field alertContainer VoiceChatChannelActivatedNotification_alertContainerObject
----@field animIn VoiceChatChannelActivatedNotification_animInObject
----@field backdropInfo VoiceChatChannelActivatedNotification_backdropInfoObject
----@field glow VoiceChatChannelActivatedNotification_glowObject
----@field waitAndAnimOut VoiceChatChannelActivatedNotification_waitAndAnimOutObject
-local VoiceChatChannelActivatedNotificationObject = {}
+---@class ObjectiveTrackerUIWidgetContainer_widgetPoolsObject
+local ObjectiveTrackerUIWidgetContainer_widgetPoolsObject = {}
 ---@return any ...
-function VoiceChatChannelActivatedNotificationObject:ApplyBackdrop(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:ClearBackdrop(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:GetAlertContainer(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:GetBackdrop(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:GetBackdropBorderColor(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:GetBackdropColor(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:GetEdgeSize(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:HasBackdropInfo(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:ListenForChannelActivation(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:ManagesOwnOutroAnimation(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:OnBackdropLoaded(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:OnBackdropSizeChanged(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:OnEnter(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:OnEvent(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:OnLeave(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:OnManagedAlertFrameVisibilityChanged(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:OnPostHide(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:OnPostShow(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:OnVoiceChannelActivated(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:SetAlertContainer(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:SetBackdrop(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:SetBackdropBorderColor(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:SetBackdropColor(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:SetBorderBlendMode(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:SetExternallyManagedOutroAnimation(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:Setup(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:SetupPieceVisuals(...) end
----@return any ...
-function VoiceChatChannelActivatedNotificationObject:SetupTextureCoordinates(...) end
----@type VoiceChatChannelActivatedNotificationObject
-VoiceChatChannelActivatedNotification = VoiceChatChannelActivatedNotificationObject
+function ObjectiveTrackerUIWidgetContainer_widgetPoolsObject:private(...) end
 end
 
 do
----@class VoiceChatChannelActivatedNotification_BottomEdgeObject : Texture
-local VoiceChatChannelActivatedNotification_BottomEdgeObject = {}
+---@class OpacityFrameObject : Frame
+---@field Border OpacityFrame_BorderObject
+local OpacityFrameObject = {}
+---@type OpacityFrameObject
+OpacityFrame = OpacityFrameObject
 end
 
 do
----@class VoiceChatChannelActivatedNotification_BottomLeftCornerObject : Texture
-local VoiceChatChannelActivatedNotification_BottomLeftCornerObject = {}
-end
-
-do
----@class VoiceChatChannelActivatedNotification_BottomRightCornerObject : Texture
-local VoiceChatChannelActivatedNotification_BottomRightCornerObject = {}
-end
-
-do
----@class VoiceChatChannelActivatedNotification_CenterObject : Texture
-local VoiceChatChannelActivatedNotification_CenterObject = {}
-end
-
-do
----@class VoiceChatChannelActivatedNotification_CloseButtonObject : Button
-local VoiceChatChannelActivatedNotification_CloseButtonObject = {}
----@return any ...
-function VoiceChatChannelActivatedNotification_CloseButtonObject:OnClick(...) end
----@return any ...
-function VoiceChatChannelActivatedNotification_CloseButtonObject:OnEnter(...) end
----@return any ...
-function VoiceChatChannelActivatedNotification_CloseButtonObject:OnLeave(...) end
-end
-
-do
----@class VoiceChatChannelActivatedNotification_IconObject : Texture
-local VoiceChatChannelActivatedNotification_IconObject = {}
-end
-
-do
----@class VoiceChatChannelActivatedNotification_LeftEdgeObject : Texture
-local VoiceChatChannelActivatedNotification_LeftEdgeObject = {}
-end
-
-do
----@class VoiceChatChannelActivatedNotification_RightEdgeObject : Texture
-local VoiceChatChannelActivatedNotification_RightEdgeObject = {}
-end
-
-do
----@class VoiceChatChannelActivatedNotification_TextObject : FontString
-local VoiceChatChannelActivatedNotification_TextObject = {}
-end
-
-do
----@class VoiceChatChannelActivatedNotification_Text2Object : FontString
-local VoiceChatChannelActivatedNotification_Text2Object = {}
-end
-
-do
----@class VoiceChatChannelActivatedNotification_TopEdgeObject : Texture
-local VoiceChatChannelActivatedNotification_TopEdgeObject = {}
-end
-
-do
----@class VoiceChatChannelActivatedNotification_TopLeftCornerObject : Texture
-local VoiceChatChannelActivatedNotification_TopLeftCornerObject = {}
-end
-
-do
----@class VoiceChatChannelActivatedNotification_TopRightCornerObject : Texture
-local VoiceChatChannelActivatedNotification_TopRightCornerObject = {}
-end
-
-do
----@class VoiceChatChannelActivatedNotification_alertContainerObject
-local VoiceChatChannelActivatedNotification_alertContainerObject = {}
-end
-
-do
----@class VoiceChatChannelActivatedNotification_animInObject : AnimationGroup
-local VoiceChatChannelActivatedNotification_animInObject = {}
-end
-
-do
----@class VoiceChatChannelActivatedNotification_backdropInfoObject
-local VoiceChatChannelActivatedNotification_backdropInfoObject = {}
-end
-
-do
----@class VoiceChatChannelActivatedNotification_glowObject : Texture
----@field animIn VoiceChatChannelActivatedNotification_glow_animInObject
-local VoiceChatChannelActivatedNotification_glowObject = {}
-end
-
-do
----@class VoiceChatChannelActivatedNotification_glow_animInObject : AnimationGroup
-local VoiceChatChannelActivatedNotification_glow_animInObject = {}
-end
-
-do
----@class VoiceChatChannelActivatedNotification_waitAndAnimOutObject : AnimationGroup
----@field animOut VoiceChatChannelActivatedNotification_waitAndAnimOut_animOutObject
-local VoiceChatChannelActivatedNotification_waitAndAnimOutObject = {}
----@return any ...
-function VoiceChatChannelActivatedNotification_waitAndAnimOutObject:OnFinished(...) end
-end
-
-do
----@class VoiceChatChannelActivatedNotification_waitAndAnimOut_animOutObject : Alpha
-local VoiceChatChannelActivatedNotification_waitAndAnimOut_animOutObject = {}
-end
-
-do
----@class VoiceChatPromptActivateChannelObject : Button
----@field AcceptButton VoiceChatPromptActivateChannel_AcceptButtonObject
----@field BottomEdge VoiceChatPromptActivateChannel_BottomEdgeObject
----@field BottomLeftCorner VoiceChatPromptActivateChannel_BottomLeftCornerObject
----@field BottomRightCorner VoiceChatPromptActivateChannel_BottomRightCornerObject
----@field Center VoiceChatPromptActivateChannel_CenterObject
----@field CloseButton VoiceChatPromptActivateChannel_CloseButtonObject
----@field Icon VoiceChatPromptActivateChannel_IconObject
----@field LeftEdge VoiceChatPromptActivateChannel_LeftEdgeObject
----@field RightEdge VoiceChatPromptActivateChannel_RightEdgeObject
----@field Text VoiceChatPromptActivateChannel_TextObject
----@field TopEdge VoiceChatPromptActivateChannel_TopEdgeObject
----@field TopLeftCorner VoiceChatPromptActivateChannel_TopLeftCornerObject
----@field TopRightCorner VoiceChatPromptActivateChannel_TopRightCornerObject
----@field alertContainer VoiceChatPromptActivateChannel_alertContainerObject
----@field animIn VoiceChatPromptActivateChannel_animInObject
----@field backdropInfo VoiceChatPromptActivateChannel_backdropInfoObject
----@field externallyManagedOutroAnimation boolean
----@field glow VoiceChatPromptActivateChannel_glowObject
----@field waitAndAnimOut VoiceChatPromptActivateChannel_waitAndAnimOutObject
-local VoiceChatPromptActivateChannelObject = {}
----@return any ...
-function VoiceChatPromptActivateChannelObject:ActivateChannel(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:ApplyBackdrop(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:CheckActivateChannel(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:ClearBackdrop(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:GetAlertContainer(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:GetBackdrop(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:GetBackdropBorderColor(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:GetBackdropColor(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:GetEdgeSize(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:HasBackdropInfo(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:ManagesOwnOutroAnimation(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:OnBackdropLoaded(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:OnBackdropSizeChanged(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:OnEnter(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:OnEvent(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:OnHide(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:OnLeave(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:OnManagedAlertFrameVisibilityChanged(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:OnPostHide(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:OnPostShow(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:OnShow(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:OnVoiceChannelActivated(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:SetAlertContainer(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:SetBackdrop(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:SetBackdropBorderColor(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:SetBackdropColor(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:SetBorderBlendMode(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:SetExternallyManagedOutroAnimation(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:Setup(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:SetupPieceVisuals(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:SetupTextureCoordinates(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:ShouldPromptForChannelActivate(...) end
----@return any ...
-function VoiceChatPromptActivateChannelObject:ShowPrompt(...) end
----@type VoiceChatPromptActivateChannelObject
-VoiceChatPromptActivateChannel = VoiceChatPromptActivateChannelObject
-end
-
-do
----@class VoiceChatPromptActivateChannel_AcceptButtonObject : Button
----@field Left VoiceChatPromptActivateChannel_AcceptButton_LeftObject
----@field Middle VoiceChatPromptActivateChannel_AcceptButton_MiddleObject
----@field Right VoiceChatPromptActivateChannel_AcceptButton_RightObject
----@field Text VoiceChatPromptActivateChannel_AcceptButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local VoiceChatPromptActivateChannel_AcceptButtonObject = {}
----@return any ...
-function VoiceChatPromptActivateChannel_AcceptButtonObject:FitToText(...) end
----@return any ...
-function VoiceChatPromptActivateChannel_AcceptButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function VoiceChatPromptActivateChannel_AcceptButtonObject:OnClick(...) end
----@return any ...
-function VoiceChatPromptActivateChannel_AcceptButtonObject:OnEnter(...) end
----@return any ...
-function VoiceChatPromptActivateChannel_AcceptButtonObject:OnLeave(...) end
----@return any ...
-function VoiceChatPromptActivateChannel_AcceptButtonObject:SetDisabledState(...) end
----@return any ...
-function VoiceChatPromptActivateChannel_AcceptButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function VoiceChatPromptActivateChannel_AcceptButtonObject:SetTextToFit(...) end
-end
-
-do
----@class VoiceChatPromptActivateChannel_AcceptButton_LeftObject : Texture
-local VoiceChatPromptActivateChannel_AcceptButton_LeftObject = {}
-end
-
-do
----@class VoiceChatPromptActivateChannel_AcceptButton_MiddleObject : Texture
-local VoiceChatPromptActivateChannel_AcceptButton_MiddleObject = {}
-end
-
-do
----@class VoiceChatPromptActivateChannel_AcceptButton_RightObject : Texture
-local VoiceChatPromptActivateChannel_AcceptButton_RightObject = {}
-end
-
-do
----@class VoiceChatPromptActivateChannel_AcceptButton_TextObject : FontString
-local VoiceChatPromptActivateChannel_AcceptButton_TextObject = {}
-end
-
-do
----@class VoiceChatPromptActivateChannel_BottomEdgeObject : Texture
-local VoiceChatPromptActivateChannel_BottomEdgeObject = {}
-end
-
-do
----@class VoiceChatPromptActivateChannel_BottomLeftCornerObject : Texture
-local VoiceChatPromptActivateChannel_BottomLeftCornerObject = {}
-end
-
-do
----@class VoiceChatPromptActivateChannel_BottomRightCornerObject : Texture
-local VoiceChatPromptActivateChannel_BottomRightCornerObject = {}
-end
-
-do
----@class VoiceChatPromptActivateChannel_CenterObject : Texture
-local VoiceChatPromptActivateChannel_CenterObject = {}
-end
-
-do
----@class VoiceChatPromptActivateChannel_CloseButtonObject : Button
-local VoiceChatPromptActivateChannel_CloseButtonObject = {}
----@return any ...
-function VoiceChatPromptActivateChannel_CloseButtonObject:OnClick(...) end
----@return any ...
-function VoiceChatPromptActivateChannel_CloseButtonObject:OnEnter(...) end
----@return any ...
-function VoiceChatPromptActivateChannel_CloseButtonObject:OnLeave(...) end
-end
-
-do
----@class VoiceChatPromptActivateChannel_IconObject : Texture
-local VoiceChatPromptActivateChannel_IconObject = {}
-end
-
-do
----@class VoiceChatPromptActivateChannel_LeftEdgeObject : Texture
-local VoiceChatPromptActivateChannel_LeftEdgeObject = {}
-end
-
-do
----@class VoiceChatPromptActivateChannel_RightEdgeObject : Texture
-local VoiceChatPromptActivateChannel_RightEdgeObject = {}
-end
-
-do
----@class VoiceChatPromptActivateChannel_TextObject : FontString
-local VoiceChatPromptActivateChannel_TextObject = {}
-end
-
-do
----@class VoiceChatPromptActivateChannel_TopEdgeObject : Texture
-local VoiceChatPromptActivateChannel_TopEdgeObject = {}
-end
-
-do
----@class VoiceChatPromptActivateChannel_TopLeftCornerObject : Texture
-local VoiceChatPromptActivateChannel_TopLeftCornerObject = {}
-end
-
-do
----@class VoiceChatPromptActivateChannel_TopRightCornerObject : Texture
-local VoiceChatPromptActivateChannel_TopRightCornerObject = {}
-end
-
-do
----@class VoiceChatPromptActivateChannel_alertContainerObject
-local VoiceChatPromptActivateChannel_alertContainerObject = {}
-end
-
-do
----@class VoiceChatPromptActivateChannel_animInObject : AnimationGroup
-local VoiceChatPromptActivateChannel_animInObject = {}
-end
-
-do
----@class VoiceChatPromptActivateChannel_backdropInfoObject
-local VoiceChatPromptActivateChannel_backdropInfoObject = {}
-end
-
-do
----@class VoiceChatPromptActivateChannel_glowObject : Texture
----@field animIn VoiceChatPromptActivateChannel_glow_animInObject
-local VoiceChatPromptActivateChannel_glowObject = {}
-end
-
-do
----@class VoiceChatPromptActivateChannel_glow_animInObject : AnimationGroup
-local VoiceChatPromptActivateChannel_glow_animInObject = {}
-end
-
-do
----@class VoiceChatPromptActivateChannel_waitAndAnimOutObject : AnimationGroup
----@field animOut VoiceChatPromptActivateChannel_waitAndAnimOut_animOutObject
-local VoiceChatPromptActivateChannel_waitAndAnimOutObject = {}
----@return any ...
-function VoiceChatPromptActivateChannel_waitAndAnimOutObject:OnFinished(...) end
-end
-
-do
----@class VoiceChatPromptActivateChannel_waitAndAnimOut_animOutObject : Alpha
-local VoiceChatPromptActivateChannel_waitAndAnimOut_animOutObject = {}
-end
-
-do
----@class WardrobeCustomSetEditFrameObject : Frame
----@field AcceptButton WardrobeCustomSetEditFrame_AcceptButtonObject
----@field Border WardrobeCustomSetEditFrame_BorderObject
----@field CancelButton WardrobeCustomSetEditFrame_CancelButtonObject
----@field DeleteButton WardrobeCustomSetEditFrame_DeleteButtonObject
----@field EditBox WardrobeCustomSetEditFrame_EditBoxObject
----@field Separator WardrobeCustomSetEditFrame_SeparatorObject
----@field Title WardrobeCustomSetEditFrame_TitleObject
----@field exclusive boolean
----@field hideOnEscape boolean
-local WardrobeCustomSetEditFrameObject = {}
----@return any ...
-function WardrobeCustomSetEditFrameObject:OnAccept(...) end
----@return any ...
-function WardrobeCustomSetEditFrameObject:OnDelete(...) end
----@return any ...
-function WardrobeCustomSetEditFrameObject:ShowForCustomSet(...) end
----@type WardrobeCustomSetEditFrameObject
-WardrobeCustomSetEditFrame = WardrobeCustomSetEditFrameObject
-end
-
-do
----@class WardrobeCustomSetEditFrame_AcceptButtonObject : Button
----@field Left WardrobeCustomSetEditFrame_AcceptButton_LeftObject
----@field Middle WardrobeCustomSetEditFrame_AcceptButton_MiddleObject
----@field Right WardrobeCustomSetEditFrame_AcceptButton_RightObject
----@field Text WardrobeCustomSetEditFrame_AcceptButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local WardrobeCustomSetEditFrame_AcceptButtonObject = {}
----@return any ...
-function WardrobeCustomSetEditFrame_AcceptButtonObject:FitToText(...) end
----@return any ...
-function WardrobeCustomSetEditFrame_AcceptButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function WardrobeCustomSetEditFrame_AcceptButtonObject:OnEnter(...) end
----@return any ...
-function WardrobeCustomSetEditFrame_AcceptButtonObject:OnLeave(...) end
----@return any ...
-function WardrobeCustomSetEditFrame_AcceptButtonObject:SetDisabledState(...) end
----@return any ...
-function WardrobeCustomSetEditFrame_AcceptButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function WardrobeCustomSetEditFrame_AcceptButtonObject:SetTextToFit(...) end
-end
-
-do
----@class WardrobeCustomSetEditFrame_AcceptButton_LeftObject : Texture
-local WardrobeCustomSetEditFrame_AcceptButton_LeftObject = {}
-end
-
-do
----@class WardrobeCustomSetEditFrame_AcceptButton_MiddleObject : Texture
-local WardrobeCustomSetEditFrame_AcceptButton_MiddleObject = {}
-end
-
-do
----@class WardrobeCustomSetEditFrame_AcceptButton_RightObject : Texture
-local WardrobeCustomSetEditFrame_AcceptButton_RightObject = {}
-end
-
-do
----@class WardrobeCustomSetEditFrame_AcceptButton_TextObject : FontString
-local WardrobeCustomSetEditFrame_AcceptButton_TextObject = {}
-end
-
-do
----@class WardrobeCustomSetEditFrame_BorderObject : Frame
----@field Bg WardrobeCustomSetEditFrame_Border_BgObject
----@field BottomEdge WardrobeCustomSetEditFrame_Border_BottomEdgeObject
----@field BottomLeftCorner WardrobeCustomSetEditFrame_Border_BottomLeftCornerObject
----@field BottomRightCorner WardrobeCustomSetEditFrame_Border_BottomRightCornerObject
----@field LeftEdge WardrobeCustomSetEditFrame_Border_LeftEdgeObject
----@field RightEdge WardrobeCustomSetEditFrame_Border_RightEdgeObject
----@field TopEdge WardrobeCustomSetEditFrame_Border_TopEdgeObject
----@field TopLeftCorner WardrobeCustomSetEditFrame_Border_TopLeftCornerObject
----@field TopRightCorner WardrobeCustomSetEditFrame_Border_TopRightCornerObject
+---@class OpacityFrame_BorderObject : Frame
+---@field Bg OpacityFrame_Border_BgObject
+---@field BottomEdge OpacityFrame_Border_BottomEdgeObject
+---@field BottomLeftCorner OpacityFrame_Border_BottomLeftCornerObject
+---@field BottomRightCorner OpacityFrame_Border_BottomRightCornerObject
+---@field LeftEdge OpacityFrame_Border_LeftEdgeObject
+---@field RightEdge OpacityFrame_Border_RightEdgeObject
+---@field TopEdge OpacityFrame_Border_TopEdgeObject
+---@field TopLeftCorner OpacityFrame_Border_TopLeftCornerObject
+---@field TopRightCorner OpacityFrame_Border_TopRightCornerObject
 ---@field layoutType string
-local WardrobeCustomSetEditFrame_BorderObject = {}
+local OpacityFrame_BorderObject = {}
 ---@return any ...
-function WardrobeCustomSetEditFrame_BorderObject:GetBorderColor(...) end
+function OpacityFrame_BorderObject:GetBorderColor(...) end
 ---@return any ...
-function WardrobeCustomSetEditFrame_BorderObject:GetCenterColor(...) end
+function OpacityFrame_BorderObject:GetCenterColor(...) end
 ---@return any ...
-function WardrobeCustomSetEditFrame_BorderObject:GetFrameLayoutTextureKit(...) end
+function OpacityFrame_BorderObject:GetFrameLayoutTextureKit(...) end
 ---@return any ...
-function WardrobeCustomSetEditFrame_BorderObject:GetFrameLayoutType(...) end
+function OpacityFrame_BorderObject:GetFrameLayoutType(...) end
 ---@return any ...
-function WardrobeCustomSetEditFrame_BorderObject:OnLoad(...) end
+function OpacityFrame_BorderObject:OnLoad(...) end
 ---@return any ...
-function WardrobeCustomSetEditFrame_BorderObject:SetBlendMode(...) end
+function OpacityFrame_BorderObject:SetBlendMode(...) end
 ---@return any ...
-function WardrobeCustomSetEditFrame_BorderObject:SetBorderBlendMode(...) end
+function OpacityFrame_BorderObject:SetBorderBlendMode(...) end
 ---@return any ...
-function WardrobeCustomSetEditFrame_BorderObject:SetBorderColor(...) end
+function OpacityFrame_BorderObject:SetBorderColor(...) end
 ---@return any ...
-function WardrobeCustomSetEditFrame_BorderObject:SetCenterColor(...) end
+function OpacityFrame_BorderObject:SetCenterColor(...) end
 ---@return any ...
-function WardrobeCustomSetEditFrame_BorderObject:SetVertexColor(...) end
+function OpacityFrame_BorderObject:SetVertexColor(...) end
 end
 
 do
----@class WardrobeCustomSetEditFrame_Border_BgObject : Texture
-local WardrobeCustomSetEditFrame_Border_BgObject = {}
+---@class OpacityFrame_Border_BgObject : Texture
+local OpacityFrame_Border_BgObject = {}
 end
 
 do
----@class WardrobeCustomSetEditFrame_Border_BottomEdgeObject : Texture
-local WardrobeCustomSetEditFrame_Border_BottomEdgeObject = {}
+---@class OpacityFrame_Border_BottomEdgeObject : Texture
+local OpacityFrame_Border_BottomEdgeObject = {}
 end
 
 do
----@class WardrobeCustomSetEditFrame_Border_BottomLeftCornerObject : Texture
-local WardrobeCustomSetEditFrame_Border_BottomLeftCornerObject = {}
+---@class OpacityFrame_Border_BottomLeftCornerObject : Texture
+local OpacityFrame_Border_BottomLeftCornerObject = {}
 end
 
 do
----@class WardrobeCustomSetEditFrame_Border_BottomRightCornerObject : Texture
-local WardrobeCustomSetEditFrame_Border_BottomRightCornerObject = {}
+---@class OpacityFrame_Border_BottomRightCornerObject : Texture
+local OpacityFrame_Border_BottomRightCornerObject = {}
 end
 
 do
----@class WardrobeCustomSetEditFrame_Border_LeftEdgeObject : Texture
-local WardrobeCustomSetEditFrame_Border_LeftEdgeObject = {}
+---@class OpacityFrame_Border_LeftEdgeObject : Texture
+local OpacityFrame_Border_LeftEdgeObject = {}
 end
 
 do
----@class WardrobeCustomSetEditFrame_Border_RightEdgeObject : Texture
-local WardrobeCustomSetEditFrame_Border_RightEdgeObject = {}
+---@class OpacityFrame_Border_RightEdgeObject : Texture
+local OpacityFrame_Border_RightEdgeObject = {}
 end
 
 do
----@class WardrobeCustomSetEditFrame_Border_TopEdgeObject : Texture
-local WardrobeCustomSetEditFrame_Border_TopEdgeObject = {}
+---@class OpacityFrame_Border_TopEdgeObject : Texture
+local OpacityFrame_Border_TopEdgeObject = {}
 end
 
 do
----@class WardrobeCustomSetEditFrame_Border_TopLeftCornerObject : Texture
-local WardrobeCustomSetEditFrame_Border_TopLeftCornerObject = {}
+---@class OpacityFrame_Border_TopLeftCornerObject : Texture
+local OpacityFrame_Border_TopLeftCornerObject = {}
 end
 
 do
----@class WardrobeCustomSetEditFrame_Border_TopRightCornerObject : Texture
-local WardrobeCustomSetEditFrame_Border_TopRightCornerObject = {}
+---@class OpacityFrame_Border_TopRightCornerObject : Texture
+local OpacityFrame_Border_TopRightCornerObject = {}
 end
 
 do
----@class WardrobeCustomSetEditFrame_CancelButtonObject : Button
----@field Left WardrobeCustomSetEditFrame_CancelButton_LeftObject
----@field Middle WardrobeCustomSetEditFrame_CancelButton_MiddleObject
----@field Right WardrobeCustomSetEditFrame_CancelButton_RightObject
----@field Text WardrobeCustomSetEditFrame_CancelButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local WardrobeCustomSetEditFrame_CancelButtonObject = {}
----@return any ...
-function WardrobeCustomSetEditFrame_CancelButtonObject:FitToText(...) end
----@return any ...
-function WardrobeCustomSetEditFrame_CancelButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function WardrobeCustomSetEditFrame_CancelButtonObject:OnEnter(...) end
----@return any ...
-function WardrobeCustomSetEditFrame_CancelButtonObject:OnLeave(...) end
----@return any ...
-function WardrobeCustomSetEditFrame_CancelButtonObject:SetDisabledState(...) end
----@return any ...
-function WardrobeCustomSetEditFrame_CancelButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function WardrobeCustomSetEditFrame_CancelButtonObject:SetTextToFit(...) end
+---@class OpacityFrameCloseButtonObject : Button
+local OpacityFrameCloseButtonObject = {}
+---@type OpacityFrameCloseButtonObject
+OpacityFrameCloseButton = OpacityFrameCloseButtonObject
 end
 
 do
----@class WardrobeCustomSetEditFrame_CancelButton_LeftObject : Texture
-local WardrobeCustomSetEditFrame_CancelButton_LeftObject = {}
-end
-
-do
----@class WardrobeCustomSetEditFrame_CancelButton_MiddleObject : Texture
-local WardrobeCustomSetEditFrame_CancelButton_MiddleObject = {}
-end
-
-do
----@class WardrobeCustomSetEditFrame_CancelButton_RightObject : Texture
-local WardrobeCustomSetEditFrame_CancelButton_RightObject = {}
-end
-
-do
----@class WardrobeCustomSetEditFrame_CancelButton_TextObject : FontString
-local WardrobeCustomSetEditFrame_CancelButton_TextObject = {}
-end
-
-do
----@class WardrobeCustomSetEditFrame_DeleteButtonObject : Button
----@field Left WardrobeCustomSetEditFrame_DeleteButton_LeftObject
----@field Middle WardrobeCustomSetEditFrame_DeleteButton_MiddleObject
----@field Right WardrobeCustomSetEditFrame_DeleteButton_RightObject
----@field Text WardrobeCustomSetEditFrame_DeleteButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local WardrobeCustomSetEditFrame_DeleteButtonObject = {}
----@return any ...
-function WardrobeCustomSetEditFrame_DeleteButtonObject:FitToText(...) end
----@return any ...
-function WardrobeCustomSetEditFrame_DeleteButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function WardrobeCustomSetEditFrame_DeleteButtonObject:OnEnter(...) end
----@return any ...
-function WardrobeCustomSetEditFrame_DeleteButtonObject:OnLeave(...) end
----@return any ...
-function WardrobeCustomSetEditFrame_DeleteButtonObject:SetDisabledState(...) end
----@return any ...
-function WardrobeCustomSetEditFrame_DeleteButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function WardrobeCustomSetEditFrame_DeleteButtonObject:SetTextToFit(...) end
-end
-
-do
----@class WardrobeCustomSetEditFrame_DeleteButton_LeftObject : Texture
-local WardrobeCustomSetEditFrame_DeleteButton_LeftObject = {}
-end
-
-do
----@class WardrobeCustomSetEditFrame_DeleteButton_MiddleObject : Texture
-local WardrobeCustomSetEditFrame_DeleteButton_MiddleObject = {}
-end
-
-do
----@class WardrobeCustomSetEditFrame_DeleteButton_RightObject : Texture
-local WardrobeCustomSetEditFrame_DeleteButton_RightObject = {}
-end
-
-do
----@class WardrobeCustomSetEditFrame_DeleteButton_TextObject : FontString
-local WardrobeCustomSetEditFrame_DeleteButton_TextObject = {}
-end
-
-do
----@class WardrobeCustomSetEditFrame_EditBoxObject : EditBox
----@field LeftTexture WardrobeCustomSetEditFrame_EditBox_LeftTextureObject
----@field MiddleTexture WardrobeCustomSetEditFrame_EditBox_MiddleTextureObject
----@field RightTexture WardrobeCustomSetEditFrame_EditBox_RightTextureObject
-local WardrobeCustomSetEditFrame_EditBoxObject = {}
-end
-
-do
----@class WardrobeCustomSetEditFrame_EditBox_LeftTextureObject : Texture
-local WardrobeCustomSetEditFrame_EditBox_LeftTextureObject = {}
-end
-
-do
----@class WardrobeCustomSetEditFrame_EditBox_MiddleTextureObject : Texture
-local WardrobeCustomSetEditFrame_EditBox_MiddleTextureObject = {}
-end
-
-do
----@class WardrobeCustomSetEditFrame_EditBox_RightTextureObject : Texture
-local WardrobeCustomSetEditFrame_EditBox_RightTextureObject = {}
-end
-
-do
----@class WardrobeCustomSetEditFrame_SeparatorObject : Texture
-local WardrobeCustomSetEditFrame_SeparatorObject = {}
-end
-
-do
----@class WardrobeCustomSetEditFrame_TitleObject : FontString
-local WardrobeCustomSetEditFrame_TitleObject = {}
-end
-
-do
----@class WorldMapFrameObject : Frame
----@field BlackoutFrame WorldMapFrame_BlackoutFrameObject
----@field BorderFrame WorldMapFrame_BorderFrameObject
----@field FocusFrameParent string
----@field MouseAction WorldMapFrame_MouseActionObject
----@field NavBar WorldMapFrame_NavBarObject
----@field OverscrollBG WorldMapFrame_OverscrollBGObject
----@field QuestLog WorldMapFrame_QuestLogObject
----@field ScrollContainer WorldMapFrame_ScrollContainerObject
----@field SidePanelToggle WorldMapFrame_SidePanelToggleObject
----@field TitleCanvasSpacerFrame WorldMapFrame_TitleCanvasSpacerFrameObject
----@field WorldMapTrackingOptionsButton WorldMapFrame_WorldMapTrackingOptionsButtonObject
----@field WorldMapTrackingPinButton WorldMapFrame_WorldMapTrackingPinButtonObject
----@field activeAreaTriggers table
----@field callbackTables table
----@field currentPoIPins table
----@field cursorHandlers WorldMapFrame_cursorHandlersObject
----@field dataProviderEventsCount WorldMapFrame_dataProviderEventsCountObject
----@field dataProviders table
----@field debugAreaTriggers boolean
----@field debugInspectionSystem string
----@field deferredCallbacks table
----@field detailLayerPool WorldMapFrame_detailLayerPoolObject
----@field executingEvents table
----@field globalPinMouseActionHandlers WorldMapFrame_globalPinMouseActionHandlersObject
----@field isUndefinedEventAllowed boolean
----@field lockReasons table
----@field minimizedHeight number
----@field minimizedWidth number
----@field mouseClickHandlers WorldMapFrame_mouseClickHandlersObject
----@field navBar WorldMapFrame_navBarObject
----@field needUpdateDisplayState boolean
----@field overlayFrames table
----@field pinFrameLevelsManager WorldMapFrame_pinFrameLevelsManagerObject
----@field pinPools WorldMapFrame_pinPoolsObject
----@field pinSuppressors table
----@field pinTemplateTypes WorldMapFrame_pinTemplateTypesObject
----@field pinsToNudge table
----@field questLogWidth number
-local WorldMapFrameObject = {}
----@return any ...
-function WorldMapFrameObject:AcquireAreaTrigger(...) end
----@return any ...
-function WorldMapFrameObject:AcquirePin(...) end
----@return any ...
-function WorldMapFrameObject:ActivateRewardsCursor(...) end
----@return any ...
-function WorldMapFrameObject:AddCanvasClickHandler(...) end
----@return any ...
-function WorldMapFrameObject:AddCursorHandler(...) end
----@return any ...
-function WorldMapFrameObject:AddDataProvider(...) end
----@return any ...
-function WorldMapFrameObject:AddDataProviderEvent(...) end
----@return any ...
-function WorldMapFrameObject:AddGlobalPinMouseActionHandler(...) end
----@return any ...
-function WorldMapFrameObject:AddInset(...) end
----@return any ...
-function WorldMapFrameObject:AddLockReason(...) end
----@return any ...
-function WorldMapFrameObject:AddMaskableTexture(...) end
----@return any ...
-function WorldMapFrameObject:AddOverlayFrame(...) end
----@return any ...
-function WorldMapFrameObject:AddOverlayFrames(...) end
----@return any ...
-function WorldMapFrameObject:AddPinToNudge(...) end
----@return any ...
-function WorldMapFrameObject:AddStandardDataProviders(...) end
----@return any ...
-function WorldMapFrameObject:AdjustDetailLayerAlpha(...) end
----@return any ...
-function WorldMapFrameObject:AdjustOverlayFrames(...) end
----@return any ...
-function WorldMapFrameObject:ApplyPinPosition(...) end
----@return any ...
-function WorldMapFrameObject:AreDetailLayersLoaded(...) end
----@return any ...
-function WorldMapFrameObject:AttachQuestLog(...) end
----@return any ...
-function WorldMapFrameObject:CalculatePinNudging(...) end
----@return any ...
-function WorldMapFrameObject:CalculateZoomScaleAndPositionForAreaInViewRect(...) end
----@return any ...
-function WorldMapFrameObject:CallMethodOnDataProviders(...) end
----@return any ...
-function WorldMapFrameObject:CallMethodOnPinsAndDataProviders(...) end
----@return any ...
-function WorldMapFrameObject:CanDisplayQuestLog(...) end
----@return any ...
-function WorldMapFrameObject:CheckAndHideTutorialHelpInfo(...) end
----@return any ...
-function WorldMapFrameObject:CheckAndShowTutorialTooltip(...) end
----@return any ...
-function WorldMapFrameObject:ClearBindings(...) end
----@return any ...
-function WorldMapFrameObject:ClearFocusedQuestID(...) end
----@return any ...
-function WorldMapFrameObject:ClearHighlightedQuestID(...) end
----@return any ...
-function WorldMapFrameObject:ClickHoveredPins(...) end
----@return any ...
-function WorldMapFrameObject:CloseQuestDetails(...) end
----@return any ...
-function WorldMapFrameObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrameObject:DeactivateRewardsCursor(...) end
----@return any ...
-function WorldMapFrameObject:DenormalizeHorizontalSize(...) end
----@return any ...
-function WorldMapFrameObject:DenormalizeVerticalSize(...) end
----@return any ...
-function WorldMapFrameObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrameObject:EndFocus(...) end
----@return any ...
-function WorldMapFrameObject:EnumeratePinsByTemplate(...) end
----@return any ...
-function WorldMapFrameObject:EvaluateLockReasons(...) end
----@return any ...
-function WorldMapFrameObject:ExecuteOnAllPins(...) end
----@return any ...
-function WorldMapFrameObject:ExecuteOnPinsToNudge(...) end
----@return any ...
-function WorldMapFrameObject:FocusDetails(...) end
----@return any ...
-function WorldMapFrameObject:FocusGamepad(...) end
----@return any ...
-function WorldMapFrameObject:FocusMap(...) end
----@return any ...
-function WorldMapFrameObject:FocusQuestLog(...) end
----@return any ...
-function WorldMapFrameObject:FocusQuestLogFromMap(...) end
----@return any ...
-function WorldMapFrameObject:FocusQuests(...) end
----@return any ...
-function WorldMapFrameObject:FocusSearchBox(...) end
----@return any ...
-function WorldMapFrameObject:FocusSelectedQuest(...) end
----@return any ...
-function WorldMapFrameObject:ForceRefreshDetailLayers(...) end
----@return any ...
-function WorldMapFrameObject:GamepadBack(...) end
----@return any ...
-function WorldMapFrameObject:GamepadMapClick(...) end
----@return any ...
-function WorldMapFrameObject:GamepadMapUp(...) end
----@return any ...
-function WorldMapFrameObject:GamepadPanSpeed(...) end
----@return any ...
-function WorldMapFrameObject:GamepadTryPlaceWaypoint(...) end
----@return any ...
-function WorldMapFrameObject:GamepadZoom(...) end
----@return any ...
-function WorldMapFrameObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrameObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrameObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrameObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrameObject:GetCanvas(...) end
----@return any ...
-function WorldMapFrameObject:GetCanvasContainer(...) end
----@return any ...
-function WorldMapFrameObject:GetCanvasScale(...) end
----@return any ...
-function WorldMapFrameObject:GetCanvasZoomPercent(...) end
----@return any ...
-function WorldMapFrameObject:GetFocusFrameGlow(...) end
----@return any ...
-function WorldMapFrameObject:GetFocusFrameRoot(...) end
----@return any ...
-function WorldMapFrameObject:GetGlobalAlpha(...) end
----@return any ...
-function WorldMapFrameObject:GetGlobalPinScale(...) end
----@return any ...
-function WorldMapFrameObject:GetGlobalPosition(...) end
----@return any ...
-function WorldMapFrameObject:GetHighlightedQuestID(...) end
----@return any ...
-function WorldMapFrameObject:GetHoveredPin(...) end
----@return any ...
-function WorldMapFrameObject:GetMapID(...) end
----@return any ...
-function WorldMapFrameObject:GetMapInsetPool(...) end
----@return any ...
-function WorldMapFrameObject:GetMaskTexture(...) end
----@return any ...
-function WorldMapFrameObject:GetMaxZoomViewRect(...) end
----@return any ...
-function WorldMapFrameObject:GetMinZoomViewRect(...) end
----@return any ...
-function WorldMapFrameObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrameObject:GetNormalizedCursorPosition(...) end
----@return any ...
-function WorldMapFrameObject:GetNormalizedGamepadCursorPosition(...) end
----@return any ...
-function WorldMapFrameObject:GetNumActivePinsByTemplate(...) end
----@return any ...
-function WorldMapFrameObject:GetOpenDisplayState(...) end
----@return any ...
-function WorldMapFrameObject:GetPinFrameLevelsManager(...) end
----@return any ...
-function WorldMapFrameObject:GetPinSuppressors(...) end
----@return any ...
-function WorldMapFrameObject:GetPinTemplateType(...) end
----@return any ...
-function WorldMapFrameObject:GetScaleForMaxZoom(...) end
----@return any ...
-function WorldMapFrameObject:GetScaleForMinZoom(...) end
----@return any ...
-function WorldMapFrameObject:GetUseMaskTexture(...) end
----@return any ...
-function WorldMapFrameObject:GetViewRect(...) end
----@return any ...
-function WorldMapFrameObject:GetZoomVelocityFromMagnitude(...) end
----@return any ...
-function WorldMapFrameObject:HandleMainMenu(...) end
----@return any ...
-function WorldMapFrameObject:HandleUIAction(...) end
----@return any ...
-function WorldMapFrameObject:HandleUnfocus(...) end
----@return any ...
-function WorldMapFrameObject:HandleUserActionMaximizeSelf(...) end
----@return any ...
-function WorldMapFrameObject:HandleUserActionMinimizeSelf(...) end
----@return any ...
-function WorldMapFrameObject:HandleUserActionOpenQuestLog(...) end
----@return any ...
-function WorldMapFrameObject:HandleUserActionOpenSelf(...) end
----@return any ...
-function WorldMapFrameObject:HandleUserActionToggleQuestLog(...) end
----@return any ...
-function WorldMapFrameObject:HandleUserActionToggleSelf(...) end
----@return any ...
-function WorldMapFrameObject:HandleUserActionToggleSidePanel(...) end
----@return any ...
-function WorldMapFrameObject:HasGamepadCursorInput(...) end
----@return any ...
-function WorldMapFrameObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrameObject:HasZoomLevels(...) end
----@return any ...
-function WorldMapFrameObject:HideFocusJumpHint(...) end
----@return any ...
-function WorldMapFrameObject:HideLeftJumpHint(...) end
----@return any ...
-function WorldMapFrameObject:HideQuests(...) end
----@return any ...
-function WorldMapFrameObject:HideRightJumpHint(...) end
----@return any ...
-function WorldMapFrameObject:HideStateChangeIndicators(...) end
----@return any ...
-function WorldMapFrameObject:InitializeGamepad(...) end
----@return any ...
-function WorldMapFrameObject:InstantPanAndZoom(...) end
----@return any ...
-function WorldMapFrameObject:IsAtMaxZoom(...) end
----@return any ...
-function WorldMapFrameObject:IsAtMinZoom(...) end
----@return any ...
-function WorldMapFrameObject:IsCanvasGamepadFocus(...) end
----@return any ...
-function WorldMapFrameObject:IsCanvasMouseFocus(...) end
----@return any ...
-function WorldMapFrameObject:IsCanvasMouseFocusOrPinFocus(...) end
----@return any ...
-function WorldMapFrameObject:IsCurrentAreaDropdownContextValid(...) end
----@return any ...
-function WorldMapFrameObject:IsMapFocused(...) end
----@return any ...
-function WorldMapFrameObject:IsMaximized(...) end
----@return any ...
-function WorldMapFrameObject:IsMinimized(...) end
----@return any ...
-function WorldMapFrameObject:IsPinNudgingDirty(...) end
----@return any ...
-function WorldMapFrameObject:IsPinSuppressionDirty(...) end
----@return any ...
-function WorldMapFrameObject:IsQuestDetailsFocused(...) end
----@return any ...
-function WorldMapFrameObject:IsQuestFocused(...) end
----@return any ...
-function WorldMapFrameObject:IsQuestLogEmpty(...) end
----@return any ...
-function WorldMapFrameObject:IsSidePanelShown(...) end
----@return any ...
-function WorldMapFrameObject:IsTrackFocusContextActionValid(...) end
----@return any ...
-function WorldMapFrameObject:IsZoomingIn(...) end
----@return any ...
-function WorldMapFrameObject:IsZoomingOut(...) end
----@return any ...
-function WorldMapFrameObject:LockInFocus(...) end
----@return any ...
-function WorldMapFrameObject:MarkPinNudgingClean(...) end
----@return any ...
-function WorldMapFrameObject:MarkPinSuppressionClean(...) end
----@return any ...
-function WorldMapFrameObject:Maximize(...) end
----@return any ...
-function WorldMapFrameObject:Minimize(...) end
----@return any ...
-function WorldMapFrameObject:ModifyDataProviderOnUpdate(...) end
----@return any ...
-function WorldMapFrameObject:NavigateToCursor(...) end
----@return any ...
-function WorldMapFrameObject:NavigateToGamepadCursor(...) end
----@return any ...
-function WorldMapFrameObject:NavigateToParentMap(...) end
----@return any ...
-function WorldMapFrameObject:NormalizeHorizontalSize(...) end
----@return any ...
-function WorldMapFrameObject:NormalizeVerticalSize(...) end
----@return any ...
-function WorldMapFrameObject:OnAreaDropdownClosed(...) end
----@return any ...
-function WorldMapFrameObject:OnButtonSelected(...) end
----@return any ...
-function WorldMapFrameObject:OnCanvasPanChanged(...) end
----@return any ...
-function WorldMapFrameObject:OnCanvasScaleChanged(...) end
----@return any ...
-function WorldMapFrameObject:OnCanvasSizeChanged(...) end
----@return any ...
-function WorldMapFrameObject:OnCloseQuestDetails(...) end
----@return any ...
-function WorldMapFrameObject:OnEvent(...) end
----@return any ...
-function WorldMapFrameObject:OnFrameSizeChanged(...) end
----@return any ...
-function WorldMapFrameObject:OnHide(...) end
----@return any ...
-function WorldMapFrameObject:OnHitLeftEdge(...) end
----@return any ...
-function WorldMapFrameObject:OnLoad(...) end
----@return any ...
-function WorldMapFrameObject:OnMapChanged(...) end
----@return any ...
-function WorldMapFrameObject:OnMapInsetMouseEnter(...) end
----@return any ...
-function WorldMapFrameObject:OnMapInsetMouseLeave(...) end
----@return any ...
-function WorldMapFrameObject:OnMapInsetSizeChanged(...) end
----@return any ...
-function WorldMapFrameObject:OnOpenQuestDetails(...) end
----@return any ...
-function WorldMapFrameObject:OnQuestLogHide(...) end
----@return any ...
-function WorldMapFrameObject:OnQuestLogOpen(...) end
----@return any ...
-function WorldMapFrameObject:OnQuestLogShow(...) end
----@return any ...
-function WorldMapFrameObject:OnQuestLogUpdate(...) end
----@return any ...
-function WorldMapFrameObject:OnShow(...) end
----@return any ...
-function WorldMapFrameObject:OnUIClose(...) end
----@return any ...
-function WorldMapFrameObject:OnUpdate(...) end
----@return any ...
-function WorldMapFrameObject:OpenAreaDropdownList(...) end
----@return any ...
-function WorldMapFrameObject:OpenCurrentAreaDropdownList(...) end
----@return any ...
-function WorldMapFrameObject:OpenNextDropdownList(...) end
----@return any ...
-function WorldMapFrameObject:OpenPreviousDropdownList(...) end
----@return any ...
-function WorldMapFrameObject:OpenQuestOptions(...) end
----@return any ...
-function WorldMapFrameObject:PanAndZoomTo(...) end
----@return any ...
-function WorldMapFrameObject:PanTo(...) end
----@return any ...
-function WorldMapFrameObject:ProcessCanvasClickHandlers(...) end
----@return any ...
-function WorldMapFrameObject:ProcessCursorHandlers(...) end
----@return any ...
-function WorldMapFrameObject:ProcessGlobalPinMouseActionHandlers(...) end
----@return any ...
-function WorldMapFrameObject:QuestLogHandleBack(...) end
----@return any ...
-function WorldMapFrameObject:ReapplyPinFrameLevels(...) end
----@return any ...
-function WorldMapFrameObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrameObject:RefreshAll(...) end
----@return any ...
-function WorldMapFrameObject:RefreshAllDataProviders(...) end
----@return any ...
-function WorldMapFrameObject:RefreshDebugAreaTriggers(...) end
----@return any ...
-function WorldMapFrameObject:RefreshDetailLayers(...) end
----@return any ...
-function WorldMapFrameObject:RefreshFocus(...) end
----@return any ...
-function WorldMapFrameObject:RefreshInsets(...) end
----@return any ...
-function WorldMapFrameObject:RefreshMaskableTextures(...) end
----@return any ...
-function WorldMapFrameObject:RefreshOverlayFrames(...) end
----@return any ...
-function WorldMapFrameObject:RefreshQuestLog(...) end
----@return any ...
-function WorldMapFrameObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrameObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrameObject:RegisterDataProviderOnUpdate(...) end
----@return any ...
-function WorldMapFrameObject:RegisterForTransitions(...) end
----@return any ...
-function WorldMapFrameObject:RegisterPin(...) end
----@return any ...
-function WorldMapFrameObject:ReleaseAreaTrigger(...) end
----@return any ...
-function WorldMapFrameObject:ReleaseAreaTriggers(...) end
----@return any ...
-function WorldMapFrameObject:RemoveAllPinsByTemplate(...) end
----@return any ...
-function WorldMapFrameObject:RemoveCanvasClickHandler(...) end
----@return any ...
-function WorldMapFrameObject:RemoveCursorHandler(...) end
----@return any ...
-function WorldMapFrameObject:RemoveDataProvider(...) end
----@return any ...
-function WorldMapFrameObject:RemoveDataProviderEvent(...) end
----@return any ...
-function WorldMapFrameObject:RemoveGlobalPinMouseActionHandler(...) end
----@return any ...
-function WorldMapFrameObject:RemoveLockReason(...) end
----@return any ...
-function WorldMapFrameObject:RemovePin(...) end
----@return any ...
-function WorldMapFrameObject:ResetInsets(...) end
----@return any ...
-function WorldMapFrameObject:ResetMapFilters(...) end
----@return any ...
-function WorldMapFrameObject:ResetZoom(...) end
----@return any ...
-function WorldMapFrameObject:RunDataProviderOnUpdate(...) end
----@return any ...
-function WorldMapFrameObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrameObject:SelectArea(...) end
----@return any ...
-function WorldMapFrameObject:SelectFilters(...) end
----@return any ...
-function WorldMapFrameObject:SelectQuestButton(...) end
----@return any ...
-function WorldMapFrameObject:SetAllPinsByTemplateGlowing(...) end
----@return any ...
-function WorldMapFrameObject:SetAreaTriggerEnclosedCallback(...) end
----@return any ...
-function WorldMapFrameObject:SetAreaTriggerIntersectsCallback(...) end
----@return any ...
-function WorldMapFrameObject:SetAreaTriggerPredicate(...) end
----@return any ...
-function WorldMapFrameObject:SetDebugAreaTriggersEnabled(...) end
----@return any ...
-function WorldMapFrameObject:SetDisplayState(...) end
----@return any ...
-function WorldMapFrameObject:SetFocusedQuestID(...) end
----@return any ...
-function WorldMapFrameObject:SetGlobalAlpha(...) end
----@return any ...
-function WorldMapFrameObject:SetGlobalPinScale(...) end
----@return any ...
-function WorldMapFrameObject:SetHighlightedQuestID(...) end
----@return any ...
-function WorldMapFrameObject:SetMapID(...) end
----@return any ...
-function WorldMapFrameObject:SetMapInsetPool(...) end
----@return any ...
-function WorldMapFrameObject:SetMaskTexture(...) end
----@return any ...
-function WorldMapFrameObject:SetMouseWheelZoomMode(...) end
----@return any ...
-function WorldMapFrameObject:SetOverlayFrameLocation(...) end
----@return any ...
-function WorldMapFrameObject:SetPinNudgingDirty(...) end
----@return any ...
-function WorldMapFrameObject:SetPinPosition(...) end
----@return any ...
-function WorldMapFrameObject:SetPinPostProcessDirty(...) end
----@return any ...
-function WorldMapFrameObject:SetPinSuppressionDirty(...) end
----@return any ...
-function WorldMapFrameObject:SetPinTemplateType(...) end
----@return any ...
-function WorldMapFrameObject:SetQuestLogPanelShown(...) end
----@return any ...
-function WorldMapFrameObject:SetShouldNavigateIgnoreZoneMapPositionData(...) end
----@return any ...
-function WorldMapFrameObject:SetShouldNavigateOnClick(...) end
----@return any ...
-function WorldMapFrameObject:SetShouldPanOnClick(...) end
----@return any ...
-function WorldMapFrameObject:SetShouldZoomInOnClick(...) end
----@return any ...
-function WorldMapFrameObject:SetShouldZoomInstantly(...) end
----@return any ...
-function WorldMapFrameObject:SetTutorialButtonShown(...) end
----@return any ...
-function WorldMapFrameObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrameObject:SetUseMaskTexture(...) end
----@return any ...
-function WorldMapFrameObject:SetupGamepad(...) end
----@return any ...
-function WorldMapFrameObject:SetupMinimizeMaximizeButton(...) end
----@return any ...
-function WorldMapFrameObject:SetupTitle(...) end
----@return any ...
-function WorldMapFrameObject:ShouldBeMaximized(...) end
----@return any ...
-function WorldMapFrameObject:ShouldBeMinimized(...) end
----@return any ...
-function WorldMapFrameObject:ShouldCombineMapAndQuestMenu(...) end
----@return any ...
-function WorldMapFrameObject:ShouldNavigateIgnoreZoneMapPositionData(...) end
----@return any ...
-function WorldMapFrameObject:ShouldNavigateOnClick(...) end
----@return any ...
-function WorldMapFrameObject:ShouldPanOnClick(...) end
----@return any ...
-function WorldMapFrameObject:ShouldShowQuestLogPanel(...) end
----@return any ...
-function WorldMapFrameObject:ShouldZoomInOnClick(...) end
----@return any ...
-function WorldMapFrameObject:ShouldZoomInstantly(...) end
----@return any ...
-function WorldMapFrameObject:ShowFocusJumpHint(...) end
----@return any ...
-function WorldMapFrameObject:ShowLeftJumpHint(...) end
----@return any ...
-function WorldMapFrameObject:ShowQuests(...) end
----@return any ...
-function WorldMapFrameObject:ShowRightJumpHint(...) end
----@return any ...
-function WorldMapFrameObject:StartFocus(...) end
----@return any ...
-function WorldMapFrameObject:SynchronizeDisplayState(...) end
----@return any ...
-function WorldMapFrameObject:ToggleFullMap(...) end
----@return any ...
-function WorldMapFrameObject:TrackSelectedQuest(...) end
----@return any ...
-function WorldMapFrameObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrameObject:TryOpenFilter(...) end
----@return any ...
-function WorldMapFrameObject:TryRefreshingDebugAreaTriggers(...) end
----@return any ...
-function WorldMapFrameObject:UnfocusGamepad(...) end
----@return any ...
-function WorldMapFrameObject:UninitializeGamepad(...) end
----@return any ...
-function WorldMapFrameObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrameObject:UnregisterDataProviderOnUpdate(...) end
----@return any ...
-function WorldMapFrameObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrameObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function WorldMapFrameObject:UnregisterPin(...) end
----@return any ...
-function WorldMapFrameObject:UpdateAreaTriggers(...) end
----@return any ...
-function WorldMapFrameObject:UpdateGamepadCursor(...) end
----@return any ...
-function WorldMapFrameObject:UpdateMaximizedSize(...) end
----@return any ...
-function WorldMapFrameObject:UpdateNavBarGamepadIconAnchors(...) end
----@return any ...
-function WorldMapFrameObject:UpdateNavBarGamepadIconState(...) end
----@return any ...
-function WorldMapFrameObject:UpdatePinNudging(...) end
----@return any ...
-function WorldMapFrameObject:UpdatePinSuppression(...) end
----@return any ...
-function WorldMapFrameObject:UpdateSpacerFrameAnchoring(...) end
----@return any ...
-function WorldMapFrameObject:UpdateStateChangeIndicators(...) end
----@return any ...
-function WorldMapFrameObject:ZoomIn(...) end
----@return any ...
-function WorldMapFrameObject:ZoomOut(...) end
----@type WorldMapFrameObject
-WorldMapFrame = WorldMapFrameObject
-end
-
-do
----@class WorldMapFrame_BlackoutFrameObject : Frame
----@field Blackout WorldMapFrame_BlackoutFrame_BlackoutObject
-local WorldMapFrame_BlackoutFrameObject = {}
-end
-
-do
----@class WorldMapFrame_BlackoutFrame_BlackoutObject : Texture
-local WorldMapFrame_BlackoutFrame_BlackoutObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrameObject : Frame
----@field Bg WorldMapFrame_BorderFrame_BgObject
----@field CloseButton WorldMapFrame_BorderFrame_CloseButtonObject
----@field FocusJumpHint WorldMapFrame_BorderFrame_FocusJumpHintObject
----@field FrameGlow WorldMapFrame_BorderFrame_FrameGlowObject
----@field InsetBorderTop WorldMapFrame_BorderFrame_InsetBorderTopObject
----@field LeftJumpHint WorldMapFrame_BorderFrame_LeftJumpHintObject
----@field MaxMinButtonFrame WorldMapFrame_BorderFrame_MaxMinButtonFrameObject
----@field MaximizeMinimizeFrame WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject
----@field NineSlice WorldMapFrame_BorderFrame_NineSliceObject
----@field PortraitContainer WorldMapFrame_BorderFrame_PortraitContainerObject
----@field RightJumpHint WorldMapFrame_BorderFrame_RightJumpHintObject
----@field TitleContainer WorldMapFrame_BorderFrame_TitleContainerObject
----@field TopTileStreaks WorldMapFrame_BorderFrame_TopTileStreaksObject
----@field Tutorial WorldMapFrame_BorderFrame_TutorialObject
----@field Underlay WorldMapFrame_BorderFrame_UnderlayObject
+---@class OpenMailFrameObject : Frame
+---@field Bg OpenMailFrame_BgObject
+---@field CancelButton OpenMailFrame_CancelButtonObject
+---@field CloseButton OpenMailFrame_CloseButtonObject
+---@field DeleteButton OpenMailFrame_DeleteButtonObject
+---@field FocusJumpHint OpenMailFrame_FocusJumpHintObject
+---@field FrameGlow OpenMailFrame_FrameGlowObject
+---@field Inset OpenMailFrame_InsetObject
+---@field LeftJumpHint OpenMailFrame_LeftJumpHintObject
+---@field NineSlice OpenMailFrame_NineSliceObject
+---@field OpenMailAttachments table
+---@field PortraitContainer OpenMailFrame_PortraitContainerObject
+---@field ReplyButton OpenMailFrame_ReplyButtonObject
+---@field ReportSpamButton OpenMailFrame_ReportSpamButtonObject
+---@field RightJumpHint OpenMailFrame_RightJumpHintObject
+---@field ScrollFrame OpenMailFrame_ScrollFrameObject
+---@field TitleContainer OpenMailFrame_TitleContainerObject
+---@field TopTileStreaks OpenMailFrame_TopTileStreaksObject
 ---@field layoutType string
-local WorldMapFrame_BorderFrameObject = {}
+local OpenMailFrameObject = {}
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:EndFocus(...) end
+function OpenMailFrameObject:EndFocus(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:GetFocusFrameGlow(...) end
+function OpenMailFrameObject:FocusGamepad(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:GetFocusFrameRoot(...) end
+function OpenMailFrameObject:GetFocusFrameGlow(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:GetPortrait(...) end
+function OpenMailFrameObject:GetFocusFrameRoot(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:GetTitleText(...) end
+function OpenMailFrameObject:GetItemCounts(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:HasPortraitTexture(...) end
+function OpenMailFrameObject:GetPortrait(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:HideFocusJumpHint(...) end
+function OpenMailFrameObject:GetTitleText(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:HideLeftJumpHint(...) end
+function OpenMailFrameObject:HasPortraitTexture(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:HideRightJumpHint(...) end
+function OpenMailFrameObject:HideFocusJumpHint(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:LockInFocus(...) end
+function OpenMailFrameObject:HideLeftJumpHint(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:RefreshFocus(...) end
+function OpenMailFrameObject:HideRightJumpHint(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:SetBorder(...) end
+function OpenMailFrameObject:InitializeGamepad(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:SetFrameLevelsFromBaseLevel(...) end
+function OpenMailFrameObject:IsValidMailID(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:SetPortraitAtlasRaw(...) end
+function OpenMailFrameObject:LockInFocus(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:SetPortraitShown(...) end
+function OpenMailFrameObject:OnHide(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:SetPortraitTexCoord(...) end
+function OpenMailFrameObject:OnLoad(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:SetPortraitTextureRaw(...) end
+function OpenMailFrameObject:RefreshFocus(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:SetPortraitTextureSizeAndOffset(...) end
+function OpenMailFrameObject:RefreshFooter(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:SetPortraitToAsset(...) end
+function OpenMailFrameObject:RegisterForTransitions(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:SetPortraitToBag(...) end
+function OpenMailFrameObject:SetBorder(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:SetPortraitToClassIcon(...) end
+function OpenMailFrameObject:SetFrameLevelsFromBaseLevel(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:SetPortraitToSpecIcon(...) end
+function OpenMailFrameObject:SetPortraitAtlasRaw(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:SetPortraitToUnit(...) end
+function OpenMailFrameObject:SetPortraitShown(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:SetTitle(...) end
+function OpenMailFrameObject:SetPortraitTexCoord(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:SetTitleColor(...) end
+function OpenMailFrameObject:SetPortraitTextureRaw(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:SetTitleFormatted(...) end
+function OpenMailFrameObject:SetPortraitTextureSizeAndOffset(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:SetTitleMaxLinesAndHeight(...) end
+function OpenMailFrameObject:SetPortraitToAsset(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:SetTitleOffsets(...) end
+function OpenMailFrameObject:SetPortraitToBag(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:ShowFocusJumpHint(...) end
+function OpenMailFrameObject:SetPortraitToClassIcon(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:ShowLeftJumpHint(...) end
+function OpenMailFrameObject:SetPortraitToSpecIcon(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:ShowRightJumpHint(...) end
+function OpenMailFrameObject:SetPortraitToUnit(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:StartFocus(...) end
+function OpenMailFrameObject:SetTitle(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrameObject:onCloseCallback(...) end
+function OpenMailFrameObject:SetTitleColor(...) end
+---@return any ...
+function OpenMailFrameObject:SetTitleFormatted(...) end
+---@return any ...
+function OpenMailFrameObject:SetTitleMaxLinesAndHeight(...) end
+---@return any ...
+function OpenMailFrameObject:SetTitleOffsets(...) end
+---@return any ...
+function OpenMailFrameObject:SetupGamepad(...) end
+---@return any ...
+function OpenMailFrameObject:ShowFocusJumpHint(...) end
+---@return any ...
+function OpenMailFrameObject:ShowLeftJumpHint(...) end
+---@return any ...
+function OpenMailFrameObject:ShowOptions(...) end
+---@return any ...
+function OpenMailFrameObject:ShowRightJumpHint(...) end
+---@return any ...
+function OpenMailFrameObject:StartFocus(...) end
+---@return any ...
+function OpenMailFrameObject:UnfocusGamepad(...) end
+---@return any ...
+function OpenMailFrameObject:UninitializeGamepad(...) end
+---@return any ...
+function OpenMailFrameObject:Update(...) end
+---@return any ...
+function OpenMailFrameObject:UpdateButtonPositions(...) end
+---@type OpenMailFrameObject
+OpenMailFrame = OpenMailFrameObject
 end
 
 do
----@class WorldMapFrame_BorderFrame_BgObject : Texture
-local WorldMapFrame_BorderFrame_BgObject = {}
+---@class OpenMailFrame_BgObject : Texture
+local OpenMailFrame_BgObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_CloseButtonObject : Button
-local WorldMapFrame_BorderFrame_CloseButtonObject = {}
+---@class OpenMailFrame_CancelButtonObject : Button
+---@field Left OpenMailFrame_CancelButton_LeftObject
+---@field Middle OpenMailFrame_CancelButton_MiddleObject
+---@field Right OpenMailFrame_CancelButton_RightObject
+---@field Text OpenMailFrame_CancelButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local OpenMailFrame_CancelButtonObject = {}
 ---@return any ...
-function WorldMapFrame_BorderFrame_CloseButtonObject:NarrationGetName(...) end
+function OpenMailFrame_CancelButtonObject:FitToText(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_CloseButtonObject:OnLoad(...) end
+function OpenMailFrame_CancelButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function OpenMailFrame_CancelButtonObject:OnEnter(...) end
+---@return any ...
+function OpenMailFrame_CancelButtonObject:OnLeave(...) end
+---@return any ...
+function OpenMailFrame_CancelButtonObject:SetDisabledState(...) end
+---@return any ...
+function OpenMailFrame_CancelButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function OpenMailFrame_CancelButtonObject:SetTextToFit(...) end
 end
 
 do
----@class WorldMapFrame_BorderFrame_FocusJumpHintObject : Frame
----@field ActiveTexture WorldMapFrame_BorderFrame_FocusJumpHint_ActiveTextureObject
----@field DisabledTexture WorldMapFrame_BorderFrame_FocusJumpHint_DisabledTextureObject
----@field HoldAnim WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnimObject
----@field HoldIndicator WorldMapFrame_BorderFrame_FocusJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG WorldMapFrame_BorderFrame_FocusJumpHint_HoldIndicatorBGObject
----@field HoverTexture WorldMapFrame_BorderFrame_FocusJumpHint_HoverTextureObject
----@field LoadBar WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarObject
----@field LoadBarBG WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarBGObject
----@field LoadBarGlow WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarGlowObject
----@field NormalTexture WorldMapFrame_BorderFrame_FocusJumpHint_NormalTextureObject
----@field PressedTexture WorldMapFrame_BorderFrame_FocusJumpHint_PressedTextureObject
----@field SpinnerTip WorldMapFrame_BorderFrame_FocusJumpHint_SpinnerTipObject
+---@class OpenMailFrame_CancelButton_LeftObject : Texture
+local OpenMailFrame_CancelButton_LeftObject = {}
+end
+
+do
+---@class OpenMailFrame_CancelButton_MiddleObject : Texture
+local OpenMailFrame_CancelButton_MiddleObject = {}
+end
+
+do
+---@class OpenMailFrame_CancelButton_RightObject : Texture
+local OpenMailFrame_CancelButton_RightObject = {}
+end
+
+do
+---@class OpenMailFrame_CancelButton_TextObject : FontString
+local OpenMailFrame_CancelButton_TextObject = {}
+end
+
+do
+---@class OpenMailFrame_CloseButtonObject : Button
+local OpenMailFrame_CloseButtonObject = {}
+---@return any ...
+function OpenMailFrame_CloseButtonObject:NarrationGetName(...) end
+---@return any ...
+function OpenMailFrame_CloseButtonObject:OnLoad(...) end
+end
+
+do
+---@class OpenMailFrame_DeleteButtonObject : Button
+---@field Left OpenMailFrame_DeleteButton_LeftObject
+---@field Middle OpenMailFrame_DeleteButton_MiddleObject
+---@field Right OpenMailFrame_DeleteButton_RightObject
+---@field Text OpenMailFrame_DeleteButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local OpenMailFrame_DeleteButtonObject = {}
+---@return any ...
+function OpenMailFrame_DeleteButtonObject:Delete(...) end
+---@return any ...
+function OpenMailFrame_DeleteButtonObject:FitToText(...) end
+---@return any ...
+function OpenMailFrame_DeleteButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function OpenMailFrame_DeleteButtonObject:OnClick(...) end
+---@return any ...
+function OpenMailFrame_DeleteButtonObject:OnEnter(...) end
+---@return any ...
+function OpenMailFrame_DeleteButtonObject:OnLeave(...) end
+---@return any ...
+function OpenMailFrame_DeleteButtonObject:SetDisabledState(...) end
+---@return any ...
+function OpenMailFrame_DeleteButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function OpenMailFrame_DeleteButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class OpenMailFrame_DeleteButton_LeftObject : Texture
+local OpenMailFrame_DeleteButton_LeftObject = {}
+end
+
+do
+---@class OpenMailFrame_DeleteButton_MiddleObject : Texture
+local OpenMailFrame_DeleteButton_MiddleObject = {}
+end
+
+do
+---@class OpenMailFrame_DeleteButton_RightObject : Texture
+local OpenMailFrame_DeleteButton_RightObject = {}
+end
+
+do
+---@class OpenMailFrame_DeleteButton_TextObject : FontString
+local OpenMailFrame_DeleteButton_TextObject = {}
+end
+
+do
+---@class OpenMailFrame_FocusJumpHintObject : Frame
+---@field ActiveTexture OpenMailFrame_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture OpenMailFrame_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim OpenMailFrame_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator OpenMailFrame_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG OpenMailFrame_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture OpenMailFrame_FocusJumpHint_HoverTextureObject
+---@field LoadBar OpenMailFrame_FocusJumpHint_LoadBarObject
+---@field LoadBarBG OpenMailFrame_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow OpenMailFrame_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture OpenMailFrame_FocusJumpHint_NormalTextureObject
+---@field PressedTexture OpenMailFrame_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip OpenMailFrame_FocusJumpHint_SpinnerTipObject
 ---@field ignoreInLayout boolean
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
@@ -1611,904 +2507,6727 @@ do
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local WorldMapFrame_BorderFrame_FocusJumpHintObject = {}
+local OpenMailFrame_FocusJumpHintObject = {}
 ---@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
+function OpenMailFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:BeginHold(...) end
+function OpenMailFrame_FocusJumpHintObject:BeginHold(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:CanEnterTextureState(...) end
+function OpenMailFrame_FocusJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:DisableDropShadow(...) end
+function OpenMailFrame_FocusJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:EnableDropShadow(...) end
+function OpenMailFrame_FocusJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:EndHold(...) end
+function OpenMailFrame_FocusJumpHintObject:EndHold(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
+function OpenMailFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
+function OpenMailFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:OnLoad(...) end
+function OpenMailFrame_FocusJumpHintObject:OnLoad(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:RefreshIconTextures(...) end
+function OpenMailFrame_FocusJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetDisabled(...) end
+function OpenMailFrame_FocusJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetEnabled(...) end
+function OpenMailFrame_FocusJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetFocused(...) end
+function OpenMailFrame_FocusJumpHintObject:SetFocused(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetHoldState(...) end
+function OpenMailFrame_FocusJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetInputKey(...) end
+function OpenMailFrame_FocusJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetIsHoldAction(...) end
+function OpenMailFrame_FocusJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetPressable(...) end
+function OpenMailFrame_FocusJumpHintObject:SetPressable(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetTextureHeight(...) end
+function OpenMailFrame_FocusJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetTextureState(...) end
+function OpenMailFrame_FocusJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetTextureWidth(...) end
+function OpenMailFrame_FocusJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetUsableState(...) end
+function OpenMailFrame_FocusJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+function OpenMailFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_ActiveTextureObject : Texture
-local WorldMapFrame_BorderFrame_FocusJumpHint_ActiveTextureObject = {}
+---@class OpenMailFrame_FocusJumpHint_ActiveTextureObject : Texture
+local OpenMailFrame_FocusJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_DisabledTextureObject : Texture
-local WorldMapFrame_BorderFrame_FocusJumpHint_DisabledTextureObject = {}
+---@class OpenMailFrame_FocusJumpHint_DisabledTextureObject : Texture
+local OpenMailFrame_FocusJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
-local WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnimObject = {}
+---@class OpenMailFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim OpenMailFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim OpenMailFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim OpenMailFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local OpenMailFrame_FocusJumpHint_HoldAnimObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
-local WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+---@class OpenMailFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local OpenMailFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+---@class OpenMailFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local OpenMailFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+---@class OpenMailFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local OpenMailFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_HoldIndicatorObject : Texture
-local WorldMapFrame_BorderFrame_FocusJumpHint_HoldIndicatorObject = {}
+---@class OpenMailFrame_FocusJumpHint_HoldIndicatorObject : Texture
+local OpenMailFrame_FocusJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
-local WorldMapFrame_BorderFrame_FocusJumpHint_HoldIndicatorBGObject = {}
+---@class OpenMailFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
+local OpenMailFrame_FocusJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_HoverTextureObject : Texture
-local WorldMapFrame_BorderFrame_FocusJumpHint_HoverTextureObject = {}
+---@class OpenMailFrame_FocusJumpHint_HoverTextureObject : Texture
+local OpenMailFrame_FocusJumpHint_HoverTextureObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarObject : Texture
-local WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarObject = {}
+---@class OpenMailFrame_FocusJumpHint_LoadBarObject : Texture
+local OpenMailFrame_FocusJumpHint_LoadBarObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarBGObject : Texture
-local WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarBGObject = {}
+---@class OpenMailFrame_FocusJumpHint_LoadBarBGObject : Texture
+local OpenMailFrame_FocusJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarGlowObject : Texture
-local WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarGlowObject = {}
+---@class OpenMailFrame_FocusJumpHint_LoadBarGlowObject : Texture
+local OpenMailFrame_FocusJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_NormalTextureObject : Texture
-local WorldMapFrame_BorderFrame_FocusJumpHint_NormalTextureObject = {}
+---@class OpenMailFrame_FocusJumpHint_NormalTextureObject : Texture
+local OpenMailFrame_FocusJumpHint_NormalTextureObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_PressedTextureObject : Texture
-local WorldMapFrame_BorderFrame_FocusJumpHint_PressedTextureObject = {}
+---@class OpenMailFrame_FocusJumpHint_PressedTextureObject : Texture
+local OpenMailFrame_FocusJumpHint_PressedTextureObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_SpinnerTipObject : Texture
-local WorldMapFrame_BorderFrame_FocusJumpHint_SpinnerTipObject = {}
+---@class OpenMailFrame_FocusJumpHint_SpinnerTipObject : Texture
+local OpenMailFrame_FocusJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_FrameGlowObject : Frame
----@field GlowTexture WorldMapFrame_BorderFrame_FrameGlow_GlowTextureObject
+---@class OpenMailFrame_FrameGlowObject : Frame
+---@field GlowTexture OpenMailFrame_FrameGlow_GlowTextureObject
 ---@field glowTextures table
-local WorldMapFrame_BorderFrame_FrameGlowObject = {}
+local OpenMailFrame_FrameGlowObject = {}
 ---@return any ...
-function WorldMapFrame_BorderFrame_FrameGlowObject:GetContainerFrame(...) end
+function OpenMailFrame_FrameGlowObject:GetContainerFrame(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FrameGlowObject:GetFrameLayoutType(...) end
+function OpenMailFrame_FrameGlowObject:GetFrameLayoutType(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FrameGlowObject:GetHeaderFrame(...) end
+function OpenMailFrame_FrameGlowObject:GetHeaderFrame(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_FrameGlowObject:OnLoad(...) end
+function OpenMailFrame_FrameGlowObject:OnLoad(...) end
 end
 
 do
----@class WorldMapFrame_BorderFrame_FrameGlow_GlowTextureObject : Texture
-local WorldMapFrame_BorderFrame_FrameGlow_GlowTextureObject = {}
+---@class OpenMailFrame_FrameGlow_GlowTextureObject : Texture
+local OpenMailFrame_FrameGlow_GlowTextureObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_InsetBorderTopObject : Texture
-local WorldMapFrame_BorderFrame_InsetBorderTopObject = {}
+---@class OpenMailFrame_InsetObject : Frame
+---@field Bg OpenMailFrame_Inset_BgObject
+---@field NineSlice OpenMailFrame_Inset_NineSliceObject
+---@field layoutType string
+local OpenMailFrame_InsetObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_LeftJumpHintObject : Frame
----@field ActiveTexture WorldMapFrame_BorderFrame_LeftJumpHint_ActiveTextureObject
----@field DisabledTexture WorldMapFrame_BorderFrame_LeftJumpHint_DisabledTextureObject
----@field HoldAnim WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnimObject
----@field HoldIndicator WorldMapFrame_BorderFrame_LeftJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG WorldMapFrame_BorderFrame_LeftJumpHint_HoldIndicatorBGObject
----@field HoverTexture WorldMapFrame_BorderFrame_LeftJumpHint_HoverTextureObject
----@field LoadBar WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarObject
----@field LoadBarBG WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarBGObject
----@field LoadBarGlow WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarGlowObject
----@field NormalTexture WorldMapFrame_BorderFrame_LeftJumpHint_NormalTextureObject
----@field PressedTexture WorldMapFrame_BorderFrame_LeftJumpHint_PressedTextureObject
----@field SpinnerTip WorldMapFrame_BorderFrame_LeftJumpHint_SpinnerTipObject
+---@class OpenMailFrame_Inset_BgObject : Texture
+local OpenMailFrame_Inset_BgObject = {}
+end
+
+do
+---@class OpenMailFrame_Inset_NineSliceObject : Frame
+---@field BottomEdge OpenMailFrame_Inset_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner OpenMailFrame_Inset_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner OpenMailFrame_Inset_NineSlice_BottomRightCornerObject
+---@field LeftEdge OpenMailFrame_Inset_NineSlice_LeftEdgeObject
+---@field RightEdge OpenMailFrame_Inset_NineSlice_RightEdgeObject
+---@field TopEdge OpenMailFrame_Inset_NineSlice_TopEdgeObject
+---@field TopLeftCorner OpenMailFrame_Inset_NineSlice_TopLeftCornerObject
+---@field TopRightCorner OpenMailFrame_Inset_NineSlice_TopRightCornerObject
+local OpenMailFrame_Inset_NineSliceObject = {}
+---@return any ...
+function OpenMailFrame_Inset_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function OpenMailFrame_Inset_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function OpenMailFrame_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function OpenMailFrame_Inset_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function OpenMailFrame_Inset_NineSliceObject:OnLoad(...) end
+---@return any ...
+function OpenMailFrame_Inset_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function OpenMailFrame_Inset_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function OpenMailFrame_Inset_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function OpenMailFrame_Inset_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function OpenMailFrame_Inset_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class OpenMailFrame_Inset_NineSlice_BottomEdgeObject : Texture
+local OpenMailFrame_Inset_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class OpenMailFrame_Inset_NineSlice_BottomLeftCornerObject : Texture
+local OpenMailFrame_Inset_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class OpenMailFrame_Inset_NineSlice_BottomRightCornerObject : Texture
+local OpenMailFrame_Inset_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class OpenMailFrame_Inset_NineSlice_LeftEdgeObject : Texture
+local OpenMailFrame_Inset_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class OpenMailFrame_Inset_NineSlice_RightEdgeObject : Texture
+local OpenMailFrame_Inset_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class OpenMailFrame_Inset_NineSlice_TopEdgeObject : Texture
+local OpenMailFrame_Inset_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class OpenMailFrame_Inset_NineSlice_TopLeftCornerObject : Texture
+local OpenMailFrame_Inset_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class OpenMailFrame_Inset_NineSlice_TopRightCornerObject : Texture
+local OpenMailFrame_Inset_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class OpenMailFrame_LeftJumpHintObject : Frame
+---@field ActiveTexture OpenMailFrame_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture OpenMailFrame_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim OpenMailFrame_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator OpenMailFrame_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG OpenMailFrame_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture OpenMailFrame_LeftJumpHint_HoverTextureObject
+---@field LoadBar OpenMailFrame_LeftJumpHint_LoadBarObject
+---@field LoadBarBG OpenMailFrame_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow OpenMailFrame_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture OpenMailFrame_LeftJumpHint_NormalTextureObject
+---@field PressedTexture OpenMailFrame_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip OpenMailFrame_LeftJumpHint_SpinnerTipObject
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
 ---@field textureState number
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local WorldMapFrame_BorderFrame_LeftJumpHintObject = {}
+local OpenMailFrame_LeftJumpHintObject = {}
 ---@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
+function OpenMailFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:BeginHold(...) end
+function OpenMailFrame_LeftJumpHintObject:BeginHold(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:CanEnterTextureState(...) end
+function OpenMailFrame_LeftJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:DisableDropShadow(...) end
+function OpenMailFrame_LeftJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:EnableDropShadow(...) end
+function OpenMailFrame_LeftJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:EndHold(...) end
+function OpenMailFrame_LeftJumpHintObject:EndHold(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
+function OpenMailFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
+function OpenMailFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:OnLoad(...) end
+function OpenMailFrame_LeftJumpHintObject:OnLoad(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:RefreshIconTextures(...) end
+function OpenMailFrame_LeftJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetDisabled(...) end
+function OpenMailFrame_LeftJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetEnabled(...) end
+function OpenMailFrame_LeftJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetFocused(...) end
+function OpenMailFrame_LeftJumpHintObject:SetFocused(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetHoldState(...) end
+function OpenMailFrame_LeftJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetInputKey(...) end
+function OpenMailFrame_LeftJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetIsHoldAction(...) end
+function OpenMailFrame_LeftJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetPressable(...) end
+function OpenMailFrame_LeftJumpHintObject:SetPressable(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetTextureHeight(...) end
+function OpenMailFrame_LeftJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetTextureState(...) end
+function OpenMailFrame_LeftJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetTextureWidth(...) end
+function OpenMailFrame_LeftJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetUsableState(...) end
+function OpenMailFrame_LeftJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+function OpenMailFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_ActiveTextureObject : Texture
-local WorldMapFrame_BorderFrame_LeftJumpHint_ActiveTextureObject = {}
+---@class OpenMailFrame_LeftJumpHint_ActiveTextureObject : Texture
+local OpenMailFrame_LeftJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_DisabledTextureObject : Texture
-local WorldMapFrame_BorderFrame_LeftJumpHint_DisabledTextureObject = {}
+---@class OpenMailFrame_LeftJumpHint_DisabledTextureObject : Texture
+local OpenMailFrame_LeftJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
-local WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnimObject = {}
+---@class OpenMailFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim OpenMailFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim OpenMailFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim OpenMailFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local OpenMailFrame_LeftJumpHint_HoldAnimObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
-local WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+---@class OpenMailFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local OpenMailFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+---@class OpenMailFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local OpenMailFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+---@class OpenMailFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local OpenMailFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_HoldIndicatorObject : Texture
-local WorldMapFrame_BorderFrame_LeftJumpHint_HoldIndicatorObject = {}
+---@class OpenMailFrame_LeftJumpHint_HoldIndicatorObject : Texture
+local OpenMailFrame_LeftJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
-local WorldMapFrame_BorderFrame_LeftJumpHint_HoldIndicatorBGObject = {}
+---@class OpenMailFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
+local OpenMailFrame_LeftJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_HoverTextureObject : Texture
-local WorldMapFrame_BorderFrame_LeftJumpHint_HoverTextureObject = {}
+---@class OpenMailFrame_LeftJumpHint_HoverTextureObject : Texture
+local OpenMailFrame_LeftJumpHint_HoverTextureObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarObject : Texture
-local WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarObject = {}
+---@class OpenMailFrame_LeftJumpHint_LoadBarObject : Texture
+local OpenMailFrame_LeftJumpHint_LoadBarObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarBGObject : Texture
-local WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarBGObject = {}
+---@class OpenMailFrame_LeftJumpHint_LoadBarBGObject : Texture
+local OpenMailFrame_LeftJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarGlowObject : Texture
-local WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarGlowObject = {}
+---@class OpenMailFrame_LeftJumpHint_LoadBarGlowObject : Texture
+local OpenMailFrame_LeftJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_NormalTextureObject : Texture
-local WorldMapFrame_BorderFrame_LeftJumpHint_NormalTextureObject = {}
+---@class OpenMailFrame_LeftJumpHint_NormalTextureObject : Texture
+local OpenMailFrame_LeftJumpHint_NormalTextureObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_PressedTextureObject : Texture
-local WorldMapFrame_BorderFrame_LeftJumpHint_PressedTextureObject = {}
+---@class OpenMailFrame_LeftJumpHint_PressedTextureObject : Texture
+local OpenMailFrame_LeftJumpHint_PressedTextureObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_SpinnerTipObject : Texture
-local WorldMapFrame_BorderFrame_LeftJumpHint_SpinnerTipObject = {}
+---@class OpenMailFrame_LeftJumpHint_SpinnerTipObject : Texture
+local OpenMailFrame_LeftJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_MaxMinButtonFrameObject
-local WorldMapFrame_BorderFrame_MaxMinButtonFrameObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject : Frame
----@field MaximizeButton WorldMapFrame_BorderFrame_MaximizeMinimizeFrame_MaximizeButtonObject
----@field MinimizeButton WorldMapFrame_BorderFrame_MaximizeMinimizeFrame_MinimizeButtonObject
-local WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject = {}
+---@class OpenMailFrame_NineSliceObject : Frame
+---@field BottomEdge OpenMailFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner OpenMailFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner OpenMailFrame_NineSlice_BottomRightCornerObject
+---@field Center OpenMailFrame_NineSlice_CenterObject
+---@field LeftEdge OpenMailFrame_NineSlice_LeftEdgeObject
+---@field RightEdge OpenMailFrame_NineSlice_RightEdgeObject
+---@field TopEdge OpenMailFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner OpenMailFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner OpenMailFrame_NineSlice_TopRightCornerObject
+local OpenMailFrame_NineSliceObject = {}
 ---@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:IsMinimized(...) end
+function OpenMailFrame_NineSliceObject:GetBorderColor(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:Maximize(...) end
+function OpenMailFrame_NineSliceObject:GetCenterColor(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:Minimize(...) end
+function OpenMailFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:OnLoad(...) end
+function OpenMailFrame_NineSliceObject:GetFrameLayoutType(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:OnShow(...) end
+function OpenMailFrame_NineSliceObject:OnLoad(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:SetMaximizedLook(...) end
+function OpenMailFrame_NineSliceObject:SetBlendMode(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:SetMinimizedCVar(...) end
+function OpenMailFrame_NineSliceObject:SetBorderBlendMode(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:SetMinimizedLook(...) end
+function OpenMailFrame_NineSliceObject:SetBorderColor(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:SetOnMaximizedCallback(...) end
+function OpenMailFrame_NineSliceObject:SetCenterColor(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:SetOnMinimizedCallback(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:SkipResetOnShow(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:maximizedCallback(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:minimizedCallback(...) end
+function OpenMailFrame_NineSliceObject:SetVertexColor(...) end
 end
 
 do
----@class WorldMapFrame_BorderFrame_MaximizeMinimizeFrame_MaximizeButtonObject : Button
-local WorldMapFrame_BorderFrame_MaximizeMinimizeFrame_MaximizeButtonObject = {}
+---@class OpenMailFrame_NineSlice_BottomEdgeObject : Texture
+local OpenMailFrame_NineSlice_BottomEdgeObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_MaximizeMinimizeFrame_MinimizeButtonObject : Button
-local WorldMapFrame_BorderFrame_MaximizeMinimizeFrame_MinimizeButtonObject = {}
+---@class OpenMailFrame_NineSlice_BottomLeftCornerObject : Texture
+local OpenMailFrame_NineSlice_BottomLeftCornerObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_NineSliceObject : Frame
----@field BottomEdge WorldMapFrame_BorderFrame_NineSlice_BottomEdgeObject
----@field BottomLeftCorner WorldMapFrame_BorderFrame_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner WorldMapFrame_BorderFrame_NineSlice_BottomRightCornerObject
----@field Center WorldMapFrame_BorderFrame_NineSlice_CenterObject
----@field LeftEdge WorldMapFrame_BorderFrame_NineSlice_LeftEdgeObject
----@field RightEdge WorldMapFrame_BorderFrame_NineSlice_RightEdgeObject
----@field TopEdge WorldMapFrame_BorderFrame_NineSlice_TopEdgeObject
----@field TopLeftCorner WorldMapFrame_BorderFrame_NineSlice_TopLeftCornerObject
----@field TopRightCorner WorldMapFrame_BorderFrame_NineSlice_TopRightCornerObject
-local WorldMapFrame_BorderFrame_NineSliceObject = {}
+---@class OpenMailFrame_NineSlice_BottomRightCornerObject : Texture
+local OpenMailFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class OpenMailFrame_NineSlice_CenterObject : Texture
+local OpenMailFrame_NineSlice_CenterObject = {}
+end
+
+do
+---@class OpenMailFrame_NineSlice_LeftEdgeObject : Texture
+local OpenMailFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class OpenMailFrame_NineSlice_RightEdgeObject : Texture
+local OpenMailFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class OpenMailFrame_NineSlice_TopEdgeObject : Texture
+local OpenMailFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class OpenMailFrame_NineSlice_TopLeftCornerObject : Texture
+local OpenMailFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class OpenMailFrame_NineSlice_TopRightCornerObject : Texture
+local OpenMailFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class OpenMailFrame_PortraitContainerObject : Frame
+---@field CircleMask OpenMailFrame_PortraitContainer_CircleMaskObject
+---@field portrait OpenMailFrame_PortraitContainer_portraitObject
+local OpenMailFrame_PortraitContainerObject = {}
+end
+
+do
+---@class OpenMailFrame_PortraitContainer_CircleMaskObject : MaskTexture
+local OpenMailFrame_PortraitContainer_CircleMaskObject = {}
+end
+
+do
+---@class OpenMailFrame_PortraitContainer_portraitObject : Texture
+local OpenMailFrame_PortraitContainer_portraitObject = {}
+end
+
+do
+---@class OpenMailFrame_ReplyButtonObject : Button
+---@field Left OpenMailFrame_ReplyButton_LeftObject
+---@field Middle OpenMailFrame_ReplyButton_MiddleObject
+---@field Right OpenMailFrame_ReplyButton_RightObject
+---@field Text OpenMailFrame_ReplyButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local OpenMailFrame_ReplyButtonObject = {}
 ---@return any ...
-function WorldMapFrame_BorderFrame_NineSliceObject:GetBorderColor(...) end
+function OpenMailFrame_ReplyButtonObject:FitToText(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_NineSliceObject:GetCenterColor(...) end
+function OpenMailFrame_ReplyButtonObject:GetDisabledTooltip(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+function OpenMailFrame_ReplyButtonObject:OnClick(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_NineSliceObject:GetFrameLayoutType(...) end
+function OpenMailFrame_ReplyButtonObject:OnEnter(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_NineSliceObject:OnLoad(...) end
+function OpenMailFrame_ReplyButtonObject:OnLeave(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_NineSliceObject:SetBlendMode(...) end
+function OpenMailFrame_ReplyButtonObject:Reply(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_NineSliceObject:SetBorderBlendMode(...) end
+function OpenMailFrame_ReplyButtonObject:SetDisabledState(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_NineSliceObject:SetBorderColor(...) end
+function OpenMailFrame_ReplyButtonObject:SetDisabledTooltip(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_NineSliceObject:SetCenterColor(...) end
+function OpenMailFrame_ReplyButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class OpenMailFrame_ReplyButton_LeftObject : Texture
+local OpenMailFrame_ReplyButton_LeftObject = {}
+end
+
+do
+---@class OpenMailFrame_ReplyButton_MiddleObject : Texture
+local OpenMailFrame_ReplyButton_MiddleObject = {}
+end
+
+do
+---@class OpenMailFrame_ReplyButton_RightObject : Texture
+local OpenMailFrame_ReplyButton_RightObject = {}
+end
+
+do
+---@class OpenMailFrame_ReplyButton_TextObject : FontString
+local OpenMailFrame_ReplyButton_TextObject = {}
+end
+
+do
+---@class OpenMailFrame_ReportSpamButtonObject : Button
+---@field Left OpenMailFrame_ReportSpamButton_LeftObject
+---@field Middle OpenMailFrame_ReportSpamButton_MiddleObject
+---@field Right OpenMailFrame_ReportSpamButton_RightObject
+---@field Text OpenMailFrame_ReportSpamButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local OpenMailFrame_ReportSpamButtonObject = {}
 ---@return any ...
-function WorldMapFrame_BorderFrame_NineSliceObject:SetVertexColor(...) end
+function OpenMailFrame_ReportSpamButtonObject:FitToText(...) end
+---@return any ...
+function OpenMailFrame_ReportSpamButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function OpenMailFrame_ReportSpamButtonObject:OnClick(...) end
+---@return any ...
+function OpenMailFrame_ReportSpamButtonObject:OnEnter(...) end
+---@return any ...
+function OpenMailFrame_ReportSpamButtonObject:OnLeave(...) end
+---@return any ...
+function OpenMailFrame_ReportSpamButtonObject:ReportSpam(...) end
+---@return any ...
+function OpenMailFrame_ReportSpamButtonObject:SetDisabledState(...) end
+---@return any ...
+function OpenMailFrame_ReportSpamButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function OpenMailFrame_ReportSpamButtonObject:SetTextToFit(...) end
 end
 
 do
----@class WorldMapFrame_BorderFrame_NineSlice_BottomEdgeObject : Texture
-local WorldMapFrame_BorderFrame_NineSlice_BottomEdgeObject = {}
+---@class OpenMailFrame_ReportSpamButton_LeftObject : Texture
+local OpenMailFrame_ReportSpamButton_LeftObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_NineSlice_BottomLeftCornerObject : Texture
-local WorldMapFrame_BorderFrame_NineSlice_BottomLeftCornerObject = {}
+---@class OpenMailFrame_ReportSpamButton_MiddleObject : Texture
+local OpenMailFrame_ReportSpamButton_MiddleObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_NineSlice_BottomRightCornerObject : Texture
-local WorldMapFrame_BorderFrame_NineSlice_BottomRightCornerObject = {}
+---@class OpenMailFrame_ReportSpamButton_RightObject : Texture
+local OpenMailFrame_ReportSpamButton_RightObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_NineSlice_CenterObject : Texture
-local WorldMapFrame_BorderFrame_NineSlice_CenterObject = {}
+---@class OpenMailFrame_ReportSpamButton_TextObject : FontString
+local OpenMailFrame_ReportSpamButton_TextObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_NineSlice_LeftEdgeObject : Texture
-local WorldMapFrame_BorderFrame_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_NineSlice_RightEdgeObject : Texture
-local WorldMapFrame_BorderFrame_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_NineSlice_TopEdgeObject : Texture
-local WorldMapFrame_BorderFrame_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_NineSlice_TopLeftCornerObject : Texture
-local WorldMapFrame_BorderFrame_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_NineSlice_TopRightCornerObject : Texture
-local WorldMapFrame_BorderFrame_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_PortraitContainerObject : Frame
----@field CircleMask WorldMapFrame_BorderFrame_PortraitContainer_CircleMaskObject
----@field portrait WorldMapFrame_BorderFrame_PortraitContainer_portraitObject
-local WorldMapFrame_BorderFrame_PortraitContainerObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_PortraitContainer_CircleMaskObject : MaskTexture
-local WorldMapFrame_BorderFrame_PortraitContainer_CircleMaskObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_PortraitContainer_portraitObject : Texture
-local WorldMapFrame_BorderFrame_PortraitContainer_portraitObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_RightJumpHintObject : Frame
----@field ActiveTexture WorldMapFrame_BorderFrame_RightJumpHint_ActiveTextureObject
----@field DisabledTexture WorldMapFrame_BorderFrame_RightJumpHint_DisabledTextureObject
----@field HoldAnim WorldMapFrame_BorderFrame_RightJumpHint_HoldAnimObject
----@field HoldIndicator WorldMapFrame_BorderFrame_RightJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG WorldMapFrame_BorderFrame_RightJumpHint_HoldIndicatorBGObject
----@field HoverTexture WorldMapFrame_BorderFrame_RightJumpHint_HoverTextureObject
----@field LoadBar WorldMapFrame_BorderFrame_RightJumpHint_LoadBarObject
----@field LoadBarBG WorldMapFrame_BorderFrame_RightJumpHint_LoadBarBGObject
----@field LoadBarGlow WorldMapFrame_BorderFrame_RightJumpHint_LoadBarGlowObject
----@field NormalTexture WorldMapFrame_BorderFrame_RightJumpHint_NormalTextureObject
----@field PressedTexture WorldMapFrame_BorderFrame_RightJumpHint_PressedTextureObject
----@field SpinnerTip WorldMapFrame_BorderFrame_RightJumpHint_SpinnerTipObject
+---@class OpenMailFrame_RightJumpHintObject : Frame
+---@field ActiveTexture OpenMailFrame_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture OpenMailFrame_RightJumpHint_DisabledTextureObject
+---@field HoldAnim OpenMailFrame_RightJumpHint_HoldAnimObject
+---@field HoldIndicator OpenMailFrame_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG OpenMailFrame_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture OpenMailFrame_RightJumpHint_HoverTextureObject
+---@field LoadBar OpenMailFrame_RightJumpHint_LoadBarObject
+---@field LoadBarBG OpenMailFrame_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow OpenMailFrame_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture OpenMailFrame_RightJumpHint_NormalTextureObject
+---@field PressedTexture OpenMailFrame_RightJumpHint_PressedTextureObject
+---@field SpinnerTip OpenMailFrame_RightJumpHint_SpinnerTipObject
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
 ---@field textureState number
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local WorldMapFrame_BorderFrame_RightJumpHintObject = {}
+local OpenMailFrame_RightJumpHintObject = {}
 ---@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+function OpenMailFrame_RightJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:BeginHold(...) end
+function OpenMailFrame_RightJumpHintObject:BeginHold(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:CanEnterTextureState(...) end
+function OpenMailFrame_RightJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:DisableDropShadow(...) end
+function OpenMailFrame_RightJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:EnableDropShadow(...) end
+function OpenMailFrame_RightJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:EndHold(...) end
+function OpenMailFrame_RightJumpHintObject:EndHold(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+function OpenMailFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+function OpenMailFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:OnLoad(...) end
+function OpenMailFrame_RightJumpHintObject:OnLoad(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:RefreshIconTextures(...) end
+function OpenMailFrame_RightJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:SetDisabled(...) end
+function OpenMailFrame_RightJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:SetEnabled(...) end
+function OpenMailFrame_RightJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:SetFocused(...) end
+function OpenMailFrame_RightJumpHintObject:SetFocused(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:SetHoldState(...) end
+function OpenMailFrame_RightJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:SetInputKey(...) end
+function OpenMailFrame_RightJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:SetIsHoldAction(...) end
+function OpenMailFrame_RightJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:SetPressable(...) end
+function OpenMailFrame_RightJumpHintObject:SetPressable(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:SetTextureHeight(...) end
+function OpenMailFrame_RightJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:SetTextureState(...) end
+function OpenMailFrame_RightJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:SetTextureWidth(...) end
+function OpenMailFrame_RightJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:SetUsableState(...) end
+function OpenMailFrame_RightJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+function OpenMailFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class WorldMapFrame_BorderFrame_RightJumpHint_ActiveTextureObject : Texture
-local WorldMapFrame_BorderFrame_RightJumpHint_ActiveTextureObject = {}
+---@class OpenMailFrame_RightJumpHint_ActiveTextureObject : Texture
+local OpenMailFrame_RightJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_RightJumpHint_DisabledTextureObject : Texture
-local WorldMapFrame_BorderFrame_RightJumpHint_DisabledTextureObject = {}
+---@class OpenMailFrame_RightJumpHint_DisabledTextureObject : Texture
+local OpenMailFrame_RightJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_RightJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
-local WorldMapFrame_BorderFrame_RightJumpHint_HoldAnimObject = {}
+---@class OpenMailFrame_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim OpenMailFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim OpenMailFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim OpenMailFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local OpenMailFrame_RightJumpHint_HoldAnimObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
-local WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+---@class OpenMailFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+local OpenMailFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+---@class OpenMailFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local OpenMailFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+---@class OpenMailFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local OpenMailFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_RightJumpHint_HoldIndicatorObject : Texture
-local WorldMapFrame_BorderFrame_RightJumpHint_HoldIndicatorObject = {}
+---@class OpenMailFrame_RightJumpHint_HoldIndicatorObject : Texture
+local OpenMailFrame_RightJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_RightJumpHint_HoldIndicatorBGObject : Texture
-local WorldMapFrame_BorderFrame_RightJumpHint_HoldIndicatorBGObject = {}
+---@class OpenMailFrame_RightJumpHint_HoldIndicatorBGObject : Texture
+local OpenMailFrame_RightJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_RightJumpHint_HoverTextureObject : Texture
-local WorldMapFrame_BorderFrame_RightJumpHint_HoverTextureObject = {}
+---@class OpenMailFrame_RightJumpHint_HoverTextureObject : Texture
+local OpenMailFrame_RightJumpHint_HoverTextureObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_RightJumpHint_LoadBarObject : Texture
-local WorldMapFrame_BorderFrame_RightJumpHint_LoadBarObject = {}
+---@class OpenMailFrame_RightJumpHint_LoadBarObject : Texture
+local OpenMailFrame_RightJumpHint_LoadBarObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_RightJumpHint_LoadBarBGObject : Texture
-local WorldMapFrame_BorderFrame_RightJumpHint_LoadBarBGObject = {}
+---@class OpenMailFrame_RightJumpHint_LoadBarBGObject : Texture
+local OpenMailFrame_RightJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_RightJumpHint_LoadBarGlowObject : Texture
-local WorldMapFrame_BorderFrame_RightJumpHint_LoadBarGlowObject = {}
+---@class OpenMailFrame_RightJumpHint_LoadBarGlowObject : Texture
+local OpenMailFrame_RightJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_RightJumpHint_NormalTextureObject : Texture
-local WorldMapFrame_BorderFrame_RightJumpHint_NormalTextureObject = {}
+---@class OpenMailFrame_RightJumpHint_NormalTextureObject : Texture
+local OpenMailFrame_RightJumpHint_NormalTextureObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_RightJumpHint_PressedTextureObject : Texture
-local WorldMapFrame_BorderFrame_RightJumpHint_PressedTextureObject = {}
+---@class OpenMailFrame_RightJumpHint_PressedTextureObject : Texture
+local OpenMailFrame_RightJumpHint_PressedTextureObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_RightJumpHint_SpinnerTipObject : Texture
-local WorldMapFrame_BorderFrame_RightJumpHint_SpinnerTipObject = {}
+---@class OpenMailFrame_RightJumpHint_SpinnerTipObject : Texture
+local OpenMailFrame_RightJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_TitleContainerObject : Frame
----@field TitleText WorldMapFrame_BorderFrame_TitleContainer_TitleTextObject
-local WorldMapFrame_BorderFrame_TitleContainerObject = {}
+---@class OpenMailFrame_ScrollFrameObject : ScrollFrame
+---@field ScrollBar OpenMailFrame_ScrollFrame_ScrollBarObject
+---@field panExtent number
+---@field scrollBarBottomY number
+---@field scrollBarTopY number
+---@field scrollBarX number
+local OpenMailFrame_ScrollFrameObject = {}
+---@return any ...
+function OpenMailFrame_ScrollFrameObject:GetPanExtent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrameObject:SetPanExtent(...) end
 end
 
 do
----@class WorldMapFrame_BorderFrame_TitleContainer_TitleTextObject : FontString
-local WorldMapFrame_BorderFrame_TitleContainer_TitleTextObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_TopTileStreaksObject : Texture
-local WorldMapFrame_BorderFrame_TopTileStreaksObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_TutorialObject : Button
----@field BigIPulse WorldMapFrame_BorderFrame_Tutorial_BigIPulseObject
----@field I WorldMapFrame_BorderFrame_Tutorial_IObject
----@field Pulse WorldMapFrame_BorderFrame_Tutorial_PulseObject
----@field Ring WorldMapFrame_BorderFrame_Tutorial_RingObject
----@field RingPulse WorldMapFrame_BorderFrame_Tutorial_RingPulseObject
----@field helpInfo WorldMapFrame_BorderFrame_Tutorial_helpInfoObject
----@field mainHelpPlateButtonTooltipText string
+---@class OpenMailFrame_ScrollFrame_ScrollBarObject : Frame
+---@field Back OpenMailFrame_ScrollFrame_ScrollBar_BackObject
+---@field Defaults OpenMailFrame_ScrollFrame_ScrollBar_DefaultsObject
+---@field Directions OpenMailFrame_ScrollFrame_ScrollBar_DirectionsObject
+---@field Event OpenMailFrame_ScrollFrame_ScrollBar_EventObject
+---@field Forward OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject
+---@field Track OpenMailFrame_ScrollFrame_ScrollBar_TrackObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field hideTrack boolean
+---@field interpolator OpenMailFrame_ScrollFrame_ScrollBar_interpolatorObject
+---@field isScrollController boolean
+---@field minThumbExtent number
+---@field panDelay number
+---@field panExtentPercentage number
+---@field panRepeatTime number
 ---@field smartNavigationIgnored boolean
-local WorldMapFrame_BorderFrame_TutorialObject = {}
+---@field snapToInterval boolean
+---@field thumbAnchor string
+---@field useProportionalThumb boolean
+---@field visibleExtentPercentage number
+---@field wheelPanScalar number
+local OpenMailFrame_ScrollFrame_ScrollBarObject = {}
 ---@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:CheckAndHideHelpInfo(...) end
+function OpenMailFrame_ScrollFrame_ScrollBarObject:CallInternalScope(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:CheckAndShowTooltip(...) end
+function OpenMailFrame_ScrollFrame_ScrollBarObject:CanCursorStepInDirection(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:OnEnter(...) end
+function OpenMailFrame_ScrollFrame_ScrollBarObject:CanInterpolateScroll(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:OnHide(...) end
+function OpenMailFrame_ScrollFrame_ScrollBarObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:OnLeave(...) end
+function OpenMailFrame_ScrollFrame_ScrollBarObject:DisableControls(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:OnLoad(...) end
+function OpenMailFrame_ScrollFrame_ScrollBarObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:OnMouseDown(...) end
+function OpenMailFrame_ScrollFrame_ScrollBarObject:EnableInternalPriority(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:OnMouseUp(...) end
+function OpenMailFrame_ScrollFrame_ScrollBarObject:EnableSnapToInterval(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:OnShow(...) end
+function OpenMailFrame_ScrollFrame_ScrollBarObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:SetHelpInfo3(...) end
+function OpenMailFrame_ScrollFrame_ScrollBarObject:GetBackStepper(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:ShowTooltip(...) end
+function OpenMailFrame_ScrollFrame_ScrollBarObject:GetCallbackTable(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:ToggleHelpInfo(...) end
+function OpenMailFrame_ScrollFrame_ScrollBarObject:GetCallbackTables(...) end
 ---@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:UpdateHelpInfo(...) end
+function OpenMailFrame_ScrollFrame_ScrollBarObject:GetCallbacksByEvent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:GetForwardStepper(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:GetFrameExtent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:GetIntervalRange(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:GetLower(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:GetPanExtentPercentage(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:GetPanRepeatDelay(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:GetPanRepeatTime(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:GetScrollInterpolator(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:GetScrollPercentage(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:GetThumb(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:GetThumbAnchor(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:GetTrack(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:GetTrackExtent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:GetUpper(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:GetWheelPanPercentage(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:HasScrollableExtent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:Init(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:InitializeNarration(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:Interpolate(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:IsAtBegin(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:IsAtEnd(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:IsHorizontal(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:IsScrollAllowed(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:IsThumbMouseDown(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:OnHide_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:OnLoad(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:OnMouseWheel(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:OnShow_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:OnStepperMouseDown(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:OnThumbMouseDown(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:OnTrackMouseDown(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:RegisterCallback(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:ScrollDecrease(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:ScrollInDirection(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:ScrollIncrease(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:ScrollPageInDirection(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:ScrollStepInDirection(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:ScrollToBegin(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:ScrollToEnd(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:ScrollWheelInDirection(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:SecureInsertEvent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:SelectCursorComponent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:SelectPointComponent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:SetFrameExtent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:SetHideIfUnscrollable(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:SetHorizontal(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:SetInterpolateScroll(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:SetPanExtentPercentage(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:SetScrollAllowed(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:SetScrollPercentage(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:SetThumbExtent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:SetVisibleExtentPercentage(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:TriggerEvent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:UnregisterCallback(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:UnregisterEvents(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:UnregisterUpdate(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:Update(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:onButtonMouseUp(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBarObject:scrollInternal(...) end
 end
 
 do
----@class WorldMapFrame_BorderFrame_Tutorial_BigIPulseObject : Texture
-local WorldMapFrame_BorderFrame_Tutorial_BigIPulseObject = {}
+---@class OpenMailFrame_ScrollFrame_ScrollBar_BackObject : Button
+---@field Event OpenMailFrame_ScrollFrame_ScrollBar_Back_EventObject
+---@field Texture OpenMailFrame_ScrollFrame_ScrollBar_Back_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local OpenMailFrame_ScrollFrame_ScrollBar_BackObject = {}
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:GetAtlas(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:GetCallbackTable(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:GetCallbackTables(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:IsDown(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:IsDownOver(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:IsOver(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:NarrationGetName(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:OnButtonStateChanged(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:OnDisable(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:OnEnable(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:OnEnter(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:OnLeave(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:OnLoad(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:OnMouseDown(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:OnMouseUp(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:OnShow(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:RegisterCallback(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:SecureInsertEvent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:SetDisplacedRegions(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:TriggerEvent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:UnregisterCallback(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:UnregisterEvents(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class WorldMapFrame_BorderFrame_Tutorial_IObject : Texture
-local WorldMapFrame_BorderFrame_Tutorial_IObject = {}
+---@class OpenMailFrame_ScrollFrame_ScrollBar_Back_EventObject
+local OpenMailFrame_ScrollFrame_ScrollBar_Back_EventObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_Tutorial_PulseObject : AnimationGroup
----@field BigIPulse WorldMapFrame_BorderFrame_Tutorial_Pulse_BigIPulseObject
----@field RingPulse WorldMapFrame_BorderFrame_Tutorial_Pulse_RingPulseObject
-local WorldMapFrame_BorderFrame_Tutorial_PulseObject = {}
+---@class OpenMailFrame_ScrollFrame_ScrollBar_Back_TextureObject : Texture
+local OpenMailFrame_ScrollFrame_ScrollBar_Back_TextureObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_Tutorial_Pulse_BigIPulseObject : Alpha
-local WorldMapFrame_BorderFrame_Tutorial_Pulse_BigIPulseObject = {}
+---@class OpenMailFrame_ScrollFrame_ScrollBar_DefaultsObject
+local OpenMailFrame_ScrollFrame_ScrollBar_DefaultsObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_Tutorial_Pulse_RingPulseObject : Alpha
-local WorldMapFrame_BorderFrame_Tutorial_Pulse_RingPulseObject = {}
+---@class OpenMailFrame_ScrollFrame_ScrollBar_DirectionsObject
+local OpenMailFrame_ScrollFrame_ScrollBar_DirectionsObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_Tutorial_RingObject : Texture
-local WorldMapFrame_BorderFrame_Tutorial_RingObject = {}
+---@class OpenMailFrame_ScrollFrame_ScrollBar_EventObject
+local OpenMailFrame_ScrollFrame_ScrollBar_EventObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_Tutorial_RingPulseObject : Texture
-local WorldMapFrame_BorderFrame_Tutorial_RingPulseObject = {}
+---@class OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject : Button
+---@field Event OpenMailFrame_ScrollFrame_ScrollBar_Forward_EventObject
+---@field Texture OpenMailFrame_ScrollFrame_ScrollBar_Forward_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject = {}
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:GetAtlas(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:GetCallbackTable(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:GetCallbackTables(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:IsDown(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:IsDownOver(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:IsOver(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:NarrationGetName(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:OnDisable(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:OnEnable(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:OnEnter(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:OnLeave(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:OnLoad(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:OnMouseDown(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:OnMouseUp(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:OnShow(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:RegisterCallback(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:TriggerEvent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:UnregisterCallback(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:UnregisterEvents(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class WorldMapFrame_BorderFrame_Tutorial_helpInfoObject
----@field FramePos table
----@field FrameSize table
-local WorldMapFrame_BorderFrame_Tutorial_helpInfoObject = {}
+---@class OpenMailFrame_ScrollFrame_ScrollBar_Forward_EventObject
+local OpenMailFrame_ScrollFrame_ScrollBar_Forward_EventObject = {}
 end
 
 do
----@class WorldMapFrame_BorderFrame_UnderlayObject : Texture
-local WorldMapFrame_BorderFrame_UnderlayObject = {}
+---@class OpenMailFrame_ScrollFrame_ScrollBar_Forward_TextureObject : Texture
+local OpenMailFrame_ScrollFrame_ScrollBar_Forward_TextureObject = {}
 end
 
 do
----@class WorldMapFrame_MouseActionObject
----@field Click number
----@field Down number
----@field Up number
-local WorldMapFrame_MouseActionObject = {}
+---@class OpenMailFrame_ScrollFrame_ScrollBar_TrackObject : Frame
+---@field Begin OpenMailFrame_ScrollFrame_ScrollBar_Track_BeginObject
+---@field End OpenMailFrame_ScrollFrame_ScrollBar_Track_EndObject
+---@field Middle OpenMailFrame_ScrollFrame_ScrollBar_Track_MiddleObject
+---@field Thumb OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject
+local OpenMailFrame_ScrollFrame_ScrollBar_TrackObject = {}
 end
 
 do
----@class WorldMapFrame_NavBarObject
-local WorldMapFrame_NavBarObject = {}
+---@class OpenMailFrame_ScrollFrame_ScrollBar_Track_BeginObject : Texture
+local OpenMailFrame_ScrollFrame_ScrollBar_Track_BeginObject = {}
 end
 
 do
----@class WorldMapFrame_OverscrollBGObject : Frame
----@field BottomLeftVignette WorldMapFrame_OverscrollBG_BottomLeftVignetteObject
----@field BottomRightVignette WorldMapFrame_OverscrollBG_BottomRightVignetteObject
----@field Texture WorldMapFrame_OverscrollBG_TextureObject
----@field TopLeftVignette WorldMapFrame_OverscrollBG_TopLeftVignetteObject
----@field TopRightVignette WorldMapFrame_OverscrollBG_TopRightVignetteObject
-local WorldMapFrame_OverscrollBGObject = {}
+---@class OpenMailFrame_ScrollFrame_ScrollBar_Track_EndObject : Texture
+local OpenMailFrame_ScrollFrame_ScrollBar_Track_EndObject = {}
 end
 
 do
----@class WorldMapFrame_OverscrollBG_BottomLeftVignetteObject : Texture
-local WorldMapFrame_OverscrollBG_BottomLeftVignetteObject = {}
+---@class OpenMailFrame_ScrollFrame_ScrollBar_Track_MiddleObject : Texture
+local OpenMailFrame_ScrollFrame_ScrollBar_Track_MiddleObject = {}
 end
 
 do
----@class WorldMapFrame_OverscrollBG_BottomRightVignetteObject : Texture
-local WorldMapFrame_OverscrollBG_BottomRightVignetteObject = {}
+---@class OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject : Button
+---@field Begin OpenMailFrame_ScrollFrame_ScrollBar_Track_Thumb_BeginObject
+---@field End OpenMailFrame_ScrollFrame_ScrollBar_Track_Thumb_EndObject
+---@field Event OpenMailFrame_ScrollFrame_ScrollBar_Track_Thumb_EventObject
+---@field Middle OpenMailFrame_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field downBeginTexture string
+---@field downEndTexture string
+---@field downMiddleTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field overBeginTexture string
+---@field overEndTexture string
+---@field overMiddleTexture string
+---@field upBeginTexture string
+---@field upEndTexture string
+---@field upMiddleTexture string
+local OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject = {}
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:IsDown(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:IsOver(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnDisable(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnable(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnter(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnLeave(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnLoad(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnShow(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class WorldMapFrame_OverscrollBG_TextureObject : Texture
-local WorldMapFrame_OverscrollBG_TextureObject = {}
+---@class OpenMailFrame_ScrollFrame_ScrollBar_Track_Thumb_BeginObject : Texture
+local OpenMailFrame_ScrollFrame_ScrollBar_Track_Thumb_BeginObject = {}
 end
 
 do
----@class WorldMapFrame_OverscrollBG_TopLeftVignetteObject : Texture
-local WorldMapFrame_OverscrollBG_TopLeftVignetteObject = {}
+---@class OpenMailFrame_ScrollFrame_ScrollBar_Track_Thumb_EndObject : Texture
+local OpenMailFrame_ScrollFrame_ScrollBar_Track_Thumb_EndObject = {}
 end
 
 do
----@class WorldMapFrame_OverscrollBG_TopRightVignetteObject : Texture
-local WorldMapFrame_OverscrollBG_TopRightVignetteObject = {}
+---@class OpenMailFrame_ScrollFrame_ScrollBar_Track_Thumb_EventObject
+local OpenMailFrame_ScrollFrame_ScrollBar_Track_Thumb_EventObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLogObject : Frame
----@field ContentFrames table
----@field ContentsAnchor WorldMapFrame_QuestLog_ContentsAnchorObject
----@field DetailsFrame WorldMapFrame_QuestLog_DetailsFrameObject
----@field EventsFrame WorldMapFrame_QuestLog_EventsFrameObject
----@field EventsTab WorldMapFrame_QuestLog_EventsTabObject
----@field MapLegend WorldMapFrame_QuestLog_MapLegendObject
----@field MapLegendTab WorldMapFrame_QuestLog_MapLegendTabObject
----@field QuestSessionManagement WorldMapFrame_QuestLog_QuestSessionManagementObject
----@field QuestsFrame WorldMapFrame_QuestLog_QuestsFrameObject
----@field QuestsTab WorldMapFrame_QuestLog_QuestsTabObject
----@field TabButtons table
----@field VerticalSeparator WorldMapFrame_QuestLog_VerticalSeparatorObject
----@field completedCriteria table
----@field displayMode number
----@field initialCampaignHeadersUpdate boolean
-local WorldMapFrame_QuestLogObject = {}
----@return any ...
-function WorldMapFrame_QuestLogObject:CheckEventsTabTutorial(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:GetCurrentMapID(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:GetHelpInfoText(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:GetLastLayoutIndex(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:GetPanelExtraWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:HideCampaignOverview(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:OnButtonSelected(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:OnHighlightedQuestPOIChange(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:OnSmartNavFocus(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:Refresh(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:ResetLayoutIndex(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:SetDisplayMode(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:SetFrameLayoutIndex(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:SetHeaderQuestsTracked(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:ShowCampaignOverview(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:SyncQuestSystemWithCurrentMap(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:UpdatePOIs(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:ValidateTabs(...) end
+---@class OpenMailFrame_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject : Texture
+local OpenMailFrame_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_ContentsAnchorObject : Frame
-local WorldMapFrame_QuestLog_ContentsAnchorObject = {}
+---@class OpenMailFrame_ScrollFrame_ScrollBar_interpolatorObject
+local OpenMailFrame_ScrollFrame_ScrollBar_interpolatorObject = {}
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_interpolatorObject:Cancel(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_interpolatorObject:Interpolate(...) end
+---@return any ...
+function OpenMailFrame_ScrollFrame_ScrollBar_interpolatorObject:interpolateFunc(...) end
 end
 
 do
----@class WorldMapFrame_QuestLog_DetailsFrameObject
-local WorldMapFrame_QuestLog_DetailsFrameObject = {}
+---@class OpenMailFrame_TitleContainerObject : Frame
+---@field TitleText OpenMailFrame_TitleContainer_TitleTextObject
+local OpenMailFrame_TitleContainerObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrameObject : Frame
----@field BorderFrame WorldMapFrame_QuestLog_EventsFrame_BorderFrameObject
----@field LoadingFrame WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject
----@field ScrollBar WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject
----@field ScrollBox WorldMapFrame_QuestLog_EventsFrame_ScrollBoxObject
----@field SettingsDropdown WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject
----@field TitleText WorldMapFrame_QuestLog_EventsFrame_TitleTextObject
----@field displayMode number
-local WorldMapFrame_QuestLog_EventsFrameObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrameObject:AddAllEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrameObject:AddOngoingEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrameObject:AddScheduledEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrameObject:CancelTimer(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrameObject:OnAnimationFinished(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrameObject:OnEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrameObject:OnHide(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrameObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrameObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrameObject:Refresh(...) end
+---@class OpenMailFrame_TitleContainer_TitleTextObject : FontString
+local OpenMailFrame_TitleContainer_TitleTextObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_BorderFrameObject : Frame
----@field Border WorldMapFrame_QuestLog_EventsFrame_BorderFrame_BorderObject
----@field TopDetail WorldMapFrame_QuestLog_EventsFrame_BorderFrame_TopDetailObject
-local WorldMapFrame_QuestLog_EventsFrame_BorderFrameObject = {}
+---@class OpenMailFrame_TopTileStreaksObject : Texture
+local OpenMailFrame_TopTileStreaksObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_BorderFrame_BorderObject : Texture
-local WorldMapFrame_QuestLog_EventsFrame_BorderFrame_BorderObject = {}
+---@class OverlayPlayerCastingBarFrameObject : StatusBar
+---@field Background OverlayPlayerCastingBarFrame_BackgroundObject
+---@field BaseGlow OverlayPlayerCastingBarFrame_BaseGlowObject
+---@field Border OverlayPlayerCastingBarFrame_BorderObject
+---@field BorderMask OverlayPlayerCastingBarFrame_BorderMaskObject
+---@field BorderShield OverlayPlayerCastingBarFrame_BorderShieldObject
+---@field CastTimeText OverlayPlayerCastingBarFrame_CastTimeTextObject
+---@field ChannelFinish OverlayPlayerCastingBarFrame_ChannelFinishObject
+---@field ChannelShadow OverlayPlayerCastingBarFrame_ChannelShadowObject
+---@field ChargeFlash OverlayPlayerCastingBarFrame_ChargeFlashObject
+---@field ChargeGlow OverlayPlayerCastingBarFrame_ChargeGlowObject
+---@field CraftGlow OverlayPlayerCastingBarFrame_CraftGlowObject
+---@field CraftingFinish OverlayPlayerCastingBarFrame_CraftingFinishObject
+---@field CraftingMask OverlayPlayerCastingBarFrame_CraftingMaskObject
+---@field DropShadow OverlayPlayerCastingBarFrame_DropShadowObject
+---@field EnergyGlow OverlayPlayerCastingBarFrame_EnergyGlowObject
+---@field EnergyMask OverlayPlayerCastingBarFrame_EnergyMaskObject
+---@field FadeOutAnim OverlayPlayerCastingBarFrame_FadeOutAnimObject
+---@field Flakes01 OverlayPlayerCastingBarFrame_Flakes01Object
+---@field Flakes02 OverlayPlayerCastingBarFrame_Flakes02Object
+---@field Flakes03 OverlayPlayerCastingBarFrame_Flakes03Object
+---@field Flash OverlayPlayerCastingBarFrame_FlashObject
+---@field FlashAnim OverlayPlayerCastingBarFrame_FlashAnimObject
+---@field FlashLoopingAnim OverlayPlayerCastingBarFrame_FlashLoopingAnimObject
+---@field HoldFadeOutAnim OverlayPlayerCastingBarFrame_HoldFadeOutAnimObject
+---@field Icon OverlayPlayerCastingBarFrame_IconObject
+---@field InterruptGlow OverlayPlayerCastingBarFrame_InterruptGlowObject
+---@field InterruptGlowAnim OverlayPlayerCastingBarFrame_InterruptGlowAnimObject
+---@field InterruptShakeAnim OverlayPlayerCastingBarFrame_InterruptShakeAnimObject
+---@field InterruptSparkAnim OverlayPlayerCastingBarFrame_InterruptSparkAnimObject
+---@field Shine OverlayPlayerCastingBarFrame_ShineObject
+---@field Spark OverlayPlayerCastingBarFrame_SparkObject
+---@field Sparkles01 OverlayPlayerCastingBarFrame_Sparkles01Object
+---@field Sparkles02 OverlayPlayerCastingBarFrame_Sparkles02Object
+---@field StageFinish OverlayPlayerCastingBarFrame_StageFinishObject
+---@field StageFlash OverlayPlayerCastingBarFrame_StageFlashObject
+---@field StagePips table
+---@field StagePoints table
+---@field StageTiers table
+---@field StandardFinish OverlayPlayerCastingBarFrame_StandardFinishObject
+---@field StandardGlow OverlayPlayerCastingBarFrame_StandardGlowObject
+---@field Text OverlayPlayerCastingBarFrame_TextObject
+---@field TextBorder OverlayPlayerCastingBarFrame_TextBorderObject
+---@field WispGlow OverlayPlayerCastingBarFrame_WispGlowObject
+---@field WispMask OverlayPlayerCastingBarFrame_WispMaskObject
+---@field playCastFX boolean
+---@field showCastbar boolean
+---@field showIcon boolean
+---@field showShield boolean
+---@field showTradeSkills boolean
+---@field unit string
+local OverlayPlayerCastingBarFrameObject = {}
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:AddStages(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:AddWidgetForFade(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:ApplyAlpha(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:ApplyInterruptFilledState(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:ClearStages(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:EndReplacingPlayerBar(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:FinishSpell(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:GetEffectiveType(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:GetHighlightImportantCasts(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:GetHighlightWhenCastTarget(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:GetInterruptText(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:GetIsHighlightedCastTarget(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:GetIsHighlightedImportantCast(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:GetTypeInfo(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:HandleCastDelayed(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:HandleCastStart(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:HandleCastStop(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:HandleChannelUpdateDelayed(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:HandleInterruptOrSpellFailed(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:HideSpark(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:IsInterruptable(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:OnEvent(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:OnHide(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:OnLoad(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:OnShow(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:OnUpdate(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:PlayFadeAnim(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:PlayFinishAnim(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:PlayInterruptAnims(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:SetAndUpdateShowCastbar(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:SetCastTimeTextShown(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:SetHighlightImportantCasts(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:SetHighlightWhenCastTarget(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:SetIconShown(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:SetIsHighlightedCastTarget(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:SetIsHighlightedImportantCast(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:SetLook(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:SetNameTextShown(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:SetTargetNameText(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:SetTargetNameTextShown(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:SetUnit(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:ShouldIconBeShown(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:ShouldShowCastBar(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:ShowSpark(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:SimulateCast(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:StartReplacingPlayerBarAt(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:StopAnims(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:StopFinishAnims(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:StopInterruptAnims(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:UpdateBarFillTexture(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:UpdateCastTimeText(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:UpdateCastTimeTextShown(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:UpdateHighlightImportantCast(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:UpdateHighlightWhenCastTarget(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:UpdateIconShown(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:UpdateInterruptibleState(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:UpdateIsShown(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:UpdateShownState(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:UpdateStage(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrameObject:UpdateTargetNameText(...) end
+---@type OverlayPlayerCastingBarFrameObject
+OverlayPlayerCastingBarFrame = OverlayPlayerCastingBarFrameObject
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_BorderFrame_TopDetailObject : Texture
-local WorldMapFrame_QuestLog_EventsFrame_BorderFrame_TopDetailObject = {}
+---@class OverlayPlayerCastingBarFrame_BackgroundObject : Texture
+local OverlayPlayerCastingBarFrame_BackgroundObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject : Frame
----@field Anim WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_AnimObject
----@field Ring WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_RingObject
----@field Sparks WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_SparksObject
-local WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:GetShadowAlpha(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:OnHide(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:OnSizeChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:SetDesaturated(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:SetShadowEnabled(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:UpdateShadowSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:UpdateTheme(...) end
+---@class OverlayPlayerCastingBarFrame_BaseGlowObject : Texture
+local OverlayPlayerCastingBarFrame_BaseGlowObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_AnimObject : AnimationGroup
-local WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_AnimObject = {}
+---@class OverlayPlayerCastingBarFrame_BorderObject : Texture
+local OverlayPlayerCastingBarFrame_BorderObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_RingObject : Texture
-local WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_RingObject = {}
+---@class OverlayPlayerCastingBarFrame_BorderMaskObject : MaskTexture
+local OverlayPlayerCastingBarFrame_BorderMaskObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_SparksObject : Texture
-local WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_SparksObject = {}
+---@class OverlayPlayerCastingBarFrame_BorderShieldObject : Texture
+local OverlayPlayerCastingBarFrame_BorderShieldObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject : Frame
----@field Back WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject
----@field Defaults WorldMapFrame_QuestLog_EventsFrame_ScrollBar_DefaultsObject
----@field Directions WorldMapFrame_QuestLog_EventsFrame_ScrollBar_DirectionsObject
----@field Event WorldMapFrame_QuestLog_EventsFrame_ScrollBar_EventObject
----@field Forward WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject
----@field Track WorldMapFrame_QuestLog_EventsFrame_ScrollBar_TrackObject
+---@class OverlayPlayerCastingBarFrame_CastTimeTextObject : FontString
+local OverlayPlayerCastingBarFrame_CastTimeTextObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_ChannelFinishObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_ChannelFinishObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_ChannelShadowObject : Texture
+local OverlayPlayerCastingBarFrame_ChannelShadowObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_ChargeFlashObject : Texture
+local OverlayPlayerCastingBarFrame_ChargeFlashObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_ChargeGlowObject : Texture
+local OverlayPlayerCastingBarFrame_ChargeGlowObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_CraftGlowObject : Texture
+local OverlayPlayerCastingBarFrame_CraftGlowObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_CraftingFinishObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_CraftingFinishObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_CraftingMaskObject : MaskTexture
+local OverlayPlayerCastingBarFrame_CraftingMaskObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_DropShadowObject : Texture
+local OverlayPlayerCastingBarFrame_DropShadowObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_EnergyGlowObject : Texture
+local OverlayPlayerCastingBarFrame_EnergyGlowObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_EnergyMaskObject : MaskTexture
+local OverlayPlayerCastingBarFrame_EnergyMaskObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_FadeOutAnimObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_FadeOutAnimObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_Flakes01Object : Texture
+local OverlayPlayerCastingBarFrame_Flakes01Object = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_Flakes02Object : Texture
+local OverlayPlayerCastingBarFrame_Flakes02Object = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_Flakes03Object : Texture
+local OverlayPlayerCastingBarFrame_Flakes03Object = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_FlashObject : Texture
+local OverlayPlayerCastingBarFrame_FlashObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_FlashAnimObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_FlashAnimObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_FlashLoopingAnimObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_FlashLoopingAnimObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_HoldFadeOutAnimObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_HoldFadeOutAnimObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_IconObject : Texture
+local OverlayPlayerCastingBarFrame_IconObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_InterruptGlowObject : Texture
+local OverlayPlayerCastingBarFrame_InterruptGlowObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_InterruptGlowAnimObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_InterruptGlowAnimObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_InterruptShakeAnimObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_InterruptShakeAnimObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_InterruptSparkAnimObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_InterruptSparkAnimObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_ShineObject : Texture
+local OverlayPlayerCastingBarFrame_ShineObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_SparkObject : Texture
+---@field offsetY number
+local OverlayPlayerCastingBarFrame_SparkObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_Sparkles01Object : Texture
+local OverlayPlayerCastingBarFrame_Sparkles01Object = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_Sparkles02Object : Texture
+local OverlayPlayerCastingBarFrame_Sparkles02Object = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_StageFinishObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_StageFinishObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_StageFlashObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_StageFlashObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_StandardFinishObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_StandardFinishObject = {}
+---@return any ...
+function OverlayPlayerCastingBarFrame_StandardFinishObject:Hide(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrame_StandardFinishObject:SetTargetsShown(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrame_StandardFinishObject:Show(...) end
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_StandardGlowObject : Texture
+local OverlayPlayerCastingBarFrame_StandardGlowObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_TextObject : FontString
+local OverlayPlayerCastingBarFrame_TextObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_TextBorderObject : Texture
+local OverlayPlayerCastingBarFrame_TextBorderObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_WispGlowObject : Texture
+local OverlayPlayerCastingBarFrame_WispGlowObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_WispMaskObject : MaskTexture
+local OverlayPlayerCastingBarFrame_WispMaskObject = {}
+end
+
+do
+---@class OverrideActionBarObject : Frame
+---@field ButtonBGL OverrideActionBar_ButtonBGLObject
+---@field ButtonBGR OverrideActionBar_ButtonBGRObject
+---@field Divider1 OverrideActionBar_Divider1Object
+---@field Divider2 OverrideActionBar_Divider2Object
+---@field Divider3 OverrideActionBar_Divider3Object
+---@field EndCapL OverrideActionBar_EndCapLObject
+---@field EndCapR OverrideActionBar_EndCapRObject
+---@field ExitBG OverrideActionBar_ExitBGObject
+---@field HealthBarBG OverrideActionBar_HealthBarBGObject
+---@field HealthBarOverlay OverrideActionBar_HealthBarOverlayObject
+---@field LeaveButton OverrideActionBar_LeaveButtonObject
+---@field LeaveDown OverrideActionBar_LeaveDownObject
+---@field LeaveHighlight OverrideActionBar_LeaveHighlightObject
+---@field LeaveUp OverrideActionBar_LeaveUpObject
+---@field MicroBGL OverrideActionBar_MicroBGLObject
+---@field MicroBGR OverrideActionBar_MicroBGRObject
+---@field PitchBG OverrideActionBar_PitchBGObject
+---@field PitchButtonBG OverrideActionBar_PitchButtonBGObject
+---@field PitchDownButton OverrideActionBar_PitchDownButtonObject
+---@field PitchDownDown OverrideActionBar_PitchDownDownObject
+---@field PitchDownHighlight OverrideActionBar_PitchDownHighlightObject
+---@field PitchDownUp OverrideActionBar_PitchDownUpObject
+---@field PitchMarker OverrideActionBar_PitchMarkerObject
+---@field PitchOverlay OverrideActionBar_PitchOverlayObject
+---@field PitchUpButton OverrideActionBar_PitchUpButtonObject
+---@field PitchUpDown OverrideActionBar_PitchUpDownObject
+---@field PitchUpHighlight OverrideActionBar_PitchUpHighlightObject
+---@field PitchUpUp OverrideActionBar_PitchUpUpObject
+---@field PowerBarBG OverrideActionBar_PowerBarBGObject
+---@field PowerBarOverlay OverrideActionBar_PowerBarOverlayObject
+---@field SpellButton1 OverrideActionBar_SpellButton1Object
+---@field SpellButton2 OverrideActionBar_SpellButton2Object
+---@field SpellButton3 OverrideActionBar_SpellButton3Object
+---@field SpellButton4 OverrideActionBar_SpellButton4Object
+---@field SpellButton5 OverrideActionBar_SpellButton5Object
+---@field SpellButton6 OverrideActionBar_SpellButton6Object
+---@field _BG OverrideActionBar__BGObject
+---@field _Border OverrideActionBar__BorderObject
+---@field _ButtonBGMid OverrideActionBar__ButtonBGMidObject
+---@field _MicroBGMid OverrideActionBar__MicroBGMidObject
+---@field healthBar OverrideActionBar_healthBarObject
+---@field leaveFrame OverrideActionBar_leaveFrameObject
+---@field pitchFrame OverrideActionBar_pitchFrameObject
+---@field powerBar OverrideActionBar_powerBarObject
+---@field slideOut OverrideActionBar_slideOutObject
+---@field xpBar OverrideActionBar_xpBarObject
+local OverrideActionBarObject = {}
+---@return any ...
+function OverrideActionBarObject:CalcSize(...) end
+---@return any ...
+function OverrideActionBarObject:GetMicroButtonAnchor(...) end
+---@return any ...
+function OverrideActionBarObject:IsShownBase(...) end
+---@return any ...
+function OverrideActionBarObject:IsShownOverride(...) end
+---@return any ...
+function OverrideActionBarObject:Leave(...) end
+---@return any ...
+function OverrideActionBarObject:OnEvent(...) end
+---@return any ...
+function OverrideActionBarObject:OnHide(...) end
+---@return any ...
+function OverrideActionBarObject:OnLoad(...) end
+---@return any ...
+function OverrideActionBarObject:OnShow(...) end
+---@return any ...
+function OverrideActionBarObject:SetPitchValue(...) end
+---@return any ...
+function OverrideActionBarObject:SetSkin(...) end
+---@return any ...
+function OverrideActionBarObject:Setup(...) end
+---@return any ...
+function OverrideActionBarObject:UpdateMicroButtons(...) end
+---@return any ...
+function OverrideActionBarObject:UpdateSkin(...) end
+---@return any ...
+function OverrideActionBarObject:UpdateXpBar(...) end
+---@type OverrideActionBarObject
+OverrideActionBar = OverrideActionBarObject
+end
+
+do
+---@class OverrideActionBar_ButtonBGLObject : Texture
+local OverrideActionBar_ButtonBGLObject = {}
+end
+
+do
+---@class OverrideActionBar_ButtonBGRObject : Texture
+local OverrideActionBar_ButtonBGRObject = {}
+end
+
+do
+---@class OverrideActionBar_Divider1Object : Texture
+local OverrideActionBar_Divider1Object = {}
+end
+
+do
+---@class OverrideActionBar_Divider2Object : Texture
+local OverrideActionBar_Divider2Object = {}
+end
+
+do
+---@class OverrideActionBar_Divider3Object
+local OverrideActionBar_Divider3Object = {}
+end
+
+do
+---@class OverrideActionBar_EndCapLObject : Texture
+local OverrideActionBar_EndCapLObject = {}
+end
+
+do
+---@class OverrideActionBar_EndCapRObject : Texture
+local OverrideActionBar_EndCapRObject = {}
+end
+
+do
+---@class OverrideActionBar_ExitBGObject
+local OverrideActionBar_ExitBGObject = {}
+end
+
+do
+---@class OverrideActionBar_HealthBarBGObject : Texture
+local OverrideActionBar_HealthBarBGObject = {}
+end
+
+do
+---@class OverrideActionBar_HealthBarOverlayObject : Texture
+local OverrideActionBar_HealthBarOverlayObject = {}
+end
+
+do
+---@class OverrideActionBar_LeaveButtonObject
+local OverrideActionBar_LeaveButtonObject = {}
+end
+
+do
+---@class OverrideActionBar_LeaveDownObject
+local OverrideActionBar_LeaveDownObject = {}
+end
+
+do
+---@class OverrideActionBar_LeaveHighlightObject : Texture
+local OverrideActionBar_LeaveHighlightObject = {}
+end
+
+do
+---@class OverrideActionBar_LeaveUpObject : Texture
+local OverrideActionBar_LeaveUpObject = {}
+end
+
+do
+---@class OverrideActionBar_MicroBGLObject : Texture
+local OverrideActionBar_MicroBGLObject = {}
+end
+
+do
+---@class OverrideActionBar_MicroBGRObject : Texture
+local OverrideActionBar_MicroBGRObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchBGObject : Texture
+local OverrideActionBar_PitchBGObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchButtonBGObject : Texture
+local OverrideActionBar_PitchButtonBGObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchDownButtonObject : Button
+local OverrideActionBar_PitchDownButtonObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchDownDownObject : Texture
+local OverrideActionBar_PitchDownDownObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchDownHighlightObject : Texture
+local OverrideActionBar_PitchDownHighlightObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchDownUpObject : Texture
+local OverrideActionBar_PitchDownUpObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchMarkerObject : Texture
+local OverrideActionBar_PitchMarkerObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchOverlayObject : Texture
+local OverrideActionBar_PitchOverlayObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchUpButtonObject
+local OverrideActionBar_PitchUpButtonObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchUpDownObject : Texture
+local OverrideActionBar_PitchUpDownObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchUpHighlightObject : Texture
+local OverrideActionBar_PitchUpHighlightObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchUpUpObject : Texture
+local OverrideActionBar_PitchUpUpObject = {}
+end
+
+do
+---@class OverrideActionBar_PowerBarBGObject
+local OverrideActionBar_PowerBarBGObject = {}
+end
+
+do
+---@class OverrideActionBar_PowerBarOverlayObject
+local OverrideActionBar_PowerBarOverlayObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1Object : CheckButton
+---@field Arrow OverrideActionBar_SpellButton1_ArrowObject
+---@field AutoCastOverlay OverrideActionBar_SpellButton1_AutoCastOverlayObject
+---@field Border OverrideActionBar_SpellButton1_BorderObject
+---@field BorderShadow OverrideActionBar_SpellButton1_BorderShadowObject
+---@field CheckedTexture OverrideActionBar_SpellButton1_CheckedTextureObject
+---@field CooldownFlash OverrideActionBar_SpellButton1_CooldownFlashObject
+---@field Count OverrideActionBar_SpellButton1_CountObject
+---@field Flash OverrideActionBar_SpellButton1_FlashObject
+---@field HighlightTexture OverrideActionBar_SpellButton1_HighlightTextureObject
+---@field HotKey OverrideActionBar_SpellButton1_HotKeyObject
+---@field IconMask OverrideActionBar_SpellButton1_IconMaskObject
+---@field InterruptDisplay OverrideActionBar_SpellButton1_InterruptDisplayObject
+---@field LevelLinkLockIcon OverrideActionBar_SpellButton1_LevelLinkLockIconObject
+---@field Name OverrideActionBar_SpellButton1_NameObject
+---@field NewActionTexture OverrideActionBar_SpellButton1_NewActionTextureObject
+---@field NormalTexture OverrideActionBar_SpellButton1_NormalTextureObject
+---@field PushedTexture OverrideActionBar_SpellButton1_PushedTextureObject
+---@field QuickKeybindHighlightTexture OverrideActionBar_SpellButton1_QuickKeybindHighlightTextureObject
+---@field SlotArt OverrideActionBar_SpellButton1_SlotArtObject
+---@field SlotBackground OverrideActionBar_SpellButton1_SlotBackgroundObject
+---@field SpellCastAnimFrame OverrideActionBar_SpellButton1_SpellCastAnimFrameObject
+---@field SpellHighlightAnim OverrideActionBar_SpellButton1_SpellHighlightAnimObject
+---@field SpellHighlightTexture OverrideActionBar_SpellButton1_SpellHighlightTextureObject
+---@field TargetReticleAnimFrame OverrideActionBar_SpellButton1_TargetReticleAnimFrameObject
+---@field TextOverlayContainer OverrideActionBar_SpellButton1_TextOverlayContainerObject
+---@field action number
+---@field arrowCrossAxisSize number
+---@field arrowDownTexture string
+---@field arrowMainAxisSize number
+---@field arrowNormalTexture string
+---@field arrowOverTexture string
+---@field bindingAction string
+---@field chargeCooldown OverrideActionBar_SpellButton1_chargeCooldownObject
+---@field closedArrowOffset number
+---@field commandName string
+---@field cooldown OverrideActionBar_SpellButton1_cooldownObject
+---@field enableLOCCooldown boolean
+---@field enableSpellFX boolean
+---@field eventsRegistered boolean
+---@field feedback_action number
+---@field flashing number
+---@field flashtime number
+---@field hotkeyTextGamepadX number
+---@field hotkeyTextGamepadY number
+---@field hotkeyTextKeyboardX number
+---@field hotkeyTextKeyboardY number
+---@field icon OverrideActionBar_SpellButton1_iconObject
+---@field lossOfControlCooldown OverrideActionBar_SpellButton1_lossOfControlCooldownObject
+---@field openArrowOffset number
+---@field popupCrossAxisSize number
+---@field popupDirection string
+---@field popupOffset number
+local OverrideActionBar_SpellButton1Object = {}
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnDragStop(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnEvent(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnPostClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnReceiveDrag(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarButtonMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarButtonMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarButtonMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarButtonMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:BaseActionButtonMixin_OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:BaseActionButtonMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:BaseActionButtonMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:BaseActionButtonMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:BaseActionButtonMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:CalculateAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:CheckNeedsUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ClearFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ClearInterruptDisplay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ClearPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ClearProfessionQuality(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ClearReticle(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ClearTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ClosePopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:CreateTextureOverlayFrame(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:DesaturateIfDisabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:DoModeChange(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:EvaluateState(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:EvaluateTutorials(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:Flyout_OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:GetActionButtonInfo(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:GetAllowRadialWheel(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:GetArrowRotation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:GetIsPingable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:GetOrCreateTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:GetPagedID(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:GetPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:GetPopupDirection(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:GetShowGrid(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:GetTargetInfo(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:HasAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:HasPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:IsDown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:IsDownOver(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:IsFlashing(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:IsOver(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:IsPopupOpen(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:MatchesActiveButtonSpellID(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnActionBarSlotChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnButtonStateChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnDisable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnEnable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnEvent(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnMouseDown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnMouseUp(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnPopupHidden(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnPopupToggled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnReceiveDrag(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:PlaySpellCastAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:PlaySpellInterruptedAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:PlayTargettingReticleAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:QuickKeybindButtonOnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:QuickKeybindButtonOnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:QuickKeybindButtonOnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:QuickKeybindButtonOnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:QuickKeybindButtonOnMouseWheel(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:QuickKeybindButtonOnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:QuickKeybindButtonOnUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:QuickKeybindButtonSetTooltip(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:RegisterActionBarButtonCheckFrames(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:SetButtonStateBase(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:SetButtonStateOverride(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:SetDisplacedRegions(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:SetPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:SetPopupDirection(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:SetShowGrid(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:SetTooltip(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:SpellFXEnabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:StartFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:StopFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:StopSpellCastAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:StopTargettingReticleAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:TogglePopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:TriggerSecureClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UnregisterActionBarButtonCheckFrames(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:Update(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateArrowPosition(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateArrowRotation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateArrowShown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateArrowTexture(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateAssistedCombatRotationFrame(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateBorderShadow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateButtonArt(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateCastingAnimation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateCount(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateFlyout(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateFlyoutPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateHighlightMark(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateHotkeys(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateMouseWheelHandler(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdatePingAttributes(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdatePressAndHoldAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateProfessionQuality(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateSpellAlert(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateSpellHighlightMark(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateState(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateUsable(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton1_ArrowObject : Texture
+---@field origHeight number
+---@field origTexCoords table
+---@field origWidth number
+---@field rotationDegrees number
+local OverrideActionBar_SpellButton1_ArrowObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_AutoCastOverlayObject : Frame
+---@field Corners OverrideActionBar_SpellButton1_AutoCastOverlay_CornersObject
+---@field Mask OverrideActionBar_SpellButton1_AutoCastOverlay_MaskObject
+---@field Shine OverrideActionBar_SpellButton1_AutoCastOverlay_ShineObject
+---@field autoCastEnabled boolean
+local OverrideActionBar_SpellButton1_AutoCastOverlayObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton1_AutoCastOverlayObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1_AutoCastOverlayObject:OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1_AutoCastOverlayObject:ShowAutoCastEnabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1_AutoCastOverlayObject:UpdateShineAnim(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton1_AutoCastOverlay_CornersObject : Texture
+local OverrideActionBar_SpellButton1_AutoCastOverlay_CornersObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_AutoCastOverlay_MaskObject : MaskTexture
+local OverrideActionBar_SpellButton1_AutoCastOverlay_MaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_AutoCastOverlay_ShineObject : Texture
+---@field Anim OverrideActionBar_SpellButton1_AutoCastOverlay_Shine_AnimObject
+local OverrideActionBar_SpellButton1_AutoCastOverlay_ShineObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_AutoCastOverlay_Shine_AnimObject : AnimationGroup
+local OverrideActionBar_SpellButton1_AutoCastOverlay_Shine_AnimObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_BorderObject : Texture
+local OverrideActionBar_SpellButton1_BorderObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_BorderShadowObject : Texture
+local OverrideActionBar_SpellButton1_BorderShadowObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_CheckedTextureObject : Texture
+local OverrideActionBar_SpellButton1_CheckedTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_CooldownFlashObject : Frame
+---@field FlashAnim OverrideActionBar_SpellButton1_CooldownFlash_FlashAnimObject
+---@field Flipbook OverrideActionBar_SpellButton1_CooldownFlash_FlipbookObject
+local OverrideActionBar_SpellButton1_CooldownFlashObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton1_CooldownFlashObject:Setup(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton1_CooldownFlash_FlashAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton1_CooldownFlash_FlashAnimObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton1_CooldownFlash_FlashAnimObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton1_CooldownFlash_FlipbookObject : Texture
+local OverrideActionBar_SpellButton1_CooldownFlash_FlipbookObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_CountObject : FontString
+local OverrideActionBar_SpellButton1_CountObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_FlashObject : Texture
+local OverrideActionBar_SpellButton1_FlashObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_HighlightTextureObject : Texture
+local OverrideActionBar_SpellButton1_HighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_HotKeyObject : FontString
+local OverrideActionBar_SpellButton1_HotKeyObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_IconMaskObject : MaskTexture
+local OverrideActionBar_SpellButton1_IconMaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_InterruptDisplayObject : Frame
+---@field Base OverrideActionBar_SpellButton1_InterruptDisplay_BaseObject
+---@field Highlight OverrideActionBar_SpellButton1_InterruptDisplay_HighlightObject
+local OverrideActionBar_SpellButton1_InterruptDisplayObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton1_InterruptDisplayObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1_InterruptDisplayObject:OnShow(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton1_InterruptDisplay_BaseObject : Frame
+---@field AnimIn OverrideActionBar_SpellButton1_InterruptDisplay_Base_AnimInObject
+---@field Base OverrideActionBar_SpellButton1_InterruptDisplay_Base_BaseObject
+local OverrideActionBar_SpellButton1_InterruptDisplay_BaseObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_InterruptDisplay_Base_AnimInObject : AnimationGroup
+local OverrideActionBar_SpellButton1_InterruptDisplay_Base_AnimInObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton1_InterruptDisplay_Base_AnimInObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton1_InterruptDisplay_Base_BaseObject : Texture
+local OverrideActionBar_SpellButton1_InterruptDisplay_Base_BaseObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_InterruptDisplay_HighlightObject : Frame
+---@field AnimIn OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_AnimInObject
+---@field HighlightTexture OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_HighlightTextureObject
+---@field Mask OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_MaskObject
+local OverrideActionBar_SpellButton1_InterruptDisplay_HighlightObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_AnimInObject : AnimationGroup
+---@field Translation OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_AnimIn_TranslationObject
+local OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_AnimInObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_AnimIn_TranslationObject : Translation
+local OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_AnimIn_TranslationObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_HighlightTextureObject : Texture
+local OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_HighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_MaskObject : MaskTexture
+local OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_MaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_LevelLinkLockIconObject : Texture
+local OverrideActionBar_SpellButton1_LevelLinkLockIconObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_NameObject : FontString
+local OverrideActionBar_SpellButton1_NameObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_NewActionTextureObject : Texture
+local OverrideActionBar_SpellButton1_NewActionTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_NormalTextureObject : Texture
+local OverrideActionBar_SpellButton1_NormalTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_PushedTextureObject : Texture
+local OverrideActionBar_SpellButton1_PushedTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_QuickKeybindHighlightTextureObject : Texture
+local OverrideActionBar_SpellButton1_QuickKeybindHighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SlotArtObject : Texture
+local OverrideActionBar_SpellButton1_SlotArtObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SlotBackgroundObject : Texture
+local OverrideActionBar_SpellButton1_SlotBackgroundObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellCastAnimFrameObject : Frame
+---@field EndBurst OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurstObject
+---@field Fill OverrideActionBar_SpellButton1_SpellCastAnimFrame_FillObject
+local OverrideActionBar_SpellButton1_SpellCastAnimFrameObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton1_SpellCastAnimFrameObject:FinishAnimAndPlayBurst(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1_SpellCastAnimFrameObject:GetCooldownFrameAlpha(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1_SpellCastAnimFrameObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1_SpellCastAnimFrameObject:Setup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1_SpellCastAnimFrameObject:SetupAnimAtlases(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurstObject : Frame
+---@field EndMask OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_EndMaskObject
+---@field FinishCastAnim OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject
+---@field GlowRing OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_GlowRingObject
+local OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurstObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_EndMaskObject : MaskTexture
+local OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_EndMaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_GlowRingObject : Texture
+local OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_GlowRingObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_FillObject : Frame
+---@field CastFill OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastFillObject
+---@field CastingAnim OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastingAnimObject
+---@field FillMask OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_FillMaskObject
+---@field InnerGlowTexture OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_InnerGlowTextureObject
+local OverrideActionBar_SpellButton1_SpellCastAnimFrame_FillObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastFillObject : Texture
+local OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastFillObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastingAnimObject : AnimationGroup
+---@field CastFillTranslation OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject
+local OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastingAnimObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastingAnimObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject : Translation
+local OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_FillMaskObject : MaskTexture
+local OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_FillMaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_InnerGlowTextureObject : Texture
+local OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_InnerGlowTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellHighlightAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton1_SpellHighlightAnimObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellHighlightTextureObject : Texture
+local OverrideActionBar_SpellButton1_SpellHighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_TargetReticleAnimFrameObject : Frame
+---@field Base OverrideActionBar_SpellButton1_TargetReticleAnimFrame_BaseObject
+---@field Highlight OverrideActionBar_SpellButton1_TargetReticleAnimFrame_HighlightObject
+---@field HighlightAnim OverrideActionBar_SpellButton1_TargetReticleAnimFrame_HighlightAnimObject
+---@field Mask OverrideActionBar_SpellButton1_TargetReticleAnimFrame_MaskObject
+local OverrideActionBar_SpellButton1_TargetReticleAnimFrameObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton1_TargetReticleAnimFrameObject:Setup(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton1_TargetReticleAnimFrame_BaseObject : Texture
+local OverrideActionBar_SpellButton1_TargetReticleAnimFrame_BaseObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_TargetReticleAnimFrame_HighlightObject : Texture
+local OverrideActionBar_SpellButton1_TargetReticleAnimFrame_HighlightObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_TargetReticleAnimFrame_HighlightAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton1_TargetReticleAnimFrame_HighlightAnimObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_TargetReticleAnimFrame_MaskObject : MaskTexture
+local OverrideActionBar_SpellButton1_TargetReticleAnimFrame_MaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_TextOverlayContainerObject : Frame
+---@field Count OverrideActionBar_SpellButton1_TextOverlayContainer_CountObject
+---@field HotKey OverrideActionBar_SpellButton1_TextOverlayContainer_HotKeyObject
+local OverrideActionBar_SpellButton1_TextOverlayContainerObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton1_TextOverlayContainerObject:OnLoad(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton1_TextOverlayContainer_CountObject
+local OverrideActionBar_SpellButton1_TextOverlayContainer_CountObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_TextOverlayContainer_HotKeyObject
+local OverrideActionBar_SpellButton1_TextOverlayContainer_HotKeyObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_chargeCooldownObject : Cooldown
+local OverrideActionBar_SpellButton1_chargeCooldownObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_cooldownObject : Cooldown
+local OverrideActionBar_SpellButton1_cooldownObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_iconObject : Texture
+local OverrideActionBar_SpellButton1_iconObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_lossOfControlCooldownObject : Cooldown
+local OverrideActionBar_SpellButton1_lossOfControlCooldownObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2Object : CheckButton
+---@field Arrow OverrideActionBar_SpellButton2_ArrowObject
+---@field AutoCastOverlay OverrideActionBar_SpellButton2_AutoCastOverlayObject
+---@field Border OverrideActionBar_SpellButton2_BorderObject
+---@field BorderShadow OverrideActionBar_SpellButton2_BorderShadowObject
+---@field CheckedTexture OverrideActionBar_SpellButton2_CheckedTextureObject
+---@field CooldownFlash OverrideActionBar_SpellButton2_CooldownFlashObject
+---@field Count OverrideActionBar_SpellButton2_CountObject
+---@field Flash OverrideActionBar_SpellButton2_FlashObject
+---@field HighlightTexture OverrideActionBar_SpellButton2_HighlightTextureObject
+---@field HotKey OverrideActionBar_SpellButton2_HotKeyObject
+---@field IconMask OverrideActionBar_SpellButton2_IconMaskObject
+---@field InterruptDisplay OverrideActionBar_SpellButton2_InterruptDisplayObject
+---@field LevelLinkLockIcon OverrideActionBar_SpellButton2_LevelLinkLockIconObject
+---@field Name OverrideActionBar_SpellButton2_NameObject
+---@field NewActionTexture OverrideActionBar_SpellButton2_NewActionTextureObject
+---@field NormalTexture OverrideActionBar_SpellButton2_NormalTextureObject
+---@field PushedTexture OverrideActionBar_SpellButton2_PushedTextureObject
+---@field QuickKeybindHighlightTexture OverrideActionBar_SpellButton2_QuickKeybindHighlightTextureObject
+---@field SlotArt OverrideActionBar_SpellButton2_SlotArtObject
+---@field SlotBackground OverrideActionBar_SpellButton2_SlotBackgroundObject
+---@field SpellCastAnimFrame OverrideActionBar_SpellButton2_SpellCastAnimFrameObject
+---@field SpellHighlightAnim OverrideActionBar_SpellButton2_SpellHighlightAnimObject
+---@field SpellHighlightTexture OverrideActionBar_SpellButton2_SpellHighlightTextureObject
+---@field TargetReticleAnimFrame OverrideActionBar_SpellButton2_TargetReticleAnimFrameObject
+---@field TextOverlayContainer OverrideActionBar_SpellButton2_TextOverlayContainerObject
+---@field action number
+---@field arrowCrossAxisSize number
+---@field arrowDownTexture string
+---@field arrowMainAxisSize number
+---@field arrowNormalTexture string
+---@field arrowOverTexture string
+---@field bindingAction string
+---@field chargeCooldown OverrideActionBar_SpellButton2_chargeCooldownObject
+---@field closedArrowOffset number
+---@field commandName string
+---@field cooldown OverrideActionBar_SpellButton2_cooldownObject
+---@field enableLOCCooldown boolean
+---@field enableSpellFX boolean
+---@field eventsRegistered boolean
+---@field feedback_action number
+---@field flashing number
+---@field flashtime number
+---@field hotkeyTextGamepadX number
+---@field hotkeyTextGamepadY number
+---@field hotkeyTextKeyboardX number
+---@field hotkeyTextKeyboardY number
+---@field icon OverrideActionBar_SpellButton2_iconObject
+---@field lossOfControlCooldown OverrideActionBar_SpellButton2_lossOfControlCooldownObject
+---@field openArrowOffset number
+---@field popupCrossAxisSize number
+---@field popupDirection string
+---@field popupOffset number
+local OverrideActionBar_SpellButton2Object = {}
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnDragStop(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnEvent(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnPostClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnReceiveDrag(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarButtonMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarButtonMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarButtonMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarButtonMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:BaseActionButtonMixin_OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:BaseActionButtonMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:BaseActionButtonMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:BaseActionButtonMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:BaseActionButtonMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:CalculateAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:CheckNeedsUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ClearFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ClearInterruptDisplay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ClearPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ClearProfessionQuality(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ClearReticle(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ClearTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ClosePopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:CreateTextureOverlayFrame(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:DesaturateIfDisabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:DoModeChange(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:EvaluateState(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:EvaluateTutorials(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:Flyout_OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:GetActionButtonInfo(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:GetAllowRadialWheel(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:GetArrowRotation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:GetIsPingable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:GetOrCreateTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:GetPagedID(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:GetPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:GetPopupDirection(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:GetShowGrid(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:GetTargetInfo(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:HasAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:HasPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:IsDown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:IsDownOver(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:IsFlashing(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:IsOver(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:IsPopupOpen(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:MatchesActiveButtonSpellID(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnActionBarSlotChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnButtonStateChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnDisable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnEnable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnEvent(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnMouseDown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnMouseUp(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnPopupHidden(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnPopupToggled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnReceiveDrag(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:PlaySpellCastAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:PlaySpellInterruptedAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:PlayTargettingReticleAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:QuickKeybindButtonOnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:QuickKeybindButtonOnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:QuickKeybindButtonOnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:QuickKeybindButtonOnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:QuickKeybindButtonOnMouseWheel(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:QuickKeybindButtonOnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:QuickKeybindButtonOnUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:QuickKeybindButtonSetTooltip(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:RegisterActionBarButtonCheckFrames(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:SetButtonStateBase(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:SetButtonStateOverride(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:SetDisplacedRegions(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:SetPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:SetPopupDirection(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:SetShowGrid(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:SetTooltip(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:SpellFXEnabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:StartFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:StopFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:StopSpellCastAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:StopTargettingReticleAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:TogglePopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:TriggerSecureClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UnregisterActionBarButtonCheckFrames(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:Update(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateArrowPosition(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateArrowRotation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateArrowShown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateArrowTexture(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateAssistedCombatRotationFrame(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateBorderShadow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateButtonArt(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateCastingAnimation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateCount(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateFlyout(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateFlyoutPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateHighlightMark(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateHotkeys(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateMouseWheelHandler(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdatePingAttributes(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdatePressAndHoldAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateProfessionQuality(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateSpellAlert(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateSpellHighlightMark(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateState(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateUsable(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton2_ArrowObject : Texture
+---@field origHeight number
+---@field origTexCoords table
+---@field origWidth number
+---@field rotationDegrees number
+local OverrideActionBar_SpellButton2_ArrowObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_AutoCastOverlayObject : Frame
+---@field Corners OverrideActionBar_SpellButton2_AutoCastOverlay_CornersObject
+---@field Mask OverrideActionBar_SpellButton2_AutoCastOverlay_MaskObject
+---@field Shine OverrideActionBar_SpellButton2_AutoCastOverlay_ShineObject
+---@field autoCastEnabled boolean
+local OverrideActionBar_SpellButton2_AutoCastOverlayObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton2_AutoCastOverlayObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2_AutoCastOverlayObject:OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2_AutoCastOverlayObject:ShowAutoCastEnabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2_AutoCastOverlayObject:UpdateShineAnim(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton2_AutoCastOverlay_CornersObject : Texture
+local OverrideActionBar_SpellButton2_AutoCastOverlay_CornersObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_AutoCastOverlay_MaskObject : MaskTexture
+local OverrideActionBar_SpellButton2_AutoCastOverlay_MaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_AutoCastOverlay_ShineObject : Texture
+---@field Anim OverrideActionBar_SpellButton2_AutoCastOverlay_Shine_AnimObject
+local OverrideActionBar_SpellButton2_AutoCastOverlay_ShineObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_AutoCastOverlay_Shine_AnimObject : AnimationGroup
+local OverrideActionBar_SpellButton2_AutoCastOverlay_Shine_AnimObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_BorderObject : Texture
+local OverrideActionBar_SpellButton2_BorderObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_BorderShadowObject : Texture
+local OverrideActionBar_SpellButton2_BorderShadowObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_CheckedTextureObject : Texture
+local OverrideActionBar_SpellButton2_CheckedTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_CooldownFlashObject : Frame
+---@field FlashAnim OverrideActionBar_SpellButton2_CooldownFlash_FlashAnimObject
+---@field Flipbook OverrideActionBar_SpellButton2_CooldownFlash_FlipbookObject
+local OverrideActionBar_SpellButton2_CooldownFlashObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton2_CooldownFlashObject:Setup(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton2_CooldownFlash_FlashAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton2_CooldownFlash_FlashAnimObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton2_CooldownFlash_FlashAnimObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton2_CooldownFlash_FlipbookObject : Texture
+local OverrideActionBar_SpellButton2_CooldownFlash_FlipbookObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_CountObject : FontString
+local OverrideActionBar_SpellButton2_CountObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_FlashObject : Texture
+local OverrideActionBar_SpellButton2_FlashObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_HighlightTextureObject : Texture
+local OverrideActionBar_SpellButton2_HighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_HotKeyObject : FontString
+local OverrideActionBar_SpellButton2_HotKeyObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_IconMaskObject : MaskTexture
+local OverrideActionBar_SpellButton2_IconMaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_InterruptDisplayObject : Frame
+---@field Base OverrideActionBar_SpellButton2_InterruptDisplay_BaseObject
+---@field Highlight OverrideActionBar_SpellButton2_InterruptDisplay_HighlightObject
+local OverrideActionBar_SpellButton2_InterruptDisplayObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton2_InterruptDisplayObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2_InterruptDisplayObject:OnShow(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton2_InterruptDisplay_BaseObject : Frame
+---@field AnimIn OverrideActionBar_SpellButton2_InterruptDisplay_Base_AnimInObject
+---@field Base OverrideActionBar_SpellButton2_InterruptDisplay_Base_BaseObject
+local OverrideActionBar_SpellButton2_InterruptDisplay_BaseObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_InterruptDisplay_Base_AnimInObject : AnimationGroup
+local OverrideActionBar_SpellButton2_InterruptDisplay_Base_AnimInObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton2_InterruptDisplay_Base_AnimInObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton2_InterruptDisplay_Base_BaseObject : Texture
+local OverrideActionBar_SpellButton2_InterruptDisplay_Base_BaseObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_InterruptDisplay_HighlightObject : Frame
+---@field AnimIn OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_AnimInObject
+---@field HighlightTexture OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_HighlightTextureObject
+---@field Mask OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_MaskObject
+local OverrideActionBar_SpellButton2_InterruptDisplay_HighlightObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_AnimInObject : AnimationGroup
+---@field Translation OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_AnimIn_TranslationObject
+local OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_AnimInObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_AnimIn_TranslationObject : Translation
+local OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_AnimIn_TranslationObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_HighlightTextureObject : Texture
+local OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_HighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_MaskObject : MaskTexture
+local OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_MaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_LevelLinkLockIconObject : Texture
+local OverrideActionBar_SpellButton2_LevelLinkLockIconObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_NameObject : FontString
+local OverrideActionBar_SpellButton2_NameObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_NewActionTextureObject : Texture
+local OverrideActionBar_SpellButton2_NewActionTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_NormalTextureObject : Texture
+local OverrideActionBar_SpellButton2_NormalTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_PushedTextureObject : Texture
+local OverrideActionBar_SpellButton2_PushedTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_QuickKeybindHighlightTextureObject : Texture
+local OverrideActionBar_SpellButton2_QuickKeybindHighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_SlotArtObject : Texture
+local OverrideActionBar_SpellButton2_SlotArtObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_SlotBackgroundObject : Texture
+local OverrideActionBar_SpellButton2_SlotBackgroundObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_SpellCastAnimFrameObject : Frame
+---@field EndBurst OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurstObject
+---@field Fill OverrideActionBar_SpellButton2_SpellCastAnimFrame_FillObject
+local OverrideActionBar_SpellButton2_SpellCastAnimFrameObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton2_SpellCastAnimFrameObject:FinishAnimAndPlayBurst(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2_SpellCastAnimFrameObject:GetCooldownFrameAlpha(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2_SpellCastAnimFrameObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2_SpellCastAnimFrameObject:Setup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2_SpellCastAnimFrameObject:SetupAnimAtlases(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurstObject : Frame
+---@field EndMask OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_EndMaskObject
+---@field FinishCastAnim OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject
+---@field GlowRing OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_GlowRingObject
+local OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurstObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_EndMaskObject : MaskTexture
+local OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_EndMaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_GlowRingObject : Texture
+local OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_GlowRingObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_SpellCastAnimFrame_FillObject : Frame
+---@field CastFill OverrideActionBar_SpellButton2_SpellCastAnimFrame_Fill_CastFillObject
+---@field CastingAnim OverrideActionBar_SpellButton2_SpellCastAnimFrame_Fill_CastingAnimObject
+---@field FillMask OverrideActionBar_SpellButton2_SpellCastAnimFrame_Fill_FillMaskObject
+---@field InnerGlowTexture OverrideActionBar_SpellButton2_SpellCastAnimFrame_Fill_InnerGlowTextureObject
+local OverrideActionBar_SpellButton2_SpellCastAnimFrame_FillObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_SpellCastAnimFrame_Fill_CastFillObject : Texture
+local OverrideActionBar_SpellButton2_SpellCastAnimFrame_Fill_CastFillObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_SpellCastAnimFrame_Fill_CastingAnimObject : AnimationGroup
+---@field CastFillTranslation OverrideActionBar_SpellButton2_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject
+local OverrideActionBar_SpellButton2_SpellCastAnimFrame_Fill_CastingAnimObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton2_SpellCastAnimFrame_Fill_CastingAnimObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton2_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject : Translation
+local OverrideActionBar_SpellButton2_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_SpellCastAnimFrame_Fill_FillMaskObject : MaskTexture
+local OverrideActionBar_SpellButton2_SpellCastAnimFrame_Fill_FillMaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_SpellCastAnimFrame_Fill_InnerGlowTextureObject : Texture
+local OverrideActionBar_SpellButton2_SpellCastAnimFrame_Fill_InnerGlowTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_SpellHighlightAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton2_SpellHighlightAnimObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_SpellHighlightTextureObject : Texture
+local OverrideActionBar_SpellButton2_SpellHighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_TargetReticleAnimFrameObject : Frame
+---@field Base OverrideActionBar_SpellButton2_TargetReticleAnimFrame_BaseObject
+---@field Highlight OverrideActionBar_SpellButton2_TargetReticleAnimFrame_HighlightObject
+---@field HighlightAnim OverrideActionBar_SpellButton2_TargetReticleAnimFrame_HighlightAnimObject
+---@field Mask OverrideActionBar_SpellButton2_TargetReticleAnimFrame_MaskObject
+local OverrideActionBar_SpellButton2_TargetReticleAnimFrameObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton2_TargetReticleAnimFrameObject:Setup(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton2_TargetReticleAnimFrame_BaseObject : Texture
+local OverrideActionBar_SpellButton2_TargetReticleAnimFrame_BaseObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_TargetReticleAnimFrame_HighlightObject : Texture
+local OverrideActionBar_SpellButton2_TargetReticleAnimFrame_HighlightObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_TargetReticleAnimFrame_HighlightAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton2_TargetReticleAnimFrame_HighlightAnimObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_TargetReticleAnimFrame_MaskObject : MaskTexture
+local OverrideActionBar_SpellButton2_TargetReticleAnimFrame_MaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_TextOverlayContainerObject : Frame
+---@field Count OverrideActionBar_SpellButton2_TextOverlayContainer_CountObject
+---@field HotKey OverrideActionBar_SpellButton2_TextOverlayContainer_HotKeyObject
+local OverrideActionBar_SpellButton2_TextOverlayContainerObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton2_TextOverlayContainerObject:OnLoad(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton2_TextOverlayContainer_CountObject
+local OverrideActionBar_SpellButton2_TextOverlayContainer_CountObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_TextOverlayContainer_HotKeyObject
+local OverrideActionBar_SpellButton2_TextOverlayContainer_HotKeyObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_chargeCooldownObject : Cooldown
+local OverrideActionBar_SpellButton2_chargeCooldownObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_cooldownObject : Cooldown
+local OverrideActionBar_SpellButton2_cooldownObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_iconObject : Texture
+local OverrideActionBar_SpellButton2_iconObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_lossOfControlCooldownObject : Cooldown
+local OverrideActionBar_SpellButton2_lossOfControlCooldownObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3Object : CheckButton
+---@field Arrow OverrideActionBar_SpellButton3_ArrowObject
+---@field AutoCastOverlay OverrideActionBar_SpellButton3_AutoCastOverlayObject
+---@field Border OverrideActionBar_SpellButton3_BorderObject
+---@field BorderShadow OverrideActionBar_SpellButton3_BorderShadowObject
+---@field CheckedTexture OverrideActionBar_SpellButton3_CheckedTextureObject
+---@field CooldownFlash OverrideActionBar_SpellButton3_CooldownFlashObject
+---@field Count OverrideActionBar_SpellButton3_CountObject
+---@field Flash OverrideActionBar_SpellButton3_FlashObject
+---@field HighlightTexture OverrideActionBar_SpellButton3_HighlightTextureObject
+---@field HotKey OverrideActionBar_SpellButton3_HotKeyObject
+---@field IconMask OverrideActionBar_SpellButton3_IconMaskObject
+---@field InterruptDisplay OverrideActionBar_SpellButton3_InterruptDisplayObject
+---@field LevelLinkLockIcon OverrideActionBar_SpellButton3_LevelLinkLockIconObject
+---@field Name OverrideActionBar_SpellButton3_NameObject
+---@field NewActionTexture OverrideActionBar_SpellButton3_NewActionTextureObject
+---@field NormalTexture OverrideActionBar_SpellButton3_NormalTextureObject
+---@field PushedTexture OverrideActionBar_SpellButton3_PushedTextureObject
+---@field QuickKeybindHighlightTexture OverrideActionBar_SpellButton3_QuickKeybindHighlightTextureObject
+---@field SlotArt OverrideActionBar_SpellButton3_SlotArtObject
+---@field SlotBackground OverrideActionBar_SpellButton3_SlotBackgroundObject
+---@field SpellCastAnimFrame OverrideActionBar_SpellButton3_SpellCastAnimFrameObject
+---@field SpellHighlightAnim OverrideActionBar_SpellButton3_SpellHighlightAnimObject
+---@field SpellHighlightTexture OverrideActionBar_SpellButton3_SpellHighlightTextureObject
+---@field TargetReticleAnimFrame OverrideActionBar_SpellButton3_TargetReticleAnimFrameObject
+---@field TextOverlayContainer OverrideActionBar_SpellButton3_TextOverlayContainerObject
+---@field action number
+---@field arrowCrossAxisSize number
+---@field arrowDownTexture string
+---@field arrowMainAxisSize number
+---@field arrowNormalTexture string
+---@field arrowOverTexture string
+---@field bindingAction string
+---@field chargeCooldown OverrideActionBar_SpellButton3_chargeCooldownObject
+---@field closedArrowOffset number
+---@field commandName string
+---@field cooldown OverrideActionBar_SpellButton3_cooldownObject
+---@field enableLOCCooldown boolean
+---@field enableSpellFX boolean
+---@field feedback_action number
+---@field flashing number
+---@field flashtime number
+---@field hotkeyTextGamepadX number
+---@field hotkeyTextGamepadY number
+---@field hotkeyTextKeyboardX number
+---@field hotkeyTextKeyboardY number
+---@field icon OverrideActionBar_SpellButton3_iconObject
+---@field lossOfControlCooldown OverrideActionBar_SpellButton3_lossOfControlCooldownObject
+---@field openArrowOffset number
+---@field popupCrossAxisSize number
+---@field popupDirection string
+---@field popupOffset number
+local OverrideActionBar_SpellButton3Object = {}
+---@return any ...
+function OverrideActionBar_SpellButton3Object:ActionBarActionButtonDerivedMixin_OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:ActionBarActionButtonDerivedMixin_OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:ActionBarActionButtonDerivedMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:ActionBarActionButtonDerivedMixin_OnDragStop(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:ActionBarActionButtonDerivedMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:ActionBarActionButtonDerivedMixin_OnEvent(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:ActionBarActionButtonDerivedMixin_OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:ActionBarActionButtonDerivedMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:ActionBarActionButtonDerivedMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:ActionBarActionButtonDerivedMixin_OnPostClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:ActionBarActionButtonDerivedMixin_OnReceiveDrag(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:ActionBarActionButtonDerivedMixin_OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:ActionBarButtonMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:ActionBarButtonMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:ActionBarButtonMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:ActionBarButtonMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:BaseActionButtonMixin_OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:BaseActionButtonMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:BaseActionButtonMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:BaseActionButtonMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:BaseActionButtonMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:CalculateAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:CheckNeedsUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:ClearFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:ClearInterruptDisplay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:ClearPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:ClearProfessionQuality(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:ClearReticle(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:ClearTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:ClosePopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:CreateTextureOverlayFrame(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:DesaturateIfDisabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:DoModeChange(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:EvaluateState(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:EvaluateTutorials(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:Flyout_OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:GetActionButtonInfo(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:GetAllowRadialWheel(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:GetArrowRotation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:GetIsPingable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:GetOrCreateTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:GetPagedID(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:GetPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:GetPopupDirection(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:GetShowGrid(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:GetTargetInfo(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:HasAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:HasPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:IsDown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:IsDownOver(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:IsFlashing(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:IsOver(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:IsPopupOpen(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:MatchesActiveButtonSpellID(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:OnActionBarSlotChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:OnButtonStateChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:OnDisable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:OnEnable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:OnEvent(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:OnMouseDown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:OnMouseUp(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:OnPopupHidden(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:OnPopupToggled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:OnReceiveDrag(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:OnUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:PlaySpellCastAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:PlaySpellInterruptedAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:PlayTargettingReticleAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:QuickKeybindButtonOnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:QuickKeybindButtonOnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:QuickKeybindButtonOnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:QuickKeybindButtonOnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:QuickKeybindButtonOnMouseWheel(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:QuickKeybindButtonOnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:QuickKeybindButtonOnUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:QuickKeybindButtonSetTooltip(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:RegisterActionBarButtonCheckFrames(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:SetButtonStateBase(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:SetButtonStateOverride(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:SetDisplacedRegions(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:SetPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:SetPopupDirection(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:SetShowGrid(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:SetTooltip(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:SpellFXEnabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:StartFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:StopFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:StopSpellCastAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:StopTargettingReticleAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:TogglePopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:TriggerSecureClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UnregisterActionBarButtonCheckFrames(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:Update(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdateAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdateArrowPosition(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdateArrowRotation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdateArrowShown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdateArrowTexture(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdateAssistedCombatRotationFrame(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdateBorderShadow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdateButtonArt(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdateCastingAnimation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdateCount(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdateFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdateFlyout(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdateFlyoutPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdateHighlightMark(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdateHotkeys(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdateMouseWheelHandler(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdatePingAttributes(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdatePressAndHoldAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdateProfessionQuality(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdateSpellAlert(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdateSpellHighlightMark(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdateState(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdateTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3Object:UpdateUsable(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton3_ArrowObject : Texture
+---@field origHeight number
+---@field origTexCoords table
+---@field origWidth number
+---@field rotationDegrees number
+local OverrideActionBar_SpellButton3_ArrowObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_AutoCastOverlayObject : Frame
+---@field Corners OverrideActionBar_SpellButton3_AutoCastOverlay_CornersObject
+---@field Mask OverrideActionBar_SpellButton3_AutoCastOverlay_MaskObject
+---@field Shine OverrideActionBar_SpellButton3_AutoCastOverlay_ShineObject
+---@field autoCastEnabled boolean
+local OverrideActionBar_SpellButton3_AutoCastOverlayObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton3_AutoCastOverlayObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3_AutoCastOverlayObject:OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3_AutoCastOverlayObject:ShowAutoCastEnabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3_AutoCastOverlayObject:UpdateShineAnim(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton3_AutoCastOverlay_CornersObject : Texture
+local OverrideActionBar_SpellButton3_AutoCastOverlay_CornersObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_AutoCastOverlay_MaskObject : MaskTexture
+local OverrideActionBar_SpellButton3_AutoCastOverlay_MaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_AutoCastOverlay_ShineObject : Texture
+---@field Anim OverrideActionBar_SpellButton3_AutoCastOverlay_Shine_AnimObject
+local OverrideActionBar_SpellButton3_AutoCastOverlay_ShineObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_AutoCastOverlay_Shine_AnimObject : AnimationGroup
+local OverrideActionBar_SpellButton3_AutoCastOverlay_Shine_AnimObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_BorderObject : Texture
+local OverrideActionBar_SpellButton3_BorderObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_BorderShadowObject : Texture
+local OverrideActionBar_SpellButton3_BorderShadowObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_CheckedTextureObject : Texture
+local OverrideActionBar_SpellButton3_CheckedTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_CooldownFlashObject : Frame
+---@field FlashAnim OverrideActionBar_SpellButton3_CooldownFlash_FlashAnimObject
+---@field Flipbook OverrideActionBar_SpellButton3_CooldownFlash_FlipbookObject
+local OverrideActionBar_SpellButton3_CooldownFlashObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton3_CooldownFlashObject:Setup(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton3_CooldownFlash_FlashAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton3_CooldownFlash_FlashAnimObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton3_CooldownFlash_FlashAnimObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton3_CooldownFlash_FlipbookObject : Texture
+local OverrideActionBar_SpellButton3_CooldownFlash_FlipbookObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_CountObject : FontString
+local OverrideActionBar_SpellButton3_CountObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_FlashObject : Texture
+local OverrideActionBar_SpellButton3_FlashObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_HighlightTextureObject : Texture
+local OverrideActionBar_SpellButton3_HighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_HotKeyObject : FontString
+local OverrideActionBar_SpellButton3_HotKeyObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_IconMaskObject : MaskTexture
+local OverrideActionBar_SpellButton3_IconMaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_InterruptDisplayObject : Frame
+---@field Base OverrideActionBar_SpellButton3_InterruptDisplay_BaseObject
+---@field Highlight OverrideActionBar_SpellButton3_InterruptDisplay_HighlightObject
+local OverrideActionBar_SpellButton3_InterruptDisplayObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton3_InterruptDisplayObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3_InterruptDisplayObject:OnShow(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton3_InterruptDisplay_BaseObject : Frame
+---@field AnimIn OverrideActionBar_SpellButton3_InterruptDisplay_Base_AnimInObject
+---@field Base OverrideActionBar_SpellButton3_InterruptDisplay_Base_BaseObject
+local OverrideActionBar_SpellButton3_InterruptDisplay_BaseObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_InterruptDisplay_Base_AnimInObject : AnimationGroup
+local OverrideActionBar_SpellButton3_InterruptDisplay_Base_AnimInObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton3_InterruptDisplay_Base_AnimInObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton3_InterruptDisplay_Base_BaseObject : Texture
+local OverrideActionBar_SpellButton3_InterruptDisplay_Base_BaseObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_InterruptDisplay_HighlightObject : Frame
+---@field AnimIn OverrideActionBar_SpellButton3_InterruptDisplay_Highlight_AnimInObject
+---@field HighlightTexture OverrideActionBar_SpellButton3_InterruptDisplay_Highlight_HighlightTextureObject
+---@field Mask OverrideActionBar_SpellButton3_InterruptDisplay_Highlight_MaskObject
+local OverrideActionBar_SpellButton3_InterruptDisplay_HighlightObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_InterruptDisplay_Highlight_AnimInObject : AnimationGroup
+---@field Translation OverrideActionBar_SpellButton3_InterruptDisplay_Highlight_AnimIn_TranslationObject
+local OverrideActionBar_SpellButton3_InterruptDisplay_Highlight_AnimInObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_InterruptDisplay_Highlight_AnimIn_TranslationObject : Translation
+local OverrideActionBar_SpellButton3_InterruptDisplay_Highlight_AnimIn_TranslationObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_InterruptDisplay_Highlight_HighlightTextureObject : Texture
+local OverrideActionBar_SpellButton3_InterruptDisplay_Highlight_HighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_InterruptDisplay_Highlight_MaskObject : MaskTexture
+local OverrideActionBar_SpellButton3_InterruptDisplay_Highlight_MaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_LevelLinkLockIconObject : Texture
+local OverrideActionBar_SpellButton3_LevelLinkLockIconObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_NameObject : FontString
+local OverrideActionBar_SpellButton3_NameObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_NewActionTextureObject : Texture
+local OverrideActionBar_SpellButton3_NewActionTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_NormalTextureObject : Texture
+local OverrideActionBar_SpellButton3_NormalTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_PushedTextureObject : Texture
+local OverrideActionBar_SpellButton3_PushedTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_QuickKeybindHighlightTextureObject : Texture
+local OverrideActionBar_SpellButton3_QuickKeybindHighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_SlotArtObject : Texture
+local OverrideActionBar_SpellButton3_SlotArtObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_SlotBackgroundObject : Texture
+local OverrideActionBar_SpellButton3_SlotBackgroundObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_SpellCastAnimFrameObject : Frame
+---@field EndBurst OverrideActionBar_SpellButton3_SpellCastAnimFrame_EndBurstObject
+---@field Fill OverrideActionBar_SpellButton3_SpellCastAnimFrame_FillObject
+local OverrideActionBar_SpellButton3_SpellCastAnimFrameObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton3_SpellCastAnimFrameObject:FinishAnimAndPlayBurst(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3_SpellCastAnimFrameObject:GetCooldownFrameAlpha(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3_SpellCastAnimFrameObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3_SpellCastAnimFrameObject:Setup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton3_SpellCastAnimFrameObject:SetupAnimAtlases(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton3_SpellCastAnimFrame_EndBurstObject : Frame
+---@field EndMask OverrideActionBar_SpellButton3_SpellCastAnimFrame_EndBurst_EndMaskObject
+---@field FinishCastAnim OverrideActionBar_SpellButton3_SpellCastAnimFrame_EndBurst_FinishCastAnimObject
+---@field GlowRing OverrideActionBar_SpellButton3_SpellCastAnimFrame_EndBurst_GlowRingObject
+local OverrideActionBar_SpellButton3_SpellCastAnimFrame_EndBurstObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_SpellCastAnimFrame_EndBurst_EndMaskObject : MaskTexture
+local OverrideActionBar_SpellButton3_SpellCastAnimFrame_EndBurst_EndMaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_SpellCastAnimFrame_EndBurst_FinishCastAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton3_SpellCastAnimFrame_EndBurst_FinishCastAnimObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton3_SpellCastAnimFrame_EndBurst_FinishCastAnimObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton3_SpellCastAnimFrame_EndBurst_GlowRingObject : Texture
+local OverrideActionBar_SpellButton3_SpellCastAnimFrame_EndBurst_GlowRingObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_SpellCastAnimFrame_FillObject : Frame
+---@field CastFill OverrideActionBar_SpellButton3_SpellCastAnimFrame_Fill_CastFillObject
+---@field CastingAnim OverrideActionBar_SpellButton3_SpellCastAnimFrame_Fill_CastingAnimObject
+---@field FillMask OverrideActionBar_SpellButton3_SpellCastAnimFrame_Fill_FillMaskObject
+---@field InnerGlowTexture OverrideActionBar_SpellButton3_SpellCastAnimFrame_Fill_InnerGlowTextureObject
+local OverrideActionBar_SpellButton3_SpellCastAnimFrame_FillObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_SpellCastAnimFrame_Fill_CastFillObject : Texture
+local OverrideActionBar_SpellButton3_SpellCastAnimFrame_Fill_CastFillObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_SpellCastAnimFrame_Fill_CastingAnimObject : AnimationGroup
+---@field CastFillTranslation OverrideActionBar_SpellButton3_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject
+local OverrideActionBar_SpellButton3_SpellCastAnimFrame_Fill_CastingAnimObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton3_SpellCastAnimFrame_Fill_CastingAnimObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton3_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject : Translation
+local OverrideActionBar_SpellButton3_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_SpellCastAnimFrame_Fill_FillMaskObject : MaskTexture
+local OverrideActionBar_SpellButton3_SpellCastAnimFrame_Fill_FillMaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_SpellCastAnimFrame_Fill_InnerGlowTextureObject : Texture
+local OverrideActionBar_SpellButton3_SpellCastAnimFrame_Fill_InnerGlowTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_SpellHighlightAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton3_SpellHighlightAnimObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_SpellHighlightTextureObject : Texture
+local OverrideActionBar_SpellButton3_SpellHighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_TargetReticleAnimFrameObject : Frame
+---@field Base OverrideActionBar_SpellButton3_TargetReticleAnimFrame_BaseObject
+---@field Highlight OverrideActionBar_SpellButton3_TargetReticleAnimFrame_HighlightObject
+---@field HighlightAnim OverrideActionBar_SpellButton3_TargetReticleAnimFrame_HighlightAnimObject
+---@field Mask OverrideActionBar_SpellButton3_TargetReticleAnimFrame_MaskObject
+local OverrideActionBar_SpellButton3_TargetReticleAnimFrameObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton3_TargetReticleAnimFrameObject:Setup(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton3_TargetReticleAnimFrame_BaseObject : Texture
+local OverrideActionBar_SpellButton3_TargetReticleAnimFrame_BaseObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_TargetReticleAnimFrame_HighlightObject : Texture
+local OverrideActionBar_SpellButton3_TargetReticleAnimFrame_HighlightObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_TargetReticleAnimFrame_HighlightAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton3_TargetReticleAnimFrame_HighlightAnimObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_TargetReticleAnimFrame_MaskObject : MaskTexture
+local OverrideActionBar_SpellButton3_TargetReticleAnimFrame_MaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_TextOverlayContainerObject : Frame
+---@field Count OverrideActionBar_SpellButton3_TextOverlayContainer_CountObject
+---@field HotKey OverrideActionBar_SpellButton3_TextOverlayContainer_HotKeyObject
+local OverrideActionBar_SpellButton3_TextOverlayContainerObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton3_TextOverlayContainerObject:OnLoad(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton3_TextOverlayContainer_CountObject
+local OverrideActionBar_SpellButton3_TextOverlayContainer_CountObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_TextOverlayContainer_HotKeyObject
+local OverrideActionBar_SpellButton3_TextOverlayContainer_HotKeyObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_chargeCooldownObject : Cooldown
+local OverrideActionBar_SpellButton3_chargeCooldownObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_cooldownObject : Cooldown
+local OverrideActionBar_SpellButton3_cooldownObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_iconObject : Texture
+local OverrideActionBar_SpellButton3_iconObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton3_lossOfControlCooldownObject : Cooldown
+local OverrideActionBar_SpellButton3_lossOfControlCooldownObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4Object : CheckButton
+---@field Arrow OverrideActionBar_SpellButton4_ArrowObject
+---@field AutoCastOverlay OverrideActionBar_SpellButton4_AutoCastOverlayObject
+---@field Border OverrideActionBar_SpellButton4_BorderObject
+---@field BorderShadow OverrideActionBar_SpellButton4_BorderShadowObject
+---@field CheckedTexture OverrideActionBar_SpellButton4_CheckedTextureObject
+---@field CooldownFlash OverrideActionBar_SpellButton4_CooldownFlashObject
+---@field Count OverrideActionBar_SpellButton4_CountObject
+---@field Flash OverrideActionBar_SpellButton4_FlashObject
+---@field HighlightTexture OverrideActionBar_SpellButton4_HighlightTextureObject
+---@field HotKey OverrideActionBar_SpellButton4_HotKeyObject
+---@field IconMask OverrideActionBar_SpellButton4_IconMaskObject
+---@field InterruptDisplay OverrideActionBar_SpellButton4_InterruptDisplayObject
+---@field LevelLinkLockIcon OverrideActionBar_SpellButton4_LevelLinkLockIconObject
+---@field Name OverrideActionBar_SpellButton4_NameObject
+---@field NewActionTexture OverrideActionBar_SpellButton4_NewActionTextureObject
+---@field NormalTexture OverrideActionBar_SpellButton4_NormalTextureObject
+---@field PushedTexture OverrideActionBar_SpellButton4_PushedTextureObject
+---@field QuickKeybindHighlightTexture OverrideActionBar_SpellButton4_QuickKeybindHighlightTextureObject
+---@field SlotArt OverrideActionBar_SpellButton4_SlotArtObject
+---@field SlotBackground OverrideActionBar_SpellButton4_SlotBackgroundObject
+---@field SpellCastAnimFrame OverrideActionBar_SpellButton4_SpellCastAnimFrameObject
+---@field SpellHighlightAnim OverrideActionBar_SpellButton4_SpellHighlightAnimObject
+---@field SpellHighlightTexture OverrideActionBar_SpellButton4_SpellHighlightTextureObject
+---@field TargetReticleAnimFrame OverrideActionBar_SpellButton4_TargetReticleAnimFrameObject
+---@field TextOverlayContainer OverrideActionBar_SpellButton4_TextOverlayContainerObject
+---@field action number
+---@field arrowCrossAxisSize number
+---@field arrowDownTexture string
+---@field arrowMainAxisSize number
+---@field arrowNormalTexture string
+---@field arrowOverTexture string
+---@field bindingAction string
+---@field chargeCooldown OverrideActionBar_SpellButton4_chargeCooldownObject
+---@field closedArrowOffset number
+---@field commandName string
+---@field cooldown OverrideActionBar_SpellButton4_cooldownObject
+---@field enableLOCCooldown boolean
+---@field enableSpellFX boolean
+---@field feedback_action number
+---@field flashing number
+---@field flashtime number
+---@field hotkeyTextGamepadX number
+---@field hotkeyTextGamepadY number
+---@field hotkeyTextKeyboardX number
+---@field hotkeyTextKeyboardY number
+---@field icon OverrideActionBar_SpellButton4_iconObject
+---@field lossOfControlCooldown OverrideActionBar_SpellButton4_lossOfControlCooldownObject
+---@field openArrowOffset number
+---@field popupCrossAxisSize number
+---@field popupDirection string
+---@field popupOffset number
+local OverrideActionBar_SpellButton4Object = {}
+---@return any ...
+function OverrideActionBar_SpellButton4Object:ActionBarActionButtonDerivedMixin_OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:ActionBarActionButtonDerivedMixin_OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:ActionBarActionButtonDerivedMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:ActionBarActionButtonDerivedMixin_OnDragStop(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:ActionBarActionButtonDerivedMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:ActionBarActionButtonDerivedMixin_OnEvent(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:ActionBarActionButtonDerivedMixin_OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:ActionBarActionButtonDerivedMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:ActionBarActionButtonDerivedMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:ActionBarActionButtonDerivedMixin_OnPostClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:ActionBarActionButtonDerivedMixin_OnReceiveDrag(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:ActionBarActionButtonDerivedMixin_OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:ActionBarButtonMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:ActionBarButtonMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:ActionBarButtonMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:ActionBarButtonMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:BaseActionButtonMixin_OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:BaseActionButtonMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:BaseActionButtonMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:BaseActionButtonMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:BaseActionButtonMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:CalculateAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:CheckNeedsUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:ClearFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:ClearInterruptDisplay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:ClearPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:ClearProfessionQuality(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:ClearReticle(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:ClearTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:ClosePopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:CreateTextureOverlayFrame(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:DesaturateIfDisabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:DoModeChange(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:EvaluateState(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:EvaluateTutorials(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:Flyout_OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:GetActionButtonInfo(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:GetAllowRadialWheel(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:GetArrowRotation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:GetIsPingable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:GetOrCreateTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:GetPagedID(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:GetPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:GetPopupDirection(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:GetShowGrid(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:GetTargetInfo(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:HasAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:HasPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:IsDown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:IsDownOver(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:IsFlashing(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:IsOver(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:IsPopupOpen(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:MatchesActiveButtonSpellID(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:OnActionBarSlotChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:OnButtonStateChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:OnDisable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:OnEnable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:OnEvent(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:OnMouseDown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:OnMouseUp(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:OnPopupHidden(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:OnPopupToggled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:OnReceiveDrag(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:OnUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:PlaySpellCastAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:PlaySpellInterruptedAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:PlayTargettingReticleAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:QuickKeybindButtonOnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:QuickKeybindButtonOnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:QuickKeybindButtonOnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:QuickKeybindButtonOnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:QuickKeybindButtonOnMouseWheel(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:QuickKeybindButtonOnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:QuickKeybindButtonOnUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:QuickKeybindButtonSetTooltip(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:RegisterActionBarButtonCheckFrames(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:SetButtonStateBase(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:SetButtonStateOverride(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:SetDisplacedRegions(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:SetPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:SetPopupDirection(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:SetShowGrid(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:SetTooltip(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:SpellFXEnabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:StartFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:StopFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:StopSpellCastAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:StopTargettingReticleAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:TogglePopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:TriggerSecureClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UnregisterActionBarButtonCheckFrames(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:Update(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdateAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdateArrowPosition(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdateArrowRotation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdateArrowShown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdateArrowTexture(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdateAssistedCombatRotationFrame(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdateBorderShadow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdateButtonArt(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdateCastingAnimation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdateCount(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdateFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdateFlyout(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdateFlyoutPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdateHighlightMark(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdateHotkeys(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdateMouseWheelHandler(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdatePingAttributes(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdatePressAndHoldAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdateProfessionQuality(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdateSpellAlert(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdateSpellHighlightMark(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdateState(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdateTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4Object:UpdateUsable(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton4_ArrowObject : Texture
+---@field origHeight number
+---@field origTexCoords table
+---@field origWidth number
+---@field rotationDegrees number
+local OverrideActionBar_SpellButton4_ArrowObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_AutoCastOverlayObject : Frame
+---@field Corners OverrideActionBar_SpellButton4_AutoCastOverlay_CornersObject
+---@field Mask OverrideActionBar_SpellButton4_AutoCastOverlay_MaskObject
+---@field Shine OverrideActionBar_SpellButton4_AutoCastOverlay_ShineObject
+---@field autoCastEnabled boolean
+local OverrideActionBar_SpellButton4_AutoCastOverlayObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton4_AutoCastOverlayObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4_AutoCastOverlayObject:OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4_AutoCastOverlayObject:ShowAutoCastEnabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4_AutoCastOverlayObject:UpdateShineAnim(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton4_AutoCastOverlay_CornersObject : Texture
+local OverrideActionBar_SpellButton4_AutoCastOverlay_CornersObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_AutoCastOverlay_MaskObject : MaskTexture
+local OverrideActionBar_SpellButton4_AutoCastOverlay_MaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_AutoCastOverlay_ShineObject : Texture
+---@field Anim OverrideActionBar_SpellButton4_AutoCastOverlay_Shine_AnimObject
+local OverrideActionBar_SpellButton4_AutoCastOverlay_ShineObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_AutoCastOverlay_Shine_AnimObject : AnimationGroup
+local OverrideActionBar_SpellButton4_AutoCastOverlay_Shine_AnimObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_BorderObject : Texture
+local OverrideActionBar_SpellButton4_BorderObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_BorderShadowObject : Texture
+local OverrideActionBar_SpellButton4_BorderShadowObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_CheckedTextureObject : Texture
+local OverrideActionBar_SpellButton4_CheckedTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_CooldownFlashObject : Frame
+---@field FlashAnim OverrideActionBar_SpellButton4_CooldownFlash_FlashAnimObject
+---@field Flipbook OverrideActionBar_SpellButton4_CooldownFlash_FlipbookObject
+local OverrideActionBar_SpellButton4_CooldownFlashObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton4_CooldownFlashObject:Setup(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton4_CooldownFlash_FlashAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton4_CooldownFlash_FlashAnimObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton4_CooldownFlash_FlashAnimObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton4_CooldownFlash_FlipbookObject : Texture
+local OverrideActionBar_SpellButton4_CooldownFlash_FlipbookObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_CountObject : FontString
+local OverrideActionBar_SpellButton4_CountObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_FlashObject : Texture
+local OverrideActionBar_SpellButton4_FlashObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_HighlightTextureObject : Texture
+local OverrideActionBar_SpellButton4_HighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_HotKeyObject : FontString
+local OverrideActionBar_SpellButton4_HotKeyObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_IconMaskObject : MaskTexture
+local OverrideActionBar_SpellButton4_IconMaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_InterruptDisplayObject : Frame
+---@field Base OverrideActionBar_SpellButton4_InterruptDisplay_BaseObject
+---@field Highlight OverrideActionBar_SpellButton4_InterruptDisplay_HighlightObject
+local OverrideActionBar_SpellButton4_InterruptDisplayObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton4_InterruptDisplayObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4_InterruptDisplayObject:OnShow(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton4_InterruptDisplay_BaseObject : Frame
+---@field AnimIn OverrideActionBar_SpellButton4_InterruptDisplay_Base_AnimInObject
+---@field Base OverrideActionBar_SpellButton4_InterruptDisplay_Base_BaseObject
+local OverrideActionBar_SpellButton4_InterruptDisplay_BaseObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_InterruptDisplay_Base_AnimInObject : AnimationGroup
+local OverrideActionBar_SpellButton4_InterruptDisplay_Base_AnimInObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton4_InterruptDisplay_Base_AnimInObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton4_InterruptDisplay_Base_BaseObject : Texture
+local OverrideActionBar_SpellButton4_InterruptDisplay_Base_BaseObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_InterruptDisplay_HighlightObject : Frame
+---@field AnimIn OverrideActionBar_SpellButton4_InterruptDisplay_Highlight_AnimInObject
+---@field HighlightTexture OverrideActionBar_SpellButton4_InterruptDisplay_Highlight_HighlightTextureObject
+---@field Mask OverrideActionBar_SpellButton4_InterruptDisplay_Highlight_MaskObject
+local OverrideActionBar_SpellButton4_InterruptDisplay_HighlightObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_InterruptDisplay_Highlight_AnimInObject : AnimationGroup
+---@field Translation OverrideActionBar_SpellButton4_InterruptDisplay_Highlight_AnimIn_TranslationObject
+local OverrideActionBar_SpellButton4_InterruptDisplay_Highlight_AnimInObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_InterruptDisplay_Highlight_AnimIn_TranslationObject : Translation
+local OverrideActionBar_SpellButton4_InterruptDisplay_Highlight_AnimIn_TranslationObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_InterruptDisplay_Highlight_HighlightTextureObject : Texture
+local OverrideActionBar_SpellButton4_InterruptDisplay_Highlight_HighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_InterruptDisplay_Highlight_MaskObject : MaskTexture
+local OverrideActionBar_SpellButton4_InterruptDisplay_Highlight_MaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_LevelLinkLockIconObject : Texture
+local OverrideActionBar_SpellButton4_LevelLinkLockIconObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_NameObject : FontString
+local OverrideActionBar_SpellButton4_NameObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_NewActionTextureObject : Texture
+local OverrideActionBar_SpellButton4_NewActionTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_NormalTextureObject : Texture
+local OverrideActionBar_SpellButton4_NormalTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_PushedTextureObject : Texture
+local OverrideActionBar_SpellButton4_PushedTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_QuickKeybindHighlightTextureObject : Texture
+local OverrideActionBar_SpellButton4_QuickKeybindHighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_SlotArtObject : Texture
+local OverrideActionBar_SpellButton4_SlotArtObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_SlotBackgroundObject : Texture
+local OverrideActionBar_SpellButton4_SlotBackgroundObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_SpellCastAnimFrameObject : Frame
+---@field EndBurst OverrideActionBar_SpellButton4_SpellCastAnimFrame_EndBurstObject
+---@field Fill OverrideActionBar_SpellButton4_SpellCastAnimFrame_FillObject
+local OverrideActionBar_SpellButton4_SpellCastAnimFrameObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton4_SpellCastAnimFrameObject:FinishAnimAndPlayBurst(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4_SpellCastAnimFrameObject:GetCooldownFrameAlpha(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4_SpellCastAnimFrameObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4_SpellCastAnimFrameObject:Setup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton4_SpellCastAnimFrameObject:SetupAnimAtlases(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton4_SpellCastAnimFrame_EndBurstObject : Frame
+---@field EndMask OverrideActionBar_SpellButton4_SpellCastAnimFrame_EndBurst_EndMaskObject
+---@field FinishCastAnim OverrideActionBar_SpellButton4_SpellCastAnimFrame_EndBurst_FinishCastAnimObject
+---@field GlowRing OverrideActionBar_SpellButton4_SpellCastAnimFrame_EndBurst_GlowRingObject
+local OverrideActionBar_SpellButton4_SpellCastAnimFrame_EndBurstObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_SpellCastAnimFrame_EndBurst_EndMaskObject : MaskTexture
+local OverrideActionBar_SpellButton4_SpellCastAnimFrame_EndBurst_EndMaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_SpellCastAnimFrame_EndBurst_FinishCastAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton4_SpellCastAnimFrame_EndBurst_FinishCastAnimObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton4_SpellCastAnimFrame_EndBurst_FinishCastAnimObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton4_SpellCastAnimFrame_EndBurst_GlowRingObject : Texture
+local OverrideActionBar_SpellButton4_SpellCastAnimFrame_EndBurst_GlowRingObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_SpellCastAnimFrame_FillObject : Frame
+---@field CastFill OverrideActionBar_SpellButton4_SpellCastAnimFrame_Fill_CastFillObject
+---@field CastingAnim OverrideActionBar_SpellButton4_SpellCastAnimFrame_Fill_CastingAnimObject
+---@field FillMask OverrideActionBar_SpellButton4_SpellCastAnimFrame_Fill_FillMaskObject
+---@field InnerGlowTexture OverrideActionBar_SpellButton4_SpellCastAnimFrame_Fill_InnerGlowTextureObject
+local OverrideActionBar_SpellButton4_SpellCastAnimFrame_FillObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_SpellCastAnimFrame_Fill_CastFillObject : Texture
+local OverrideActionBar_SpellButton4_SpellCastAnimFrame_Fill_CastFillObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_SpellCastAnimFrame_Fill_CastingAnimObject : AnimationGroup
+---@field CastFillTranslation OverrideActionBar_SpellButton4_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject
+local OverrideActionBar_SpellButton4_SpellCastAnimFrame_Fill_CastingAnimObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton4_SpellCastAnimFrame_Fill_CastingAnimObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton4_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject : Translation
+local OverrideActionBar_SpellButton4_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_SpellCastAnimFrame_Fill_FillMaskObject : MaskTexture
+local OverrideActionBar_SpellButton4_SpellCastAnimFrame_Fill_FillMaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_SpellCastAnimFrame_Fill_InnerGlowTextureObject : Texture
+local OverrideActionBar_SpellButton4_SpellCastAnimFrame_Fill_InnerGlowTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_SpellHighlightAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton4_SpellHighlightAnimObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_SpellHighlightTextureObject : Texture
+local OverrideActionBar_SpellButton4_SpellHighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_TargetReticleAnimFrameObject : Frame
+---@field Base OverrideActionBar_SpellButton4_TargetReticleAnimFrame_BaseObject
+---@field Highlight OverrideActionBar_SpellButton4_TargetReticleAnimFrame_HighlightObject
+---@field HighlightAnim OverrideActionBar_SpellButton4_TargetReticleAnimFrame_HighlightAnimObject
+---@field Mask OverrideActionBar_SpellButton4_TargetReticleAnimFrame_MaskObject
+local OverrideActionBar_SpellButton4_TargetReticleAnimFrameObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton4_TargetReticleAnimFrameObject:Setup(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton4_TargetReticleAnimFrame_BaseObject : Texture
+local OverrideActionBar_SpellButton4_TargetReticleAnimFrame_BaseObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_TargetReticleAnimFrame_HighlightObject : Texture
+local OverrideActionBar_SpellButton4_TargetReticleAnimFrame_HighlightObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_TargetReticleAnimFrame_HighlightAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton4_TargetReticleAnimFrame_HighlightAnimObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_TargetReticleAnimFrame_MaskObject : MaskTexture
+local OverrideActionBar_SpellButton4_TargetReticleAnimFrame_MaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_TextOverlayContainerObject : Frame
+---@field Count OverrideActionBar_SpellButton4_TextOverlayContainer_CountObject
+---@field HotKey OverrideActionBar_SpellButton4_TextOverlayContainer_HotKeyObject
+local OverrideActionBar_SpellButton4_TextOverlayContainerObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton4_TextOverlayContainerObject:OnLoad(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton4_TextOverlayContainer_CountObject
+local OverrideActionBar_SpellButton4_TextOverlayContainer_CountObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_TextOverlayContainer_HotKeyObject
+local OverrideActionBar_SpellButton4_TextOverlayContainer_HotKeyObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_chargeCooldownObject : Cooldown
+local OverrideActionBar_SpellButton4_chargeCooldownObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_cooldownObject : Cooldown
+local OverrideActionBar_SpellButton4_cooldownObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_iconObject : Texture
+local OverrideActionBar_SpellButton4_iconObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton4_lossOfControlCooldownObject : Cooldown
+local OverrideActionBar_SpellButton4_lossOfControlCooldownObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5Object : CheckButton
+---@field Arrow OverrideActionBar_SpellButton5_ArrowObject
+---@field AutoCastOverlay OverrideActionBar_SpellButton5_AutoCastOverlayObject
+---@field Border OverrideActionBar_SpellButton5_BorderObject
+---@field BorderShadow OverrideActionBar_SpellButton5_BorderShadowObject
+---@field CheckedTexture OverrideActionBar_SpellButton5_CheckedTextureObject
+---@field CooldownFlash OverrideActionBar_SpellButton5_CooldownFlashObject
+---@field Count OverrideActionBar_SpellButton5_CountObject
+---@field Flash OverrideActionBar_SpellButton5_FlashObject
+---@field HighlightTexture OverrideActionBar_SpellButton5_HighlightTextureObject
+---@field HotKey OverrideActionBar_SpellButton5_HotKeyObject
+---@field IconMask OverrideActionBar_SpellButton5_IconMaskObject
+---@field InterruptDisplay OverrideActionBar_SpellButton5_InterruptDisplayObject
+---@field LevelLinkLockIcon OverrideActionBar_SpellButton5_LevelLinkLockIconObject
+---@field Name OverrideActionBar_SpellButton5_NameObject
+---@field NewActionTexture OverrideActionBar_SpellButton5_NewActionTextureObject
+---@field NormalTexture OverrideActionBar_SpellButton5_NormalTextureObject
+---@field PushedTexture OverrideActionBar_SpellButton5_PushedTextureObject
+---@field QuickKeybindHighlightTexture OverrideActionBar_SpellButton5_QuickKeybindHighlightTextureObject
+---@field SlotArt OverrideActionBar_SpellButton5_SlotArtObject
+---@field SlotBackground OverrideActionBar_SpellButton5_SlotBackgroundObject
+---@field SpellCastAnimFrame OverrideActionBar_SpellButton5_SpellCastAnimFrameObject
+---@field SpellHighlightAnim OverrideActionBar_SpellButton5_SpellHighlightAnimObject
+---@field SpellHighlightTexture OverrideActionBar_SpellButton5_SpellHighlightTextureObject
+---@field TargetReticleAnimFrame OverrideActionBar_SpellButton5_TargetReticleAnimFrameObject
+---@field TextOverlayContainer OverrideActionBar_SpellButton5_TextOverlayContainerObject
+---@field action number
+---@field arrowCrossAxisSize number
+---@field arrowDownTexture string
+---@field arrowMainAxisSize number
+---@field arrowNormalTexture string
+---@field arrowOverTexture string
+---@field bindingAction string
+---@field chargeCooldown OverrideActionBar_SpellButton5_chargeCooldownObject
+---@field closedArrowOffset number
+---@field commandName string
+---@field cooldown OverrideActionBar_SpellButton5_cooldownObject
+---@field enableLOCCooldown boolean
+---@field enableSpellFX boolean
+---@field feedback_action number
+---@field flashing number
+---@field flashtime number
+---@field hotkeyTextGamepadX number
+---@field hotkeyTextGamepadY number
+---@field hotkeyTextKeyboardX number
+---@field hotkeyTextKeyboardY number
+---@field icon OverrideActionBar_SpellButton5_iconObject
+---@field lossOfControlCooldown OverrideActionBar_SpellButton5_lossOfControlCooldownObject
+---@field openArrowOffset number
+---@field popupCrossAxisSize number
+---@field popupDirection string
+---@field popupOffset number
+local OverrideActionBar_SpellButton5Object = {}
+---@return any ...
+function OverrideActionBar_SpellButton5Object:ActionBarActionButtonDerivedMixin_OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:ActionBarActionButtonDerivedMixin_OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:ActionBarActionButtonDerivedMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:ActionBarActionButtonDerivedMixin_OnDragStop(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:ActionBarActionButtonDerivedMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:ActionBarActionButtonDerivedMixin_OnEvent(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:ActionBarActionButtonDerivedMixin_OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:ActionBarActionButtonDerivedMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:ActionBarActionButtonDerivedMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:ActionBarActionButtonDerivedMixin_OnPostClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:ActionBarActionButtonDerivedMixin_OnReceiveDrag(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:ActionBarActionButtonDerivedMixin_OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:ActionBarButtonMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:ActionBarButtonMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:ActionBarButtonMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:ActionBarButtonMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:BaseActionButtonMixin_OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:BaseActionButtonMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:BaseActionButtonMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:BaseActionButtonMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:BaseActionButtonMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:CalculateAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:CheckNeedsUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:ClearFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:ClearInterruptDisplay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:ClearPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:ClearProfessionQuality(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:ClearReticle(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:ClearTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:ClosePopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:CreateTextureOverlayFrame(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:DesaturateIfDisabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:DoModeChange(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:EvaluateState(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:EvaluateTutorials(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:Flyout_OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:GetActionButtonInfo(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:GetAllowRadialWheel(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:GetArrowRotation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:GetIsPingable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:GetOrCreateTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:GetPagedID(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:GetPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:GetPopupDirection(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:GetShowGrid(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:GetTargetInfo(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:HasAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:HasPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:IsDown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:IsDownOver(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:IsFlashing(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:IsOver(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:IsPopupOpen(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:MatchesActiveButtonSpellID(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:OnActionBarSlotChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:OnButtonStateChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:OnDisable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:OnEnable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:OnEvent(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:OnMouseDown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:OnMouseUp(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:OnPopupHidden(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:OnPopupToggled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:OnReceiveDrag(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:OnUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:PlaySpellCastAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:PlaySpellInterruptedAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:PlayTargettingReticleAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:QuickKeybindButtonOnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:QuickKeybindButtonOnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:QuickKeybindButtonOnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:QuickKeybindButtonOnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:QuickKeybindButtonOnMouseWheel(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:QuickKeybindButtonOnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:QuickKeybindButtonOnUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:QuickKeybindButtonSetTooltip(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:RegisterActionBarButtonCheckFrames(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:SetButtonStateBase(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:SetButtonStateOverride(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:SetDisplacedRegions(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:SetPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:SetPopupDirection(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:SetShowGrid(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:SetTooltip(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:SpellFXEnabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:StartFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:StopFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:StopSpellCastAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:StopTargettingReticleAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:TogglePopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:TriggerSecureClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UnregisterActionBarButtonCheckFrames(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:Update(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdateAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdateArrowPosition(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdateArrowRotation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdateArrowShown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdateArrowTexture(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdateAssistedCombatRotationFrame(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdateBorderShadow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdateButtonArt(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdateCastingAnimation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdateCount(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdateFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdateFlyout(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdateFlyoutPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdateHighlightMark(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdateHotkeys(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdateMouseWheelHandler(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdatePingAttributes(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdatePressAndHoldAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdateProfessionQuality(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdateSpellAlert(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdateSpellHighlightMark(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdateState(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdateTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5Object:UpdateUsable(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton5_ArrowObject : Texture
+---@field origHeight number
+---@field origTexCoords table
+---@field origWidth number
+---@field rotationDegrees number
+local OverrideActionBar_SpellButton5_ArrowObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_AutoCastOverlayObject : Frame
+---@field Corners OverrideActionBar_SpellButton5_AutoCastOverlay_CornersObject
+---@field Mask OverrideActionBar_SpellButton5_AutoCastOverlay_MaskObject
+---@field Shine OverrideActionBar_SpellButton5_AutoCastOverlay_ShineObject
+---@field autoCastEnabled boolean
+local OverrideActionBar_SpellButton5_AutoCastOverlayObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton5_AutoCastOverlayObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5_AutoCastOverlayObject:OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5_AutoCastOverlayObject:ShowAutoCastEnabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5_AutoCastOverlayObject:UpdateShineAnim(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton5_AutoCastOverlay_CornersObject : Texture
+local OverrideActionBar_SpellButton5_AutoCastOverlay_CornersObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_AutoCastOverlay_MaskObject : MaskTexture
+local OverrideActionBar_SpellButton5_AutoCastOverlay_MaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_AutoCastOverlay_ShineObject : Texture
+---@field Anim OverrideActionBar_SpellButton5_AutoCastOverlay_Shine_AnimObject
+local OverrideActionBar_SpellButton5_AutoCastOverlay_ShineObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_AutoCastOverlay_Shine_AnimObject : AnimationGroup
+local OverrideActionBar_SpellButton5_AutoCastOverlay_Shine_AnimObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_BorderObject : Texture
+local OverrideActionBar_SpellButton5_BorderObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_BorderShadowObject : Texture
+local OverrideActionBar_SpellButton5_BorderShadowObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_CheckedTextureObject : Texture
+local OverrideActionBar_SpellButton5_CheckedTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_CooldownFlashObject : Frame
+---@field FlashAnim OverrideActionBar_SpellButton5_CooldownFlash_FlashAnimObject
+---@field Flipbook OverrideActionBar_SpellButton5_CooldownFlash_FlipbookObject
+local OverrideActionBar_SpellButton5_CooldownFlashObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton5_CooldownFlashObject:Setup(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton5_CooldownFlash_FlashAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton5_CooldownFlash_FlashAnimObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton5_CooldownFlash_FlashAnimObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton5_CooldownFlash_FlipbookObject : Texture
+local OverrideActionBar_SpellButton5_CooldownFlash_FlipbookObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_CountObject : FontString
+local OverrideActionBar_SpellButton5_CountObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_FlashObject : Texture
+local OverrideActionBar_SpellButton5_FlashObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_HighlightTextureObject : Texture
+local OverrideActionBar_SpellButton5_HighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_HotKeyObject : FontString
+local OverrideActionBar_SpellButton5_HotKeyObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_IconMaskObject : MaskTexture
+local OverrideActionBar_SpellButton5_IconMaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_InterruptDisplayObject : Frame
+---@field Base OverrideActionBar_SpellButton5_InterruptDisplay_BaseObject
+---@field Highlight OverrideActionBar_SpellButton5_InterruptDisplay_HighlightObject
+local OverrideActionBar_SpellButton5_InterruptDisplayObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton5_InterruptDisplayObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5_InterruptDisplayObject:OnShow(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton5_InterruptDisplay_BaseObject : Frame
+---@field AnimIn OverrideActionBar_SpellButton5_InterruptDisplay_Base_AnimInObject
+---@field Base OverrideActionBar_SpellButton5_InterruptDisplay_Base_BaseObject
+local OverrideActionBar_SpellButton5_InterruptDisplay_BaseObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_InterruptDisplay_Base_AnimInObject : AnimationGroup
+local OverrideActionBar_SpellButton5_InterruptDisplay_Base_AnimInObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton5_InterruptDisplay_Base_AnimInObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton5_InterruptDisplay_Base_BaseObject : Texture
+local OverrideActionBar_SpellButton5_InterruptDisplay_Base_BaseObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_InterruptDisplay_HighlightObject : Frame
+---@field AnimIn OverrideActionBar_SpellButton5_InterruptDisplay_Highlight_AnimInObject
+---@field HighlightTexture OverrideActionBar_SpellButton5_InterruptDisplay_Highlight_HighlightTextureObject
+---@field Mask OverrideActionBar_SpellButton5_InterruptDisplay_Highlight_MaskObject
+local OverrideActionBar_SpellButton5_InterruptDisplay_HighlightObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_InterruptDisplay_Highlight_AnimInObject : AnimationGroup
+---@field Translation OverrideActionBar_SpellButton5_InterruptDisplay_Highlight_AnimIn_TranslationObject
+local OverrideActionBar_SpellButton5_InterruptDisplay_Highlight_AnimInObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_InterruptDisplay_Highlight_AnimIn_TranslationObject : Translation
+local OverrideActionBar_SpellButton5_InterruptDisplay_Highlight_AnimIn_TranslationObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_InterruptDisplay_Highlight_HighlightTextureObject : Texture
+local OverrideActionBar_SpellButton5_InterruptDisplay_Highlight_HighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_InterruptDisplay_Highlight_MaskObject : MaskTexture
+local OverrideActionBar_SpellButton5_InterruptDisplay_Highlight_MaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_LevelLinkLockIconObject : Texture
+local OverrideActionBar_SpellButton5_LevelLinkLockIconObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_NameObject : FontString
+local OverrideActionBar_SpellButton5_NameObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_NewActionTextureObject : Texture
+local OverrideActionBar_SpellButton5_NewActionTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_NormalTextureObject : Texture
+local OverrideActionBar_SpellButton5_NormalTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_PushedTextureObject : Texture
+local OverrideActionBar_SpellButton5_PushedTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_QuickKeybindHighlightTextureObject : Texture
+local OverrideActionBar_SpellButton5_QuickKeybindHighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_SlotArtObject : Texture
+local OverrideActionBar_SpellButton5_SlotArtObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_SlotBackgroundObject : Texture
+local OverrideActionBar_SpellButton5_SlotBackgroundObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_SpellCastAnimFrameObject : Frame
+---@field EndBurst OverrideActionBar_SpellButton5_SpellCastAnimFrame_EndBurstObject
+---@field Fill OverrideActionBar_SpellButton5_SpellCastAnimFrame_FillObject
+local OverrideActionBar_SpellButton5_SpellCastAnimFrameObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton5_SpellCastAnimFrameObject:FinishAnimAndPlayBurst(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5_SpellCastAnimFrameObject:GetCooldownFrameAlpha(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5_SpellCastAnimFrameObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5_SpellCastAnimFrameObject:Setup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton5_SpellCastAnimFrameObject:SetupAnimAtlases(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton5_SpellCastAnimFrame_EndBurstObject : Frame
+---@field EndMask OverrideActionBar_SpellButton5_SpellCastAnimFrame_EndBurst_EndMaskObject
+---@field FinishCastAnim OverrideActionBar_SpellButton5_SpellCastAnimFrame_EndBurst_FinishCastAnimObject
+---@field GlowRing OverrideActionBar_SpellButton5_SpellCastAnimFrame_EndBurst_GlowRingObject
+local OverrideActionBar_SpellButton5_SpellCastAnimFrame_EndBurstObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_SpellCastAnimFrame_EndBurst_EndMaskObject : MaskTexture
+local OverrideActionBar_SpellButton5_SpellCastAnimFrame_EndBurst_EndMaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_SpellCastAnimFrame_EndBurst_FinishCastAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton5_SpellCastAnimFrame_EndBurst_FinishCastAnimObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton5_SpellCastAnimFrame_EndBurst_FinishCastAnimObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton5_SpellCastAnimFrame_EndBurst_GlowRingObject : Texture
+local OverrideActionBar_SpellButton5_SpellCastAnimFrame_EndBurst_GlowRingObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_SpellCastAnimFrame_FillObject : Frame
+---@field CastFill OverrideActionBar_SpellButton5_SpellCastAnimFrame_Fill_CastFillObject
+---@field CastingAnim OverrideActionBar_SpellButton5_SpellCastAnimFrame_Fill_CastingAnimObject
+---@field FillMask OverrideActionBar_SpellButton5_SpellCastAnimFrame_Fill_FillMaskObject
+---@field InnerGlowTexture OverrideActionBar_SpellButton5_SpellCastAnimFrame_Fill_InnerGlowTextureObject
+local OverrideActionBar_SpellButton5_SpellCastAnimFrame_FillObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_SpellCastAnimFrame_Fill_CastFillObject : Texture
+local OverrideActionBar_SpellButton5_SpellCastAnimFrame_Fill_CastFillObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_SpellCastAnimFrame_Fill_CastingAnimObject : AnimationGroup
+---@field CastFillTranslation OverrideActionBar_SpellButton5_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject
+local OverrideActionBar_SpellButton5_SpellCastAnimFrame_Fill_CastingAnimObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton5_SpellCastAnimFrame_Fill_CastingAnimObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton5_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject : Translation
+local OverrideActionBar_SpellButton5_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_SpellCastAnimFrame_Fill_FillMaskObject : MaskTexture
+local OverrideActionBar_SpellButton5_SpellCastAnimFrame_Fill_FillMaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_SpellCastAnimFrame_Fill_InnerGlowTextureObject : Texture
+local OverrideActionBar_SpellButton5_SpellCastAnimFrame_Fill_InnerGlowTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_SpellHighlightAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton5_SpellHighlightAnimObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_SpellHighlightTextureObject : Texture
+local OverrideActionBar_SpellButton5_SpellHighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_TargetReticleAnimFrameObject : Frame
+---@field Base OverrideActionBar_SpellButton5_TargetReticleAnimFrame_BaseObject
+---@field Highlight OverrideActionBar_SpellButton5_TargetReticleAnimFrame_HighlightObject
+---@field HighlightAnim OverrideActionBar_SpellButton5_TargetReticleAnimFrame_HighlightAnimObject
+---@field Mask OverrideActionBar_SpellButton5_TargetReticleAnimFrame_MaskObject
+local OverrideActionBar_SpellButton5_TargetReticleAnimFrameObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton5_TargetReticleAnimFrameObject:Setup(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton5_TargetReticleAnimFrame_BaseObject : Texture
+local OverrideActionBar_SpellButton5_TargetReticleAnimFrame_BaseObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_TargetReticleAnimFrame_HighlightObject : Texture
+local OverrideActionBar_SpellButton5_TargetReticleAnimFrame_HighlightObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_TargetReticleAnimFrame_HighlightAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton5_TargetReticleAnimFrame_HighlightAnimObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_TargetReticleAnimFrame_MaskObject : MaskTexture
+local OverrideActionBar_SpellButton5_TargetReticleAnimFrame_MaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_TextOverlayContainerObject : Frame
+---@field Count OverrideActionBar_SpellButton5_TextOverlayContainer_CountObject
+---@field HotKey OverrideActionBar_SpellButton5_TextOverlayContainer_HotKeyObject
+local OverrideActionBar_SpellButton5_TextOverlayContainerObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton5_TextOverlayContainerObject:OnLoad(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton5_TextOverlayContainer_CountObject
+local OverrideActionBar_SpellButton5_TextOverlayContainer_CountObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_TextOverlayContainer_HotKeyObject
+local OverrideActionBar_SpellButton5_TextOverlayContainer_HotKeyObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_chargeCooldownObject : Cooldown
+local OverrideActionBar_SpellButton5_chargeCooldownObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_cooldownObject : Cooldown
+local OverrideActionBar_SpellButton5_cooldownObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_iconObject : Texture
+local OverrideActionBar_SpellButton5_iconObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton5_lossOfControlCooldownObject : Cooldown
+local OverrideActionBar_SpellButton5_lossOfControlCooldownObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6Object : CheckButton
+---@field Arrow OverrideActionBar_SpellButton6_ArrowObject
+---@field AutoCastOverlay OverrideActionBar_SpellButton6_AutoCastOverlayObject
+---@field Border OverrideActionBar_SpellButton6_BorderObject
+---@field BorderShadow OverrideActionBar_SpellButton6_BorderShadowObject
+---@field CheckedTexture OverrideActionBar_SpellButton6_CheckedTextureObject
+---@field CooldownFlash OverrideActionBar_SpellButton6_CooldownFlashObject
+---@field Count OverrideActionBar_SpellButton6_CountObject
+---@field Flash OverrideActionBar_SpellButton6_FlashObject
+---@field HighlightTexture OverrideActionBar_SpellButton6_HighlightTextureObject
+---@field HotKey OverrideActionBar_SpellButton6_HotKeyObject
+---@field IconMask OverrideActionBar_SpellButton6_IconMaskObject
+---@field InterruptDisplay OverrideActionBar_SpellButton6_InterruptDisplayObject
+---@field LevelLinkLockIcon OverrideActionBar_SpellButton6_LevelLinkLockIconObject
+---@field Name OverrideActionBar_SpellButton6_NameObject
+---@field NewActionTexture OverrideActionBar_SpellButton6_NewActionTextureObject
+---@field NormalTexture OverrideActionBar_SpellButton6_NormalTextureObject
+---@field PushedTexture OverrideActionBar_SpellButton6_PushedTextureObject
+---@field QuickKeybindHighlightTexture OverrideActionBar_SpellButton6_QuickKeybindHighlightTextureObject
+---@field SlotArt OverrideActionBar_SpellButton6_SlotArtObject
+---@field SlotBackground OverrideActionBar_SpellButton6_SlotBackgroundObject
+---@field SpellCastAnimFrame OverrideActionBar_SpellButton6_SpellCastAnimFrameObject
+---@field SpellHighlightAnim OverrideActionBar_SpellButton6_SpellHighlightAnimObject
+---@field SpellHighlightTexture OverrideActionBar_SpellButton6_SpellHighlightTextureObject
+---@field TargetReticleAnimFrame OverrideActionBar_SpellButton6_TargetReticleAnimFrameObject
+---@field TextOverlayContainer OverrideActionBar_SpellButton6_TextOverlayContainerObject
+---@field action number
+---@field arrowCrossAxisSize number
+---@field arrowDownTexture string
+---@field arrowMainAxisSize number
+---@field arrowNormalTexture string
+---@field arrowOverTexture string
+---@field bindingAction string
+---@field chargeCooldown OverrideActionBar_SpellButton6_chargeCooldownObject
+---@field closedArrowOffset number
+---@field commandName string
+---@field cooldown OverrideActionBar_SpellButton6_cooldownObject
+---@field enableLOCCooldown boolean
+---@field enableSpellFX boolean
+---@field feedback_action number
+---@field flashing number
+---@field flashtime number
+---@field hotkeyTextGamepadX number
+---@field hotkeyTextGamepadY number
+---@field hotkeyTextKeyboardX number
+---@field hotkeyTextKeyboardY number
+---@field icon OverrideActionBar_SpellButton6_iconObject
+---@field lossOfControlCooldown OverrideActionBar_SpellButton6_lossOfControlCooldownObject
+---@field openArrowOffset number
+---@field popupCrossAxisSize number
+---@field popupDirection string
+---@field popupOffset number
+local OverrideActionBar_SpellButton6Object = {}
+---@return any ...
+function OverrideActionBar_SpellButton6Object:ActionBarActionButtonDerivedMixin_OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:ActionBarActionButtonDerivedMixin_OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:ActionBarActionButtonDerivedMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:ActionBarActionButtonDerivedMixin_OnDragStop(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:ActionBarActionButtonDerivedMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:ActionBarActionButtonDerivedMixin_OnEvent(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:ActionBarActionButtonDerivedMixin_OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:ActionBarActionButtonDerivedMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:ActionBarActionButtonDerivedMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:ActionBarActionButtonDerivedMixin_OnPostClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:ActionBarActionButtonDerivedMixin_OnReceiveDrag(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:ActionBarActionButtonDerivedMixin_OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:ActionBarButtonMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:ActionBarButtonMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:ActionBarButtonMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:ActionBarButtonMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:BaseActionButtonMixin_OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:BaseActionButtonMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:BaseActionButtonMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:BaseActionButtonMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:BaseActionButtonMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:CalculateAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:CheckNeedsUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:ClearFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:ClearInterruptDisplay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:ClearPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:ClearProfessionQuality(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:ClearReticle(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:ClearTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:ClosePopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:CreateTextureOverlayFrame(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:DesaturateIfDisabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:DoModeChange(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:EvaluateState(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:EvaluateTutorials(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:Flyout_OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:GetActionButtonInfo(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:GetAllowRadialWheel(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:GetArrowRotation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:GetIsPingable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:GetOrCreateTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:GetPagedID(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:GetPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:GetPopupDirection(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:GetShowGrid(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:GetTargetInfo(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:HasAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:HasPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:IsDown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:IsDownOver(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:IsFlashing(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:IsOver(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:IsPopupOpen(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:MatchesActiveButtonSpellID(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:OnActionBarSlotChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:OnButtonStateChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:OnDisable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:OnEnable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:OnEvent(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:OnMouseDown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:OnMouseUp(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:OnPopupHidden(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:OnPopupToggled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:OnReceiveDrag(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:OnUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:PlaySpellCastAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:PlaySpellInterruptedAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:PlayTargettingReticleAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:QuickKeybindButtonOnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:QuickKeybindButtonOnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:QuickKeybindButtonOnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:QuickKeybindButtonOnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:QuickKeybindButtonOnMouseWheel(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:QuickKeybindButtonOnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:QuickKeybindButtonOnUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:QuickKeybindButtonSetTooltip(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:RegisterActionBarButtonCheckFrames(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:SetButtonStateBase(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:SetButtonStateOverride(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:SetDisplacedRegions(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:SetPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:SetPopupDirection(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:SetShowGrid(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:SetTooltip(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:SpellFXEnabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:StartFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:StopFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:StopSpellCastAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:StopTargettingReticleAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:TogglePopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:TriggerSecureClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UnregisterActionBarButtonCheckFrames(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:Update(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdateAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdateArrowPosition(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdateArrowRotation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdateArrowShown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdateArrowTexture(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdateAssistedCombatRotationFrame(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdateBorderShadow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdateButtonArt(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdateCastingAnimation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdateCount(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdateFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdateFlyout(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdateFlyoutPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdateHighlightMark(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdateHotkeys(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdateMouseWheelHandler(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdatePingAttributes(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdatePressAndHoldAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdateProfessionQuality(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdateSpellAlert(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdateSpellHighlightMark(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdateState(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdateTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6Object:UpdateUsable(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton6_ArrowObject : Texture
+---@field origHeight number
+---@field origTexCoords table
+---@field origWidth number
+---@field rotationDegrees number
+local OverrideActionBar_SpellButton6_ArrowObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_AutoCastOverlayObject : Frame
+---@field Corners OverrideActionBar_SpellButton6_AutoCastOverlay_CornersObject
+---@field Mask OverrideActionBar_SpellButton6_AutoCastOverlay_MaskObject
+---@field Shine OverrideActionBar_SpellButton6_AutoCastOverlay_ShineObject
+---@field autoCastEnabled boolean
+local OverrideActionBar_SpellButton6_AutoCastOverlayObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton6_AutoCastOverlayObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6_AutoCastOverlayObject:OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6_AutoCastOverlayObject:ShowAutoCastEnabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6_AutoCastOverlayObject:UpdateShineAnim(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton6_AutoCastOverlay_CornersObject : Texture
+local OverrideActionBar_SpellButton6_AutoCastOverlay_CornersObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_AutoCastOverlay_MaskObject : MaskTexture
+local OverrideActionBar_SpellButton6_AutoCastOverlay_MaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_AutoCastOverlay_ShineObject : Texture
+---@field Anim OverrideActionBar_SpellButton6_AutoCastOverlay_Shine_AnimObject
+local OverrideActionBar_SpellButton6_AutoCastOverlay_ShineObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_AutoCastOverlay_Shine_AnimObject : AnimationGroup
+local OverrideActionBar_SpellButton6_AutoCastOverlay_Shine_AnimObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_BorderObject : Texture
+local OverrideActionBar_SpellButton6_BorderObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_BorderShadowObject : Texture
+local OverrideActionBar_SpellButton6_BorderShadowObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_CheckedTextureObject : Texture
+local OverrideActionBar_SpellButton6_CheckedTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_CooldownFlashObject : Frame
+---@field FlashAnim OverrideActionBar_SpellButton6_CooldownFlash_FlashAnimObject
+---@field Flipbook OverrideActionBar_SpellButton6_CooldownFlash_FlipbookObject
+local OverrideActionBar_SpellButton6_CooldownFlashObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton6_CooldownFlashObject:Setup(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton6_CooldownFlash_FlashAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton6_CooldownFlash_FlashAnimObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton6_CooldownFlash_FlashAnimObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton6_CooldownFlash_FlipbookObject : Texture
+local OverrideActionBar_SpellButton6_CooldownFlash_FlipbookObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_CountObject : FontString
+local OverrideActionBar_SpellButton6_CountObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_FlashObject : Texture
+local OverrideActionBar_SpellButton6_FlashObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_HighlightTextureObject : Texture
+local OverrideActionBar_SpellButton6_HighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_HotKeyObject : FontString
+local OverrideActionBar_SpellButton6_HotKeyObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_IconMaskObject : MaskTexture
+local OverrideActionBar_SpellButton6_IconMaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_InterruptDisplayObject : Frame
+---@field Base OverrideActionBar_SpellButton6_InterruptDisplay_BaseObject
+---@field Highlight OverrideActionBar_SpellButton6_InterruptDisplay_HighlightObject
+local OverrideActionBar_SpellButton6_InterruptDisplayObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton6_InterruptDisplayObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6_InterruptDisplayObject:OnShow(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton6_InterruptDisplay_BaseObject : Frame
+---@field AnimIn OverrideActionBar_SpellButton6_InterruptDisplay_Base_AnimInObject
+---@field Base OverrideActionBar_SpellButton6_InterruptDisplay_Base_BaseObject
+local OverrideActionBar_SpellButton6_InterruptDisplay_BaseObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_InterruptDisplay_Base_AnimInObject : AnimationGroup
+local OverrideActionBar_SpellButton6_InterruptDisplay_Base_AnimInObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton6_InterruptDisplay_Base_AnimInObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton6_InterruptDisplay_Base_BaseObject : Texture
+local OverrideActionBar_SpellButton6_InterruptDisplay_Base_BaseObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_InterruptDisplay_HighlightObject : Frame
+---@field AnimIn OverrideActionBar_SpellButton6_InterruptDisplay_Highlight_AnimInObject
+---@field HighlightTexture OverrideActionBar_SpellButton6_InterruptDisplay_Highlight_HighlightTextureObject
+---@field Mask OverrideActionBar_SpellButton6_InterruptDisplay_Highlight_MaskObject
+local OverrideActionBar_SpellButton6_InterruptDisplay_HighlightObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_InterruptDisplay_Highlight_AnimInObject : AnimationGroup
+---@field Translation OverrideActionBar_SpellButton6_InterruptDisplay_Highlight_AnimIn_TranslationObject
+local OverrideActionBar_SpellButton6_InterruptDisplay_Highlight_AnimInObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_InterruptDisplay_Highlight_AnimIn_TranslationObject : Translation
+local OverrideActionBar_SpellButton6_InterruptDisplay_Highlight_AnimIn_TranslationObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_InterruptDisplay_Highlight_HighlightTextureObject : Texture
+local OverrideActionBar_SpellButton6_InterruptDisplay_Highlight_HighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_InterruptDisplay_Highlight_MaskObject : MaskTexture
+local OverrideActionBar_SpellButton6_InterruptDisplay_Highlight_MaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_LevelLinkLockIconObject : Texture
+local OverrideActionBar_SpellButton6_LevelLinkLockIconObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_NameObject : FontString
+local OverrideActionBar_SpellButton6_NameObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_NewActionTextureObject : Texture
+local OverrideActionBar_SpellButton6_NewActionTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_NormalTextureObject : Texture
+local OverrideActionBar_SpellButton6_NormalTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_PushedTextureObject : Texture
+local OverrideActionBar_SpellButton6_PushedTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_QuickKeybindHighlightTextureObject : Texture
+local OverrideActionBar_SpellButton6_QuickKeybindHighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_SlotArtObject : Texture
+local OverrideActionBar_SpellButton6_SlotArtObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_SlotBackgroundObject : Texture
+local OverrideActionBar_SpellButton6_SlotBackgroundObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_SpellCastAnimFrameObject : Frame
+---@field EndBurst OverrideActionBar_SpellButton6_SpellCastAnimFrame_EndBurstObject
+---@field Fill OverrideActionBar_SpellButton6_SpellCastAnimFrame_FillObject
+local OverrideActionBar_SpellButton6_SpellCastAnimFrameObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton6_SpellCastAnimFrameObject:FinishAnimAndPlayBurst(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6_SpellCastAnimFrameObject:GetCooldownFrameAlpha(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6_SpellCastAnimFrameObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6_SpellCastAnimFrameObject:Setup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton6_SpellCastAnimFrameObject:SetupAnimAtlases(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton6_SpellCastAnimFrame_EndBurstObject : Frame
+---@field EndMask OverrideActionBar_SpellButton6_SpellCastAnimFrame_EndBurst_EndMaskObject
+---@field FinishCastAnim OverrideActionBar_SpellButton6_SpellCastAnimFrame_EndBurst_FinishCastAnimObject
+---@field GlowRing OverrideActionBar_SpellButton6_SpellCastAnimFrame_EndBurst_GlowRingObject
+local OverrideActionBar_SpellButton6_SpellCastAnimFrame_EndBurstObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_SpellCastAnimFrame_EndBurst_EndMaskObject : MaskTexture
+local OverrideActionBar_SpellButton6_SpellCastAnimFrame_EndBurst_EndMaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_SpellCastAnimFrame_EndBurst_FinishCastAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton6_SpellCastAnimFrame_EndBurst_FinishCastAnimObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton6_SpellCastAnimFrame_EndBurst_FinishCastAnimObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton6_SpellCastAnimFrame_EndBurst_GlowRingObject : Texture
+local OverrideActionBar_SpellButton6_SpellCastAnimFrame_EndBurst_GlowRingObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_SpellCastAnimFrame_FillObject : Frame
+---@field CastFill OverrideActionBar_SpellButton6_SpellCastAnimFrame_Fill_CastFillObject
+---@field CastingAnim OverrideActionBar_SpellButton6_SpellCastAnimFrame_Fill_CastingAnimObject
+---@field FillMask OverrideActionBar_SpellButton6_SpellCastAnimFrame_Fill_FillMaskObject
+---@field InnerGlowTexture OverrideActionBar_SpellButton6_SpellCastAnimFrame_Fill_InnerGlowTextureObject
+local OverrideActionBar_SpellButton6_SpellCastAnimFrame_FillObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_SpellCastAnimFrame_Fill_CastFillObject : Texture
+local OverrideActionBar_SpellButton6_SpellCastAnimFrame_Fill_CastFillObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_SpellCastAnimFrame_Fill_CastingAnimObject : AnimationGroup
+---@field CastFillTranslation OverrideActionBar_SpellButton6_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject
+local OverrideActionBar_SpellButton6_SpellCastAnimFrame_Fill_CastingAnimObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton6_SpellCastAnimFrame_Fill_CastingAnimObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton6_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject : Translation
+local OverrideActionBar_SpellButton6_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_SpellCastAnimFrame_Fill_FillMaskObject : MaskTexture
+local OverrideActionBar_SpellButton6_SpellCastAnimFrame_Fill_FillMaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_SpellCastAnimFrame_Fill_InnerGlowTextureObject : Texture
+local OverrideActionBar_SpellButton6_SpellCastAnimFrame_Fill_InnerGlowTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_SpellHighlightAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton6_SpellHighlightAnimObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_SpellHighlightTextureObject : Texture
+local OverrideActionBar_SpellButton6_SpellHighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_TargetReticleAnimFrameObject : Frame
+---@field Base OverrideActionBar_SpellButton6_TargetReticleAnimFrame_BaseObject
+---@field Highlight OverrideActionBar_SpellButton6_TargetReticleAnimFrame_HighlightObject
+---@field HighlightAnim OverrideActionBar_SpellButton6_TargetReticleAnimFrame_HighlightAnimObject
+---@field Mask OverrideActionBar_SpellButton6_TargetReticleAnimFrame_MaskObject
+local OverrideActionBar_SpellButton6_TargetReticleAnimFrameObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton6_TargetReticleAnimFrameObject:Setup(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton6_TargetReticleAnimFrame_BaseObject : Texture
+local OverrideActionBar_SpellButton6_TargetReticleAnimFrame_BaseObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_TargetReticleAnimFrame_HighlightObject : Texture
+local OverrideActionBar_SpellButton6_TargetReticleAnimFrame_HighlightObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_TargetReticleAnimFrame_HighlightAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton6_TargetReticleAnimFrame_HighlightAnimObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_TargetReticleAnimFrame_MaskObject : MaskTexture
+local OverrideActionBar_SpellButton6_TargetReticleAnimFrame_MaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_TextOverlayContainerObject : Frame
+---@field Count OverrideActionBar_SpellButton6_TextOverlayContainer_CountObject
+---@field HotKey OverrideActionBar_SpellButton6_TextOverlayContainer_HotKeyObject
+local OverrideActionBar_SpellButton6_TextOverlayContainerObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton6_TextOverlayContainerObject:OnLoad(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton6_TextOverlayContainer_CountObject
+local OverrideActionBar_SpellButton6_TextOverlayContainer_CountObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_TextOverlayContainer_HotKeyObject
+local OverrideActionBar_SpellButton6_TextOverlayContainer_HotKeyObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_chargeCooldownObject : Cooldown
+local OverrideActionBar_SpellButton6_chargeCooldownObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_cooldownObject : Cooldown
+local OverrideActionBar_SpellButton6_cooldownObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_iconObject : Texture
+local OverrideActionBar_SpellButton6_iconObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton6_lossOfControlCooldownObject : Cooldown
+local OverrideActionBar_SpellButton6_lossOfControlCooldownObject = {}
+end
+
+do
+---@class OverrideActionBar__BGObject : Texture
+local OverrideActionBar__BGObject = {}
+end
+
+do
+---@class OverrideActionBar__BorderObject : Texture
+local OverrideActionBar__BorderObject = {}
+end
+
+do
+---@class OverrideActionBar__ButtonBGMidObject : Texture
+local OverrideActionBar__ButtonBGMidObject = {}
+end
+
+do
+---@class OverrideActionBar__MicroBGMidObject : Texture
+local OverrideActionBar__MicroBGMidObject = {}
+end
+
+do
+---@class OverrideActionBar_healthBarObject : StatusBar
+---@field HealthBarBG OverrideActionBar_healthBar_HealthBarBGObject
+---@field HealthBarOverlay OverrideActionBar_healthBar_HealthBarOverlayObject
+---@field TextString OverrideActionBar_healthBar_TextStringObject
+---@field alwaysShow boolean
+---@field controlsShownState boolean
+---@field currValue number
+---@field cvar string
+---@field cvarLabel string
+---@field disconnected boolean
+---@field forceHideText boolean
+---@field frequentUpdates boolean
+---@field ignoreNoUnit boolean
+---@field lockShow number
+---@field prefix string
+---@field showPercentage boolean
+---@field text OverrideActionBar_healthBar_textObject
+---@field textLockable number
+---@field tooltipAnchorPoint string
+---@field unit string
+---@field unitFrame OverrideActionBar_healthBar_unitFrameObject
+local OverrideActionBar_healthBarObject = {}
+---@return any ...
+function OverrideActionBar_healthBarObject:GetNumericDisplay(...) end
+---@return any ...
+function OverrideActionBar_healthBarObject:HideStatusBarText(...) end
+---@return any ...
+function OverrideActionBar_healthBarObject:InitializeTextStatusBar(...) end
+---@return any ...
+function OverrideActionBar_healthBarObject:OnStatusBarEnter(...) end
+---@return any ...
+function OverrideActionBar_healthBarObject:OnStatusBarLeave(...) end
+---@return any ...
+function OverrideActionBar_healthBarObject:OnStatusBarMinMaxChanged(...) end
+---@return any ...
+function OverrideActionBar_healthBarObject:OnStatusBarValueChanged(...) end
+---@return any ...
+function OverrideActionBar_healthBarObject:SetBarText(...) end
+---@return any ...
+function OverrideActionBar_healthBarObject:SetBarTextPrefix(...) end
+---@return any ...
+function OverrideActionBar_healthBarObject:SetBarTextZeroText(...) end
+---@return any ...
+function OverrideActionBar_healthBarObject:SetForceShow(...) end
+---@return any ...
+function OverrideActionBar_healthBarObject:ShowStatusBarText(...) end
+---@return any ...
+function OverrideActionBar_healthBarObject:TextStatusBarOnEvent(...) end
+---@return any ...
+function OverrideActionBar_healthBarObject:UpdateTextString(...) end
+---@return any ...
+function OverrideActionBar_healthBarObject:UpdateTextStringWithValues(...) end
+end
+
+do
+---@class OverrideActionBar_healthBar_HealthBarBGObject
+local OverrideActionBar_healthBar_HealthBarBGObject = {}
+end
+
+do
+---@class OverrideActionBar_healthBar_HealthBarOverlayObject
+local OverrideActionBar_healthBar_HealthBarOverlayObject = {}
+end
+
+do
+---@class OverrideActionBar_healthBar_TextStringObject : FontString
+local OverrideActionBar_healthBar_TextStringObject = {}
+end
+
+do
+---@class OverrideActionBar_healthBar_textObject
+local OverrideActionBar_healthBar_textObject = {}
+end
+
+do
+---@class OverrideActionBar_healthBar_unitFrameObject
+local OverrideActionBar_healthBar_unitFrameObject = {}
+end
+
+do
+---@class OverrideActionBar_leaveFrameObject : Frame
+---@field Divider3 OverrideActionBar_leaveFrame_Divider3Object
+---@field ExitBG OverrideActionBar_leaveFrame_ExitBGObject
+---@field LeaveButton OverrideActionBar_leaveFrame_LeaveButtonObject
+local OverrideActionBar_leaveFrameObject = {}
+end
+
+do
+---@class OverrideActionBar_leaveFrame_Divider3Object : Texture
+local OverrideActionBar_leaveFrame_Divider3Object = {}
+end
+
+do
+---@class OverrideActionBar_leaveFrame_ExitBGObject : Texture
+local OverrideActionBar_leaveFrame_ExitBGObject = {}
+end
+
+do
+---@class OverrideActionBar_leaveFrame_LeaveButtonObject : Button
+local OverrideActionBar_leaveFrame_LeaveButtonObject = {}
+end
+
+do
+---@class OverrideActionBar_pitchFrameObject : Frame
+---@field Divider1 OverrideActionBar_pitchFrame_Divider1Object
+---@field PitchBG OverrideActionBar_pitchFrame_PitchBGObject
+---@field PitchButtonBG OverrideActionBar_pitchFrame_PitchButtonBGObject
+---@field PitchDownButton OverrideActionBar_pitchFrame_PitchDownButtonObject
+---@field PitchMarker OverrideActionBar_pitchFrame_PitchMarkerObject
+---@field PitchOverlay OverrideActionBar_pitchFrame_PitchOverlayObject
+---@field PitchUpButton OverrideActionBar_pitchFrame_PitchUpButtonObject
+local OverrideActionBar_pitchFrameObject = {}
+end
+
+do
+---@class OverrideActionBar_pitchFrame_Divider1Object
+local OverrideActionBar_pitchFrame_Divider1Object = {}
+end
+
+do
+---@class OverrideActionBar_pitchFrame_PitchBGObject
+local OverrideActionBar_pitchFrame_PitchBGObject = {}
+end
+
+do
+---@class OverrideActionBar_pitchFrame_PitchButtonBGObject
+local OverrideActionBar_pitchFrame_PitchButtonBGObject = {}
+end
+
+do
+---@class OverrideActionBar_pitchFrame_PitchDownButtonObject
+local OverrideActionBar_pitchFrame_PitchDownButtonObject = {}
+end
+
+do
+---@class OverrideActionBar_pitchFrame_PitchMarkerObject
+local OverrideActionBar_pitchFrame_PitchMarkerObject = {}
+end
+
+do
+---@class OverrideActionBar_pitchFrame_PitchOverlayObject
+local OverrideActionBar_pitchFrame_PitchOverlayObject = {}
+end
+
+do
+---@class OverrideActionBar_pitchFrame_PitchUpButtonObject : Button
+local OverrideActionBar_pitchFrame_PitchUpButtonObject = {}
+end
+
+do
+---@class OverrideActionBar_powerBarObject : StatusBar
+---@field PowerBarBG OverrideActionBar_powerBar_PowerBarBGObject
+---@field PowerBarOverlay OverrideActionBar_powerBar_PowerBarOverlayObject
+---@field alwaysShow boolean
+---@field controlsShownState boolean
+---@field currValue number
+---@field cvar string
+---@field cvarLabel string
+---@field disconnected boolean
+---@field frequentUpdates boolean
+---@field ignoreNoUnit boolean
+---@field lockShow number
+---@field parentKey OverrideActionBar_powerBar_parentKeyObject
+---@field showPercentage boolean
+---@field textLockable number
+---@field texture OverrideActionBar_powerBar_textureObject
+---@field tooltipAnchorPoint string
+---@field unit string
+---@field unitFrame OverrideActionBar_powerBar_unitFrameObject
+local OverrideActionBar_powerBarObject = {}
+---@return any ...
+function OverrideActionBar_powerBarObject:GetNumericDisplay(...) end
+---@return any ...
+function OverrideActionBar_powerBarObject:HideStatusBarText(...) end
+---@return any ...
+function OverrideActionBar_powerBarObject:InitializeTextStatusBar(...) end
+---@return any ...
+function OverrideActionBar_powerBarObject:OnStatusBarEnter(...) end
+---@return any ...
+function OverrideActionBar_powerBarObject:OnStatusBarLeave(...) end
+---@return any ...
+function OverrideActionBar_powerBarObject:OnStatusBarMinMaxChanged(...) end
+---@return any ...
+function OverrideActionBar_powerBarObject:OnStatusBarValueChanged(...) end
+---@return any ...
+function OverrideActionBar_powerBarObject:SetBarText(...) end
+---@return any ...
+function OverrideActionBar_powerBarObject:SetBarTextPrefix(...) end
+---@return any ...
+function OverrideActionBar_powerBarObject:SetBarTextZeroText(...) end
+---@return any ...
+function OverrideActionBar_powerBarObject:SetForceShow(...) end
+---@return any ...
+function OverrideActionBar_powerBarObject:ShowStatusBarText(...) end
+---@return any ...
+function OverrideActionBar_powerBarObject:TextStatusBarOnEvent(...) end
+---@return any ...
+function OverrideActionBar_powerBarObject:UpdateTextString(...) end
+---@return any ...
+function OverrideActionBar_powerBarObject:UpdateTextStringWithValues(...) end
+end
+
+do
+---@class OverrideActionBar_powerBar_PowerBarBGObject : Texture
+local OverrideActionBar_powerBar_PowerBarBGObject = {}
+end
+
+do
+---@class OverrideActionBar_powerBar_PowerBarOverlayObject : Texture
+local OverrideActionBar_powerBar_PowerBarOverlayObject = {}
+end
+
+do
+---@class OverrideActionBar_powerBar_parentKeyObject : FontString
+local OverrideActionBar_powerBar_parentKeyObject = {}
+end
+
+do
+---@class OverrideActionBar_powerBar_textureObject : Texture
+local OverrideActionBar_powerBar_textureObject = {}
+end
+
+do
+---@class OverrideActionBar_powerBar_unitFrameObject
+local OverrideActionBar_powerBar_unitFrameObject = {}
+end
+
+do
+---@class OverrideActionBar_slideOutObject : AnimationGroup
+local OverrideActionBar_slideOutObject = {}
+end
+
+do
+---@class OverrideActionBar_xpBarObject : StatusBar
+---@field TextString OverrideActionBar_xpBar_TextStringObject
+---@field XpDiv1 OverrideActionBar_xpBar_XpDiv1Object
+---@field XpDiv10 OverrideActionBar_xpBar_XpDiv10Object
+---@field XpDiv11 OverrideActionBar_xpBar_XpDiv11Object
+---@field XpDiv12 OverrideActionBar_xpBar_XpDiv12Object
+---@field XpDiv13 OverrideActionBar_xpBar_XpDiv13Object
+---@field XpDiv14 OverrideActionBar_xpBar_XpDiv14Object
+---@field XpDiv15 OverrideActionBar_xpBar_XpDiv15Object
+---@field XpDiv16 OverrideActionBar_xpBar_XpDiv16Object
+---@field XpDiv17 OverrideActionBar_xpBar_XpDiv17Object
+---@field XpDiv18 OverrideActionBar_xpBar_XpDiv18Object
+---@field XpDiv19 OverrideActionBar_xpBar_XpDiv19Object
+---@field XpDiv2 OverrideActionBar_xpBar_XpDiv2Object
+---@field XpDiv3 OverrideActionBar_xpBar_XpDiv3Object
+---@field XpDiv4 OverrideActionBar_xpBar_XpDiv4Object
+---@field XpDiv5 OverrideActionBar_xpBar_XpDiv5Object
+---@field XpDiv6 OverrideActionBar_xpBar_XpDiv6Object
+---@field XpDiv7 OverrideActionBar_xpBar_XpDiv7Object
+---@field XpDiv8 OverrideActionBar_xpBar_XpDiv8Object
+---@field XpDiv9 OverrideActionBar_xpBar_XpDiv9Object
+---@field XpL OverrideActionBar_xpBar_XpLObject
+---@field XpMid OverrideActionBar_xpBar_XpMidObject
+---@field XpR OverrideActionBar_xpBar_XpRObject
+---@field alwaysPrefix boolean
+---@field controlsShownState boolean
+---@field cvar string
+---@field cvarLabel string
+---@field lockShow number
+---@field prefix string
+---@field textLockable number
+local OverrideActionBar_xpBarObject = {}
+---@return any ...
+function OverrideActionBar_xpBarObject:GetNumericDisplay(...) end
+---@return any ...
+function OverrideActionBar_xpBarObject:HideStatusBarText(...) end
+---@return any ...
+function OverrideActionBar_xpBarObject:InitializeTextStatusBar(...) end
+---@return any ...
+function OverrideActionBar_xpBarObject:OnStatusBarEnter(...) end
+---@return any ...
+function OverrideActionBar_xpBarObject:OnStatusBarLeave(...) end
+---@return any ...
+function OverrideActionBar_xpBarObject:OnStatusBarMinMaxChanged(...) end
+---@return any ...
+function OverrideActionBar_xpBarObject:OnStatusBarValueChanged(...) end
+---@return any ...
+function OverrideActionBar_xpBarObject:SetBarText(...) end
+---@return any ...
+function OverrideActionBar_xpBarObject:SetBarTextPrefix(...) end
+---@return any ...
+function OverrideActionBar_xpBarObject:SetBarTextZeroText(...) end
+---@return any ...
+function OverrideActionBar_xpBarObject:SetForceShow(...) end
+---@return any ...
+function OverrideActionBar_xpBarObject:ShowStatusBarText(...) end
+---@return any ...
+function OverrideActionBar_xpBarObject:TextStatusBarOnEvent(...) end
+---@return any ...
+function OverrideActionBar_xpBarObject:UpdateTextString(...) end
+---@return any ...
+function OverrideActionBar_xpBarObject:UpdateTextStringWithValues(...) end
+end
+
+do
+---@class OverrideActionBar_xpBar_TextStringObject : FontString
+local OverrideActionBar_xpBar_TextStringObject = {}
+end
+
+do
+---@class OverrideActionBar_xpBar_XpDiv1Object : Texture
+local OverrideActionBar_xpBar_XpDiv1Object = {}
+end
+
+do
+---@class OverrideActionBar_xpBar_XpDiv10Object : Texture
+local OverrideActionBar_xpBar_XpDiv10Object = {}
+end
+
+do
+---@class OverrideActionBar_xpBar_XpDiv11Object : Texture
+local OverrideActionBar_xpBar_XpDiv11Object = {}
+end
+
+do
+---@class OverrideActionBar_xpBar_XpDiv12Object : Texture
+local OverrideActionBar_xpBar_XpDiv12Object = {}
+end
+
+do
+---@class OverrideActionBar_xpBar_XpDiv13Object : Texture
+local OverrideActionBar_xpBar_XpDiv13Object = {}
+end
+
+do
+---@class OverrideActionBar_xpBar_XpDiv14Object : Texture
+local OverrideActionBar_xpBar_XpDiv14Object = {}
+end
+
+do
+---@class OverrideActionBar_xpBar_XpDiv15Object : Texture
+local OverrideActionBar_xpBar_XpDiv15Object = {}
+end
+
+do
+---@class OverrideActionBar_xpBar_XpDiv16Object : Texture
+local OverrideActionBar_xpBar_XpDiv16Object = {}
+end
+
+do
+---@class OverrideActionBar_xpBar_XpDiv17Object : Texture
+local OverrideActionBar_xpBar_XpDiv17Object = {}
+end
+
+do
+---@class OverrideActionBar_xpBar_XpDiv18Object : Texture
+local OverrideActionBar_xpBar_XpDiv18Object = {}
+end
+
+do
+---@class OverrideActionBar_xpBar_XpDiv19Object : Texture
+local OverrideActionBar_xpBar_XpDiv19Object = {}
+end
+
+do
+---@class OverrideActionBar_xpBar_XpDiv2Object : Texture
+local OverrideActionBar_xpBar_XpDiv2Object = {}
+end
+
+do
+---@class OverrideActionBar_xpBar_XpDiv3Object : Texture
+local OverrideActionBar_xpBar_XpDiv3Object = {}
+end
+
+do
+---@class OverrideActionBar_xpBar_XpDiv4Object : Texture
+local OverrideActionBar_xpBar_XpDiv4Object = {}
+end
+
+do
+---@class OverrideActionBar_xpBar_XpDiv5Object : Texture
+local OverrideActionBar_xpBar_XpDiv5Object = {}
+end
+
+do
+---@class OverrideActionBar_xpBar_XpDiv6Object : Texture
+local OverrideActionBar_xpBar_XpDiv6Object = {}
+end
+
+do
+---@class OverrideActionBar_xpBar_XpDiv7Object : Texture
+local OverrideActionBar_xpBar_XpDiv7Object = {}
+end
+
+do
+---@class OverrideActionBar_xpBar_XpDiv8Object : Texture
+local OverrideActionBar_xpBar_XpDiv8Object = {}
+end
+
+do
+---@class OverrideActionBar_xpBar_XpDiv9Object : Texture
+local OverrideActionBar_xpBar_XpDiv9Object = {}
+end
+
+do
+---@class OverrideActionBar_xpBar_XpLObject : Texture
+local OverrideActionBar_xpBar_XpLObject = {}
+end
+
+do
+---@class OverrideActionBar_xpBar_XpMidObject : Texture
+local OverrideActionBar_xpBar_XpMidObject = {}
+end
+
+do
+---@class OverrideActionBar_xpBar_XpRObject : Texture
+local OverrideActionBar_xpBar_XpRObject = {}
+end
+
+do
+---@class PVPFramePopupObject : Frame
+---@field Border PVPFramePopup_BorderObject
+---@field minimizeButton PVPFramePopup_minimizeButtonObject
+---@field ringIcon PVPFramePopup_ringIconObject
+---@field timer PVPFramePopup_timerObject
+---@field title PVPFramePopup_titleObject
+local PVPFramePopupObject = {}
+---@type PVPFramePopupObject
+PVPFramePopup = PVPFramePopupObject
+end
+
+do
+---@class PVPFramePopup_BorderObject : Frame
+---@field Bg PVPFramePopup_Border_BgObject
+---@field BottomEdge PVPFramePopup_Border_BottomEdgeObject
+---@field BottomLeftCorner PVPFramePopup_Border_BottomLeftCornerObject
+---@field BottomRightCorner PVPFramePopup_Border_BottomRightCornerObject
+---@field LeftEdge PVPFramePopup_Border_LeftEdgeObject
+---@field RightEdge PVPFramePopup_Border_RightEdgeObject
+---@field TopEdge PVPFramePopup_Border_TopEdgeObject
+---@field TopLeftCorner PVPFramePopup_Border_TopLeftCornerObject
+---@field TopRightCorner PVPFramePopup_Border_TopRightCornerObject
+---@field layoutType string
+local PVPFramePopup_BorderObject = {}
+---@return any ...
+function PVPFramePopup_BorderObject:GetBorderColor(...) end
+---@return any ...
+function PVPFramePopup_BorderObject:GetCenterColor(...) end
+---@return any ...
+function PVPFramePopup_BorderObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function PVPFramePopup_BorderObject:GetFrameLayoutType(...) end
+---@return any ...
+function PVPFramePopup_BorderObject:OnLoad(...) end
+---@return any ...
+function PVPFramePopup_BorderObject:SetBlendMode(...) end
+---@return any ...
+function PVPFramePopup_BorderObject:SetBorderBlendMode(...) end
+---@return any ...
+function PVPFramePopup_BorderObject:SetBorderColor(...) end
+---@return any ...
+function PVPFramePopup_BorderObject:SetCenterColor(...) end
+---@return any ...
+function PVPFramePopup_BorderObject:SetVertexColor(...) end
+end
+
+do
+---@class PVPFramePopup_Border_BgObject : Texture
+local PVPFramePopup_Border_BgObject = {}
+end
+
+do
+---@class PVPFramePopup_Border_BottomEdgeObject : Texture
+local PVPFramePopup_Border_BottomEdgeObject = {}
+end
+
+do
+---@class PVPFramePopup_Border_BottomLeftCornerObject : Texture
+local PVPFramePopup_Border_BottomLeftCornerObject = {}
+end
+
+do
+---@class PVPFramePopup_Border_BottomRightCornerObject : Texture
+local PVPFramePopup_Border_BottomRightCornerObject = {}
+end
+
+do
+---@class PVPFramePopup_Border_LeftEdgeObject : Texture
+local PVPFramePopup_Border_LeftEdgeObject = {}
+end
+
+do
+---@class PVPFramePopup_Border_RightEdgeObject : Texture
+local PVPFramePopup_Border_RightEdgeObject = {}
+end
+
+do
+---@class PVPFramePopup_Border_TopEdgeObject : Texture
+local PVPFramePopup_Border_TopEdgeObject = {}
+end
+
+do
+---@class PVPFramePopup_Border_TopLeftCornerObject : Texture
+local PVPFramePopup_Border_TopLeftCornerObject = {}
+end
+
+do
+---@class PVPFramePopup_Border_TopRightCornerObject : Texture
+local PVPFramePopup_Border_TopRightCornerObject = {}
+end
+
+do
+---@class PVPFramePopup_minimizeButtonObject : Button
+local PVPFramePopup_minimizeButtonObject = {}
+end
+
+do
+---@class PVPFramePopup_ringIconObject : Texture
+local PVPFramePopup_ringIconObject = {}
+end
+
+do
+---@class PVPFramePopup_timerObject : FontString
+local PVPFramePopup_timerObject = {}
+end
+
+do
+---@class PVPFramePopup_titleObject : FontString
+local PVPFramePopup_titleObject = {}
+end
+
+do
+---@class PVPMatchResultsObject : Frame
+---@field CloseButton PVPMatchResults_CloseButtonObject
+---@field HeaderContainer PVPMatchResults_HeaderContainerObject
+---@field NineSlice PVPMatchResults_NineSliceObject
+---@field Tabs table
+---@field buttonContainer PVPMatchResults_buttonContainerObject
+---@field content PVPMatchResults_contentObject
+---@field header PVPMatchResults_headerObject
+---@field leaveButton PVPMatchResults_leaveButtonObject
+---@field numTabs number
+---@field scrollBar PVPMatchResults_scrollBarObject
+---@field scrollBox PVPMatchResults_scrollBoxObject
+---@field scrollCategories PVPMatchResults_scrollCategoriesObject
+---@field selectedTab number
+---@field tab1 PVPMatchResults_tab1Object
+---@field tab2 PVPMatchResults_tab2Object
+---@field tab3 PVPMatchResults_tab3Object
+---@field tabGroup PVPMatchResults_tabGroupObject
+---@field tableBuilder PVPMatchResults_tableBuilderObject
+local PVPMatchResultsObject = {}
+---@return any ...
+function PVPMatchResultsObject:AddItemReward(...) end
+---@return any ...
+function PVPMatchResultsObject:BeginShow(...) end
+---@return any ...
+function PVPMatchResultsObject:DisplayRewards(...) end
+---@return any ...
+function PVPMatchResultsObject:HaveConquestData(...) end
+---@return any ...
+function PVPMatchResultsObject:Init(...) end
+---@return any ...
+function PVPMatchResultsObject:InitConquestFrame(...) end
+---@return any ...
+function PVPMatchResultsObject:InitHonorFrame(...) end
+---@return any ...
+function PVPMatchResultsObject:InitRatingFrame(...) end
+---@return any ...
+function PVPMatchResultsObject:OnEvent(...) end
+---@return any ...
+function PVPMatchResultsObject:OnHide(...) end
+---@return any ...
+function PVPMatchResultsObject:OnLeaveButtonClicked(...) end
+---@return any ...
+function PVPMatchResultsObject:OnLoad(...) end
+---@return any ...
+function PVPMatchResultsObject:OnShow(...) end
+---@return any ...
+function PVPMatchResultsObject:OnTabGroupClicked(...) end
+---@return any ...
+function PVPMatchResultsObject:OnUpdate(...) end
+---@return any ...
+function PVPMatchResultsObject:Shutdown(...) end
+---@type PVPMatchResultsObject
+PVPMatchResults = PVPMatchResultsObject
+end
+
+do
+---@class PVPMatchResults_CloseButtonObject : Button
+local PVPMatchResults_CloseButtonObject = {}
+---@return any ...
+function PVPMatchResults_CloseButtonObject:NarrationGetName(...) end
+---@return any ...
+function PVPMatchResults_CloseButtonObject:OnLoad(...) end
+end
+
+do
+---@class PVPMatchResults_HeaderContainerObject : Frame
+---@field Text PVPMatchResults_HeaderContainer_TextObject
+local PVPMatchResults_HeaderContainerObject = {}
+end
+
+do
+---@class PVPMatchResults_HeaderContainer_TextObject : FontString
+local PVPMatchResults_HeaderContainer_TextObject = {}
+end
+
+do
+---@class PVPMatchResults_NineSliceObject : Frame
+---@field BottomEdge PVPMatchResults_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner PVPMatchResults_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner PVPMatchResults_NineSlice_BottomRightCornerObject
+---@field Center PVPMatchResults_NineSlice_CenterObject
+---@field LeftEdge PVPMatchResults_NineSlice_LeftEdgeObject
+---@field RightEdge PVPMatchResults_NineSlice_RightEdgeObject
+---@field TopEdge PVPMatchResults_NineSlice_TopEdgeObject
+---@field TopLeftCorner PVPMatchResults_NineSlice_TopLeftCornerObject
+---@field TopRightCorner PVPMatchResults_NineSlice_TopRightCornerObject
+---@field layoutType string
+local PVPMatchResults_NineSliceObject = {}
+---@return any ...
+function PVPMatchResults_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function PVPMatchResults_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function PVPMatchResults_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function PVPMatchResults_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function PVPMatchResults_NineSliceObject:OnLoad(...) end
+---@return any ...
+function PVPMatchResults_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function PVPMatchResults_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function PVPMatchResults_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function PVPMatchResults_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function PVPMatchResults_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class PVPMatchResults_NineSlice_BottomEdgeObject : Texture
+local PVPMatchResults_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class PVPMatchResults_NineSlice_BottomLeftCornerObject : Texture
+local PVPMatchResults_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class PVPMatchResults_NineSlice_BottomRightCornerObject : Texture
+local PVPMatchResults_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class PVPMatchResults_NineSlice_CenterObject : Texture
+local PVPMatchResults_NineSlice_CenterObject = {}
+end
+
+do
+---@class PVPMatchResults_NineSlice_LeftEdgeObject : Texture
+local PVPMatchResults_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class PVPMatchResults_NineSlice_RightEdgeObject : Texture
+local PVPMatchResults_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class PVPMatchResults_NineSlice_TopEdgeObject : Texture
+local PVPMatchResults_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class PVPMatchResults_NineSlice_TopLeftCornerObject : Texture
+local PVPMatchResults_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class PVPMatchResults_NineSlice_TopRightCornerObject : Texture
+local PVPMatchResults_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class PVPMatchResults_buttonContainerObject : Frame
+---@field leaveButton PVPMatchResults_buttonContainer_leaveButtonObject
+local PVPMatchResults_buttonContainerObject = {}
+end
+
+do
+---@class PVPMatchResults_buttonContainer_leaveButtonObject
+local PVPMatchResults_buttonContainer_leaveButtonObject = {}
+end
+
+do
+---@class PVPMatchResults_contentObject : Frame
+---@field scrollBar PVPMatchResults_content_scrollBarObject
+---@field scrollBox PVPMatchResults_content_scrollBoxObject
+---@field scrollCategories PVPMatchResults_content_scrollCategoriesObject
+---@field tabContainer PVPMatchResults_content_tabContainerObject
+local PVPMatchResults_contentObject = {}
+end
+
+do
+---@class PVPMatchResults_content_scrollBarObject : Frame
+---@field Back PVPMatchResults_content_scrollBar_BackObject
+---@field Defaults PVPMatchResults_content_scrollBar_DefaultsObject
+---@field Directions PVPMatchResults_content_scrollBar_DirectionsObject
+---@field Event PVPMatchResults_content_scrollBar_EventObject
+---@field Forward PVPMatchResults_content_scrollBar_ForwardObject
+---@field Track PVPMatchResults_content_scrollBar_TrackObject
 ---@field allowScroll boolean
 ---@field callbackTables table
 ---@field canInterpolateScroll boolean
@@ -2516,13 +9235,13 @@ do
 ---@field executingEvents table
 ---@field hideTrack boolean
 ---@field hideTrackIfThumbExceedsTrack boolean
----@field interpolator WorldMapFrame_QuestLog_EventsFrame_ScrollBar_interpolatorObject
+---@field interpolator PVPMatchResults_content_scrollBar_interpolatorObject
 ---@field isScrollController boolean
 ---@field minThumbExtent number
 ---@field panDelay number
 ---@field panExtentPercentage number
 ---@field panRepeatTime number
----@field registeredScrollBox WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject
+---@field registeredScrollBox PVPMatchResults_content_scrollBar_registeredScrollBoxObject
 ---@field scrollPercentage number
 ---@field smartNavigationIgnored boolean
 ---@field snapToInterval boolean
@@ -2530,179 +9249,179 @@ do
 ---@field useProportionalThumb boolean
 ---@field visibleExtentPercentage number
 ---@field wheelPanScalar number
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject = {}
+local PVPMatchResults_content_scrollBarObject = {}
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:CallInternalScope(...) end
+function PVPMatchResults_content_scrollBarObject:CallInternalScope(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:CanCursorStepInDirection(...) end
+function PVPMatchResults_content_scrollBarObject:CanCursorStepInDirection(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:CanInterpolateScroll(...) end
+function PVPMatchResults_content_scrollBarObject:CanInterpolateScroll(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:CopyDeferredCallbacks(...) end
+function PVPMatchResults_content_scrollBarObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:DisableControls(...) end
+function PVPMatchResults_content_scrollBarObject:DisableControls(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:DoesFrameHaveEvent(...) end
+function PVPMatchResults_content_scrollBarObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:EnableInternalPriority(...) end
+function PVPMatchResults_content_scrollBarObject:EnableInternalPriority(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:EnableSnapToInterval(...) end
+function PVPMatchResults_content_scrollBarObject:EnableSnapToInterval(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GenerateCallbackEvents(...) end
+function PVPMatchResults_content_scrollBarObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetBackStepper(...) end
+function PVPMatchResults_content_scrollBarObject:GetBackStepper(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetCallbackTable(...) end
+function PVPMatchResults_content_scrollBarObject:GetCallbackTable(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetCallbackTables(...) end
+function PVPMatchResults_content_scrollBarObject:GetCallbackTables(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetCallbacksByEvent(...) end
+function PVPMatchResults_content_scrollBarObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetForwardStepper(...) end
+function PVPMatchResults_content_scrollBarObject:GetForwardStepper(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetFrameExtent(...) end
+function PVPMatchResults_content_scrollBarObject:GetFrameExtent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetIntervalRange(...) end
+function PVPMatchResults_content_scrollBarObject:GetIntervalRange(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetLower(...) end
+function PVPMatchResults_content_scrollBarObject:GetLower(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+function PVPMatchResults_content_scrollBarObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetPanExtentPercentage(...) end
+function PVPMatchResults_content_scrollBarObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetPanRepeatDelay(...) end
+function PVPMatchResults_content_scrollBarObject:GetPanRepeatDelay(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetPanRepeatTime(...) end
+function PVPMatchResults_content_scrollBarObject:GetPanRepeatTime(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetScrollInterpolator(...) end
+function PVPMatchResults_content_scrollBarObject:GetScrollInterpolator(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetScrollPercentage(...) end
+function PVPMatchResults_content_scrollBarObject:GetScrollPercentage(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetThumb(...) end
+function PVPMatchResults_content_scrollBarObject:GetThumb(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetThumbAnchor(...) end
+function PVPMatchResults_content_scrollBarObject:GetThumbAnchor(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetTrack(...) end
+function PVPMatchResults_content_scrollBarObject:GetTrack(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetTrackExtent(...) end
+function PVPMatchResults_content_scrollBarObject:GetTrackExtent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetUpper(...) end
+function PVPMatchResults_content_scrollBarObject:GetUpper(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetVisibleExtentPercentage(...) end
+function PVPMatchResults_content_scrollBarObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetWheelPanPercentage(...) end
+function PVPMatchResults_content_scrollBarObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:HasRegistrantsForEvent(...) end
+function PVPMatchResults_content_scrollBarObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:HasScrollableExtent(...) end
+function PVPMatchResults_content_scrollBarObject:HasScrollableExtent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:Init(...) end
+function PVPMatchResults_content_scrollBarObject:Init(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:InitializeNarration(...) end
+function PVPMatchResults_content_scrollBarObject:InitializeNarration(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:Interpolate(...) end
+function PVPMatchResults_content_scrollBarObject:Interpolate(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:IsAtBegin(...) end
+function PVPMatchResults_content_scrollBarObject:IsAtBegin(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:IsAtEnd(...) end
+function PVPMatchResults_content_scrollBarObject:IsAtEnd(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:IsHorizontal(...) end
+function PVPMatchResults_content_scrollBarObject:IsHorizontal(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:IsScrollAllowed(...) end
+function PVPMatchResults_content_scrollBarObject:IsScrollAllowed(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:IsThumbMouseDown(...) end
+function PVPMatchResults_content_scrollBarObject:IsThumbMouseDown(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnHide_Intrinsic(...) end
+function PVPMatchResults_content_scrollBarObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnLoad(...) end
+function PVPMatchResults_content_scrollBarObject:OnLoad(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnLoad_Intrinsic(...) end
+function PVPMatchResults_content_scrollBarObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnMouseWheel(...) end
+function PVPMatchResults_content_scrollBarObject:OnMouseWheel(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnShow_Intrinsic(...) end
+function PVPMatchResults_content_scrollBarObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+function PVPMatchResults_content_scrollBarObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnStepperMouseDown(...) end
+function PVPMatchResults_content_scrollBarObject:OnStepperMouseDown(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnThumbMouseDown(...) end
+function PVPMatchResults_content_scrollBarObject:OnThumbMouseDown(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnTrackMouseDown(...) end
+function PVPMatchResults_content_scrollBarObject:OnTrackMouseDown(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+function PVPMatchResults_content_scrollBarObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:RegisterCallback(...) end
+function PVPMatchResults_content_scrollBarObject:RegisterCallback(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:RegisterCallbackWithHandle(...) end
+function PVPMatchResults_content_scrollBarObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollDecrease(...) end
+function PVPMatchResults_content_scrollBarObject:ScrollDecrease(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollInDirection(...) end
+function PVPMatchResults_content_scrollBarObject:ScrollInDirection(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollIncrease(...) end
+function PVPMatchResults_content_scrollBarObject:ScrollIncrease(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollPageInDirection(...) end
+function PVPMatchResults_content_scrollBarObject:ScrollPageInDirection(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollStepInDirection(...) end
+function PVPMatchResults_content_scrollBarObject:ScrollStepInDirection(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollToBegin(...) end
+function PVPMatchResults_content_scrollBarObject:ScrollToBegin(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollToEnd(...) end
+function PVPMatchResults_content_scrollBarObject:ScrollToEnd(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollWheelInDirection(...) end
+function PVPMatchResults_content_scrollBarObject:ScrollWheelInDirection(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SecureInsertEvent(...) end
+function PVPMatchResults_content_scrollBarObject:SecureInsertEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SelectCursorComponent(...) end
+function PVPMatchResults_content_scrollBarObject:SelectCursorComponent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SelectPointComponent(...) end
+function PVPMatchResults_content_scrollBarObject:SelectPointComponent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetFrameExtent(...) end
+function PVPMatchResults_content_scrollBarObject:SetFrameExtent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetHideIfUnscrollable(...) end
+function PVPMatchResults_content_scrollBarObject:SetHideIfUnscrollable(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+function PVPMatchResults_content_scrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetHorizontal(...) end
+function PVPMatchResults_content_scrollBarObject:SetHorizontal(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetInterpolateScroll(...) end
+function PVPMatchResults_content_scrollBarObject:SetInterpolateScroll(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetPanExtentPercentage(...) end
+function PVPMatchResults_content_scrollBarObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetScrollAllowed(...) end
+function PVPMatchResults_content_scrollBarObject:SetScrollAllowed(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetScrollPercentage(...) end
+function PVPMatchResults_content_scrollBarObject:SetScrollPercentage(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetScrollPercentageInternal(...) end
+function PVPMatchResults_content_scrollBarObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetThumbExtent(...) end
+function PVPMatchResults_content_scrollBarObject:SetThumbExtent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+function PVPMatchResults_content_scrollBarObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetVisibleExtentPercentage(...) end
+function PVPMatchResults_content_scrollBarObject:SetVisibleExtentPercentage(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:TriggerEvent(...) end
+function PVPMatchResults_content_scrollBarObject:TriggerEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:UnregisterCallback(...) end
+function PVPMatchResults_content_scrollBarObject:UnregisterCallback(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:UnregisterEvents(...) end
+function PVPMatchResults_content_scrollBarObject:UnregisterEvents(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:UnregisterEventsByEventTable(...) end
+function PVPMatchResults_content_scrollBarObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:UnregisterUpdate(...) end
+function PVPMatchResults_content_scrollBarObject:UnregisterUpdate(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:Update(...) end
+function PVPMatchResults_content_scrollBarObject:Update(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:onButtonMouseUp(...) end
+function PVPMatchResults_content_scrollBarObject:onButtonMouseUp(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:scrollInternal(...) end
+function PVPMatchResults_content_scrollBarObject:scrollInternal(...) end
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject : Button
----@field Event WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Back_EventObject
----@field Texture WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Back_TextureObject
+---@class PVPMatchResults_content_scrollBar_BackObject : Button
+---@field Event PVPMatchResults_content_scrollBar_Back_EventObject
+---@field Texture PVPMatchResults_content_scrollBar_Back_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -2716,118 +9435,118 @@ do
 ---@field mouseDownSoundKitID number
 ---@field normalTexture string
 ---@field overTexture string
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject = {}
+local PVPMatchResults_content_scrollBar_BackObject = {}
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+function PVPMatchResults_content_scrollBar_BackObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+function PVPMatchResults_content_scrollBar_BackObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+function PVPMatchResults_content_scrollBar_BackObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+function PVPMatchResults_content_scrollBar_BackObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:GetAtlas(...) end
+function PVPMatchResults_content_scrollBar_BackObject:GetAtlas(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:GetCallbackTable(...) end
+function PVPMatchResults_content_scrollBar_BackObject:GetCallbackTable(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:GetCallbackTables(...) end
+function PVPMatchResults_content_scrollBar_BackObject:GetCallbackTables(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+function PVPMatchResults_content_scrollBar_BackObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+function PVPMatchResults_content_scrollBar_BackObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+function PVPMatchResults_content_scrollBar_BackObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:IsDown(...) end
+function PVPMatchResults_content_scrollBar_BackObject:IsDown(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:IsDownOver(...) end
+function PVPMatchResults_content_scrollBar_BackObject:IsDownOver(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:IsOver(...) end
+function PVPMatchResults_content_scrollBar_BackObject:IsOver(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:NarrationGetName(...) end
+function PVPMatchResults_content_scrollBar_BackObject:NarrationGetName(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:OnButtonStateChanged(...) end
+function PVPMatchResults_content_scrollBar_BackObject:OnButtonStateChanged(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+function PVPMatchResults_content_scrollBar_BackObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:OnDisable(...) end
+function PVPMatchResults_content_scrollBar_BackObject:OnDisable(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:OnEnable(...) end
+function PVPMatchResults_content_scrollBar_BackObject:OnEnable(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:OnEnter(...) end
+function PVPMatchResults_content_scrollBar_BackObject:OnEnter(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+function PVPMatchResults_content_scrollBar_BackObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:OnLeave(...) end
+function PVPMatchResults_content_scrollBar_BackObject:OnLeave(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+function PVPMatchResults_content_scrollBar_BackObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:OnLoad(...) end
+function PVPMatchResults_content_scrollBar_BackObject:OnLoad(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+function PVPMatchResults_content_scrollBar_BackObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:OnMouseDown(...) end
+function PVPMatchResults_content_scrollBar_BackObject:OnMouseDown(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+function PVPMatchResults_content_scrollBar_BackObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:OnMouseUp(...) end
+function PVPMatchResults_content_scrollBar_BackObject:OnMouseUp(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+function PVPMatchResults_content_scrollBar_BackObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:OnShow(...) end
+function PVPMatchResults_content_scrollBar_BackObject:OnShow(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+function PVPMatchResults_content_scrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+function PVPMatchResults_content_scrollBar_BackObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:RegisterCallback(...) end
+function PVPMatchResults_content_scrollBar_BackObject:RegisterCallback(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+function PVPMatchResults_content_scrollBar_BackObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:SecureInsertEvent(...) end
+function PVPMatchResults_content_scrollBar_BackObject:SecureInsertEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:SetDisplacedRegions(...) end
+function PVPMatchResults_content_scrollBar_BackObject:SetDisplacedRegions(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+function PVPMatchResults_content_scrollBar_BackObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:TriggerEvent(...) end
+function PVPMatchResults_content_scrollBar_BackObject:TriggerEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:UnregisterCallback(...) end
+function PVPMatchResults_content_scrollBar_BackObject:UnregisterCallback(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:UnregisterEvents(...) end
+function PVPMatchResults_content_scrollBar_BackObject:UnregisterEvents(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+function PVPMatchResults_content_scrollBar_BackObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Back_EventObject
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Back_EventObject = {}
+---@class PVPMatchResults_content_scrollBar_Back_EventObject
+local PVPMatchResults_content_scrollBar_Back_EventObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Back_TextureObject : Texture
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Back_TextureObject = {}
+---@class PVPMatchResults_content_scrollBar_Back_TextureObject : Texture
+local PVPMatchResults_content_scrollBar_Back_TextureObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_DefaultsObject
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_DefaultsObject = {}
+---@class PVPMatchResults_content_scrollBar_DefaultsObject
+local PVPMatchResults_content_scrollBar_DefaultsObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_DirectionsObject
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_DirectionsObject = {}
+---@class PVPMatchResults_content_scrollBar_DirectionsObject
+local PVPMatchResults_content_scrollBar_DirectionsObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_EventObject
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_EventObject = {}
+---@class PVPMatchResults_content_scrollBar_EventObject
+local PVPMatchResults_content_scrollBar_EventObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject : Button
----@field Event WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Forward_EventObject
----@field Texture WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Forward_TextureObject
+---@class PVPMatchResults_content_scrollBar_ForwardObject : Button
+---@field Event PVPMatchResults_content_scrollBar_Forward_EventObject
+---@field Texture PVPMatchResults_content_scrollBar_Forward_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -2841,129 +9560,129 @@ do
 ---@field mouseDownSoundKitID number
 ---@field normalTexture string
 ---@field overTexture string
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject = {}
+local PVPMatchResults_content_scrollBar_ForwardObject = {}
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:GetAtlas(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:GetAtlas(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:GetCallbackTable(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:GetCallbackTable(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:GetCallbackTables(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:GetCallbackTables(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:IsDown(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:IsDown(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:IsDownOver(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:IsDownOver(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:IsOver(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:IsOver(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:NarrationGetName(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:NarrationGetName(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:OnButtonStateChanged(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:OnDisable(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:OnDisable(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:OnEnable(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:OnEnable(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:OnEnter(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:OnEnter(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:OnLeave(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:OnLeave(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:OnLoad(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:OnLoad(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:OnMouseDown(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:OnMouseDown(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:OnMouseUp(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:OnMouseUp(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:OnShow(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:OnShow(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:RegisterCallback(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:RegisterCallback(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:SecureInsertEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:SetDisplacedRegions(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:TriggerEvent(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:TriggerEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:UnregisterCallback(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:UnregisterCallback(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:UnregisterEvents(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:UnregisterEvents(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+function PVPMatchResults_content_scrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Forward_EventObject
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Forward_EventObject = {}
+---@class PVPMatchResults_content_scrollBar_Forward_EventObject
+local PVPMatchResults_content_scrollBar_Forward_EventObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Forward_TextureObject : Texture
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Forward_TextureObject = {}
+---@class PVPMatchResults_content_scrollBar_Forward_TextureObject : Texture
+local PVPMatchResults_content_scrollBar_Forward_TextureObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_TrackObject : Frame
----@field Begin WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_BeginObject
----@field End WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_EndObject
----@field Middle WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_MiddleObject
----@field Thumb WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_TrackObject = {}
+---@class PVPMatchResults_content_scrollBar_TrackObject : Frame
+---@field Begin PVPMatchResults_content_scrollBar_Track_BeginObject
+---@field End PVPMatchResults_content_scrollBar_Track_EndObject
+---@field Middle PVPMatchResults_content_scrollBar_Track_MiddleObject
+---@field Thumb PVPMatchResults_content_scrollBar_Track_ThumbObject
+local PVPMatchResults_content_scrollBar_TrackObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_BeginObject : Texture
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_BeginObject = {}
+---@class PVPMatchResults_content_scrollBar_Track_BeginObject : Texture
+local PVPMatchResults_content_scrollBar_Track_BeginObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_EndObject : Texture
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_EndObject = {}
+---@class PVPMatchResults_content_scrollBar_Track_EndObject : Texture
+local PVPMatchResults_content_scrollBar_Track_EndObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_MiddleObject : Texture
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_MiddleObject = {}
+---@class PVPMatchResults_content_scrollBar_Track_MiddleObject : Texture
+local PVPMatchResults_content_scrollBar_Track_MiddleObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject : Button
----@field Begin WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_Thumb_BeginObject
----@field End WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_Thumb_EndObject
----@field Event WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_Thumb_EventObject
----@field Middle WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_Thumb_MiddleObject
+---@class PVPMatchResults_content_scrollBar_Track_ThumbObject : Button
+---@field Begin PVPMatchResults_content_scrollBar_Track_Thumb_BeginObject
+---@field End PVPMatchResults_content_scrollBar_Track_Thumb_EndObject
+---@field Event PVPMatchResults_content_scrollBar_Track_Thumb_EventObject
+---@field Middle PVPMatchResults_content_scrollBar_Track_Thumb_MiddleObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -2978,5134 +9697,442 @@ do
 ---@field upBeginTexture string
 ---@field upEndTexture string
 ---@field upMiddleTexture string
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject = {}
+local PVPMatchResults_content_scrollBar_Track_ThumbObject = {}
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:GetAtlas(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:GetCallbackTable(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:GetCallbackTables(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:IsDown(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:IsDown(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:IsDownOver(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:IsOver(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:IsOver(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:OnDisable(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:OnDisable(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:OnEnable(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:OnEnable(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:OnEnter(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:OnEnter(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:OnLeave(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:OnLeave(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:OnLoad(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:OnLoad(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:OnMouseDown(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:OnMouseUp(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:OnShow(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:OnShow(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:OnSizeChanged(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:RegisterCallback(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:SecureInsertEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:TriggerEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:UnregisterCallback(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:UnregisterEvents(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+function PVPMatchResults_content_scrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_Thumb_BeginObject : Texture
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_Thumb_BeginObject = {}
+---@class PVPMatchResults_content_scrollBar_Track_Thumb_BeginObject : Texture
+local PVPMatchResults_content_scrollBar_Track_Thumb_BeginObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_Thumb_EndObject : Texture
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_Thumb_EndObject = {}
+---@class PVPMatchResults_content_scrollBar_Track_Thumb_EndObject : Texture
+local PVPMatchResults_content_scrollBar_Track_Thumb_EndObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_Thumb_EventObject
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_Thumb_EventObject = {}
+---@class PVPMatchResults_content_scrollBar_Track_Thumb_EventObject
+local PVPMatchResults_content_scrollBar_Track_Thumb_EventObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_Thumb_MiddleObject : Texture
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Track_Thumb_MiddleObject = {}
+---@class PVPMatchResults_content_scrollBar_Track_Thumb_MiddleObject : Texture
+local PVPMatchResults_content_scrollBar_Track_Thumb_MiddleObject = {}
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_interpolatorObject
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_interpolatorObject = {}
+---@class PVPMatchResults_content_scrollBar_interpolatorObject
+local PVPMatchResults_content_scrollBar_interpolatorObject = {}
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_interpolatorObject:Cancel(...) end
+function PVPMatchResults_content_scrollBar_interpolatorObject:Cancel(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
+function PVPMatchResults_content_scrollBar_interpolatorObject:GetInterpolateTo(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_interpolatorObject:Interpolate(...) end
+function PVPMatchResults_content_scrollBar_interpolatorObject:Interpolate(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_interpolatorObject:interpolateFunc(...) end
+function PVPMatchResults_content_scrollBar_interpolatorObject:interpolateFunc(...) end
 end
 
 do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject : Frame
----@field Background WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_BackgroundObject
----@field Defaults WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_DefaultsObject
----@field Directions WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_DirectionsObject
----@field DragDelegate WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_DragDelegateObject
----@field EmptyText WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_EmptyTextObject
----@field Event WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_EventObject
----@field ScrollTarget WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject
----@field Shadows WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ShadowsObject
+---@class PVPMatchResults_content_scrollBar_registeredScrollBoxObject : Frame
+---@field Defaults PVPMatchResults_content_scrollBar_registeredScrollBox_DefaultsObject
+---@field Directions PVPMatchResults_content_scrollBar_registeredScrollBox_DirectionsObject
+---@field DragDelegate PVPMatchResults_content_scrollBar_registeredScrollBox_DragDelegateObject
+---@field Event PVPMatchResults_content_scrollBar_registeredScrollBox_EventObject
+---@field ScrollTarget PVPMatchResults_content_scrollBar_registeredScrollBox_ScrollTargetObject
+---@field Shadows PVPMatchResults_content_scrollBar_registeredScrollBox_ShadowsObject
 ---@field allowScroll boolean
 ---@field callbackTables table
 ---@field canInterpolateScroll boolean
 ---@field debugInspectionSystem string
 ---@field deferredCallbacks table
+---@field edgeFade PVPMatchResults_content_scrollBar_registeredScrollBox_edgeFadeObject
 ---@field executingEvents table
 ---@field isScrollController boolean
 ---@field panExtentPercentage number
----@field registeredScrollBar WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_registeredScrollBarObject
----@field view WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject
+---@field registeredScrollBar PVPMatchResults_content_scrollBar_registeredScrollBox_registeredScrollBarObject
+---@field updateLock boolean
+---@field view PVPMatchResults_content_scrollBar_registeredScrollBox_viewObject
 ---@field wheelPanScalar number
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject = {}
+local PVPMatchResults_content_scrollBar_registeredScrollBoxObject = {}
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ApplyEdgeFade(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ApplyEdgeFade(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:CalculateEdgeFade(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:CalculateEdgeFade(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:CalculatePanExtentPercentage(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:CalculatePanExtentPercentage(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:CalculateScrollPercentage(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:CalculateScrollPercentage(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:CanInterpolateScroll(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:CanInterpolateScroll(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ClearEdgeFade(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ClearEdgeFade(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ContainsElementDataByPredicate(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ContainsElementDataByPredicate(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:CopyDeferredCallbacks(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:DoesFrameHaveEvent(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:EnableSnapToInterval(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:EnableSnapToInterval(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:EnumerateDataProvider(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:EnumerateDataProvider(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:EnumerateDataProviderEntireRange(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:EnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:EnumerateFrames(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:EnumerateFrames(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:FindByPredicate(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:FindByPredicate(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:FindElementData(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:FindElementData(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:FindElementDataByPredicate(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:FindElementDataByPredicate(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:FindElementDataIndex(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:FindElementDataIndex(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:FindElementDataIndexByPredicate(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:FindElementDataIndexByPredicate(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:FindFrame(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:FindFrame(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:FindFrameByPredicate(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:FindFrameByPredicate(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:FindFrameElementDataIndex(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:FindFrameElementDataIndex(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:Flush(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:Flush(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:FlushDataProvider(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:FlushDataProvider(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ForEachElementData(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ForEachElementData(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ForEachFrame(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ForEachFrame(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:FullUpdate(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:FullUpdate(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:FullUpdateInternal(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:FullUpdateInternal(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GenerateCallbackEvents(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetBottomPadding(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetBottomPadding(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetCallbackTable(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetCallbackTable(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetCallbackTables(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetCallbackTables(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetCallbacksByEvent(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetDataIndexBegin(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetDataIndexBegin(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetDataIndexEnd(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetDataIndexEnd(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetDataProvider(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetDataProvider(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetDataProviderSize(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetDataProviderSize(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetDerivedExtent(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetDerivedExtent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetDerivedScrollOffset(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetDerivedScrollOffset(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetDerivedScrollRange(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetDerivedScrollRange(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetElementExtent(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetElementExtent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetExtent(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetExtent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetExtentPadding(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetExtentPadding(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetExtentUntil(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetExtentUntil(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetFrameCount(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetFrameCount(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetFrameExtent(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetFrameExtent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetFrames(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetFrames(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetIntervalRange(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetIntervalRange(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetLeftPadding(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetLeftPadding(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetLower(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetLower(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetLowerPadding(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetLowerPadding(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetLowerShadowTexture(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetLowerShadowTexture(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetMutableCallbacksByEvent(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetPadding(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetPadding(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetPanExtent(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetPanExtent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetPanExtentPercentage(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetRightPadding(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetRightPadding(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetScrollInterpolator(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetScrollInterpolator(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetScrollPercentage(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetScrollPercentage(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetScrollTarget(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetScrollTarget(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetTopPadding(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetTopPadding(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetUpper(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetUpper(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetUpperPadding(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetUpperPadding(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetUpperShadowTexture(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetUpperShadowTexture(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetView(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetView(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetVisibleExtent(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetVisibleExtent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetVisibleExtentPercentage(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:GetWheelPanPercentage(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:HasDataProvider(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:HasDataProvider(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:HasEdgeFade(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:HasEdgeFade(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:HasRegistrantsForEvent(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:HasScrollableExtent(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:HasScrollableExtent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:HasView(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:HasView(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:Init(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:Init(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:Interpolate(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:Interpolate(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:IsAcquireLocked(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:IsAcquireLocked(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:IsAlignmentOverlapIgnored(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:IsAlignmentOverlapIgnored(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:IsAtBegin(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:IsAtBegin(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:IsAtEnd(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:IsAtEnd(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:IsHorizontal(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:IsHorizontal(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:IsScrollAllowed(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:IsScrollAllowed(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:IsScrollToDataIndexSafe(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:IsScrollToDataIndexSafe(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:IsUpdateLocked(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:IsUpdateLocked(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:IsVirtualized(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:IsVirtualized(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:Layout(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:Layout(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:OnLoad(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:OnLoad(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:OnMouseWheel(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:OnMouseWheel(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:OnScrollTargetSizeChanged(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:OnScrollTargetSizeChanged(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:OnSizeChanged(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:OnSizeChanged(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:OnViewAcquiredFrame(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:OnViewAcquiredFrame(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:OnViewDataChanged(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:OnViewDataChanged(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:OnViewDataProviderReassigned(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:OnViewDataProviderReassigned(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:OnViewInitializedFrame(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:OnViewInitializedFrame(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:OnViewReleasedFrame(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:OnViewReleasedFrame(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:Rebuild(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:Rebuild(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:RecalculateDerivedExtent(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:RecalculateDerivedExtent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ReconcileDeferredCallbacks(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:RegisterCallback(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:RegisterCallback(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:RegisterCallbackWithHandle(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ReinitializeFrames(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ReinitializeFrames(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:RemoveDataProvider(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:RemoveDataProvider(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProvider(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ReverseEnumerateDataProvider(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ReverseForEachElementData(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ReverseForEachElementData(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ReverseForEachFrame(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ReverseForEachFrame(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SanitizeAlignment(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SanitizeAlignment(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ScrollDecrease(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ScrollDecrease(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ScrollInDirection(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ScrollInDirection(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ScrollIncrease(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ScrollIncrease(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ScrollToBegin(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ScrollToBegin(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ScrollToElementData(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ScrollToElementData(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ScrollToElementDataByPredicate(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ScrollToElementDataByPredicate(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ScrollToElementDataIndex(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ScrollToElementDataIndex(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ScrollToEnd(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ScrollToEnd(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ScrollToFrame(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ScrollToFrame(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ScrollToNearest(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ScrollToNearest(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ScrollToNearestByPredicate(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ScrollToNearestByPredicate(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ScrollToOffset(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ScrollToOffset(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SecureInsertEvent(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SecureInsertEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SelectCursorComponent(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SelectCursorComponent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SelectPointComponent(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SelectPointComponent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SetAlignmentOverlapIgnored(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SetAlignmentOverlapIgnored(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SetDataProvider(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SetDataProvider(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SetEdgeFadeLength(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SetEdgeFadeLength(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SetFrameExtent(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SetFrameExtent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SetHorizontal(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SetHorizontal(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SetInterpolateScroll(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SetInterpolateScroll(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SetLowerShadowAtlas(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SetLowerShadowAtlas(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SetPadding(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SetPadding(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SetPanExtent(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SetPanExtent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SetPanExtentPercentage(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SetScrollAllowed(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SetScrollAllowed(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SetScrollPercentage(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SetScrollPercentage(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SetScrollPercentageInternal(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SetScrollTargetOffset(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SetScrollTargetOffset(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SetShadowsFrameLevel(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SetShadowsFrameLevel(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SetShadowsScale(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SetShadowsScale(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SetShadowsShown(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SetShadowsShown(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SetUndefinedEventsAllowed(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SetUpdateLocked(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SetUpdateLocked(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SetUpperShadowAtlas(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SetUpperShadowAtlas(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SetUseShadowsForEdgeFade(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SetUseShadowsForEdgeFade(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:SetView(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:SetView(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:TriggerEvent(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:TriggerEvent(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:UnregisterCallback(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:UnregisterCallback(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:UnregisterEvents(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:UnregisterEvents(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:UnregisterEventsByEventTable(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:Update(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:Update(...) end
 ---@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject:scrollInternal(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_BackgroundObject : Texture
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_BackgroundObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_DefaultsObject
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_DefaultsObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_DirectionsObject
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_DirectionsObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_DragDelegateObject : Frame
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_DragDelegateObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_EmptyTextObject : FontString
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_EmptyTextObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_EventObject
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_EventObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject : Frame
----@field Event WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ScrollTarget_EventObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ShadowsObject : Frame
----@field Lower WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_Shadows_LowerObject
----@field Upper WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_Shadows_UpperObject
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_ShadowsObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_Shadows_LowerObject : Texture
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_Shadows_LowerObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_Shadows_UpperObject : Texture
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_Shadows_UpperObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_registeredScrollBarObject
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_registeredScrollBarObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject
----@field Event table
----@field FrameLevelPolicy table
----@field callbackTables table
----@field canSignalWithoutInitializer boolean
----@field deferredCallbacks table
----@field executingEvents table
----@field frameFactory table
----@field frames table
----@field indent number
----@field initialized boolean
----@field initializers table
----@field padding table
----@field scrollBox WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_view_scrollBoxObject
----@field templateInfoCache table
----@field virtualized boolean
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:AcquireInternal(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:AcquireRange(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:AssignAccessors(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:AttachDataProviderCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:CalculateDataIndices(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:CalculateFrameExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:ClearCachedData(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:ClearElementExtentData(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:ClearInvalidation(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:ContainsElementDataByPredicate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:DataProviderContentsChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:DetachDataProviderCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProvider(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:EnumerateFrames(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:FindByPredicate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:FindElementData(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:FindElementDataByPredicate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndex(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:FindFrame(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:FindFrameByPredicate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:FindFrameElementDataIndex(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:Flush(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:FlushDataProvider(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:ForEachElementData(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:ForEachFrame(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetDataIndexBegin(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetDataIndexEnd(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetDataProvider(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetDataProviderSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetDataRange(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetDataScrollOffset(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetElementExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetElementExtentCalculator(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetElementIndent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetExtentFromInfo(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetExtentSpacing(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetExtentTo(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetExtentUntil(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetFactoryDataFromElementData(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetFirstTemplateInfo(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetFrameCount(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetFrameExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelCounter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelPolicy(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetFrames(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetIdenticalElementExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetIdenticalStrideExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetInvalidationReason(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetLayoutFunction(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetLower(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetPanExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetScrollBox(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetScrollTarget(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetSpacing(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetStride(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetTemplateInfo(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:GetUpper(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:HasBiaxalLayout(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:HasDataProvider(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:HasElementExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:HasIdenticalElementExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:HasIdenticalStrideExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:Init(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:InitDefaultDrag(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:InvokeInitializer(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:InvokeInitializers(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:IsAcquireLocked(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:IsDataIndexWithinRange(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:IsElementStretchDisabled(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:IsExtentValid(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:IsHorizontal(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:IsInitialized(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:IsInvalidated(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:IsVirtualized(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:Layout(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:LayoutInternal(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSizeChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSort(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementData(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:RebuildTemplateInfoCache(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:RecalculateExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:RefreshSmartNav(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:ReinitializeFrames(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:Release(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:RemoveDataProvider(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:RemoveDataProviderInternal(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:ResizeFrame(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:ReverseForEachElementData(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:ReverseForEachFrame(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SelectCursorComponent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SelectPointComponent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SetAcquireLocked(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SetDataProvider(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SetDataRange(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SetElementExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SetElementExtentCalculator(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SetElementFactory(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SetElementIndent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SetElementIndentCalculator(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SetElementInitializer(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SetElementResetter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SetElementStretchDisabled(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SetExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SetFrameExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SetFrameFactoryResetter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SetFrameLevelPolicy(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SetHorizontal(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SetInvalidationReason(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SetMaxPanExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SetPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SetPanExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SetScrollBox(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SetVirtualized(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SignalDataChangeEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:SortFrames(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:UnassignAccessors(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:ValidateDataRange(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:elementFactory(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:elementIndentCalculator(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_viewObject:factory(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_view_scrollBoxObject
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBox_view_scrollBoxObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBoxObject
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBoxObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject : Button
----@field Event WorldMapFrame_QuestLog_EventsFrame_SettingsDropdown_EventObject
----@field Icon WorldMapFrame_QuestLog_EventsFrame_SettingsDropdown_IconObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
----@field intrinsic string
----@field menuAnchor WorldMapFrame_QuestLog_EventsFrame_SettingsDropdown_menuAnchorObject
----@field menuPoint string
----@field menuPointX number
----@field menuPointY number
----@field menuRelativePoint string
-local WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:ClearMenuState(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:CloseMenu(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:CollectSelectionData(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:CreateDefaultRootMenuDescription(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:CreateRootDescription(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:Decrement(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:EnableRegenerateOnResponse(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:GenerateMenu(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:GetMenuDescription(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:GetSelectionData(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:HandlesGlobalMouseEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:HasAnyRadioDescriptions(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:HasElements(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:HasOnlyRadioDescriptions(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:HasStickyFocus(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:Increment(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:IsMenuOpen(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:OnEnter_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:OnMenuAssigned(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:OnMenuChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:OnMenuClosed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:OnMenuOpened(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:OnMenuResponse(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:OnMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:OnMouseUp(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:OnMouseWheel_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:OpenMenu(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:Pick(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:RegisterMenu(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:Rotate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:SetMenuAnchor(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:SetMenuOpen(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:SetupMenu(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:SignalUpdate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:Update(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:UpdateSelections(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:UpdateToMenuSelections(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:menuGenerator(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject:onMenuClosedCallback(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_SettingsDropdown_EventObject
-local WorldMapFrame_QuestLog_EventsFrame_SettingsDropdown_EventObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_SettingsDropdown_IconObject : Texture
-local WorldMapFrame_QuestLog_EventsFrame_SettingsDropdown_IconObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_SettingsDropdown_menuAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo WorldMapFrame_QuestLog_EventsFrame_SettingsDropdown_menuAnchor_relativeToObject
----@field x number
----@field y number
-local WorldMapFrame_QuestLog_EventsFrame_SettingsDropdown_menuAnchorObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdown_menuAnchorObject:Get(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdown_menuAnchorObject:GetRelativeTo(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdown_menuAnchorObject:Init(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdown_menuAnchorObject:Set(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdown_menuAnchorObject:SetFromPoint(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdown_menuAnchorObject:SetOffsets(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdown_menuAnchorObject:SetPoint(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_SettingsDropdown_menuAnchorObject:SetRelativeTo(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_SettingsDropdown_menuAnchor_relativeToObject
-local WorldMapFrame_QuestLog_EventsFrame_SettingsDropdown_menuAnchor_relativeToObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_TitleTextObject : FontString
-local WorldMapFrame_QuestLog_EventsFrame_TitleTextObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsTabObject : Frame
----@field Background WorldMapFrame_QuestLog_EventsTab_BackgroundObject
----@field HighlightTexture WorldMapFrame_QuestLog_EventsTab_HighlightTextureObject
----@field Icon WorldMapFrame_QuestLog_EventsTab_IconObject
----@field Mask WorldMapFrame_QuestLog_EventsTab_MaskObject
----@field SelectedTexture WorldMapFrame_QuestLog_EventsTab_SelectedTextureObject
----@field TabGlow WorldMapFrame_QuestLog_EventsTab_TabGlowObject
----@field TabGlowAnimation WorldMapFrame_QuestLog_EventsTab_TabGlowAnimationObject
----@field activeAtlas string
----@field displayMode number
----@field inactiveAtlas string
----@field smartNavigationIgnored boolean
----@field tooltipText string
-local WorldMapFrame_QuestLog_EventsTabObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_EventsTabObject:CalculateTabSizeBasedOnTabArt(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsTabObject:GetFinalIconAnchorOffsets(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsTabObject:GetIconAnchorOffsetsForTabArt(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsTabObject:GetPressedIconAnchorOffsets(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsTabObject:GetTooltipTextSetupFunction(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsTabObject:InitializeIconAnchoring(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsTabObject:InitializeSizeForTabArt(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsTabObject:IsTabGlowAnimationPlaying(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsTabObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsTabObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsTabObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsTabObject:OnMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsTabObject:OnMouseUp(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsTabObject:SetChecked(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsTabObject:SetCustomOnMouseUpHandler(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsTabObject:SetFillToInterior(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsTabObject:SetTabGlowAnimationPlaying(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsTabObject:UpdateIconInterior(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsTabObject:customMouseUpHandler(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsTab_BackgroundObject : Texture
-local WorldMapFrame_QuestLog_EventsTab_BackgroundObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsTab_HighlightTextureObject : Texture
-local WorldMapFrame_QuestLog_EventsTab_HighlightTextureObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsTab_IconObject : Texture
-local WorldMapFrame_QuestLog_EventsTab_IconObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsTab_MaskObject : MaskTexture
-local WorldMapFrame_QuestLog_EventsTab_MaskObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsTab_SelectedTextureObject : Texture
-local WorldMapFrame_QuestLog_EventsTab_SelectedTextureObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsTab_TabGlowObject : Texture
-local WorldMapFrame_QuestLog_EventsTab_TabGlowObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsTab_TabGlowAnimationObject : AnimationGroup
-local WorldMapFrame_QuestLog_EventsTab_TabGlowAnimationObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegendObject : Frame
----@field BorderFrame WorldMapFrame_QuestLog_MapLegend_BorderFrameObject
----@field ScrollFrame WorldMapFrame_QuestLog_MapLegend_ScrollFrameObject
----@field TitleText WorldMapFrame_QuestLog_MapLegend_TitleTextObject
----@field displayMode number
-local WorldMapFrame_QuestLog_MapLegendObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_MapLegendObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegendObject:SetupCategories(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_BorderFrameObject : Frame
----@field Border WorldMapFrame_QuestLog_MapLegend_BorderFrame_BorderObject
----@field TopDetail WorldMapFrame_QuestLog_MapLegend_BorderFrame_TopDetailObject
-local WorldMapFrame_QuestLog_MapLegend_BorderFrameObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_BorderFrame_BorderObject : Texture
-local WorldMapFrame_QuestLog_MapLegend_BorderFrame_BorderObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_BorderFrame_TopDetailObject : Texture
-local WorldMapFrame_QuestLog_MapLegend_BorderFrame_TopDetailObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_ScrollFrameObject : ScrollFrame
----@field Background WorldMapFrame_QuestLog_MapLegend_ScrollFrame_BackgroundObject
----@field ScrollBar WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject
----@field ScrollChild WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject
----@field panExtent number
----@field scrollBarBottomY number
----@field scrollBarTopY number
----@field scrollBarX number
-local WorldMapFrame_QuestLog_MapLegend_ScrollFrameObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrameObject:GetPanExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrameObject:SetPanExtent(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_ScrollFrame_BackgroundObject : Texture
-local WorldMapFrame_QuestLog_MapLegend_ScrollFrame_BackgroundObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject : Frame
----@field Back WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject
----@field Defaults WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_DefaultsObject
----@field Directions WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_DirectionsObject
----@field Event WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_EventObject
----@field Forward WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject
----@field Track WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_TrackObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field deferredCallbacks table
----@field executingEvents table
----@field hideTrack boolean
----@field interpolator WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_interpolatorObject
----@field isScrollController boolean
----@field minThumbExtent number
----@field panDelay number
----@field panExtentPercentage number
----@field panRepeatTime number
----@field smartNavigationIgnored boolean
----@field snapToInterval boolean
----@field thumbAnchor string
----@field useProportionalThumb boolean
----@field visibleExtentPercentage number
----@field wheelPanScalar number
-local WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:CallInternalScope(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:CanCursorStepInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:CanInterpolateScroll(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:DisableControls(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:EnableInternalPriority(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:EnableSnapToInterval(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:GetBackStepper(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:GetForwardStepper(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:GetFrameExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:GetIntervalRange(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:GetLower(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:GetPanExtentPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:GetPanRepeatDelay(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:GetPanRepeatTime(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:GetScrollInterpolator(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:GetScrollPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:GetThumb(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:GetThumbAnchor(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:GetTrack(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:GetTrackExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:GetUpper(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:GetWheelPanPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:HasScrollableExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:Init(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:InitializeNarration(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:Interpolate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:IsAtBegin(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:IsAtEnd(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:IsHorizontal(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:IsScrollAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:IsThumbMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:OnHide_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:OnMouseWheel(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:OnShow_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:OnStepperMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:OnThumbMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:OnTrackMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:ScrollDecrease(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:ScrollInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:ScrollIncrease(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:ScrollPageInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:ScrollStepInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:ScrollToBegin(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:ScrollToEnd(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:ScrollWheelInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:SelectCursorComponent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:SelectPointComponent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:SetFrameExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:SetHideIfUnscrollable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:SetHorizontal(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:SetInterpolateScroll(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:SetPanExtentPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:SetScrollAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:SetScrollPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:SetScrollPercentageInternal(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:SetThumbExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:SetVisibleExtentPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:UnregisterUpdate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:Update(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:onButtonMouseUp(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBarObject:scrollInternal(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject : Button
----@field Event WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Back_EventObject
----@field Texture WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Back_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:DesaturateIfDisabled(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:GetAtlas(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:IsDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:IsDownOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:IsOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:NarrationGetName(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:OnButtonStateChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:OnClick_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:OnDisable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:OnEnable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:OnMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:OnMouseUp(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:SetDisplacedRegions(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Back_EventObject
-local WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Back_EventObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Back_TextureObject : Texture
-local WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Back_TextureObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_DefaultsObject
-local WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_DefaultsObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_DirectionsObject
-local WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_DirectionsObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_EventObject
-local WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_EventObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject : Button
----@field Event WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Forward_EventObject
----@field Texture WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Forward_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:GetAtlas(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:IsDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:IsDownOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:IsOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:NarrationGetName(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:OnDisable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:OnEnable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:OnMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:OnMouseUp(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Forward_EventObject
-local WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Forward_EventObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Forward_TextureObject : Texture
-local WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Forward_TextureObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_TrackObject : Frame
----@field Begin WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_BeginObject
----@field End WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_EndObject
----@field Middle WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_MiddleObject
----@field Thumb WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject
-local WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_TrackObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_BeginObject : Texture
-local WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_BeginObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_EndObject : Texture
-local WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_EndObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_MiddleObject : Texture
-local WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_MiddleObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject : Button
----@field Begin WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_Thumb_BeginObject
----@field End WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_Thumb_EndObject
----@field Event WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_Thumb_EventObject
----@field Middle WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field downBeginTexture string
----@field downEndTexture string
----@field downMiddleTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field overBeginTexture string
----@field overEndTexture string
----@field overMiddleTexture string
----@field upBeginTexture string
----@field upEndTexture string
----@field upMiddleTexture string
-local WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:GetAtlas(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:IsDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:IsDownOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:IsOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:OnDisable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_Thumb_BeginObject : Texture
-local WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_Thumb_BeginObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_Thumb_EndObject : Texture
-local WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_Thumb_EndObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_Thumb_EventObject
-local WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_Thumb_EventObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject : Texture
-local WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_interpolatorObject
-local WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_interpolatorObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_interpolatorObject:Cancel(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_interpolatorObject:Interpolate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollBar_interpolatorObject:interpolateFunc(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject : Frame
----@field dirty boolean
----@field leftPadding number
----@field spacing number
----@field topPadding number
-local WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:AddLayoutChildren(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:CalculateFrameSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:ClearFixedSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:GetAdditionalRegions(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:GetChildHeight(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:GetChildPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:GetChildSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:GetChildWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:GetFixedHeight(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:GetFixedSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:GetFixedWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:GetHeightPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:GetLayoutChildren(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:GetPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:GetWidthPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:IgnoreLayoutIndex(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:IsDirty(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:IsLayoutFrame(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:Layout(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:LayoutChildren(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:MarkClean(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:MarkDirty(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:MarkIgnoreInLayout(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:OnCleaned(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:OnUpdate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:SetFixedHeight(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:SetFixedSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:SetFixedWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:SetHeightPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:SetWidthPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegend_ScrollFrame_ScrollChildObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegend_TitleTextObject : FontString
-local WorldMapFrame_QuestLog_MapLegend_TitleTextObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegendTabObject : Frame
----@field Background WorldMapFrame_QuestLog_MapLegendTab_BackgroundObject
----@field HighlightTexture WorldMapFrame_QuestLog_MapLegendTab_HighlightTextureObject
----@field Icon WorldMapFrame_QuestLog_MapLegendTab_IconObject
----@field Mask WorldMapFrame_QuestLog_MapLegendTab_MaskObject
----@field SelectedTexture WorldMapFrame_QuestLog_MapLegendTab_SelectedTextureObject
----@field TabGlow WorldMapFrame_QuestLog_MapLegendTab_TabGlowObject
----@field TabGlowAnimation WorldMapFrame_QuestLog_MapLegendTab_TabGlowAnimationObject
----@field activeAtlas string
----@field displayMode number
----@field inactiveAtlas string
----@field smartNavigationIgnored boolean
----@field tooltipText string
-local WorldMapFrame_QuestLog_MapLegendTabObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_MapLegendTabObject:CalculateTabSizeBasedOnTabArt(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegendTabObject:GetFinalIconAnchorOffsets(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegendTabObject:GetIconAnchorOffsetsForTabArt(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegendTabObject:GetPressedIconAnchorOffsets(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegendTabObject:GetTooltipTextSetupFunction(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegendTabObject:InitializeIconAnchoring(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegendTabObject:InitializeSizeForTabArt(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegendTabObject:IsTabGlowAnimationPlaying(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegendTabObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegendTabObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegendTabObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegendTabObject:OnMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegendTabObject:OnMouseUp(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegendTabObject:SetChecked(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegendTabObject:SetCustomOnMouseUpHandler(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegendTabObject:SetFillToInterior(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegendTabObject:SetTabGlowAnimationPlaying(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegendTabObject:UpdateIconInterior(...) end
----@return any ...
-function WorldMapFrame_QuestLog_MapLegendTabObject:customMouseUpHandler(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegendTab_BackgroundObject : Texture
-local WorldMapFrame_QuestLog_MapLegendTab_BackgroundObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegendTab_HighlightTextureObject : Texture
-local WorldMapFrame_QuestLog_MapLegendTab_HighlightTextureObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegendTab_IconObject : Texture
-local WorldMapFrame_QuestLog_MapLegendTab_IconObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegendTab_MaskObject : MaskTexture
-local WorldMapFrame_QuestLog_MapLegendTab_MaskObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegendTab_SelectedTextureObject : Texture
-local WorldMapFrame_QuestLog_MapLegendTab_SelectedTextureObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegendTab_TabGlowObject : Texture
-local WorldMapFrame_QuestLog_MapLegendTab_TabGlowObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_MapLegendTab_TabGlowAnimationObject : AnimationGroup
-local WorldMapFrame_QuestLog_MapLegendTab_TabGlowAnimationObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestSessionManagementObject : Frame
----@field BG WorldMapFrame_QuestLog_QuestSessionManagement_BGObject
----@field CommandText WorldMapFrame_QuestLog_QuestSessionManagement_CommandTextObject
----@field ExecuteSessionCommand WorldMapFrame_QuestLog_QuestSessionManagement_ExecuteSessionCommandObject
----@field HelpText WorldMapFrame_QuestLog_QuestSessionManagement_HelpTextObject
----@field SessionActiveFrame WorldMapFrame_QuestLog_QuestSessionManagement_SessionActiveFrameObject
-local WorldMapFrame_QuestLog_QuestSessionManagementObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestSessionManagementObject:EvaluateAlertVisibility(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestSessionManagementObject:OnClick(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestSessionManagementObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestSessionManagementObject:OnEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestSessionManagementObject:OnHide(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestSessionManagementObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestSessionManagementObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestSessionManagementObject:OnQuestLogHideCampaignOverview(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestSessionManagementObject:OnQuestLogShowCampaignOverview(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestSessionManagementObject:OnQuestSessionManagerUpdate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestSessionManagementObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestSessionManagementObject:SetSuppressed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestSessionManagementObject:ShowTooltip(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestSessionManagementObject:UpdateExecuteCommandAtlases(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestSessionManagementObject:UpdateExecuteSessionCommandState(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestSessionManagementObject:UpdateTooltip(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestSessionManagementObject:UpdateVisibility(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestSessionManagement_BGObject : Texture
-local WorldMapFrame_QuestLog_QuestSessionManagement_BGObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestSessionManagement_CommandTextObject : FontString
-local WorldMapFrame_QuestLog_QuestSessionManagement_CommandTextObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestSessionManagement_ExecuteSessionCommandObject : Button
-local WorldMapFrame_QuestLog_QuestSessionManagement_ExecuteSessionCommandObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestSessionManagement_HelpTextObject : FontString
-local WorldMapFrame_QuestLog_QuestSessionManagement_HelpTextObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestSessionManagement_SessionActiveFrameObject : Frame
----@field Icon WorldMapFrame_QuestLog_QuestSessionManagement_SessionActiveFrame_IconObject
-local WorldMapFrame_QuestLog_QuestSessionManagement_SessionActiveFrameObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestSessionManagement_SessionActiveFrame_IconObject : Texture
-local WorldMapFrame_QuestLog_QuestSessionManagement_SessionActiveFrame_IconObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrameObject : Frame
----@field CampaignOverview WorldMapFrame_QuestLog_QuestsFrame_CampaignOverviewObject
----@field DetailsFrame WorldMapFrame_QuestLog_QuestsFrame_DetailsFrameObject
----@field ScrollFrame WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject
----@field displayMode number
-local WorldMapFrame_QuestLog_QuestsFrameObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverviewObject : Frame
----@field BG WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_BGObject
----@field BorderFrame WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_BorderFrameObject
----@field Header WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject
----@field ScrollFrame WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject
----@field linePool WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_linePoolObject
----@field texturePool WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_texturePoolObject
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverviewObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverviewObject:GetCampaignID(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverviewObject:OnEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverviewObject:OnHide(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverviewObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverviewObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverviewObject:RequestLoreText(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverviewObject:SetCampaign(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverviewObject:SetupEntry(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverviewObject:SetupEntryData(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverviewObject:SetupEntryHeader(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverviewObject:SetupEntryStandard(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverviewObject:UpdateCampaignLoreText(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_BGObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_BGObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_BorderFrameObject : Frame
----@field Border WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_BorderFrame_BorderObject
----@field TopDetail WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_BorderFrame_TopDetailObject
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_BorderFrameObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_BorderFrame_BorderObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_BorderFrame_BorderObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_BorderFrame_TopDetailObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_BorderFrame_TopDetailObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject : Frame
----@field BackButton WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_BackButtonObject
----@field Background WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_BackgroundObject
----@field HighlightTexture WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_HighlightTextureObject
----@field NextObjective WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject
----@field Progress WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_ProgressObject
----@field Text WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_TextObject
----@field TopFiligree WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_TopFiligreeObject
----@field fixedWidth number
----@field suppressNextText boolean
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:AddLayoutChildren(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:ClearFixedSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:GetAdditionalRegions(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:GetCampaign(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:GetChildHeight(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:GetChildSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:GetChildWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:GetFixedHeight(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:GetFixedSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:GetFixedWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:GetHeightPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:GetLayoutChildren(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:GetMaximumWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:GetMinimumWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:GetQuestLogIndex(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:GetWidthPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:IgnoreLayoutIndex(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:IsDirty(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:IsLayoutFrame(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:Layout(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:MarkClean(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:MarkDirty(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:MarkIgnoreInLayout(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:OnCleaned(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:OnUpdate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:SetCampaign(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:SetCampaignFromQuestHeader(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:SetFixedHeight(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:SetFixedSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:SetFixedWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:SetHeightPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:SetMaximumWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:SetMinimumWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:SetProgressText(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:SetWidthPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:UpdateComplete(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:UpdateJourneyProgressText(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:UpdateNextObjective(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:UpdateProgress(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:UpdateTextureKit(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_HeaderObject:UpdateTitle(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_BackButtonObject : Button
----@field mode string
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_BackButtonObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_BackButtonObject:OnClick(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_BackButtonObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_BackButtonObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_BackButtonObject:SetMode(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_BackgroundObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_BackgroundObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_HighlightTextureObject : Texture
----@field ignoreInLayout boolean
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_HighlightTextureObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject : Frame
----@field Text WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjective_TextObject
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:AddLayoutChildren(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:Clear(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:ClearFixedSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:GetAdditionalRegions(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:GetChildHeight(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:GetChildSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:GetChildWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:GetFixedHeight(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:GetFixedSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:GetFixedWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:GetHeightPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:GetLayoutChildren(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:GetMaximumWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:GetMinimumWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:GetWidthPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:IgnoreLayoutIndex(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:IsDirty(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:IsLayoutFrame(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:Layout(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:MarkClean(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:MarkDirty(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:MarkIgnoreInLayout(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:OnCleaned(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:OnMouseUp(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:OnUpdate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:Set(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:SetFixedHeight(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:SetFixedSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:SetFixedWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:SetHeightPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:SetMaximumWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:SetMinimumWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:SetWidthPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjectiveObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjective_TextObject : FontString
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_NextObjective_TextObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_ProgressObject : FontString
----@field ignoreInLayout boolean
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_ProgressObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_TextObject : FontString
----@field ignoreInLayout boolean
----@field minLineHeight number
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_TextObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_TextObject:ScaleTextToFit(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_TextObject:SetMinLineHeight(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_TopFiligreeObject : Texture
----@field ignoreInLayout boolean
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_Header_TopFiligreeObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject : ScrollFrame
----@field BottomShadow WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_BottomShadowObject
----@field Event WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_EventObject
----@field ScrollBar WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject
----@field ScrollChild WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject
----@field TopShadow WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_TopShadowObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
----@field panExtent number
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:GetPanExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:GetVerticalScrollNormalized(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:OnHorizontalScroll_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:OnMouseWheel_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:OnScrollRangeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:OnVerticalScroll_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:SetPanExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrameObject:UpdateFade(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_BottomShadowObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_BottomShadowObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_EventObject
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_EventObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject : Frame
----@field Back WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject
----@field Defaults WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_DefaultsObject
----@field Directions WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_DirectionsObject
----@field Event WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_EventObject
----@field Forward WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject
----@field Track WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_TrackObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field deferredCallbacks table
----@field executingEvents table
----@field hideTrack boolean
----@field interpolator WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_interpolatorObject
----@field isScrollController boolean
----@field minThumbExtent number
----@field panDelay number
----@field panExtentPercentage number
----@field panRepeatTime number
----@field smartNavigationIgnored boolean
----@field snapToInterval boolean
----@field thumbAnchor string
----@field useProportionalThumb boolean
----@field visibleExtentPercentage number
----@field wheelPanScalar number
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:CallInternalScope(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:CanCursorStepInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:CanInterpolateScroll(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:DisableControls(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:EnableInternalPriority(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:EnableSnapToInterval(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:GetBackStepper(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:GetForwardStepper(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:GetFrameExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:GetIntervalRange(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:GetLower(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:GetPanExtentPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:GetPanRepeatDelay(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:GetPanRepeatTime(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:GetScrollInterpolator(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:GetScrollPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:GetThumb(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:GetThumbAnchor(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:GetTrack(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:GetTrackExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:GetUpper(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:GetWheelPanPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:HasScrollableExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:Init(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:InitializeNarration(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:Interpolate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:IsAtBegin(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:IsAtEnd(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:IsHorizontal(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:IsScrollAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:IsThumbMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:OnHide_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:OnMouseWheel(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:OnShow_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:OnStepperMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:OnThumbMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:OnTrackMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:ScrollDecrease(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:ScrollInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:ScrollIncrease(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:ScrollPageInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:ScrollStepInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:ScrollToBegin(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:ScrollToEnd(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:ScrollWheelInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:SelectCursorComponent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:SelectPointComponent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:SetFrameExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:SetHideIfUnscrollable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:SetHorizontal(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:SetInterpolateScroll(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:SetPanExtentPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:SetScrollAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:SetScrollPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:SetScrollPercentageInternal(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:SetThumbExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:SetVisibleExtentPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:UnregisterUpdate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:Update(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:onButtonMouseUp(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBarObject:scrollInternal(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject : Button
----@field Event WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Back_EventObject
----@field Texture WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Back_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:DesaturateIfDisabled(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:GetAtlas(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:IsDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:IsDownOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:IsOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:NarrationGetName(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:OnButtonStateChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:OnClick_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:OnDisable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:OnEnable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:OnMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:OnMouseUp(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:SetDisplacedRegions(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Back_EventObject
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Back_EventObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Back_TextureObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Back_TextureObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_DefaultsObject
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_DefaultsObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_DirectionsObject
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_DirectionsObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_EventObject
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_EventObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject : Button
----@field Event WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Forward_EventObject
----@field Texture WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Forward_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:GetAtlas(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:IsDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:IsDownOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:IsOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:NarrationGetName(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:OnDisable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:OnEnable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:OnMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:OnMouseUp(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Forward_EventObject
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Forward_EventObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Forward_TextureObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Forward_TextureObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_TrackObject : Frame
----@field Begin WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_BeginObject
----@field End WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_EndObject
----@field Middle WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_MiddleObject
----@field Thumb WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_TrackObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_BeginObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_BeginObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_EndObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_EndObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_MiddleObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_MiddleObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject : Button
----@field Begin WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_Thumb_BeginObject
----@field End WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_Thumb_EndObject
----@field Event WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_Thumb_EventObject
----@field Middle WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field downBeginTexture string
----@field downEndTexture string
----@field downMiddleTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field overBeginTexture string
----@field overEndTexture string
----@field overMiddleTexture string
----@field upBeginTexture string
----@field upEndTexture string
----@field upMiddleTexture string
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:GetAtlas(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:IsDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:IsDownOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:IsOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:OnDisable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_Thumb_BeginObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_Thumb_BeginObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_Thumb_EndObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_Thumb_EndObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_Thumb_EventObject
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_Thumb_EventObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_interpolatorObject
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_interpolatorObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_interpolatorObject:Cancel(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_interpolatorObject:Interpolate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollBar_interpolatorObject:interpolateFunc(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject : Frame
----@field leftPadding number
----@field spacing number
----@field topPadding number
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:AddLayoutChildren(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:CalculateFrameSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:ClearFixedSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:GetAdditionalRegions(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:GetChildHeight(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:GetChildPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:GetChildSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:GetChildWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:GetFixedHeight(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:GetFixedSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:GetFixedWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:GetHeightPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:GetLayoutChildren(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:GetPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:GetWidthPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:IgnoreLayoutIndex(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:IsDirty(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:IsLayoutFrame(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:Layout(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:LayoutChildren(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:MarkClean(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:MarkDirty(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:MarkIgnoreInLayout(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:OnCleaned(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:OnUpdate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:SetFixedHeight(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:SetFixedSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:SetFixedWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:SetHeightPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:SetWidthPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_ScrollChildObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_TopShadowObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_ScrollFrame_TopShadowObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_linePoolObject
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_linePoolObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_linePoolObject:GetTemplate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_linePoolObject:private(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_texturePoolObject
-local WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_texturePoolObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_texturePoolObject:GetTemplate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_CampaignOverview_texturePoolObject:private(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrameObject : Frame
----@field AbandonButton WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_AbandonButtonObject
----@field BackFrame WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrameObject
----@field Bg WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BgObject
----@field BorderFrame WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BorderFrameObject
----@field DestinationMapButton WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_DestinationMapButtonObject
----@field RewardsFrameContainer WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_RewardsFrameContainerObject
----@field ScrollFrame WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject
----@field SealMaterialBG WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_SealMaterialBGObject
----@field ShareButton WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ShareButtonObject
----@field TrackButton WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_TrackButtonObject
----@field WaypointMapButton WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_WaypointMapButtonObject
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrameObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrameObject:AdjustBackgroundTexture(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrameObject:AdjustRewardsFrameContainer(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrameObject:OnHide(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrameObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrameObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrameObject:SetRewardsHeight(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_AbandonButtonObject : Button
----@field Left WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_AbandonButton_LeftObject
----@field Middle WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_AbandonButton_MiddleObject
----@field Right WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_AbandonButton_RightObject
----@field Text WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_AbandonButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_AbandonButtonObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_AbandonButtonObject:FitToText(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_AbandonButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_AbandonButtonObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_AbandonButtonObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_AbandonButtonObject:SetDisabledState(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_AbandonButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_AbandonButtonObject:SetTextToFit(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_AbandonButton_LeftObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_AbandonButton_LeftObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_AbandonButton_MiddleObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_AbandonButton_MiddleObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_AbandonButton_RightObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_AbandonButton_RightObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_AbandonButton_TextObject : FontString
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_AbandonButton_TextObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrameObject : Frame
----@field AccountCompletedNotice WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_AccountCompletedNoticeObject
----@field BackButton WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_BackButtonObject
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrameObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_AccountCompletedNoticeObject : Frame
----@field AccountCompletedIcon WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_AccountCompletedNotice_AccountCompletedIconObject
----@field Text WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_AccountCompletedNotice_TextObject
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_AccountCompletedNoticeObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_AccountCompletedNoticeObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_AccountCompletedNoticeObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_AccountCompletedNoticeObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_AccountCompletedNoticeObject:Refresh(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_AccountCompletedNotice_AccountCompletedIconObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_AccountCompletedNotice_AccountCompletedIconObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_AccountCompletedNotice_TextObject : FontString
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_AccountCompletedNotice_TextObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_BackButtonObject : Button
----@field Left WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_BackButton_LeftObject
----@field Middle WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_BackButton_MiddleObject
----@field Right WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_BackButton_RightObject
----@field Text WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_BackButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_BackButtonObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_BackButtonObject:FitToText(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_BackButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_BackButtonObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_BackButtonObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_BackButtonObject:SetDisabledState(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_BackButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_BackButtonObject:SetTextToFit(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_BackButton_LeftObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_BackButton_LeftObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_BackButton_MiddleObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_BackButton_MiddleObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_BackButton_RightObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_BackButton_RightObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_BackButton_TextObject : FontString
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BackFrame_BackButton_TextObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BgObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BgObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BorderFrameObject : Frame
----@field Border WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BorderFrame_BorderObject
----@field TopDetail WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BorderFrame_TopDetailObject
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BorderFrameObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BorderFrame_BorderObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BorderFrame_BorderObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BorderFrame_TopDetailObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_BorderFrame_TopDetailObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_DestinationMapButtonObject : Button
----@field HighlightIcon WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_DestinationMapButton_HighlightIconObject
----@field Icon WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_DestinationMapButton_IconObject
----@field tooltipText string
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_DestinationMapButtonObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_DestinationMapButton_HighlightIconObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_DestinationMapButton_HighlightIconObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_DestinationMapButton_IconObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_DestinationMapButton_IconObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_RewardsFrameContainerObject : Frame
----@field RewardsFrame WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_RewardsFrameContainer_RewardsFrameObject
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_RewardsFrameContainerObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_RewardsFrameContainer_RewardsFrameObject : Frame
----@field Background WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_RewardsFrameContainer_RewardsFrame_BackgroundObject
----@field Bottom WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_RewardsFrameContainer_RewardsFrame_BottomObject
----@field Label WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_RewardsFrameContainer_RewardsFrame_LabelObject
----@field Top WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_RewardsFrameContainer_RewardsFrame_TopObject
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_RewardsFrameContainer_RewardsFrameObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_RewardsFrameContainer_RewardsFrame_BackgroundObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_RewardsFrameContainer_RewardsFrame_BackgroundObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_RewardsFrameContainer_RewardsFrame_BottomObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_RewardsFrameContainer_RewardsFrame_BottomObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_RewardsFrameContainer_RewardsFrame_LabelObject : FontString
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_RewardsFrameContainer_RewardsFrame_LabelObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_RewardsFrameContainer_RewardsFrame_TopObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_RewardsFrameContainer_RewardsFrame_TopObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject : ScrollFrame
----@field Contents WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ContentsObject
----@field Event WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_EventObject
----@field ScrollBar WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
----@field panExtent number
----@field scrollBarBottomY number
----@field scrollBarTopY number
----@field scrollBarX number
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:GetPanExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:OnHorizontalScroll_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:OnMouseWheel_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:OnScrollRangeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:OnVerticalScroll_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:SetPanExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrameObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ContentsObject : Frame
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ContentsObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_EventObject
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_EventObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject : Frame
----@field Back WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject
----@field Defaults WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_DefaultsObject
----@field Directions WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_DirectionsObject
----@field Event WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_EventObject
----@field Forward WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject
----@field Track WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_TrackObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field deferredCallbacks table
----@field executingEvents table
----@field hideTrack boolean
----@field interpolator WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_interpolatorObject
----@field isScrollController boolean
----@field minThumbExtent number
----@field panDelay number
----@field panExtentPercentage number
----@field panRepeatTime number
----@field smartNavigationIgnored boolean
----@field snapToInterval boolean
----@field thumbAnchor string
----@field useProportionalThumb boolean
----@field visibleExtentPercentage number
----@field wheelPanScalar number
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:CallInternalScope(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:CanCursorStepInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:CanInterpolateScroll(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:DisableControls(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:EnableInternalPriority(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:EnableSnapToInterval(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:GetBackStepper(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:GetForwardStepper(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:GetFrameExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:GetIntervalRange(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:GetLower(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:GetPanExtentPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:GetPanRepeatDelay(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:GetPanRepeatTime(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:GetScrollInterpolator(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:GetScrollPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:GetThumb(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:GetThumbAnchor(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:GetTrack(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:GetTrackExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:GetUpper(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:GetWheelPanPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:HasScrollableExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:Init(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:InitializeNarration(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:Interpolate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:IsAtBegin(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:IsAtEnd(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:IsHorizontal(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:IsScrollAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:IsThumbMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:OnHide_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:OnMouseWheel(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:OnShow_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:OnStepperMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:OnThumbMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:OnTrackMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:ScrollDecrease(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:ScrollInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:ScrollIncrease(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:ScrollPageInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:ScrollStepInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:ScrollToBegin(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:ScrollToEnd(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:ScrollWheelInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:SelectCursorComponent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:SelectPointComponent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:SetFrameExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:SetHideIfUnscrollable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:SetHorizontal(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:SetInterpolateScroll(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:SetPanExtentPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:SetScrollAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:SetScrollPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:SetScrollPercentageInternal(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:SetThumbExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:SetVisibleExtentPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:UnregisterUpdate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:Update(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:onButtonMouseUp(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBarObject:scrollInternal(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject : Button
----@field Event WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Back_EventObject
----@field Texture WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Back_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:DesaturateIfDisabled(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:GetAtlas(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:IsDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:IsDownOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:IsOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:NarrationGetName(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:OnButtonStateChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:OnClick_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:OnDisable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:OnEnable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:OnMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:OnMouseUp(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:SetDisplacedRegions(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Back_EventObject
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Back_EventObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Back_TextureObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Back_TextureObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_DefaultsObject
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_DefaultsObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_DirectionsObject
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_DirectionsObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_EventObject
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_EventObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject : Button
----@field Event WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Forward_EventObject
----@field Texture WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Forward_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:GetAtlas(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:IsDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:IsDownOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:IsOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:NarrationGetName(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:OnDisable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:OnEnable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:OnMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:OnMouseUp(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Forward_EventObject
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Forward_EventObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Forward_TextureObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Forward_TextureObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_TrackObject : Frame
----@field Begin WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_BeginObject
----@field End WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_EndObject
----@field Middle WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_MiddleObject
----@field Thumb WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_TrackObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_BeginObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_BeginObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_EndObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_EndObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_MiddleObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_MiddleObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject : Button
----@field Begin WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_Thumb_BeginObject
----@field End WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_Thumb_EndObject
----@field Event WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_Thumb_EventObject
----@field Middle WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field downBeginTexture string
----@field downEndTexture string
----@field downMiddleTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field overBeginTexture string
----@field overEndTexture string
----@field overMiddleTexture string
----@field upBeginTexture string
----@field upEndTexture string
----@field upMiddleTexture string
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GetAtlas(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:IsDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:IsDownOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:IsOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnDisable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_Thumb_BeginObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_Thumb_BeginObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_Thumb_EndObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_Thumb_EndObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_Thumb_EventObject
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_Thumb_EventObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_interpolatorObject
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_interpolatorObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_interpolatorObject:Cancel(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_interpolatorObject:Interpolate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ScrollFrame_ScrollBar_interpolatorObject:interpolateFunc(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_SealMaterialBGObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_SealMaterialBGObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ShareButtonObject : Button
----@field Left WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ShareButton_LeftObject
----@field Middle WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ShareButton_MiddleObject
----@field Right WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ShareButton_RightObject
----@field Text WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ShareButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ShareButtonObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ShareButtonObject:FitToText(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ShareButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ShareButtonObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ShareButtonObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ShareButtonObject:SetDisabledState(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ShareButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ShareButtonObject:SetTextToFit(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ShareButton_LeftObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ShareButton_LeftObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ShareButton_MiddleObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ShareButton_MiddleObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ShareButton_RightObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ShareButton_RightObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ShareButton_TextObject : FontString
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_ShareButton_TextObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_TrackButtonObject : Button
----@field Left WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_TrackButton_LeftObject
----@field Middle WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_TrackButton_MiddleObject
----@field Right WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_TrackButton_RightObject
----@field Text WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_TrackButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_TrackButtonObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_TrackButtonObject:FitToText(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_TrackButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_TrackButtonObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_TrackButtonObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_TrackButtonObject:SetDisabledState(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_TrackButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_TrackButtonObject:SetTextToFit(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_TrackButton_LeftObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_TrackButton_LeftObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_TrackButton_MiddleObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_TrackButton_MiddleObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_TrackButton_RightObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_TrackButton_RightObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_TrackButton_TextObject : FontString
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_TrackButton_TextObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_WaypointMapButtonObject : Button
----@field HighlightIcon WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_WaypointMapButton_HighlightIconObject
----@field Icon WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_WaypointMapButton_IconObject
----@field tooltipText string
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_WaypointMapButtonObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_WaypointMapButton_HighlightIconObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_WaypointMapButton_HighlightIconObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_WaypointMapButton_IconObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_DetailsFrame_WaypointMapButton_IconObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject : ScrollFrame
----@field Background WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_BackgroundObject
----@field BorderFrame WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_BorderFrameObject
----@field CampaignTooltip WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_CampaignTooltipObject
----@field Contents WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject
----@field Edge WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_EdgeObject
----@field EmptyText WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_EmptyTextObject
----@field Event WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_EventObject
----@field GamepadSearchFocusIcon WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject
----@field NoSearchResultsText WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_NoSearchResultsTextObject
----@field ScrollBar WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject
----@field SearchBox WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SearchBoxObject
----@field SettingsDropdown WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_SettingsDropdownObject
----@field StoryTooltip WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_StoryTooltipObject
----@field callbackTables table
----@field campaignHeaderFramePool WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_campaignHeaderFramePoolObject
----@field campaignHeaderMinimalFramePool WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_campaignHeaderMinimalFramePoolObject
----@field covenantCallingsHeaderFramePool WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_covenantCallingsHeaderFramePoolObject
----@field deferredCallbacks table
----@field executingEvents table
----@field headerFramePool WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_headerFramePoolObject
----@field objectiveFramePool WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_objectiveFramePoolObject
----@field panExtent number
----@field scrollBarBottomY number
----@field scrollBarTopY number
----@field scrollBarX number
----@field titleFramePool WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_titleFramePoolObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:ExpandHeaderForQuest(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:GetPanExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:OnHorizontalScroll_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:OnMapCanvasPinEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:OnMapCanvasPinLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:OnMouseWheel_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:OnScrollRangeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:OnSizeChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:OnVerticalScroll_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:ResizeBackground(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:ScrollToQuest(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:SetPanExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:UpdateBackground(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrameObject:UpdateBottomShadow(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_BackgroundObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_BackgroundObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_BorderFrameObject : Frame
----@field Border WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_BorderFrame_BorderObject
----@field Shadow WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_BorderFrame_ShadowObject
----@field TopDetail WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_BorderFrame_TopDetailObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_BorderFrameObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_BorderFrame_BorderObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_BorderFrame_BorderObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_BorderFrame_ShadowObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_BorderFrame_ShadowObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_BorderFrame_TopDetailObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_BorderFrame_TopDetailObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_CampaignTooltipObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_CampaignTooltipObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject : Frame
----@field Separator WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_SeparatorObject
----@field StoryHeader WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_StoryHeaderObject
----@field buttonPool WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_buttonPoolObject
----@field useHighlightManager boolean
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:AddLayoutChildren(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:CalculateFrameSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:CallOnCreateFunction(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:ClearFixedSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:ClearSelection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:FindButtonByQuestID(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:FindButtonByTrackable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:GetAdditionalRegions(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:GetButtonForAreaPOI(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:GetButtonForQuest(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:GetButtonForQuestInternal(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:GetButtonForStyleInternal(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:GetButtonForTrackable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:GetChildHeight(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:GetChildPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:GetChildSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:GetChildWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:GetFixedHeight(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:GetFixedSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:GetFixedWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:GetHeightPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:GetLayoutChildren(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:GetPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:GetWidthPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:HideAllButtons(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:IgnoreLayoutIndex(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:Init(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:IsDirty(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:IsLayoutFrame(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:Layout(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:LayoutChildren(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:MarkClean(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:MarkDirty(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:MarkIgnoreInLayout(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:OnCleaned(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:OnUpdate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:PostInitButtonInternal(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:ResetUsage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:SelectButton(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:SelectButtonByQuestID(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:SelectButtonByTrackable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:SelectSuperTrackedButton(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:SetFixedHeight(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:SetFixedSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:SetFixedWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:SetHeightPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:SetWidthPadding(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ContentsObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_SeparatorObject : Frame
----@field Divider WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_Separator_DividerObject
----@field leftPadding number
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_SeparatorObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_Separator_DividerObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_Separator_DividerObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_StoryHeaderObject : Frame
----@field Background WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_StoryHeader_BackgroundObject
----@field Divider WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_StoryHeader_DividerObject
----@field HighlightTexture WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_StoryHeader_HighlightTextureObject
----@field Progress WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_StoryHeader_ProgressObject
----@field Text WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_StoryHeader_TextObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_StoryHeaderObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_StoryHeaderObject:GetButtonType(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_StoryHeaderObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_StoryHeaderObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_StoryHeaderObject:ShowTooltip(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_StoryHeader_BackgroundObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_StoryHeader_BackgroundObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_StoryHeader_DividerObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_StoryHeader_DividerObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_StoryHeader_HighlightTextureObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_StoryHeader_HighlightTextureObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_StoryHeader_ProgressObject : FontString
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_StoryHeader_ProgressObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_StoryHeader_TextObject : FontString
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_StoryHeader_TextObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_buttonPoolObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_buttonPoolObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_buttonPoolObject:GetTemplate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_Contents_buttonPoolObject:private(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_EdgeObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_EdgeObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_EmptyTextObject : FontString
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_EmptyTextObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_EventObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_EventObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject : Frame
----@field ActiveTexture WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_ActiveTextureObject
----@field DisabledTexture WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_DisabledTextureObject
----@field HoldAnim WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_HoldAnimObject
----@field HoldIndicator WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_HoldIndicatorObject
----@field HoldIndicatorBG WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_HoldIndicatorBGObject
----@field HoverTexture WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_HoverTextureObject
----@field LoadBar WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_LoadBarObject
----@field LoadBarBG WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_LoadBarBGObject
----@field LoadBarGlow WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_LoadBarGlowObject
----@field NormalTexture WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_NormalTextureObject
----@field PressedTexture WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_PressedTextureObject
----@field SpinnerTip WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject:ApplyTextureLayout(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject:BeginHold(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject:CanEnterTextureState(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject:DisableDropShadow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject:EnableDropShadow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject:EndHold(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject:OnHoldAnimFinished(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject:OnHoldAnimStopped(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject:RefreshIconTextures(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject:SetDisabled(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject:SetEnabled(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject:SetFocused(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject:SetHoldState(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject:SetInputKey(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject:SetIsHoldAction(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject:SetPressable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject:SetTextureHeight(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject:SetTextureState(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject:SetTextureWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject:SetUsableState(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIconObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_ActiveTextureObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_ActiveTextureObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_DisabledTextureObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_DisabledTextureObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_HoldAnimObject : AnimationGroup
----@field LoadBarAnim WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_HoldAnim_SpinnerTipAnimObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_HoldAnimObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_HoldAnim_LoadBarAnimObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_HoldAnim_SpinnerTipAnimObject : Rotation
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_HoldIndicatorObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_HoldIndicatorObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_HoldIndicatorBGObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_HoldIndicatorBGObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_HoverTextureObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_HoverTextureObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_LoadBarObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_LoadBarObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_LoadBarBGObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_LoadBarBGObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_LoadBarGlowObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_LoadBarGlowObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_NormalTextureObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_NormalTextureObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_PressedTextureObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_PressedTextureObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_SpinnerTipObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_GamepadSearchFocusIcon_SpinnerTipObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_NoSearchResultsTextObject : FontString
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_NoSearchResultsTextObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject : Frame
----@field Back WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject
----@field Defaults WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_DefaultsObject
----@field Directions WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_DirectionsObject
----@field Event WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_EventObject
----@field Forward WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject
----@field Track WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_TrackObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field deferredCallbacks table
----@field executingEvents table
----@field hideTrack boolean
----@field interpolator WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_interpolatorObject
----@field isScrollController boolean
----@field minThumbExtent number
----@field panDelay number
----@field panExtentPercentage number
----@field panRepeatTime number
----@field smartNavigationIgnored boolean
----@field snapToInterval boolean
----@field thumbAnchor string
----@field useProportionalThumb boolean
----@field visibleExtentPercentage number
----@field wheelPanScalar number
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:CallInternalScope(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:CanCursorStepInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:CanInterpolateScroll(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:DisableControls(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:EnableInternalPriority(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:EnableSnapToInterval(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:GetBackStepper(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:GetForwardStepper(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:GetFrameExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:GetIntervalRange(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:GetLower(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:GetPanExtentPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:GetPanRepeatDelay(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:GetPanRepeatTime(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:GetScrollInterpolator(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:GetScrollPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:GetThumb(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:GetThumbAnchor(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:GetTrack(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:GetTrackExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:GetUpper(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:GetWheelPanPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:HasScrollableExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:Init(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:InitializeNarration(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:Interpolate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:IsAtBegin(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:IsAtEnd(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:IsHorizontal(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:IsScrollAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:IsThumbMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:OnHide_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:OnMouseWheel(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:OnShow_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:OnStepperMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:OnThumbMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:OnTrackMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:ScrollDecrease(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:ScrollInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:ScrollIncrease(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:ScrollPageInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:ScrollStepInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:ScrollToBegin(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:ScrollToEnd(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:ScrollWheelInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:SelectCursorComponent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:SelectPointComponent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:SetFrameExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:SetHideIfUnscrollable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:SetHorizontal(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:SetInterpolateScroll(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:SetPanExtentPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:SetScrollAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:SetScrollPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:SetScrollPercentageInternal(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:SetThumbExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:SetVisibleExtentPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:UnregisterUpdate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:Update(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:onButtonMouseUp(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBarObject:scrollInternal(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject : Button
----@field Event WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Back_EventObject
----@field Texture WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Back_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:DesaturateIfDisabled(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:GetAtlas(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:IsDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:IsDownOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:IsOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:NarrationGetName(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:OnButtonStateChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:OnClick_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:OnDisable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:OnEnable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:OnMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:OnMouseUp(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:SetDisplacedRegions(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Back_EventObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Back_EventObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Back_TextureObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Back_TextureObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_DefaultsObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_DefaultsObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_DirectionsObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_DirectionsObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_EventObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_EventObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject : Button
----@field Event WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Forward_EventObject
----@field Texture WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Forward_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:GetAtlas(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:IsDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:IsDownOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:IsOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:NarrationGetName(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:OnDisable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:OnEnable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:OnMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:OnMouseUp(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Forward_EventObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Forward_EventObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Forward_TextureObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Forward_TextureObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_TrackObject : Frame
----@field Begin WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_BeginObject
----@field End WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_EndObject
----@field Middle WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_MiddleObject
----@field Thumb WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_TrackObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_BeginObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_BeginObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_EndObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_EndObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_MiddleObject : Texture
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_MiddleObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject : Button
----@field Begin WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_Thumb_BeginObject
----@field End WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_Thumb_EndObject
----@field Event WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_Thumb_EventObject
----@field Middle WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field downBeginTexture string
----@field downEndTexture string
----@field downMiddleTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field overBeginTexture string
----@field overEndTexture string
----@field overMiddleTexture string
----@field upBeginTexture string
----@field upEndTexture string
----@field upMiddleTexture string
-local WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GetAtlas(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:IsDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:IsDownOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:IsOver(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnDisable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_QuestsFrame_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+function PVPMatchResults_content_scrollBar_registeredScrollBoxObject:scrollInternal(...) end
 end

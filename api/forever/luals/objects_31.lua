@@ -3,4485 +3,1609 @@
 
 
 do
----@class SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_DefaultsObject
-local SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_DefaultsObject = {}
+---@class GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Forward_EventObject
+local GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Forward_EventObject = {}
 end
 
 do
----@class SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_DirectionsObject
-local SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_DirectionsObject = {}
+---@class GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Forward_TextureObject : Texture
+local GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Forward_TextureObject = {}
 end
 
 do
----@class SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_DragDelegateObject : Frame
-local SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_DragDelegateObject = {}
+---@class GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_TrackObject : Frame
+---@field Begin GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_BeginObject
+---@field End GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_EndObject
+---@field Middle GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_MiddleObject
+---@field Thumb GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject
+local GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_TrackObject = {}
 end
 
 do
----@class SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_EventObject
-local SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_EventObject = {}
+---@class GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_BeginObject : Texture
+local GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_BeginObject = {}
 end
 
 do
----@class SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_InputBlockerObject : Button
-local SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_InputBlockerObject = {}
+---@class GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_EndObject : Texture
+local GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_EndObject = {}
 end
 
 do
----@class SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject : Frame
----@field Event SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
+---@class GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_MiddleObject : Texture
+local GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_MiddleObject = {}
+end
+
+do
+---@class GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject : Button
+---@field Begin GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_Thumb_BeginObject
+---@field End GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_Thumb_EndObject
+---@field Event GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_Thumb_EventObject
+---@field Middle GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_Thumb_MiddleObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field downBeginTexture string
+---@field downEndTexture string
+---@field downMiddleTexture string
 ---@field executingEvents table
-local SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject = {}
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTable(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTables(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallback(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject:TriggerEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterCallback(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEvents(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
-local SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ScrollTarget_EventObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ShadowsObject : Frame
----@field Lower SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_Shadows_LowerObject
----@field Upper SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_Shadows_UpperObject
-local SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_ShadowsObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_Shadows_LowerObject : Texture
-local SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_Shadows_LowerObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_Shadows_UpperObject : Texture
-local SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_Shadows_UpperObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_registeredScrollBarObject
-local SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_registeredScrollBarObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject
----@field Event table
----@field FrameLevelPolicy table
----@field callbackTables table
----@field canSignalWithoutInitializer boolean
----@field deferredCallbacks table
----@field executingEvents table
----@field frameFactory table
----@field frames table
----@field initialized boolean
----@field initializers table
----@field padding table
----@field scrollBox SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_view_scrollBoxObject
----@field templateInfoCache table
-local SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject = {}
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:AcquireInternal(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:AcquireRange(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:AssignAccessors(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:AttachDataProviderCallbacks(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:CalculateDataIndices(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:CalculateFrameExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:ClearCachedData(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:ClearElementExtentData(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:ClearInvalidation(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:ContainsElementDataByPredicate(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:DataProviderContentsChanged(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:DetachDataProviderCallbacks(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProvider(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:EnumerateFrames(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:FindByPredicate(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:FindElementData(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:FindElementDataByPredicate(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndex(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:FindFrame(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:FindFrameByPredicate(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:FindFrameElementDataIndex(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:Flush(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:FlushDataProvider(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:ForEachElementData(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:ForEachFrame(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GenerateCallbackEvents(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetCallbackTable(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetCallbackTables(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetDataIndexBegin(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetDataIndexEnd(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetDataProvider(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetDataProviderSize(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetDataRange(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetDataScrollOffset(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetElementExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetElementExtentCalculator(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetElementIndent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetExtentFromInfo(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetExtentSpacing(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetExtentTo(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetExtentUntil(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetFactoryDataFromElementData(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetFirstTemplateInfo(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetFrameCount(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetFrameExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelCounter(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelPolicy(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetFrames(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetIdenticalElementExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetIdenticalStrideExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetInvalidationReason(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetLayoutFunction(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetLower(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetPadding(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetPanExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetScrollBox(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetScrollTarget(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetSpacing(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetStride(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetTemplateInfo(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:GetUpper(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:HasBiaxalLayout(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:HasDataProvider(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:HasElementExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:HasIdenticalElementExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:HasIdenticalStrideExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:Init(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:InitDefaultDrag(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:InvokeInitializer(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:InvokeInitializers(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:IsAcquireLocked(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:IsDataIndexWithinRange(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:IsElementStretchDisabled(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:IsExtentValid(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:IsHorizontal(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:IsInitialized(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:IsInvalidated(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:IsVirtualized(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:Layout(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:LayoutInternal(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSizeChanged(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSort(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:OnLoad(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementData(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:RebuildTemplateInfoCache(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:RecalculateExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:RefreshSmartNav(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:RegisterCallback(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:ReinitializeFrames(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:Release(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:RemoveDataProvider(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:RemoveDataProviderInternal(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:ResizeFrame(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:ReverseForEachElementData(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:ReverseForEachFrame(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SecureInsertEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SelectCursorComponent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SelectPointComponent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SetAcquireLocked(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SetDataProvider(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SetDataRange(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SetElementExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SetElementExtentCalculator(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SetElementFactory(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SetElementIndentCalculator(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SetElementInitializer(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SetElementResetter(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SetElementStretchDisabled(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SetExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SetFrameExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SetFrameFactoryResetter(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SetFrameLevelPolicy(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SetHorizontal(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SetInvalidationReason(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SetMaxPanExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SetPadding(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SetPanExtent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SetScrollBox(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SetVirtualized(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SignalDataChangeEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:SortFrames(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:TriggerEvent(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:UnassignAccessors(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:UnregisterCallback(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:UnregisterEvents(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:ValidateDataRange(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:elementExtentCalculator(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:elementFactory(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:factory(...) end
----@return any ...
-function SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_viewObject:frameResetter(...) end
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_view_scrollBoxObject
-local SettingsPanel_Container_SettingsList_ScrollBar_registeredScrollBox_view_scrollBoxObject = {}
-end
-
-do
----@class SettingsPanel_Container_SettingsList_ScrollBoxObject
-local SettingsPanel_Container_SettingsList_ScrollBoxObject = {}
-end
-
-do
----@class SettingsPanel_GameTabObject : Button
----@field Left SettingsPanel_GameTab_LeftObject
----@field Middle SettingsPanel_GameTab_MiddleObject
----@field Right SettingsPanel_GameTab_RightObject
----@field Text SettingsPanel_GameTab_TextObject
----@field categorySet number
----@field overLeftTexture string
+---@field mouseDownSoundKitID number
+---@field overBeginTexture string
+---@field overEndTexture string
 ---@field overMiddleTexture string
----@field overRightTexture string
----@field selected boolean
----@field selectedLeftTexture string
----@field selectedMiddleTexture string
----@field selectedRightTexture string
----@field tabText string
----@field upLeftTexture string
+---@field upBeginTexture string
+---@field upEndTexture string
 ---@field upMiddleTexture string
----@field upRightTexture string
-local SettingsPanel_GameTabObject = {}
+local GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject = {}
 ---@return any ...
-function SettingsPanel_GameTabObject:CanChangeSelection(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function SettingsPanel_GameTabObject:GetAtlas(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function SettingsPanel_GameTabObject:IsSelected(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function SettingsPanel_GameTabObject:OnClick(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function SettingsPanel_GameTabObject:OnDisable(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:GetAtlas(...) end
 ---@return any ...
-function SettingsPanel_GameTabObject:OnEnable(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
 ---@return any ...
-function SettingsPanel_GameTabObject:OnEnter(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
 ---@return any ...
-function SettingsPanel_GameTabObject:OnLeave(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function SettingsPanel_GameTabObject:OnLoad(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function SettingsPanel_GameTabObject:OnSelected(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function SettingsPanel_GameTabObject:Reset(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:IsDown(...) end
 ---@return any ...
-function SettingsPanel_GameTabObject:SelectionChangeInterrupt(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:IsDownOver(...) end
 ---@return any ...
-function SettingsPanel_GameTabObject:SetSelected(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:IsOver(...) end
 ---@return any ...
-function SettingsPanel_GameTabObject:SetSelectedState(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
 ---@return any ...
-function SettingsPanel_GameTabObject:SetSelectionChangeInterrupt(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_GameTabObject:UpdateAtlas(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:OnDisable(...) end
 ---@return any ...
-function SettingsPanel_GameTabObject:previousOnClickScript(...) end
-end
-
-do
----@class SettingsPanel_GameTab_LeftObject : Texture
-local SettingsPanel_GameTab_LeftObject = {}
-end
-
-do
----@class SettingsPanel_GameTab_MiddleObject : Texture
-local SettingsPanel_GameTab_MiddleObject = {}
-end
-
-do
----@class SettingsPanel_GameTab_RightObject : Texture
-local SettingsPanel_GameTab_RightObject = {}
-end
-
-do
----@class SettingsPanel_GameTab_TextObject : FontString
-local SettingsPanel_GameTab_TextObject = {}
-end
-
-do
----@class SettingsPanel_InputBlockerObject : Frame
-local SettingsPanel_InputBlockerObject = {}
-end
-
-do
----@class SettingsPanel_NineSliceObject : Frame
----@field BottomEdge SettingsPanel_NineSlice_BottomEdgeObject
----@field BottomLeftCorner SettingsPanel_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner SettingsPanel_NineSlice_BottomRightCornerObject
----@field Center SettingsPanel_NineSlice_CenterObject
----@field LeftEdge SettingsPanel_NineSlice_LeftEdgeObject
----@field RightEdge SettingsPanel_NineSlice_RightEdgeObject
----@field Text SettingsPanel_NineSlice_TextObject
----@field TopEdge SettingsPanel_NineSlice_TopEdgeObject
----@field TopLeftCorner SettingsPanel_NineSlice_TopLeftCornerObject
----@field TopRightCorner SettingsPanel_NineSlice_TopRightCornerObject
----@field layoutType string
-local SettingsPanel_NineSliceObject = {}
----@return any ...
-function SettingsPanel_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function SettingsPanel_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function SettingsPanel_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function SettingsPanel_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function SettingsPanel_NineSliceObject:OnLoad(...) end
----@return any ...
-function SettingsPanel_NineSliceObject:SetBlendMode(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:OnEnable(...) end
 ---@return any ...
-function SettingsPanel_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function SettingsPanel_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function SettingsPanel_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function SettingsPanel_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class SettingsPanel_NineSlice_BottomEdgeObject : Texture
-local SettingsPanel_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class SettingsPanel_NineSlice_BottomLeftCornerObject : Texture
-local SettingsPanel_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class SettingsPanel_NineSlice_BottomRightCornerObject : Texture
-local SettingsPanel_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class SettingsPanel_NineSlice_CenterObject : Texture
-local SettingsPanel_NineSlice_CenterObject = {}
-end
-
-do
----@class SettingsPanel_NineSlice_LeftEdgeObject : Texture
-local SettingsPanel_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class SettingsPanel_NineSlice_RightEdgeObject : Texture
-local SettingsPanel_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class SettingsPanel_NineSlice_TextObject : FontString
-local SettingsPanel_NineSlice_TextObject = {}
-end
-
-do
----@class SettingsPanel_NineSlice_TopEdgeObject : Texture
-local SettingsPanel_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class SettingsPanel_NineSlice_TopLeftCornerObject : Texture
-local SettingsPanel_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class SettingsPanel_NineSlice_TopRightCornerObject : Texture
-local SettingsPanel_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class SettingsPanel_OutputTextObject : FontString
-local SettingsPanel_OutputTextObject = {}
-end
-
-do
----@class SettingsPanel_QuestTextPreviewObject : Frame
----@field Background SettingsPanel_QuestTextPreview_BackgroundObject
----@field BodyText SettingsPanel_QuestTextPreview_BodyTextObject
----@field NineSlice SettingsPanel_QuestTextPreview_NineSliceObject
----@field TitleText SettingsPanel_QuestTextPreview_TitleTextObject
----@field layoutType string
-local SettingsPanel_QuestTextPreviewObject = {}
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:OnEnter(...) end
 ---@return any ...
-function SettingsPanel_QuestTextPreviewObject:GetBackdropBorderColor(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_QuestTextPreviewObject:GetBackdropColor(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:OnLeave(...) end
 ---@return any ...
-function SettingsPanel_QuestTextPreviewObject:GetValue(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_QuestTextPreviewObject:OnShow(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:OnLoad(...) end
 ---@return any ...
-function SettingsPanel_QuestTextPreviewObject:RegisterWithSettingInitializer(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_QuestTextPreviewObject:SetBackdropBorderColor(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
 ---@return any ...
-function SettingsPanel_QuestTextPreviewObject:SetBackdropColor(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_QuestTextPreviewObject:SetBorderBlendMode(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
 ---@return any ...
-function SettingsPanel_QuestTextPreviewObject:SetValueAccessor(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_QuestTextPreviewObject:TooltipBackdropOnLoad(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:OnShow(...) end
 ---@return any ...
-function SettingsPanel_QuestTextPreviewObject:UpdatePreview(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
 ---@return any ...
-function SettingsPanel_QuestTextPreviewObject:accessor(...) end
-end
-
-do
----@class SettingsPanel_QuestTextPreview_BackgroundObject : Texture
-local SettingsPanel_QuestTextPreview_BackgroundObject = {}
-end
-
-do
----@class SettingsPanel_QuestTextPreview_BodyTextObject : FontString
-local SettingsPanel_QuestTextPreview_BodyTextObject = {}
-end
-
-do
----@class SettingsPanel_QuestTextPreview_NineSliceObject : Frame
----@field BottomEdge SettingsPanel_QuestTextPreview_NineSlice_BottomEdgeObject
----@field BottomLeftCorner SettingsPanel_QuestTextPreview_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner SettingsPanel_QuestTextPreview_NineSlice_BottomRightCornerObject
----@field Center SettingsPanel_QuestTextPreview_NineSlice_CenterObject
----@field LeftEdge SettingsPanel_QuestTextPreview_NineSlice_LeftEdgeObject
----@field RightEdge SettingsPanel_QuestTextPreview_NineSlice_RightEdgeObject
----@field TopEdge SettingsPanel_QuestTextPreview_NineSlice_TopEdgeObject
----@field TopLeftCorner SettingsPanel_QuestTextPreview_NineSlice_TopLeftCornerObject
----@field TopRightCorner SettingsPanel_QuestTextPreview_NineSlice_TopRightCornerObject
-local SettingsPanel_QuestTextPreview_NineSliceObject = {}
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function SettingsPanel_QuestTextPreview_NineSliceObject:GetBorderColor(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function SettingsPanel_QuestTextPreview_NineSliceObject:GetCenterColor(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
 ---@return any ...
-function SettingsPanel_QuestTextPreview_NineSliceObject:GetFrameLayoutTextureKit(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function SettingsPanel_QuestTextPreview_NineSliceObject:GetFrameLayoutType(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
 ---@return any ...
-function SettingsPanel_QuestTextPreview_NineSliceObject:OnLoad(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
 ---@return any ...
-function SettingsPanel_QuestTextPreview_NineSliceObject:SetBlendMode(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function SettingsPanel_QuestTextPreview_NineSliceObject:SetBorderBlendMode(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
 ---@return any ...
-function SettingsPanel_QuestTextPreview_NineSliceObject:SetBorderColor(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
 ---@return any ...
-function SettingsPanel_QuestTextPreview_NineSliceObject:SetCenterColor(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
 ---@return any ...
-function SettingsPanel_QuestTextPreview_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class SettingsPanel_QuestTextPreview_NineSlice_BottomEdgeObject : Texture
-local SettingsPanel_QuestTextPreview_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class SettingsPanel_QuestTextPreview_NineSlice_BottomLeftCornerObject : Texture
-local SettingsPanel_QuestTextPreview_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class SettingsPanel_QuestTextPreview_NineSlice_BottomRightCornerObject : Texture
-local SettingsPanel_QuestTextPreview_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class SettingsPanel_QuestTextPreview_NineSlice_CenterObject : Texture
-local SettingsPanel_QuestTextPreview_NineSlice_CenterObject = {}
-end
-
-do
----@class SettingsPanel_QuestTextPreview_NineSlice_LeftEdgeObject : Texture
-local SettingsPanel_QuestTextPreview_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class SettingsPanel_QuestTextPreview_NineSlice_RightEdgeObject : Texture
-local SettingsPanel_QuestTextPreview_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class SettingsPanel_QuestTextPreview_NineSlice_TopEdgeObject : Texture
-local SettingsPanel_QuestTextPreview_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class SettingsPanel_QuestTextPreview_NineSlice_TopLeftCornerObject : Texture
-local SettingsPanel_QuestTextPreview_NineSlice_TopLeftCornerObject = {}
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class SettingsPanel_QuestTextPreview_NineSlice_TopRightCornerObject : Texture
-local SettingsPanel_QuestTextPreview_NineSlice_TopRightCornerObject = {}
+---@class GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_Thumb_BeginObject : Texture
+local GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_Thumb_BeginObject = {}
 end
 
 do
----@class SettingsPanel_QuestTextPreview_TitleTextObject : FontString
-local SettingsPanel_QuestTextPreview_TitleTextObject = {}
+---@class GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_Thumb_EndObject : Texture
+local GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_Thumb_EndObject = {}
 end
 
 do
----@class SettingsPanel_SearchBoxObject : EditBox
----@field Instructions SettingsPanel_SearchBox_InstructionsObject
----@field Left SettingsPanel_SearchBox_LeftObject
----@field Middle SettingsPanel_SearchBox_MiddleObject
----@field Right SettingsPanel_SearchBox_RightObject
----@field clearButton SettingsPanel_SearchBox_clearButtonObject
----@field instructionText string
----@field searchIcon SettingsPanel_SearchBox_searchIconObject
-local SettingsPanel_SearchBoxObject = {}
----@return any ...
-function SettingsPanel_SearchBoxObject:NarrationGetContext(...) end
----@return any ...
-function SettingsPanel_SearchBoxObject:NarrationGetDescription(...) end
----@return any ...
-function SettingsPanel_SearchBoxObject:NarrationGetName(...) end
----@return any ...
-function SettingsPanel_SearchBoxObject:SetNarrationLabelRegion(...) end
+---@class GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_Thumb_EventObject
+local GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_Thumb_EventObject = {}
 end
 
 do
----@class SettingsPanel_SearchBox_InstructionsObject : FontString
-local SettingsPanel_SearchBox_InstructionsObject = {}
+---@class GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_Thumb_MiddleObject : Texture
+local GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_Track_Thumb_MiddleObject = {}
 end
 
 do
----@class SettingsPanel_SearchBox_LeftObject : Texture
-local SettingsPanel_SearchBox_LeftObject = {}
-end
-
-do
----@class SettingsPanel_SearchBox_MiddleObject : Texture
-local SettingsPanel_SearchBox_MiddleObject = {}
-end
-
-do
----@class SettingsPanel_SearchBox_RightObject : Texture
-local SettingsPanel_SearchBox_RightObject = {}
-end
-
-do
----@class SettingsPanel_SearchBox_clearButtonObject : Button
----@field Icon SettingsPanel_SearchBox_clearButton_IconObject
-local SettingsPanel_SearchBox_clearButtonObject = {}
----@return any ...
-function SettingsPanel_SearchBox_clearButtonObject:NarrationGetName(...) end
+---@class GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_interpolatorObject
+local GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_interpolatorObject = {}
 ---@return any ...
-function SettingsPanel_SearchBox_clearButtonObject:OnClick(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_interpolatorObject:Cancel(...) end
 ---@return any ...
-function SettingsPanel_SearchBox_clearButtonObject:OnEnter(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
 ---@return any ...
-function SettingsPanel_SearchBox_clearButtonObject:OnLeave(...) end
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_interpolatorObject:Interpolate(...) end
 ---@return any ...
-function SettingsPanel_SearchBox_clearButtonObject:OnMouseDown(...) end
----@return any ...
-function SettingsPanel_SearchBox_clearButtonObject:OnMouseUp(...) end
-end
-
-do
----@class SettingsPanel_SearchBox_clearButton_IconObject : Texture
-local SettingsPanel_SearchBox_clearButton_IconObject = {}
-end
-
-do
----@class SettingsPanel_SearchBox_searchIconObject : Texture
-local SettingsPanel_SearchBox_searchIconObject = {}
+function GuildControlUI_bankTabFrame_inset_scrollFrame_ScrollBar_interpolatorObject:interpolateFunc(...) end
 end
 
 do
----@class SettingsPanel_keybindingsCategoryObject
----@field ID number
----@field categorySet number
----@field name string
----@field order number
----@field subcategories table
-local SettingsPanel_keybindingsCategoryObject = {}
----@return any ...
-function SettingsPanel_keybindingsCategoryObject:CreateSubcategory(...) end
----@return any ...
-function SettingsPanel_keybindingsCategoryObject:GetCategorySet(...) end
----@return any ...
-function SettingsPanel_keybindingsCategoryObject:GetCategoryTutorialInfo(...) end
----@return any ...
-function SettingsPanel_keybindingsCategoryObject:GetID(...) end
----@return any ...
-function SettingsPanel_keybindingsCategoryObject:GetName(...) end
----@return any ...
-function SettingsPanel_keybindingsCategoryObject:GetOrder(...) end
----@return any ...
-function SettingsPanel_keybindingsCategoryObject:GetParentCategory(...) end
----@return any ...
-function SettingsPanel_keybindingsCategoryObject:GetQualifiedName(...) end
----@return any ...
-function SettingsPanel_keybindingsCategoryObject:GetSubcategories(...) end
----@return any ...
-function SettingsPanel_keybindingsCategoryObject:HasParentCategory(...) end
----@return any ...
-function SettingsPanel_keybindingsCategoryObject:HasSubcategories(...) end
----@return any ...
-function SettingsPanel_keybindingsCategoryObject:Init(...) end
----@return any ...
-function SettingsPanel_keybindingsCategoryObject:IsExpanded(...) end
----@return any ...
-function SettingsPanel_keybindingsCategoryObject:SetCategorySet(...) end
----@return any ...
-function SettingsPanel_keybindingsCategoryObject:SetCategoryTutorialInfo(...) end
----@return any ...
-function SettingsPanel_keybindingsCategoryObject:SetExpanded(...) end
----@return any ...
-function SettingsPanel_keybindingsCategoryObject:SetName(...) end
----@return any ...
-function SettingsPanel_keybindingsCategoryObject:SetOrder(...) end
----@return any ...
-function SettingsPanel_keybindingsCategoryObject:SetParentCategory(...) end
----@return any ...
-function SettingsPanel_keybindingsCategoryObject:SetShouldSortAlphabetically(...) end
----@return any ...
-function SettingsPanel_keybindingsCategoryObject:ShouldSortAlphabetically(...) end
+---@class GuildControlUI_bankTabFrame_scrollFrameObject
+local GuildControlUI_bankTabFrame_scrollFrameObject = {}
 end
 
 do
----@class SettingsPanel_tabsGroupObject
----@field Event table
----@field buttons table
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
-local SettingsPanel_tabsGroupObject = {}
----@return any ...
-function SettingsPanel_tabsGroupObject:AddButton(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:AddButtons(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:AddInternal(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:CanChangeSelection(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:FindButtonByPredicate(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:GenerateCallbackEvents(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:GetAtIndex(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:GetButtonIndex(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:GetButtons(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:GetButtonsByPredicate(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:GetCallbackTable(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:GetCallbackTables(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:GetCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:GetSelectedButtons(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:Init(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:OnLoad(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:OnSelectionChange(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:RegisterCallback(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:RemoveAllButtons(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:RemoveButton(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:RemoveButtons(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:RemoveInternal(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:Reset(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:SecureInsertEvent(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:Select(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:SelectAtIndex(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:SetButtons(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:SetSelectedAtIndex(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:SetShown(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:TriggerEvent(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:UnregisterCallback(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:UnregisterEvents(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:Unselect(...) end
----@return any ...
-function SettingsPanel_tabsGroupObject:UnselectAtIndex(...) end
+---@class GuildControlUI_currFrameObject
+local GuildControlUI_currFrameObject = {}
 end
 
 do
----@class ShardTransferImminentFrameObject : Button
----@field BottomEdge ShardTransferImminentFrame_BottomEdgeObject
----@field BottomLeftCorner ShardTransferImminentFrame_BottomLeftCornerObject
----@field BottomRightCorner ShardTransferImminentFrame_BottomRightCornerObject
----@field Center ShardTransferImminentFrame_CenterObject
----@field CloseButton ShardTransferImminentFrame_CloseButtonObject
----@field LeftEdge ShardTransferImminentFrame_LeftEdgeObject
----@field RightEdge ShardTransferImminentFrame_RightEdgeObject
----@field Text ShardTransferImminentFrame_TextObject
----@field TopEdge ShardTransferImminentFrame_TopEdgeObject
----@field TopLeftCorner ShardTransferImminentFrame_TopLeftCornerObject
----@field TopRightCorner ShardTransferImminentFrame_TopRightCornerObject
----@field animIn ShardTransferImminentFrame_animInObject
----@field backdropInfo ShardTransferImminentFrame_backdropInfoObject
----@field glow ShardTransferImminentFrame_glowObject
----@field waitAndAnimOut ShardTransferImminentFrame_waitAndAnimOutObject
-local ShardTransferImminentFrameObject = {}
----@return any ...
-function ShardTransferImminentFrameObject:ApplyBackdrop(...) end
----@return any ...
-function ShardTransferImminentFrameObject:ClearBackdrop(...) end
----@return any ...
-function ShardTransferImminentFrameObject:GetAlertContainer(...) end
----@return any ...
-function ShardTransferImminentFrameObject:GetBackdrop(...) end
----@return any ...
-function ShardTransferImminentFrameObject:GetBackdropBorderColor(...) end
----@return any ...
-function ShardTransferImminentFrameObject:GetBackdropColor(...) end
----@return any ...
-function ShardTransferImminentFrameObject:GetEdgeSize(...) end
----@return any ...
-function ShardTransferImminentFrameObject:HasBackdropInfo(...) end
----@return any ...
-function ShardTransferImminentFrameObject:ManagesOwnOutroAnimation(...) end
----@return any ...
-function ShardTransferImminentFrameObject:OnBackdropLoaded(...) end
----@return any ...
-function ShardTransferImminentFrameObject:OnBackdropSizeChanged(...) end
----@return any ...
-function ShardTransferImminentFrameObject:OnClick(...) end
----@return any ...
-function ShardTransferImminentFrameObject:OnEnter(...) end
----@return any ...
-function ShardTransferImminentFrameObject:OnEvent(...) end
----@return any ...
-function ShardTransferImminentFrameObject:OnLeave(...) end
----@return any ...
-function ShardTransferImminentFrameObject:OnLoad(...) end
+---@class GuildControlUI_discordFrameObject : Frame
+---@field channelButton GuildControlUI_discordFrame_channelButtonObject
+---@field channelDropdown GuildControlUI_discordFrame_channelDropdownObject
+---@field channelListTitle GuildControlUI_discordFrame_channelListTitleObject
+---@field noChannelsError GuildControlUI_discordFrame_noChannelsErrorObject
+---@field serverDropdown GuildControlUI_discordFrame_serverDropdownObject
+local GuildControlUI_discordFrameObject = {}
 ---@return any ...
-function ShardTransferImminentFrameObject:OnManagedAlertFrameVisibilityChanged(...) end
+function GuildControlUI_discordFrameObject:AddLayoutChildren(...) end
 ---@return any ...
-function ShardTransferImminentFrameObject:OnPostHide(...) end
+function GuildControlUI_discordFrameObject:CalculateFrameSize(...) end
 ---@return any ...
-function ShardTransferImminentFrameObject:OnPostShow(...) end
+function GuildControlUI_discordFrameObject:ClearFixedSize(...) end
 ---@return any ...
-function ShardTransferImminentFrameObject:OnUpdate(...) end
+function GuildControlUI_discordFrameObject:GetAdditionalRegions(...) end
 ---@return any ...
-function ShardTransferImminentFrameObject:SetAlertContainer(...) end
----@return any ...
-function ShardTransferImminentFrameObject:SetBackdrop(...) end
----@return any ...
-function ShardTransferImminentFrameObject:SetBackdropBorderColor(...) end
----@return any ...
-function ShardTransferImminentFrameObject:SetBackdropColor(...) end
----@return any ...
-function ShardTransferImminentFrameObject:SetBorderBlendMode(...) end
----@return any ...
-function ShardTransferImminentFrameObject:SetExternallyManagedOutroAnimation(...) end
----@return any ...
-function ShardTransferImminentFrameObject:SetupPieceVisuals(...) end
----@return any ...
-function ShardTransferImminentFrameObject:SetupTextureCoordinates(...) end
----@return any ...
-function ShardTransferImminentFrameObject:Start(...) end
----@type ShardTransferImminentFrameObject
-ShardTransferImminentFrame = ShardTransferImminentFrameObject
-end
-
-do
----@class ShardTransferImminentFrame_BottomEdgeObject : Texture
-local ShardTransferImminentFrame_BottomEdgeObject = {}
-end
-
-do
----@class ShardTransferImminentFrame_BottomLeftCornerObject : Texture
-local ShardTransferImminentFrame_BottomLeftCornerObject = {}
-end
-
-do
----@class ShardTransferImminentFrame_BottomRightCornerObject : Texture
-local ShardTransferImminentFrame_BottomRightCornerObject = {}
-end
-
-do
----@class ShardTransferImminentFrame_CenterObject : Texture
-local ShardTransferImminentFrame_CenterObject = {}
-end
-
-do
----@class ShardTransferImminentFrame_CloseButtonObject : Button
-local ShardTransferImminentFrame_CloseButtonObject = {}
----@return any ...
-function ShardTransferImminentFrame_CloseButtonObject:OnClick(...) end
----@return any ...
-function ShardTransferImminentFrame_CloseButtonObject:OnEnter(...) end
----@return any ...
-function ShardTransferImminentFrame_CloseButtonObject:OnLeave(...) end
-end
-
-do
----@class ShardTransferImminentFrame_LeftEdgeObject : Texture
-local ShardTransferImminentFrame_LeftEdgeObject = {}
-end
-
-do
----@class ShardTransferImminentFrame_RightEdgeObject : Texture
-local ShardTransferImminentFrame_RightEdgeObject = {}
-end
-
-do
----@class ShardTransferImminentFrame_TextObject : FontString
-local ShardTransferImminentFrame_TextObject = {}
-end
-
-do
----@class ShardTransferImminentFrame_TopEdgeObject : Texture
-local ShardTransferImminentFrame_TopEdgeObject = {}
-end
-
-do
----@class ShardTransferImminentFrame_TopLeftCornerObject : Texture
-local ShardTransferImminentFrame_TopLeftCornerObject = {}
-end
-
-do
----@class ShardTransferImminentFrame_TopRightCornerObject : Texture
-local ShardTransferImminentFrame_TopRightCornerObject = {}
-end
-
-do
----@class ShardTransferImminentFrame_animInObject : AnimationGroup
-local ShardTransferImminentFrame_animInObject = {}
-end
-
-do
----@class ShardTransferImminentFrame_backdropInfoObject
-local ShardTransferImminentFrame_backdropInfoObject = {}
-end
-
-do
----@class ShardTransferImminentFrame_glowObject : Texture
----@field animIn ShardTransferImminentFrame_glow_animInObject
-local ShardTransferImminentFrame_glowObject = {}
-end
-
-do
----@class ShardTransferImminentFrame_glow_animInObject : AnimationGroup
-local ShardTransferImminentFrame_glow_animInObject = {}
-end
-
-do
----@class ShardTransferImminentFrame_waitAndAnimOutObject : AnimationGroup
----@field animOut ShardTransferImminentFrame_waitAndAnimOut_animOutObject
-local ShardTransferImminentFrame_waitAndAnimOutObject = {}
----@return any ...
-function ShardTransferImminentFrame_waitAndAnimOutObject:OnFinished(...) end
-end
-
-do
----@class ShardTransferImminentFrame_waitAndAnimOut_animOutObject : Alpha
-local ShardTransferImminentFrame_waitAndAnimOut_animOutObject = {}
-end
-
-do
----@class ShardTransferImminentMinimizeButtonObject : Button
----@field BottomEdge ShardTransferImminentMinimizeButton_BottomEdgeObject
----@field BottomLeftCorner ShardTransferImminentMinimizeButton_BottomLeftCornerObject
----@field BottomRightCorner ShardTransferImminentMinimizeButton_BottomRightCornerObject
----@field Center ShardTransferImminentMinimizeButton_CenterObject
----@field CloseButton ShardTransferImminentMinimizeButton_CloseButtonObject
----@field LeftEdge ShardTransferImminentMinimizeButton_LeftEdgeObject
----@field RightEdge ShardTransferImminentMinimizeButton_RightEdgeObject
----@field TopEdge ShardTransferImminentMinimizeButton_TopEdgeObject
----@field TopLeftCorner ShardTransferImminentMinimizeButton_TopLeftCornerObject
----@field TopRightCorner ShardTransferImminentMinimizeButton_TopRightCornerObject
----@field animIn ShardTransferImminentMinimizeButton_animInObject
----@field backdropInfo ShardTransferImminentMinimizeButton_backdropInfoObject
----@field glow ShardTransferImminentMinimizeButton_glowObject
----@field waitAndAnimOut ShardTransferImminentMinimizeButton_waitAndAnimOutObject
-local ShardTransferImminentMinimizeButtonObject = {}
+function GuildControlUI_discordFrameObject:GetChildHeight(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:ApplyBackdrop(...) end
+function GuildControlUI_discordFrameObject:GetChildPadding(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:ClearBackdrop(...) end
+function GuildControlUI_discordFrameObject:GetChildSize(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:GetAlertContainer(...) end
+function GuildControlUI_discordFrameObject:GetChildWidth(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:GetBackdrop(...) end
+function GuildControlUI_discordFrameObject:GetFixedHeight(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:GetBackdropBorderColor(...) end
+function GuildControlUI_discordFrameObject:GetFixedSize(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:GetBackdropColor(...) end
+function GuildControlUI_discordFrameObject:GetFixedWidth(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:GetEdgeSize(...) end
+function GuildControlUI_discordFrameObject:GetHeightPadding(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:HasBackdropInfo(...) end
+function GuildControlUI_discordFrameObject:GetLayoutChildren(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:ManagesOwnOutroAnimation(...) end
+function GuildControlUI_discordFrameObject:GetPadding(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:OnBackdropLoaded(...) end
+function GuildControlUI_discordFrameObject:GetWidthPadding(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:OnBackdropSizeChanged(...) end
+function GuildControlUI_discordFrameObject:IgnoreLayoutIndex(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:OnClick(...) end
+function GuildControlUI_discordFrameObject:IsDirty(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:OnEnter(...) end
+function GuildControlUI_discordFrameObject:IsLayoutFrame(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:OnEvent(...) end
+function GuildControlUI_discordFrameObject:Layout(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:OnLeave(...) end
+function GuildControlUI_discordFrameObject:LayoutChildren(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:OnLoad(...) end
+function GuildControlUI_discordFrameObject:MarkClean(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:OnManagedAlertFrameVisibilityChanged(...) end
+function GuildControlUI_discordFrameObject:MarkDirty(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:OnPostHide(...) end
+function GuildControlUI_discordFrameObject:MarkIgnoreInLayout(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:OnPostShow(...) end
+function GuildControlUI_discordFrameObject:OnCleaned(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:OnUpdate(...) end
+function GuildControlUI_discordFrameObject:OnShow(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:SetAlertContainer(...) end
+function GuildControlUI_discordFrameObject:OnUpdate(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:SetBackdrop(...) end
+function GuildControlUI_discordFrameObject:SetFixedHeight(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:SetBackdropBorderColor(...) end
+function GuildControlUI_discordFrameObject:SetFixedSize(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:SetBackdropColor(...) end
+function GuildControlUI_discordFrameObject:SetFixedWidth(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:SetBorderBlendMode(...) end
+function GuildControlUI_discordFrameObject:SetHeightPadding(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:SetExternallyManagedOutroAnimation(...) end
+function GuildControlUI_discordFrameObject:SetWidthPadding(...) end
 ---@return any ...
-function ShardTransferImminentMinimizeButtonObject:SetupPieceVisuals(...) end
----@return any ...
-function ShardTransferImminentMinimizeButtonObject:SetupTextureCoordinates(...) end
----@return any ...
-function ShardTransferImminentMinimizeButtonObject:Start(...) end
----@type ShardTransferImminentMinimizeButtonObject
-ShardTransferImminentMinimizeButton = ShardTransferImminentMinimizeButtonObject
-end
-
-do
----@class ShardTransferImminentMinimizeButton_BottomEdgeObject : Texture
-local ShardTransferImminentMinimizeButton_BottomEdgeObject = {}
-end
-
-do
----@class ShardTransferImminentMinimizeButton_BottomLeftCornerObject : Texture
-local ShardTransferImminentMinimizeButton_BottomLeftCornerObject = {}
-end
-
-do
----@class ShardTransferImminentMinimizeButton_BottomRightCornerObject : Texture
-local ShardTransferImminentMinimizeButton_BottomRightCornerObject = {}
-end
-
-do
----@class ShardTransferImminentMinimizeButton_CenterObject : Texture
-local ShardTransferImminentMinimizeButton_CenterObject = {}
-end
-
-do
----@class ShardTransferImminentMinimizeButton_CloseButtonObject : Button
-local ShardTransferImminentMinimizeButton_CloseButtonObject = {}
----@return any ...
-function ShardTransferImminentMinimizeButton_CloseButtonObject:OnClick(...) end
----@return any ...
-function ShardTransferImminentMinimizeButton_CloseButtonObject:OnEnter(...) end
----@return any ...
-function ShardTransferImminentMinimizeButton_CloseButtonObject:OnLeave(...) end
-end
-
-do
----@class ShardTransferImminentMinimizeButton_LeftEdgeObject : Texture
-local ShardTransferImminentMinimizeButton_LeftEdgeObject = {}
-end
-
-do
----@class ShardTransferImminentMinimizeButton_RightEdgeObject : Texture
-local ShardTransferImminentMinimizeButton_RightEdgeObject = {}
-end
-
-do
----@class ShardTransferImminentMinimizeButton_TopEdgeObject : Texture
-local ShardTransferImminentMinimizeButton_TopEdgeObject = {}
-end
-
-do
----@class ShardTransferImminentMinimizeButton_TopLeftCornerObject : Texture
-local ShardTransferImminentMinimizeButton_TopLeftCornerObject = {}
-end
-
-do
----@class ShardTransferImminentMinimizeButton_TopRightCornerObject : Texture
-local ShardTransferImminentMinimizeButton_TopRightCornerObject = {}
-end
-
-do
----@class ShardTransferImminentMinimizeButton_animInObject : AnimationGroup
-local ShardTransferImminentMinimizeButton_animInObject = {}
-end
-
-do
----@class ShardTransferImminentMinimizeButton_backdropInfoObject
-local ShardTransferImminentMinimizeButton_backdropInfoObject = {}
-end
-
-do
----@class ShardTransferImminentMinimizeButton_glowObject : Texture
----@field animIn ShardTransferImminentMinimizeButton_glow_animInObject
-local ShardTransferImminentMinimizeButton_glowObject = {}
-end
-
-do
----@class ShardTransferImminentMinimizeButton_glow_animInObject : AnimationGroup
-local ShardTransferImminentMinimizeButton_glow_animInObject = {}
-end
-
-do
----@class ShardTransferImminentMinimizeButton_waitAndAnimOutObject : AnimationGroup
----@field animOut ShardTransferImminentMinimizeButton_waitAndAnimOut_animOutObject
-local ShardTransferImminentMinimizeButton_waitAndAnimOutObject = {}
----@return any ...
-function ShardTransferImminentMinimizeButton_waitAndAnimOutObject:OnFinished(...) end
-end
-
-do
----@class ShardTransferImminentMinimizeButton_waitAndAnimOut_animOutObject : Alpha
-local ShardTransferImminentMinimizeButton_waitAndAnimOut_animOutObject = {}
-end
-
-do
----@class ShoppingTooltip1Object : GameTooltip
----@field BottomOverlay ShoppingTooltip1_BottomOverlayObject
----@field CompareHeader ShoppingTooltip1_CompareHeaderObject
----@field NineSlice ShoppingTooltip1_NineSliceObject
----@field TextLeft1 ShoppingTooltip1_TextLeft1Object
----@field TextLeft2 ShoppingTooltip1_TextLeft2Object
----@field TextRight1 ShoppingTooltip1_TextRight1Object
----@field TextRight2 ShoppingTooltip1_TextRight2Object
----@field TopOverlay ShoppingTooltip1_TopOverlayObject
----@field layoutType string
----@field textLeft1Font string
----@field textLeft2Font string
----@field textRight1Font string
----@field textRight2Font string
----@field updateTooltipTimer number
-local ShoppingTooltip1Object = {}
----@return any ...
-function ShoppingTooltip1Object:AddLineDataText(...) end
----@return any ...
-function ShoppingTooltip1Object:AppendInfo(...) end
----@return any ...
-function ShoppingTooltip1Object:AppendInfoWithSpacer(...) end
----@return any ...
-function ShoppingTooltip1Object:ClearHandlerInfo(...) end
----@return any ...
-function ShoppingTooltip1Object:GetPrimaryTooltipData(...) end
----@return any ...
-function ShoppingTooltip1Object:GetPrimaryTooltipInfo(...) end
----@return any ...
-function ShoppingTooltip1Object:GetProcessingTooltipInfo(...) end
----@return any ...
-function ShoppingTooltip1Object:GetTooltipData(...) end
----@return any ...
-function ShoppingTooltip1Object:HasDataInstanceID(...) end
----@return any ...
-function ShoppingTooltip1Object:InternalProcessInfo(...) end
----@return any ...
-function ShoppingTooltip1Object:IsTooltipType(...) end
----@return any ...
-function ShoppingTooltip1Object:ProcessInfo(...) end
----@return any ...
-function ShoppingTooltip1Object:ProcessLineData(...) end
----@return any ...
-function ShoppingTooltip1Object:ProcessLines(...) end
----@return any ...
-function ShoppingTooltip1Object:RebuildFromTooltipInfo(...) end
----@return any ...
-function ShoppingTooltip1Object:SetAchievementByID(...) end
----@return any ...
-function ShoppingTooltip1Object:SetAction(...) end
----@return any ...
-function ShoppingTooltip1Object:SetArtifactItem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetArtifactPowerByID(...) end
----@return any ...
-function ShoppingTooltip1Object:SetAzeriteEssence(...) end
----@return any ...
-function ShoppingTooltip1Object:SetAzeriteEssenceSlot(...) end
----@return any ...
-function ShoppingTooltip1Object:SetAzeritePower(...) end
----@return any ...
-function ShoppingTooltip1Object:SetBackpackToken(...) end
----@return any ...
-function ShoppingTooltip1Object:SetBagItem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetBagItemChild(...) end
----@return any ...
-function ShoppingTooltip1Object:SetBuybackItem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetCompanionPet(...) end
----@return any ...
-function ShoppingTooltip1Object:SetConduit(...) end
----@return any ...
-function ShoppingTooltip1Object:SetCurrencyByID(...) end
----@return any ...
-function ShoppingTooltip1Object:SetCurrencyToken(...) end
----@return any ...
-function ShoppingTooltip1Object:SetEnhancedConduit(...) end
----@return any ...
-function ShoppingTooltip1Object:SetEquipmentSet(...) end
----@return any ...
-function ShoppingTooltip1Object:SetExistingSocketGem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetGuildBankItem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetHeirloomByItemID(...) end
----@return any ...
-function ShoppingTooltip1Object:SetHyperlink(...) end
----@return any ...
-function ShoppingTooltip1Object:SetInboxItem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetInfoBackdropStyle(...) end
----@return any ...
-function ShoppingTooltip1Object:SetInstanceLockEncountersComplete(...) end
----@return any ...
-function ShoppingTooltip1Object:SetInventoryItem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetInventoryItemByID(...) end
----@return any ...
-function ShoppingTooltip1Object:SetItemByGUID(...) end
----@return any ...
-function ShoppingTooltip1Object:SetItemByID(...) end
----@return any ...
-function ShoppingTooltip1Object:SetItemByItemModifiedAppearanceID(...) end
----@return any ...
-function ShoppingTooltip1Object:SetItemInteractionItem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetItemKey(...) end
----@return any ...
-function ShoppingTooltip1Object:SetLFGDungeonReward(...) end
----@return any ...
-function ShoppingTooltip1Object:SetLFGDungeonShortageReward(...) end
----@return any ...
-function ShoppingTooltip1Object:SetLootCurrency(...) end
----@return any ...
-function ShoppingTooltip1Object:SetLootItem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetLootRollItem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetMerchantCostItem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetMerchantItem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetMinimapMouseover(...) end
----@return any ...
-function ShoppingTooltip1Object:SetMountBySpellID(...) end
----@return any ...
-function ShoppingTooltip1Object:SetOutfit(...) end
----@return any ...
-function ShoppingTooltip1Object:SetOwnedItemByID(...) end
----@return any ...
-function ShoppingTooltip1Object:SetPetAction(...) end
----@return any ...
-function ShoppingTooltip1Object:SetPossession(...) end
----@return any ...
-function ShoppingTooltip1Object:SetPvpBrawl(...) end
----@return any ...
-function ShoppingTooltip1Object:SetPvpTalent(...) end
----@return any ...
-function ShoppingTooltip1Object:SetQuestCurrency(...) end
----@return any ...
-function ShoppingTooltip1Object:SetQuestItem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetQuestLogCurrency(...) end
----@return any ...
-function ShoppingTooltip1Object:SetQuestLogItem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetQuestLogSpecialItem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetQuestPartyProgress(...) end
----@return any ...
-function ShoppingTooltip1Object:SetRecipeRankInfo(...) end
----@return any ...
-function ShoppingTooltip1Object:SetRecipeReagentItem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetRecipeResultItem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetRecipeResultItemForOrder(...) end
----@return any ...
-function ShoppingTooltip1Object:SetRuneforgeResultItem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetSendMailItem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetShapeshift(...) end
----@return any ...
-function ShoppingTooltip1Object:SetSlottedKeystone(...) end
----@return any ...
-function ShoppingTooltip1Object:SetSocketGem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetSocketedItem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetSocketedRelic(...) end
----@return any ...
-function ShoppingTooltip1Object:SetSpellBookItem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetSpellByID(...) end
----@return any ...
-function ShoppingTooltip1Object:SetTalent(...) end
----@return any ...
-function ShoppingTooltip1Object:SetTotem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetToyByItemID(...) end
----@return any ...
-function ShoppingTooltip1Object:SetTradePlayerItem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetTradeTargetItem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetTrainerService(...) end
----@return any ...
-function ShoppingTooltip1Object:SetTraitEntry(...) end
----@return any ...
-function ShoppingTooltip1Object:SetUnit(...) end
----@return any ...
-function ShoppingTooltip1Object:SetUnitAura(...) end
----@return any ...
-function ShoppingTooltip1Object:SetUnitAuraByAuraInstanceID(...) end
----@return any ...
-function ShoppingTooltip1Object:SetUnitBuff(...) end
----@return any ...
-function ShoppingTooltip1Object:SetUnitBuffByAuraInstanceID(...) end
----@return any ...
-function ShoppingTooltip1Object:SetUnitDebuff(...) end
----@return any ...
-function ShoppingTooltip1Object:SetUnitDebuffByAuraInstanceID(...) end
----@return any ...
-function ShoppingTooltip1Object:SetUpgradeItem(...) end
----@return any ...
-function ShoppingTooltip1Object:SetWeeklyReward(...) end
----@return any ...
-function ShoppingTooltip1Object:SetWorldLootObject(...) end
----@type ShoppingTooltip1Object
-ShoppingTooltip1 = ShoppingTooltip1Object
-end
-
-do
----@class ShoppingTooltip1_BottomOverlayObject : Texture
-local ShoppingTooltip1_BottomOverlayObject = {}
-end
-
-do
----@class ShoppingTooltip1_CompareHeaderObject : Frame
----@field Label ShoppingTooltip1_CompareHeader_LabelObject
-local ShoppingTooltip1_CompareHeaderObject = {}
-end
-
-do
----@class ShoppingTooltip1_CompareHeader_LabelObject : FontString
-local ShoppingTooltip1_CompareHeader_LabelObject = {}
-end
-
-do
----@class ShoppingTooltip1_NineSliceObject : Frame
----@field BottomEdge ShoppingTooltip1_NineSlice_BottomEdgeObject
----@field BottomLeftCorner ShoppingTooltip1_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner ShoppingTooltip1_NineSlice_BottomRightCornerObject
----@field Center ShoppingTooltip1_NineSlice_CenterObject
----@field LeftEdge ShoppingTooltip1_NineSlice_LeftEdgeObject
----@field RightEdge ShoppingTooltip1_NineSlice_RightEdgeObject
----@field TopEdge ShoppingTooltip1_NineSlice_TopEdgeObject
----@field TopLeftCorner ShoppingTooltip1_NineSlice_TopLeftCornerObject
----@field TopRightCorner ShoppingTooltip1_NineSlice_TopRightCornerObject
-local ShoppingTooltip1_NineSliceObject = {}
----@return any ...
-function ShoppingTooltip1_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function ShoppingTooltip1_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function ShoppingTooltip1_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function ShoppingTooltip1_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function ShoppingTooltip1_NineSliceObject:OnLoad(...) end
----@return any ...
-function ShoppingTooltip1_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function ShoppingTooltip1_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function ShoppingTooltip1_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function ShoppingTooltip1_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function ShoppingTooltip1_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class ShoppingTooltip1_NineSlice_BottomEdgeObject : Texture
-local ShoppingTooltip1_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class ShoppingTooltip1_NineSlice_BottomLeftCornerObject : Texture
-local ShoppingTooltip1_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class ShoppingTooltip1_NineSlice_BottomRightCornerObject : Texture
-local ShoppingTooltip1_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class ShoppingTooltip1_NineSlice_CenterObject : Texture
-local ShoppingTooltip1_NineSlice_CenterObject = {}
-end
-
-do
----@class ShoppingTooltip1_NineSlice_LeftEdgeObject : Texture
-local ShoppingTooltip1_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class ShoppingTooltip1_NineSlice_RightEdgeObject : Texture
-local ShoppingTooltip1_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class ShoppingTooltip1_NineSlice_TopEdgeObject : Texture
-local ShoppingTooltip1_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class ShoppingTooltip1_NineSlice_TopLeftCornerObject : Texture
-local ShoppingTooltip1_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class ShoppingTooltip1_NineSlice_TopRightCornerObject : Texture
-local ShoppingTooltip1_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class ShoppingTooltip1_TextLeft1Object : FontString
-local ShoppingTooltip1_TextLeft1Object = {}
-end
-
-do
----@class ShoppingTooltip1_TextLeft2Object : FontString
-local ShoppingTooltip1_TextLeft2Object = {}
-end
-
-do
----@class ShoppingTooltip1_TextRight1Object : FontString
-local ShoppingTooltip1_TextRight1Object = {}
-end
-
-do
----@class ShoppingTooltip1_TextRight2Object : FontString
-local ShoppingTooltip1_TextRight2Object = {}
-end
-
-do
----@class ShoppingTooltip1_TopOverlayObject : Texture
-local ShoppingTooltip1_TopOverlayObject = {}
-end
-
-do
----@class ShoppingTooltip2Object : GameTooltip
----@field BottomOverlay ShoppingTooltip2_BottomOverlayObject
----@field CompareHeader ShoppingTooltip2_CompareHeaderObject
----@field NineSlice ShoppingTooltip2_NineSliceObject
----@field TextLeft1 ShoppingTooltip2_TextLeft1Object
----@field TextLeft2 ShoppingTooltip2_TextLeft2Object
----@field TextRight1 ShoppingTooltip2_TextRight1Object
----@field TextRight2 ShoppingTooltip2_TextRight2Object
----@field TopOverlay ShoppingTooltip2_TopOverlayObject
----@field layoutType string
----@field textLeft1Font string
----@field textLeft2Font string
----@field textRight1Font string
----@field textRight2Font string
----@field updateTooltipTimer number
-local ShoppingTooltip2Object = {}
----@return any ...
-function ShoppingTooltip2Object:AddLineDataText(...) end
----@return any ...
-function ShoppingTooltip2Object:AppendInfo(...) end
----@return any ...
-function ShoppingTooltip2Object:AppendInfoWithSpacer(...) end
----@return any ...
-function ShoppingTooltip2Object:ClearHandlerInfo(...) end
----@return any ...
-function ShoppingTooltip2Object:GetPrimaryTooltipData(...) end
----@return any ...
-function ShoppingTooltip2Object:GetPrimaryTooltipInfo(...) end
----@return any ...
-function ShoppingTooltip2Object:GetProcessingTooltipInfo(...) end
----@return any ...
-function ShoppingTooltip2Object:GetTooltipData(...) end
----@return any ...
-function ShoppingTooltip2Object:HasDataInstanceID(...) end
----@return any ...
-function ShoppingTooltip2Object:InternalProcessInfo(...) end
----@return any ...
-function ShoppingTooltip2Object:IsTooltipType(...) end
----@return any ...
-function ShoppingTooltip2Object:ProcessInfo(...) end
----@return any ...
-function ShoppingTooltip2Object:ProcessLineData(...) end
----@return any ...
-function ShoppingTooltip2Object:ProcessLines(...) end
----@return any ...
-function ShoppingTooltip2Object:RebuildFromTooltipInfo(...) end
----@return any ...
-function ShoppingTooltip2Object:SetAchievementByID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetAction(...) end
----@return any ...
-function ShoppingTooltip2Object:SetArtifactItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetArtifactPowerByID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetAzeriteEssence(...) end
----@return any ...
-function ShoppingTooltip2Object:SetAzeriteEssenceSlot(...) end
----@return any ...
-function ShoppingTooltip2Object:SetAzeritePower(...) end
----@return any ...
-function ShoppingTooltip2Object:SetBackpackToken(...) end
----@return any ...
-function ShoppingTooltip2Object:SetBagItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetBagItemChild(...) end
----@return any ...
-function ShoppingTooltip2Object:SetBuybackItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetCompanionPet(...) end
----@return any ...
-function ShoppingTooltip2Object:SetConduit(...) end
----@return any ...
-function ShoppingTooltip2Object:SetCurrencyByID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetCurrencyToken(...) end
----@return any ...
-function ShoppingTooltip2Object:SetEnhancedConduit(...) end
----@return any ...
-function ShoppingTooltip2Object:SetEquipmentSet(...) end
----@return any ...
-function ShoppingTooltip2Object:SetExistingSocketGem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetGuildBankItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetHeirloomByItemID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetHyperlink(...) end
----@return any ...
-function ShoppingTooltip2Object:SetInboxItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetInfoBackdropStyle(...) end
----@return any ...
-function ShoppingTooltip2Object:SetInstanceLockEncountersComplete(...) end
----@return any ...
-function ShoppingTooltip2Object:SetInventoryItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetInventoryItemByID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetItemByGUID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetItemByID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetItemByItemModifiedAppearanceID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetItemInteractionItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetItemKey(...) end
----@return any ...
-function ShoppingTooltip2Object:SetLFGDungeonReward(...) end
----@return any ...
-function ShoppingTooltip2Object:SetLFGDungeonShortageReward(...) end
----@return any ...
-function ShoppingTooltip2Object:SetLootCurrency(...) end
----@return any ...
-function ShoppingTooltip2Object:SetLootItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetLootRollItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetMerchantCostItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetMerchantItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetMinimapMouseover(...) end
----@return any ...
-function ShoppingTooltip2Object:SetMountBySpellID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetOutfit(...) end
----@return any ...
-function ShoppingTooltip2Object:SetOwnedItemByID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetPetAction(...) end
----@return any ...
-function ShoppingTooltip2Object:SetPossession(...) end
----@return any ...
-function ShoppingTooltip2Object:SetPvpBrawl(...) end
----@return any ...
-function ShoppingTooltip2Object:SetPvpTalent(...) end
----@return any ...
-function ShoppingTooltip2Object:SetQuestCurrency(...) end
----@return any ...
-function ShoppingTooltip2Object:SetQuestItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetQuestLogCurrency(...) end
----@return any ...
-function ShoppingTooltip2Object:SetQuestLogItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetQuestLogSpecialItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetQuestPartyProgress(...) end
----@return any ...
-function ShoppingTooltip2Object:SetRecipeRankInfo(...) end
----@return any ...
-function ShoppingTooltip2Object:SetRecipeReagentItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetRecipeResultItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetRecipeResultItemForOrder(...) end
----@return any ...
-function ShoppingTooltip2Object:SetRuneforgeResultItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetSendMailItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetShapeshift(...) end
----@return any ...
-function ShoppingTooltip2Object:SetSlottedKeystone(...) end
----@return any ...
-function ShoppingTooltip2Object:SetSocketGem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetSocketedItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetSocketedRelic(...) end
----@return any ...
-function ShoppingTooltip2Object:SetSpellBookItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetSpellByID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetTalent(...) end
----@return any ...
-function ShoppingTooltip2Object:SetTotem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetToyByItemID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetTradePlayerItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetTradeTargetItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetTrainerService(...) end
----@return any ...
-function ShoppingTooltip2Object:SetTraitEntry(...) end
----@return any ...
-function ShoppingTooltip2Object:SetUnit(...) end
----@return any ...
-function ShoppingTooltip2Object:SetUnitAura(...) end
----@return any ...
-function ShoppingTooltip2Object:SetUnitAuraByAuraInstanceID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetUnitBuff(...) end
----@return any ...
-function ShoppingTooltip2Object:SetUnitBuffByAuraInstanceID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetUnitDebuff(...) end
----@return any ...
-function ShoppingTooltip2Object:SetUnitDebuffByAuraInstanceID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetUpgradeItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetWeeklyReward(...) end
----@return any ...
-function ShoppingTooltip2Object:SetWorldLootObject(...) end
----@type ShoppingTooltip2Object
-ShoppingTooltip2 = ShoppingTooltip2Object
-end
-
-do
----@class ShoppingTooltip2_BottomOverlayObject : Texture
-local ShoppingTooltip2_BottomOverlayObject = {}
-end
-
-do
----@class ShoppingTooltip2_CompareHeaderObject : Frame
----@field Label ShoppingTooltip2_CompareHeader_LabelObject
-local ShoppingTooltip2_CompareHeaderObject = {}
-end
-
-do
----@class ShoppingTooltip2_CompareHeader_LabelObject : FontString
-local ShoppingTooltip2_CompareHeader_LabelObject = {}
-end
-
-do
----@class ShoppingTooltip2_NineSliceObject : Frame
----@field BottomEdge ShoppingTooltip2_NineSlice_BottomEdgeObject
----@field BottomLeftCorner ShoppingTooltip2_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner ShoppingTooltip2_NineSlice_BottomRightCornerObject
----@field Center ShoppingTooltip2_NineSlice_CenterObject
----@field LeftEdge ShoppingTooltip2_NineSlice_LeftEdgeObject
----@field RightEdge ShoppingTooltip2_NineSlice_RightEdgeObject
----@field TopEdge ShoppingTooltip2_NineSlice_TopEdgeObject
----@field TopLeftCorner ShoppingTooltip2_NineSlice_TopLeftCornerObject
----@field TopRightCorner ShoppingTooltip2_NineSlice_TopRightCornerObject
-local ShoppingTooltip2_NineSliceObject = {}
----@return any ...
-function ShoppingTooltip2_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function ShoppingTooltip2_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function ShoppingTooltip2_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function ShoppingTooltip2_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function ShoppingTooltip2_NineSliceObject:OnLoad(...) end
----@return any ...
-function ShoppingTooltip2_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function ShoppingTooltip2_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function ShoppingTooltip2_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function ShoppingTooltip2_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function ShoppingTooltip2_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class ShoppingTooltip2_NineSlice_BottomEdgeObject : Texture
-local ShoppingTooltip2_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class ShoppingTooltip2_NineSlice_BottomLeftCornerObject : Texture
-local ShoppingTooltip2_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class ShoppingTooltip2_NineSlice_BottomRightCornerObject : Texture
-local ShoppingTooltip2_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class ShoppingTooltip2_NineSlice_CenterObject : Texture
-local ShoppingTooltip2_NineSlice_CenterObject = {}
-end
-
-do
----@class ShoppingTooltip2_NineSlice_LeftEdgeObject : Texture
-local ShoppingTooltip2_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class ShoppingTooltip2_NineSlice_RightEdgeObject : Texture
-local ShoppingTooltip2_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class ShoppingTooltip2_NineSlice_TopEdgeObject : Texture
-local ShoppingTooltip2_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class ShoppingTooltip2_NineSlice_TopLeftCornerObject : Texture
-local ShoppingTooltip2_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class ShoppingTooltip2_NineSlice_TopRightCornerObject : Texture
-local ShoppingTooltip2_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class ShoppingTooltip2_TextLeft1Object : FontString
-local ShoppingTooltip2_TextLeft1Object = {}
-end
-
-do
----@class ShoppingTooltip2_TextLeft2Object : FontString
-local ShoppingTooltip2_TextLeft2Object = {}
-end
-
-do
----@class ShoppingTooltip2_TextRight1Object : FontString
-local ShoppingTooltip2_TextRight1Object = {}
-end
-
-do
----@class ShoppingTooltip2_TextRight2Object : FontString
-local ShoppingTooltip2_TextRight2Object = {}
-end
-
-do
----@class ShoppingTooltip2_TopOverlayObject : Texture
-local ShoppingTooltip2_TopOverlayObject = {}
-end
-
-do
----@class SideDressUpFrameObject : Frame
----@field BGBottomLeft SideDressUpFrame_BGBottomLeftObject
----@field BGTopLeft SideDressUpFrame_BGTopLeftObject
----@field ModelScene SideDressUpFrame_ModelSceneObject
----@field ResetButton SideDressUpFrame_ResetButtonObject
----@field hasCustomSetControls boolean
-local SideDressUpFrameObject = {}
----@return any ...
-function SideDressUpFrameObject:GetLastLink(...) end
----@return any ...
-function SideDressUpFrameObject:GetMode(...) end
----@return any ...
-function SideDressUpFrameObject:OnHide(...) end
----@return any ...
-function SideDressUpFrameObject:OnLoad(...) end
----@return any ...
-function SideDressUpFrameObject:OnModelSceneReset(...) end
----@return any ...
-function SideDressUpFrameObject:OnShow(...) end
----@return any ...
-function SideDressUpFrameObject:SetLastLink(...) end
----@return any ...
-function SideDressUpFrameObject:SetMode(...) end
----@type SideDressUpFrameObject
-SideDressUpFrame = SideDressUpFrameObject
-end
-
-do
----@class SideDressUpFrame_BGBottomLeftObject : Texture
-local SideDressUpFrame_BGBottomLeftObject = {}
-end
-
-do
----@class SideDressUpFrame_BGTopLeftObject : Texture
-local SideDressUpFrame_BGTopLeftObject = {}
-end
-
-do
----@class SideDressUpFrame_ModelSceneObject
-local SideDressUpFrame_ModelSceneObject = {}
+function GuildControlUI_discordFrameObject:ShouldClearOnUpdateAfterClean(...) end
 end
 
 do
----@class SideDressUpFrame_ResetButtonObject : Button
----@field Left SideDressUpFrame_ResetButton_LeftObject
----@field Middle SideDressUpFrame_ResetButton_MiddleObject
----@field Right SideDressUpFrame_ResetButton_RightObject
----@field Text SideDressUpFrame_ResetButton_TextObject
+---@class GuildControlUI_discordFrame_channelButtonObject : Button
+---@field Left GuildControlUI_discordFrame_channelButton_LeftObject
+---@field Middle GuildControlUI_discordFrame_channelButton_MiddleObject
+---@field Right GuildControlUI_discordFrame_channelButton_RightObject
+---@field Text GuildControlUI_discordFrame_channelButton_TextObject
 ---@field fitTextCanWidthDecrease boolean
 ---@field fitTextWidthPadding number
----@field modelScene SideDressUpFrame_ResetButton_modelSceneObject
-local SideDressUpFrame_ResetButtonObject = {}
+local GuildControlUI_discordFrame_channelButtonObject = {}
 ---@return any ...
-function SideDressUpFrame_ResetButtonObject:FitToText(...) end
+function GuildControlUI_discordFrame_channelButtonObject:FitToText(...) end
 ---@return any ...
-function SideDressUpFrame_ResetButtonObject:GetDisabledTooltip(...) end
+function GuildControlUI_discordFrame_channelButtonObject:GetDisabledTooltip(...) end
 ---@return any ...
-function SideDressUpFrame_ResetButtonObject:OnClick(...) end
+function GuildControlUI_discordFrame_channelButtonObject:OnEnter(...) end
 ---@return any ...
-function SideDressUpFrame_ResetButtonObject:OnEnter(...) end
+function GuildControlUI_discordFrame_channelButtonObject:OnLeave(...) end
 ---@return any ...
-function SideDressUpFrame_ResetButtonObject:OnLeave(...) end
+function GuildControlUI_discordFrame_channelButtonObject:SetDisabledState(...) end
 ---@return any ...
-function SideDressUpFrame_ResetButtonObject:OnLoad(...) end
+function GuildControlUI_discordFrame_channelButtonObject:SetDisabledTooltip(...) end
 ---@return any ...
-function SideDressUpFrame_ResetButtonObject:SetDisabledState(...) end
----@return any ...
-function SideDressUpFrame_ResetButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function SideDressUpFrame_ResetButtonObject:SetTextToFit(...) end
+function GuildControlUI_discordFrame_channelButtonObject:SetTextToFit(...) end
 end
 
 do
----@class SideDressUpFrame_ResetButton_LeftObject : Texture
-local SideDressUpFrame_ResetButton_LeftObject = {}
+---@class GuildControlUI_discordFrame_channelButton_LeftObject : Texture
+local GuildControlUI_discordFrame_channelButton_LeftObject = {}
 end
 
 do
----@class SideDressUpFrame_ResetButton_MiddleObject : Texture
-local SideDressUpFrame_ResetButton_MiddleObject = {}
+---@class GuildControlUI_discordFrame_channelButton_MiddleObject : Texture
+local GuildControlUI_discordFrame_channelButton_MiddleObject = {}
 end
 
 do
----@class SideDressUpFrame_ResetButton_RightObject : Texture
-local SideDressUpFrame_ResetButton_RightObject = {}
+---@class GuildControlUI_discordFrame_channelButton_RightObject : Texture
+local GuildControlUI_discordFrame_channelButton_RightObject = {}
 end
 
 do
----@class SideDressUpFrame_ResetButton_TextObject : FontString
-local SideDressUpFrame_ResetButton_TextObject = {}
+---@class GuildControlUI_discordFrame_channelButton_TextObject : FontString
+local GuildControlUI_discordFrame_channelButton_TextObject = {}
 end
 
 do
----@class SideDressUpFrame_ResetButton_modelSceneObject
----@field ControlFrame SideDressUpFrame_ResetButton_modelScene_ControlFrameObject
----@field actorTemplate string
----@field cameras table
----@field highlightIntensity number
----@field normalIntensity number
----@field tagToActor table
----@field tagToCamera table
-local SideDressUpFrame_ResetButton_modelSceneObject = {}
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:AcquireActor(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:AcquireAndInitializeActor(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:AddCamera(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:AddOrUpdateDropShadow(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:AdjustCameraYaw(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:AttachPlayerToMount(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:ClearScene(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:CreateActorFromScene(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:CreateCameraFromScene(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:CreateOrTransitionActorFromScene(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:CreateOrTransitionCameraFromScene(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:EnumerateActiveActors(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:GetActiveCamera(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:GetActorByTag(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:GetCameraByTag(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:GetModelSceneID(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:GetNumActiveActors(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:GetOrAcquireDropShadow(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:GetPlayerActor(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:HasActiveCamera(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:InitializeActor(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:IsLeftMouseButtonDown(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:IsRightMouseButtonDown(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:OnEnter(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:OnLeave(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:OnLoad(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:OnMouseDown(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:OnMouseUp(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:OnMouseWheel(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:OnUpdate(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:ReleaseActor(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:ReleaseAllActors(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:ReleaseAllCameras(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:Reset(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:SetActiveCamera(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:SetFromModelSceneID(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:SetResetCallback(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:ShowAndAnimateActors(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:StopCameraYaw(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:SynchronizeActiveCamera(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:Transform3DPointTo2D(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:TransitionToModelSceneID(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:resetCallback(...) end
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrameObject : Frame
----@field buttonHorizontalPadding number
----@field enableReset boolean
----@field enableRotate boolean
----@field enableZoom boolean
----@field modelScene SideDressUpFrame_ResetButton_modelScene_ControlFrame_modelSceneObject
----@field resetButton SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButtonObject
----@field rotateLeftButton SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject
----@field rotateRightButton SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject
----@field rotationIncrement number
----@field zoomInButton SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject
----@field zoomIncrement number
----@field zoomOutButton SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject
-local SideDressUpFrame_ResetButton_modelScene_ControlFrameObject = {}
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrameObject:GetRotateIncrement(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrameObject:GetZoomIncrement(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrameObject:OnEnter(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrameObject:OnLeave(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrameObject:OnLoad(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrameObject:OnShow(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrameObject:SetModelScene(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrameObject:SetRotateIncrement(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrameObject:SetZoomIncrement(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrameObject:UpdateLayout(...) end
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_modelSceneObject
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_modelSceneObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButtonObject : Button
----@field HighlightTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_HighlightTextureObject
----@field Icon SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_IconObject
----@field NormalTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_NormalTextureObject
----@field PushedTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_PushedTextureObject
----@field modelScene SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_modelSceneObject
----@field tooltip string
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButtonObject = {}
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButtonObject:Init(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButtonObject:OnClick(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButtonObject:OnEnter(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButtonObject:OnLeave(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButtonObject:OnLoad(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButtonObject:OnMouseDown(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButtonObject:OnMouseUp(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButtonObject:SetModelScene(...) end
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_HighlightTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_HighlightTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_IconObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_IconObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_NormalTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_NormalTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_PushedTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_PushedTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_modelSceneObject
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_modelSceneObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject : Button
----@field HighlightTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_HighlightTextureObject
----@field Icon SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_IconObject
----@field NormalTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_NormalTextureObject
----@field PushedTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_PushedTextureObject
----@field modelScene SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_modelSceneObject
----@field rotateDirection string
----@field rotationIncrement number
----@field tooltip string
----@field tooltipText string
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject = {}
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:Init(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:OnClick(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:OnEnter(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:OnLeave(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:OnLoad(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:OnMouseDown(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:OnMouseUp(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:OnSmartNavClick(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:RotateStep(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:SetModelScene(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:SetRotation(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:SetRotationIncrement(...) end
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_HighlightTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_HighlightTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_IconObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_IconObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_NormalTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_NormalTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_PushedTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_PushedTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_modelSceneObject
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_modelSceneObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject : Button
----@field HighlightTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_HighlightTextureObject
----@field Icon SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_IconObject
----@field NormalTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_NormalTextureObject
----@field PushedTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_PushedTextureObject
----@field modelScene SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_modelSceneObject
----@field rotateDirection string
----@field rotationIncrement number
----@field tooltip string
----@field tooltipText string
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject = {}
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:Init(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:OnClick(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:OnEnter(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:OnLeave(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:OnLoad(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:OnMouseDown(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:OnMouseUp(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:OnSmartNavClick(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:RotateStep(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:SetModelScene(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:SetRotation(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:SetRotationIncrement(...) end
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_HighlightTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_HighlightTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_IconObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_IconObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_NormalTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_NormalTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_PushedTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_PushedTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_modelSceneObject
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_modelSceneObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject : Button
----@field HighlightTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_HighlightTextureObject
----@field Icon SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_IconObject
----@field NormalTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_NormalTextureObject
----@field PushedTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_PushedTextureObject
----@field modelScene SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_modelSceneObject
----@field tooltip string
----@field tooltipText string
----@field zoomAmount number
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject = {}
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject:Init(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject:OnClick(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject:OnEnter(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject:OnLeave(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject:OnLoad(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject:OnMouseDown(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject:OnMouseUp(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject:SetModelScene(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject:SetZoomAmount(...) end
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_HighlightTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_HighlightTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_IconObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_IconObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_NormalTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_NormalTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_PushedTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_PushedTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_modelSceneObject
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_modelSceneObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject : Button
----@field HighlightTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_HighlightTextureObject
----@field Icon SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_IconObject
----@field NormalTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_NormalTextureObject
----@field PushedTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_PushedTextureObject
----@field modelScene SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_modelSceneObject
----@field tooltip string
----@field tooltipText string
----@field zoomAmount number
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject = {}
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject:Init(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject:OnClick(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject:OnEnter(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject:OnLeave(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject:OnLoad(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject:OnMouseDown(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject:OnMouseUp(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject:SetModelScene(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject:SetZoomAmount(...) end
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_HighlightTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_HighlightTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_IconObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_IconObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_NormalTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_NormalTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_PushedTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_PushedTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_modelSceneObject
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_modelSceneObject = {}
-end
-
-do
----@class SmartNavigationObject : Frame
----@field Event SmartNavigation_EventObject
----@field Pointer SmartNavigation_PointerObject
----@field accumulatedRightStickScrollOffset number
----@field activePanels table
----@field bindingActive boolean
----@field callbackTables table
----@field currentDirections table
----@field cursorOffsetX number
----@field cursorOffsetY number
----@field deferredCallbacks table
----@field enabled boolean
----@field executingEvents table
----@field hookedButtons table
----@field hookedFrames table
----@field isRepeating boolean
----@field maxScrollSpeed number
----@field navigatingTime number
----@field navigationBindings SmartNavigation_navigationBindingsObject
----@field repeatDelay number
----@field repeatStart number
----@field rightStickScrollBindings SmartNavigation_rightStickScrollBindingsObject
----@field rightStickScrolling boolean
----@field smartNavigationCanFocus boolean
----@field smartNavigationIgnored boolean
----@field startDelay number
----@field startedNavigating boolean
----@field xRes number
----@field yRes number
-local SmartNavigationObject = {}
----@return any ...
-function SmartNavigationObject:ActivateBinding(...) end
----@return any ...
-function SmartNavigationObject:AnchorDropDown(...) end
----@return any ...
-function SmartNavigationObject:AttemptClose(...) end
----@return any ...
-function SmartNavigationObject:ClearActiveFrames(...) end
----@return any ...
-function SmartNavigationObject:ClearItemToBeDeleted(...) end
----@return any ...
-function SmartNavigationObject:ClearLastTarget(...) end
----@return any ...
-function SmartNavigationObject:ClearNavigationInput(...) end
----@return any ...
-function SmartNavigationObject:ClearOverrideIconAtlas(...) end
----@return any ...
-function SmartNavigationObject:Click(...) end
----@return any ...
-function SmartNavigationObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SmartNavigationObject:DeactivateBinding(...) end
----@return any ...
-function SmartNavigationObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SmartNavigationObject:EnterFocusGroup(...) end
----@return any ...
-function SmartNavigationObject:FindButton(...) end
----@return any ...
-function SmartNavigationObject:FindTopLeftButton(...) end
----@return any ...
-function SmartNavigationObject:GenerateCallbackEvents(...) end
----@return any ...
-function SmartNavigationObject:GetActiveFrame(...) end
----@return any ...
-function SmartNavigationObject:GetActiveGroup(...) end
----@return any ...
-function SmartNavigationObject:GetButtonAtGridIndex(...) end
----@return any ...
-function SmartNavigationObject:GetButtonInDirectionGrid(...) end
----@return any ...
-function SmartNavigationObject:GetButtonInfoInDirection(...) end
----@return any ...
-function SmartNavigationObject:GetCallbackTable(...) end
----@return any ...
-function SmartNavigationObject:GetCallbackTables(...) end
----@return any ...
-function SmartNavigationObject:GetCallbacksByEvent(...) end
----@return any ...
-function SmartNavigationObject:GetCurrentButton(...) end
----@return any ...
-function SmartNavigationObject:GetCurrentButtonContext(...) end
----@return any ...
-function SmartNavigationObject:GetCurrentDirection(...) end
----@return any ...
-function SmartNavigationObject:GetLastButtonForPanelInfo(...) end
----@return any ...
-function SmartNavigationObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SmartNavigationObject:GetPanelInfo(...) end
----@return any ...
-function SmartNavigationObject:GetParentPanelInfo(...) end
----@return any ...
-function SmartNavigationObject:HandleNavigationInput(...) end
----@return any ...
-function SmartNavigationObject:HandlePanelClose(...) end
----@return any ...
-function SmartNavigationObject:HandlePanelOpen(...) end
----@return any ...
-function SmartNavigationObject:HandleScroll(...) end
----@return any ...
-function SmartNavigationObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SmartNavigationObject:HideCursor(...) end
----@return any ...
-function SmartNavigationObject:InitializeGamepad(...) end
----@return any ...
-function SmartNavigationObject:IsButtonInCurrentFocusGroup(...) end
----@return any ...
-function SmartNavigationObject:IsButtonValid(...) end
----@return any ...
-function SmartNavigationObject:IsCurrentButton(...) end
----@return any ...
-function SmartNavigationObject:IsCursorHidden(...) end
----@return any ...
-function SmartNavigationObject:IsInFocusGroup(...) end
----@return any ...
-function SmartNavigationObject:LeaveFocusGroup(...) end
----@return any ...
-function SmartNavigationObject:Navigate(...) end
----@return any ...
-function SmartNavigationObject:NavigateDown(...) end
----@return any ...
-function SmartNavigationObject:NavigateLeft(...) end
----@return any ...
-function SmartNavigationObject:NavigateRight(...) end
----@return any ...
-function SmartNavigationObject:NavigateUp(...) end
----@return any ...
-function SmartNavigationObject:OnDropDownShown(...) end
----@return any ...
-function SmartNavigationObject:OnEvent(...) end
----@return any ...
-function SmartNavigationObject:OnGamepadRightStick(...) end
----@return any ...
-function SmartNavigationObject:OnHide(...) end
----@return any ...
-function SmartNavigationObject:OnLoad(...) end
----@return any ...
-function SmartNavigationObject:OnShow(...) end
----@return any ...
-function SmartNavigationObject:OnUpdate(...) end
----@return any ...
-function SmartNavigationObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SmartNavigationObject:RefreshButtonGroups(...) end
----@return any ...
-function SmartNavigationObject:RegisterCallback(...) end
----@return any ...
-function SmartNavigationObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SmartNavigationObject:RegisterForTransitions(...) end
----@return any ...
-function SmartNavigationObject:RemovePanelInfo(...) end
----@return any ...
-function SmartNavigationObject:ReselectCurrentButton(...) end
----@return any ...
-function SmartNavigationObject:ResetVars(...) end
----@return any ...
-function SmartNavigationObject:RightClick(...) end
----@return any ...
-function SmartNavigationObject:RunCurrentButtonEnterScript(...) end
----@return any ...
-function SmartNavigationObject:RunCurrentButtonLeaveScript(...) end
----@return any ...
-function SmartNavigationObject:SecureInsertEvent(...) end
----@return any ...
-function SmartNavigationObject:SelectButton(...) end
----@return any ...
-function SmartNavigationObject:SelectFirstButton(...) end
----@return any ...
-function SmartNavigationObject:SelectTopLeftButton(...) end
----@return any ...
-function SmartNavigationObject:SetActiveFrame(...) end
----@return any ...
-function SmartNavigationObject:SetCursorArtHorizontal(...) end
----@return any ...
-function SmartNavigationObject:SetCursorArtVerical(...) end
----@return any ...
-function SmartNavigationObject:SetGridHeightCompensation(...) end
----@return any ...
-function SmartNavigationObject:SetItemToBeDeleted(...) end
----@return any ...
-function SmartNavigationObject:SetLastButtonForPanelInfo(...) end
----@return any ...
-function SmartNavigationObject:SetOverrideIconAtlas(...) end
----@return any ...
-function SmartNavigationObject:SetPosition(...) end
----@return any ...
-function SmartNavigationObject:SetRightStickScrollingEnabled(...) end
----@return any ...
-function SmartNavigationObject:SetScrollFrameForFrame(...) end
----@return any ...
-function SmartNavigationObject:SetSmartNavPanelInfoAddedCallback(...) end
----@return any ...
-function SmartNavigationObject:SetSmartNavPanelInfoRemovedCallback(...) end
----@return any ...
-function SmartNavigationObject:SetTargetButtonForFrame(...) end
----@return any ...
-function SmartNavigationObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SmartNavigationObject:SetUseGridNavigation(...) end
----@return any ...
-function SmartNavigationObject:SetWrapping(...) end
----@return any ...
-function SmartNavigationObject:SetupFrameHooks(...) end
----@return any ...
-function SmartNavigationObject:SetupInputBindings(...) end
----@return any ...
-function SmartNavigationObject:ShowCursor(...) end
----@return any ...
-function SmartNavigationObject:ShowCursorAsActive(...) end
----@return any ...
-function SmartNavigationObject:SuspendCursor(...) end
----@return any ...
-function SmartNavigationObject:TrackButtonEnabledState(...) end
----@return any ...
-function SmartNavigationObject:TriggerEvent(...) end
----@return any ...
-function SmartNavigationObject:TrySelectButton(...) end
----@return any ...
-function SmartNavigationObject:UninitializeGamepad(...) end
----@return any ...
-function SmartNavigationObject:UnregisterCallback(...) end
----@return any ...
-function SmartNavigationObject:UnregisterEvents(...) end
----@return any ...
-function SmartNavigationObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function SmartNavigationObject:UpdateCursorColor(...) end
----@return any ...
-function SmartNavigationObject:UpdateCursorPosition(...) end
----@return any ...
-function SmartNavigationObject:UpdateGrid(...) end
----@return any ...
-function SmartNavigationObject:UpdateParent(...) end
----@return any ...
-function SmartNavigationObject:UpdateResolution(...) end
----@type SmartNavigationObject
-SmartNavigation = SmartNavigationObject
-end
-
-do
----@class SmartNavigation_EventObject
----@field FocusedFrame string
----@field HitBottomEdge string
----@field HitLeftEdge string
----@field HitRightEdge string
----@field HitTopEdge string
----@field SelectedButtonEnabledStateChanged string
----@field SelectedButtonUpdated string
----@field UnfocusedFrame string
-local SmartNavigation_EventObject = {}
-end
-
-do
----@class SmartNavigation_PointerObject : Frame
----@field Icon SmartNavigation_Pointer_IconObject
----@field IntroAnim SmartNavigation_Pointer_IntroAnimObject
-local SmartNavigation_PointerObject = {}
-end
-
-do
----@class SmartNavigation_Pointer_IconObject : Frame
----@field Cursor SmartNavigation_Pointer_Icon_CursorObject
-local SmartNavigation_Pointer_IconObject = {}
-end
-
-do
----@class SmartNavigation_Pointer_Icon_CursorObject : Texture
-local SmartNavigation_Pointer_Icon_CursorObject = {}
-end
-
-do
----@class SmartNavigation_Pointer_IntroAnimObject : AnimationGroup
-local SmartNavigation_Pointer_IntroAnimObject = {}
-end
-
-do
----@class SmartNavigation_navigationBindingsObject
----@field actions table
----@field axes table
----@field buttons table
----@field functions table
----@field name string
----@field nextButtonId number
----@field nextFunctionId number
----@field treatBindsAsCore boolean
-local SmartNavigation_navigationBindingsObject = {}
----@return any ...
-function SmartNavigation_navigationBindingsObject:AddAxisBinding(...) end
----@return any ...
-function SmartNavigation_navigationBindingsObject:AddButtonBinding(...) end
----@return any ...
-function SmartNavigation_navigationBindingsObject:AddFunctionBinding(...) end
----@return any ...
-function SmartNavigation_navigationBindingsObject:BlockDpad(...) end
----@return any ...
-function SmartNavigation_navigationBindingsObject:BlockDpadAndFaceButtons(...) end
----@return any ...
-function SmartNavigation_navigationBindingsObject:BlockEverything(...) end
----@return any ...
-function SmartNavigation_navigationBindingsObject:BlockKeys(...) end
----@return any ...
-function SmartNavigation_navigationBindingsObject:BlockKeysWithModifiers(...) end
----@return any ...
-function SmartNavigation_navigationBindingsObject:BlockKeysWithoutModifiers(...) end
----@return any ...
-function SmartNavigation_navigationBindingsObject:Init(...) end
----@return any ...
-function SmartNavigation_navigationBindingsObject:RemoveKeys(...) end
----@return any ...
-function SmartNavigation_navigationBindingsObject:TreatAsCore(...) end
-end
-
-do
----@class SmartNavigation_rightStickScrollBindingsObject
----@field actions table
----@field axes table
----@field buttons table
----@field functions table
----@field name string
----@field nextButtonId number
----@field nextFunctionId number
----@field treatBindsAsCore boolean
-local SmartNavigation_rightStickScrollBindingsObject = {}
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:AddAxisBinding(...) end
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:AddButtonBinding(...) end
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:AddFunctionBinding(...) end
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:BlockDpad(...) end
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:BlockDpadAndFaceButtons(...) end
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:BlockEverything(...) end
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:BlockKeys(...) end
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:BlockKeysWithModifiers(...) end
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:BlockKeysWithoutModifiers(...) end
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:Init(...) end
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:RemoveKeys(...) end
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:TreatAsCore(...) end
-end
-
-do
----@class SocialUIFrameObject : Frame
----@field BattleNetBar SocialUIFrame_BattleNetBarObject
----@field BattleNetBroadcastFrame SocialUIFrame_BattleNetBroadcastFrameObject
----@field BattleNetUnavailableNoticeFrame SocialUIFrame_BattleNetUnavailableNoticeFrameObject
----@field Bg SocialUIFrame_BgObject
----@field BottomFade SocialUIFrame_BottomFadeObject
----@field CloseButton SocialUIFrame_CloseButtonObject
----@field Event SocialUIFrame_EventObject
----@field FocusJumpHint SocialUIFrame_FocusJumpHintObject
----@field FrameGlow SocialUIFrame_FrameGlowObject
----@field FriendRequestsList SocialUIFrame_FriendRequestsListObject
----@field FriendsList SocialUIFrame_FriendsListObject
----@field IgnoreListFrame SocialUIFrame_IgnoreListFrameObject
----@field LeftJumpHint SocialUIFrame_LeftJumpHintObject
----@field NineSlice SocialUIFrame_NineSliceObject
----@field PortraitContainer SocialUIFrame_PortraitContainerObject
----@field RaidFrame SocialUIFrame_RaidFrameObject
----@field RaidInfoFrame SocialUIFrame_RaidInfoFrameObject
----@field RecentAlliesList SocialUIFrame_RecentAlliesListObject
----@field RightJumpHint SocialUIFrame_RightJumpHintObject
----@field TitleContainer SocialUIFrame_TitleContainerObject
----@field TopFade SocialUIFrame_TopFadeObject
----@field TopTileStreaks SocialUIFrame_TopTileStreaksObject
----@field availableTabData table
----@field callbackRegistrantHandlers table
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
----@field glowingTabTypes table
----@field layoutType string
----@field portraitIcon string
----@field sideWindowFrames table
----@field sideWindowToLinkedTabType table
----@field socialTabPool SocialUIFrame_socialTabPoolObject
----@field staticCallbackRegistrantHandlers table
----@field tabDefinitions table
-local SocialUIFrameObject = {}
----@return any ...
-function SocialUIFrameObject:AddDynamicEventMethod(...) end
----@return any ...
-function SocialUIFrameObject:AddEventMethodInternal(...) end
----@return any ...
-function SocialUIFrameObject:AddStaticEventMethod(...) end
----@return any ...
-function SocialUIFrameObject:CleanUp(...) end
----@return any ...
-function SocialUIFrameObject:ClearAllTabTypeGlowing(...) end
----@return any ...
-function SocialUIFrameObject:ClearAllTabs(...) end
----@return any ...
-function SocialUIFrameObject:ClearLastSelectedTab(...) end
----@return any ...
-function SocialUIFrameObject:ClearSelectedTab(...) end
----@return any ...
-function SocialUIFrameObject:ClearTabTypeGlowing(...) end
----@return any ...
-function SocialUIFrameObject:ConsumeDeferredOpenTab(...) end
----@return any ...
-function SocialUIFrameObject:ConsumeDeferredSideWindow(...) end
----@return any ...
-function SocialUIFrameObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrameObject:CreateContentFramesForSupportedTabs(...) end
----@return any ...
-function SocialUIFrameObject:CreateEventRegistrationInfo(...) end
----@return any ...
-function SocialUIFrameObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SocialUIFrameObject:EndFocus(...) end
----@return any ...
-function SocialUIFrameObject:EnumerateTabs(...) end
----@return any ...
-function SocialUIFrameObject:FilterAvailableTabData(...) end
----@return any ...
-function SocialUIFrameObject:GenerateAvailableTabData(...) end
----@return any ...
-function SocialUIFrameObject:GenerateCallbackEvents(...) end
----@return any ...
-function SocialUIFrameObject:GetActiveSideWindowType(...) end
----@return any ...
-function SocialUIFrameObject:GetActiveSideWindowWidth(...) end
----@return any ...
-function SocialUIFrameObject:GetBestDefaultTabType(...) end
----@return any ...
-function SocialUIFrameObject:GetCallbackTable(...) end
----@return any ...
-function SocialUIFrameObject:GetCallbackTables(...) end
----@return any ...
-function SocialUIFrameObject:GetCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrameObject:GetDataForAvailableTab(...) end
----@return any ...
-function SocialUIFrameObject:GetDynamicCallbackRegistrantHandlers(...) end
----@return any ...
-function SocialUIFrameObject:GetFirstEnabledTabType(...) end
----@return any ...
-function SocialUIFrameObject:GetFocusFrameGlow(...) end
----@return any ...
-function SocialUIFrameObject:GetFocusFrameRoot(...) end
----@return any ...
-function SocialUIFrameObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrameObject:GetPanelExtraWidth(...) end
----@return any ...
-function SocialUIFrameObject:GetPortrait(...) end
----@return any ...
-function SocialUIFrameObject:GetSelectedTab(...) end
----@return any ...
-function SocialUIFrameObject:GetSelectedTabData(...) end
----@return any ...
-function SocialUIFrameObject:GetSideWindowFrame(...) end
----@return any ...
-function SocialUIFrameObject:GetStaticCallbackRegistrantHandlers(...) end
----@return any ...
-function SocialUIFrameObject:GetTabByType(...) end
----@return any ...
-function SocialUIFrameObject:GetTabColumnWidth(...) end
----@return any ...
-function SocialUIFrameObject:GetTabDefinition(...) end
----@return any ...
-function SocialUIFrameObject:GetTitleForSelectedTab(...) end
----@return any ...
-function SocialUIFrameObject:GetTitleText(...) end
----@return any ...
-function SocialUIFrameObject:HasPortraitTexture(...) end
----@return any ...
-function SocialUIFrameObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SocialUIFrameObject:HideActiveSideWindow(...) end
----@return any ...
-function SocialUIFrameObject:HideActiveTabHelpTips(...) end
----@return any ...
-function SocialUIFrameObject:HideFocusJumpHint(...) end
----@return any ...
-function SocialUIFrameObject:HideLeftJumpHint(...) end
----@return any ...
-function SocialUIFrameObject:HideRightJumpHint(...) end
----@return any ...
-function SocialUIFrameObject:InitializeAnchoringForGameContext(...) end
----@return any ...
-function SocialUIFrameObject:InitializeCallbackEventSystem(...) end
----@return any ...
-function SocialUIFrameObject:InitializeFrameVisuals(...) end
----@return any ...
-function SocialUIFrameObject:InitializeSideWindowAnchoring(...) end
----@return any ...
-function SocialUIFrameObject:InitializeSideWindows(...) end
----@return any ...
-function SocialUIFrameObject:InitializeTabDefinitions(...) end
----@return any ...
-function SocialUIFrameObject:InitializeTabSystem(...) end
----@return any ...
-function SocialUIFrameObject:IsSideWindowAllowedByLinkedTab(...) end
----@return any ...
-function SocialUIFrameObject:IsTabTypeGlowing(...) end
----@return any ...
-function SocialUIFrameObject:LockInFocus(...) end
----@return any ...
-function SocialUIFrameObject:OnEvent(...) end
----@return any ...
-function SocialUIFrameObject:OnFeatureAvailabilityChanged(...) end
----@return any ...
-function SocialUIFrameObject:OnHide(...) end
----@return any ...
-function SocialUIFrameObject:OnLoad(...) end
----@return any ...
-function SocialUIFrameObject:OnNewTabSelected(...) end
----@return any ...
-function SocialUIFrameObject:OnOpenToTabAndSideWindowRequested(...) end
----@return any ...
-function SocialUIFrameObject:OnOpenToTabRequested(...) end
----@return any ...
-function SocialUIFrameObject:OnShow(...) end
----@return any ...
-function SocialUIFrameObject:OnSideWindowHideRequested(...) end
----@return any ...
-function SocialUIFrameObject:OnSideWindowShowRequested(...) end
----@return any ...
-function SocialUIFrameObject:OnTabCounterRefreshRequested(...) end
----@return any ...
-function SocialUIFrameObject:OnTabGlowRequested(...) end
----@return any ...
-function SocialUIFrameObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrameObject:RefreshAvailableTabData(...) end
----@return any ...
-function SocialUIFrameObject:RefreshContentFrame(...) end
----@return any ...
-function SocialUIFrameObject:RefreshFocus(...) end
----@return any ...
-function SocialUIFrameObject:RefreshTabStates(...) end
----@return any ...
-function SocialUIFrameObject:RefreshTabs(...) end
----@return any ...
-function SocialUIFrameObject:RefreshTitle(...) end
----@return any ...
-function SocialUIFrameObject:RefreshVisuals(...) end
----@return any ...
-function SocialUIFrameObject:RegisterCallback(...) end
----@return any ...
-function SocialUIFrameObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SocialUIFrameObject:RegisterFromRegistrationInfo(...) end
----@return any ...
-function SocialUIFrameObject:RemoveStaticEventMethod(...) end
----@return any ...
-function SocialUIFrameObject:Reset(...) end
----@return any ...
-function SocialUIFrameObject:ResetTabs(...) end
----@return any ...
-function SocialUIFrameObject:SecureInsertEvent(...) end
----@return any ...
-function SocialUIFrameObject:SelectBestDefaultTab(...) end
----@return any ...
-function SocialUIFrameObject:SelectTab(...) end
----@return any ...
-function SocialUIFrameObject:SetActiveContentFrame(...) end
----@return any ...
-function SocialUIFrameObject:SetBestTopLevelParent(...) end
----@return any ...
-function SocialUIFrameObject:SetBorder(...) end
----@return any ...
-function SocialUIFrameObject:SetDeferredOpenTab(...) end
----@return any ...
-function SocialUIFrameObject:SetDeferredSideWindow(...) end
----@return any ...
-function SocialUIFrameObject:SetFrameLevelsFromBaseLevel(...) end
----@return any ...
-function SocialUIFrameObject:SetPortraitAtlasRaw(...) end
----@return any ...
-function SocialUIFrameObject:SetPortraitShown(...) end
----@return any ...
-function SocialUIFrameObject:SetPortraitTexCoord(...) end
----@return any ...
-function SocialUIFrameObject:SetPortraitTextureRaw(...) end
----@return any ...
-function SocialUIFrameObject:SetPortraitTextureSizeAndOffset(...) end
----@return any ...
-function SocialUIFrameObject:SetPortraitToAsset(...) end
----@return any ...
-function SocialUIFrameObject:SetPortraitToBag(...) end
----@return any ...
-function SocialUIFrameObject:SetPortraitToClassIcon(...) end
----@return any ...
-function SocialUIFrameObject:SetPortraitToSpecIcon(...) end
----@return any ...
-function SocialUIFrameObject:SetPortraitToUnit(...) end
----@return any ...
-function SocialUIFrameObject:SetTabTypeGlowing(...) end
----@return any ...
-function SocialUIFrameObject:SetTitle(...) end
----@return any ...
-function SocialUIFrameObject:SetTitleColor(...) end
----@return any ...
-function SocialUIFrameObject:SetTitleFormatted(...) end
----@return any ...
-function SocialUIFrameObject:SetTitleMaxLinesAndHeight(...) end
----@return any ...
-function SocialUIFrameObject:SetTitleOffsets(...) end
----@return any ...
-function SocialUIFrameObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SocialUIFrameObject:ShowFocusJumpHint(...) end
----@return any ...
-function SocialUIFrameObject:ShowLeftJumpHint(...) end
----@return any ...
-function SocialUIFrameObject:ShowRightJumpHint(...) end
----@return any ...
-function SocialUIFrameObject:ShowSideWindow(...) end
----@return any ...
-function SocialUIFrameObject:SortTabData(...) end
----@return any ...
-function SocialUIFrameObject:StartFocus(...) end
----@return any ...
-function SocialUIFrameObject:TriggerEvent(...) end
----@return any ...
-function SocialUIFrameObject:TryHideActiveSideWindowForUnavailableTab(...) end
----@return any ...
-function SocialUIFrameObject:TryInitializeUIPanelRegistration(...) end
----@return any ...
-function SocialUIFrameObject:TryRefreshUIPanelPositions(...) end
----@return any ...
-function SocialUIFrameObject:TryShowTabHelpTips(...) end
----@return any ...
-function SocialUIFrameObject:UnregisterAllEventMethods(...) end
----@return any ...
-function SocialUIFrameObject:UnregisterAllInternal(...) end
----@return any ...
-function SocialUIFrameObject:UnregisterCallback(...) end
----@return any ...
-function SocialUIFrameObject:UnregisterEvents(...) end
----@return any ...
-function SocialUIFrameObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function SocialUIFrameObject:UnregisterFromRegistrationInfo(...) end
----@type SocialUIFrameObject
-SocialUIFrame = SocialUIFrameObject
-end
-
-do
----@class SocialUIFrame_BattleNetBarObject : Frame
----@field Background SocialUIFrame_BattleNetBar_BackgroundObject
----@field ControlsContainer SocialUIFrame_BattleNetBar_ControlsContainerObject
-local SocialUIFrame_BattleNetBarObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBar_BackgroundObject : Texture
-local SocialUIFrame_BattleNetBar_BackgroundObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBar_ControlsContainerObject : Frame
----@field BattleNetBackground SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetBackgroundObject
----@field BattleNetMenuButton SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject
----@field OnlineStatusDropdown SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject
----@field PersonalBattleTagDisplay SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplayObject
-local SocialUIFrame_BattleNetBar_ControlsContainerObject = {}
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainerObject:FullRefresh(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainerObject:LayoutPersonalBattleTagDisplayText(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainerObject:OnEvent(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainerObject:OnHide(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainerObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainerObject:OnShow(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainerObject:RefreshElementVisibility(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainerObject:RefreshPersonalBattleTagDisplay(...) end
-end
-
-do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetBackgroundObject : Texture
-local SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetBackgroundObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject : Button
----@field Event SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_EventObject
----@field HighlightTexture SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_HighlightTextureObject
----@field Icon SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_IconObject
----@field NormalTexture SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_NormalTextureObject
----@field PushedTexture SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_PushedTextureObject
+---@class GuildControlUI_discordFrame_channelDropdownObject : Button
+---@field Arrow GuildControlUI_discordFrame_channelDropdown_ArrowObject
+---@field Background GuildControlUI_discordFrame_channelDropdown_BackgroundObject
+---@field Event GuildControlUI_discordFrame_channelDropdown_EventObject
+---@field Text GuildControlUI_discordFrame_channelDropdown_TextObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field executingEvents table
 ---@field intrinsic string
----@field menuAnchor SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_menuAnchorObject
+---@field menuAnchor GuildControlUI_discordFrame_channelDropdown_menuAnchorObject
 ---@field menuPoint string
 ---@field menuPointX number
 ---@field menuPointY number
 ---@field menuRelativePoint string
-local SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject = {}
+local GuildControlUI_discordFrame_channelDropdownObject = {}
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:ClearMenuState(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:ClearMenuState(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:CloseMenu(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:CloseMenu(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:CollectSelectionData(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:CollectSelectionData(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:CopyDeferredCallbacks(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:CreateDefaultRootMenuDescription(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:CreateDefaultRootMenuDescription(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:CreateRootDescription(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:CreateRootDescription(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:Decrement(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:Decrement(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:DoesFrameHaveEvent(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:EnableRegenerateOnResponse(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:GenerateCallbackEvents(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:EnableRegenerateOnResponse(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:GenerateMenu(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:GetCallbackTable(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:GenerateMenu(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:GetCallbackTables(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:GetArrowAtlas(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:GetCallbacksByEvent(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:GetCallbackTable(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:GetMenuDescription(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:GetCallbackTables(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:GetMutableCallbacksByEvent(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:GetSelectionData(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:GetDefaultText(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:GetSocialUI(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:GetMenuDescription(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:HandlesGlobalMouseEvent(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:HasAnyAvailableMenuOptions(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:GetSelectionData(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:HasAnyRadioDescriptions(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:GetUpdateText(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:HasElements(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:HandlesGlobalMouseEvent(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:HasOnlyRadioDescriptions(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:HasAnyRadioDescriptions(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:HasRegistrantsForEvent(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:HasElements(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:HasStickyFocus(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:HasOnlyRadioDescriptions(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:Increment(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:IsMenuOpen(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:HasStickyFocus(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:OnEnter(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:Increment(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:OnEnter_Intrinsic(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:IsDown(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:OnLeave(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:IsDownOver(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:OnLoad(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:IsMenuOpen(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:OnLoad_Intrinsic(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:IsOver(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:OnMenuAssigned(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:NarrationGetContext(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:OnMenuChanged(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:NarrationGetName(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:OnMenuClosed(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:OnButtonStateChanged(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:OnMenuOpened(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:OnDisable(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:OnMenuResponse(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:OnEnable(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:OnMouseDown(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:OnEnter(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:OnMouseDown_Intrinsic(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:OnMouseUp(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:OnLeave(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:OnMouseWheel_Intrinsic(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:OnLoad(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:OnShow(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:OpenMenu(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:OnMenuAssigned(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:Pick(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:OnMenuChanged(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:ReconcileDeferredCallbacks(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:OnMenuClosed(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:Refresh(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:OnMenuOpened(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:RegisterCallback(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:OnMenuResponse(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:RegisterCallbackWithHandle(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:OnMouseDown(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:RegisterMenu(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:Rotate(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:OnMouseUp(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:SecureInsertEvent(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:OnMouseWheel_Intrinsic(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:SetMenuAnchor(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:OnShow(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:SetMenuOpen(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:OpenMenu(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:SetUndefinedEventsAllowed(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:OverrideText(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:SetupMenu(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:Pick(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:ShouldShowIgnoreListMenuOption(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:ShowTooltip(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:RegisterCallback(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:SignalUpdate(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:SocialUIRequestHideSideWindow(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:RegisterMenu(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:SocialUIRequestToggleSideWindow(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:Rotate(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:TriggerEvent(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:SecureInsertEvent(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:TriggerSocialUIEvent(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:SetDefaultText(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:UnregisterCallback(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:SetDisplacedRegions(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:UnregisterEvents(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:SetMenuAnchor(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:UnregisterEventsByEventTable(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:SetMenuOpen(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:Update(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:SetSelectionText(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:UpdateSelections(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:SetSelectionTranslator(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:UpdateToMenuSelections(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:SetTooltip(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButtonObject:onMenuClosedCallback(...) end
+function GuildControlUI_discordFrame_channelDropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GuildControlUI_discordFrame_channelDropdownObject:SetupMenu(...) end
+---@return any ...
+function GuildControlUI_discordFrame_channelDropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function GuildControlUI_discordFrame_channelDropdownObject:ShowTooltip(...) end
+---@return any ...
+function GuildControlUI_discordFrame_channelDropdownObject:SignalUpdate(...) end
+---@return any ...
+function GuildControlUI_discordFrame_channelDropdownObject:TriggerEvent(...) end
+---@return any ...
+function GuildControlUI_discordFrame_channelDropdownObject:UnregisterCallback(...) end
+---@return any ...
+function GuildControlUI_discordFrame_channelDropdownObject:UnregisterEvents(...) end
+---@return any ...
+function GuildControlUI_discordFrame_channelDropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function GuildControlUI_discordFrame_channelDropdownObject:Update(...) end
+---@return any ...
+function GuildControlUI_discordFrame_channelDropdownObject:UpdateSelections(...) end
+---@return any ...
+function GuildControlUI_discordFrame_channelDropdownObject:UpdateText(...) end
+---@return any ...
+function GuildControlUI_discordFrame_channelDropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function GuildControlUI_discordFrame_channelDropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function GuildControlUI_discordFrame_channelDropdownObject:selectionTranslator(...) end
 end
 
 do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_EventObject
-local SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_EventObject = {}
+---@class GuildControlUI_discordFrame_channelDropdown_ArrowObject : Texture
+local GuildControlUI_discordFrame_channelDropdown_ArrowObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_HighlightTextureObject : Texture
-local SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_HighlightTextureObject = {}
+---@class GuildControlUI_discordFrame_channelDropdown_BackgroundObject : Texture
+local GuildControlUI_discordFrame_channelDropdown_BackgroundObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_IconObject : Texture
-local SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_IconObject = {}
+---@class GuildControlUI_discordFrame_channelDropdown_EventObject
+local GuildControlUI_discordFrame_channelDropdown_EventObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_NormalTextureObject : Texture
-local SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_NormalTextureObject = {}
+---@class GuildControlUI_discordFrame_channelDropdown_TextObject : FontString
+local GuildControlUI_discordFrame_channelDropdown_TextObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_PushedTextureObject : Texture
-local SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_PushedTextureObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_menuAnchorObject
+---@class GuildControlUI_discordFrame_channelDropdown_menuAnchorObject
 ---@field point string
 ---@field relativePoint string
----@field relativeTo SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_menuAnchor_relativeToObject
+---@field relativeTo GuildControlUI_discordFrame_channelDropdown_menuAnchor_relativeToObject
 ---@field x number
 ---@field y number
-local SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_menuAnchorObject = {}
+local GuildControlUI_discordFrame_channelDropdown_menuAnchorObject = {}
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_menuAnchorObject:Get(...) end
+function GuildControlUI_discordFrame_channelDropdown_menuAnchorObject:Get(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_menuAnchorObject:GetRelativeTo(...) end
+function GuildControlUI_discordFrame_channelDropdown_menuAnchorObject:GetRelativeTo(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_menuAnchorObject:Init(...) end
+function GuildControlUI_discordFrame_channelDropdown_menuAnchorObject:Init(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_menuAnchorObject:Set(...) end
+function GuildControlUI_discordFrame_channelDropdown_menuAnchorObject:Set(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_menuAnchorObject:SetFromPoint(...) end
+function GuildControlUI_discordFrame_channelDropdown_menuAnchorObject:SetFromPoint(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_menuAnchorObject:SetOffsets(...) end
+function GuildControlUI_discordFrame_channelDropdown_menuAnchorObject:SetOffsets(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_menuAnchorObject:SetPoint(...) end
+function GuildControlUI_discordFrame_channelDropdown_menuAnchorObject:SetPoint(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_menuAnchorObject:SetPointWithExtraOffset(...) end
+function GuildControlUI_discordFrame_channelDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_menuAnchorObject:SetRelativeTo(...) end
+function GuildControlUI_discordFrame_channelDropdown_menuAnchorObject:SetRelativeTo(...) end
 end
 
 do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_menuAnchor_relativeToObject
-local SocialUIFrame_BattleNetBar_ControlsContainer_BattleNetMenuButton_menuAnchor_relativeToObject = {}
+---@class GuildControlUI_discordFrame_channelDropdown_menuAnchor_relativeToObject
+local GuildControlUI_discordFrame_channelDropdown_menuAnchor_relativeToObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject : Button
----@field Arrow SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_ArrowObject
----@field Background SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_BackgroundObject
----@field Event SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_EventObject
----@field Text SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_TextObject
+---@class GuildControlUI_discordFrame_channelListTitleObject : FontString
+local GuildControlUI_discordFrame_channelListTitleObject = {}
+end
+
+do
+---@class GuildControlUI_discordFrame_noChannelsErrorObject : FontString
+local GuildControlUI_discordFrame_noChannelsErrorObject = {}
+end
+
+do
+---@class GuildControlUI_discordFrame_serverDropdownObject : Button
+---@field Arrow GuildControlUI_discordFrame_serverDropdown_ArrowObject
+---@field Background GuildControlUI_discordFrame_serverDropdown_BackgroundObject
+---@field Event GuildControlUI_discordFrame_serverDropdown_EventObject
+---@field Text GuildControlUI_discordFrame_serverDropdown_TextObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field executingEvents table
 ---@field intrinsic string
----@field menuAnchor SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_menuAnchorObject
+---@field menuAnchor GuildControlUI_discordFrame_serverDropdown_menuAnchorObject
 ---@field menuPoint string
 ---@field menuPointX number
 ---@field menuPointY number
 ---@field menuRelativePoint string
----@field presenceIconSizeForDropdown number
-local SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject = {}
+local GuildControlUI_discordFrame_serverDropdownObject = {}
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:ClearMenuState(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:ClearMenuState(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:CloseMenu(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:CloseMenu(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:CollectSelectionData(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:CollectSelectionData(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:CopyDeferredCallbacks(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:CreateDefaultRootMenuDescription(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:CreateDefaultRootMenuDescription(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:CreateRootDescription(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:CreateRootDescription(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:Decrement(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:Decrement(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:DesaturateIfDisabled(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:DoesFrameHaveEvent(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:EnableRegenerateOnResponse(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:EnableRegenerateOnResponse(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:GenerateCallbackEvents(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:GenerateMenu(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:GenerateMenu(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:GetArrowAtlas(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:GetArrowAtlas(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:GetCallbackTable(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:GetCallbackTable(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:GetCallbackTables(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:GetCallbackTables(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:GetCallbacksByEvent(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:GetDefaultText(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:GetDefaultText(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:GetMenuDescription(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:GetMenuDescription(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:GetMutableCallbacksByEvent(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:GetSelectionData(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:GetSelectionData(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:GetUpdateText(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:GetUpdateText(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:HandlesGlobalMouseEvent(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:HandlesGlobalMouseEvent(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:HasAnyRadioDescriptions(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:HasAnyRadioDescriptions(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:HasElements(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:HasElements(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:HasOnlyRadioDescriptions(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:HasOnlyRadioDescriptions(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:HasRegistrantsForEvent(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:HasStickyFocus(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:HasStickyFocus(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:Increment(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:Increment(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:InitializeMenu(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:IsDown(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:IsDown(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:IsDownOver(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:IsDownOver(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:IsMenuOpen(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:IsMenuOpen(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:IsOver(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:IsOver(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:NarrationGetContext(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:NarrationGetContext(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:NarrationGetName(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:NarrationGetName(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:OnButtonStateChanged(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:OnButtonStateChanged(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:OnDisable(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:OnDisable(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:OnEnable(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:OnEnable(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:OnEnter(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:OnEnter(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:OnEnter_Intrinsic(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:OnLeave(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:OnEvent(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:OnLoad(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:OnHide(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:OnLeave(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:OnMenuAssigned(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:OnLoad(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:OnMenuChanged(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:OnLoad_Intrinsic(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:OnMenuClosed(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:OnMenuAssigned(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:OnMenuOpened(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:OnMenuChanged(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:OnMenuResponse(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:OnMenuClosed(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:OnMouseDown(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:OnMenuOpened(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:OnMenuResponse(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:OnMouseUp(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:OnMouseDown(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:OnMouseWheel_Intrinsic(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:OnMouseDown_Intrinsic(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:OnShow(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:OnMouseUp(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:OpenMenu(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:OnMouseWheel_Intrinsic(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:OverrideText(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:OnShow(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:Pick(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:OpenMenu(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:OverrideText(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:RegisterCallback(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:Pick(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:ReconcileDeferredCallbacks(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:RegisterMenu(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:RefreshPresenceTypeSelf(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:Rotate(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:RegisterCallback(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:SecureInsertEvent(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:RegisterCallbackWithHandle(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:SetDefaultText(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:RegisterMenu(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:SetDisplacedRegions(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:Rotate(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:SetMenuAnchor(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:SecureInsertEvent(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:SetMenuOpen(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:SetDefaultText(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:SetSelectionText(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:SetDisplacedRegions(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:SetSelectionTranslator(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:SetMenuAnchor(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:SetTooltip(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:SetMenuOpen(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:SetSelectionText(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:SetupMenu(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:SetSelectionTranslator(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:ShouldShowTooltip(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:SetTooltip(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:ShowTooltip(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:SetUndefinedEventsAllowed(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:SignalUpdate(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:SetupMenu(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:TriggerEvent(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:ShouldShowTooltip(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:UnregisterCallback(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:ShowTooltip(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:UnregisterEvents(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:SignalUpdate(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:TriggerEvent(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:Update(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:UnregisterCallback(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:UpdateSelections(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:UnregisterEvents(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:UpdateText(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:UnregisterEventsByEventTable(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:UpdateToMenuSelections(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:Update(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:onMenuClosedCallback(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:UpdateSelections(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:UpdateText(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:UpdateToMenuSelections(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:onMenuClosedCallback(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdownObject:selectionTranslator(...) end
+function GuildControlUI_discordFrame_serverDropdownObject:selectionTranslator(...) end
 end
 
 do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_ArrowObject : Texture
-local SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_ArrowObject = {}
+---@class GuildControlUI_discordFrame_serverDropdown_ArrowObject : Texture
+local GuildControlUI_discordFrame_serverDropdown_ArrowObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_BackgroundObject : Texture
-local SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_BackgroundObject = {}
+---@class GuildControlUI_discordFrame_serverDropdown_BackgroundObject : Texture
+local GuildControlUI_discordFrame_serverDropdown_BackgroundObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_EventObject
-local SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_EventObject = {}
+---@class GuildControlUI_discordFrame_serverDropdown_EventObject
+local GuildControlUI_discordFrame_serverDropdown_EventObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_TextObject : FontString
-local SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_TextObject = {}
+---@class GuildControlUI_discordFrame_serverDropdown_TextObject : FontString
+local GuildControlUI_discordFrame_serverDropdown_TextObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_menuAnchorObject
+---@class GuildControlUI_discordFrame_serverDropdown_menuAnchorObject
 ---@field point string
 ---@field relativePoint string
----@field relativeTo SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_menuAnchor_relativeToObject
+---@field relativeTo GuildControlUI_discordFrame_serverDropdown_menuAnchor_relativeToObject
 ---@field x number
 ---@field y number
-local SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_menuAnchorObject = {}
+local GuildControlUI_discordFrame_serverDropdown_menuAnchorObject = {}
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_menuAnchorObject:Get(...) end
+function GuildControlUI_discordFrame_serverDropdown_menuAnchorObject:Get(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_menuAnchorObject:GetRelativeTo(...) end
+function GuildControlUI_discordFrame_serverDropdown_menuAnchorObject:GetRelativeTo(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_menuAnchorObject:Init(...) end
+function GuildControlUI_discordFrame_serverDropdown_menuAnchorObject:Init(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_menuAnchorObject:Set(...) end
+function GuildControlUI_discordFrame_serverDropdown_menuAnchorObject:Set(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_menuAnchorObject:SetFromPoint(...) end
+function GuildControlUI_discordFrame_serverDropdown_menuAnchorObject:SetFromPoint(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_menuAnchorObject:SetOffsets(...) end
+function GuildControlUI_discordFrame_serverDropdown_menuAnchorObject:SetOffsets(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_menuAnchorObject:SetPoint(...) end
+function GuildControlUI_discordFrame_serverDropdown_menuAnchorObject:SetPoint(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+function GuildControlUI_discordFrame_serverDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_menuAnchorObject:SetRelativeTo(...) end
+function GuildControlUI_discordFrame_serverDropdown_menuAnchorObject:SetRelativeTo(...) end
 end
 
 do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_menuAnchor_relativeToObject
-local SocialUIFrame_BattleNetBar_ControlsContainer_OnlineStatusDropdown_menuAnchor_relativeToObject = {}
+---@class GuildControlUI_discordFrame_serverDropdown_menuAnchor_relativeToObject
+local GuildControlUI_discordFrame_serverDropdown_menuAnchor_relativeToObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplayObject : Frame
----@field BattleNetUnavailableNoticeButton SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_BattleNetUnavailableNoticeButtonObject
----@field CopyBattleTagToClipboardButton SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButtonObject
----@field DisplayText SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_DisplayTextObject
-local SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplayObject = {}
+---@class GuildControlUI_dropdownObject : Button
+---@field Arrow GuildControlUI_dropdown_ArrowObject
+---@field Background GuildControlUI_dropdown_BackgroundObject
+---@field Event GuildControlUI_dropdown_EventObject
+---@field Text GuildControlUI_dropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor GuildControlUI_dropdown_menuAnchorObject
+---@field menuDescription GuildControlUI_dropdown_menuDescriptionObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+---@field text string
+local GuildControlUI_dropdownObject = {}
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplayObject:OnEnter(...) end
+function GuildControlUI_dropdownObject:ClearMenuState(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplayObject:OnLeave(...) end
+function GuildControlUI_dropdownObject:CloseMenu(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplayObject:ShowBattleNetUnavailableNotice(...) end
+function GuildControlUI_dropdownObject:CollectSelectionData(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplayObject:ShowBattleTag(...) end
+function GuildControlUI_dropdownObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplayObject:ShowBestDisplayTextAndButton(...) end
+function GuildControlUI_dropdownObject:CreateDefaultRootMenuDescription(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplayObject:ShowTooltipIfTruncated(...) end
+function GuildControlUI_dropdownObject:CreateRootDescription(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:Decrement(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:GenerateMenu(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:GetArrowAtlas(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:GetCallbackTable(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:GetCallbackTables(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:GetDefaultText(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:GetMenuDescription(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:GetSelectionData(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:GetUpdateText(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:HasElements(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:HasStickyFocus(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:Increment(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:IsDown(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:IsDownOver(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:IsMenuOpen(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:IsOver(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:NarrationGetContext(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:NarrationGetName(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnDisable(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnEnable(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnEnter(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnLeave(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnLoad(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnMenuChanged(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnMenuClosed(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnMenuOpened(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnMenuResponse(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnMouseDown(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnMouseUp(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnShow(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OpenMenu(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OverrideText(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:Pick(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:RegisterCallback(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:RegisterMenu(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:Rotate(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:SetDefaultText(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:SetMenuOpen(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:SetSelectionText(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:SetTooltip(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:SetupMenu(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:ShowTooltip(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:SignalUpdate(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:TriggerEvent(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:UnregisterCallback(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:UnregisterEvents(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:Update(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:UpdateSelections(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:UpdateText(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:menuGenerator(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:selectionTranslator(...) end
 end
 
 do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_BattleNetUnavailableNoticeButtonObject : Button
----@field HighlightTexture SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_BattleNetUnavailableNoticeButton_HighlightTextureObject
----@field texture SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_BattleNetUnavailableNoticeButton_textureObject
-local SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_BattleNetUnavailableNoticeButtonObject = {}
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_BattleNetUnavailableNoticeButtonObject:GetSocialUI(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_BattleNetUnavailableNoticeButtonObject:OnClick(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_BattleNetUnavailableNoticeButtonObject:SocialUIRequestHideSideWindow(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_BattleNetUnavailableNoticeButtonObject:SocialUIRequestToggleSideWindow(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_BattleNetUnavailableNoticeButtonObject:TriggerSocialUIEvent(...) end
+---@class GuildControlUI_dropdown_ArrowObject : Texture
+local GuildControlUI_dropdown_ArrowObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_BattleNetUnavailableNoticeButton_HighlightTextureObject : Texture
-local SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_BattleNetUnavailableNoticeButton_HighlightTextureObject = {}
+---@class GuildControlUI_dropdown_BackgroundObject : Texture
+local GuildControlUI_dropdown_BackgroundObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_BattleNetUnavailableNoticeButton_textureObject : Texture
-local SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_BattleNetUnavailableNoticeButton_textureObject = {}
+---@class GuildControlUI_dropdown_EventObject
+local GuildControlUI_dropdown_EventObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButtonObject : Button
----@field HighlightTexture SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButton_HighlightTextureObject
----@field Icon SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButton_IconObject
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
-local SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButtonObject = {}
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButtonObject:AddTooltip(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButtonObject:CopyBattleTagToClipboard(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButtonObject:DesaturateIfDisabled(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButtonObject:DisplayCopiedNotice(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButtonObject:IsDown(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButtonObject:IsDownOver(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButtonObject:IsOver(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButtonObject:OnButtonStateChanged(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButtonObject:OnClick(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButtonObject:OnDisable(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButtonObject:OnEnable(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButtonObject:OnEnter(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButtonObject:OnLeave(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButtonObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButtonObject:OnMouseDown(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButtonObject:OnMouseUp(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButtonObject:OnShow(...) end
----@return any ...
-function SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButtonObject:SetDisplacedRegions(...) end
+---@class GuildControlUI_dropdown_TextObject : FontString
+local GuildControlUI_dropdown_TextObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButton_HighlightTextureObject : Texture
-local SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButton_HighlightTextureObject = {}
+---@class GuildControlUI_dropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo GuildControlUI_dropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local GuildControlUI_dropdown_menuAnchorObject = {}
+---@return any ...
+function GuildControlUI_dropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuAnchorObject:SetRelativeTo(...) end
 end
 
 do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButton_IconObject : Texture
-local SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_CopyBattleTagToClipboardButton_IconObject = {}
+---@class GuildControlUI_dropdown_menuAnchor_relativeToObject
+local GuildControlUI_dropdown_menuAnchor_relativeToObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_DisplayTextObject : FontString
-local SocialUIFrame_BattleNetBar_ControlsContainer_PersonalBattleTagDisplay_DisplayTextObject = {}
+---@class GuildControlUI_dropdown_menuDescriptionObject
+---@field tag string
+local GuildControlUI_dropdown_menuDescriptionObject = {}
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateButton(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateCheckbox(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateColorSwatch(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateDivider(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateFrame(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateHighlightButton(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateHighlightRadio(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateRadio(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateSearchEntry(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateSpacer(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateTemplate(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateTitle(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:QueueDivider(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:QueueSpacer(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:QueueTitle(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:SetTooltip(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:private(...) end
 end
 
 do
----@class SocialUIFrame_BattleNetBroadcastFrameObject : Frame
----@field Border SocialUIFrame_BattleNetBroadcastFrame_BorderObject
----@field CancelButton SocialUIFrame_BattleNetBroadcastFrame_CancelButtonObject
----@field EditBox SocialUIFrame_BattleNetBroadcastFrame_EditBoxObject
----@field Title SocialUIFrame_BattleNetBroadcastFrame_TitleObject
----@field UpdateButton SocialUIFrame_BattleNetBroadcastFrame_UpdateButtonObject
----@field heightPadding number
----@field widthPadding number
-local SocialUIFrame_BattleNetBroadcastFrameObject = {}
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:AddLayoutChildren(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:ClearFixedSize(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:FullRefresh(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:GetAdditionalRegions(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:GetChildHeight(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:GetChildSize(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:GetChildWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:GetFixedHeight(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:GetFixedSize(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:GetFixedWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:GetHeightPadding(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:GetLayoutChildren(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:GetMaximumWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:GetMinimumWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:GetSocialUI(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:GetWidthPadding(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:IgnoreLayoutIndex(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:InitializeBroadcastFrameElements(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:IsDirty(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:IsLayoutFrame(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:Layout(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:MarkClean(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:MarkDirty(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:MarkIgnoreInLayout(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:OnCleaned(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:OnEvent(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:OnHide(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:OnMouseDown(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:OnShow(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:OnUpdate(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:RefreshBroadcastText(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:SetBroadcast(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:SetFixedHeight(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:SetFixedSize(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:SetFixedWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:SetHeightPadding(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:SetMaximumWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:SetMinimumWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:SetWidthPadding(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:SocialUIRequestHideSideWindow(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:SocialUIRequestToggleSideWindow(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrameObject:TriggerSocialUIEvent(...) end
+---@class GuildControlUI_orderFrameObject : Frame
+---@field dupButton GuildControlUI_orderFrame_dupButtonObject
+---@field newButton GuildControlUI_orderFrame_newButtonObject
+local GuildControlUI_orderFrameObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetBroadcastFrame_BorderObject : Frame
----@field Bg SocialUIFrame_BattleNetBroadcastFrame_Border_BgObject
----@field BottomEdge SocialUIFrame_BattleNetBroadcastFrame_Border_BottomEdgeObject
----@field BottomLeftCorner SocialUIFrame_BattleNetBroadcastFrame_Border_BottomLeftCornerObject
----@field BottomRightCorner SocialUIFrame_BattleNetBroadcastFrame_Border_BottomRightCornerObject
----@field LeftEdge SocialUIFrame_BattleNetBroadcastFrame_Border_LeftEdgeObject
----@field RightEdge SocialUIFrame_BattleNetBroadcastFrame_Border_RightEdgeObject
----@field TopEdge SocialUIFrame_BattleNetBroadcastFrame_Border_TopEdgeObject
----@field TopLeftCorner SocialUIFrame_BattleNetBroadcastFrame_Border_TopLeftCornerObject
----@field TopRightCorner SocialUIFrame_BattleNetBroadcastFrame_Border_TopRightCornerObject
----@field layoutType string
-local SocialUIFrame_BattleNetBroadcastFrame_BorderObject = {}
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_BorderObject:GetBorderColor(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_BorderObject:GetCenterColor(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_BorderObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_BorderObject:GetFrameLayoutType(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_BorderObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_BorderObject:SetBlendMode(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_BorderObject:SetBorderBlendMode(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_BorderObject:SetBorderColor(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_BorderObject:SetCenterColor(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_BorderObject:SetVertexColor(...) end
-end
-
-do
----@class SocialUIFrame_BattleNetBroadcastFrame_Border_BgObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_Border_BgObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBroadcastFrame_Border_BottomEdgeObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_Border_BottomEdgeObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBroadcastFrame_Border_BottomLeftCornerObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_Border_BottomLeftCornerObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBroadcastFrame_Border_BottomRightCornerObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_Border_BottomRightCornerObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBroadcastFrame_Border_LeftEdgeObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_Border_LeftEdgeObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBroadcastFrame_Border_RightEdgeObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_Border_RightEdgeObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBroadcastFrame_Border_TopEdgeObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_Border_TopEdgeObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBroadcastFrame_Border_TopLeftCornerObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_Border_TopLeftCornerObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBroadcastFrame_Border_TopRightCornerObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_Border_TopRightCornerObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBroadcastFrame_CancelButtonObject : Button
----@field Left SocialUIFrame_BattleNetBroadcastFrame_CancelButton_LeftObject
----@field Middle SocialUIFrame_BattleNetBroadcastFrame_CancelButton_MiddleObject
----@field Right SocialUIFrame_BattleNetBroadcastFrame_CancelButton_RightObject
----@field Text SocialUIFrame_BattleNetBroadcastFrame_CancelButton_TextObject
----@field baseHeight number
----@field baseWidth number
+---@class GuildControlUI_orderFrame_dupButtonObject : Button
+---@field Left GuildControlUI_orderFrame_dupButton_LeftObject
+---@field Middle GuildControlUI_orderFrame_dupButton_MiddleObject
+---@field Right GuildControlUI_orderFrame_dupButton_RightObject
+---@field Text GuildControlUI_orderFrame_dupButton_TextObject
 ---@field fitTextCanWidthDecrease boolean
 ---@field fitTextWidthPadding number
-local SocialUIFrame_BattleNetBroadcastFrame_CancelButtonObject = {}
+local GuildControlUI_orderFrame_dupButtonObject = {}
 ---@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_CancelButtonObject:FitToText(...) end
+function GuildControlUI_orderFrame_dupButtonObject:FitToText(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_CancelButtonObject:GetDesiredHeight(...) end
+function GuildControlUI_orderFrame_dupButtonObject:GetDisabledTooltip(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_CancelButtonObject:GetDesiredWidth(...) end
+function GuildControlUI_orderFrame_dupButtonObject:OnEnter(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_CancelButtonObject:GetDisabledTooltip(...) end
+function GuildControlUI_orderFrame_dupButtonObject:OnLeave(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_CancelButtonObject:GetScaledDesiredDimension(...) end
+function GuildControlUI_orderFrame_dupButtonObject:SetDisabledState(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_CancelButtonObject:GetScaledDesiredHeight(...) end
+function GuildControlUI_orderFrame_dupButtonObject:SetDisabledTooltip(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_CancelButtonObject:GetScaledDesiredWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_CancelButtonObject:GetWeightedScale(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_CancelButtonObject:OnEnter(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_CancelButtonObject:OnLeave(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_CancelButtonObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_CancelButtonObject:OnTextScaleUpdated(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_CancelButtonObject:SetDesiredWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_CancelButtonObject:SetDisabledState(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_CancelButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_CancelButtonObject:SetTextToFit(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_CancelButtonObject:UpdateWidth(...) end
+function GuildControlUI_orderFrame_dupButtonObject:SetTextToFit(...) end
 end
 
 do
----@class SocialUIFrame_BattleNetBroadcastFrame_CancelButton_LeftObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_CancelButton_LeftObject = {}
+---@class GuildControlUI_orderFrame_dupButton_LeftObject : Texture
+local GuildControlUI_orderFrame_dupButton_LeftObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetBroadcastFrame_CancelButton_MiddleObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_CancelButton_MiddleObject = {}
+---@class GuildControlUI_orderFrame_dupButton_MiddleObject : Texture
+local GuildControlUI_orderFrame_dupButton_MiddleObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetBroadcastFrame_CancelButton_RightObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_CancelButton_RightObject = {}
+---@class GuildControlUI_orderFrame_dupButton_RightObject : Texture
+local GuildControlUI_orderFrame_dupButton_RightObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetBroadcastFrame_CancelButton_TextObject : FontString
-local SocialUIFrame_BattleNetBroadcastFrame_CancelButton_TextObject = {}
+---@class GuildControlUI_orderFrame_dupButton_TextObject : FontString
+local GuildControlUI_orderFrame_dupButton_TextObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetBroadcastFrame_EditBoxObject : EditBox
----@field BottomBorder SocialUIFrame_BattleNetBroadcastFrame_EditBox_BottomBorderObject
----@field BottomLeftBorder SocialUIFrame_BattleNetBroadcastFrame_EditBox_BottomLeftBorderObject
----@field BottomRightBorder SocialUIFrame_BattleNetBroadcastFrame_EditBox_BottomRightBorderObject
----@field LeftBorder SocialUIFrame_BattleNetBroadcastFrame_EditBox_LeftBorderObject
----@field MiddleBorder SocialUIFrame_BattleNetBroadcastFrame_EditBox_MiddleBorderObject
----@field PromptText SocialUIFrame_BattleNetBroadcastFrame_EditBox_PromptTextObject
----@field RightBorder SocialUIFrame_BattleNetBroadcastFrame_EditBox_RightBorderObject
----@field TopBorder SocialUIFrame_BattleNetBroadcastFrame_EditBox_TopBorderObject
----@field TopLeftBorder SocialUIFrame_BattleNetBroadcastFrame_EditBox_TopLeftBorderObject
----@field TopRightBorder SocialUIFrame_BattleNetBroadcastFrame_EditBox_TopRightBorderObject
----@field baseHeight number
----@field baseWidth number
-local SocialUIFrame_BattleNetBroadcastFrame_EditBoxObject = {}
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_EditBoxObject:GetDesiredHeight(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_EditBoxObject:GetDesiredWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_EditBoxObject:GetScaledDesiredDimension(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_EditBoxObject:GetScaledDesiredHeight(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_EditBoxObject:GetScaledDesiredWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_EditBoxObject:GetWeightedScale(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_EditBoxObject:OnEscapePressed(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_EditBoxObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_EditBoxObject:OnTextChanged(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_EditBoxObject:OnTextScaleUpdated(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_EditBoxObject:RefreshPromptTextVisibility(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_EditBoxObject:SetDesiredWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_EditBoxObject:UpdateWidth(...) end
-end
-
-do
----@class SocialUIFrame_BattleNetBroadcastFrame_EditBox_BottomBorderObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_EditBox_BottomBorderObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBroadcastFrame_EditBox_BottomLeftBorderObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_EditBox_BottomLeftBorderObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBroadcastFrame_EditBox_BottomRightBorderObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_EditBox_BottomRightBorderObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBroadcastFrame_EditBox_LeftBorderObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_EditBox_LeftBorderObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBroadcastFrame_EditBox_MiddleBorderObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_EditBox_MiddleBorderObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBroadcastFrame_EditBox_PromptTextObject : FontString
-local SocialUIFrame_BattleNetBroadcastFrame_EditBox_PromptTextObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBroadcastFrame_EditBox_RightBorderObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_EditBox_RightBorderObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBroadcastFrame_EditBox_TopBorderObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_EditBox_TopBorderObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBroadcastFrame_EditBox_TopLeftBorderObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_EditBox_TopLeftBorderObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBroadcastFrame_EditBox_TopRightBorderObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_EditBox_TopRightBorderObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBroadcastFrame_TitleObject : FontString
-local SocialUIFrame_BattleNetBroadcastFrame_TitleObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetBroadcastFrame_UpdateButtonObject : Button
----@field Left SocialUIFrame_BattleNetBroadcastFrame_UpdateButton_LeftObject
----@field Middle SocialUIFrame_BattleNetBroadcastFrame_UpdateButton_MiddleObject
----@field Right SocialUIFrame_BattleNetBroadcastFrame_UpdateButton_RightObject
----@field Text SocialUIFrame_BattleNetBroadcastFrame_UpdateButton_TextObject
----@field baseHeight number
----@field baseWidth number
+---@class GuildControlUI_orderFrame_newButtonObject : Button
+---@field Left GuildControlUI_orderFrame_newButton_LeftObject
+---@field Middle GuildControlUI_orderFrame_newButton_MiddleObject
+---@field Right GuildControlUI_orderFrame_newButton_RightObject
+---@field Text GuildControlUI_orderFrame_newButton_TextObject
 ---@field fitTextCanWidthDecrease boolean
 ---@field fitTextWidthPadding number
-local SocialUIFrame_BattleNetBroadcastFrame_UpdateButtonObject = {}
+local GuildControlUI_orderFrame_newButtonObject = {}
 ---@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_UpdateButtonObject:FitToText(...) end
+function GuildControlUI_orderFrame_newButtonObject:FitToText(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_UpdateButtonObject:GetDesiredHeight(...) end
+function GuildControlUI_orderFrame_newButtonObject:GetDisabledTooltip(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_UpdateButtonObject:GetDesiredWidth(...) end
+function GuildControlUI_orderFrame_newButtonObject:OnEnter(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_UpdateButtonObject:GetDisabledTooltip(...) end
+function GuildControlUI_orderFrame_newButtonObject:OnLeave(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_UpdateButtonObject:GetScaledDesiredDimension(...) end
+function GuildControlUI_orderFrame_newButtonObject:SetDisabledState(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_UpdateButtonObject:GetScaledDesiredHeight(...) end
+function GuildControlUI_orderFrame_newButtonObject:SetDisabledTooltip(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_UpdateButtonObject:GetScaledDesiredWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_UpdateButtonObject:GetWeightedScale(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_UpdateButtonObject:OnEnter(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_UpdateButtonObject:OnLeave(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_UpdateButtonObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_UpdateButtonObject:OnTextScaleUpdated(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_UpdateButtonObject:SetDesiredWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_UpdateButtonObject:SetDisabledState(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_UpdateButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_UpdateButtonObject:SetTextToFit(...) end
----@return any ...
-function SocialUIFrame_BattleNetBroadcastFrame_UpdateButtonObject:UpdateWidth(...) end
+function GuildControlUI_orderFrame_newButtonObject:SetTextToFit(...) end
 end
 
 do
----@class SocialUIFrame_BattleNetBroadcastFrame_UpdateButton_LeftObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_UpdateButton_LeftObject = {}
+---@class GuildControlUI_orderFrame_newButton_LeftObject : Texture
+local GuildControlUI_orderFrame_newButton_LeftObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetBroadcastFrame_UpdateButton_MiddleObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_UpdateButton_MiddleObject = {}
+---@class GuildControlUI_orderFrame_newButton_MiddleObject : Texture
+local GuildControlUI_orderFrame_newButton_MiddleObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetBroadcastFrame_UpdateButton_RightObject : Texture
-local SocialUIFrame_BattleNetBroadcastFrame_UpdateButton_RightObject = {}
+---@class GuildControlUI_orderFrame_newButton_RightObject : Texture
+local GuildControlUI_orderFrame_newButton_RightObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetBroadcastFrame_UpdateButton_TextObject : FontString
-local SocialUIFrame_BattleNetBroadcastFrame_UpdateButton_TextObject = {}
+---@class GuildControlUI_orderFrame_newButton_TextObject : FontString
+local GuildControlUI_orderFrame_newButton_TextObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetUnavailableNoticeFrameObject : Frame
----@field Border SocialUIFrame_BattleNetUnavailableNoticeFrame_BorderObject
----@field Header SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject
----@field Text SocialUIFrame_BattleNetUnavailableNoticeFrame_TextObject
----@field heightPadding number
----@field widthPadding number
-local SocialUIFrame_BattleNetUnavailableNoticeFrameObject = {}
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:AddLayoutChildren(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:ClearFixedSize(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:GetAdditionalRegions(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:GetChildHeight(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:GetChildSize(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:GetChildWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:GetFixedHeight(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:GetFixedSize(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:GetFixedWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:GetHeightPadding(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:GetLayoutChildren(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:GetMaximumWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:GetMinimumWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:GetWidthPadding(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:IgnoreLayoutIndex(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:IsDirty(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:IsLayoutFrame(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:Layout(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:MarkClean(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:MarkDirty(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:MarkIgnoreInLayout(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:OnCleaned(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:OnHide(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:OnShow(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:OnUpdate(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:Refresh(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:SetFixedHeight(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:SetFixedSize(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:SetFixedWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:SetHeightPadding(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:SetMaximumWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:SetMinimumWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:SetWidthPadding(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrameObject:ShouldClearOnUpdateAfterClean(...) end
+---@class GuildControlUI_rankPermFrameObject : Frame
+---@field InviteCheckbox GuildControlUI_rankPermFrame_InviteCheckboxObject
+---@field OfficerCheckbox GuildControlUI_rankPermFrame_OfficerCheckboxObject
+---@field OfficerPermissions GuildControlUI_rankPermFrame_OfficerPermissionsObject
+---@field dropdown GuildControlUI_rankPermFrame_dropdownObject
+---@field goldBox GuildControlUI_rankPermFrame_goldBoxObject
+local GuildControlUI_rankPermFrameObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetUnavailableNoticeFrame_BorderObject : Frame
----@field Bg SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_BgObject
----@field BottomEdge SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_BottomEdgeObject
----@field BottomLeftCorner SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_BottomLeftCornerObject
----@field BottomRightCorner SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_BottomRightCornerObject
----@field LeftEdge SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_LeftEdgeObject
----@field RightEdge SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_RightEdgeObject
----@field TopEdge SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_TopEdgeObject
----@field TopLeftCorner SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_TopLeftCornerObject
----@field TopRightCorner SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_TopRightCornerObject
+---@class GuildControlUI_rankPermFrame_InviteCheckboxObject : CheckButton
+---@field text GuildControlUI_rankPermFrame_InviteCheckbox_textObject
+local GuildControlUI_rankPermFrame_InviteCheckboxObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_InviteCheckbox_textObject : FontString
+local GuildControlUI_rankPermFrame_InviteCheckbox_textObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_OfficerCheckboxObject : CheckButton
+---@field text GuildControlUI_rankPermFrame_OfficerCheckbox_textObject
+local GuildControlUI_rankPermFrame_OfficerCheckboxObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_OfficerCheckbox_textObject : FontString
+local GuildControlUI_rankPermFrame_OfficerCheckbox_textObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_OfficerPermissionsObject : FontString
+local GuildControlUI_rankPermFrame_OfficerPermissionsObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_dropdownObject : Button
+---@field Arrow GuildControlUI_rankPermFrame_dropdown_ArrowObject
+---@field Background GuildControlUI_rankPermFrame_dropdown_BackgroundObject
+---@field Event GuildControlUI_rankPermFrame_dropdown_EventObject
+---@field Text GuildControlUI_rankPermFrame_dropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor GuildControlUI_rankPermFrame_dropdown_menuAnchorObject
+---@field menuDescription GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+local GuildControlUI_rankPermFrame_dropdownObject = {}
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:ClearMenuState(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:CloseMenu(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:CollectSelectionData(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:CreateRootDescription(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:Decrement(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:GenerateMenu(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:GetArrowAtlas(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:GetCallbackTable(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:GetCallbackTables(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:GetDefaultText(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:GetMenuDescription(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:GetSelectionData(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:GetUpdateText(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:HasElements(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:HasStickyFocus(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:Increment(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:IsDown(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:IsDownOver(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:IsMenuOpen(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:IsOver(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:NarrationGetContext(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:NarrationGetName(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnDisable(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnEnable(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnEnter(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnLeave(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnLoad(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnMenuChanged(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnMenuClosed(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnMenuOpened(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnMenuResponse(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnMouseDown(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnMouseUp(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnShow(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OpenMenu(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OverrideText(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:Pick(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:RegisterCallback(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:RegisterMenu(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:Rotate(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:SetDefaultText(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:SetMenuOpen(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:SetSelectionText(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:SetTooltip(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:SetupMenu(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:ShowTooltip(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:SignalUpdate(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:TriggerEvent(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:UnregisterCallback(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:UnregisterEvents(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:Update(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:UpdateSelections(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:UpdateText(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:menuGenerator(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:selectionTranslator(...) end
+end
+
+do
+---@class GuildControlUI_rankPermFrame_dropdown_ArrowObject : Texture
+local GuildControlUI_rankPermFrame_dropdown_ArrowObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_dropdown_BackgroundObject : Texture
+local GuildControlUI_rankPermFrame_dropdown_BackgroundObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_dropdown_EventObject
+local GuildControlUI_rankPermFrame_dropdown_EventObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_dropdown_TextObject : FontString
+local GuildControlUI_rankPermFrame_dropdown_TextObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_dropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo GuildControlUI_rankPermFrame_dropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local GuildControlUI_rankPermFrame_dropdown_menuAnchorObject = {}
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class GuildControlUI_rankPermFrame_dropdown_menuAnchor_relativeToObject
+local GuildControlUI_rankPermFrame_dropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject
+---@field tag string
+local GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject = {}
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateButton(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateCheckbox(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateColorSwatch(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateDivider(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateFrame(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateHighlightButton(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateHighlightRadio(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateRadio(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateSearchEntry(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateSpacer(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateTemplate(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateTitle(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:QueueDivider(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:QueueSpacer(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:QueueTitle(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:SetTooltip(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:private(...) end
+end
+
+do
+---@class GuildControlUI_rankPermFrame_goldBoxObject : EditBox
+---@field Left GuildControlUI_rankPermFrame_goldBox_LeftObject
+---@field Middle GuildControlUI_rankPermFrame_goldBox_MiddleObject
+---@field Right GuildControlUI_rankPermFrame_goldBox_RightObject
+---@field mask GuildControlUI_rankPermFrame_goldBox_maskObject
+local GuildControlUI_rankPermFrame_goldBoxObject = {}
+---@return any ...
+function GuildControlUI_rankPermFrame_goldBoxObject:NarrationGetContext(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_goldBoxObject:NarrationGetDescription(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_goldBoxObject:NarrationGetName(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_goldBoxObject:SetNarrationLabelRegion(...) end
+end
+
+do
+---@class GuildControlUI_rankPermFrame_goldBox_LeftObject : Texture
+local GuildControlUI_rankPermFrame_goldBox_LeftObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_goldBox_MiddleObject : Texture
+local GuildControlUI_rankPermFrame_goldBox_MiddleObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_goldBox_RightObject : Texture
+local GuildControlUI_rankPermFrame_goldBox_RightObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_goldBox_maskObject : Frame
+local GuildControlUI_rankPermFrame_goldBox_maskObject = {}
+end
+
+do
+---@class GuildInviteFrameObject : Frame
+---@field Bg GuildInviteFrame_BgObject
+---@field BottomBorder GuildInviteFrame_BottomBorderObject
+---@field BottomLeftCorner GuildInviteFrame_BottomLeftCornerObject
+---@field BottomRightCorner GuildInviteFrame_BottomRightCornerObject
+---@field FocusJumpHint GuildInviteFrame_FocusJumpHintObject
+---@field FrameGlow GuildInviteFrame_FrameGlowObject
+---@field LeftBorder GuildInviteFrame_LeftBorderObject
+---@field LeftJumpHint GuildInviteFrame_LeftJumpHintObject
+---@field Points GuildInviteFrame_PointsObject
+---@field RightBorder GuildInviteFrame_RightBorderObject
+---@field RightJumpHint GuildInviteFrame_RightJumpHintObject
+---@field TopBorder GuildInviteFrame_TopBorderObject
+---@field TopLeftCorner GuildInviteFrame_TopLeftCornerObject
+---@field TopRightCorner GuildInviteFrame_TopRightCornerObject
+---@field hideOnEscape boolean
 ---@field layoutType string
-local SocialUIFrame_BattleNetUnavailableNoticeFrame_BorderObject = {}
+local GuildInviteFrameObject = {}
 ---@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_BorderObject:GetBorderColor(...) end
+function GuildInviteFrameObject:EndFocus(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_BorderObject:GetCenterColor(...) end
+function GuildInviteFrameObject:GetFocusFrameGlow(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_BorderObject:GetFrameLayoutTextureKit(...) end
+function GuildInviteFrameObject:GetFocusFrameRoot(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_BorderObject:GetFrameLayoutType(...) end
+function GuildInviteFrameObject:HideFocusJumpHint(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_BorderObject:OnLoad(...) end
+function GuildInviteFrameObject:HideLeftJumpHint(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_BorderObject:SetBlendMode(...) end
+function GuildInviteFrameObject:HideRightJumpHint(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_BorderObject:SetBorderBlendMode(...) end
+function GuildInviteFrameObject:LockInFocus(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_BorderObject:SetBorderColor(...) end
+function GuildInviteFrameObject:RefreshFocus(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_BorderObject:SetCenterColor(...) end
+function GuildInviteFrameObject:ShowFocusJumpHint(...) end
 ---@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_BorderObject:SetVertexColor(...) end
+function GuildInviteFrameObject:ShowLeftJumpHint(...) end
+---@return any ...
+function GuildInviteFrameObject:ShowRightJumpHint(...) end
+---@return any ...
+function GuildInviteFrameObject:StartFocus(...) end
+---@type GuildInviteFrameObject
+GuildInviteFrame = GuildInviteFrameObject
 end
 
 do
----@class SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_BgObject : Texture
-local SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_BgObject = {}
+---@class GuildInviteFrame_BgObject : Texture
+local GuildInviteFrame_BgObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_BottomEdgeObject : Texture
-local SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_BottomEdgeObject = {}
+---@class GuildInviteFrame_BottomBorderObject : Texture
+local GuildInviteFrame_BottomBorderObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_BottomLeftCornerObject : Texture
-local SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_BottomLeftCornerObject = {}
+---@class GuildInviteFrame_BottomLeftCornerObject : Texture
+local GuildInviteFrame_BottomLeftCornerObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_BottomRightCornerObject : Texture
-local SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_BottomRightCornerObject = {}
+---@class GuildInviteFrame_BottomRightCornerObject : Texture
+local GuildInviteFrame_BottomRightCornerObject = {}
 end
 
 do
----@class SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_LeftEdgeObject : Texture
-local SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_LeftEdgeObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_RightEdgeObject : Texture
-local SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_RightEdgeObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_TopEdgeObject : Texture
-local SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_TopEdgeObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_TopLeftCornerObject : Texture
-local SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_TopLeftCornerObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_TopRightCornerObject : Texture
-local SocialUIFrame_BattleNetUnavailableNoticeFrame_Border_TopRightCornerObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject : Frame
----@field HeaderText SocialUIFrame_BattleNetUnavailableNoticeFrame_Header_HeaderTextObject
----@field IconHolder SocialUIFrame_BattleNetUnavailableNoticeFrame_Header_IconHolderObject
----@field minimumHeight number
----@field minimumWidth number
-local SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject = {}
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:AddLayoutChildren(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:ClearFixedSize(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:GetAdditionalRegions(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:GetChildHeight(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:GetChildSize(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:GetChildWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:GetFixedHeight(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:GetFixedSize(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:GetFixedWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:GetHeightPadding(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:GetLayoutChildren(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:GetMaximumWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:GetMinimumWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:GetWidthPadding(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:IgnoreLayoutIndex(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:IsDirty(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:IsLayoutFrame(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:Layout(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:MarkClean(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:MarkDirty(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:MarkIgnoreInLayout(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:OnCleaned(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:OnShow(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:OnUpdate(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:SetFixedHeight(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:SetFixedSize(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:SetFixedWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:SetHeightPadding(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:SetMaximumWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:SetMinimumWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:SetWidthPadding(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_HeaderObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class SocialUIFrame_BattleNetUnavailableNoticeFrame_Header_HeaderTextObject : FontString
-local SocialUIFrame_BattleNetUnavailableNoticeFrame_Header_HeaderTextObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetUnavailableNoticeFrame_Header_IconHolderObject : Frame
----@field Icon SocialUIFrame_BattleNetUnavailableNoticeFrame_Header_IconHolder_IconObject
----@field baseHeight number
----@field baseWidth number
-local SocialUIFrame_BattleNetUnavailableNoticeFrame_Header_IconHolderObject = {}
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_Header_IconHolderObject:GetDesiredHeight(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_Header_IconHolderObject:GetDesiredWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_Header_IconHolderObject:GetScaledDesiredDimension(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_Header_IconHolderObject:GetScaledDesiredHeight(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_Header_IconHolderObject:GetScaledDesiredWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_Header_IconHolderObject:GetWeightedScale(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_Header_IconHolderObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_Header_IconHolderObject:OnTextScaleUpdated(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_Header_IconHolderObject:SetDesiredWidth(...) end
----@return any ...
-function SocialUIFrame_BattleNetUnavailableNoticeFrame_Header_IconHolderObject:UpdateWidth(...) end
-end
-
-do
----@class SocialUIFrame_BattleNetUnavailableNoticeFrame_Header_IconHolder_IconObject : Texture
-local SocialUIFrame_BattleNetUnavailableNoticeFrame_Header_IconHolder_IconObject = {}
-end
-
-do
----@class SocialUIFrame_BattleNetUnavailableNoticeFrame_TextObject : FontString
-local SocialUIFrame_BattleNetUnavailableNoticeFrame_TextObject = {}
-end
-
-do
----@class SocialUIFrame_BgObject : Texture
-local SocialUIFrame_BgObject = {}
-end
-
-do
----@class SocialUIFrame_BottomFadeObject : Texture
-local SocialUIFrame_BottomFadeObject = {}
-end
-
-do
----@class SocialUIFrame_CloseButtonObject : Button
-local SocialUIFrame_CloseButtonObject = {}
----@return any ...
-function SocialUIFrame_CloseButtonObject:NarrationGetName(...) end
----@return any ...
-function SocialUIFrame_CloseButtonObject:OnLoad(...) end
-end
-
-do
----@class SocialUIFrame_EventObject
----@field FeatureAvailabilityChanged string
----@field OpenToTabAndSideWindowRequested string
----@field OpenToTabRequested string
----@field SideWindowHideRequested string
----@field SideWindowShowRequested string
----@field TabCounterRefreshRequested string
----@field TabGlowRequested string
-local SocialUIFrame_EventObject = {}
-end
-
-do
----@class SocialUIFrame_FocusJumpHintObject : Frame
----@field ActiveTexture SocialUIFrame_FocusJumpHint_ActiveTextureObject
----@field DisabledTexture SocialUIFrame_FocusJumpHint_DisabledTextureObject
----@field HoldAnim SocialUIFrame_FocusJumpHint_HoldAnimObject
----@field HoldIndicator SocialUIFrame_FocusJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG SocialUIFrame_FocusJumpHint_HoldIndicatorBGObject
----@field HoverTexture SocialUIFrame_FocusJumpHint_HoverTextureObject
----@field LoadBar SocialUIFrame_FocusJumpHint_LoadBarObject
----@field LoadBarBG SocialUIFrame_FocusJumpHint_LoadBarBGObject
----@field LoadBarGlow SocialUIFrame_FocusJumpHint_LoadBarGlowObject
----@field NormalTexture SocialUIFrame_FocusJumpHint_NormalTextureObject
----@field PressedTexture SocialUIFrame_FocusJumpHint_PressedTextureObject
----@field SpinnerTip SocialUIFrame_FocusJumpHint_SpinnerTipObject
+---@class GuildInviteFrame_FocusJumpHintObject : Frame
+---@field ActiveTexture GuildInviteFrame_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture GuildInviteFrame_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim GuildInviteFrame_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator GuildInviteFrame_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GuildInviteFrame_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GuildInviteFrame_FocusJumpHint_HoverTextureObject
+---@field LoadBar GuildInviteFrame_FocusJumpHint_LoadBarObject
+---@field LoadBarBG GuildInviteFrame_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow GuildInviteFrame_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture GuildInviteFrame_FocusJumpHint_NormalTextureObject
+---@field PressedTexture GuildInviteFrame_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip GuildInviteFrame_FocusJumpHint_SpinnerTipObject
 ---@field ignoreInLayout boolean
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
@@ -4489,3520 +1613,7696 @@ do
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local SocialUIFrame_FocusJumpHintObject = {}
+local GuildInviteFrame_FocusJumpHintObject = {}
 ---@return any ...
-function SocialUIFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
+function GuildInviteFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function SocialUIFrame_FocusJumpHintObject:BeginHold(...) end
+function GuildInviteFrame_FocusJumpHintObject:BeginHold(...) end
 ---@return any ...
-function SocialUIFrame_FocusJumpHintObject:CanEnterTextureState(...) end
+function GuildInviteFrame_FocusJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function SocialUIFrame_FocusJumpHintObject:DisableDropShadow(...) end
+function GuildInviteFrame_FocusJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function SocialUIFrame_FocusJumpHintObject:EnableDropShadow(...) end
+function GuildInviteFrame_FocusJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function SocialUIFrame_FocusJumpHintObject:EndHold(...) end
+function GuildInviteFrame_FocusJumpHintObject:EndHold(...) end
 ---@return any ...
-function SocialUIFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
+function GuildInviteFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function SocialUIFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
+function GuildInviteFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function SocialUIFrame_FocusJumpHintObject:OnLoad(...) end
+function GuildInviteFrame_FocusJumpHintObject:OnLoad(...) end
 ---@return any ...
-function SocialUIFrame_FocusJumpHintObject:RefreshIconTextures(...) end
+function GuildInviteFrame_FocusJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function SocialUIFrame_FocusJumpHintObject:SetDisabled(...) end
+function GuildInviteFrame_FocusJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function SocialUIFrame_FocusJumpHintObject:SetEnabled(...) end
+function GuildInviteFrame_FocusJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function SocialUIFrame_FocusJumpHintObject:SetFocused(...) end
+function GuildInviteFrame_FocusJumpHintObject:SetFocused(...) end
 ---@return any ...
-function SocialUIFrame_FocusJumpHintObject:SetHoldState(...) end
+function GuildInviteFrame_FocusJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function SocialUIFrame_FocusJumpHintObject:SetInputKey(...) end
+function GuildInviteFrame_FocusJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function SocialUIFrame_FocusJumpHintObject:SetIsHoldAction(...) end
+function GuildInviteFrame_FocusJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function SocialUIFrame_FocusJumpHintObject:SetPressable(...) end
+function GuildInviteFrame_FocusJumpHintObject:SetPressable(...) end
 ---@return any ...
-function SocialUIFrame_FocusJumpHintObject:SetTextureHeight(...) end
+function GuildInviteFrame_FocusJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function SocialUIFrame_FocusJumpHintObject:SetTextureState(...) end
+function GuildInviteFrame_FocusJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function SocialUIFrame_FocusJumpHintObject:SetTextureWidth(...) end
+function GuildInviteFrame_FocusJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function SocialUIFrame_FocusJumpHintObject:SetUsableState(...) end
+function GuildInviteFrame_FocusJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function SocialUIFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+function GuildInviteFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class SocialUIFrame_FocusJumpHint_ActiveTextureObject : Texture
-local SocialUIFrame_FocusJumpHint_ActiveTextureObject = {}
+---@class GuildInviteFrame_FocusJumpHint_ActiveTextureObject : Texture
+local GuildInviteFrame_FocusJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class SocialUIFrame_FocusJumpHint_DisabledTextureObject : Texture
-local SocialUIFrame_FocusJumpHint_DisabledTextureObject = {}
+---@class GuildInviteFrame_FocusJumpHint_DisabledTextureObject : Texture
+local GuildInviteFrame_FocusJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class SocialUIFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim SocialUIFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim SocialUIFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim SocialUIFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
-local SocialUIFrame_FocusJumpHint_HoldAnimObject = {}
+---@class GuildInviteFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GuildInviteFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GuildInviteFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GuildInviteFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local GuildInviteFrame_FocusJumpHint_HoldAnimObject = {}
 end
 
 do
----@class SocialUIFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
-local SocialUIFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+---@class GuildInviteFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local GuildInviteFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class SocialUIFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local SocialUIFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+---@class GuildInviteFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GuildInviteFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class SocialUIFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local SocialUIFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+---@class GuildInviteFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GuildInviteFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class SocialUIFrame_FocusJumpHint_HoldIndicatorObject : Texture
-local SocialUIFrame_FocusJumpHint_HoldIndicatorObject = {}
+---@class GuildInviteFrame_FocusJumpHint_HoldIndicatorObject : Texture
+local GuildInviteFrame_FocusJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class SocialUIFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
-local SocialUIFrame_FocusJumpHint_HoldIndicatorBGObject = {}
+---@class GuildInviteFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
+local GuildInviteFrame_FocusJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class SocialUIFrame_FocusJumpHint_HoverTextureObject : Texture
-local SocialUIFrame_FocusJumpHint_HoverTextureObject = {}
+---@class GuildInviteFrame_FocusJumpHint_HoverTextureObject : Texture
+local GuildInviteFrame_FocusJumpHint_HoverTextureObject = {}
 end
 
 do
----@class SocialUIFrame_FocusJumpHint_LoadBarObject : Texture
-local SocialUIFrame_FocusJumpHint_LoadBarObject = {}
+---@class GuildInviteFrame_FocusJumpHint_LoadBarObject : Texture
+local GuildInviteFrame_FocusJumpHint_LoadBarObject = {}
 end
 
 do
----@class SocialUIFrame_FocusJumpHint_LoadBarBGObject : Texture
-local SocialUIFrame_FocusJumpHint_LoadBarBGObject = {}
+---@class GuildInviteFrame_FocusJumpHint_LoadBarBGObject : Texture
+local GuildInviteFrame_FocusJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class SocialUIFrame_FocusJumpHint_LoadBarGlowObject : Texture
-local SocialUIFrame_FocusJumpHint_LoadBarGlowObject = {}
+---@class GuildInviteFrame_FocusJumpHint_LoadBarGlowObject : Texture
+local GuildInviteFrame_FocusJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class SocialUIFrame_FocusJumpHint_NormalTextureObject : Texture
-local SocialUIFrame_FocusJumpHint_NormalTextureObject = {}
+---@class GuildInviteFrame_FocusJumpHint_NormalTextureObject : Texture
+local GuildInviteFrame_FocusJumpHint_NormalTextureObject = {}
 end
 
 do
----@class SocialUIFrame_FocusJumpHint_PressedTextureObject : Texture
-local SocialUIFrame_FocusJumpHint_PressedTextureObject = {}
+---@class GuildInviteFrame_FocusJumpHint_PressedTextureObject : Texture
+local GuildInviteFrame_FocusJumpHint_PressedTextureObject = {}
 end
 
 do
----@class SocialUIFrame_FocusJumpHint_SpinnerTipObject : Texture
-local SocialUIFrame_FocusJumpHint_SpinnerTipObject = {}
+---@class GuildInviteFrame_FocusJumpHint_SpinnerTipObject : Texture
+local GuildInviteFrame_FocusJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class SocialUIFrame_FrameGlowObject : Frame
----@field GlowTexture SocialUIFrame_FrameGlow_GlowTextureObject
+---@class GuildInviteFrame_FrameGlowObject : Frame
+---@field GlowTexture GuildInviteFrame_FrameGlow_GlowTextureObject
 ---@field glowTextures table
-local SocialUIFrame_FrameGlowObject = {}
+local GuildInviteFrame_FrameGlowObject = {}
 ---@return any ...
-function SocialUIFrame_FrameGlowObject:GetContainerFrame(...) end
+function GuildInviteFrame_FrameGlowObject:GetContainerFrame(...) end
 ---@return any ...
-function SocialUIFrame_FrameGlowObject:GetFrameLayoutType(...) end
+function GuildInviteFrame_FrameGlowObject:GetFrameLayoutType(...) end
 ---@return any ...
-function SocialUIFrame_FrameGlowObject:GetHeaderFrame(...) end
+function GuildInviteFrame_FrameGlowObject:GetHeaderFrame(...) end
 ---@return any ...
-function SocialUIFrame_FrameGlowObject:OnLoad(...) end
+function GuildInviteFrame_FrameGlowObject:OnLoad(...) end
 end
 
 do
----@class SocialUIFrame_FrameGlow_GlowTextureObject : Texture
-local SocialUIFrame_FrameGlow_GlowTextureObject = {}
+---@class GuildInviteFrame_FrameGlow_GlowTextureObject : Texture
+local GuildInviteFrame_FrameGlow_GlowTextureObject = {}
 end
 
 do
----@class SocialUIFrame_FriendRequestsListObject : Frame
----@field ActionButton SocialUIFrame_FriendRequestsList_ActionButtonObject
----@field BottomDivider SocialUIFrame_FriendRequestsList_BottomDividerObject
----@field FilterBar SocialUIFrame_FriendRequestsList_FilterBarObject
----@field FriendsDisabledText SocialUIFrame_FriendRequestsList_FriendsDisabledTextObject
----@field LoadingSpinner SocialUIFrame_FriendRequestsList_LoadingSpinnerObject
----@field RealIDWarning SocialUIFrame_FriendRequestsList_RealIDWarningObject
----@field ScrollBar SocialUIFrame_FriendRequestsList_ScrollBarObject
----@field ScrollBox SocialUIFrame_FriendRequestsList_ScrollBoxObject
----@field TemplateExtentCache SocialUIFrame_FriendRequestsList_TemplateExtentCacheObject
----@field TemplateRegistrations SocialUIFrame_FriendRequestsList_TemplateRegistrationsObject
----@field TopDivider SocialUIFrame_FriendRequestsList_TopDividerObject
----@field selectionBehavior SocialUIFrame_FriendRequestsList_selectionBehaviorObject
-local SocialUIFrame_FriendRequestsListObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:CalculateTemplateExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:ClearTemplateExtentCache(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:GenerateDataProvider(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:GetSocialUI(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:GetTemplateExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:InitializeActionButton(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:InitializeFilterBar(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:InitializeRealIDWarning(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:InitializeScrollBox(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:OnEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:OnFriendRequestsListTextScaleUpdated(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:OnHide(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:OnShow(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:Refresh(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:RefreshActionButtonEnabledState(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:RefreshRealIDWarningVisibility(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:RegisterScrollableTemplatesForExtentPreview(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:RegisterTemplateForExtentPreview(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:SetFilterBarShown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:SetLoadingSpinnerShown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:ShouldShowRealIDWarning(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:SocialUIRequestHideSideWindow(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:SocialUIRequestToggleSideWindow(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsListObject:TriggerSocialUIEvent(...) end
+---@class GuildInviteFrame_LeftBorderObject : Texture
+local GuildInviteFrame_LeftBorderObject = {}
 end
 
 do
----@class SocialUIFrame_FriendRequestsList_ActionButtonObject : Button
----@field Center SocialUIFrame_FriendRequestsList_ActionButton_CenterObject
----@field Controller SocialUIFrame_FriendRequestsList_ActionButton_ControllerObject
----@field Left SocialUIFrame_FriendRequestsList_ActionButton_LeftObject
----@field Right SocialUIFrame_FriendRequestsList_ActionButton_RightObject
----@field Text SocialUIFrame_FriendRequestsList_ActionButton_TextObject
----@field atlasName string
----@field baseButtonTextInset number
----@field baseHeight number
----@field baseWidth number
----@field buttonArtKit string
----@field desiredWidth number
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
----@field leftAtlasInfo SocialUIFrame_FriendRequestsList_ActionButton_leftAtlasInfoObject
----@field maxWidth number
----@field rightAtlasInfo SocialUIFrame_FriendRequestsList_ActionButton_rightAtlasInfoObject
-local SocialUIFrame_FriendRequestsList_ActionButtonObject = {}
+---@class GuildInviteFrame_LeftJumpHintObject : Frame
+---@field ActiveTexture GuildInviteFrame_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture GuildInviteFrame_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim GuildInviteFrame_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator GuildInviteFrame_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GuildInviteFrame_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GuildInviteFrame_LeftJumpHint_HoverTextureObject
+---@field LoadBar GuildInviteFrame_LeftJumpHint_LoadBarObject
+---@field LoadBarBG GuildInviteFrame_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow GuildInviteFrame_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture GuildInviteFrame_LeftJumpHint_NormalTextureObject
+---@field PressedTexture GuildInviteFrame_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip GuildInviteFrame_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GuildInviteFrame_LeftJumpHintObject = {}
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:ClearCustomTextFormatter(...) end
+function GuildInviteFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:FitToText(...) end
+function GuildInviteFrame_LeftJumpHintObject:BeginHold(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:GetCenterAtlasName(...) end
+function GuildInviteFrame_LeftJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:GetDesiredHeight(...) end
+function GuildInviteFrame_LeftJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:GetDesiredWidth(...) end
+function GuildInviteFrame_LeftJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:GetHighlightAtlasName(...) end
+function GuildInviteFrame_LeftJumpHintObject:EndHold(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:GetLeftAtlasName(...) end
+function GuildInviteFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:GetOnClickSoundKit(...) end
+function GuildInviteFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:GetRightAtlasName(...) end
+function GuildInviteFrame_LeftJumpHintObject:OnLoad(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:GetScaledDesiredDimension(...) end
+function GuildInviteFrame_LeftJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:GetScaledDesiredHeight(...) end
+function GuildInviteFrame_LeftJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:GetScaledDesiredWidth(...) end
+function GuildInviteFrame_LeftJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:GetWeightedScale(...) end
+function GuildInviteFrame_LeftJumpHintObject:SetFocused(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:InitButton(...) end
+function GuildInviteFrame_LeftJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:IsActionEnabled(...) end
+function GuildInviteFrame_LeftJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:OnClick(...) end
+function GuildInviteFrame_LeftJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:OnEnter(...) end
+function GuildInviteFrame_LeftJumpHintObject:SetPressable(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:OnLeave(...) end
+function GuildInviteFrame_LeftJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:OnLoad(...) end
+function GuildInviteFrame_LeftJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:OnLoad_UserScaledElement(...) end
+function GuildInviteFrame_LeftJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:OnMouseDown(...) end
+function GuildInviteFrame_LeftJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:OnMouseUp(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:OnTextScaleUpdated(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:PerformClickAction(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:ReanchorTextForScale(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:RefreshEnabledState(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:RunCustomTextFormatter(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:SetButtonArtKit(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:SetCustomTextFormatter(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:SetDesiredWidth(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:SetOnClickHandler(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:SetOnEnterHandler(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:SetTextToFit(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:SetTooltipAnchor(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:SetTooltipInfo(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:ShowDisabledTooltip(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:ShowTooltip(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:TryHideTooltip(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:TryRecalculateDesiredWidth(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:TryShowTooltip(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:UpdateButton(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:UpdateScale(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButtonObject:UpdateWidth(...) end
+function GuildInviteFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class SocialUIFrame_FriendRequestsList_ActionButton_CenterObject : Texture
-local SocialUIFrame_FriendRequestsList_ActionButton_CenterObject = {}
+---@class GuildInviteFrame_LeftJumpHint_ActiveTextureObject : Texture
+local GuildInviteFrame_LeftJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class SocialUIFrame_FriendRequestsList_ActionButton_ControllerObject : Frame
-local SocialUIFrame_FriendRequestsList_ActionButton_ControllerObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButton_ControllerObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ActionButton_ControllerObject:OnShow(...) end
+---@class GuildInviteFrame_LeftJumpHint_DisabledTextureObject : Texture
+local GuildInviteFrame_LeftJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class SocialUIFrame_FriendRequestsList_ActionButton_LeftObject : Texture
-local SocialUIFrame_FriendRequestsList_ActionButton_LeftObject = {}
+---@class GuildInviteFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GuildInviteFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GuildInviteFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GuildInviteFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local GuildInviteFrame_LeftJumpHint_HoldAnimObject = {}
 end
 
 do
----@class SocialUIFrame_FriendRequestsList_ActionButton_RightObject : Texture
-local SocialUIFrame_FriendRequestsList_ActionButton_RightObject = {}
+---@class GuildInviteFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local GuildInviteFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class SocialUIFrame_FriendRequestsList_ActionButton_TextObject : FontString
-local SocialUIFrame_FriendRequestsList_ActionButton_TextObject = {}
+---@class GuildInviteFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GuildInviteFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class SocialUIFrame_FriendRequestsList_ActionButton_leftAtlasInfoObject
----@field bottomTexCoord number
----@field elementName string
----@field file number
----@field height number
----@field leftTexCoord number
----@field rawSize table
----@field rightTexCoord number
----@field tilesHorizontally boolean
----@field tilesVertically boolean
----@field topTexCoord number
----@field width number
-local SocialUIFrame_FriendRequestsList_ActionButton_leftAtlasInfoObject = {}
+---@class GuildInviteFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GuildInviteFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class SocialUIFrame_FriendRequestsList_ActionButton_rightAtlasInfoObject
----@field bottomTexCoord number
----@field elementName string
----@field file number
----@field height number
----@field leftTexCoord number
----@field rawSize table
----@field rightTexCoord number
----@field tilesHorizontally boolean
----@field tilesVertically boolean
----@field topTexCoord number
----@field width number
-local SocialUIFrame_FriendRequestsList_ActionButton_rightAtlasInfoObject = {}
+---@class GuildInviteFrame_LeftJumpHint_HoldIndicatorObject : Texture
+local GuildInviteFrame_LeftJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class SocialUIFrame_FriendRequestsList_BottomDividerObject : Texture
-local SocialUIFrame_FriendRequestsList_BottomDividerObject = {}
+---@class GuildInviteFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
+local GuildInviteFrame_LeftJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class SocialUIFrame_FriendRequestsList_FilterBarObject : Frame
----@field SearchBar SocialUIFrame_FriendRequestsList_FilterBar_SearchBarObject
----@field SearchFilterDropdown SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject
-local SocialUIFrame_FriendRequestsList_FilterBarObject = {}
+---@class GuildInviteFrame_LeftJumpHint_HoverTextureObject : Texture
+local GuildInviteFrame_LeftJumpHint_HoverTextureObject = {}
 end
 
 do
----@class SocialUIFrame_FriendRequestsList_FilterBar_SearchBarObject : EditBox
----@field Background SocialUIFrame_FriendRequestsList_FilterBar_SearchBar_BackgroundObject
----@field Instructions SocialUIFrame_FriendRequestsList_FilterBar_SearchBar_InstructionsObject
----@field baseHeight number
----@field baseWidth number
----@field clearButton SocialUIFrame_FriendRequestsList_FilterBar_SearchBar_clearButtonObject
----@field instructionText string
----@field scaleWeight number
----@field searchIcon SocialUIFrame_FriendRequestsList_FilterBar_SearchBar_searchIconObject
----@field showTooltipForTruncatedInstructions boolean
----@field useScaleWeight boolean
----@field useScaleWeightForHeight boolean
-local SocialUIFrame_FriendRequestsList_FilterBar_SearchBarObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBarObject:ClearSearchText(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBarObject:GetDesiredHeight(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBarObject:GetDesiredWidth(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBarObject:GetScaledDesiredDimension(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBarObject:GetScaledDesiredHeight(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBarObject:GetScaledDesiredWidth(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBarObject:GetWeightedScale(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBarObject:InitializeUserScaledFontSystem(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBarObject:NarrationGetContext(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBarObject:NarrationGetDescription(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBarObject:NarrationGetName(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBarObject:OnHide(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBarObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBarObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBarObject:OnSearchTextChanged(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBarObject:OnTextChanged(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBarObject:OnTextScaleUpdated(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBarObject:SetDesiredWidth(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBarObject:SetNarrationLabelRegion(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBarObject:UpdateWidth(...) end
+---@class GuildInviteFrame_LeftJumpHint_LoadBarObject : Texture
+local GuildInviteFrame_LeftJumpHint_LoadBarObject = {}
 end
 
 do
----@class SocialUIFrame_FriendRequestsList_FilterBar_SearchBar_BackgroundObject : Texture
-local SocialUIFrame_FriendRequestsList_FilterBar_SearchBar_BackgroundObject = {}
+---@class GuildInviteFrame_LeftJumpHint_LoadBarBGObject : Texture
+local GuildInviteFrame_LeftJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class SocialUIFrame_FriendRequestsList_FilterBar_SearchBar_InstructionsObject : FontString
-local SocialUIFrame_FriendRequestsList_FilterBar_SearchBar_InstructionsObject = {}
+---@class GuildInviteFrame_LeftJumpHint_LoadBarGlowObject : Texture
+local GuildInviteFrame_LeftJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class SocialUIFrame_FriendRequestsList_FilterBar_SearchBar_clearButtonObject : Button
----@field Icon SocialUIFrame_FriendRequestsList_FilterBar_SearchBar_clearButton_IconObject
-local SocialUIFrame_FriendRequestsList_FilterBar_SearchBar_clearButtonObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBar_clearButtonObject:NarrationGetName(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBar_clearButtonObject:OnClick(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBar_clearButtonObject:OnEnter(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBar_clearButtonObject:OnLeave(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBar_clearButtonObject:OnMouseDown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchBar_clearButtonObject:OnMouseUp(...) end
+---@class GuildInviteFrame_LeftJumpHint_NormalTextureObject : Texture
+local GuildInviteFrame_LeftJumpHint_NormalTextureObject = {}
 end
 
 do
----@class SocialUIFrame_FriendRequestsList_FilterBar_SearchBar_clearButton_IconObject : Texture
-local SocialUIFrame_FriendRequestsList_FilterBar_SearchBar_clearButton_IconObject = {}
+---@class GuildInviteFrame_LeftJumpHint_PressedTextureObject : Texture
+local GuildInviteFrame_LeftJumpHint_PressedTextureObject = {}
 end
 
 do
----@class SocialUIFrame_FriendRequestsList_FilterBar_SearchBar_searchIconObject : Texture
-local SocialUIFrame_FriendRequestsList_FilterBar_SearchBar_searchIconObject = {}
+---@class GuildInviteFrame_LeftJumpHint_SpinnerTipObject : Texture
+local GuildInviteFrame_LeftJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject : Button
----@field Background SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_BackgroundObject
----@field Event SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_EventObject
----@field ResetButton SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_ResetButtonObject
----@field Text SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_TextObject
----@field baseFontObject string
----@field baseHeight number
----@field baseWidth number
+---@class GuildInviteFrame_PointsObject : Frame
+---@field Icon GuildInviteFrame_Points_IconObject
+---@field Text GuildInviteFrame_Points_TextObject
+---@field Title GuildInviteFrame_Points_TitleObject
+local GuildInviteFrame_PointsObject = {}
+end
+
+do
+---@class GuildInviteFrame_Points_IconObject : Texture
+local GuildInviteFrame_Points_IconObject = {}
+end
+
+do
+---@class GuildInviteFrame_Points_TextObject : FontString
+local GuildInviteFrame_Points_TextObject = {}
+end
+
+do
+---@class GuildInviteFrame_Points_TitleObject : FontString
+local GuildInviteFrame_Points_TitleObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightBorderObject : Texture
+local GuildInviteFrame_RightBorderObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHintObject : Frame
+---@field ActiveTexture GuildInviteFrame_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture GuildInviteFrame_RightJumpHint_DisabledTextureObject
+---@field HoldAnim GuildInviteFrame_RightJumpHint_HoldAnimObject
+---@field HoldIndicator GuildInviteFrame_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GuildInviteFrame_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GuildInviteFrame_RightJumpHint_HoverTextureObject
+---@field LoadBar GuildInviteFrame_RightJumpHint_LoadBarObject
+---@field LoadBarBG GuildInviteFrame_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow GuildInviteFrame_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture GuildInviteFrame_RightJumpHint_NormalTextureObject
+---@field PressedTexture GuildInviteFrame_RightJumpHint_PressedTextureObject
+---@field SpinnerTip GuildInviteFrame_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GuildInviteFrame_RightJumpHintObject = {}
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_ActiveTextureObject : Texture
+local GuildInviteFrame_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_DisabledTextureObject : Texture
+local GuildInviteFrame_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GuildInviteFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GuildInviteFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GuildInviteFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local GuildInviteFrame_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+local GuildInviteFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GuildInviteFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GuildInviteFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_HoldIndicatorObject : Texture
+local GuildInviteFrame_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_HoldIndicatorBGObject : Texture
+local GuildInviteFrame_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_HoverTextureObject : Texture
+local GuildInviteFrame_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_LoadBarObject : Texture
+local GuildInviteFrame_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_LoadBarBGObject : Texture
+local GuildInviteFrame_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_LoadBarGlowObject : Texture
+local GuildInviteFrame_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_NormalTextureObject : Texture
+local GuildInviteFrame_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_PressedTextureObject : Texture
+local GuildInviteFrame_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_SpinnerTipObject : Texture
+local GuildInviteFrame_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class GuildInviteFrame_TopBorderObject : Texture
+local GuildInviteFrame_TopBorderObject = {}
+end
+
+do
+---@class GuildInviteFrame_TopLeftCornerObject : Texture
+local GuildInviteFrame_TopLeftCornerObject = {}
+end
+
+do
+---@class GuildInviteFrame_TopRightCornerObject : Texture
+local GuildInviteFrame_TopRightCornerObject = {}
+end
+
+do
+---@class GuildRegistrarFrameObject : Frame
+---@field Bg GuildRegistrarFrame_BgObject
+---@field CloseButton GuildRegistrarFrame_CloseButtonObject
+---@field FocusJumpHint GuildRegistrarFrame_FocusJumpHintObject
+---@field FrameGlow GuildRegistrarFrame_FrameGlowObject
+---@field Inset GuildRegistrarFrame_InsetObject
+---@field LeftJumpHint GuildRegistrarFrame_LeftJumpHintObject
+---@field NineSlice GuildRegistrarFrame_NineSliceObject
+---@field PortraitContainer GuildRegistrarFrame_PortraitContainerObject
+---@field RightJumpHint GuildRegistrarFrame_RightJumpHintObject
+---@field ScrollBar GuildRegistrarFrame_ScrollBarObject
+---@field TitleContainer GuildRegistrarFrame_TitleContainerObject
+---@field TopTileStreaks GuildRegistrarFrame_TopTileStreaksObject
+---@field layoutType string
+local GuildRegistrarFrameObject = {}
+---@return any ...
+function GuildRegistrarFrameObject:EndFocus(...) end
+---@return any ...
+function GuildRegistrarFrameObject:GetFocusFrameGlow(...) end
+---@return any ...
+function GuildRegistrarFrameObject:GetFocusFrameRoot(...) end
+---@return any ...
+function GuildRegistrarFrameObject:GetPortrait(...) end
+---@return any ...
+function GuildRegistrarFrameObject:GetTitleText(...) end
+---@return any ...
+function GuildRegistrarFrameObject:HasPortraitTexture(...) end
+---@return any ...
+function GuildRegistrarFrameObject:HideFocusJumpHint(...) end
+---@return any ...
+function GuildRegistrarFrameObject:HideLeftJumpHint(...) end
+---@return any ...
+function GuildRegistrarFrameObject:HideRightJumpHint(...) end
+---@return any ...
+function GuildRegistrarFrameObject:LockInFocus(...) end
+---@return any ...
+function GuildRegistrarFrameObject:RefreshFocus(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetBorder(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetFrameLevelsFromBaseLevel(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetPortraitAtlasRaw(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetPortraitShown(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetPortraitTexCoord(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetPortraitTextureRaw(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetPortraitTextureSizeAndOffset(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetPortraitToAsset(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetPortraitToBag(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetPortraitToClassIcon(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetPortraitToSpecIcon(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetPortraitToUnit(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetTitle(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetTitleColor(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetTitleFormatted(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetTitleMaxLinesAndHeight(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetTitleOffsets(...) end
+---@return any ...
+function GuildRegistrarFrameObject:ShowFocusJumpHint(...) end
+---@return any ...
+function GuildRegistrarFrameObject:ShowLeftJumpHint(...) end
+---@return any ...
+function GuildRegistrarFrameObject:ShowRightJumpHint(...) end
+---@return any ...
+function GuildRegistrarFrameObject:StartFocus(...) end
+---@type GuildRegistrarFrameObject
+GuildRegistrarFrame = GuildRegistrarFrameObject
+end
+
+do
+---@class GuildRegistrarFrame_BgObject : Texture
+local GuildRegistrarFrame_BgObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_CloseButtonObject : Button
+local GuildRegistrarFrame_CloseButtonObject = {}
+---@return any ...
+function GuildRegistrarFrame_CloseButtonObject:NarrationGetName(...) end
+---@return any ...
+function GuildRegistrarFrame_CloseButtonObject:OnLoad(...) end
+end
+
+do
+---@class GuildRegistrarFrame_FocusJumpHintObject : Frame
+---@field ActiveTexture GuildRegistrarFrame_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture GuildRegistrarFrame_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim GuildRegistrarFrame_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator GuildRegistrarFrame_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GuildRegistrarFrame_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GuildRegistrarFrame_FocusJumpHint_HoverTextureObject
+---@field LoadBar GuildRegistrarFrame_FocusJumpHint_LoadBarObject
+---@field LoadBarBG GuildRegistrarFrame_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow GuildRegistrarFrame_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture GuildRegistrarFrame_FocusJumpHint_NormalTextureObject
+---@field PressedTexture GuildRegistrarFrame_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip GuildRegistrarFrame_FocusJumpHint_SpinnerTipObject
+---@field ignoreInLayout boolean
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GuildRegistrarFrame_FocusJumpHintObject = {}
+---@return any ...
+function GuildRegistrarFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function GuildRegistrarFrame_FocusJumpHintObject:BeginHold(...) end
+---@return any ...
+function GuildRegistrarFrame_FocusJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function GuildRegistrarFrame_FocusJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function GuildRegistrarFrame_FocusJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function GuildRegistrarFrame_FocusJumpHintObject:EndHold(...) end
+---@return any ...
+function GuildRegistrarFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function GuildRegistrarFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function GuildRegistrarFrame_FocusJumpHintObject:OnLoad(...) end
+---@return any ...
+function GuildRegistrarFrame_FocusJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function GuildRegistrarFrame_FocusJumpHintObject:SetDisabled(...) end
+---@return any ...
+function GuildRegistrarFrame_FocusJumpHintObject:SetEnabled(...) end
+---@return any ...
+function GuildRegistrarFrame_FocusJumpHintObject:SetFocused(...) end
+---@return any ...
+function GuildRegistrarFrame_FocusJumpHintObject:SetHoldState(...) end
+---@return any ...
+function GuildRegistrarFrame_FocusJumpHintObject:SetInputKey(...) end
+---@return any ...
+function GuildRegistrarFrame_FocusJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function GuildRegistrarFrame_FocusJumpHintObject:SetPressable(...) end
+---@return any ...
+function GuildRegistrarFrame_FocusJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function GuildRegistrarFrame_FocusJumpHintObject:SetTextureState(...) end
+---@return any ...
+function GuildRegistrarFrame_FocusJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function GuildRegistrarFrame_FocusJumpHintObject:SetUsableState(...) end
+---@return any ...
+function GuildRegistrarFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GuildRegistrarFrame_FocusJumpHint_ActiveTextureObject : Texture
+local GuildRegistrarFrame_FocusJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_FocusJumpHint_DisabledTextureObject : Texture
+local GuildRegistrarFrame_FocusJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GuildRegistrarFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GuildRegistrarFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GuildRegistrarFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local GuildRegistrarFrame_FocusJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local GuildRegistrarFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GuildRegistrarFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GuildRegistrarFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_FocusJumpHint_HoldIndicatorObject : Texture
+local GuildRegistrarFrame_FocusJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
+local GuildRegistrarFrame_FocusJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_FocusJumpHint_HoverTextureObject : Texture
+local GuildRegistrarFrame_FocusJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_FocusJumpHint_LoadBarObject : Texture
+local GuildRegistrarFrame_FocusJumpHint_LoadBarObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_FocusJumpHint_LoadBarBGObject : Texture
+local GuildRegistrarFrame_FocusJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_FocusJumpHint_LoadBarGlowObject : Texture
+local GuildRegistrarFrame_FocusJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_FocusJumpHint_NormalTextureObject : Texture
+local GuildRegistrarFrame_FocusJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_FocusJumpHint_PressedTextureObject : Texture
+local GuildRegistrarFrame_FocusJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_FocusJumpHint_SpinnerTipObject : Texture
+local GuildRegistrarFrame_FocusJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_FrameGlowObject : Frame
+---@field GlowTexture GuildRegistrarFrame_FrameGlow_GlowTextureObject
+---@field glowTextures table
+local GuildRegistrarFrame_FrameGlowObject = {}
+---@return any ...
+function GuildRegistrarFrame_FrameGlowObject:GetContainerFrame(...) end
+---@return any ...
+function GuildRegistrarFrame_FrameGlowObject:GetFrameLayoutType(...) end
+---@return any ...
+function GuildRegistrarFrame_FrameGlowObject:GetHeaderFrame(...) end
+---@return any ...
+function GuildRegistrarFrame_FrameGlowObject:OnLoad(...) end
+end
+
+do
+---@class GuildRegistrarFrame_FrameGlow_GlowTextureObject : Texture
+local GuildRegistrarFrame_FrameGlow_GlowTextureObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_InsetObject : Frame
+---@field Bg GuildRegistrarFrame_Inset_BgObject
+---@field NineSlice GuildRegistrarFrame_Inset_NineSliceObject
+---@field layoutType string
+local GuildRegistrarFrame_InsetObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_Inset_BgObject : Texture
+local GuildRegistrarFrame_Inset_BgObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_Inset_NineSliceObject : Frame
+---@field BottomEdge GuildRegistrarFrame_Inset_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner GuildRegistrarFrame_Inset_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner GuildRegistrarFrame_Inset_NineSlice_BottomRightCornerObject
+---@field LeftEdge GuildRegistrarFrame_Inset_NineSlice_LeftEdgeObject
+---@field RightEdge GuildRegistrarFrame_Inset_NineSlice_RightEdgeObject
+---@field TopEdge GuildRegistrarFrame_Inset_NineSlice_TopEdgeObject
+---@field TopLeftCorner GuildRegistrarFrame_Inset_NineSlice_TopLeftCornerObject
+---@field TopRightCorner GuildRegistrarFrame_Inset_NineSlice_TopRightCornerObject
+local GuildRegistrarFrame_Inset_NineSliceObject = {}
+---@return any ...
+function GuildRegistrarFrame_Inset_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function GuildRegistrarFrame_Inset_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function GuildRegistrarFrame_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function GuildRegistrarFrame_Inset_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function GuildRegistrarFrame_Inset_NineSliceObject:OnLoad(...) end
+---@return any ...
+function GuildRegistrarFrame_Inset_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function GuildRegistrarFrame_Inset_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function GuildRegistrarFrame_Inset_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function GuildRegistrarFrame_Inset_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function GuildRegistrarFrame_Inset_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class GuildRegistrarFrame_Inset_NineSlice_BottomEdgeObject : Texture
+local GuildRegistrarFrame_Inset_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_Inset_NineSlice_BottomLeftCornerObject : Texture
+local GuildRegistrarFrame_Inset_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_Inset_NineSlice_BottomRightCornerObject : Texture
+local GuildRegistrarFrame_Inset_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_Inset_NineSlice_LeftEdgeObject : Texture
+local GuildRegistrarFrame_Inset_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_Inset_NineSlice_RightEdgeObject : Texture
+local GuildRegistrarFrame_Inset_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_Inset_NineSlice_TopEdgeObject : Texture
+local GuildRegistrarFrame_Inset_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_Inset_NineSlice_TopLeftCornerObject : Texture
+local GuildRegistrarFrame_Inset_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_Inset_NineSlice_TopRightCornerObject : Texture
+local GuildRegistrarFrame_Inset_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_LeftJumpHintObject : Frame
+---@field ActiveTexture GuildRegistrarFrame_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture GuildRegistrarFrame_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim GuildRegistrarFrame_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator GuildRegistrarFrame_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GuildRegistrarFrame_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GuildRegistrarFrame_LeftJumpHint_HoverTextureObject
+---@field LoadBar GuildRegistrarFrame_LeftJumpHint_LoadBarObject
+---@field LoadBarBG GuildRegistrarFrame_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow GuildRegistrarFrame_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture GuildRegistrarFrame_LeftJumpHint_NormalTextureObject
+---@field PressedTexture GuildRegistrarFrame_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip GuildRegistrarFrame_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GuildRegistrarFrame_LeftJumpHintObject = {}
+---@return any ...
+function GuildRegistrarFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function GuildRegistrarFrame_LeftJumpHintObject:BeginHold(...) end
+---@return any ...
+function GuildRegistrarFrame_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function GuildRegistrarFrame_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function GuildRegistrarFrame_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function GuildRegistrarFrame_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function GuildRegistrarFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function GuildRegistrarFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function GuildRegistrarFrame_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function GuildRegistrarFrame_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function GuildRegistrarFrame_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function GuildRegistrarFrame_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function GuildRegistrarFrame_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function GuildRegistrarFrame_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function GuildRegistrarFrame_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function GuildRegistrarFrame_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function GuildRegistrarFrame_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function GuildRegistrarFrame_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function GuildRegistrarFrame_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function GuildRegistrarFrame_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function GuildRegistrarFrame_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function GuildRegistrarFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GuildRegistrarFrame_LeftJumpHint_ActiveTextureObject : Texture
+local GuildRegistrarFrame_LeftJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_LeftJumpHint_DisabledTextureObject : Texture
+local GuildRegistrarFrame_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GuildRegistrarFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GuildRegistrarFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GuildRegistrarFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local GuildRegistrarFrame_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local GuildRegistrarFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GuildRegistrarFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GuildRegistrarFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_LeftJumpHint_HoldIndicatorObject : Texture
+local GuildRegistrarFrame_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
+local GuildRegistrarFrame_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_LeftJumpHint_HoverTextureObject : Texture
+local GuildRegistrarFrame_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_LeftJumpHint_LoadBarObject : Texture
+local GuildRegistrarFrame_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_LeftJumpHint_LoadBarBGObject : Texture
+local GuildRegistrarFrame_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_LeftJumpHint_LoadBarGlowObject : Texture
+local GuildRegistrarFrame_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_LeftJumpHint_NormalTextureObject : Texture
+local GuildRegistrarFrame_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_LeftJumpHint_PressedTextureObject : Texture
+local GuildRegistrarFrame_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_LeftJumpHint_SpinnerTipObject : Texture
+local GuildRegistrarFrame_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_NineSliceObject : Frame
+---@field BottomEdge GuildRegistrarFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner GuildRegistrarFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner GuildRegistrarFrame_NineSlice_BottomRightCornerObject
+---@field Center GuildRegistrarFrame_NineSlice_CenterObject
+---@field LeftEdge GuildRegistrarFrame_NineSlice_LeftEdgeObject
+---@field RightEdge GuildRegistrarFrame_NineSlice_RightEdgeObject
+---@field TopEdge GuildRegistrarFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner GuildRegistrarFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner GuildRegistrarFrame_NineSlice_TopRightCornerObject
+local GuildRegistrarFrame_NineSliceObject = {}
+---@return any ...
+function GuildRegistrarFrame_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function GuildRegistrarFrame_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function GuildRegistrarFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function GuildRegistrarFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function GuildRegistrarFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function GuildRegistrarFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function GuildRegistrarFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function GuildRegistrarFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function GuildRegistrarFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function GuildRegistrarFrame_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class GuildRegistrarFrame_NineSlice_BottomEdgeObject : Texture
+local GuildRegistrarFrame_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_NineSlice_BottomLeftCornerObject : Texture
+local GuildRegistrarFrame_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_NineSlice_BottomRightCornerObject : Texture
+local GuildRegistrarFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_NineSlice_CenterObject : Texture
+local GuildRegistrarFrame_NineSlice_CenterObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_NineSlice_LeftEdgeObject : Texture
+local GuildRegistrarFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_NineSlice_RightEdgeObject : Texture
+local GuildRegistrarFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_NineSlice_TopEdgeObject : Texture
+local GuildRegistrarFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_NineSlice_TopLeftCornerObject : Texture
+local GuildRegistrarFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_NineSlice_TopRightCornerObject : Texture
+local GuildRegistrarFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_PortraitContainerObject : Frame
+---@field CircleMask GuildRegistrarFrame_PortraitContainer_CircleMaskObject
+---@field portrait GuildRegistrarFrame_PortraitContainer_portraitObject
+local GuildRegistrarFrame_PortraitContainerObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_PortraitContainer_CircleMaskObject : MaskTexture
+local GuildRegistrarFrame_PortraitContainer_CircleMaskObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_PortraitContainer_portraitObject : Texture
+local GuildRegistrarFrame_PortraitContainer_portraitObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_RightJumpHintObject : Frame
+---@field ActiveTexture GuildRegistrarFrame_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture GuildRegistrarFrame_RightJumpHint_DisabledTextureObject
+---@field HoldAnim GuildRegistrarFrame_RightJumpHint_HoldAnimObject
+---@field HoldIndicator GuildRegistrarFrame_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GuildRegistrarFrame_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GuildRegistrarFrame_RightJumpHint_HoverTextureObject
+---@field LoadBar GuildRegistrarFrame_RightJumpHint_LoadBarObject
+---@field LoadBarBG GuildRegistrarFrame_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow GuildRegistrarFrame_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture GuildRegistrarFrame_RightJumpHint_NormalTextureObject
+---@field PressedTexture GuildRegistrarFrame_RightJumpHint_PressedTextureObject
+---@field SpinnerTip GuildRegistrarFrame_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GuildRegistrarFrame_RightJumpHintObject = {}
+---@return any ...
+function GuildRegistrarFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function GuildRegistrarFrame_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function GuildRegistrarFrame_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function GuildRegistrarFrame_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function GuildRegistrarFrame_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function GuildRegistrarFrame_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function GuildRegistrarFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function GuildRegistrarFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function GuildRegistrarFrame_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function GuildRegistrarFrame_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function GuildRegistrarFrame_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function GuildRegistrarFrame_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function GuildRegistrarFrame_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function GuildRegistrarFrame_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function GuildRegistrarFrame_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function GuildRegistrarFrame_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function GuildRegistrarFrame_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function GuildRegistrarFrame_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function GuildRegistrarFrame_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function GuildRegistrarFrame_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function GuildRegistrarFrame_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function GuildRegistrarFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GuildRegistrarFrame_RightJumpHint_ActiveTextureObject : Texture
+local GuildRegistrarFrame_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_RightJumpHint_DisabledTextureObject : Texture
+local GuildRegistrarFrame_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GuildRegistrarFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GuildRegistrarFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GuildRegistrarFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local GuildRegistrarFrame_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+local GuildRegistrarFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GuildRegistrarFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GuildRegistrarFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_RightJumpHint_HoldIndicatorObject : Texture
+local GuildRegistrarFrame_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_RightJumpHint_HoldIndicatorBGObject : Texture
+local GuildRegistrarFrame_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_RightJumpHint_HoverTextureObject : Texture
+local GuildRegistrarFrame_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_RightJumpHint_LoadBarObject : Texture
+local GuildRegistrarFrame_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_RightJumpHint_LoadBarBGObject : Texture
+local GuildRegistrarFrame_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_RightJumpHint_LoadBarGlowObject : Texture
+local GuildRegistrarFrame_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_RightJumpHint_NormalTextureObject : Texture
+local GuildRegistrarFrame_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_RightJumpHint_PressedTextureObject : Texture
+local GuildRegistrarFrame_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_RightJumpHint_SpinnerTipObject : Texture
+local GuildRegistrarFrame_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_ScrollBarObject : Frame
+---@field Back GuildRegistrarFrame_ScrollBar_BackObject
+---@field Defaults GuildRegistrarFrame_ScrollBar_DefaultsObject
+---@field Directions GuildRegistrarFrame_ScrollBar_DirectionsObject
+---@field Event GuildRegistrarFrame_ScrollBar_EventObject
+---@field Forward GuildRegistrarFrame_ScrollBar_ForwardObject
+---@field Track GuildRegistrarFrame_ScrollBar_TrackObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field hideTrack boolean
+---@field hideTrackIfThumbExceedsTrack boolean
+---@field isScrollController boolean
+---@field minThumbExtent number
+---@field panDelay number
+---@field panExtentPercentage number
+---@field panRepeatTime number
+---@field smartNavigationIgnored boolean
+---@field snapToInterval boolean
+---@field thumbAnchor string
+---@field useProportionalThumb boolean
+---@field visibleExtentPercentage number
+---@field wheelPanScalar number
+local GuildRegistrarFrame_ScrollBarObject = {}
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:CallInternalScope(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:CanCursorStepInDirection(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:CanInterpolateScroll(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:DisableControls(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:EnableInternalPriority(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:EnableSnapToInterval(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:GenerateCallbackEvents(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:GetBackStepper(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:GetCallbackTable(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:GetCallbackTables(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:GetCallbacksByEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:GetForwardStepper(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:GetFrameExtent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:GetIntervalRange(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:GetLower(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:GetPanExtentPercentage(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:GetPanRepeatDelay(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:GetPanRepeatTime(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:GetScrollInterpolator(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:GetScrollPercentage(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:GetThumb(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:GetThumbAnchor(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:GetTrack(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:GetTrackExtent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:GetUpper(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:GetWheelPanPercentage(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:HasScrollableExtent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:Init(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:InitializeNarration(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:Interpolate(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:IsAtBegin(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:IsAtEnd(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:IsHorizontal(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:IsScrollAllowed(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:IsThumbMouseDown(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:OnHide_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:OnLoad(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:OnMouseWheel(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:OnShow_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:OnStepperMouseDown(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:OnThumbMouseDown(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:OnTrackMouseDown(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:RegisterCallback(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:ScrollDecrease(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:ScrollInDirection(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:ScrollIncrease(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:ScrollPageInDirection(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:ScrollStepInDirection(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:ScrollToBegin(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:ScrollToEnd(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:ScrollWheelInDirection(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:SecureInsertEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:SelectCursorComponent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:SelectPointComponent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:SetFrameExtent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:SetHideIfUnscrollable(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:SetHorizontal(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:SetInterpolateScroll(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:SetPanExtentPercentage(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:SetScrollAllowed(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:SetScrollPercentage(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:SetThumbExtent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:SetVisibleExtentPercentage(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:TriggerEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:UnregisterCallback(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:UnregisterEvents(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:UnregisterUpdate(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:Update(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:onButtonMouseUp(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBarObject:scrollInternal(...) end
+end
+
+do
+---@class GuildRegistrarFrame_ScrollBar_BackObject : Button
+---@field Event GuildRegistrarFrame_ScrollBar_Back_EventObject
+---@field Texture GuildRegistrarFrame_ScrollBar_Back_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
----@field disableFontObject string
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
 ---@field displaceX number
 ---@field displaceY number
 ---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local GuildRegistrarFrame_ScrollBar_BackObject = {}
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:GetAtlas(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:GetCallbackTable(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:GetCallbackTables(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:IsDown(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:IsDownOver(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:IsOver(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:NarrationGetName(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:OnButtonStateChanged(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:OnDisable(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:OnEnable(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:OnEnter(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:OnLeave(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:OnLoad(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:OnMouseDown(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:OnMouseUp(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:OnShow(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:RegisterCallback(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:SecureInsertEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:SetDisplacedRegions(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:TriggerEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:UnregisterCallback(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:UnregisterEvents(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class GuildRegistrarFrame_ScrollBar_Back_EventObject
+local GuildRegistrarFrame_ScrollBar_Back_EventObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_ScrollBar_Back_TextureObject : Texture
+local GuildRegistrarFrame_ScrollBar_Back_TextureObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_ScrollBar_DefaultsObject
+local GuildRegistrarFrame_ScrollBar_DefaultsObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_ScrollBar_DirectionsObject
+local GuildRegistrarFrame_ScrollBar_DirectionsObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_ScrollBar_EventObject
+local GuildRegistrarFrame_ScrollBar_EventObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_ScrollBar_ForwardObject : Button
+---@field Event GuildRegistrarFrame_ScrollBar_Forward_EventObject
+---@field Texture GuildRegistrarFrame_ScrollBar_Forward_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local GuildRegistrarFrame_ScrollBar_ForwardObject = {}
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:GetAtlas(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:GetCallbackTable(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:GetCallbackTables(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:IsDown(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:IsDownOver(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:IsOver(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:NarrationGetName(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:OnDisable(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:OnEnable(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:OnEnter(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:OnLeave(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:OnLoad(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:OnMouseDown(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:OnMouseUp(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:OnShow(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:RegisterCallback(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:TriggerEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:UnregisterCallback(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:UnregisterEvents(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class GuildRegistrarFrame_ScrollBar_Forward_EventObject
+local GuildRegistrarFrame_ScrollBar_Forward_EventObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_ScrollBar_Forward_TextureObject : Texture
+local GuildRegistrarFrame_ScrollBar_Forward_TextureObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_ScrollBar_TrackObject : Frame
+---@field Begin GuildRegistrarFrame_ScrollBar_Track_BeginObject
+---@field End GuildRegistrarFrame_ScrollBar_Track_EndObject
+---@field Middle GuildRegistrarFrame_ScrollBar_Track_MiddleObject
+---@field Thumb GuildRegistrarFrame_ScrollBar_Track_ThumbObject
+local GuildRegistrarFrame_ScrollBar_TrackObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_ScrollBar_Track_BeginObject : Texture
+local GuildRegistrarFrame_ScrollBar_Track_BeginObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_ScrollBar_Track_EndObject : Texture
+local GuildRegistrarFrame_ScrollBar_Track_EndObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_ScrollBar_Track_MiddleObject : Texture
+local GuildRegistrarFrame_ScrollBar_Track_MiddleObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_ScrollBar_Track_ThumbObject : Button
+---@field Begin GuildRegistrarFrame_ScrollBar_Track_Thumb_BeginObject
+---@field End GuildRegistrarFrame_ScrollBar_Track_Thumb_EndObject
+---@field Event GuildRegistrarFrame_ScrollBar_Track_Thumb_EventObject
+---@field Middle GuildRegistrarFrame_ScrollBar_Track_Thumb_MiddleObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field downBeginTexture string
+---@field downEndTexture string
+---@field downMiddleTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field overBeginTexture string
+---@field overEndTexture string
+---@field overMiddleTexture string
+---@field upBeginTexture string
+---@field upEndTexture string
+---@field upMiddleTexture string
+local GuildRegistrarFrame_ScrollBar_Track_ThumbObject = {}
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:IsDown(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:IsOver(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:OnDisable(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:OnEnable(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:OnEnter(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:OnLeave(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:OnLoad(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:OnShow(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+---@return any ...
+function GuildRegistrarFrame_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class GuildRegistrarFrame_ScrollBar_Track_Thumb_BeginObject : Texture
+local GuildRegistrarFrame_ScrollBar_Track_Thumb_BeginObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_ScrollBar_Track_Thumb_EndObject : Texture
+local GuildRegistrarFrame_ScrollBar_Track_Thumb_EndObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_ScrollBar_Track_Thumb_EventObject
+local GuildRegistrarFrame_ScrollBar_Track_Thumb_EventObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_ScrollBar_Track_Thumb_MiddleObject : Texture
+local GuildRegistrarFrame_ScrollBar_Track_Thumb_MiddleObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_TitleContainerObject : Frame
+---@field TitleText GuildRegistrarFrame_TitleContainer_TitleTextObject
+local GuildRegistrarFrame_TitleContainerObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_TitleContainer_TitleTextObject : FontString
+local GuildRegistrarFrame_TitleContainer_TitleTextObject = {}
+end
+
+do
+---@class GuildRegistrarFrame_TopTileStreaksObject : Texture
+local GuildRegistrarFrame_TopTileStreaksObject = {}
+end
+
+do
+---@class GuildRenameFrameObject : Frame
+---@field Background GuildRenameFrame_BackgroundObject
+---@field Bg GuildRenameFrame_BgObject
+---@field CloseButton GuildRenameFrame_CloseButtonObject
+---@field ContextButton GuildRenameFrame_ContextButtonObject
+---@field FocusJumpHint GuildRenameFrame_FocusJumpHintObject
+---@field FrameGlow GuildRenameFrame_FrameGlowObject
+---@field GuildIcon GuildRenameFrame_GuildIconObject
+---@field Inset GuildRenameFrame_InsetObject
+---@field LeftJumpHint GuildRenameFrame_LeftJumpHintObject
+---@field MoneyFrame GuildRenameFrame_MoneyFrameObject
+---@field NineSlice GuildRenameFrame_NineSliceObject
+---@field PortraitContainer GuildRenameFrame_PortraitContainerObject
+---@field RenameFlow GuildRenameFrame_RenameFlowObject
+---@field RightJumpHint GuildRenameFrame_RightJumpHintObject
+---@field Spinner GuildRenameFrame_SpinnerObject
+---@field TitleContainer GuildRenameFrame_TitleContainerObject
+---@field TitleFlow GuildRenameFrame_TitleFlowObject
+---@field TopTileStreaks GuildRenameFrame_TopTileStreaksObject
+---@field backgroundTexture GuildRenameFrame_backgroundTextureObject
+---@field cvar string
+---@field fontStrings table
+---@field frames table
+---@field layoutType string
+---@field modeFrames table
+local GuildRenameFrameObject = {}
+---@return any ...
+function GuildRenameFrameObject:AddModeFrame(...) end
+---@return any ...
+function GuildRenameFrameObject:BeginInteraction(...) end
+---@return any ...
+function GuildRenameFrameObject:BeginInteractionMode(...) end
+---@return any ...
+function GuildRenameFrameObject:CheckUpdateTheme(...) end
+---@return any ...
+function GuildRenameFrameObject:EndFocus(...) end
+---@return any ...
+function GuildRenameFrameObject:GetCVarValue(...) end
+---@return any ...
+function GuildRenameFrameObject:GetCurrentGuildMoney(...) end
+---@return any ...
+function GuildRenameFrameObject:GetExecuteNameChangeStatus(...) end
+---@return any ...
+function GuildRenameFrameObject:GetFocusFrameGlow(...) end
+---@return any ...
+function GuildRenameFrameObject:GetFocusFrameRoot(...) end
+---@return any ...
+function GuildRenameFrameObject:GetMode(...) end
+---@return any ...
+function GuildRenameFrameObject:GetNameChangeRequestStatus(...) end
+---@return any ...
+function GuildRenameFrameObject:GetNameCheckPassed(...) end
+---@return any ...
+function GuildRenameFrameObject:GetNameCheckStatus(...) end
+---@return any ...
+function GuildRenameFrameObject:GetPortrait(...) end
+---@return any ...
+function GuildRenameFrameObject:GetPreviousGuildName(...) end
+---@return any ...
+function GuildRenameFrameObject:GetRefundAmount(...) end
+---@return any ...
+function GuildRenameFrameObject:GetRefundTimeRemaining(...) end
+---@return any ...
+function GuildRenameFrameObject:GetRenameCooldownRemaining(...) end
+---@return any ...
+function GuildRenameFrameObject:GetRenameCost(...) end
+---@return any ...
+function GuildRenameFrameObject:GetRenameModeFromStatus(...) end
+---@return any ...
+function GuildRenameFrameObject:GetRenamePermissionStatus(...) end
+---@return any ...
+function GuildRenameFrameObject:GetReservedName(...) end
+---@return any ...
+function GuildRenameFrameObject:GetTitleText(...) end
+---@return any ...
+function GuildRenameFrameObject:HasPortraitTexture(...) end
+---@return any ...
+function GuildRenameFrameObject:HasRenamePermission(...) end
+---@return any ...
+function GuildRenameFrameObject:HasStatus(...) end
+---@return any ...
+function GuildRenameFrameObject:HideFocusJumpHint(...) end
+---@return any ...
+function GuildRenameFrameObject:HideLeftJumpHint(...) end
+---@return any ...
+function GuildRenameFrameObject:HideRightJumpHint(...) end
+---@return any ...
+function GuildRenameFrameObject:IsDarkMode(...) end
+---@return any ...
+function GuildRenameFrameObject:IsPlayerGuildMaster(...) end
+---@return any ...
+function GuildRenameFrameObject:IsRenameCooldownActive(...) end
+---@return any ...
+function GuildRenameFrameObject:IsRenameEnabled(...) end
+---@return any ...
+function GuildRenameFrameObject:IsReservedNameValid(...) end
+---@return any ...
+function GuildRenameFrameObject:LockInFocus(...) end
+---@return any ...
+function GuildRenameFrameObject:NameMatchesExistingReservation(...) end
+---@return any ...
+function GuildRenameFrameObject:OnEvent(...) end
+---@return any ...
+function GuildRenameFrameObject:OnGuildRenameFlowStatusResponse(...) end
+---@return any ...
+function GuildRenameFrameObject:OnGuildRenameNameCheck(...) end
+---@return any ...
+function GuildRenameFrameObject:OnGuildRenameRefundResult(...) end
+---@return any ...
+function GuildRenameFrameObject:OnGuildRenameStatusUpdate(...) end
+---@return any ...
+function GuildRenameFrameObject:OnHide(...) end
+---@return any ...
+function GuildRenameFrameObject:OnLoad(...) end
+---@return any ...
+function GuildRenameFrameObject:OnRequestedGuildRenameResult(...) end
+---@return any ...
+function GuildRenameFrameObject:OnShow(...) end
+---@return any ...
+function GuildRenameFrameObject:RefreshFocus(...) end
+---@return any ...
+function GuildRenameFrameObject:RegisterBackgroundTexture(...) end
+---@return any ...
+function GuildRenameFrameObject:RegisterFontString(...) end
+---@return any ...
+function GuildRenameFrameObject:RegisterFontStrings(...) end
+---@return any ...
+function GuildRenameFrameObject:RegisterFrame(...) end
+---@return any ...
+function GuildRenameFrameObject:RegisterFrames(...) end
+---@return any ...
+function GuildRenameFrameObject:RegisterObject(...) end
+---@return any ...
+function GuildRenameFrameObject:RegisterObjects(...) end
+---@return any ...
+function GuildRenameFrameObject:SetBorder(...) end
+---@return any ...
+function GuildRenameFrameObject:SetFrameLevelsFromBaseLevel(...) end
+---@return any ...
+function GuildRenameFrameObject:SetNameCheckPassed(...) end
+---@return any ...
+function GuildRenameFrameObject:SetPortraitAtlasRaw(...) end
+---@return any ...
+function GuildRenameFrameObject:SetPortraitShown(...) end
+---@return any ...
+function GuildRenameFrameObject:SetPortraitTexCoord(...) end
+---@return any ...
+function GuildRenameFrameObject:SetPortraitTextureRaw(...) end
+---@return any ...
+function GuildRenameFrameObject:SetPortraitTextureSizeAndOffset(...) end
+---@return any ...
+function GuildRenameFrameObject:SetPortraitToAsset(...) end
+---@return any ...
+function GuildRenameFrameObject:SetPortraitToBag(...) end
+---@return any ...
+function GuildRenameFrameObject:SetPortraitToClassIcon(...) end
+---@return any ...
+function GuildRenameFrameObject:SetPortraitToSpecIcon(...) end
+---@return any ...
+function GuildRenameFrameObject:SetPortraitToUnit(...) end
+---@return any ...
+function GuildRenameFrameObject:SetSpinnerShown(...) end
+---@return any ...
+function GuildRenameFrameObject:SetTitle(...) end
+---@return any ...
+function GuildRenameFrameObject:SetTitleColor(...) end
+---@return any ...
+function GuildRenameFrameObject:SetTitleFormatted(...) end
+---@return any ...
+function GuildRenameFrameObject:SetTitleMaxLinesAndHeight(...) end
+---@return any ...
+function GuildRenameFrameObject:SetTitleOffsets(...) end
+---@return any ...
+function GuildRenameFrameObject:ShowFocusJumpHint(...) end
+---@return any ...
+function GuildRenameFrameObject:ShowLeftJumpHint(...) end
+---@return any ...
+function GuildRenameFrameObject:ShowRightJumpHint(...) end
+---@return any ...
+function GuildRenameFrameObject:StartFocus(...) end
+---@return any ...
+function GuildRenameFrameObject:UIThemeContainerFrame_OnPostEvent(...) end
+---@return any ...
+function GuildRenameFrameObject:UIThemeContainerFrame_OnPostHide(...) end
+---@return any ...
+function GuildRenameFrameObject:UIThemeContainerFrame_OnPreLoad(...) end
+---@return any ...
+function GuildRenameFrameObject:UIThemeContainerFrame_OnPreShow(...) end
+---@return any ...
+function GuildRenameFrameObject:UpdateBackground(...) end
+---@return any ...
+function GuildRenameFrameObject:UpdateFontStrings(...) end
+---@return any ...
+function GuildRenameFrameObject:UpdateFrames(...) end
+---@return any ...
+function GuildRenameFrameObject:UpdateFromMode(...) end
+---@return any ...
+function GuildRenameFrameObject:UpdateInteractionMode(...) end
+---@return any ...
+function GuildRenameFrameObject:UpdateTheme(...) end
+---@type GuildRenameFrameObject
+GuildRenameFrame = GuildRenameFrameObject
+end
+
+do
+---@class GuildRenameFrame_BackgroundObject : Texture
+local GuildRenameFrame_BackgroundObject = {}
+end
+
+do
+---@class GuildRenameFrame_BgObject : Texture
+local GuildRenameFrame_BgObject = {}
+end
+
+do
+---@class GuildRenameFrame_CloseButtonObject : Button
+local GuildRenameFrame_CloseButtonObject = {}
+---@return any ...
+function GuildRenameFrame_CloseButtonObject:NarrationGetName(...) end
+---@return any ...
+function GuildRenameFrame_CloseButtonObject:OnLoad(...) end
+end
+
+do
+---@class GuildRenameFrame_ContextButtonObject : Button
+---@field Left GuildRenameFrame_ContextButton_LeftObject
+---@field Middle GuildRenameFrame_ContextButton_MiddleObject
+---@field Right GuildRenameFrame_ContextButton_RightObject
+---@field Text GuildRenameFrame_ContextButton_TextObject
+---@field dirty boolean
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+---@field fixedHeight number
+---@field minimumWidth number
+---@field widthPadding number
+local GuildRenameFrame_ContextButtonObject = {}
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:AddLayoutChildren(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:ClearFixedSize(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:FitToText(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:GetAdditionalRegions(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:GetChildHeight(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:GetChildSize(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:GetChildWidth(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:GetFixedHeight(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:GetFixedSize(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:GetFixedWidth(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:GetHeightPadding(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:GetLayoutChildren(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:GetMaximumWidth(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:GetMinimumWidth(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:GetWidthPadding(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:IsDirty(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:IsLayoutFrame(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:Layout(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:MarkClean(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:MarkDirty(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:OnCleaned(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:OnEnter(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:OnLeave(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:OnLoad(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:OnShow(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:OnUpdate(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:SetFixedHeight(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:SetFixedSize(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:SetFixedWidth(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:SetHeightPadding(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:SetMaximumWidth(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:SetMinimumWidth(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:SetTextToFit(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:SetToGoodbye(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:SetToGuildRename(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:SetTooltip(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:SetWidthPadding(...) end
+---@return any ...
+function GuildRenameFrame_ContextButtonObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class GuildRenameFrame_ContextButton_LeftObject : Texture
+local GuildRenameFrame_ContextButton_LeftObject = {}
+end
+
+do
+---@class GuildRenameFrame_ContextButton_MiddleObject : Texture
+local GuildRenameFrame_ContextButton_MiddleObject = {}
+end
+
+do
+---@class GuildRenameFrame_ContextButton_RightObject : Texture
+local GuildRenameFrame_ContextButton_RightObject = {}
+end
+
+do
+---@class GuildRenameFrame_ContextButton_TextObject : FontString
+---@field layoutIndex number
+local GuildRenameFrame_ContextButton_TextObject = {}
+end
+
+do
+---@class GuildRenameFrame_FocusJumpHintObject : Frame
+---@field ActiveTexture GuildRenameFrame_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture GuildRenameFrame_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim GuildRenameFrame_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator GuildRenameFrame_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GuildRenameFrame_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GuildRenameFrame_FocusJumpHint_HoverTextureObject
+---@field LoadBar GuildRenameFrame_FocusJumpHint_LoadBarObject
+---@field LoadBarBG GuildRenameFrame_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow GuildRenameFrame_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture GuildRenameFrame_FocusJumpHint_NormalTextureObject
+---@field PressedTexture GuildRenameFrame_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip GuildRenameFrame_FocusJumpHint_SpinnerTipObject
+---@field ignoreInLayout boolean
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GuildRenameFrame_FocusJumpHintObject = {}
+---@return any ...
+function GuildRenameFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function GuildRenameFrame_FocusJumpHintObject:BeginHold(...) end
+---@return any ...
+function GuildRenameFrame_FocusJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function GuildRenameFrame_FocusJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function GuildRenameFrame_FocusJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function GuildRenameFrame_FocusJumpHintObject:EndHold(...) end
+---@return any ...
+function GuildRenameFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function GuildRenameFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function GuildRenameFrame_FocusJumpHintObject:OnLoad(...) end
+---@return any ...
+function GuildRenameFrame_FocusJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function GuildRenameFrame_FocusJumpHintObject:SetDisabled(...) end
+---@return any ...
+function GuildRenameFrame_FocusJumpHintObject:SetEnabled(...) end
+---@return any ...
+function GuildRenameFrame_FocusJumpHintObject:SetFocused(...) end
+---@return any ...
+function GuildRenameFrame_FocusJumpHintObject:SetHoldState(...) end
+---@return any ...
+function GuildRenameFrame_FocusJumpHintObject:SetInputKey(...) end
+---@return any ...
+function GuildRenameFrame_FocusJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function GuildRenameFrame_FocusJumpHintObject:SetPressable(...) end
+---@return any ...
+function GuildRenameFrame_FocusJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function GuildRenameFrame_FocusJumpHintObject:SetTextureState(...) end
+---@return any ...
+function GuildRenameFrame_FocusJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function GuildRenameFrame_FocusJumpHintObject:SetUsableState(...) end
+---@return any ...
+function GuildRenameFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GuildRenameFrame_FocusJumpHint_ActiveTextureObject : Texture
+local GuildRenameFrame_FocusJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class GuildRenameFrame_FocusJumpHint_DisabledTextureObject : Texture
+local GuildRenameFrame_FocusJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class GuildRenameFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GuildRenameFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GuildRenameFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GuildRenameFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local GuildRenameFrame_FocusJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class GuildRenameFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local GuildRenameFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GuildRenameFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GuildRenameFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GuildRenameFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GuildRenameFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GuildRenameFrame_FocusJumpHint_HoldIndicatorObject : Texture
+local GuildRenameFrame_FocusJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class GuildRenameFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
+local GuildRenameFrame_FocusJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GuildRenameFrame_FocusJumpHint_HoverTextureObject : Texture
+local GuildRenameFrame_FocusJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class GuildRenameFrame_FocusJumpHint_LoadBarObject : Texture
+local GuildRenameFrame_FocusJumpHint_LoadBarObject = {}
+end
+
+do
+---@class GuildRenameFrame_FocusJumpHint_LoadBarBGObject : Texture
+local GuildRenameFrame_FocusJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class GuildRenameFrame_FocusJumpHint_LoadBarGlowObject : Texture
+local GuildRenameFrame_FocusJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class GuildRenameFrame_FocusJumpHint_NormalTextureObject : Texture
+local GuildRenameFrame_FocusJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class GuildRenameFrame_FocusJumpHint_PressedTextureObject : Texture
+local GuildRenameFrame_FocusJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class GuildRenameFrame_FocusJumpHint_SpinnerTipObject : Texture
+local GuildRenameFrame_FocusJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class GuildRenameFrame_FrameGlowObject : Frame
+---@field GlowTexture GuildRenameFrame_FrameGlow_GlowTextureObject
+---@field glowTextures table
+local GuildRenameFrame_FrameGlowObject = {}
+---@return any ...
+function GuildRenameFrame_FrameGlowObject:GetContainerFrame(...) end
+---@return any ...
+function GuildRenameFrame_FrameGlowObject:GetFrameLayoutType(...) end
+---@return any ...
+function GuildRenameFrame_FrameGlowObject:GetHeaderFrame(...) end
+---@return any ...
+function GuildRenameFrame_FrameGlowObject:OnLoad(...) end
+end
+
+do
+---@class GuildRenameFrame_FrameGlow_GlowTextureObject : Texture
+local GuildRenameFrame_FrameGlow_GlowTextureObject = {}
+end
+
+do
+---@class GuildRenameFrame_GuildIconObject : Frame
+---@field Emblem GuildRenameFrame_GuildIcon_EmblemObject
+---@field HighlightEmblem GuildRenameFrame_GuildIcon_HighlightEmblemObject
+---@field TabardBG GuildRenameFrame_GuildIcon_TabardBGObject
+---@field tooltip string
+local GuildRenameFrame_GuildIconObject = {}
+---@return any ...
+function GuildRenameFrame_GuildIconObject:OnEnter(...) end
+---@return any ...
+function GuildRenameFrame_GuildIconObject:OnLeave(...) end
+---@return any ...
+function GuildRenameFrame_GuildIconObject:SetTooltip(...) end
+---@return any ...
+function GuildRenameFrame_GuildIconObject:UpdateTabard(...) end
+end
+
+do
+---@class GuildRenameFrame_GuildIcon_EmblemObject : Texture
+local GuildRenameFrame_GuildIcon_EmblemObject = {}
+end
+
+do
+---@class GuildRenameFrame_GuildIcon_HighlightEmblemObject : Texture
+local GuildRenameFrame_GuildIcon_HighlightEmblemObject = {}
+end
+
+do
+---@class GuildRenameFrame_GuildIcon_TabardBGObject : Texture
+local GuildRenameFrame_GuildIcon_TabardBGObject = {}
+end
+
+do
+---@class GuildRenameFrame_InsetObject : Frame
+---@field Bg GuildRenameFrame_Inset_BgObject
+---@field NineSlice GuildRenameFrame_Inset_NineSliceObject
+---@field layoutType string
+local GuildRenameFrame_InsetObject = {}
+end
+
+do
+---@class GuildRenameFrame_Inset_BgObject : Texture
+local GuildRenameFrame_Inset_BgObject = {}
+end
+
+do
+---@class GuildRenameFrame_Inset_NineSliceObject : Frame
+---@field BottomEdge GuildRenameFrame_Inset_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner GuildRenameFrame_Inset_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner GuildRenameFrame_Inset_NineSlice_BottomRightCornerObject
+---@field LeftEdge GuildRenameFrame_Inset_NineSlice_LeftEdgeObject
+---@field RightEdge GuildRenameFrame_Inset_NineSlice_RightEdgeObject
+---@field TopEdge GuildRenameFrame_Inset_NineSlice_TopEdgeObject
+---@field TopLeftCorner GuildRenameFrame_Inset_NineSlice_TopLeftCornerObject
+---@field TopRightCorner GuildRenameFrame_Inset_NineSlice_TopRightCornerObject
+local GuildRenameFrame_Inset_NineSliceObject = {}
+---@return any ...
+function GuildRenameFrame_Inset_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function GuildRenameFrame_Inset_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function GuildRenameFrame_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function GuildRenameFrame_Inset_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function GuildRenameFrame_Inset_NineSliceObject:OnLoad(...) end
+---@return any ...
+function GuildRenameFrame_Inset_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function GuildRenameFrame_Inset_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function GuildRenameFrame_Inset_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function GuildRenameFrame_Inset_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function GuildRenameFrame_Inset_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class GuildRenameFrame_Inset_NineSlice_BottomEdgeObject : Texture
+local GuildRenameFrame_Inset_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class GuildRenameFrame_Inset_NineSlice_BottomLeftCornerObject : Texture
+local GuildRenameFrame_Inset_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class GuildRenameFrame_Inset_NineSlice_BottomRightCornerObject : Texture
+local GuildRenameFrame_Inset_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class GuildRenameFrame_Inset_NineSlice_LeftEdgeObject : Texture
+local GuildRenameFrame_Inset_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class GuildRenameFrame_Inset_NineSlice_RightEdgeObject : Texture
+local GuildRenameFrame_Inset_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class GuildRenameFrame_Inset_NineSlice_TopEdgeObject : Texture
+local GuildRenameFrame_Inset_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class GuildRenameFrame_Inset_NineSlice_TopLeftCornerObject : Texture
+local GuildRenameFrame_Inset_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class GuildRenameFrame_Inset_NineSlice_TopRightCornerObject : Texture
+local GuildRenameFrame_Inset_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class GuildRenameFrame_LeftJumpHintObject : Frame
+---@field ActiveTexture GuildRenameFrame_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture GuildRenameFrame_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim GuildRenameFrame_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator GuildRenameFrame_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GuildRenameFrame_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GuildRenameFrame_LeftJumpHint_HoverTextureObject
+---@field LoadBar GuildRenameFrame_LeftJumpHint_LoadBarObject
+---@field LoadBarBG GuildRenameFrame_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow GuildRenameFrame_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture GuildRenameFrame_LeftJumpHint_NormalTextureObject
+---@field PressedTexture GuildRenameFrame_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip GuildRenameFrame_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GuildRenameFrame_LeftJumpHintObject = {}
+---@return any ...
+function GuildRenameFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function GuildRenameFrame_LeftJumpHintObject:BeginHold(...) end
+---@return any ...
+function GuildRenameFrame_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function GuildRenameFrame_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function GuildRenameFrame_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function GuildRenameFrame_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function GuildRenameFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function GuildRenameFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function GuildRenameFrame_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function GuildRenameFrame_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function GuildRenameFrame_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function GuildRenameFrame_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function GuildRenameFrame_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function GuildRenameFrame_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function GuildRenameFrame_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function GuildRenameFrame_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function GuildRenameFrame_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function GuildRenameFrame_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function GuildRenameFrame_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function GuildRenameFrame_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function GuildRenameFrame_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function GuildRenameFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GuildRenameFrame_LeftJumpHint_ActiveTextureObject : Texture
+local GuildRenameFrame_LeftJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class GuildRenameFrame_LeftJumpHint_DisabledTextureObject : Texture
+local GuildRenameFrame_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class GuildRenameFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GuildRenameFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GuildRenameFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GuildRenameFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local GuildRenameFrame_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class GuildRenameFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local GuildRenameFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GuildRenameFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GuildRenameFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GuildRenameFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GuildRenameFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GuildRenameFrame_LeftJumpHint_HoldIndicatorObject : Texture
+local GuildRenameFrame_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class GuildRenameFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
+local GuildRenameFrame_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GuildRenameFrame_LeftJumpHint_HoverTextureObject : Texture
+local GuildRenameFrame_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class GuildRenameFrame_LeftJumpHint_LoadBarObject : Texture
+local GuildRenameFrame_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class GuildRenameFrame_LeftJumpHint_LoadBarBGObject : Texture
+local GuildRenameFrame_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class GuildRenameFrame_LeftJumpHint_LoadBarGlowObject : Texture
+local GuildRenameFrame_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class GuildRenameFrame_LeftJumpHint_NormalTextureObject : Texture
+local GuildRenameFrame_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class GuildRenameFrame_LeftJumpHint_PressedTextureObject : Texture
+local GuildRenameFrame_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class GuildRenameFrame_LeftJumpHint_SpinnerTipObject : Texture
+local GuildRenameFrame_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class GuildRenameFrame_MoneyFrameObject : Frame
+---@field CopperButton GuildRenameFrame_MoneyFrame_CopperButtonObject
+---@field GoldButton GuildRenameFrame_MoneyFrame_GoldButtonObject
+---@field SilverButton GuildRenameFrame_MoneyFrame_SilverButtonObject
+---@field forceShow boolean
+---@field info GuildRenameFrame_MoneyFrame_infoObject
+---@field maxDisplayWidth number
+---@field moneyType string
+---@field small number
+---@field smartNavigationIgnored boolean
+---@field tooltip string
+---@field trialErrorButton GuildRenameFrame_MoneyFrame_trialErrorButtonObject
+local GuildRenameFrame_MoneyFrameObject = {}
+---@return any ...
+function GuildRenameFrame_MoneyFrameObject:OnEnter(...) end
+---@return any ...
+function GuildRenameFrame_MoneyFrameObject:OnLeave(...) end
+---@return any ...
+function GuildRenameFrame_MoneyFrameObject:SetIsUserScaled(...) end
+---@return any ...
+function GuildRenameFrame_MoneyFrameObject:SetTooltip(...) end
+end
+
+do
+---@class GuildRenameFrame_MoneyFrame_CopperButtonObject : Button
+---@field NormalTexture GuildRenameFrame_MoneyFrame_CopperButton_NormalTextureObject
+---@field Text GuildRenameFrame_MoneyFrame_CopperButton_TextObject
+local GuildRenameFrame_MoneyFrame_CopperButtonObject = {}
+end
+
+do
+---@class GuildRenameFrame_MoneyFrame_CopperButton_NormalTextureObject : Texture
+local GuildRenameFrame_MoneyFrame_CopperButton_NormalTextureObject = {}
+end
+
+do
+---@class GuildRenameFrame_MoneyFrame_CopperButton_TextObject : FontString
+local GuildRenameFrame_MoneyFrame_CopperButton_TextObject = {}
+end
+
+do
+---@class GuildRenameFrame_MoneyFrame_GoldButtonObject : Button
+---@field Text GuildRenameFrame_MoneyFrame_GoldButton_TextObject
+local GuildRenameFrame_MoneyFrame_GoldButtonObject = {}
+end
+
+do
+---@class GuildRenameFrame_MoneyFrame_GoldButton_TextObject : FontString
+local GuildRenameFrame_MoneyFrame_GoldButton_TextObject = {}
+end
+
+do
+---@class GuildRenameFrame_MoneyFrame_SilverButtonObject : Button
+---@field Text GuildRenameFrame_MoneyFrame_SilverButton_TextObject
+local GuildRenameFrame_MoneyFrame_SilverButtonObject = {}
+end
+
+do
+---@class GuildRenameFrame_MoneyFrame_SilverButton_TextObject : FontString
+local GuildRenameFrame_MoneyFrame_SilverButton_TextObject = {}
+end
+
+do
+---@class GuildRenameFrame_MoneyFrame_infoObject
+local GuildRenameFrame_MoneyFrame_infoObject = {}
+end
+
+do
+---@class GuildRenameFrame_MoneyFrame_trialErrorButtonObject : Texture
+local GuildRenameFrame_MoneyFrame_trialErrorButtonObject = {}
+end
+
+do
+---@class GuildRenameFrame_NineSliceObject : Frame
+---@field BottomEdge GuildRenameFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner GuildRenameFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner GuildRenameFrame_NineSlice_BottomRightCornerObject
+---@field Center GuildRenameFrame_NineSlice_CenterObject
+---@field LeftEdge GuildRenameFrame_NineSlice_LeftEdgeObject
+---@field RightEdge GuildRenameFrame_NineSlice_RightEdgeObject
+---@field TopEdge GuildRenameFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner GuildRenameFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner GuildRenameFrame_NineSlice_TopRightCornerObject
+local GuildRenameFrame_NineSliceObject = {}
+---@return any ...
+function GuildRenameFrame_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function GuildRenameFrame_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function GuildRenameFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function GuildRenameFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function GuildRenameFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function GuildRenameFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function GuildRenameFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function GuildRenameFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function GuildRenameFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function GuildRenameFrame_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class GuildRenameFrame_NineSlice_BottomEdgeObject : Texture
+local GuildRenameFrame_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class GuildRenameFrame_NineSlice_BottomLeftCornerObject : Texture
+local GuildRenameFrame_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class GuildRenameFrame_NineSlice_BottomRightCornerObject : Texture
+local GuildRenameFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class GuildRenameFrame_NineSlice_CenterObject : Texture
+local GuildRenameFrame_NineSlice_CenterObject = {}
+end
+
+do
+---@class GuildRenameFrame_NineSlice_LeftEdgeObject : Texture
+local GuildRenameFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class GuildRenameFrame_NineSlice_RightEdgeObject : Texture
+local GuildRenameFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class GuildRenameFrame_NineSlice_TopEdgeObject : Texture
+local GuildRenameFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class GuildRenameFrame_NineSlice_TopLeftCornerObject : Texture
+local GuildRenameFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class GuildRenameFrame_NineSlice_TopRightCornerObject : Texture
+local GuildRenameFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class GuildRenameFrame_PortraitContainerObject : Frame
+---@field CircleMask GuildRenameFrame_PortraitContainer_CircleMaskObject
+---@field portrait GuildRenameFrame_PortraitContainer_portraitObject
+local GuildRenameFrame_PortraitContainerObject = {}
+end
+
+do
+---@class GuildRenameFrame_PortraitContainer_CircleMaskObject : MaskTexture
+local GuildRenameFrame_PortraitContainer_CircleMaskObject = {}
+end
+
+do
+---@class GuildRenameFrame_PortraitContainer_portraitObject : Texture
+local GuildRenameFrame_PortraitContainer_portraitObject = {}
+end
+
+do
+---@class GuildRenameFrame_RenameFlowObject : Frame
+---@field CostFrame GuildRenameFrame_RenameFlow_CostFrameObject
+---@field CostLabel GuildRenameFrame_RenameFlow_CostLabelObject
+---@field Description GuildRenameFrame_RenameFlow_DescriptionObject
+---@field NameBox GuildRenameFrame_RenameFlow_NameBoxObject
+---@field Spinner GuildRenameFrame_RenameFlow_SpinnerObject
+---@field Status GuildRenameFrame_RenameFlow_StatusObject
+---@field StatusText GuildRenameFrame_RenameFlow_StatusTextObject
+---@field delay number
+---@field manager GuildRenameFrame_RenameFlow_managerObject
+local GuildRenameFrame_RenameFlowObject = {}
+---@return any ...
+function GuildRenameFrame_RenameFlowObject:Cancel(...) end
+---@return any ...
+function GuildRenameFrame_RenameFlowObject:CheckRequestNameChange(...) end
+---@return any ...
+function GuildRenameFrame_RenameFlowObject:ClearRenameStatus(...) end
+---@return any ...
+function GuildRenameFrame_RenameFlowObject:ClearTimer(...) end
+---@return any ...
+function GuildRenameFrame_RenameFlowObject:GetDesiredName(...) end
+---@return any ...
+function GuildRenameFrame_RenameFlowObject:GetManager(...) end
+---@return any ...
+function GuildRenameFrame_RenameFlowObject:OnLoad(...) end
+---@return any ...
+function GuildRenameFrame_RenameFlowObject:OnShow(...) end
+---@return any ...
+function GuildRenameFrame_RenameFlowObject:RunCallbackAsync(...) end
+---@return any ...
+function GuildRenameFrame_RenameFlowObject:SetCheckDelaySeconds(...) end
+---@return any ...
+function GuildRenameFrame_RenameFlowObject:SetManager(...) end
+---@return any ...
+function GuildRenameFrame_RenameFlowObject:UpdateFlowNameStatus(...) end
+---@return any ...
+function GuildRenameFrame_RenameFlowObject:UpdateFromStatus(...) end
+end
+
+do
+---@class GuildRenameFrame_RenameFlow_CostFrameObject : Frame
+---@field CopperButton GuildRenameFrame_RenameFlow_CostFrame_CopperButtonObject
+---@field GoldButton GuildRenameFrame_RenameFlow_CostFrame_GoldButtonObject
+---@field SilverButton GuildRenameFrame_RenameFlow_CostFrame_SilverButtonObject
+---@field info GuildRenameFrame_RenameFlow_CostFrame_infoObject
+---@field moneyType string
+---@field smartNavigationIgnored boolean
+local GuildRenameFrame_RenameFlow_CostFrameObject = {}
+end
+
+do
+---@class GuildRenameFrame_RenameFlow_CostFrame_CopperButtonObject : Button
+---@field NormalTexture GuildRenameFrame_RenameFlow_CostFrame_CopperButton_NormalTextureObject
+---@field Text GuildRenameFrame_RenameFlow_CostFrame_CopperButton_TextObject
+local GuildRenameFrame_RenameFlow_CostFrame_CopperButtonObject = {}
+end
+
+do
+---@class GuildRenameFrame_RenameFlow_CostFrame_CopperButton_NormalTextureObject : Texture
+local GuildRenameFrame_RenameFlow_CostFrame_CopperButton_NormalTextureObject = {}
+end
+
+do
+---@class GuildRenameFrame_RenameFlow_CostFrame_CopperButton_TextObject : FontString
+local GuildRenameFrame_RenameFlow_CostFrame_CopperButton_TextObject = {}
+end
+
+do
+---@class GuildRenameFrame_RenameFlow_CostFrame_GoldButtonObject : Button
+---@field Text GuildRenameFrame_RenameFlow_CostFrame_GoldButton_TextObject
+local GuildRenameFrame_RenameFlow_CostFrame_GoldButtonObject = {}
+end
+
+do
+---@class GuildRenameFrame_RenameFlow_CostFrame_GoldButton_TextObject : FontString
+local GuildRenameFrame_RenameFlow_CostFrame_GoldButton_TextObject = {}
+end
+
+do
+---@class GuildRenameFrame_RenameFlow_CostFrame_SilverButtonObject : Button
+---@field Text GuildRenameFrame_RenameFlow_CostFrame_SilverButton_TextObject
+local GuildRenameFrame_RenameFlow_CostFrame_SilverButtonObject = {}
+end
+
+do
+---@class GuildRenameFrame_RenameFlow_CostFrame_SilverButton_TextObject : FontString
+local GuildRenameFrame_RenameFlow_CostFrame_SilverButton_TextObject = {}
+end
+
+do
+---@class GuildRenameFrame_RenameFlow_CostFrame_infoObject
+local GuildRenameFrame_RenameFlow_CostFrame_infoObject = {}
+end
+
+do
+---@class GuildRenameFrame_RenameFlow_CostLabelObject : FontString
+local GuildRenameFrame_RenameFlow_CostLabelObject = {}
+end
+
+do
+---@class GuildRenameFrame_RenameFlow_DescriptionObject : FontString
+local GuildRenameFrame_RenameFlow_DescriptionObject = {}
+end
+
+do
+---@class GuildRenameFrame_RenameFlow_NameBoxObject : EditBox
+---@field Instructions GuildRenameFrame_RenameFlow_NameBox_InstructionsObject
+---@field Left GuildRenameFrame_RenameFlow_NameBox_LeftObject
+---@field Middle GuildRenameFrame_RenameFlow_NameBox_MiddleObject
+---@field Right GuildRenameFrame_RenameFlow_NameBox_RightObject
+local GuildRenameFrame_RenameFlow_NameBoxObject = {}
+---@return any ...
+function GuildRenameFrame_RenameFlow_NameBoxObject:NarrationGetContext(...) end
+---@return any ...
+function GuildRenameFrame_RenameFlow_NameBoxObject:NarrationGetDescription(...) end
+---@return any ...
+function GuildRenameFrame_RenameFlow_NameBoxObject:NarrationGetName(...) end
+---@return any ...
+function GuildRenameFrame_RenameFlow_NameBoxObject:SetNarrationLabelRegion(...) end
+end
+
+do
+---@class GuildRenameFrame_RenameFlow_NameBox_InstructionsObject : FontString
+local GuildRenameFrame_RenameFlow_NameBox_InstructionsObject = {}
+end
+
+do
+---@class GuildRenameFrame_RenameFlow_NameBox_LeftObject : Texture
+local GuildRenameFrame_RenameFlow_NameBox_LeftObject = {}
+end
+
+do
+---@class GuildRenameFrame_RenameFlow_NameBox_MiddleObject : Texture
+local GuildRenameFrame_RenameFlow_NameBox_MiddleObject = {}
+end
+
+do
+---@class GuildRenameFrame_RenameFlow_NameBox_RightObject : Texture
+local GuildRenameFrame_RenameFlow_NameBox_RightObject = {}
+end
+
+do
+---@class GuildRenameFrame_RenameFlow_SpinnerObject : Frame
+---@field Anim GuildRenameFrame_RenameFlow_Spinner_AnimObject
+---@field Ring GuildRenameFrame_RenameFlow_Spinner_RingObject
+---@field Sparks GuildRenameFrame_RenameFlow_Spinner_SparksObject
+local GuildRenameFrame_RenameFlow_SpinnerObject = {}
+---@return any ...
+function GuildRenameFrame_RenameFlow_SpinnerObject:GetShadowAlpha(...) end
+---@return any ...
+function GuildRenameFrame_RenameFlow_SpinnerObject:OnHide(...) end
+---@return any ...
+function GuildRenameFrame_RenameFlow_SpinnerObject:OnShow(...) end
+---@return any ...
+function GuildRenameFrame_RenameFlow_SpinnerObject:OnSizeChanged(...) end
+---@return any ...
+function GuildRenameFrame_RenameFlow_SpinnerObject:SetDesaturated(...) end
+---@return any ...
+function GuildRenameFrame_RenameFlow_SpinnerObject:SetShadowEnabled(...) end
+---@return any ...
+function GuildRenameFrame_RenameFlow_SpinnerObject:UpdateShadowSize(...) end
+---@return any ...
+function GuildRenameFrame_RenameFlow_SpinnerObject:UpdateTheme(...) end
+end
+
+do
+---@class GuildRenameFrame_RenameFlow_Spinner_AnimObject : AnimationGroup
+local GuildRenameFrame_RenameFlow_Spinner_AnimObject = {}
+end
+
+do
+---@class GuildRenameFrame_RenameFlow_Spinner_RingObject : Texture
+local GuildRenameFrame_RenameFlow_Spinner_RingObject = {}
+end
+
+do
+---@class GuildRenameFrame_RenameFlow_Spinner_SparksObject : Texture
+local GuildRenameFrame_RenameFlow_Spinner_SparksObject = {}
+end
+
+do
+---@class GuildRenameFrame_RenameFlow_StatusObject : Texture
+local GuildRenameFrame_RenameFlow_StatusObject = {}
+end
+
+do
+---@class GuildRenameFrame_RenameFlow_StatusTextObject : FontString
+local GuildRenameFrame_RenameFlow_StatusTextObject = {}
+end
+
+do
+---@class GuildRenameFrame_RenameFlow_managerObject
+local GuildRenameFrame_RenameFlow_managerObject = {}
+end
+
+do
+---@class GuildRenameFrame_RightJumpHintObject : Frame
+---@field ActiveTexture GuildRenameFrame_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture GuildRenameFrame_RightJumpHint_DisabledTextureObject
+---@field HoldAnim GuildRenameFrame_RightJumpHint_HoldAnimObject
+---@field HoldIndicator GuildRenameFrame_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GuildRenameFrame_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GuildRenameFrame_RightJumpHint_HoverTextureObject
+---@field LoadBar GuildRenameFrame_RightJumpHint_LoadBarObject
+---@field LoadBarBG GuildRenameFrame_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow GuildRenameFrame_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture GuildRenameFrame_RightJumpHint_NormalTextureObject
+---@field PressedTexture GuildRenameFrame_RightJumpHint_PressedTextureObject
+---@field SpinnerTip GuildRenameFrame_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GuildRenameFrame_RightJumpHintObject = {}
+---@return any ...
+function GuildRenameFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function GuildRenameFrame_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function GuildRenameFrame_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function GuildRenameFrame_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function GuildRenameFrame_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function GuildRenameFrame_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function GuildRenameFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function GuildRenameFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function GuildRenameFrame_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function GuildRenameFrame_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function GuildRenameFrame_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function GuildRenameFrame_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function GuildRenameFrame_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function GuildRenameFrame_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function GuildRenameFrame_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function GuildRenameFrame_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function GuildRenameFrame_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function GuildRenameFrame_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function GuildRenameFrame_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function GuildRenameFrame_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function GuildRenameFrame_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function GuildRenameFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GuildRenameFrame_RightJumpHint_ActiveTextureObject : Texture
+local GuildRenameFrame_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class GuildRenameFrame_RightJumpHint_DisabledTextureObject : Texture
+local GuildRenameFrame_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class GuildRenameFrame_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GuildRenameFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GuildRenameFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GuildRenameFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local GuildRenameFrame_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class GuildRenameFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+local GuildRenameFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GuildRenameFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GuildRenameFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GuildRenameFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GuildRenameFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GuildRenameFrame_RightJumpHint_HoldIndicatorObject : Texture
+local GuildRenameFrame_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class GuildRenameFrame_RightJumpHint_HoldIndicatorBGObject : Texture
+local GuildRenameFrame_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GuildRenameFrame_RightJumpHint_HoverTextureObject : Texture
+local GuildRenameFrame_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class GuildRenameFrame_RightJumpHint_LoadBarObject : Texture
+local GuildRenameFrame_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class GuildRenameFrame_RightJumpHint_LoadBarBGObject : Texture
+local GuildRenameFrame_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class GuildRenameFrame_RightJumpHint_LoadBarGlowObject : Texture
+local GuildRenameFrame_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class GuildRenameFrame_RightJumpHint_NormalTextureObject : Texture
+local GuildRenameFrame_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class GuildRenameFrame_RightJumpHint_PressedTextureObject : Texture
+local GuildRenameFrame_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class GuildRenameFrame_RightJumpHint_SpinnerTipObject : Texture
+local GuildRenameFrame_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class GuildRenameFrame_SpinnerObject : Frame
+---@field Anim GuildRenameFrame_Spinner_AnimObject
+---@field Ring GuildRenameFrame_Spinner_RingObject
+---@field Sparks GuildRenameFrame_Spinner_SparksObject
+local GuildRenameFrame_SpinnerObject = {}
+---@return any ...
+function GuildRenameFrame_SpinnerObject:GetShadowAlpha(...) end
+---@return any ...
+function GuildRenameFrame_SpinnerObject:OnHide(...) end
+---@return any ...
+function GuildRenameFrame_SpinnerObject:OnShow(...) end
+---@return any ...
+function GuildRenameFrame_SpinnerObject:OnSizeChanged(...) end
+---@return any ...
+function GuildRenameFrame_SpinnerObject:SetDesaturated(...) end
+---@return any ...
+function GuildRenameFrame_SpinnerObject:SetShadowEnabled(...) end
+---@return any ...
+function GuildRenameFrame_SpinnerObject:UpdateShadowSize(...) end
+---@return any ...
+function GuildRenameFrame_SpinnerObject:UpdateTheme(...) end
+end
+
+do
+---@class GuildRenameFrame_Spinner_AnimObject : AnimationGroup
+local GuildRenameFrame_Spinner_AnimObject = {}
+end
+
+do
+---@class GuildRenameFrame_Spinner_RingObject : Texture
+local GuildRenameFrame_Spinner_RingObject = {}
+end
+
+do
+---@class GuildRenameFrame_Spinner_SparksObject : Texture
+local GuildRenameFrame_Spinner_SparksObject = {}
+end
+
+do
+---@class GuildRenameFrame_TitleContainerObject : Frame
+---@field TitleText GuildRenameFrame_TitleContainer_TitleTextObject
+local GuildRenameFrame_TitleContainerObject = {}
+end
+
+do
+---@class GuildRenameFrame_TitleContainer_TitleTextObject : FontString
+local GuildRenameFrame_TitleContainer_TitleTextObject = {}
+end
+
+do
+---@class GuildRenameFrame_TitleFlowObject : Frame
+---@field Description GuildRenameFrame_TitleFlow_DescriptionObject
+---@field RefundOption GuildRenameFrame_TitleFlow_RefundOptionObject
+---@field RenameOption GuildRenameFrame_TitleFlow_RenameOptionObject
+---@field manager GuildRenameFrame_TitleFlow_managerObject
+---@field timeFormatter GuildRenameFrame_TitleFlow_timeFormatterObject
+local GuildRenameFrame_TitleFlowObject = {}
+---@return any ...
+function GuildRenameFrame_TitleFlowObject:FormatTime(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlowObject:GetManager(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlowObject:OnLoad(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlowObject:OnUpdate(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlowObject:SetManager(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlowObject:UpdateFromStatus(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlowObject:UpdateOptions(...) end
+end
+
+do
+---@class GuildRenameFrame_TitleFlow_DescriptionObject : FontString
+local GuildRenameFrame_TitleFlow_DescriptionObject = {}
+end
+
+do
+---@class GuildRenameFrame_TitleFlow_RefundOptionObject : Button
+---@field Icon GuildRenameFrame_TitleFlow_RefundOption_IconObject
+local GuildRenameFrame_TitleFlow_RefundOptionObject = {}
+---@return any ...
+function GuildRenameFrame_TitleFlow_RefundOptionObject:OnEnter(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_RefundOptionObject:OnLeave(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_RefundOptionObject:Resize(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_RefundOptionObject:SetTextAndResize(...) end
+end
+
+do
+---@class GuildRenameFrame_TitleFlow_RefundOption_IconObject : Texture
+local GuildRenameFrame_TitleFlow_RefundOption_IconObject = {}
+end
+
+do
+---@class GuildRenameFrame_TitleFlow_RenameOptionObject : Button
+---@field Icon GuildRenameFrame_TitleFlow_RenameOption_IconObject
+local GuildRenameFrame_TitleFlow_RenameOptionObject = {}
+---@return any ...
+function GuildRenameFrame_TitleFlow_RenameOptionObject:OnEnter(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_RenameOptionObject:OnLeave(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_RenameOptionObject:Resize(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_RenameOptionObject:SetTextAndResize(...) end
+end
+
+do
+---@class GuildRenameFrame_TitleFlow_RenameOption_IconObject : Texture
+local GuildRenameFrame_TitleFlow_RenameOption_IconObject = {}
+end
+
+do
+---@class GuildRenameFrame_TitleFlow_managerObject
+local GuildRenameFrame_TitleFlow_managerObject = {}
+end
+
+do
+---@class GuildRenameFrame_TitleFlow_timeFormatterObject
+---@field approximationSeconds number
+---@field convertToLower boolean
+---@field defaultAbbreviation number
+---@field minInterval number
+---@field roundUpIntervals boolean
+---@field roundUpLastUnit boolean
+---@field stripIntervalWhitespace boolean
+---@field unitCount number
+local GuildRenameFrame_TitleFlow_timeFormatterObject = {}
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:CanApproximate(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:CanRoundUpIntervals(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:CanRoundUpLastUnit(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:Format(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:FormatMillseconds(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:FormatZero(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:GetApproximationSeconds(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:GetDefaultAbbreviation(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:GetDesiredUnitCount(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:GetFormatString(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:GetIntervalDescription(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:GetIntervalSeconds(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:GetMaxInterval(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:GetMinInterval(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:GetStripIntervalWhitespace(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:Init(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:SetApproximationSeconds(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:SetCanRoundUpIntervals(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:SetCanRoundUpLastUnit(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:SetConvertToLower(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:SetDefaultAbbreviation(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:SetDesiredUnitCount(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:SetMinInterval(...) end
+---@return any ...
+function GuildRenameFrame_TitleFlow_timeFormatterObject:SetStripIntervalWhitespace(...) end
+end
+
+do
+---@class GuildRenameFrame_TopTileStreaksObject : Texture
+local GuildRenameFrame_TopTileStreaksObject = {}
+end
+
+do
+---@class GuildRenameFrame_backgroundTextureObject
+local GuildRenameFrame_backgroundTextureObject = {}
+end
+
+do
+---@class HelpFrameObject : Frame
+---@field Bg HelpFrame_BgObject
+---@field Browser HelpFrame_BrowserObject
+---@field CloseButton HelpFrame_CloseButtonObject
+---@field FocusJumpHint HelpFrame_FocusJumpHintObject
+---@field FrameGlow HelpFrame_FrameGlowObject
+---@field LeftJumpHint HelpFrame_LeftJumpHintObject
+---@field NineSlice HelpFrame_NineSliceObject
+---@field RightJumpHint HelpFrame_RightJumpHintObject
+---@field SpinnerOverlay HelpFrame_SpinnerOverlayObject
+---@field TitleContainer HelpFrame_TitleContainerObject
+---@field TopTileStreaks HelpFrame_TopTileStreaksObject
+---@field layoutType string
+local HelpFrameObject = {}
+---@return any ...
+function HelpFrameObject:EndFocus(...) end
+---@return any ...
+function HelpFrameObject:GetFocusFrameGlow(...) end
+---@return any ...
+function HelpFrameObject:GetFocusFrameRoot(...) end
+---@return any ...
+function HelpFrameObject:GetInitialLoading(...) end
+---@return any ...
+function HelpFrameObject:GetTitleText(...) end
+---@return any ...
+function HelpFrameObject:HideFocusJumpHint(...) end
+---@return any ...
+function HelpFrameObject:HideLeftJumpHint(...) end
+---@return any ...
+function HelpFrameObject:HideRightJumpHint(...) end
+---@return any ...
+function HelpFrameObject:LockInFocus(...) end
+---@return any ...
+function HelpFrameObject:OnError(...) end
+---@return any ...
+function HelpFrameObject:OnEvent(...) end
+---@return any ...
+function HelpFrameObject:OnHide(...) end
+---@return any ...
+function HelpFrameObject:OnLoad(...) end
+---@return any ...
+function HelpFrameObject:OnShow(...) end
+---@return any ...
+function HelpFrameObject:RefreshFocus(...) end
+---@return any ...
+function HelpFrameObject:SetInitialLoading(...) end
+---@return any ...
+function HelpFrameObject:SetTitle(...) end
+---@return any ...
+function HelpFrameObject:SetTitleColor(...) end
+---@return any ...
+function HelpFrameObject:SetTitleFormatted(...) end
+---@return any ...
+function HelpFrameObject:SetTitleMaxLinesAndHeight(...) end
+---@return any ...
+function HelpFrameObject:SetTitleOffsets(...) end
+---@return any ...
+function HelpFrameObject:ShowFocusJumpHint(...) end
+---@return any ...
+function HelpFrameObject:ShowFrame(...) end
+---@return any ...
+function HelpFrameObject:ShowLeftJumpHint(...) end
+---@return any ...
+function HelpFrameObject:ShowRightJumpHint(...) end
+---@return any ...
+function HelpFrameObject:ShowUnavailable(...) end
+---@return any ...
+function HelpFrameObject:StartFocus(...) end
+---@type HelpFrameObject
+HelpFrame = HelpFrameObject
+end
+
+do
+---@class HelpFrame_BgObject : Texture
+local HelpFrame_BgObject = {}
+end
+
+do
+---@class HelpFrame_BrowserObject
+---@field BrowserInset HelpFrame_Browser_BrowserInsetObject
+---@field homepage string
+local HelpFrame_BrowserObject = {}
+end
+
+do
+---@class HelpFrame_Browser_BrowserInsetObject : Frame
+---@field Bg HelpFrame_Browser_BrowserInset_BgObject
+---@field NineSlice HelpFrame_Browser_BrowserInset_NineSliceObject
+---@field layoutType string
+local HelpFrame_Browser_BrowserInsetObject = {}
+end
+
+do
+---@class HelpFrame_Browser_BrowserInset_BgObject : Texture
+local HelpFrame_Browser_BrowserInset_BgObject = {}
+end
+
+do
+---@class HelpFrame_Browser_BrowserInset_NineSliceObject : Frame
+---@field BottomEdge HelpFrame_Browser_BrowserInset_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner HelpFrame_Browser_BrowserInset_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner HelpFrame_Browser_BrowserInset_NineSlice_BottomRightCornerObject
+---@field LeftEdge HelpFrame_Browser_BrowserInset_NineSlice_LeftEdgeObject
+---@field RightEdge HelpFrame_Browser_BrowserInset_NineSlice_RightEdgeObject
+---@field TopEdge HelpFrame_Browser_BrowserInset_NineSlice_TopEdgeObject
+---@field TopLeftCorner HelpFrame_Browser_BrowserInset_NineSlice_TopLeftCornerObject
+---@field TopRightCorner HelpFrame_Browser_BrowserInset_NineSlice_TopRightCornerObject
+local HelpFrame_Browser_BrowserInset_NineSliceObject = {}
+---@return any ...
+function HelpFrame_Browser_BrowserInset_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function HelpFrame_Browser_BrowserInset_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function HelpFrame_Browser_BrowserInset_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function HelpFrame_Browser_BrowserInset_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function HelpFrame_Browser_BrowserInset_NineSliceObject:OnLoad(...) end
+---@return any ...
+function HelpFrame_Browser_BrowserInset_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function HelpFrame_Browser_BrowserInset_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function HelpFrame_Browser_BrowserInset_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function HelpFrame_Browser_BrowserInset_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function HelpFrame_Browser_BrowserInset_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class HelpFrame_Browser_BrowserInset_NineSlice_BottomEdgeObject : Texture
+local HelpFrame_Browser_BrowserInset_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class HelpFrame_Browser_BrowserInset_NineSlice_BottomLeftCornerObject : Texture
+local HelpFrame_Browser_BrowserInset_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class HelpFrame_Browser_BrowserInset_NineSlice_BottomRightCornerObject : Texture
+local HelpFrame_Browser_BrowserInset_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class HelpFrame_Browser_BrowserInset_NineSlice_LeftEdgeObject : Texture
+local HelpFrame_Browser_BrowserInset_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class HelpFrame_Browser_BrowserInset_NineSlice_RightEdgeObject : Texture
+local HelpFrame_Browser_BrowserInset_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class HelpFrame_Browser_BrowserInset_NineSlice_TopEdgeObject : Texture
+local HelpFrame_Browser_BrowserInset_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class HelpFrame_Browser_BrowserInset_NineSlice_TopLeftCornerObject : Texture
+local HelpFrame_Browser_BrowserInset_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class HelpFrame_Browser_BrowserInset_NineSlice_TopRightCornerObject : Texture
+local HelpFrame_Browser_BrowserInset_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class HelpFrame_CloseButtonObject : Button
+local HelpFrame_CloseButtonObject = {}
+---@return any ...
+function HelpFrame_CloseButtonObject:NarrationGetName(...) end
+---@return any ...
+function HelpFrame_CloseButtonObject:OnLoad(...) end
+end
+
+do
+---@class HelpFrame_FocusJumpHintObject : Frame
+---@field ActiveTexture HelpFrame_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture HelpFrame_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim HelpFrame_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator HelpFrame_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG HelpFrame_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture HelpFrame_FocusJumpHint_HoverTextureObject
+---@field LoadBar HelpFrame_FocusJumpHint_LoadBarObject
+---@field LoadBarBG HelpFrame_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow HelpFrame_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture HelpFrame_FocusJumpHint_NormalTextureObject
+---@field PressedTexture HelpFrame_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip HelpFrame_FocusJumpHint_SpinnerTipObject
+---@field ignoreInLayout boolean
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local HelpFrame_FocusJumpHintObject = {}
+---@return any ...
+function HelpFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function HelpFrame_FocusJumpHintObject:BeginHold(...) end
+---@return any ...
+function HelpFrame_FocusJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function HelpFrame_FocusJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function HelpFrame_FocusJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function HelpFrame_FocusJumpHintObject:EndHold(...) end
+---@return any ...
+function HelpFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function HelpFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function HelpFrame_FocusJumpHintObject:OnLoad(...) end
+---@return any ...
+function HelpFrame_FocusJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function HelpFrame_FocusJumpHintObject:SetDisabled(...) end
+---@return any ...
+function HelpFrame_FocusJumpHintObject:SetEnabled(...) end
+---@return any ...
+function HelpFrame_FocusJumpHintObject:SetFocused(...) end
+---@return any ...
+function HelpFrame_FocusJumpHintObject:SetHoldState(...) end
+---@return any ...
+function HelpFrame_FocusJumpHintObject:SetInputKey(...) end
+---@return any ...
+function HelpFrame_FocusJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function HelpFrame_FocusJumpHintObject:SetPressable(...) end
+---@return any ...
+function HelpFrame_FocusJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function HelpFrame_FocusJumpHintObject:SetTextureState(...) end
+---@return any ...
+function HelpFrame_FocusJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function HelpFrame_FocusJumpHintObject:SetUsableState(...) end
+---@return any ...
+function HelpFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class HelpFrame_FocusJumpHint_ActiveTextureObject : Texture
+local HelpFrame_FocusJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class HelpFrame_FocusJumpHint_DisabledTextureObject : Texture
+local HelpFrame_FocusJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class HelpFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim HelpFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim HelpFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim HelpFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local HelpFrame_FocusJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class HelpFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local HelpFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class HelpFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local HelpFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class HelpFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local HelpFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class HelpFrame_FocusJumpHint_HoldIndicatorObject : Texture
+local HelpFrame_FocusJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class HelpFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
+local HelpFrame_FocusJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class HelpFrame_FocusJumpHint_HoverTextureObject : Texture
+local HelpFrame_FocusJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class HelpFrame_FocusJumpHint_LoadBarObject : Texture
+local HelpFrame_FocusJumpHint_LoadBarObject = {}
+end
+
+do
+---@class HelpFrame_FocusJumpHint_LoadBarBGObject : Texture
+local HelpFrame_FocusJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class HelpFrame_FocusJumpHint_LoadBarGlowObject : Texture
+local HelpFrame_FocusJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class HelpFrame_FocusJumpHint_NormalTextureObject : Texture
+local HelpFrame_FocusJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class HelpFrame_FocusJumpHint_PressedTextureObject : Texture
+local HelpFrame_FocusJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class HelpFrame_FocusJumpHint_SpinnerTipObject : Texture
+local HelpFrame_FocusJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class HelpFrame_FrameGlowObject : Frame
+---@field GlowTexture HelpFrame_FrameGlow_GlowTextureObject
+---@field glowTextures table
+local HelpFrame_FrameGlowObject = {}
+---@return any ...
+function HelpFrame_FrameGlowObject:GetContainerFrame(...) end
+---@return any ...
+function HelpFrame_FrameGlowObject:GetFrameLayoutType(...) end
+---@return any ...
+function HelpFrame_FrameGlowObject:GetHeaderFrame(...) end
+---@return any ...
+function HelpFrame_FrameGlowObject:OnLoad(...) end
+end
+
+do
+---@class HelpFrame_FrameGlow_GlowTextureObject : Texture
+local HelpFrame_FrameGlow_GlowTextureObject = {}
+end
+
+do
+---@class HelpFrame_LeftJumpHintObject : Frame
+---@field ActiveTexture HelpFrame_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture HelpFrame_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim HelpFrame_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator HelpFrame_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG HelpFrame_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture HelpFrame_LeftJumpHint_HoverTextureObject
+---@field LoadBar HelpFrame_LeftJumpHint_LoadBarObject
+---@field LoadBarBG HelpFrame_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow HelpFrame_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture HelpFrame_LeftJumpHint_NormalTextureObject
+---@field PressedTexture HelpFrame_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip HelpFrame_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local HelpFrame_LeftJumpHintObject = {}
+---@return any ...
+function HelpFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function HelpFrame_LeftJumpHintObject:BeginHold(...) end
+---@return any ...
+function HelpFrame_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function HelpFrame_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function HelpFrame_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function HelpFrame_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function HelpFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function HelpFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function HelpFrame_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function HelpFrame_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function HelpFrame_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function HelpFrame_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function HelpFrame_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function HelpFrame_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function HelpFrame_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function HelpFrame_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function HelpFrame_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function HelpFrame_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function HelpFrame_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function HelpFrame_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function HelpFrame_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function HelpFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class HelpFrame_LeftJumpHint_ActiveTextureObject : Texture
+local HelpFrame_LeftJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class HelpFrame_LeftJumpHint_DisabledTextureObject : Texture
+local HelpFrame_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class HelpFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim HelpFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim HelpFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim HelpFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local HelpFrame_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class HelpFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local HelpFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class HelpFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local HelpFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class HelpFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local HelpFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class HelpFrame_LeftJumpHint_HoldIndicatorObject : Texture
+local HelpFrame_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class HelpFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
+local HelpFrame_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class HelpFrame_LeftJumpHint_HoverTextureObject : Texture
+local HelpFrame_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class HelpFrame_LeftJumpHint_LoadBarObject : Texture
+local HelpFrame_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class HelpFrame_LeftJumpHint_LoadBarBGObject : Texture
+local HelpFrame_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class HelpFrame_LeftJumpHint_LoadBarGlowObject : Texture
+local HelpFrame_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class HelpFrame_LeftJumpHint_NormalTextureObject : Texture
+local HelpFrame_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class HelpFrame_LeftJumpHint_PressedTextureObject : Texture
+local HelpFrame_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class HelpFrame_LeftJumpHint_SpinnerTipObject : Texture
+local HelpFrame_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class HelpFrame_NineSliceObject : Frame
+---@field BottomEdge HelpFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner HelpFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner HelpFrame_NineSlice_BottomRightCornerObject
+---@field Center HelpFrame_NineSlice_CenterObject
+---@field LeftEdge HelpFrame_NineSlice_LeftEdgeObject
+---@field RightEdge HelpFrame_NineSlice_RightEdgeObject
+---@field TopEdge HelpFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner HelpFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner HelpFrame_NineSlice_TopRightCornerObject
+local HelpFrame_NineSliceObject = {}
+---@return any ...
+function HelpFrame_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function HelpFrame_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function HelpFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function HelpFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function HelpFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function HelpFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function HelpFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function HelpFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function HelpFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function HelpFrame_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class HelpFrame_NineSlice_BottomEdgeObject : Texture
+local HelpFrame_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class HelpFrame_NineSlice_BottomLeftCornerObject : Texture
+local HelpFrame_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class HelpFrame_NineSlice_BottomRightCornerObject : Texture
+local HelpFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class HelpFrame_NineSlice_CenterObject : Texture
+local HelpFrame_NineSlice_CenterObject = {}
+end
+
+do
+---@class HelpFrame_NineSlice_LeftEdgeObject : Texture
+local HelpFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class HelpFrame_NineSlice_RightEdgeObject : Texture
+local HelpFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class HelpFrame_NineSlice_TopEdgeObject : Texture
+local HelpFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class HelpFrame_NineSlice_TopLeftCornerObject : Texture
+local HelpFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class HelpFrame_NineSlice_TopRightCornerObject : Texture
+local HelpFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class HelpFrame_RightJumpHintObject : Frame
+---@field ActiveTexture HelpFrame_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture HelpFrame_RightJumpHint_DisabledTextureObject
+---@field HoldAnim HelpFrame_RightJumpHint_HoldAnimObject
+---@field HoldIndicator HelpFrame_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG HelpFrame_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture HelpFrame_RightJumpHint_HoverTextureObject
+---@field LoadBar HelpFrame_RightJumpHint_LoadBarObject
+---@field LoadBarBG HelpFrame_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow HelpFrame_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture HelpFrame_RightJumpHint_NormalTextureObject
+---@field PressedTexture HelpFrame_RightJumpHint_PressedTextureObject
+---@field SpinnerTip HelpFrame_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local HelpFrame_RightJumpHintObject = {}
+---@return any ...
+function HelpFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function HelpFrame_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function HelpFrame_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function HelpFrame_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function HelpFrame_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function HelpFrame_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function HelpFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function HelpFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function HelpFrame_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function HelpFrame_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function HelpFrame_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function HelpFrame_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function HelpFrame_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function HelpFrame_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function HelpFrame_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function HelpFrame_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function HelpFrame_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function HelpFrame_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function HelpFrame_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function HelpFrame_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function HelpFrame_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function HelpFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class HelpFrame_RightJumpHint_ActiveTextureObject : Texture
+local HelpFrame_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class HelpFrame_RightJumpHint_DisabledTextureObject : Texture
+local HelpFrame_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class HelpFrame_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim HelpFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim HelpFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim HelpFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local HelpFrame_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class HelpFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+local HelpFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class HelpFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local HelpFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class HelpFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local HelpFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class HelpFrame_RightJumpHint_HoldIndicatorObject : Texture
+local HelpFrame_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class HelpFrame_RightJumpHint_HoldIndicatorBGObject : Texture
+local HelpFrame_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class HelpFrame_RightJumpHint_HoverTextureObject : Texture
+local HelpFrame_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class HelpFrame_RightJumpHint_LoadBarObject : Texture
+local HelpFrame_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class HelpFrame_RightJumpHint_LoadBarBGObject : Texture
+local HelpFrame_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class HelpFrame_RightJumpHint_LoadBarGlowObject : Texture
+local HelpFrame_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class HelpFrame_RightJumpHint_NormalTextureObject : Texture
+local HelpFrame_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class HelpFrame_RightJumpHint_PressedTextureObject : Texture
+local HelpFrame_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class HelpFrame_RightJumpHint_SpinnerTipObject : Texture
+local HelpFrame_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class HelpFrame_SpinnerOverlayObject : Frame
+---@field Anim HelpFrame_SpinnerOverlay_AnimObject
+---@field Ring HelpFrame_SpinnerOverlay_RingObject
+---@field Sparks HelpFrame_SpinnerOverlay_SparksObject
+local HelpFrame_SpinnerOverlayObject = {}
+---@return any ...
+function HelpFrame_SpinnerOverlayObject:GetShadowAlpha(...) end
+---@return any ...
+function HelpFrame_SpinnerOverlayObject:OnHide(...) end
+---@return any ...
+function HelpFrame_SpinnerOverlayObject:OnShow(...) end
+---@return any ...
+function HelpFrame_SpinnerOverlayObject:OnSizeChanged(...) end
+---@return any ...
+function HelpFrame_SpinnerOverlayObject:SetDesaturated(...) end
+---@return any ...
+function HelpFrame_SpinnerOverlayObject:SetShadowEnabled(...) end
+---@return any ...
+function HelpFrame_SpinnerOverlayObject:UpdateShadowSize(...) end
+---@return any ...
+function HelpFrame_SpinnerOverlayObject:UpdateTheme(...) end
+end
+
+do
+---@class HelpFrame_SpinnerOverlay_AnimObject : AnimationGroup
+local HelpFrame_SpinnerOverlay_AnimObject = {}
+end
+
+do
+---@class HelpFrame_SpinnerOverlay_RingObject : Texture
+local HelpFrame_SpinnerOverlay_RingObject = {}
+end
+
+do
+---@class HelpFrame_SpinnerOverlay_SparksObject : Texture
+local HelpFrame_SpinnerOverlay_SparksObject = {}
+end
+
+do
+---@class HelpFrame_TitleContainerObject : Frame
+---@field TitleText HelpFrame_TitleContainer_TitleTextObject
+local HelpFrame_TitleContainerObject = {}
+end
+
+do
+---@class HelpFrame_TitleContainer_TitleTextObject : FontString
+local HelpFrame_TitleContainer_TitleTextObject = {}
+end
+
+do
+---@class HelpFrame_TopTileStreaksObject : Texture
+local HelpFrame_TopTileStreaksObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialogObject : Frame
+---@field Background HeroTalentsSelectionDialog_BackgroundObject
+---@field Bg HeroTalentsSelectionDialog_BgObject
+---@field CloseButton HeroTalentsSelectionDialog_CloseButtonObject
+---@field CoverFrame HeroTalentsSelectionDialog_CoverFrameObject
+---@field DisabledOverlay HeroTalentsSelectionDialog_DisabledOverlayObject
+---@field FocusJumpHint HeroTalentsSelectionDialog_FocusJumpHintObject
+---@field FrameGlow HeroTalentsSelectionDialog_FrameGlowObject
+---@field LeftJumpHint HeroTalentsSelectionDialog_LeftJumpHintObject
+---@field NineSlice HeroTalentsSelectionDialog_NineSliceObject
+---@field RightJumpHint HeroTalentsSelectionDialog_RightJumpHintObject
+---@field SpecContentFramePool HeroTalentsSelectionDialog_SpecContentFramePoolObject
+---@field SpecOptionsContainer HeroTalentsSelectionDialog_SpecOptionsContainerObject
+---@field TitleContainer HeroTalentsSelectionDialog_TitleContainerObject
+---@field TopTileStreaks HeroTalentsSelectionDialog_TopTileStreaksObject
+---@field checkFitExtraHeight number
+---@field checkFitExtraWidth number
+---@field layoutType string
+---@field talentFrame HeroTalentsSelectionDialog_talentFrameObject
+local HeroTalentsSelectionDialogObject = {}
+---@return any ...
+function HeroTalentsSelectionDialogObject:AnyPendingHeroTalentCosts(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:EndFocus(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:GetFocusFrameGlow(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:GetFocusFrameRoot(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:GetTalentFrame(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:GetTitleText(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:HasData(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:HideFocusJumpHint(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:HideLeftJumpHint(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:HideRightJumpHint(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:IsActive(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:IsVisibleSubTreeOption(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:LockInFocus(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:OnApplyChangesButtonClicked(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:OnCoverFrameClicked(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:OnEvent(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:OnHeroSpecSelected(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:OnHide(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:OnKeyDown(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:OnLoad(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:OnShow(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:PlaceHeroTalentButton(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:PlayActivationFlash(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:RefreshFocus(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:SetCommitCompleteVisualsActive(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:SetCommitVisualsActive(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:SetTalentFrame(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:SetTitle(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:SetTitleColor(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:SetTitleFormatted(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:SetTitleMaxLinesAndHeight(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:SetTitleOffsets(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:ShowDialog(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:ShowFocusJumpHint(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:ShowLeftJumpHint(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:ShowRightJumpHint(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:StartFocus(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:UpdateActivateButtons(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:UpdateActiveHeroSpec(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:UpdateApplyButtons(...) end
+---@return any ...
+function HeroTalentsSelectionDialogObject:UpdateCurrencies(...) end
+---@type HeroTalentsSelectionDialogObject
+HeroTalentsSelectionDialog = HeroTalentsSelectionDialogObject
+end
+
+do
+---@class HeroTalentsSelectionDialog_BackgroundObject : Texture
+local HeroTalentsSelectionDialog_BackgroundObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_BgObject : Texture
+local HeroTalentsSelectionDialog_BgObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_CloseButtonObject : Button
+local HeroTalentsSelectionDialog_CloseButtonObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_CloseButtonObject:NarrationGetName(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_CloseButtonObject:OnLoad(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_CoverFrameObject : Button
+local HeroTalentsSelectionDialog_CoverFrameObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_DisabledOverlayObject : Frame
+---@field GrayOverlay HeroTalentsSelectionDialog_DisabledOverlay_GrayOverlayObject
+local HeroTalentsSelectionDialog_DisabledOverlayObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_DisabledOverlay_GrayOverlayObject : Texture
+local HeroTalentsSelectionDialog_DisabledOverlay_GrayOverlayObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_FocusJumpHintObject : Frame
+---@field ActiveTexture HeroTalentsSelectionDialog_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture HeroTalentsSelectionDialog_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim HeroTalentsSelectionDialog_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator HeroTalentsSelectionDialog_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG HeroTalentsSelectionDialog_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture HeroTalentsSelectionDialog_FocusJumpHint_HoverTextureObject
+---@field LoadBar HeroTalentsSelectionDialog_FocusJumpHint_LoadBarObject
+---@field LoadBarBG HeroTalentsSelectionDialog_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow HeroTalentsSelectionDialog_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture HeroTalentsSelectionDialog_FocusJumpHint_NormalTextureObject
+---@field PressedTexture HeroTalentsSelectionDialog_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip HeroTalentsSelectionDialog_FocusJumpHint_SpinnerTipObject
+---@field ignoreInLayout boolean
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local HeroTalentsSelectionDialog_FocusJumpHintObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_FocusJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FocusJumpHintObject:BeginHold(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FocusJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FocusJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FocusJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FocusJumpHintObject:EndHold(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FocusJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FocusJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FocusJumpHintObject:OnLoad(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FocusJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FocusJumpHintObject:SetDisabled(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FocusJumpHintObject:SetEnabled(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FocusJumpHintObject:SetFocused(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FocusJumpHintObject:SetHoldState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FocusJumpHintObject:SetInputKey(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FocusJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FocusJumpHintObject:SetPressable(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FocusJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FocusJumpHintObject:SetTextureState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FocusJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FocusJumpHintObject:SetUsableState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_FocusJumpHint_ActiveTextureObject : Texture
+local HeroTalentsSelectionDialog_FocusJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_FocusJumpHint_DisabledTextureObject : Texture
+local HeroTalentsSelectionDialog_FocusJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim HeroTalentsSelectionDialog_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim HeroTalentsSelectionDialog_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim HeroTalentsSelectionDialog_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local HeroTalentsSelectionDialog_FocusJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local HeroTalentsSelectionDialog_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local HeroTalentsSelectionDialog_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local HeroTalentsSelectionDialog_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_FocusJumpHint_HoldIndicatorObject : Texture
+local HeroTalentsSelectionDialog_FocusJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_FocusJumpHint_HoldIndicatorBGObject : Texture
+local HeroTalentsSelectionDialog_FocusJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_FocusJumpHint_HoverTextureObject : Texture
+local HeroTalentsSelectionDialog_FocusJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_FocusJumpHint_LoadBarObject : Texture
+local HeroTalentsSelectionDialog_FocusJumpHint_LoadBarObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_FocusJumpHint_LoadBarBGObject : Texture
+local HeroTalentsSelectionDialog_FocusJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_FocusJumpHint_LoadBarGlowObject : Texture
+local HeroTalentsSelectionDialog_FocusJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_FocusJumpHint_NormalTextureObject : Texture
+local HeroTalentsSelectionDialog_FocusJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_FocusJumpHint_PressedTextureObject : Texture
+local HeroTalentsSelectionDialog_FocusJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_FocusJumpHint_SpinnerTipObject : Texture
+local HeroTalentsSelectionDialog_FocusJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_FrameGlowObject : Frame
+---@field GlowTexture HeroTalentsSelectionDialog_FrameGlow_GlowTextureObject
+---@field glowTextures table
+local HeroTalentsSelectionDialog_FrameGlowObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_FrameGlowObject:GetContainerFrame(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FrameGlowObject:GetFrameLayoutType(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FrameGlowObject:GetHeaderFrame(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_FrameGlowObject:OnLoad(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_FrameGlow_GlowTextureObject : Texture
+local HeroTalentsSelectionDialog_FrameGlow_GlowTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_LeftJumpHintObject : Frame
+---@field ActiveTexture HeroTalentsSelectionDialog_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture HeroTalentsSelectionDialog_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim HeroTalentsSelectionDialog_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator HeroTalentsSelectionDialog_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG HeroTalentsSelectionDialog_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture HeroTalentsSelectionDialog_LeftJumpHint_HoverTextureObject
+---@field LoadBar HeroTalentsSelectionDialog_LeftJumpHint_LoadBarObject
+---@field LoadBarBG HeroTalentsSelectionDialog_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow HeroTalentsSelectionDialog_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture HeroTalentsSelectionDialog_LeftJumpHint_NormalTextureObject
+---@field PressedTexture HeroTalentsSelectionDialog_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip HeroTalentsSelectionDialog_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local HeroTalentsSelectionDialog_LeftJumpHintObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_LeftJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_LeftJumpHintObject:BeginHold(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_LeftJumpHint_ActiveTextureObject : Texture
+local HeroTalentsSelectionDialog_LeftJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_LeftJumpHint_DisabledTextureObject : Texture
+local HeroTalentsSelectionDialog_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim HeroTalentsSelectionDialog_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim HeroTalentsSelectionDialog_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim HeroTalentsSelectionDialog_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local HeroTalentsSelectionDialog_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local HeroTalentsSelectionDialog_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local HeroTalentsSelectionDialog_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local HeroTalentsSelectionDialog_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_LeftJumpHint_HoldIndicatorObject : Texture
+local HeroTalentsSelectionDialog_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_LeftJumpHint_HoldIndicatorBGObject : Texture
+local HeroTalentsSelectionDialog_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_LeftJumpHint_HoverTextureObject : Texture
+local HeroTalentsSelectionDialog_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_LeftJumpHint_LoadBarObject : Texture
+local HeroTalentsSelectionDialog_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_LeftJumpHint_LoadBarBGObject : Texture
+local HeroTalentsSelectionDialog_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_LeftJumpHint_LoadBarGlowObject : Texture
+local HeroTalentsSelectionDialog_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_LeftJumpHint_NormalTextureObject : Texture
+local HeroTalentsSelectionDialog_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_LeftJumpHint_PressedTextureObject : Texture
+local HeroTalentsSelectionDialog_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_LeftJumpHint_SpinnerTipObject : Texture
+local HeroTalentsSelectionDialog_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_NineSliceObject : Frame
+---@field BottomEdge HeroTalentsSelectionDialog_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner HeroTalentsSelectionDialog_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner HeroTalentsSelectionDialog_NineSlice_BottomRightCornerObject
+---@field Center HeroTalentsSelectionDialog_NineSlice_CenterObject
+---@field LeftEdge HeroTalentsSelectionDialog_NineSlice_LeftEdgeObject
+---@field RightEdge HeroTalentsSelectionDialog_NineSlice_RightEdgeObject
+---@field TopEdge HeroTalentsSelectionDialog_NineSlice_TopEdgeObject
+---@field TopLeftCorner HeroTalentsSelectionDialog_NineSlice_TopLeftCornerObject
+---@field TopRightCorner HeroTalentsSelectionDialog_NineSlice_TopRightCornerObject
+local HeroTalentsSelectionDialog_NineSliceObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_NineSliceObject:OnLoad(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_NineSlice_BottomEdgeObject : Texture
+local HeroTalentsSelectionDialog_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_NineSlice_BottomLeftCornerObject : Texture
+local HeroTalentsSelectionDialog_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_NineSlice_BottomRightCornerObject : Texture
+local HeroTalentsSelectionDialog_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_NineSlice_CenterObject : Texture
+local HeroTalentsSelectionDialog_NineSlice_CenterObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_NineSlice_LeftEdgeObject : Texture
+local HeroTalentsSelectionDialog_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_NineSlice_RightEdgeObject : Texture
+local HeroTalentsSelectionDialog_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_NineSlice_TopEdgeObject : Texture
+local HeroTalentsSelectionDialog_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_NineSlice_TopLeftCornerObject : Texture
+local HeroTalentsSelectionDialog_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_NineSlice_TopRightCornerObject : Texture
+local HeroTalentsSelectionDialog_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_RightJumpHintObject : Frame
+---@field ActiveTexture HeroTalentsSelectionDialog_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture HeroTalentsSelectionDialog_RightJumpHint_DisabledTextureObject
+---@field HoldAnim HeroTalentsSelectionDialog_RightJumpHint_HoldAnimObject
+---@field HoldIndicator HeroTalentsSelectionDialog_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG HeroTalentsSelectionDialog_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture HeroTalentsSelectionDialog_RightJumpHint_HoverTextureObject
+---@field LoadBar HeroTalentsSelectionDialog_RightJumpHint_LoadBarObject
+---@field LoadBarBG HeroTalentsSelectionDialog_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow HeroTalentsSelectionDialog_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture HeroTalentsSelectionDialog_RightJumpHint_NormalTextureObject
+---@field PressedTexture HeroTalentsSelectionDialog_RightJumpHint_PressedTextureObject
+---@field SpinnerTip HeroTalentsSelectionDialog_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local HeroTalentsSelectionDialog_RightJumpHintObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_RightJumpHint_ActiveTextureObject : Texture
+local HeroTalentsSelectionDialog_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_RightJumpHint_DisabledTextureObject : Texture
+local HeroTalentsSelectionDialog_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim HeroTalentsSelectionDialog_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim HeroTalentsSelectionDialog_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim HeroTalentsSelectionDialog_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local HeroTalentsSelectionDialog_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_RightJumpHint_HoldAnim_LoadBarAnimObject
+local HeroTalentsSelectionDialog_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local HeroTalentsSelectionDialog_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local HeroTalentsSelectionDialog_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_RightJumpHint_HoldIndicatorObject : Texture
+local HeroTalentsSelectionDialog_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_RightJumpHint_HoldIndicatorBGObject : Texture
+local HeroTalentsSelectionDialog_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_RightJumpHint_HoverTextureObject : Texture
+local HeroTalentsSelectionDialog_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_RightJumpHint_LoadBarObject : Texture
+local HeroTalentsSelectionDialog_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_RightJumpHint_LoadBarBGObject : Texture
+local HeroTalentsSelectionDialog_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_RightJumpHint_LoadBarGlowObject : Texture
+local HeroTalentsSelectionDialog_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_RightJumpHint_NormalTextureObject : Texture
+local HeroTalentsSelectionDialog_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_RightJumpHint_PressedTextureObject : Texture
+local HeroTalentsSelectionDialog_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_RightJumpHint_SpinnerTipObject : Texture
+local HeroTalentsSelectionDialog_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_SpecContentFramePoolObject
+local HeroTalentsSelectionDialog_SpecContentFramePoolObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_SpecContentFramePoolObject:GetTemplate(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecContentFramePoolObject:private(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_SpecOptionsContainerObject : Frame
+---@field fixedHeight number
+---@field fixedWidth number
+local HeroTalentsSelectionDialog_SpecOptionsContainerObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:AddLayoutChildren(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:CalculateFrameSize(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:ClearFixedSize(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:GetAdditionalRegions(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:GetChildHeight(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:GetChildPadding(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:GetChildSize(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:GetChildWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:GetFixedHeight(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:GetFixedSize(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:GetFixedWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:GetHeightPadding(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:GetLayoutChildren(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:GetPadding(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:GetWidthPadding(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:IsDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:IsLayoutFrame(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:Layout(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:LayoutChildren(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:MarkClean(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:MarkDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:OnCleaned(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:OnShow(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:OnUpdate(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:SetFixedHeight(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:SetFixedSize(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:SetFixedWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:SetHeightPadding(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:SetWidthPadding(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_SpecOptionsContainerObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_TitleContainerObject : Frame
+---@field TitleText HeroTalentsSelectionDialog_TitleContainer_TitleTextObject
+local HeroTalentsSelectionDialog_TitleContainerObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_TitleContainer_TitleTextObject : FontString
+local HeroTalentsSelectionDialog_TitleContainer_TitleTextObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_TopTileStreaksObject : Texture
+local HeroTalentsSelectionDialog_TopTileStreaksObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrameObject : Frame
+---@field ActivationClassFx HeroTalentsSelectionDialog_talentFrame_ActivationClassFxObject
+---@field ActivationClassFx2 HeroTalentsSelectionDialog_talentFrame_ActivationClassFx2Object
+---@field ActivationClassFx3 HeroTalentsSelectionDialog_talentFrame_ActivationClassFx3Object
+---@field ActivationClassFx4 HeroTalentsSelectionDialog_talentFrame_ActivationClassFx4Object
+---@field ActivationExpandFx HeroTalentsSelectionDialog_talentFrame_ActivationExpandFxObject
+---@field ActivationExpandFxMask HeroTalentsSelectionDialog_talentFrame_ActivationExpandFxMaskObject
+---@field ActivationTitansFX HeroTalentsSelectionDialog_talentFrame_ActivationTitansFXObject
+---@field ActiveSpec HeroTalentsSelectionDialog_talentFrame_ActiveSpecObject
+---@field AirParticlesClose HeroTalentsSelectionDialog_talentFrame_AirParticlesCloseObject
+---@field AirParticlesFar HeroTalentsSelectionDialog_talentFrame_AirParticlesFarObject
+---@field AnimationHolder HeroTalentsSelectionDialog_talentFrame_AnimationHolderObject
+---@field ApplyButton HeroTalentsSelectionDialog_talentFrame_ApplyButtonObject
+---@field Background HeroTalentsSelectionDialog_talentFrame_BackgroundObject
+---@field BackgroundBorder HeroTalentsSelectionDialog_talentFrame_BackgroundBorderObject
+---@field BackgroundFlash HeroTalentsSelectionDialog_talentFrame_BackgroundFlashObject
+---@field ButtonsParent HeroTalentsSelectionDialog_talentFrame_ButtonsParentObject
+---@field ClassBackground HeroTalentsSelectionDialog_talentFrame_ClassBackgroundObject
+---@field ClassCurrencyDisplay HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject
+---@field Clouds1 HeroTalentsSelectionDialog_talentFrame_Clouds1Object
+---@field Clouds2 HeroTalentsSelectionDialog_talentFrame_Clouds2Object
+---@field CommitSpinner HeroTalentsSelectionDialog_talentFrame_CommitSpinnerObject
+---@field CommitUpdateReasons HeroTalentsSelectionDialog_talentFrame_CommitUpdateReasonsObject
+---@field DisabledOverlay HeroTalentsSelectionDialog_talentFrame_DisabledOverlayObject
+---@field DividerHorizontalLeft HeroTalentsSelectionDialog_talentFrame_DividerHorizontalLeftObject
+---@field DividerHorizontalRight HeroTalentsSelectionDialog_talentFrame_DividerHorizontalRightObject
+---@field DividerVerticalLeft HeroTalentsSelectionDialog_talentFrame_DividerVerticalLeftObject
+---@field DividerVerticalRight HeroTalentsSelectionDialog_talentFrame_DividerVerticalRightObject
+---@field Event HeroTalentsSelectionDialog_talentFrame_EventObject
+---@field FullMask HeroTalentsSelectionDialog_talentFrame_FullMaskObject
+---@field FxModelScene HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject
+---@field GamepadPrimaryTabIcon HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject
+---@field GamepadSecondaryTabIcon HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject
+---@field GamepadUndoButton HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject
+---@field HeroTalentsContainer HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject
+---@field InspectCopyButton HeroTalentsSelectionDialog_talentFrame_InspectCopyButtonObject
+---@field LoadSystem HeroTalentsSelectionDialog_talentFrame_LoadSystemObject
+---@field OverlayBackgroundMid HeroTalentsSelectionDialog_talentFrame_OverlayBackgroundMidObject
+---@field OverlayBackgroundMidMask HeroTalentsSelectionDialog_talentFrame_OverlayBackgroundMidMaskObject
+---@field OverlayBackgroundRight HeroTalentsSelectionDialog_talentFrame_OverlayBackgroundRightObject
+---@field OverlayBackgroundRightMask HeroTalentsSelectionDialog_talentFrame_OverlayBackgroundRightMaskObject
+---@field ResetButton HeroTalentsSelectionDialog_talentFrame_ResetButtonObject
+---@field SearchBox HeroTalentsSelectionDialog_talentFrame_SearchBoxObject
+---@field SearchBoxIcon HeroTalentsSelectionDialog_talentFrame_SearchBoxIconObject
+---@field SearchOptionsDropdown HeroTalentsSelectionDialog_talentFrame_SearchOptionsDropdownObject
+---@field SearchPreviewContainer HeroTalentsSelectionDialog_talentFrame_SearchPreviewContainerObject
+---@field SelectionChoiceFrame HeroTalentsSelectionDialog_talentFrame_SelectionChoiceFrameObject
+---@field SettingsTopFaceIcon HeroTalentsSelectionDialog_talentFrame_SettingsTopFaceIconObject
+---@field TabSystem HeroTalentsSelectionDialog_talentFrame_TabSystemObject
+---@field Textures table
+---@field UndoButton HeroTalentsSelectionDialog_talentFrame_UndoButtonObject
+---@field VisualsUpdateReasons HeroTalentsSelectionDialog_talentFrame_VisualsUpdateReasonsObject
+---@field areBaseCommitVisualsActive boolean
+---@field areClassTalentCommitCompleteVisualsActive boolean
+---@field areClassTalentCommitVisualsActive boolean
+---@field backgroundAnims table
+---@field basePanOffsetX number
+---@field basePanOffsetY number
+---@field bitWidthHeaderVersion number
+---@field bitWidthRanksPurchased number
+---@field bitWidthSpecID number
+---@field bottomPadding number
+---@field buttonSize number
+---@field buttonsWithDirtyEdges table
+---@field callbackTables table
+---@field classActivationTextures table
+---@field commitFlashAnims table
+---@field commitSound number
+---@field condInfoCache table
+---@field configurationInfo HeroTalentsSelectionDialog_talentFrame_configurationInfoObject
+---@field deferredCallbacks table
+---@field definitionInfoCache table
+---@field dirtyCondIDSet table
+---@field dirtyDefinitionIDSet table
+---@field dirtyEntryIDSet table
+---@field dirtyNodeIDSet table
+---@field dirtySubTreeIDSet table
+---@field disabledOverlayAlpha number
+---@field edgePool HeroTalentsSelectionDialog_talentFrame_edgePoolObject
+---@field enableCommitCastBar boolean
+---@field enableCommitEndFlash boolean
+---@field enableCommitSpinner boolean
+---@field enableZoomAndPan boolean
+---@field entryInfoCache table
+---@field eventRegisteredNodes table
+---@field excludeStagedChangesForCurrencies boolean
+---@field executingEvents table
+---@field gatePool HeroTalentsSelectionDialog_talentFrame_gatePoolObject
+---@field heroSpecSelectionDialog HeroTalentsSelectionDialog_talentFrame_heroSpecSelectionDialogObject
+---@field hidePassivesFromSearch boolean
+---@field initialBasePanOffsetX number
+---@field initialBasePanOffsetY number
+---@field internalTabTracker HeroTalentsSelectionDialog_talentFrame_internalTabTrackerObject
+---@field isInspecting boolean
+---@field leftPadding number
+---@field maximumCommitTime number
+---@field missingFromActionBarSuggested boolean
+---@field nodeIDToButton table
+---@field nodeInfoCache table
+---@field panOffsetX number
+---@field panOffsetY number
+---@field primarySpecTabID number
+---@field refreshOnShow boolean
+---@field rightPadding number
+---@field searchController HeroTalentsSelectionDialog_talentFrame_searchControllerObject
+---@field secondarySpecTabID number
+---@field showRanksInSearch boolean
+---@field specBackgrounds table
+---@field subTreeInfoCache table
+---@field tabSystem HeroTalentsSelectionDialog_talentFrame_tabSystemObject
+---@field talentAnimationFramePoolCollection HeroTalentsSelectionDialog_talentFrame_talentAnimationFramePoolCollectionObject
+---@field talentButtonCollection HeroTalentsSelectionDialog_talentFrame_talentButtonCollectionObject
+---@field talentCardPool HeroTalentsSelectionDialog_talentFrame_talentCardPoolObject
+---@field talentDisplayFramePool HeroTalentsSelectionDialog_talentFrame_talentDisplayFramePoolObject
+---@field talentTreeID number
+---@field topPadding number
+---@field treeHeaderPool HeroTalentsSelectionDialog_talentFrame_treeHeaderPoolObject
+---@field treeInfoDirty boolean
+---@field treeIsDirty boolean
+---@field variablesLoaded boolean
+local HeroTalentsSelectionDialog_talentFrameObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:AcquireAnimation(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:AcquireEdge(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:AcquireTalentButton(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:AcquireTalentCard(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:AcquireTalentDisplayFrame(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ActivateSearchFilter(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:AddConditionsToTooltip(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:AddCostToTooltip(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:AddEdgeRequirementsToTooltip(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:AddIconTab(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:AddNamedTab(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:AdjustPanOffset(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:AdjustZoomLevel(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:AnchorGate(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ApplyConfig(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:AreSelectionsOpen(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:AttemptConfigOperation(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:AttemptConfigOperationWithErrorsSuppressed(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:CanAfford(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:CanChangeTalents(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:CanCommitInstantly(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:CancelLoadSystemTutorials(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:CascadeRepurchaseRanks(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:CheckAndReportCommitOperation(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:CheckConfirmStarterBuildDeviation(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:CheckConfirmSwapFromDefault(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:CheckHeroTalentTutorial(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:CheckLoadSystemTutorials(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:CheckSetSelectedConfigID(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:CheckUpdateLastSelectedConfigID(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ClearActiveSearchState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ClearCascadeRepurchaseHistory(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ClearInfoCaches(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ClearLastSelectedConfigID(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ClearSuppressedSounds(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:CommitConfig(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:CommitConfigInternal(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ConvertToImportLoadoutEntryInfo(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:CopyInspectLoadout(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:CreateImportLoadoutEntryInfoFromSingleNode(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:CreateImportLoadoutEntryInfoFromTieredNode(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:DeregisterNodeForUpdateInfoEvent(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:DisableZoomAndPan(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:DisplayFullSearchResults(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:EnumerateAllTalentButtons(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:EnumerateSubTreeInfoCache(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ForceCondInfoUpdate(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ForceDefinitionInfoUpdate(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ForceEntryInfoCacheUpdate(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ForceNodeInfoUpdate(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ForceSubTreeInfoUpdate(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GamepadGetStartingButtonForTree(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GamepadNavigateHorizontalSection(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GamepadNavigateVerticalSection(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GenerateCallbackEvents(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GenerateChatLink(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetActiveEntryIndex(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetActiveTab(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetAllSearchableNodeInfos(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetAndCacheCondInfo(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetAndCacheDefinitionInfo(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetAndCacheEntryInfo(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetAndCacheNodeInfo(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetAndCacheSubTreeInfo(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetAssociatedMicroButtons(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetButtonAnimationStates(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetButtonSize(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetButtonsInDefaultOrder(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetButtonsInEdgeOrder(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetButtonsInOrder(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetCallbackTable(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetCallbackTables(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetCallbacksByEvent(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetClassID(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetClassName(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetComparisonFunction(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetConfigApplicationState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetConfigCommitErrorString(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetConfigID(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetCostStrings(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetDefinitionInfoForEntry(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetElementsForTab(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetFallbackConfigID(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetFrameLevelForButton(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetFrameLevelForEdge(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetHasStarterBuild(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetIncomingEdgeInfoForNode(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetIndexFromNodePosition(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetIndexFromTalentButtonPosition(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetInspectString(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetInspectUnit(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetIsStarterBuildActive(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetItemModifiedAppearanceIDs(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetLoadoutExportString(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetMaximumCommitTime(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetNodeCost(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetPanExtents(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetPanOffset(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetPanViewCornerPosition(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetPanViewSize(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetPlayerSpellsFrame(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetRootTalentButton(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetSearchMatchTypeForEntry(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetSearchPreviewContainer(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetSpecID(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetSpecName(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetSpecializationTab(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetSpecializedSelectionChoiceMixin(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetSubTreeInfo(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetSubTreeInfoForEntry(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetTab(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetTabButton(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetTabSet(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetTalentButtonByNodeID(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetTalentTreeID(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetTraitTreeName(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetTreeCurrencyDisplayText(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetTreeCurrencyInfo(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetTreeCurrencyTextByIndex(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetTreeInfo(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetTreeInfoOrLayoutDefaults(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetTreeNodes(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetTreeSectionIndexOfCurrentButton(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:GetZoomLevel(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:HandlePlayerTalentUpdate(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:HasAnyConfigChanges(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:HasAnyPendingChanges(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:HasAnyPurchasedRanks(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:HasAnyRefundInvalidNodes(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:HasCopyButton(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:HasMassPurchase(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:HasValidConfig(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:HashEquals(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:HidePreviewResultSearch(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:HideSelections(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:HideSpecChangeElements(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ImportLoadout(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:InitializeActiveSpec(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:InitializeLoadSystem(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:InitializeOther(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:InitializeSearch(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:InitializeSearchOptionsDropdown(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:InitializeTabSystem(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:InitializeTreeHeaders(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:InstantiateTalentButton(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:InvokeTalentButtonMethodByNodeID(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsActiveTabSelected(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsCommitCastBarActive(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsCommitInProgress(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsCondInfoCacheDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsDefaultLoadout(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsDefinitionInfoCacheDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsEdgePanningEnabled(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsEntryInfoCacheDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsHashEmpty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsHeroSpecActive(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsHighlightedStarterBuildEntry(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsInspecting(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsLocked(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsMouseOverSelections(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsNodeInfoCacheDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsPanning(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsPreviewingSubTree(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsSearchActive(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsSearchInitialized(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsSpecActivationInProgress(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsStarterBuildConfig(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsSubTreeInfoCacheDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsTalentButton(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:IsTreeDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:LoadConfigByIndex(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:LoadConfigByName(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:LoadConfigByPredicate(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:LoadConfigInternal(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:LoadSavedVariables(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:LoadTalentTree(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:LoadTalentTreeInternal(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:MarkCondInfoCacheDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:MarkDefinitionInfoCacheDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:MarkEdgesDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:MarkEntryInfoCacheDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:MarkNodeInfoCacheDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:MarkSubTreeInfoCacheDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:MarkTreeClean(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:MarkTreeDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:MarkTreeInfoDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnActionBarsChanged(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnButtonNodeIDSet(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnButtonUpdateNodeInfo(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnCommitCastBarShow(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnConfigChanged(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnDefinitionInfoUpdated(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnEvent(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnGateDisplayed(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnHeroSpecSelectionClosed(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnHeroSpecSelectionOpened(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnHide(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnHideBase(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnLoad(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnNodeInfoUpdated(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnNotOnActionBarButtonClicked(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnPreviewSearchResultClicked(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnShow(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnShowBase(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnSubTreeInfoUpdated(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnTraitConfigCreateFinished(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnTraitConfigCreateFinishedBase(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnTraitConfigCreateStarted(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnTraitConfigDeleted(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnTraitConfigUpdated(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:OnUpdate(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:PlayCommitConfigSound(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:PlayDeselectSoundForButton(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:PlayPurchaseEffectOnNodes(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:PlayRollbackConfigSound(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:PlaySelectSoundForButton(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:PurchaseRank(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ReadLoadoutContent(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ReadLoadoutHeader(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:RefreshClassCurrencyDisplay(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:RefreshConditionsCache(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:RefreshConfigID(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:RefreshCurrencyDisplay(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:RefreshGamepadFooter(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:RefreshGates(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:RefreshLoadoutOptions(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:RefreshTreeCurrencyDisplay(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:RefreshTreeHeaders(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:RefundAllRanks(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:RefundRank(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:RegisterCallback(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:RegisterNodeForUpdateInfoEvent(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:RegisterOnUpdate(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ReleaseAllTalentButtons(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ReleaseAndReinstantiateTalentButton(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ReleaseAndReinstantiateTalentButtonByID(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ReleaseAnimation(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ReleaseEdge(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ReleaseEdgesByCondition(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ReleaseTalentButton(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ReleaseTalentCard(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ReleaseTalentDisplayFrame(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:RemoveAllTabs(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ReportConfigCommitError(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ResetClassTalents(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ResetGamepadCursorLocation(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ResetSpecTalents(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ResetToLastConfigID(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ResetTree(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:RollbackConfig(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SecureInsertEvent(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetBackgroundAnimationsPlaying(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetBasePanOffset(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetCardTemplateCallback(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetCommitCastBarActive(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetCommitCompleteVisualsActive(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetCommitSpinnerShown(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetCommitStarted(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetCommitVisualsActive(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetConfigID(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetConfigIDBySystemID(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetDisabledOverlayShown(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetEdgePanningEnabled(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetElementFrameLevel(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetFullResultSearch(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetNodesFilter(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetPanOffset(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetPreviewResultSearch(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetPvPTalentFrames(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetSearchBoxDefaultPosition(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetSelectedSavedConfigID(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetSelection(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetSpecSwitchCastBarActive(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetStarterBuildActive(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetSuppressedSounds(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetSuppressingConfigOperationErrors(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetTab(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetTabCallback(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetTabDeselectCallback(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetTabSystem(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetTalentTreeID(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetTreeCurrencyDisplayTextCallback(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetZoomLevel(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:SetZoomLevelInternal(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ShouldAddEdgeRequirementsToTooltip(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ShouldButtonShowEdges(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ShouldDisplayGate(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ShouldHideSingleRankNumbers(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ShouldInstantiateInvisibleButtons(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ShouldInstantiateNode(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ShouldShowConfirmation(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ShouldShowHeroTalentTutorial(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ShowImportError(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ShowOrHideGlowOnChangesPending(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ShowSelections(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:StopPurchaseEffectOnNodes(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:TalentButtonCollectionReset(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ToggleSelections(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:TransformPreviewResults(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:TriggerEvent(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:TryPlaySound(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:TrySetSeenPurchasableClassCapstone(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UnflagStarterBuild(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UnregisterCallback(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UnregisterEvents(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdateAllButtons(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdateAllGatePositions(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdateAllTalentButtonPositions(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdateButtonFrameLevel(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdateClassVisuals(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdateColorBlindModeUI(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdateConfigButtonsState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdateEdgeFrameLevel(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdateEdgesForButton(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdateEnabledSearchTypes(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdateFullSearchResults(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdateInspecting(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdateInspectingPvPSlots(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdatePadding(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdatePendingChangeState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdateSelections(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdateSpecBackground(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdateStarterBuildHighlights(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdateTabs(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdateTalentActionBarStatuses(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdateTalentButtonPosition(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdateTalentVisualStatesByCondition(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdateTreeCurrencyInfo(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:UpdateTreeInfo(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:ViewLoadout(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:WillDeviateFromStarterBuild(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:WriteLoadoutContent(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:WriteLoadoutHeader(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:getEdgeTemplateType(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:getSpecializedChoiceMixin(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:getSpecializedMixin(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrameObject:getTemplateType(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ActivationClassFxObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_ActivationClassFxObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ActivationClassFx2Object : Texture
+local HeroTalentsSelectionDialog_talentFrame_ActivationClassFx2Object = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ActivationClassFx3Object : Texture
+local HeroTalentsSelectionDialog_talentFrame_ActivationClassFx3Object = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ActivationClassFx4Object : Texture
+local HeroTalentsSelectionDialog_talentFrame_ActivationClassFx4Object = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ActivationExpandFxObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_ActivationExpandFxObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ActivationExpandFxMaskObject : MaskTexture
+local HeroTalentsSelectionDialog_talentFrame_ActivationExpandFxMaskObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ActivationTitansFXObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_ActivationTitansFXObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ActiveSpecObject : Frame
+---@field ActivateButton HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButtonObject
+---@field ActiveLabel HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActiveLabelObject
+local HeroTalentsSelectionDialog_talentFrame_ActiveSpecObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpecObject:ActivateSpec(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpecObject:OnLoad(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpecObject:OnShow(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpecObject:Refresh(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpecObject:SetGlow(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButtonObject : Button
+---@field Controller HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_ControllerObject
+---@field Left HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_LeftObject
+---@field Middle HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_MiddleObject
+---@field Right HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_RightObject
+---@field Text HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_TextObject
+---@field YellowGlow HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_YellowGlowObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButtonObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButtonObject:ClearCustomTextFormatter(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButtonObject:FitToText(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButtonObject:GetOnClickSoundKit(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButtonObject:InitButton(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButtonObject:OnClick(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButtonObject:OnEnter(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButtonObject:OnLeave(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButtonObject:RunCustomTextFormatter(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButtonObject:SetButtonArtKit(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButtonObject:SetCustomTextFormatter(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButtonObject:SetOnClickHandler(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButtonObject:SetOnEnterHandler(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButtonObject:SetTextToFit(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButtonObject:SetTooltipAnchor(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButtonObject:SetTooltipInfo(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButtonObject:onClickHandler(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_ControllerObject : Frame
+local HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_ControllerObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_ControllerObject:OnLoad(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_ControllerObject:OnShow(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_LeftObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_LeftObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_MiddleObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_MiddleObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_RightObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_RightObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_TextObject : FontString
+local HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_TextObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_YellowGlowObject : Frame
+---@field Left HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_YellowGlow_LeftObject
+---@field Middle HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_YellowGlow_MiddleObject
+---@field Right HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_YellowGlow_RightObject
+local HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_YellowGlowObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_YellowGlow_LeftObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_YellowGlow_LeftObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_YellowGlow_MiddleObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_YellowGlow_MiddleObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_YellowGlow_RightObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActivateButton_YellowGlow_RightObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActiveLabelObject : FontString
+local HeroTalentsSelectionDialog_talentFrame_ActiveSpec_ActiveLabelObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_AirParticlesCloseObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_AirParticlesCloseObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_AirParticlesFarObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_AirParticlesFarObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_AnimationHolderObject : Frame
+---@field BackgroundFlashAnim HeroTalentsSelectionDialog_talentFrame_AnimationHolder_BackgroundFlashAnimObject
+local HeroTalentsSelectionDialog_talentFrame_AnimationHolderObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_AnimationHolder_BackgroundFlashAnimObject : AnimationGroup
+local HeroTalentsSelectionDialog_talentFrame_AnimationHolder_BackgroundFlashAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ApplyButtonObject : Button
+---@field Controller HeroTalentsSelectionDialog_talentFrame_ApplyButton_ControllerObject
+---@field Left HeroTalentsSelectionDialog_talentFrame_ApplyButton_LeftObject
+---@field Middle HeroTalentsSelectionDialog_talentFrame_ApplyButton_MiddleObject
+---@field Right HeroTalentsSelectionDialog_talentFrame_ApplyButton_RightObject
+---@field Text HeroTalentsSelectionDialog_talentFrame_ApplyButton_TextObject
+---@field YellowGlow HeroTalentsSelectionDialog_talentFrame_ApplyButton_YellowGlowObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+---@field smartNavigationIgnored boolean
+local HeroTalentsSelectionDialog_talentFrame_ApplyButtonObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ApplyButtonObject:ClearCustomTextFormatter(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ApplyButtonObject:FitToText(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ApplyButtonObject:GetOnClickSoundKit(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ApplyButtonObject:InitButton(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ApplyButtonObject:OnClick(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ApplyButtonObject:OnEnter(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ApplyButtonObject:OnLeave(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ApplyButtonObject:RunCustomTextFormatter(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ApplyButtonObject:SetButtonArtKit(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ApplyButtonObject:SetCustomTextFormatter(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ApplyButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ApplyButtonObject:SetOnClickHandler(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ApplyButtonObject:SetOnEnterHandler(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ApplyButtonObject:SetTextToFit(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ApplyButtonObject:SetTooltipAnchor(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ApplyButtonObject:SetTooltipInfo(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ApplyButtonObject:onClickHandler(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ApplyButtonObject:onEnterHandler(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ApplyButton_ControllerObject : Frame
+local HeroTalentsSelectionDialog_talentFrame_ApplyButton_ControllerObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ApplyButton_ControllerObject:OnLoad(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ApplyButton_ControllerObject:OnShow(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ApplyButton_LeftObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_ApplyButton_LeftObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ApplyButton_MiddleObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_ApplyButton_MiddleObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ApplyButton_RightObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_ApplyButton_RightObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ApplyButton_TextObject : FontString
+local HeroTalentsSelectionDialog_talentFrame_ApplyButton_TextObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ApplyButton_YellowGlowObject : Frame
+---@field Left HeroTalentsSelectionDialog_talentFrame_ApplyButton_YellowGlow_LeftObject
+---@field Middle HeroTalentsSelectionDialog_talentFrame_ApplyButton_YellowGlow_MiddleObject
+---@field Right HeroTalentsSelectionDialog_talentFrame_ApplyButton_YellowGlow_RightObject
+local HeroTalentsSelectionDialog_talentFrame_ApplyButton_YellowGlowObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ApplyButton_YellowGlow_LeftObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_ApplyButton_YellowGlow_LeftObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ApplyButton_YellowGlow_MiddleObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_ApplyButton_YellowGlow_MiddleObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ApplyButton_YellowGlow_RightObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_ApplyButton_YellowGlow_RightObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_BackgroundObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_BackgroundObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_BackgroundBorderObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_BackgroundBorderObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_BackgroundFlashObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_BackgroundFlashObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ButtonsParentObject : Frame
+---@field smartNavigationIgnoredDontPropagate boolean
+local HeroTalentsSelectionDialog_talentFrame_ButtonsParentObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ButtonsParentObject:IsEdgePanningEnabled(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ButtonsParentObject:IsPanning(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ButtonsParentObject:IsPanningMouseButtonDown(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ButtonsParentObject:MarkPanningPosition(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ButtonsParentObject:OnMouseDown(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ButtonsParentObject:OnMouseWheel(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ButtonsParentObject:OnUpdate(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ButtonsParentObject:SetEdgePanningEnabled(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ButtonsParentObject:StartPanning(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ButtonsParentObject:StopPanning(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ClassBackgroundObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_ClassBackgroundObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject : Frame
+---@field Border HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplay_BorderObject
+---@field CurrentAmountContainer HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplay_CurrentAmountContainerObject
+---@field UnspentLabel HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplay_UnspentLabelObject
+---@field dirty boolean
+local HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:AddLayoutChildren(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:ClearFixedSize(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:GetAdditionalRegions(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:GetChildHeight(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:GetChildSize(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:GetChildWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:GetFixedHeight(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:GetFixedSize(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:GetFixedWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:GetHeightPadding(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:GetLayoutChildren(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:GetMaximumWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:GetMinimumWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:GetTalentFrame(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:GetWidthPadding(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:IsDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:IsInspecting(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:IsLayoutFrame(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:Layout(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:MarkClean(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:MarkDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:OnCleaned(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:OnShow(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:OnUpdate(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:SetAmount(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:SetFixedHeight(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:SetFixedSize(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:SetFixedWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:SetHeightPadding(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:SetMaximumWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:SetMinimumWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:SetPointTypeText(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:SetWidthPadding(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplayObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplay_BorderObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplay_BorderObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplay_CurrentAmountContainerObject : Frame
+---@field CurrencyAmount HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplay_CurrentAmountContainer_CurrencyAmountObject
+local HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplay_CurrentAmountContainerObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplay_CurrentAmountContainer_CurrencyAmountObject : FontString
+local HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplay_CurrentAmountContainer_CurrencyAmountObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplay_UnspentLabelObject : FontString
+local HeroTalentsSelectionDialog_talentFrame_ClassCurrencyDisplay_UnspentLabelObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_Clouds1Object : Texture
+local HeroTalentsSelectionDialog_talentFrame_Clouds1Object = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_Clouds2Object : Texture
+local HeroTalentsSelectionDialog_talentFrame_Clouds2Object = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_CommitSpinnerObject : Frame
+---@field Anim HeroTalentsSelectionDialog_talentFrame_CommitSpinner_AnimObject
+---@field Ring HeroTalentsSelectionDialog_talentFrame_CommitSpinner_RingObject
+---@field Sparks HeroTalentsSelectionDialog_talentFrame_CommitSpinner_SparksObject
+local HeroTalentsSelectionDialog_talentFrame_CommitSpinnerObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_CommitSpinnerObject:GetShadowAlpha(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_CommitSpinnerObject:OnHide(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_CommitSpinnerObject:OnShow(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_CommitSpinnerObject:OnSizeChanged(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_CommitSpinnerObject:SetDesaturated(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_CommitSpinnerObject:SetShadowEnabled(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_CommitSpinnerObject:UpdateShadowSize(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_CommitSpinnerObject:UpdateTheme(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_CommitSpinner_AnimObject : AnimationGroup
+local HeroTalentsSelectionDialog_talentFrame_CommitSpinner_AnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_CommitSpinner_RingObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_CommitSpinner_RingObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_CommitSpinner_SparksObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_CommitSpinner_SparksObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_CommitUpdateReasonsObject
+local HeroTalentsSelectionDialog_talentFrame_CommitUpdateReasonsObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_DisabledOverlayObject : Frame
+---@field GrayOverlay HeroTalentsSelectionDialog_talentFrame_DisabledOverlay_GrayOverlayObject
+local HeroTalentsSelectionDialog_talentFrame_DisabledOverlayObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_DisabledOverlay_GrayOverlayObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_DisabledOverlay_GrayOverlayObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_DividerHorizontalLeftObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_DividerHorizontalLeftObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_DividerHorizontalRightObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_DividerHorizontalRightObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_DividerVerticalLeftObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_DividerVerticalLeftObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_DividerVerticalRightObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_DividerVerticalRightObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_EventObject
+local HeroTalentsSelectionDialog_talentFrame_EventObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_FullMaskObject : MaskTexture
+local HeroTalentsSelectionDialog_talentFrame_FullMaskObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject
+---@field actorTemplate string
+---@field cameras table
+---@field centerX number
+---@field centerY number
+---@field delayedActions table
+---@field effectControllers table
+---@field pixelsPerSceneUnit number
+---@field tagToActor table
+---@field tagToCamera table
+---@field useViewInsetNormalization boolean
+local HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:AcquireActor(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:AcquireAndInitializeActor(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:AddCamera(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:AddDynamicEffect(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:AddEffect(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:AddOrUpdateDropShadow(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:AdjustCameraYaw(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:AttachPlayerToMount(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:CalculatePixelsPerSceneUnit(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:ClearEffects(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:ClearScene(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:CreateActorFromScene(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:CreateCameraFromScene(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:CreateOrTransitionActorFromScene(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:CreateOrTransitionCameraFromScene(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:EnumerateActiveActors(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:ExecuteOrDelayUntilSceneSet(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:GetActiveCamera(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:GetActorByTag(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:GetCameraByTag(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:GetEffectSpeed(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:GetModelSceneID(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:GetNumActiveActors(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:GetOrAcquireDropShadow(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:GetPixelsPerSceneUnit(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:GetPlayerActor(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:GetSceneSize(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:HasActiveCamera(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:HasActiveEffects(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:InitializeActor(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:InternalAddEffect(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:IsLeftMouseButtonDown(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:IsModelSceneSet(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:IsRightMouseButtonDown(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:OnEnter(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:OnEvent(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:OnHide(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:OnLeave(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:OnLoad(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:OnMouseDown(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:OnMouseUp(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:OnMouseWheel(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:OnShow(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:OnSizeChanged(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:OnUpdate(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:RefreshModelScene(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:ReleaseActor(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:ReleaseAllActors(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:ReleaseAllCameras(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:RemoveEffectController(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:Reset(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:SetActiveCamera(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:SetActorPositionFromPixels(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:SetEffectSpeed(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:SetFromModelSceneID(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:SetResetCallback(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:ShowAndAnimateActors(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:StopCameraYaw(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:SynchronizeActiveCamera(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:Transform3DPointTo2D(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_FxModelSceneObject:TransitionToModelSceneID(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject : Frame
+---@field ActiveTexture HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_ActiveTextureObject
+---@field DisabledTexture HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_DisabledTextureObject
+---@field HoldAnim HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_HoldAnimObject
+---@field HoldIndicator HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_HoldIndicatorObject
+---@field HoldIndicatorBG HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_HoldIndicatorBGObject
+---@field HoverTexture HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_HoverTextureObject
+---@field LoadBar HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_LoadBarObject
+---@field LoadBarBG HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_LoadBarBGObject
+---@field LoadBarGlow HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_LoadBarGlowObject
+---@field NormalTexture HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_NormalTextureObject
+---@field PressedTexture HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_PressedTextureObject
+---@field SpinnerTip HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject:ApplyTextureLayout(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject:BeginHold(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject:CanEnterTextureState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject:DisableDropShadow(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject:EnableDropShadow(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject:EndHold(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject:OnHoldAnimFinished(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject:OnHoldAnimStopped(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject:OnLoad(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject:RefreshIconTextures(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject:SetDisabled(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject:SetEnabled(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject:SetFocused(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject:SetHoldState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject:SetInputKey(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject:SetIsHoldAction(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject:SetPressable(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject:SetTextureHeight(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject:SetTextureState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject:SetTextureWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject:SetUsableState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIconObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_ActiveTextureObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_ActiveTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_DisabledTextureObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_DisabledTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_HoldAnim_SpinnerTipAnimObject
+local HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_HoldAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_HoldAnim_LoadBarAnimObject
+local HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
+local HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_HoldAnim_SpinnerTipAnimObject : Rotation
+local HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_HoldIndicatorObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_HoldIndicatorObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_HoldIndicatorBGObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_HoldIndicatorBGObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_HoverTextureObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_HoverTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_LoadBarObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_LoadBarObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_LoadBarBGObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_LoadBarBGObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_LoadBarGlowObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_LoadBarGlowObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_NormalTextureObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_NormalTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_PressedTextureObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_PressedTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_SpinnerTipObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadPrimaryTabIcon_SpinnerTipObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject : Frame
+---@field ActiveTexture HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_ActiveTextureObject
+---@field DisabledTexture HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_DisabledTextureObject
+---@field HoldAnim HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_HoldAnimObject
+---@field HoldIndicator HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_HoldIndicatorObject
+---@field HoldIndicatorBG HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_HoldIndicatorBGObject
+---@field HoverTexture HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_HoverTextureObject
+---@field LoadBar HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_LoadBarObject
+---@field LoadBarBG HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_LoadBarBGObject
+---@field LoadBarGlow HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_LoadBarGlowObject
+---@field NormalTexture HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_NormalTextureObject
+---@field PressedTexture HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_PressedTextureObject
+---@field SpinnerTip HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject:ApplyTextureLayout(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject:BeginHold(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject:CanEnterTextureState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject:DisableDropShadow(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject:EnableDropShadow(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject:EndHold(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject:OnHoldAnimFinished(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject:OnHoldAnimStopped(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject:OnLoad(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject:RefreshIconTextures(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject:SetDisabled(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject:SetEnabled(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject:SetFocused(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject:SetHoldState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject:SetInputKey(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject:SetIsHoldAction(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject:SetPressable(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject:SetTextureHeight(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject:SetTextureState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject:SetTextureWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject:SetUsableState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIconObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_ActiveTextureObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_ActiveTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_DisabledTextureObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_DisabledTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_HoldAnim_SpinnerTipAnimObject
+local HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_HoldAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_HoldAnim_LoadBarAnimObject
+local HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
+local HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_HoldAnim_SpinnerTipAnimObject : Rotation
+local HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_HoldIndicatorObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_HoldIndicatorObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_HoldIndicatorBGObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_HoldIndicatorBGObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_HoverTextureObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_HoverTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_LoadBarObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_LoadBarObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_LoadBarBGObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_LoadBarBGObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_LoadBarGlowObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_LoadBarGlowObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_NormalTextureObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_NormalTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_PressedTextureObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_PressedTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_SpinnerTipObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadSecondaryTabIcon_SpinnerTipObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject : Frame
+---@field ActiveTexture HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_ActiveTextureObject
+---@field DisabledTexture HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_DisabledTextureObject
+---@field HoldAnim HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_HoldAnimObject
+---@field HoldIndicator HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_HoldIndicatorObject
+---@field HoldIndicatorBG HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_HoldIndicatorBGObject
+---@field HoverTexture HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_HoverTextureObject
+---@field LoadBar HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_LoadBarObject
+---@field LoadBarBG HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_LoadBarBGObject
+---@field LoadBarGlow HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_LoadBarGlowObject
+---@field NormalTexture HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_NormalTextureObject
+---@field PressedTexture HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_PressedTextureObject
+---@field SpinnerTip HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject:ApplyTextureLayout(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject:BeginHold(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject:CanEnterTextureState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject:DisableDropShadow(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject:EnableDropShadow(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject:EndHold(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject:OnHoldAnimFinished(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject:OnHoldAnimStopped(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject:OnLoad(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject:RefreshIconTextures(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject:SetDisabled(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject:SetEnabled(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject:SetFocused(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject:SetHoldState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject:SetInputKey(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject:SetIsHoldAction(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject:SetPressable(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject:SetTextureHeight(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject:SetTextureState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject:SetTextureWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject:SetUsableState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_GamepadUndoButtonObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_ActiveTextureObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_ActiveTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_DisabledTextureObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_DisabledTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_HoldAnim_SpinnerTipAnimObject
+local HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_HoldAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_HoldAnim_LoadBarAnimObject
+local HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_HoldAnim_LoadBarGlowAnimObject : Alpha
+local HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_HoldAnim_SpinnerTipAnimObject : Rotation
+local HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_HoldIndicatorObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_HoldIndicatorObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_HoldIndicatorBGObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_HoldIndicatorBGObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_HoverTextureObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_HoverTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_LoadBarObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_LoadBarObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_LoadBarBGObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_LoadBarBGObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_LoadBarGlowObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_LoadBarGlowObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_NormalTextureObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_NormalTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_PressedTextureObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_PressedTextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_SpinnerTipObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_GamepadUndoButton_SpinnerTipObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject : Frame
+---@field ChooseSpecLabel1 HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ChooseSpecLabel1Object
+---@field ChooseSpecLabel2 HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ChooseSpecLabel2Object
+---@field ChooseSpecLabels table
+---@field CollapseButton HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapseButtonObject
+---@field CollapsedContainer HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject
+---@field CurrencyFrame HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CurrencyFrameObject
+---@field ExpandedContainer HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ExpandedContainerObject
+---@field HeroSpecButton HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButtonObject
+---@field HeroSpecLabel HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecLabelObject
+---@field LockedLabel1 HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_LockedLabel1Object
+---@field LockedLabel2 HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_LockedLabel2Object
+---@field LockedLabels table
+---@field PreviewContainer HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_PreviewContainerObject
+---@field helpTipOffsetX number
+---@field helpTipOffsetY number
+---@field heroTalentUIDirty boolean
+---@field isCollapsed boolean
+---@field specSelectionDialog HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_specSelectionDialogObject
+---@field talentFrame HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_talentFrameObject
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:CheckCollapseState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:CheckTutorials(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:GetTalentFrame(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:HasAnythingToDisplay(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:Init(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:IsActiveSubTreeMaxed(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:IsDisplayingActiveHeroSpec(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:IsDisplayingHeroSpecChoices(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:IsDisplayingPreviewSpecs(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:IsHeroSpecActive(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:IsHeroTalentUIDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:IsInspecting(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:IsNodeInAvailableSubTree(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:IsPreviewingSubTree(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:MarkHeroTalentUIClean(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:MarkHeroTalentUIDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:OnCollapseClicked(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:OnHeroSpecButtonClicked(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:OnHeroSpecDialogClosed(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:OnHeroTalentsUnlockedAnimFinished(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:OnHide(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:OnLoad(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:SetCollapsed(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:ShouldAllowCollapsing(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:TryPositionInCollapsedFrame(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:UpdateActiveHeroSpec(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:UpdateActiveHeroSpecSelectionNode(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:UpdateAvailableHeroSpecs(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:UpdateBackgroundAnims(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:UpdateChoiceGlowAnim(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:UpdateCollapseButton(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:UpdateContainerVisibility(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:UpdateHeroSpecButton(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:UpdateHeroSpecPreviewInfo(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:UpdateHeroTalentButtonPosition(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:UpdateHeroTalentCurrency(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:UpdateHeroTalentInfo(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:UpdateHeroTalentUI(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:UpdateHeroTalentsUnlockedAnim(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainerObject:UpdateSearchDisplay(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ChooseSpecLabel1Object : FontString
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ChooseSpecLabel1Object = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ChooseSpecLabel2Object : FontString
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ChooseSpecLabel2Object = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapseButtonObject : Button
+---@field Texture HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapseButton_TextureObject
+---@field TextureHover HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapseButton_TextureHoverObject
+---@field collapsedAtlas string
+---@field expandedAtlas string
+---@field isCollapsed boolean
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapseButtonObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapseButtonObject:OnClick(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapseButtonObject:OnEnter(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapseButtonObject:OnLeave(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapseButtonObject:SetCollapsed(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapseButton_TextureObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapseButton_TextureObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapseButton_TextureHoverObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapseButton_TextureHoverObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject : Frame
+---@field BackgroundBottom HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_BackgroundBottomObject
+---@field BackgroundMiddle HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_BackgroundMiddleObject
+---@field BackgroundTop HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_BackgroundTopObject
+---@field NodesContainer HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject
+---@field fixedWidth number
+---@field heightPadding number
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:AddLayoutChildren(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:ClearFixedSize(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:GetAdditionalRegions(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:GetChildHeight(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:GetChildSize(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:GetChildWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:GetFixedHeight(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:GetFixedSize(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:GetFixedWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:GetHeightPadding(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:GetLayoutChildren(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:GetMaximumWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:GetMinimumWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:GetWidthPadding(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:IsDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:IsLayoutFrame(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:Layout(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:MarkClean(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:MarkDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:OnCleaned(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:OnShow(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:OnUpdate(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:SetFixedHeight(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:SetFixedSize(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:SetFixedWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:SetHeightPadding(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:SetMaximumWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:SetMinimumWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:SetWidthPadding(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainerObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_BackgroundBottomObject : Texture
+---@field ignoreInLayout boolean
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_BackgroundBottomObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_BackgroundMiddleObject : Texture
+---@field ignoreInLayout boolean
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_BackgroundMiddleObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_BackgroundTopObject : Texture
+---@field ignoreInLayout boolean
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_BackgroundTopObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject : Frame
+---@field bottomPadding number
+---@field spacing number
+---@field topPadding number
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:AddLayoutChildren(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:CalculateFrameSize(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:ClearFixedSize(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:GetAdditionalRegions(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:GetChildHeight(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:GetChildPadding(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:GetChildSize(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:GetChildWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:GetFixedHeight(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:GetFixedSize(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:GetFixedWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:GetHeightPadding(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:GetLayoutChildren(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:GetPadding(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:GetWidthPadding(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:IsDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:IsLayoutFrame(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:Layout(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:LayoutChildren(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:MarkClean(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:MarkDirty(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:OnCleaned(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:OnShow(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:OnUpdate(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:SetFixedHeight(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:SetFixedSize(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:SetFixedWidth(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:SetHeightPadding(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:SetWidthPadding(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CollapsedContainer_NodesContainerObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CurrencyFrameObject : Frame
+---@field Background HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CurrencyFrame_BackgroundObject
+---@field Text HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CurrencyFrame_TextObject
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CurrencyFrameObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CurrencyFrame_BackgroundObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CurrencyFrame_BackgroundObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CurrencyFrame_TextObject : FontString
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_CurrencyFrame_TextObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ExpandedContainerObject : Frame
+---@field Background HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ExpandedContainer_BackgroundObject
+---@field HeroClassBackplateFullSheen HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ExpandedContainer_HeroClassBackplateFullSheenObject
+---@field HeroClassBackplateFullSheenMask HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ExpandedContainer_HeroClassBackplateFullSheenMaskObject
+---@field NodesContainer HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ExpandedContainer_NodesContainerObject
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ExpandedContainerObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ExpandedContainer_BackgroundObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ExpandedContainer_BackgroundObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ExpandedContainer_HeroClassBackplateFullSheenObject : Texture
+---@field Anim HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ExpandedContainer_HeroClassBackplateFullSheen_AnimObject
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ExpandedContainer_HeroClassBackplateFullSheenObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ExpandedContainer_HeroClassBackplateFullSheen_AnimObject : AnimationGroup
+---@field syncKey string
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ExpandedContainer_HeroClassBackplateFullSheen_AnimObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ExpandedContainer_HeroClassBackplateFullSheen_AnimObject:ClearSyncedStart(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ExpandedContainer_HeroClassBackplateFullSheen_AnimObject:GetTimeSinceSyncTimeForKey(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ExpandedContainer_HeroClassBackplateFullSheen_AnimObject:PlaySynced(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ExpandedContainer_HeroClassBackplateFullSheenMaskObject : MaskTexture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ExpandedContainer_HeroClassBackplateFullSheenMaskObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ExpandedContainer_NodesContainerObject : Frame
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_ExpandedContainer_NodesContainerObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButtonObject : Button
+---@field Border HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_BorderObject
+---@field BorderHover HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_BorderHoverObject
+---@field ChoiceBackground HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_ChoiceBackgroundObject
+---@field ChoiceBackground2 HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_ChoiceBackground2Object
+---@field ChoiceBorder HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_ChoiceBorderObject
+---@field ChoiceBorderHover HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_ChoiceBorderHoverObject
+---@field ChoiceGlowAnim HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_ChoiceGlowAnimObject
+---@field HeroClassIconSheen HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassIconSheenObject
+---@field HeroClassIconSheenMask HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassIconSheenMaskObject
+---@field HeroClassPassiveAnim HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassPassiveAnimObject
+---@field HeroClassRingBorderSheen HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassRingBorderSheenObject
+---@field HeroClassRingBorderSheenMask HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassRingBorderSheenMaskObject
+---@field Icon1 HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_Icon1Object
+---@field Icon1Anim HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_Icon1AnimObject
+---@field Icon1Hover HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_Icon1HoverObject
+---@field Icon1SplitMask HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_Icon1SplitMaskObject
+---@field Icon1Textures table
+---@field Icon2 HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_Icon2Object
+---@field Icon2Hover HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_Icon2HoverObject
+---@field Icon2SplitMask HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_Icon2SplitMaskObject
+---@field Icon2Textures table
+---@field IconMask HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_IconMaskObject
+---@field IconSplitMasks table
+---@field LockedOverlay HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_LockedOverlayObject
+---@field SearchIcon HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIconObject
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButtonObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButtonObject:GetTalentFrame(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButtonObject:IsInspecting(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButtonObject:OnClick(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButtonObject:OnEnter(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButtonObject:OnLeave(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButtonObject:OnLoad(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButtonObject:SetSearchMatchType(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButtonObject:SetSubTreeIds(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_BorderObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_BorderObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_BorderHoverObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_BorderHoverObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_ChoiceBackgroundObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_ChoiceBackgroundObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_ChoiceBackground2Object : Texture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_ChoiceBackground2Object = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_ChoiceBorderObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_ChoiceBorderObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_ChoiceBorderHoverObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_ChoiceBorderHoverObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_ChoiceGlowAnimObject : AnimationGroup
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_ChoiceGlowAnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassIconSheenObject : Texture
+---@field Anim HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassIconSheen_AnimObject
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassIconSheenObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassIconSheen_AnimObject : AnimationGroup
+---@field syncKey string
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassIconSheen_AnimObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassIconSheen_AnimObject:ClearSyncedStart(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassIconSheen_AnimObject:GetTimeSinceSyncTimeForKey(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassIconSheen_AnimObject:PlaySynced(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassIconSheenMaskObject : MaskTexture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassIconSheenMaskObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassPassiveAnimObject : AnimationGroup
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassPassiveAnimObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassPassiveAnimObject:Hide(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassPassiveAnimObject:SetTargetsShown(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassPassiveAnimObject:Show(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassRingBorderSheenObject : Texture
+---@field Anim HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassRingBorderSheen_AnimObject
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassRingBorderSheenObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassRingBorderSheen_AnimObject : AnimationGroup
+---@field syncKey string
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassRingBorderSheen_AnimObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassRingBorderSheen_AnimObject:ClearSyncedStart(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassRingBorderSheen_AnimObject:GetTimeSinceSyncTimeForKey(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassRingBorderSheen_AnimObject:PlaySynced(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassRingBorderSheenMaskObject : MaskTexture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_HeroClassRingBorderSheenMaskObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_Icon1Object : Texture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_Icon1Object = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_Icon1AnimObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_Icon1AnimObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_Icon1HoverObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_Icon1HoverObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_Icon1SplitMaskObject : MaskTexture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_Icon1SplitMaskObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_Icon2Object : Texture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_Icon2Object = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_Icon2HoverObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_Icon2HoverObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_Icon2SplitMaskObject : MaskTexture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_Icon2SplitMaskObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_IconMaskObject : MaskTexture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_IconMaskObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_LockedOverlayObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_LockedOverlayObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIconObject : Frame
+---@field GlowAnim HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIcon_GlowAnimObject
+---@field Icon HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIcon_IconObject
+---@field Mouseover HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIcon_MouseoverObject
+---@field OverlayIcon HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIcon_OverlayIconObject
+---@field mouseoverSize number
+---@field tooltipBackdropStyle HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIcon_tooltipBackdropStyleObject
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIconObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIconObject:OnEnter(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIconObject:OnLeave(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIconObject:OnLoad(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIconObject:PlayAnims(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIconObject:SetMatchType(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIconObject:SetMouseoverEnabled(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIconObject:StopAnims(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIcon_GlowAnimObject : AnimationGroup
+---@field syncKey string
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIcon_GlowAnimObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIcon_GlowAnimObject:ClearSyncedStart(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIcon_GlowAnimObject:GetTimeSinceSyncTimeForKey(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIcon_GlowAnimObject:PlaySynced(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIcon_IconObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIcon_IconObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIcon_MouseoverObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIcon_MouseoverObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIcon_OverlayIconObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIcon_OverlayIconObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIcon_tooltipBackdropStyleObject
+---@field layoutType string
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecButton_SearchIcon_tooltipBackdropStyleObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecLabelObject : FontString
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_HeroSpecLabelObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_LockedLabel1Object : FontString
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_LockedLabel1Object = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_LockedLabel2Object : FontString
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_LockedLabel2Object = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_PreviewContainerObject : Frame
+---@field Background HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_PreviewContainer_BackgroundObject
+---@field BlankNodes HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_PreviewContainer_BlankNodesObject
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_PreviewContainerObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_PreviewContainer_BackgroundObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_PreviewContainer_BackgroundObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_PreviewContainer_BlankNodesObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_PreviewContainer_BlankNodesObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_specSelectionDialogObject
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_specSelectionDialogObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_talentFrameObject
+local HeroTalentsSelectionDialog_talentFrame_HeroTalentsContainer_talentFrameObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_InspectCopyButtonObject : Button
+---@field Controller HeroTalentsSelectionDialog_talentFrame_InspectCopyButton_ControllerObject
+---@field Left HeroTalentsSelectionDialog_talentFrame_InspectCopyButton_LeftObject
+---@field Middle HeroTalentsSelectionDialog_talentFrame_InspectCopyButton_MiddleObject
+---@field Right HeroTalentsSelectionDialog_talentFrame_InspectCopyButton_RightObject
+---@field Text HeroTalentsSelectionDialog_talentFrame_InspectCopyButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local HeroTalentsSelectionDialog_talentFrame_InspectCopyButtonObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_InspectCopyButtonObject:ClearCustomTextFormatter(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_InspectCopyButtonObject:FitToText(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_InspectCopyButtonObject:GetOnClickSoundKit(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_InspectCopyButtonObject:InitButton(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_InspectCopyButtonObject:OnClick(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_InspectCopyButtonObject:OnEnter(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_InspectCopyButtonObject:OnLeave(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_InspectCopyButtonObject:RunCustomTextFormatter(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_InspectCopyButtonObject:SetButtonArtKit(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_InspectCopyButtonObject:SetCustomTextFormatter(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_InspectCopyButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_InspectCopyButtonObject:SetOnClickHandler(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_InspectCopyButtonObject:SetOnEnterHandler(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_InspectCopyButtonObject:SetTextToFit(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_InspectCopyButtonObject:SetTooltipAnchor(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_InspectCopyButtonObject:SetTooltipInfo(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_InspectCopyButton_ControllerObject : Frame
+local HeroTalentsSelectionDialog_talentFrame_InspectCopyButton_ControllerObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_InspectCopyButton_ControllerObject:OnLoad(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_InspectCopyButton_ControllerObject:OnShow(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_InspectCopyButton_LeftObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_InspectCopyButton_LeftObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_InspectCopyButton_MiddleObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_InspectCopyButton_MiddleObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_InspectCopyButton_RightObject : Texture
+local HeroTalentsSelectionDialog_talentFrame_InspectCopyButton_RightObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_InspectCopyButton_TextObject : FontString
+local HeroTalentsSelectionDialog_talentFrame_InspectCopyButton_TextObject = {}
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_LoadSystemObject : Frame
+---@field Dropdown HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject
+---@field sentinelInfos table
+local HeroTalentsSelectionDialog_talentFrame_LoadSystemObject = {}
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_LoadSystemObject:AddSentinelValue(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_LoadSystemObject:ClearSelection(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_LoadSystemObject:CreateAndSelectNewEntry(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_LoadSystemObject:GetDefaultSelectionID(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_LoadSystemObject:GetDropdown(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_LoadSystemObject:GetLastValidSelectionID(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_LoadSystemObject:GetSelectionID(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_LoadSystemObject:IsSelectionIDValid(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_LoadSystemObject:IsSelectionIDValidAndEnabled(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_LoadSystemObject:OnLoad(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_LoadSystemObject:SetDropdownDefaultText(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_LoadSystemObject:SetEditEntryCallback(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_LoadSystemObject:SetEnabledState(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_LoadSystemObject:SetLoadCallback(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_LoadSystemObject:SetMenuTag(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_LoadSystemObject:SetNewEntryCallback(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_LoadSystemObject:SetNewEntryCallbackCustomPopup(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_LoadSystemObject:SetNewEntryCallbackInternal(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_LoadSystemObject:SetSelectionEnabled(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_LoadSystemObject:SetSelectionID(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_LoadSystemObject:SetSelectionIDInternal(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_LoadSystemObject:SetSelectionOptions(...) end
+---@return any ...
+function HeroTalentsSelectionDialog_talentFrame_LoadSystemObject:UpdateSelectionOptions(...) end
+end
+
+do
+---@class HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject : Button
+---@field Arrow HeroTalentsSelectionDialog_talentFrame_LoadSystem_Dropdown_ArrowObject
+---@field Background HeroTalentsSelectionDialog_talentFrame_LoadSystem_Dropdown_BackgroundObject
+---@field Event HeroTalentsSelectionDialog_talentFrame_LoadSystem_Dropdown_EventObject
+---@field Text HeroTalentsSelectionDialog_talentFrame_LoadSystem_Dropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
 ---@field executingEvents table
 ---@field intrinsic string
----@field menuAnchor SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuAnchorObject
----@field menuDescription SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuDescriptionObject
+---@field menuAnchor HeroTalentsSelectionDialog_talentFrame_LoadSystem_Dropdown_menuAnchorObject
 ---@field menuPoint string
 ---@field menuPointX number
 ---@field menuPointY number
 ---@field menuRelativePoint string
----@field resizeToText boolean
----@field resizeToTextPadding number
----@field scaleWeight number
----@field text string
----@field useScaleWeight boolean
----@field useScaleWeightForHeight boolean
-local SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject = {}
+local HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject = {}
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:ClearMenuState(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:ClearMenuState(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:CloseMenu(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:CloseMenu(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:CollectSelectionData(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:CollectSelectionData(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:CopyDeferredCallbacks(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:CreateDefaultRootMenuDescription(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:CreateDefaultRootMenuDescription(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:CreateRootDescription(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:CreateRootDescription(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:Decrement(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:Decrement(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:DesaturateIfDisabled(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:DoesFrameHaveEvent(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:EnableRegenerateOnResponse(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:EnableRegenerateOnResponse(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:GenerateCallbackEvents(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:GenerateFilterMenu(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:GenerateMenu(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:GenerateMenu(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:GetArrowAtlas(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:GetBackgroundAtlas(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:GetCallbackTable(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:GetCallbackTable(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:GetCallbackTables(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:GetCallbackTables(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:GetCallbacksByEvent(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:GetDefaultText(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:GetDesiredHeight(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:GetMenuDescription(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:GetDesiredWidth(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:GetMenuDescription(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:GetSelectionData(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:GetMutableCallbacksByEvent(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:GetUpdateText(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:GetScaledDesiredDimension(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:HandlesGlobalMouseEvent(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:GetScaledDesiredHeight(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:HasAnyRadioDescriptions(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:GetScaledDesiredWidth(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:HasElements(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:GetSelectionData(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:HasOnlyRadioDescriptions(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:GetUpdateText(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:GetWeightedScale(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:HasStickyFocus(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:HandlesGlobalMouseEvent(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:Increment(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:HasAnyRadioDescriptions(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:IsDown(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:HasElements(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:IsDownOver(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:HasOnlyRadioDescriptions(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:IsMenuOpen(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:HasRegistrantsForEvent(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:IsOver(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:HasStickyFocus(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:NarrationGetContext(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:Increment(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:NarrationGetName(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:InitializeUserScaledFontSystem(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:OnButtonStateChanged(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:IsDown(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:OnDisable(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:IsDownOver(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:OnEnable(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:IsMenuOpen(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:OnEnter(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:IsOver(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:NotifyUpdate(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:OnLeave(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:OnButtonStateChanged(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:OnLoad(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:OnDisable(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:OnEnable(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:OnMenuAssigned(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:OnEnter(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:OnMenuChanged(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:OnEnter_Intrinsic(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:OnMenuClosed(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:OnLeave(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:OnMenuOpened(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:OnLoad(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:OnMenuResponse(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:OnLoad_Intrinsic(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:OnMouseDown(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:OnLoad_UserScaledElement(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:OnMenuAssigned(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:OnMouseUp(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:OnMenuChanged(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:OnMouseWheel_Intrinsic(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:OnMenuClosed(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:OnShow(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:OnMenuOpened(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:OpenMenu(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:OnMenuResponse(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:OverrideText(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:OnMouseDown(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:Pick(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:OnMouseDown_Intrinsic(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:OnMouseUp(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:RegisterCallback(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:OnMouseWheel_Intrinsic(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:OnShow(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:RegisterMenu(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:OnTextScaleUpdated(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:Rotate(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:OpenMenu(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:SecureInsertEvent(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:Pick(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:SetDefaultText(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:ReconcileDeferredCallbacks(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:SetDisplacedRegions(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:RegisterCallback(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:SetMenuAnchor(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:RegisterCallbackWithHandle(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:SetMenuOpen(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:RegisterMenu(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:SetSelectionText(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:Reset(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:SetSelectionTranslator(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:Rotate(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:SetTooltip(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:SecureInsertEvent(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:SetDefaultCallback(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:SetupMenu(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:SetDesiredWidth(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:ShouldShowTooltip(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:SetDisplacedRegions(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:ShowTooltip(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:SetIsDefaultCallback(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:SignalUpdate(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:SetMenuAnchor(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:TriggerEvent(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:SetMenuOpen(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:UnregisterCallback(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:SetUndefinedEventsAllowed(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:UnregisterEvents(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:SetUpdateCallback(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:SetupMenu(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:Update(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:SignalUpdate(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:UpdateSelections(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:TriggerEvent(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:UpdateText(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:UnregisterCallback(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:UpdateToMenuSelections(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:UnregisterEvents(...) end
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:onMenuClosedCallback(...) end
 ---@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:Update(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:UpdateSelections(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:UpdateText(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:UpdateToMenuSelections(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:UpdateWidth(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:ValidateResetState(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:menuGenerator(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdownObject:onMenuClosedCallback(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_BackgroundObject : Texture
-local SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_BackgroundObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_EventObject
-local SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_EventObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_ResetButtonObject : Button
-local SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_ResetButtonObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_TextObject : FontString
-local SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_TextObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuAnchor_relativeToObject
----@field x number
----@field y number
-local SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuAnchorObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuAnchorObject:Get(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuAnchorObject:GetRelativeTo(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuAnchorObject:Init(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuAnchorObject:Set(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuAnchorObject:SetFromPoint(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuAnchorObject:SetOffsets(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuAnchorObject:SetPoint(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuAnchorObject:SetRelativeTo(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuAnchor_relativeToObject
-local SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuAnchor_relativeToObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuDescriptionObject
-local SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuDescriptionObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuDescriptionObject:CreateButton(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuDescriptionObject:CreateCheckbox(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuDescriptionObject:CreateColorSwatch(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuDescriptionObject:CreateDivider(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuDescriptionObject:CreateFrame(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuDescriptionObject:CreateHighlightButton(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuDescriptionObject:CreateHighlightRadio(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuDescriptionObject:CreateRadio(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuDescriptionObject:CreateSearchEntry(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuDescriptionObject:CreateSpacer(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuDescriptionObject:CreateTemplate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuDescriptionObject:CreateTitle(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuDescriptionObject:QueueDivider(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuDescriptionObject:QueueSpacer(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuDescriptionObject:QueueTitle(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuDescriptionObject:SetTooltip(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_FilterBar_SearchFilterDropdown_menuDescriptionObject:private(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_FriendsDisabledTextObject : FontString
-local SocialUIFrame_FriendRequestsList_FriendsDisabledTextObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_LoadingSpinnerObject : Frame
----@field Anim SocialUIFrame_FriendRequestsList_LoadingSpinner_AnimObject
----@field Ring SocialUIFrame_FriendRequestsList_LoadingSpinner_RingObject
----@field Sparks SocialUIFrame_FriendRequestsList_LoadingSpinner_SparksObject
-local SocialUIFrame_FriendRequestsList_LoadingSpinnerObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_LoadingSpinnerObject:GetShadowAlpha(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_LoadingSpinnerObject:OnHide(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_LoadingSpinnerObject:OnShow(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_LoadingSpinnerObject:OnSizeChanged(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_LoadingSpinnerObject:SetDesaturated(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_LoadingSpinnerObject:SetShadowEnabled(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_LoadingSpinnerObject:UpdateShadowSize(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_LoadingSpinnerObject:UpdateTheme(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_LoadingSpinner_AnimObject : AnimationGroup
-local SocialUIFrame_FriendRequestsList_LoadingSpinner_AnimObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_LoadingSpinner_RingObject : Texture
-local SocialUIFrame_FriendRequestsList_LoadingSpinner_RingObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_LoadingSpinner_SparksObject : Texture
-local SocialUIFrame_FriendRequestsList_LoadingSpinner_SparksObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarningObject : Frame
----@field BattleNetIcon SocialUIFrame_FriendRequestsList_RealIDWarning_BattleNetIconObject
----@field ContinueButton SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject
----@field PlayerIcon SocialUIFrame_FriendRequestsList_RealIDWarning_PlayerIconObject
----@field ScrollBar SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollBarObject
----@field ScrollableWarningText SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningTextObject
-local SocialUIFrame_FriendRequestsList_RealIDWarningObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarningObject:InitializeScrollBox(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarningObject:OnLoad(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_BattleNetIconObject : Texture
-local SocialUIFrame_FriendRequestsList_RealIDWarning_BattleNetIconObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject : Button
----@field Center SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButton_CenterObject
----@field Controller SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButton_ControllerObject
----@field Left SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButton_LeftObject
----@field Right SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButton_RightObject
----@field Text SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButton_TextObject
----@field atlasName string
----@field baseButtonTextInset number
----@field baseHeight number
----@field baseWidth number
----@field buttonArtKit string
----@field desiredWidth number
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
----@field leftAtlasInfo SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButton_leftAtlasInfoObject
----@field maxWidth number
----@field rightAtlasInfo SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButton_rightAtlasInfoObject
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:ClearCustomTextFormatter(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:FitToText(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:GetCenterAtlasName(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:GetDesiredHeight(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:GetDesiredWidth(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:GetHighlightAtlasName(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:GetLeftAtlasName(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:GetOnClickSoundKit(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:GetRightAtlasName(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:GetScaledDesiredDimension(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:GetScaledDesiredHeight(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:GetScaledDesiredWidth(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:GetWeightedScale(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:InitButton(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:IsActionEnabled(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:OnClick(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:OnEnter(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:OnLeave(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:OnMouseDown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:OnMouseUp(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:OnTextScaleUpdated(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:PerformClickAction(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:ReanchorTextForScale(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:RefreshEnabledState(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:RunCustomTextFormatter(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:SetButtonArtKit(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:SetCustomTextFormatter(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:SetDesiredWidth(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:SetOnClickHandler(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:SetOnEnterHandler(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:SetTextToFit(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:SetTooltipAnchor(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:SetTooltipInfo(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:ShowDisabledTooltip(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:ShowTooltip(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:TryHideTooltip(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:TryRecalculateDesiredWidth(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:TryShowTooltip(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:UpdateButton(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:UpdateScale(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButtonObject:UpdateWidth(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButton_CenterObject : Texture
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButton_CenterObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButton_ControllerObject : Frame
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButton_ControllerObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButton_ControllerObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButton_ControllerObject:OnShow(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButton_LeftObject : Texture
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButton_LeftObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButton_RightObject : Texture
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButton_RightObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButton_TextObject : FontString
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButton_TextObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButton_leftAtlasInfoObject
----@field bottomTexCoord number
----@field elementName string
----@field file number
----@field height number
----@field leftTexCoord number
----@field rawSize table
----@field rightTexCoord number
----@field tilesHorizontally boolean
----@field tilesVertically boolean
----@field topTexCoord number
----@field width number
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButton_leftAtlasInfoObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButton_rightAtlasInfoObject
----@field bottomTexCoord number
----@field elementName string
----@field file number
----@field height number
----@field leftTexCoord number
----@field rawSize table
----@field rightTexCoord number
----@field tilesHorizontally boolean
----@field tilesVertically boolean
----@field topTexCoord number
----@field width number
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ContinueButton_rightAtlasInfoObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_PlayerIconObject : Texture
-local SocialUIFrame_FriendRequestsList_RealIDWarning_PlayerIconObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollBarObject
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollBarObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningTextObject : Frame
----@field ScrollBox SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
----@field fontName string
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningTextObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningTextObject:ClearText(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningTextObject:GetFontString(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningTextObject:GetFontStringContainer(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningTextObject:GetScrollBox(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningTextObject:HasScrollableExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningTextObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningTextObject:OnSizeChanged(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningTextObject:SetFontObject(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningTextObject:SetText(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningTextObject:SetTextColor(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject : Frame
----@field Defaults SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_DefaultsObject
----@field Directions SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_DirectionsObject
----@field DragDelegate SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_DragDelegateObject
----@field Event SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_EventObject
----@field FontStringContainer SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_FontStringContainerObject
----@field ScrollTarget SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject
----@field Shadows SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ShadowsObject
----@field alignmentOverlapIgnored boolean
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field debugInspectionSystem string
----@field deferredCallbacks table
----@field edgeFade SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_edgeFadeObject
----@field executingEvents table
----@field isScrollController boolean
----@field panExtent number
----@field panExtentPercentage number
----@field registeredScrollBar SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject
----@field scrollPercentage number
----@field updateLock boolean
----@field view SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject
----@field wheelPanScalar number
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:ApplyEdgeFade(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:CalculateEdgeFade(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:CalculatePanExtentPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:CalculateScrollPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:CanInterpolateScroll(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:ClearEdgeFade(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:EnableSnapToInterval(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:FindFrame(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:FindFrameByPredicate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:FullUpdate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:FullUpdateInternal(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GenerateCallbackEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetBottomPadding(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetCallbackTable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetCallbackTables(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetDerivedExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetDerivedScrollOffset(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetDerivedScrollRange(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetExtentPadding(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetFrameCount(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetFrameExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetFrames(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetIntervalRange(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetLeftPadding(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetLower(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetLowerPadding(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetLowerShadowTexture(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetPadding(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetPanExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetPanExtentPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetRightPadding(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetScrollInterpolator(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetScrollPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetScrollTarget(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetTopPadding(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetUpper(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetUpperPadding(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetUpperShadowTexture(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetView(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetVisibleExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:GetWheelPanPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:HasEdgeFade(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:HasScrollableExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:HasView(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:Init(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:Interpolate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:IsAlignmentOverlapIgnored(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:IsAtBegin(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:IsAtEnd(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:IsHorizontal(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:IsScrollAllowed(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:IsUpdateLocked(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:Layout(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:OnMouseWheel(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:OnScrollTargetSizeChanged(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:OnSizeChanged(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:RecalculateDerivedExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:RegisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SanitizeAlignment(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:ScrollDecrease(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:ScrollInDirection(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:ScrollIncrease(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:ScrollToBegin(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:ScrollToEnd(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:ScrollToFrame(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:ScrollToOffset(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SecureInsertEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SelectCursorComponent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SelectPointComponent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SetAlignmentOverlapIgnored(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SetEdgeFadeLength(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SetFrameExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SetHorizontal(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SetInterpolateScroll(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SetLowerShadowAtlas(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SetPadding(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SetPanExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SetPanExtentPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SetScrollAllowed(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SetScrollPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SetScrollPercentageInternal(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SetScrollTargetOffset(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SetShadowsFrameLevel(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SetShadowsScale(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SetShadowsShown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SetUpdateLocked(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SetUpperShadowAtlas(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SetUseShadowsForEdgeFade(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:SetView(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:TriggerEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:UnregisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:UnregisterEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:Update(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBoxObject:scrollInternal(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_DefaultsObject
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_DefaultsObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_DirectionsObject
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_DirectionsObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_DragDelegateObject : Frame
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_DragDelegateObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_EventObject
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_EventObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_FontStringContainerObject : Frame
----@field FontString SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_FontStringContainer_FontStringObject
----@field scrollable boolean
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_FontStringContainerObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_FontStringContainer_FontStringObject : FontString
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_FontStringContainer_FontStringObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject : Frame
----@field Event SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTarget_EventObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject:GetCallbackTable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject:GetCallbackTables(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject:RegisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject:TriggerEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject:UnregisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject:UnregisterEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTarget_EventObject
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ScrollTarget_EventObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ShadowsObject : Frame
----@field Lower SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_Shadows_LowerObject
----@field Upper SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_Shadows_UpperObject
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_ShadowsObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_Shadows_LowerObject : Texture
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_Shadows_LowerObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_Shadows_UpperObject : Texture
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_Shadows_UpperObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_edgeFadeObject
----@field x number
----@field y number
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_edgeFadeObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_edgeFadeObject:Add(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_edgeFadeObject:Clone(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_edgeFadeObject:Cross(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_edgeFadeObject:DivideBy(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_edgeFadeObject:Dot(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_edgeFadeObject:GetLength(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_edgeFadeObject:GetLengthSquared(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_edgeFadeObject:GetXY(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_edgeFadeObject:IsEqualTo(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_edgeFadeObject:IsZero(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_edgeFadeObject:Normalize(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_edgeFadeObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_edgeFadeObject:RotateDirection(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_edgeFadeObject:ScaleBy(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_edgeFadeObject:SetXY(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_edgeFadeObject:Subtract(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject : Frame
----@field Back SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject
----@field Defaults SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_DefaultsObject
----@field Directions SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_DirectionsObject
----@field Event SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_EventObject
----@field Forward SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject
----@field Track SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_TrackObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field deferredCallbacks table
----@field executingEvents table
----@field hideTrack boolean
----@field hideTrackIfThumbExceedsTrack boolean
----@field interpolator SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_interpolatorObject
----@field isScrollController boolean
----@field minThumbExtent number
----@field panDelay number
----@field panExtentPercentage number
----@field panRepeatTime number
----@field registeredScrollBox SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_registeredScrollBoxObject
----@field scrollPercentage number
----@field smartNavigationIgnored boolean
----@field snapToInterval boolean
----@field thumbAnchor string
----@field useProportionalThumb boolean
----@field visibleExtentPercentage number
----@field wheelPanScalar number
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:CallInternalScope(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:CanCursorStepInDirection(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:CanInterpolateScroll(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:DisableControls(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:EnableInternalPriority(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:EnableSnapToInterval(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:GenerateCallbackEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:GetBackStepper(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:GetCallbackTable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:GetCallbackTables(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:GetCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:GetForwardStepper(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:GetFrameExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:GetIntervalRange(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:GetLower(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:GetPanExtentPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:GetPanRepeatDelay(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:GetPanRepeatTime(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:GetScrollInterpolator(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:GetScrollPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:GetThumb(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:GetThumbAnchor(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:GetTrack(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:GetTrackExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:GetUpper(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:GetWheelPanPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:HasScrollableExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:Init(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:InitializeNarration(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:Interpolate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:IsAtBegin(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:IsAtEnd(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:IsHorizontal(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:IsScrollAllowed(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:IsThumbMouseDown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:OnHide_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:OnLoad_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:OnMouseWheel(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:OnShow_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:OnStepperMouseDown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:OnThumbMouseDown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:OnTrackMouseDown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:RegisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:ScrollDecrease(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:ScrollInDirection(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:ScrollIncrease(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:ScrollPageInDirection(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:ScrollStepInDirection(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:ScrollToBegin(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:ScrollToEnd(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:ScrollWheelInDirection(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:SecureInsertEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:SelectCursorComponent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:SelectPointComponent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:SetFrameExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:SetHideIfUnscrollable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:SetHorizontal(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:SetInterpolateScroll(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:SetPanExtentPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:SetScrollAllowed(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:SetScrollPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:SetScrollPercentageInternal(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:SetThumbExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:SetVisibleExtentPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:TriggerEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:UnregisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:UnregisterEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:UnregisterUpdate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:Update(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:onButtonMouseUp(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBarObject:scrollInternal(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject : Button
----@field Event SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Back_EventObject
----@field Texture SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Back_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:DesaturateIfDisabled(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:GenerateCallbackEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:GetAtlas(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:GetCallbackTable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:GetCallbackTables(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:GetCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:IsDown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:IsDownOver(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:IsOver(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:NarrationGetName(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:OnButtonStateChanged(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:OnClick_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:OnDisable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:OnEnable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:OnEnter(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:OnEnter_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:OnLeave(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:OnLeave_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:OnLoad_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:OnMouseDown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:OnMouseUp(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:OnShow(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:RegisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:SecureInsertEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:SetDisplacedRegions(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:TriggerEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:UnregisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:UnregisterEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_BackObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Back_EventObject
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Back_EventObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Back_TextureObject : Texture
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Back_TextureObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_DefaultsObject
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_DefaultsObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_DirectionsObject
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_DirectionsObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_EventObject
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_EventObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject : Button
----@field Event SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Forward_EventObject
----@field Texture SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Forward_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:DesaturateIfDisabled(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:GenerateCallbackEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:GetAtlas(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:GetCallbackTable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:GetCallbackTables(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:GetCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:IsDown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:IsDownOver(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:IsOver(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:NarrationGetName(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:OnButtonStateChanged(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:OnClick_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:OnDisable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:OnEnable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:OnEnter(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:OnLeave(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:OnMouseDown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:OnMouseUp(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:OnShow(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:RegisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:SecureInsertEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:SetDisplacedRegions(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:TriggerEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:UnregisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:UnregisterEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Forward_EventObject
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Forward_EventObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Forward_TextureObject : Texture
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Forward_TextureObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_TrackObject : Frame
----@field Begin SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_BeginObject
----@field End SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_EndObject
----@field Middle SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_MiddleObject
----@field Thumb SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_TrackObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_BeginObject : Texture
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_BeginObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_EndObject : Texture
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_EndObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_MiddleObject : Texture
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_MiddleObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject : Button
----@field Begin SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_Thumb_BeginObject
----@field End SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_Thumb_EndObject
----@field Event SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_Thumb_EventObject
----@field Middle SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_Thumb_MiddleObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field downBeginTexture string
----@field downEndTexture string
----@field downMiddleTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field overBeginTexture string
----@field overEndTexture string
----@field overMiddleTexture string
----@field upBeginTexture string
----@field upEndTexture string
----@field upMiddleTexture string
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:GetAtlas(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:GetCallbackTable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:GetCallbackTables(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:IsDown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:IsDownOver(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:IsOver(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:OnDisable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:OnEnable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:OnEnter(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:OnLeave(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:OnMouseDown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:OnMouseUp(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:OnShow(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:OnSizeChanged(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:RegisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:TriggerEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:UnregisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:UnregisterEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_Thumb_BeginObject : Texture
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_Thumb_BeginObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_Thumb_EndObject : Texture
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_Thumb_EndObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_Thumb_EventObject
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_Thumb_EventObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_Thumb_MiddleObject : Texture
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_Track_Thumb_MiddleObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_interpolatorObject
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_interpolatorObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_interpolatorObject:Cancel(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_interpolatorObject:GetInterpolateTo(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_interpolatorObject:Interpolate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_interpolatorObject:interpolateFunc(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_registeredScrollBoxObject
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_registeredScrollBar_registeredScrollBoxObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject
----@field FrameLevelPolicy table
----@field extent number
----@field frames table
----@field initialized boolean
----@field padding table
----@field panExtent number
----@field scrollBox SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_view_scrollBoxObject
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:FindFrame(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:FindFrameByPredicate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:GetDataScrollOffset(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:GetElementIndent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:GetExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:GetFrameExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:GetFrameLevelCounter(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:GetFrameLevelPolicy(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:GetFrames(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:GetLayoutFunction(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:GetLower(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:GetPadding(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:GetPanExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:GetScrollBox(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:GetScrollTarget(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:GetSpacing(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:GetUpper(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:HasBiaxalLayout(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:Init(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:InitDefaultDrag(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:IsElementStretchDisabled(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:IsExtentValid(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:IsHorizontal(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:IsInitialized(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:Layout(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:LayoutInternal(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:RecalculateExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:ReparentScrollChildren(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:SelectCursorComponent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:SelectPointComponent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:SetElementIndentCalculator(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:SetElementStretchDisabled(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:SetExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:SetFrameExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:SetFrameLevelPolicy(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:SetHorizontal(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:SetMaxPanExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:SetPadding(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:SetPanExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_viewObject:SetScrollBox(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_view_scrollBoxObject
-local SocialUIFrame_FriendRequestsList_RealIDWarning_ScrollableWarningText_ScrollBox_view_scrollBoxObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBarObject : Frame
----@field Back SocialUIFrame_FriendRequestsList_ScrollBar_BackObject
----@field Defaults SocialUIFrame_FriendRequestsList_ScrollBar_DefaultsObject
----@field Directions SocialUIFrame_FriendRequestsList_ScrollBar_DirectionsObject
----@field Event SocialUIFrame_FriendRequestsList_ScrollBar_EventObject
----@field Forward SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject
----@field Track SocialUIFrame_FriendRequestsList_ScrollBar_TrackObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field deferredCallbacks table
----@field executingEvents table
----@field hideTrack boolean
----@field hideTrackIfThumbExceedsTrack boolean
----@field interpolator SocialUIFrame_FriendRequestsList_ScrollBar_interpolatorObject
----@field isScrollController boolean
----@field minThumbExtent number
----@field panDelay number
----@field panExtentPercentage number
----@field panRepeatTime number
----@field registeredScrollBox SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject
----@field scrollPercentage number
----@field smartNavigationIgnored boolean
----@field snapToInterval boolean
----@field thumbAnchor string
----@field useProportionalThumb boolean
----@field visibleExtentPercentage number
----@field wheelPanScalar number
-local SocialUIFrame_FriendRequestsList_ScrollBarObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:CallInternalScope(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:CanCursorStepInDirection(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:CanInterpolateScroll(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:DisableControls(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:EnableInternalPriority(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:EnableSnapToInterval(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:GenerateCallbackEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:GetBackStepper(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:GetCallbackTable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:GetCallbackTables(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:GetCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:GetForwardStepper(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:GetFrameExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:GetIntervalRange(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:GetLower(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:GetPanExtentPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:GetPanRepeatDelay(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:GetPanRepeatTime(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:GetScrollInterpolator(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:GetScrollPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:GetThumb(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:GetThumbAnchor(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:GetTrack(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:GetTrackExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:GetUpper(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:GetWheelPanPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:HasScrollableExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:Init(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:InitializeNarration(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:Interpolate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:IsAtBegin(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:IsAtEnd(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:IsHorizontal(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:IsScrollAllowed(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:IsThumbMouseDown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:OnHide_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:OnLoad_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:OnMouseWheel(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:OnShow_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:OnStepperMouseDown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:OnThumbMouseDown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:OnTrackMouseDown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:RegisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:ScrollDecrease(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:ScrollInDirection(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:ScrollIncrease(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:ScrollPageInDirection(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:ScrollStepInDirection(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:ScrollToBegin(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:ScrollToEnd(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:ScrollWheelInDirection(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:SecureInsertEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:SelectCursorComponent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:SelectPointComponent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:SetFrameExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:SetHideIfUnscrollable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:SetHorizontal(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:SetInterpolateScroll(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:SetPanExtentPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:SetScrollAllowed(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:SetScrollPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:SetScrollPercentageInternal(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:SetThumbExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:SetVisibleExtentPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:TriggerEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:UnregisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:UnregisterEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:UnregisterUpdate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:Update(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:onButtonMouseUp(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBarObject:scrollInternal(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_BackObject : Button
----@field Event SocialUIFrame_FriendRequestsList_ScrollBar_Back_EventObject
----@field Texture SocialUIFrame_FriendRequestsList_ScrollBar_Back_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local SocialUIFrame_FriendRequestsList_ScrollBar_BackObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:DesaturateIfDisabled(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:GenerateCallbackEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:GetAtlas(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:GetCallbackTable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:GetCallbackTables(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:GetCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:IsDown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:IsDownOver(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:IsOver(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:NarrationGetName(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:OnButtonStateChanged(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:OnClick_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:OnDisable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:OnEnable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:OnEnter(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:OnLeave(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:OnMouseDown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:OnMouseUp(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:OnShow(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:RegisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:SecureInsertEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:SetDisplacedRegions(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:TriggerEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:UnregisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:UnregisterEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_Back_EventObject
-local SocialUIFrame_FriendRequestsList_ScrollBar_Back_EventObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_Back_TextureObject : Texture
-local SocialUIFrame_FriendRequestsList_ScrollBar_Back_TextureObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_DefaultsObject
-local SocialUIFrame_FriendRequestsList_ScrollBar_DefaultsObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_DirectionsObject
-local SocialUIFrame_FriendRequestsList_ScrollBar_DirectionsObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_EventObject
-local SocialUIFrame_FriendRequestsList_ScrollBar_EventObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject : Button
----@field Event SocialUIFrame_FriendRequestsList_ScrollBar_Forward_EventObject
----@field Texture SocialUIFrame_FriendRequestsList_ScrollBar_Forward_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:GetAtlas(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:GetCallbackTable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:GetCallbackTables(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:IsDown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:IsDownOver(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:IsOver(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:NarrationGetName(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:OnDisable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:OnEnable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:OnEnter(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:OnLeave(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:OnMouseDown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:OnMouseUp(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:OnShow(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:RegisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:SecureInsertEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:TriggerEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:UnregisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:UnregisterEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_Forward_EventObject
-local SocialUIFrame_FriendRequestsList_ScrollBar_Forward_EventObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_Forward_TextureObject : Texture
-local SocialUIFrame_FriendRequestsList_ScrollBar_Forward_TextureObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_TrackObject : Frame
----@field Begin SocialUIFrame_FriendRequestsList_ScrollBar_Track_BeginObject
----@field End SocialUIFrame_FriendRequestsList_ScrollBar_Track_EndObject
----@field Middle SocialUIFrame_FriendRequestsList_ScrollBar_Track_MiddleObject
----@field Thumb SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject
-local SocialUIFrame_FriendRequestsList_ScrollBar_TrackObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_Track_BeginObject : Texture
-local SocialUIFrame_FriendRequestsList_ScrollBar_Track_BeginObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_Track_EndObject : Texture
-local SocialUIFrame_FriendRequestsList_ScrollBar_Track_EndObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_Track_MiddleObject : Texture
-local SocialUIFrame_FriendRequestsList_ScrollBar_Track_MiddleObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject : Button
----@field Begin SocialUIFrame_FriendRequestsList_ScrollBar_Track_Thumb_BeginObject
----@field End SocialUIFrame_FriendRequestsList_ScrollBar_Track_Thumb_EndObject
----@field Event SocialUIFrame_FriendRequestsList_ScrollBar_Track_Thumb_EventObject
----@field Middle SocialUIFrame_FriendRequestsList_ScrollBar_Track_Thumb_MiddleObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field downBeginTexture string
----@field downEndTexture string
----@field downMiddleTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field overBeginTexture string
----@field overEndTexture string
----@field overMiddleTexture string
----@field upBeginTexture string
----@field upEndTexture string
----@field upMiddleTexture string
-local SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:GetAtlas(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:IsDown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:IsDownOver(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:IsOver(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:OnDisable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:OnEnable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:OnEnter(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:OnLeave(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:OnShow(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_Track_Thumb_BeginObject : Texture
-local SocialUIFrame_FriendRequestsList_ScrollBar_Track_Thumb_BeginObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_Track_Thumb_EndObject : Texture
-local SocialUIFrame_FriendRequestsList_ScrollBar_Track_Thumb_EndObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_Track_Thumb_EventObject
-local SocialUIFrame_FriendRequestsList_ScrollBar_Track_Thumb_EventObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_Track_Thumb_MiddleObject : Texture
-local SocialUIFrame_FriendRequestsList_ScrollBar_Track_Thumb_MiddleObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_interpolatorObject
-local SocialUIFrame_FriendRequestsList_ScrollBar_interpolatorObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_interpolatorObject:Cancel(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_interpolatorObject:Interpolate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_interpolatorObject:interpolateFunc(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject : Frame
----@field Defaults SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_DefaultsObject
----@field Directions SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_DirectionsObject
----@field DragDelegate SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_DragDelegateObject
----@field Event SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_EventObject
----@field ScrollTarget SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject
----@field Shadows SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ShadowsObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field debugInspectionSystem string
----@field deferredCallbacks table
----@field executingEvents table
----@field isScrollController boolean
----@field panExtentPercentage number
----@field registeredScrollBar SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_registeredScrollBarObject
----@field view SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject
----@field wheelPanScalar number
-local SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ApplyEdgeFade(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:CalculateEdgeFade(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:CalculatePanExtentPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:CalculateScrollPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:CanInterpolateScroll(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ClearEdgeFade(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ContainsElementDataByPredicate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:EnableSnapToInterval(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:EnumerateDataProvider(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:EnumerateDataProviderEntireRange(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:EnumerateFrames(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:FindByPredicate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:FindElementData(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:FindElementDataByPredicate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:FindElementDataIndex(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:FindElementDataIndexByPredicate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:FindFrame(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:FindFrameByPredicate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:FindFrameElementDataIndex(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:Flush(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:FlushDataProvider(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ForEachElementData(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ForEachFrame(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:FullUpdate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:FullUpdateInternal(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GenerateCallbackEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetBottomPadding(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetCallbackTable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetCallbackTables(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetDataIndexBegin(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetDataIndexEnd(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetDataProvider(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetDataProviderSize(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetDerivedExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetDerivedScrollOffset(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetDerivedScrollRange(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetElementExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetExtentPadding(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetExtentUntil(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetFrameCount(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetFrameExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetFrames(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetIntervalRange(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetLeftPadding(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetLower(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetLowerPadding(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetLowerShadowTexture(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetPadding(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetPanExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetPanExtentPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetRightPadding(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetScrollInterpolator(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetScrollPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetScrollTarget(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetTopPadding(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetUpper(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetUpperPadding(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetUpperShadowTexture(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetView(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetVisibleExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:GetWheelPanPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:HasDataProvider(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:HasEdgeFade(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:HasScrollableExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:HasView(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:Init(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:Interpolate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:IsAcquireLocked(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:IsAlignmentOverlapIgnored(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:IsAtBegin(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:IsAtEnd(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:IsHorizontal(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:IsScrollAllowed(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:IsScrollToDataIndexSafe(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:IsUpdateLocked(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:IsVirtualized(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:Layout(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:OnMouseWheel(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:OnScrollTargetSizeChanged(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:OnSizeChanged(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:OnViewAcquiredFrame(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:OnViewDataChanged(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:OnViewDataProviderReassigned(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:OnViewInitializedFrame(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:OnViewReleasedFrame(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:Rebuild(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:RecalculateDerivedExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:RegisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ReinitializeFrames(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:RemoveDataProvider(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProvider(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ReverseForEachElementData(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ReverseForEachFrame(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SanitizeAlignment(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ScrollDecrease(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ScrollInDirection(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ScrollIncrease(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ScrollToBegin(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ScrollToElementData(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ScrollToElementDataByPredicate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ScrollToElementDataIndex(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ScrollToEnd(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ScrollToFrame(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ScrollToNearest(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ScrollToNearestByPredicate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ScrollToOffset(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SecureInsertEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SelectCursorComponent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SelectPointComponent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SetAlignmentOverlapIgnored(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SetDataProvider(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SetEdgeFadeLength(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SetFrameExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SetHorizontal(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SetInterpolateScroll(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SetLowerShadowAtlas(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SetPadding(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SetPanExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SetPanExtentPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SetScrollAllowed(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SetScrollPercentage(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SetScrollPercentageInternal(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SetScrollTargetOffset(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SetShadowsFrameLevel(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SetShadowsScale(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SetShadowsShown(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SetUpdateLocked(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SetUpperShadowAtlas(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SetUseShadowsForEdgeFade(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:SetView(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:TriggerEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:UnregisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:UnregisterEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:Update(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBoxObject:scrollInternal(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_DefaultsObject
-local SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_DefaultsObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_DirectionsObject
-local SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_DirectionsObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_DragDelegateObject : Frame
-local SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_DragDelegateObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_EventObject
-local SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_EventObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject : Frame
----@field Event SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
-local SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTables(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject:TriggerEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
-local SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ScrollTarget_EventObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ShadowsObject : Frame
----@field Lower SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_Shadows_LowerObject
----@field Upper SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_Shadows_UpperObject
-local SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_ShadowsObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_Shadows_LowerObject : Texture
-local SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_Shadows_LowerObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_Shadows_UpperObject : Texture
-local SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_Shadows_UpperObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_registeredScrollBarObject
-local SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_registeredScrollBarObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject
----@field Event table
----@field FrameLevelPolicy table
----@field callbackTables table
----@field canSignalWithoutInitializer boolean
----@field deferredCallbacks table
----@field executingEvents table
----@field frameFactory table
----@field frames table
----@field indent number
----@field initialized boolean
----@field initializers table
----@field padding table
----@field scrollBox SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_view_scrollBoxObject
----@field templateInfoCache table
-local SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject = {}
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:AcquireInternal(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:AcquireRange(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:AssignAccessors(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:AttachDataProviderCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:CalculateDataIndices(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:CalculateFrameExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:ClearCachedData(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:ClearElementExtentData(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:ClearInvalidation(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:ContainsElementDataByPredicate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:DataProviderContentsChanged(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:DetachDataProviderCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProvider(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:EnumerateFrames(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:FindByPredicate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:FindElementData(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:FindElementDataByPredicate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndex(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:FindFrame(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:FindFrameByPredicate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:FindFrameElementDataIndex(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:Flush(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:FlushDataProvider(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:ForEachElementData(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:ForEachFrame(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GenerateCallbackEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetCallbackTable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetCallbackTables(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetDataIndexBegin(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetDataIndexEnd(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetDataProvider(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetDataProviderSize(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetDataRange(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetDataScrollOffset(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetElementExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetElementExtentCalculator(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetElementIndent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetExtentFromInfo(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetExtentSpacing(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetExtentTo(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetExtentUntil(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetFactoryDataFromElementData(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetFirstTemplateInfo(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetFrameCount(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetFrameExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelCounter(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelPolicy(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetFrames(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetIdenticalElementExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetIdenticalStrideExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetInvalidationReason(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetLayoutFunction(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetLower(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetPadding(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetPanExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetScrollBox(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetScrollTarget(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetSpacing(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetStride(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetTemplateInfo(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:GetUpper(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:HasBiaxalLayout(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:HasDataProvider(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:HasElementExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:HasIdenticalElementExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:HasIdenticalStrideExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:Init(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:InitDefaultDrag(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:InvokeInitializer(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:InvokeInitializers(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:IsAcquireLocked(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:IsDataIndexWithinRange(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:IsElementStretchDisabled(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:IsExtentValid(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:IsHorizontal(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:IsInitialized(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:IsInvalidated(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:IsVirtualized(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:Layout(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:LayoutInternal(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSizeChanged(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSort(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:OnLoad(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementData(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:RebuildTemplateInfoCache(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:RecalculateExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:RefreshSmartNav(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:RegisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:ReinitializeFrames(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:Release(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:RemoveDataProvider(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:RemoveDataProviderInternal(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:ResizeFrame(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:ReverseForEachElementData(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:ReverseForEachFrame(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SecureInsertEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SelectCursorComponent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SelectPointComponent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SetAcquireLocked(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SetDataProvider(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SetDataRange(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SetElementExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SetElementExtentCalculator(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SetElementFactory(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SetElementIndent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SetElementIndentCalculator(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SetElementInitializer(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SetElementResetter(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SetElementStretchDisabled(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SetExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SetFrameExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SetFrameFactoryResetter(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SetFrameLevelPolicy(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SetHorizontal(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SetInvalidationReason(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SetMaxPanExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SetPadding(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SetPanExtent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SetScrollBox(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SetVirtualized(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SignalDataChangeEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:SortFrames(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:TriggerEvent(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:UnassignAccessors(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:UnregisterCallback(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:UnregisterEvents(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:ValidateDataRange(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:elementExtentCalculator(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:elementFactory(...) end
----@return any ...
-function SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_viewObject:factory(...) end
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_view_scrollBoxObject
-local SocialUIFrame_FriendRequestsList_ScrollBar_registeredScrollBox_view_scrollBoxObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_ScrollBoxObject
-local SocialUIFrame_FriendRequestsList_ScrollBoxObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_TemplateExtentCacheObject
----@field FriendRequestsListSocialCardTemplate number
----@field SocialUIScrollableHeaderTemplate number
----@field SocialUIScrollableSpacerTemplate number
-local SocialUIFrame_FriendRequestsList_TemplateExtentCacheObject = {}
-end
-
-do
----@class SocialUIFrame_FriendRequestsList_TemplateRegistrationsObject
----@field FriendRequestsListSocialCardTemplate table
----@field SocialUIScrollableHeaderTemplate table
----@field SocialUIScrollableSpacerTemplate table
-local SocialUIFrame_FriendRequestsList_TemplateRegistrationsObject = {}
+function HeroTalentsSelectionDialog_talentFrame_LoadSystem_DropdownObject:selectionTranslator(...) end
 end

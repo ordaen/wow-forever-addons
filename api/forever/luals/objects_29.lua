@@ -3,7835 +3,10253 @@
 
 
 do
----@class QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject : Button
----@field Event QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Back_EventObject
----@field Texture QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Back_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject = {}
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:DesaturateIfDisabled(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:GenerateCallbackEvents(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:GetAtlas(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:GetCallbackTable(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:GetCallbackTables(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:GetCallbacksByEvent(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:IsDown(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:IsDownOver(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:IsOver(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:NarrationGetName(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:OnButtonStateChanged(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:OnClick_Intrinsic(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:OnDisable(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:OnEnable(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:OnEnter(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:OnLeave(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:OnLoad(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:OnMouseDown(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:OnMouseUp(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:OnShow(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:RegisterCallback(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:SecureInsertEvent(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:SetDisplacedRegions(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:TriggerEvent(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:UnregisterCallback(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:UnregisterEvents(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+---@class GuildBankFrame_Column1_Button1_CountObject : FontString
+local GuildBankFrame_Column1_Button1_CountObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Back_EventObject
-local QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Back_EventObject = {}
+---@class GuildBankFrame_Column1_Button1_HighlightTextureObject : Texture
+local GuildBankFrame_Column1_Button1_HighlightTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Back_TextureObject : Texture
-local QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Back_TextureObject = {}
+---@class GuildBankFrame_Column1_Button1_IconBorderObject : Texture
+local GuildBankFrame_Column1_Button1_IconBorderObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_DefaultsObject
-local QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_DefaultsObject = {}
+---@class GuildBankFrame_Column1_Button1_IconOverlayObject : Texture
+local GuildBankFrame_Column1_Button1_IconOverlayObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_DirectionsObject
-local QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_DirectionsObject = {}
+---@class GuildBankFrame_Column1_Button1_IconOverlay2Object : Texture
+local GuildBankFrame_Column1_Button1_IconOverlay2Object = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_EventObject
-local QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_EventObject = {}
+---@class GuildBankFrame_Column1_Button1_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column1_Button1_ItemContextOverlayObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject : Button
----@field Event QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Forward_EventObject
----@field Texture QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Forward_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject = {}
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:GetAtlas(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:GetCallbackTable(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:GetCallbackTables(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:IsDown(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:IsDownOver(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:IsOver(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:NarrationGetName(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:OnDisable(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:OnEnable(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:OnEnter(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:OnLeave(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:OnLoad(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:OnMouseDown(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:OnMouseUp(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:OnShow(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:RegisterCallback(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:SecureInsertEvent(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:TriggerEvent(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:UnregisterCallback(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:UnregisterEvents(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+---@class GuildBankFrame_Column1_Button1_MaskObject : MaskTexture
+local GuildBankFrame_Column1_Button1_MaskObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Forward_EventObject
-local QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Forward_EventObject = {}
+---@class GuildBankFrame_Column1_Button1_NormalTextureObject : Texture
+local GuildBankFrame_Column1_Button1_NormalTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Forward_TextureObject : Texture
-local QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Forward_TextureObject = {}
+---@class GuildBankFrame_Column1_Button1_PushedTextureObject : Texture
+local GuildBankFrame_Column1_Button1_PushedTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_TrackObject : Frame
----@field Begin QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_BeginObject
----@field End QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_EndObject
----@field Middle QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_MiddleObject
----@field Thumb QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject
-local QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_TrackObject = {}
+---@class GuildBankFrame_Column1_Button1_StockObject : FontString
+local GuildBankFrame_Column1_Button1_StockObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_BeginObject : Texture
-local QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_BeginObject = {}
+---@class GuildBankFrame_Column1_Button1_iconObject : Texture
+local GuildBankFrame_Column1_Button1_iconObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_EndObject : Texture
-local QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_EndObject = {}
+---@class GuildBankFrame_Column1_Button1_searchOverlayObject : Texture
+local GuildBankFrame_Column1_Button1_searchOverlayObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_MiddleObject : Texture
-local QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_MiddleObject = {}
+---@class GuildBankFrame_Column1_Button10Object : Button
+---@field Count GuildBankFrame_Column1_Button10_CountObject
+---@field HighlightTexture GuildBankFrame_Column1_Button10_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column1_Button10_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column1_Button10_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column1_Button10_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column1_Button10_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column1_Button10_MaskObject
+---@field NormalTexture GuildBankFrame_Column1_Button10_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column1_Button10_PushedTextureObject
+---@field Stock GuildBankFrame_Column1_Button10_StockObject
+---@field icon GuildBankFrame_Column1_Button10_iconObject
+---@field searchOverlay GuildBankFrame_Column1_Button10_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column1_Button10Object = {}
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button10Object:UpdateTooltip(...) end
 end
 
 do
----@class QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject : Button
----@field Begin QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_Thumb_BeginObject
----@field End QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_Thumb_EndObject
----@field Event QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_Thumb_EventObject
----@field Middle QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field downBeginTexture string
----@field downEndTexture string
----@field downMiddleTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field overBeginTexture string
----@field overEndTexture string
----@field overMiddleTexture string
----@field upBeginTexture string
----@field upEndTexture string
----@field upMiddleTexture string
-local QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject = {}
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GetAtlas(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:IsDown(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:IsDownOver(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:IsOver(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnDisable(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnable(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnter(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnLeave(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnLoad(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnShow(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+---@class GuildBankFrame_Column1_Button10_CountObject : FontString
+local GuildBankFrame_Column1_Button10_CountObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_Thumb_BeginObject : Texture
-local QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_Thumb_BeginObject = {}
+---@class GuildBankFrame_Column1_Button10_HighlightTextureObject : Texture
+local GuildBankFrame_Column1_Button10_HighlightTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_Thumb_EndObject : Texture
-local QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_Thumb_EndObject = {}
+---@class GuildBankFrame_Column1_Button10_IconBorderObject : Texture
+local GuildBankFrame_Column1_Button10_IconBorderObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_Thumb_EventObject
-local QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_Thumb_EventObject = {}
+---@class GuildBankFrame_Column1_Button10_IconOverlayObject : Texture
+local GuildBankFrame_Column1_Button10_IconOverlayObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject : Texture
-local QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject = {}
+---@class GuildBankFrame_Column1_Button10_IconOverlay2Object : Texture
+local GuildBankFrame_Column1_Button10_IconOverlay2Object = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_interpolatorObject
-local QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_interpolatorObject = {}
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_interpolatorObject:Cancel(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_interpolatorObject:Interpolate(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_interpolatorObject:interpolateFunc(...) end
+---@class GuildBankFrame_Column1_Button10_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column1_Button10_ItemContextOverlayObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ScrollFrame_ScrollChildObject : Frame
-local QuestLogPopupDetailFrame_ScrollFrame_ScrollChildObject = {}
+---@class GuildBankFrame_Column1_Button10_MaskObject : MaskTexture
+local GuildBankFrame_Column1_Button10_MaskObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_SealMaterialBGObject : Texture
-local QuestLogPopupDetailFrame_SealMaterialBGObject = {}
+---@class GuildBankFrame_Column1_Button10_NormalTextureObject : Texture
+local GuildBankFrame_Column1_Button10_NormalTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ShareButtonObject : Button
----@field Left QuestLogPopupDetailFrame_ShareButton_LeftObject
----@field Middle QuestLogPopupDetailFrame_ShareButton_MiddleObject
----@field Right QuestLogPopupDetailFrame_ShareButton_RightObject
----@field Text QuestLogPopupDetailFrame_ShareButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local QuestLogPopupDetailFrame_ShareButtonObject = {}
----@return any ...
-function QuestLogPopupDetailFrame_ShareButtonObject:FitToText(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ShareButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ShareButtonObject:OnEnter(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ShareButtonObject:OnLeave(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ShareButtonObject:SetDisabledState(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ShareButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function QuestLogPopupDetailFrame_ShareButtonObject:SetTextToFit(...) end
+---@class GuildBankFrame_Column1_Button10_PushedTextureObject : Texture
+local GuildBankFrame_Column1_Button10_PushedTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ShareButton_LeftObject : Texture
-local QuestLogPopupDetailFrame_ShareButton_LeftObject = {}
+---@class GuildBankFrame_Column1_Button10_StockObject : FontString
+local GuildBankFrame_Column1_Button10_StockObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ShareButton_MiddleObject : Texture
-local QuestLogPopupDetailFrame_ShareButton_MiddleObject = {}
+---@class GuildBankFrame_Column1_Button10_iconObject : Texture
+local GuildBankFrame_Column1_Button10_iconObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ShareButton_RightObject : Texture
-local QuestLogPopupDetailFrame_ShareButton_RightObject = {}
+---@class GuildBankFrame_Column1_Button10_searchOverlayObject : Texture
+local GuildBankFrame_Column1_Button10_searchOverlayObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ShareButton_TextObject : FontString
-local QuestLogPopupDetailFrame_ShareButton_TextObject = {}
+---@class GuildBankFrame_Column1_Button11Object : Button
+---@field Count GuildBankFrame_Column1_Button11_CountObject
+---@field HighlightTexture GuildBankFrame_Column1_Button11_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column1_Button11_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column1_Button11_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column1_Button11_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column1_Button11_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column1_Button11_MaskObject
+---@field NormalTexture GuildBankFrame_Column1_Button11_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column1_Button11_PushedTextureObject
+---@field Stock GuildBankFrame_Column1_Button11_StockObject
+---@field icon GuildBankFrame_Column1_Button11_iconObject
+---@field searchOverlay GuildBankFrame_Column1_Button11_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column1_Button11Object = {}
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button11Object:UpdateTooltip(...) end
 end
 
 do
----@class QuestLogPopupDetailFrame_ShowMapButtonObject : Button
----@field Highlight QuestLogPopupDetailFrame_ShowMapButton_HighlightObject
----@field Text QuestLogPopupDetailFrame_ShowMapButton_TextObject
----@field Texture QuestLogPopupDetailFrame_ShowMapButton_TextureObject
-local QuestLogPopupDetailFrame_ShowMapButtonObject = {}
+---@class GuildBankFrame_Column1_Button11_CountObject : FontString
+local GuildBankFrame_Column1_Button11_CountObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ShowMapButton_HighlightObject : Texture
-local QuestLogPopupDetailFrame_ShowMapButton_HighlightObject = {}
+---@class GuildBankFrame_Column1_Button11_HighlightTextureObject : Texture
+local GuildBankFrame_Column1_Button11_HighlightTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ShowMapButton_TextObject : FontString
-local QuestLogPopupDetailFrame_ShowMapButton_TextObject = {}
+---@class GuildBankFrame_Column1_Button11_IconBorderObject : Texture
+local GuildBankFrame_Column1_Button11_IconBorderObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ShowMapButton_TextureObject : Texture
-local QuestLogPopupDetailFrame_ShowMapButton_TextureObject = {}
+---@class GuildBankFrame_Column1_Button11_IconOverlayObject : Texture
+local GuildBankFrame_Column1_Button11_IconOverlayObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_TitleContainerObject : Frame
----@field TitleText QuestLogPopupDetailFrame_TitleContainer_TitleTextObject
-local QuestLogPopupDetailFrame_TitleContainerObject = {}
+---@class GuildBankFrame_Column1_Button11_IconOverlay2Object : Texture
+local GuildBankFrame_Column1_Button11_IconOverlay2Object = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_TitleContainer_TitleTextObject : FontString
-local QuestLogPopupDetailFrame_TitleContainer_TitleTextObject = {}
+---@class GuildBankFrame_Column1_Button11_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column1_Button11_ItemContextOverlayObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_TopTileStreaksObject : Texture
-local QuestLogPopupDetailFrame_TopTileStreaksObject = {}
+---@class GuildBankFrame_Column1_Button11_MaskObject : MaskTexture
+local GuildBankFrame_Column1_Button11_MaskObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_TrackButtonObject : Button
----@field Left QuestLogPopupDetailFrame_TrackButton_LeftObject
----@field Middle QuestLogPopupDetailFrame_TrackButton_MiddleObject
----@field Right QuestLogPopupDetailFrame_TrackButton_RightObject
----@field Text QuestLogPopupDetailFrame_TrackButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local QuestLogPopupDetailFrame_TrackButtonObject = {}
----@return any ...
-function QuestLogPopupDetailFrame_TrackButtonObject:FitToText(...) end
----@return any ...
-function QuestLogPopupDetailFrame_TrackButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function QuestLogPopupDetailFrame_TrackButtonObject:OnEnter(...) end
----@return any ...
-function QuestLogPopupDetailFrame_TrackButtonObject:OnLeave(...) end
----@return any ...
-function QuestLogPopupDetailFrame_TrackButtonObject:SetDisabledState(...) end
----@return any ...
-function QuestLogPopupDetailFrame_TrackButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function QuestLogPopupDetailFrame_TrackButtonObject:SetTextToFit(...) end
+---@class GuildBankFrame_Column1_Button11_NormalTextureObject : Texture
+local GuildBankFrame_Column1_Button11_NormalTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_TrackButton_LeftObject : Texture
-local QuestLogPopupDetailFrame_TrackButton_LeftObject = {}
+---@class GuildBankFrame_Column1_Button11_PushedTextureObject : Texture
+local GuildBankFrame_Column1_Button11_PushedTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_TrackButton_MiddleObject : Texture
-local QuestLogPopupDetailFrame_TrackButton_MiddleObject = {}
+---@class GuildBankFrame_Column1_Button11_StockObject : FontString
+local GuildBankFrame_Column1_Button11_StockObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_TrackButton_RightObject : Texture
-local QuestLogPopupDetailFrame_TrackButton_RightObject = {}
+---@class GuildBankFrame_Column1_Button11_iconObject : Texture
+local GuildBankFrame_Column1_Button11_iconObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_TrackButton_TextObject : FontString
-local QuestLogPopupDetailFrame_TrackButton_TextObject = {}
+---@class GuildBankFrame_Column1_Button11_searchOverlayObject : Texture
+local GuildBankFrame_Column1_Button11_searchOverlayObject = {}
 end
 
 do
----@class QuestSessionManagerObject : Frame
----@field CheckConvertToRaidDialog QuestSessionManager_CheckConvertToRaidDialogObject
----@field CheckLeavePartyDialog QuestSessionManager_CheckLeavePartyDialogObject
----@field CheckStartDialog QuestSessionManager_CheckStartDialogObject
----@field CheckStopDialog QuestSessionManager_CheckStopDialogObject
----@field ConfirmBNJoinGroupRequestDialog QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject
----@field ConfirmInviteToGroupDialog QuestSessionManager_ConfirmInviteToGroupDialogObject
----@field ConfirmInviteToGroupReceivedDialog QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject
----@field ConfirmInviteTravelPassConfirmationDialog QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject
----@field ConfirmJoinGroupRequestDialog QuestSessionManager_ConfirmJoinGroupRequestDialogObject
----@field ConfirmRequestToJoinGroupDialog QuestSessionManager_ConfirmRequestToJoinGroupDialogObject
----@field SessionManagementDialogs table
----@field StartDialog QuestSessionManager_StartDialogObject
-local QuestSessionManagerObject = {}
+---@class GuildBankFrame_Column1_Button12Object : Button
+---@field Count GuildBankFrame_Column1_Button12_CountObject
+---@field HighlightTexture GuildBankFrame_Column1_Button12_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column1_Button12_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column1_Button12_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column1_Button12_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column1_Button12_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column1_Button12_MaskObject
+---@field NormalTexture GuildBankFrame_Column1_Button12_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column1_Button12_PushedTextureObject
+---@field Stock GuildBankFrame_Column1_Button12_StockObject
+---@field icon GuildBankFrame_Column1_Button12_iconObject
+---@field searchOverlay GuildBankFrame_Column1_Button12_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column1_Button12Object = {}
 ---@return any ...
-function QuestSessionManagerObject:CheckClearMinimizedDialog(...) end
+function GuildBankFrame_Column1_Button12Object:GetBagID(...) end
 ---@return any ...
-function QuestSessionManagerObject:CheckMutuallyExclusiveDialogs(...) end
+function GuildBankFrame_Column1_Button12Object:GetItem(...) end
 ---@return any ...
-function QuestSessionManagerObject:CheckShowBNetRequestInviteConfirmation(...) end
+function GuildBankFrame_Column1_Button12Object:GetItemButtonBackgroundTexture(...) end
 ---@return any ...
-function QuestSessionManagerObject:CheckShowInviteTravelPassConfirmation(...) end
+function GuildBankFrame_Column1_Button12Object:GetItemButtonCount(...) end
 ---@return any ...
-function QuestSessionManagerObject:CheckShowRequestInviteConfirmation(...) end
+function GuildBankFrame_Column1_Button12Object:GetItemButtonIconTexture(...) end
 ---@return any ...
-function QuestSessionManagerObject:CheckShowSessionStartPrompt(...) end
+function GuildBankFrame_Column1_Button12Object:GetItemContextOverlayMode(...) end
 ---@return any ...
-function QuestSessionManagerObject:ClearMinimizedDialog(...) end
+function GuildBankFrame_Column1_Button12Object:GetItemID(...) end
 ---@return any ...
-function QuestSessionManagerObject:DismissDialogs(...) end
+function GuildBankFrame_Column1_Button12Object:GetItemInfo(...) end
 ---@return any ...
-function QuestSessionManagerObject:ExecuteSessionCommand(...) end
+function GuildBankFrame_Column1_Button12Object:GetItemLink(...) end
 ---@return any ...
-function QuestSessionManagerObject:GetActiveDialog(...) end
+function GuildBankFrame_Column1_Button12Object:GetItemLocation(...) end
 ---@return any ...
-function QuestSessionManagerObject:GetMinimizedDialog(...) end
+function GuildBankFrame_Column1_Button12Object:GetMatchesSearch(...) end
 ---@return any ...
-function QuestSessionManagerObject:GetProposedPlayerLevel(...) end
+function GuildBankFrame_Column1_Button12Object:GetSlotAndBagID(...) end
 ---@return any ...
-function QuestSessionManagerObject:GetSessionCommand(...) end
+function GuildBankFrame_Column1_Button12Object:OnClick(...) end
 ---@return any ...
-function QuestSessionManagerObject:GetSessionManagementFailureReason(...) end
+function GuildBankFrame_Column1_Button12Object:OnDragStart(...) end
 ---@return any ...
-function QuestSessionManagerObject:GetStartSessionBodyText(...) end
+function GuildBankFrame_Column1_Button12Object:OnEnter(...) end
 ---@return any ...
-function QuestSessionManagerObject:GetSystemSessionCommand(...) end
+function GuildBankFrame_Column1_Button12Object:OnEvent(...) end
 ---@return any ...
-function QuestSessionManagerObject:IsSessionManagementEnabled(...) end
+function GuildBankFrame_Column1_Button12Object:OnHide(...) end
 ---@return any ...
-function QuestSessionManagerObject:IsTimeout(...) end
+function GuildBankFrame_Column1_Button12Object:OnItemContextChanged(...) end
 ---@return any ...
-function QuestSessionManagerObject:NotifyDialogHide(...) end
+function GuildBankFrame_Column1_Button12Object:OnLeave(...) end
 ---@return any ...
-function QuestSessionManagerObject:NotifyDialogMinimize(...) end
+function GuildBankFrame_Column1_Button12Object:OnLoad(...) end
 ---@return any ...
-function QuestSessionManagerObject:NotifyDialogShow(...) end
+function GuildBankFrame_Column1_Button12Object:OnReceiveDrag(...) end
 ---@return any ...
-function QuestSessionManagerObject:NotifyUpdate(...) end
+function GuildBankFrame_Column1_Button12Object:OnUpdateItemContextMatching(...) end
 ---@return any ...
-function QuestSessionManagerObject:OnEnabledStateChanged(...) end
+function GuildBankFrame_Column1_Button12Object:PostOnEvent(...) end
 ---@return any ...
-function QuestSessionManagerObject:OnEvent(...) end
+function GuildBankFrame_Column1_Button12Object:PostOnHide(...) end
 ---@return any ...
-function QuestSessionManagerObject:OnInviteToPartyConfirmation(...) end
+function GuildBankFrame_Column1_Button12Object:PostOnLoad(...) end
 ---@return any ...
-function QuestSessionManagerObject:OnLoad(...) end
+function GuildBankFrame_Column1_Button12Object:PostOnShow(...) end
 ---@return any ...
-function QuestSessionManagerObject:OnQuestRemoved(...) end
+function GuildBankFrame_Column1_Button12Object:RegisterBagButtonUpdateItemContextMatching(...) end
 ---@return any ...
-function QuestSessionManagerObject:OnQuestSessionNotification(...) end
+function GuildBankFrame_Column1_Button12Object:Reset(...) end
 ---@return any ...
-function QuestSessionManagerObject:RegisterUpdateEvents(...) end
+function GuildBankFrame_Column1_Button12Object:SetBagID(...) end
 ---@return any ...
-function QuestSessionManagerObject:SetMinimizedDialog(...) end
+function GuildBankFrame_Column1_Button12Object:SetItem(...) end
 ---@return any ...
-function QuestSessionManagerObject:ShouldNotificationDismissDialogs(...) end
+function GuildBankFrame_Column1_Button12Object:SetItemButtonAnchorPoint(...) end
 ---@return any ...
-function QuestSessionManagerObject:ShouldSessionManagementUIBeVisible(...) end
+function GuildBankFrame_Column1_Button12Object:SetItemButtonBorderVertexColor(...) end
 ---@return any ...
-function QuestSessionManagerObject:ShowCheckDialog(...) end
+function GuildBankFrame_Column1_Button12Object:SetItemButtonCount(...) end
 ---@return any ...
-function QuestSessionManagerObject:ShowGroupInviteConfirmation(...) end
+function GuildBankFrame_Column1_Button12Object:SetItemButtonQuality(...) end
 ---@return any ...
-function QuestSessionManagerObject:ShowGroupInviteReceivedConfirmation(...) end
+function GuildBankFrame_Column1_Button12Object:SetItemButtonScale(...) end
 ---@return any ...
-function QuestSessionManagerObject:StartSession(...) end
+function GuildBankFrame_Column1_Button12Object:SetItemButtonTexture(...) end
 ---@return any ...
-function QuestSessionManagerObject:StopSession(...) end
----@type QuestSessionManagerObject
-QuestSessionManager = QuestSessionManagerObject
+function GuildBankFrame_Column1_Button12Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button12Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button12Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button12Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button12Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button12Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button12Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button12Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button12Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button12Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button12Object:UpdateTooltip(...) end
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialogObject : Frame
----@field BG QuestSessionManager_CheckConvertToRaidDialog_BGObject
----@field Body QuestSessionManager_CheckConvertToRaidDialog_BodyObject
----@field Border QuestSessionManager_CheckConvertToRaidDialog_BorderObject
----@field ButtonContainer QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject
----@field Divider QuestSessionManager_CheckConvertToRaidDialog_DividerObject
----@field InvisibleRule QuestSessionManager_CheckConvertToRaidDialog_InvisibleRuleObject
----@field PlayerContainer QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject
----@field Title QuestSessionManager_CheckConvertToRaidDialog_TitleObject
----@field cancelText string
----@field confirmText string
----@field heightPadding number
----@field minimumWidth number
-local QuestSessionManager_CheckConvertToRaidDialogObject = {}
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:AddParty(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:AddUnit(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:BaseOnEvent(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:BaseOnHide(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:BaseOnShow(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:Cancel(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:CheckAddUnit(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:CheckValidateDialog(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:ClearHideSound(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:ClearShowSound(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:Confirm(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:GetDialogFailureReason(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:GetHideSound(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:GetMemberFrame(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:GetResponseCounts(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:GetSessionCommand(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:GetShowSound(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:HasTrackedResponse(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:HideImmediate(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:Minimize(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:OnButtonsEnabled(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:OnLoad(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:PlayHideSound(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:PlayShowSound(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:RequiresValidateDialog(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:ResetPlayerContainer(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:SetButtonsEnabled(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:SetHideSound(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:SetMemberResponse(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:SetShowSound(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:Setup(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:SetupPlayerContainer(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:ShowDialog(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:StartHideDialog(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialogObject:TrackResponse(...) end
+---@class GuildBankFrame_Column1_Button12_CountObject : FontString
+local GuildBankFrame_Column1_Button12_CountObject = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_BGObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_CheckConvertToRaidDialog_BGObject = {}
+---@class GuildBankFrame_Column1_Button12_HighlightTextureObject : Texture
+local GuildBankFrame_Column1_Button12_HighlightTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_BodyObject : Frame
----@field Icon QuestSessionManager_CheckConvertToRaidDialog_Body_IconObject
----@field Text QuestSessionManager_CheckConvertToRaidDialog_Body_TextObject
-local QuestSessionManager_CheckConvertToRaidDialog_BodyObject = {}
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:AdjustTextWidthForAlignment(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:SetText(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:SetWarningText(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BodyObject:ShouldClearOnUpdateAfterClean(...) end
+---@class GuildBankFrame_Column1_Button12_IconBorderObject : Texture
+local GuildBankFrame_Column1_Button12_IconBorderObject = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_Body_IconObject : Texture
-local QuestSessionManager_CheckConvertToRaidDialog_Body_IconObject = {}
+---@class GuildBankFrame_Column1_Button12_IconOverlayObject : Texture
+local GuildBankFrame_Column1_Button12_IconOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_Body_TextObject : FontString
-local QuestSessionManager_CheckConvertToRaidDialog_Body_TextObject = {}
+---@class GuildBankFrame_Column1_Button12_IconOverlay2Object : Texture
+local GuildBankFrame_Column1_Button12_IconOverlay2Object = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_BorderObject : Frame
----@field Bg QuestSessionManager_CheckConvertToRaidDialog_Border_BgObject
----@field BottomEdge QuestSessionManager_CheckConvertToRaidDialog_Border_BottomEdgeObject
----@field BottomLeftCorner QuestSessionManager_CheckConvertToRaidDialog_Border_BottomLeftCornerObject
----@field BottomRightCorner QuestSessionManager_CheckConvertToRaidDialog_Border_BottomRightCornerObject
----@field LeftEdge QuestSessionManager_CheckConvertToRaidDialog_Border_LeftEdgeObject
----@field RightEdge QuestSessionManager_CheckConvertToRaidDialog_Border_RightEdgeObject
----@field TopEdge QuestSessionManager_CheckConvertToRaidDialog_Border_TopEdgeObject
----@field TopLeftCorner QuestSessionManager_CheckConvertToRaidDialog_Border_TopLeftCornerObject
----@field TopRightCorner QuestSessionManager_CheckConvertToRaidDialog_Border_TopRightCornerObject
----@field ignoreInLayout boolean
----@field layoutType string
-local QuestSessionManager_CheckConvertToRaidDialog_BorderObject = {}
+---@class GuildBankFrame_Column1_Button12_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column1_Button12_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button12_MaskObject : MaskTexture
+local GuildBankFrame_Column1_Button12_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button12_NormalTextureObject : Texture
+local GuildBankFrame_Column1_Button12_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button12_PushedTextureObject : Texture
+local GuildBankFrame_Column1_Button12_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button12_StockObject : FontString
+local GuildBankFrame_Column1_Button12_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button12_iconObject : Texture
+local GuildBankFrame_Column1_Button12_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button12_searchOverlayObject : Texture
+local GuildBankFrame_Column1_Button12_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button13Object : Button
+---@field Count GuildBankFrame_Column1_Button13_CountObject
+---@field HighlightTexture GuildBankFrame_Column1_Button13_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column1_Button13_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column1_Button13_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column1_Button13_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column1_Button13_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column1_Button13_MaskObject
+---@field NormalTexture GuildBankFrame_Column1_Button13_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column1_Button13_PushedTextureObject
+---@field Stock GuildBankFrame_Column1_Button13_StockObject
+---@field icon GuildBankFrame_Column1_Button13_iconObject
+---@field searchOverlay GuildBankFrame_Column1_Button13_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column1_Button13Object = {}
 ---@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BorderObject:GetBorderColor(...) end
+function GuildBankFrame_Column1_Button13Object:GetBagID(...) end
 ---@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BorderObject:GetCenterColor(...) end
+function GuildBankFrame_Column1_Button13Object:GetItem(...) end
 ---@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BorderObject:GetFrameLayoutTextureKit(...) end
+function GuildBankFrame_Column1_Button13Object:GetItemButtonBackgroundTexture(...) end
 ---@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BorderObject:GetFrameLayoutType(...) end
+function GuildBankFrame_Column1_Button13Object:GetItemButtonCount(...) end
 ---@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BorderObject:OnLoad(...) end
+function GuildBankFrame_Column1_Button13Object:GetItemButtonIconTexture(...) end
 ---@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BorderObject:SetBlendMode(...) end
+function GuildBankFrame_Column1_Button13Object:GetItemContextOverlayMode(...) end
 ---@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BorderObject:SetBorderBlendMode(...) end
+function GuildBankFrame_Column1_Button13Object:GetItemID(...) end
 ---@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BorderObject:SetBorderColor(...) end
+function GuildBankFrame_Column1_Button13Object:GetItemInfo(...) end
 ---@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BorderObject:SetCenterColor(...) end
+function GuildBankFrame_Column1_Button13Object:GetItemLink(...) end
 ---@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_BorderObject:SetVertexColor(...) end
+function GuildBankFrame_Column1_Button13Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button13Object:UpdateTooltip(...) end
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_Border_BgObject : Texture
-local QuestSessionManager_CheckConvertToRaidDialog_Border_BgObject = {}
+---@class GuildBankFrame_Column1_Button13_CountObject : FontString
+local GuildBankFrame_Column1_Button13_CountObject = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_Border_BottomEdgeObject : Texture
-local QuestSessionManager_CheckConvertToRaidDialog_Border_BottomEdgeObject = {}
+---@class GuildBankFrame_Column1_Button13_HighlightTextureObject : Texture
+local GuildBankFrame_Column1_Button13_HighlightTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_Border_BottomLeftCornerObject : Texture
-local QuestSessionManager_CheckConvertToRaidDialog_Border_BottomLeftCornerObject = {}
+---@class GuildBankFrame_Column1_Button13_IconBorderObject : Texture
+local GuildBankFrame_Column1_Button13_IconBorderObject = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_Border_BottomRightCornerObject : Texture
-local QuestSessionManager_CheckConvertToRaidDialog_Border_BottomRightCornerObject = {}
+---@class GuildBankFrame_Column1_Button13_IconOverlayObject : Texture
+local GuildBankFrame_Column1_Button13_IconOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_Border_LeftEdgeObject : Texture
-local QuestSessionManager_CheckConvertToRaidDialog_Border_LeftEdgeObject = {}
+---@class GuildBankFrame_Column1_Button13_IconOverlay2Object : Texture
+local GuildBankFrame_Column1_Button13_IconOverlay2Object = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_Border_RightEdgeObject : Texture
-local QuestSessionManager_CheckConvertToRaidDialog_Border_RightEdgeObject = {}
+---@class GuildBankFrame_Column1_Button13_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column1_Button13_ItemContextOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_Border_TopEdgeObject : Texture
-local QuestSessionManager_CheckConvertToRaidDialog_Border_TopEdgeObject = {}
+---@class GuildBankFrame_Column1_Button13_MaskObject : MaskTexture
+local GuildBankFrame_Column1_Button13_MaskObject = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_Border_TopLeftCornerObject : Texture
-local QuestSessionManager_CheckConvertToRaidDialog_Border_TopLeftCornerObject = {}
+---@class GuildBankFrame_Column1_Button13_NormalTextureObject : Texture
+local GuildBankFrame_Column1_Button13_NormalTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_Border_TopRightCornerObject : Texture
-local QuestSessionManager_CheckConvertToRaidDialog_Border_TopRightCornerObject = {}
+---@class GuildBankFrame_Column1_Button13_PushedTextureObject : Texture
+local GuildBankFrame_Column1_Button13_PushedTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject : Frame
+---@class GuildBankFrame_Column1_Button13_StockObject : FontString
+local GuildBankFrame_Column1_Button13_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button13_iconObject : Texture
+local GuildBankFrame_Column1_Button13_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button13_searchOverlayObject : Texture
+local GuildBankFrame_Column1_Button13_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button14Object : Button
+---@field Count GuildBankFrame_Column1_Button14_CountObject
+---@field HighlightTexture GuildBankFrame_Column1_Button14_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column1_Button14_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column1_Button14_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column1_Button14_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column1_Button14_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column1_Button14_MaskObject
+---@field NormalTexture GuildBankFrame_Column1_Button14_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column1_Button14_PushedTextureObject
+---@field Stock GuildBankFrame_Column1_Button14_StockObject
+---@field icon GuildBankFrame_Column1_Button14_iconObject
+---@field searchOverlay GuildBankFrame_Column1_Button14_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column1_Button14Object = {}
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button14Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column1_Button14_CountObject : FontString
+local GuildBankFrame_Column1_Button14_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button14_HighlightTextureObject : Texture
+local GuildBankFrame_Column1_Button14_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button14_IconBorderObject : Texture
+local GuildBankFrame_Column1_Button14_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button14_IconOverlayObject : Texture
+local GuildBankFrame_Column1_Button14_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button14_IconOverlay2Object : Texture
+local GuildBankFrame_Column1_Button14_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button14_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column1_Button14_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button14_MaskObject : MaskTexture
+local GuildBankFrame_Column1_Button14_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button14_NormalTextureObject : Texture
+local GuildBankFrame_Column1_Button14_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button14_PushedTextureObject : Texture
+local GuildBankFrame_Column1_Button14_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button14_StockObject : FontString
+local GuildBankFrame_Column1_Button14_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button14_iconObject : Texture
+local GuildBankFrame_Column1_Button14_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button14_searchOverlayObject : Texture
+local GuildBankFrame_Column1_Button14_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button2Object : Button
+---@field Count GuildBankFrame_Column1_Button2_CountObject
+---@field HighlightTexture GuildBankFrame_Column1_Button2_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column1_Button2_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column1_Button2_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column1_Button2_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column1_Button2_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column1_Button2_MaskObject
+---@field NormalTexture GuildBankFrame_Column1_Button2_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column1_Button2_PushedTextureObject
+---@field Stock GuildBankFrame_Column1_Button2_StockObject
+---@field icon GuildBankFrame_Column1_Button2_iconObject
+---@field searchOverlay GuildBankFrame_Column1_Button2_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column1_Button2Object = {}
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button2Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column1_Button2_CountObject : FontString
+local GuildBankFrame_Column1_Button2_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button2_HighlightTextureObject : Texture
+local GuildBankFrame_Column1_Button2_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button2_IconBorderObject : Texture
+local GuildBankFrame_Column1_Button2_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button2_IconOverlayObject : Texture
+local GuildBankFrame_Column1_Button2_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button2_IconOverlay2Object : Texture
+local GuildBankFrame_Column1_Button2_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button2_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column1_Button2_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button2_MaskObject : MaskTexture
+local GuildBankFrame_Column1_Button2_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button2_NormalTextureObject : Texture
+local GuildBankFrame_Column1_Button2_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button2_PushedTextureObject : Texture
+local GuildBankFrame_Column1_Button2_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button2_StockObject : FontString
+local GuildBankFrame_Column1_Button2_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button2_iconObject : Texture
+local GuildBankFrame_Column1_Button2_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button2_searchOverlayObject : Texture
+local GuildBankFrame_Column1_Button2_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button3Object : Button
+---@field Count GuildBankFrame_Column1_Button3_CountObject
+---@field HighlightTexture GuildBankFrame_Column1_Button3_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column1_Button3_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column1_Button3_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column1_Button3_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column1_Button3_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column1_Button3_MaskObject
+---@field NormalTexture GuildBankFrame_Column1_Button3_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column1_Button3_PushedTextureObject
+---@field Stock GuildBankFrame_Column1_Button3_StockObject
+---@field icon GuildBankFrame_Column1_Button3_iconObject
+---@field searchOverlay GuildBankFrame_Column1_Button3_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column1_Button3Object = {}
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button3Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column1_Button3_CountObject : FontString
+local GuildBankFrame_Column1_Button3_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button3_HighlightTextureObject : Texture
+local GuildBankFrame_Column1_Button3_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button3_IconBorderObject : Texture
+local GuildBankFrame_Column1_Button3_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button3_IconOverlayObject : Texture
+local GuildBankFrame_Column1_Button3_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button3_IconOverlay2Object : Texture
+local GuildBankFrame_Column1_Button3_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button3_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column1_Button3_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button3_MaskObject : MaskTexture
+local GuildBankFrame_Column1_Button3_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button3_NormalTextureObject : Texture
+local GuildBankFrame_Column1_Button3_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button3_PushedTextureObject : Texture
+local GuildBankFrame_Column1_Button3_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button3_StockObject : FontString
+local GuildBankFrame_Column1_Button3_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button3_iconObject : Texture
+local GuildBankFrame_Column1_Button3_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button3_searchOverlayObject : Texture
+local GuildBankFrame_Column1_Button3_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button4Object : Button
+---@field Count GuildBankFrame_Column1_Button4_CountObject
+---@field HighlightTexture GuildBankFrame_Column1_Button4_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column1_Button4_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column1_Button4_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column1_Button4_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column1_Button4_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column1_Button4_MaskObject
+---@field NormalTexture GuildBankFrame_Column1_Button4_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column1_Button4_PushedTextureObject
+---@field Stock GuildBankFrame_Column1_Button4_StockObject
+---@field icon GuildBankFrame_Column1_Button4_iconObject
+---@field searchOverlay GuildBankFrame_Column1_Button4_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column1_Button4Object = {}
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button4Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column1_Button4_CountObject : FontString
+local GuildBankFrame_Column1_Button4_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button4_HighlightTextureObject : Texture
+local GuildBankFrame_Column1_Button4_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button4_IconBorderObject : Texture
+local GuildBankFrame_Column1_Button4_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button4_IconOverlayObject : Texture
+local GuildBankFrame_Column1_Button4_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button4_IconOverlay2Object : Texture
+local GuildBankFrame_Column1_Button4_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button4_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column1_Button4_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button4_MaskObject : MaskTexture
+local GuildBankFrame_Column1_Button4_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button4_NormalTextureObject : Texture
+local GuildBankFrame_Column1_Button4_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button4_PushedTextureObject : Texture
+local GuildBankFrame_Column1_Button4_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button4_StockObject : FontString
+local GuildBankFrame_Column1_Button4_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button4_iconObject : Texture
+local GuildBankFrame_Column1_Button4_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button4_searchOverlayObject : Texture
+local GuildBankFrame_Column1_Button4_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button5Object : Button
+---@field Count GuildBankFrame_Column1_Button5_CountObject
+---@field HighlightTexture GuildBankFrame_Column1_Button5_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column1_Button5_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column1_Button5_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column1_Button5_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column1_Button5_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column1_Button5_MaskObject
+---@field NormalTexture GuildBankFrame_Column1_Button5_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column1_Button5_PushedTextureObject
+---@field Stock GuildBankFrame_Column1_Button5_StockObject
+---@field icon GuildBankFrame_Column1_Button5_iconObject
+---@field searchOverlay GuildBankFrame_Column1_Button5_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column1_Button5Object = {}
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button5Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column1_Button5_CountObject : FontString
+local GuildBankFrame_Column1_Button5_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button5_HighlightTextureObject : Texture
+local GuildBankFrame_Column1_Button5_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button5_IconBorderObject : Texture
+local GuildBankFrame_Column1_Button5_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button5_IconOverlayObject : Texture
+local GuildBankFrame_Column1_Button5_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button5_IconOverlay2Object : Texture
+local GuildBankFrame_Column1_Button5_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button5_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column1_Button5_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button5_MaskObject : MaskTexture
+local GuildBankFrame_Column1_Button5_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button5_NormalTextureObject : Texture
+local GuildBankFrame_Column1_Button5_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button5_PushedTextureObject : Texture
+local GuildBankFrame_Column1_Button5_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button5_StockObject : FontString
+local GuildBankFrame_Column1_Button5_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button5_iconObject : Texture
+local GuildBankFrame_Column1_Button5_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button5_searchOverlayObject : Texture
+local GuildBankFrame_Column1_Button5_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button6Object : Button
+---@field Count GuildBankFrame_Column1_Button6_CountObject
+---@field HighlightTexture GuildBankFrame_Column1_Button6_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column1_Button6_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column1_Button6_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column1_Button6_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column1_Button6_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column1_Button6_MaskObject
+---@field NormalTexture GuildBankFrame_Column1_Button6_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column1_Button6_PushedTextureObject
+---@field Stock GuildBankFrame_Column1_Button6_StockObject
+---@field icon GuildBankFrame_Column1_Button6_iconObject
+---@field searchOverlay GuildBankFrame_Column1_Button6_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column1_Button6Object = {}
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button6Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column1_Button6_CountObject : FontString
+local GuildBankFrame_Column1_Button6_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button6_HighlightTextureObject : Texture
+local GuildBankFrame_Column1_Button6_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button6_IconBorderObject : Texture
+local GuildBankFrame_Column1_Button6_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button6_IconOverlayObject : Texture
+local GuildBankFrame_Column1_Button6_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button6_IconOverlay2Object : Texture
+local GuildBankFrame_Column1_Button6_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button6_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column1_Button6_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button6_MaskObject : MaskTexture
+local GuildBankFrame_Column1_Button6_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button6_NormalTextureObject : Texture
+local GuildBankFrame_Column1_Button6_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button6_PushedTextureObject : Texture
+local GuildBankFrame_Column1_Button6_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button6_StockObject : FontString
+local GuildBankFrame_Column1_Button6_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button6_iconObject : Texture
+local GuildBankFrame_Column1_Button6_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button6_searchOverlayObject : Texture
+local GuildBankFrame_Column1_Button6_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button7Object : Button
+---@field Count GuildBankFrame_Column1_Button7_CountObject
+---@field HighlightTexture GuildBankFrame_Column1_Button7_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column1_Button7_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column1_Button7_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column1_Button7_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column1_Button7_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column1_Button7_MaskObject
+---@field NormalTexture GuildBankFrame_Column1_Button7_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column1_Button7_PushedTextureObject
+---@field Stock GuildBankFrame_Column1_Button7_StockObject
+---@field icon GuildBankFrame_Column1_Button7_iconObject
+---@field searchOverlay GuildBankFrame_Column1_Button7_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column1_Button7Object = {}
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button7Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column1_Button7_CountObject : FontString
+local GuildBankFrame_Column1_Button7_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button7_HighlightTextureObject : Texture
+local GuildBankFrame_Column1_Button7_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button7_IconBorderObject : Texture
+local GuildBankFrame_Column1_Button7_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button7_IconOverlayObject : Texture
+local GuildBankFrame_Column1_Button7_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button7_IconOverlay2Object : Texture
+local GuildBankFrame_Column1_Button7_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button7_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column1_Button7_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button7_MaskObject : MaskTexture
+local GuildBankFrame_Column1_Button7_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button7_NormalTextureObject : Texture
+local GuildBankFrame_Column1_Button7_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button7_PushedTextureObject : Texture
+local GuildBankFrame_Column1_Button7_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button7_StockObject : FontString
+local GuildBankFrame_Column1_Button7_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button7_iconObject : Texture
+local GuildBankFrame_Column1_Button7_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button7_searchOverlayObject : Texture
+local GuildBankFrame_Column1_Button7_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button8Object : Button
+---@field Count GuildBankFrame_Column1_Button8_CountObject
+---@field HighlightTexture GuildBankFrame_Column1_Button8_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column1_Button8_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column1_Button8_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column1_Button8_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column1_Button8_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column1_Button8_MaskObject
+---@field NormalTexture GuildBankFrame_Column1_Button8_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column1_Button8_PushedTextureObject
+---@field Stock GuildBankFrame_Column1_Button8_StockObject
+---@field icon GuildBankFrame_Column1_Button8_iconObject
+---@field searchOverlay GuildBankFrame_Column1_Button8_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column1_Button8Object = {}
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button8Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column1_Button8_CountObject : FontString
+local GuildBankFrame_Column1_Button8_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button8_HighlightTextureObject : Texture
+local GuildBankFrame_Column1_Button8_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button8_IconBorderObject : Texture
+local GuildBankFrame_Column1_Button8_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button8_IconOverlayObject : Texture
+local GuildBankFrame_Column1_Button8_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button8_IconOverlay2Object : Texture
+local GuildBankFrame_Column1_Button8_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button8_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column1_Button8_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button8_MaskObject : MaskTexture
+local GuildBankFrame_Column1_Button8_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button8_NormalTextureObject : Texture
+local GuildBankFrame_Column1_Button8_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button8_PushedTextureObject : Texture
+local GuildBankFrame_Column1_Button8_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button8_StockObject : FontString
+local GuildBankFrame_Column1_Button8_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button8_iconObject : Texture
+local GuildBankFrame_Column1_Button8_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button8_searchOverlayObject : Texture
+local GuildBankFrame_Column1_Button8_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button9Object : Button
+---@field Count GuildBankFrame_Column1_Button9_CountObject
+---@field HighlightTexture GuildBankFrame_Column1_Button9_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column1_Button9_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column1_Button9_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column1_Button9_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column1_Button9_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column1_Button9_MaskObject
+---@field NormalTexture GuildBankFrame_Column1_Button9_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column1_Button9_PushedTextureObject
+---@field Stock GuildBankFrame_Column1_Button9_StockObject
+---@field icon GuildBankFrame_Column1_Button9_iconObject
+---@field searchOverlay GuildBankFrame_Column1_Button9_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column1_Button9Object = {}
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button9Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column1_Button9_CountObject : FontString
+local GuildBankFrame_Column1_Button9_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button9_HighlightTextureObject : Texture
+local GuildBankFrame_Column1_Button9_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button9_IconBorderObject : Texture
+local GuildBankFrame_Column1_Button9_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button9_IconOverlayObject : Texture
+local GuildBankFrame_Column1_Button9_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button9_IconOverlay2Object : Texture
+local GuildBankFrame_Column1_Button9_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button9_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column1_Button9_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button9_MaskObject : MaskTexture
+local GuildBankFrame_Column1_Button9_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button9_NormalTextureObject : Texture
+local GuildBankFrame_Column1_Button9_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button9_PushedTextureObject : Texture
+local GuildBankFrame_Column1_Button9_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button9_StockObject : FontString
+local GuildBankFrame_Column1_Button9_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button9_iconObject : Texture
+local GuildBankFrame_Column1_Button9_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button9_searchOverlayObject : Texture
+local GuildBankFrame_Column1_Button9_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2Object : Frame
+---@field Background GuildBankFrame_Column2_BackgroundObject
+---@field Button1 GuildBankFrame_Column2_Button1Object
+---@field Button10 GuildBankFrame_Column2_Button10Object
+---@field Button11 GuildBankFrame_Column2_Button11Object
+---@field Button12 GuildBankFrame_Column2_Button12Object
+---@field Button13 GuildBankFrame_Column2_Button13Object
+---@field Button14 GuildBankFrame_Column2_Button14Object
+---@field Button2 GuildBankFrame_Column2_Button2Object
+---@field Button3 GuildBankFrame_Column2_Button3Object
+---@field Button4 GuildBankFrame_Column2_Button4Object
+---@field Button5 GuildBankFrame_Column2_Button5Object
+---@field Button6 GuildBankFrame_Column2_Button6Object
+---@field Button7 GuildBankFrame_Column2_Button7Object
+---@field Button8 GuildBankFrame_Column2_Button8Object
+---@field Button9 GuildBankFrame_Column2_Button9Object
 ---@field Buttons table
----@field Confirm QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_ConfirmObject
----@field Decline QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_DeclineObject
----@field heightPadding number
-local QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject = {}
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainerObject:ShouldClearOnUpdateAfterClean(...) end
+local GuildBankFrame_Column2Object = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_ConfirmObject : Button
----@field Flash QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_Confirm_FlashObject
----@field PulseAnim QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_Confirm_PulseAnimObject
----@field Text QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_Confirm_TextObject
----@field baseHeight number
----@field baseWidth number
----@field isConfirm boolean
----@field useScaleWeight boolean
-local QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_ConfirmObject = {}
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_ConfirmObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_ConfirmObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_ConfirmObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_ConfirmObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_ConfirmObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_ConfirmObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_ConfirmObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_ConfirmObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_ConfirmObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_ConfirmObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_ConfirmObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_ConfirmObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_ConfirmObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_ConfirmObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_ConfirmObject:UpdateWidth(...) end
+---@class GuildBankFrame_Column2_BackgroundObject : Texture
+local GuildBankFrame_Column2_BackgroundObject = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_Confirm_FlashObject : Texture
-local QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_Confirm_FlashObject = {}
+---@class GuildBankFrame_Column2_Button1Object : Button
+---@field Count GuildBankFrame_Column2_Button1_CountObject
+---@field HighlightTexture GuildBankFrame_Column2_Button1_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column2_Button1_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column2_Button1_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column2_Button1_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column2_Button1_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column2_Button1_MaskObject
+---@field NormalTexture GuildBankFrame_Column2_Button1_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column2_Button1_PushedTextureObject
+---@field Stock GuildBankFrame_Column2_Button1_StockObject
+---@field icon GuildBankFrame_Column2_Button1_iconObject
+---@field searchOverlay GuildBankFrame_Column2_Button1_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column2_Button1Object = {}
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button1Object:UpdateTooltip(...) end
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_Confirm_PulseAnimObject : AnimationGroup
-local QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_Confirm_PulseAnimObject = {}
+---@class GuildBankFrame_Column2_Button1_CountObject : FontString
+local GuildBankFrame_Column2_Button1_CountObject = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_Confirm_TextObject : FontString
-local QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_Confirm_TextObject = {}
+---@class GuildBankFrame_Column2_Button1_HighlightTextureObject : Texture
+local GuildBankFrame_Column2_Button1_HighlightTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_DeclineObject : Button
----@field Flash QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_Decline_FlashObject
----@field PulseAnim QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_Decline_PulseAnimObject
----@field Text QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_Decline_TextObject
----@field baseHeight number
----@field baseWidth number
----@field useScaleWeight boolean
-local QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_DeclineObject = {}
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_DeclineObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_DeclineObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_DeclineObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_DeclineObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_DeclineObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_DeclineObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_DeclineObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_DeclineObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_DeclineObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_DeclineObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_DeclineObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_DeclineObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_DeclineObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_DeclineObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_DeclineObject:UpdateWidth(...) end
+---@class GuildBankFrame_Column2_Button1_IconBorderObject : Texture
+local GuildBankFrame_Column2_Button1_IconBorderObject = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_Decline_FlashObject : Texture
-local QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_Decline_FlashObject = {}
+---@class GuildBankFrame_Column2_Button1_IconOverlayObject : Texture
+local GuildBankFrame_Column2_Button1_IconOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_Decline_PulseAnimObject : AnimationGroup
-local QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_Decline_PulseAnimObject = {}
+---@class GuildBankFrame_Column2_Button1_IconOverlay2Object : Texture
+local GuildBankFrame_Column2_Button1_IconOverlay2Object = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_Decline_TextObject : FontString
-local QuestSessionManager_CheckConvertToRaidDialog_ButtonContainer_Decline_TextObject = {}
+---@class GuildBankFrame_Column2_Button1_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column2_Button1_ItemContextOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_DividerObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_CheckConvertToRaidDialog_DividerObject = {}
+---@class GuildBankFrame_Column2_Button1_MaskObject : MaskTexture
+local GuildBankFrame_Column2_Button1_MaskObject = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_InvisibleRuleObject : Texture
-local QuestSessionManager_CheckConvertToRaidDialog_InvisibleRuleObject = {}
+---@class GuildBankFrame_Column2_Button1_NormalTextureObject : Texture
+local GuildBankFrame_Column2_Button1_NormalTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject : Frame
-local QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject = {}
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_PlayerContainerObject:ShouldClearOnUpdateAfterClean(...) end
+---@class GuildBankFrame_Column2_Button1_PushedTextureObject : Texture
+local GuildBankFrame_Column2_Button1_PushedTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_TitleObject : Frame
----@field Icon QuestSessionManager_CheckConvertToRaidDialog_Title_IconObject
----@field Text QuestSessionManager_CheckConvertToRaidDialog_Title_TextObject
-local QuestSessionManager_CheckConvertToRaidDialog_TitleObject = {}
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:SetText(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckConvertToRaidDialog_TitleObject:ShouldClearOnUpdateAfterClean(...) end
+---@class GuildBankFrame_Column2_Button1_StockObject : FontString
+local GuildBankFrame_Column2_Button1_StockObject = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_Title_IconObject : Texture
-local QuestSessionManager_CheckConvertToRaidDialog_Title_IconObject = {}
+---@class GuildBankFrame_Column2_Button1_iconObject : Texture
+local GuildBankFrame_Column2_Button1_iconObject = {}
 end
 
 do
----@class QuestSessionManager_CheckConvertToRaidDialog_Title_TextObject : FontString
-local QuestSessionManager_CheckConvertToRaidDialog_Title_TextObject = {}
+---@class GuildBankFrame_Column2_Button1_searchOverlayObject : Texture
+local GuildBankFrame_Column2_Button1_searchOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialogObject : Frame
----@field BG QuestSessionManager_CheckLeavePartyDialog_BGObject
----@field Body QuestSessionManager_CheckLeavePartyDialog_BodyObject
----@field Border QuestSessionManager_CheckLeavePartyDialog_BorderObject
----@field ButtonContainer QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject
----@field Divider QuestSessionManager_CheckLeavePartyDialog_DividerObject
----@field InvisibleRule QuestSessionManager_CheckLeavePartyDialog_InvisibleRuleObject
----@field PlayerContainer QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject
----@field Title QuestSessionManager_CheckLeavePartyDialog_TitleObject
----@field cancelText string
----@field confirmText string
----@field heightPadding number
----@field minimumWidth number
-local QuestSessionManager_CheckLeavePartyDialogObject = {}
+---@class GuildBankFrame_Column2_Button10Object : Button
+---@field Count GuildBankFrame_Column2_Button10_CountObject
+---@field HighlightTexture GuildBankFrame_Column2_Button10_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column2_Button10_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column2_Button10_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column2_Button10_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column2_Button10_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column2_Button10_MaskObject
+---@field NormalTexture GuildBankFrame_Column2_Button10_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column2_Button10_PushedTextureObject
+---@field Stock GuildBankFrame_Column2_Button10_StockObject
+---@field icon GuildBankFrame_Column2_Button10_iconObject
+---@field searchOverlay GuildBankFrame_Column2_Button10_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column2_Button10Object = {}
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:AddLayoutChildren(...) end
+function GuildBankFrame_Column2_Button10Object:GetBagID(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:AddParty(...) end
+function GuildBankFrame_Column2_Button10Object:GetItem(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:AddUnit(...) end
+function GuildBankFrame_Column2_Button10Object:GetItemButtonBackgroundTexture(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:BaseOnEvent(...) end
+function GuildBankFrame_Column2_Button10Object:GetItemButtonCount(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:BaseOnHide(...) end
+function GuildBankFrame_Column2_Button10Object:GetItemButtonIconTexture(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:BaseOnShow(...) end
+function GuildBankFrame_Column2_Button10Object:GetItemContextOverlayMode(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:Cancel(...) end
+function GuildBankFrame_Column2_Button10Object:GetItemID(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:CheckAddUnit(...) end
+function GuildBankFrame_Column2_Button10Object:GetItemInfo(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:CheckValidateDialog(...) end
+function GuildBankFrame_Column2_Button10Object:GetItemLink(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:ClearFixedSize(...) end
+function GuildBankFrame_Column2_Button10Object:GetItemLocation(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:ClearHideSound(...) end
+function GuildBankFrame_Column2_Button10Object:GetMatchesSearch(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:ClearShowSound(...) end
+function GuildBankFrame_Column2_Button10Object:GetSlotAndBagID(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:Confirm(...) end
+function GuildBankFrame_Column2_Button10Object:OnClick(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:GetAdditionalRegions(...) end
+function GuildBankFrame_Column2_Button10Object:OnDragStart(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:GetChildHeight(...) end
+function GuildBankFrame_Column2_Button10Object:OnEnter(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:GetChildSize(...) end
+function GuildBankFrame_Column2_Button10Object:OnEvent(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:GetChildWidth(...) end
+function GuildBankFrame_Column2_Button10Object:OnHide(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:GetDialogFailureReason(...) end
+function GuildBankFrame_Column2_Button10Object:OnItemContextChanged(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:GetFixedHeight(...) end
+function GuildBankFrame_Column2_Button10Object:OnLeave(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:GetFixedSize(...) end
+function GuildBankFrame_Column2_Button10Object:OnLoad(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:GetFixedWidth(...) end
+function GuildBankFrame_Column2_Button10Object:OnReceiveDrag(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:GetHeightPadding(...) end
+function GuildBankFrame_Column2_Button10Object:OnUpdateItemContextMatching(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:GetHideSound(...) end
+function GuildBankFrame_Column2_Button10Object:PostOnEvent(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:GetLayoutChildren(...) end
+function GuildBankFrame_Column2_Button10Object:PostOnHide(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:GetMaximumWidth(...) end
+function GuildBankFrame_Column2_Button10Object:PostOnLoad(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:GetMemberFrame(...) end
+function GuildBankFrame_Column2_Button10Object:PostOnShow(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:GetMinimumWidth(...) end
+function GuildBankFrame_Column2_Button10Object:RegisterBagButtonUpdateItemContextMatching(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:GetResponseCounts(...) end
+function GuildBankFrame_Column2_Button10Object:Reset(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:GetSessionCommand(...) end
+function GuildBankFrame_Column2_Button10Object:SetBagID(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:GetShowSound(...) end
+function GuildBankFrame_Column2_Button10Object:SetItem(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:GetWidthPadding(...) end
+function GuildBankFrame_Column2_Button10Object:SetItemButtonAnchorPoint(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:HasTrackedResponse(...) end
+function GuildBankFrame_Column2_Button10Object:SetItemButtonBorderVertexColor(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:HideImmediate(...) end
+function GuildBankFrame_Column2_Button10Object:SetItemButtonCount(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:IgnoreLayoutIndex(...) end
+function GuildBankFrame_Column2_Button10Object:SetItemButtonQuality(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:IsDirty(...) end
+function GuildBankFrame_Column2_Button10Object:SetItemButtonScale(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:IsLayoutFrame(...) end
+function GuildBankFrame_Column2_Button10Object:SetItemButtonTexture(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:Layout(...) end
+function GuildBankFrame_Column2_Button10Object:SetItemButtonTextureVertexColor(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:MarkClean(...) end
+function GuildBankFrame_Column2_Button10Object:SetItemInternal(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:MarkDirty(...) end
+function GuildBankFrame_Column2_Button10Object:SetItemLocation(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:MarkIgnoreInLayout(...) end
+function GuildBankFrame_Column2_Button10Object:SetItemSource(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:Minimize(...) end
+function GuildBankFrame_Column2_Button10Object:SetMatchesSearch(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:OnButtonsEnabled(...) end
+function GuildBankFrame_Column2_Button10Object:SplitStack(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:OnCleaned(...) end
+function GuildBankFrame_Column2_Button10Object:UpdateCraftedProfessionsQualityShown(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:OnLoad(...) end
+function GuildBankFrame_Column2_Button10Object:UpdateItemContextMatching(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:OnShow(...) end
+function GuildBankFrame_Column2_Button10Object:UpdateItemContextOverlay(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:OnUpdate(...) end
+function GuildBankFrame_Column2_Button10Object:UpdateItemContextOverlayTextures(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:PlayHideSound(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:PlayShowSound(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:RequiresValidateDialog(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:ResetPlayerContainer(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:SetButtonsEnabled(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:SetHideSound(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:SetMemberResponse(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:SetShowSound(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:Setup(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:SetupPlayerContainer(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:ShowDialog(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:StartHideDialog(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialogObject:TrackResponse(...) end
+function GuildBankFrame_Column2_Button10Object:UpdateTooltip(...) end
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_BGObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_CheckLeavePartyDialog_BGObject = {}
+---@class GuildBankFrame_Column2_Button10_CountObject : FontString
+local GuildBankFrame_Column2_Button10_CountObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_BodyObject : Frame
----@field Icon QuestSessionManager_CheckLeavePartyDialog_Body_IconObject
----@field Text QuestSessionManager_CheckLeavePartyDialog_Body_TextObject
-local QuestSessionManager_CheckLeavePartyDialog_BodyObject = {}
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:AdjustTextWidthForAlignment(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetText(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetWarningText(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:ShouldClearOnUpdateAfterClean(...) end
+---@class GuildBankFrame_Column2_Button10_HighlightTextureObject : Texture
+local GuildBankFrame_Column2_Button10_HighlightTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_Body_IconObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_Body_IconObject = {}
+---@class GuildBankFrame_Column2_Button10_IconBorderObject : Texture
+local GuildBankFrame_Column2_Button10_IconBorderObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_Body_TextObject : FontString
-local QuestSessionManager_CheckLeavePartyDialog_Body_TextObject = {}
+---@class GuildBankFrame_Column2_Button10_IconOverlayObject : Texture
+local GuildBankFrame_Column2_Button10_IconOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_BorderObject : Frame
----@field Bg QuestSessionManager_CheckLeavePartyDialog_Border_BgObject
----@field BottomEdge QuestSessionManager_CheckLeavePartyDialog_Border_BottomEdgeObject
----@field BottomLeftCorner QuestSessionManager_CheckLeavePartyDialog_Border_BottomLeftCornerObject
----@field BottomRightCorner QuestSessionManager_CheckLeavePartyDialog_Border_BottomRightCornerObject
----@field LeftEdge QuestSessionManager_CheckLeavePartyDialog_Border_LeftEdgeObject
----@field RightEdge QuestSessionManager_CheckLeavePartyDialog_Border_RightEdgeObject
----@field TopEdge QuestSessionManager_CheckLeavePartyDialog_Border_TopEdgeObject
----@field TopLeftCorner QuestSessionManager_CheckLeavePartyDialog_Border_TopLeftCornerObject
----@field TopRightCorner QuestSessionManager_CheckLeavePartyDialog_Border_TopRightCornerObject
----@field ignoreInLayout boolean
----@field layoutType string
-local QuestSessionManager_CheckLeavePartyDialog_BorderObject = {}
+---@class GuildBankFrame_Column2_Button10_IconOverlay2Object : Texture
+local GuildBankFrame_Column2_Button10_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button10_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column2_Button10_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button10_MaskObject : MaskTexture
+local GuildBankFrame_Column2_Button10_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button10_NormalTextureObject : Texture
+local GuildBankFrame_Column2_Button10_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button10_PushedTextureObject : Texture
+local GuildBankFrame_Column2_Button10_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button10_StockObject : FontString
+local GuildBankFrame_Column2_Button10_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button10_iconObject : Texture
+local GuildBankFrame_Column2_Button10_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button10_searchOverlayObject : Texture
+local GuildBankFrame_Column2_Button10_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button11Object : Button
+---@field Count GuildBankFrame_Column2_Button11_CountObject
+---@field HighlightTexture GuildBankFrame_Column2_Button11_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column2_Button11_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column2_Button11_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column2_Button11_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column2_Button11_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column2_Button11_MaskObject
+---@field NormalTexture GuildBankFrame_Column2_Button11_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column2_Button11_PushedTextureObject
+---@field Stock GuildBankFrame_Column2_Button11_StockObject
+---@field icon GuildBankFrame_Column2_Button11_iconObject
+---@field searchOverlay GuildBankFrame_Column2_Button11_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column2_Button11Object = {}
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BorderObject:GetBorderColor(...) end
+function GuildBankFrame_Column2_Button11Object:GetBagID(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BorderObject:GetCenterColor(...) end
+function GuildBankFrame_Column2_Button11Object:GetItem(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BorderObject:GetFrameLayoutTextureKit(...) end
+function GuildBankFrame_Column2_Button11Object:GetItemButtonBackgroundTexture(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BorderObject:GetFrameLayoutType(...) end
+function GuildBankFrame_Column2_Button11Object:GetItemButtonCount(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BorderObject:OnLoad(...) end
+function GuildBankFrame_Column2_Button11Object:GetItemButtonIconTexture(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BorderObject:SetBlendMode(...) end
+function GuildBankFrame_Column2_Button11Object:GetItemContextOverlayMode(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BorderObject:SetBorderBlendMode(...) end
+function GuildBankFrame_Column2_Button11Object:GetItemID(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BorderObject:SetBorderColor(...) end
+function GuildBankFrame_Column2_Button11Object:GetItemInfo(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BorderObject:SetCenterColor(...) end
+function GuildBankFrame_Column2_Button11Object:GetItemLink(...) end
 ---@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BorderObject:SetVertexColor(...) end
+function GuildBankFrame_Column2_Button11Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button11Object:UpdateTooltip(...) end
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_Border_BgObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_Border_BgObject = {}
+---@class GuildBankFrame_Column2_Button11_CountObject : FontString
+local GuildBankFrame_Column2_Button11_CountObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_Border_BottomEdgeObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_Border_BottomEdgeObject = {}
+---@class GuildBankFrame_Column2_Button11_HighlightTextureObject : Texture
+local GuildBankFrame_Column2_Button11_HighlightTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_Border_BottomLeftCornerObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_Border_BottomLeftCornerObject = {}
+---@class GuildBankFrame_Column2_Button11_IconBorderObject : Texture
+local GuildBankFrame_Column2_Button11_IconBorderObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_Border_BottomRightCornerObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_Border_BottomRightCornerObject = {}
+---@class GuildBankFrame_Column2_Button11_IconOverlayObject : Texture
+local GuildBankFrame_Column2_Button11_IconOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_Border_LeftEdgeObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_Border_LeftEdgeObject = {}
+---@class GuildBankFrame_Column2_Button11_IconOverlay2Object : Texture
+local GuildBankFrame_Column2_Button11_IconOverlay2Object = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_Border_RightEdgeObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_Border_RightEdgeObject = {}
+---@class GuildBankFrame_Column2_Button11_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column2_Button11_ItemContextOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_Border_TopEdgeObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_Border_TopEdgeObject = {}
+---@class GuildBankFrame_Column2_Button11_MaskObject : MaskTexture
+local GuildBankFrame_Column2_Button11_MaskObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_Border_TopLeftCornerObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_Border_TopLeftCornerObject = {}
+---@class GuildBankFrame_Column2_Button11_NormalTextureObject : Texture
+local GuildBankFrame_Column2_Button11_NormalTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_Border_TopRightCornerObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_Border_TopRightCornerObject = {}
+---@class GuildBankFrame_Column2_Button11_PushedTextureObject : Texture
+local GuildBankFrame_Column2_Button11_PushedTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject : Frame
+---@class GuildBankFrame_Column2_Button11_StockObject : FontString
+local GuildBankFrame_Column2_Button11_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button11_iconObject : Texture
+local GuildBankFrame_Column2_Button11_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button11_searchOverlayObject : Texture
+local GuildBankFrame_Column2_Button11_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button12Object : Button
+---@field Count GuildBankFrame_Column2_Button12_CountObject
+---@field HighlightTexture GuildBankFrame_Column2_Button12_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column2_Button12_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column2_Button12_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column2_Button12_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column2_Button12_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column2_Button12_MaskObject
+---@field NormalTexture GuildBankFrame_Column2_Button12_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column2_Button12_PushedTextureObject
+---@field Stock GuildBankFrame_Column2_Button12_StockObject
+---@field icon GuildBankFrame_Column2_Button12_iconObject
+---@field searchOverlay GuildBankFrame_Column2_Button12_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column2_Button12Object = {}
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button12Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column2_Button12_CountObject : FontString
+local GuildBankFrame_Column2_Button12_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button12_HighlightTextureObject : Texture
+local GuildBankFrame_Column2_Button12_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button12_IconBorderObject : Texture
+local GuildBankFrame_Column2_Button12_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button12_IconOverlayObject : Texture
+local GuildBankFrame_Column2_Button12_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button12_IconOverlay2Object : Texture
+local GuildBankFrame_Column2_Button12_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button12_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column2_Button12_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button12_MaskObject : MaskTexture
+local GuildBankFrame_Column2_Button12_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button12_NormalTextureObject : Texture
+local GuildBankFrame_Column2_Button12_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button12_PushedTextureObject : Texture
+local GuildBankFrame_Column2_Button12_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button12_StockObject : FontString
+local GuildBankFrame_Column2_Button12_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button12_iconObject : Texture
+local GuildBankFrame_Column2_Button12_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button12_searchOverlayObject : Texture
+local GuildBankFrame_Column2_Button12_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button13Object : Button
+---@field Count GuildBankFrame_Column2_Button13_CountObject
+---@field HighlightTexture GuildBankFrame_Column2_Button13_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column2_Button13_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column2_Button13_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column2_Button13_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column2_Button13_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column2_Button13_MaskObject
+---@field NormalTexture GuildBankFrame_Column2_Button13_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column2_Button13_PushedTextureObject
+---@field Stock GuildBankFrame_Column2_Button13_StockObject
+---@field icon GuildBankFrame_Column2_Button13_iconObject
+---@field searchOverlay GuildBankFrame_Column2_Button13_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column2_Button13Object = {}
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button13Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column2_Button13_CountObject : FontString
+local GuildBankFrame_Column2_Button13_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button13_HighlightTextureObject : Texture
+local GuildBankFrame_Column2_Button13_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button13_IconBorderObject : Texture
+local GuildBankFrame_Column2_Button13_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button13_IconOverlayObject : Texture
+local GuildBankFrame_Column2_Button13_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button13_IconOverlay2Object : Texture
+local GuildBankFrame_Column2_Button13_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button13_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column2_Button13_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button13_MaskObject : MaskTexture
+local GuildBankFrame_Column2_Button13_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button13_NormalTextureObject : Texture
+local GuildBankFrame_Column2_Button13_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button13_PushedTextureObject : Texture
+local GuildBankFrame_Column2_Button13_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button13_StockObject : FontString
+local GuildBankFrame_Column2_Button13_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button13_iconObject : Texture
+local GuildBankFrame_Column2_Button13_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button13_searchOverlayObject : Texture
+local GuildBankFrame_Column2_Button13_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button14Object : Button
+---@field Count GuildBankFrame_Column2_Button14_CountObject
+---@field HighlightTexture GuildBankFrame_Column2_Button14_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column2_Button14_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column2_Button14_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column2_Button14_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column2_Button14_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column2_Button14_MaskObject
+---@field NormalTexture GuildBankFrame_Column2_Button14_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column2_Button14_PushedTextureObject
+---@field Stock GuildBankFrame_Column2_Button14_StockObject
+---@field icon GuildBankFrame_Column2_Button14_iconObject
+---@field searchOverlay GuildBankFrame_Column2_Button14_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column2_Button14Object = {}
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button14Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column2_Button14_CountObject : FontString
+local GuildBankFrame_Column2_Button14_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button14_HighlightTextureObject : Texture
+local GuildBankFrame_Column2_Button14_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button14_IconBorderObject : Texture
+local GuildBankFrame_Column2_Button14_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button14_IconOverlayObject : Texture
+local GuildBankFrame_Column2_Button14_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button14_IconOverlay2Object : Texture
+local GuildBankFrame_Column2_Button14_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button14_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column2_Button14_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button14_MaskObject : MaskTexture
+local GuildBankFrame_Column2_Button14_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button14_NormalTextureObject : Texture
+local GuildBankFrame_Column2_Button14_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button14_PushedTextureObject : Texture
+local GuildBankFrame_Column2_Button14_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button14_StockObject : FontString
+local GuildBankFrame_Column2_Button14_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button14_iconObject : Texture
+local GuildBankFrame_Column2_Button14_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button14_searchOverlayObject : Texture
+local GuildBankFrame_Column2_Button14_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button2Object : Button
+---@field Count GuildBankFrame_Column2_Button2_CountObject
+---@field HighlightTexture GuildBankFrame_Column2_Button2_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column2_Button2_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column2_Button2_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column2_Button2_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column2_Button2_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column2_Button2_MaskObject
+---@field NormalTexture GuildBankFrame_Column2_Button2_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column2_Button2_PushedTextureObject
+---@field Stock GuildBankFrame_Column2_Button2_StockObject
+---@field icon GuildBankFrame_Column2_Button2_iconObject
+---@field searchOverlay GuildBankFrame_Column2_Button2_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column2_Button2Object = {}
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button2Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column2_Button2_CountObject : FontString
+local GuildBankFrame_Column2_Button2_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button2_HighlightTextureObject : Texture
+local GuildBankFrame_Column2_Button2_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button2_IconBorderObject : Texture
+local GuildBankFrame_Column2_Button2_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button2_IconOverlayObject : Texture
+local GuildBankFrame_Column2_Button2_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button2_IconOverlay2Object : Texture
+local GuildBankFrame_Column2_Button2_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button2_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column2_Button2_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button2_MaskObject : MaskTexture
+local GuildBankFrame_Column2_Button2_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button2_NormalTextureObject : Texture
+local GuildBankFrame_Column2_Button2_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button2_PushedTextureObject : Texture
+local GuildBankFrame_Column2_Button2_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button2_StockObject : FontString
+local GuildBankFrame_Column2_Button2_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button2_iconObject : Texture
+local GuildBankFrame_Column2_Button2_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button2_searchOverlayObject : Texture
+local GuildBankFrame_Column2_Button2_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button3Object : Button
+---@field Count GuildBankFrame_Column2_Button3_CountObject
+---@field HighlightTexture GuildBankFrame_Column2_Button3_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column2_Button3_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column2_Button3_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column2_Button3_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column2_Button3_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column2_Button3_MaskObject
+---@field NormalTexture GuildBankFrame_Column2_Button3_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column2_Button3_PushedTextureObject
+---@field Stock GuildBankFrame_Column2_Button3_StockObject
+---@field icon GuildBankFrame_Column2_Button3_iconObject
+---@field searchOverlay GuildBankFrame_Column2_Button3_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column2_Button3Object = {}
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button3Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column2_Button3_CountObject : FontString
+local GuildBankFrame_Column2_Button3_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button3_HighlightTextureObject : Texture
+local GuildBankFrame_Column2_Button3_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button3_IconBorderObject : Texture
+local GuildBankFrame_Column2_Button3_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button3_IconOverlayObject : Texture
+local GuildBankFrame_Column2_Button3_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button3_IconOverlay2Object : Texture
+local GuildBankFrame_Column2_Button3_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button3_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column2_Button3_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button3_MaskObject : MaskTexture
+local GuildBankFrame_Column2_Button3_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button3_NormalTextureObject : Texture
+local GuildBankFrame_Column2_Button3_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button3_PushedTextureObject : Texture
+local GuildBankFrame_Column2_Button3_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button3_StockObject : FontString
+local GuildBankFrame_Column2_Button3_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button3_iconObject : Texture
+local GuildBankFrame_Column2_Button3_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button3_searchOverlayObject : Texture
+local GuildBankFrame_Column2_Button3_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button4Object : Button
+---@field Count GuildBankFrame_Column2_Button4_CountObject
+---@field HighlightTexture GuildBankFrame_Column2_Button4_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column2_Button4_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column2_Button4_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column2_Button4_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column2_Button4_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column2_Button4_MaskObject
+---@field NormalTexture GuildBankFrame_Column2_Button4_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column2_Button4_PushedTextureObject
+---@field Stock GuildBankFrame_Column2_Button4_StockObject
+---@field icon GuildBankFrame_Column2_Button4_iconObject
+---@field searchOverlay GuildBankFrame_Column2_Button4_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column2_Button4Object = {}
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button4Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column2_Button4_CountObject : FontString
+local GuildBankFrame_Column2_Button4_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button4_HighlightTextureObject : Texture
+local GuildBankFrame_Column2_Button4_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button4_IconBorderObject : Texture
+local GuildBankFrame_Column2_Button4_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button4_IconOverlayObject : Texture
+local GuildBankFrame_Column2_Button4_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button4_IconOverlay2Object : Texture
+local GuildBankFrame_Column2_Button4_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button4_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column2_Button4_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button4_MaskObject : MaskTexture
+local GuildBankFrame_Column2_Button4_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button4_NormalTextureObject : Texture
+local GuildBankFrame_Column2_Button4_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button4_PushedTextureObject : Texture
+local GuildBankFrame_Column2_Button4_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button4_StockObject : FontString
+local GuildBankFrame_Column2_Button4_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button4_iconObject : Texture
+local GuildBankFrame_Column2_Button4_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button4_searchOverlayObject : Texture
+local GuildBankFrame_Column2_Button4_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button5Object : Button
+---@field Count GuildBankFrame_Column2_Button5_CountObject
+---@field HighlightTexture GuildBankFrame_Column2_Button5_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column2_Button5_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column2_Button5_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column2_Button5_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column2_Button5_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column2_Button5_MaskObject
+---@field NormalTexture GuildBankFrame_Column2_Button5_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column2_Button5_PushedTextureObject
+---@field Stock GuildBankFrame_Column2_Button5_StockObject
+---@field icon GuildBankFrame_Column2_Button5_iconObject
+---@field searchOverlay GuildBankFrame_Column2_Button5_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column2_Button5Object = {}
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button5Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column2_Button5_CountObject : FontString
+local GuildBankFrame_Column2_Button5_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button5_HighlightTextureObject : Texture
+local GuildBankFrame_Column2_Button5_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button5_IconBorderObject : Texture
+local GuildBankFrame_Column2_Button5_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button5_IconOverlayObject : Texture
+local GuildBankFrame_Column2_Button5_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button5_IconOverlay2Object : Texture
+local GuildBankFrame_Column2_Button5_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button5_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column2_Button5_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button5_MaskObject : MaskTexture
+local GuildBankFrame_Column2_Button5_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button5_NormalTextureObject : Texture
+local GuildBankFrame_Column2_Button5_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button5_PushedTextureObject : Texture
+local GuildBankFrame_Column2_Button5_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button5_StockObject : FontString
+local GuildBankFrame_Column2_Button5_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button5_iconObject : Texture
+local GuildBankFrame_Column2_Button5_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button5_searchOverlayObject : Texture
+local GuildBankFrame_Column2_Button5_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button6Object : Button
+---@field Count GuildBankFrame_Column2_Button6_CountObject
+---@field HighlightTexture GuildBankFrame_Column2_Button6_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column2_Button6_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column2_Button6_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column2_Button6_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column2_Button6_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column2_Button6_MaskObject
+---@field NormalTexture GuildBankFrame_Column2_Button6_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column2_Button6_PushedTextureObject
+---@field Stock GuildBankFrame_Column2_Button6_StockObject
+---@field icon GuildBankFrame_Column2_Button6_iconObject
+---@field searchOverlay GuildBankFrame_Column2_Button6_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column2_Button6Object = {}
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button6Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column2_Button6_CountObject : FontString
+local GuildBankFrame_Column2_Button6_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button6_HighlightTextureObject : Texture
+local GuildBankFrame_Column2_Button6_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button6_IconBorderObject : Texture
+local GuildBankFrame_Column2_Button6_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button6_IconOverlayObject : Texture
+local GuildBankFrame_Column2_Button6_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button6_IconOverlay2Object : Texture
+local GuildBankFrame_Column2_Button6_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button6_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column2_Button6_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button6_MaskObject : MaskTexture
+local GuildBankFrame_Column2_Button6_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button6_NormalTextureObject : Texture
+local GuildBankFrame_Column2_Button6_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button6_PushedTextureObject : Texture
+local GuildBankFrame_Column2_Button6_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button6_StockObject : FontString
+local GuildBankFrame_Column2_Button6_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button6_iconObject : Texture
+local GuildBankFrame_Column2_Button6_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button6_searchOverlayObject : Texture
+local GuildBankFrame_Column2_Button6_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button7Object : Button
+---@field Count GuildBankFrame_Column2_Button7_CountObject
+---@field HighlightTexture GuildBankFrame_Column2_Button7_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column2_Button7_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column2_Button7_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column2_Button7_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column2_Button7_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column2_Button7_MaskObject
+---@field NormalTexture GuildBankFrame_Column2_Button7_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column2_Button7_PushedTextureObject
+---@field Stock GuildBankFrame_Column2_Button7_StockObject
+---@field icon GuildBankFrame_Column2_Button7_iconObject
+---@field searchOverlay GuildBankFrame_Column2_Button7_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column2_Button7Object = {}
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button7Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column2_Button7_CountObject : FontString
+local GuildBankFrame_Column2_Button7_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button7_HighlightTextureObject : Texture
+local GuildBankFrame_Column2_Button7_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button7_IconBorderObject : Texture
+local GuildBankFrame_Column2_Button7_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button7_IconOverlayObject : Texture
+local GuildBankFrame_Column2_Button7_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button7_IconOverlay2Object : Texture
+local GuildBankFrame_Column2_Button7_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button7_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column2_Button7_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button7_MaskObject : MaskTexture
+local GuildBankFrame_Column2_Button7_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button7_NormalTextureObject : Texture
+local GuildBankFrame_Column2_Button7_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button7_PushedTextureObject : Texture
+local GuildBankFrame_Column2_Button7_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button7_StockObject : FontString
+local GuildBankFrame_Column2_Button7_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button7_iconObject : Texture
+local GuildBankFrame_Column2_Button7_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button7_searchOverlayObject : Texture
+local GuildBankFrame_Column2_Button7_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button8Object : Button
+---@field Count GuildBankFrame_Column2_Button8_CountObject
+---@field HighlightTexture GuildBankFrame_Column2_Button8_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column2_Button8_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column2_Button8_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column2_Button8_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column2_Button8_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column2_Button8_MaskObject
+---@field NormalTexture GuildBankFrame_Column2_Button8_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column2_Button8_PushedTextureObject
+---@field Stock GuildBankFrame_Column2_Button8_StockObject
+---@field icon GuildBankFrame_Column2_Button8_iconObject
+---@field searchOverlay GuildBankFrame_Column2_Button8_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column2_Button8Object = {}
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button8Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column2_Button8_CountObject : FontString
+local GuildBankFrame_Column2_Button8_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button8_HighlightTextureObject : Texture
+local GuildBankFrame_Column2_Button8_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button8_IconBorderObject : Texture
+local GuildBankFrame_Column2_Button8_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button8_IconOverlayObject : Texture
+local GuildBankFrame_Column2_Button8_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button8_IconOverlay2Object : Texture
+local GuildBankFrame_Column2_Button8_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button8_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column2_Button8_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button8_MaskObject : MaskTexture
+local GuildBankFrame_Column2_Button8_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button8_NormalTextureObject : Texture
+local GuildBankFrame_Column2_Button8_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button8_PushedTextureObject : Texture
+local GuildBankFrame_Column2_Button8_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button8_StockObject : FontString
+local GuildBankFrame_Column2_Button8_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button8_iconObject : Texture
+local GuildBankFrame_Column2_Button8_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button8_searchOverlayObject : Texture
+local GuildBankFrame_Column2_Button8_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button9Object : Button
+---@field Count GuildBankFrame_Column2_Button9_CountObject
+---@field HighlightTexture GuildBankFrame_Column2_Button9_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column2_Button9_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column2_Button9_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column2_Button9_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column2_Button9_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column2_Button9_MaskObject
+---@field NormalTexture GuildBankFrame_Column2_Button9_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column2_Button9_PushedTextureObject
+---@field Stock GuildBankFrame_Column2_Button9_StockObject
+---@field icon GuildBankFrame_Column2_Button9_iconObject
+---@field searchOverlay GuildBankFrame_Column2_Button9_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column2_Button9Object = {}
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column2_Button9Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column2_Button9_CountObject : FontString
+local GuildBankFrame_Column2_Button9_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button9_HighlightTextureObject : Texture
+local GuildBankFrame_Column2_Button9_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button9_IconBorderObject : Texture
+local GuildBankFrame_Column2_Button9_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button9_IconOverlayObject : Texture
+local GuildBankFrame_Column2_Button9_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button9_IconOverlay2Object : Texture
+local GuildBankFrame_Column2_Button9_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button9_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column2_Button9_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button9_MaskObject : MaskTexture
+local GuildBankFrame_Column2_Button9_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button9_NormalTextureObject : Texture
+local GuildBankFrame_Column2_Button9_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button9_PushedTextureObject : Texture
+local GuildBankFrame_Column2_Button9_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button9_StockObject : FontString
+local GuildBankFrame_Column2_Button9_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button9_iconObject : Texture
+local GuildBankFrame_Column2_Button9_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column2_Button9_searchOverlayObject : Texture
+local GuildBankFrame_Column2_Button9_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3Object : Frame
+---@field Background GuildBankFrame_Column3_BackgroundObject
+---@field Button1 GuildBankFrame_Column3_Button1Object
+---@field Button10 GuildBankFrame_Column3_Button10Object
+---@field Button11 GuildBankFrame_Column3_Button11Object
+---@field Button12 GuildBankFrame_Column3_Button12Object
+---@field Button13 GuildBankFrame_Column3_Button13Object
+---@field Button14 GuildBankFrame_Column3_Button14Object
+---@field Button2 GuildBankFrame_Column3_Button2Object
+---@field Button3 GuildBankFrame_Column3_Button3Object
+---@field Button4 GuildBankFrame_Column3_Button4Object
+---@field Button5 GuildBankFrame_Column3_Button5Object
+---@field Button6 GuildBankFrame_Column3_Button6Object
+---@field Button7 GuildBankFrame_Column3_Button7Object
+---@field Button8 GuildBankFrame_Column3_Button8Object
+---@field Button9 GuildBankFrame_Column3_Button9Object
 ---@field Buttons table
----@field Confirm QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject
----@field Decline QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject
----@field heightPadding number
-local QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject = {}
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:ShouldClearOnUpdateAfterClean(...) end
+local GuildBankFrame_Column3Object = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject : Button
----@field Flash QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_FlashObject
----@field PulseAnim QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_PulseAnimObject
----@field Text QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_TextObject
----@field baseHeight number
----@field baseWidth number
----@field isConfirm boolean
----@field useScaleWeight boolean
-local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject = {}
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:UpdateWidth(...) end
+---@class GuildBankFrame_Column3_BackgroundObject : Texture
+local GuildBankFrame_Column3_BackgroundObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_FlashObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_FlashObject = {}
+---@class GuildBankFrame_Column3_Button1Object : Button
+---@field Count GuildBankFrame_Column3_Button1_CountObject
+---@field HighlightTexture GuildBankFrame_Column3_Button1_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column3_Button1_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column3_Button1_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column3_Button1_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column3_Button1_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column3_Button1_MaskObject
+---@field NormalTexture GuildBankFrame_Column3_Button1_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column3_Button1_PushedTextureObject
+---@field Stock GuildBankFrame_Column3_Button1_StockObject
+---@field icon GuildBankFrame_Column3_Button1_iconObject
+---@field searchOverlay GuildBankFrame_Column3_Button1_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column3_Button1Object = {}
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button1Object:UpdateTooltip(...) end
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_PulseAnimObject : AnimationGroup
-local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_PulseAnimObject = {}
+---@class GuildBankFrame_Column3_Button1_CountObject : FontString
+local GuildBankFrame_Column3_Button1_CountObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_TextObject : FontString
-local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_TextObject = {}
+---@class GuildBankFrame_Column3_Button1_HighlightTextureObject : Texture
+local GuildBankFrame_Column3_Button1_HighlightTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject : Button
----@field Flash QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_FlashObject
----@field PulseAnim QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_PulseAnimObject
----@field Text QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_TextObject
----@field baseHeight number
----@field baseWidth number
----@field useScaleWeight boolean
-local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject = {}
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:UpdateWidth(...) end
+---@class GuildBankFrame_Column3_Button1_IconBorderObject : Texture
+local GuildBankFrame_Column3_Button1_IconBorderObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_FlashObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_FlashObject = {}
+---@class GuildBankFrame_Column3_Button1_IconOverlayObject : Texture
+local GuildBankFrame_Column3_Button1_IconOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_PulseAnimObject : AnimationGroup
-local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_PulseAnimObject = {}
+---@class GuildBankFrame_Column3_Button1_IconOverlay2Object : Texture
+local GuildBankFrame_Column3_Button1_IconOverlay2Object = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_TextObject : FontString
-local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_TextObject = {}
+---@class GuildBankFrame_Column3_Button1_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column3_Button1_ItemContextOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_DividerObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_CheckLeavePartyDialog_DividerObject = {}
+---@class GuildBankFrame_Column3_Button1_MaskObject : MaskTexture
+local GuildBankFrame_Column3_Button1_MaskObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_InvisibleRuleObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_InvisibleRuleObject = {}
+---@class GuildBankFrame_Column3_Button1_NormalTextureObject : Texture
+local GuildBankFrame_Column3_Button1_NormalTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject : Frame
-local QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject = {}
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:ShouldClearOnUpdateAfterClean(...) end
+---@class GuildBankFrame_Column3_Button1_PushedTextureObject : Texture
+local GuildBankFrame_Column3_Button1_PushedTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_TitleObject : Frame
----@field Icon QuestSessionManager_CheckLeavePartyDialog_Title_IconObject
----@field Text QuestSessionManager_CheckLeavePartyDialog_Title_TextObject
-local QuestSessionManager_CheckLeavePartyDialog_TitleObject = {}
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetText(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:ShouldClearOnUpdateAfterClean(...) end
+---@class GuildBankFrame_Column3_Button1_StockObject : FontString
+local GuildBankFrame_Column3_Button1_StockObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_Title_IconObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_Title_IconObject = {}
+---@class GuildBankFrame_Column3_Button1_iconObject : Texture
+local GuildBankFrame_Column3_Button1_iconObject = {}
 end
 
 do
----@class QuestSessionManager_CheckLeavePartyDialog_Title_TextObject : FontString
-local QuestSessionManager_CheckLeavePartyDialog_Title_TextObject = {}
+---@class GuildBankFrame_Column3_Button1_searchOverlayObject : Texture
+local GuildBankFrame_Column3_Button1_searchOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialogObject : Frame
----@field BG QuestSessionManager_CheckStartDialog_BGObject
----@field Body QuestSessionManager_CheckStartDialog_BodyObject
----@field Border QuestSessionManager_CheckStartDialog_BorderObject
----@field ButtonContainer QuestSessionManager_CheckStartDialog_ButtonContainerObject
----@field Divider QuestSessionManager_CheckStartDialog_DividerObject
----@field InvisibleRule QuestSessionManager_CheckStartDialog_InvisibleRuleObject
----@field PlayerContainer QuestSessionManager_CheckStartDialog_PlayerContainerObject
----@field Title QuestSessionManager_CheckStartDialog_TitleObject
----@field cancelText string
----@field confirmText string
----@field heightPadding number
----@field minimumWidth number
----@field requiresValidateDialog boolean
-local QuestSessionManager_CheckStartDialogObject = {}
+---@class GuildBankFrame_Column3_Button10Object : Button
+---@field Count GuildBankFrame_Column3_Button10_CountObject
+---@field HighlightTexture GuildBankFrame_Column3_Button10_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column3_Button10_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column3_Button10_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column3_Button10_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column3_Button10_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column3_Button10_MaskObject
+---@field NormalTexture GuildBankFrame_Column3_Button10_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column3_Button10_PushedTextureObject
+---@field Stock GuildBankFrame_Column3_Button10_StockObject
+---@field icon GuildBankFrame_Column3_Button10_iconObject
+---@field searchOverlay GuildBankFrame_Column3_Button10_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column3_Button10Object = {}
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:AddLayoutChildren(...) end
+function GuildBankFrame_Column3_Button10Object:GetBagID(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:AddParty(...) end
+function GuildBankFrame_Column3_Button10Object:GetItem(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:AddUnit(...) end
+function GuildBankFrame_Column3_Button10Object:GetItemButtonBackgroundTexture(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:BaseOnEvent(...) end
+function GuildBankFrame_Column3_Button10Object:GetItemButtonCount(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:BaseOnHide(...) end
+function GuildBankFrame_Column3_Button10Object:GetItemButtonIconTexture(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:BaseOnShow(...) end
+function GuildBankFrame_Column3_Button10Object:GetItemContextOverlayMode(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:Cancel(...) end
+function GuildBankFrame_Column3_Button10Object:GetItemID(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:CheckAddUnit(...) end
+function GuildBankFrame_Column3_Button10Object:GetItemInfo(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:CheckValidateDialog(...) end
+function GuildBankFrame_Column3_Button10Object:GetItemLink(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:ClearFixedSize(...) end
+function GuildBankFrame_Column3_Button10Object:GetItemLocation(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:ClearHideSound(...) end
+function GuildBankFrame_Column3_Button10Object:GetMatchesSearch(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:ClearShowSound(...) end
+function GuildBankFrame_Column3_Button10Object:GetSlotAndBagID(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:Confirm(...) end
+function GuildBankFrame_Column3_Button10Object:OnClick(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetAdditionalRegions(...) end
+function GuildBankFrame_Column3_Button10Object:OnDragStart(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetChildHeight(...) end
+function GuildBankFrame_Column3_Button10Object:OnEnter(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetChildSize(...) end
+function GuildBankFrame_Column3_Button10Object:OnEvent(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetChildWidth(...) end
+function GuildBankFrame_Column3_Button10Object:OnHide(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetDialogFailureReason(...) end
+function GuildBankFrame_Column3_Button10Object:OnItemContextChanged(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetFixedHeight(...) end
+function GuildBankFrame_Column3_Button10Object:OnLeave(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetFixedSize(...) end
+function GuildBankFrame_Column3_Button10Object:OnLoad(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetFixedWidth(...) end
+function GuildBankFrame_Column3_Button10Object:OnReceiveDrag(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetHeightPadding(...) end
+function GuildBankFrame_Column3_Button10Object:OnUpdateItemContextMatching(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetHideSound(...) end
+function GuildBankFrame_Column3_Button10Object:PostOnEvent(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetLayoutChildren(...) end
+function GuildBankFrame_Column3_Button10Object:PostOnHide(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetMaximumWidth(...) end
+function GuildBankFrame_Column3_Button10Object:PostOnLoad(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetMemberFrame(...) end
+function GuildBankFrame_Column3_Button10Object:PostOnShow(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetMinimumWidth(...) end
+function GuildBankFrame_Column3_Button10Object:RegisterBagButtonUpdateItemContextMatching(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetResponseCounts(...) end
+function GuildBankFrame_Column3_Button10Object:Reset(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetSessionCommand(...) end
+function GuildBankFrame_Column3_Button10Object:SetBagID(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetShowSound(...) end
+function GuildBankFrame_Column3_Button10Object:SetItem(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetWidthPadding(...) end
+function GuildBankFrame_Column3_Button10Object:SetItemButtonAnchorPoint(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:HasTrackedResponse(...) end
+function GuildBankFrame_Column3_Button10Object:SetItemButtonBorderVertexColor(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:HideImmediate(...) end
+function GuildBankFrame_Column3_Button10Object:SetItemButtonCount(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:IgnoreLayoutIndex(...) end
+function GuildBankFrame_Column3_Button10Object:SetItemButtonQuality(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:IsDirty(...) end
+function GuildBankFrame_Column3_Button10Object:SetItemButtonScale(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:IsLayoutFrame(...) end
+function GuildBankFrame_Column3_Button10Object:SetItemButtonTexture(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:Layout(...) end
+function GuildBankFrame_Column3_Button10Object:SetItemButtonTextureVertexColor(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:MarkClean(...) end
+function GuildBankFrame_Column3_Button10Object:SetItemInternal(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:MarkDirty(...) end
+function GuildBankFrame_Column3_Button10Object:SetItemLocation(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:MarkIgnoreInLayout(...) end
+function GuildBankFrame_Column3_Button10Object:SetItemSource(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:Minimize(...) end
+function GuildBankFrame_Column3_Button10Object:SetMatchesSearch(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:OnButtonsEnabled(...) end
+function GuildBankFrame_Column3_Button10Object:SplitStack(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:OnCleaned(...) end
+function GuildBankFrame_Column3_Button10Object:UpdateCraftedProfessionsQualityShown(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:OnLoad(...) end
+function GuildBankFrame_Column3_Button10Object:UpdateItemContextMatching(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:OnShow(...) end
+function GuildBankFrame_Column3_Button10Object:UpdateItemContextOverlay(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:OnUpdate(...) end
+function GuildBankFrame_Column3_Button10Object:UpdateItemContextOverlayTextures(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialogObject:PlayHideSound(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:PlayShowSound(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:RequiresValidateDialog(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:ResetPlayerContainer(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetButtonsEnabled(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetHideSound(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetMemberResponse(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetShowSound(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:Setup(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetupPlayerContainer(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:ShowDialog(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:StartHideDialog(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:TrackResponse(...) end
+function GuildBankFrame_Column3_Button10Object:UpdateTooltip(...) end
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_BGObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_CheckStartDialog_BGObject = {}
+---@class GuildBankFrame_Column3_Button10_CountObject : FontString
+local GuildBankFrame_Column3_Button10_CountObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_BodyObject : Frame
----@field Icon QuestSessionManager_CheckStartDialog_Body_IconObject
----@field Text QuestSessionManager_CheckStartDialog_Body_TextObject
-local QuestSessionManager_CheckStartDialog_BodyObject = {}
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:AdjustTextWidthForAlignment(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:SetText(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:SetWarningText(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:ShouldClearOnUpdateAfterClean(...) end
+---@class GuildBankFrame_Column3_Button10_HighlightTextureObject : Texture
+local GuildBankFrame_Column3_Button10_HighlightTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_Body_IconObject : Texture
-local QuestSessionManager_CheckStartDialog_Body_IconObject = {}
+---@class GuildBankFrame_Column3_Button10_IconBorderObject : Texture
+local GuildBankFrame_Column3_Button10_IconBorderObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_Body_TextObject : FontString
-local QuestSessionManager_CheckStartDialog_Body_TextObject = {}
+---@class GuildBankFrame_Column3_Button10_IconOverlayObject : Texture
+local GuildBankFrame_Column3_Button10_IconOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_BorderObject : Frame
----@field Bg QuestSessionManager_CheckStartDialog_Border_BgObject
----@field BottomEdge QuestSessionManager_CheckStartDialog_Border_BottomEdgeObject
----@field BottomLeftCorner QuestSessionManager_CheckStartDialog_Border_BottomLeftCornerObject
----@field BottomRightCorner QuestSessionManager_CheckStartDialog_Border_BottomRightCornerObject
----@field LeftEdge QuestSessionManager_CheckStartDialog_Border_LeftEdgeObject
----@field RightEdge QuestSessionManager_CheckStartDialog_Border_RightEdgeObject
----@field TopEdge QuestSessionManager_CheckStartDialog_Border_TopEdgeObject
----@field TopLeftCorner QuestSessionManager_CheckStartDialog_Border_TopLeftCornerObject
----@field TopRightCorner QuestSessionManager_CheckStartDialog_Border_TopRightCornerObject
----@field ignoreInLayout boolean
----@field layoutType string
-local QuestSessionManager_CheckStartDialog_BorderObject = {}
+---@class GuildBankFrame_Column3_Button10_IconOverlay2Object : Texture
+local GuildBankFrame_Column3_Button10_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button10_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column3_Button10_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button10_MaskObject : MaskTexture
+local GuildBankFrame_Column3_Button10_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button10_NormalTextureObject : Texture
+local GuildBankFrame_Column3_Button10_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button10_PushedTextureObject : Texture
+local GuildBankFrame_Column3_Button10_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button10_StockObject : FontString
+local GuildBankFrame_Column3_Button10_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button10_iconObject : Texture
+local GuildBankFrame_Column3_Button10_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button10_searchOverlayObject : Texture
+local GuildBankFrame_Column3_Button10_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button11Object : Button
+---@field Count GuildBankFrame_Column3_Button11_CountObject
+---@field HighlightTexture GuildBankFrame_Column3_Button11_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column3_Button11_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column3_Button11_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column3_Button11_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column3_Button11_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column3_Button11_MaskObject
+---@field NormalTexture GuildBankFrame_Column3_Button11_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column3_Button11_PushedTextureObject
+---@field Stock GuildBankFrame_Column3_Button11_StockObject
+---@field icon GuildBankFrame_Column3_Button11_iconObject
+---@field searchOverlay GuildBankFrame_Column3_Button11_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column3_Button11Object = {}
 ---@return any ...
-function QuestSessionManager_CheckStartDialog_BorderObject:GetBorderColor(...) end
+function GuildBankFrame_Column3_Button11Object:GetBagID(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialog_BorderObject:GetCenterColor(...) end
+function GuildBankFrame_Column3_Button11Object:GetItem(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialog_BorderObject:GetFrameLayoutTextureKit(...) end
+function GuildBankFrame_Column3_Button11Object:GetItemButtonBackgroundTexture(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialog_BorderObject:GetFrameLayoutType(...) end
+function GuildBankFrame_Column3_Button11Object:GetItemButtonCount(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialog_BorderObject:OnLoad(...) end
+function GuildBankFrame_Column3_Button11Object:GetItemButtonIconTexture(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialog_BorderObject:SetBlendMode(...) end
+function GuildBankFrame_Column3_Button11Object:GetItemContextOverlayMode(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialog_BorderObject:SetBorderBlendMode(...) end
+function GuildBankFrame_Column3_Button11Object:GetItemID(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialog_BorderObject:SetBorderColor(...) end
+function GuildBankFrame_Column3_Button11Object:GetItemInfo(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialog_BorderObject:SetCenterColor(...) end
+function GuildBankFrame_Column3_Button11Object:GetItemLink(...) end
 ---@return any ...
-function QuestSessionManager_CheckStartDialog_BorderObject:SetVertexColor(...) end
+function GuildBankFrame_Column3_Button11Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button11Object:UpdateTooltip(...) end
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_Border_BgObject : Texture
-local QuestSessionManager_CheckStartDialog_Border_BgObject = {}
+---@class GuildBankFrame_Column3_Button11_CountObject : FontString
+local GuildBankFrame_Column3_Button11_CountObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_Border_BottomEdgeObject : Texture
-local QuestSessionManager_CheckStartDialog_Border_BottomEdgeObject = {}
+---@class GuildBankFrame_Column3_Button11_HighlightTextureObject : Texture
+local GuildBankFrame_Column3_Button11_HighlightTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_Border_BottomLeftCornerObject : Texture
-local QuestSessionManager_CheckStartDialog_Border_BottomLeftCornerObject = {}
+---@class GuildBankFrame_Column3_Button11_IconBorderObject : Texture
+local GuildBankFrame_Column3_Button11_IconBorderObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_Border_BottomRightCornerObject : Texture
-local QuestSessionManager_CheckStartDialog_Border_BottomRightCornerObject = {}
+---@class GuildBankFrame_Column3_Button11_IconOverlayObject : Texture
+local GuildBankFrame_Column3_Button11_IconOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_Border_LeftEdgeObject : Texture
-local QuestSessionManager_CheckStartDialog_Border_LeftEdgeObject = {}
+---@class GuildBankFrame_Column3_Button11_IconOverlay2Object : Texture
+local GuildBankFrame_Column3_Button11_IconOverlay2Object = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_Border_RightEdgeObject : Texture
-local QuestSessionManager_CheckStartDialog_Border_RightEdgeObject = {}
+---@class GuildBankFrame_Column3_Button11_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column3_Button11_ItemContextOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_Border_TopEdgeObject : Texture
-local QuestSessionManager_CheckStartDialog_Border_TopEdgeObject = {}
+---@class GuildBankFrame_Column3_Button11_MaskObject : MaskTexture
+local GuildBankFrame_Column3_Button11_MaskObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_Border_TopLeftCornerObject : Texture
-local QuestSessionManager_CheckStartDialog_Border_TopLeftCornerObject = {}
+---@class GuildBankFrame_Column3_Button11_NormalTextureObject : Texture
+local GuildBankFrame_Column3_Button11_NormalTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_Border_TopRightCornerObject : Texture
-local QuestSessionManager_CheckStartDialog_Border_TopRightCornerObject = {}
+---@class GuildBankFrame_Column3_Button11_PushedTextureObject : Texture
+local GuildBankFrame_Column3_Button11_PushedTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_ButtonContainerObject : Frame
+---@class GuildBankFrame_Column3_Button11_StockObject : FontString
+local GuildBankFrame_Column3_Button11_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button11_iconObject : Texture
+local GuildBankFrame_Column3_Button11_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button11_searchOverlayObject : Texture
+local GuildBankFrame_Column3_Button11_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button12Object : Button
+---@field Count GuildBankFrame_Column3_Button12_CountObject
+---@field HighlightTexture GuildBankFrame_Column3_Button12_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column3_Button12_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column3_Button12_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column3_Button12_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column3_Button12_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column3_Button12_MaskObject
+---@field NormalTexture GuildBankFrame_Column3_Button12_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column3_Button12_PushedTextureObject
+---@field Stock GuildBankFrame_Column3_Button12_StockObject
+---@field icon GuildBankFrame_Column3_Button12_iconObject
+---@field searchOverlay GuildBankFrame_Column3_Button12_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column3_Button12Object = {}
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button12Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column3_Button12_CountObject : FontString
+local GuildBankFrame_Column3_Button12_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button12_HighlightTextureObject : Texture
+local GuildBankFrame_Column3_Button12_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button12_IconBorderObject : Texture
+local GuildBankFrame_Column3_Button12_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button12_IconOverlayObject : Texture
+local GuildBankFrame_Column3_Button12_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button12_IconOverlay2Object : Texture
+local GuildBankFrame_Column3_Button12_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button12_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column3_Button12_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button12_MaskObject : MaskTexture
+local GuildBankFrame_Column3_Button12_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button12_NormalTextureObject : Texture
+local GuildBankFrame_Column3_Button12_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button12_PushedTextureObject : Texture
+local GuildBankFrame_Column3_Button12_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button12_StockObject : FontString
+local GuildBankFrame_Column3_Button12_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button12_iconObject : Texture
+local GuildBankFrame_Column3_Button12_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button12_searchOverlayObject : Texture
+local GuildBankFrame_Column3_Button12_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button13Object : Button
+---@field Count GuildBankFrame_Column3_Button13_CountObject
+---@field HighlightTexture GuildBankFrame_Column3_Button13_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column3_Button13_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column3_Button13_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column3_Button13_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column3_Button13_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column3_Button13_MaskObject
+---@field NormalTexture GuildBankFrame_Column3_Button13_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column3_Button13_PushedTextureObject
+---@field Stock GuildBankFrame_Column3_Button13_StockObject
+---@field icon GuildBankFrame_Column3_Button13_iconObject
+---@field searchOverlay GuildBankFrame_Column3_Button13_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column3_Button13Object = {}
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button13Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column3_Button13_CountObject : FontString
+local GuildBankFrame_Column3_Button13_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button13_HighlightTextureObject : Texture
+local GuildBankFrame_Column3_Button13_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button13_IconBorderObject : Texture
+local GuildBankFrame_Column3_Button13_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button13_IconOverlayObject : Texture
+local GuildBankFrame_Column3_Button13_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button13_IconOverlay2Object : Texture
+local GuildBankFrame_Column3_Button13_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button13_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column3_Button13_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button13_MaskObject : MaskTexture
+local GuildBankFrame_Column3_Button13_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button13_NormalTextureObject : Texture
+local GuildBankFrame_Column3_Button13_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button13_PushedTextureObject : Texture
+local GuildBankFrame_Column3_Button13_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button13_StockObject : FontString
+local GuildBankFrame_Column3_Button13_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button13_iconObject : Texture
+local GuildBankFrame_Column3_Button13_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button13_searchOverlayObject : Texture
+local GuildBankFrame_Column3_Button13_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button14Object : Button
+---@field Count GuildBankFrame_Column3_Button14_CountObject
+---@field HighlightTexture GuildBankFrame_Column3_Button14_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column3_Button14_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column3_Button14_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column3_Button14_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column3_Button14_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column3_Button14_MaskObject
+---@field NormalTexture GuildBankFrame_Column3_Button14_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column3_Button14_PushedTextureObject
+---@field Stock GuildBankFrame_Column3_Button14_StockObject
+---@field icon GuildBankFrame_Column3_Button14_iconObject
+---@field searchOverlay GuildBankFrame_Column3_Button14_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column3_Button14Object = {}
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button14Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column3_Button14_CountObject : FontString
+local GuildBankFrame_Column3_Button14_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button14_HighlightTextureObject : Texture
+local GuildBankFrame_Column3_Button14_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button14_IconBorderObject : Texture
+local GuildBankFrame_Column3_Button14_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button14_IconOverlayObject : Texture
+local GuildBankFrame_Column3_Button14_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button14_IconOverlay2Object : Texture
+local GuildBankFrame_Column3_Button14_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button14_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column3_Button14_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button14_MaskObject : MaskTexture
+local GuildBankFrame_Column3_Button14_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button14_NormalTextureObject : Texture
+local GuildBankFrame_Column3_Button14_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button14_PushedTextureObject : Texture
+local GuildBankFrame_Column3_Button14_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button14_StockObject : FontString
+local GuildBankFrame_Column3_Button14_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button14_iconObject : Texture
+local GuildBankFrame_Column3_Button14_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button14_searchOverlayObject : Texture
+local GuildBankFrame_Column3_Button14_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button2Object : Button
+---@field Count GuildBankFrame_Column3_Button2_CountObject
+---@field HighlightTexture GuildBankFrame_Column3_Button2_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column3_Button2_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column3_Button2_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column3_Button2_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column3_Button2_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column3_Button2_MaskObject
+---@field NormalTexture GuildBankFrame_Column3_Button2_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column3_Button2_PushedTextureObject
+---@field Stock GuildBankFrame_Column3_Button2_StockObject
+---@field icon GuildBankFrame_Column3_Button2_iconObject
+---@field searchOverlay GuildBankFrame_Column3_Button2_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column3_Button2Object = {}
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button2Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column3_Button2_CountObject : FontString
+local GuildBankFrame_Column3_Button2_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button2_HighlightTextureObject : Texture
+local GuildBankFrame_Column3_Button2_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button2_IconBorderObject : Texture
+local GuildBankFrame_Column3_Button2_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button2_IconOverlayObject : Texture
+local GuildBankFrame_Column3_Button2_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button2_IconOverlay2Object : Texture
+local GuildBankFrame_Column3_Button2_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button2_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column3_Button2_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button2_MaskObject : MaskTexture
+local GuildBankFrame_Column3_Button2_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button2_NormalTextureObject : Texture
+local GuildBankFrame_Column3_Button2_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button2_PushedTextureObject : Texture
+local GuildBankFrame_Column3_Button2_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button2_StockObject : FontString
+local GuildBankFrame_Column3_Button2_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button2_iconObject : Texture
+local GuildBankFrame_Column3_Button2_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button2_searchOverlayObject : Texture
+local GuildBankFrame_Column3_Button2_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button3Object : Button
+---@field Count GuildBankFrame_Column3_Button3_CountObject
+---@field HighlightTexture GuildBankFrame_Column3_Button3_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column3_Button3_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column3_Button3_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column3_Button3_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column3_Button3_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column3_Button3_MaskObject
+---@field NormalTexture GuildBankFrame_Column3_Button3_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column3_Button3_PushedTextureObject
+---@field Stock GuildBankFrame_Column3_Button3_StockObject
+---@field icon GuildBankFrame_Column3_Button3_iconObject
+---@field searchOverlay GuildBankFrame_Column3_Button3_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column3_Button3Object = {}
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button3Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column3_Button3_CountObject : FontString
+local GuildBankFrame_Column3_Button3_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button3_HighlightTextureObject : Texture
+local GuildBankFrame_Column3_Button3_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button3_IconBorderObject : Texture
+local GuildBankFrame_Column3_Button3_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button3_IconOverlayObject : Texture
+local GuildBankFrame_Column3_Button3_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button3_IconOverlay2Object : Texture
+local GuildBankFrame_Column3_Button3_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button3_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column3_Button3_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button3_MaskObject : MaskTexture
+local GuildBankFrame_Column3_Button3_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button3_NormalTextureObject : Texture
+local GuildBankFrame_Column3_Button3_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button3_PushedTextureObject : Texture
+local GuildBankFrame_Column3_Button3_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button3_StockObject : FontString
+local GuildBankFrame_Column3_Button3_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button3_iconObject : Texture
+local GuildBankFrame_Column3_Button3_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button3_searchOverlayObject : Texture
+local GuildBankFrame_Column3_Button3_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button4Object : Button
+---@field Count GuildBankFrame_Column3_Button4_CountObject
+---@field HighlightTexture GuildBankFrame_Column3_Button4_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column3_Button4_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column3_Button4_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column3_Button4_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column3_Button4_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column3_Button4_MaskObject
+---@field NormalTexture GuildBankFrame_Column3_Button4_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column3_Button4_PushedTextureObject
+---@field Stock GuildBankFrame_Column3_Button4_StockObject
+---@field icon GuildBankFrame_Column3_Button4_iconObject
+---@field searchOverlay GuildBankFrame_Column3_Button4_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column3_Button4Object = {}
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button4Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column3_Button4_CountObject : FontString
+local GuildBankFrame_Column3_Button4_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button4_HighlightTextureObject : Texture
+local GuildBankFrame_Column3_Button4_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button4_IconBorderObject : Texture
+local GuildBankFrame_Column3_Button4_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button4_IconOverlayObject : Texture
+local GuildBankFrame_Column3_Button4_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button4_IconOverlay2Object : Texture
+local GuildBankFrame_Column3_Button4_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button4_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column3_Button4_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button4_MaskObject : MaskTexture
+local GuildBankFrame_Column3_Button4_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button4_NormalTextureObject : Texture
+local GuildBankFrame_Column3_Button4_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button4_PushedTextureObject : Texture
+local GuildBankFrame_Column3_Button4_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button4_StockObject : FontString
+local GuildBankFrame_Column3_Button4_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button4_iconObject : Texture
+local GuildBankFrame_Column3_Button4_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button4_searchOverlayObject : Texture
+local GuildBankFrame_Column3_Button4_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button5Object : Button
+---@field Count GuildBankFrame_Column3_Button5_CountObject
+---@field HighlightTexture GuildBankFrame_Column3_Button5_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column3_Button5_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column3_Button5_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column3_Button5_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column3_Button5_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column3_Button5_MaskObject
+---@field NormalTexture GuildBankFrame_Column3_Button5_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column3_Button5_PushedTextureObject
+---@field Stock GuildBankFrame_Column3_Button5_StockObject
+---@field icon GuildBankFrame_Column3_Button5_iconObject
+---@field searchOverlay GuildBankFrame_Column3_Button5_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column3_Button5Object = {}
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button5Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column3_Button5_CountObject : FontString
+local GuildBankFrame_Column3_Button5_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button5_HighlightTextureObject : Texture
+local GuildBankFrame_Column3_Button5_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button5_IconBorderObject : Texture
+local GuildBankFrame_Column3_Button5_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button5_IconOverlayObject : Texture
+local GuildBankFrame_Column3_Button5_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button5_IconOverlay2Object : Texture
+local GuildBankFrame_Column3_Button5_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button5_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column3_Button5_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button5_MaskObject : MaskTexture
+local GuildBankFrame_Column3_Button5_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button5_NormalTextureObject : Texture
+local GuildBankFrame_Column3_Button5_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button5_PushedTextureObject : Texture
+local GuildBankFrame_Column3_Button5_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button5_StockObject : FontString
+local GuildBankFrame_Column3_Button5_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button5_iconObject : Texture
+local GuildBankFrame_Column3_Button5_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button5_searchOverlayObject : Texture
+local GuildBankFrame_Column3_Button5_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button6Object : Button
+---@field Count GuildBankFrame_Column3_Button6_CountObject
+---@field HighlightTexture GuildBankFrame_Column3_Button6_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column3_Button6_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column3_Button6_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column3_Button6_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column3_Button6_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column3_Button6_MaskObject
+---@field NormalTexture GuildBankFrame_Column3_Button6_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column3_Button6_PushedTextureObject
+---@field Stock GuildBankFrame_Column3_Button6_StockObject
+---@field icon GuildBankFrame_Column3_Button6_iconObject
+---@field searchOverlay GuildBankFrame_Column3_Button6_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column3_Button6Object = {}
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button6Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column3_Button6_CountObject : FontString
+local GuildBankFrame_Column3_Button6_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button6_HighlightTextureObject : Texture
+local GuildBankFrame_Column3_Button6_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button6_IconBorderObject : Texture
+local GuildBankFrame_Column3_Button6_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button6_IconOverlayObject : Texture
+local GuildBankFrame_Column3_Button6_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button6_IconOverlay2Object : Texture
+local GuildBankFrame_Column3_Button6_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button6_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column3_Button6_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button6_MaskObject : MaskTexture
+local GuildBankFrame_Column3_Button6_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button6_NormalTextureObject : Texture
+local GuildBankFrame_Column3_Button6_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button6_PushedTextureObject : Texture
+local GuildBankFrame_Column3_Button6_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button6_StockObject : FontString
+local GuildBankFrame_Column3_Button6_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button6_iconObject : Texture
+local GuildBankFrame_Column3_Button6_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button6_searchOverlayObject : Texture
+local GuildBankFrame_Column3_Button6_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button7Object : Button
+---@field Count GuildBankFrame_Column3_Button7_CountObject
+---@field HighlightTexture GuildBankFrame_Column3_Button7_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column3_Button7_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column3_Button7_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column3_Button7_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column3_Button7_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column3_Button7_MaskObject
+---@field NormalTexture GuildBankFrame_Column3_Button7_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column3_Button7_PushedTextureObject
+---@field Stock GuildBankFrame_Column3_Button7_StockObject
+---@field icon GuildBankFrame_Column3_Button7_iconObject
+---@field searchOverlay GuildBankFrame_Column3_Button7_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column3_Button7Object = {}
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button7Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column3_Button7_CountObject : FontString
+local GuildBankFrame_Column3_Button7_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button7_HighlightTextureObject : Texture
+local GuildBankFrame_Column3_Button7_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button7_IconBorderObject : Texture
+local GuildBankFrame_Column3_Button7_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button7_IconOverlayObject : Texture
+local GuildBankFrame_Column3_Button7_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button7_IconOverlay2Object : Texture
+local GuildBankFrame_Column3_Button7_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button7_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column3_Button7_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button7_MaskObject : MaskTexture
+local GuildBankFrame_Column3_Button7_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button7_NormalTextureObject : Texture
+local GuildBankFrame_Column3_Button7_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button7_PushedTextureObject : Texture
+local GuildBankFrame_Column3_Button7_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button7_StockObject : FontString
+local GuildBankFrame_Column3_Button7_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button7_iconObject : Texture
+local GuildBankFrame_Column3_Button7_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button7_searchOverlayObject : Texture
+local GuildBankFrame_Column3_Button7_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button8Object : Button
+---@field Count GuildBankFrame_Column3_Button8_CountObject
+---@field HighlightTexture GuildBankFrame_Column3_Button8_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column3_Button8_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column3_Button8_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column3_Button8_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column3_Button8_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column3_Button8_MaskObject
+---@field NormalTexture GuildBankFrame_Column3_Button8_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column3_Button8_PushedTextureObject
+---@field Stock GuildBankFrame_Column3_Button8_StockObject
+---@field icon GuildBankFrame_Column3_Button8_iconObject
+---@field searchOverlay GuildBankFrame_Column3_Button8_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column3_Button8Object = {}
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button8Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column3_Button8_CountObject : FontString
+local GuildBankFrame_Column3_Button8_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button8_HighlightTextureObject : Texture
+local GuildBankFrame_Column3_Button8_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button8_IconBorderObject : Texture
+local GuildBankFrame_Column3_Button8_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button8_IconOverlayObject : Texture
+local GuildBankFrame_Column3_Button8_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button8_IconOverlay2Object : Texture
+local GuildBankFrame_Column3_Button8_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button8_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column3_Button8_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button8_MaskObject : MaskTexture
+local GuildBankFrame_Column3_Button8_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button8_NormalTextureObject : Texture
+local GuildBankFrame_Column3_Button8_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button8_PushedTextureObject : Texture
+local GuildBankFrame_Column3_Button8_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button8_StockObject : FontString
+local GuildBankFrame_Column3_Button8_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button8_iconObject : Texture
+local GuildBankFrame_Column3_Button8_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button8_searchOverlayObject : Texture
+local GuildBankFrame_Column3_Button8_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button9Object : Button
+---@field Count GuildBankFrame_Column3_Button9_CountObject
+---@field HighlightTexture GuildBankFrame_Column3_Button9_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column3_Button9_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column3_Button9_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column3_Button9_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column3_Button9_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column3_Button9_MaskObject
+---@field NormalTexture GuildBankFrame_Column3_Button9_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column3_Button9_PushedTextureObject
+---@field Stock GuildBankFrame_Column3_Button9_StockObject
+---@field icon GuildBankFrame_Column3_Button9_iconObject
+---@field searchOverlay GuildBankFrame_Column3_Button9_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column3_Button9Object = {}
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column3_Button9Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column3_Button9_CountObject : FontString
+local GuildBankFrame_Column3_Button9_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button9_HighlightTextureObject : Texture
+local GuildBankFrame_Column3_Button9_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button9_IconBorderObject : Texture
+local GuildBankFrame_Column3_Button9_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button9_IconOverlayObject : Texture
+local GuildBankFrame_Column3_Button9_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button9_IconOverlay2Object : Texture
+local GuildBankFrame_Column3_Button9_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button9_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column3_Button9_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button9_MaskObject : MaskTexture
+local GuildBankFrame_Column3_Button9_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button9_NormalTextureObject : Texture
+local GuildBankFrame_Column3_Button9_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button9_PushedTextureObject : Texture
+local GuildBankFrame_Column3_Button9_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button9_StockObject : FontString
+local GuildBankFrame_Column3_Button9_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button9_iconObject : Texture
+local GuildBankFrame_Column3_Button9_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column3_Button9_searchOverlayObject : Texture
+local GuildBankFrame_Column3_Button9_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4Object : Frame
+---@field Background GuildBankFrame_Column4_BackgroundObject
+---@field Button1 GuildBankFrame_Column4_Button1Object
+---@field Button10 GuildBankFrame_Column4_Button10Object
+---@field Button11 GuildBankFrame_Column4_Button11Object
+---@field Button12 GuildBankFrame_Column4_Button12Object
+---@field Button13 GuildBankFrame_Column4_Button13Object
+---@field Button14 GuildBankFrame_Column4_Button14Object
+---@field Button2 GuildBankFrame_Column4_Button2Object
+---@field Button3 GuildBankFrame_Column4_Button3Object
+---@field Button4 GuildBankFrame_Column4_Button4Object
+---@field Button5 GuildBankFrame_Column4_Button5Object
+---@field Button6 GuildBankFrame_Column4_Button6Object
+---@field Button7 GuildBankFrame_Column4_Button7Object
+---@field Button8 GuildBankFrame_Column4_Button8Object
+---@field Button9 GuildBankFrame_Column4_Button9Object
 ---@field Buttons table
----@field Confirm QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject
----@field Decline QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject
----@field heightPadding number
-local QuestSessionManager_CheckStartDialog_ButtonContainerObject = {}
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:ShouldClearOnUpdateAfterClean(...) end
+local GuildBankFrame_Column4Object = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject : Button
----@field Flash QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_FlashObject
----@field PulseAnim QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_PulseAnimObject
----@field Text QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_TextObject
----@field baseHeight number
----@field baseWidth number
----@field isConfirm boolean
----@field useScaleWeight boolean
-local QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject = {}
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:UpdateWidth(...) end
+---@class GuildBankFrame_Column4_BackgroundObject : Texture
+local GuildBankFrame_Column4_BackgroundObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_FlashObject : Texture
-local QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_FlashObject = {}
+---@class GuildBankFrame_Column4_Button1Object : Button
+---@field Count GuildBankFrame_Column4_Button1_CountObject
+---@field HighlightTexture GuildBankFrame_Column4_Button1_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column4_Button1_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column4_Button1_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column4_Button1_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column4_Button1_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column4_Button1_MaskObject
+---@field NormalTexture GuildBankFrame_Column4_Button1_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column4_Button1_PushedTextureObject
+---@field Stock GuildBankFrame_Column4_Button1_StockObject
+---@field icon GuildBankFrame_Column4_Button1_iconObject
+---@field searchOverlay GuildBankFrame_Column4_Button1_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column4_Button1Object = {}
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button1Object:UpdateTooltip(...) end
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_PulseAnimObject : AnimationGroup
-local QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_PulseAnimObject = {}
+---@class GuildBankFrame_Column4_Button1_CountObject : FontString
+local GuildBankFrame_Column4_Button1_CountObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_TextObject : FontString
-local QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_TextObject = {}
+---@class GuildBankFrame_Column4_Button1_HighlightTextureObject : Texture
+local GuildBankFrame_Column4_Button1_HighlightTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject : Button
----@field Flash QuestSessionManager_CheckStartDialog_ButtonContainer_Decline_FlashObject
----@field PulseAnim QuestSessionManager_CheckStartDialog_ButtonContainer_Decline_PulseAnimObject
----@field Text QuestSessionManager_CheckStartDialog_ButtonContainer_Decline_TextObject
----@field baseHeight number
----@field baseWidth number
----@field useScaleWeight boolean
-local QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject = {}
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:UpdateWidth(...) end
+---@class GuildBankFrame_Column4_Button1_IconBorderObject : Texture
+local GuildBankFrame_Column4_Button1_IconBorderObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_ButtonContainer_Decline_FlashObject : Texture
-local QuestSessionManager_CheckStartDialog_ButtonContainer_Decline_FlashObject = {}
+---@class GuildBankFrame_Column4_Button1_IconOverlayObject : Texture
+local GuildBankFrame_Column4_Button1_IconOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_ButtonContainer_Decline_PulseAnimObject : AnimationGroup
-local QuestSessionManager_CheckStartDialog_ButtonContainer_Decline_PulseAnimObject = {}
+---@class GuildBankFrame_Column4_Button1_IconOverlay2Object : Texture
+local GuildBankFrame_Column4_Button1_IconOverlay2Object = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_ButtonContainer_Decline_TextObject : FontString
-local QuestSessionManager_CheckStartDialog_ButtonContainer_Decline_TextObject = {}
+---@class GuildBankFrame_Column4_Button1_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column4_Button1_ItemContextOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_DividerObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_CheckStartDialog_DividerObject = {}
+---@class GuildBankFrame_Column4_Button1_MaskObject : MaskTexture
+local GuildBankFrame_Column4_Button1_MaskObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_InvisibleRuleObject : Texture
-local QuestSessionManager_CheckStartDialog_InvisibleRuleObject = {}
+---@class GuildBankFrame_Column4_Button1_NormalTextureObject : Texture
+local GuildBankFrame_Column4_Button1_NormalTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_PlayerContainerObject : Frame
-local QuestSessionManager_CheckStartDialog_PlayerContainerObject = {}
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_PlayerContainerObject:ShouldClearOnUpdateAfterClean(...) end
+---@class GuildBankFrame_Column4_Button1_PushedTextureObject : Texture
+local GuildBankFrame_Column4_Button1_PushedTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_TitleObject : Frame
----@field Icon QuestSessionManager_CheckStartDialog_Title_IconObject
----@field Text QuestSessionManager_CheckStartDialog_Title_TextObject
-local QuestSessionManager_CheckStartDialog_TitleObject = {}
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:SetText(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_TitleObject:ShouldClearOnUpdateAfterClean(...) end
+---@class GuildBankFrame_Column4_Button1_StockObject : FontString
+local GuildBankFrame_Column4_Button1_StockObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_Title_IconObject : Texture
-local QuestSessionManager_CheckStartDialog_Title_IconObject = {}
+---@class GuildBankFrame_Column4_Button1_iconObject : Texture
+local GuildBankFrame_Column4_Button1_iconObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStartDialog_Title_TextObject : FontString
-local QuestSessionManager_CheckStartDialog_Title_TextObject = {}
+---@class GuildBankFrame_Column4_Button1_searchOverlayObject : Texture
+local GuildBankFrame_Column4_Button1_searchOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStopDialogObject : Frame
----@field BG QuestSessionManager_CheckStopDialog_BGObject
----@field Body QuestSessionManager_CheckStopDialog_BodyObject
----@field Border QuestSessionManager_CheckStopDialog_BorderObject
----@field ButtonContainer QuestSessionManager_CheckStopDialog_ButtonContainerObject
----@field Divider QuestSessionManager_CheckStopDialog_DividerObject
----@field InvisibleRule QuestSessionManager_CheckStopDialog_InvisibleRuleObject
----@field PlayerContainer QuestSessionManager_CheckStopDialog_PlayerContainerObject
----@field Title QuestSessionManager_CheckStopDialog_TitleObject
----@field cancelText string
----@field confirmText string
----@field heightPadding number
----@field minimumWidth number
-local QuestSessionManager_CheckStopDialogObject = {}
+---@class GuildBankFrame_Column4_Button10Object : Button
+---@field Count GuildBankFrame_Column4_Button10_CountObject
+---@field HighlightTexture GuildBankFrame_Column4_Button10_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column4_Button10_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column4_Button10_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column4_Button10_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column4_Button10_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column4_Button10_MaskObject
+---@field NormalTexture GuildBankFrame_Column4_Button10_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column4_Button10_PushedTextureObject
+---@field Stock GuildBankFrame_Column4_Button10_StockObject
+---@field icon GuildBankFrame_Column4_Button10_iconObject
+---@field searchOverlay GuildBankFrame_Column4_Button10_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column4_Button10Object = {}
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:AddLayoutChildren(...) end
+function GuildBankFrame_Column4_Button10Object:GetBagID(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:AddParty(...) end
+function GuildBankFrame_Column4_Button10Object:GetItem(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:AddUnit(...) end
+function GuildBankFrame_Column4_Button10Object:GetItemButtonBackgroundTexture(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:BaseOnEvent(...) end
+function GuildBankFrame_Column4_Button10Object:GetItemButtonCount(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:BaseOnHide(...) end
+function GuildBankFrame_Column4_Button10Object:GetItemButtonIconTexture(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:BaseOnShow(...) end
+function GuildBankFrame_Column4_Button10Object:GetItemContextOverlayMode(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:Cancel(...) end
+function GuildBankFrame_Column4_Button10Object:GetItemID(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:CheckAddUnit(...) end
+function GuildBankFrame_Column4_Button10Object:GetItemInfo(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:CheckValidateDialog(...) end
+function GuildBankFrame_Column4_Button10Object:GetItemLink(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:ClearFixedSize(...) end
+function GuildBankFrame_Column4_Button10Object:GetItemLocation(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:ClearHideSound(...) end
+function GuildBankFrame_Column4_Button10Object:GetMatchesSearch(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:ClearShowSound(...) end
+function GuildBankFrame_Column4_Button10Object:GetSlotAndBagID(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:Confirm(...) end
+function GuildBankFrame_Column4_Button10Object:OnClick(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:GetAdditionalRegions(...) end
+function GuildBankFrame_Column4_Button10Object:OnDragStart(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:GetChildHeight(...) end
+function GuildBankFrame_Column4_Button10Object:OnEnter(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:GetChildSize(...) end
+function GuildBankFrame_Column4_Button10Object:OnEvent(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:GetChildWidth(...) end
+function GuildBankFrame_Column4_Button10Object:OnHide(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:GetDialogFailureReason(...) end
+function GuildBankFrame_Column4_Button10Object:OnItemContextChanged(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:GetFixedHeight(...) end
+function GuildBankFrame_Column4_Button10Object:OnLeave(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:GetFixedSize(...) end
+function GuildBankFrame_Column4_Button10Object:OnLoad(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:GetFixedWidth(...) end
+function GuildBankFrame_Column4_Button10Object:OnReceiveDrag(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:GetHeightPadding(...) end
+function GuildBankFrame_Column4_Button10Object:OnUpdateItemContextMatching(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:GetHideSound(...) end
+function GuildBankFrame_Column4_Button10Object:PostOnEvent(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:GetLayoutChildren(...) end
+function GuildBankFrame_Column4_Button10Object:PostOnHide(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:GetMaximumWidth(...) end
+function GuildBankFrame_Column4_Button10Object:PostOnLoad(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:GetMemberFrame(...) end
+function GuildBankFrame_Column4_Button10Object:PostOnShow(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:GetMinimumWidth(...) end
+function GuildBankFrame_Column4_Button10Object:RegisterBagButtonUpdateItemContextMatching(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:GetResponseCounts(...) end
+function GuildBankFrame_Column4_Button10Object:Reset(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:GetSessionCommand(...) end
+function GuildBankFrame_Column4_Button10Object:SetBagID(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:GetShowSound(...) end
+function GuildBankFrame_Column4_Button10Object:SetItem(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:GetWidthPadding(...) end
+function GuildBankFrame_Column4_Button10Object:SetItemButtonAnchorPoint(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:HasTrackedResponse(...) end
+function GuildBankFrame_Column4_Button10Object:SetItemButtonBorderVertexColor(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:HideImmediate(...) end
+function GuildBankFrame_Column4_Button10Object:SetItemButtonCount(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:IgnoreLayoutIndex(...) end
+function GuildBankFrame_Column4_Button10Object:SetItemButtonQuality(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:IsDirty(...) end
+function GuildBankFrame_Column4_Button10Object:SetItemButtonScale(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:IsLayoutFrame(...) end
+function GuildBankFrame_Column4_Button10Object:SetItemButtonTexture(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:Layout(...) end
+function GuildBankFrame_Column4_Button10Object:SetItemButtonTextureVertexColor(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:MarkClean(...) end
+function GuildBankFrame_Column4_Button10Object:SetItemInternal(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:MarkDirty(...) end
+function GuildBankFrame_Column4_Button10Object:SetItemLocation(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:MarkIgnoreInLayout(...) end
+function GuildBankFrame_Column4_Button10Object:SetItemSource(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:Minimize(...) end
+function GuildBankFrame_Column4_Button10Object:SetMatchesSearch(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:OnButtonsEnabled(...) end
+function GuildBankFrame_Column4_Button10Object:SplitStack(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:OnCleaned(...) end
+function GuildBankFrame_Column4_Button10Object:UpdateCraftedProfessionsQualityShown(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:OnLoad(...) end
+function GuildBankFrame_Column4_Button10Object:UpdateItemContextMatching(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:OnShow(...) end
+function GuildBankFrame_Column4_Button10Object:UpdateItemContextOverlay(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:OnUpdate(...) end
+function GuildBankFrame_Column4_Button10Object:UpdateItemContextOverlayTextures(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialogObject:PlayHideSound(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialogObject:PlayShowSound(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialogObject:RequiresValidateDialog(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialogObject:ResetPlayerContainer(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialogObject:SetButtonsEnabled(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialogObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialogObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialogObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialogObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialogObject:SetHideSound(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialogObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialogObject:SetMemberResponse(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialogObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialogObject:SetShowSound(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialogObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialogObject:Setup(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialogObject:SetupPlayerContainer(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialogObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialogObject:ShowDialog(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialogObject:StartHideDialog(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialogObject:TrackResponse(...) end
+function GuildBankFrame_Column4_Button10Object:UpdateTooltip(...) end
 end
 
 do
----@class QuestSessionManager_CheckStopDialog_BGObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_CheckStopDialog_BGObject = {}
+---@class GuildBankFrame_Column4_Button10_CountObject : FontString
+local GuildBankFrame_Column4_Button10_CountObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStopDialog_BodyObject : Frame
----@field Icon QuestSessionManager_CheckStopDialog_Body_IconObject
----@field Text QuestSessionManager_CheckStopDialog_Body_TextObject
-local QuestSessionManager_CheckStopDialog_BodyObject = {}
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:AdjustTextWidthForAlignment(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:SetText(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:SetWarningText(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_BodyObject:ShouldClearOnUpdateAfterClean(...) end
+---@class GuildBankFrame_Column4_Button10_HighlightTextureObject : Texture
+local GuildBankFrame_Column4_Button10_HighlightTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStopDialog_Body_IconObject : Texture
-local QuestSessionManager_CheckStopDialog_Body_IconObject = {}
+---@class GuildBankFrame_Column4_Button10_IconBorderObject : Texture
+local GuildBankFrame_Column4_Button10_IconBorderObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStopDialog_Body_TextObject : FontString
-local QuestSessionManager_CheckStopDialog_Body_TextObject = {}
+---@class GuildBankFrame_Column4_Button10_IconOverlayObject : Texture
+local GuildBankFrame_Column4_Button10_IconOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStopDialog_BorderObject : Frame
----@field Bg QuestSessionManager_CheckStopDialog_Border_BgObject
----@field BottomEdge QuestSessionManager_CheckStopDialog_Border_BottomEdgeObject
----@field BottomLeftCorner QuestSessionManager_CheckStopDialog_Border_BottomLeftCornerObject
----@field BottomRightCorner QuestSessionManager_CheckStopDialog_Border_BottomRightCornerObject
----@field LeftEdge QuestSessionManager_CheckStopDialog_Border_LeftEdgeObject
----@field RightEdge QuestSessionManager_CheckStopDialog_Border_RightEdgeObject
----@field TopEdge QuestSessionManager_CheckStopDialog_Border_TopEdgeObject
----@field TopLeftCorner QuestSessionManager_CheckStopDialog_Border_TopLeftCornerObject
----@field TopRightCorner QuestSessionManager_CheckStopDialog_Border_TopRightCornerObject
----@field ignoreInLayout boolean
----@field layoutType string
-local QuestSessionManager_CheckStopDialog_BorderObject = {}
+---@class GuildBankFrame_Column4_Button10_IconOverlay2Object : Texture
+local GuildBankFrame_Column4_Button10_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button10_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column4_Button10_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button10_MaskObject : MaskTexture
+local GuildBankFrame_Column4_Button10_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button10_NormalTextureObject : Texture
+local GuildBankFrame_Column4_Button10_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button10_PushedTextureObject : Texture
+local GuildBankFrame_Column4_Button10_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button10_StockObject : FontString
+local GuildBankFrame_Column4_Button10_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button10_iconObject : Texture
+local GuildBankFrame_Column4_Button10_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button10_searchOverlayObject : Texture
+local GuildBankFrame_Column4_Button10_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button11Object : Button
+---@field Count GuildBankFrame_Column4_Button11_CountObject
+---@field HighlightTexture GuildBankFrame_Column4_Button11_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column4_Button11_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column4_Button11_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column4_Button11_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column4_Button11_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column4_Button11_MaskObject
+---@field NormalTexture GuildBankFrame_Column4_Button11_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column4_Button11_PushedTextureObject
+---@field Stock GuildBankFrame_Column4_Button11_StockObject
+---@field icon GuildBankFrame_Column4_Button11_iconObject
+---@field searchOverlay GuildBankFrame_Column4_Button11_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column4_Button11Object = {}
 ---@return any ...
-function QuestSessionManager_CheckStopDialog_BorderObject:GetBorderColor(...) end
+function GuildBankFrame_Column4_Button11Object:GetBagID(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialog_BorderObject:GetCenterColor(...) end
+function GuildBankFrame_Column4_Button11Object:GetItem(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialog_BorderObject:GetFrameLayoutTextureKit(...) end
+function GuildBankFrame_Column4_Button11Object:GetItemButtonBackgroundTexture(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialog_BorderObject:GetFrameLayoutType(...) end
+function GuildBankFrame_Column4_Button11Object:GetItemButtonCount(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialog_BorderObject:OnLoad(...) end
+function GuildBankFrame_Column4_Button11Object:GetItemButtonIconTexture(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialog_BorderObject:SetBlendMode(...) end
+function GuildBankFrame_Column4_Button11Object:GetItemContextOverlayMode(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialog_BorderObject:SetBorderBlendMode(...) end
+function GuildBankFrame_Column4_Button11Object:GetItemID(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialog_BorderObject:SetBorderColor(...) end
+function GuildBankFrame_Column4_Button11Object:GetItemInfo(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialog_BorderObject:SetCenterColor(...) end
+function GuildBankFrame_Column4_Button11Object:GetItemLink(...) end
 ---@return any ...
-function QuestSessionManager_CheckStopDialog_BorderObject:SetVertexColor(...) end
+function GuildBankFrame_Column4_Button11Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button11Object:UpdateTooltip(...) end
 end
 
 do
----@class QuestSessionManager_CheckStopDialog_Border_BgObject : Texture
-local QuestSessionManager_CheckStopDialog_Border_BgObject = {}
+---@class GuildBankFrame_Column4_Button11_CountObject : FontString
+local GuildBankFrame_Column4_Button11_CountObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStopDialog_Border_BottomEdgeObject : Texture
-local QuestSessionManager_CheckStopDialog_Border_BottomEdgeObject = {}
+---@class GuildBankFrame_Column4_Button11_HighlightTextureObject : Texture
+local GuildBankFrame_Column4_Button11_HighlightTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStopDialog_Border_BottomLeftCornerObject : Texture
-local QuestSessionManager_CheckStopDialog_Border_BottomLeftCornerObject = {}
+---@class GuildBankFrame_Column4_Button11_IconBorderObject : Texture
+local GuildBankFrame_Column4_Button11_IconBorderObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStopDialog_Border_BottomRightCornerObject : Texture
-local QuestSessionManager_CheckStopDialog_Border_BottomRightCornerObject = {}
+---@class GuildBankFrame_Column4_Button11_IconOverlayObject : Texture
+local GuildBankFrame_Column4_Button11_IconOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStopDialog_Border_LeftEdgeObject : Texture
-local QuestSessionManager_CheckStopDialog_Border_LeftEdgeObject = {}
+---@class GuildBankFrame_Column4_Button11_IconOverlay2Object : Texture
+local GuildBankFrame_Column4_Button11_IconOverlay2Object = {}
 end
 
 do
----@class QuestSessionManager_CheckStopDialog_Border_RightEdgeObject : Texture
-local QuestSessionManager_CheckStopDialog_Border_RightEdgeObject = {}
+---@class GuildBankFrame_Column4_Button11_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column4_Button11_ItemContextOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStopDialog_Border_TopEdgeObject : Texture
-local QuestSessionManager_CheckStopDialog_Border_TopEdgeObject = {}
+---@class GuildBankFrame_Column4_Button11_MaskObject : MaskTexture
+local GuildBankFrame_Column4_Button11_MaskObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStopDialog_Border_TopLeftCornerObject : Texture
-local QuestSessionManager_CheckStopDialog_Border_TopLeftCornerObject = {}
+---@class GuildBankFrame_Column4_Button11_NormalTextureObject : Texture
+local GuildBankFrame_Column4_Button11_NormalTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStopDialog_Border_TopRightCornerObject : Texture
-local QuestSessionManager_CheckStopDialog_Border_TopRightCornerObject = {}
+---@class GuildBankFrame_Column4_Button11_PushedTextureObject : Texture
+local GuildBankFrame_Column4_Button11_PushedTextureObject = {}
 end
 
 do
----@class QuestSessionManager_CheckStopDialog_ButtonContainerObject : Frame
+---@class GuildBankFrame_Column4_Button11_StockObject : FontString
+local GuildBankFrame_Column4_Button11_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button11_iconObject : Texture
+local GuildBankFrame_Column4_Button11_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button11_searchOverlayObject : Texture
+local GuildBankFrame_Column4_Button11_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button12Object : Button
+---@field Count GuildBankFrame_Column4_Button12_CountObject
+---@field HighlightTexture GuildBankFrame_Column4_Button12_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column4_Button12_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column4_Button12_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column4_Button12_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column4_Button12_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column4_Button12_MaskObject
+---@field NormalTexture GuildBankFrame_Column4_Button12_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column4_Button12_PushedTextureObject
+---@field Stock GuildBankFrame_Column4_Button12_StockObject
+---@field icon GuildBankFrame_Column4_Button12_iconObject
+---@field searchOverlay GuildBankFrame_Column4_Button12_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column4_Button12Object = {}
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button12Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column4_Button12_CountObject : FontString
+local GuildBankFrame_Column4_Button12_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button12_HighlightTextureObject : Texture
+local GuildBankFrame_Column4_Button12_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button12_IconBorderObject : Texture
+local GuildBankFrame_Column4_Button12_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button12_IconOverlayObject : Texture
+local GuildBankFrame_Column4_Button12_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button12_IconOverlay2Object : Texture
+local GuildBankFrame_Column4_Button12_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button12_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column4_Button12_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button12_MaskObject : MaskTexture
+local GuildBankFrame_Column4_Button12_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button12_NormalTextureObject : Texture
+local GuildBankFrame_Column4_Button12_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button12_PushedTextureObject : Texture
+local GuildBankFrame_Column4_Button12_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button12_StockObject : FontString
+local GuildBankFrame_Column4_Button12_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button12_iconObject : Texture
+local GuildBankFrame_Column4_Button12_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button12_searchOverlayObject : Texture
+local GuildBankFrame_Column4_Button12_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button13Object : Button
+---@field Count GuildBankFrame_Column4_Button13_CountObject
+---@field HighlightTexture GuildBankFrame_Column4_Button13_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column4_Button13_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column4_Button13_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column4_Button13_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column4_Button13_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column4_Button13_MaskObject
+---@field NormalTexture GuildBankFrame_Column4_Button13_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column4_Button13_PushedTextureObject
+---@field Stock GuildBankFrame_Column4_Button13_StockObject
+---@field icon GuildBankFrame_Column4_Button13_iconObject
+---@field searchOverlay GuildBankFrame_Column4_Button13_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column4_Button13Object = {}
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button13Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column4_Button13_CountObject : FontString
+local GuildBankFrame_Column4_Button13_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button13_HighlightTextureObject : Texture
+local GuildBankFrame_Column4_Button13_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button13_IconBorderObject : Texture
+local GuildBankFrame_Column4_Button13_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button13_IconOverlayObject : Texture
+local GuildBankFrame_Column4_Button13_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button13_IconOverlay2Object : Texture
+local GuildBankFrame_Column4_Button13_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button13_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column4_Button13_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button13_MaskObject : MaskTexture
+local GuildBankFrame_Column4_Button13_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button13_NormalTextureObject : Texture
+local GuildBankFrame_Column4_Button13_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button13_PushedTextureObject : Texture
+local GuildBankFrame_Column4_Button13_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button13_StockObject : FontString
+local GuildBankFrame_Column4_Button13_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button13_iconObject : Texture
+local GuildBankFrame_Column4_Button13_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button13_searchOverlayObject : Texture
+local GuildBankFrame_Column4_Button13_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button14Object : Button
+---@field Count GuildBankFrame_Column4_Button14_CountObject
+---@field HighlightTexture GuildBankFrame_Column4_Button14_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column4_Button14_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column4_Button14_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column4_Button14_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column4_Button14_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column4_Button14_MaskObject
+---@field NormalTexture GuildBankFrame_Column4_Button14_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column4_Button14_PushedTextureObject
+---@field Stock GuildBankFrame_Column4_Button14_StockObject
+---@field icon GuildBankFrame_Column4_Button14_iconObject
+---@field searchOverlay GuildBankFrame_Column4_Button14_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column4_Button14Object = {}
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button14Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column4_Button14_CountObject : FontString
+local GuildBankFrame_Column4_Button14_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button14_HighlightTextureObject : Texture
+local GuildBankFrame_Column4_Button14_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button14_IconBorderObject : Texture
+local GuildBankFrame_Column4_Button14_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button14_IconOverlayObject : Texture
+local GuildBankFrame_Column4_Button14_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button14_IconOverlay2Object : Texture
+local GuildBankFrame_Column4_Button14_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button14_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column4_Button14_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button14_MaskObject : MaskTexture
+local GuildBankFrame_Column4_Button14_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button14_NormalTextureObject : Texture
+local GuildBankFrame_Column4_Button14_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button14_PushedTextureObject : Texture
+local GuildBankFrame_Column4_Button14_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button14_StockObject : FontString
+local GuildBankFrame_Column4_Button14_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button14_iconObject : Texture
+local GuildBankFrame_Column4_Button14_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button14_searchOverlayObject : Texture
+local GuildBankFrame_Column4_Button14_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button2Object : Button
+---@field Count GuildBankFrame_Column4_Button2_CountObject
+---@field HighlightTexture GuildBankFrame_Column4_Button2_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column4_Button2_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column4_Button2_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column4_Button2_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column4_Button2_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column4_Button2_MaskObject
+---@field NormalTexture GuildBankFrame_Column4_Button2_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column4_Button2_PushedTextureObject
+---@field Stock GuildBankFrame_Column4_Button2_StockObject
+---@field icon GuildBankFrame_Column4_Button2_iconObject
+---@field searchOverlay GuildBankFrame_Column4_Button2_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column4_Button2Object = {}
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button2Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column4_Button2_CountObject : FontString
+local GuildBankFrame_Column4_Button2_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button2_HighlightTextureObject : Texture
+local GuildBankFrame_Column4_Button2_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button2_IconBorderObject : Texture
+local GuildBankFrame_Column4_Button2_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button2_IconOverlayObject : Texture
+local GuildBankFrame_Column4_Button2_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button2_IconOverlay2Object : Texture
+local GuildBankFrame_Column4_Button2_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button2_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column4_Button2_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button2_MaskObject : MaskTexture
+local GuildBankFrame_Column4_Button2_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button2_NormalTextureObject : Texture
+local GuildBankFrame_Column4_Button2_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button2_PushedTextureObject : Texture
+local GuildBankFrame_Column4_Button2_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button2_StockObject : FontString
+local GuildBankFrame_Column4_Button2_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button2_iconObject : Texture
+local GuildBankFrame_Column4_Button2_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button2_searchOverlayObject : Texture
+local GuildBankFrame_Column4_Button2_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button3Object : Button
+---@field Count GuildBankFrame_Column4_Button3_CountObject
+---@field HighlightTexture GuildBankFrame_Column4_Button3_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column4_Button3_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column4_Button3_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column4_Button3_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column4_Button3_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column4_Button3_MaskObject
+---@field NormalTexture GuildBankFrame_Column4_Button3_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column4_Button3_PushedTextureObject
+---@field Stock GuildBankFrame_Column4_Button3_StockObject
+---@field icon GuildBankFrame_Column4_Button3_iconObject
+---@field searchOverlay GuildBankFrame_Column4_Button3_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column4_Button3Object = {}
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button3Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column4_Button3_CountObject : FontString
+local GuildBankFrame_Column4_Button3_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button3_HighlightTextureObject : Texture
+local GuildBankFrame_Column4_Button3_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button3_IconBorderObject : Texture
+local GuildBankFrame_Column4_Button3_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button3_IconOverlayObject : Texture
+local GuildBankFrame_Column4_Button3_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button3_IconOverlay2Object : Texture
+local GuildBankFrame_Column4_Button3_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button3_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column4_Button3_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button3_MaskObject : MaskTexture
+local GuildBankFrame_Column4_Button3_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button3_NormalTextureObject : Texture
+local GuildBankFrame_Column4_Button3_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button3_PushedTextureObject : Texture
+local GuildBankFrame_Column4_Button3_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button3_StockObject : FontString
+local GuildBankFrame_Column4_Button3_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button3_iconObject : Texture
+local GuildBankFrame_Column4_Button3_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button3_searchOverlayObject : Texture
+local GuildBankFrame_Column4_Button3_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button4Object : Button
+---@field Count GuildBankFrame_Column4_Button4_CountObject
+---@field HighlightTexture GuildBankFrame_Column4_Button4_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column4_Button4_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column4_Button4_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column4_Button4_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column4_Button4_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column4_Button4_MaskObject
+---@field NormalTexture GuildBankFrame_Column4_Button4_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column4_Button4_PushedTextureObject
+---@field Stock GuildBankFrame_Column4_Button4_StockObject
+---@field icon GuildBankFrame_Column4_Button4_iconObject
+---@field searchOverlay GuildBankFrame_Column4_Button4_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column4_Button4Object = {}
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button4Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column4_Button4_CountObject : FontString
+local GuildBankFrame_Column4_Button4_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button4_HighlightTextureObject : Texture
+local GuildBankFrame_Column4_Button4_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button4_IconBorderObject : Texture
+local GuildBankFrame_Column4_Button4_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button4_IconOverlayObject : Texture
+local GuildBankFrame_Column4_Button4_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button4_IconOverlay2Object : Texture
+local GuildBankFrame_Column4_Button4_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button4_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column4_Button4_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button4_MaskObject : MaskTexture
+local GuildBankFrame_Column4_Button4_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button4_NormalTextureObject : Texture
+local GuildBankFrame_Column4_Button4_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button4_PushedTextureObject : Texture
+local GuildBankFrame_Column4_Button4_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button4_StockObject : FontString
+local GuildBankFrame_Column4_Button4_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button4_iconObject : Texture
+local GuildBankFrame_Column4_Button4_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button4_searchOverlayObject : Texture
+local GuildBankFrame_Column4_Button4_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button5Object : Button
+---@field Count GuildBankFrame_Column4_Button5_CountObject
+---@field HighlightTexture GuildBankFrame_Column4_Button5_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column4_Button5_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column4_Button5_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column4_Button5_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column4_Button5_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column4_Button5_MaskObject
+---@field NormalTexture GuildBankFrame_Column4_Button5_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column4_Button5_PushedTextureObject
+---@field Stock GuildBankFrame_Column4_Button5_StockObject
+---@field icon GuildBankFrame_Column4_Button5_iconObject
+---@field searchOverlay GuildBankFrame_Column4_Button5_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column4_Button5Object = {}
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button5Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column4_Button5_CountObject : FontString
+local GuildBankFrame_Column4_Button5_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button5_HighlightTextureObject : Texture
+local GuildBankFrame_Column4_Button5_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button5_IconBorderObject : Texture
+local GuildBankFrame_Column4_Button5_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button5_IconOverlayObject : Texture
+local GuildBankFrame_Column4_Button5_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button5_IconOverlay2Object : Texture
+local GuildBankFrame_Column4_Button5_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button5_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column4_Button5_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button5_MaskObject : MaskTexture
+local GuildBankFrame_Column4_Button5_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button5_NormalTextureObject : Texture
+local GuildBankFrame_Column4_Button5_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button5_PushedTextureObject : Texture
+local GuildBankFrame_Column4_Button5_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button5_StockObject : FontString
+local GuildBankFrame_Column4_Button5_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button5_iconObject : Texture
+local GuildBankFrame_Column4_Button5_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button5_searchOverlayObject : Texture
+local GuildBankFrame_Column4_Button5_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button6Object : Button
+---@field Count GuildBankFrame_Column4_Button6_CountObject
+---@field HighlightTexture GuildBankFrame_Column4_Button6_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column4_Button6_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column4_Button6_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column4_Button6_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column4_Button6_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column4_Button6_MaskObject
+---@field NormalTexture GuildBankFrame_Column4_Button6_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column4_Button6_PushedTextureObject
+---@field Stock GuildBankFrame_Column4_Button6_StockObject
+---@field icon GuildBankFrame_Column4_Button6_iconObject
+---@field searchOverlay GuildBankFrame_Column4_Button6_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column4_Button6Object = {}
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button6Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column4_Button6_CountObject : FontString
+local GuildBankFrame_Column4_Button6_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button6_HighlightTextureObject : Texture
+local GuildBankFrame_Column4_Button6_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button6_IconBorderObject : Texture
+local GuildBankFrame_Column4_Button6_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button6_IconOverlayObject : Texture
+local GuildBankFrame_Column4_Button6_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button6_IconOverlay2Object : Texture
+local GuildBankFrame_Column4_Button6_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button6_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column4_Button6_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button6_MaskObject : MaskTexture
+local GuildBankFrame_Column4_Button6_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button6_NormalTextureObject : Texture
+local GuildBankFrame_Column4_Button6_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button6_PushedTextureObject : Texture
+local GuildBankFrame_Column4_Button6_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button6_StockObject : FontString
+local GuildBankFrame_Column4_Button6_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button6_iconObject : Texture
+local GuildBankFrame_Column4_Button6_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button6_searchOverlayObject : Texture
+local GuildBankFrame_Column4_Button6_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button7Object : Button
+---@field Count GuildBankFrame_Column4_Button7_CountObject
+---@field HighlightTexture GuildBankFrame_Column4_Button7_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column4_Button7_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column4_Button7_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column4_Button7_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column4_Button7_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column4_Button7_MaskObject
+---@field NormalTexture GuildBankFrame_Column4_Button7_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column4_Button7_PushedTextureObject
+---@field Stock GuildBankFrame_Column4_Button7_StockObject
+---@field icon GuildBankFrame_Column4_Button7_iconObject
+---@field searchOverlay GuildBankFrame_Column4_Button7_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column4_Button7Object = {}
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button7Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column4_Button7_CountObject : FontString
+local GuildBankFrame_Column4_Button7_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button7_HighlightTextureObject : Texture
+local GuildBankFrame_Column4_Button7_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button7_IconBorderObject : Texture
+local GuildBankFrame_Column4_Button7_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button7_IconOverlayObject : Texture
+local GuildBankFrame_Column4_Button7_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button7_IconOverlay2Object : Texture
+local GuildBankFrame_Column4_Button7_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button7_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column4_Button7_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button7_MaskObject : MaskTexture
+local GuildBankFrame_Column4_Button7_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button7_NormalTextureObject : Texture
+local GuildBankFrame_Column4_Button7_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button7_PushedTextureObject : Texture
+local GuildBankFrame_Column4_Button7_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button7_StockObject : FontString
+local GuildBankFrame_Column4_Button7_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button7_iconObject : Texture
+local GuildBankFrame_Column4_Button7_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button7_searchOverlayObject : Texture
+local GuildBankFrame_Column4_Button7_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button8Object : Button
+---@field Count GuildBankFrame_Column4_Button8_CountObject
+---@field HighlightTexture GuildBankFrame_Column4_Button8_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column4_Button8_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column4_Button8_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column4_Button8_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column4_Button8_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column4_Button8_MaskObject
+---@field NormalTexture GuildBankFrame_Column4_Button8_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column4_Button8_PushedTextureObject
+---@field Stock GuildBankFrame_Column4_Button8_StockObject
+---@field icon GuildBankFrame_Column4_Button8_iconObject
+---@field searchOverlay GuildBankFrame_Column4_Button8_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column4_Button8Object = {}
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button8Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column4_Button8_CountObject : FontString
+local GuildBankFrame_Column4_Button8_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button8_HighlightTextureObject : Texture
+local GuildBankFrame_Column4_Button8_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button8_IconBorderObject : Texture
+local GuildBankFrame_Column4_Button8_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button8_IconOverlayObject : Texture
+local GuildBankFrame_Column4_Button8_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button8_IconOverlay2Object : Texture
+local GuildBankFrame_Column4_Button8_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button8_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column4_Button8_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button8_MaskObject : MaskTexture
+local GuildBankFrame_Column4_Button8_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button8_NormalTextureObject : Texture
+local GuildBankFrame_Column4_Button8_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button8_PushedTextureObject : Texture
+local GuildBankFrame_Column4_Button8_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button8_StockObject : FontString
+local GuildBankFrame_Column4_Button8_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button8_iconObject : Texture
+local GuildBankFrame_Column4_Button8_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button8_searchOverlayObject : Texture
+local GuildBankFrame_Column4_Button8_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button9Object : Button
+---@field Count GuildBankFrame_Column4_Button9_CountObject
+---@field HighlightTexture GuildBankFrame_Column4_Button9_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column4_Button9_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column4_Button9_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column4_Button9_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column4_Button9_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column4_Button9_MaskObject
+---@field NormalTexture GuildBankFrame_Column4_Button9_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column4_Button9_PushedTextureObject
+---@field Stock GuildBankFrame_Column4_Button9_StockObject
+---@field icon GuildBankFrame_Column4_Button9_iconObject
+---@field searchOverlay GuildBankFrame_Column4_Button9_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column4_Button9Object = {}
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column4_Button9Object:UpdateTooltip(...) end
+end
+
+do
+---@class GuildBankFrame_Column4_Button9_CountObject : FontString
+local GuildBankFrame_Column4_Button9_CountObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button9_HighlightTextureObject : Texture
+local GuildBankFrame_Column4_Button9_HighlightTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button9_IconBorderObject : Texture
+local GuildBankFrame_Column4_Button9_IconBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button9_IconOverlayObject : Texture
+local GuildBankFrame_Column4_Button9_IconOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button9_IconOverlay2Object : Texture
+local GuildBankFrame_Column4_Button9_IconOverlay2Object = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button9_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column4_Button9_ItemContextOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button9_MaskObject : MaskTexture
+local GuildBankFrame_Column4_Button9_MaskObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button9_NormalTextureObject : Texture
+local GuildBankFrame_Column4_Button9_NormalTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button9_PushedTextureObject : Texture
+local GuildBankFrame_Column4_Button9_PushedTextureObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button9_StockObject : FontString
+local GuildBankFrame_Column4_Button9_StockObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button9_iconObject : Texture
+local GuildBankFrame_Column4_Button9_iconObject = {}
+end
+
+do
+---@class GuildBankFrame_Column4_Button9_searchOverlayObject : Texture
+local GuildBankFrame_Column4_Button9_searchOverlayObject = {}
+end
+
+do
+---@class GuildBankFrame_Column5Object : Frame
+---@field Background GuildBankFrame_Column5_BackgroundObject
+---@field Button1 GuildBankFrame_Column5_Button1Object
+---@field Button10 GuildBankFrame_Column5_Button10Object
+---@field Button11 GuildBankFrame_Column5_Button11Object
+---@field Button12 GuildBankFrame_Column5_Button12Object
+---@field Button13 GuildBankFrame_Column5_Button13Object
+---@field Button14 GuildBankFrame_Column5_Button14Object
+---@field Button2 GuildBankFrame_Column5_Button2Object
+---@field Button3 GuildBankFrame_Column5_Button3Object
+---@field Button4 GuildBankFrame_Column5_Button4Object
+---@field Button5 GuildBankFrame_Column5_Button5Object
+---@field Button6 GuildBankFrame_Column5_Button6Object
+---@field Button7 GuildBankFrame_Column5_Button7Object
+---@field Button8 GuildBankFrame_Column5_Button8Object
+---@field Button9 GuildBankFrame_Column5_Button9Object
 ---@field Buttons table
----@field Confirm QuestSessionManager_CheckStopDialog_ButtonContainer_ConfirmObject
----@field Decline QuestSessionManager_CheckStopDialog_ButtonContainer_DeclineObject
----@field heightPadding number
-local QuestSessionManager_CheckStopDialog_ButtonContainerObject = {}
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_CheckStopDialog_ButtonContainer_ConfirmObject : Button
----@field Flash QuestSessionManager_CheckStopDialog_ButtonContainer_Confirm_FlashObject
----@field PulseAnim QuestSessionManager_CheckStopDialog_ButtonContainer_Confirm_PulseAnimObject
----@field Text QuestSessionManager_CheckStopDialog_ButtonContainer_Confirm_TextObject
----@field baseHeight number
----@field baseWidth number
----@field isConfirm boolean
----@field useScaleWeight boolean
-local QuestSessionManager_CheckStopDialog_ButtonContainer_ConfirmObject = {}
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_ConfirmObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_ConfirmObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_ConfirmObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_ConfirmObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_ConfirmObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_ConfirmObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_ConfirmObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_ConfirmObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_ConfirmObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_ConfirmObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_ConfirmObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_ConfirmObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_ConfirmObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_ConfirmObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_ConfirmObject:UpdateWidth(...) end
-end
-
-do
----@class QuestSessionManager_CheckStopDialog_ButtonContainer_Confirm_FlashObject : Texture
-local QuestSessionManager_CheckStopDialog_ButtonContainer_Confirm_FlashObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStopDialog_ButtonContainer_Confirm_PulseAnimObject : AnimationGroup
-local QuestSessionManager_CheckStopDialog_ButtonContainer_Confirm_PulseAnimObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStopDialog_ButtonContainer_Confirm_TextObject : FontString
-local QuestSessionManager_CheckStopDialog_ButtonContainer_Confirm_TextObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStopDialog_ButtonContainer_DeclineObject : Button
----@field Flash QuestSessionManager_CheckStopDialog_ButtonContainer_Decline_FlashObject
----@field PulseAnim QuestSessionManager_CheckStopDialog_ButtonContainer_Decline_PulseAnimObject
----@field Text QuestSessionManager_CheckStopDialog_ButtonContainer_Decline_TextObject
----@field baseHeight number
----@field baseWidth number
----@field useScaleWeight boolean
-local QuestSessionManager_CheckStopDialog_ButtonContainer_DeclineObject = {}
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_DeclineObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_DeclineObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_DeclineObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_DeclineObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_DeclineObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_DeclineObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_DeclineObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_DeclineObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_DeclineObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_DeclineObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_DeclineObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_DeclineObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_DeclineObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_DeclineObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_ButtonContainer_DeclineObject:UpdateWidth(...) end
-end
-
-do
----@class QuestSessionManager_CheckStopDialog_ButtonContainer_Decline_FlashObject : Texture
-local QuestSessionManager_CheckStopDialog_ButtonContainer_Decline_FlashObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStopDialog_ButtonContainer_Decline_PulseAnimObject : AnimationGroup
-local QuestSessionManager_CheckStopDialog_ButtonContainer_Decline_PulseAnimObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStopDialog_ButtonContainer_Decline_TextObject : FontString
-local QuestSessionManager_CheckStopDialog_ButtonContainer_Decline_TextObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStopDialog_DividerObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_CheckStopDialog_DividerObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStopDialog_InvisibleRuleObject : Texture
-local QuestSessionManager_CheckStopDialog_InvisibleRuleObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStopDialog_PlayerContainerObject : Frame
-local QuestSessionManager_CheckStopDialog_PlayerContainerObject = {}
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_PlayerContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_CheckStopDialog_TitleObject : Frame
----@field Icon QuestSessionManager_CheckStopDialog_Title_IconObject
----@field Text QuestSessionManager_CheckStopDialog_Title_TextObject
-local QuestSessionManager_CheckStopDialog_TitleObject = {}
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:SetText(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStopDialog_TitleObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_CheckStopDialog_Title_IconObject : Texture
-local QuestSessionManager_CheckStopDialog_Title_IconObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStopDialog_Title_TextObject : FontString
-local QuestSessionManager_CheckStopDialog_Title_TextObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject : Frame
----@field BG QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BGObject
----@field Body QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject
----@field Border QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BorderObject
----@field ButtonContainer QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject
----@field Divider QuestSessionManager_ConfirmBNJoinGroupRequestDialog_DividerObject
----@field InvisibleRule QuestSessionManager_ConfirmBNJoinGroupRequestDialog_InvisibleRuleObject
----@field PlayerContainer QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject
----@field Title QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject
----@field cancelText string
----@field confirmText string
----@field heightPadding number
----@field minimumWidth number
----@field widthPadding number
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject = {}
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:AddParty(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:AddUnit(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:BaseOnEvent(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:BaseOnHide(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:BaseOnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:Cancel(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:CheckAddUnit(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:CheckValidateDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:ClearHideSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:ClearShowSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:Confirm(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:GetDialogFailureReason(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:GetHideSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:GetMemberFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:GetResponseCounts(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:GetSessionCommand(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:GetShowSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:HasTrackedResponse(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:HideImmediate(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:Minimize(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:OnButtonsEnabled(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:OnLoad(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:PlayHideSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:PlayShowSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:RequiresValidateDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:ResetPlayerContainer(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:SetButtonsEnabled(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:SetHideSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:SetMemberResponse(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:SetShowSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:Setup(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:SetupPlayerContainer(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:ShowDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:StartHideDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialogObject:TrackResponse(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BGObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BGObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject : Frame
----@field Icon QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Body_IconObject
----@field Text QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Body_TextObject
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject = {}
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:AdjustTextWidthForAlignment(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:SetText(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:SetWarningText(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BodyObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Body_IconObject : Texture
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Body_IconObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Body_TextObject : FontString
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Body_TextObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BorderObject : Frame
----@field Bg QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_BgObject
----@field BottomEdge QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_BottomEdgeObject
----@field BottomLeftCorner QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_BottomLeftCornerObject
----@field BottomRightCorner QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_BottomRightCornerObject
----@field LeftEdge QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_LeftEdgeObject
----@field RightEdge QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_RightEdgeObject
----@field TopEdge QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_TopEdgeObject
----@field TopLeftCorner QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_TopLeftCornerObject
----@field TopRightCorner QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_TopRightCornerObject
----@field ignoreInLayout boolean
----@field layoutType string
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BorderObject = {}
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BorderObject:GetBorderColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BorderObject:GetCenterColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BorderObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BorderObject:GetFrameLayoutType(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BorderObject:OnLoad(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BorderObject:SetBlendMode(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BorderObject:SetBorderBlendMode(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BorderObject:SetBorderColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BorderObject:SetCenterColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_BorderObject:SetVertexColor(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_BgObject : Texture
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_BgObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_BottomEdgeObject : Texture
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_BottomEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_BottomLeftCornerObject : Texture
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_BottomLeftCornerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_BottomRightCornerObject : Texture
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_BottomRightCornerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_LeftEdgeObject : Texture
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_LeftEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_RightEdgeObject : Texture
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_RightEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_TopEdgeObject : Texture
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_TopEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_TopLeftCornerObject : Texture
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_TopLeftCornerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_TopRightCornerObject : Texture
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Border_TopRightCornerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject : Frame
----@field Buttons table
----@field Confirm QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_ConfirmObject
----@field Decline QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_DeclineObject
----@field heightPadding number
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject = {}
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_ConfirmObject : Button
----@field Flash QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_Confirm_FlashObject
----@field PulseAnim QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_Confirm_PulseAnimObject
----@field Text QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_Confirm_TextObject
----@field baseHeight number
----@field baseWidth number
----@field isConfirm boolean
----@field useScaleWeight boolean
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_ConfirmObject = {}
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_ConfirmObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_ConfirmObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_ConfirmObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_ConfirmObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_ConfirmObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_ConfirmObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_ConfirmObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_ConfirmObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_ConfirmObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_ConfirmObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_ConfirmObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_ConfirmObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_ConfirmObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_ConfirmObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_ConfirmObject:UpdateWidth(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_Confirm_FlashObject : Texture
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_Confirm_FlashObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_Confirm_PulseAnimObject : AnimationGroup
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_Confirm_PulseAnimObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_Confirm_TextObject : FontString
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_Confirm_TextObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_DeclineObject : Button
----@field Flash QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_Decline_FlashObject
----@field PulseAnim QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_Decline_PulseAnimObject
----@field Text QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_Decline_TextObject
----@field baseHeight number
----@field baseWidth number
----@field useScaleWeight boolean
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_DeclineObject = {}
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_DeclineObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_DeclineObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_DeclineObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_DeclineObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_DeclineObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_DeclineObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_DeclineObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_DeclineObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_DeclineObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_DeclineObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_DeclineObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_DeclineObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_DeclineObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_DeclineObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_DeclineObject:UpdateWidth(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_Decline_FlashObject : Texture
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_Decline_FlashObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_Decline_PulseAnimObject : AnimationGroup
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_Decline_PulseAnimObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_Decline_TextObject : FontString
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_ButtonContainer_Decline_TextObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_DividerObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_DividerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_InvisibleRuleObject : Texture
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_InvisibleRuleObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject : Frame
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject = {}
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_PlayerContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject : Frame
----@field Icon QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Title_IconObject
----@field Text QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Title_TextObject
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject = {}
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:SetText(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmBNJoinGroupRequestDialog_TitleObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Title_IconObject : Texture
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Title_IconObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Title_TextObject : FontString
-local QuestSessionManager_ConfirmBNJoinGroupRequestDialog_Title_TextObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialogObject : Frame
----@field BG QuestSessionManager_ConfirmInviteToGroupDialog_BGObject
----@field Body QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject
----@field Border QuestSessionManager_ConfirmInviteToGroupDialog_BorderObject
----@field ButtonContainer QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject
----@field Divider QuestSessionManager_ConfirmInviteToGroupDialog_DividerObject
----@field InvisibleRule QuestSessionManager_ConfirmInviteToGroupDialog_InvisibleRuleObject
----@field PlayerContainer QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject
----@field Title QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject
----@field cancelText string
----@field confirmText string
----@field heightPadding number
----@field minimumWidth number
-local QuestSessionManager_ConfirmInviteToGroupDialogObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:AddParty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:AddUnit(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:BaseOnEvent(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:BaseOnHide(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:BaseOnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:Cancel(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:CheckAddUnit(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:CheckValidateDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:ClearHideSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:ClearShowSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:Confirm(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:GetBody(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:GetDialogFailureReason(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:GetHideSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:GetMemberFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:GetResponseCounts(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:GetSessionCommand(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:GetShowSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:GetTitle(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:HasTrackedResponse(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:HideImmediate(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:Minimize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:OnButtonsEnabled(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:OnLoad(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:PlayHideSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:PlayShowSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:RequiresValidateDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:ResetPlayerContainer(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:SetButtonsEnabled(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:SetHideSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:SetMemberResponse(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:SetShowSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:Setup(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:SetupPlayerContainer(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:ShowDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:StartHideDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialogObject:TrackResponse(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_BGObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_ConfirmInviteToGroupDialog_BGObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject : Frame
----@field Icon QuestSessionManager_ConfirmInviteToGroupDialog_Body_IconObject
----@field Text QuestSessionManager_ConfirmInviteToGroupDialog_Body_TextObject
-local QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:AdjustTextWidthForAlignment(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:SetText(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:SetWarningText(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BodyObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_Body_IconObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupDialog_Body_IconObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_Body_TextObject : FontString
-local QuestSessionManager_ConfirmInviteToGroupDialog_Body_TextObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_BorderObject : Frame
----@field Bg QuestSessionManager_ConfirmInviteToGroupDialog_Border_BgObject
----@field BottomEdge QuestSessionManager_ConfirmInviteToGroupDialog_Border_BottomEdgeObject
----@field BottomLeftCorner QuestSessionManager_ConfirmInviteToGroupDialog_Border_BottomLeftCornerObject
----@field BottomRightCorner QuestSessionManager_ConfirmInviteToGroupDialog_Border_BottomRightCornerObject
----@field LeftEdge QuestSessionManager_ConfirmInviteToGroupDialog_Border_LeftEdgeObject
----@field RightEdge QuestSessionManager_ConfirmInviteToGroupDialog_Border_RightEdgeObject
----@field TopEdge QuestSessionManager_ConfirmInviteToGroupDialog_Border_TopEdgeObject
----@field TopLeftCorner QuestSessionManager_ConfirmInviteToGroupDialog_Border_TopLeftCornerObject
----@field TopRightCorner QuestSessionManager_ConfirmInviteToGroupDialog_Border_TopRightCornerObject
----@field ignoreInLayout boolean
----@field layoutType string
-local QuestSessionManager_ConfirmInviteToGroupDialog_BorderObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BorderObject:GetBorderColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BorderObject:GetCenterColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BorderObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BorderObject:GetFrameLayoutType(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BorderObject:OnLoad(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BorderObject:SetBlendMode(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BorderObject:SetBorderBlendMode(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BorderObject:SetBorderColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BorderObject:SetCenterColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_BorderObject:SetVertexColor(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_Border_BgObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupDialog_Border_BgObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_Border_BottomEdgeObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupDialog_Border_BottomEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_Border_BottomLeftCornerObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupDialog_Border_BottomLeftCornerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_Border_BottomRightCornerObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupDialog_Border_BottomRightCornerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_Border_LeftEdgeObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupDialog_Border_LeftEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_Border_RightEdgeObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupDialog_Border_RightEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_Border_TopEdgeObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupDialog_Border_TopEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_Border_TopLeftCornerObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupDialog_Border_TopLeftCornerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_Border_TopRightCornerObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupDialog_Border_TopRightCornerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject : Frame
----@field Buttons table
----@field Confirm QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_ConfirmObject
----@field Decline QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_DeclineObject
----@field heightPadding number
-local QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_ConfirmObject : Button
----@field Flash QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_Confirm_FlashObject
----@field PulseAnim QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_Confirm_PulseAnimObject
----@field Text QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_Confirm_TextObject
----@field baseHeight number
----@field baseWidth number
----@field isConfirm boolean
----@field useScaleWeight boolean
-local QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_ConfirmObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_ConfirmObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_ConfirmObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_ConfirmObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_ConfirmObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_ConfirmObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_ConfirmObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_ConfirmObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_ConfirmObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_ConfirmObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_ConfirmObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_ConfirmObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_ConfirmObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_ConfirmObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_ConfirmObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_ConfirmObject:UpdateWidth(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_Confirm_FlashObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_Confirm_FlashObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_Confirm_PulseAnimObject : AnimationGroup
-local QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_Confirm_PulseAnimObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_Confirm_TextObject : FontString
-local QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_Confirm_TextObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_DeclineObject : Button
----@field Flash QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_Decline_FlashObject
----@field PulseAnim QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_Decline_PulseAnimObject
----@field Text QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_Decline_TextObject
----@field baseHeight number
----@field baseWidth number
----@field useScaleWeight boolean
-local QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_DeclineObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_DeclineObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_DeclineObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_DeclineObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_DeclineObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_DeclineObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_DeclineObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_DeclineObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_DeclineObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_DeclineObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_DeclineObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_DeclineObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_DeclineObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_DeclineObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_DeclineObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_DeclineObject:UpdateWidth(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_Decline_FlashObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_Decline_FlashObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_Decline_PulseAnimObject : AnimationGroup
-local QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_Decline_PulseAnimObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_Decline_TextObject : FontString
-local QuestSessionManager_ConfirmInviteToGroupDialog_ButtonContainer_Decline_TextObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_DividerObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_ConfirmInviteToGroupDialog_DividerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_InvisibleRuleObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupDialog_InvisibleRuleObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject : Frame
-local QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_PlayerContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject : Frame
----@field Icon QuestSessionManager_ConfirmInviteToGroupDialog_Title_IconObject
----@field Text QuestSessionManager_ConfirmInviteToGroupDialog_Title_TextObject
-local QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:SetText(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupDialog_TitleObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_Title_IconObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupDialog_Title_IconObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupDialog_Title_TextObject : FontString
-local QuestSessionManager_ConfirmInviteToGroupDialog_Title_TextObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject : Frame
----@field BG QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BGObject
----@field Body QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject
----@field Border QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BorderObject
----@field ButtonContainer QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject
----@field Divider QuestSessionManager_ConfirmInviteToGroupReceivedDialog_DividerObject
----@field InvisibleRule QuestSessionManager_ConfirmInviteToGroupReceivedDialog_InvisibleRuleObject
----@field PlayerContainer QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject
----@field Title QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject
----@field cancelText string
----@field confirmText string
----@field heightPadding number
----@field minimumWidth number
----@field widthPadding number
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:AddParty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:AddUnit(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:BaseOnEvent(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:BaseOnHide(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:BaseOnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:Cancel(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:CheckAddUnit(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:CheckValidateDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:ClearHideSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:ClearShowSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:Confirm(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:GetDialogFailureReason(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:GetHideSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:GetMemberFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:GetResponseCounts(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:GetSessionCommand(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:GetShowSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:HasTrackedResponse(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:HideImmediate(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:Minimize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:OnButtonsEnabled(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:OnLoad(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:PlayHideSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:PlayShowSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:RequiresValidateDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:ResetPlayerContainer(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:SetButtonsEnabled(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:SetHideSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:SetMemberResponse(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:SetShowSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:Setup(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:SetupPlayerContainer(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:ShowDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:StartHideDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialogObject:TrackResponse(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BGObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BGObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject : Frame
----@field Icon QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Body_IconObject
----@field Text QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Body_TextObject
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:AdjustTextWidthForAlignment(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:SetText(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:SetWarningText(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BodyObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Body_IconObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Body_IconObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Body_TextObject : FontString
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Body_TextObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BorderObject : Frame
----@field Bg QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_BgObject
----@field BottomEdge QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_BottomEdgeObject
----@field BottomLeftCorner QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_BottomLeftCornerObject
----@field BottomRightCorner QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_BottomRightCornerObject
----@field LeftEdge QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_LeftEdgeObject
----@field RightEdge QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_RightEdgeObject
----@field TopEdge QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_TopEdgeObject
----@field TopLeftCorner QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_TopLeftCornerObject
----@field TopRightCorner QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_TopRightCornerObject
----@field ignoreInLayout boolean
----@field layoutType string
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BorderObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BorderObject:GetBorderColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BorderObject:GetCenterColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BorderObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BorderObject:GetFrameLayoutType(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BorderObject:OnLoad(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BorderObject:SetBlendMode(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BorderObject:SetBorderBlendMode(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BorderObject:SetBorderColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BorderObject:SetCenterColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_BorderObject:SetVertexColor(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_BgObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_BgObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_BottomEdgeObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_BottomEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_BottomLeftCornerObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_BottomLeftCornerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_BottomRightCornerObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_BottomRightCornerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_LeftEdgeObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_LeftEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_RightEdgeObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_RightEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_TopEdgeObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_TopEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_TopLeftCornerObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_TopLeftCornerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_TopRightCornerObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Border_TopRightCornerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject : Frame
----@field Buttons table
----@field Confirm QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_ConfirmObject
----@field Decline QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_DeclineObject
----@field heightPadding number
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_ConfirmObject : Button
----@field Flash QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_Confirm_FlashObject
----@field PulseAnim QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_Confirm_PulseAnimObject
----@field Text QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_Confirm_TextObject
----@field baseHeight number
----@field baseWidth number
----@field isConfirm boolean
----@field useScaleWeight boolean
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_ConfirmObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_ConfirmObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_ConfirmObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_ConfirmObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_ConfirmObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_ConfirmObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_ConfirmObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_ConfirmObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_ConfirmObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_ConfirmObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_ConfirmObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_ConfirmObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_ConfirmObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_ConfirmObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_ConfirmObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_ConfirmObject:UpdateWidth(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_Confirm_FlashObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_Confirm_FlashObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_Confirm_PulseAnimObject : AnimationGroup
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_Confirm_PulseAnimObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_Confirm_TextObject : FontString
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_Confirm_TextObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_DeclineObject : Button
----@field Flash QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_Decline_FlashObject
----@field PulseAnim QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_Decline_PulseAnimObject
----@field Text QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_Decline_TextObject
----@field baseHeight number
----@field baseWidth number
----@field useScaleWeight boolean
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_DeclineObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_DeclineObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_DeclineObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_DeclineObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_DeclineObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_DeclineObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_DeclineObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_DeclineObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_DeclineObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_DeclineObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_DeclineObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_DeclineObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_DeclineObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_DeclineObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_DeclineObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_DeclineObject:UpdateWidth(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_Decline_FlashObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_Decline_FlashObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_Decline_PulseAnimObject : AnimationGroup
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_Decline_PulseAnimObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_Decline_TextObject : FontString
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_ButtonContainer_Decline_TextObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_DividerObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_DividerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_InvisibleRuleObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_InvisibleRuleObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject : Frame
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_PlayerContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject : Frame
----@field Icon QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Title_IconObject
----@field Text QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Title_TextObject
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:SetText(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteToGroupReceivedDialog_TitleObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Title_IconObject : Texture
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Title_IconObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Title_TextObject : FontString
-local QuestSessionManager_ConfirmInviteToGroupReceivedDialog_Title_TextObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject : Frame
----@field BG QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BGObject
----@field Body QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject
----@field Border QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BorderObject
----@field ButtonContainer QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject
----@field Divider QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_DividerObject
----@field InvisibleRule QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_InvisibleRuleObject
----@field PlayerContainer QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject
----@field Title QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject
----@field cancelText string
----@field confirmText string
----@field heightPadding number
----@field minimumWidth number
----@field widthPadding number
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:AddParty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:AddUnit(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:BaseOnEvent(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:BaseOnHide(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:BaseOnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:Cancel(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:CheckAddUnit(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:CheckValidateDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:ClearHideSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:ClearShowSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:Confirm(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:GetDialogFailureReason(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:GetHideSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:GetMemberFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:GetResponseCounts(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:GetSessionCommand(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:GetShowSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:HasTrackedResponse(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:HideImmediate(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:Minimize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:OnButtonsEnabled(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:OnLoad(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:PlayHideSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:PlayShowSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:RequiresValidateDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:ResetPlayerContainer(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:SetButtonsEnabled(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:SetHideSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:SetMemberResponse(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:SetShowSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:Setup(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:SetupPlayerContainer(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:ShowDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:StartHideDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialogObject:TrackResponse(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BGObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BGObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject : Frame
----@field Icon QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Body_IconObject
----@field Text QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Body_TextObject
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:AdjustTextWidthForAlignment(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:SetText(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:SetWarningText(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BodyObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Body_IconObject : Texture
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Body_IconObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Body_TextObject : FontString
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Body_TextObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BorderObject : Frame
----@field Bg QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_BgObject
----@field BottomEdge QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_BottomEdgeObject
----@field BottomLeftCorner QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_BottomLeftCornerObject
----@field BottomRightCorner QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_BottomRightCornerObject
----@field LeftEdge QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_LeftEdgeObject
----@field RightEdge QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_RightEdgeObject
----@field TopEdge QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_TopEdgeObject
----@field TopLeftCorner QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_TopLeftCornerObject
----@field TopRightCorner QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_TopRightCornerObject
----@field ignoreInLayout boolean
----@field layoutType string
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BorderObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BorderObject:GetBorderColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BorderObject:GetCenterColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BorderObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BorderObject:GetFrameLayoutType(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BorderObject:OnLoad(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BorderObject:SetBlendMode(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BorderObject:SetBorderBlendMode(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BorderObject:SetBorderColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BorderObject:SetCenterColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_BorderObject:SetVertexColor(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_BgObject : Texture
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_BgObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_BottomEdgeObject : Texture
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_BottomEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_BottomLeftCornerObject : Texture
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_BottomLeftCornerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_BottomRightCornerObject : Texture
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_BottomRightCornerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_LeftEdgeObject : Texture
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_LeftEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_RightEdgeObject : Texture
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_RightEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_TopEdgeObject : Texture
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_TopEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_TopLeftCornerObject : Texture
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_TopLeftCornerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_TopRightCornerObject : Texture
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Border_TopRightCornerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject : Frame
----@field Buttons table
----@field Confirm QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_ConfirmObject
----@field Decline QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_DeclineObject
----@field heightPadding number
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_ConfirmObject : Button
----@field Flash QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_Confirm_FlashObject
----@field PulseAnim QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_Confirm_PulseAnimObject
----@field Text QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_Confirm_TextObject
----@field baseHeight number
----@field baseWidth number
----@field isConfirm boolean
----@field useScaleWeight boolean
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_ConfirmObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_ConfirmObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_ConfirmObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_ConfirmObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_ConfirmObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_ConfirmObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_ConfirmObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_ConfirmObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_ConfirmObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_ConfirmObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_ConfirmObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_ConfirmObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_ConfirmObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_ConfirmObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_ConfirmObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_ConfirmObject:UpdateWidth(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_Confirm_FlashObject : Texture
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_Confirm_FlashObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_Confirm_PulseAnimObject : AnimationGroup
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_Confirm_PulseAnimObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_Confirm_TextObject : FontString
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_Confirm_TextObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_DeclineObject : Button
----@field Flash QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_Decline_FlashObject
----@field PulseAnim QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_Decline_PulseAnimObject
----@field Text QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_Decline_TextObject
----@field baseHeight number
----@field baseWidth number
----@field useScaleWeight boolean
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_DeclineObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_DeclineObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_DeclineObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_DeclineObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_DeclineObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_DeclineObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_DeclineObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_DeclineObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_DeclineObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_DeclineObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_DeclineObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_DeclineObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_DeclineObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_DeclineObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_DeclineObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_DeclineObject:UpdateWidth(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_Decline_FlashObject : Texture
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_Decline_FlashObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_Decline_PulseAnimObject : AnimationGroup
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_Decline_PulseAnimObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_Decline_TextObject : FontString
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_ButtonContainer_Decline_TextObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_DividerObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_DividerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_InvisibleRuleObject : Texture
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_InvisibleRuleObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject : Frame
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_PlayerContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject : Frame
----@field Icon QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Title_IconObject
----@field Text QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Title_TextObject
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject = {}
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:SetText(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_TitleObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Title_IconObject : Texture
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Title_IconObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Title_TextObject : FontString
-local QuestSessionManager_ConfirmInviteTravelPassConfirmationDialog_Title_TextObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialogObject : Frame
----@field BG QuestSessionManager_ConfirmJoinGroupRequestDialog_BGObject
----@field Body QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject
----@field Border QuestSessionManager_ConfirmJoinGroupRequestDialog_BorderObject
----@field ButtonContainer QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject
----@field Divider QuestSessionManager_ConfirmJoinGroupRequestDialog_DividerObject
----@field InvisibleRule QuestSessionManager_ConfirmJoinGroupRequestDialog_InvisibleRuleObject
----@field PlayerContainer QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject
----@field Title QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject
----@field cancelText string
----@field confirmText string
----@field heightPadding number
----@field minimumWidth number
-local QuestSessionManager_ConfirmJoinGroupRequestDialogObject = {}
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:AddParty(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:AddUnit(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:BaseOnEvent(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:BaseOnHide(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:BaseOnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:Cancel(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:CheckAddUnit(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:CheckValidateDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:ClearHideSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:ClearShowSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:Confirm(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:GetBody(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:GetDialogFailureReason(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:GetHideSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:GetMemberFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:GetResponseCounts(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:GetSessionCommand(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:GetShowSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:GetTitle(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:HasTrackedResponse(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:HideImmediate(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:Minimize(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:OnButtonsEnabled(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:OnLoad(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:PlayHideSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:PlayShowSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:RequiresValidateDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:ResetPlayerContainer(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:SetButtonsEnabled(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:SetHideSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:SetMemberResponse(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:SetShowSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:Setup(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:SetupPlayerContainer(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:ShowDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:StartHideDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialogObject:TrackResponse(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_BGObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_BGObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject : Frame
----@field Icon QuestSessionManager_ConfirmJoinGroupRequestDialog_Body_IconObject
----@field Text QuestSessionManager_ConfirmJoinGroupRequestDialog_Body_TextObject
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject = {}
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:AdjustTextWidthForAlignment(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:SetText(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:SetWarningText(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BodyObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_Body_IconObject : Texture
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_Body_IconObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_Body_TextObject : FontString
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_Body_TextObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_BorderObject : Frame
----@field Bg QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_BgObject
----@field BottomEdge QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_BottomEdgeObject
----@field BottomLeftCorner QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_BottomLeftCornerObject
----@field BottomRightCorner QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_BottomRightCornerObject
----@field LeftEdge QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_LeftEdgeObject
----@field RightEdge QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_RightEdgeObject
----@field TopEdge QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_TopEdgeObject
----@field TopLeftCorner QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_TopLeftCornerObject
----@field TopRightCorner QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_TopRightCornerObject
----@field ignoreInLayout boolean
----@field layoutType string
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_BorderObject = {}
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BorderObject:GetBorderColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BorderObject:GetCenterColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BorderObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BorderObject:GetFrameLayoutType(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BorderObject:OnLoad(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BorderObject:SetBlendMode(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BorderObject:SetBorderBlendMode(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BorderObject:SetBorderColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BorderObject:SetCenterColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_BorderObject:SetVertexColor(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_BgObject : Texture
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_BgObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_BottomEdgeObject : Texture
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_BottomEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_BottomLeftCornerObject : Texture
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_BottomLeftCornerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_BottomRightCornerObject : Texture
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_BottomRightCornerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_LeftEdgeObject : Texture
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_LeftEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_RightEdgeObject : Texture
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_RightEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_TopEdgeObject : Texture
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_TopEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_TopLeftCornerObject : Texture
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_TopLeftCornerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_TopRightCornerObject : Texture
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_Border_TopRightCornerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject : Frame
----@field Buttons table
----@field Confirm QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_ConfirmObject
----@field Decline QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_DeclineObject
----@field heightPadding number
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject = {}
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_ConfirmObject : Button
----@field Flash QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_Confirm_FlashObject
----@field PulseAnim QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_Confirm_PulseAnimObject
----@field Text QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_Confirm_TextObject
----@field baseHeight number
----@field baseWidth number
----@field isConfirm boolean
----@field useScaleWeight boolean
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_ConfirmObject = {}
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_ConfirmObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_ConfirmObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_ConfirmObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_ConfirmObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_ConfirmObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_ConfirmObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_ConfirmObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_ConfirmObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_ConfirmObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_ConfirmObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_ConfirmObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_ConfirmObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_ConfirmObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_ConfirmObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_ConfirmObject:UpdateWidth(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_Confirm_FlashObject : Texture
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_Confirm_FlashObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_Confirm_PulseAnimObject : AnimationGroup
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_Confirm_PulseAnimObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_Confirm_TextObject : FontString
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_Confirm_TextObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_DeclineObject : Button
----@field Flash QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_Decline_FlashObject
----@field PulseAnim QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_Decline_PulseAnimObject
----@field Text QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_Decline_TextObject
----@field baseHeight number
----@field baseWidth number
----@field useScaleWeight boolean
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_DeclineObject = {}
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_DeclineObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_DeclineObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_DeclineObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_DeclineObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_DeclineObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_DeclineObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_DeclineObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_DeclineObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_DeclineObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_DeclineObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_DeclineObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_DeclineObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_DeclineObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_DeclineObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_DeclineObject:UpdateWidth(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_Decline_FlashObject : Texture
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_Decline_FlashObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_Decline_PulseAnimObject : AnimationGroup
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_Decline_PulseAnimObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_Decline_TextObject : FontString
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_ButtonContainer_Decline_TextObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_DividerObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_DividerObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_InvisibleRuleObject : Texture
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_InvisibleRuleObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject : Frame
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject = {}
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_PlayerContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject : Frame
----@field Icon QuestSessionManager_ConfirmJoinGroupRequestDialog_Title_IconObject
----@field Text QuestSessionManager_ConfirmJoinGroupRequestDialog_Title_TextObject
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject = {}
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:SetText(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmJoinGroupRequestDialog_TitleObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_Title_IconObject : Texture
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_Title_IconObject = {}
+local GuildBankFrame_Column5Object = {}
 end
 
 do
----@class QuestSessionManager_ConfirmJoinGroupRequestDialog_Title_TextObject : FontString
-local QuestSessionManager_ConfirmJoinGroupRequestDialog_Title_TextObject = {}
+---@class GuildBankFrame_Column5_BackgroundObject : Texture
+local GuildBankFrame_Column5_BackgroundObject = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialogObject : Frame
----@field BG QuestSessionManager_ConfirmRequestToJoinGroupDialog_BGObject
----@field Body QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject
----@field Border QuestSessionManager_ConfirmRequestToJoinGroupDialog_BorderObject
----@field ButtonContainer QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject
----@field Divider QuestSessionManager_ConfirmRequestToJoinGroupDialog_DividerObject
----@field InvisibleRule QuestSessionManager_ConfirmRequestToJoinGroupDialog_InvisibleRuleObject
----@field PlayerContainer QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject
----@field Title QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject
----@field cancelText string
----@field confirmText string
----@field heightPadding number
----@field minimumWidth number
----@field widthPadding number
-local QuestSessionManager_ConfirmRequestToJoinGroupDialogObject = {}
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:AddParty(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:AddUnit(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:BaseOnEvent(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:BaseOnHide(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:BaseOnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:Cancel(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:CheckAddUnit(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:CheckValidateDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:ClearHideSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:ClearShowSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:Confirm(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:GetDialogFailureReason(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:GetHideSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:GetMemberFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:GetResponseCounts(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:GetSessionCommand(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:GetShowSound(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:HasTrackedResponse(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:HideImmediate(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:Minimize(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:OnButtonsEnabled(...) end
+---@class GuildBankFrame_Column5_Button1Object : Button
+---@field Count GuildBankFrame_Column5_Button1_CountObject
+---@field HighlightTexture GuildBankFrame_Column5_Button1_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column5_Button1_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column5_Button1_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column5_Button1_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column5_Button1_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column5_Button1_MaskObject
+---@field NormalTexture GuildBankFrame_Column5_Button1_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column5_Button1_PushedTextureObject
+---@field Stock GuildBankFrame_Column5_Button1_StockObject
+---@field icon GuildBankFrame_Column5_Button1_iconObject
+---@field searchOverlay GuildBankFrame_Column5_Button1_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column5_Button1Object = {}
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:OnCleaned(...) end
+function GuildBankFrame_Column5_Button1Object:GetBagID(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:OnLoad(...) end
+function GuildBankFrame_Column5_Button1Object:GetItem(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:OnShow(...) end
+function GuildBankFrame_Column5_Button1Object:GetItemButtonBackgroundTexture(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:OnUpdate(...) end
+function GuildBankFrame_Column5_Button1Object:GetItemButtonCount(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:PlayHideSound(...) end
+function GuildBankFrame_Column5_Button1Object:GetItemButtonIconTexture(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:PlayShowSound(...) end
+function GuildBankFrame_Column5_Button1Object:GetItemContextOverlayMode(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:RequiresValidateDialog(...) end
+function GuildBankFrame_Column5_Button1Object:GetItemID(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:ResetPlayerContainer(...) end
+function GuildBankFrame_Column5_Button1Object:GetItemInfo(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:SetButtonsEnabled(...) end
+function GuildBankFrame_Column5_Button1Object:GetItemLink(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:SetFixedHeight(...) end
+function GuildBankFrame_Column5_Button1Object:GetItemLocation(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:SetFixedSize(...) end
+function GuildBankFrame_Column5_Button1Object:GetMatchesSearch(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:SetFixedWidth(...) end
+function GuildBankFrame_Column5_Button1Object:GetSlotAndBagID(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:SetHeightPadding(...) end
+function GuildBankFrame_Column5_Button1Object:OnClick(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:SetHideSound(...) end
+function GuildBankFrame_Column5_Button1Object:OnDragStart(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:SetMaximumWidth(...) end
+function GuildBankFrame_Column5_Button1Object:OnEnter(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:SetMemberResponse(...) end
+function GuildBankFrame_Column5_Button1Object:OnEvent(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:SetMinimumWidth(...) end
+function GuildBankFrame_Column5_Button1Object:OnHide(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:SetShowSound(...) end
+function GuildBankFrame_Column5_Button1Object:OnItemContextChanged(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:SetWidthPadding(...) end
+function GuildBankFrame_Column5_Button1Object:OnLeave(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:Setup(...) end
+function GuildBankFrame_Column5_Button1Object:OnLoad(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:SetupPlayerContainer(...) end
+function GuildBankFrame_Column5_Button1Object:OnReceiveDrag(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:ShouldClearOnUpdateAfterClean(...) end
+function GuildBankFrame_Column5_Button1Object:OnUpdateItemContextMatching(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:ShowDialog(...) end
+function GuildBankFrame_Column5_Button1Object:PostOnEvent(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:StartHideDialog(...) end
+function GuildBankFrame_Column5_Button1Object:PostOnHide(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialogObject:TrackResponse(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_BGObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_BGObject = {}
-end
-
-do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject : Frame
----@field Icon QuestSessionManager_ConfirmRequestToJoinGroupDialog_Body_IconObject
----@field Text QuestSessionManager_ConfirmRequestToJoinGroupDialog_Body_TextObject
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject = {}
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:AdjustTextWidthForAlignment(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:GetFixedWidth(...) end
+function GuildBankFrame_Column5_Button1Object:PostOnLoad(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:GetHeightPadding(...) end
+function GuildBankFrame_Column5_Button1Object:PostOnShow(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:GetLayoutChildren(...) end
+function GuildBankFrame_Column5_Button1Object:RegisterBagButtonUpdateItemContextMatching(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:GetMaximumWidth(...) end
+function GuildBankFrame_Column5_Button1Object:Reset(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:GetMinimumWidth(...) end
+function GuildBankFrame_Column5_Button1Object:SetBagID(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:GetWidthPadding(...) end
+function GuildBankFrame_Column5_Button1Object:SetItem(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:IgnoreLayoutIndex(...) end
+function GuildBankFrame_Column5_Button1Object:SetItemButtonAnchorPoint(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:IsDirty(...) end
+function GuildBankFrame_Column5_Button1Object:SetItemButtonBorderVertexColor(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:IsLayoutFrame(...) end
+function GuildBankFrame_Column5_Button1Object:SetItemButtonCount(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:Layout(...) end
+function GuildBankFrame_Column5_Button1Object:SetItemButtonQuality(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:MarkClean(...) end
+function GuildBankFrame_Column5_Button1Object:SetItemButtonScale(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:MarkDirty(...) end
+function GuildBankFrame_Column5_Button1Object:SetItemButtonTexture(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:MarkIgnoreInLayout(...) end
+function GuildBankFrame_Column5_Button1Object:SetItemButtonTextureVertexColor(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:OnCleaned(...) end
+function GuildBankFrame_Column5_Button1Object:SetItemInternal(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:OnShow(...) end
+function GuildBankFrame_Column5_Button1Object:SetItemLocation(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:OnUpdate(...) end
+function GuildBankFrame_Column5_Button1Object:SetItemSource(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:SetFixedHeight(...) end
+function GuildBankFrame_Column5_Button1Object:SetMatchesSearch(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:SetFixedSize(...) end
+function GuildBankFrame_Column5_Button1Object:SplitStack(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:SetFixedWidth(...) end
+function GuildBankFrame_Column5_Button1Object:UpdateCraftedProfessionsQualityShown(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:SetHeightPadding(...) end
+function GuildBankFrame_Column5_Button1Object:UpdateItemContextMatching(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:SetMaximumWidth(...) end
+function GuildBankFrame_Column5_Button1Object:UpdateItemContextOverlay(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:SetMinimumWidth(...) end
+function GuildBankFrame_Column5_Button1Object:UpdateItemContextOverlayTextures(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:SetText(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:SetWarningText(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BodyObject:ShouldClearOnUpdateAfterClean(...) end
+function GuildBankFrame_Column5_Button1Object:UpdateTooltip(...) end
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_Body_IconObject : Texture
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_Body_IconObject = {}
+---@class GuildBankFrame_Column5_Button1_CountObject : FontString
+local GuildBankFrame_Column5_Button1_CountObject = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_Body_TextObject : FontString
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_Body_TextObject = {}
+---@class GuildBankFrame_Column5_Button1_HighlightTextureObject : Texture
+local GuildBankFrame_Column5_Button1_HighlightTextureObject = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_BorderObject : Frame
----@field Bg QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_BgObject
----@field BottomEdge QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_BottomEdgeObject
----@field BottomLeftCorner QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_BottomLeftCornerObject
----@field BottomRightCorner QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_BottomRightCornerObject
----@field LeftEdge QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_LeftEdgeObject
----@field RightEdge QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_RightEdgeObject
----@field TopEdge QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_TopEdgeObject
----@field TopLeftCorner QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_TopLeftCornerObject
----@field TopRightCorner QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_TopRightCornerObject
----@field ignoreInLayout boolean
----@field layoutType string
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_BorderObject = {}
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BorderObject:GetBorderColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BorderObject:GetCenterColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BorderObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BorderObject:GetFrameLayoutType(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BorderObject:OnLoad(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BorderObject:SetBlendMode(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BorderObject:SetBorderBlendMode(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BorderObject:SetBorderColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BorderObject:SetCenterColor(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_BorderObject:SetVertexColor(...) end
+---@class GuildBankFrame_Column5_Button1_IconBorderObject : Texture
+local GuildBankFrame_Column5_Button1_IconBorderObject = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_BgObject : Texture
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_BgObject = {}
+---@class GuildBankFrame_Column5_Button1_IconOverlayObject : Texture
+local GuildBankFrame_Column5_Button1_IconOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_BottomEdgeObject : Texture
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_BottomEdgeObject = {}
+---@class GuildBankFrame_Column5_Button1_IconOverlay2Object : Texture
+local GuildBankFrame_Column5_Button1_IconOverlay2Object = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_BottomLeftCornerObject : Texture
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_BottomLeftCornerObject = {}
+---@class GuildBankFrame_Column5_Button1_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column5_Button1_ItemContextOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_BottomRightCornerObject : Texture
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_BottomRightCornerObject = {}
+---@class GuildBankFrame_Column5_Button1_MaskObject : MaskTexture
+local GuildBankFrame_Column5_Button1_MaskObject = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_LeftEdgeObject : Texture
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_LeftEdgeObject = {}
+---@class GuildBankFrame_Column5_Button1_NormalTextureObject : Texture
+local GuildBankFrame_Column5_Button1_NormalTextureObject = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_RightEdgeObject : Texture
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_RightEdgeObject = {}
+---@class GuildBankFrame_Column5_Button1_PushedTextureObject : Texture
+local GuildBankFrame_Column5_Button1_PushedTextureObject = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_TopEdgeObject : Texture
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_TopEdgeObject = {}
+---@class GuildBankFrame_Column5_Button1_StockObject : FontString
+local GuildBankFrame_Column5_Button1_StockObject = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_TopLeftCornerObject : Texture
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_TopLeftCornerObject = {}
+---@class GuildBankFrame_Column5_Button1_iconObject : Texture
+local GuildBankFrame_Column5_Button1_iconObject = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_TopRightCornerObject : Texture
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_Border_TopRightCornerObject = {}
+---@class GuildBankFrame_Column5_Button1_searchOverlayObject : Texture
+local GuildBankFrame_Column5_Button1_searchOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject : Frame
----@field Buttons table
----@field Confirm QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_ConfirmObject
----@field Decline QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_DeclineObject
----@field heightPadding number
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject = {}
+---@class GuildBankFrame_Column5_Button10Object : Button
+---@field Count GuildBankFrame_Column5_Button10_CountObject
+---@field HighlightTexture GuildBankFrame_Column5_Button10_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column5_Button10_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column5_Button10_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column5_Button10_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column5_Button10_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column5_Button10_MaskObject
+---@field NormalTexture GuildBankFrame_Column5_Button10_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column5_Button10_PushedTextureObject
+---@field Stock GuildBankFrame_Column5_Button10_StockObject
+---@field icon GuildBankFrame_Column5_Button10_iconObject
+---@field searchOverlay GuildBankFrame_Column5_Button10_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column5_Button10Object = {}
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:AddLayoutChildren(...) end
+function GuildBankFrame_Column5_Button10Object:GetBagID(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:ClearFixedSize(...) end
+function GuildBankFrame_Column5_Button10Object:GetItem(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:GetAdditionalRegions(...) end
+function GuildBankFrame_Column5_Button10Object:GetItemButtonBackgroundTexture(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:GetChildHeight(...) end
+function GuildBankFrame_Column5_Button10Object:GetItemButtonCount(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:GetChildSize(...) end
+function GuildBankFrame_Column5_Button10Object:GetItemButtonIconTexture(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:GetChildWidth(...) end
+function GuildBankFrame_Column5_Button10Object:GetItemContextOverlayMode(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:GetFixedHeight(...) end
+function GuildBankFrame_Column5_Button10Object:GetItemID(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:GetFixedSize(...) end
+function GuildBankFrame_Column5_Button10Object:GetItemInfo(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:GetFixedWidth(...) end
+function GuildBankFrame_Column5_Button10Object:GetItemLink(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:GetHeightPadding(...) end
+function GuildBankFrame_Column5_Button10Object:GetItemLocation(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:GetLayoutChildren(...) end
+function GuildBankFrame_Column5_Button10Object:GetMatchesSearch(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:GetMaximumWidth(...) end
+function GuildBankFrame_Column5_Button10Object:GetSlotAndBagID(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:GetMinimumWidth(...) end
+function GuildBankFrame_Column5_Button10Object:OnClick(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:GetWidthPadding(...) end
+function GuildBankFrame_Column5_Button10Object:OnDragStart(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:IgnoreLayoutIndex(...) end
+function GuildBankFrame_Column5_Button10Object:OnEnter(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:IsDirty(...) end
+function GuildBankFrame_Column5_Button10Object:OnEvent(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:IsLayoutFrame(...) end
+function GuildBankFrame_Column5_Button10Object:OnHide(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:Layout(...) end
+function GuildBankFrame_Column5_Button10Object:OnItemContextChanged(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:MarkClean(...) end
+function GuildBankFrame_Column5_Button10Object:OnLeave(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:MarkDirty(...) end
+function GuildBankFrame_Column5_Button10Object:OnLoad(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:MarkIgnoreInLayout(...) end
+function GuildBankFrame_Column5_Button10Object:OnReceiveDrag(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:OnCleaned(...) end
+function GuildBankFrame_Column5_Button10Object:OnUpdateItemContextMatching(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:OnShow(...) end
+function GuildBankFrame_Column5_Button10Object:PostOnEvent(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:OnUpdate(...) end
+function GuildBankFrame_Column5_Button10Object:PostOnHide(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:SetFixedHeight(...) end
+function GuildBankFrame_Column5_Button10Object:PostOnLoad(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:SetFixedSize(...) end
+function GuildBankFrame_Column5_Button10Object:PostOnShow(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:SetFixedWidth(...) end
+function GuildBankFrame_Column5_Button10Object:RegisterBagButtonUpdateItemContextMatching(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:SetHeightPadding(...) end
+function GuildBankFrame_Column5_Button10Object:Reset(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:SetMaximumWidth(...) end
+function GuildBankFrame_Column5_Button10Object:SetBagID(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:SetMinimumWidth(...) end
+function GuildBankFrame_Column5_Button10Object:SetItem(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:SetWidthPadding(...) end
+function GuildBankFrame_Column5_Button10Object:SetItemButtonAnchorPoint(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_ConfirmObject : Button
----@field Flash QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_Confirm_FlashObject
----@field PulseAnim QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_Confirm_PulseAnimObject
----@field Text QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_Confirm_TextObject
----@field baseHeight number
----@field baseWidth number
----@field isConfirm boolean
----@field useScaleWeight boolean
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_ConfirmObject = {}
+function GuildBankFrame_Column5_Button10Object:SetItemButtonBorderVertexColor(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_ConfirmObject:GetDesiredHeight(...) end
+function GuildBankFrame_Column5_Button10Object:SetItemButtonCount(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_ConfirmObject:GetDesiredWidth(...) end
+function GuildBankFrame_Column5_Button10Object:SetItemButtonQuality(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_ConfirmObject:GetOwningDialog(...) end
+function GuildBankFrame_Column5_Button10Object:SetItemButtonScale(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_ConfirmObject:GetOwningDialogData(...) end
+function GuildBankFrame_Column5_Button10Object:SetItemButtonTexture(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_ConfirmObject:GetOwningDialogInfo(...) end
+function GuildBankFrame_Column5_Button10Object:SetItemButtonTextureVertexColor(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_ConfirmObject:GetScaledDesiredDimension(...) end
+function GuildBankFrame_Column5_Button10Object:SetItemInternal(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_ConfirmObject:GetScaledDesiredHeight(...) end
+function GuildBankFrame_Column5_Button10Object:SetItemLocation(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_ConfirmObject:GetScaledDesiredWidth(...) end
+function GuildBankFrame_Column5_Button10Object:SetItemSource(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_ConfirmObject:GetWeightedScale(...) end
+function GuildBankFrame_Column5_Button10Object:SetMatchesSearch(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_ConfirmObject:OnClick(...) end
+function GuildBankFrame_Column5_Button10Object:SplitStack(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_ConfirmObject:OnLoad_UserScaledElement(...) end
+function GuildBankFrame_Column5_Button10Object:UpdateCraftedProfessionsQualityShown(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_ConfirmObject:OnTextScaleUpdated(...) end
+function GuildBankFrame_Column5_Button10Object:UpdateItemContextMatching(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_ConfirmObject:SetDesiredWidth(...) end
+function GuildBankFrame_Column5_Button10Object:UpdateItemContextOverlay(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_ConfirmObject:SetOwningDialog(...) end
+function GuildBankFrame_Column5_Button10Object:UpdateItemContextOverlayTextures(...) end
 ---@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_ConfirmObject:UpdateWidth(...) end
+function GuildBankFrame_Column5_Button10Object:UpdateTooltip(...) end
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_Confirm_FlashObject : Texture
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_Confirm_FlashObject = {}
+---@class GuildBankFrame_Column5_Button10_CountObject : FontString
+local GuildBankFrame_Column5_Button10_CountObject = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_Confirm_PulseAnimObject : AnimationGroup
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_Confirm_PulseAnimObject = {}
+---@class GuildBankFrame_Column5_Button10_HighlightTextureObject : Texture
+local GuildBankFrame_Column5_Button10_HighlightTextureObject = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_Confirm_TextObject : FontString
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_Confirm_TextObject = {}
+---@class GuildBankFrame_Column5_Button10_IconBorderObject : Texture
+local GuildBankFrame_Column5_Button10_IconBorderObject = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_DeclineObject : Button
----@field Flash QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_Decline_FlashObject
----@field PulseAnim QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_Decline_PulseAnimObject
----@field Text QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_Decline_TextObject
----@field baseHeight number
----@field baseWidth number
----@field useScaleWeight boolean
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_DeclineObject = {}
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_DeclineObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_DeclineObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_DeclineObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_DeclineObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_DeclineObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_DeclineObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_DeclineObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_DeclineObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_DeclineObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_DeclineObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_DeclineObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_DeclineObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_DeclineObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_DeclineObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_DeclineObject:UpdateWidth(...) end
-end
-
-do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_Decline_FlashObject : Texture
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_Decline_FlashObject = {}
+---@class GuildBankFrame_Column5_Button10_IconOverlayObject : Texture
+local GuildBankFrame_Column5_Button10_IconOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_Decline_PulseAnimObject : AnimationGroup
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_Decline_PulseAnimObject = {}
+---@class GuildBankFrame_Column5_Button10_IconOverlay2Object : Texture
+local GuildBankFrame_Column5_Button10_IconOverlay2Object = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_Decline_TextObject : FontString
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_ButtonContainer_Decline_TextObject = {}
+---@class GuildBankFrame_Column5_Button10_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column5_Button10_ItemContextOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_DividerObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_DividerObject = {}
+---@class GuildBankFrame_Column5_Button10_MaskObject : MaskTexture
+local GuildBankFrame_Column5_Button10_MaskObject = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_InvisibleRuleObject : Texture
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_InvisibleRuleObject = {}
+---@class GuildBankFrame_Column5_Button10_NormalTextureObject : Texture
+local GuildBankFrame_Column5_Button10_NormalTextureObject = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject : Frame
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject = {}
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_PlayerContainerObject:ShouldClearOnUpdateAfterClean(...) end
+---@class GuildBankFrame_Column5_Button10_PushedTextureObject : Texture
+local GuildBankFrame_Column5_Button10_PushedTextureObject = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject : Frame
----@field Icon QuestSessionManager_ConfirmRequestToJoinGroupDialog_Title_IconObject
----@field Text QuestSessionManager_ConfirmRequestToJoinGroupDialog_Title_TextObject
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject = {}
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:Layout(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:SetText(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_ConfirmRequestToJoinGroupDialog_TitleObject:ShouldClearOnUpdateAfterClean(...) end
+---@class GuildBankFrame_Column5_Button10_StockObject : FontString
+local GuildBankFrame_Column5_Button10_StockObject = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_Title_IconObject : Texture
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_Title_IconObject = {}
+---@class GuildBankFrame_Column5_Button10_iconObject : Texture
+local GuildBankFrame_Column5_Button10_iconObject = {}
 end
 
 do
----@class QuestSessionManager_ConfirmRequestToJoinGroupDialog_Title_TextObject : FontString
-local QuestSessionManager_ConfirmRequestToJoinGroupDialog_Title_TextObject = {}
+---@class GuildBankFrame_Column5_Button10_searchOverlayObject : Texture
+local GuildBankFrame_Column5_Button10_searchOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialogObject : Frame
----@field BG QuestSessionManager_StartDialog_BGObject
----@field Body QuestSessionManager_StartDialog_BodyObject
----@field Border QuestSessionManager_StartDialog_BorderObject
----@field ButtonContainer QuestSessionManager_StartDialog_ButtonContainerObject
----@field Divider QuestSessionManager_StartDialog_DividerObject
----@field InvisibleRule QuestSessionManager_StartDialog_InvisibleRuleObject
----@field MinimizeButton QuestSessionManager_StartDialog_MinimizeButtonObject
----@field PlayerContainer QuestSessionManager_StartDialog_PlayerContainerObject
----@field Title QuestSessionManager_StartDialog_TitleObject
----@field cancelText string
----@field confirmText string
----@field heightPadding number
----@field hideSound number
----@field minimumWidth number
----@field playerPool QuestSessionManager_StartDialog_playerPoolObject
----@field requiresValidateDialog boolean
----@field showDivider boolean
----@field showSound number
-local QuestSessionManager_StartDialogObject = {}
----@return any ...
-function QuestSessionManager_StartDialogObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_StartDialogObject:AddParty(...) end
----@return any ...
-function QuestSessionManager_StartDialogObject:AddUnit(...) end
----@return any ...
-function QuestSessionManager_StartDialogObject:BaseOnEvent(...) end
----@return any ...
-function QuestSessionManager_StartDialogObject:BaseOnHide(...) end
----@return any ...
-function QuestSessionManager_StartDialogObject:BaseOnShow(...) end
----@return any ...
-function QuestSessionManager_StartDialogObject:Cancel(...) end
----@return any ...
-function QuestSessionManager_StartDialogObject:CheckAddUnit(...) end
----@return any ...
-function QuestSessionManager_StartDialogObject:CheckButtonEnabledState(...) end
----@return any ...
-function QuestSessionManager_StartDialogObject:CheckShow(...) end
----@return any ...
-function QuestSessionManager_StartDialogObject:CheckValidateDialog(...) end
----@return any ...
-function QuestSessionManager_StartDialogObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_StartDialogObject:ClearHideSound(...) end
+---@class GuildBankFrame_Column5_Button11Object : Button
+---@field Count GuildBankFrame_Column5_Button11_CountObject
+---@field HighlightTexture GuildBankFrame_Column5_Button11_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column5_Button11_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column5_Button11_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column5_Button11_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column5_Button11_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column5_Button11_MaskObject
+---@field NormalTexture GuildBankFrame_Column5_Button11_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column5_Button11_PushedTextureObject
+---@field Stock GuildBankFrame_Column5_Button11_StockObject
+---@field icon GuildBankFrame_Column5_Button11_iconObject
+---@field searchOverlay GuildBankFrame_Column5_Button11_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column5_Button11Object = {}
 ---@return any ...
-function QuestSessionManager_StartDialogObject:ClearShowSound(...) end
+function GuildBankFrame_Column5_Button11Object:GetBagID(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:Confirm(...) end
+function GuildBankFrame_Column5_Button11Object:GetItem(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:GetAdditionalRegions(...) end
+function GuildBankFrame_Column5_Button11Object:GetItemButtonBackgroundTexture(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:GetChildHeight(...) end
+function GuildBankFrame_Column5_Button11Object:GetItemButtonCount(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:GetChildSize(...) end
+function GuildBankFrame_Column5_Button11Object:GetItemButtonIconTexture(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:GetChildWidth(...) end
+function GuildBankFrame_Column5_Button11Object:GetItemContextOverlayMode(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:GetDialogFailureReason(...) end
+function GuildBankFrame_Column5_Button11Object:GetItemID(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:GetFixedHeight(...) end
+function GuildBankFrame_Column5_Button11Object:GetItemInfo(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:GetFixedSize(...) end
+function GuildBankFrame_Column5_Button11Object:GetItemLink(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:GetFixedWidth(...) end
+function GuildBankFrame_Column5_Button11Object:GetItemLocation(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:GetHeightPadding(...) end
+function GuildBankFrame_Column5_Button11Object:GetMatchesSearch(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:GetHideSound(...) end
+function GuildBankFrame_Column5_Button11Object:GetSlotAndBagID(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:GetLayoutChildren(...) end
+function GuildBankFrame_Column5_Button11Object:OnClick(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:GetMaximumWidth(...) end
+function GuildBankFrame_Column5_Button11Object:OnDragStart(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:GetMemberFrame(...) end
+function GuildBankFrame_Column5_Button11Object:OnEnter(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:GetMinimumWidth(...) end
+function GuildBankFrame_Column5_Button11Object:OnEvent(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:GetResponseCounts(...) end
+function GuildBankFrame_Column5_Button11Object:OnHide(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:GetSessionCommand(...) end
+function GuildBankFrame_Column5_Button11Object:OnItemContextChanged(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:GetShowSound(...) end
+function GuildBankFrame_Column5_Button11Object:OnLeave(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:GetWidthPadding(...) end
+function GuildBankFrame_Column5_Button11Object:OnLoad(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:HasTrackedResponse(...) end
+function GuildBankFrame_Column5_Button11Object:OnReceiveDrag(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:HideImmediate(...) end
+function GuildBankFrame_Column5_Button11Object:OnUpdateItemContextMatching(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:IgnoreLayoutIndex(...) end
+function GuildBankFrame_Column5_Button11Object:PostOnEvent(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:IsDirty(...) end
+function GuildBankFrame_Column5_Button11Object:PostOnHide(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:IsLayoutFrame(...) end
+function GuildBankFrame_Column5_Button11Object:PostOnLoad(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:Layout(...) end
+function GuildBankFrame_Column5_Button11Object:PostOnShow(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:MarkClean(...) end
+function GuildBankFrame_Column5_Button11Object:RegisterBagButtonUpdateItemContextMatching(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:MarkDirty(...) end
+function GuildBankFrame_Column5_Button11Object:Reset(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:MarkIgnoreInLayout(...) end
+function GuildBankFrame_Column5_Button11Object:SetBagID(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:Minimize(...) end
+function GuildBankFrame_Column5_Button11Object:SetItem(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:OnButtonsEnabled(...) end
+function GuildBankFrame_Column5_Button11Object:SetItemButtonAnchorPoint(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:OnCleaned(...) end
+function GuildBankFrame_Column5_Button11Object:SetItemButtonBorderVertexColor(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:OnEvent(...) end
+function GuildBankFrame_Column5_Button11Object:SetItemButtonCount(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:OnLoad(...) end
+function GuildBankFrame_Column5_Button11Object:SetItemButtonQuality(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:OnShow(...) end
+function GuildBankFrame_Column5_Button11Object:SetItemButtonScale(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:OnTimeout(...) end
+function GuildBankFrame_Column5_Button11Object:SetItemButtonTexture(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:OnUpdate(...) end
+function GuildBankFrame_Column5_Button11Object:SetItemButtonTextureVertexColor(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:PlayHideSound(...) end
+function GuildBankFrame_Column5_Button11Object:SetItemInternal(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:PlayShowSound(...) end
+function GuildBankFrame_Column5_Button11Object:SetItemLocation(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:RequiresValidateDialog(...) end
+function GuildBankFrame_Column5_Button11Object:SetItemSource(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:ResetPlayerContainer(...) end
+function GuildBankFrame_Column5_Button11Object:SetMatchesSearch(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:SendSessionResponse(...) end
+function GuildBankFrame_Column5_Button11Object:SplitStack(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:SetButtonsEnabled(...) end
+function GuildBankFrame_Column5_Button11Object:UpdateCraftedProfessionsQualityShown(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:SetFixedHeight(...) end
+function GuildBankFrame_Column5_Button11Object:UpdateItemContextMatching(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:SetFixedSize(...) end
+function GuildBankFrame_Column5_Button11Object:UpdateItemContextOverlay(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:SetFixedWidth(...) end
+function GuildBankFrame_Column5_Button11Object:UpdateItemContextOverlayTextures(...) end
 ---@return any ...
-function QuestSessionManager_StartDialogObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_StartDialogObject:SetHideSound(...) end
----@return any ...
-function QuestSessionManager_StartDialogObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialogObject:SetMemberResponse(...) end
----@return any ...
-function QuestSessionManager_StartDialogObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialogObject:SetShowSound(...) end
----@return any ...
-function QuestSessionManager_StartDialogObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_StartDialogObject:SetupPlayerContainer(...) end
----@return any ...
-function QuestSessionManager_StartDialogObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function QuestSessionManager_StartDialogObject:ShowDialog(...) end
----@return any ...
-function QuestSessionManager_StartDialogObject:StartHideDialog(...) end
----@return any ...
-function QuestSessionManager_StartDialogObject:TrackResponse(...) end
-end
-
-do
----@class QuestSessionManager_StartDialog_BGObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_StartDialog_BGObject = {}
-end
-
-do
----@class QuestSessionManager_StartDialog_BodyObject : Frame
----@field Icon QuestSessionManager_StartDialog_Body_IconObject
----@field Text QuestSessionManager_StartDialog_Body_TextObject
-local QuestSessionManager_StartDialog_BodyObject = {}
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:AdjustTextWidthForAlignment(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:Layout(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:SetText(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:SetWarningText(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BodyObject:ShouldClearOnUpdateAfterClean(...) end
+function GuildBankFrame_Column5_Button11Object:UpdateTooltip(...) end
 end
 
 do
----@class QuestSessionManager_StartDialog_Body_IconObject : Texture
-local QuestSessionManager_StartDialog_Body_IconObject = {}
+---@class GuildBankFrame_Column5_Button11_CountObject : FontString
+local GuildBankFrame_Column5_Button11_CountObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_Body_TextObject : FontString
-local QuestSessionManager_StartDialog_Body_TextObject = {}
+---@class GuildBankFrame_Column5_Button11_HighlightTextureObject : Texture
+local GuildBankFrame_Column5_Button11_HighlightTextureObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_BorderObject : Frame
----@field Bg QuestSessionManager_StartDialog_Border_BgObject
----@field BottomEdge QuestSessionManager_StartDialog_Border_BottomEdgeObject
----@field BottomLeftCorner QuestSessionManager_StartDialog_Border_BottomLeftCornerObject
----@field BottomRightCorner QuestSessionManager_StartDialog_Border_BottomRightCornerObject
----@field LeftEdge QuestSessionManager_StartDialog_Border_LeftEdgeObject
----@field RightEdge QuestSessionManager_StartDialog_Border_RightEdgeObject
----@field TopEdge QuestSessionManager_StartDialog_Border_TopEdgeObject
----@field TopLeftCorner QuestSessionManager_StartDialog_Border_TopLeftCornerObject
----@field TopRightCorner QuestSessionManager_StartDialog_Border_TopRightCornerObject
----@field ignoreInLayout boolean
----@field layoutType string
-local QuestSessionManager_StartDialog_BorderObject = {}
----@return any ...
-function QuestSessionManager_StartDialog_BorderObject:GetBorderColor(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BorderObject:GetCenterColor(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BorderObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BorderObject:GetFrameLayoutType(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BorderObject:OnLoad(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BorderObject:SetBlendMode(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BorderObject:SetBorderBlendMode(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BorderObject:SetBorderColor(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BorderObject:SetCenterColor(...) end
----@return any ...
-function QuestSessionManager_StartDialog_BorderObject:SetVertexColor(...) end
+---@class GuildBankFrame_Column5_Button11_IconBorderObject : Texture
+local GuildBankFrame_Column5_Button11_IconBorderObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_Border_BgObject : Texture
-local QuestSessionManager_StartDialog_Border_BgObject = {}
+---@class GuildBankFrame_Column5_Button11_IconOverlayObject : Texture
+local GuildBankFrame_Column5_Button11_IconOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_Border_BottomEdgeObject : Texture
-local QuestSessionManager_StartDialog_Border_BottomEdgeObject = {}
+---@class GuildBankFrame_Column5_Button11_IconOverlay2Object : Texture
+local GuildBankFrame_Column5_Button11_IconOverlay2Object = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_Border_BottomLeftCornerObject : Texture
-local QuestSessionManager_StartDialog_Border_BottomLeftCornerObject = {}
+---@class GuildBankFrame_Column5_Button11_ItemContextOverlayObject : Texture
+local GuildBankFrame_Column5_Button11_ItemContextOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_Border_BottomRightCornerObject : Texture
-local QuestSessionManager_StartDialog_Border_BottomRightCornerObject = {}
+---@class GuildBankFrame_Column5_Button11_MaskObject : MaskTexture
+local GuildBankFrame_Column5_Button11_MaskObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_Border_LeftEdgeObject : Texture
-local QuestSessionManager_StartDialog_Border_LeftEdgeObject = {}
+---@class GuildBankFrame_Column5_Button11_NormalTextureObject : Texture
+local GuildBankFrame_Column5_Button11_NormalTextureObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_Border_RightEdgeObject : Texture
-local QuestSessionManager_StartDialog_Border_RightEdgeObject = {}
+---@class GuildBankFrame_Column5_Button11_PushedTextureObject : Texture
+local GuildBankFrame_Column5_Button11_PushedTextureObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_Border_TopEdgeObject : Texture
-local QuestSessionManager_StartDialog_Border_TopEdgeObject = {}
+---@class GuildBankFrame_Column5_Button11_StockObject : FontString
+local GuildBankFrame_Column5_Button11_StockObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_Border_TopLeftCornerObject : Texture
-local QuestSessionManager_StartDialog_Border_TopLeftCornerObject = {}
+---@class GuildBankFrame_Column5_Button11_iconObject : Texture
+local GuildBankFrame_Column5_Button11_iconObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_Border_TopRightCornerObject : Texture
-local QuestSessionManager_StartDialog_Border_TopRightCornerObject = {}
+---@class GuildBankFrame_Column5_Button11_searchOverlayObject : Texture
+local GuildBankFrame_Column5_Button11_searchOverlayObject = {}
 end
 
 do
----@class QuestSessionManager_StartDialog_ButtonContainerObject : Frame
----@field Buttons table
----@field Confirm QuestSessionManager_StartDialog_ButtonContainer_ConfirmObject
----@field Decline QuestSessionManager_StartDialog_ButtonContainer_DeclineObject
----@field heightPadding number
-local QuestSessionManager_StartDialog_ButtonContainerObject = {}
+---@class GuildBankFrame_Column5_Button12Object : Button
+---@field Count GuildBankFrame_Column5_Button12_CountObject
+---@field HighlightTexture GuildBankFrame_Column5_Button12_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column5_Button12_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column5_Button12_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column5_Button12_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column5_Button12_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column5_Button12_MaskObject
+---@field NormalTexture GuildBankFrame_Column5_Button12_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column5_Button12_PushedTextureObject
+---@field Stock GuildBankFrame_Column5_Button12_StockObject
+---@field icon GuildBankFrame_Column5_Button12_iconObject
+---@field searchOverlay GuildBankFrame_Column5_Button12_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column5_Button12Object = {}
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:AddLayoutChildren(...) end
+function GuildBankFrame_Column5_Button12Object:GetBagID(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:ClearFixedSize(...) end
+function GuildBankFrame_Column5_Button12Object:GetItem(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:GetAdditionalRegions(...) end
+function GuildBankFrame_Column5_Button12Object:GetItemButtonBackgroundTexture(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:GetChildHeight(...) end
+function GuildBankFrame_Column5_Button12Object:GetItemButtonCount(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:GetChildSize(...) end
+function GuildBankFrame_Column5_Button12Object:GetItemButtonIconTexture(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:GetChildWidth(...) end
+function GuildBankFrame_Column5_Button12Object:GetItemContextOverlayMode(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:GetFixedHeight(...) end
+function GuildBankFrame_Column5_Button12Object:GetItemID(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:GetFixedSize(...) end
+function GuildBankFrame_Column5_Button12Object:GetItemInfo(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:GetFixedWidth(...) end
+function GuildBankFrame_Column5_Button12Object:GetItemLink(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:GetHeightPadding(...) end
+function GuildBankFrame_Column5_Button12Object:GetItemLocation(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:GetLayoutChildren(...) end
+function GuildBankFrame_Column5_Button12Object:GetMatchesSearch(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:GetMaximumWidth(...) end
+function GuildBankFrame_Column5_Button12Object:GetSlotAndBagID(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:GetMinimumWidth(...) end
+function GuildBankFrame_Column5_Button12Object:OnClick(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:GetWidthPadding(...) end
+function GuildBankFrame_Column5_Button12Object:OnDragStart(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:IgnoreLayoutIndex(...) end
+function GuildBankFrame_Column5_Button12Object:OnEnter(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:IsDirty(...) end
+function GuildBankFrame_Column5_Button12Object:OnEvent(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:IsLayoutFrame(...) end
+function GuildBankFrame_Column5_Button12Object:OnHide(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:Layout(...) end
+function GuildBankFrame_Column5_Button12Object:OnItemContextChanged(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:MarkClean(...) end
+function GuildBankFrame_Column5_Button12Object:OnLeave(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:MarkDirty(...) end
+function GuildBankFrame_Column5_Button12Object:OnLoad(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:MarkIgnoreInLayout(...) end
+function GuildBankFrame_Column5_Button12Object:OnReceiveDrag(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:OnCleaned(...) end
+function GuildBankFrame_Column5_Button12Object:OnUpdateItemContextMatching(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:OnShow(...) end
+function GuildBankFrame_Column5_Button12Object:PostOnEvent(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:OnUpdate(...) end
+function GuildBankFrame_Column5_Button12Object:PostOnHide(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:SetFixedHeight(...) end
+function GuildBankFrame_Column5_Button12Object:PostOnLoad(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:SetFixedSize(...) end
+function GuildBankFrame_Column5_Button12Object:PostOnShow(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:SetFixedWidth(...) end
+function GuildBankFrame_Column5_Button12Object:RegisterBagButtonUpdateItemContextMatching(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:SetHeightPadding(...) end
+function GuildBankFrame_Column5_Button12Object:Reset(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:SetMaximumWidth(...) end
+function GuildBankFrame_Column5_Button12Object:SetBagID(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:SetMinimumWidth(...) end
+function GuildBankFrame_Column5_Button12Object:SetItem(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:SetWidthPadding(...) end
+function GuildBankFrame_Column5_Button12Object:SetItemButtonAnchorPoint(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_StartDialog_ButtonContainer_ConfirmObject : Button
----@field Flash QuestSessionManager_StartDialog_ButtonContainer_Confirm_FlashObject
----@field PulseAnim QuestSessionManager_StartDialog_ButtonContainer_Confirm_PulseAnimObject
----@field Text QuestSessionManager_StartDialog_ButtonContainer_Confirm_TextObject
----@field baseHeight number
----@field baseWidth number
----@field isConfirm boolean
----@field useScaleWeight boolean
-local QuestSessionManager_StartDialog_ButtonContainer_ConfirmObject = {}
+function GuildBankFrame_Column5_Button12Object:SetItemButtonBorderVertexColor(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_ConfirmObject:GetDesiredHeight(...) end
+function GuildBankFrame_Column5_Button12Object:SetItemButtonCount(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_ConfirmObject:GetDesiredWidth(...) end
+function GuildBankFrame_Column5_Button12Object:SetItemButtonQuality(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_ConfirmObject:GetOwningDialog(...) end
+function GuildBankFrame_Column5_Button12Object:SetItemButtonScale(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_ConfirmObject:GetOwningDialogData(...) end
+function GuildBankFrame_Column5_Button12Object:SetItemButtonTexture(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_ConfirmObject:GetOwningDialogInfo(...) end
+function GuildBankFrame_Column5_Button12Object:SetItemButtonTextureVertexColor(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_ConfirmObject:GetScaledDesiredDimension(...) end
+function GuildBankFrame_Column5_Button12Object:SetItemInternal(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_ConfirmObject:GetScaledDesiredHeight(...) end
+function GuildBankFrame_Column5_Button12Object:SetItemLocation(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_ConfirmObject:GetScaledDesiredWidth(...) end
+function GuildBankFrame_Column5_Button12Object:SetItemSource(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_ConfirmObject:GetWeightedScale(...) end
+function GuildBankFrame_Column5_Button12Object:SetMatchesSearch(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_ConfirmObject:OnClick(...) end
+function GuildBankFrame_Column5_Button12Object:SplitStack(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_ConfirmObject:OnLoad_UserScaledElement(...) end
+function GuildBankFrame_Column5_Button12Object:UpdateCraftedProfessionsQualityShown(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_ConfirmObject:OnTextScaleUpdated(...) end
+function GuildBankFrame_Column5_Button12Object:UpdateItemContextMatching(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_ConfirmObject:SetDesiredWidth(...) end
+function GuildBankFrame_Column5_Button12Object:UpdateItemContextOverlay(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_ConfirmObject:SetOwningDialog(...) end
+function GuildBankFrame_Column5_Button12Object:UpdateItemContextOverlayTextures(...) end
 ---@return any ...
-function QuestSessionManager_StartDialog_ButtonContainer_ConfirmObject:UpdateWidth(...) end
+function GuildBankFrame_Column5_Button12Object:UpdateTooltip(...) end
 end

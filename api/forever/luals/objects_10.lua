@@ -3,1220 +3,7023 @@
 
 
 do
----@class CommunitiesFrame_RecruitmentDialog_AcceptObject : Button
----@field Left CommunitiesFrame_RecruitmentDialog_Accept_LeftObject
----@field Middle CommunitiesFrame_RecruitmentDialog_Accept_MiddleObject
----@field Right CommunitiesFrame_RecruitmentDialog_Accept_RightObject
----@field Text CommunitiesFrame_RecruitmentDialog_Accept_TextObject
+---@class ChatFrame5_ScrollBar_Forward_EventObject
+local ChatFrame5_ScrollBar_Forward_EventObject = {}
+end
+
+do
+---@class ChatFrame5_ScrollBar_Forward_TextureObject : Texture
+local ChatFrame5_ScrollBar_Forward_TextureObject = {}
+end
+
+do
+---@class ChatFrame5_ScrollBar_TrackObject : Frame
+---@field Begin ChatFrame5_ScrollBar_Track_BeginObject
+---@field End ChatFrame5_ScrollBar_Track_EndObject
+---@field Middle ChatFrame5_ScrollBar_Track_MiddleObject
+---@field Thumb ChatFrame5_ScrollBar_Track_ThumbObject
+local ChatFrame5_ScrollBar_TrackObject = {}
+end
+
+do
+---@class ChatFrame5_ScrollBar_Track_BeginObject : Texture
+local ChatFrame5_ScrollBar_Track_BeginObject = {}
+end
+
+do
+---@class ChatFrame5_ScrollBar_Track_EndObject : Texture
+local ChatFrame5_ScrollBar_Track_EndObject = {}
+end
+
+do
+---@class ChatFrame5_ScrollBar_Track_MiddleObject : Texture
+local ChatFrame5_ScrollBar_Track_MiddleObject = {}
+end
+
+do
+---@class ChatFrame5_ScrollBar_Track_ThumbObject : Button
+---@field Begin ChatFrame5_ScrollBar_Track_Thumb_BeginObject
+---@field End ChatFrame5_ScrollBar_Track_Thumb_EndObject
+---@field Event ChatFrame5_ScrollBar_Track_Thumb_EventObject
+---@field Middle ChatFrame5_ScrollBar_Track_Thumb_MiddleObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field downBeginTexture string
+---@field downEndTexture string
+---@field downMiddleTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field overBeginTexture string
+---@field overEndTexture string
+---@field overMiddleTexture string
+---@field upBeginTexture string
+---@field upEndTexture string
+---@field upMiddleTexture string
+local ChatFrame5_ScrollBar_Track_ThumbObject = {}
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:IsDown(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:IsOver(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:OnDisable(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:OnEnable(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:OnEnter(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:OnLeave(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:OnLoad(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:OnShow(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+---@return any ...
+function ChatFrame5_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class ChatFrame5_ScrollBar_Track_Thumb_BeginObject : Texture
+local ChatFrame5_ScrollBar_Track_Thumb_BeginObject = {}
+end
+
+do
+---@class ChatFrame5_ScrollBar_Track_Thumb_EndObject : Texture
+local ChatFrame5_ScrollBar_Track_Thumb_EndObject = {}
+end
+
+do
+---@class ChatFrame5_ScrollBar_Track_Thumb_EventObject
+local ChatFrame5_ScrollBar_Track_Thumb_EventObject = {}
+end
+
+do
+---@class ChatFrame5_ScrollBar_Track_Thumb_MiddleObject : Texture
+local ChatFrame5_ScrollBar_Track_Thumb_MiddleObject = {}
+end
+
+do
+---@class ChatFrame5_ScrollToBottomButtonObject : Button
+---@field Flash ChatFrame5_ScrollToBottomButton_FlashObject
+---@field smartNavigationIgnored boolean
+local ChatFrame5_ScrollToBottomButtonObject = {}
+end
+
+do
+---@class ChatFrame5_ScrollToBottomButton_FlashObject : Texture
+---@field FlashAnim ChatFrame5_ScrollToBottomButton_Flash_FlashAnimObject
+local ChatFrame5_ScrollToBottomButton_FlashObject = {}
+end
+
+do
+---@class ChatFrame5_ScrollToBottomButton_Flash_FlashAnimObject : AnimationGroup
+---@field FadeIn ChatFrame5_ScrollToBottomButton_Flash_FlashAnim_FadeInObject
+---@field FadeOut ChatFrame5_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject
+local ChatFrame5_ScrollToBottomButton_Flash_FlashAnimObject = {}
+end
+
+do
+---@class ChatFrame5_ScrollToBottomButton_Flash_FlashAnim_FadeInObject : Alpha
+local ChatFrame5_ScrollToBottomButton_Flash_FlashAnim_FadeInObject = {}
+end
+
+do
+---@class ChatFrame5_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject : Alpha
+local ChatFrame5_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject = {}
+end
+
+do
+---@class ChatFrame5_buttonFrameObject : Frame
+---@field Background ChatFrame5_buttonFrame_BackgroundObject
+---@field minimizeButton ChatFrame5_buttonFrame_minimizeButtonObject
+local ChatFrame5_buttonFrameObject = {}
+end
+
+do
+---@class ChatFrame5_buttonFrame_BackgroundObject : Texture
+local ChatFrame5_buttonFrame_BackgroundObject = {}
+end
+
+do
+---@class ChatFrame5_buttonFrame_minimizeButtonObject : Button
+local ChatFrame5_buttonFrame_minimizeButtonObject = {}
+end
+
+do
+---@class ChatFrame5_clickAnywhereButtonObject : Button
+local ChatFrame5_clickAnywhereButtonObject = {}
+---@return any ...
+function ChatFrame5_clickAnywhereButtonObject:OnClick(...) end
+---@return any ...
+function ChatFrame5_clickAnywhereButtonObject:OnEvent(...) end
+---@return any ...
+function ChatFrame5_clickAnywhereButtonObject:OnLoad(...) end
+---@return any ...
+function ChatFrame5_clickAnywhereButtonObject:UpdateState(...) end
+end
+
+do
+---@class ChatFrame5_dockObject
+local ChatFrame5_dockObject = {}
+end
+
+do
+---@class ChatFrame5_editBoxObject
+local ChatFrame5_editBoxObject = {}
+end
+
+do
+---@class ChatFrame5_fontObjectObject
+local ChatFrame5_fontObjectObject = {}
+end
+
+do
+---@class ChatFrame5_historyBufferObject
+---@field elements table
+---@field headIndex table
+---@field maxElements table
+local ChatFrame5_historyBufferObject = {}
+---@return any ...
+function ChatFrame5_historyBufferObject:CalculateElementIndex(...) end
+---@return any ...
+function ChatFrame5_historyBufferObject:CalculateElementIndexFromGlobalIndex(...) end
+---@return any ...
+function ChatFrame5_historyBufferObject:Clear(...) end
+---@return any ...
+function ChatFrame5_historyBufferObject:EnumerateIndexedEntries(...) end
+---@return any ...
+function ChatFrame5_historyBufferObject:GetEntryAtIndex(...) end
+---@return any ...
+function ChatFrame5_historyBufferObject:GetMaxNumElements(...) end
+---@return any ...
+function ChatFrame5_historyBufferObject:GetNumElements(...) end
+---@return any ...
+function ChatFrame5_historyBufferObject:IsEmpty(...) end
+---@return any ...
+function ChatFrame5_historyBufferObject:IsFull(...) end
+---@return any ...
+function ChatFrame5_historyBufferObject:IsValidIndex(...) end
+---@return any ...
+function ChatFrame5_historyBufferObject:OnLoad(...) end
+---@return any ...
+function ChatFrame5_historyBufferObject:PushBack(...) end
+---@return any ...
+function ChatFrame5_historyBufferObject:PushFront(...) end
+---@return any ...
+function ChatFrame5_historyBufferObject:RemoveIf(...) end
+---@return any ...
+function ChatFrame5_historyBufferObject:ReplaceElements(...) end
+---@return any ...
+function ChatFrame5_historyBufferObject:ReverseEnumerateIndexedEntries(...) end
+---@return any ...
+function ChatFrame5_historyBufferObject:SetMaxNumElements(...) end
+---@return any ...
+function ChatFrame5_historyBufferObject:TransformIf(...) end
+end
+
+do
+---@class ChatFrame5EditBoxObject : EditBox
+---@field NewcomerHint ChatFrame5EditBox_NewcomerHintObject
+---@field addHighlightedText boolean
+---@field addSpaceToAutoComplete boolean
+---@field buttonContext string
+---@field chatFrame ChatFrame5EditBox_chatFrameObject
+---@field chatLanguage string
+---@field focusLeft ChatFrame5EditBox_focusLeftObject
+---@field focusMid ChatFrame5EditBox_focusMidObject
+---@field focusRight ChatFrame5EditBox_focusRightObject
+---@field header ChatFrame5EditBox_headerObject
+---@field headerSuffix ChatFrame5EditBox_headerSuffixObject
+---@field languageHeader ChatFrame5EditBox_languageHeaderObject
+---@field prompt ChatFrame5EditBox_promptObject
+---@field tabCompleteTableIndex number
+local ChatFrame5EditBoxObject = {}
+---@return any ...
+function ChatFrame5EditBoxObject:AddHistory(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:ClearChat(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:Deactivate(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:DoesCurrentChannelTargetMatch(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:ExtractChannel(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:ExtractTellTarget(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:GetChannelTarget(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:GetChatType(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:GetStickyType(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:GetTellTarget(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:HandleChatType(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:HasStickyFocus(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:OnChar(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:OnEditFocusGained(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:OnEditFocusLost(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:OnEnterPressed(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:OnEscapePressed(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:OnEvent(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:OnHide(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:OnInputLanguageChanged(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:OnLoad(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:OnPreSendText(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:OnShow(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:OnSpacePressed(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:OnTabPressed(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:OnTextChanged(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:OnTextSet(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:OnUpdate(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:ParseText(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:ProcessChatType(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:ResetChatType(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:ResetChatTypeToSticky(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:SecureTabPressed(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:SendMessage(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:SendText(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:SetChannelTarget(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:SetChatType(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:SetFocusRegionVertexColors(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:SetFocusRegionsShown(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:SetGameLanguage(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:SetStickyType(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:SetTellTarget(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:ShouldDeactivateChatOnEditFocusLost(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:UpdateHeader(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:UpdateLanguageHeader(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:UpdateNewcomerEditBoxHint(...) end
+---@return any ...
+function ChatFrame5EditBoxObject:customAutoCompleteFunction(...) end
+---@type ChatFrame5EditBoxObject
+ChatFrame5EditBox = ChatFrame5EditBoxObject
+end
+
+do
+---@class ChatFrame5EditBox_NewcomerHintObject : FontString
+local ChatFrame5EditBox_NewcomerHintObject = {}
+end
+
+do
+---@class ChatFrame5EditBox_chatFrameObject
+local ChatFrame5EditBox_chatFrameObject = {}
+end
+
+do
+---@class ChatFrame5EditBox_focusLeftObject : Texture
+local ChatFrame5EditBox_focusLeftObject = {}
+end
+
+do
+---@class ChatFrame5EditBox_focusMidObject : Texture
+local ChatFrame5EditBox_focusMidObject = {}
+end
+
+do
+---@class ChatFrame5EditBox_focusRightObject : Texture
+local ChatFrame5EditBox_focusRightObject = {}
+end
+
+do
+---@class ChatFrame5EditBox_headerObject : FontString
+local ChatFrame5EditBox_headerObject = {}
+end
+
+do
+---@class ChatFrame5EditBox_headerSuffixObject : FontString
+local ChatFrame5EditBox_headerSuffixObject = {}
+end
+
+do
+---@class ChatFrame5EditBox_languageHeaderObject : FontString
+local ChatFrame5EditBox_languageHeaderObject = {}
+end
+
+do
+---@class ChatFrame5EditBox_promptObject : FontString
+local ChatFrame5EditBox_promptObject = {}
+end
+
+do
+---@class ChatFrame6Object : Frame
+---@field Background ChatFrame6_BackgroundObject
+---@field FontStringContainer ChatFrame6_FontStringContainerObject
+---@field ResizeButton ChatFrame6_ResizeButtonObject
+---@field ScrollBar ChatFrame6_ScrollBarObject
+---@field ScrollToBottomButton ChatFrame6_ScrollToBottomButtonObject
+---@field allowScroll boolean
+---@field alternativeDefaultLanguage string
+---@field buttonFrame ChatFrame6_buttonFrameObject
+---@field buttonSide string
+---@field channelList table
+---@field clickAnywhereButton ChatFrame6_clickAnywhereButtonObject
+---@field defaultLanguage string
+---@field editBox ChatFrame6_editBoxObject
+---@field fadeDurationSecs number
+---@field fontObject ChatFrame6_fontObjectObject
+---@field hasOwnFontObject boolean
+---@field historyBuffer ChatFrame6_historyBufferObject
+---@field insertMode number
+---@field isDisplayDirty boolean
+---@field isInitialized number
+---@field isLayoutDirty boolean
+---@field isLocked boolean
+---@field isScrollingMessageFrame boolean
+---@field isUninteractable boolean
+---@field messageTypeList table
+---@field name string
+---@field oldAlpha number
+---@field oldestFadingLineTimestamp number
+---@field onDisplayRefreshedCallbacks table
+---@field overrideFadeTimestamp number
+---@field scrollOffset number
+---@field shouldFadeAfterInactivity boolean
+---@field smartNavRightStickMaxScrollSpeed number
+---@field textIsCopyable boolean
+---@field timeVisibleSecs number
+---@field visibleLines table
+---@field zoneChannelList table
+local ChatFrame6Object = {}
+---@return any ...
+function ChatFrame6Object:AcquireFontString(...) end
+---@return any ...
+function ChatFrame6Object:AcquireHighlightTexture(...) end
+---@return any ...
+function ChatFrame6Object:AddChannel(...) end
+---@return any ...
+function ChatFrame6Object:AddMessage(...) end
+---@return any ...
+function ChatFrame6Object:AddMessageGroup(...) end
+---@return any ...
+function ChatFrame6Object:AddOnDisplayRefreshedCallback(...) end
+---@return any ...
+function ChatFrame6Object:AddPrivateMessageTarget(...) end
+---@return any ...
+function ChatFrame6Object:AddSingleMessageType(...) end
+---@return any ...
+function ChatFrame6Object:AdjustMessageColors(...) end
+---@return any ...
+function ChatFrame6Object:AtBottom(...) end
+---@return any ...
+function ChatFrame6Object:AtTop(...) end
+---@return any ...
+function ChatFrame6Object:BackFillMessage(...) end
+---@return any ...
+function ChatFrame6Object:CalculateLineAlphaValueFromTimestamp(...) end
+---@return any ...
+function ChatFrame6Object:CalculateLineSpacing(...) end
+---@return any ...
+function ChatFrame6Object:CalculateNumVisibleLines(...) end
+---@return any ...
+function ChatFrame6Object:CalculateSelectingCharacterIndicesForVisibleLine(...) end
+---@return any ...
+function ChatFrame6Object:CallOnDisplayRefreshed(...) end
+---@return any ...
+function ChatFrame6Object:CanEffectivelyFade(...) end
+---@return any ...
+function ChatFrame6Object:Clear(...) end
+---@return any ...
+function ChatFrame6Object:ClearGamepadFocus(...) end
+---@return any ...
+function ChatFrame6Object:ConfigEventHandler(...) end
+---@return any ...
+function ChatFrame6Object:ContainsChannel(...) end
+---@return any ...
+function ChatFrame6Object:ContainsMessageGroup(...) end
+---@return any ...
+function ChatFrame6Object:CreateFooter(...) end
+---@return any ...
+function ChatFrame6Object:DontRestoreGamepadFocusOnMenuClose(...) end
+---@return any ...
+function ChatFrame6Object:ExcludePrivateMessageTarget(...) end
+---@return any ...
+function ChatFrame6Object:FindCharacterAndLineIndexAtCoordinate(...) end
+---@return any ...
+function ChatFrame6Object:FocusGamepad(...) end
+---@return any ...
+function ChatFrame6Object:ForEachMessage(...) end
+---@return any ...
+function ChatFrame6Object:ForEachMessageInfoText(...) end
+---@return any ...
+function ChatFrame6Object:ForEachVisibleLineText(...) end
+---@return any ...
+function ChatFrame6Object:GatherSelectedText(...) end
+---@return any ...
+function ChatFrame6Object:GetDefaultChatTarget(...) end
+---@return any ...
+function ChatFrame6Object:GetFadeDuration(...) end
+---@return any ...
+function ChatFrame6Object:GetFading(...) end
+---@return any ...
+function ChatFrame6Object:GetFont(...) end
+---@return any ...
+function ChatFrame6Object:GetFontObject(...) end
+---@return any ...
+function ChatFrame6Object:GetIndentedWordWrap(...) end
+---@return any ...
+function ChatFrame6Object:GetInsertMode(...) end
+---@return any ...
+function ChatFrame6Object:GetJustifyH(...) end
+---@return any ...
+function ChatFrame6Object:GetJustifyV(...) end
+---@return any ...
+function ChatFrame6Object:GetMaxLines(...) end
+---@return any ...
+function ChatFrame6Object:GetMaxScrollRange(...) end
+---@return any ...
+function ChatFrame6Object:GetMessageInfo(...) end
+---@return any ...
+function ChatFrame6Object:GetNumMessages(...) end
+---@return any ...
+function ChatFrame6Object:GetNumVisibleLines(...) end
+---@return any ...
+function ChatFrame6Object:GetOnLineRightClickedCallback(...) end
+---@return any ...
+function ChatFrame6Object:GetOnScrollChangedCallback(...) end
+---@return any ...
+function ChatFrame6Object:GetOnTextCopiedCallback(...) end
+---@return any ...
+function ChatFrame6Object:GetPagingScrollAmount(...) end
+---@return any ...
+function ChatFrame6Object:GetScaledCursorPosition(...) end
+---@return any ...
+function ChatFrame6Object:GetScrollOffset(...) end
+---@return any ...
+function ChatFrame6Object:GetShadowColor(...) end
+---@return any ...
+function ChatFrame6Object:GetShadowOffset(...) end
+---@return any ...
+function ChatFrame6Object:GetSpacing(...) end
+---@return any ...
+function ChatFrame6Object:GetTextColor(...) end
+---@return any ...
+function ChatFrame6Object:GetTimeVisible(...) end
+---@return any ...
+function ChatFrame6Object:HasFontObject(...) end
+---@return any ...
+function ChatFrame6Object:HasGamepadFocus(...) end
+---@return any ...
+function ChatFrame6Object:InitializeFontString(...) end
+---@return any ...
+function ChatFrame6Object:InitializeFontableFrame(...) end
+---@return any ...
+function ChatFrame6Object:InitializeGamepad(...) end
+---@return any ...
+function ChatFrame6Object:IsGamepadMenuOpen(...) end
+---@return any ...
+function ChatFrame6Object:IsScrollAllowed(...) end
+---@return any ...
+function ChatFrame6Object:IsSelectingText(...) end
+---@return any ...
+function ChatFrame6Object:IsTextCopyable(...) end
+---@return any ...
+function ChatFrame6Object:MakeFontObjectCustom(...) end
+---@return any ...
+function ChatFrame6Object:MarkDisplayDirty(...) end
+---@return any ...
+function ChatFrame6Object:MarkLayoutDirty(...) end
+---@return any ...
+function ChatFrame6Object:MessageEventHandler(...) end
+---@return any ...
+function ChatFrame6Object:OnColorsUpdated(...) end
+---@return any ...
+function ChatFrame6Object:OnEvent(...) end
+---@return any ...
+function ChatFrame6Object:OnFontObjectUpdated(...) end
+---@return any ...
+function ChatFrame6Object:OnHide(...) end
+---@return any ...
+function ChatFrame6Object:OnHyperlinkClick(...) end
+---@return any ...
+function ChatFrame6Object:OnHyperlinkEnter(...) end
+---@return any ...
+function ChatFrame6Object:OnHyperlinkLeave(...) end
+---@return any ...
+function ChatFrame6Object:OnLoad(...) end
+---@return any ...
+function ChatFrame6Object:OnPostEvent(...) end
+---@return any ...
+function ChatFrame6Object:OnPostHide(...) end
+---@return any ...
+function ChatFrame6Object:OnPostMouseDown(...) end
+---@return any ...
+function ChatFrame6Object:OnPostMouseUp(...) end
+---@return any ...
+function ChatFrame6Object:OnPostShow(...) end
+---@return any ...
+function ChatFrame6Object:OnPostUpdate(...) end
+---@return any ...
+function ChatFrame6Object:OnPreLoad(...) end
+---@return any ...
+function ChatFrame6Object:OnPreSizeChanged(...) end
+---@return any ...
+function ChatFrame6Object:OnUpdate(...) end
+---@return any ...
+function ChatFrame6Object:OpenChatChannelsMenu(...) end
+---@return any ...
+function ChatFrame6Object:OpenGamepadTabMenu(...) end
+---@return any ...
+function ChatFrame6Object:PackageEntry(...) end
+---@return any ...
+function ChatFrame6Object:PageDown(...) end
+---@return any ...
+function ChatFrame6Object:PageUp(...) end
+---@return any ...
+function ChatFrame6Object:PlayerLevelChanged(...) end
+---@return any ...
+function ChatFrame6Object:PlayerLevelUp(...) end
+---@return any ...
+function ChatFrame6Object:ReceiveAllPrivateMessages(...) end
+---@return any ...
+function ChatFrame6Object:RefreshDisplay(...) end
+---@return any ...
+function ChatFrame6Object:RefreshIfNecessary(...) end
+---@return any ...
+function ChatFrame6Object:RefreshLayout(...) end
+---@return any ...
+function ChatFrame6Object:RegisterForChannels(...) end
+---@return any ...
+function ChatFrame6Object:RegisterForInterfaceTransitions(...) end
+---@return any ...
+function ChatFrame6Object:RegisterForMessages(...) end
+---@return any ...
+function ChatFrame6Object:RemoveAllChannels(...) end
+---@return any ...
+function ChatFrame6Object:RemoveAllMessageGroups(...) end
+---@return any ...
+function ChatFrame6Object:RemoveChannel(...) end
+---@return any ...
+function ChatFrame6Object:RemoveExcludePrivateMessageTarget(...) end
+---@return any ...
+function ChatFrame6Object:RemoveMessageGroup(...) end
+---@return any ...
+function ChatFrame6Object:RemoveMessagesByPredicate(...) end
+---@return any ...
+function ChatFrame6Object:RemovePrivateMessageTarget(...) end
+---@return any ...
+function ChatFrame6Object:ResetAllFadeTimes(...) end
+---@return any ...
+function ChatFrame6Object:ResetSelectingText(...) end
+---@return any ...
+function ChatFrame6Object:ScrollByAmount(...) end
+---@return any ...
+function ChatFrame6Object:ScrollDown(...) end
+---@return any ...
+function ChatFrame6Object:ScrollToBottom(...) end
+---@return any ...
+function ChatFrame6Object:ScrollToTop(...) end
+---@return any ...
+function ChatFrame6Object:ScrollUp(...) end
+---@return any ...
+function ChatFrame6Object:SetChannelEnabled(...) end
+---@return any ...
+function ChatFrame6Object:SetFadeDuration(...) end
+---@return any ...
+function ChatFrame6Object:SetFading(...) end
+---@return any ...
+function ChatFrame6Object:SetFont(...) end
+---@return any ...
+function ChatFrame6Object:SetFontObject(...) end
+---@return any ...
+function ChatFrame6Object:SetGamepadFocus(...) end
+---@return any ...
+function ChatFrame6Object:SetIndentedWordWrap(...) end
+---@return any ...
+function ChatFrame6Object:SetInsertMode(...) end
+---@return any ...
+function ChatFrame6Object:SetJustifyH(...) end
+---@return any ...
+function ChatFrame6Object:SetJustifyV(...) end
+---@return any ...
+function ChatFrame6Object:SetMaxLines(...) end
+---@return any ...
+function ChatFrame6Object:SetOnLineRightClickedCallback(...) end
+---@return any ...
+function ChatFrame6Object:SetOnScrollChangedCallback(...) end
+---@return any ...
+function ChatFrame6Object:SetOnTextCopiedCallback(...) end
+---@return any ...
+function ChatFrame6Object:SetScrollAllowed(...) end
+---@return any ...
+function ChatFrame6Object:SetScrollOffset(...) end
+---@return any ...
+function ChatFrame6Object:SetShadowColor(...) end
+---@return any ...
+function ChatFrame6Object:SetShadowOffset(...) end
+---@return any ...
+function ChatFrame6Object:SetSpacing(...) end
+---@return any ...
+function ChatFrame6Object:SetTextColor(...) end
+---@return any ...
+function ChatFrame6Object:SetTextCopyable(...) end
+---@return any ...
+function ChatFrame6Object:SetTimeVisible(...) end
+---@return any ...
+function ChatFrame6Object:SetupGamepad(...) end
+---@return any ...
+function ChatFrame6Object:SmartNavigationCloseHandler(...) end
+---@return any ...
+function ChatFrame6Object:SystemEventHandler(...) end
+---@return any ...
+function ChatFrame6Object:TransformMessages(...) end
+---@return any ...
+function ChatFrame6Object:UnfocusGamepad(...) end
+---@return any ...
+function ChatFrame6Object:UninitializeGamepad(...) end
+---@return any ...
+function ChatFrame6Object:UnpackageEntry(...) end
+---@return any ...
+function ChatFrame6Object:UnregisterAllMessageGroups(...) end
+---@return any ...
+function ChatFrame6Object:UpdateColorByID(...) end
+---@return any ...
+function ChatFrame6Object:UpdateDefaultChatTarget(...) end
+---@return any ...
+function ChatFrame6Object:UpdateFading(...) end
+---@return any ...
+function ChatFrame6Object:UpdateSelectingText(...) end
+---@type ChatFrame6Object
+ChatFrame6 = ChatFrame6Object
+end
+
+do
+---@class ChatFrame6_BackgroundObject : Texture
+local ChatFrame6_BackgroundObject = {}
+end
+
+do
+---@class ChatFrame6_FontStringContainerObject : Frame
+local ChatFrame6_FontStringContainerObject = {}
+end
+
+do
+---@class ChatFrame6_ResizeButtonObject : Button
+local ChatFrame6_ResizeButtonObject = {}
+end
+
+do
+---@class ChatFrame6_ScrollBarObject : Frame
+---@field Back ChatFrame6_ScrollBar_BackObject
+---@field Defaults ChatFrame6_ScrollBar_DefaultsObject
+---@field Directions ChatFrame6_ScrollBar_DirectionsObject
+---@field Event ChatFrame6_ScrollBar_EventObject
+---@field Forward ChatFrame6_ScrollBar_ForwardObject
+---@field Track ChatFrame6_ScrollBar_TrackObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field hideTrack boolean
+---@field hideTrackIfThumbExceedsTrack boolean
+---@field internalPriority boolean
+---@field isScrollController boolean
+---@field minThumbExtent number
+---@field panDelay number
+---@field panExtentPercentage number
+---@field panRepeatTime number
+---@field smartNavigationIgnored boolean
+---@field snapToInterval boolean
+---@field thumbAnchor string
+---@field useProportionalThumb boolean
+---@field visibleExtentPercentage number
+---@field wheelPanScalar number
+local ChatFrame6_ScrollBarObject = {}
+---@return any ...
+function ChatFrame6_ScrollBarObject:CallInternalScope(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:CanCursorStepInDirection(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:CanInterpolateScroll(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:DisableControls(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:EnableInternalPriority(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:EnableSnapToInterval(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:GenerateCallbackEvents(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:GetBackStepper(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:GetCallbackTable(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:GetCallbackTables(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:GetCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:GetForwardStepper(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:GetFrameExtent(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:GetIntervalRange(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:GetLower(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:GetPanExtentPercentage(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:GetPanRepeatDelay(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:GetPanRepeatTime(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:GetScrollInterpolator(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:GetScrollPercentage(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:GetThumb(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:GetThumbAnchor(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:GetTrack(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:GetTrackExtent(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:GetUpper(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:GetWheelPanPercentage(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:HasScrollableExtent(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:Init(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:InitializeNarration(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:Interpolate(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:IsAtBegin(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:IsAtEnd(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:IsHorizontal(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:IsScrollAllowed(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:IsThumbMouseDown(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:OnHide_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:OnLoad(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:OnMouseWheel(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:OnShow_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:OnStepperMouseDown(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:OnThumbMouseDown(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:OnTrackMouseDown(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:RegisterCallback(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:ScrollDecrease(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:ScrollInDirection(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:ScrollIncrease(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:ScrollPageInDirection(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:ScrollStepInDirection(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:ScrollToBegin(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:ScrollToEnd(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:ScrollWheelInDirection(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:SecureInsertEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:SelectCursorComponent(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:SelectPointComponent(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:SetFrameExtent(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:SetHideIfUnscrollable(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:SetHorizontal(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:SetInterpolateScroll(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:SetPanExtentPercentage(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:SetScrollAllowed(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:SetScrollPercentage(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:SetThumbExtent(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:SetVisibleExtentPercentage(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:TriggerEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:UnregisterCallback(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:UnregisterEvents(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:UnregisterUpdate(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:Update(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:onButtonMouseUp(...) end
+---@return any ...
+function ChatFrame6_ScrollBarObject:scrollInternal(...) end
+end
+
+do
+---@class ChatFrame6_ScrollBar_BackObject : Button
+---@field Event ChatFrame6_ScrollBar_Back_EventObject
+---@field Texture ChatFrame6_ScrollBar_Back_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local ChatFrame6_ScrollBar_BackObject = {}
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:GetAtlas(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:GetCallbackTable(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:GetCallbackTables(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:IsDown(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:IsDownOver(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:IsOver(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:NarrationGetName(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:OnButtonStateChanged(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:OnDisable(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:OnEnable(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:OnEnter(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:OnLeave(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:OnLoad(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:OnMouseDown(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:OnMouseUp(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:OnShow(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:RegisterCallback(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:SecureInsertEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:SetDisplacedRegions(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:TriggerEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:UnregisterCallback(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:UnregisterEvents(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class ChatFrame6_ScrollBar_Back_EventObject
+local ChatFrame6_ScrollBar_Back_EventObject = {}
+end
+
+do
+---@class ChatFrame6_ScrollBar_Back_TextureObject : Texture
+local ChatFrame6_ScrollBar_Back_TextureObject = {}
+end
+
+do
+---@class ChatFrame6_ScrollBar_DefaultsObject
+local ChatFrame6_ScrollBar_DefaultsObject = {}
+end
+
+do
+---@class ChatFrame6_ScrollBar_DirectionsObject
+local ChatFrame6_ScrollBar_DirectionsObject = {}
+end
+
+do
+---@class ChatFrame6_ScrollBar_EventObject
+local ChatFrame6_ScrollBar_EventObject = {}
+end
+
+do
+---@class ChatFrame6_ScrollBar_ForwardObject : Button
+---@field Event ChatFrame6_ScrollBar_Forward_EventObject
+---@field Texture ChatFrame6_ScrollBar_Forward_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local ChatFrame6_ScrollBar_ForwardObject = {}
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:GetAtlas(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:GetCallbackTable(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:GetCallbackTables(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:IsDown(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:IsDownOver(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:IsOver(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:NarrationGetName(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:OnDisable(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:OnEnable(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:OnEnter(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:OnLeave(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:OnLoad(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:OnMouseDown(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:OnMouseUp(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:OnShow(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:RegisterCallback(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:TriggerEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:UnregisterCallback(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:UnregisterEvents(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class ChatFrame6_ScrollBar_Forward_EventObject
+local ChatFrame6_ScrollBar_Forward_EventObject = {}
+end
+
+do
+---@class ChatFrame6_ScrollBar_Forward_TextureObject : Texture
+local ChatFrame6_ScrollBar_Forward_TextureObject = {}
+end
+
+do
+---@class ChatFrame6_ScrollBar_TrackObject : Frame
+---@field Begin ChatFrame6_ScrollBar_Track_BeginObject
+---@field End ChatFrame6_ScrollBar_Track_EndObject
+---@field Middle ChatFrame6_ScrollBar_Track_MiddleObject
+---@field Thumb ChatFrame6_ScrollBar_Track_ThumbObject
+local ChatFrame6_ScrollBar_TrackObject = {}
+end
+
+do
+---@class ChatFrame6_ScrollBar_Track_BeginObject : Texture
+local ChatFrame6_ScrollBar_Track_BeginObject = {}
+end
+
+do
+---@class ChatFrame6_ScrollBar_Track_EndObject : Texture
+local ChatFrame6_ScrollBar_Track_EndObject = {}
+end
+
+do
+---@class ChatFrame6_ScrollBar_Track_MiddleObject : Texture
+local ChatFrame6_ScrollBar_Track_MiddleObject = {}
+end
+
+do
+---@class ChatFrame6_ScrollBar_Track_ThumbObject : Button
+---@field Begin ChatFrame6_ScrollBar_Track_Thumb_BeginObject
+---@field End ChatFrame6_ScrollBar_Track_Thumb_EndObject
+---@field Event ChatFrame6_ScrollBar_Track_Thumb_EventObject
+---@field Middle ChatFrame6_ScrollBar_Track_Thumb_MiddleObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field downBeginTexture string
+---@field downEndTexture string
+---@field downMiddleTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field overBeginTexture string
+---@field overEndTexture string
+---@field overMiddleTexture string
+---@field upBeginTexture string
+---@field upEndTexture string
+---@field upMiddleTexture string
+local ChatFrame6_ScrollBar_Track_ThumbObject = {}
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:IsDown(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:IsOver(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:OnDisable(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:OnEnable(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:OnEnter(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:OnLeave(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:OnLoad(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:OnShow(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+---@return any ...
+function ChatFrame6_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class ChatFrame6_ScrollBar_Track_Thumb_BeginObject : Texture
+local ChatFrame6_ScrollBar_Track_Thumb_BeginObject = {}
+end
+
+do
+---@class ChatFrame6_ScrollBar_Track_Thumb_EndObject : Texture
+local ChatFrame6_ScrollBar_Track_Thumb_EndObject = {}
+end
+
+do
+---@class ChatFrame6_ScrollBar_Track_Thumb_EventObject
+local ChatFrame6_ScrollBar_Track_Thumb_EventObject = {}
+end
+
+do
+---@class ChatFrame6_ScrollBar_Track_Thumb_MiddleObject : Texture
+local ChatFrame6_ScrollBar_Track_Thumb_MiddleObject = {}
+end
+
+do
+---@class ChatFrame6_ScrollToBottomButtonObject : Button
+---@field Flash ChatFrame6_ScrollToBottomButton_FlashObject
+---@field smartNavigationIgnored boolean
+local ChatFrame6_ScrollToBottomButtonObject = {}
+end
+
+do
+---@class ChatFrame6_ScrollToBottomButton_FlashObject : Texture
+---@field FlashAnim ChatFrame6_ScrollToBottomButton_Flash_FlashAnimObject
+local ChatFrame6_ScrollToBottomButton_FlashObject = {}
+end
+
+do
+---@class ChatFrame6_ScrollToBottomButton_Flash_FlashAnimObject : AnimationGroup
+---@field FadeIn ChatFrame6_ScrollToBottomButton_Flash_FlashAnim_FadeInObject
+---@field FadeOut ChatFrame6_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject
+local ChatFrame6_ScrollToBottomButton_Flash_FlashAnimObject = {}
+end
+
+do
+---@class ChatFrame6_ScrollToBottomButton_Flash_FlashAnim_FadeInObject : Alpha
+local ChatFrame6_ScrollToBottomButton_Flash_FlashAnim_FadeInObject = {}
+end
+
+do
+---@class ChatFrame6_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject : Alpha
+local ChatFrame6_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject = {}
+end
+
+do
+---@class ChatFrame6_buttonFrameObject : Frame
+---@field Background ChatFrame6_buttonFrame_BackgroundObject
+---@field minimizeButton ChatFrame6_buttonFrame_minimizeButtonObject
+local ChatFrame6_buttonFrameObject = {}
+end
+
+do
+---@class ChatFrame6_buttonFrame_BackgroundObject : Texture
+local ChatFrame6_buttonFrame_BackgroundObject = {}
+end
+
+do
+---@class ChatFrame6_buttonFrame_minimizeButtonObject : Button
+local ChatFrame6_buttonFrame_minimizeButtonObject = {}
+end
+
+do
+---@class ChatFrame6_clickAnywhereButtonObject : Button
+local ChatFrame6_clickAnywhereButtonObject = {}
+---@return any ...
+function ChatFrame6_clickAnywhereButtonObject:OnClick(...) end
+---@return any ...
+function ChatFrame6_clickAnywhereButtonObject:OnEvent(...) end
+---@return any ...
+function ChatFrame6_clickAnywhereButtonObject:OnLoad(...) end
+---@return any ...
+function ChatFrame6_clickAnywhereButtonObject:UpdateState(...) end
+end
+
+do
+---@class ChatFrame6_editBoxObject
+local ChatFrame6_editBoxObject = {}
+end
+
+do
+---@class ChatFrame6_fontObjectObject
+local ChatFrame6_fontObjectObject = {}
+end
+
+do
+---@class ChatFrame6_historyBufferObject
+---@field elements table
+---@field headIndex table
+---@field maxElements table
+local ChatFrame6_historyBufferObject = {}
+---@return any ...
+function ChatFrame6_historyBufferObject:CalculateElementIndex(...) end
+---@return any ...
+function ChatFrame6_historyBufferObject:CalculateElementIndexFromGlobalIndex(...) end
+---@return any ...
+function ChatFrame6_historyBufferObject:Clear(...) end
+---@return any ...
+function ChatFrame6_historyBufferObject:EnumerateIndexedEntries(...) end
+---@return any ...
+function ChatFrame6_historyBufferObject:GetEntryAtIndex(...) end
+---@return any ...
+function ChatFrame6_historyBufferObject:GetMaxNumElements(...) end
+---@return any ...
+function ChatFrame6_historyBufferObject:GetNumElements(...) end
+---@return any ...
+function ChatFrame6_historyBufferObject:IsEmpty(...) end
+---@return any ...
+function ChatFrame6_historyBufferObject:IsFull(...) end
+---@return any ...
+function ChatFrame6_historyBufferObject:IsValidIndex(...) end
+---@return any ...
+function ChatFrame6_historyBufferObject:OnLoad(...) end
+---@return any ...
+function ChatFrame6_historyBufferObject:PushBack(...) end
+---@return any ...
+function ChatFrame6_historyBufferObject:PushFront(...) end
+---@return any ...
+function ChatFrame6_historyBufferObject:RemoveIf(...) end
+---@return any ...
+function ChatFrame6_historyBufferObject:ReplaceElements(...) end
+---@return any ...
+function ChatFrame6_historyBufferObject:ReverseEnumerateIndexedEntries(...) end
+---@return any ...
+function ChatFrame6_historyBufferObject:SetMaxNumElements(...) end
+---@return any ...
+function ChatFrame6_historyBufferObject:TransformIf(...) end
+end
+
+do
+---@class ChatFrame6EditBoxObject : EditBox
+---@field NewcomerHint ChatFrame6EditBox_NewcomerHintObject
+---@field addHighlightedText boolean
+---@field addSpaceToAutoComplete boolean
+---@field buttonContext string
+---@field chatFrame ChatFrame6EditBox_chatFrameObject
+---@field chatLanguage string
+---@field focusLeft ChatFrame6EditBox_focusLeftObject
+---@field focusMid ChatFrame6EditBox_focusMidObject
+---@field focusRight ChatFrame6EditBox_focusRightObject
+---@field header ChatFrame6EditBox_headerObject
+---@field headerSuffix ChatFrame6EditBox_headerSuffixObject
+---@field languageHeader ChatFrame6EditBox_languageHeaderObject
+---@field prompt ChatFrame6EditBox_promptObject
+---@field tabCompleteTableIndex number
+local ChatFrame6EditBoxObject = {}
+---@return any ...
+function ChatFrame6EditBoxObject:AddHistory(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:ClearChat(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:Deactivate(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:DoesCurrentChannelTargetMatch(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:ExtractChannel(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:ExtractTellTarget(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:GetChannelTarget(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:GetChatType(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:GetStickyType(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:GetTellTarget(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:HandleChatType(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:HasStickyFocus(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:OnChar(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:OnEditFocusGained(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:OnEditFocusLost(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:OnEnterPressed(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:OnEscapePressed(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:OnEvent(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:OnHide(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:OnInputLanguageChanged(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:OnLoad(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:OnPreSendText(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:OnShow(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:OnSpacePressed(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:OnTabPressed(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:OnTextChanged(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:OnTextSet(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:OnUpdate(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:ParseText(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:ProcessChatType(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:ResetChatType(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:ResetChatTypeToSticky(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:SecureTabPressed(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:SendMessage(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:SendText(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:SetChannelTarget(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:SetChatType(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:SetFocusRegionVertexColors(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:SetFocusRegionsShown(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:SetGameLanguage(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:SetStickyType(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:SetTellTarget(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:ShouldDeactivateChatOnEditFocusLost(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:UpdateHeader(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:UpdateLanguageHeader(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:UpdateNewcomerEditBoxHint(...) end
+---@return any ...
+function ChatFrame6EditBoxObject:customAutoCompleteFunction(...) end
+---@type ChatFrame6EditBoxObject
+ChatFrame6EditBox = ChatFrame6EditBoxObject
+end
+
+do
+---@class ChatFrame6EditBox_NewcomerHintObject : FontString
+local ChatFrame6EditBox_NewcomerHintObject = {}
+end
+
+do
+---@class ChatFrame6EditBox_chatFrameObject
+local ChatFrame6EditBox_chatFrameObject = {}
+end
+
+do
+---@class ChatFrame6EditBox_focusLeftObject : Texture
+local ChatFrame6EditBox_focusLeftObject = {}
+end
+
+do
+---@class ChatFrame6EditBox_focusMidObject : Texture
+local ChatFrame6EditBox_focusMidObject = {}
+end
+
+do
+---@class ChatFrame6EditBox_focusRightObject : Texture
+local ChatFrame6EditBox_focusRightObject = {}
+end
+
+do
+---@class ChatFrame6EditBox_headerObject : FontString
+local ChatFrame6EditBox_headerObject = {}
+end
+
+do
+---@class ChatFrame6EditBox_headerSuffixObject : FontString
+local ChatFrame6EditBox_headerSuffixObject = {}
+end
+
+do
+---@class ChatFrame6EditBox_languageHeaderObject : FontString
+local ChatFrame6EditBox_languageHeaderObject = {}
+end
+
+do
+---@class ChatFrame6EditBox_promptObject : FontString
+local ChatFrame6EditBox_promptObject = {}
+end
+
+do
+---@class ChatFrame6TabObject : Button
+---@field ActiveLeft ChatFrame6Tab_ActiveLeftObject
+---@field ActiveMiddle ChatFrame6Tab_ActiveMiddleObject
+---@field ActiveRight ChatFrame6Tab_ActiveRightObject
+---@field HighlightLeft ChatFrame6Tab_HighlightLeftObject
+---@field HighlightMiddle ChatFrame6Tab_HighlightMiddleObject
+---@field HighlightRight ChatFrame6Tab_HighlightRightObject
+---@field Left ChatFrame6Tab_LeftObject
+---@field Middle ChatFrame6Tab_MiddleObject
+---@field Right ChatFrame6Tab_RightObject
+---@field Text ChatFrame6Tab_TextObject
+---@field glow ChatFrame6Tab_glowObject
+---@field textWidth number
+local ChatFrame6TabObject = {}
+---@type ChatFrame6TabObject
+ChatFrame6Tab = ChatFrame6TabObject
+end
+
+do
+---@class ChatFrame6Tab_ActiveLeftObject : Texture
+local ChatFrame6Tab_ActiveLeftObject = {}
+end
+
+do
+---@class ChatFrame6Tab_ActiveMiddleObject : Texture
+local ChatFrame6Tab_ActiveMiddleObject = {}
+end
+
+do
+---@class ChatFrame6Tab_ActiveRightObject : Texture
+local ChatFrame6Tab_ActiveRightObject = {}
+end
+
+do
+---@class ChatFrame6Tab_HighlightLeftObject : Texture
+local ChatFrame6Tab_HighlightLeftObject = {}
+end
+
+do
+---@class ChatFrame6Tab_HighlightMiddleObject : Texture
+local ChatFrame6Tab_HighlightMiddleObject = {}
+end
+
+do
+---@class ChatFrame6Tab_HighlightRightObject : Texture
+local ChatFrame6Tab_HighlightRightObject = {}
+end
+
+do
+---@class ChatFrame6Tab_LeftObject : Texture
+local ChatFrame6Tab_LeftObject = {}
+end
+
+do
+---@class ChatFrame6Tab_MiddleObject : Texture
+local ChatFrame6Tab_MiddleObject = {}
+end
+
+do
+---@class ChatFrame6Tab_RightObject : Texture
+local ChatFrame6Tab_RightObject = {}
+end
+
+do
+---@class ChatFrame6Tab_TextObject : FontString
+local ChatFrame6Tab_TextObject = {}
+end
+
+do
+---@class ChatFrame6Tab_glowObject : Texture
+---@field FlashAnim ChatFrame6Tab_glow_FlashAnimObject
+local ChatFrame6Tab_glowObject = {}
+end
+
+do
+---@class ChatFrame6Tab_glow_FlashAnimObject : AnimationGroup
+---@field syncKey string
+local ChatFrame6Tab_glow_FlashAnimObject = {}
+---@return any ...
+function ChatFrame6Tab_glow_FlashAnimObject:ClearSyncedStart(...) end
+---@return any ...
+function ChatFrame6Tab_glow_FlashAnimObject:GetTimeSinceSyncTimeForKey(...) end
+---@return any ...
+function ChatFrame6Tab_glow_FlashAnimObject:PlaySynced(...) end
+end
+
+do
+---@class ChatFrame7Object : Frame
+---@field Background ChatFrame7_BackgroundObject
+---@field FontStringContainer ChatFrame7_FontStringContainerObject
+---@field ResizeButton ChatFrame7_ResizeButtonObject
+---@field ScrollBar ChatFrame7_ScrollBarObject
+---@field ScrollToBottomButton ChatFrame7_ScrollToBottomButtonObject
+---@field allowScroll boolean
+---@field alternativeDefaultLanguage string
+---@field buttonFrame ChatFrame7_buttonFrameObject
+---@field buttonSide string
+---@field channelList table
+---@field clickAnywhereButton ChatFrame7_clickAnywhereButtonObject
+---@field defaultLanguage string
+---@field editBox ChatFrame7_editBoxObject
+---@field fadeDurationSecs number
+---@field fontObject ChatFrame7_fontObjectObject
+---@field hasOwnFontObject boolean
+---@field historyBuffer ChatFrame7_historyBufferObject
+---@field insertMode number
+---@field isDisplayDirty boolean
+---@field isInitialized number
+---@field isLayoutDirty boolean
+---@field isLocked boolean
+---@field isScrollingMessageFrame boolean
+---@field isUninteractable boolean
+---@field messageTypeList table
+---@field name string
+---@field oldAlpha number
+---@field oldestFadingLineTimestamp number
+---@field onDisplayRefreshedCallbacks table
+---@field overrideFadeTimestamp number
+---@field scrollOffset number
+---@field shouldFadeAfterInactivity boolean
+---@field smartNavRightStickMaxScrollSpeed number
+---@field textIsCopyable boolean
+---@field timeVisibleSecs number
+---@field visibleLines table
+---@field zoneChannelList table
+local ChatFrame7Object = {}
+---@return any ...
+function ChatFrame7Object:AcquireFontString(...) end
+---@return any ...
+function ChatFrame7Object:AcquireHighlightTexture(...) end
+---@return any ...
+function ChatFrame7Object:AddChannel(...) end
+---@return any ...
+function ChatFrame7Object:AddMessage(...) end
+---@return any ...
+function ChatFrame7Object:AddMessageGroup(...) end
+---@return any ...
+function ChatFrame7Object:AddOnDisplayRefreshedCallback(...) end
+---@return any ...
+function ChatFrame7Object:AddPrivateMessageTarget(...) end
+---@return any ...
+function ChatFrame7Object:AddSingleMessageType(...) end
+---@return any ...
+function ChatFrame7Object:AdjustMessageColors(...) end
+---@return any ...
+function ChatFrame7Object:AtBottom(...) end
+---@return any ...
+function ChatFrame7Object:AtTop(...) end
+---@return any ...
+function ChatFrame7Object:BackFillMessage(...) end
+---@return any ...
+function ChatFrame7Object:CalculateLineAlphaValueFromTimestamp(...) end
+---@return any ...
+function ChatFrame7Object:CalculateLineSpacing(...) end
+---@return any ...
+function ChatFrame7Object:CalculateNumVisibleLines(...) end
+---@return any ...
+function ChatFrame7Object:CalculateSelectingCharacterIndicesForVisibleLine(...) end
+---@return any ...
+function ChatFrame7Object:CallOnDisplayRefreshed(...) end
+---@return any ...
+function ChatFrame7Object:CanEffectivelyFade(...) end
+---@return any ...
+function ChatFrame7Object:Clear(...) end
+---@return any ...
+function ChatFrame7Object:ClearGamepadFocus(...) end
+---@return any ...
+function ChatFrame7Object:ConfigEventHandler(...) end
+---@return any ...
+function ChatFrame7Object:ContainsChannel(...) end
+---@return any ...
+function ChatFrame7Object:ContainsMessageGroup(...) end
+---@return any ...
+function ChatFrame7Object:CreateFooter(...) end
+---@return any ...
+function ChatFrame7Object:DontRestoreGamepadFocusOnMenuClose(...) end
+---@return any ...
+function ChatFrame7Object:ExcludePrivateMessageTarget(...) end
+---@return any ...
+function ChatFrame7Object:FindCharacterAndLineIndexAtCoordinate(...) end
+---@return any ...
+function ChatFrame7Object:FocusGamepad(...) end
+---@return any ...
+function ChatFrame7Object:ForEachMessage(...) end
+---@return any ...
+function ChatFrame7Object:ForEachMessageInfoText(...) end
+---@return any ...
+function ChatFrame7Object:ForEachVisibleLineText(...) end
+---@return any ...
+function ChatFrame7Object:GatherSelectedText(...) end
+---@return any ...
+function ChatFrame7Object:GetDefaultChatTarget(...) end
+---@return any ...
+function ChatFrame7Object:GetFadeDuration(...) end
+---@return any ...
+function ChatFrame7Object:GetFading(...) end
+---@return any ...
+function ChatFrame7Object:GetFont(...) end
+---@return any ...
+function ChatFrame7Object:GetFontObject(...) end
+---@return any ...
+function ChatFrame7Object:GetIndentedWordWrap(...) end
+---@return any ...
+function ChatFrame7Object:GetInsertMode(...) end
+---@return any ...
+function ChatFrame7Object:GetJustifyH(...) end
+---@return any ...
+function ChatFrame7Object:GetJustifyV(...) end
+---@return any ...
+function ChatFrame7Object:GetMaxLines(...) end
+---@return any ...
+function ChatFrame7Object:GetMaxScrollRange(...) end
+---@return any ...
+function ChatFrame7Object:GetMessageInfo(...) end
+---@return any ...
+function ChatFrame7Object:GetNumMessages(...) end
+---@return any ...
+function ChatFrame7Object:GetNumVisibleLines(...) end
+---@return any ...
+function ChatFrame7Object:GetOnLineRightClickedCallback(...) end
+---@return any ...
+function ChatFrame7Object:GetOnScrollChangedCallback(...) end
+---@return any ...
+function ChatFrame7Object:GetOnTextCopiedCallback(...) end
+---@return any ...
+function ChatFrame7Object:GetPagingScrollAmount(...) end
+---@return any ...
+function ChatFrame7Object:GetScaledCursorPosition(...) end
+---@return any ...
+function ChatFrame7Object:GetScrollOffset(...) end
+---@return any ...
+function ChatFrame7Object:GetShadowColor(...) end
+---@return any ...
+function ChatFrame7Object:GetShadowOffset(...) end
+---@return any ...
+function ChatFrame7Object:GetSpacing(...) end
+---@return any ...
+function ChatFrame7Object:GetTextColor(...) end
+---@return any ...
+function ChatFrame7Object:GetTimeVisible(...) end
+---@return any ...
+function ChatFrame7Object:HasFontObject(...) end
+---@return any ...
+function ChatFrame7Object:HasGamepadFocus(...) end
+---@return any ...
+function ChatFrame7Object:InitializeFontString(...) end
+---@return any ...
+function ChatFrame7Object:InitializeFontableFrame(...) end
+---@return any ...
+function ChatFrame7Object:InitializeGamepad(...) end
+---@return any ...
+function ChatFrame7Object:IsGamepadMenuOpen(...) end
+---@return any ...
+function ChatFrame7Object:IsScrollAllowed(...) end
+---@return any ...
+function ChatFrame7Object:IsSelectingText(...) end
+---@return any ...
+function ChatFrame7Object:IsTextCopyable(...) end
+---@return any ...
+function ChatFrame7Object:MakeFontObjectCustom(...) end
+---@return any ...
+function ChatFrame7Object:MarkDisplayDirty(...) end
+---@return any ...
+function ChatFrame7Object:MarkLayoutDirty(...) end
+---@return any ...
+function ChatFrame7Object:MessageEventHandler(...) end
+---@return any ...
+function ChatFrame7Object:OnColorsUpdated(...) end
+---@return any ...
+function ChatFrame7Object:OnEvent(...) end
+---@return any ...
+function ChatFrame7Object:OnFontObjectUpdated(...) end
+---@return any ...
+function ChatFrame7Object:OnHide(...) end
+---@return any ...
+function ChatFrame7Object:OnHyperlinkClick(...) end
+---@return any ...
+function ChatFrame7Object:OnHyperlinkEnter(...) end
+---@return any ...
+function ChatFrame7Object:OnHyperlinkLeave(...) end
+---@return any ...
+function ChatFrame7Object:OnLoad(...) end
+---@return any ...
+function ChatFrame7Object:OnPostEvent(...) end
+---@return any ...
+function ChatFrame7Object:OnPostHide(...) end
+---@return any ...
+function ChatFrame7Object:OnPostMouseDown(...) end
+---@return any ...
+function ChatFrame7Object:OnPostMouseUp(...) end
+---@return any ...
+function ChatFrame7Object:OnPostShow(...) end
+---@return any ...
+function ChatFrame7Object:OnPostUpdate(...) end
+---@return any ...
+function ChatFrame7Object:OnPreLoad(...) end
+---@return any ...
+function ChatFrame7Object:OnPreSizeChanged(...) end
+---@return any ...
+function ChatFrame7Object:OnUpdate(...) end
+---@return any ...
+function ChatFrame7Object:OpenChatChannelsMenu(...) end
+---@return any ...
+function ChatFrame7Object:OpenGamepadTabMenu(...) end
+---@return any ...
+function ChatFrame7Object:PackageEntry(...) end
+---@return any ...
+function ChatFrame7Object:PageDown(...) end
+---@return any ...
+function ChatFrame7Object:PageUp(...) end
+---@return any ...
+function ChatFrame7Object:PlayerLevelChanged(...) end
+---@return any ...
+function ChatFrame7Object:PlayerLevelUp(...) end
+---@return any ...
+function ChatFrame7Object:ReceiveAllPrivateMessages(...) end
+---@return any ...
+function ChatFrame7Object:RefreshDisplay(...) end
+---@return any ...
+function ChatFrame7Object:RefreshIfNecessary(...) end
+---@return any ...
+function ChatFrame7Object:RefreshLayout(...) end
+---@return any ...
+function ChatFrame7Object:RegisterForChannels(...) end
+---@return any ...
+function ChatFrame7Object:RegisterForInterfaceTransitions(...) end
+---@return any ...
+function ChatFrame7Object:RegisterForMessages(...) end
+---@return any ...
+function ChatFrame7Object:RemoveAllChannels(...) end
+---@return any ...
+function ChatFrame7Object:RemoveAllMessageGroups(...) end
+---@return any ...
+function ChatFrame7Object:RemoveChannel(...) end
+---@return any ...
+function ChatFrame7Object:RemoveExcludePrivateMessageTarget(...) end
+---@return any ...
+function ChatFrame7Object:RemoveMessageGroup(...) end
+---@return any ...
+function ChatFrame7Object:RemoveMessagesByPredicate(...) end
+---@return any ...
+function ChatFrame7Object:RemovePrivateMessageTarget(...) end
+---@return any ...
+function ChatFrame7Object:ResetAllFadeTimes(...) end
+---@return any ...
+function ChatFrame7Object:ResetSelectingText(...) end
+---@return any ...
+function ChatFrame7Object:ScrollByAmount(...) end
+---@return any ...
+function ChatFrame7Object:ScrollDown(...) end
+---@return any ...
+function ChatFrame7Object:ScrollToBottom(...) end
+---@return any ...
+function ChatFrame7Object:ScrollToTop(...) end
+---@return any ...
+function ChatFrame7Object:ScrollUp(...) end
+---@return any ...
+function ChatFrame7Object:SetChannelEnabled(...) end
+---@return any ...
+function ChatFrame7Object:SetFadeDuration(...) end
+---@return any ...
+function ChatFrame7Object:SetFading(...) end
+---@return any ...
+function ChatFrame7Object:SetFont(...) end
+---@return any ...
+function ChatFrame7Object:SetFontObject(...) end
+---@return any ...
+function ChatFrame7Object:SetGamepadFocus(...) end
+---@return any ...
+function ChatFrame7Object:SetIndentedWordWrap(...) end
+---@return any ...
+function ChatFrame7Object:SetInsertMode(...) end
+---@return any ...
+function ChatFrame7Object:SetJustifyH(...) end
+---@return any ...
+function ChatFrame7Object:SetJustifyV(...) end
+---@return any ...
+function ChatFrame7Object:SetMaxLines(...) end
+---@return any ...
+function ChatFrame7Object:SetOnLineRightClickedCallback(...) end
+---@return any ...
+function ChatFrame7Object:SetOnScrollChangedCallback(...) end
+---@return any ...
+function ChatFrame7Object:SetOnTextCopiedCallback(...) end
+---@return any ...
+function ChatFrame7Object:SetScrollAllowed(...) end
+---@return any ...
+function ChatFrame7Object:SetScrollOffset(...) end
+---@return any ...
+function ChatFrame7Object:SetShadowColor(...) end
+---@return any ...
+function ChatFrame7Object:SetShadowOffset(...) end
+---@return any ...
+function ChatFrame7Object:SetSpacing(...) end
+---@return any ...
+function ChatFrame7Object:SetTextColor(...) end
+---@return any ...
+function ChatFrame7Object:SetTextCopyable(...) end
+---@return any ...
+function ChatFrame7Object:SetTimeVisible(...) end
+---@return any ...
+function ChatFrame7Object:SetupGamepad(...) end
+---@return any ...
+function ChatFrame7Object:SmartNavigationCloseHandler(...) end
+---@return any ...
+function ChatFrame7Object:SystemEventHandler(...) end
+---@return any ...
+function ChatFrame7Object:TransformMessages(...) end
+---@return any ...
+function ChatFrame7Object:UnfocusGamepad(...) end
+---@return any ...
+function ChatFrame7Object:UninitializeGamepad(...) end
+---@return any ...
+function ChatFrame7Object:UnpackageEntry(...) end
+---@return any ...
+function ChatFrame7Object:UnregisterAllMessageGroups(...) end
+---@return any ...
+function ChatFrame7Object:UpdateColorByID(...) end
+---@return any ...
+function ChatFrame7Object:UpdateDefaultChatTarget(...) end
+---@return any ...
+function ChatFrame7Object:UpdateFading(...) end
+---@return any ...
+function ChatFrame7Object:UpdateSelectingText(...) end
+---@type ChatFrame7Object
+ChatFrame7 = ChatFrame7Object
+end
+
+do
+---@class ChatFrame7_BackgroundObject : Texture
+local ChatFrame7_BackgroundObject = {}
+end
+
+do
+---@class ChatFrame7_FontStringContainerObject : Frame
+local ChatFrame7_FontStringContainerObject = {}
+end
+
+do
+---@class ChatFrame7_ResizeButtonObject : Button
+local ChatFrame7_ResizeButtonObject = {}
+end
+
+do
+---@class ChatFrame7_ScrollBarObject : Frame
+---@field Back ChatFrame7_ScrollBar_BackObject
+---@field Defaults ChatFrame7_ScrollBar_DefaultsObject
+---@field Directions ChatFrame7_ScrollBar_DirectionsObject
+---@field Event ChatFrame7_ScrollBar_EventObject
+---@field Forward ChatFrame7_ScrollBar_ForwardObject
+---@field Track ChatFrame7_ScrollBar_TrackObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field hideTrack boolean
+---@field hideTrackIfThumbExceedsTrack boolean
+---@field internalPriority boolean
+---@field isScrollController boolean
+---@field minThumbExtent number
+---@field panDelay number
+---@field panExtentPercentage number
+---@field panRepeatTime number
+---@field smartNavigationIgnored boolean
+---@field snapToInterval boolean
+---@field thumbAnchor string
+---@field useProportionalThumb boolean
+---@field visibleExtentPercentage number
+---@field wheelPanScalar number
+local ChatFrame7_ScrollBarObject = {}
+---@return any ...
+function ChatFrame7_ScrollBarObject:CallInternalScope(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:CanCursorStepInDirection(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:CanInterpolateScroll(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:DisableControls(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:EnableInternalPriority(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:EnableSnapToInterval(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:GenerateCallbackEvents(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:GetBackStepper(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:GetCallbackTable(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:GetCallbackTables(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:GetCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:GetForwardStepper(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:GetFrameExtent(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:GetIntervalRange(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:GetLower(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:GetPanExtentPercentage(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:GetPanRepeatDelay(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:GetPanRepeatTime(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:GetScrollInterpolator(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:GetScrollPercentage(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:GetThumb(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:GetThumbAnchor(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:GetTrack(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:GetTrackExtent(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:GetUpper(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:GetWheelPanPercentage(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:HasScrollableExtent(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:Init(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:InitializeNarration(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:Interpolate(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:IsAtBegin(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:IsAtEnd(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:IsHorizontal(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:IsScrollAllowed(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:IsThumbMouseDown(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:OnHide_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:OnLoad(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:OnMouseWheel(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:OnShow_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:OnStepperMouseDown(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:OnThumbMouseDown(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:OnTrackMouseDown(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:RegisterCallback(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:ScrollDecrease(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:ScrollInDirection(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:ScrollIncrease(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:ScrollPageInDirection(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:ScrollStepInDirection(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:ScrollToBegin(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:ScrollToEnd(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:ScrollWheelInDirection(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:SecureInsertEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:SelectCursorComponent(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:SelectPointComponent(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:SetFrameExtent(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:SetHideIfUnscrollable(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:SetHorizontal(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:SetInterpolateScroll(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:SetPanExtentPercentage(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:SetScrollAllowed(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:SetScrollPercentage(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:SetThumbExtent(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:SetVisibleExtentPercentage(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:TriggerEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:UnregisterCallback(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:UnregisterEvents(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:UnregisterUpdate(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:Update(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:onButtonMouseUp(...) end
+---@return any ...
+function ChatFrame7_ScrollBarObject:scrollInternal(...) end
+end
+
+do
+---@class ChatFrame7_ScrollBar_BackObject : Button
+---@field Event ChatFrame7_ScrollBar_Back_EventObject
+---@field Texture ChatFrame7_ScrollBar_Back_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local ChatFrame7_ScrollBar_BackObject = {}
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:GetAtlas(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:GetCallbackTable(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:GetCallbackTables(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:IsDown(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:IsDownOver(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:IsOver(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:NarrationGetName(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:OnButtonStateChanged(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:OnDisable(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:OnEnable(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:OnEnter(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:OnLeave(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:OnLoad(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:OnMouseDown(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:OnMouseUp(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:OnShow(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:RegisterCallback(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:SecureInsertEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:SetDisplacedRegions(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:TriggerEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:UnregisterCallback(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:UnregisterEvents(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class ChatFrame7_ScrollBar_Back_EventObject
+local ChatFrame7_ScrollBar_Back_EventObject = {}
+end
+
+do
+---@class ChatFrame7_ScrollBar_Back_TextureObject : Texture
+local ChatFrame7_ScrollBar_Back_TextureObject = {}
+end
+
+do
+---@class ChatFrame7_ScrollBar_DefaultsObject
+local ChatFrame7_ScrollBar_DefaultsObject = {}
+end
+
+do
+---@class ChatFrame7_ScrollBar_DirectionsObject
+local ChatFrame7_ScrollBar_DirectionsObject = {}
+end
+
+do
+---@class ChatFrame7_ScrollBar_EventObject
+local ChatFrame7_ScrollBar_EventObject = {}
+end
+
+do
+---@class ChatFrame7_ScrollBar_ForwardObject : Button
+---@field Event ChatFrame7_ScrollBar_Forward_EventObject
+---@field Texture ChatFrame7_ScrollBar_Forward_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local ChatFrame7_ScrollBar_ForwardObject = {}
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:GetAtlas(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:GetCallbackTable(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:GetCallbackTables(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:IsDown(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:IsDownOver(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:IsOver(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:NarrationGetName(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:OnDisable(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:OnEnable(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:OnEnter(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:OnLeave(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:OnLoad(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:OnMouseDown(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:OnMouseUp(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:OnShow(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:RegisterCallback(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:TriggerEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:UnregisterCallback(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:UnregisterEvents(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class ChatFrame7_ScrollBar_Forward_EventObject
+local ChatFrame7_ScrollBar_Forward_EventObject = {}
+end
+
+do
+---@class ChatFrame7_ScrollBar_Forward_TextureObject : Texture
+local ChatFrame7_ScrollBar_Forward_TextureObject = {}
+end
+
+do
+---@class ChatFrame7_ScrollBar_TrackObject : Frame
+---@field Begin ChatFrame7_ScrollBar_Track_BeginObject
+---@field End ChatFrame7_ScrollBar_Track_EndObject
+---@field Middle ChatFrame7_ScrollBar_Track_MiddleObject
+---@field Thumb ChatFrame7_ScrollBar_Track_ThumbObject
+local ChatFrame7_ScrollBar_TrackObject = {}
+end
+
+do
+---@class ChatFrame7_ScrollBar_Track_BeginObject : Texture
+local ChatFrame7_ScrollBar_Track_BeginObject = {}
+end
+
+do
+---@class ChatFrame7_ScrollBar_Track_EndObject : Texture
+local ChatFrame7_ScrollBar_Track_EndObject = {}
+end
+
+do
+---@class ChatFrame7_ScrollBar_Track_MiddleObject : Texture
+local ChatFrame7_ScrollBar_Track_MiddleObject = {}
+end
+
+do
+---@class ChatFrame7_ScrollBar_Track_ThumbObject : Button
+---@field Begin ChatFrame7_ScrollBar_Track_Thumb_BeginObject
+---@field End ChatFrame7_ScrollBar_Track_Thumb_EndObject
+---@field Event ChatFrame7_ScrollBar_Track_Thumb_EventObject
+---@field Middle ChatFrame7_ScrollBar_Track_Thumb_MiddleObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field downBeginTexture string
+---@field downEndTexture string
+---@field downMiddleTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field overBeginTexture string
+---@field overEndTexture string
+---@field overMiddleTexture string
+---@field upBeginTexture string
+---@field upEndTexture string
+---@field upMiddleTexture string
+local ChatFrame7_ScrollBar_Track_ThumbObject = {}
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:IsDown(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:IsOver(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:OnDisable(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:OnEnable(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:OnEnter(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:OnLeave(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:OnLoad(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:OnShow(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+---@return any ...
+function ChatFrame7_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class ChatFrame7_ScrollBar_Track_Thumb_BeginObject : Texture
+local ChatFrame7_ScrollBar_Track_Thumb_BeginObject = {}
+end
+
+do
+---@class ChatFrame7_ScrollBar_Track_Thumb_EndObject : Texture
+local ChatFrame7_ScrollBar_Track_Thumb_EndObject = {}
+end
+
+do
+---@class ChatFrame7_ScrollBar_Track_Thumb_EventObject
+local ChatFrame7_ScrollBar_Track_Thumb_EventObject = {}
+end
+
+do
+---@class ChatFrame7_ScrollBar_Track_Thumb_MiddleObject : Texture
+local ChatFrame7_ScrollBar_Track_Thumb_MiddleObject = {}
+end
+
+do
+---@class ChatFrame7_ScrollToBottomButtonObject : Button
+---@field Flash ChatFrame7_ScrollToBottomButton_FlashObject
+---@field smartNavigationIgnored boolean
+local ChatFrame7_ScrollToBottomButtonObject = {}
+end
+
+do
+---@class ChatFrame7_ScrollToBottomButton_FlashObject : Texture
+---@field FlashAnim ChatFrame7_ScrollToBottomButton_Flash_FlashAnimObject
+local ChatFrame7_ScrollToBottomButton_FlashObject = {}
+end
+
+do
+---@class ChatFrame7_ScrollToBottomButton_Flash_FlashAnimObject : AnimationGroup
+---@field FadeIn ChatFrame7_ScrollToBottomButton_Flash_FlashAnim_FadeInObject
+---@field FadeOut ChatFrame7_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject
+local ChatFrame7_ScrollToBottomButton_Flash_FlashAnimObject = {}
+end
+
+do
+---@class ChatFrame7_ScrollToBottomButton_Flash_FlashAnim_FadeInObject : Alpha
+local ChatFrame7_ScrollToBottomButton_Flash_FlashAnim_FadeInObject = {}
+end
+
+do
+---@class ChatFrame7_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject : Alpha
+local ChatFrame7_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject = {}
+end
+
+do
+---@class ChatFrame7_buttonFrameObject : Frame
+---@field Background ChatFrame7_buttonFrame_BackgroundObject
+---@field minimizeButton ChatFrame7_buttonFrame_minimizeButtonObject
+local ChatFrame7_buttonFrameObject = {}
+end
+
+do
+---@class ChatFrame7_buttonFrame_BackgroundObject : Texture
+local ChatFrame7_buttonFrame_BackgroundObject = {}
+end
+
+do
+---@class ChatFrame7_buttonFrame_minimizeButtonObject : Button
+local ChatFrame7_buttonFrame_minimizeButtonObject = {}
+end
+
+do
+---@class ChatFrame7_clickAnywhereButtonObject : Button
+local ChatFrame7_clickAnywhereButtonObject = {}
+---@return any ...
+function ChatFrame7_clickAnywhereButtonObject:OnClick(...) end
+---@return any ...
+function ChatFrame7_clickAnywhereButtonObject:OnEvent(...) end
+---@return any ...
+function ChatFrame7_clickAnywhereButtonObject:OnLoad(...) end
+---@return any ...
+function ChatFrame7_clickAnywhereButtonObject:UpdateState(...) end
+end
+
+do
+---@class ChatFrame7_editBoxObject
+local ChatFrame7_editBoxObject = {}
+end
+
+do
+---@class ChatFrame7_fontObjectObject
+local ChatFrame7_fontObjectObject = {}
+end
+
+do
+---@class ChatFrame7_historyBufferObject
+---@field elements table
+---@field headIndex table
+---@field maxElements table
+local ChatFrame7_historyBufferObject = {}
+---@return any ...
+function ChatFrame7_historyBufferObject:CalculateElementIndex(...) end
+---@return any ...
+function ChatFrame7_historyBufferObject:CalculateElementIndexFromGlobalIndex(...) end
+---@return any ...
+function ChatFrame7_historyBufferObject:Clear(...) end
+---@return any ...
+function ChatFrame7_historyBufferObject:EnumerateIndexedEntries(...) end
+---@return any ...
+function ChatFrame7_historyBufferObject:GetEntryAtIndex(...) end
+---@return any ...
+function ChatFrame7_historyBufferObject:GetMaxNumElements(...) end
+---@return any ...
+function ChatFrame7_historyBufferObject:GetNumElements(...) end
+---@return any ...
+function ChatFrame7_historyBufferObject:IsEmpty(...) end
+---@return any ...
+function ChatFrame7_historyBufferObject:IsFull(...) end
+---@return any ...
+function ChatFrame7_historyBufferObject:IsValidIndex(...) end
+---@return any ...
+function ChatFrame7_historyBufferObject:OnLoad(...) end
+---@return any ...
+function ChatFrame7_historyBufferObject:PushBack(...) end
+---@return any ...
+function ChatFrame7_historyBufferObject:PushFront(...) end
+---@return any ...
+function ChatFrame7_historyBufferObject:RemoveIf(...) end
+---@return any ...
+function ChatFrame7_historyBufferObject:ReplaceElements(...) end
+---@return any ...
+function ChatFrame7_historyBufferObject:ReverseEnumerateIndexedEntries(...) end
+---@return any ...
+function ChatFrame7_historyBufferObject:SetMaxNumElements(...) end
+---@return any ...
+function ChatFrame7_historyBufferObject:TransformIf(...) end
+end
+
+do
+---@class ChatFrame7EditBoxObject : EditBox
+---@field NewcomerHint ChatFrame7EditBox_NewcomerHintObject
+---@field addHighlightedText boolean
+---@field addSpaceToAutoComplete boolean
+---@field buttonContext string
+---@field chatFrame ChatFrame7EditBox_chatFrameObject
+---@field chatLanguage string
+---@field focusLeft ChatFrame7EditBox_focusLeftObject
+---@field focusMid ChatFrame7EditBox_focusMidObject
+---@field focusRight ChatFrame7EditBox_focusRightObject
+---@field header ChatFrame7EditBox_headerObject
+---@field headerSuffix ChatFrame7EditBox_headerSuffixObject
+---@field languageHeader ChatFrame7EditBox_languageHeaderObject
+---@field prompt ChatFrame7EditBox_promptObject
+---@field tabCompleteTableIndex number
+local ChatFrame7EditBoxObject = {}
+---@return any ...
+function ChatFrame7EditBoxObject:AddHistory(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:ClearChat(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:Deactivate(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:DoesCurrentChannelTargetMatch(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:ExtractChannel(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:ExtractTellTarget(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:GetChannelTarget(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:GetChatType(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:GetStickyType(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:GetTellTarget(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:HandleChatType(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:HasStickyFocus(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:OnChar(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:OnEditFocusGained(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:OnEditFocusLost(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:OnEnterPressed(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:OnEscapePressed(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:OnEvent(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:OnHide(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:OnInputLanguageChanged(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:OnLoad(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:OnPreSendText(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:OnShow(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:OnSpacePressed(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:OnTabPressed(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:OnTextChanged(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:OnTextSet(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:OnUpdate(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:ParseText(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:ProcessChatType(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:ResetChatType(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:ResetChatTypeToSticky(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:SecureTabPressed(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:SendMessage(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:SendText(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:SetChannelTarget(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:SetChatType(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:SetFocusRegionVertexColors(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:SetFocusRegionsShown(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:SetGameLanguage(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:SetStickyType(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:SetTellTarget(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:ShouldDeactivateChatOnEditFocusLost(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:UpdateHeader(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:UpdateLanguageHeader(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:UpdateNewcomerEditBoxHint(...) end
+---@return any ...
+function ChatFrame7EditBoxObject:customAutoCompleteFunction(...) end
+---@type ChatFrame7EditBoxObject
+ChatFrame7EditBox = ChatFrame7EditBoxObject
+end
+
+do
+---@class ChatFrame7EditBox_NewcomerHintObject : FontString
+local ChatFrame7EditBox_NewcomerHintObject = {}
+end
+
+do
+---@class ChatFrame7EditBox_chatFrameObject
+local ChatFrame7EditBox_chatFrameObject = {}
+end
+
+do
+---@class ChatFrame7EditBox_focusLeftObject : Texture
+local ChatFrame7EditBox_focusLeftObject = {}
+end
+
+do
+---@class ChatFrame7EditBox_focusMidObject : Texture
+local ChatFrame7EditBox_focusMidObject = {}
+end
+
+do
+---@class ChatFrame7EditBox_focusRightObject : Texture
+local ChatFrame7EditBox_focusRightObject = {}
+end
+
+do
+---@class ChatFrame7EditBox_headerObject : FontString
+local ChatFrame7EditBox_headerObject = {}
+end
+
+do
+---@class ChatFrame7EditBox_headerSuffixObject : FontString
+local ChatFrame7EditBox_headerSuffixObject = {}
+end
+
+do
+---@class ChatFrame7EditBox_languageHeaderObject : FontString
+local ChatFrame7EditBox_languageHeaderObject = {}
+end
+
+do
+---@class ChatFrame7EditBox_promptObject : FontString
+local ChatFrame7EditBox_promptObject = {}
+end
+
+do
+---@class ChatFrame7TabObject : Button
+---@field ActiveLeft ChatFrame7Tab_ActiveLeftObject
+---@field ActiveMiddle ChatFrame7Tab_ActiveMiddleObject
+---@field ActiveRight ChatFrame7Tab_ActiveRightObject
+---@field HighlightLeft ChatFrame7Tab_HighlightLeftObject
+---@field HighlightMiddle ChatFrame7Tab_HighlightMiddleObject
+---@field HighlightRight ChatFrame7Tab_HighlightRightObject
+---@field Left ChatFrame7Tab_LeftObject
+---@field Middle ChatFrame7Tab_MiddleObject
+---@field Right ChatFrame7Tab_RightObject
+---@field Text ChatFrame7Tab_TextObject
+---@field glow ChatFrame7Tab_glowObject
+---@field textWidth number
+local ChatFrame7TabObject = {}
+---@type ChatFrame7TabObject
+ChatFrame7Tab = ChatFrame7TabObject
+end
+
+do
+---@class ChatFrame7Tab_ActiveLeftObject : Texture
+local ChatFrame7Tab_ActiveLeftObject = {}
+end
+
+do
+---@class ChatFrame7Tab_ActiveMiddleObject : Texture
+local ChatFrame7Tab_ActiveMiddleObject = {}
+end
+
+do
+---@class ChatFrame7Tab_ActiveRightObject : Texture
+local ChatFrame7Tab_ActiveRightObject = {}
+end
+
+do
+---@class ChatFrame7Tab_HighlightLeftObject : Texture
+local ChatFrame7Tab_HighlightLeftObject = {}
+end
+
+do
+---@class ChatFrame7Tab_HighlightMiddleObject : Texture
+local ChatFrame7Tab_HighlightMiddleObject = {}
+end
+
+do
+---@class ChatFrame7Tab_HighlightRightObject : Texture
+local ChatFrame7Tab_HighlightRightObject = {}
+end
+
+do
+---@class ChatFrame7Tab_LeftObject : Texture
+local ChatFrame7Tab_LeftObject = {}
+end
+
+do
+---@class ChatFrame7Tab_MiddleObject : Texture
+local ChatFrame7Tab_MiddleObject = {}
+end
+
+do
+---@class ChatFrame7Tab_RightObject : Texture
+local ChatFrame7Tab_RightObject = {}
+end
+
+do
+---@class ChatFrame7Tab_TextObject : FontString
+local ChatFrame7Tab_TextObject = {}
+end
+
+do
+---@class ChatFrame7Tab_glowObject : Texture
+---@field FlashAnim ChatFrame7Tab_glow_FlashAnimObject
+local ChatFrame7Tab_glowObject = {}
+end
+
+do
+---@class ChatFrame7Tab_glow_FlashAnimObject : AnimationGroup
+---@field syncKey string
+local ChatFrame7Tab_glow_FlashAnimObject = {}
+---@return any ...
+function ChatFrame7Tab_glow_FlashAnimObject:ClearSyncedStart(...) end
+---@return any ...
+function ChatFrame7Tab_glow_FlashAnimObject:GetTimeSinceSyncTimeForKey(...) end
+---@return any ...
+function ChatFrame7Tab_glow_FlashAnimObject:PlaySynced(...) end
+end
+
+do
+---@class ChatFrame8Object : Frame
+---@field Background ChatFrame8_BackgroundObject
+---@field FontStringContainer ChatFrame8_FontStringContainerObject
+---@field ResizeButton ChatFrame8_ResizeButtonObject
+---@field ScrollBar ChatFrame8_ScrollBarObject
+---@field ScrollToBottomButton ChatFrame8_ScrollToBottomButtonObject
+---@field allowScroll boolean
+---@field alternativeDefaultLanguage string
+---@field buttonFrame ChatFrame8_buttonFrameObject
+---@field buttonSide string
+---@field channelList table
+---@field clickAnywhereButton ChatFrame8_clickAnywhereButtonObject
+---@field defaultLanguage string
+---@field editBox ChatFrame8_editBoxObject
+---@field fadeDurationSecs number
+---@field fontObject ChatFrame8_fontObjectObject
+---@field hasOwnFontObject boolean
+---@field historyBuffer ChatFrame8_historyBufferObject
+---@field insertMode number
+---@field isDisplayDirty boolean
+---@field isInitialized number
+---@field isLayoutDirty boolean
+---@field isLocked boolean
+---@field isScrollingMessageFrame boolean
+---@field isUninteractable boolean
+---@field messageTypeList table
+---@field name string
+---@field oldAlpha number
+---@field oldestFadingLineTimestamp number
+---@field onDisplayRefreshedCallbacks table
+---@field overrideFadeTimestamp number
+---@field scrollOffset number
+---@field shouldFadeAfterInactivity boolean
+---@field smartNavRightStickMaxScrollSpeed number
+---@field textIsCopyable boolean
+---@field timeVisibleSecs number
+---@field visibleLines table
+---@field zoneChannelList table
+local ChatFrame8Object = {}
+---@return any ...
+function ChatFrame8Object:AcquireFontString(...) end
+---@return any ...
+function ChatFrame8Object:AcquireHighlightTexture(...) end
+---@return any ...
+function ChatFrame8Object:AddChannel(...) end
+---@return any ...
+function ChatFrame8Object:AddMessage(...) end
+---@return any ...
+function ChatFrame8Object:AddMessageGroup(...) end
+---@return any ...
+function ChatFrame8Object:AddOnDisplayRefreshedCallback(...) end
+---@return any ...
+function ChatFrame8Object:AddPrivateMessageTarget(...) end
+---@return any ...
+function ChatFrame8Object:AddSingleMessageType(...) end
+---@return any ...
+function ChatFrame8Object:AdjustMessageColors(...) end
+---@return any ...
+function ChatFrame8Object:AtBottom(...) end
+---@return any ...
+function ChatFrame8Object:AtTop(...) end
+---@return any ...
+function ChatFrame8Object:BackFillMessage(...) end
+---@return any ...
+function ChatFrame8Object:CalculateLineAlphaValueFromTimestamp(...) end
+---@return any ...
+function ChatFrame8Object:CalculateLineSpacing(...) end
+---@return any ...
+function ChatFrame8Object:CalculateNumVisibleLines(...) end
+---@return any ...
+function ChatFrame8Object:CalculateSelectingCharacterIndicesForVisibleLine(...) end
+---@return any ...
+function ChatFrame8Object:CallOnDisplayRefreshed(...) end
+---@return any ...
+function ChatFrame8Object:CanEffectivelyFade(...) end
+---@return any ...
+function ChatFrame8Object:Clear(...) end
+---@return any ...
+function ChatFrame8Object:ClearGamepadFocus(...) end
+---@return any ...
+function ChatFrame8Object:ConfigEventHandler(...) end
+---@return any ...
+function ChatFrame8Object:ContainsChannel(...) end
+---@return any ...
+function ChatFrame8Object:ContainsMessageGroup(...) end
+---@return any ...
+function ChatFrame8Object:CreateFooter(...) end
+---@return any ...
+function ChatFrame8Object:DontRestoreGamepadFocusOnMenuClose(...) end
+---@return any ...
+function ChatFrame8Object:ExcludePrivateMessageTarget(...) end
+---@return any ...
+function ChatFrame8Object:FindCharacterAndLineIndexAtCoordinate(...) end
+---@return any ...
+function ChatFrame8Object:FocusGamepad(...) end
+---@return any ...
+function ChatFrame8Object:ForEachMessage(...) end
+---@return any ...
+function ChatFrame8Object:ForEachMessageInfoText(...) end
+---@return any ...
+function ChatFrame8Object:ForEachVisibleLineText(...) end
+---@return any ...
+function ChatFrame8Object:GatherSelectedText(...) end
+---@return any ...
+function ChatFrame8Object:GetDefaultChatTarget(...) end
+---@return any ...
+function ChatFrame8Object:GetFadeDuration(...) end
+---@return any ...
+function ChatFrame8Object:GetFading(...) end
+---@return any ...
+function ChatFrame8Object:GetFont(...) end
+---@return any ...
+function ChatFrame8Object:GetFontObject(...) end
+---@return any ...
+function ChatFrame8Object:GetIndentedWordWrap(...) end
+---@return any ...
+function ChatFrame8Object:GetInsertMode(...) end
+---@return any ...
+function ChatFrame8Object:GetJustifyH(...) end
+---@return any ...
+function ChatFrame8Object:GetJustifyV(...) end
+---@return any ...
+function ChatFrame8Object:GetMaxLines(...) end
+---@return any ...
+function ChatFrame8Object:GetMaxScrollRange(...) end
+---@return any ...
+function ChatFrame8Object:GetMessageInfo(...) end
+---@return any ...
+function ChatFrame8Object:GetNumMessages(...) end
+---@return any ...
+function ChatFrame8Object:GetNumVisibleLines(...) end
+---@return any ...
+function ChatFrame8Object:GetOnLineRightClickedCallback(...) end
+---@return any ...
+function ChatFrame8Object:GetOnScrollChangedCallback(...) end
+---@return any ...
+function ChatFrame8Object:GetOnTextCopiedCallback(...) end
+---@return any ...
+function ChatFrame8Object:GetPagingScrollAmount(...) end
+---@return any ...
+function ChatFrame8Object:GetScaledCursorPosition(...) end
+---@return any ...
+function ChatFrame8Object:GetScrollOffset(...) end
+---@return any ...
+function ChatFrame8Object:GetShadowColor(...) end
+---@return any ...
+function ChatFrame8Object:GetShadowOffset(...) end
+---@return any ...
+function ChatFrame8Object:GetSpacing(...) end
+---@return any ...
+function ChatFrame8Object:GetTextColor(...) end
+---@return any ...
+function ChatFrame8Object:GetTimeVisible(...) end
+---@return any ...
+function ChatFrame8Object:HasFontObject(...) end
+---@return any ...
+function ChatFrame8Object:HasGamepadFocus(...) end
+---@return any ...
+function ChatFrame8Object:InitializeFontString(...) end
+---@return any ...
+function ChatFrame8Object:InitializeFontableFrame(...) end
+---@return any ...
+function ChatFrame8Object:InitializeGamepad(...) end
+---@return any ...
+function ChatFrame8Object:IsGamepadMenuOpen(...) end
+---@return any ...
+function ChatFrame8Object:IsScrollAllowed(...) end
+---@return any ...
+function ChatFrame8Object:IsSelectingText(...) end
+---@return any ...
+function ChatFrame8Object:IsTextCopyable(...) end
+---@return any ...
+function ChatFrame8Object:MakeFontObjectCustom(...) end
+---@return any ...
+function ChatFrame8Object:MarkDisplayDirty(...) end
+---@return any ...
+function ChatFrame8Object:MarkLayoutDirty(...) end
+---@return any ...
+function ChatFrame8Object:MessageEventHandler(...) end
+---@return any ...
+function ChatFrame8Object:OnColorsUpdated(...) end
+---@return any ...
+function ChatFrame8Object:OnEvent(...) end
+---@return any ...
+function ChatFrame8Object:OnFontObjectUpdated(...) end
+---@return any ...
+function ChatFrame8Object:OnHide(...) end
+---@return any ...
+function ChatFrame8Object:OnHyperlinkClick(...) end
+---@return any ...
+function ChatFrame8Object:OnHyperlinkEnter(...) end
+---@return any ...
+function ChatFrame8Object:OnHyperlinkLeave(...) end
+---@return any ...
+function ChatFrame8Object:OnLoad(...) end
+---@return any ...
+function ChatFrame8Object:OnPostEvent(...) end
+---@return any ...
+function ChatFrame8Object:OnPostHide(...) end
+---@return any ...
+function ChatFrame8Object:OnPostMouseDown(...) end
+---@return any ...
+function ChatFrame8Object:OnPostMouseUp(...) end
+---@return any ...
+function ChatFrame8Object:OnPostShow(...) end
+---@return any ...
+function ChatFrame8Object:OnPostUpdate(...) end
+---@return any ...
+function ChatFrame8Object:OnPreLoad(...) end
+---@return any ...
+function ChatFrame8Object:OnPreSizeChanged(...) end
+---@return any ...
+function ChatFrame8Object:OnUpdate(...) end
+---@return any ...
+function ChatFrame8Object:OpenChatChannelsMenu(...) end
+---@return any ...
+function ChatFrame8Object:OpenGamepadTabMenu(...) end
+---@return any ...
+function ChatFrame8Object:PackageEntry(...) end
+---@return any ...
+function ChatFrame8Object:PageDown(...) end
+---@return any ...
+function ChatFrame8Object:PageUp(...) end
+---@return any ...
+function ChatFrame8Object:PlayerLevelChanged(...) end
+---@return any ...
+function ChatFrame8Object:PlayerLevelUp(...) end
+---@return any ...
+function ChatFrame8Object:ReceiveAllPrivateMessages(...) end
+---@return any ...
+function ChatFrame8Object:RefreshDisplay(...) end
+---@return any ...
+function ChatFrame8Object:RefreshIfNecessary(...) end
+---@return any ...
+function ChatFrame8Object:RefreshLayout(...) end
+---@return any ...
+function ChatFrame8Object:RegisterForChannels(...) end
+---@return any ...
+function ChatFrame8Object:RegisterForInterfaceTransitions(...) end
+---@return any ...
+function ChatFrame8Object:RegisterForMessages(...) end
+---@return any ...
+function ChatFrame8Object:RemoveAllChannels(...) end
+---@return any ...
+function ChatFrame8Object:RemoveAllMessageGroups(...) end
+---@return any ...
+function ChatFrame8Object:RemoveChannel(...) end
+---@return any ...
+function ChatFrame8Object:RemoveExcludePrivateMessageTarget(...) end
+---@return any ...
+function ChatFrame8Object:RemoveMessageGroup(...) end
+---@return any ...
+function ChatFrame8Object:RemoveMessagesByPredicate(...) end
+---@return any ...
+function ChatFrame8Object:RemovePrivateMessageTarget(...) end
+---@return any ...
+function ChatFrame8Object:ResetAllFadeTimes(...) end
+---@return any ...
+function ChatFrame8Object:ResetSelectingText(...) end
+---@return any ...
+function ChatFrame8Object:ScrollByAmount(...) end
+---@return any ...
+function ChatFrame8Object:ScrollDown(...) end
+---@return any ...
+function ChatFrame8Object:ScrollToBottom(...) end
+---@return any ...
+function ChatFrame8Object:ScrollToTop(...) end
+---@return any ...
+function ChatFrame8Object:ScrollUp(...) end
+---@return any ...
+function ChatFrame8Object:SetChannelEnabled(...) end
+---@return any ...
+function ChatFrame8Object:SetFadeDuration(...) end
+---@return any ...
+function ChatFrame8Object:SetFading(...) end
+---@return any ...
+function ChatFrame8Object:SetFont(...) end
+---@return any ...
+function ChatFrame8Object:SetFontObject(...) end
+---@return any ...
+function ChatFrame8Object:SetGamepadFocus(...) end
+---@return any ...
+function ChatFrame8Object:SetIndentedWordWrap(...) end
+---@return any ...
+function ChatFrame8Object:SetInsertMode(...) end
+---@return any ...
+function ChatFrame8Object:SetJustifyH(...) end
+---@return any ...
+function ChatFrame8Object:SetJustifyV(...) end
+---@return any ...
+function ChatFrame8Object:SetMaxLines(...) end
+---@return any ...
+function ChatFrame8Object:SetOnLineRightClickedCallback(...) end
+---@return any ...
+function ChatFrame8Object:SetOnScrollChangedCallback(...) end
+---@return any ...
+function ChatFrame8Object:SetOnTextCopiedCallback(...) end
+---@return any ...
+function ChatFrame8Object:SetScrollAllowed(...) end
+---@return any ...
+function ChatFrame8Object:SetScrollOffset(...) end
+---@return any ...
+function ChatFrame8Object:SetShadowColor(...) end
+---@return any ...
+function ChatFrame8Object:SetShadowOffset(...) end
+---@return any ...
+function ChatFrame8Object:SetSpacing(...) end
+---@return any ...
+function ChatFrame8Object:SetTextColor(...) end
+---@return any ...
+function ChatFrame8Object:SetTextCopyable(...) end
+---@return any ...
+function ChatFrame8Object:SetTimeVisible(...) end
+---@return any ...
+function ChatFrame8Object:SetupGamepad(...) end
+---@return any ...
+function ChatFrame8Object:SmartNavigationCloseHandler(...) end
+---@return any ...
+function ChatFrame8Object:SystemEventHandler(...) end
+---@return any ...
+function ChatFrame8Object:TransformMessages(...) end
+---@return any ...
+function ChatFrame8Object:UnfocusGamepad(...) end
+---@return any ...
+function ChatFrame8Object:UninitializeGamepad(...) end
+---@return any ...
+function ChatFrame8Object:UnpackageEntry(...) end
+---@return any ...
+function ChatFrame8Object:UnregisterAllMessageGroups(...) end
+---@return any ...
+function ChatFrame8Object:UpdateColorByID(...) end
+---@return any ...
+function ChatFrame8Object:UpdateDefaultChatTarget(...) end
+---@return any ...
+function ChatFrame8Object:UpdateFading(...) end
+---@return any ...
+function ChatFrame8Object:UpdateSelectingText(...) end
+---@type ChatFrame8Object
+ChatFrame8 = ChatFrame8Object
+end
+
+do
+---@class ChatFrame8_BackgroundObject : Texture
+local ChatFrame8_BackgroundObject = {}
+end
+
+do
+---@class ChatFrame8_FontStringContainerObject : Frame
+local ChatFrame8_FontStringContainerObject = {}
+end
+
+do
+---@class ChatFrame8_ResizeButtonObject : Button
+local ChatFrame8_ResizeButtonObject = {}
+end
+
+do
+---@class ChatFrame8_ScrollBarObject : Frame
+---@field Back ChatFrame8_ScrollBar_BackObject
+---@field Defaults ChatFrame8_ScrollBar_DefaultsObject
+---@field Directions ChatFrame8_ScrollBar_DirectionsObject
+---@field Event ChatFrame8_ScrollBar_EventObject
+---@field Forward ChatFrame8_ScrollBar_ForwardObject
+---@field Track ChatFrame8_ScrollBar_TrackObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field hideTrack boolean
+---@field hideTrackIfThumbExceedsTrack boolean
+---@field internalPriority boolean
+---@field isScrollController boolean
+---@field minThumbExtent number
+---@field panDelay number
+---@field panExtentPercentage number
+---@field panRepeatTime number
+---@field smartNavigationIgnored boolean
+---@field snapToInterval boolean
+---@field thumbAnchor string
+---@field useProportionalThumb boolean
+---@field visibleExtentPercentage number
+---@field wheelPanScalar number
+local ChatFrame8_ScrollBarObject = {}
+---@return any ...
+function ChatFrame8_ScrollBarObject:CallInternalScope(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:CanCursorStepInDirection(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:CanInterpolateScroll(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:DisableControls(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:EnableInternalPriority(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:EnableSnapToInterval(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:GenerateCallbackEvents(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:GetBackStepper(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:GetCallbackTable(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:GetCallbackTables(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:GetCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:GetForwardStepper(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:GetFrameExtent(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:GetIntervalRange(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:GetLower(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:GetPanExtentPercentage(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:GetPanRepeatDelay(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:GetPanRepeatTime(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:GetScrollInterpolator(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:GetScrollPercentage(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:GetThumb(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:GetThumbAnchor(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:GetTrack(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:GetTrackExtent(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:GetUpper(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:GetWheelPanPercentage(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:HasScrollableExtent(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:Init(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:InitializeNarration(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:Interpolate(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:IsAtBegin(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:IsAtEnd(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:IsHorizontal(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:IsScrollAllowed(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:IsThumbMouseDown(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:OnHide_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:OnLoad(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:OnMouseWheel(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:OnShow_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:OnStepperMouseDown(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:OnThumbMouseDown(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:OnTrackMouseDown(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:RegisterCallback(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:ScrollDecrease(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:ScrollInDirection(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:ScrollIncrease(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:ScrollPageInDirection(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:ScrollStepInDirection(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:ScrollToBegin(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:ScrollToEnd(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:ScrollWheelInDirection(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:SecureInsertEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:SelectCursorComponent(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:SelectPointComponent(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:SetFrameExtent(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:SetHideIfUnscrollable(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:SetHorizontal(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:SetInterpolateScroll(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:SetPanExtentPercentage(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:SetScrollAllowed(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:SetScrollPercentage(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:SetThumbExtent(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:SetVisibleExtentPercentage(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:TriggerEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:UnregisterCallback(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:UnregisterEvents(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:UnregisterUpdate(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:Update(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:onButtonMouseUp(...) end
+---@return any ...
+function ChatFrame8_ScrollBarObject:scrollInternal(...) end
+end
+
+do
+---@class ChatFrame8_ScrollBar_BackObject : Button
+---@field Event ChatFrame8_ScrollBar_Back_EventObject
+---@field Texture ChatFrame8_ScrollBar_Back_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local ChatFrame8_ScrollBar_BackObject = {}
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:GetAtlas(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:GetCallbackTable(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:GetCallbackTables(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:IsDown(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:IsDownOver(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:IsOver(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:NarrationGetName(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:OnButtonStateChanged(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:OnDisable(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:OnEnable(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:OnEnter(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:OnLeave(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:OnLoad(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:OnMouseDown(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:OnMouseUp(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:OnShow(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:RegisterCallback(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:SecureInsertEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:SetDisplacedRegions(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:TriggerEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:UnregisterCallback(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:UnregisterEvents(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class ChatFrame8_ScrollBar_Back_EventObject
+local ChatFrame8_ScrollBar_Back_EventObject = {}
+end
+
+do
+---@class ChatFrame8_ScrollBar_Back_TextureObject : Texture
+local ChatFrame8_ScrollBar_Back_TextureObject = {}
+end
+
+do
+---@class ChatFrame8_ScrollBar_DefaultsObject
+local ChatFrame8_ScrollBar_DefaultsObject = {}
+end
+
+do
+---@class ChatFrame8_ScrollBar_DirectionsObject
+local ChatFrame8_ScrollBar_DirectionsObject = {}
+end
+
+do
+---@class ChatFrame8_ScrollBar_EventObject
+local ChatFrame8_ScrollBar_EventObject = {}
+end
+
+do
+---@class ChatFrame8_ScrollBar_ForwardObject : Button
+---@field Event ChatFrame8_ScrollBar_Forward_EventObject
+---@field Texture ChatFrame8_ScrollBar_Forward_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local ChatFrame8_ScrollBar_ForwardObject = {}
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:GetAtlas(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:GetCallbackTable(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:GetCallbackTables(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:IsDown(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:IsDownOver(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:IsOver(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:NarrationGetName(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:OnDisable(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:OnEnable(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:OnEnter(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:OnLeave(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:OnLoad(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:OnMouseDown(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:OnMouseUp(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:OnShow(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:RegisterCallback(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:TriggerEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:UnregisterCallback(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:UnregisterEvents(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class ChatFrame8_ScrollBar_Forward_EventObject
+local ChatFrame8_ScrollBar_Forward_EventObject = {}
+end
+
+do
+---@class ChatFrame8_ScrollBar_Forward_TextureObject : Texture
+local ChatFrame8_ScrollBar_Forward_TextureObject = {}
+end
+
+do
+---@class ChatFrame8_ScrollBar_TrackObject : Frame
+---@field Begin ChatFrame8_ScrollBar_Track_BeginObject
+---@field End ChatFrame8_ScrollBar_Track_EndObject
+---@field Middle ChatFrame8_ScrollBar_Track_MiddleObject
+---@field Thumb ChatFrame8_ScrollBar_Track_ThumbObject
+local ChatFrame8_ScrollBar_TrackObject = {}
+end
+
+do
+---@class ChatFrame8_ScrollBar_Track_BeginObject : Texture
+local ChatFrame8_ScrollBar_Track_BeginObject = {}
+end
+
+do
+---@class ChatFrame8_ScrollBar_Track_EndObject : Texture
+local ChatFrame8_ScrollBar_Track_EndObject = {}
+end
+
+do
+---@class ChatFrame8_ScrollBar_Track_MiddleObject : Texture
+local ChatFrame8_ScrollBar_Track_MiddleObject = {}
+end
+
+do
+---@class ChatFrame8_ScrollBar_Track_ThumbObject : Button
+---@field Begin ChatFrame8_ScrollBar_Track_Thumb_BeginObject
+---@field End ChatFrame8_ScrollBar_Track_Thumb_EndObject
+---@field Event ChatFrame8_ScrollBar_Track_Thumb_EventObject
+---@field Middle ChatFrame8_ScrollBar_Track_Thumb_MiddleObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field downBeginTexture string
+---@field downEndTexture string
+---@field downMiddleTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field overBeginTexture string
+---@field overEndTexture string
+---@field overMiddleTexture string
+---@field upBeginTexture string
+---@field upEndTexture string
+---@field upMiddleTexture string
+local ChatFrame8_ScrollBar_Track_ThumbObject = {}
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:IsDown(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:IsOver(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:OnDisable(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:OnEnable(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:OnEnter(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:OnLeave(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:OnLoad(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:OnShow(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+---@return any ...
+function ChatFrame8_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class ChatFrame8_ScrollBar_Track_Thumb_BeginObject : Texture
+local ChatFrame8_ScrollBar_Track_Thumb_BeginObject = {}
+end
+
+do
+---@class ChatFrame8_ScrollBar_Track_Thumb_EndObject : Texture
+local ChatFrame8_ScrollBar_Track_Thumb_EndObject = {}
+end
+
+do
+---@class ChatFrame8_ScrollBar_Track_Thumb_EventObject
+local ChatFrame8_ScrollBar_Track_Thumb_EventObject = {}
+end
+
+do
+---@class ChatFrame8_ScrollBar_Track_Thumb_MiddleObject : Texture
+local ChatFrame8_ScrollBar_Track_Thumb_MiddleObject = {}
+end
+
+do
+---@class ChatFrame8_ScrollToBottomButtonObject : Button
+---@field Flash ChatFrame8_ScrollToBottomButton_FlashObject
+---@field smartNavigationIgnored boolean
+local ChatFrame8_ScrollToBottomButtonObject = {}
+end
+
+do
+---@class ChatFrame8_ScrollToBottomButton_FlashObject : Texture
+---@field FlashAnim ChatFrame8_ScrollToBottomButton_Flash_FlashAnimObject
+local ChatFrame8_ScrollToBottomButton_FlashObject = {}
+end
+
+do
+---@class ChatFrame8_ScrollToBottomButton_Flash_FlashAnimObject : AnimationGroup
+---@field FadeIn ChatFrame8_ScrollToBottomButton_Flash_FlashAnim_FadeInObject
+---@field FadeOut ChatFrame8_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject
+local ChatFrame8_ScrollToBottomButton_Flash_FlashAnimObject = {}
+end
+
+do
+---@class ChatFrame8_ScrollToBottomButton_Flash_FlashAnim_FadeInObject : Alpha
+local ChatFrame8_ScrollToBottomButton_Flash_FlashAnim_FadeInObject = {}
+end
+
+do
+---@class ChatFrame8_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject : Alpha
+local ChatFrame8_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject = {}
+end
+
+do
+---@class ChatFrame8_buttonFrameObject : Frame
+---@field Background ChatFrame8_buttonFrame_BackgroundObject
+---@field minimizeButton ChatFrame8_buttonFrame_minimizeButtonObject
+local ChatFrame8_buttonFrameObject = {}
+end
+
+do
+---@class ChatFrame8_buttonFrame_BackgroundObject : Texture
+local ChatFrame8_buttonFrame_BackgroundObject = {}
+end
+
+do
+---@class ChatFrame8_buttonFrame_minimizeButtonObject : Button
+local ChatFrame8_buttonFrame_minimizeButtonObject = {}
+end
+
+do
+---@class ChatFrame8_clickAnywhereButtonObject : Button
+local ChatFrame8_clickAnywhereButtonObject = {}
+---@return any ...
+function ChatFrame8_clickAnywhereButtonObject:OnClick(...) end
+---@return any ...
+function ChatFrame8_clickAnywhereButtonObject:OnEvent(...) end
+---@return any ...
+function ChatFrame8_clickAnywhereButtonObject:OnLoad(...) end
+---@return any ...
+function ChatFrame8_clickAnywhereButtonObject:UpdateState(...) end
+end
+
+do
+---@class ChatFrame8_editBoxObject
+local ChatFrame8_editBoxObject = {}
+end
+
+do
+---@class ChatFrame8_fontObjectObject
+local ChatFrame8_fontObjectObject = {}
+end
+
+do
+---@class ChatFrame8_historyBufferObject
+---@field elements table
+---@field headIndex table
+---@field maxElements table
+local ChatFrame8_historyBufferObject = {}
+---@return any ...
+function ChatFrame8_historyBufferObject:CalculateElementIndex(...) end
+---@return any ...
+function ChatFrame8_historyBufferObject:CalculateElementIndexFromGlobalIndex(...) end
+---@return any ...
+function ChatFrame8_historyBufferObject:Clear(...) end
+---@return any ...
+function ChatFrame8_historyBufferObject:EnumerateIndexedEntries(...) end
+---@return any ...
+function ChatFrame8_historyBufferObject:GetEntryAtIndex(...) end
+---@return any ...
+function ChatFrame8_historyBufferObject:GetMaxNumElements(...) end
+---@return any ...
+function ChatFrame8_historyBufferObject:GetNumElements(...) end
+---@return any ...
+function ChatFrame8_historyBufferObject:IsEmpty(...) end
+---@return any ...
+function ChatFrame8_historyBufferObject:IsFull(...) end
+---@return any ...
+function ChatFrame8_historyBufferObject:IsValidIndex(...) end
+---@return any ...
+function ChatFrame8_historyBufferObject:OnLoad(...) end
+---@return any ...
+function ChatFrame8_historyBufferObject:PushBack(...) end
+---@return any ...
+function ChatFrame8_historyBufferObject:PushFront(...) end
+---@return any ...
+function ChatFrame8_historyBufferObject:RemoveIf(...) end
+---@return any ...
+function ChatFrame8_historyBufferObject:ReplaceElements(...) end
+---@return any ...
+function ChatFrame8_historyBufferObject:ReverseEnumerateIndexedEntries(...) end
+---@return any ...
+function ChatFrame8_historyBufferObject:SetMaxNumElements(...) end
+---@return any ...
+function ChatFrame8_historyBufferObject:TransformIf(...) end
+end
+
+do
+---@class ChatFrame8EditBoxObject : EditBox
+---@field NewcomerHint ChatFrame8EditBox_NewcomerHintObject
+---@field addHighlightedText boolean
+---@field addSpaceToAutoComplete boolean
+---@field buttonContext string
+---@field chatFrame ChatFrame8EditBox_chatFrameObject
+---@field chatLanguage string
+---@field focusLeft ChatFrame8EditBox_focusLeftObject
+---@field focusMid ChatFrame8EditBox_focusMidObject
+---@field focusRight ChatFrame8EditBox_focusRightObject
+---@field header ChatFrame8EditBox_headerObject
+---@field headerSuffix ChatFrame8EditBox_headerSuffixObject
+---@field languageHeader ChatFrame8EditBox_languageHeaderObject
+---@field prompt ChatFrame8EditBox_promptObject
+---@field tabCompleteTableIndex number
+local ChatFrame8EditBoxObject = {}
+---@return any ...
+function ChatFrame8EditBoxObject:AddHistory(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:ClearChat(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:Deactivate(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:DoesCurrentChannelTargetMatch(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:ExtractChannel(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:ExtractTellTarget(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:GetChannelTarget(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:GetChatType(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:GetStickyType(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:GetTellTarget(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:HandleChatType(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:HasStickyFocus(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:OnChar(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:OnEditFocusGained(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:OnEditFocusLost(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:OnEnterPressed(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:OnEscapePressed(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:OnEvent(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:OnHide(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:OnInputLanguageChanged(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:OnLoad(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:OnPreSendText(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:OnShow(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:OnSpacePressed(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:OnTabPressed(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:OnTextChanged(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:OnTextSet(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:OnUpdate(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:ParseText(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:ProcessChatType(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:ResetChatType(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:ResetChatTypeToSticky(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:SecureTabPressed(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:SendMessage(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:SendText(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:SetChannelTarget(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:SetChatType(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:SetFocusRegionVertexColors(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:SetFocusRegionsShown(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:SetGameLanguage(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:SetStickyType(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:SetTellTarget(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:ShouldDeactivateChatOnEditFocusLost(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:UpdateHeader(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:UpdateLanguageHeader(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:UpdateNewcomerEditBoxHint(...) end
+---@return any ...
+function ChatFrame8EditBoxObject:customAutoCompleteFunction(...) end
+---@type ChatFrame8EditBoxObject
+ChatFrame8EditBox = ChatFrame8EditBoxObject
+end
+
+do
+---@class ChatFrame8EditBox_NewcomerHintObject : FontString
+local ChatFrame8EditBox_NewcomerHintObject = {}
+end
+
+do
+---@class ChatFrame8EditBox_chatFrameObject
+local ChatFrame8EditBox_chatFrameObject = {}
+end
+
+do
+---@class ChatFrame8EditBox_focusLeftObject : Texture
+local ChatFrame8EditBox_focusLeftObject = {}
+end
+
+do
+---@class ChatFrame8EditBox_focusMidObject : Texture
+local ChatFrame8EditBox_focusMidObject = {}
+end
+
+do
+---@class ChatFrame8EditBox_focusRightObject : Texture
+local ChatFrame8EditBox_focusRightObject = {}
+end
+
+do
+---@class ChatFrame8EditBox_headerObject : FontString
+local ChatFrame8EditBox_headerObject = {}
+end
+
+do
+---@class ChatFrame8EditBox_headerSuffixObject : FontString
+local ChatFrame8EditBox_headerSuffixObject = {}
+end
+
+do
+---@class ChatFrame8EditBox_languageHeaderObject : FontString
+local ChatFrame8EditBox_languageHeaderObject = {}
+end
+
+do
+---@class ChatFrame8EditBox_promptObject : FontString
+local ChatFrame8EditBox_promptObject = {}
+end
+
+do
+---@class ChatFrame8TabObject : Button
+---@field ActiveLeft ChatFrame8Tab_ActiveLeftObject
+---@field ActiveMiddle ChatFrame8Tab_ActiveMiddleObject
+---@field ActiveRight ChatFrame8Tab_ActiveRightObject
+---@field HighlightLeft ChatFrame8Tab_HighlightLeftObject
+---@field HighlightMiddle ChatFrame8Tab_HighlightMiddleObject
+---@field HighlightRight ChatFrame8Tab_HighlightRightObject
+---@field Left ChatFrame8Tab_LeftObject
+---@field Middle ChatFrame8Tab_MiddleObject
+---@field Right ChatFrame8Tab_RightObject
+---@field Text ChatFrame8Tab_TextObject
+---@field glow ChatFrame8Tab_glowObject
+---@field textWidth number
+local ChatFrame8TabObject = {}
+---@type ChatFrame8TabObject
+ChatFrame8Tab = ChatFrame8TabObject
+end
+
+do
+---@class ChatFrame8Tab_ActiveLeftObject : Texture
+local ChatFrame8Tab_ActiveLeftObject = {}
+end
+
+do
+---@class ChatFrame8Tab_ActiveMiddleObject : Texture
+local ChatFrame8Tab_ActiveMiddleObject = {}
+end
+
+do
+---@class ChatFrame8Tab_ActiveRightObject : Texture
+local ChatFrame8Tab_ActiveRightObject = {}
+end
+
+do
+---@class ChatFrame8Tab_HighlightLeftObject : Texture
+local ChatFrame8Tab_HighlightLeftObject = {}
+end
+
+do
+---@class ChatFrame8Tab_HighlightMiddleObject : Texture
+local ChatFrame8Tab_HighlightMiddleObject = {}
+end
+
+do
+---@class ChatFrame8Tab_HighlightRightObject : Texture
+local ChatFrame8Tab_HighlightRightObject = {}
+end
+
+do
+---@class ChatFrame8Tab_LeftObject : Texture
+local ChatFrame8Tab_LeftObject = {}
+end
+
+do
+---@class ChatFrame8Tab_MiddleObject : Texture
+local ChatFrame8Tab_MiddleObject = {}
+end
+
+do
+---@class ChatFrame8Tab_RightObject : Texture
+local ChatFrame8Tab_RightObject = {}
+end
+
+do
+---@class ChatFrame8Tab_TextObject : FontString
+local ChatFrame8Tab_TextObject = {}
+end
+
+do
+---@class ChatFrame8Tab_glowObject : Texture
+---@field FlashAnim ChatFrame8Tab_glow_FlashAnimObject
+local ChatFrame8Tab_glowObject = {}
+end
+
+do
+---@class ChatFrame8Tab_glow_FlashAnimObject : AnimationGroup
+---@field syncKey string
+local ChatFrame8Tab_glow_FlashAnimObject = {}
+---@return any ...
+function ChatFrame8Tab_glow_FlashAnimObject:ClearSyncedStart(...) end
+---@return any ...
+function ChatFrame8Tab_glow_FlashAnimObject:GetTimeSinceSyncTimeForKey(...) end
+---@return any ...
+function ChatFrame8Tab_glow_FlashAnimObject:PlaySynced(...) end
+end
+
+do
+---@class ChatFrame9Object : Frame
+---@field Background ChatFrame9_BackgroundObject
+---@field FontStringContainer ChatFrame9_FontStringContainerObject
+---@field ResizeButton ChatFrame9_ResizeButtonObject
+---@field ScrollBar ChatFrame9_ScrollBarObject
+---@field ScrollToBottomButton ChatFrame9_ScrollToBottomButtonObject
+---@field allowScroll boolean
+---@field alternativeDefaultLanguage string
+---@field buttonFrame ChatFrame9_buttonFrameObject
+---@field buttonSide string
+---@field channelList table
+---@field clickAnywhereButton ChatFrame9_clickAnywhereButtonObject
+---@field defaultLanguage string
+---@field editBox ChatFrame9_editBoxObject
+---@field fadeDurationSecs number
+---@field fontObject ChatFrame9_fontObjectObject
+---@field hasOwnFontObject boolean
+---@field historyBuffer ChatFrame9_historyBufferObject
+---@field insertMode number
+---@field isDisplayDirty boolean
+---@field isInitialized number
+---@field isLayoutDirty boolean
+---@field isLocked boolean
+---@field isScrollingMessageFrame boolean
+---@field isUninteractable boolean
+---@field messageTypeList table
+---@field name string
+---@field oldAlpha number
+---@field oldestFadingLineTimestamp number
+---@field onDisplayRefreshedCallbacks table
+---@field overrideFadeTimestamp number
+---@field scrollOffset number
+---@field shouldFadeAfterInactivity boolean
+---@field smartNavRightStickMaxScrollSpeed number
+---@field textIsCopyable boolean
+---@field timeVisibleSecs number
+---@field visibleLines table
+---@field zoneChannelList table
+local ChatFrame9Object = {}
+---@return any ...
+function ChatFrame9Object:AcquireFontString(...) end
+---@return any ...
+function ChatFrame9Object:AcquireHighlightTexture(...) end
+---@return any ...
+function ChatFrame9Object:AddChannel(...) end
+---@return any ...
+function ChatFrame9Object:AddMessage(...) end
+---@return any ...
+function ChatFrame9Object:AddMessageGroup(...) end
+---@return any ...
+function ChatFrame9Object:AddOnDisplayRefreshedCallback(...) end
+---@return any ...
+function ChatFrame9Object:AddPrivateMessageTarget(...) end
+---@return any ...
+function ChatFrame9Object:AddSingleMessageType(...) end
+---@return any ...
+function ChatFrame9Object:AdjustMessageColors(...) end
+---@return any ...
+function ChatFrame9Object:AtBottom(...) end
+---@return any ...
+function ChatFrame9Object:AtTop(...) end
+---@return any ...
+function ChatFrame9Object:BackFillMessage(...) end
+---@return any ...
+function ChatFrame9Object:CalculateLineAlphaValueFromTimestamp(...) end
+---@return any ...
+function ChatFrame9Object:CalculateLineSpacing(...) end
+---@return any ...
+function ChatFrame9Object:CalculateNumVisibleLines(...) end
+---@return any ...
+function ChatFrame9Object:CalculateSelectingCharacterIndicesForVisibleLine(...) end
+---@return any ...
+function ChatFrame9Object:CallOnDisplayRefreshed(...) end
+---@return any ...
+function ChatFrame9Object:CanEffectivelyFade(...) end
+---@return any ...
+function ChatFrame9Object:Clear(...) end
+---@return any ...
+function ChatFrame9Object:ClearGamepadFocus(...) end
+---@return any ...
+function ChatFrame9Object:ConfigEventHandler(...) end
+---@return any ...
+function ChatFrame9Object:ContainsChannel(...) end
+---@return any ...
+function ChatFrame9Object:ContainsMessageGroup(...) end
+---@return any ...
+function ChatFrame9Object:CreateFooter(...) end
+---@return any ...
+function ChatFrame9Object:DontRestoreGamepadFocusOnMenuClose(...) end
+---@return any ...
+function ChatFrame9Object:ExcludePrivateMessageTarget(...) end
+---@return any ...
+function ChatFrame9Object:FindCharacterAndLineIndexAtCoordinate(...) end
+---@return any ...
+function ChatFrame9Object:FocusGamepad(...) end
+---@return any ...
+function ChatFrame9Object:ForEachMessage(...) end
+---@return any ...
+function ChatFrame9Object:ForEachMessageInfoText(...) end
+---@return any ...
+function ChatFrame9Object:ForEachVisibleLineText(...) end
+---@return any ...
+function ChatFrame9Object:GatherSelectedText(...) end
+---@return any ...
+function ChatFrame9Object:GetDefaultChatTarget(...) end
+---@return any ...
+function ChatFrame9Object:GetFadeDuration(...) end
+---@return any ...
+function ChatFrame9Object:GetFading(...) end
+---@return any ...
+function ChatFrame9Object:GetFont(...) end
+---@return any ...
+function ChatFrame9Object:GetFontObject(...) end
+---@return any ...
+function ChatFrame9Object:GetIndentedWordWrap(...) end
+---@return any ...
+function ChatFrame9Object:GetInsertMode(...) end
+---@return any ...
+function ChatFrame9Object:GetJustifyH(...) end
+---@return any ...
+function ChatFrame9Object:GetJustifyV(...) end
+---@return any ...
+function ChatFrame9Object:GetMaxLines(...) end
+---@return any ...
+function ChatFrame9Object:GetMaxScrollRange(...) end
+---@return any ...
+function ChatFrame9Object:GetMessageInfo(...) end
+---@return any ...
+function ChatFrame9Object:GetNumMessages(...) end
+---@return any ...
+function ChatFrame9Object:GetNumVisibleLines(...) end
+---@return any ...
+function ChatFrame9Object:GetOnLineRightClickedCallback(...) end
+---@return any ...
+function ChatFrame9Object:GetOnScrollChangedCallback(...) end
+---@return any ...
+function ChatFrame9Object:GetOnTextCopiedCallback(...) end
+---@return any ...
+function ChatFrame9Object:GetPagingScrollAmount(...) end
+---@return any ...
+function ChatFrame9Object:GetScaledCursorPosition(...) end
+---@return any ...
+function ChatFrame9Object:GetScrollOffset(...) end
+---@return any ...
+function ChatFrame9Object:GetShadowColor(...) end
+---@return any ...
+function ChatFrame9Object:GetShadowOffset(...) end
+---@return any ...
+function ChatFrame9Object:GetSpacing(...) end
+---@return any ...
+function ChatFrame9Object:GetTextColor(...) end
+---@return any ...
+function ChatFrame9Object:GetTimeVisible(...) end
+---@return any ...
+function ChatFrame9Object:HasFontObject(...) end
+---@return any ...
+function ChatFrame9Object:HasGamepadFocus(...) end
+---@return any ...
+function ChatFrame9Object:InitializeFontString(...) end
+---@return any ...
+function ChatFrame9Object:InitializeFontableFrame(...) end
+---@return any ...
+function ChatFrame9Object:InitializeGamepad(...) end
+---@return any ...
+function ChatFrame9Object:IsGamepadMenuOpen(...) end
+---@return any ...
+function ChatFrame9Object:IsScrollAllowed(...) end
+---@return any ...
+function ChatFrame9Object:IsSelectingText(...) end
+---@return any ...
+function ChatFrame9Object:IsTextCopyable(...) end
+---@return any ...
+function ChatFrame9Object:MakeFontObjectCustom(...) end
+---@return any ...
+function ChatFrame9Object:MarkDisplayDirty(...) end
+---@return any ...
+function ChatFrame9Object:MarkLayoutDirty(...) end
+---@return any ...
+function ChatFrame9Object:MessageEventHandler(...) end
+---@return any ...
+function ChatFrame9Object:OnColorsUpdated(...) end
+---@return any ...
+function ChatFrame9Object:OnEvent(...) end
+---@return any ...
+function ChatFrame9Object:OnFontObjectUpdated(...) end
+---@return any ...
+function ChatFrame9Object:OnHide(...) end
+---@return any ...
+function ChatFrame9Object:OnHyperlinkClick(...) end
+---@return any ...
+function ChatFrame9Object:OnHyperlinkEnter(...) end
+---@return any ...
+function ChatFrame9Object:OnHyperlinkLeave(...) end
+---@return any ...
+function ChatFrame9Object:OnLoad(...) end
+---@return any ...
+function ChatFrame9Object:OnPostEvent(...) end
+---@return any ...
+function ChatFrame9Object:OnPostHide(...) end
+---@return any ...
+function ChatFrame9Object:OnPostMouseDown(...) end
+---@return any ...
+function ChatFrame9Object:OnPostMouseUp(...) end
+---@return any ...
+function ChatFrame9Object:OnPostShow(...) end
+---@return any ...
+function ChatFrame9Object:OnPostUpdate(...) end
+---@return any ...
+function ChatFrame9Object:OnPreLoad(...) end
+---@return any ...
+function ChatFrame9Object:OnPreSizeChanged(...) end
+---@return any ...
+function ChatFrame9Object:OnUpdate(...) end
+---@return any ...
+function ChatFrame9Object:OpenChatChannelsMenu(...) end
+---@return any ...
+function ChatFrame9Object:OpenGamepadTabMenu(...) end
+---@return any ...
+function ChatFrame9Object:PackageEntry(...) end
+---@return any ...
+function ChatFrame9Object:PageDown(...) end
+---@return any ...
+function ChatFrame9Object:PageUp(...) end
+---@return any ...
+function ChatFrame9Object:PlayerLevelChanged(...) end
+---@return any ...
+function ChatFrame9Object:PlayerLevelUp(...) end
+---@return any ...
+function ChatFrame9Object:ReceiveAllPrivateMessages(...) end
+---@return any ...
+function ChatFrame9Object:RefreshDisplay(...) end
+---@return any ...
+function ChatFrame9Object:RefreshIfNecessary(...) end
+---@return any ...
+function ChatFrame9Object:RefreshLayout(...) end
+---@return any ...
+function ChatFrame9Object:RegisterForChannels(...) end
+---@return any ...
+function ChatFrame9Object:RegisterForInterfaceTransitions(...) end
+---@return any ...
+function ChatFrame9Object:RegisterForMessages(...) end
+---@return any ...
+function ChatFrame9Object:RemoveAllChannels(...) end
+---@return any ...
+function ChatFrame9Object:RemoveAllMessageGroups(...) end
+---@return any ...
+function ChatFrame9Object:RemoveChannel(...) end
+---@return any ...
+function ChatFrame9Object:RemoveExcludePrivateMessageTarget(...) end
+---@return any ...
+function ChatFrame9Object:RemoveMessageGroup(...) end
+---@return any ...
+function ChatFrame9Object:RemoveMessagesByPredicate(...) end
+---@return any ...
+function ChatFrame9Object:RemovePrivateMessageTarget(...) end
+---@return any ...
+function ChatFrame9Object:ResetAllFadeTimes(...) end
+---@return any ...
+function ChatFrame9Object:ResetSelectingText(...) end
+---@return any ...
+function ChatFrame9Object:ScrollByAmount(...) end
+---@return any ...
+function ChatFrame9Object:ScrollDown(...) end
+---@return any ...
+function ChatFrame9Object:ScrollToBottom(...) end
+---@return any ...
+function ChatFrame9Object:ScrollToTop(...) end
+---@return any ...
+function ChatFrame9Object:ScrollUp(...) end
+---@return any ...
+function ChatFrame9Object:SetChannelEnabled(...) end
+---@return any ...
+function ChatFrame9Object:SetFadeDuration(...) end
+---@return any ...
+function ChatFrame9Object:SetFading(...) end
+---@return any ...
+function ChatFrame9Object:SetFont(...) end
+---@return any ...
+function ChatFrame9Object:SetFontObject(...) end
+---@return any ...
+function ChatFrame9Object:SetGamepadFocus(...) end
+---@return any ...
+function ChatFrame9Object:SetIndentedWordWrap(...) end
+---@return any ...
+function ChatFrame9Object:SetInsertMode(...) end
+---@return any ...
+function ChatFrame9Object:SetJustifyH(...) end
+---@return any ...
+function ChatFrame9Object:SetJustifyV(...) end
+---@return any ...
+function ChatFrame9Object:SetMaxLines(...) end
+---@return any ...
+function ChatFrame9Object:SetOnLineRightClickedCallback(...) end
+---@return any ...
+function ChatFrame9Object:SetOnScrollChangedCallback(...) end
+---@return any ...
+function ChatFrame9Object:SetOnTextCopiedCallback(...) end
+---@return any ...
+function ChatFrame9Object:SetScrollAllowed(...) end
+---@return any ...
+function ChatFrame9Object:SetScrollOffset(...) end
+---@return any ...
+function ChatFrame9Object:SetShadowColor(...) end
+---@return any ...
+function ChatFrame9Object:SetShadowOffset(...) end
+---@return any ...
+function ChatFrame9Object:SetSpacing(...) end
+---@return any ...
+function ChatFrame9Object:SetTextColor(...) end
+---@return any ...
+function ChatFrame9Object:SetTextCopyable(...) end
+---@return any ...
+function ChatFrame9Object:SetTimeVisible(...) end
+---@return any ...
+function ChatFrame9Object:SetupGamepad(...) end
+---@return any ...
+function ChatFrame9Object:SmartNavigationCloseHandler(...) end
+---@return any ...
+function ChatFrame9Object:SystemEventHandler(...) end
+---@return any ...
+function ChatFrame9Object:TransformMessages(...) end
+---@return any ...
+function ChatFrame9Object:UnfocusGamepad(...) end
+---@return any ...
+function ChatFrame9Object:UninitializeGamepad(...) end
+---@return any ...
+function ChatFrame9Object:UnpackageEntry(...) end
+---@return any ...
+function ChatFrame9Object:UnregisterAllMessageGroups(...) end
+---@return any ...
+function ChatFrame9Object:UpdateColorByID(...) end
+---@return any ...
+function ChatFrame9Object:UpdateDefaultChatTarget(...) end
+---@return any ...
+function ChatFrame9Object:UpdateFading(...) end
+---@return any ...
+function ChatFrame9Object:UpdateSelectingText(...) end
+---@type ChatFrame9Object
+ChatFrame9 = ChatFrame9Object
+end
+
+do
+---@class ChatFrame9_BackgroundObject : Texture
+local ChatFrame9_BackgroundObject = {}
+end
+
+do
+---@class ChatFrame9_FontStringContainerObject : Frame
+local ChatFrame9_FontStringContainerObject = {}
+end
+
+do
+---@class ChatFrame9_ResizeButtonObject : Button
+local ChatFrame9_ResizeButtonObject = {}
+end
+
+do
+---@class ChatFrame9_ScrollBarObject : Frame
+---@field Back ChatFrame9_ScrollBar_BackObject
+---@field Defaults ChatFrame9_ScrollBar_DefaultsObject
+---@field Directions ChatFrame9_ScrollBar_DirectionsObject
+---@field Event ChatFrame9_ScrollBar_EventObject
+---@field Forward ChatFrame9_ScrollBar_ForwardObject
+---@field Track ChatFrame9_ScrollBar_TrackObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field hideTrack boolean
+---@field hideTrackIfThumbExceedsTrack boolean
+---@field internalPriority boolean
+---@field isScrollController boolean
+---@field minThumbExtent number
+---@field panDelay number
+---@field panExtentPercentage number
+---@field panRepeatTime number
+---@field smartNavigationIgnored boolean
+---@field snapToInterval boolean
+---@field thumbAnchor string
+---@field useProportionalThumb boolean
+---@field visibleExtentPercentage number
+---@field wheelPanScalar number
+local ChatFrame9_ScrollBarObject = {}
+---@return any ...
+function ChatFrame9_ScrollBarObject:CallInternalScope(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:CanCursorStepInDirection(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:CanInterpolateScroll(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:DisableControls(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:EnableInternalPriority(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:EnableSnapToInterval(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:GenerateCallbackEvents(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:GetBackStepper(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:GetCallbackTable(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:GetCallbackTables(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:GetCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:GetForwardStepper(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:GetFrameExtent(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:GetIntervalRange(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:GetLower(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:GetPanExtentPercentage(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:GetPanRepeatDelay(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:GetPanRepeatTime(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:GetScrollInterpolator(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:GetScrollPercentage(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:GetThumb(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:GetThumbAnchor(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:GetTrack(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:GetTrackExtent(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:GetUpper(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:GetWheelPanPercentage(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:HasScrollableExtent(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:Init(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:InitializeNarration(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:Interpolate(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:IsAtBegin(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:IsAtEnd(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:IsHorizontal(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:IsScrollAllowed(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:IsThumbMouseDown(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:OnHide_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:OnLoad(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:OnMouseWheel(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:OnShow_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:OnStepperMouseDown(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:OnThumbMouseDown(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:OnTrackMouseDown(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:RegisterCallback(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:ScrollDecrease(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:ScrollInDirection(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:ScrollIncrease(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:ScrollPageInDirection(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:ScrollStepInDirection(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:ScrollToBegin(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:ScrollToEnd(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:ScrollWheelInDirection(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:SecureInsertEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:SelectCursorComponent(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:SelectPointComponent(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:SetFrameExtent(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:SetHideIfUnscrollable(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:SetHorizontal(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:SetInterpolateScroll(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:SetPanExtentPercentage(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:SetScrollAllowed(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:SetScrollPercentage(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:SetThumbExtent(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:SetVisibleExtentPercentage(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:TriggerEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:UnregisterCallback(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:UnregisterEvents(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:UnregisterUpdate(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:Update(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:onButtonMouseUp(...) end
+---@return any ...
+function ChatFrame9_ScrollBarObject:scrollInternal(...) end
+end
+
+do
+---@class ChatFrame9_ScrollBar_BackObject : Button
+---@field Event ChatFrame9_ScrollBar_Back_EventObject
+---@field Texture ChatFrame9_ScrollBar_Back_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local ChatFrame9_ScrollBar_BackObject = {}
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:GetAtlas(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:GetCallbackTable(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:GetCallbackTables(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:IsDown(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:IsDownOver(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:IsOver(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:NarrationGetName(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:OnButtonStateChanged(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:OnDisable(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:OnEnable(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:OnEnter(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:OnLeave(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:OnLoad(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:OnMouseDown(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:OnMouseUp(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:OnShow(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:RegisterCallback(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:SecureInsertEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:SetDisplacedRegions(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:TriggerEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:UnregisterCallback(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:UnregisterEvents(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class ChatFrame9_ScrollBar_Back_EventObject
+local ChatFrame9_ScrollBar_Back_EventObject = {}
+end
+
+do
+---@class ChatFrame9_ScrollBar_Back_TextureObject : Texture
+local ChatFrame9_ScrollBar_Back_TextureObject = {}
+end
+
+do
+---@class ChatFrame9_ScrollBar_DefaultsObject
+local ChatFrame9_ScrollBar_DefaultsObject = {}
+end
+
+do
+---@class ChatFrame9_ScrollBar_DirectionsObject
+local ChatFrame9_ScrollBar_DirectionsObject = {}
+end
+
+do
+---@class ChatFrame9_ScrollBar_EventObject
+local ChatFrame9_ScrollBar_EventObject = {}
+end
+
+do
+---@class ChatFrame9_ScrollBar_ForwardObject : Button
+---@field Event ChatFrame9_ScrollBar_Forward_EventObject
+---@field Texture ChatFrame9_ScrollBar_Forward_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local ChatFrame9_ScrollBar_ForwardObject = {}
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:GetAtlas(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:GetCallbackTable(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:GetCallbackTables(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:IsDown(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:IsDownOver(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:IsOver(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:NarrationGetName(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:OnDisable(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:OnEnable(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:OnEnter(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:OnLeave(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:OnLoad(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:OnMouseDown(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:OnMouseUp(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:OnShow(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:RegisterCallback(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:TriggerEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:UnregisterCallback(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:UnregisterEvents(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class ChatFrame9_ScrollBar_Forward_EventObject
+local ChatFrame9_ScrollBar_Forward_EventObject = {}
+end
+
+do
+---@class ChatFrame9_ScrollBar_Forward_TextureObject : Texture
+local ChatFrame9_ScrollBar_Forward_TextureObject = {}
+end
+
+do
+---@class ChatFrame9_ScrollBar_TrackObject : Frame
+---@field Begin ChatFrame9_ScrollBar_Track_BeginObject
+---@field End ChatFrame9_ScrollBar_Track_EndObject
+---@field Middle ChatFrame9_ScrollBar_Track_MiddleObject
+---@field Thumb ChatFrame9_ScrollBar_Track_ThumbObject
+local ChatFrame9_ScrollBar_TrackObject = {}
+end
+
+do
+---@class ChatFrame9_ScrollBar_Track_BeginObject : Texture
+local ChatFrame9_ScrollBar_Track_BeginObject = {}
+end
+
+do
+---@class ChatFrame9_ScrollBar_Track_EndObject : Texture
+local ChatFrame9_ScrollBar_Track_EndObject = {}
+end
+
+do
+---@class ChatFrame9_ScrollBar_Track_MiddleObject : Texture
+local ChatFrame9_ScrollBar_Track_MiddleObject = {}
+end
+
+do
+---@class ChatFrame9_ScrollBar_Track_ThumbObject : Button
+---@field Begin ChatFrame9_ScrollBar_Track_Thumb_BeginObject
+---@field End ChatFrame9_ScrollBar_Track_Thumb_EndObject
+---@field Event ChatFrame9_ScrollBar_Track_Thumb_EventObject
+---@field Middle ChatFrame9_ScrollBar_Track_Thumb_MiddleObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field downBeginTexture string
+---@field downEndTexture string
+---@field downMiddleTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field overBeginTexture string
+---@field overEndTexture string
+---@field overMiddleTexture string
+---@field upBeginTexture string
+---@field upEndTexture string
+---@field upMiddleTexture string
+local ChatFrame9_ScrollBar_Track_ThumbObject = {}
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:IsDown(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:IsOver(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:OnDisable(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:OnEnable(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:OnEnter(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:OnLeave(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:OnLoad(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:OnShow(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+---@return any ...
+function ChatFrame9_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class ChatFrame9_ScrollBar_Track_Thumb_BeginObject : Texture
+local ChatFrame9_ScrollBar_Track_Thumb_BeginObject = {}
+end
+
+do
+---@class ChatFrame9_ScrollBar_Track_Thumb_EndObject : Texture
+local ChatFrame9_ScrollBar_Track_Thumb_EndObject = {}
+end
+
+do
+---@class ChatFrame9_ScrollBar_Track_Thumb_EventObject
+local ChatFrame9_ScrollBar_Track_Thumb_EventObject = {}
+end
+
+do
+---@class ChatFrame9_ScrollBar_Track_Thumb_MiddleObject : Texture
+local ChatFrame9_ScrollBar_Track_Thumb_MiddleObject = {}
+end
+
+do
+---@class ChatFrame9_ScrollToBottomButtonObject : Button
+---@field Flash ChatFrame9_ScrollToBottomButton_FlashObject
+---@field smartNavigationIgnored boolean
+local ChatFrame9_ScrollToBottomButtonObject = {}
+end
+
+do
+---@class ChatFrame9_ScrollToBottomButton_FlashObject : Texture
+---@field FlashAnim ChatFrame9_ScrollToBottomButton_Flash_FlashAnimObject
+local ChatFrame9_ScrollToBottomButton_FlashObject = {}
+end
+
+do
+---@class ChatFrame9_ScrollToBottomButton_Flash_FlashAnimObject : AnimationGroup
+---@field FadeIn ChatFrame9_ScrollToBottomButton_Flash_FlashAnim_FadeInObject
+---@field FadeOut ChatFrame9_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject
+local ChatFrame9_ScrollToBottomButton_Flash_FlashAnimObject = {}
+end
+
+do
+---@class ChatFrame9_ScrollToBottomButton_Flash_FlashAnim_FadeInObject : Alpha
+local ChatFrame9_ScrollToBottomButton_Flash_FlashAnim_FadeInObject = {}
+end
+
+do
+---@class ChatFrame9_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject : Alpha
+local ChatFrame9_ScrollToBottomButton_Flash_FlashAnim_FadeOutObject = {}
+end
+
+do
+---@class ChatFrame9_buttonFrameObject : Frame
+---@field Background ChatFrame9_buttonFrame_BackgroundObject
+---@field minimizeButton ChatFrame9_buttonFrame_minimizeButtonObject
+local ChatFrame9_buttonFrameObject = {}
+end
+
+do
+---@class ChatFrame9_buttonFrame_BackgroundObject : Texture
+local ChatFrame9_buttonFrame_BackgroundObject = {}
+end
+
+do
+---@class ChatFrame9_buttonFrame_minimizeButtonObject : Button
+local ChatFrame9_buttonFrame_minimizeButtonObject = {}
+end
+
+do
+---@class ChatFrame9_clickAnywhereButtonObject : Button
+local ChatFrame9_clickAnywhereButtonObject = {}
+---@return any ...
+function ChatFrame9_clickAnywhereButtonObject:OnClick(...) end
+---@return any ...
+function ChatFrame9_clickAnywhereButtonObject:OnEvent(...) end
+---@return any ...
+function ChatFrame9_clickAnywhereButtonObject:OnLoad(...) end
+---@return any ...
+function ChatFrame9_clickAnywhereButtonObject:UpdateState(...) end
+end
+
+do
+---@class ChatFrame9_editBoxObject
+local ChatFrame9_editBoxObject = {}
+end
+
+do
+---@class ChatFrame9_fontObjectObject
+local ChatFrame9_fontObjectObject = {}
+end
+
+do
+---@class ChatFrame9_historyBufferObject
+---@field elements table
+---@field headIndex table
+---@field maxElements table
+local ChatFrame9_historyBufferObject = {}
+---@return any ...
+function ChatFrame9_historyBufferObject:CalculateElementIndex(...) end
+---@return any ...
+function ChatFrame9_historyBufferObject:CalculateElementIndexFromGlobalIndex(...) end
+---@return any ...
+function ChatFrame9_historyBufferObject:Clear(...) end
+---@return any ...
+function ChatFrame9_historyBufferObject:EnumerateIndexedEntries(...) end
+---@return any ...
+function ChatFrame9_historyBufferObject:GetEntryAtIndex(...) end
+---@return any ...
+function ChatFrame9_historyBufferObject:GetMaxNumElements(...) end
+---@return any ...
+function ChatFrame9_historyBufferObject:GetNumElements(...) end
+---@return any ...
+function ChatFrame9_historyBufferObject:IsEmpty(...) end
+---@return any ...
+function ChatFrame9_historyBufferObject:IsFull(...) end
+---@return any ...
+function ChatFrame9_historyBufferObject:IsValidIndex(...) end
+---@return any ...
+function ChatFrame9_historyBufferObject:OnLoad(...) end
+---@return any ...
+function ChatFrame9_historyBufferObject:PushBack(...) end
+---@return any ...
+function ChatFrame9_historyBufferObject:PushFront(...) end
+---@return any ...
+function ChatFrame9_historyBufferObject:RemoveIf(...) end
+---@return any ...
+function ChatFrame9_historyBufferObject:ReplaceElements(...) end
+---@return any ...
+function ChatFrame9_historyBufferObject:ReverseEnumerateIndexedEntries(...) end
+---@return any ...
+function ChatFrame9_historyBufferObject:SetMaxNumElements(...) end
+---@return any ...
+function ChatFrame9_historyBufferObject:TransformIf(...) end
+end
+
+do
+---@class ChatFrame9EditBoxObject : EditBox
+---@field NewcomerHint ChatFrame9EditBox_NewcomerHintObject
+---@field addHighlightedText boolean
+---@field addSpaceToAutoComplete boolean
+---@field buttonContext string
+---@field chatFrame ChatFrame9EditBox_chatFrameObject
+---@field chatLanguage string
+---@field focusLeft ChatFrame9EditBox_focusLeftObject
+---@field focusMid ChatFrame9EditBox_focusMidObject
+---@field focusRight ChatFrame9EditBox_focusRightObject
+---@field header ChatFrame9EditBox_headerObject
+---@field headerSuffix ChatFrame9EditBox_headerSuffixObject
+---@field languageHeader ChatFrame9EditBox_languageHeaderObject
+---@field prompt ChatFrame9EditBox_promptObject
+---@field tabCompleteTableIndex number
+local ChatFrame9EditBoxObject = {}
+---@return any ...
+function ChatFrame9EditBoxObject:AddHistory(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:ClearChat(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:Deactivate(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:DoesCurrentChannelTargetMatch(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:ExtractChannel(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:ExtractTellTarget(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:GetChannelTarget(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:GetChatType(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:GetStickyType(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:GetTellTarget(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:HandleChatType(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:HasStickyFocus(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:OnChar(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:OnEditFocusGained(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:OnEditFocusLost(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:OnEnterPressed(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:OnEscapePressed(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:OnEvent(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:OnHide(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:OnInputLanguageChanged(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:OnLoad(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:OnPreSendText(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:OnShow(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:OnSpacePressed(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:OnTabPressed(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:OnTextChanged(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:OnTextSet(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:OnUpdate(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:ParseText(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:ProcessChatType(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:ResetChatType(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:ResetChatTypeToSticky(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:SecureTabPressed(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:SendMessage(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:SendText(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:SetChannelTarget(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:SetChatType(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:SetFocusRegionVertexColors(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:SetFocusRegionsShown(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:SetGameLanguage(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:SetStickyType(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:SetTellTarget(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:ShouldDeactivateChatOnEditFocusLost(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:UpdateHeader(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:UpdateLanguageHeader(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:UpdateNewcomerEditBoxHint(...) end
+---@return any ...
+function ChatFrame9EditBoxObject:customAutoCompleteFunction(...) end
+---@type ChatFrame9EditBoxObject
+ChatFrame9EditBox = ChatFrame9EditBoxObject
+end
+
+do
+---@class ChatFrame9EditBox_NewcomerHintObject : FontString
+local ChatFrame9EditBox_NewcomerHintObject = {}
+end
+
+do
+---@class ChatFrame9EditBox_chatFrameObject
+local ChatFrame9EditBox_chatFrameObject = {}
+end
+
+do
+---@class ChatFrame9EditBox_focusLeftObject : Texture
+local ChatFrame9EditBox_focusLeftObject = {}
+end
+
+do
+---@class ChatFrame9EditBox_focusMidObject : Texture
+local ChatFrame9EditBox_focusMidObject = {}
+end
+
+do
+---@class ChatFrame9EditBox_focusRightObject : Texture
+local ChatFrame9EditBox_focusRightObject = {}
+end
+
+do
+---@class ChatFrame9EditBox_headerObject : FontString
+local ChatFrame9EditBox_headerObject = {}
+end
+
+do
+---@class ChatFrame9EditBox_headerSuffixObject : FontString
+local ChatFrame9EditBox_headerSuffixObject = {}
+end
+
+do
+---@class ChatFrame9EditBox_languageHeaderObject : FontString
+local ChatFrame9EditBox_languageHeaderObject = {}
+end
+
+do
+---@class ChatFrame9EditBox_promptObject : FontString
+local ChatFrame9EditBox_promptObject = {}
+end
+
+do
+---@class ChatFrame9TabObject : Button
+---@field ActiveLeft ChatFrame9Tab_ActiveLeftObject
+---@field ActiveMiddle ChatFrame9Tab_ActiveMiddleObject
+---@field ActiveRight ChatFrame9Tab_ActiveRightObject
+---@field HighlightLeft ChatFrame9Tab_HighlightLeftObject
+---@field HighlightMiddle ChatFrame9Tab_HighlightMiddleObject
+---@field HighlightRight ChatFrame9Tab_HighlightRightObject
+---@field Left ChatFrame9Tab_LeftObject
+---@field Middle ChatFrame9Tab_MiddleObject
+---@field Right ChatFrame9Tab_RightObject
+---@field Text ChatFrame9Tab_TextObject
+---@field glow ChatFrame9Tab_glowObject
+---@field textWidth number
+local ChatFrame9TabObject = {}
+---@type ChatFrame9TabObject
+ChatFrame9Tab = ChatFrame9TabObject
+end
+
+do
+---@class ChatFrame9Tab_ActiveLeftObject : Texture
+local ChatFrame9Tab_ActiveLeftObject = {}
+end
+
+do
+---@class ChatFrame9Tab_ActiveMiddleObject : Texture
+local ChatFrame9Tab_ActiveMiddleObject = {}
+end
+
+do
+---@class ChatFrame9Tab_ActiveRightObject : Texture
+local ChatFrame9Tab_ActiveRightObject = {}
+end
+
+do
+---@class ChatFrame9Tab_HighlightLeftObject : Texture
+local ChatFrame9Tab_HighlightLeftObject = {}
+end
+
+do
+---@class ChatFrame9Tab_HighlightMiddleObject : Texture
+local ChatFrame9Tab_HighlightMiddleObject = {}
+end
+
+do
+---@class ChatFrame9Tab_HighlightRightObject : Texture
+local ChatFrame9Tab_HighlightRightObject = {}
+end
+
+do
+---@class ChatFrame9Tab_LeftObject : Texture
+local ChatFrame9Tab_LeftObject = {}
+end
+
+do
+---@class ChatFrame9Tab_MiddleObject : Texture
+local ChatFrame9Tab_MiddleObject = {}
+end
+
+do
+---@class ChatFrame9Tab_RightObject : Texture
+local ChatFrame9Tab_RightObject = {}
+end
+
+do
+---@class ChatFrame9Tab_TextObject : FontString
+local ChatFrame9Tab_TextObject = {}
+end
+
+do
+---@class ChatFrame9Tab_glowObject : Texture
+---@field FlashAnim ChatFrame9Tab_glow_FlashAnimObject
+local ChatFrame9Tab_glowObject = {}
+end
+
+do
+---@class ChatFrame9Tab_glow_FlashAnimObject : AnimationGroup
+---@field syncKey string
+local ChatFrame9Tab_glow_FlashAnimObject = {}
+---@return any ...
+function ChatFrame9Tab_glow_FlashAnimObject:ClearSyncedStart(...) end
+---@return any ...
+function ChatFrame9Tab_glow_FlashAnimObject:GetTimeSinceSyncTimeForKey(...) end
+---@return any ...
+function ChatFrame9Tab_glow_FlashAnimObject:PlaySynced(...) end
+end
+
+do
+---@class ChatFrameToggleVoiceDeafenButtonObject : Button
+---@field Icon ChatFrameToggleVoiceDeafenButton_IconObject
+---@field fixedHeight number
+---@field fixedIconHeight number
+---@field fixedIconWidth number
+---@field fixedWidth number
+---@field highlightAtlas string
+---@field iconKey string
+---@field iconNormalAlpha number
+---@field iconPushedAlpha number
+---@field iconPushedOffsetX number
+---@field iconPushedOffsetY number
+---@field normalAtlas string
+---@field pushedAtlas string
+---@field shouldPassSelfToAccessor boolean
+---@field shouldPassSelfToMutator boolean
+---@field stateAtlasFallback string
+---@field stateAtlases table
+---@field stateUpdateEvents ChatFrameToggleVoiceDeafenButton_stateUpdateEventsObject
+---@field tooltipFrame ChatFrameToggleVoiceDeafenButton_tooltipFrameObject
+---@field tooltipPoint string
+local ChatFrameToggleVoiceDeafenButtonObject = {}
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:AddStateAtlas(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:AddStateAtlasFallback(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:AddStateTooltipString(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:CallAccessor(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:CallMutator(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:CallVisibilityQuery(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:ClearHighlight(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:GetStateAtlas(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:GetStateTooltipString(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:GetTooltipFunction(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:HasHighlightAtlas(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:IsUsingIconAsHighlight(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:OnClick(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:OnEnter(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:OnEvent(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:OnLeave(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:OnLoad(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:OnMouseDown(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:OnMouseUp(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:OnPropertyChanged(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:RegisterPropertyChangeHandler(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:RegisterStateUpdateEvent(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:SetAccessorFunction(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:SetAccessorFunctionThroughSelf(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:SetHighlight(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:SetIconStateQueryFunction(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:SetIconToState(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:SetMutatorFunction(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:SetMutatorFunctionThroughSelf(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:SetTooltip(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:SetTooltipFunction(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:SetUseIconAsHighlight(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:SetVisibilityQueryFunction(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:UnregisterPropertyChangeHandler(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:UnregisterStateUpdateEvent(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:UpdateHighlight(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:UpdateTooltipForState(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:UpdateVisibleState(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:accessor(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:isVisible(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:mutator(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButtonObject:tooltipFunction(...) end
+---@type ChatFrameToggleVoiceDeafenButtonObject
+ChatFrameToggleVoiceDeafenButton = ChatFrameToggleVoiceDeafenButtonObject
+end
+
+do
+---@class ChatFrameToggleVoiceDeafenButton_IconObject : Texture
+local ChatFrameToggleVoiceDeafenButton_IconObject = {}
+end
+
+do
+---@class ChatFrameToggleVoiceDeafenButton_stateUpdateEventsObject
+local ChatFrameToggleVoiceDeafenButton_stateUpdateEventsObject = {}
+---@return any ...
+function ChatFrameToggleVoiceDeafenButton_stateUpdateEventsObject:VOICE_CHAT_DEAFENED_CHANGED(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButton_stateUpdateEventsObject:VOICE_CHAT_LOGIN(...) end
+---@return any ...
+function ChatFrameToggleVoiceDeafenButton_stateUpdateEventsObject:VOICE_CHAT_LOGOUT(...) end
+end
+
+do
+---@class ChatFrameToggleVoiceDeafenButton_tooltipFrameObject
+local ChatFrameToggleVoiceDeafenButton_tooltipFrameObject = {}
+end
+
+do
+---@class ChatFrameToggleVoiceMuteButtonObject : Button
+---@field Icon ChatFrameToggleVoiceMuteButton_IconObject
+---@field fixedHeight number
+---@field fixedIconHeight number
+---@field fixedIconWidth number
+---@field fixedWidth number
+---@field highlightAtlas string
+---@field iconKey string
+---@field iconNormalAlpha number
+---@field iconPushedAlpha number
+---@field iconPushedOffsetX number
+---@field iconPushedOffsetY number
+---@field normalAtlas string
+---@field pushedAtlas string
+---@field shouldPassSelfToAccessor boolean
+---@field shouldPassSelfToMutator boolean
+---@field stateAtlasFallback string
+---@field stateAtlases table
+---@field stateFlags ChatFrameToggleVoiceMuteButton_stateFlagsObject
+---@field stateUpdateEvents ChatFrameToggleVoiceMuteButton_stateUpdateEventsObject
+---@field tooltipFrame ChatFrameToggleVoiceMuteButton_tooltipFrameObject
+---@field tooltipPoint string
+local ChatFrameToggleVoiceMuteButtonObject = {}
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:AddStateAtlas(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:AddStateAtlasFallback(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:AddStateTooltipString(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:CallAccessor(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:CallMutator(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:CallVisibilityQuery(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:ClearHighlight(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:GetStateAtlas(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:GetStateTooltipString(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:GetTooltipFunction(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:HasHighlightAtlas(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:IsForPublicChannel(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:IsUsingIconAsHighlight(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:OnClick(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:OnEnter(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:OnEvent(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:OnLeave(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:OnLoad(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:OnMouseDown(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:OnMouseUp(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:OnPropertyChanged(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:RegisterPropertyChangeHandler(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:RegisterStateUpdateEvent(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:SetAccessorFunction(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:SetAccessorFunctionThroughSelf(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:SetHighlight(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:SetIconStateQueryFunction(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:SetIconToState(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:SetMutatorFunction(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:SetMutatorFunctionThroughSelf(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:SetTooltip(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:SetTooltipFunction(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:SetUseIconAsHighlight(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:SetVisibilityQueryFunction(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:SetupMuteButton(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:UnregisterPropertyChangeHandler(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:UnregisterStateUpdateEvent(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:UpdateHighlight(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:UpdateTooltipForState(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:UpdateVisibleState(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:accessor(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:isVisible(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:mutator(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButtonObject:tooltipFunction(...) end
+---@type ChatFrameToggleVoiceMuteButtonObject
+ChatFrameToggleVoiceMuteButton = ChatFrameToggleVoiceMuteButtonObject
+end
+
+do
+---@class ChatFrameToggleVoiceMuteButton_IconObject : Texture
+local ChatFrameToggleVoiceMuteButton_IconObject = {}
+end
+
+do
+---@class ChatFrameToggleVoiceMuteButton_stateFlagsObject
+local ChatFrameToggleVoiceMuteButton_stateFlagsObject = {}
+---@return any ...
+function ChatFrameToggleVoiceMuteButton_stateFlagsObject:AddNamedFlagsFromTable(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButton_stateFlagsObject:AddNamedMask(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButton_stateFlagsObject:AreAnySet(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButton_stateFlagsObject:AreNoneSet(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButton_stateFlagsObject:Clear(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButton_stateFlagsObject:ClearAll(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButton_stateFlagsObject:GetFlags(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButton_stateFlagsObject:IsAnySet(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButton_stateFlagsObject:IsSet(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButton_stateFlagsObject:OnLoad(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButton_stateFlagsObject:Set(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButton_stateFlagsObject:SetOrClear(...) end
+end
+
+do
+---@class ChatFrameToggleVoiceMuteButton_stateUpdateEventsObject
+local ChatFrameToggleVoiceMuteButton_stateUpdateEventsObject = {}
+---@return any ...
+function ChatFrameToggleVoiceMuteButton_stateUpdateEventsObject:VOICE_CHAT_LOGIN(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButton_stateUpdateEventsObject:VOICE_CHAT_LOGOUT(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButton_stateUpdateEventsObject:VOICE_CHAT_MUTED_CHANGED(...) end
+---@return any ...
+function ChatFrameToggleVoiceMuteButton_stateUpdateEventsObject:VOICE_CHAT_SILENCED_CHANGED(...) end
+end
+
+do
+---@class ChatFrameToggleVoiceMuteButton_tooltipFrameObject
+local ChatFrameToggleVoiceMuteButton_tooltipFrameObject = {}
+end
+
+do
+---@class ClassTalentLoadoutCreateDialogObject : Frame
+---@field AcceptButton ClassTalentLoadoutCreateDialog_AcceptButtonObject
+---@field Border ClassTalentLoadoutCreateDialog_BorderObject
+---@field CancelButton ClassTalentLoadoutCreateDialog_CancelButtonObject
+---@field ContentArea ClassTalentLoadoutCreateDialog_ContentAreaObject
+---@field NameControl ClassTalentLoadoutCreateDialog_NameControlObject
+---@field Title ClassTalentLoadoutCreateDialog_TitleObject
+---@field exclusive boolean
+---@field titleText string
+local ClassTalentLoadoutCreateDialogObject = {}
+---@return any ...
+function ClassTalentLoadoutCreateDialogObject:OnAccept(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialogObject:OnCancel(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialogObject:OnLoad(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialogObject:OnTextChanged(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialogObject:ShowDialog(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialogObject:UpdateAcceptButtonEnabledState(...) end
+---@type ClassTalentLoadoutCreateDialogObject
+ClassTalentLoadoutCreateDialog = ClassTalentLoadoutCreateDialogObject
+end
+
+do
+---@class ClassTalentLoadoutCreateDialog_AcceptButtonObject : Button
+---@field Controller ClassTalentLoadoutCreateDialog_AcceptButton_ControllerObject
+---@field Left ClassTalentLoadoutCreateDialog_AcceptButton_LeftObject
+---@field Middle ClassTalentLoadoutCreateDialog_AcceptButton_MiddleObject
+---@field Right ClassTalentLoadoutCreateDialog_AcceptButton_RightObject
+---@field Text ClassTalentLoadoutCreateDialog_AcceptButton_TextObject
 ---@field fitTextCanWidthDecrease boolean
 ---@field fitTextWidthPadding number
-local CommunitiesFrame_RecruitmentDialog_AcceptObject = {}
+local ClassTalentLoadoutCreateDialog_AcceptButtonObject = {}
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_AcceptObject:FitToText(...) end
+function ClassTalentLoadoutCreateDialog_AcceptButtonObject:ClearCustomTextFormatter(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_AcceptObject:GetDisabledTooltip(...) end
+function ClassTalentLoadoutCreateDialog_AcceptButtonObject:FitToText(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_AcceptObject:OnEnter(...) end
+function ClassTalentLoadoutCreateDialog_AcceptButtonObject:GetDisabledTooltip(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_AcceptObject:OnLeave(...) end
+function ClassTalentLoadoutCreateDialog_AcceptButtonObject:GetOnClickSoundKit(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_AcceptObject:SetDisabledState(...) end
+function ClassTalentLoadoutCreateDialog_AcceptButtonObject:InitButton(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_AcceptObject:SetDisabledTooltip(...) end
+function ClassTalentLoadoutCreateDialog_AcceptButtonObject:OnClick(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_AcceptObject:SetTextToFit(...) end
+function ClassTalentLoadoutCreateDialog_AcceptButtonObject:OnEnter(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_AcceptButtonObject:OnLeave(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_AcceptButtonObject:RunCustomTextFormatter(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_AcceptButtonObject:SetButtonArtKit(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_AcceptButtonObject:SetCustomTextFormatter(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_AcceptButtonObject:SetDisabledState(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_AcceptButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_AcceptButtonObject:SetOnClickHandler(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_AcceptButtonObject:SetOnEnterHandler(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_AcceptButtonObject:SetTextToFit(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_AcceptButtonObject:SetTooltipAnchor(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_AcceptButtonObject:SetTooltipInfo(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_AcceptButtonObject:onClickHandler(...) end
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_Accept_LeftObject : Texture
-local CommunitiesFrame_RecruitmentDialog_Accept_LeftObject = {}
+---@class ClassTalentLoadoutCreateDialog_AcceptButton_ControllerObject : Frame
+local ClassTalentLoadoutCreateDialog_AcceptButton_ControllerObject = {}
+---@return any ...
+function ClassTalentLoadoutCreateDialog_AcceptButton_ControllerObject:OnLoad(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_AcceptButton_ControllerObject:OnShow(...) end
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_Accept_MiddleObject : Texture
-local CommunitiesFrame_RecruitmentDialog_Accept_MiddleObject = {}
+---@class ClassTalentLoadoutCreateDialog_AcceptButton_LeftObject : Texture
+local ClassTalentLoadoutCreateDialog_AcceptButton_LeftObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_Accept_RightObject : Texture
-local CommunitiesFrame_RecruitmentDialog_Accept_RightObject = {}
+---@class ClassTalentLoadoutCreateDialog_AcceptButton_MiddleObject : Texture
+local ClassTalentLoadoutCreateDialog_AcceptButton_MiddleObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_Accept_TextObject : FontString
-local CommunitiesFrame_RecruitmentDialog_Accept_TextObject = {}
+---@class ClassTalentLoadoutCreateDialog_AcceptButton_RightObject : Texture
+local ClassTalentLoadoutCreateDialog_AcceptButton_RightObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_BGObject : Frame
----@field Bg CommunitiesFrame_RecruitmentDialog_BG_BgObject
----@field BottomEdge CommunitiesFrame_RecruitmentDialog_BG_BottomEdgeObject
----@field BottomLeftCorner CommunitiesFrame_RecruitmentDialog_BG_BottomLeftCornerObject
----@field BottomRightCorner CommunitiesFrame_RecruitmentDialog_BG_BottomRightCornerObject
----@field LeftEdge CommunitiesFrame_RecruitmentDialog_BG_LeftEdgeObject
----@field RightEdge CommunitiesFrame_RecruitmentDialog_BG_RightEdgeObject
----@field TopEdge CommunitiesFrame_RecruitmentDialog_BG_TopEdgeObject
----@field TopLeftCorner CommunitiesFrame_RecruitmentDialog_BG_TopLeftCornerObject
----@field TopRightCorner CommunitiesFrame_RecruitmentDialog_BG_TopRightCornerObject
+---@class ClassTalentLoadoutCreateDialog_AcceptButton_TextObject : FontString
+local ClassTalentLoadoutCreateDialog_AcceptButton_TextObject = {}
+end
+
+do
+---@class ClassTalentLoadoutCreateDialog_BorderObject : Frame
+---@field Bg ClassTalentLoadoutCreateDialog_Border_BgObject
+---@field BottomEdge ClassTalentLoadoutCreateDialog_Border_BottomEdgeObject
+---@field BottomLeftCorner ClassTalentLoadoutCreateDialog_Border_BottomLeftCornerObject
+---@field BottomRightCorner ClassTalentLoadoutCreateDialog_Border_BottomRightCornerObject
+---@field LeftEdge ClassTalentLoadoutCreateDialog_Border_LeftEdgeObject
+---@field RightEdge ClassTalentLoadoutCreateDialog_Border_RightEdgeObject
+---@field TopEdge ClassTalentLoadoutCreateDialog_Border_TopEdgeObject
+---@field TopLeftCorner ClassTalentLoadoutCreateDialog_Border_TopLeftCornerObject
+---@field TopRightCorner ClassTalentLoadoutCreateDialog_Border_TopRightCornerObject
 ---@field layoutType string
-local CommunitiesFrame_RecruitmentDialog_BGObject = {}
+local ClassTalentLoadoutCreateDialog_BorderObject = {}
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_BGObject:GetBorderColor(...) end
+function ClassTalentLoadoutCreateDialog_BorderObject:GetBorderColor(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_BGObject:GetCenterColor(...) end
+function ClassTalentLoadoutCreateDialog_BorderObject:GetCenterColor(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_BGObject:GetFrameLayoutTextureKit(...) end
+function ClassTalentLoadoutCreateDialog_BorderObject:GetFrameLayoutTextureKit(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_BGObject:GetFrameLayoutType(...) end
+function ClassTalentLoadoutCreateDialog_BorderObject:GetFrameLayoutType(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_BGObject:OnLoad(...) end
+function ClassTalentLoadoutCreateDialog_BorderObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_BGObject:SetBlendMode(...) end
+function ClassTalentLoadoutCreateDialog_BorderObject:SetBlendMode(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_BGObject:SetBorderBlendMode(...) end
+function ClassTalentLoadoutCreateDialog_BorderObject:SetBorderBlendMode(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_BGObject:SetBorderColor(...) end
+function ClassTalentLoadoutCreateDialog_BorderObject:SetBorderColor(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_BGObject:SetCenterColor(...) end
+function ClassTalentLoadoutCreateDialog_BorderObject:SetCenterColor(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_BGObject:SetVertexColor(...) end
+function ClassTalentLoadoutCreateDialog_BorderObject:SetVertexColor(...) end
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_BG_BgObject : Texture
-local CommunitiesFrame_RecruitmentDialog_BG_BgObject = {}
+---@class ClassTalentLoadoutCreateDialog_Border_BgObject : Texture
+local ClassTalentLoadoutCreateDialog_Border_BgObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_BG_BottomEdgeObject : Texture
-local CommunitiesFrame_RecruitmentDialog_BG_BottomEdgeObject = {}
+---@class ClassTalentLoadoutCreateDialog_Border_BottomEdgeObject : Texture
+local ClassTalentLoadoutCreateDialog_Border_BottomEdgeObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_BG_BottomLeftCornerObject : Texture
-local CommunitiesFrame_RecruitmentDialog_BG_BottomLeftCornerObject = {}
+---@class ClassTalentLoadoutCreateDialog_Border_BottomLeftCornerObject : Texture
+local ClassTalentLoadoutCreateDialog_Border_BottomLeftCornerObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_BG_BottomRightCornerObject : Texture
-local CommunitiesFrame_RecruitmentDialog_BG_BottomRightCornerObject = {}
+---@class ClassTalentLoadoutCreateDialog_Border_BottomRightCornerObject : Texture
+local ClassTalentLoadoutCreateDialog_Border_BottomRightCornerObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_BG_LeftEdgeObject : Texture
-local CommunitiesFrame_RecruitmentDialog_BG_LeftEdgeObject = {}
+---@class ClassTalentLoadoutCreateDialog_Border_LeftEdgeObject : Texture
+local ClassTalentLoadoutCreateDialog_Border_LeftEdgeObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_BG_RightEdgeObject : Texture
-local CommunitiesFrame_RecruitmentDialog_BG_RightEdgeObject = {}
+---@class ClassTalentLoadoutCreateDialog_Border_RightEdgeObject : Texture
+local ClassTalentLoadoutCreateDialog_Border_RightEdgeObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_BG_TopEdgeObject : Texture
-local CommunitiesFrame_RecruitmentDialog_BG_TopEdgeObject = {}
+---@class ClassTalentLoadoutCreateDialog_Border_TopEdgeObject : Texture
+local ClassTalentLoadoutCreateDialog_Border_TopEdgeObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_BG_TopLeftCornerObject : Texture
-local CommunitiesFrame_RecruitmentDialog_BG_TopLeftCornerObject = {}
+---@class ClassTalentLoadoutCreateDialog_Border_TopLeftCornerObject : Texture
+local ClassTalentLoadoutCreateDialog_Border_TopLeftCornerObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_BG_TopRightCornerObject : Texture
-local CommunitiesFrame_RecruitmentDialog_BG_TopRightCornerObject = {}
+---@class ClassTalentLoadoutCreateDialog_Border_TopRightCornerObject : Texture
+local ClassTalentLoadoutCreateDialog_Border_TopRightCornerObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_CancelObject : Button
----@field Left CommunitiesFrame_RecruitmentDialog_Cancel_LeftObject
----@field Middle CommunitiesFrame_RecruitmentDialog_Cancel_MiddleObject
----@field Right CommunitiesFrame_RecruitmentDialog_Cancel_RightObject
----@field Text CommunitiesFrame_RecruitmentDialog_Cancel_TextObject
+---@class ClassTalentLoadoutCreateDialog_CancelButtonObject : Button
+---@field Controller ClassTalentLoadoutCreateDialog_CancelButton_ControllerObject
+---@field Left ClassTalentLoadoutCreateDialog_CancelButton_LeftObject
+---@field Middle ClassTalentLoadoutCreateDialog_CancelButton_MiddleObject
+---@field Right ClassTalentLoadoutCreateDialog_CancelButton_RightObject
+---@field Text ClassTalentLoadoutCreateDialog_CancelButton_TextObject
 ---@field fitTextCanWidthDecrease boolean
 ---@field fitTextWidthPadding number
-local CommunitiesFrame_RecruitmentDialog_CancelObject = {}
+local ClassTalentLoadoutCreateDialog_CancelButtonObject = {}
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_CancelObject:FitToText(...) end
+function ClassTalentLoadoutCreateDialog_CancelButtonObject:ClearCustomTextFormatter(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_CancelObject:GetDisabledTooltip(...) end
+function ClassTalentLoadoutCreateDialog_CancelButtonObject:FitToText(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_CancelObject:OnEnter(...) end
+function ClassTalentLoadoutCreateDialog_CancelButtonObject:GetDisabledTooltip(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_CancelObject:OnLeave(...) end
+function ClassTalentLoadoutCreateDialog_CancelButtonObject:GetOnClickSoundKit(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_CancelObject:SetDisabledState(...) end
+function ClassTalentLoadoutCreateDialog_CancelButtonObject:InitButton(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_CancelObject:SetDisabledTooltip(...) end
+function ClassTalentLoadoutCreateDialog_CancelButtonObject:OnClick(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_CancelObject:SetTextToFit(...) end
+function ClassTalentLoadoutCreateDialog_CancelButtonObject:OnEnter(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_CancelButtonObject:OnLeave(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_CancelButtonObject:RunCustomTextFormatter(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_CancelButtonObject:SetButtonArtKit(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_CancelButtonObject:SetCustomTextFormatter(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_CancelButtonObject:SetDisabledState(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_CancelButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_CancelButtonObject:SetOnClickHandler(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_CancelButtonObject:SetOnEnterHandler(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_CancelButtonObject:SetTextToFit(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_CancelButtonObject:SetTooltipAnchor(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_CancelButtonObject:SetTooltipInfo(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_CancelButtonObject:onClickHandler(...) end
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_Cancel_LeftObject : Texture
-local CommunitiesFrame_RecruitmentDialog_Cancel_LeftObject = {}
+---@class ClassTalentLoadoutCreateDialog_CancelButton_ControllerObject : Frame
+local ClassTalentLoadoutCreateDialog_CancelButton_ControllerObject = {}
+---@return any ...
+function ClassTalentLoadoutCreateDialog_CancelButton_ControllerObject:OnLoad(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_CancelButton_ControllerObject:OnShow(...) end
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_Cancel_MiddleObject : Texture
-local CommunitiesFrame_RecruitmentDialog_Cancel_MiddleObject = {}
+---@class ClassTalentLoadoutCreateDialog_CancelButton_LeftObject : Texture
+local ClassTalentLoadoutCreateDialog_CancelButton_LeftObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_Cancel_RightObject : Texture
-local CommunitiesFrame_RecruitmentDialog_Cancel_RightObject = {}
+---@class ClassTalentLoadoutCreateDialog_CancelButton_MiddleObject : Texture
+local ClassTalentLoadoutCreateDialog_CancelButton_MiddleObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_Cancel_TextObject : FontString
-local CommunitiesFrame_RecruitmentDialog_Cancel_TextObject = {}
+---@class ClassTalentLoadoutCreateDialog_CancelButton_RightObject : Texture
+local ClassTalentLoadoutCreateDialog_CancelButton_RightObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject : Button
----@field Arrow CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_ArrowObject
----@field Background CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_BackgroundObject
----@field Event CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_EventObject
----@field Label CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_LabelObject
----@field Text CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_TextObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
----@field intrinsic string
+---@class ClassTalentLoadoutCreateDialog_CancelButton_TextObject : FontString
+local ClassTalentLoadoutCreateDialog_CancelButton_TextObject = {}
+end
+
+do
+---@class ClassTalentLoadoutCreateDialog_ContentAreaObject : Frame
+local ClassTalentLoadoutCreateDialog_ContentAreaObject = {}
+end
+
+do
+---@class ClassTalentLoadoutCreateDialog_NameControlObject : Frame
+---@field EditBox ClassTalentLoadoutCreateDialog_NameControl_EditBoxObject
+---@field Label ClassTalentLoadoutCreateDialog_NameControl_LabelObject
 ---@field labelText string
----@field menuAnchor CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject
----@field menuDescription CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject
----@field menuPoint string
----@field menuPointX number
----@field menuPointY number
----@field menuRelativePoint string
-local CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject = {}
+local ClassTalentLoadoutCreateDialog_NameControlObject = {}
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:ClearMenuState(...) end
+function ClassTalentLoadoutCreateDialog_NameControlObject:GetEditBox(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:CloseMenu(...) end
+function ClassTalentLoadoutCreateDialog_NameControlObject:GetText(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:CollectSelectionData(...) end
+function ClassTalentLoadoutCreateDialog_NameControlObject:HasText(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:CopyDeferredCallbacks(...) end
+function ClassTalentLoadoutCreateDialog_NameControlObject:OnEnterPressed(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:CreateDefaultRootMenuDescription(...) end
+function ClassTalentLoadoutCreateDialog_NameControlObject:OnEscapePressed(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:CreateRootDescription(...) end
+function ClassTalentLoadoutCreateDialog_NameControlObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:Decrement(...) end
+function ClassTalentLoadoutCreateDialog_NameControlObject:OnShow(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:DesaturateIfDisabled(...) end
+function ClassTalentLoadoutCreateDialog_NameControlObject:OnTextChanged(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:EnableRegenerateOnResponse(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:GenerateMenu(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:GetArrowAtlas(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:GetDefaultText(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:GetMenuDescription(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:GetSelectionData(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:GetUpdateText(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:HandlesGlobalMouseEvent(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:HasAnyRadioDescriptions(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:HasElements(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:HasOnlyRadioDescriptions(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:HasStickyFocus(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:Increment(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:IsDown(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:IsDownOver(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:IsMenuOpen(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:IsOver(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:NarrationGetContext(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:NarrationGetName(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnButtonStateChanged(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnDisable(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnEnable(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnMenuAssigned(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnMenuChanged(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnMenuClosed(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnMenuOpened(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnMenuResponse(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnMouseDown(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnMouseUp(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnMouseWheel_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OnShow(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OpenMenu(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:OverrideText(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:Pick(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:RegisterMenu(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:Rotate(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:SetDefaultText(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:SetDisplacedRegions(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:SetMenuAnchor(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:SetMenuOpen(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:SetSelectionText(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:SetSelectionTranslator(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:SetTooltip(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:SetupMenu(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:ShouldShowTooltip(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:ShowTooltip(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:SignalUpdate(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:Update(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:UpdateSelections(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:UpdateText(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:UpdateToMenuSelections(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:menuGenerator(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:onMenuClosedCallback(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdownObject:selectionTranslator(...) end
+function ClassTalentLoadoutCreateDialog_NameControlObject:SetText(...) end
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_ArrowObject : Texture
-local CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_ArrowObject = {}
+---@class ClassTalentLoadoutCreateDialog_NameControl_EditBoxObject : EditBox
+---@field Left ClassTalentLoadoutCreateDialog_NameControl_EditBox_LeftObject
+---@field Middle ClassTalentLoadoutCreateDialog_NameControl_EditBox_MiddleObject
+---@field Right ClassTalentLoadoutCreateDialog_NameControl_EditBox_RightObject
+local ClassTalentLoadoutCreateDialog_NameControl_EditBoxObject = {}
+---@return any ...
+function ClassTalentLoadoutCreateDialog_NameControl_EditBoxObject:NarrationGetContext(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_NameControl_EditBoxObject:NarrationGetDescription(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_NameControl_EditBoxObject:NarrationGetName(...) end
+---@return any ...
+function ClassTalentLoadoutCreateDialog_NameControl_EditBoxObject:SetNarrationLabelRegion(...) end
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_BackgroundObject : Texture
-local CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_BackgroundObject = {}
+---@class ClassTalentLoadoutCreateDialog_NameControl_EditBox_LeftObject : Texture
+local ClassTalentLoadoutCreateDialog_NameControl_EditBox_LeftObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_EventObject
-local CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_EventObject = {}
+---@class ClassTalentLoadoutCreateDialog_NameControl_EditBox_MiddleObject : Texture
+local ClassTalentLoadoutCreateDialog_NameControl_EditBox_MiddleObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_LabelObject : FontString
-local CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_LabelObject = {}
+---@class ClassTalentLoadoutCreateDialog_NameControl_EditBox_RightObject : Texture
+local ClassTalentLoadoutCreateDialog_NameControl_EditBox_RightObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_TextObject : FontString
-local CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_TextObject = {}
+---@class ClassTalentLoadoutCreateDialog_NameControl_LabelObject : FontString
+local ClassTalentLoadoutCreateDialog_NameControl_LabelObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchor_relativeToObject
----@field x number
----@field y number
-local CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject = {}
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject:Get(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject:GetRelativeTo(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject:Init(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject:Set(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject:SetFromPoint(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject:SetOffsets(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject:SetPoint(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchorObject:SetRelativeTo(...) end
+---@class ClassTalentLoadoutCreateDialog_TitleObject : FontString
+local ClassTalentLoadoutCreateDialog_TitleObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchor_relativeToObject
-local CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuAnchor_relativeToObject = {}
+---@class ClassTalentLoadoutEditDialogObject : Frame
+---@field AcceptButton ClassTalentLoadoutEditDialog_AcceptButtonObject
+---@field Border ClassTalentLoadoutEditDialog_BorderObject
+---@field CancelButton ClassTalentLoadoutEditDialog_CancelButtonObject
+---@field ContentArea ClassTalentLoadoutEditDialog_ContentAreaObject
+---@field DeleteButton ClassTalentLoadoutEditDialog_DeleteButtonObject
+---@field NameControl ClassTalentLoadoutEditDialog_NameControlObject
+---@field Title ClassTalentLoadoutEditDialog_TitleObject
+---@field UsesSharedActionBars ClassTalentLoadoutEditDialog_UsesSharedActionBarsObject
+---@field exclusive boolean
+---@field titleText string
+local ClassTalentLoadoutEditDialogObject = {}
+---@return any ...
+function ClassTalentLoadoutEditDialogObject:OnAccept(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialogObject:OnCancel(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialogObject:OnDelete(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialogObject:OnDeleteConfirmed(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialogObject:OnLoad(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialogObject:OnSharedActionBarsConfirmed(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialogObject:OnTextChanged(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialogObject:ShowDialog(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialogObject:UpdateAcceptButtonEnabledState(...) end
+---@type ClassTalentLoadoutEditDialogObject
+ClassTalentLoadoutEditDialog = ClassTalentLoadoutEditDialogObject
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject
----@field tag string
-local CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject = {}
+---@class ClassTalentLoadoutEditDialog_AcceptButtonObject : Button
+---@field Controller ClassTalentLoadoutEditDialog_AcceptButton_ControllerObject
+---@field Left ClassTalentLoadoutEditDialog_AcceptButton_LeftObject
+---@field Middle ClassTalentLoadoutEditDialog_AcceptButton_MiddleObject
+---@field Right ClassTalentLoadoutEditDialog_AcceptButton_RightObject
+---@field Text ClassTalentLoadoutEditDialog_AcceptButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local ClassTalentLoadoutEditDialog_AcceptButtonObject = {}
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateButton(...) end
+function ClassTalentLoadoutEditDialog_AcceptButtonObject:ClearCustomTextFormatter(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateCheckbox(...) end
+function ClassTalentLoadoutEditDialog_AcceptButtonObject:FitToText(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateColorSwatch(...) end
+function ClassTalentLoadoutEditDialog_AcceptButtonObject:GetDisabledTooltip(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateDivider(...) end
+function ClassTalentLoadoutEditDialog_AcceptButtonObject:GetOnClickSoundKit(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateFrame(...) end
+function ClassTalentLoadoutEditDialog_AcceptButtonObject:InitButton(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateHighlightButton(...) end
+function ClassTalentLoadoutEditDialog_AcceptButtonObject:OnClick(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateHighlightRadio(...) end
+function ClassTalentLoadoutEditDialog_AcceptButtonObject:OnEnter(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateRadio(...) end
+function ClassTalentLoadoutEditDialog_AcceptButtonObject:OnLeave(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
+function ClassTalentLoadoutEditDialog_AcceptButtonObject:RunCustomTextFormatter(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateSearchEntry(...) end
+function ClassTalentLoadoutEditDialog_AcceptButtonObject:SetButtonArtKit(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateSpacer(...) end
+function ClassTalentLoadoutEditDialog_AcceptButtonObject:SetCustomTextFormatter(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateTemplate(...) end
+function ClassTalentLoadoutEditDialog_AcceptButtonObject:SetDisabledState(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:CreateTitle(...) end
+function ClassTalentLoadoutEditDialog_AcceptButtonObject:SetDisabledTooltip(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:QueueDivider(...) end
+function ClassTalentLoadoutEditDialog_AcceptButtonObject:SetOnClickHandler(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:QueueSpacer(...) end
+function ClassTalentLoadoutEditDialog_AcceptButtonObject:SetOnEnterHandler(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:QueueTitle(...) end
+function ClassTalentLoadoutEditDialog_AcceptButtonObject:SetTextToFit(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
+function ClassTalentLoadoutEditDialog_AcceptButtonObject:SetTooltipAnchor(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:SetTooltip(...) end
+function ClassTalentLoadoutEditDialog_AcceptButtonObject:SetTooltipInfo(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ClubFocusDropdown_menuDescriptionObject:private(...) end
+function ClassTalentLoadoutEditDialog_AcceptButtonObject:onClickHandler(...) end
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_DialogLabelObject : FontString
-local CommunitiesFrame_RecruitmentDialog_DialogLabelObject = {}
+---@class ClassTalentLoadoutEditDialog_AcceptButton_ControllerObject : Frame
+local ClassTalentLoadoutEditDialog_AcceptButton_ControllerObject = {}
+---@return any ...
+function ClassTalentLoadoutEditDialog_AcceptButton_ControllerObject:OnLoad(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_AcceptButton_ControllerObject:OnShow(...) end
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject : Button
----@field Arrow CommunitiesFrame_RecruitmentDialog_LanguageDropdown_ArrowObject
----@field Background CommunitiesFrame_RecruitmentDialog_LanguageDropdown_BackgroundObject
----@field Event CommunitiesFrame_RecruitmentDialog_LanguageDropdown_EventObject
----@field Label CommunitiesFrame_RecruitmentDialog_LanguageDropdown_LabelObject
----@field Language CommunitiesFrame_RecruitmentDialog_LanguageDropdown_LanguageObject
----@field Text CommunitiesFrame_RecruitmentDialog_LanguageDropdown_TextObject
----@field callbackTables table
----@field currentLocaleId number
----@field deferredCallbacks table
----@field executingEvents table
----@field intrinsic string
----@field menuAnchor CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject
----@field menuDescription CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject
----@field menuPoint string
----@field menuPointX number
----@field menuPointY number
----@field menuRelativePoint string
----@field text string
-local CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject = {}
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:ClearMenuState(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:CloseMenu(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:CollectSelectionData(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:CreateDefaultRootMenuDescription(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:CreateRootDescription(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:Decrement(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:DesaturateIfDisabled(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:EnableRegenerateOnResponse(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:GenerateMenu(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:GetArrowAtlas(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:GetDefaultText(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:GetMenuDescription(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:GetSelectionData(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:GetUpdateText(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:HandlesGlobalMouseEvent(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:HasAnyRadioDescriptions(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:HasElements(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:HasOnlyRadioDescriptions(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:HasStickyFocus(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:Increment(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:IsDown(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:IsDownOver(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:IsLocale(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:IsMenuOpen(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:IsOver(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:NarrationGetContext(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:NarrationGetName(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnButtonStateChanged(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnDisable(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnEnable(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnMenuAssigned(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnMenuChanged(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnMenuClosed(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnMenuOpened(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnMenuResponse(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnMouseDown(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnMouseUp(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnMouseWheel_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OnShow(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OpenMenu(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:OverrideText(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:Pick(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:RegisterMenu(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:Rotate(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SetDefaultText(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SetDisplacedRegions(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SetLocale(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SetMenuAnchor(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SetMenuOpen(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SetSelectionText(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SetSelectionTranslator(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SetTooltip(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SetupMenu(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:ShouldShowTooltip(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:ShowTooltip(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:SignalUpdate(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:Update(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:UpdateSelections(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:UpdateText(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:UpdateToMenuSelections(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:menuGenerator(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:onMenuClosedCallback(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:selectionFunc(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdownObject:selectionTranslator(...) end
+---@class ClassTalentLoadoutEditDialog_AcceptButton_LeftObject : Texture
+local ClassTalentLoadoutEditDialog_AcceptButton_LeftObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_LanguageDropdown_ArrowObject : Texture
-local CommunitiesFrame_RecruitmentDialog_LanguageDropdown_ArrowObject = {}
+---@class ClassTalentLoadoutEditDialog_AcceptButton_MiddleObject : Texture
+local ClassTalentLoadoutEditDialog_AcceptButton_MiddleObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_LanguageDropdown_BackgroundObject : Texture
-local CommunitiesFrame_RecruitmentDialog_LanguageDropdown_BackgroundObject = {}
+---@class ClassTalentLoadoutEditDialog_AcceptButton_RightObject : Texture
+local ClassTalentLoadoutEditDialog_AcceptButton_RightObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_LanguageDropdown_EventObject
-local CommunitiesFrame_RecruitmentDialog_LanguageDropdown_EventObject = {}
+---@class ClassTalentLoadoutEditDialog_AcceptButton_TextObject : FontString
+local ClassTalentLoadoutEditDialog_AcceptButton_TextObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_LanguageDropdown_LabelObject : FontString
-local CommunitiesFrame_RecruitmentDialog_LanguageDropdown_LabelObject = {}
+---@class ClassTalentLoadoutEditDialog_BorderObject : Frame
+---@field Bg ClassTalentLoadoutEditDialog_Border_BgObject
+---@field BottomEdge ClassTalentLoadoutEditDialog_Border_BottomEdgeObject
+---@field BottomLeftCorner ClassTalentLoadoutEditDialog_Border_BottomLeftCornerObject
+---@field BottomRightCorner ClassTalentLoadoutEditDialog_Border_BottomRightCornerObject
+---@field LeftEdge ClassTalentLoadoutEditDialog_Border_LeftEdgeObject
+---@field RightEdge ClassTalentLoadoutEditDialog_Border_RightEdgeObject
+---@field TopEdge ClassTalentLoadoutEditDialog_Border_TopEdgeObject
+---@field TopLeftCorner ClassTalentLoadoutEditDialog_Border_TopLeftCornerObject
+---@field TopRightCorner ClassTalentLoadoutEditDialog_Border_TopRightCornerObject
+---@field layoutType string
+local ClassTalentLoadoutEditDialog_BorderObject = {}
+---@return any ...
+function ClassTalentLoadoutEditDialog_BorderObject:GetBorderColor(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_BorderObject:GetCenterColor(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_BorderObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_BorderObject:GetFrameLayoutType(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_BorderObject:OnLoad(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_BorderObject:SetBlendMode(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_BorderObject:SetBorderBlendMode(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_BorderObject:SetBorderColor(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_BorderObject:SetCenterColor(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_BorderObject:SetVertexColor(...) end
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_LanguageDropdown_LanguageObject : Texture
-local CommunitiesFrame_RecruitmentDialog_LanguageDropdown_LanguageObject = {}
+---@class ClassTalentLoadoutEditDialog_Border_BgObject : Texture
+local ClassTalentLoadoutEditDialog_Border_BgObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_LanguageDropdown_TextObject : FontString
-local CommunitiesFrame_RecruitmentDialog_LanguageDropdown_TextObject = {}
+---@class ClassTalentLoadoutEditDialog_Border_BottomEdgeObject : Texture
+local ClassTalentLoadoutEditDialog_Border_BottomEdgeObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchor_relativeToObject
----@field x number
----@field y number
-local CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject = {}
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject:Get(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject:GetRelativeTo(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject:Init(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject:Set(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject:SetFromPoint(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject:SetOffsets(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject:SetPoint(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchorObject:SetRelativeTo(...) end
+---@class ClassTalentLoadoutEditDialog_Border_BottomLeftCornerObject : Texture
+local ClassTalentLoadoutEditDialog_Border_BottomLeftCornerObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchor_relativeToObject
-local CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuAnchor_relativeToObject = {}
+---@class ClassTalentLoadoutEditDialog_Border_BottomRightCornerObject : Texture
+local ClassTalentLoadoutEditDialog_Border_BottomRightCornerObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject
----@field tag string
-local CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject = {}
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateButton(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateCheckbox(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateColorSwatch(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateDivider(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateFrame(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateHighlightButton(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateHighlightRadio(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateRadio(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateSearchEntry(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateSpacer(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateTemplate(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:CreateTitle(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:QueueDivider(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:QueueSpacer(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:QueueTitle(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:SetTooltip(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LanguageDropdown_menuDescriptionObject:private(...) end
+---@class ClassTalentLoadoutEditDialog_Border_LeftEdgeObject : Texture
+local ClassTalentLoadoutEditDialog_Border_LeftEdgeObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject : Button
----@field Arrow CommunitiesFrame_RecruitmentDialog_LookingForDropdown_ArrowObject
----@field Background CommunitiesFrame_RecruitmentDialog_LookingForDropdown_BackgroundObject
----@field Event CommunitiesFrame_RecruitmentDialog_LookingForDropdown_EventObject
----@field Label CommunitiesFrame_RecruitmentDialog_LookingForDropdown_LabelObject
----@field Text CommunitiesFrame_RecruitmentDialog_LookingForDropdown_TextObject
----@field callbackTables table
----@field checkedCount number
----@field checkedList table
----@field deferredCallbacks table
----@field executingEvents table
----@field intrinsic string
+---@class ClassTalentLoadoutEditDialog_Border_RightEdgeObject : Texture
+local ClassTalentLoadoutEditDialog_Border_RightEdgeObject = {}
+end
+
+do
+---@class ClassTalentLoadoutEditDialog_Border_TopEdgeObject : Texture
+local ClassTalentLoadoutEditDialog_Border_TopEdgeObject = {}
+end
+
+do
+---@class ClassTalentLoadoutEditDialog_Border_TopLeftCornerObject : Texture
+local ClassTalentLoadoutEditDialog_Border_TopLeftCornerObject = {}
+end
+
+do
+---@class ClassTalentLoadoutEditDialog_Border_TopRightCornerObject : Texture
+local ClassTalentLoadoutEditDialog_Border_TopRightCornerObject = {}
+end
+
+do
+---@class ClassTalentLoadoutEditDialog_CancelButtonObject : Button
+---@field Controller ClassTalentLoadoutEditDialog_CancelButton_ControllerObject
+---@field Left ClassTalentLoadoutEditDialog_CancelButton_LeftObject
+---@field Middle ClassTalentLoadoutEditDialog_CancelButton_MiddleObject
+---@field Right ClassTalentLoadoutEditDialog_CancelButton_RightObject
+---@field Text ClassTalentLoadoutEditDialog_CancelButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local ClassTalentLoadoutEditDialog_CancelButtonObject = {}
+---@return any ...
+function ClassTalentLoadoutEditDialog_CancelButtonObject:ClearCustomTextFormatter(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_CancelButtonObject:FitToText(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_CancelButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_CancelButtonObject:GetOnClickSoundKit(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_CancelButtonObject:InitButton(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_CancelButtonObject:OnClick(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_CancelButtonObject:OnEnter(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_CancelButtonObject:OnLeave(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_CancelButtonObject:RunCustomTextFormatter(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_CancelButtonObject:SetButtonArtKit(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_CancelButtonObject:SetCustomTextFormatter(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_CancelButtonObject:SetDisabledState(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_CancelButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_CancelButtonObject:SetOnClickHandler(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_CancelButtonObject:SetOnEnterHandler(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_CancelButtonObject:SetTextToFit(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_CancelButtonObject:SetTooltipAnchor(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_CancelButtonObject:SetTooltipInfo(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_CancelButtonObject:onClickHandler(...) end
+end
+
+do
+---@class ClassTalentLoadoutEditDialog_CancelButton_ControllerObject : Frame
+local ClassTalentLoadoutEditDialog_CancelButton_ControllerObject = {}
+---@return any ...
+function ClassTalentLoadoutEditDialog_CancelButton_ControllerObject:OnLoad(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_CancelButton_ControllerObject:OnShow(...) end
+end
+
+do
+---@class ClassTalentLoadoutEditDialog_CancelButton_LeftObject : Texture
+local ClassTalentLoadoutEditDialog_CancelButton_LeftObject = {}
+end
+
+do
+---@class ClassTalentLoadoutEditDialog_CancelButton_MiddleObject : Texture
+local ClassTalentLoadoutEditDialog_CancelButton_MiddleObject = {}
+end
+
+do
+---@class ClassTalentLoadoutEditDialog_CancelButton_RightObject : Texture
+local ClassTalentLoadoutEditDialog_CancelButton_RightObject = {}
+end
+
+do
+---@class ClassTalentLoadoutEditDialog_CancelButton_TextObject : FontString
+local ClassTalentLoadoutEditDialog_CancelButton_TextObject = {}
+end
+
+do
+---@class ClassTalentLoadoutEditDialog_ContentAreaObject : Frame
+local ClassTalentLoadoutEditDialog_ContentAreaObject = {}
+end
+
+do
+---@class ClassTalentLoadoutEditDialog_DeleteButtonObject : Button
+---@field Controller ClassTalentLoadoutEditDialog_DeleteButton_ControllerObject
+---@field Left ClassTalentLoadoutEditDialog_DeleteButton_LeftObject
+---@field Middle ClassTalentLoadoutEditDialog_DeleteButton_MiddleObject
+---@field Right ClassTalentLoadoutEditDialog_DeleteButton_RightObject
+---@field Text ClassTalentLoadoutEditDialog_DeleteButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local ClassTalentLoadoutEditDialog_DeleteButtonObject = {}
+---@return any ...
+function ClassTalentLoadoutEditDialog_DeleteButtonObject:ClearCustomTextFormatter(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_DeleteButtonObject:FitToText(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_DeleteButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_DeleteButtonObject:GetOnClickSoundKit(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_DeleteButtonObject:InitButton(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_DeleteButtonObject:OnClick(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_DeleteButtonObject:OnEnter(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_DeleteButtonObject:OnLeave(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_DeleteButtonObject:RunCustomTextFormatter(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_DeleteButtonObject:SetButtonArtKit(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_DeleteButtonObject:SetCustomTextFormatter(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_DeleteButtonObject:SetDisabledState(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_DeleteButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_DeleteButtonObject:SetOnClickHandler(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_DeleteButtonObject:SetOnEnterHandler(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_DeleteButtonObject:SetTextToFit(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_DeleteButtonObject:SetTooltipAnchor(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_DeleteButtonObject:SetTooltipInfo(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_DeleteButtonObject:onClickHandler(...) end
+end
+
+do
+---@class ClassTalentLoadoutEditDialog_DeleteButton_ControllerObject : Frame
+local ClassTalentLoadoutEditDialog_DeleteButton_ControllerObject = {}
+---@return any ...
+function ClassTalentLoadoutEditDialog_DeleteButton_ControllerObject:OnLoad(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_DeleteButton_ControllerObject:OnShow(...) end
+end
+
+do
+---@class ClassTalentLoadoutEditDialog_DeleteButton_LeftObject : Texture
+local ClassTalentLoadoutEditDialog_DeleteButton_LeftObject = {}
+end
+
+do
+---@class ClassTalentLoadoutEditDialog_DeleteButton_MiddleObject : Texture
+local ClassTalentLoadoutEditDialog_DeleteButton_MiddleObject = {}
+end
+
+do
+---@class ClassTalentLoadoutEditDialog_DeleteButton_RightObject : Texture
+local ClassTalentLoadoutEditDialog_DeleteButton_RightObject = {}
+end
+
+do
+---@class ClassTalentLoadoutEditDialog_DeleteButton_TextObject : FontString
+local ClassTalentLoadoutEditDialog_DeleteButton_TextObject = {}
+end
+
+do
+---@class ClassTalentLoadoutEditDialog_NameControlObject : Frame
+---@field EditBox ClassTalentLoadoutEditDialog_NameControl_EditBoxObject
+---@field Label ClassTalentLoadoutEditDialog_NameControl_LabelObject
 ---@field labelText string
----@field menuAnchor CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject
----@field menuDescription CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject
----@field menuPoint string
----@field menuPointX number
----@field menuPointY number
----@field menuRelativePoint string
----@field text string
-local CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject = {}
+local ClassTalentLoadoutEditDialog_NameControlObject = {}
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:CheckOrUncheckAll(...) end
+function ClassTalentLoadoutEditDialog_NameControlObject:GetEditBox(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:ClearMenuState(...) end
+function ClassTalentLoadoutEditDialog_NameControlObject:GetText(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:CloseMenu(...) end
+function ClassTalentLoadoutEditDialog_NameControlObject:HasText(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:CollectSelectionData(...) end
+function ClassTalentLoadoutEditDialog_NameControlObject:OnEnterPressed(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:CopyDeferredCallbacks(...) end
+function ClassTalentLoadoutEditDialog_NameControlObject:OnEscapePressed(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:CreateDefaultRootMenuDescription(...) end
+function ClassTalentLoadoutEditDialog_NameControlObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:CreateRootDescription(...) end
+function ClassTalentLoadoutEditDialog_NameControlObject:OnShow(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:Decrement(...) end
+function ClassTalentLoadoutEditDialog_NameControlObject:OnTextChanged(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:DesaturateIfDisabled(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:EnableRegenerateOnResponse(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GenerateMenu(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GetArrowAtlas(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GetDefaultText(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GetMenuDescription(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GetSelectionData(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GetSpecsList(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:GetUpdateText(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:HandlesGlobalMouseEvent(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:HasAnyRadioDescriptions(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:HasElements(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:HasOnlyRadioDescriptions(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:HasStickyFocus(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:Increment(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:IsDown(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:IsDownOver(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:IsEverySpecCheckedForRole(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:IsMenuOpen(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:IsOver(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:IsSpecInList(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:ModifyTrackedSpecList(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:NarrationGetContext(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:NarrationGetName(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnButtonStateChanged(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnDisable(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnEnable(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnMenuAssigned(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnMenuChanged(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnMenuClosed(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnMenuOpened(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnMenuResponse(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnMouseDown(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnMouseUp(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnMouseWheel_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OnShow(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OpenMenu(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:OverrideText(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:Pick(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:RegisterMenu(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:Rotate(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SetCheckedList(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SetDefaultText(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SetDisplacedRegions(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SetMenuAnchor(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SetMenuOpen(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SetSelectionText(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SetSelectionTranslator(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SetTooltip(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SetupMenu(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:ShouldShowTooltip(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:ShowTooltip(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:SignalUpdate(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:Update(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:UpdateSelections(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:UpdateText(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:UpdateToMenuSelections(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:menuGenerator(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:onMenuClosedCallback(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:selectionFunc(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdownObject:selectionTranslator(...) end
+function ClassTalentLoadoutEditDialog_NameControlObject:SetText(...) end
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_LookingForDropdown_ArrowObject : Texture
-local CommunitiesFrame_RecruitmentDialog_LookingForDropdown_ArrowObject = {}
+---@class ClassTalentLoadoutEditDialog_NameControl_EditBoxObject : EditBox
+---@field Left ClassTalentLoadoutEditDialog_NameControl_EditBox_LeftObject
+---@field Middle ClassTalentLoadoutEditDialog_NameControl_EditBox_MiddleObject
+---@field Right ClassTalentLoadoutEditDialog_NameControl_EditBox_RightObject
+local ClassTalentLoadoutEditDialog_NameControl_EditBoxObject = {}
+---@return any ...
+function ClassTalentLoadoutEditDialog_NameControl_EditBoxObject:NarrationGetContext(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_NameControl_EditBoxObject:NarrationGetDescription(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_NameControl_EditBoxObject:NarrationGetName(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_NameControl_EditBoxObject:SetNarrationLabelRegion(...) end
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_LookingForDropdown_BackgroundObject : Texture
-local CommunitiesFrame_RecruitmentDialog_LookingForDropdown_BackgroundObject = {}
+---@class ClassTalentLoadoutEditDialog_NameControl_EditBox_LeftObject : Texture
+local ClassTalentLoadoutEditDialog_NameControl_EditBox_LeftObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_LookingForDropdown_EventObject
-local CommunitiesFrame_RecruitmentDialog_LookingForDropdown_EventObject = {}
+---@class ClassTalentLoadoutEditDialog_NameControl_EditBox_MiddleObject : Texture
+local ClassTalentLoadoutEditDialog_NameControl_EditBox_MiddleObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_LookingForDropdown_LabelObject : FontString
-local CommunitiesFrame_RecruitmentDialog_LookingForDropdown_LabelObject = {}
+---@class ClassTalentLoadoutEditDialog_NameControl_EditBox_RightObject : Texture
+local ClassTalentLoadoutEditDialog_NameControl_EditBox_RightObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_LookingForDropdown_TextObject : FontString
-local CommunitiesFrame_RecruitmentDialog_LookingForDropdown_TextObject = {}
+---@class ClassTalentLoadoutEditDialog_NameControl_LabelObject : FontString
+local ClassTalentLoadoutEditDialog_NameControl_LabelObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchor_relativeToObject
----@field x number
----@field y number
-local CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject = {}
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject:Get(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject:GetRelativeTo(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject:Init(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject:Set(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject:SetFromPoint(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject:SetOffsets(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject:SetPoint(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchorObject:SetRelativeTo(...) end
+---@class ClassTalentLoadoutEditDialog_TitleObject : FontString
+local ClassTalentLoadoutEditDialog_TitleObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchor_relativeToObject
-local CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuAnchor_relativeToObject = {}
+---@class ClassTalentLoadoutEditDialog_UsesSharedActionBarsObject : Button
+---@field CheckButton ClassTalentLoadoutEditDialog_UsesSharedActionBars_CheckButtonObject
+---@field Label ClassTalentLoadoutEditDialog_UsesSharedActionBars_LabelObject
+local ClassTalentLoadoutEditDialog_UsesSharedActionBarsObject = {}
+---@return any ...
+function ClassTalentLoadoutEditDialog_UsesSharedActionBarsObject:OnClick(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_UsesSharedActionBarsObject:OnEnter(...) end
+---@return any ...
+function ClassTalentLoadoutEditDialog_UsesSharedActionBarsObject:OnLeave(...) end
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject
----@field tag string
-local CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject = {}
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateButton(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateCheckbox(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateColorSwatch(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateDivider(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateFrame(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateHighlightButton(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateHighlightRadio(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateRadio(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateSearchEntry(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateSpacer(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateTemplate(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:CreateTitle(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:QueueDivider(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:QueueSpacer(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:QueueTitle(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:SetTooltip(...) end
----@return any ...
-function CommunitiesFrame_RecruitmentDialog_LookingForDropdown_menuDescriptionObject:private(...) end
+---@class ClassTalentLoadoutEditDialog_UsesSharedActionBars_CheckButtonObject : CheckButton
+local ClassTalentLoadoutEditDialog_UsesSharedActionBars_CheckButtonObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_MaxLevelOnlyObject : Frame
----@field Button CommunitiesFrame_RecruitmentDialog_MaxLevelOnly_ButtonObject
----@field Label CommunitiesFrame_RecruitmentDialog_MaxLevelOnly_LabelObject
-local CommunitiesFrame_RecruitmentDialog_MaxLevelOnlyObject = {}
+---@class ClassTalentLoadoutEditDialog_UsesSharedActionBars_LabelObject : FontString
+local ClassTalentLoadoutEditDialog_UsesSharedActionBars_LabelObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_MaxLevelOnly_ButtonObject : CheckButton
-local CommunitiesFrame_RecruitmentDialog_MaxLevelOnly_ButtonObject = {}
+---@class ClassTalentLoadoutImportDialogObject : Frame
+---@field AcceptButton ClassTalentLoadoutImportDialog_AcceptButtonObject
+---@field Border ClassTalentLoadoutImportDialog_BorderObject
+---@field CancelButton ClassTalentLoadoutImportDialog_CancelButtonObject
+---@field ContentArea ClassTalentLoadoutImportDialog_ContentAreaObject
+---@field ImportControl ClassTalentLoadoutImportDialog_ImportControlObject
+---@field NameControl ClassTalentLoadoutImportDialog_NameControlObject
+---@field Title ClassTalentLoadoutImportDialog_TitleObject
+---@field exclusive boolean
+---@field titleText string
+local ClassTalentLoadoutImportDialogObject = {}
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_MaxLevelOnly_ButtonObject:OnClick(...) end
-end
-
-do
----@class CommunitiesFrame_RecruitmentDialog_MaxLevelOnly_LabelObject : FontString
-local CommunitiesFrame_RecruitmentDialog_MaxLevelOnly_LabelObject = {}
-end
-
-do
----@class CommunitiesFrame_RecruitmentDialog_MinIlvlOnlyObject : Frame
----@field Button CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_ButtonObject
----@field EditBox CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBoxObject
----@field Label CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_LabelObject
-local CommunitiesFrame_RecruitmentDialog_MinIlvlOnlyObject = {}
-end
-
-do
----@class CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_ButtonObject : CheckButton
-local CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_ButtonObject = {}
+function ClassTalentLoadoutImportDialogObject:OnAccept(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_ButtonObject:OnClick(...) end
-end
-
-do
----@class CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBoxObject : EditBox
----@field Left CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_LeftObject
----@field Middle CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_MiddleObject
----@field Right CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_RightObject
----@field Text CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_TextObject
-local CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBoxObject = {}
+function ClassTalentLoadoutImportDialogObject:OnCancel(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBoxObject:NarrationGetContext(...) end
+function ClassTalentLoadoutImportDialogObject:OnHide(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBoxObject:NarrationGetDescription(...) end
+function ClassTalentLoadoutImportDialogObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBoxObject:NarrationGetName(...) end
+function ClassTalentLoadoutImportDialogObject:OnTextChanged(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBoxObject:SetNarrationLabelRegion(...) end
+function ClassTalentLoadoutImportDialogObject:ShowDialog(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialogObject:UpdateAcceptButtonEnabledState(...) end
+---@type ClassTalentLoadoutImportDialogObject
+ClassTalentLoadoutImportDialog = ClassTalentLoadoutImportDialogObject
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_LeftObject : Texture
-local CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_LeftObject = {}
+---@class ClassTalentLoadoutImportDialog_AcceptButtonObject : Button
+---@field Controller ClassTalentLoadoutImportDialog_AcceptButton_ControllerObject
+---@field Left ClassTalentLoadoutImportDialog_AcceptButton_LeftObject
+---@field Middle ClassTalentLoadoutImportDialog_AcceptButton_MiddleObject
+---@field Right ClassTalentLoadoutImportDialog_AcceptButton_RightObject
+---@field Text ClassTalentLoadoutImportDialog_AcceptButton_TextObject
+---@field disabledTooltip string
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local ClassTalentLoadoutImportDialog_AcceptButtonObject = {}
+---@return any ...
+function ClassTalentLoadoutImportDialog_AcceptButtonObject:ClearCustomTextFormatter(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_AcceptButtonObject:FitToText(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_AcceptButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_AcceptButtonObject:GetOnClickSoundKit(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_AcceptButtonObject:InitButton(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_AcceptButtonObject:OnClick(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_AcceptButtonObject:OnEnter(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_AcceptButtonObject:OnLeave(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_AcceptButtonObject:RunCustomTextFormatter(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_AcceptButtonObject:SetButtonArtKit(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_AcceptButtonObject:SetCustomTextFormatter(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_AcceptButtonObject:SetDisabledState(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_AcceptButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_AcceptButtonObject:SetOnClickHandler(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_AcceptButtonObject:SetOnEnterHandler(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_AcceptButtonObject:SetTextToFit(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_AcceptButtonObject:SetTooltipAnchor(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_AcceptButtonObject:SetTooltipInfo(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_AcceptButtonObject:onClickHandler(...) end
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_MiddleObject : Texture
-local CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_MiddleObject = {}
+---@class ClassTalentLoadoutImportDialog_AcceptButton_ControllerObject : Frame
+local ClassTalentLoadoutImportDialog_AcceptButton_ControllerObject = {}
+---@return any ...
+function ClassTalentLoadoutImportDialog_AcceptButton_ControllerObject:OnLoad(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_AcceptButton_ControllerObject:OnShow(...) end
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_RightObject : Texture
-local CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_RightObject = {}
+---@class ClassTalentLoadoutImportDialog_AcceptButton_LeftObject : Texture
+local ClassTalentLoadoutImportDialog_AcceptButton_LeftObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_TextObject : FontString
-local CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_EditBox_TextObject = {}
+---@class ClassTalentLoadoutImportDialog_AcceptButton_MiddleObject : Texture
+local ClassTalentLoadoutImportDialog_AcceptButton_MiddleObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_LabelObject : FontString
-local CommunitiesFrame_RecruitmentDialog_MinIlvlOnly_LabelObject = {}
+---@class ClassTalentLoadoutImportDialog_AcceptButton_RightObject : Texture
+local ClassTalentLoadoutImportDialog_AcceptButton_RightObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrameObject : Frame
----@field Bottom CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_BottomObject
----@field BottomLeft CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_BottomLeftObject
----@field BottomRight CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_BottomRightObject
----@field Label CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_LabelObject
----@field Left CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_LeftObject
----@field Middle CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_MiddleObject
----@field RecruitmentMessageInput CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInputObject
----@field Right CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RightObject
----@field Top CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_TopObject
----@field TopLeft CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_TopLeftObject
----@field TopRight CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_TopRightObject
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrameObject = {}
+---@class ClassTalentLoadoutImportDialog_AcceptButton_TextObject : FontString
+local ClassTalentLoadoutImportDialog_AcceptButton_TextObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_BottomObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_BottomObject = {}
+---@class ClassTalentLoadoutImportDialog_BorderObject : Frame
+---@field Bg ClassTalentLoadoutImportDialog_Border_BgObject
+---@field BottomEdge ClassTalentLoadoutImportDialog_Border_BottomEdgeObject
+---@field BottomLeftCorner ClassTalentLoadoutImportDialog_Border_BottomLeftCornerObject
+---@field BottomRightCorner ClassTalentLoadoutImportDialog_Border_BottomRightCornerObject
+---@field LeftEdge ClassTalentLoadoutImportDialog_Border_LeftEdgeObject
+---@field RightEdge ClassTalentLoadoutImportDialog_Border_RightEdgeObject
+---@field TopEdge ClassTalentLoadoutImportDialog_Border_TopEdgeObject
+---@field TopLeftCorner ClassTalentLoadoutImportDialog_Border_TopLeftCornerObject
+---@field TopRightCorner ClassTalentLoadoutImportDialog_Border_TopRightCornerObject
+---@field layoutType string
+local ClassTalentLoadoutImportDialog_BorderObject = {}
+---@return any ...
+function ClassTalentLoadoutImportDialog_BorderObject:GetBorderColor(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_BorderObject:GetCenterColor(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_BorderObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_BorderObject:GetFrameLayoutType(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_BorderObject:OnLoad(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_BorderObject:SetBlendMode(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_BorderObject:SetBorderBlendMode(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_BorderObject:SetBorderColor(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_BorderObject:SetCenterColor(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_BorderObject:SetVertexColor(...) end
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_BottomLeftObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_BottomLeftObject = {}
+---@class ClassTalentLoadoutImportDialog_Border_BgObject : Texture
+local ClassTalentLoadoutImportDialog_Border_BgObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_BottomRightObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_BottomRightObject = {}
+---@class ClassTalentLoadoutImportDialog_Border_BottomEdgeObject : Texture
+local ClassTalentLoadoutImportDialog_Border_BottomEdgeObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_LabelObject : FontString
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_LabelObject = {}
+---@class ClassTalentLoadoutImportDialog_Border_BottomLeftCornerObject : Texture
+local ClassTalentLoadoutImportDialog_Border_BottomLeftCornerObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_LeftObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_LeftObject = {}
+---@class ClassTalentLoadoutImportDialog_Border_BottomRightCornerObject : Texture
+local ClassTalentLoadoutImportDialog_Border_BottomRightCornerObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_MiddleObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_MiddleObject = {}
+---@class ClassTalentLoadoutImportDialog_Border_LeftEdgeObject : Texture
+local ClassTalentLoadoutImportDialog_Border_LeftEdgeObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInputObject : ScrollFrame
----@field BottomLeftTex CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_BottomLeftTexObject
----@field BottomRightTex CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_BottomRightTexObject
----@field BottomTex CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_BottomTexObject
----@field CharCount CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_CharCountObject
----@field EditBox CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_EditBoxObject
----@field LeftTex CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_LeftTexObject
----@field MiddleTex CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_MiddleTexObject
----@field RightTex CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_RightTexObject
----@field ScrollBar CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject
----@field TopLeftTex CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_TopLeftTexObject
----@field TopRightTex CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_TopRightTexObject
----@field TopTex CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_TopTexObject
----@field cursorOffset number
+---@class ClassTalentLoadoutImportDialog_Border_RightEdgeObject : Texture
+local ClassTalentLoadoutImportDialog_Border_RightEdgeObject = {}
+end
+
+do
+---@class ClassTalentLoadoutImportDialog_Border_TopEdgeObject : Texture
+local ClassTalentLoadoutImportDialog_Border_TopEdgeObject = {}
+end
+
+do
+---@class ClassTalentLoadoutImportDialog_Border_TopLeftCornerObject : Texture
+local ClassTalentLoadoutImportDialog_Border_TopLeftCornerObject = {}
+end
+
+do
+---@class ClassTalentLoadoutImportDialog_Border_TopRightCornerObject : Texture
+local ClassTalentLoadoutImportDialog_Border_TopRightCornerObject = {}
+end
+
+do
+---@class ClassTalentLoadoutImportDialog_CancelButtonObject : Button
+---@field Controller ClassTalentLoadoutImportDialog_CancelButton_ControllerObject
+---@field Left ClassTalentLoadoutImportDialog_CancelButton_LeftObject
+---@field Middle ClassTalentLoadoutImportDialog_CancelButton_MiddleObject
+---@field Right ClassTalentLoadoutImportDialog_CancelButton_RightObject
+---@field Text ClassTalentLoadoutImportDialog_CancelButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local ClassTalentLoadoutImportDialog_CancelButtonObject = {}
+---@return any ...
+function ClassTalentLoadoutImportDialog_CancelButtonObject:ClearCustomTextFormatter(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_CancelButtonObject:FitToText(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_CancelButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_CancelButtonObject:GetOnClickSoundKit(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_CancelButtonObject:InitButton(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_CancelButtonObject:OnClick(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_CancelButtonObject:OnEnter(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_CancelButtonObject:OnLeave(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_CancelButtonObject:RunCustomTextFormatter(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_CancelButtonObject:SetButtonArtKit(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_CancelButtonObject:SetCustomTextFormatter(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_CancelButtonObject:SetDisabledState(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_CancelButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_CancelButtonObject:SetOnClickHandler(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_CancelButtonObject:SetOnEnterHandler(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_CancelButtonObject:SetTextToFit(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_CancelButtonObject:SetTooltipAnchor(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_CancelButtonObject:SetTooltipInfo(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_CancelButtonObject:onClickHandler(...) end
+end
+
+do
+---@class ClassTalentLoadoutImportDialog_CancelButton_ControllerObject : Frame
+local ClassTalentLoadoutImportDialog_CancelButton_ControllerObject = {}
+---@return any ...
+function ClassTalentLoadoutImportDialog_CancelButton_ControllerObject:OnLoad(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_CancelButton_ControllerObject:OnShow(...) end
+end
+
+do
+---@class ClassTalentLoadoutImportDialog_CancelButton_LeftObject : Texture
+local ClassTalentLoadoutImportDialog_CancelButton_LeftObject = {}
+end
+
+do
+---@class ClassTalentLoadoutImportDialog_CancelButton_MiddleObject : Texture
+local ClassTalentLoadoutImportDialog_CancelButton_MiddleObject = {}
+end
+
+do
+---@class ClassTalentLoadoutImportDialog_CancelButton_RightObject : Texture
+local ClassTalentLoadoutImportDialog_CancelButton_RightObject = {}
+end
+
+do
+---@class ClassTalentLoadoutImportDialog_CancelButton_TextObject : FontString
+local ClassTalentLoadoutImportDialog_CancelButton_TextObject = {}
+end
+
+do
+---@class ClassTalentLoadoutImportDialog_ContentAreaObject : Frame
+local ClassTalentLoadoutImportDialog_ContentAreaObject = {}
+end
+
+do
+---@class ClassTalentLoadoutImportDialog_ImportControlObject : Frame
+---@field InputContainer ClassTalentLoadoutImportDialog_ImportControl_InputContainerObject
+---@field Label ClassTalentLoadoutImportDialog_ImportControl_LabelObject
+---@field labelText string
+local ClassTalentLoadoutImportDialog_ImportControlObject = {}
+---@return any ...
+function ClassTalentLoadoutImportDialog_ImportControlObject:GetEditBox(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_ImportControlObject:GetText(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_ImportControlObject:HasText(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_ImportControlObject:OnEnterPressed(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_ImportControlObject:OnEscapePressed(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_ImportControlObject:OnLoad(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_ImportControlObject:OnShow(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_ImportControlObject:OnTextChanged(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_ImportControlObject:SetText(...) end
+end
+
+do
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainerObject : ScrollFrame
+---@field BottomLeftTex ClassTalentLoadoutImportDialog_ImportControl_InputContainer_BottomLeftTexObject
+---@field BottomRightTex ClassTalentLoadoutImportDialog_ImportControl_InputContainer_BottomRightTexObject
+---@field BottomTex ClassTalentLoadoutImportDialog_ImportControl_InputContainer_BottomTexObject
+---@field CharCount ClassTalentLoadoutImportDialog_ImportControl_InputContainer_CharCountObject
+---@field EditBox ClassTalentLoadoutImportDialog_ImportControl_InputContainer_EditBoxObject
+---@field LeftTex ClassTalentLoadoutImportDialog_ImportControl_InputContainer_LeftTexObject
+---@field MiddleTex ClassTalentLoadoutImportDialog_ImportControl_InputContainer_MiddleTexObject
+---@field RightTex ClassTalentLoadoutImportDialog_ImportControl_InputContainer_RightTexObject
+---@field ScrollBar ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject
+---@field TopLeftTex ClassTalentLoadoutImportDialog_ImportControl_InputContainer_TopLeftTexObject
+---@field TopRightTex ClassTalentLoadoutImportDialog_ImportControl_InputContainer_TopRightTexObject
+---@field TopTex ClassTalentLoadoutImportDialog_ImportControl_InputContainer_TopTexObject
 ---@field hideCharCount boolean
 ---@field instructions string
 ---@field maxLetters number
@@ -1225,68 +7028,68 @@ do
 ---@field scrollBarHideIfUnscrollable boolean
 ---@field scrollBarTopY number
 ---@field scrollBarX number
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInputObject = {}
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainerObject = {}
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInputObject:GetPanExtent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainerObject:GetPanExtent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInputObject:SetPanExtent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainerObject:SetPanExtent(...) end
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_BottomLeftTexObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_BottomLeftTexObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_BottomLeftTexObject : Texture
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_BottomLeftTexObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_BottomRightTexObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_BottomRightTexObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_BottomRightTexObject : Texture
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_BottomRightTexObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_BottomTexObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_BottomTexObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_BottomTexObject : Texture
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_BottomTexObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_CharCountObject : FontString
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_CharCountObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_CharCountObject : FontString
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_CharCountObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_EditBoxObject : EditBox
----@field Instructions CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_EditBox_InstructionsObject
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_EditBoxObject : EditBox
+---@field Instructions ClassTalentLoadoutImportDialog_ImportControl_InputContainer_EditBox_InstructionsObject
 ---@field smartNavigationIgnored boolean
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_EditBoxObject = {}
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_EditBoxObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_EditBox_InstructionsObject : FontString
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_EditBox_InstructionsObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_EditBox_InstructionsObject : FontString
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_EditBox_InstructionsObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_LeftTexObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_LeftTexObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_LeftTexObject : Texture
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_LeftTexObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_MiddleTexObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_MiddleTexObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_MiddleTexObject : Texture
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_MiddleTexObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_RightTexObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_RightTexObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_RightTexObject : Texture
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_RightTexObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject : Frame
----@field Back CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject
----@field Defaults CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_DefaultsObject
----@field Directions CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_DirectionsObject
----@field Event CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_EventObject
----@field Forward CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject
----@field Track CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_TrackObject
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject : Frame
+---@field Back ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject
+---@field Defaults ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_DefaultsObject
+---@field Directions ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_DirectionsObject
+---@field Event ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_EventObject
+---@field Forward ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject
+---@field Track ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_TrackObject
 ---@field allowScroll boolean
 ---@field callbackTables table
 ---@field canInterpolateScroll boolean
@@ -1294,7 +7097,7 @@ do
 ---@field executingEvents table
 ---@field hideIfUnscrollable boolean
 ---@field hideTrack boolean
----@field interpolator CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_interpolatorObject
+---@field interpolator ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_interpolatorObject
 ---@field isScrollController boolean
 ---@field minThumbExtent number
 ---@field panDelay number
@@ -1306,179 +7109,179 @@ do
 ---@field useProportionalThumb boolean
 ---@field visibleExtentPercentage number
 ---@field wheelPanScalar number
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject = {}
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject = {}
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:CallInternalScope(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:CallInternalScope(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:CanCursorStepInDirection(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:CanCursorStepInDirection(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:CanInterpolateScroll(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:CanInterpolateScroll(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:CopyDeferredCallbacks(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:DisableControls(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:DisableControls(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:DoesFrameHaveEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:EnableInternalPriority(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:EnableInternalPriority(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:EnableSnapToInterval(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:EnableSnapToInterval(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GenerateCallbackEvents(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetBackStepper(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:GetBackStepper(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetCallbackTable(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetCallbackTables(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetCallbacksByEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetForwardStepper(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:GetForwardStepper(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetFrameExtent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:GetFrameExtent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetIntervalRange(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:GetIntervalRange(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetLower(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:GetLower(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetPanExtentPercentage(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetPanRepeatDelay(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:GetPanRepeatDelay(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetPanRepeatTime(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:GetPanRepeatTime(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetScrollInterpolator(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:GetScrollInterpolator(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetScrollPercentage(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:GetScrollPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetThumb(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:GetThumb(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetThumbAnchor(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:GetThumbAnchor(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetTrack(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:GetTrack(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetTrackExtent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:GetTrackExtent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetUpper(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:GetUpper(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetVisibleExtentPercentage(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:GetWheelPanPercentage(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:HasRegistrantsForEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:HasScrollableExtent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:HasScrollableExtent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:Init(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:Init(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:InitializeNarration(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:InitializeNarration(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:Interpolate(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:Interpolate(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:IsAtBegin(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:IsAtBegin(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:IsAtEnd(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:IsAtEnd(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:IsHorizontal(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:IsHorizontal(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:IsScrollAllowed(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:IsScrollAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:IsThumbMouseDown(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:IsThumbMouseDown(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:OnHide_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:OnLoad(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:OnLoad_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:OnMouseWheel(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:OnMouseWheel(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:OnShow_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:OnStepperMouseDown(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:OnStepperMouseDown(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:OnThumbMouseDown(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:OnThumbMouseDown(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:OnTrackMouseDown(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:OnTrackMouseDown(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:RegisterCallback(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:RegisterCallbackWithHandle(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:ScrollDecrease(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:ScrollDecrease(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:ScrollInDirection(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:ScrollInDirection(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:ScrollIncrease(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:ScrollIncrease(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:ScrollPageInDirection(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:ScrollPageInDirection(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:ScrollStepInDirection(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:ScrollStepInDirection(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:ScrollToBegin(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:ScrollToBegin(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:ScrollToEnd(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:ScrollToEnd(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:ScrollWheelInDirection(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:ScrollWheelInDirection(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SecureInsertEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SelectCursorComponent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:SelectCursorComponent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SelectPointComponent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:SelectPointComponent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetFrameExtent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:SetFrameExtent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetHideIfUnscrollable(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:SetHideIfUnscrollable(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetHorizontal(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:SetHorizontal(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetInterpolateScroll(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:SetInterpolateScroll(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetPanExtentPercentage(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetScrollAllowed(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:SetScrollAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetScrollPercentage(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:SetScrollPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetScrollPercentageInternal(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetThumbExtent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:SetThumbExtent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:SetVisibleExtentPercentage(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:SetVisibleExtentPercentage(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:TriggerEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:UnregisterCallback(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:UnregisterEvents(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:UnregisterEventsByEventTable(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:UnregisterUpdate(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:UnregisterUpdate(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:Update(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:Update(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:onButtonMouseUp(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:onButtonMouseUp(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBarObject:scrollInternal(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBarObject:scrollInternal(...) end
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject : Button
----@field Event CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Back_EventObject
----@field Texture CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Back_TextureObject
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject : Button
+---@field Event ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Back_EventObject
+---@field Texture ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Back_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -1492,118 +7295,118 @@ do
 ---@field mouseDownSoundKitID number
 ---@field normalTexture string
 ---@field overTexture string
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject = {}
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject = {}
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:GetAtlas(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:GetAtlas(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:GetCallbackTable(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:GetCallbackTables(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:IsDown(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:IsDown(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:IsDownOver(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:IsDownOver(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:IsOver(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:IsOver(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:NarrationGetName(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:NarrationGetName(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnButtonStateChanged(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:OnButtonStateChanged(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnDisable(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:OnDisable(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnEnable(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:OnEnable(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnEnter(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:OnEnter(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnLeave(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:OnLeave(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnLoad(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnMouseDown(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:OnMouseDown(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnMouseUp(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:OnMouseUp(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnShow(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:OnShow(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:RegisterCallback(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:SecureInsertEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:SetDisplacedRegions(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:SetDisplacedRegions(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:TriggerEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:UnregisterCallback(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:UnregisterEvents(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Back_EventObject
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Back_EventObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Back_EventObject
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Back_EventObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Back_TextureObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Back_TextureObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Back_TextureObject : Texture
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Back_TextureObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_DefaultsObject
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_DefaultsObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_DefaultsObject
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_DefaultsObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_DirectionsObject
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_DirectionsObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_DirectionsObject
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_DirectionsObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_EventObject
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_EventObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_EventObject
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_EventObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject : Button
----@field Event CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Forward_EventObject
----@field Texture CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Forward_TextureObject
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject : Button
+---@field Event ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Forward_EventObject
+---@field Texture ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Forward_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -1617,129 +7420,129 @@ do
 ---@field mouseDownSoundKitID number
 ---@field normalTexture string
 ---@field overTexture string
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject = {}
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject = {}
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:GetAtlas(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:GetAtlas(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:GetCallbackTable(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:GetCallbackTables(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:IsDown(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:IsDown(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:IsDownOver(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:IsDownOver(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:IsOver(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:IsOver(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:NarrationGetName(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:NarrationGetName(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnDisable(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:OnDisable(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnEnable(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:OnEnable(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnEnter(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:OnEnter(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnLeave(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:OnLeave(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnLoad(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnMouseDown(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:OnMouseDown(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnMouseUp(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:OnMouseUp(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnShow(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:OnShow(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:RegisterCallback(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:TriggerEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:UnregisterCallback(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:UnregisterEvents(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Forward_EventObject
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Forward_EventObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Forward_EventObject
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Forward_EventObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Forward_TextureObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Forward_TextureObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Forward_TextureObject : Texture
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Forward_TextureObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_TrackObject : Frame
----@field Begin CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_BeginObject
----@field End CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_EndObject
----@field Middle CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_MiddleObject
----@field Thumb CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_TrackObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_TrackObject : Frame
+---@field Begin ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_BeginObject
+---@field End ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_EndObject
+---@field Middle ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_MiddleObject
+---@field Thumb ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_TrackObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_BeginObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_BeginObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_BeginObject : Texture
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_BeginObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_EndObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_EndObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_EndObject : Texture
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_EndObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_MiddleObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_MiddleObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_MiddleObject : Texture
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_MiddleObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject : Button
----@field Begin CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_BeginObject
----@field End CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_EndObject
----@field Event CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_EventObject
----@field Middle CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_MiddleObject
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject : Button
+---@field Begin ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_Thumb_BeginObject
+---@field End ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_Thumb_EndObject
+---@field Event ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_Thumb_EventObject
+---@field Middle ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_Thumb_MiddleObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -1754,3488 +7557,733 @@ do
 ---@field upBeginTexture string
 ---@field upEndTexture string
 ---@field upMiddleTexture string
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject = {}
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject = {}
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:GetAtlas(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:IsDown(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:IsDown(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:IsDownOver(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:IsOver(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:IsOver(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnDisable(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:OnDisable(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnEnable(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:OnEnable(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnEnter(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:OnEnter(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnLeave(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:OnLeave(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnLoad(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnShow(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:OnShow(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_BeginObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_BeginObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_Thumb_BeginObject : Texture
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_Thumb_BeginObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_EndObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_EndObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_Thumb_EndObject : Texture
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_Thumb_EndObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_EventObject
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_EventObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_Thumb_EventObject
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_Thumb_EventObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_MiddleObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_Track_Thumb_MiddleObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_Thumb_MiddleObject : Texture
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_Track_Thumb_MiddleObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_interpolatorObject
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_interpolatorObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_interpolatorObject
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_interpolatorObject = {}
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_interpolatorObject:Cancel(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_interpolatorObject:Cancel(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_interpolatorObject:Interpolate(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_interpolatorObject:Interpolate(...) end
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_ScrollBar_interpolatorObject:interpolateFunc(...) end
+function ClassTalentLoadoutImportDialog_ImportControl_InputContainer_ScrollBar_interpolatorObject:interpolateFunc(...) end
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_TopLeftTexObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_TopLeftTexObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_TopLeftTexObject : Texture
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_TopLeftTexObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_TopRightTexObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_TopRightTexObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_TopRightTexObject : Texture
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_TopRightTexObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_TopTexObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RecruitmentMessageInput_TopTexObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_InputContainer_TopTexObject : Texture
+local ClassTalentLoadoutImportDialog_ImportControl_InputContainer_TopTexObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RightObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_RightObject = {}
+---@class ClassTalentLoadoutImportDialog_ImportControl_LabelObject : FontString
+local ClassTalentLoadoutImportDialog_ImportControl_LabelObject = {}
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_TopObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_TopObject = {}
-end
-
-do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_TopLeftObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_TopLeftObject = {}
-end
-
-do
----@class CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_TopRightObject : Texture
-local CommunitiesFrame_RecruitmentDialog_RecruitmentMessageFrame_TopRightObject = {}
-end
-
-do
----@class CommunitiesFrame_RecruitmentDialog_ShouldListClubObject : Frame
----@field Button CommunitiesFrame_RecruitmentDialog_ShouldListClub_ButtonObject
----@field Label CommunitiesFrame_RecruitmentDialog_ShouldListClub_LabelObject
-local CommunitiesFrame_RecruitmentDialog_ShouldListClubObject = {}
-end
-
-do
----@class CommunitiesFrame_RecruitmentDialog_ShouldListClub_ButtonObject : CheckButton
-local CommunitiesFrame_RecruitmentDialog_ShouldListClub_ButtonObject = {}
+---@class ClassTalentLoadoutImportDialog_NameControlObject : Frame
+---@field EditBox ClassTalentLoadoutImportDialog_NameControl_EditBoxObject
+---@field Label ClassTalentLoadoutImportDialog_NameControl_LabelObject
+---@field labelText string
+local ClassTalentLoadoutImportDialog_NameControlObject = {}
 ---@return any ...
-function CommunitiesFrame_RecruitmentDialog_ShouldListClub_ButtonObject:OnClick(...) end
+function ClassTalentLoadoutImportDialog_NameControlObject:GetEditBox(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_NameControlObject:GetText(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_NameControlObject:HasText(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_NameControlObject:OnEnterPressed(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_NameControlObject:OnEscapePressed(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_NameControlObject:OnLoad(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_NameControlObject:OnShow(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_NameControlObject:OnTextChanged(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_NameControlObject:SetText(...) end
 end
 
 do
----@class CommunitiesFrame_RecruitmentDialog_ShouldListClub_LabelObject : FontString
-local CommunitiesFrame_RecruitmentDialog_ShouldListClub_LabelObject = {}
+---@class ClassTalentLoadoutImportDialog_NameControl_EditBoxObject : EditBox
+---@field Left ClassTalentLoadoutImportDialog_NameControl_EditBox_LeftObject
+---@field Middle ClassTalentLoadoutImportDialog_NameControl_EditBox_MiddleObject
+---@field Right ClassTalentLoadoutImportDialog_NameControl_EditBox_RightObject
+local ClassTalentLoadoutImportDialog_NameControl_EditBoxObject = {}
+---@return any ...
+function ClassTalentLoadoutImportDialog_NameControl_EditBoxObject:NarrationGetContext(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_NameControl_EditBoxObject:NarrationGetDescription(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_NameControl_EditBoxObject:NarrationGetName(...) end
+---@return any ...
+function ClassTalentLoadoutImportDialog_NameControl_EditBoxObject:SetNarrationLabelRegion(...) end
 end
 
 do
----@class CommunitiesFrame_RightJumpHintObject : Frame
----@field ActiveTexture CommunitiesFrame_RightJumpHint_ActiveTextureObject
----@field DisabledTexture CommunitiesFrame_RightJumpHint_DisabledTextureObject
----@field HoldAnim CommunitiesFrame_RightJumpHint_HoldAnimObject
----@field HoldIndicator CommunitiesFrame_RightJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG CommunitiesFrame_RightJumpHint_HoldIndicatorBGObject
----@field HoverTexture CommunitiesFrame_RightJumpHint_HoverTextureObject
----@field LoadBar CommunitiesFrame_RightJumpHint_LoadBarObject
----@field LoadBarBG CommunitiesFrame_RightJumpHint_LoadBarBGObject
----@field LoadBarGlow CommunitiesFrame_RightJumpHint_LoadBarGlowObject
----@field NormalTexture CommunitiesFrame_RightJumpHint_NormalTextureObject
----@field PressedTexture CommunitiesFrame_RightJumpHint_PressedTextureObject
----@field SpinnerTip CommunitiesFrame_RightJumpHint_SpinnerTipObject
+---@class ClassTalentLoadoutImportDialog_NameControl_EditBox_LeftObject : Texture
+local ClassTalentLoadoutImportDialog_NameControl_EditBox_LeftObject = {}
+end
+
+do
+---@class ClassTalentLoadoutImportDialog_NameControl_EditBox_MiddleObject : Texture
+local ClassTalentLoadoutImportDialog_NameControl_EditBox_MiddleObject = {}
+end
+
+do
+---@class ClassTalentLoadoutImportDialog_NameControl_EditBox_RightObject : Texture
+local ClassTalentLoadoutImportDialog_NameControl_EditBox_RightObject = {}
+end
+
+do
+---@class ClassTalentLoadoutImportDialog_NameControl_LabelObject : FontString
+local ClassTalentLoadoutImportDialog_NameControl_LabelObject = {}
+end
+
+do
+---@class ClassTalentLoadoutImportDialog_TitleObject : FontString
+local ClassTalentLoadoutImportDialog_TitleObject = {}
+end
+
+do
+---@class ClassTrainerFrameObject : Frame
+---@field BG ClassTrainerFrame_BGObject
+---@field Bg ClassTrainerFrame_BgObject
+---@field CloseButton ClassTrainerFrame_CloseButtonObject
+---@field FilterDropdown ClassTrainerFrame_FilterDropdownObject
+---@field FilterInputHint ClassTrainerFrame_FilterInputHintObject
+---@field FocusJumpHint ClassTrainerFrame_FocusJumpHintObject
+---@field FrameGlow ClassTrainerFrame_FrameGlowObject
+---@field Inset ClassTrainerFrame_InsetObject
+---@field LeftJumpHint ClassTrainerFrame_LeftJumpHintObject
+---@field NineSlice ClassTrainerFrame_NineSliceObject
+---@field PortraitContainer ClassTrainerFrame_PortraitContainerObject
+---@field RightJumpHint ClassTrainerFrame_RightJumpHintObject
+---@field ScrollBar ClassTrainerFrame_ScrollBarObject
+---@field ScrollBox ClassTrainerFrame_ScrollBoxObject
+---@field TitleContainer ClassTrainerFrame_TitleContainerObject
+---@field TopTileStreaks ClassTrainerFrame_TopTileStreaksObject
+---@field TrainButton ClassTrainerFrame_TrainButtonObject
+---@field bottomInset ClassTrainerFrame_bottomInsetObject
+---@field collapsedCategories table
+---@field layoutType string
+---@field money ClassTrainerFrame_moneyObject
+---@field skillStepButton ClassTrainerFrame_skillStepButtonObject
+---@field trainingPoints ClassTrainerFrame_trainingPointsObject
+local ClassTrainerFrameObject = {}
+---@return any ...
+function ClassTrainerFrameObject:EndFocus(...) end
+---@return any ...
+function ClassTrainerFrameObject:FocusGamepad(...) end
+---@return any ...
+function ClassTrainerFrameObject:GetFocusFrameGlow(...) end
+---@return any ...
+function ClassTrainerFrameObject:GetFocusFrameRoot(...) end
+---@return any ...
+function ClassTrainerFrameObject:GetPortrait(...) end
+---@return any ...
+function ClassTrainerFrameObject:GetTitleText(...) end
+---@return any ...
+function ClassTrainerFrameObject:HasPortraitTexture(...) end
+---@return any ...
+function ClassTrainerFrameObject:HideFocusJumpHint(...) end
+---@return any ...
+function ClassTrainerFrameObject:HideLeftJumpHint(...) end
+---@return any ...
+function ClassTrainerFrameObject:HideRightJumpHint(...) end
+---@return any ...
+function ClassTrainerFrameObject:InitializeGamepad(...) end
+---@return any ...
+function ClassTrainerFrameObject:LockInFocus(...) end
+---@return any ...
+function ClassTrainerFrameObject:RefreshFocus(...) end
+---@return any ...
+function ClassTrainerFrameObject:RegisterForTransitions(...) end
+---@return any ...
+function ClassTrainerFrameObject:SetBorder(...) end
+---@return any ...
+function ClassTrainerFrameObject:SetFrameLevelsFromBaseLevel(...) end
+---@return any ...
+function ClassTrainerFrameObject:SetPortraitAtlasRaw(...) end
+---@return any ...
+function ClassTrainerFrameObject:SetPortraitShown(...) end
+---@return any ...
+function ClassTrainerFrameObject:SetPortraitTexCoord(...) end
+---@return any ...
+function ClassTrainerFrameObject:SetPortraitTextureRaw(...) end
+---@return any ...
+function ClassTrainerFrameObject:SetPortraitTextureSizeAndOffset(...) end
+---@return any ...
+function ClassTrainerFrameObject:SetPortraitToAsset(...) end
+---@return any ...
+function ClassTrainerFrameObject:SetPortraitToBag(...) end
+---@return any ...
+function ClassTrainerFrameObject:SetPortraitToClassIcon(...) end
+---@return any ...
+function ClassTrainerFrameObject:SetPortraitToSpecIcon(...) end
+---@return any ...
+function ClassTrainerFrameObject:SetPortraitToUnit(...) end
+---@return any ...
+function ClassTrainerFrameObject:SetTitle(...) end
+---@return any ...
+function ClassTrainerFrameObject:SetTitleColor(...) end
+---@return any ...
+function ClassTrainerFrameObject:SetTitleFormatted(...) end
+---@return any ...
+function ClassTrainerFrameObject:SetTitleMaxLinesAndHeight(...) end
+---@return any ...
+function ClassTrainerFrameObject:SetTitleOffsets(...) end
+---@return any ...
+function ClassTrainerFrameObject:SetUpGamepad(...) end
+---@return any ...
+function ClassTrainerFrameObject:ShowFocusJumpHint(...) end
+---@return any ...
+function ClassTrainerFrameObject:ShowLeftJumpHint(...) end
+---@return any ...
+function ClassTrainerFrameObject:ShowRightJumpHint(...) end
+---@return any ...
+function ClassTrainerFrameObject:StartFocus(...) end
+---@return any ...
+function ClassTrainerFrameObject:UnfocusGamepad(...) end
+---@return any ...
+function ClassTrainerFrameObject:UninitializeGamepad(...) end
+---@type ClassTrainerFrameObject
+ClassTrainerFrame = ClassTrainerFrameObject
+end
+
+do
+---@class ClassTrainerFrame_BGObject : Texture
+local ClassTrainerFrame_BGObject = {}
+end
+
+do
+---@class ClassTrainerFrame_BgObject : Texture
+local ClassTrainerFrame_BgObject = {}
+end
+
+do
+---@class ClassTrainerFrame_CloseButtonObject : Button
+local ClassTrainerFrame_CloseButtonObject = {}
+---@return any ...
+function ClassTrainerFrame_CloseButtonObject:NarrationGetName(...) end
+---@return any ...
+function ClassTrainerFrame_CloseButtonObject:OnLoad(...) end
+end
+
+do
+---@class ClassTrainerFrame_FilterDropdownObject : Button
+---@field Background ClassTrainerFrame_FilterDropdown_BackgroundObject
+---@field Event ClassTrainerFrame_FilterDropdown_EventObject
+---@field ResetButton ClassTrainerFrame_FilterDropdown_ResetButtonObject
+---@field Text ClassTrainerFrame_FilterDropdown_TextObject
+---@field baseFontObject ClassTrainerFrame_FilterDropdown_baseFontObjectObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field disableFontObject string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor ClassTrainerFrame_FilterDropdown_menuAnchorObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+---@field resizeToText boolean
+---@field resizeToTextPadding number
+---@field text string
+local ClassTrainerFrame_FilterDropdownObject = {}
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:ClearMenuState(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:CloseMenu(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:CollectSelectionData(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:CreateRootDescription(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:Decrement(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:GenerateMenu(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:GetBackgroundAtlas(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:GetCallbackTable(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:GetCallbackTables(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:GetMenuDescription(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:GetSelectionData(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:GetUpdateText(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:HasElements(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:HasStickyFocus(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:Increment(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:IsDown(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:IsDownOver(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:IsMenuOpen(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:IsOver(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:NotifyUpdate(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:OnDisable(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:OnEnable(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:OnEnter(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:OnLeave(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:OnLoad(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:OnMenuChanged(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:OnMenuClosed(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:OnMenuOpened(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:OnMenuResponse(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:OnMouseDown(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:OnMouseUp(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:OnShow(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:OpenMenu(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:Pick(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:RegisterCallback(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:RegisterMenu(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:Reset(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:Rotate(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:SetDefaultCallback(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:SetIsDefaultCallback(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:SetMenuOpen(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:SetUpdateCallback(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:SetupMenu(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:SignalUpdate(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:TriggerEvent(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:UnregisterCallback(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:UnregisterEvents(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:Update(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:UpdateSelections(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:UpdateText(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:ValidateResetState(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdownObject:onMenuClosedCallback(...) end
+end
+
+do
+---@class ClassTrainerFrame_FilterDropdown_BackgroundObject : Texture
+local ClassTrainerFrame_FilterDropdown_BackgroundObject = {}
+end
+
+do
+---@class ClassTrainerFrame_FilterDropdown_EventObject
+local ClassTrainerFrame_FilterDropdown_EventObject = {}
+end
+
+do
+---@class ClassTrainerFrame_FilterDropdown_ResetButtonObject : Button
+local ClassTrainerFrame_FilterDropdown_ResetButtonObject = {}
+end
+
+do
+---@class ClassTrainerFrame_FilterDropdown_TextObject : FontString
+local ClassTrainerFrame_FilterDropdown_TextObject = {}
+end
+
+do
+---@class ClassTrainerFrame_FilterDropdown_baseFontObjectObject
+local ClassTrainerFrame_FilterDropdown_baseFontObjectObject = {}
+end
+
+do
+---@class ClassTrainerFrame_FilterDropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo ClassTrainerFrame_FilterDropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local ClassTrainerFrame_FilterDropdown_menuAnchorObject = {}
+---@return any ...
+function ClassTrainerFrame_FilterDropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function ClassTrainerFrame_FilterDropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class ClassTrainerFrame_FilterDropdown_menuAnchor_relativeToObject
+local ClassTrainerFrame_FilterDropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class ClassTrainerFrame_FilterInputHintObject : Frame
+---@field ActiveTexture ClassTrainerFrame_FilterInputHint_ActiveTextureObject
+---@field DisabledTexture ClassTrainerFrame_FilterInputHint_DisabledTextureObject
+---@field HoldAnim ClassTrainerFrame_FilterInputHint_HoldAnimObject
+---@field HoldIndicator ClassTrainerFrame_FilterInputHint_HoldIndicatorObject
+---@field HoldIndicatorBG ClassTrainerFrame_FilterInputHint_HoldIndicatorBGObject
+---@field HoverTexture ClassTrainerFrame_FilterInputHint_HoverTextureObject
+---@field LoadBar ClassTrainerFrame_FilterInputHint_LoadBarObject
+---@field LoadBarBG ClassTrainerFrame_FilterInputHint_LoadBarBGObject
+---@field LoadBarGlow ClassTrainerFrame_FilterInputHint_LoadBarGlowObject
+---@field NormalTexture ClassTrainerFrame_FilterInputHint_NormalTextureObject
+---@field PressedTexture ClassTrainerFrame_FilterInputHint_PressedTextureObject
+---@field SpinnerTip ClassTrainerFrame_FilterInputHint_SpinnerTipObject
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
 ---@field textureState number
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local CommunitiesFrame_RightJumpHintObject = {}
+local ClassTrainerFrame_FilterInputHintObject = {}
 ---@return any ...
-function CommunitiesFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+function ClassTrainerFrame_FilterInputHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function CommunitiesFrame_RightJumpHintObject:BeginHold(...) end
+function ClassTrainerFrame_FilterInputHintObject:BeginHold(...) end
 ---@return any ...
-function CommunitiesFrame_RightJumpHintObject:CanEnterTextureState(...) end
+function ClassTrainerFrame_FilterInputHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function CommunitiesFrame_RightJumpHintObject:DisableDropShadow(...) end
+function ClassTrainerFrame_FilterInputHintObject:DisableDropShadow(...) end
 ---@return any ...
-function CommunitiesFrame_RightJumpHintObject:EnableDropShadow(...) end
+function ClassTrainerFrame_FilterInputHintObject:EnableDropShadow(...) end
 ---@return any ...
-function CommunitiesFrame_RightJumpHintObject:EndHold(...) end
+function ClassTrainerFrame_FilterInputHintObject:EndHold(...) end
 ---@return any ...
-function CommunitiesFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+function ClassTrainerFrame_FilterInputHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function CommunitiesFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+function ClassTrainerFrame_FilterInputHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function CommunitiesFrame_RightJumpHintObject:OnLoad(...) end
+function ClassTrainerFrame_FilterInputHintObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesFrame_RightJumpHintObject:RefreshIconTextures(...) end
+function ClassTrainerFrame_FilterInputHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function CommunitiesFrame_RightJumpHintObject:SetDisabled(...) end
+function ClassTrainerFrame_FilterInputHintObject:SetDisabled(...) end
 ---@return any ...
-function CommunitiesFrame_RightJumpHintObject:SetEnabled(...) end
+function ClassTrainerFrame_FilterInputHintObject:SetEnabled(...) end
 ---@return any ...
-function CommunitiesFrame_RightJumpHintObject:SetFocused(...) end
+function ClassTrainerFrame_FilterInputHintObject:SetFocused(...) end
 ---@return any ...
-function CommunitiesFrame_RightJumpHintObject:SetHoldState(...) end
+function ClassTrainerFrame_FilterInputHintObject:SetHoldState(...) end
 ---@return any ...
-function CommunitiesFrame_RightJumpHintObject:SetInputKey(...) end
+function ClassTrainerFrame_FilterInputHintObject:SetInputKey(...) end
 ---@return any ...
-function CommunitiesFrame_RightJumpHintObject:SetIsHoldAction(...) end
+function ClassTrainerFrame_FilterInputHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function CommunitiesFrame_RightJumpHintObject:SetPressable(...) end
+function ClassTrainerFrame_FilterInputHintObject:SetPressable(...) end
 ---@return any ...
-function CommunitiesFrame_RightJumpHintObject:SetTextureHeight(...) end
+function ClassTrainerFrame_FilterInputHintObject:SetTextureHeight(...) end
 ---@return any ...
-function CommunitiesFrame_RightJumpHintObject:SetTextureState(...) end
+function ClassTrainerFrame_FilterInputHintObject:SetTextureState(...) end
 ---@return any ...
-function CommunitiesFrame_RightJumpHintObject:SetTextureWidth(...) end
+function ClassTrainerFrame_FilterInputHintObject:SetTextureWidth(...) end
 ---@return any ...
-function CommunitiesFrame_RightJumpHintObject:SetUsableState(...) end
+function ClassTrainerFrame_FilterInputHintObject:SetUsableState(...) end
 ---@return any ...
-function CommunitiesFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+function ClassTrainerFrame_FilterInputHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class CommunitiesFrame_RightJumpHint_ActiveTextureObject : Texture
-local CommunitiesFrame_RightJumpHint_ActiveTextureObject = {}
+---@class ClassTrainerFrame_FilterInputHint_ActiveTextureObject : Texture
+local ClassTrainerFrame_FilterInputHint_ActiveTextureObject = {}
 end
 
 do
----@class CommunitiesFrame_RightJumpHint_DisabledTextureObject : Texture
-local CommunitiesFrame_RightJumpHint_DisabledTextureObject = {}
+---@class ClassTrainerFrame_FilterInputHint_DisabledTextureObject : Texture
+local ClassTrainerFrame_FilterInputHint_DisabledTextureObject = {}
 end
 
 do
----@class CommunitiesFrame_RightJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim CommunitiesFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim CommunitiesFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim CommunitiesFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
-local CommunitiesFrame_RightJumpHint_HoldAnimObject = {}
+---@class ClassTrainerFrame_FilterInputHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim ClassTrainerFrame_FilterInputHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim ClassTrainerFrame_FilterInputHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim ClassTrainerFrame_FilterInputHint_HoldAnim_SpinnerTipAnimObject
+local ClassTrainerFrame_FilterInputHint_HoldAnimObject = {}
 end
 
 do
----@class CommunitiesFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
-local CommunitiesFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+---@class ClassTrainerFrame_FilterInputHint_HoldAnim_LoadBarAnimObject
+local ClassTrainerFrame_FilterInputHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class CommunitiesFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local CommunitiesFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+---@class ClassTrainerFrame_FilterInputHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local ClassTrainerFrame_FilterInputHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class CommunitiesFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local CommunitiesFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+---@class ClassTrainerFrame_FilterInputHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local ClassTrainerFrame_FilterInputHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class CommunitiesFrame_RightJumpHint_HoldIndicatorObject : Texture
-local CommunitiesFrame_RightJumpHint_HoldIndicatorObject = {}
+---@class ClassTrainerFrame_FilterInputHint_HoldIndicatorObject : Texture
+local ClassTrainerFrame_FilterInputHint_HoldIndicatorObject = {}
 end
 
 do
----@class CommunitiesFrame_RightJumpHint_HoldIndicatorBGObject : Texture
-local CommunitiesFrame_RightJumpHint_HoldIndicatorBGObject = {}
+---@class ClassTrainerFrame_FilterInputHint_HoldIndicatorBGObject : Texture
+local ClassTrainerFrame_FilterInputHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class CommunitiesFrame_RightJumpHint_HoverTextureObject : Texture
-local CommunitiesFrame_RightJumpHint_HoverTextureObject = {}
+---@class ClassTrainerFrame_FilterInputHint_HoverTextureObject : Texture
+local ClassTrainerFrame_FilterInputHint_HoverTextureObject = {}
 end
 
 do
----@class CommunitiesFrame_RightJumpHint_LoadBarObject : Texture
-local CommunitiesFrame_RightJumpHint_LoadBarObject = {}
+---@class ClassTrainerFrame_FilterInputHint_LoadBarObject : Texture
+local ClassTrainerFrame_FilterInputHint_LoadBarObject = {}
 end
 
 do
----@class CommunitiesFrame_RightJumpHint_LoadBarBGObject : Texture
-local CommunitiesFrame_RightJumpHint_LoadBarBGObject = {}
+---@class ClassTrainerFrame_FilterInputHint_LoadBarBGObject : Texture
+local ClassTrainerFrame_FilterInputHint_LoadBarBGObject = {}
 end
 
 do
----@class CommunitiesFrame_RightJumpHint_LoadBarGlowObject : Texture
-local CommunitiesFrame_RightJumpHint_LoadBarGlowObject = {}
+---@class ClassTrainerFrame_FilterInputHint_LoadBarGlowObject : Texture
+local ClassTrainerFrame_FilterInputHint_LoadBarGlowObject = {}
 end
 
 do
----@class CommunitiesFrame_RightJumpHint_NormalTextureObject : Texture
-local CommunitiesFrame_RightJumpHint_NormalTextureObject = {}
+---@class ClassTrainerFrame_FilterInputHint_NormalTextureObject : Texture
+local ClassTrainerFrame_FilterInputHint_NormalTextureObject = {}
 end
 
 do
----@class CommunitiesFrame_RightJumpHint_PressedTextureObject : Texture
-local CommunitiesFrame_RightJumpHint_PressedTextureObject = {}
+---@class ClassTrainerFrame_FilterInputHint_PressedTextureObject : Texture
+local ClassTrainerFrame_FilterInputHint_PressedTextureObject = {}
 end
 
 do
----@class CommunitiesFrame_RightJumpHint_SpinnerTipObject : Texture
-local CommunitiesFrame_RightJumpHint_SpinnerTipObject = {}
+---@class ClassTrainerFrame_FilterInputHint_SpinnerTipObject : Texture
+local ClassTrainerFrame_FilterInputHint_SpinnerTipObject = {}
 end
 
 do
----@class CommunitiesFrame_RosterTabObject : CheckButton
----@field Icon CommunitiesFrame_RosterTab_IconObject
----@field IconOverlay CommunitiesFrame_RosterTab_IconOverlayObject
----@field NotificationOverlay CommunitiesFrame_RosterTab_NotificationOverlayObject
----@field displayMode table
----@field iconTexture string
----@field tooltip string
-local CommunitiesFrame_RosterTabObject = {}
----@return any ...
-function CommunitiesFrame_RosterTabObject:OnClick(...) end
----@return any ...
-function CommunitiesFrame_RosterTabObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_RosterTabObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_RosterTabObject:OnLoad(...) end
-end
-
-do
----@class CommunitiesFrame_RosterTab_IconObject : Texture
-local CommunitiesFrame_RosterTab_IconObject = {}
-end
-
-do
----@class CommunitiesFrame_RosterTab_IconOverlayObject : Texture
-local CommunitiesFrame_RosterTab_IconOverlayObject = {}
-end
-
-do
----@class CommunitiesFrame_RosterTab_NotificationOverlayObject : Frame
----@field UnreadNotificationIcon CommunitiesFrame_RosterTab_NotificationOverlay_UnreadNotificationIconObject
-local CommunitiesFrame_RosterTab_NotificationOverlayObject = {}
-end
-
-do
----@class CommunitiesFrame_RosterTab_NotificationOverlay_UnreadNotificationIconObject : Texture
-local CommunitiesFrame_RosterTab_NotificationOverlay_UnreadNotificationIconObject = {}
-end
-
-do
----@class CommunitiesFrame_StreamDropdownObject : Button
----@field Arrow CommunitiesFrame_StreamDropdown_ArrowObject
----@field Background CommunitiesFrame_StreamDropdown_BackgroundObject
----@field Event CommunitiesFrame_StreamDropdown_EventObject
----@field NotificationOverlay CommunitiesFrame_StreamDropdown_NotificationOverlayObject
----@field Text CommunitiesFrame_StreamDropdown_TextObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
----@field intrinsic string
----@field menuAnchor CommunitiesFrame_StreamDropdown_menuAnchorObject
----@field menuPoint string
----@field menuPointX number
----@field menuPointY number
----@field menuRelativePoint string
-local CommunitiesFrame_StreamDropdownObject = {}
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:ClearMenuState(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:CloseMenu(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:CollectSelectionData(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:CreateDefaultRootMenuDescription(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:CreateRootDescription(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:Decrement(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:DesaturateIfDisabled(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:EnableRegenerateOnResponse(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:GenerateMenu(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:GetArrowAtlas(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:GetCommunitiesFrame(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:GetDefaultText(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:GetMenuDescription(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:GetSelectionData(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:GetUpdateText(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:HandlesGlobalMouseEvent(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:HasAnyRadioDescriptions(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:HasElements(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:HasOnlyRadioDescriptions(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:HasStickyFocus(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:Increment(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:IsDown(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:IsDownOver(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:IsMenuOpen(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:IsOver(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:NarrationGetContext(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:NarrationGetName(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:OnButtonStateChanged(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:OnDisable(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:OnEnable(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:OnMenuAssigned(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:OnMenuChanged(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:OnMenuClosed(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:OnMenuOpened(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:OnMenuResponse(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:OnMouseDown(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:OnMouseUp(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:OnMouseWheel_Intrinsic(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:OnShow(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:OpenMenu(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:OverrideText(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:Pick(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:RegisterMenu(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:Rotate(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:SetDefaultText(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:SetDisplacedRegions(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:SetMenuAnchor(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:SetMenuOpen(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:SetSelectionText(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:SetSelectionTranslator(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:SetTooltip(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:SetupMenu(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:ShouldShowTooltip(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:ShowTooltip(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:SignalUpdate(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:Update(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:UpdateSelections(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:UpdateText(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:UpdateToMenuSelections(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:UpdateUnreadNotification(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:onMenuClosedCallback(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdownObject:selectionTranslator(...) end
-end
-
-do
----@class CommunitiesFrame_StreamDropdown_ArrowObject : Texture
-local CommunitiesFrame_StreamDropdown_ArrowObject = {}
-end
-
-do
----@class CommunitiesFrame_StreamDropdown_BackgroundObject : Texture
-local CommunitiesFrame_StreamDropdown_BackgroundObject = {}
-end
-
-do
----@class CommunitiesFrame_StreamDropdown_EventObject
-local CommunitiesFrame_StreamDropdown_EventObject = {}
-end
-
-do
----@class CommunitiesFrame_StreamDropdown_NotificationOverlayObject : Frame
----@field UnreadNotificationIcon CommunitiesFrame_StreamDropdown_NotificationOverlay_UnreadNotificationIconObject
-local CommunitiesFrame_StreamDropdown_NotificationOverlayObject = {}
-end
-
-do
----@class CommunitiesFrame_StreamDropdown_NotificationOverlay_UnreadNotificationIconObject : Texture
-local CommunitiesFrame_StreamDropdown_NotificationOverlay_UnreadNotificationIconObject = {}
-end
-
-do
----@class CommunitiesFrame_StreamDropdown_TextObject : FontString
-local CommunitiesFrame_StreamDropdown_TextObject = {}
-end
-
-do
----@class CommunitiesFrame_StreamDropdown_menuAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo CommunitiesFrame_StreamDropdown_menuAnchor_relativeToObject
----@field x number
----@field y number
-local CommunitiesFrame_StreamDropdown_menuAnchorObject = {}
----@return any ...
-function CommunitiesFrame_StreamDropdown_menuAnchorObject:Get(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdown_menuAnchorObject:GetRelativeTo(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdown_menuAnchorObject:Init(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdown_menuAnchorObject:Set(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdown_menuAnchorObject:SetFromPoint(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdown_menuAnchorObject:SetOffsets(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdown_menuAnchorObject:SetPoint(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function CommunitiesFrame_StreamDropdown_menuAnchorObject:SetRelativeTo(...) end
-end
-
-do
----@class CommunitiesFrame_StreamDropdown_menuAnchor_relativeToObject
-local CommunitiesFrame_StreamDropdown_menuAnchor_relativeToObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrameObject : Frame
----@field AcceptButton CommunitiesFrame_TicketFrame_AcceptButtonObject
----@field CircleMask CommunitiesFrame_TicketFrame_CircleMaskObject
----@field DeclineButton CommunitiesFrame_TicketFrame_DeclineButtonObject
----@field Description CommunitiesFrame_TicketFrame_DescriptionObject
----@field Icon CommunitiesFrame_TicketFrame_IconObject
----@field IconRing CommunitiesFrame_TicketFrame_IconRingObject
----@field InsetFrame CommunitiesFrame_TicketFrame_InsetFrameObject
----@field InvitationText CommunitiesFrame_TicketFrame_InvitationTextObject
----@field Leader CommunitiesFrame_TicketFrame_LeaderObject
----@field MemberCount CommunitiesFrame_TicketFrame_MemberCountObject
----@field Name CommunitiesFrame_TicketFrame_NameObject
----@field Type CommunitiesFrame_TicketFrame_TypeObject
-local CommunitiesFrame_TicketFrameObject = {}
----@return any ...
-function CommunitiesFrame_TicketFrameObject:AcceptInvitation(...) end
----@return any ...
-function CommunitiesFrame_TicketFrameObject:AcceptTicket(...) end
----@return any ...
-function CommunitiesFrame_TicketFrameObject:DeclineInvitation(...) end
----@return any ...
-function CommunitiesFrame_TicketFrameObject:DeclineTicket(...) end
----@return any ...
-function CommunitiesFrame_TicketFrameObject:DisplayInvitation(...) end
----@return any ...
-function CommunitiesFrame_TicketFrameObject:DisplayTicket(...) end
----@return any ...
-function CommunitiesFrame_TicketFrameObject:GetCommunitiesFrame(...) end
----@return any ...
-function CommunitiesFrame_TicketFrameObject:OnEvent(...) end
----@return any ...
-function CommunitiesFrame_TicketFrameObject:OnHide(...) end
----@return any ...
-function CommunitiesFrame_TicketFrameObject:OnHyperlinkClick(...) end
----@return any ...
-function CommunitiesFrame_TicketFrameObject:OnShow(...) end
-end
-
-do
----@class CommunitiesFrame_TicketFrame_AcceptButtonObject : Button
----@field Left CommunitiesFrame_TicketFrame_AcceptButton_LeftObject
----@field Middle CommunitiesFrame_TicketFrame_AcceptButton_MiddleObject
----@field Right CommunitiesFrame_TicketFrame_AcceptButton_RightObject
----@field Text CommunitiesFrame_TicketFrame_AcceptButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local CommunitiesFrame_TicketFrame_AcceptButtonObject = {}
----@return any ...
-function CommunitiesFrame_TicketFrame_AcceptButtonObject:FitToText(...) end
----@return any ...
-function CommunitiesFrame_TicketFrame_AcceptButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_TicketFrame_AcceptButtonObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_TicketFrame_AcceptButtonObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_TicketFrame_AcceptButtonObject:SetDisabledState(...) end
----@return any ...
-function CommunitiesFrame_TicketFrame_AcceptButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_TicketFrame_AcceptButtonObject:SetTextToFit(...) end
-end
-
-do
----@class CommunitiesFrame_TicketFrame_AcceptButton_LeftObject : Texture
-local CommunitiesFrame_TicketFrame_AcceptButton_LeftObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_AcceptButton_MiddleObject : Texture
-local CommunitiesFrame_TicketFrame_AcceptButton_MiddleObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_AcceptButton_RightObject : Texture
-local CommunitiesFrame_TicketFrame_AcceptButton_RightObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_AcceptButton_TextObject : FontString
-local CommunitiesFrame_TicketFrame_AcceptButton_TextObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_CircleMaskObject : MaskTexture
-local CommunitiesFrame_TicketFrame_CircleMaskObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_DeclineButtonObject : Button
----@field Left CommunitiesFrame_TicketFrame_DeclineButton_LeftObject
----@field Middle CommunitiesFrame_TicketFrame_DeclineButton_MiddleObject
----@field Right CommunitiesFrame_TicketFrame_DeclineButton_RightObject
----@field Text CommunitiesFrame_TicketFrame_DeclineButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local CommunitiesFrame_TicketFrame_DeclineButtonObject = {}
----@return any ...
-function CommunitiesFrame_TicketFrame_DeclineButtonObject:FitToText(...) end
----@return any ...
-function CommunitiesFrame_TicketFrame_DeclineButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_TicketFrame_DeclineButtonObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_TicketFrame_DeclineButtonObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_TicketFrame_DeclineButtonObject:SetDisabledState(...) end
----@return any ...
-function CommunitiesFrame_TicketFrame_DeclineButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function CommunitiesFrame_TicketFrame_DeclineButtonObject:SetTextToFit(...) end
-end
-
-do
----@class CommunitiesFrame_TicketFrame_DeclineButton_LeftObject : Texture
-local CommunitiesFrame_TicketFrame_DeclineButton_LeftObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_DeclineButton_MiddleObject : Texture
-local CommunitiesFrame_TicketFrame_DeclineButton_MiddleObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_DeclineButton_RightObject : Texture
-local CommunitiesFrame_TicketFrame_DeclineButton_RightObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_DeclineButton_TextObject : FontString
-local CommunitiesFrame_TicketFrame_DeclineButton_TextObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_DescriptionObject : FontString
-local CommunitiesFrame_TicketFrame_DescriptionObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_IconObject : Texture
-local CommunitiesFrame_TicketFrame_IconObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_IconRingObject : Texture
-local CommunitiesFrame_TicketFrame_IconRingObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_InsetFrameObject : Frame
----@field Bg CommunitiesFrame_TicketFrame_InsetFrame_BgObject
----@field NineSlice CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject
----@field layoutType string
-local CommunitiesFrame_TicketFrame_InsetFrameObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_InsetFrame_BgObject : Texture
-local CommunitiesFrame_TicketFrame_InsetFrame_BgObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject : Frame
----@field BottomEdge CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_BottomEdgeObject
----@field BottomLeftCorner CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_BottomRightCornerObject
----@field LeftEdge CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_LeftEdgeObject
----@field RightEdge CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_RightEdgeObject
----@field TopEdge CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_TopEdgeObject
----@field TopLeftCorner CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_TopLeftCornerObject
----@field TopRightCorner CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_TopRightCornerObject
-local CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject = {}
----@return any ...
-function CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function CommunitiesFrame_TicketFrame_InsetFrame_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_BottomEdgeObject : Texture
-local CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_BottomLeftCornerObject : Texture
-local CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_BottomRightCornerObject : Texture
-local CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_LeftEdgeObject : Texture
-local CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_RightEdgeObject : Texture
-local CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_TopEdgeObject : Texture
-local CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_TopLeftCornerObject : Texture
-local CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_TopRightCornerObject : Texture
-local CommunitiesFrame_TicketFrame_InsetFrame_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_InvitationTextObject : FontString
-local CommunitiesFrame_TicketFrame_InvitationTextObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_LeaderObject : FontString
-local CommunitiesFrame_TicketFrame_LeaderObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_MemberCountObject : FontString
-local CommunitiesFrame_TicketFrame_MemberCountObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_NameObject : FontString
-local CommunitiesFrame_TicketFrame_NameObject = {}
-end
-
-do
----@class CommunitiesFrame_TicketFrame_TypeObject : FontString
-local CommunitiesFrame_TicketFrame_TypeObject = {}
-end
-
-do
----@class CommunitiesFrame_TitleContainerObject : Frame
----@field TitleText CommunitiesFrame_TitleContainer_TitleTextObject
-local CommunitiesFrame_TitleContainerObject = {}
-end
-
-do
----@class CommunitiesFrame_TitleContainer_TitleTextObject : FontString
-local CommunitiesFrame_TitleContainer_TitleTextObject = {}
-end
-
-do
----@class CommunitiesFrame_VoiceChatHeadsetObject : Frame
----@field Button CommunitiesFrame_VoiceChatHeadset_ButtonObject
----@field PendingDots CommunitiesFrame_VoiceChatHeadset_PendingDotsObject
----@field Transcription CommunitiesFrame_VoiceChatHeadset_TranscriptionObject
-local CommunitiesFrame_VoiceChatHeadsetObject = {}
----@return any ...
-function CommunitiesFrame_VoiceChatHeadsetObject:SetChannelName(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadsetObject:SetChannelType(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadsetObject:SetCommunityInfo(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadsetObject:SetOnClickCallback(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadsetObject:SetPendingState(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadsetObject:SetVoiceChannel(...) end
-end
-
-do
----@class CommunitiesFrame_VoiceChatHeadset_ButtonObject : Button
----@field DisabledTexture CommunitiesFrame_VoiceChatHeadset_Button_DisabledTextureObject
----@field HighlightTexture CommunitiesFrame_VoiceChatHeadset_Button_HighlightTextureObject
----@field NormalTexture CommunitiesFrame_VoiceChatHeadset_Button_NormalTextureObject
-local CommunitiesFrame_VoiceChatHeadset_ButtonObject = {}
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:ClearPendingState(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:ClearVoiceChannel(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:GetChannelName(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:GetChannelType(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:GetClubErrorReason(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:GetClubID(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:GetStreamID(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:GetVoiceChannel(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:GetVoiceChannelID(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:IsCommunityChannel(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:IsVoiceActive(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnClick(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnEvent(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnVoiceChannelActivated(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnVoiceChannelDeactivated(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnVoiceChannelJoined(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnVoiceChannelRemoved(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnVoiceChannelRequestCompleted(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnVoiceChatError(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:OnVoiceChatPendingChannelJoinState(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:SetChannelName(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:SetChannelType(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:SetCommunityInfo(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:SetOnClickCallback(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:SetVoiceActive(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:SetVoiceChannel(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:ShouldEnable(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:ShouldShow(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:ShowTooltip(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:Update(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:VoiceChannelIDMatches(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_ButtonObject:VoiceChannelInfoMatches(...) end
-end
-
-do
----@class CommunitiesFrame_VoiceChatHeadset_Button_DisabledTextureObject : Texture
-local CommunitiesFrame_VoiceChatHeadset_Button_DisabledTextureObject = {}
-end
-
-do
----@class CommunitiesFrame_VoiceChatHeadset_Button_HighlightTextureObject : Texture
-local CommunitiesFrame_VoiceChatHeadset_Button_HighlightTextureObject = {}
-end
-
-do
----@class CommunitiesFrame_VoiceChatHeadset_Button_NormalTextureObject : Texture
-local CommunitiesFrame_VoiceChatHeadset_Button_NormalTextureObject = {}
-end
-
-do
----@class CommunitiesFrame_VoiceChatHeadset_PendingDotsObject : Frame
----@field Dot1 CommunitiesFrame_VoiceChatHeadset_PendingDots_Dot1Object
----@field Dot2 CommunitiesFrame_VoiceChatHeadset_PendingDots_Dot2Object
----@field Dot3 CommunitiesFrame_VoiceChatHeadset_PendingDots_Dot3Object
----@field PendingAnim CommunitiesFrame_VoiceChatHeadset_PendingDots_PendingAnimObject
-local CommunitiesFrame_VoiceChatHeadset_PendingDotsObject = {}
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_PendingDotsObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_PendingDotsObject:PlayAnimation(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_PendingDotsObject:StopAnimation(...) end
-end
-
-do
----@class CommunitiesFrame_VoiceChatHeadset_PendingDots_Dot1Object : Texture
-local CommunitiesFrame_VoiceChatHeadset_PendingDots_Dot1Object = {}
-end
-
-do
----@class CommunitiesFrame_VoiceChatHeadset_PendingDots_Dot2Object : Texture
-local CommunitiesFrame_VoiceChatHeadset_PendingDots_Dot2Object = {}
-end
-
-do
----@class CommunitiesFrame_VoiceChatHeadset_PendingDots_Dot3Object : Texture
-local CommunitiesFrame_VoiceChatHeadset_PendingDots_Dot3Object = {}
-end
-
-do
----@class CommunitiesFrame_VoiceChatHeadset_PendingDots_PendingAnimObject : AnimationGroup
-local CommunitiesFrame_VoiceChatHeadset_PendingDots_PendingAnimObject = {}
-end
-
-do
----@class CommunitiesFrame_VoiceChatHeadset_TranscriptionObject : Frame
----@field Button CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject
----@field PendingDots CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDotsObject
-local CommunitiesFrame_VoiceChatHeadset_TranscriptionObject = {}
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_TranscriptionObject:SetPendingState(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_TranscriptionObject:SetVoiceChannel(...) end
-end
-
-do
----@class CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject : Button
----@field HighlightTexture CommunitiesFrame_VoiceChatHeadset_Transcription_Button_HighlightTextureObject
----@field NormalTexture CommunitiesFrame_VoiceChatHeadset_Transcription_Button_NormalTextureObject
-local CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject = {}
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:ClearPendingState(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:ClearVoiceChannel(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:GetVoiceChannel(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:GetVoiceChannelID(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:IsTranscriptionActive(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:IsVoiceActive(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnClick(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnEnter(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnEvent(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnHide(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnLeave(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnShow(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnVoiceChannelActivated(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnVoiceChannelDeactivated(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnVoiceChannelRemoved(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnVoiceChannelTranscribingChanged(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:OnVoiceChatError(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:SetOnClickCallback(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:SetTranscriptionActive(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:SetVoiceActive(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:SetVoiceChannel(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:ShouldEnable(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:ShowTooltip(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:Update(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_ButtonObject:VoiceChannelIDMatches(...) end
-end
-
-do
----@class CommunitiesFrame_VoiceChatHeadset_Transcription_Button_HighlightTextureObject : Texture
-local CommunitiesFrame_VoiceChatHeadset_Transcription_Button_HighlightTextureObject = {}
-end
-
-do
----@class CommunitiesFrame_VoiceChatHeadset_Transcription_Button_NormalTextureObject : Texture
-local CommunitiesFrame_VoiceChatHeadset_Transcription_Button_NormalTextureObject = {}
-end
-
-do
----@class CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDotsObject : Frame
----@field Dot1 CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_Dot1Object
----@field Dot2 CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_Dot2Object
----@field Dot3 CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_Dot3Object
----@field PendingAnim CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_PendingAnimObject
-local CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDotsObject = {}
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDotsObject:OnLoad(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDotsObject:PlayAnimation(...) end
----@return any ...
-function CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDotsObject:StopAnimation(...) end
-end
-
-do
----@class CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_Dot1Object : Texture
-local CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_Dot1Object = {}
-end
-
-do
----@class CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_Dot2Object : Texture
-local CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_Dot2Object = {}
-end
-
-do
----@class CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_Dot3Object : Texture
-local CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_Dot3Object = {}
-end
-
-do
----@class CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_PendingAnimObject : AnimationGroup
-local CommunitiesFrame_VoiceChatHeadset_Transcription_PendingDots_PendingAnimObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrameObject : Frame
----@field Bg CommunitiesGuildLogFrame_BgObject
----@field BottomBorder CommunitiesGuildLogFrame_BottomBorderObject
----@field BottomLeftCorner CommunitiesGuildLogFrame_BottomLeftCornerObject
----@field BottomRightCorner CommunitiesGuildLogFrame_BottomRightCornerObject
----@field Container CommunitiesGuildLogFrame_ContainerObject
----@field LeftBorder CommunitiesGuildLogFrame_LeftBorderObject
----@field RightBorder CommunitiesGuildLogFrame_RightBorderObject
----@field TopBorder CommunitiesGuildLogFrame_TopBorderObject
----@field TopLeftCorner CommunitiesGuildLogFrame_TopLeftCornerObject
----@field TopRightCorner CommunitiesGuildLogFrame_TopRightCornerObject
-local CommunitiesGuildLogFrameObject = {}
----@type CommunitiesGuildLogFrameObject
-CommunitiesGuildLogFrame = CommunitiesGuildLogFrameObject
-end
-
-do
----@class CommunitiesGuildLogFrame_BgObject : Texture
-local CommunitiesGuildLogFrame_BgObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_BottomBorderObject : Texture
-local CommunitiesGuildLogFrame_BottomBorderObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_BottomLeftCornerObject : Texture
-local CommunitiesGuildLogFrame_BottomLeftCornerObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_BottomRightCornerObject : Texture
-local CommunitiesGuildLogFrame_BottomRightCornerObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_ContainerObject : Frame
----@field NineSlice CommunitiesGuildLogFrame_Container_NineSliceObject
----@field ScrollFrame CommunitiesGuildLogFrame_Container_ScrollFrameObject
----@field backdropColor CommunitiesGuildLogFrame_Container_backdropColorObject
----@field backdropColorAlpha number
----@field layoutType string
-local CommunitiesGuildLogFrame_ContainerObject = {}
----@return any ...
-function CommunitiesGuildLogFrame_ContainerObject:GetBackdropBorderColor(...) end
----@return any ...
-function CommunitiesGuildLogFrame_ContainerObject:GetBackdropColor(...) end
----@return any ...
-function CommunitiesGuildLogFrame_ContainerObject:SetBackdropBorderColor(...) end
----@return any ...
-function CommunitiesGuildLogFrame_ContainerObject:SetBackdropColor(...) end
----@return any ...
-function CommunitiesGuildLogFrame_ContainerObject:SetBorderBlendMode(...) end
----@return any ...
-function CommunitiesGuildLogFrame_ContainerObject:TooltipBackdropOnLoad(...) end
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_NineSliceObject : Frame
----@field BottomEdge CommunitiesGuildLogFrame_Container_NineSlice_BottomEdgeObject
----@field BottomLeftCorner CommunitiesGuildLogFrame_Container_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner CommunitiesGuildLogFrame_Container_NineSlice_BottomRightCornerObject
----@field Center CommunitiesGuildLogFrame_Container_NineSlice_CenterObject
----@field LeftEdge CommunitiesGuildLogFrame_Container_NineSlice_LeftEdgeObject
----@field RightEdge CommunitiesGuildLogFrame_Container_NineSlice_RightEdgeObject
----@field TopEdge CommunitiesGuildLogFrame_Container_NineSlice_TopEdgeObject
----@field TopLeftCorner CommunitiesGuildLogFrame_Container_NineSlice_TopLeftCornerObject
----@field TopRightCorner CommunitiesGuildLogFrame_Container_NineSlice_TopRightCornerObject
-local CommunitiesGuildLogFrame_Container_NineSliceObject = {}
----@return any ...
-function CommunitiesGuildLogFrame_Container_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_NineSliceObject:OnLoad(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_NineSlice_BottomEdgeObject : Texture
-local CommunitiesGuildLogFrame_Container_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_NineSlice_BottomLeftCornerObject : Texture
-local CommunitiesGuildLogFrame_Container_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_NineSlice_BottomRightCornerObject : Texture
-local CommunitiesGuildLogFrame_Container_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_NineSlice_CenterObject : Texture
-local CommunitiesGuildLogFrame_Container_NineSlice_CenterObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_NineSlice_LeftEdgeObject : Texture
-local CommunitiesGuildLogFrame_Container_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_NineSlice_RightEdgeObject : Texture
-local CommunitiesGuildLogFrame_Container_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_NineSlice_TopEdgeObject : Texture
-local CommunitiesGuildLogFrame_Container_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_NineSlice_TopLeftCornerObject : Texture
-local CommunitiesGuildLogFrame_Container_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_NineSlice_TopRightCornerObject : Texture
-local CommunitiesGuildLogFrame_Container_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_ScrollFrameObject : ScrollFrame
----@field Child CommunitiesGuildLogFrame_Container_ScrollFrame_ChildObject
----@field ScrollBar CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject
----@field panExtent number
-local CommunitiesGuildLogFrame_Container_ScrollFrameObject = {}
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrameObject:GetPanExtent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrameObject:SetPanExtent(...) end
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_ScrollFrame_ChildObject : Frame
----@field HTMLFrame CommunitiesGuildLogFrame_Container_ScrollFrame_Child_HTMLFrameObject
-local CommunitiesGuildLogFrame_Container_ScrollFrame_ChildObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_ScrollFrame_Child_HTMLFrameObject : SimpleHTML
-local CommunitiesGuildLogFrame_Container_ScrollFrame_Child_HTMLFrameObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject : Frame
----@field Back CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject
----@field Defaults CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_DefaultsObject
----@field Directions CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_DirectionsObject
----@field Event CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_EventObject
----@field Forward CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject
----@field Track CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_TrackObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field deferredCallbacks table
----@field executingEvents table
----@field hideTrack boolean
----@field interpolator CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_interpolatorObject
----@field isScrollController boolean
----@field minThumbExtent number
----@field panDelay number
----@field panExtentPercentage number
----@field panRepeatTime number
----@field smartNavigationIgnored boolean
----@field snapToInterval boolean
----@field thumbAnchor string
----@field useProportionalThumb boolean
----@field visibleExtentPercentage number
----@field wheelPanScalar number
-local CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject = {}
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:CallInternalScope(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:CanCursorStepInDirection(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:CanInterpolateScroll(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:DisableControls(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:EnableInternalPriority(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:EnableSnapToInterval(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetBackStepper(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetForwardStepper(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetFrameExtent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetIntervalRange(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetLower(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetPanExtentPercentage(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetPanRepeatDelay(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetPanRepeatTime(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetScrollInterpolator(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetScrollPercentage(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetThumb(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetThumbAnchor(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetTrack(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetTrackExtent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetUpper(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:GetWheelPanPercentage(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:HasScrollableExtent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:Init(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:InitializeNarration(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:Interpolate(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:IsAtBegin(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:IsAtEnd(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:IsHorizontal(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:IsScrollAllowed(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:IsThumbMouseDown(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:OnHide_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:OnLoad(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:OnMouseWheel(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:OnShow_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:OnStepperMouseDown(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:OnThumbMouseDown(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:OnTrackMouseDown(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:ScrollDecrease(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:ScrollInDirection(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:ScrollIncrease(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:ScrollPageInDirection(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:ScrollStepInDirection(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:ScrollToBegin(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:ScrollToEnd(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:ScrollWheelInDirection(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SelectCursorComponent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SelectPointComponent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetFrameExtent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetHideIfUnscrollable(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetHorizontal(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetInterpolateScroll(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetPanExtentPercentage(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetScrollAllowed(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetScrollPercentage(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetScrollPercentageInternal(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetThumbExtent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:SetVisibleExtentPercentage(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:UnregisterUpdate(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:Update(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:onButtonMouseUp(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBarObject:scrollInternal(...) end
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject : Button
----@field Event CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Back_EventObject
----@field Texture CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Back_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject = {}
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:DesaturateIfDisabled(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:GetAtlas(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:IsDown(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:IsDownOver(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:IsOver(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:NarrationGetName(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:OnButtonStateChanged(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:OnClick_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:OnDisable(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:OnEnable(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:OnEnter(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:OnLeave(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:OnLoad(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:OnMouseDown(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:OnMouseUp(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:OnShow(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:SetDisplacedRegions(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Back_EventObject
-local CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Back_EventObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Back_TextureObject : Texture
-local CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Back_TextureObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_DefaultsObject
-local CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_DefaultsObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_DirectionsObject
-local CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_DirectionsObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_EventObject
-local CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_EventObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject : Button
----@field Event CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Forward_EventObject
----@field Texture CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Forward_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject = {}
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:GetAtlas(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:IsDown(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:IsDownOver(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:IsOver(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:NarrationGetName(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnDisable(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnEnable(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnEnter(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnLeave(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnLoad(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnMouseDown(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnMouseUp(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnShow(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Forward_EventObject
-local CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Forward_EventObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Forward_TextureObject : Texture
-local CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Forward_TextureObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_TrackObject : Frame
----@field Begin CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_BeginObject
----@field End CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_EndObject
----@field Middle CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_MiddleObject
----@field Thumb CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject
-local CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_TrackObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_BeginObject : Texture
-local CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_BeginObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_EndObject : Texture
-local CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_EndObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_MiddleObject : Texture
-local CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_MiddleObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject : Button
----@field Begin CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_BeginObject
----@field End CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_EndObject
----@field Event CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_EventObject
----@field Middle CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field downBeginTexture string
----@field downEndTexture string
----@field downMiddleTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field overBeginTexture string
----@field overEndTexture string
----@field overMiddleTexture string
----@field upBeginTexture string
----@field upEndTexture string
----@field upMiddleTexture string
-local CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject = {}
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:GetAtlas(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:IsDown(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:IsDownOver(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:IsOver(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnDisable(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnable(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnter(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnLeave(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnLoad(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnShow(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_BeginObject : Texture
-local CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_BeginObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_EndObject : Texture
-local CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_EndObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_EventObject
-local CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_EventObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject : Texture
-local CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_interpolatorObject
-local CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_interpolatorObject = {}
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_interpolatorObject:Cancel(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_interpolatorObject:Interpolate(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_ScrollFrame_ScrollBar_interpolatorObject:interpolateFunc(...) end
-end
-
-do
----@class CommunitiesGuildLogFrame_Container_backdropColorObject
----@field a number
----@field b number
----@field g number
----@field r number
-local CommunitiesGuildLogFrame_Container_backdropColorObject = {}
----@return any ...
-function CommunitiesGuildLogFrame_Container_backdropColorObject:GenerateHexColor(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_backdropColorObject:GenerateHexColorMarkup(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_backdropColorObject:GenerateHexColorNoAlpha(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_backdropColorObject:GetHSL(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_backdropColorObject:GetRGB(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_backdropColorObject:GetRGBA(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_backdropColorObject:GetRGBAAsBytes(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_backdropColorObject:GetRGBAsBytes(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_backdropColorObject:IsEqualTo(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_backdropColorObject:IsRGBEqualTo(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_backdropColorObject:OnLoad(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_backdropColorObject:SetRGB(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_backdropColorObject:SetRGBA(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Container_backdropColorObject:WrapTextInColorCode(...) end
-end
-
-do
----@class CommunitiesGuildLogFrame_LeftBorderObject : Texture
-local CommunitiesGuildLogFrame_LeftBorderObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_RightBorderObject : Texture
-local CommunitiesGuildLogFrame_RightBorderObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_TopBorderObject : Texture
-local CommunitiesGuildLogFrame_TopBorderObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_TopLeftCornerObject : Texture
-local CommunitiesGuildLogFrame_TopLeftCornerObject = {}
-end
-
-do
----@class CommunitiesGuildLogFrame_TopRightCornerObject : Texture
-local CommunitiesGuildLogFrame_TopRightCornerObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrameObject : Frame
----@field Achievement CommunitiesGuildNewsFiltersFrame_AchievementObject
----@field Bg CommunitiesGuildNewsFiltersFrame_BgObject
----@field BottomBorder CommunitiesGuildNewsFiltersFrame_BottomBorderObject
----@field BottomLeftCorner CommunitiesGuildNewsFiltersFrame_BottomLeftCornerObject
----@field BottomRightCorner CommunitiesGuildNewsFiltersFrame_BottomRightCornerObject
----@field CloseButton CommunitiesGuildNewsFiltersFrame_CloseButtonObject
----@field DungeonEncounter CommunitiesGuildNewsFiltersFrame_DungeonEncounterObject
----@field EpicItemCrafted CommunitiesGuildNewsFiltersFrame_EpicItemCraftedObject
----@field EpicItemLooted CommunitiesGuildNewsFiltersFrame_EpicItemLootedObject
----@field EpicItemPurchased CommunitiesGuildNewsFiltersFrame_EpicItemPurchasedObject
----@field GuildAchievement CommunitiesGuildNewsFiltersFrame_GuildAchievementObject
----@field GuildNewsFilterButtons table
----@field LeftBorder CommunitiesGuildNewsFiltersFrame_LeftBorderObject
----@field LegendaryItemLooted CommunitiesGuildNewsFiltersFrame_LegendaryItemLootedObject
----@field RightBorder CommunitiesGuildNewsFiltersFrame_RightBorderObject
----@field Title CommunitiesGuildNewsFiltersFrame_TitleObject
----@field TopBorder CommunitiesGuildNewsFiltersFrame_TopBorderObject
----@field TopLeftCorner CommunitiesGuildNewsFiltersFrame_TopLeftCornerObject
----@field TopRightCorner CommunitiesGuildNewsFiltersFrame_TopRightCornerObject
-local CommunitiesGuildNewsFiltersFrameObject = {}
----@type CommunitiesGuildNewsFiltersFrameObject
-CommunitiesGuildNewsFiltersFrame = CommunitiesGuildNewsFiltersFrameObject
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_AchievementObject : CheckButton
----@field Text CommunitiesGuildNewsFiltersFrame_Achievement_TextObject
-local CommunitiesGuildNewsFiltersFrame_AchievementObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_Achievement_TextObject : FontString
-local CommunitiesGuildNewsFiltersFrame_Achievement_TextObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_BgObject : Texture
-local CommunitiesGuildNewsFiltersFrame_BgObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_BottomBorderObject : Texture
-local CommunitiesGuildNewsFiltersFrame_BottomBorderObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_BottomLeftCornerObject : Texture
-local CommunitiesGuildNewsFiltersFrame_BottomLeftCornerObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_BottomRightCornerObject : Texture
-local CommunitiesGuildNewsFiltersFrame_BottomRightCornerObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_CloseButtonObject : Button
-local CommunitiesGuildNewsFiltersFrame_CloseButtonObject = {}
----@return any ...
-function CommunitiesGuildNewsFiltersFrame_CloseButtonObject:NarrationGetName(...) end
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_DungeonEncounterObject : CheckButton
----@field Text CommunitiesGuildNewsFiltersFrame_DungeonEncounter_TextObject
-local CommunitiesGuildNewsFiltersFrame_DungeonEncounterObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_DungeonEncounter_TextObject : FontString
-local CommunitiesGuildNewsFiltersFrame_DungeonEncounter_TextObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_EpicItemCraftedObject : CheckButton
----@field Text CommunitiesGuildNewsFiltersFrame_EpicItemCrafted_TextObject
-local CommunitiesGuildNewsFiltersFrame_EpicItemCraftedObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_EpicItemCrafted_TextObject : FontString
-local CommunitiesGuildNewsFiltersFrame_EpicItemCrafted_TextObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_EpicItemLootedObject : CheckButton
----@field Text CommunitiesGuildNewsFiltersFrame_EpicItemLooted_TextObject
-local CommunitiesGuildNewsFiltersFrame_EpicItemLootedObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_EpicItemLooted_TextObject : FontString
-local CommunitiesGuildNewsFiltersFrame_EpicItemLooted_TextObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_EpicItemPurchasedObject : CheckButton
----@field Text CommunitiesGuildNewsFiltersFrame_EpicItemPurchased_TextObject
-local CommunitiesGuildNewsFiltersFrame_EpicItemPurchasedObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_EpicItemPurchased_TextObject : FontString
-local CommunitiesGuildNewsFiltersFrame_EpicItemPurchased_TextObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_GuildAchievementObject : CheckButton
----@field Text CommunitiesGuildNewsFiltersFrame_GuildAchievement_TextObject
-local CommunitiesGuildNewsFiltersFrame_GuildAchievementObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_GuildAchievement_TextObject : FontString
-local CommunitiesGuildNewsFiltersFrame_GuildAchievement_TextObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_LeftBorderObject : Texture
-local CommunitiesGuildNewsFiltersFrame_LeftBorderObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_LegendaryItemLootedObject : CheckButton
----@field Text CommunitiesGuildNewsFiltersFrame_LegendaryItemLooted_TextObject
-local CommunitiesGuildNewsFiltersFrame_LegendaryItemLootedObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_LegendaryItemLooted_TextObject : FontString
-local CommunitiesGuildNewsFiltersFrame_LegendaryItemLooted_TextObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_RightBorderObject : Texture
-local CommunitiesGuildNewsFiltersFrame_RightBorderObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_TitleObject : FontString
-local CommunitiesGuildNewsFiltersFrame_TitleObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_TopBorderObject : Texture
-local CommunitiesGuildNewsFiltersFrame_TopBorderObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_TopLeftCornerObject : Texture
-local CommunitiesGuildNewsFiltersFrame_TopLeftCornerObject = {}
-end
-
-do
----@class CommunitiesGuildNewsFiltersFrame_TopRightCornerObject : Texture
-local CommunitiesGuildNewsFiltersFrame_TopRightCornerObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrameObject : Frame
----@field Bg CommunitiesGuildTextEditFrame_BgObject
----@field BottomBorder CommunitiesGuildTextEditFrame_BottomBorderObject
----@field BottomLeftCorner CommunitiesGuildTextEditFrame_BottomLeftCornerObject
----@field BottomRightCorner CommunitiesGuildTextEditFrame_BottomRightCornerObject
----@field Container CommunitiesGuildTextEditFrame_ContainerObject
----@field LeftBorder CommunitiesGuildTextEditFrame_LeftBorderObject
----@field RightBorder CommunitiesGuildTextEditFrame_RightBorderObject
----@field Title CommunitiesGuildTextEditFrame_TitleObject
----@field TopBorder CommunitiesGuildTextEditFrame_TopBorderObject
----@field TopLeftCorner CommunitiesGuildTextEditFrame_TopLeftCornerObject
----@field TopRightCorner CommunitiesGuildTextEditFrame_TopRightCornerObject
-local CommunitiesGuildTextEditFrameObject = {}
----@type CommunitiesGuildTextEditFrameObject
-CommunitiesGuildTextEditFrame = CommunitiesGuildTextEditFrameObject
-end
-
-do
----@class CommunitiesGuildTextEditFrame_BgObject : Texture
-local CommunitiesGuildTextEditFrame_BgObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_BottomBorderObject : Texture
-local CommunitiesGuildTextEditFrame_BottomBorderObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_BottomLeftCornerObject : Texture
-local CommunitiesGuildTextEditFrame_BottomLeftCornerObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_BottomRightCornerObject : Texture
-local CommunitiesGuildTextEditFrame_BottomRightCornerObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_ContainerObject : Frame
----@field NineSlice CommunitiesGuildTextEditFrame_Container_NineSliceObject
----@field ScrollFrame CommunitiesGuildTextEditFrame_Container_ScrollFrameObject
----@field backdropColor CommunitiesGuildTextEditFrame_Container_backdropColorObject
----@field backdropColorAlpha number
----@field layoutType string
-local CommunitiesGuildTextEditFrame_ContainerObject = {}
----@return any ...
-function CommunitiesGuildTextEditFrame_ContainerObject:GetBackdropBorderColor(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_ContainerObject:GetBackdropColor(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_ContainerObject:SetBackdropBorderColor(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_ContainerObject:SetBackdropColor(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_ContainerObject:SetBorderBlendMode(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_ContainerObject:TooltipBackdropOnLoad(...) end
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_NineSliceObject : Frame
----@field BottomEdge CommunitiesGuildTextEditFrame_Container_NineSlice_BottomEdgeObject
----@field BottomLeftCorner CommunitiesGuildTextEditFrame_Container_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner CommunitiesGuildTextEditFrame_Container_NineSlice_BottomRightCornerObject
----@field Center CommunitiesGuildTextEditFrame_Container_NineSlice_CenterObject
----@field LeftEdge CommunitiesGuildTextEditFrame_Container_NineSlice_LeftEdgeObject
----@field RightEdge CommunitiesGuildTextEditFrame_Container_NineSlice_RightEdgeObject
----@field TopEdge CommunitiesGuildTextEditFrame_Container_NineSlice_TopEdgeObject
----@field TopLeftCorner CommunitiesGuildTextEditFrame_Container_NineSlice_TopLeftCornerObject
----@field TopRightCorner CommunitiesGuildTextEditFrame_Container_NineSlice_TopRightCornerObject
-local CommunitiesGuildTextEditFrame_Container_NineSliceObject = {}
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_NineSliceObject:OnLoad(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_NineSlice_BottomEdgeObject : Texture
-local CommunitiesGuildTextEditFrame_Container_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_NineSlice_BottomLeftCornerObject : Texture
-local CommunitiesGuildTextEditFrame_Container_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_NineSlice_BottomRightCornerObject : Texture
-local CommunitiesGuildTextEditFrame_Container_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_NineSlice_CenterObject : Texture
-local CommunitiesGuildTextEditFrame_Container_NineSlice_CenterObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_NineSlice_LeftEdgeObject : Texture
-local CommunitiesGuildTextEditFrame_Container_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_NineSlice_RightEdgeObject : Texture
-local CommunitiesGuildTextEditFrame_Container_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_NineSlice_TopEdgeObject : Texture
-local CommunitiesGuildTextEditFrame_Container_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_NineSlice_TopLeftCornerObject : Texture
-local CommunitiesGuildTextEditFrame_Container_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_NineSlice_TopRightCornerObject : Texture
-local CommunitiesGuildTextEditFrame_Container_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_ScrollFrameObject : ScrollFrame
----@field EditBox CommunitiesGuildTextEditFrame_Container_ScrollFrame_EditBoxObject
----@field ScrollBar CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject
----@field panExtent number
----@field scrollBarBottomY number
----@field scrollBarTopY number
----@field scrollBarX number
-local CommunitiesGuildTextEditFrame_Container_ScrollFrameObject = {}
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrameObject:GetPanExtent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrameObject:SetPanExtent(...) end
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_ScrollFrame_EditBoxObject : EditBox
----@field cursorHeight number
----@field cursorOffset number
-local CommunitiesGuildTextEditFrame_Container_ScrollFrame_EditBoxObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject : Frame
----@field Back CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject
----@field Defaults CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_DefaultsObject
----@field Directions CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_DirectionsObject
----@field Event CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_EventObject
----@field Forward CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject
----@field Track CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_TrackObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field deferredCallbacks table
----@field executingEvents table
----@field hideTrack boolean
----@field interpolator CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_interpolatorObject
----@field isScrollController boolean
----@field minThumbExtent number
----@field panDelay number
----@field panExtentPercentage number
----@field panRepeatTime number
----@field smartNavigationIgnored boolean
----@field snapToInterval boolean
----@field thumbAnchor string
----@field useProportionalThumb boolean
----@field visibleExtentPercentage number
----@field wheelPanScalar number
-local CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject = {}
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:CallInternalScope(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:CanCursorStepInDirection(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:CanInterpolateScroll(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:DisableControls(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:EnableInternalPriority(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:EnableSnapToInterval(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:GetBackStepper(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:GetForwardStepper(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:GetFrameExtent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:GetIntervalRange(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:GetLower(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:GetPanExtentPercentage(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:GetPanRepeatDelay(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:GetPanRepeatTime(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:GetScrollInterpolator(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:GetScrollPercentage(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:GetThumb(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:GetThumbAnchor(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:GetTrack(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:GetTrackExtent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:GetUpper(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:GetWheelPanPercentage(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:HasScrollableExtent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:Init(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:InitializeNarration(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:Interpolate(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:IsAtBegin(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:IsAtEnd(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:IsHorizontal(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:IsScrollAllowed(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:IsThumbMouseDown(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:OnHide_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:OnLoad(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:OnMouseWheel(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:OnShow_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:OnStepperMouseDown(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:OnThumbMouseDown(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:OnTrackMouseDown(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:ScrollDecrease(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:ScrollInDirection(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:ScrollIncrease(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:ScrollPageInDirection(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:ScrollStepInDirection(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:ScrollToBegin(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:ScrollToEnd(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:ScrollWheelInDirection(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:SelectCursorComponent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:SelectPointComponent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:SetFrameExtent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:SetHideIfUnscrollable(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:SetHorizontal(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:SetInterpolateScroll(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:SetPanExtentPercentage(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:SetScrollAllowed(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:SetScrollPercentage(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:SetScrollPercentageInternal(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:SetThumbExtent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:SetVisibleExtentPercentage(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:UnregisterUpdate(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:Update(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:onButtonMouseUp(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBarObject:scrollInternal(...) end
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject : Button
----@field Event CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Back_EventObject
----@field Texture CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Back_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject = {}
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:DesaturateIfDisabled(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:GetAtlas(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:IsDown(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:IsDownOver(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:IsOver(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:NarrationGetName(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:OnButtonStateChanged(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:OnClick_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:OnDisable(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:OnEnable(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:OnEnter(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:OnLeave(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:OnLoad(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:OnMouseDown(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:OnMouseUp(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:OnShow(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:SetDisplacedRegions(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Back_EventObject
-local CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Back_EventObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Back_TextureObject : Texture
-local CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Back_TextureObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_DefaultsObject
-local CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_DefaultsObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_DirectionsObject
-local CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_DirectionsObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_EventObject
-local CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_EventObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject : Button
----@field Event CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Forward_EventObject
----@field Texture CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Forward_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject = {}
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:GetAtlas(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:IsDown(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:IsDownOver(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:IsOver(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:NarrationGetName(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnDisable(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnEnable(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnEnter(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnLeave(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnLoad(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnMouseDown(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnMouseUp(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnShow(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Forward_EventObject
-local CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Forward_EventObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Forward_TextureObject : Texture
-local CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Forward_TextureObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_TrackObject : Frame
----@field Begin CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_BeginObject
----@field End CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_EndObject
----@field Middle CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_MiddleObject
----@field Thumb CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject
-local CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_TrackObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_BeginObject : Texture
-local CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_BeginObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_EndObject : Texture
-local CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_EndObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_MiddleObject : Texture
-local CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_MiddleObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject : Button
----@field Begin CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_BeginObject
----@field End CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_EndObject
----@field Event CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_EventObject
----@field Middle CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field downBeginTexture string
----@field downEndTexture string
----@field downMiddleTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field overBeginTexture string
----@field overEndTexture string
----@field overMiddleTexture string
----@field upBeginTexture string
----@field upEndTexture string
----@field upMiddleTexture string
-local CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject = {}
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:GetAtlas(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:IsDown(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:IsDownOver(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:IsOver(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnDisable(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnable(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnter(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnLeave(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnLoad(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnShow(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_BeginObject : Texture
-local CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_BeginObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_EndObject : Texture
-local CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_EndObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_EventObject
-local CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_EventObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject : Texture
-local CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_interpolatorObject
-local CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_interpolatorObject = {}
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_interpolatorObject:Cancel(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_interpolatorObject:Interpolate(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_Container_ScrollFrame_ScrollBar_interpolatorObject:interpolateFunc(...) end
-end
-
-do
----@class CommunitiesGuildTextEditFrame_Container_backdropColorObject
-local CommunitiesGuildTextEditFrame_Container_backdropColorObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_LeftBorderObject : Texture
-local CommunitiesGuildTextEditFrame_LeftBorderObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_RightBorderObject : Texture
-local CommunitiesGuildTextEditFrame_RightBorderObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_TitleObject : FontString
-local CommunitiesGuildTextEditFrame_TitleObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_TopBorderObject : Texture
-local CommunitiesGuildTextEditFrame_TopBorderObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_TopLeftCornerObject : Texture
-local CommunitiesGuildTextEditFrame_TopLeftCornerObject = {}
-end
-
-do
----@class CommunitiesGuildTextEditFrame_TopRightCornerObject : Texture
-local CommunitiesGuildTextEditFrame_TopRightCornerObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialogObject : Frame
----@field Background CommunitiesTicketManagerDialog_BackgroundObject
----@field BottomLeft CommunitiesTicketManagerDialog_BottomLeftObject
----@field BottomRight CommunitiesTicketManagerDialog_BottomRightObject
----@field CircleMask CommunitiesTicketManagerDialog_CircleMaskObject
----@field Close CommunitiesTicketManagerDialog_CloseObject
----@field Copy CommunitiesTicketManagerDialog_CopyObject
----@field DialogLabel CommunitiesTicketManagerDialog_DialogLabelObject
----@field ExpandLabel CommunitiesTicketManagerDialog_ExpandLabelObject
----@field ExpiresDropdown CommunitiesTicketManagerDialog_ExpiresDropdownObject
----@field ExpiresDropdownLabel CommunitiesTicketManagerDialog_ExpiresDropdownLabelObject
----@field ExpiresLabel CommunitiesTicketManagerDialog_ExpiresLabelObject
----@field ExpiresText CommunitiesTicketManagerDialog_ExpiresTextObject
----@field FocusJumpHint CommunitiesTicketManagerDialog_FocusJumpHintObject
----@field FrameGlow CommunitiesTicketManagerDialog_FrameGlowObject
----@field GenerateLinkButton CommunitiesTicketManagerDialog_GenerateLinkButtonObject
----@field Icon CommunitiesTicketManagerDialog_IconObject
----@field IconRing CommunitiesTicketManagerDialog_IconRingObject
----@field InviteManager CommunitiesTicketManagerDialog_InviteManagerObject
----@field LeftJumpHint CommunitiesTicketManagerDialog_LeftJumpHintObject
----@field LinkIDLabel CommunitiesTicketManagerDialog_LinkIDLabelObject
----@field LinkIDText CommunitiesTicketManagerDialog_LinkIDTextObject
----@field LinkInstructions CommunitiesTicketManagerDialog_LinkInstructionsObject
----@field LinkToChat CommunitiesTicketManagerDialog_LinkToChatObject
----@field MaximizeButton CommunitiesTicketManagerDialog_MaximizeButtonObject
----@field NewLinkLabel CommunitiesTicketManagerDialog_NewLinkLabelObject
----@field RightJumpHint CommunitiesTicketManagerDialog_RightJumpHintObject
----@field Separator CommunitiesTicketManagerDialog_SeparatorObject
----@field TopLeft CommunitiesTicketManagerDialog_TopLeftObject
----@field TopRight CommunitiesTicketManagerDialog_TopRightObject
----@field UsesDropdown CommunitiesTicketManagerDialog_UsesDropdownObject
----@field UsesDropdownLabel CommunitiesTicketManagerDialog_UsesDropdownLabelObject
----@field UsesLabel CommunitiesTicketManagerDialog_UsesLabelObject
----@field UsesText CommunitiesTicketManagerDialog_UsesTextObject
----@field expirationTime number
----@field layoutType string
----@field revokedTickets table
----@field tickets table
----@field uses number
-local CommunitiesTicketManagerDialogObject = {}
----@return any ...
-function CommunitiesTicketManagerDialogObject:AddTicket(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:ClearTickets(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:CreateGamepadFooter(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:EndFocus(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:FocusGamepad(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:GamepadBaseDialog_OnHide(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:GamepadBaseDialog_OnLoad(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:GamepadBaseDialog_OnShow(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:GenerateDefaultLink(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:GenerateLink(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:GetClubId(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:GetExpirationTime(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:GetFirstTicketInfo(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:GetFocusFrameGlow(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:GetFocusFrameRoot(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:GetStreamId(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:GetTickets(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:GetUses(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:HideFocusJumpHint(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:HideLeftJumpHint(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:HideRightJumpHint(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:InitGamepad(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:LockInFocus(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:OnEvent(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:OnHide(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:OnLoad(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:OnShow(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:OnTicketRevoked(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:Refresh(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:RefreshFocus(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:RefreshLink(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:RemoveExpiredTickets(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:SendLinkToChat(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:SetClubId(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:SetExpanded(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:SetExpirationTime(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:SetStreamId(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:SetUses(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:SetupExpiresDropdown(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:SetupGamepad(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:SetupUsesDropdown(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:ShowFocusJumpHint(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:ShowLeftJumpHint(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:ShowRightJumpHint(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:SmartNavigationCloseHandler(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:SortTickets(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:StartFocus(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:UnfocusGamepad(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:UninitGamepad(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:Update(...) end
----@return any ...
-function CommunitiesTicketManagerDialogObject:UpdateTickets(...) end
----@type CommunitiesTicketManagerDialogObject
-CommunitiesTicketManagerDialog = CommunitiesTicketManagerDialogObject
-end
-
-do
----@class CommunitiesTicketManagerDialog_BackgroundObject : Texture
-local CommunitiesTicketManagerDialog_BackgroundObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_BottomLeftObject : Texture
-local CommunitiesTicketManagerDialog_BottomLeftObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_BottomRightObject : Texture
-local CommunitiesTicketManagerDialog_BottomRightObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_CircleMaskObject : MaskTexture
-local CommunitiesTicketManagerDialog_CircleMaskObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_CloseObject : Button
----@field Left CommunitiesTicketManagerDialog_Close_LeftObject
----@field Middle CommunitiesTicketManagerDialog_Close_MiddleObject
----@field Right CommunitiesTicketManagerDialog_Close_RightObject
----@field Text CommunitiesTicketManagerDialog_Close_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local CommunitiesTicketManagerDialog_CloseObject = {}
----@return any ...
-function CommunitiesTicketManagerDialog_CloseObject:FitToText(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_CloseObject:GetDisabledTooltip(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_CloseObject:OnEnter(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_CloseObject:OnLeave(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_CloseObject:SetDisabledState(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_CloseObject:SetDisabledTooltip(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_CloseObject:SetTextToFit(...) end
-end
-
-do
----@class CommunitiesTicketManagerDialog_Close_LeftObject : Texture
-local CommunitiesTicketManagerDialog_Close_LeftObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_Close_MiddleObject : Texture
-local CommunitiesTicketManagerDialog_Close_MiddleObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_Close_RightObject : Texture
-local CommunitiesTicketManagerDialog_Close_RightObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_Close_TextObject : FontString
-local CommunitiesTicketManagerDialog_Close_TextObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_CopyObject : Button
----@field Left CommunitiesTicketManagerDialog_Copy_LeftObject
----@field Middle CommunitiesTicketManagerDialog_Copy_MiddleObject
----@field Right CommunitiesTicketManagerDialog_Copy_RightObject
----@field Text CommunitiesTicketManagerDialog_Copy_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local CommunitiesTicketManagerDialog_CopyObject = {}
----@return any ...
-function CommunitiesTicketManagerDialog_CopyObject:FitToText(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_CopyObject:GetDisabledTooltip(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_CopyObject:OnEnter(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_CopyObject:OnLeave(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_CopyObject:SetDisabledState(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_CopyObject:SetDisabledTooltip(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_CopyObject:SetTextToFit(...) end
-end
-
-do
----@class CommunitiesTicketManagerDialog_Copy_LeftObject : Texture
-local CommunitiesTicketManagerDialog_Copy_LeftObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_Copy_MiddleObject : Texture
-local CommunitiesTicketManagerDialog_Copy_MiddleObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_Copy_RightObject : Texture
-local CommunitiesTicketManagerDialog_Copy_RightObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_Copy_TextObject : FontString
-local CommunitiesTicketManagerDialog_Copy_TextObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_DialogLabelObject : FontString
-local CommunitiesTicketManagerDialog_DialogLabelObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_ExpandLabelObject : FontString
-local CommunitiesTicketManagerDialog_ExpandLabelObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_ExpiresDropdownObject : Button
----@field Arrow CommunitiesTicketManagerDialog_ExpiresDropdown_ArrowObject
----@field Background CommunitiesTicketManagerDialog_ExpiresDropdown_BackgroundObject
----@field Event CommunitiesTicketManagerDialog_ExpiresDropdown_EventObject
----@field Text CommunitiesTicketManagerDialog_ExpiresDropdown_TextObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
----@field intrinsic string
----@field menuAnchor CommunitiesTicketManagerDialog_ExpiresDropdown_menuAnchorObject
----@field menuDescription CommunitiesTicketManagerDialog_ExpiresDropdown_menuDescriptionObject
----@field menuPoint string
----@field menuPointX number
----@field menuPointY number
----@field menuRelativePoint string
----@field text string
-local CommunitiesTicketManagerDialog_ExpiresDropdownObject = {}
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:ClearMenuState(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:CloseMenu(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:CollectSelectionData(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:CreateDefaultRootMenuDescription(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:CreateRootDescription(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:Decrement(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:DesaturateIfDisabled(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:EnableRegenerateOnResponse(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:GenerateMenu(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:GetArrowAtlas(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:GetDefaultText(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:GetMenuDescription(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:GetSelectionData(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:GetUpdateText(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:HandlesGlobalMouseEvent(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:HasAnyRadioDescriptions(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:HasElements(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:HasOnlyRadioDescriptions(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:HasStickyFocus(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:Increment(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:IsDown(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:IsDownOver(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:IsMenuOpen(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:IsOver(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:NarrationGetContext(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:NarrationGetName(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:OnButtonStateChanged(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:OnDisable(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:OnEnable(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:OnEnter(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:OnLeave(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:OnLoad(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:OnMenuAssigned(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:OnMenuChanged(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:OnMenuClosed(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:OnMenuOpened(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:OnMenuResponse(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:OnMouseDown(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:OnMouseUp(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:OnMouseWheel_Intrinsic(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:OnShow(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:OpenMenu(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:OverrideText(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:Pick(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:RegisterMenu(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:Rotate(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:SetDefaultText(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:SetDisplacedRegions(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:SetMenuAnchor(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:SetMenuOpen(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:SetSelectionText(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:SetSelectionTranslator(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:SetTooltip(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:SetupMenu(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:ShouldShowTooltip(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:ShowTooltip(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:SignalUpdate(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:Update(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:UpdateSelections(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:UpdateText(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:UpdateToMenuSelections(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:menuGenerator(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:onMenuClosedCallback(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdownObject:selectionTranslator(...) end
-end
-
-do
----@class CommunitiesTicketManagerDialog_ExpiresDropdown_ArrowObject : Texture
-local CommunitiesTicketManagerDialog_ExpiresDropdown_ArrowObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_ExpiresDropdown_BackgroundObject : Texture
-local CommunitiesTicketManagerDialog_ExpiresDropdown_BackgroundObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_ExpiresDropdown_EventObject
-local CommunitiesTicketManagerDialog_ExpiresDropdown_EventObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_ExpiresDropdown_TextObject : FontString
-local CommunitiesTicketManagerDialog_ExpiresDropdown_TextObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_ExpiresDropdown_menuAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo CommunitiesTicketManagerDialog_ExpiresDropdown_menuAnchor_relativeToObject
----@field x number
----@field y number
-local CommunitiesTicketManagerDialog_ExpiresDropdown_menuAnchorObject = {}
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuAnchorObject:Get(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuAnchorObject:GetRelativeTo(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuAnchorObject:Init(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuAnchorObject:Set(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuAnchorObject:SetFromPoint(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuAnchorObject:SetOffsets(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuAnchorObject:SetPoint(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuAnchorObject:SetRelativeTo(...) end
-end
-
-do
----@class CommunitiesTicketManagerDialog_ExpiresDropdown_menuAnchor_relativeToObject
-local CommunitiesTicketManagerDialog_ExpiresDropdown_menuAnchor_relativeToObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_ExpiresDropdown_menuDescriptionObject
----@field tag string
-local CommunitiesTicketManagerDialog_ExpiresDropdown_menuDescriptionObject = {}
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuDescriptionObject:CreateButton(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuDescriptionObject:CreateCheckbox(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuDescriptionObject:CreateColorSwatch(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuDescriptionObject:CreateDivider(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuDescriptionObject:CreateFrame(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuDescriptionObject:CreateHighlightButton(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuDescriptionObject:CreateHighlightRadio(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuDescriptionObject:CreateRadio(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuDescriptionObject:CreateSearchEntry(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuDescriptionObject:CreateSpacer(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuDescriptionObject:CreateTemplate(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuDescriptionObject:CreateTitle(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuDescriptionObject:QueueDivider(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuDescriptionObject:QueueSpacer(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuDescriptionObject:QueueTitle(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuDescriptionObject:SetTooltip(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_ExpiresDropdown_menuDescriptionObject:private(...) end
-end
-
-do
----@class CommunitiesTicketManagerDialog_ExpiresDropdownLabelObject : FontString
-local CommunitiesTicketManagerDialog_ExpiresDropdownLabelObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_ExpiresLabelObject : FontString
-local CommunitiesTicketManagerDialog_ExpiresLabelObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_ExpiresTextObject : FontString
-local CommunitiesTicketManagerDialog_ExpiresTextObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_FocusJumpHintObject : Frame
----@field ActiveTexture CommunitiesTicketManagerDialog_FocusJumpHint_ActiveTextureObject
----@field DisabledTexture CommunitiesTicketManagerDialog_FocusJumpHint_DisabledTextureObject
----@field HoldAnim CommunitiesTicketManagerDialog_FocusJumpHint_HoldAnimObject
----@field HoldIndicator CommunitiesTicketManagerDialog_FocusJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG CommunitiesTicketManagerDialog_FocusJumpHint_HoldIndicatorBGObject
----@field HoverTexture CommunitiesTicketManagerDialog_FocusJumpHint_HoverTextureObject
----@field LoadBar CommunitiesTicketManagerDialog_FocusJumpHint_LoadBarObject
----@field LoadBarBG CommunitiesTicketManagerDialog_FocusJumpHint_LoadBarBGObject
----@field LoadBarGlow CommunitiesTicketManagerDialog_FocusJumpHint_LoadBarGlowObject
----@field NormalTexture CommunitiesTicketManagerDialog_FocusJumpHint_NormalTextureObject
----@field PressedTexture CommunitiesTicketManagerDialog_FocusJumpHint_PressedTextureObject
----@field SpinnerTip CommunitiesTicketManagerDialog_FocusJumpHint_SpinnerTipObject
+---@class ClassTrainerFrame_FocusJumpHintObject : Frame
+---@field ActiveTexture ClassTrainerFrame_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture ClassTrainerFrame_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim ClassTrainerFrame_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator ClassTrainerFrame_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG ClassTrainerFrame_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture ClassTrainerFrame_FocusJumpHint_HoverTextureObject
+---@field LoadBar ClassTrainerFrame_FocusJumpHint_LoadBarObject
+---@field LoadBarBG ClassTrainerFrame_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow ClassTrainerFrame_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture ClassTrainerFrame_FocusJumpHint_NormalTextureObject
+---@field PressedTexture ClassTrainerFrame_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip ClassTrainerFrame_FocusJumpHint_SpinnerTipObject
 ---@field ignoreInLayout boolean
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
@@ -5243,306 +8291,631 @@ do
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local CommunitiesTicketManagerDialog_FocusJumpHintObject = {}
+local ClassTrainerFrame_FocusJumpHintObject = {}
 ---@return any ...
-function CommunitiesTicketManagerDialog_FocusJumpHintObject:ApplyTextureLayout(...) end
+function ClassTrainerFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FocusJumpHintObject:BeginHold(...) end
+function ClassTrainerFrame_FocusJumpHintObject:BeginHold(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FocusJumpHintObject:CanEnterTextureState(...) end
+function ClassTrainerFrame_FocusJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FocusJumpHintObject:DisableDropShadow(...) end
+function ClassTrainerFrame_FocusJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FocusJumpHintObject:EnableDropShadow(...) end
+function ClassTrainerFrame_FocusJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FocusJumpHintObject:EndHold(...) end
+function ClassTrainerFrame_FocusJumpHintObject:EndHold(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FocusJumpHintObject:OnHoldAnimFinished(...) end
+function ClassTrainerFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FocusJumpHintObject:OnHoldAnimStopped(...) end
+function ClassTrainerFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FocusJumpHintObject:OnLoad(...) end
+function ClassTrainerFrame_FocusJumpHintObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FocusJumpHintObject:RefreshIconTextures(...) end
+function ClassTrainerFrame_FocusJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FocusJumpHintObject:SetDisabled(...) end
+function ClassTrainerFrame_FocusJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FocusJumpHintObject:SetEnabled(...) end
+function ClassTrainerFrame_FocusJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FocusJumpHintObject:SetFocused(...) end
+function ClassTrainerFrame_FocusJumpHintObject:SetFocused(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FocusJumpHintObject:SetHoldState(...) end
+function ClassTrainerFrame_FocusJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FocusJumpHintObject:SetInputKey(...) end
+function ClassTrainerFrame_FocusJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FocusJumpHintObject:SetIsHoldAction(...) end
+function ClassTrainerFrame_FocusJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FocusJumpHintObject:SetPressable(...) end
+function ClassTrainerFrame_FocusJumpHintObject:SetPressable(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FocusJumpHintObject:SetTextureHeight(...) end
+function ClassTrainerFrame_FocusJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FocusJumpHintObject:SetTextureState(...) end
+function ClassTrainerFrame_FocusJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FocusJumpHintObject:SetTextureWidth(...) end
+function ClassTrainerFrame_FocusJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FocusJumpHintObject:SetUsableState(...) end
+function ClassTrainerFrame_FocusJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+function ClassTrainerFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class CommunitiesTicketManagerDialog_FocusJumpHint_ActiveTextureObject : Texture
-local CommunitiesTicketManagerDialog_FocusJumpHint_ActiveTextureObject = {}
+---@class ClassTrainerFrame_FocusJumpHint_ActiveTextureObject : Texture
+local ClassTrainerFrame_FocusJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_FocusJumpHint_DisabledTextureObject : Texture
-local CommunitiesTicketManagerDialog_FocusJumpHint_DisabledTextureObject = {}
+---@class ClassTrainerFrame_FocusJumpHint_DisabledTextureObject : Texture
+local ClassTrainerFrame_FocusJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_FocusJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim CommunitiesTicketManagerDialog_FocusJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim CommunitiesTicketManagerDialog_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim CommunitiesTicketManagerDialog_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
-local CommunitiesTicketManagerDialog_FocusJumpHint_HoldAnimObject = {}
+---@class ClassTrainerFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim ClassTrainerFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim ClassTrainerFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim ClassTrainerFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local ClassTrainerFrame_FocusJumpHint_HoldAnimObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_FocusJumpHint_HoldAnim_LoadBarAnimObject
-local CommunitiesTicketManagerDialog_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+---@class ClassTrainerFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local ClassTrainerFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local CommunitiesTicketManagerDialog_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+---@class ClassTrainerFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local ClassTrainerFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local CommunitiesTicketManagerDialog_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+---@class ClassTrainerFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local ClassTrainerFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_FocusJumpHint_HoldIndicatorObject : Texture
-local CommunitiesTicketManagerDialog_FocusJumpHint_HoldIndicatorObject = {}
+---@class ClassTrainerFrame_FocusJumpHint_HoldIndicatorObject : Texture
+local ClassTrainerFrame_FocusJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_FocusJumpHint_HoldIndicatorBGObject : Texture
-local CommunitiesTicketManagerDialog_FocusJumpHint_HoldIndicatorBGObject = {}
+---@class ClassTrainerFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
+local ClassTrainerFrame_FocusJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_FocusJumpHint_HoverTextureObject : Texture
-local CommunitiesTicketManagerDialog_FocusJumpHint_HoverTextureObject = {}
+---@class ClassTrainerFrame_FocusJumpHint_HoverTextureObject : Texture
+local ClassTrainerFrame_FocusJumpHint_HoverTextureObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_FocusJumpHint_LoadBarObject : Texture
-local CommunitiesTicketManagerDialog_FocusJumpHint_LoadBarObject = {}
+---@class ClassTrainerFrame_FocusJumpHint_LoadBarObject : Texture
+local ClassTrainerFrame_FocusJumpHint_LoadBarObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_FocusJumpHint_LoadBarBGObject : Texture
-local CommunitiesTicketManagerDialog_FocusJumpHint_LoadBarBGObject = {}
+---@class ClassTrainerFrame_FocusJumpHint_LoadBarBGObject : Texture
+local ClassTrainerFrame_FocusJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_FocusJumpHint_LoadBarGlowObject : Texture
-local CommunitiesTicketManagerDialog_FocusJumpHint_LoadBarGlowObject = {}
+---@class ClassTrainerFrame_FocusJumpHint_LoadBarGlowObject : Texture
+local ClassTrainerFrame_FocusJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_FocusJumpHint_NormalTextureObject : Texture
-local CommunitiesTicketManagerDialog_FocusJumpHint_NormalTextureObject = {}
+---@class ClassTrainerFrame_FocusJumpHint_NormalTextureObject : Texture
+local ClassTrainerFrame_FocusJumpHint_NormalTextureObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_FocusJumpHint_PressedTextureObject : Texture
-local CommunitiesTicketManagerDialog_FocusJumpHint_PressedTextureObject = {}
+---@class ClassTrainerFrame_FocusJumpHint_PressedTextureObject : Texture
+local ClassTrainerFrame_FocusJumpHint_PressedTextureObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_FocusJumpHint_SpinnerTipObject : Texture
-local CommunitiesTicketManagerDialog_FocusJumpHint_SpinnerTipObject = {}
+---@class ClassTrainerFrame_FocusJumpHint_SpinnerTipObject : Texture
+local ClassTrainerFrame_FocusJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_FrameGlowObject : Frame
----@field GlowTexture CommunitiesTicketManagerDialog_FrameGlow_GlowTextureObject
+---@class ClassTrainerFrame_FrameGlowObject : Frame
+---@field GlowTexture ClassTrainerFrame_FrameGlow_GlowTextureObject
 ---@field glowTextures table
-local CommunitiesTicketManagerDialog_FrameGlowObject = {}
+local ClassTrainerFrame_FrameGlowObject = {}
 ---@return any ...
-function CommunitiesTicketManagerDialog_FrameGlowObject:GetContainerFrame(...) end
+function ClassTrainerFrame_FrameGlowObject:GetContainerFrame(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FrameGlowObject:GetFrameLayoutType(...) end
+function ClassTrainerFrame_FrameGlowObject:GetFrameLayoutType(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FrameGlowObject:GetHeaderFrame(...) end
+function ClassTrainerFrame_FrameGlowObject:GetHeaderFrame(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_FrameGlowObject:OnLoad(...) end
+function ClassTrainerFrame_FrameGlowObject:OnLoad(...) end
 end
 
 do
----@class CommunitiesTicketManagerDialog_FrameGlow_GlowTextureObject : Texture
-local CommunitiesTicketManagerDialog_FrameGlow_GlowTextureObject = {}
+---@class ClassTrainerFrame_FrameGlow_GlowTextureObject : Texture
+local ClassTrainerFrame_FrameGlow_GlowTextureObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_GenerateLinkButtonObject : Button
----@field Left CommunitiesTicketManagerDialog_GenerateLinkButton_LeftObject
----@field Middle CommunitiesTicketManagerDialog_GenerateLinkButton_MiddleObject
----@field Right CommunitiesTicketManagerDialog_GenerateLinkButton_RightObject
----@field Text CommunitiesTicketManagerDialog_GenerateLinkButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local CommunitiesTicketManagerDialog_GenerateLinkButtonObject = {}
+---@class ClassTrainerFrame_InsetObject : Frame
+---@field Bg ClassTrainerFrame_Inset_BgObject
+---@field NineSlice ClassTrainerFrame_Inset_NineSliceObject
+---@field layoutType string
+local ClassTrainerFrame_InsetObject = {}
+end
+
+do
+---@class ClassTrainerFrame_Inset_BgObject : Texture
+local ClassTrainerFrame_Inset_BgObject = {}
+end
+
+do
+---@class ClassTrainerFrame_Inset_NineSliceObject : Frame
+---@field BottomEdge ClassTrainerFrame_Inset_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner ClassTrainerFrame_Inset_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner ClassTrainerFrame_Inset_NineSlice_BottomRightCornerObject
+---@field LeftEdge ClassTrainerFrame_Inset_NineSlice_LeftEdgeObject
+---@field RightEdge ClassTrainerFrame_Inset_NineSlice_RightEdgeObject
+---@field TopEdge ClassTrainerFrame_Inset_NineSlice_TopEdgeObject
+---@field TopLeftCorner ClassTrainerFrame_Inset_NineSlice_TopLeftCornerObject
+---@field TopRightCorner ClassTrainerFrame_Inset_NineSlice_TopRightCornerObject
+local ClassTrainerFrame_Inset_NineSliceObject = {}
 ---@return any ...
-function CommunitiesTicketManagerDialog_GenerateLinkButtonObject:FitToText(...) end
+function ClassTrainerFrame_Inset_NineSliceObject:GetBorderColor(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_GenerateLinkButtonObject:GetDisabledTooltip(...) end
+function ClassTrainerFrame_Inset_NineSliceObject:GetCenterColor(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_GenerateLinkButtonObject:OnEnter(...) end
+function ClassTrainerFrame_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_GenerateLinkButtonObject:OnLeave(...) end
+function ClassTrainerFrame_Inset_NineSliceObject:GetFrameLayoutType(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_GenerateLinkButtonObject:SetDisabledState(...) end
+function ClassTrainerFrame_Inset_NineSliceObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_GenerateLinkButtonObject:SetDisabledTooltip(...) end
+function ClassTrainerFrame_Inset_NineSliceObject:SetBlendMode(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_GenerateLinkButtonObject:SetTextToFit(...) end
-end
-
-do
----@class CommunitiesTicketManagerDialog_GenerateLinkButton_LeftObject : Texture
-local CommunitiesTicketManagerDialog_GenerateLinkButton_LeftObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_GenerateLinkButton_MiddleObject : Texture
-local CommunitiesTicketManagerDialog_GenerateLinkButton_MiddleObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_GenerateLinkButton_RightObject : Texture
-local CommunitiesTicketManagerDialog_GenerateLinkButton_RightObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_GenerateLinkButton_TextObject : FontString
-local CommunitiesTicketManagerDialog_GenerateLinkButton_TextObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_IconObject : Texture
-local CommunitiesTicketManagerDialog_IconObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_IconRingObject : Texture
-local CommunitiesTicketManagerDialog_IconRingObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_InviteManagerObject : Frame
----@field ArtOverlay CommunitiesTicketManagerDialog_InviteManager_ArtOverlayObject
----@field ColumnDisplay CommunitiesTicketManagerDialog_InviteManager_ColumnDisplayObject
----@field ScrollBar CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject
----@field ScrollBox CommunitiesTicketManagerDialog_InviteManager_ScrollBoxObject
-local CommunitiesTicketManagerDialog_InviteManagerObject = {}
+function ClassTrainerFrame_Inset_NineSliceObject:SetBorderBlendMode(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManagerObject:OnLoad(...) end
-end
-
-do
----@class CommunitiesTicketManagerDialog_InviteManager_ArtOverlayObject : Frame
----@field TopLeft CommunitiesTicketManagerDialog_InviteManager_ArtOverlay_TopLeftObject
----@field TopRight CommunitiesTicketManagerDialog_InviteManager_ArtOverlay_TopRightObject
-local CommunitiesTicketManagerDialog_InviteManager_ArtOverlayObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_InviteManager_ArtOverlay_TopLeftObject : Texture
-local CommunitiesTicketManagerDialog_InviteManager_ArtOverlay_TopLeftObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_InviteManager_ArtOverlay_TopRightObject : Texture
-local CommunitiesTicketManagerDialog_InviteManager_ArtOverlay_TopRightObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_InviteManager_ColumnDisplayObject : Frame
----@field Background CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_BackgroundObject
----@field InsetBorderBottomLeft CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_InsetBorderBottomLeftObject
----@field InsetBorderLeft CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_InsetBorderLeftObject
----@field InsetBorderTop CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_InsetBorderTopObject
----@field InsetBorderTopLeft CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_InsetBorderTopLeftObject
----@field InsetBorderTopRight CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_InsetBorderTopRightObject
----@field TopTileStreaks CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_TopTileStreaksObject
----@field columnHeaders CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_columnHeadersObject
-local CommunitiesTicketManagerDialog_InviteManager_ColumnDisplayObject = {}
+function ClassTrainerFrame_Inset_NineSliceObject:SetBorderColor(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ColumnDisplayObject:LayoutColumns(...) end
+function ClassTrainerFrame_Inset_NineSliceObject:SetCenterColor(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ColumnDisplayObject:OnClick(...) end
+function ClassTrainerFrame_Inset_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class ClassTrainerFrame_Inset_NineSlice_BottomEdgeObject : Texture
+local ClassTrainerFrame_Inset_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class ClassTrainerFrame_Inset_NineSlice_BottomLeftCornerObject : Texture
+local ClassTrainerFrame_Inset_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class ClassTrainerFrame_Inset_NineSlice_BottomRightCornerObject : Texture
+local ClassTrainerFrame_Inset_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class ClassTrainerFrame_Inset_NineSlice_LeftEdgeObject : Texture
+local ClassTrainerFrame_Inset_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class ClassTrainerFrame_Inset_NineSlice_RightEdgeObject : Texture
+local ClassTrainerFrame_Inset_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class ClassTrainerFrame_Inset_NineSlice_TopEdgeObject : Texture
+local ClassTrainerFrame_Inset_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class ClassTrainerFrame_Inset_NineSlice_TopLeftCornerObject : Texture
+local ClassTrainerFrame_Inset_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class ClassTrainerFrame_Inset_NineSlice_TopRightCornerObject : Texture
+local ClassTrainerFrame_Inset_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class ClassTrainerFrame_LeftJumpHintObject : Frame
+---@field ActiveTexture ClassTrainerFrame_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture ClassTrainerFrame_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim ClassTrainerFrame_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator ClassTrainerFrame_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG ClassTrainerFrame_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture ClassTrainerFrame_LeftJumpHint_HoverTextureObject
+---@field LoadBar ClassTrainerFrame_LeftJumpHint_LoadBarObject
+---@field LoadBarBG ClassTrainerFrame_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow ClassTrainerFrame_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture ClassTrainerFrame_LeftJumpHint_NormalTextureObject
+---@field PressedTexture ClassTrainerFrame_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip ClassTrainerFrame_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local ClassTrainerFrame_LeftJumpHintObject = {}
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ColumnDisplayObject:OnLoad(...) end
-end
-
-do
----@class CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_BackgroundObject : Texture
-local CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_BackgroundObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_InsetBorderBottomLeftObject : Texture
-local CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_InsetBorderBottomLeftObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_InsetBorderLeftObject : Texture
-local CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_InsetBorderLeftObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_InsetBorderTopObject : Texture
-local CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_InsetBorderTopObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_InsetBorderTopLeftObject : Texture
-local CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_InsetBorderTopLeftObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_InsetBorderTopRightObject : Texture
-local CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_InsetBorderTopRightObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_TopTileStreaksObject : Texture
-local CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_TopTileStreaksObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_columnHeadersObject
-local CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_columnHeadersObject = {}
+function ClassTrainerFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_columnHeadersObject:GetTemplate(...) end
+function ClassTrainerFrame_LeftJumpHintObject:BeginHold(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ColumnDisplay_columnHeadersObject:private(...) end
+function ClassTrainerFrame_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function ClassTrainerFrame_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function ClassTrainerFrame_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function ClassTrainerFrame_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function ClassTrainerFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function ClassTrainerFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function ClassTrainerFrame_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function ClassTrainerFrame_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function ClassTrainerFrame_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function ClassTrainerFrame_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function ClassTrainerFrame_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function ClassTrainerFrame_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function ClassTrainerFrame_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function ClassTrainerFrame_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function ClassTrainerFrame_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function ClassTrainerFrame_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function ClassTrainerFrame_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function ClassTrainerFrame_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function ClassTrainerFrame_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function ClassTrainerFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject : Frame
----@field Back CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject
----@field Background CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackgroundObject
----@field Defaults CommunitiesTicketManagerDialog_InviteManager_ScrollBar_DefaultsObject
----@field Directions CommunitiesTicketManagerDialog_InviteManager_ScrollBar_DirectionsObject
----@field Event CommunitiesTicketManagerDialog_InviteManager_ScrollBar_EventObject
----@field Forward CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject
----@field Track CommunitiesTicketManagerDialog_InviteManager_ScrollBar_TrackObject
+---@class ClassTrainerFrame_LeftJumpHint_ActiveTextureObject : Texture
+local ClassTrainerFrame_LeftJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class ClassTrainerFrame_LeftJumpHint_DisabledTextureObject : Texture
+local ClassTrainerFrame_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class ClassTrainerFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim ClassTrainerFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim ClassTrainerFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim ClassTrainerFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local ClassTrainerFrame_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class ClassTrainerFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local ClassTrainerFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class ClassTrainerFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local ClassTrainerFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class ClassTrainerFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local ClassTrainerFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class ClassTrainerFrame_LeftJumpHint_HoldIndicatorObject : Texture
+local ClassTrainerFrame_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class ClassTrainerFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
+local ClassTrainerFrame_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class ClassTrainerFrame_LeftJumpHint_HoverTextureObject : Texture
+local ClassTrainerFrame_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class ClassTrainerFrame_LeftJumpHint_LoadBarObject : Texture
+local ClassTrainerFrame_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class ClassTrainerFrame_LeftJumpHint_LoadBarBGObject : Texture
+local ClassTrainerFrame_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class ClassTrainerFrame_LeftJumpHint_LoadBarGlowObject : Texture
+local ClassTrainerFrame_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class ClassTrainerFrame_LeftJumpHint_NormalTextureObject : Texture
+local ClassTrainerFrame_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class ClassTrainerFrame_LeftJumpHint_PressedTextureObject : Texture
+local ClassTrainerFrame_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class ClassTrainerFrame_LeftJumpHint_SpinnerTipObject : Texture
+local ClassTrainerFrame_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class ClassTrainerFrame_NineSliceObject : Frame
+---@field BottomEdge ClassTrainerFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner ClassTrainerFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner ClassTrainerFrame_NineSlice_BottomRightCornerObject
+---@field Center ClassTrainerFrame_NineSlice_CenterObject
+---@field LeftEdge ClassTrainerFrame_NineSlice_LeftEdgeObject
+---@field RightEdge ClassTrainerFrame_NineSlice_RightEdgeObject
+---@field TopEdge ClassTrainerFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner ClassTrainerFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner ClassTrainerFrame_NineSlice_TopRightCornerObject
+local ClassTrainerFrame_NineSliceObject = {}
+---@return any ...
+function ClassTrainerFrame_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function ClassTrainerFrame_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function ClassTrainerFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function ClassTrainerFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function ClassTrainerFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function ClassTrainerFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function ClassTrainerFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function ClassTrainerFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function ClassTrainerFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function ClassTrainerFrame_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class ClassTrainerFrame_NineSlice_BottomEdgeObject : Texture
+local ClassTrainerFrame_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class ClassTrainerFrame_NineSlice_BottomLeftCornerObject : Texture
+local ClassTrainerFrame_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class ClassTrainerFrame_NineSlice_BottomRightCornerObject : Texture
+local ClassTrainerFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class ClassTrainerFrame_NineSlice_CenterObject : Texture
+local ClassTrainerFrame_NineSlice_CenterObject = {}
+end
+
+do
+---@class ClassTrainerFrame_NineSlice_LeftEdgeObject : Texture
+local ClassTrainerFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class ClassTrainerFrame_NineSlice_RightEdgeObject : Texture
+local ClassTrainerFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class ClassTrainerFrame_NineSlice_TopEdgeObject : Texture
+local ClassTrainerFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class ClassTrainerFrame_NineSlice_TopLeftCornerObject : Texture
+local ClassTrainerFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class ClassTrainerFrame_NineSlice_TopRightCornerObject : Texture
+local ClassTrainerFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class ClassTrainerFrame_PortraitContainerObject : Frame
+---@field CircleMask ClassTrainerFrame_PortraitContainer_CircleMaskObject
+---@field portrait ClassTrainerFrame_PortraitContainer_portraitObject
+local ClassTrainerFrame_PortraitContainerObject = {}
+end
+
+do
+---@class ClassTrainerFrame_PortraitContainer_CircleMaskObject : MaskTexture
+local ClassTrainerFrame_PortraitContainer_CircleMaskObject = {}
+end
+
+do
+---@class ClassTrainerFrame_PortraitContainer_portraitObject : Texture
+local ClassTrainerFrame_PortraitContainer_portraitObject = {}
+end
+
+do
+---@class ClassTrainerFrame_RightJumpHintObject : Frame
+---@field ActiveTexture ClassTrainerFrame_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture ClassTrainerFrame_RightJumpHint_DisabledTextureObject
+---@field HoldAnim ClassTrainerFrame_RightJumpHint_HoldAnimObject
+---@field HoldIndicator ClassTrainerFrame_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG ClassTrainerFrame_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture ClassTrainerFrame_RightJumpHint_HoverTextureObject
+---@field LoadBar ClassTrainerFrame_RightJumpHint_LoadBarObject
+---@field LoadBarBG ClassTrainerFrame_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow ClassTrainerFrame_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture ClassTrainerFrame_RightJumpHint_NormalTextureObject
+---@field PressedTexture ClassTrainerFrame_RightJumpHint_PressedTextureObject
+---@field SpinnerTip ClassTrainerFrame_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local ClassTrainerFrame_RightJumpHintObject = {}
+---@return any ...
+function ClassTrainerFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function ClassTrainerFrame_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function ClassTrainerFrame_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function ClassTrainerFrame_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function ClassTrainerFrame_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function ClassTrainerFrame_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function ClassTrainerFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function ClassTrainerFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function ClassTrainerFrame_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function ClassTrainerFrame_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function ClassTrainerFrame_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function ClassTrainerFrame_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function ClassTrainerFrame_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function ClassTrainerFrame_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function ClassTrainerFrame_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function ClassTrainerFrame_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function ClassTrainerFrame_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function ClassTrainerFrame_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function ClassTrainerFrame_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function ClassTrainerFrame_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function ClassTrainerFrame_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function ClassTrainerFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class ClassTrainerFrame_RightJumpHint_ActiveTextureObject : Texture
+local ClassTrainerFrame_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class ClassTrainerFrame_RightJumpHint_DisabledTextureObject : Texture
+local ClassTrainerFrame_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class ClassTrainerFrame_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim ClassTrainerFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim ClassTrainerFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim ClassTrainerFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local ClassTrainerFrame_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class ClassTrainerFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+local ClassTrainerFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class ClassTrainerFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local ClassTrainerFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class ClassTrainerFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local ClassTrainerFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class ClassTrainerFrame_RightJumpHint_HoldIndicatorObject : Texture
+local ClassTrainerFrame_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class ClassTrainerFrame_RightJumpHint_HoldIndicatorBGObject : Texture
+local ClassTrainerFrame_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class ClassTrainerFrame_RightJumpHint_HoverTextureObject : Texture
+local ClassTrainerFrame_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class ClassTrainerFrame_RightJumpHint_LoadBarObject : Texture
+local ClassTrainerFrame_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class ClassTrainerFrame_RightJumpHint_LoadBarBGObject : Texture
+local ClassTrainerFrame_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class ClassTrainerFrame_RightJumpHint_LoadBarGlowObject : Texture
+local ClassTrainerFrame_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class ClassTrainerFrame_RightJumpHint_NormalTextureObject : Texture
+local ClassTrainerFrame_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class ClassTrainerFrame_RightJumpHint_PressedTextureObject : Texture
+local ClassTrainerFrame_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class ClassTrainerFrame_RightJumpHint_SpinnerTipObject : Texture
+local ClassTrainerFrame_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class ClassTrainerFrame_ScrollBarObject : Frame
+---@field Back ClassTrainerFrame_ScrollBar_BackObject
+---@field Defaults ClassTrainerFrame_ScrollBar_DefaultsObject
+---@field Directions ClassTrainerFrame_ScrollBar_DirectionsObject
+---@field Event ClassTrainerFrame_ScrollBar_EventObject
+---@field Forward ClassTrainerFrame_ScrollBar_ForwardObject
+---@field Track ClassTrainerFrame_ScrollBar_TrackObject
 ---@field allowScroll boolean
 ---@field callbackTables table
 ---@field canInterpolateScroll boolean
@@ -5550,13 +8923,13 @@ do
 ---@field executingEvents table
 ---@field hideTrack boolean
 ---@field hideTrackIfThumbExceedsTrack boolean
----@field interpolator CommunitiesTicketManagerDialog_InviteManager_ScrollBar_interpolatorObject
+---@field interpolator ClassTrainerFrame_ScrollBar_interpolatorObject
 ---@field isScrollController boolean
 ---@field minThumbExtent number
 ---@field panDelay number
 ---@field panExtentPercentage number
 ---@field panRepeatTime number
----@field registeredScrollBox CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject
+---@field registeredScrollBox ClassTrainerFrame_ScrollBar_registeredScrollBoxObject
 ---@field scrollPercentage number
 ---@field smartNavigationIgnored boolean
 ---@field snapToInterval boolean
@@ -5564,179 +8937,179 @@ do
 ---@field useProportionalThumb boolean
 ---@field visibleExtentPercentage number
 ---@field wheelPanScalar number
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject = {}
+local ClassTrainerFrame_ScrollBarObject = {}
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:CallInternalScope(...) end
+function ClassTrainerFrame_ScrollBarObject:CallInternalScope(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:CanCursorStepInDirection(...) end
+function ClassTrainerFrame_ScrollBarObject:CanCursorStepInDirection(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:CanInterpolateScroll(...) end
+function ClassTrainerFrame_ScrollBarObject:CanInterpolateScroll(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:CopyDeferredCallbacks(...) end
+function ClassTrainerFrame_ScrollBarObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:DisableControls(...) end
+function ClassTrainerFrame_ScrollBarObject:DisableControls(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:DoesFrameHaveEvent(...) end
+function ClassTrainerFrame_ScrollBarObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:EnableInternalPriority(...) end
+function ClassTrainerFrame_ScrollBarObject:EnableInternalPriority(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:EnableSnapToInterval(...) end
+function ClassTrainerFrame_ScrollBarObject:EnableSnapToInterval(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:GenerateCallbackEvents(...) end
+function ClassTrainerFrame_ScrollBarObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:GetBackStepper(...) end
+function ClassTrainerFrame_ScrollBarObject:GetBackStepper(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:GetCallbackTable(...) end
+function ClassTrainerFrame_ScrollBarObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:GetCallbackTables(...) end
+function ClassTrainerFrame_ScrollBarObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:GetCallbacksByEvent(...) end
+function ClassTrainerFrame_ScrollBarObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:GetForwardStepper(...) end
+function ClassTrainerFrame_ScrollBarObject:GetForwardStepper(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:GetFrameExtent(...) end
+function ClassTrainerFrame_ScrollBarObject:GetFrameExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:GetIntervalRange(...) end
+function ClassTrainerFrame_ScrollBarObject:GetIntervalRange(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:GetLower(...) end
+function ClassTrainerFrame_ScrollBarObject:GetLower(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+function ClassTrainerFrame_ScrollBarObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:GetPanExtentPercentage(...) end
+function ClassTrainerFrame_ScrollBarObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:GetPanRepeatDelay(...) end
+function ClassTrainerFrame_ScrollBarObject:GetPanRepeatDelay(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:GetPanRepeatTime(...) end
+function ClassTrainerFrame_ScrollBarObject:GetPanRepeatTime(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:GetScrollInterpolator(...) end
+function ClassTrainerFrame_ScrollBarObject:GetScrollInterpolator(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:GetScrollPercentage(...) end
+function ClassTrainerFrame_ScrollBarObject:GetScrollPercentage(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:GetThumb(...) end
+function ClassTrainerFrame_ScrollBarObject:GetThumb(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:GetThumbAnchor(...) end
+function ClassTrainerFrame_ScrollBarObject:GetThumbAnchor(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:GetTrack(...) end
+function ClassTrainerFrame_ScrollBarObject:GetTrack(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:GetTrackExtent(...) end
+function ClassTrainerFrame_ScrollBarObject:GetTrackExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:GetUpper(...) end
+function ClassTrainerFrame_ScrollBarObject:GetUpper(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:GetVisibleExtentPercentage(...) end
+function ClassTrainerFrame_ScrollBarObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:GetWheelPanPercentage(...) end
+function ClassTrainerFrame_ScrollBarObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:HasRegistrantsForEvent(...) end
+function ClassTrainerFrame_ScrollBarObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:HasScrollableExtent(...) end
+function ClassTrainerFrame_ScrollBarObject:HasScrollableExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:Init(...) end
+function ClassTrainerFrame_ScrollBarObject:Init(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:InitializeNarration(...) end
+function ClassTrainerFrame_ScrollBarObject:InitializeNarration(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:Interpolate(...) end
+function ClassTrainerFrame_ScrollBarObject:Interpolate(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:IsAtBegin(...) end
+function ClassTrainerFrame_ScrollBarObject:IsAtBegin(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:IsAtEnd(...) end
+function ClassTrainerFrame_ScrollBarObject:IsAtEnd(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:IsHorizontal(...) end
+function ClassTrainerFrame_ScrollBarObject:IsHorizontal(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:IsScrollAllowed(...) end
+function ClassTrainerFrame_ScrollBarObject:IsScrollAllowed(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:IsThumbMouseDown(...) end
+function ClassTrainerFrame_ScrollBarObject:IsThumbMouseDown(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:OnHide_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBarObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:OnLoad(...) end
+function ClassTrainerFrame_ScrollBarObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:OnLoad_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBarObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:OnMouseWheel(...) end
+function ClassTrainerFrame_ScrollBarObject:OnMouseWheel(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:OnShow_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBarObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:OnStepperMouseDown(...) end
+function ClassTrainerFrame_ScrollBarObject:OnStepperMouseDown(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:OnThumbMouseDown(...) end
+function ClassTrainerFrame_ScrollBarObject:OnThumbMouseDown(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:OnTrackMouseDown(...) end
+function ClassTrainerFrame_ScrollBarObject:OnTrackMouseDown(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+function ClassTrainerFrame_ScrollBarObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:RegisterCallback(...) end
+function ClassTrainerFrame_ScrollBarObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:RegisterCallbackWithHandle(...) end
+function ClassTrainerFrame_ScrollBarObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:ScrollDecrease(...) end
+function ClassTrainerFrame_ScrollBarObject:ScrollDecrease(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:ScrollInDirection(...) end
+function ClassTrainerFrame_ScrollBarObject:ScrollInDirection(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:ScrollIncrease(...) end
+function ClassTrainerFrame_ScrollBarObject:ScrollIncrease(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:ScrollPageInDirection(...) end
+function ClassTrainerFrame_ScrollBarObject:ScrollPageInDirection(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:ScrollStepInDirection(...) end
+function ClassTrainerFrame_ScrollBarObject:ScrollStepInDirection(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:ScrollToBegin(...) end
+function ClassTrainerFrame_ScrollBarObject:ScrollToBegin(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:ScrollToEnd(...) end
+function ClassTrainerFrame_ScrollBarObject:ScrollToEnd(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:ScrollWheelInDirection(...) end
+function ClassTrainerFrame_ScrollBarObject:ScrollWheelInDirection(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:SecureInsertEvent(...) end
+function ClassTrainerFrame_ScrollBarObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:SelectCursorComponent(...) end
+function ClassTrainerFrame_ScrollBarObject:SelectCursorComponent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:SelectPointComponent(...) end
+function ClassTrainerFrame_ScrollBarObject:SelectPointComponent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:SetFrameExtent(...) end
+function ClassTrainerFrame_ScrollBarObject:SetFrameExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:SetHideIfUnscrollable(...) end
+function ClassTrainerFrame_ScrollBarObject:SetHideIfUnscrollable(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+function ClassTrainerFrame_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:SetHorizontal(...) end
+function ClassTrainerFrame_ScrollBarObject:SetHorizontal(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:SetInterpolateScroll(...) end
+function ClassTrainerFrame_ScrollBarObject:SetInterpolateScroll(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:SetPanExtentPercentage(...) end
+function ClassTrainerFrame_ScrollBarObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:SetScrollAllowed(...) end
+function ClassTrainerFrame_ScrollBarObject:SetScrollAllowed(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:SetScrollPercentage(...) end
+function ClassTrainerFrame_ScrollBarObject:SetScrollPercentage(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:SetScrollPercentageInternal(...) end
+function ClassTrainerFrame_ScrollBarObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:SetThumbExtent(...) end
+function ClassTrainerFrame_ScrollBarObject:SetThumbExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+function ClassTrainerFrame_ScrollBarObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:SetVisibleExtentPercentage(...) end
+function ClassTrainerFrame_ScrollBarObject:SetVisibleExtentPercentage(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:TriggerEvent(...) end
+function ClassTrainerFrame_ScrollBarObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:UnregisterCallback(...) end
+function ClassTrainerFrame_ScrollBarObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:UnregisterEvents(...) end
+function ClassTrainerFrame_ScrollBarObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:UnregisterEventsByEventTable(...) end
+function ClassTrainerFrame_ScrollBarObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:UnregisterUpdate(...) end
+function ClassTrainerFrame_ScrollBarObject:UnregisterUpdate(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:Update(...) end
+function ClassTrainerFrame_ScrollBarObject:Update(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:onButtonMouseUp(...) end
+function ClassTrainerFrame_ScrollBarObject:onButtonMouseUp(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBarObject:scrollInternal(...) end
+function ClassTrainerFrame_ScrollBarObject:scrollInternal(...) end
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject : Button
----@field Event CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Back_EventObject
----@field Texture CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Back_TextureObject
+---@class ClassTrainerFrame_ScrollBar_BackObject : Button
+---@field Event ClassTrainerFrame_ScrollBar_Back_EventObject
+---@field Texture ClassTrainerFrame_ScrollBar_Back_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -5750,123 +9123,118 @@ do
 ---@field mouseDownSoundKitID number
 ---@field normalTexture string
 ---@field overTexture string
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject = {}
+local ClassTrainerFrame_ScrollBar_BackObject = {}
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:GetAtlas(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:GetAtlas(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:GetCallbackTable(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:GetCallbackTables(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:IsDown(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:IsDown(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:IsDownOver(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:IsDownOver(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:IsOver(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:IsOver(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:NarrationGetName(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:NarrationGetName(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:OnButtonStateChanged(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:OnButtonStateChanged(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:OnDisable(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:OnDisable(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:OnEnable(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:OnEnable(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:OnEnter(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:OnEnter(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:OnLeave(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:OnLeave(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:OnLoad(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:OnMouseDown(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:OnMouseDown(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:OnMouseUp(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:OnMouseUp(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:OnShow(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:OnShow(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:RegisterCallback(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:SecureInsertEvent(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:SetDisplacedRegions(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:SetDisplacedRegions(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:TriggerEvent(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:UnregisterCallback(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:UnregisterEvents(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+function ClassTrainerFrame_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Back_EventObject
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Back_EventObject = {}
+---@class ClassTrainerFrame_ScrollBar_Back_EventObject
+local ClassTrainerFrame_ScrollBar_Back_EventObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Back_TextureObject : Texture
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Back_TextureObject = {}
+---@class ClassTrainerFrame_ScrollBar_Back_TextureObject : Texture
+local ClassTrainerFrame_ScrollBar_Back_TextureObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackgroundObject : Texture
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_BackgroundObject = {}
+---@class ClassTrainerFrame_ScrollBar_DefaultsObject
+local ClassTrainerFrame_ScrollBar_DefaultsObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_DefaultsObject
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_DefaultsObject = {}
+---@class ClassTrainerFrame_ScrollBar_DirectionsObject
+local ClassTrainerFrame_ScrollBar_DirectionsObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_DirectionsObject
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_DirectionsObject = {}
+---@class ClassTrainerFrame_ScrollBar_EventObject
+local ClassTrainerFrame_ScrollBar_EventObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_EventObject
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_EventObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject : Button
----@field Event CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Forward_EventObject
----@field Texture CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Forward_TextureObject
+---@class ClassTrainerFrame_ScrollBar_ForwardObject : Button
+---@field Event ClassTrainerFrame_ScrollBar_Forward_EventObject
+---@field Texture ClassTrainerFrame_ScrollBar_Forward_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -5880,129 +9248,129 @@ do
 ---@field mouseDownSoundKitID number
 ---@field normalTexture string
 ---@field overTexture string
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject = {}
+local ClassTrainerFrame_ScrollBar_ForwardObject = {}
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:GetAtlas(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:GetAtlas(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:GetCallbackTable(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:GetCallbackTables(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:IsDown(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:IsDown(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:IsDownOver(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:IsDownOver(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:IsOver(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:IsOver(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:NarrationGetName(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:NarrationGetName(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:OnDisable(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:OnDisable(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:OnEnable(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:OnEnable(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:OnEnter(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:OnEnter(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:OnLeave(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:OnLeave(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:OnLoad(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:OnMouseDown(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:OnMouseDown(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:OnMouseUp(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:OnMouseUp(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:OnShow(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:OnShow(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:RegisterCallback(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:TriggerEvent(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:UnregisterCallback(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:UnregisterEvents(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+function ClassTrainerFrame_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Forward_EventObject
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Forward_EventObject = {}
+---@class ClassTrainerFrame_ScrollBar_Forward_EventObject
+local ClassTrainerFrame_ScrollBar_Forward_EventObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Forward_TextureObject : Texture
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Forward_TextureObject = {}
+---@class ClassTrainerFrame_ScrollBar_Forward_TextureObject : Texture
+local ClassTrainerFrame_ScrollBar_Forward_TextureObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_TrackObject : Frame
----@field Begin CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_BeginObject
----@field End CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_EndObject
----@field Middle CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_MiddleObject
----@field Thumb CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_TrackObject = {}
+---@class ClassTrainerFrame_ScrollBar_TrackObject : Frame
+---@field Begin ClassTrainerFrame_ScrollBar_Track_BeginObject
+---@field End ClassTrainerFrame_ScrollBar_Track_EndObject
+---@field Middle ClassTrainerFrame_ScrollBar_Track_MiddleObject
+---@field Thumb ClassTrainerFrame_ScrollBar_Track_ThumbObject
+local ClassTrainerFrame_ScrollBar_TrackObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_BeginObject : Texture
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_BeginObject = {}
+---@class ClassTrainerFrame_ScrollBar_Track_BeginObject : Texture
+local ClassTrainerFrame_ScrollBar_Track_BeginObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_EndObject : Texture
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_EndObject = {}
+---@class ClassTrainerFrame_ScrollBar_Track_EndObject : Texture
+local ClassTrainerFrame_ScrollBar_Track_EndObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_MiddleObject : Texture
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_MiddleObject = {}
+---@class ClassTrainerFrame_ScrollBar_Track_MiddleObject : Texture
+local ClassTrainerFrame_ScrollBar_Track_MiddleObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject : Button
----@field Begin CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_Thumb_BeginObject
----@field End CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_Thumb_EndObject
----@field Event CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_Thumb_EventObject
----@field Middle CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_Thumb_MiddleObject
+---@class ClassTrainerFrame_ScrollBar_Track_ThumbObject : Button
+---@field Begin ClassTrainerFrame_ScrollBar_Track_Thumb_BeginObject
+---@field End ClassTrainerFrame_ScrollBar_Track_Thumb_EndObject
+---@field Event ClassTrainerFrame_ScrollBar_Track_Thumb_EventObject
+---@field Middle ClassTrainerFrame_ScrollBar_Track_Thumb_MiddleObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -6017,131 +9385,130 @@ do
 ---@field upBeginTexture string
 ---@field upEndTexture string
 ---@field upMiddleTexture string
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject = {}
+local ClassTrainerFrame_ScrollBar_Track_ThumbObject = {}
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:GetAtlas(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:IsDown(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:IsDown(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:IsDownOver(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:IsOver(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:IsOver(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:OnDisable(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:OnDisable(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:OnEnable(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:OnEnable(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:OnEnter(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:OnEnter(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:OnLeave(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:OnLeave(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:OnLoad(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:OnShow(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:OnShow(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+function ClassTrainerFrame_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_Thumb_BeginObject : Texture
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_Thumb_BeginObject = {}
+---@class ClassTrainerFrame_ScrollBar_Track_Thumb_BeginObject : Texture
+local ClassTrainerFrame_ScrollBar_Track_Thumb_BeginObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_Thumb_EndObject : Texture
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_Thumb_EndObject = {}
+---@class ClassTrainerFrame_ScrollBar_Track_Thumb_EndObject : Texture
+local ClassTrainerFrame_ScrollBar_Track_Thumb_EndObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_Thumb_EventObject
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_Thumb_EventObject = {}
+---@class ClassTrainerFrame_ScrollBar_Track_Thumb_EventObject
+local ClassTrainerFrame_ScrollBar_Track_Thumb_EventObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_Thumb_MiddleObject : Texture
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_Track_Thumb_MiddleObject = {}
+---@class ClassTrainerFrame_ScrollBar_Track_Thumb_MiddleObject : Texture
+local ClassTrainerFrame_ScrollBar_Track_Thumb_MiddleObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_interpolatorObject
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_interpolatorObject = {}
+---@class ClassTrainerFrame_ScrollBar_interpolatorObject
+local ClassTrainerFrame_ScrollBar_interpolatorObject = {}
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_interpolatorObject:Cancel(...) end
+function ClassTrainerFrame_ScrollBar_interpolatorObject:Cancel(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
+function ClassTrainerFrame_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_interpolatorObject:Interpolate(...) end
+function ClassTrainerFrame_ScrollBar_interpolatorObject:Interpolate(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_interpolatorObject:interpolateFunc(...) end
+function ClassTrainerFrame_ScrollBar_interpolatorObject:interpolateFunc(...) end
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject : Frame
----@field Background CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_BackgroundObject
----@field Defaults CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_DefaultsObject
----@field Directions CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_DirectionsObject
----@field DragDelegate CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_DragDelegateObject
----@field Event CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_EventObject
----@field ScrollTarget CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject
----@field Shadows CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ShadowsObject
+---@class ClassTrainerFrame_ScrollBar_registeredScrollBoxObject : Frame
+---@field Defaults ClassTrainerFrame_ScrollBar_registeredScrollBox_DefaultsObject
+---@field Directions ClassTrainerFrame_ScrollBar_registeredScrollBox_DirectionsObject
+---@field DragDelegate ClassTrainerFrame_ScrollBar_registeredScrollBox_DragDelegateObject
+---@field Event ClassTrainerFrame_ScrollBar_registeredScrollBox_EventObject
+---@field ScrollTarget ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject
+---@field Shadows ClassTrainerFrame_ScrollBar_registeredScrollBox_ShadowsObject
 ---@field allowScroll boolean
 ---@field callbackTables table
 ---@field canInterpolateScroll boolean
@@ -6150,1843 +9517,729 @@ do
 ---@field executingEvents table
 ---@field isScrollController boolean
 ---@field panExtentPercentage number
----@field registeredScrollBar CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_registeredScrollBarObject
----@field updateLock boolean
----@field view CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject
+---@field registeredScrollBar ClassTrainerFrame_ScrollBar_registeredScrollBox_registeredScrollBarObject
+---@field view ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject
 ---@field wheelPanScalar number
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject = {}
+local ClassTrainerFrame_ScrollBar_registeredScrollBoxObject = {}
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ApplyEdgeFade(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ApplyEdgeFade(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:CalculateEdgeFade(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:CalculateEdgeFade(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:CalculatePanExtentPercentage(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:CalculatePanExtentPercentage(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:CalculateScrollPercentage(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:CalculateScrollPercentage(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:CanInterpolateScroll(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:CanInterpolateScroll(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ClearEdgeFade(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ClearEdgeFade(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ContainsElementDataByPredicate(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ContainsElementDataByPredicate(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:CopyDeferredCallbacks(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:DoesFrameHaveEvent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:EnableSnapToInterval(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:EnableSnapToInterval(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:EnumerateDataProvider(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:EnumerateDataProvider(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:EnumerateDataProviderEntireRange(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:EnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:EnumerateFrames(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:EnumerateFrames(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:FindByPredicate(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:FindByPredicate(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:FindElementData(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:FindElementData(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:FindElementDataByPredicate(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:FindElementDataByPredicate(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:FindElementDataIndex(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:FindElementDataIndex(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:FindElementDataIndexByPredicate(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:FindElementDataIndexByPredicate(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:FindFrame(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:FindFrame(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:FindFrameByPredicate(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:FindFrameByPredicate(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:FindFrameElementDataIndex(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:FindFrameElementDataIndex(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:Flush(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:Flush(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:FlushDataProvider(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:FlushDataProvider(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ForEachElementData(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ForEachElementData(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ForEachFrame(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ForEachFrame(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:FullUpdate(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:FullUpdate(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:FullUpdateInternal(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:FullUpdateInternal(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GenerateCallbackEvents(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetBottomPadding(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetBottomPadding(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetCallbackTable(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetCallbackTables(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetCallbacksByEvent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetDataIndexBegin(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetDataIndexBegin(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetDataIndexEnd(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetDataIndexEnd(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetDataProvider(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetDataProvider(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetDataProviderSize(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetDataProviderSize(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetDerivedExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetDerivedExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetDerivedScrollOffset(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetDerivedScrollOffset(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetDerivedScrollRange(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetDerivedScrollRange(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetElementExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetElementExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetExtentPadding(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetExtentPadding(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetExtentUntil(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetExtentUntil(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetFrameCount(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetFrameCount(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetFrameExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetFrameExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetFrames(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetFrames(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetIntervalRange(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetIntervalRange(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetLeftPadding(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetLeftPadding(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetLower(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetLower(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetLowerPadding(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetLowerPadding(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetLowerShadowTexture(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetLowerShadowTexture(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetMutableCallbacksByEvent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetPadding(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetPadding(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetPanExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetPanExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetPanExtentPercentage(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetRightPadding(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetRightPadding(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetScrollInterpolator(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetScrollInterpolator(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetScrollPercentage(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetScrollPercentage(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetScrollTarget(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetScrollTarget(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetTopPadding(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetTopPadding(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetUpper(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetUpper(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetUpperPadding(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetUpperPadding(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetUpperShadowTexture(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetUpperShadowTexture(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetView(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetView(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetVisibleExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetVisibleExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetVisibleExtentPercentage(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:GetWheelPanPercentage(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:HasDataProvider(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:HasDataProvider(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:HasEdgeFade(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:HasEdgeFade(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:HasRegistrantsForEvent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:HasScrollableExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:HasScrollableExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:HasView(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:HasView(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:Init(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:Init(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:Interpolate(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:Interpolate(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:IsAcquireLocked(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:IsAcquireLocked(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:IsAlignmentOverlapIgnored(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:IsAlignmentOverlapIgnored(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:IsAtBegin(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:IsAtBegin(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:IsAtEnd(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:IsAtEnd(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:IsHorizontal(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:IsHorizontal(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:IsScrollAllowed(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:IsScrollAllowed(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:IsScrollToDataIndexSafe(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:IsScrollToDataIndexSafe(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:IsUpdateLocked(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:IsUpdateLocked(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:IsVirtualized(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:IsVirtualized(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:Layout(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:Layout(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:OnLoad(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:OnMouseWheel(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:OnMouseWheel(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:OnScrollTargetSizeChanged(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:OnScrollTargetSizeChanged(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:OnSizeChanged(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:OnSizeChanged(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:OnViewAcquiredFrame(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:OnViewAcquiredFrame(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:OnViewDataChanged(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:OnViewDataChanged(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:OnViewDataProviderReassigned(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:OnViewDataProviderReassigned(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:OnViewInitializedFrame(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:OnViewInitializedFrame(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:OnViewReleasedFrame(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:OnViewReleasedFrame(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:Rebuild(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:Rebuild(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:RecalculateDerivedExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:RecalculateDerivedExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ReconcileDeferredCallbacks(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:RegisterCallback(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:RegisterCallbackWithHandle(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ReinitializeFrames(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ReinitializeFrames(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:RemoveDataProvider(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:RemoveDataProvider(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProvider(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProvider(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ReverseForEachElementData(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ReverseForEachElementData(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ReverseForEachFrame(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ReverseForEachFrame(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SanitizeAlignment(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SanitizeAlignment(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ScrollDecrease(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ScrollDecrease(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ScrollInDirection(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ScrollInDirection(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ScrollIncrease(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ScrollIncrease(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ScrollToBegin(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ScrollToBegin(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ScrollToElementData(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ScrollToElementData(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ScrollToElementDataByPredicate(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ScrollToElementDataByPredicate(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ScrollToElementDataIndex(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ScrollToElementDataIndex(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ScrollToEnd(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ScrollToEnd(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ScrollToFrame(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ScrollToFrame(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ScrollToNearest(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ScrollToNearest(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ScrollToNearestByPredicate(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ScrollToNearestByPredicate(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ScrollToOffset(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ScrollToOffset(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SecureInsertEvent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SelectCursorComponent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SelectCursorComponent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SelectPointComponent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SelectPointComponent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SetAlignmentOverlapIgnored(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SetAlignmentOverlapIgnored(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SetDataProvider(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SetDataProvider(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SetEdgeFadeLength(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SetEdgeFadeLength(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SetFrameExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SetFrameExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SetHorizontal(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SetHorizontal(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SetInterpolateScroll(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SetInterpolateScroll(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SetLowerShadowAtlas(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SetLowerShadowAtlas(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SetPadding(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SetPadding(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SetPanExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SetPanExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SetPanExtentPercentage(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SetScrollAllowed(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SetScrollAllowed(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SetScrollPercentage(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SetScrollPercentage(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SetScrollPercentageInternal(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SetScrollTargetOffset(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SetScrollTargetOffset(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SetShadowsFrameLevel(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SetShadowsFrameLevel(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SetShadowsScale(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SetShadowsScale(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SetShadowsShown(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SetShadowsShown(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SetUndefinedEventsAllowed(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SetUpdateLocked(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SetUpdateLocked(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SetUpperShadowAtlas(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SetUpperShadowAtlas(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SetUseShadowsForEdgeFade(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SetUseShadowsForEdgeFade(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:SetView(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:SetView(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:TriggerEvent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:UnregisterCallback(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:UnregisterEvents(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:UnregisterEventsByEventTable(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:Update(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:Update(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBoxObject:scrollInternal(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBoxObject:scrollInternal(...) end
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_BackgroundObject : Texture
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_BackgroundObject = {}
+---@class ClassTrainerFrame_ScrollBar_registeredScrollBox_DefaultsObject
+local ClassTrainerFrame_ScrollBar_registeredScrollBox_DefaultsObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_DefaultsObject
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_DefaultsObject = {}
+---@class ClassTrainerFrame_ScrollBar_registeredScrollBox_DirectionsObject
+local ClassTrainerFrame_ScrollBar_registeredScrollBox_DirectionsObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_DirectionsObject
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_DirectionsObject = {}
+---@class ClassTrainerFrame_ScrollBar_registeredScrollBox_DragDelegateObject : Frame
+local ClassTrainerFrame_ScrollBar_registeredScrollBox_DragDelegateObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_DragDelegateObject : Frame
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_DragDelegateObject = {}
+---@class ClassTrainerFrame_ScrollBar_registeredScrollBox_EventObject
+local ClassTrainerFrame_ScrollBar_registeredScrollBox_EventObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_EventObject
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_EventObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject : Frame
----@field Event CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
+---@class ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject : Frame
+---@field Event ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field executingEvents table
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject = {}
+local ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject = {}
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTable(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTables(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallback(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject:TriggerEvent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterCallback(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEvents(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ScrollTarget_EventObject = {}
+---@class ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
+local ClassTrainerFrame_ScrollBar_registeredScrollBox_ScrollTarget_EventObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ShadowsObject : Frame
----@field Lower CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_Shadows_LowerObject
----@field Upper CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_Shadows_UpperObject
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_ShadowsObject = {}
+---@class ClassTrainerFrame_ScrollBar_registeredScrollBox_ShadowsObject : Frame
+---@field Lower ClassTrainerFrame_ScrollBar_registeredScrollBox_Shadows_LowerObject
+---@field Upper ClassTrainerFrame_ScrollBar_registeredScrollBox_Shadows_UpperObject
+local ClassTrainerFrame_ScrollBar_registeredScrollBox_ShadowsObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_Shadows_LowerObject : Texture
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_Shadows_LowerObject = {}
+---@class ClassTrainerFrame_ScrollBar_registeredScrollBox_Shadows_LowerObject : Texture
+local ClassTrainerFrame_ScrollBar_registeredScrollBox_Shadows_LowerObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_Shadows_UpperObject : Texture
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_Shadows_UpperObject = {}
+---@class ClassTrainerFrame_ScrollBar_registeredScrollBox_Shadows_UpperObject : Texture
+local ClassTrainerFrame_ScrollBar_registeredScrollBox_Shadows_UpperObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_registeredScrollBarObject
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_registeredScrollBarObject = {}
+---@class ClassTrainerFrame_ScrollBar_registeredScrollBox_registeredScrollBarObject
+local ClassTrainerFrame_ScrollBar_registeredScrollBox_registeredScrollBarObject = {}
 end
 
 do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject
+---@class ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject
 ---@field Event table
 ---@field FrameLevelPolicy table
 ---@field callbackTables table
 ---@field canSignalWithoutInitializer boolean
----@field dataIndexBegin number
----@field dataIndexEnd number
 ---@field deferredCallbacks table
 ---@field executingEvents table
 ---@field frameFactory table
----@field frameTemplateOrFrameType string
 ---@field frames table
+---@field indent number
 ---@field initialized boolean
 ---@field initializers table
 ---@field padding table
----@field scrollBox CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_view_scrollBoxObject
+---@field scrollBox ClassTrainerFrame_ScrollBar_registeredScrollBox_view_scrollBoxObject
 ---@field templateInfoCache table
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject = {}
+local ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject = {}
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:AcquireInternal(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:AcquireInternal(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:AcquireRange(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:AcquireRange(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:AssignAccessors(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:AssignAccessors(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:AttachDataProviderCallbacks(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:AttachDataProviderCallbacks(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:CalculateDataIndices(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:CalculateDataIndices(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:CalculateFrameExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:CalculateFrameExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:ClearCachedData(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:ClearCachedData(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:ClearElementExtentData(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:ClearElementExtentData(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:ClearInvalidation(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:ClearInvalidation(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:ContainsElementDataByPredicate(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:ContainsElementDataByPredicate(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:CopyDeferredCallbacks(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:DataProviderContentsChanged(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:DataProviderContentsChanged(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:DetachDataProviderCallbacks(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:DetachDataProviderCallbacks(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:DoesFrameHaveEvent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProvider(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProvider(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:EnumerateFrames(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:EnumerateFrames(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:FindByPredicate(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:FindByPredicate(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:FindElementData(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:FindElementData(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:FindElementDataByPredicate(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:FindElementDataByPredicate(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndex(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndex(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:FindFrame(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:FindFrame(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:FindFrameByPredicate(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:FindFrameByPredicate(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:FindFrameElementDataIndex(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:FindFrameElementDataIndex(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:Flush(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:Flush(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:FlushDataProvider(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:FlushDataProvider(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:ForEachElementData(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:ForEachElementData(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:ForEachFrame(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:ForEachFrame(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GenerateCallbackEvents(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetCallbackTable(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetCallbackTable(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetCallbackTables(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetCallbackTables(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetCallbacksByEvent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetDataIndexBegin(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetDataIndexBegin(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetDataIndexEnd(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetDataIndexEnd(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetDataProvider(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetDataProvider(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetDataProviderSize(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetDataProviderSize(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetDataRange(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetDataRange(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetDataScrollOffset(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetDataScrollOffset(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetElementExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetElementExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetElementExtentCalculator(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetElementExtentCalculator(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetElementIndent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetElementIndent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetExtentFromInfo(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetExtentFromInfo(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetExtentSpacing(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetExtentSpacing(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetExtentTo(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetExtentTo(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetExtentUntil(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetExtentUntil(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetFactoryDataFromElementData(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetFactoryDataFromElementData(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetFirstTemplateInfo(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetFirstTemplateInfo(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetFrameCount(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetFrameCount(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetFrameExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetFrameExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelCounter(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelCounter(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelPolicy(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelPolicy(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetFrames(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetFrames(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetIdenticalElementExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetIdenticalElementExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetIdenticalStrideExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetIdenticalStrideExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetInvalidationReason(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetInvalidationReason(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetLayoutFunction(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetLayoutFunction(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetLower(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetLower(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetPadding(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetPadding(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetPanExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetPanExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetScrollBox(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetScrollBox(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetScrollTarget(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetScrollTarget(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetSpacing(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetSpacing(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetStride(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetStride(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetTemplateInfo(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetTemplateInfo(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:GetUpper(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:GetUpper(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:HasBiaxalLayout(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:HasBiaxalLayout(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:HasDataProvider(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:HasDataProvider(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:HasElementExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:HasElementExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:HasIdenticalElementExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:HasIdenticalElementExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:HasIdenticalStrideExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:HasIdenticalStrideExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:HasRegistrantsForEvent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:Init(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:Init(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:InitDefaultDrag(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:InitDefaultDrag(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:InvokeInitializer(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:InvokeInitializer(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:InvokeInitializers(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:InvokeInitializers(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:IsAcquireLocked(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:IsAcquireLocked(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:IsDataIndexWithinRange(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:IsDataIndexWithinRange(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:IsElementStretchDisabled(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:IsElementStretchDisabled(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:IsExtentValid(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:IsExtentValid(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:IsHorizontal(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:IsHorizontal(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:IsInitialized(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:IsInitialized(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:IsInvalidated(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:IsInvalidated(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:IsVirtualized(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:IsVirtualized(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:Layout(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:Layout(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:LayoutInternal(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:LayoutInternal(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSizeChanged(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSizeChanged(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSort(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSort(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:OnLoad(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:OnLoad(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementData(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementData(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:RebuildTemplateInfoCache(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:RebuildTemplateInfoCache(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:RecalculateExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:RecalculateExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:RefreshSmartNav(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:RefreshSmartNav(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:RegisterCallback(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:RegisterCallback(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:RegisterCallbackWithHandle(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:ReinitializeFrames(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:ReinitializeFrames(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:Release(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:Release(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:RemoveDataProvider(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:RemoveDataProvider(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:RemoveDataProviderInternal(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:RemoveDataProviderInternal(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:ResizeFrame(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:ResizeFrame(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:ReverseForEachElementData(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:ReverseForEachElementData(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:ReverseForEachFrame(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:ReverseForEachFrame(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SecureInsertEvent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SecureInsertEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SelectCursorComponent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SelectCursorComponent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SelectPointComponent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SelectPointComponent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SetAcquireLocked(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SetAcquireLocked(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SetDataProvider(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SetDataProvider(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SetDataRange(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SetDataRange(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SetElementExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SetElementExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SetElementExtentCalculator(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SetElementExtentCalculator(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SetElementFactory(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SetElementFactory(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SetElementIndentCalculator(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SetElementIndent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SetElementInitializer(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SetElementIndentCalculator(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SetElementResetter(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SetElementInitializer(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SetElementStretchDisabled(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SetElementResetter(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SetExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SetElementStretchDisabled(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SetFrameExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SetExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SetFrameFactoryResetter(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SetFrameExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SetFrameLevelPolicy(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SetFrameFactoryResetter(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SetHorizontal(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SetFrameLevelPolicy(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SetInvalidationReason(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SetHorizontal(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SetMaxPanExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SetInvalidationReason(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SetPadding(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SetMaxPanExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SetPanExtent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SetPadding(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SetScrollBox(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SetPanExtent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SetScrollBox(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SetVirtualized(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SignalDataChangeEvent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SetVirtualized(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:SortFrames(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SignalDataChangeEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:SortFrames(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:TriggerEvent(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:UnassignAccessors(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:TriggerEvent(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:UnregisterCallback(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:UnassignAccessors(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:UnregisterEvents(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:UnregisterCallback(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:UnregisterEventsByEventTable(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:UnregisterEvents(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:ValidateDataRange(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:elementFactory(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:ValidateDataRange(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_viewObject:factory(...) end
-end
-
-do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_view_scrollBoxObject
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBar_registeredScrollBox_view_scrollBoxObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_InviteManager_ScrollBoxObject
-local CommunitiesTicketManagerDialog_InviteManager_ScrollBoxObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_LeftJumpHintObject : Frame
----@field ActiveTexture CommunitiesTicketManagerDialog_LeftJumpHint_ActiveTextureObject
----@field DisabledTexture CommunitiesTicketManagerDialog_LeftJumpHint_DisabledTextureObject
----@field HoldAnim CommunitiesTicketManagerDialog_LeftJumpHint_HoldAnimObject
----@field HoldIndicator CommunitiesTicketManagerDialog_LeftJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG CommunitiesTicketManagerDialog_LeftJumpHint_HoldIndicatorBGObject
----@field HoverTexture CommunitiesTicketManagerDialog_LeftJumpHint_HoverTextureObject
----@field LoadBar CommunitiesTicketManagerDialog_LeftJumpHint_LoadBarObject
----@field LoadBarBG CommunitiesTicketManagerDialog_LeftJumpHint_LoadBarBGObject
----@field LoadBarGlow CommunitiesTicketManagerDialog_LeftJumpHint_LoadBarGlowObject
----@field NormalTexture CommunitiesTicketManagerDialog_LeftJumpHint_NormalTextureObject
----@field PressedTexture CommunitiesTicketManagerDialog_LeftJumpHint_PressedTextureObject
----@field SpinnerTip CommunitiesTicketManagerDialog_LeftJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local CommunitiesTicketManagerDialog_LeftJumpHintObject = {}
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:elementExtentCalculator(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_LeftJumpHintObject:ApplyTextureLayout(...) end
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:elementFactory(...) end
 ---@return any ...
-function CommunitiesTicketManagerDialog_LeftJumpHintObject:BeginHold(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LeftJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LeftJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LeftJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LeftJumpHintObject:EndHold(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LeftJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LeftJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LeftJumpHintObject:OnLoad(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LeftJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LeftJumpHintObject:SetDisabled(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LeftJumpHintObject:SetEnabled(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LeftJumpHintObject:SetFocused(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LeftJumpHintObject:SetHoldState(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LeftJumpHintObject:SetInputKey(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LeftJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LeftJumpHintObject:SetPressable(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LeftJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LeftJumpHintObject:SetTextureState(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LeftJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LeftJumpHintObject:SetUsableState(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class CommunitiesTicketManagerDialog_LeftJumpHint_ActiveTextureObject : Texture
-local CommunitiesTicketManagerDialog_LeftJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_LeftJumpHint_DisabledTextureObject : Texture
-local CommunitiesTicketManagerDialog_LeftJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_LeftJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim CommunitiesTicketManagerDialog_LeftJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim CommunitiesTicketManagerDialog_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim CommunitiesTicketManagerDialog_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
-local CommunitiesTicketManagerDialog_LeftJumpHint_HoldAnimObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_LeftJumpHint_HoldAnim_LoadBarAnimObject
-local CommunitiesTicketManagerDialog_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local CommunitiesTicketManagerDialog_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local CommunitiesTicketManagerDialog_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_LeftJumpHint_HoldIndicatorObject : Texture
-local CommunitiesTicketManagerDialog_LeftJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_LeftJumpHint_HoldIndicatorBGObject : Texture
-local CommunitiesTicketManagerDialog_LeftJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_LeftJumpHint_HoverTextureObject : Texture
-local CommunitiesTicketManagerDialog_LeftJumpHint_HoverTextureObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_LeftJumpHint_LoadBarObject : Texture
-local CommunitiesTicketManagerDialog_LeftJumpHint_LoadBarObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_LeftJumpHint_LoadBarBGObject : Texture
-local CommunitiesTicketManagerDialog_LeftJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_LeftJumpHint_LoadBarGlowObject : Texture
-local CommunitiesTicketManagerDialog_LeftJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_LeftJumpHint_NormalTextureObject : Texture
-local CommunitiesTicketManagerDialog_LeftJumpHint_NormalTextureObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_LeftJumpHint_PressedTextureObject : Texture
-local CommunitiesTicketManagerDialog_LeftJumpHint_PressedTextureObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_LeftJumpHint_SpinnerTipObject : Texture
-local CommunitiesTicketManagerDialog_LeftJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_LinkIDLabelObject : FontString
-local CommunitiesTicketManagerDialog_LinkIDLabelObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_LinkIDTextObject : FontString
-local CommunitiesTicketManagerDialog_LinkIDTextObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_LinkInstructionsObject : FontString
-local CommunitiesTicketManagerDialog_LinkInstructionsObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_LinkToChatObject : Button
----@field Left CommunitiesTicketManagerDialog_LinkToChat_LeftObject
----@field Middle CommunitiesTicketManagerDialog_LinkToChat_MiddleObject
----@field Right CommunitiesTicketManagerDialog_LinkToChat_RightObject
----@field Text CommunitiesTicketManagerDialog_LinkToChat_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local CommunitiesTicketManagerDialog_LinkToChatObject = {}
----@return any ...
-function CommunitiesTicketManagerDialog_LinkToChatObject:FitToText(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LinkToChatObject:GetDisabledTooltip(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LinkToChatObject:OnEnter(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LinkToChatObject:OnLeave(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LinkToChatObject:SetDisabledState(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LinkToChatObject:SetDisabledTooltip(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_LinkToChatObject:SetTextToFit(...) end
-end
-
-do
----@class CommunitiesTicketManagerDialog_LinkToChat_LeftObject : Texture
-local CommunitiesTicketManagerDialog_LinkToChat_LeftObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_LinkToChat_MiddleObject : Texture
-local CommunitiesTicketManagerDialog_LinkToChat_MiddleObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_LinkToChat_RightObject : Texture
-local CommunitiesTicketManagerDialog_LinkToChat_RightObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_LinkToChat_TextObject : FontString
-local CommunitiesTicketManagerDialog_LinkToChat_TextObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_MaximizeButtonObject : Button
----@field icon CommunitiesTicketManagerDialog_MaximizeButton_iconObject
-local CommunitiesTicketManagerDialog_MaximizeButtonObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_MaximizeButton_iconObject : Texture
-local CommunitiesTicketManagerDialog_MaximizeButton_iconObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_NewLinkLabelObject : FontString
-local CommunitiesTicketManagerDialog_NewLinkLabelObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_RightJumpHintObject : Frame
----@field ActiveTexture CommunitiesTicketManagerDialog_RightJumpHint_ActiveTextureObject
----@field DisabledTexture CommunitiesTicketManagerDialog_RightJumpHint_DisabledTextureObject
----@field HoldAnim CommunitiesTicketManagerDialog_RightJumpHint_HoldAnimObject
----@field HoldIndicator CommunitiesTicketManagerDialog_RightJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG CommunitiesTicketManagerDialog_RightJumpHint_HoldIndicatorBGObject
----@field HoverTexture CommunitiesTicketManagerDialog_RightJumpHint_HoverTextureObject
----@field LoadBar CommunitiesTicketManagerDialog_RightJumpHint_LoadBarObject
----@field LoadBarBG CommunitiesTicketManagerDialog_RightJumpHint_LoadBarBGObject
----@field LoadBarGlow CommunitiesTicketManagerDialog_RightJumpHint_LoadBarGlowObject
----@field NormalTexture CommunitiesTicketManagerDialog_RightJumpHint_NormalTextureObject
----@field PressedTexture CommunitiesTicketManagerDialog_RightJumpHint_PressedTextureObject
----@field SpinnerTip CommunitiesTicketManagerDialog_RightJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local CommunitiesTicketManagerDialog_RightJumpHintObject = {}
----@return any ...
-function CommunitiesTicketManagerDialog_RightJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_RightJumpHintObject:BeginHold(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_RightJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_RightJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_RightJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_RightJumpHintObject:EndHold(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_RightJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_RightJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_RightJumpHintObject:OnLoad(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_RightJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_RightJumpHintObject:SetDisabled(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_RightJumpHintObject:SetEnabled(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_RightJumpHintObject:SetFocused(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_RightJumpHintObject:SetHoldState(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_RightJumpHintObject:SetInputKey(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_RightJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_RightJumpHintObject:SetPressable(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_RightJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_RightJumpHintObject:SetTextureState(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_RightJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_RightJumpHintObject:SetUsableState(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class CommunitiesTicketManagerDialog_RightJumpHint_ActiveTextureObject : Texture
-local CommunitiesTicketManagerDialog_RightJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_RightJumpHint_DisabledTextureObject : Texture
-local CommunitiesTicketManagerDialog_RightJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_RightJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim CommunitiesTicketManagerDialog_RightJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim CommunitiesTicketManagerDialog_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim CommunitiesTicketManagerDialog_RightJumpHint_HoldAnim_SpinnerTipAnimObject
-local CommunitiesTicketManagerDialog_RightJumpHint_HoldAnimObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_RightJumpHint_HoldAnim_LoadBarAnimObject
-local CommunitiesTicketManagerDialog_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local CommunitiesTicketManagerDialog_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local CommunitiesTicketManagerDialog_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_RightJumpHint_HoldIndicatorObject : Texture
-local CommunitiesTicketManagerDialog_RightJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_RightJumpHint_HoldIndicatorBGObject : Texture
-local CommunitiesTicketManagerDialog_RightJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_RightJumpHint_HoverTextureObject : Texture
-local CommunitiesTicketManagerDialog_RightJumpHint_HoverTextureObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_RightJumpHint_LoadBarObject : Texture
-local CommunitiesTicketManagerDialog_RightJumpHint_LoadBarObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_RightJumpHint_LoadBarBGObject : Texture
-local CommunitiesTicketManagerDialog_RightJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_RightJumpHint_LoadBarGlowObject : Texture
-local CommunitiesTicketManagerDialog_RightJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_RightJumpHint_NormalTextureObject : Texture
-local CommunitiesTicketManagerDialog_RightJumpHint_NormalTextureObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_RightJumpHint_PressedTextureObject : Texture
-local CommunitiesTicketManagerDialog_RightJumpHint_PressedTextureObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_RightJumpHint_SpinnerTipObject : Texture
-local CommunitiesTicketManagerDialog_RightJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_SeparatorObject : Texture
-local CommunitiesTicketManagerDialog_SeparatorObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_TopLeftObject : Texture
-local CommunitiesTicketManagerDialog_TopLeftObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_TopRightObject : Texture
-local CommunitiesTicketManagerDialog_TopRightObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_UsesDropdownObject : Button
----@field Arrow CommunitiesTicketManagerDialog_UsesDropdown_ArrowObject
----@field Background CommunitiesTicketManagerDialog_UsesDropdown_BackgroundObject
----@field Event CommunitiesTicketManagerDialog_UsesDropdown_EventObject
----@field Text CommunitiesTicketManagerDialog_UsesDropdown_TextObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
----@field intrinsic string
----@field menuAnchor CommunitiesTicketManagerDialog_UsesDropdown_menuAnchorObject
----@field menuDescription CommunitiesTicketManagerDialog_UsesDropdown_menuDescriptionObject
----@field menuPoint string
----@field menuPointX number
----@field menuPointY number
----@field menuRelativePoint string
----@field text string
-local CommunitiesTicketManagerDialog_UsesDropdownObject = {}
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:ClearMenuState(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:CloseMenu(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:CollectSelectionData(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:CreateDefaultRootMenuDescription(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:CreateRootDescription(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:Decrement(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:DesaturateIfDisabled(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:EnableRegenerateOnResponse(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:GenerateCallbackEvents(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:GenerateMenu(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:GetArrowAtlas(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:GetCallbackTable(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:GetCallbackTables(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:GetCallbacksByEvent(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:GetDefaultText(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:GetMenuDescription(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:GetSelectionData(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:GetUpdateText(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:HandlesGlobalMouseEvent(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:HasAnyRadioDescriptions(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:HasElements(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:HasOnlyRadioDescriptions(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:HasStickyFocus(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:Increment(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:IsDown(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:IsDownOver(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:IsMenuOpen(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:IsOver(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:NarrationGetContext(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:NarrationGetName(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:OnButtonStateChanged(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:OnDisable(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:OnEnable(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:OnEnter(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:OnLeave(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:OnLoad(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:OnMenuAssigned(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:OnMenuChanged(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:OnMenuClosed(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:OnMenuOpened(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:OnMenuResponse(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:OnMouseDown(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:OnMouseUp(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:OnMouseWheel_Intrinsic(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:OnShow(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:OpenMenu(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:OverrideText(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:Pick(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:RegisterCallback(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:RegisterMenu(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:Rotate(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:SecureInsertEvent(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:SetDefaultText(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:SetDisplacedRegions(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:SetMenuAnchor(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:SetMenuOpen(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:SetSelectionText(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:SetSelectionTranslator(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:SetTooltip(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:SetupMenu(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:ShouldShowTooltip(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:ShowTooltip(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:SignalUpdate(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:TriggerEvent(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:UnregisterCallback(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:UnregisterEvents(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:Update(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:UpdateSelections(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:UpdateText(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:UpdateToMenuSelections(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:menuGenerator(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:onMenuClosedCallback(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdownObject:selectionTranslator(...) end
-end
-
-do
----@class CommunitiesTicketManagerDialog_UsesDropdown_ArrowObject : Texture
-local CommunitiesTicketManagerDialog_UsesDropdown_ArrowObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_UsesDropdown_BackgroundObject : Texture
-local CommunitiesTicketManagerDialog_UsesDropdown_BackgroundObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_UsesDropdown_EventObject
-local CommunitiesTicketManagerDialog_UsesDropdown_EventObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_UsesDropdown_TextObject : FontString
-local CommunitiesTicketManagerDialog_UsesDropdown_TextObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_UsesDropdown_menuAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo CommunitiesTicketManagerDialog_UsesDropdown_menuAnchor_relativeToObject
----@field x number
----@field y number
-local CommunitiesTicketManagerDialog_UsesDropdown_menuAnchorObject = {}
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuAnchorObject:Get(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuAnchorObject:GetRelativeTo(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuAnchorObject:Init(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuAnchorObject:Set(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuAnchorObject:SetFromPoint(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuAnchorObject:SetOffsets(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuAnchorObject:SetPoint(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuAnchorObject:SetRelativeTo(...) end
-end
-
-do
----@class CommunitiesTicketManagerDialog_UsesDropdown_menuAnchor_relativeToObject
-local CommunitiesTicketManagerDialog_UsesDropdown_menuAnchor_relativeToObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_UsesDropdown_menuDescriptionObject
----@field tag string
-local CommunitiesTicketManagerDialog_UsesDropdown_menuDescriptionObject = {}
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuDescriptionObject:CreateButton(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuDescriptionObject:CreateCheckbox(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuDescriptionObject:CreateColorSwatch(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuDescriptionObject:CreateDivider(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuDescriptionObject:CreateFrame(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuDescriptionObject:CreateHighlightButton(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuDescriptionObject:CreateHighlightRadio(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuDescriptionObject:CreateRadio(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuDescriptionObject:CreateSearchEntry(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuDescriptionObject:CreateSpacer(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuDescriptionObject:CreateTemplate(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuDescriptionObject:CreateTitle(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuDescriptionObject:QueueDivider(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuDescriptionObject:QueueSpacer(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuDescriptionObject:QueueTitle(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuDescriptionObject:SetTooltip(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_UsesDropdown_menuDescriptionObject:private(...) end
-end
-
-do
----@class CommunitiesTicketManagerDialog_UsesDropdownLabelObject : FontString
-local CommunitiesTicketManagerDialog_UsesDropdownLabelObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_UsesLabelObject : FontString
-local CommunitiesTicketManagerDialog_UsesLabelObject = {}
-end
-
-do
----@class CommunitiesTicketManagerDialog_UsesTextObject : FontString
-local CommunitiesTicketManagerDialog_UsesTextObject = {}
-end
-
-do
----@class CompactRaidFrameContainerObject : Frame
----@field Selection CompactRaidFrameContainer_SelectionObject
----@field alwaysUseTopLeftAnchor boolean
----@field borderFrame CompactRaidFrameContainer_borderFrameObject
----@field breakSnappedFramesOnSave boolean
----@field defaultHideSelection boolean
----@field dirty boolean
----@field dirtySettings table
----@field displayFlaggedMembers boolean
----@field downKeys table
----@field enabled boolean
----@field flowFrameTypes table
----@field flowFrames table
----@field flowMaxPerLine number
----@field flowMaxPrimaryUsed number
----@field flowMaxSecondaryUsed number
----@field flowOrientation string
----@field flowPauseUpdates boolean
----@field frameReservations CompactRaidFrameContainer_frameReservationsObject
----@field frameUpdateList CompactRaidFrameContainer_frameUpdateListObject
----@field groupMode string
----@field hasActiveChanges boolean
----@field lastSystemIndex number
----@field savedSystemInfo CompactRaidFrameContainer_savedSystemInfoObject
----@field settingDisplayInfoMap table
----@field settingMap table
----@field settingsDialogAnchor CompactRaidFrameContainer_settingsDialogAnchorObject
----@field snappedFrames table
----@field system number
----@field systemIndex number
----@field systemInfo CompactRaidFrameContainer_systemInfoObject
----@field systemNameString string
----@field units table
-local CompactRaidFrameContainerObject = {}
----@return any ...
-function CompactRaidFrameContainerObject:AddExtraButtons(...) end
----@return any ...
-function CompactRaidFrameContainerObject:AddFlaggedUnits(...) end
----@return any ...
-function CompactRaidFrameContainerObject:AddGroup(...) end
----@return any ...
-function CompactRaidFrameContainerObject:AddGroups(...) end
----@return any ...
-function CompactRaidFrameContainerObject:AddLayoutChildren(...) end
----@return any ...
-function CompactRaidFrameContainerObject:AddPets(...) end
----@return any ...
-function CompactRaidFrameContainerObject:AddPlayers(...) end
----@return any ...
-function CompactRaidFrameContainerObject:AddSnappedFrame(...) end
----@return any ...
-function CompactRaidFrameContainerObject:AddUnitFrame(...) end
----@return any ...
-function CompactRaidFrameContainerObject:AnchorSelectionFrame(...) end
----@return any ...
-function CompactRaidFrameContainerObject:AnySettingsDirty(...) end
----@return any ...
-function CompactRaidFrameContainerObject:ApplyMultipleToFrames(...) end
----@return any ...
-function CompactRaidFrameContainerObject:ApplySystemAnchor(...) end
----@return any ...
-function CompactRaidFrameContainerObject:ApplyToFrames(...) end
----@return any ...
-function CompactRaidFrameContainerObject:AreAllSystemSettingsDefault(...) end
----@return any ...
-function CompactRaidFrameContainerObject:BreakFrameSnap(...) end
----@return any ...
-function CompactRaidFrameContainerObject:BreakFromFrameManager(...) end
----@return any ...
-function CompactRaidFrameContainerObject:BreakSnappedFrames(...) end
----@return any ...
-function CompactRaidFrameContainerObject:CanBeMoved(...) end
----@return any ...
-function CompactRaidFrameContainerObject:ClearAllPointsBase(...) end
----@return any ...
-function CompactRaidFrameContainerObject:ClearAllPointsOverride(...) end
----@return any ...
-function CompactRaidFrameContainerObject:ClearDirtySetting(...) end
----@return any ...
-function CompactRaidFrameContainerObject:ClearDownKeys(...) end
----@return any ...
-function CompactRaidFrameContainerObject:ClearFixedSize(...) end
----@return any ...
-function CompactRaidFrameContainerObject:ClearFrameSnap(...) end
----@return any ...
-function CompactRaidFrameContainerObject:ClearHighlight(...) end
----@return any ...
-function CompactRaidFrameContainerObject:ConvertSettingDisplayValueToRawValue(...) end
----@return any ...
-function CompactRaidFrameContainerObject:DoesSettingDisplayValueEqual(...) end
----@return any ...
-function CompactRaidFrameContainerObject:DoesSettingValueEqual(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetBottomOffset(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetBounds(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetChildHeight(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetChildSize(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetChildWidth(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetCombinedCenterOffset(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetCombinedSelectionOffset(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetCompositeNumberSettingValue(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetFixedHeight(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetFixedSize(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetFixedWidth(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetFrameMagneticEligibility(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetGroupMode(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetHeightPadding(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetLayoutChildren(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetLeftOffset(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetManagedFrameContainer(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetMaximumWidth(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetMinimumWidth(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetRightOffset(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetScaledCenter(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetScaledSelectionCenter(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetScaledSelectionSides(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetSelectionOffset(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetSettingValue(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetSettingValueBool(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetSettingsDialogAnchor(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetSnapOffsets(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetSystemName(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetTopOffset(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetUnitFrame(...) end
----@return any ...
-function CompactRaidFrameContainerObject:GetWidthPadding(...) end
----@return any ...
-function CompactRaidFrameContainerObject:HasActiveChanges(...) end
----@return any ...
-function CompactRaidFrameContainerObject:HasCompositeNumberSetting(...) end
----@return any ...
-function CompactRaidFrameContainerObject:HasSetting(...) end
----@return any ...
-function CompactRaidFrameContainerObject:HasValidSelectionRect(...) end
----@return any ...
-function CompactRaidFrameContainerObject:HideBase(...) end
----@return any ...
-function CompactRaidFrameContainerObject:HideOverride(...) end
----@return any ...
-function CompactRaidFrameContainerObject:HighlightSystem(...) end
----@return any ...
-function CompactRaidFrameContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function CompactRaidFrameContainerObject:IsAboveFrame(...) end
----@return any ...
-function CompactRaidFrameContainerObject:IsBelowFrame(...) end
----@return any ...
-function CompactRaidFrameContainerObject:IsDirty(...) end
----@return any ...
-function CompactRaidFrameContainerObject:IsEditModeDragging(...) end
----@return any ...
-function CompactRaidFrameContainerObject:IsFrameAnchoredToMe(...) end
----@return any ...
-function CompactRaidFrameContainerObject:IsHorizontallyAlignedWithFrame(...) end
----@return any ...
-function CompactRaidFrameContainerObject:IsInDefaultPosition(...) end
----@return any ...
-function CompactRaidFrameContainerObject:IsInitialized(...) end
----@return any ...
-function CompactRaidFrameContainerObject:IsLayoutFrame(...) end
----@return any ...
-function CompactRaidFrameContainerObject:IsSettingDirty(...) end
----@return any ...
-function CompactRaidFrameContainerObject:IsShiftKeyDown(...) end
----@return any ...
-function CompactRaidFrameContainerObject:IsSystemSettingDefault(...) end
----@return any ...
-function CompactRaidFrameContainerObject:IsToTheLeftOfFrame(...) end
----@return any ...
-function CompactRaidFrameContainerObject:IsToTheRightOfFrame(...) end
----@return any ...
-function CompactRaidFrameContainerObject:IsVerticallyAlignedWithFrame(...) end
----@return any ...
-function CompactRaidFrameContainerObject:Layout(...) end
----@return any ...
-function CompactRaidFrameContainerObject:LayoutFrames(...) end
----@return any ...
-function CompactRaidFrameContainerObject:MarkAllSettingsDirty(...) end
----@return any ...
-function CompactRaidFrameContainerObject:MarkClean(...) end
----@return any ...
-function CompactRaidFrameContainerObject:MarkDirty(...) end
----@return any ...
-function CompactRaidFrameContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function CompactRaidFrameContainerObject:OnAnyEditModeSystemAnchorChanged(...) end
----@return any ...
-function CompactRaidFrameContainerObject:OnCleaned(...) end
----@return any ...
-function CompactRaidFrameContainerObject:OnDragStart(...) end
----@return any ...
-function CompactRaidFrameContainerObject:OnDragStop(...) end
----@return any ...
-function CompactRaidFrameContainerObject:OnEditModeEnter(...) end
----@return any ...
-function CompactRaidFrameContainerObject:OnEditModeExit(...) end
----@return any ...
-function CompactRaidFrameContainerObject:OnEvent(...) end
----@return any ...
-function CompactRaidFrameContainerObject:OnHide(...) end
----@return any ...
-function CompactRaidFrameContainerObject:OnKeyDown(...) end
----@return any ...
-function CompactRaidFrameContainerObject:OnKeyUp(...) end
----@return any ...
-function CompactRaidFrameContainerObject:OnLoad(...) end
----@return any ...
-function CompactRaidFrameContainerObject:OnShow(...) end
----@return any ...
-function CompactRaidFrameContainerObject:OnSizeChanged(...) end
----@return any ...
-function CompactRaidFrameContainerObject:OnSystemHide(...) end
----@return any ...
-function CompactRaidFrameContainerObject:OnSystemLoad(...) end
----@return any ...
-function CompactRaidFrameContainerObject:OnSystemPositionChange(...) end
----@return any ...
-function CompactRaidFrameContainerObject:OnUpdate(...) end
----@return any ...
-function CompactRaidFrameContainerObject:OnUpdateSystem(...) end
----@return any ...
-function CompactRaidFrameContainerObject:PrepareForSave(...) end
----@return any ...
-function CompactRaidFrameContainerObject:ProcessMovementKey(...) end
----@return any ...
-function CompactRaidFrameContainerObject:ReadyToUpdate(...) end
----@return any ...
-function CompactRaidFrameContainerObject:RefreshSize(...) end
----@return any ...
-function CompactRaidFrameContainerObject:ReleaseAllReservedFrames(...) end
----@return any ...
-function CompactRaidFrameContainerObject:RemoveSnappedFrame(...) end
----@return any ...
-function CompactRaidFrameContainerObject:ResetToDefaultPosition(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SelectSystem(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetBorderShown(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetDisplayMainTankAndAssist(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetDisplayPets(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetFixedHeight(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetFixedSize(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetFixedWidth(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetFlowFilterFunction(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetFlowSortFunction(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetGroupFilterFunction(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetGroupMode(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetHasActiveChanges(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetHeightPadding(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetMaximumWidth(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetMinimumWidth(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetPointBase(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetPointOverride(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetPvpDisplayPets(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetScaleBase(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetScaleOverride(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetSelectionShown(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetShownBase(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetShownOverride(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetSnappedToFrame(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetWidthPadding(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetupSettingsDialogAnchor(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SetupVisibilityFunctionOverrides(...) end
----@return any ...
-function CompactRaidFrameContainerObject:ShouldBreakSnappedFramesOnHide(...) end
----@return any ...
-function CompactRaidFrameContainerObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function CompactRaidFrameContainerObject:ShouldDisplayMainTankAndAssist(...) end
----@return any ...
-function CompactRaidFrameContainerObject:ShouldResetSettingsDialogAnchors(...) end
----@return any ...
-function CompactRaidFrameContainerObject:ShouldShowSetting(...) end
----@return any ...
-function CompactRaidFrameContainerObject:ShowEditInstructions(...) end
----@return any ...
-function CompactRaidFrameContainerObject:SnapToFrame(...) end
----@return any ...
-function CompactRaidFrameContainerObject:TrySetCompositeNumberSettingValue(...) end
----@return any ...
-function CompactRaidFrameContainerObject:TryUpdate(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateBorder(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateClampOffsets(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateCompactRaidFrameContainerSetting(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateDirtySettings(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateDisplayInfoOptions(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateMagnetismRegistration(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSelectionVerticalState(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSettingMap(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystem(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystemSetting(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystemSettingAuraOrganizationType(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystemSettingBigDefensiveIconSize(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystemSettingBuffIconSize(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystemSettingBuffsOnTop(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystemSettingCastBarOnSide(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystemSettingDebuffIconSize(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystemSettingDisplayBorder(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystemSettingFrameHeight(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystemSettingFrameSize(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystemSettingFrameWidth(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystemSettingOpacity(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystemSettingRaidGroupDisplayType(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystemSettingRowSize(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystemSettingShowCastTime(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystemSettingShowPartyFrameBackground(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystemSettingSortPlayersBy(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystemSettingUseHorizontalGroups(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystemSettingUseLargerFrame(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystemSettingUseRaidStylePartyFrames(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystemSettingValue(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystemSettingViewArenaSize(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UpdateSystemSettingViewRaidSize(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UseCombinedGroups(...) end
----@return any ...
-function CompactRaidFrameContainerObject:UseSettingAltName(...) end
----@return any ...
-function CompactRaidFrameContainerObject:flowFilterFunc(...) end
----@return any ...
-function CompactRaidFrameContainerObject:flowSortFunc(...) end
----@return any ...
-function CompactRaidFrameContainerObject:groupFilterFunc(...) end
----@return any ...
-function CompactRaidFrameContainerObject:unitFrameUnusedFunc(...) end
----@type CompactRaidFrameContainerObject
-CompactRaidFrameContainer = CompactRaidFrameContainerObject
+function ClassTrainerFrame_ScrollBar_registeredScrollBox_viewObject:factory(...) end
 end

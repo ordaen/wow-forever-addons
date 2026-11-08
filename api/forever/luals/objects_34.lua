@@ -3,5871 +3,6654 @@
 
 
 do
----@class TradeFrame_LeftInset_NineSlice_BottomEdgeObject : Texture
-local TradeFrame_LeftInset_NineSlice_BottomEdgeObject = {}
+---@class LossOfControlFrame_AbilityNameObject : FontString
+---@field textScalingDownTime number
+---@field textScalingMaxHeight number
+---@field textScalingMinHeight number
+---@field textScalingUpTime number
+local LossOfControlFrame_AbilityNameObject = {}
 end
 
 do
----@class TradeFrame_LeftInset_NineSlice_BottomLeftCornerObject : Texture
-local TradeFrame_LeftInset_NineSlice_BottomLeftCornerObject = {}
+---@class LossOfControlFrame_AnimObject : AnimationGroup
+local LossOfControlFrame_AnimObject = {}
 end
 
 do
----@class TradeFrame_LeftInset_NineSlice_BottomRightCornerObject : Texture
-local TradeFrame_LeftInset_NineSlice_BottomRightCornerObject = {}
+---@class LossOfControlFrame_CooldownObject : Cooldown
+local LossOfControlFrame_CooldownObject = {}
 end
 
 do
----@class TradeFrame_LeftInset_NineSlice_LeftEdgeObject : Texture
-local TradeFrame_LeftInset_NineSlice_LeftEdgeObject = {}
+---@class LossOfControlFrame_IconObject : Texture
+local LossOfControlFrame_IconObject = {}
 end
 
 do
----@class TradeFrame_LeftInset_NineSlice_RightEdgeObject : Texture
-local TradeFrame_LeftInset_NineSlice_RightEdgeObject = {}
+---@class LossOfControlFrame_RedLineBottomObject : Texture
+local LossOfControlFrame_RedLineBottomObject = {}
 end
 
 do
----@class TradeFrame_LeftInset_NineSlice_TopEdgeObject : Texture
-local TradeFrame_LeftInset_NineSlice_TopEdgeObject = {}
+---@class LossOfControlFrame_RedLineTopObject : Texture
+local LossOfControlFrame_RedLineTopObject = {}
 end
 
 do
----@class TradeFrame_LeftInset_NineSlice_TopLeftCornerObject : Texture
-local TradeFrame_LeftInset_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class TradeFrame_LeftInset_NineSlice_TopRightCornerObject : Texture
-local TradeFrame_LeftInset_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class TradeFrame_LeftJumpHintObject : Frame
----@field ActiveTexture TradeFrame_LeftJumpHint_ActiveTextureObject
----@field DisabledTexture TradeFrame_LeftJumpHint_DisabledTextureObject
----@field HoldAnim TradeFrame_LeftJumpHint_HoldAnimObject
----@field HoldIndicator TradeFrame_LeftJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG TradeFrame_LeftJumpHint_HoldIndicatorBGObject
----@field HoverTexture TradeFrame_LeftJumpHint_HoverTextureObject
----@field LoadBar TradeFrame_LeftJumpHint_LoadBarObject
----@field LoadBarBG TradeFrame_LeftJumpHint_LoadBarBGObject
----@field LoadBarGlow TradeFrame_LeftJumpHint_LoadBarGlowObject
----@field NormalTexture TradeFrame_LeftJumpHint_NormalTextureObject
----@field PressedTexture TradeFrame_LeftJumpHint_PressedTextureObject
----@field SpinnerTip TradeFrame_LeftJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local TradeFrame_LeftJumpHintObject = {}
----@return any ...
-function TradeFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function TradeFrame_LeftJumpHintObject:BeginHold(...) end
+---@class LossOfControlFrame_SelectionObject : Frame
+---@field Label LossOfControlFrame_Selection_LabelObject
+---@field MouseOverHighlight LossOfControlFrame_Selection_MouseOverHighlightObject
+---@field highlightTextureKit string
+---@field ignoreInLayout boolean
+---@field parent LossOfControlFrame_Selection_parentObject
+---@field selectedTextureKit string
+---@field system LossOfControlFrame_Selection_systemObject
+local LossOfControlFrame_SelectionObject = {}
 ---@return any ...
-function TradeFrame_LeftJumpHintObject:CanEnterTextureState(...) end
+function LossOfControlFrame_SelectionObject:CheckShowInstructionalTooltip(...) end
 ---@return any ...
-function TradeFrame_LeftJumpHintObject:DisableDropShadow(...) end
+function LossOfControlFrame_SelectionObject:GetBorderColor(...) end
 ---@return any ...
-function TradeFrame_LeftJumpHintObject:EnableDropShadow(...) end
+function LossOfControlFrame_SelectionObject:GetCenterColor(...) end
 ---@return any ...
-function TradeFrame_LeftJumpHintObject:EndHold(...) end
+function LossOfControlFrame_SelectionObject:GetFrameLayoutTextureKit(...) end
 ---@return any ...
-function TradeFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
+function LossOfControlFrame_SelectionObject:GetFrameLayoutType(...) end
 ---@return any ...
-function TradeFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
+function LossOfControlFrame_SelectionObject:GetLabelText(...) end
 ---@return any ...
-function TradeFrame_LeftJumpHintObject:OnLoad(...) end
+function LossOfControlFrame_SelectionObject:HideInstructionalTooltip(...) end
 ---@return any ...
-function TradeFrame_LeftJumpHintObject:RefreshIconTextures(...) end
+function LossOfControlFrame_SelectionObject:IsSelected(...) end
 ---@return any ...
-function TradeFrame_LeftJumpHintObject:SetDisabled(...) end
+function LossOfControlFrame_SelectionObject:IsShowingEditInstructions(...) end
 ---@return any ...
-function TradeFrame_LeftJumpHintObject:SetEnabled(...) end
+function LossOfControlFrame_SelectionObject:OnDragStart(...) end
 ---@return any ...
-function TradeFrame_LeftJumpHintObject:SetFocused(...) end
+function LossOfControlFrame_SelectionObject:OnDragStop(...) end
 ---@return any ...
-function TradeFrame_LeftJumpHintObject:SetHoldState(...) end
+function LossOfControlFrame_SelectionObject:OnEnter(...) end
 ---@return any ...
-function TradeFrame_LeftJumpHintObject:SetInputKey(...) end
+function LossOfControlFrame_SelectionObject:OnLeave(...) end
 ---@return any ...
-function TradeFrame_LeftJumpHintObject:SetIsHoldAction(...) end
+function LossOfControlFrame_SelectionObject:OnLoad(...) end
 ---@return any ...
-function TradeFrame_LeftJumpHintObject:SetPressable(...) end
+function LossOfControlFrame_SelectionObject:OnMouseDown(...) end
 ---@return any ...
-function TradeFrame_LeftJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function TradeFrame_LeftJumpHintObject:SetTextureState(...) end
----@return any ...
-function TradeFrame_LeftJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function TradeFrame_LeftJumpHintObject:SetUsableState(...) end
----@return any ...
-function TradeFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class TradeFrame_LeftJumpHint_ActiveTextureObject : Texture
-local TradeFrame_LeftJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class TradeFrame_LeftJumpHint_DisabledTextureObject : Texture
-local TradeFrame_LeftJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class TradeFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim TradeFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim TradeFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim TradeFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
-local TradeFrame_LeftJumpHint_HoldAnimObject = {}
-end
-
-do
----@class TradeFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
-local TradeFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class TradeFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local TradeFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class TradeFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local TradeFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class TradeFrame_LeftJumpHint_HoldIndicatorObject : Texture
-local TradeFrame_LeftJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class TradeFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
-local TradeFrame_LeftJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class TradeFrame_LeftJumpHint_HoverTextureObject : Texture
-local TradeFrame_LeftJumpHint_HoverTextureObject = {}
-end
-
-do
----@class TradeFrame_LeftJumpHint_LoadBarObject : Texture
-local TradeFrame_LeftJumpHint_LoadBarObject = {}
-end
-
-do
----@class TradeFrame_LeftJumpHint_LoadBarBGObject : Texture
-local TradeFrame_LeftJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class TradeFrame_LeftJumpHint_LoadBarGlowObject : Texture
-local TradeFrame_LeftJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class TradeFrame_LeftJumpHint_NormalTextureObject : Texture
-local TradeFrame_LeftJumpHint_NormalTextureObject = {}
-end
-
-do
----@class TradeFrame_LeftJumpHint_PressedTextureObject : Texture
-local TradeFrame_LeftJumpHint_PressedTextureObject = {}
-end
-
-do
----@class TradeFrame_LeftJumpHint_SpinnerTipObject : Texture
-local TradeFrame_LeftJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class TradeFrame_NineSliceObject : Frame
----@field BottomEdge TradeFrame_NineSlice_BottomEdgeObject
----@field BottomLeftCorner TradeFrame_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner TradeFrame_NineSlice_BottomRightCornerObject
----@field Center TradeFrame_NineSlice_CenterObject
----@field LeftEdge TradeFrame_NineSlice_LeftEdgeObject
----@field RightEdge TradeFrame_NineSlice_RightEdgeObject
----@field TopEdge TradeFrame_NineSlice_TopEdgeObject
----@field TopLeftCorner TradeFrame_NineSlice_TopLeftCornerObject
----@field TopRightCorner TradeFrame_NineSlice_TopRightCornerObject
-local TradeFrame_NineSliceObject = {}
+function LossOfControlFrame_SelectionObject:SetBlendMode(...) end
 ---@return any ...
-function TradeFrame_NineSliceObject:GetBorderColor(...) end
+function LossOfControlFrame_SelectionObject:SetBorderBlendMode(...) end
 ---@return any ...
-function TradeFrame_NineSliceObject:GetCenterColor(...) end
+function LossOfControlFrame_SelectionObject:SetBorderColor(...) end
 ---@return any ...
-function TradeFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+function LossOfControlFrame_SelectionObject:SetCenterColor(...) end
 ---@return any ...
-function TradeFrame_NineSliceObject:GetFrameLayoutType(...) end
+function LossOfControlFrame_SelectionObject:SetSystem(...) end
 ---@return any ...
-function TradeFrame_NineSliceObject:OnLoad(...) end
+function LossOfControlFrame_SelectionObject:SetVertexColor(...) end
 ---@return any ...
-function TradeFrame_NineSliceObject:SetBlendMode(...) end
+function LossOfControlFrame_SelectionObject:ShouldShowLabelText(...) end
 ---@return any ...
-function TradeFrame_NineSliceObject:SetBorderBlendMode(...) end
+function LossOfControlFrame_SelectionObject:ShowEditInstructions(...) end
 ---@return any ...
-function TradeFrame_NineSliceObject:SetBorderColor(...) end
+function LossOfControlFrame_SelectionObject:ShowHighlighted(...) end
 ---@return any ...
-function TradeFrame_NineSliceObject:SetCenterColor(...) end
+function LossOfControlFrame_SelectionObject:ShowSelected(...) end
 ---@return any ...
-function TradeFrame_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class TradeFrame_NineSlice_BottomEdgeObject : Texture
-local TradeFrame_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class TradeFrame_NineSlice_BottomLeftCornerObject : Texture
-local TradeFrame_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class TradeFrame_NineSlice_BottomRightCornerObject : Texture
-local TradeFrame_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class TradeFrame_NineSlice_CenterObject : Texture
-local TradeFrame_NineSlice_CenterObject = {}
-end
-
-do
----@class TradeFrame_NineSlice_LeftEdgeObject : Texture
-local TradeFrame_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class TradeFrame_NineSlice_RightEdgeObject : Texture
-local TradeFrame_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class TradeFrame_NineSlice_TopEdgeObject : Texture
-local TradeFrame_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class TradeFrame_NineSlice_TopLeftCornerObject : Texture
-local TradeFrame_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class TradeFrame_NineSlice_TopRightCornerObject : Texture
-local TradeFrame_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class TradeFrame_PortraitContainerObject : Frame
----@field CircleMask TradeFrame_PortraitContainer_CircleMaskObject
----@field portrait TradeFrame_PortraitContainer_portraitObject
-local TradeFrame_PortraitContainerObject = {}
-end
-
-do
----@class TradeFrame_PortraitContainer_CircleMaskObject : MaskTexture
-local TradeFrame_PortraitContainer_CircleMaskObject = {}
-end
-
-do
----@class TradeFrame_PortraitContainer_portraitObject : Texture
-local TradeFrame_PortraitContainer_portraitObject = {}
+function LossOfControlFrame_SelectionObject:UpdateLabelVisibility(...) end
 end
 
 do
----@class TradeFrame_RecipientOverlayObject : Frame
----@field portrait TradeFrame_RecipientOverlay_portraitObject
----@field portraitFrame TradeFrame_RecipientOverlay_portraitFrameObject
-local TradeFrame_RecipientOverlayObject = {}
+---@class LossOfControlFrame_Selection_LabelObject : FontString
+---@field fontObjectsToTry table
+local LossOfControlFrame_Selection_LabelObject = {}
 ---@return any ...
-function TradeFrame_RecipientOverlayObject:AddLayoutChildren(...) end
+function LossOfControlFrame_Selection_LabelObject:ApplyFontObjects(...) end
 ---@return any ...
-function TradeFrame_RecipientOverlayObject:ClearFixedSize(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:GetAdditionalRegions(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:GetChildHeight(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:GetChildSize(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:GetChildWidth(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:GetFixedHeight(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:GetFixedSize(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:GetFixedWidth(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:GetHeightPadding(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:GetLayoutChildren(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:GetMaximumWidth(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:GetMinimumWidth(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:GetWidthPadding(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:IgnoreLayoutIndex(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:IsDirty(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:IsLayoutFrame(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:Layout(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:MarkClean(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:MarkDirty(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:MarkIgnoreInLayout(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:OnCleaned(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:OnShow(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:OnUpdate(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:SetFixedHeight(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:SetFixedSize(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:SetFixedWidth(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:SetHeightPadding(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:SetMaximumWidth(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:SetMinimumWidth(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:SetWidthPadding(...) end
----@return any ...
-function TradeFrame_RecipientOverlayObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class TradeFrame_RecipientOverlay_portraitObject : Texture
-local TradeFrame_RecipientOverlay_portraitObject = {}
-end
-
-do
----@class TradeFrame_RecipientOverlay_portraitFrameObject : Texture
-local TradeFrame_RecipientOverlay_portraitFrameObject = {}
+function LossOfControlFrame_Selection_LabelObject:SetFontObjectsToTry(...) end
 end
 
 do
----@class TradeFrame_RightJumpHintObject : Frame
----@field ActiveTexture TradeFrame_RightJumpHint_ActiveTextureObject
----@field DisabledTexture TradeFrame_RightJumpHint_DisabledTextureObject
----@field HoldAnim TradeFrame_RightJumpHint_HoldAnimObject
----@field HoldIndicator TradeFrame_RightJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG TradeFrame_RightJumpHint_HoldIndicatorBGObject
----@field HoverTexture TradeFrame_RightJumpHint_HoverTextureObject
----@field LoadBar TradeFrame_RightJumpHint_LoadBarObject
----@field LoadBarBG TradeFrame_RightJumpHint_LoadBarBGObject
----@field LoadBarGlow TradeFrame_RightJumpHint_LoadBarGlowObject
----@field NormalTexture TradeFrame_RightJumpHint_NormalTextureObject
----@field PressedTexture TradeFrame_RightJumpHint_PressedTextureObject
----@field SpinnerTip TradeFrame_RightJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local TradeFrame_RightJumpHintObject = {}
----@return any ...
-function TradeFrame_RightJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function TradeFrame_RightJumpHintObject:BeginHold(...) end
----@return any ...
-function TradeFrame_RightJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function TradeFrame_RightJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function TradeFrame_RightJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function TradeFrame_RightJumpHintObject:EndHold(...) end
----@return any ...
-function TradeFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function TradeFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function TradeFrame_RightJumpHintObject:OnLoad(...) end
----@return any ...
-function TradeFrame_RightJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function TradeFrame_RightJumpHintObject:SetDisabled(...) end
----@return any ...
-function TradeFrame_RightJumpHintObject:SetEnabled(...) end
+---@class LossOfControlFrame_Selection_MouseOverHighlightObject : Frame
+---@field BottomEdge LossOfControlFrame_Selection_MouseOverHighlight_BottomEdgeObject
+---@field BottomLeftCorner LossOfControlFrame_Selection_MouseOverHighlight_BottomLeftCornerObject
+---@field BottomRightCorner LossOfControlFrame_Selection_MouseOverHighlight_BottomRightCornerObject
+---@field Center LossOfControlFrame_Selection_MouseOverHighlight_CenterObject
+---@field LeftEdge LossOfControlFrame_Selection_MouseOverHighlight_LeftEdgeObject
+---@field RightEdge LossOfControlFrame_Selection_MouseOverHighlight_RightEdgeObject
+---@field TopEdge LossOfControlFrame_Selection_MouseOverHighlight_TopEdgeObject
+---@field TopLeftCorner LossOfControlFrame_Selection_MouseOverHighlight_TopLeftCornerObject
+---@field TopRightCorner LossOfControlFrame_Selection_MouseOverHighlight_TopRightCornerObject
+local LossOfControlFrame_Selection_MouseOverHighlightObject = {}
 ---@return any ...
-function TradeFrame_RightJumpHintObject:SetFocused(...) end
+function LossOfControlFrame_Selection_MouseOverHighlightObject:GetBorderColor(...) end
 ---@return any ...
-function TradeFrame_RightJumpHintObject:SetHoldState(...) end
+function LossOfControlFrame_Selection_MouseOverHighlightObject:GetCenterColor(...) end
 ---@return any ...
-function TradeFrame_RightJumpHintObject:SetInputKey(...) end
+function LossOfControlFrame_Selection_MouseOverHighlightObject:GetFrameLayoutTextureKit(...) end
 ---@return any ...
-function TradeFrame_RightJumpHintObject:SetIsHoldAction(...) end
+function LossOfControlFrame_Selection_MouseOverHighlightObject:GetFrameLayoutType(...) end
 ---@return any ...
-function TradeFrame_RightJumpHintObject:SetPressable(...) end
+function LossOfControlFrame_Selection_MouseOverHighlightObject:OnLoad(...) end
 ---@return any ...
-function TradeFrame_RightJumpHintObject:SetTextureHeight(...) end
+function LossOfControlFrame_Selection_MouseOverHighlightObject:SetBlendMode(...) end
 ---@return any ...
-function TradeFrame_RightJumpHintObject:SetTextureState(...) end
+function LossOfControlFrame_Selection_MouseOverHighlightObject:SetBorderBlendMode(...) end
 ---@return any ...
-function TradeFrame_RightJumpHintObject:SetTextureWidth(...) end
+function LossOfControlFrame_Selection_MouseOverHighlightObject:SetBorderColor(...) end
 ---@return any ...
-function TradeFrame_RightJumpHintObject:SetUsableState(...) end
+function LossOfControlFrame_Selection_MouseOverHighlightObject:SetCenterColor(...) end
 ---@return any ...
-function TradeFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class TradeFrame_RightJumpHint_ActiveTextureObject : Texture
-local TradeFrame_RightJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class TradeFrame_RightJumpHint_DisabledTextureObject : Texture
-local TradeFrame_RightJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class TradeFrame_RightJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim TradeFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim TradeFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim TradeFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
-local TradeFrame_RightJumpHint_HoldAnimObject = {}
-end
-
-do
----@class TradeFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
-local TradeFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class TradeFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local TradeFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class TradeFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local TradeFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class TradeFrame_RightJumpHint_HoldIndicatorObject : Texture
-local TradeFrame_RightJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class TradeFrame_RightJumpHint_HoldIndicatorBGObject : Texture
-local TradeFrame_RightJumpHint_HoldIndicatorBGObject = {}
+function LossOfControlFrame_Selection_MouseOverHighlightObject:SetVertexColor(...) end
 end
 
 do
----@class TradeFrame_RightJumpHint_HoverTextureObject : Texture
-local TradeFrame_RightJumpHint_HoverTextureObject = {}
+---@class LossOfControlFrame_Selection_MouseOverHighlight_BottomEdgeObject : Texture
+local LossOfControlFrame_Selection_MouseOverHighlight_BottomEdgeObject = {}
 end
 
 do
----@class TradeFrame_RightJumpHint_LoadBarObject : Texture
-local TradeFrame_RightJumpHint_LoadBarObject = {}
+---@class LossOfControlFrame_Selection_MouseOverHighlight_BottomLeftCornerObject : Texture
+local LossOfControlFrame_Selection_MouseOverHighlight_BottomLeftCornerObject = {}
 end
 
 do
----@class TradeFrame_RightJumpHint_LoadBarBGObject : Texture
-local TradeFrame_RightJumpHint_LoadBarBGObject = {}
+---@class LossOfControlFrame_Selection_MouseOverHighlight_BottomRightCornerObject : Texture
+local LossOfControlFrame_Selection_MouseOverHighlight_BottomRightCornerObject = {}
 end
 
 do
----@class TradeFrame_RightJumpHint_LoadBarGlowObject : Texture
-local TradeFrame_RightJumpHint_LoadBarGlowObject = {}
+---@class LossOfControlFrame_Selection_MouseOverHighlight_CenterObject : Texture
+local LossOfControlFrame_Selection_MouseOverHighlight_CenterObject = {}
 end
 
 do
----@class TradeFrame_RightJumpHint_NormalTextureObject : Texture
-local TradeFrame_RightJumpHint_NormalTextureObject = {}
+---@class LossOfControlFrame_Selection_MouseOverHighlight_LeftEdgeObject : Texture
+local LossOfControlFrame_Selection_MouseOverHighlight_LeftEdgeObject = {}
 end
 
 do
----@class TradeFrame_RightJumpHint_PressedTextureObject : Texture
-local TradeFrame_RightJumpHint_PressedTextureObject = {}
+---@class LossOfControlFrame_Selection_MouseOverHighlight_RightEdgeObject : Texture
+local LossOfControlFrame_Selection_MouseOverHighlight_RightEdgeObject = {}
 end
 
 do
----@class TradeFrame_RightJumpHint_SpinnerTipObject : Texture
-local TradeFrame_RightJumpHint_SpinnerTipObject = {}
+---@class LossOfControlFrame_Selection_MouseOverHighlight_TopEdgeObject : Texture
+local LossOfControlFrame_Selection_MouseOverHighlight_TopEdgeObject = {}
 end
 
 do
----@class TradeFrame_TitleContainerObject : Frame
----@field TitleText TradeFrame_TitleContainer_TitleTextObject
-local TradeFrame_TitleContainerObject = {}
+---@class LossOfControlFrame_Selection_MouseOverHighlight_TopLeftCornerObject : Texture
+local LossOfControlFrame_Selection_MouseOverHighlight_TopLeftCornerObject = {}
 end
 
 do
----@class TradeFrame_TitleContainer_TitleTextObject : FontString
-local TradeFrame_TitleContainer_TitleTextObject = {}
+---@class LossOfControlFrame_Selection_MouseOverHighlight_TopRightCornerObject : Texture
+local LossOfControlFrame_Selection_MouseOverHighlight_TopRightCornerObject = {}
 end
 
 do
----@class TradeFrame_TopTileStreaksObject : Texture
-local TradeFrame_TopTileStreaksObject = {}
+---@class LossOfControlFrame_Selection_parentObject
+local LossOfControlFrame_Selection_parentObject = {}
 end
 
 do
----@class TradeFrame_leftBorderBarObject : Texture
-local TradeFrame_leftBorderBarObject = {}
+---@class LossOfControlFrame_Selection_systemObject
+local LossOfControlFrame_Selection_systemObject = {}
 end
 
 do
----@class TutorialDoubleKey_FrameObject : Frame
----@field BottomEdge TutorialDoubleKey_Frame_BottomEdgeObject
----@field BottomLeftCorner TutorialDoubleKey_Frame_BottomLeftCornerObject
----@field BottomRightCorner TutorialDoubleKey_Frame_BottomRightCornerObject
----@field Center TutorialDoubleKey_Frame_CenterObject
----@field ContainerFrame TutorialDoubleKey_Frame_ContainerFrameObject
----@field FramePositions TutorialDoubleKey_Frame_FramePositionsObject
----@field LeftEdge TutorialDoubleKey_Frame_LeftEdgeObject
----@field NextID number
----@field Position number
----@field RightEdge TutorialDoubleKey_Frame_RightEdgeObject
----@field State string
----@field States TutorialDoubleKey_Frame_StatesObject
----@field TopEdge TutorialDoubleKey_Frame_TopEdgeObject
----@field TopLeftCorner TutorialDoubleKey_Frame_TopLeftCornerObject
----@field TopRightCorner TutorialDoubleKey_Frame_TopRightCornerObject
----@field dirty boolean
----@field heightPadding number
----@field wasShown boolean
----@field widthPadding number
-local TutorialDoubleKey_FrameObject = {}
----@return any ...
-function TutorialDoubleKey_FrameObject:AddLayoutChildren(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:CINEMATIC_START(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:CINEMATIC_STOP(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:ClearFixedSize(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:GetAdditionalRegions(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:GetChildHeight(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:GetChildSize(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:GetChildWidth(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:GetFixedHeight(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:GetFixedSize(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:GetFixedWidth(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:GetHeightPadding(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:GetLayoutChildren(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:GetMaximumWidth(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:GetMinimumWidth(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:GetWidthPadding(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:HideTutorial(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:IgnoreLayoutIndex(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:IsDirty(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:IsLayoutFrame(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:Layout(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:MarkClean(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:MarkDirty(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:MarkIgnoreInLayout(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:OnCleaned(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:OnLoad(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:OnShow(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:OnUpdate(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:SetFixedHeight(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:SetFixedSize(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:SetFixedWidth(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:SetHeightPadding(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:SetKeyText(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:SetMaximumWidth(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:SetMinimumWidth(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:SetWidthPadding(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:ShowTutorial(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:_AnimateIn(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:_AnimateOut(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:_SetContent(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:_SetDesiredContent(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:_SetDesiredPosition(...) end
----@return any ...
-function TutorialDoubleKey_FrameObject:_SetPosition(...) end
----@type TutorialDoubleKey_FrameObject
-TutorialDoubleKey_Frame = TutorialDoubleKey_FrameObject
+---@class LossOfControlFrame_TimeLeftObject : Frame
+---@field NumberText LossOfControlFrame_TimeLeft_NumberTextObject
+---@field SecondsText LossOfControlFrame_TimeLeft_SecondsTextObject
+---@field baseNumberWidth number
+---@field secondsWidth number
+local LossOfControlFrame_TimeLeftObject = {}
 end
 
 do
----@class TutorialDoubleKey_Frame_BottomEdgeObject : Texture
-local TutorialDoubleKey_Frame_BottomEdgeObject = {}
+---@class LossOfControlFrame_TimeLeft_NumberTextObject : FontString
+---@field textScalingDownTime number
+---@field textScalingMaxHeight number
+---@field textScalingMinHeight number
+---@field textScalingUpTime number
+local LossOfControlFrame_TimeLeft_NumberTextObject = {}
 end
 
 do
----@class TutorialDoubleKey_Frame_BottomLeftCornerObject : Texture
-local TutorialDoubleKey_Frame_BottomLeftCornerObject = {}
+---@class LossOfControlFrame_TimeLeft_SecondsTextObject : FontString
+---@field textScalingDownTime number
+---@field textScalingMaxHeight number
+---@field textScalingMinHeight number
+---@field textScalingUpTime number
+local LossOfControlFrame_TimeLeft_SecondsTextObject = {}
 end
 
 do
----@class TutorialDoubleKey_Frame_BottomRightCornerObject : Texture
-local TutorialDoubleKey_Frame_BottomRightCornerObject = {}
+---@class LossOfControlFrame_blackBgObject : Texture
+local LossOfControlFrame_blackBgObject = {}
 end
 
 do
----@class TutorialDoubleKey_Frame_CenterObject : Texture
-local TutorialDoubleKey_Frame_CenterObject = {}
+---@class LossOfControlFrame_savedSystemInfoObject
+---@field anchorInfo table
+---@field isInDefaultPosition boolean
+---@field settings table
+---@field system number
+local LossOfControlFrame_savedSystemInfoObject = {}
 end
 
 do
----@class TutorialDoubleKey_Frame_ContainerFrameObject : Frame
----@field KeyBind1 TutorialDoubleKey_Frame_ContainerFrame_KeyBind1Object
----@field KeyBind2 TutorialDoubleKey_Frame_ContainerFrame_KeyBind2Object
----@field Separator TutorialDoubleKey_Frame_ContainerFrame_SeparatorObject
----@field Text TutorialDoubleKey_Frame_ContainerFrame_TextObject
-local TutorialDoubleKey_Frame_ContainerFrameObject = {}
----@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:AddLayoutChildren(...) end
----@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:ClearFixedSize(...) end
----@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:GetAdditionalRegions(...) end
----@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:GetChildHeight(...) end
----@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:GetChildSize(...) end
----@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:GetChildWidth(...) end
----@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:GetFixedHeight(...) end
----@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:GetFixedSize(...) end
----@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:GetFixedWidth(...) end
----@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:GetHeightPadding(...) end
----@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:GetLayoutChildren(...) end
----@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:GetMaximumWidth(...) end
+---@class LossOfControlFrame_settingsDialogAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo LossOfControlFrame_settingsDialogAnchor_relativeToObject
+---@field x number
+---@field y number
+local LossOfControlFrame_settingsDialogAnchorObject = {}
 ---@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:GetMinimumWidth(...) end
+function LossOfControlFrame_settingsDialogAnchorObject:Get(...) end
 ---@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:GetWidthPadding(...) end
+function LossOfControlFrame_settingsDialogAnchorObject:GetRelativeTo(...) end
 ---@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:IgnoreLayoutIndex(...) end
+function LossOfControlFrame_settingsDialogAnchorObject:Init(...) end
 ---@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:IsDirty(...) end
+function LossOfControlFrame_settingsDialogAnchorObject:Set(...) end
 ---@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:IsLayoutFrame(...) end
+function LossOfControlFrame_settingsDialogAnchorObject:SetFromPoint(...) end
 ---@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:Layout(...) end
+function LossOfControlFrame_settingsDialogAnchorObject:SetOffsets(...) end
 ---@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:MarkClean(...) end
+function LossOfControlFrame_settingsDialogAnchorObject:SetPoint(...) end
 ---@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:MarkDirty(...) end
+function LossOfControlFrame_settingsDialogAnchorObject:SetPointWithExtraOffset(...) end
 ---@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:MarkIgnoreInLayout(...) end
----@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:OnCleaned(...) end
----@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:OnShow(...) end
----@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:OnUpdate(...) end
----@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:SetFixedHeight(...) end
----@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:SetFixedSize(...) end
----@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:SetFixedWidth(...) end
----@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:SetHeightPadding(...) end
----@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:SetMaximumWidth(...) end
----@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:SetMinimumWidth(...) end
----@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:SetWidthPadding(...) end
----@return any ...
-function TutorialDoubleKey_Frame_ContainerFrameObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class TutorialDoubleKey_Frame_ContainerFrame_KeyBind1Object : Frame
----@field KeyBind TutorialDoubleKey_Frame_ContainerFrame_KeyBind1_KeyBindObject
----@field KeyIcon TutorialDoubleKey_Frame_ContainerFrame_KeyBind1_KeyIconObject
-local TutorialDoubleKey_Frame_ContainerFrame_KeyBind1Object = {}
-end
-
-do
----@class TutorialDoubleKey_Frame_ContainerFrame_KeyBind1_KeyBindObject : FontString
-local TutorialDoubleKey_Frame_ContainerFrame_KeyBind1_KeyBindObject = {}
-end
-
-do
----@class TutorialDoubleKey_Frame_ContainerFrame_KeyBind1_KeyIconObject : Texture
-local TutorialDoubleKey_Frame_ContainerFrame_KeyBind1_KeyIconObject = {}
-end
-
-do
----@class TutorialDoubleKey_Frame_ContainerFrame_KeyBind2Object : Frame
----@field KeyBind TutorialDoubleKey_Frame_ContainerFrame_KeyBind2_KeyBindObject
----@field KeyIcon TutorialDoubleKey_Frame_ContainerFrame_KeyBind2_KeyIconObject
-local TutorialDoubleKey_Frame_ContainerFrame_KeyBind2Object = {}
-end
-
-do
----@class TutorialDoubleKey_Frame_ContainerFrame_KeyBind2_KeyBindObject : FontString
-local TutorialDoubleKey_Frame_ContainerFrame_KeyBind2_KeyBindObject = {}
-end
-
-do
----@class TutorialDoubleKey_Frame_ContainerFrame_KeyBind2_KeyIconObject : Texture
-local TutorialDoubleKey_Frame_ContainerFrame_KeyBind2_KeyIconObject = {}
-end
-
-do
----@class TutorialDoubleKey_Frame_ContainerFrame_SeparatorObject : FontString
-local TutorialDoubleKey_Frame_ContainerFrame_SeparatorObject = {}
+function LossOfControlFrame_settingsDialogAnchorObject:SetRelativeTo(...) end
 end
 
 do
----@class TutorialDoubleKey_Frame_ContainerFrame_TextObject : FontString
-local TutorialDoubleKey_Frame_ContainerFrame_TextObject = {}
-end
-
-do
----@class TutorialDoubleKey_Frame_FramePositionsObject
-local TutorialDoubleKey_Frame_FramePositionsObject = {}
-end
-
-do
----@class TutorialDoubleKey_Frame_LeftEdgeObject : Texture
-local TutorialDoubleKey_Frame_LeftEdgeObject = {}
-end
-
-do
----@class TutorialDoubleKey_Frame_RightEdgeObject : Texture
-local TutorialDoubleKey_Frame_RightEdgeObject = {}
-end
-
-do
----@class TutorialDoubleKey_Frame_StatesObject
-local TutorialDoubleKey_Frame_StatesObject = {}
-end
-
-do
----@class TutorialDoubleKey_Frame_TopEdgeObject : Texture
-local TutorialDoubleKey_Frame_TopEdgeObject = {}
-end
-
-do
----@class TutorialDoubleKey_Frame_TopLeftCornerObject : Texture
-local TutorialDoubleKey_Frame_TopLeftCornerObject = {}
-end
-
-do
----@class TutorialDoubleKey_Frame_TopRightCornerObject : Texture
-local TutorialDoubleKey_Frame_TopRightCornerObject = {}
-end
-
-do
----@class TutorialFrameObject : Frame
-local TutorialFrameObject = {}
----@return any ...
-function TutorialFrameObject:onCloseCallback(...) end
----@type TutorialFrameObject
-TutorialFrame = TutorialFrameObject
-end
-
-do
----@class TutorialMainFrame_FrameObject : Frame
----@field Anim_FadeIn TutorialMainFrame_Frame_Anim_FadeInObject
----@field Anim_FadeOut TutorialMainFrame_Frame_Anim_FadeOutObject
----@field BottomEdge TutorialMainFrame_Frame_BottomEdgeObject
----@field BottomLeftCorner TutorialMainFrame_Frame_BottomLeftCornerObject
----@field BottomRightCorner TutorialMainFrame_Frame_BottomRightCornerObject
----@field Center TutorialMainFrame_Frame_CenterObject
----@field ContainerFrame TutorialMainFrame_Frame_ContainerFrameObject
----@field FramePositions TutorialMainFrame_Frame_FramePositionsObject
----@field LeftEdge TutorialMainFrame_Frame_LeftEdgeObject
----@field NextID number
----@field Position number
----@field RightEdge TutorialMainFrame_Frame_RightEdgeObject
----@field State string
----@field States TutorialMainFrame_Frame_StatesObject
----@field TopEdge TutorialMainFrame_Frame_TopEdgeObject
----@field TopLeftCorner TutorialMainFrame_Frame_TopLeftCornerObject
----@field TopRightCorner TutorialMainFrame_Frame_TopRightCornerObject
----@field dirty boolean
----@field heightPadding number
----@field wasShown boolean
----@field widthPadding number
-local TutorialMainFrame_FrameObject = {}
----@return any ...
-function TutorialMainFrame_FrameObject:AddLayoutChildren(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:CINEMATIC_START(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:CINEMATIC_STOP(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:ClearFixedSize(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:GetAdditionalRegions(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:GetChildHeight(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:GetChildSize(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:GetChildWidth(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:GetFixedHeight(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:GetFixedSize(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:GetFixedWidth(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:GetHeightPadding(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:GetLayoutChildren(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:GetMaximumWidth(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:GetMinimumWidth(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:GetWidthPadding(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:HideTutorial(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:IgnoreLayoutIndex(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:IsDirty(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:IsLayoutFrame(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:Layout(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:MarkClean(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:MarkDirty(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:MarkIgnoreInLayout(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:OnCleaned(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:OnLoad(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:OnShow(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:OnUpdate(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:SetFixedHeight(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:SetFixedSize(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:SetFixedWidth(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:SetHeightPadding(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:SetMaximumWidth(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:SetMinimumWidth(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:SetWidthPadding(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:ShowTutorial(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:_AnimateIn(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:_AnimateOut(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:_SetContent(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:_SetDesiredContent(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:_SetDesiredPosition(...) end
----@return any ...
-function TutorialMainFrame_FrameObject:_SetPosition(...) end
----@type TutorialMainFrame_FrameObject
-TutorialMainFrame_Frame = TutorialMainFrame_FrameObject
-end
-
-do
----@class TutorialMainFrame_Frame_Anim_FadeInObject : AnimationGroup
-local TutorialMainFrame_Frame_Anim_FadeInObject = {}
-end
-
-do
----@class TutorialMainFrame_Frame_Anim_FadeOutObject : AnimationGroup
-local TutorialMainFrame_Frame_Anim_FadeOutObject = {}
-end
-
-do
----@class TutorialMainFrame_Frame_BottomEdgeObject : Texture
-local TutorialMainFrame_Frame_BottomEdgeObject = {}
-end
-
-do
----@class TutorialMainFrame_Frame_BottomLeftCornerObject : Texture
-local TutorialMainFrame_Frame_BottomLeftCornerObject = {}
-end
-
-do
----@class TutorialMainFrame_Frame_BottomRightCornerObject : Texture
-local TutorialMainFrame_Frame_BottomRightCornerObject = {}
-end
-
-do
----@class TutorialMainFrame_Frame_CenterObject : Texture
-local TutorialMainFrame_Frame_CenterObject = {}
-end
-
-do
----@class TutorialMainFrame_Frame_ContainerFrameObject : Frame
----@field Icon TutorialMainFrame_Frame_ContainerFrame_IconObject
----@field Text TutorialMainFrame_Frame_ContainerFrame_TextObject
-local TutorialMainFrame_Frame_ContainerFrameObject = {}
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:AddLayoutChildren(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:ClearFixedSize(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:GetAdditionalRegions(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:GetChildHeight(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:GetChildSize(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:GetChildWidth(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:GetFixedHeight(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:GetFixedSize(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:GetFixedWidth(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:GetHeightPadding(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:GetLayoutChildren(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:GetMaximumWidth(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:GetMinimumWidth(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:GetWidthPadding(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:IgnoreLayoutIndex(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:IsDirty(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:IsLayoutFrame(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:Layout(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:MarkClean(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:MarkDirty(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:MarkIgnoreInLayout(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:OnCleaned(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:OnShow(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:OnUpdate(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:SetFixedHeight(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:SetFixedSize(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:SetFixedWidth(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:SetHeightPadding(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:SetMaximumWidth(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:SetMinimumWidth(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:SetWidthPadding(...) end
----@return any ...
-function TutorialMainFrame_Frame_ContainerFrameObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class TutorialMainFrame_Frame_ContainerFrame_IconObject : Texture
-local TutorialMainFrame_Frame_ContainerFrame_IconObject = {}
-end
-
-do
----@class TutorialMainFrame_Frame_ContainerFrame_TextObject : FontString
-local TutorialMainFrame_Frame_ContainerFrame_TextObject = {}
-end
-
-do
----@class TutorialMainFrame_Frame_FramePositionsObject
-local TutorialMainFrame_Frame_FramePositionsObject = {}
-end
-
-do
----@class TutorialMainFrame_Frame_LeftEdgeObject : Texture
-local TutorialMainFrame_Frame_LeftEdgeObject = {}
-end
-
-do
----@class TutorialMainFrame_Frame_RightEdgeObject : Texture
-local TutorialMainFrame_Frame_RightEdgeObject = {}
-end
-
-do
----@class TutorialMainFrame_Frame_StatesObject
-local TutorialMainFrame_Frame_StatesObject = {}
-end
-
-do
----@class TutorialMainFrame_Frame_TopEdgeObject : Texture
-local TutorialMainFrame_Frame_TopEdgeObject = {}
-end
-
-do
----@class TutorialMainFrame_Frame_TopLeftCornerObject : Texture
-local TutorialMainFrame_Frame_TopLeftCornerObject = {}
-end
-
-do
----@class TutorialMainFrame_Frame_TopRightCornerObject : Texture
-local TutorialMainFrame_Frame_TopRightCornerObject = {}
-end
-
-do
----@class TutorialSingleKey_FrameObject : Frame
----@field BottomEdge TutorialSingleKey_Frame_BottomEdgeObject
----@field BottomLeftCorner TutorialSingleKey_Frame_BottomLeftCornerObject
----@field BottomRightCorner TutorialSingleKey_Frame_BottomRightCornerObject
----@field Center TutorialSingleKey_Frame_CenterObject
----@field ContainerFrame TutorialSingleKey_Frame_ContainerFrameObject
----@field FramePositions TutorialSingleKey_Frame_FramePositionsObject
----@field LeftEdge TutorialSingleKey_Frame_LeftEdgeObject
----@field NextID number
----@field Position number
----@field RightEdge TutorialSingleKey_Frame_RightEdgeObject
----@field State string
----@field States TutorialSingleKey_Frame_StatesObject
----@field TopEdge TutorialSingleKey_Frame_TopEdgeObject
----@field TopLeftCorner TutorialSingleKey_Frame_TopLeftCornerObject
----@field TopRightCorner TutorialSingleKey_Frame_TopRightCornerObject
----@field dirty boolean
----@field heightPadding number
----@field wasShown boolean
----@field widthPadding number
-local TutorialSingleKey_FrameObject = {}
----@return any ...
-function TutorialSingleKey_FrameObject:AddLayoutChildren(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:CINEMATIC_START(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:CINEMATIC_STOP(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:ClearFixedSize(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:GetAdditionalRegions(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:GetChildHeight(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:GetChildSize(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:GetChildWidth(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:GetFixedHeight(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:GetFixedSize(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:GetFixedWidth(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:GetHeightPadding(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:GetLayoutChildren(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:GetMaximumWidth(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:GetMinimumWidth(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:GetWidthPadding(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:HideTutorial(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:IgnoreLayoutIndex(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:IsDirty(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:IsLayoutFrame(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:Layout(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:MarkClean(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:MarkDirty(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:MarkIgnoreInLayout(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:OnCleaned(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:OnLoad(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:OnShow(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:OnUpdate(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:SetFixedHeight(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:SetFixedSize(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:SetFixedWidth(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:SetHeightPadding(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:SetKeyText(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:SetMaximumWidth(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:SetMinimumWidth(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:SetWidthPadding(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:ShowTutorial(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:_AnimateIn(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:_AnimateOut(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:_SetContent(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:_SetDesiredContent(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:_SetDesiredPosition(...) end
----@return any ...
-function TutorialSingleKey_FrameObject:_SetPosition(...) end
----@type TutorialSingleKey_FrameObject
-TutorialSingleKey_Frame = TutorialSingleKey_FrameObject
-end
-
-do
----@class TutorialSingleKey_Frame_BottomEdgeObject : Texture
-local TutorialSingleKey_Frame_BottomEdgeObject = {}
-end
-
-do
----@class TutorialSingleKey_Frame_BottomLeftCornerObject : Texture
-local TutorialSingleKey_Frame_BottomLeftCornerObject = {}
-end
-
-do
----@class TutorialSingleKey_Frame_BottomRightCornerObject : Texture
-local TutorialSingleKey_Frame_BottomRightCornerObject = {}
-end
-
-do
----@class TutorialSingleKey_Frame_CenterObject : Texture
-local TutorialSingleKey_Frame_CenterObject = {}
-end
-
-do
----@class TutorialSingleKey_Frame_ContainerFrameObject : Frame
----@field KeyBind TutorialSingleKey_Frame_ContainerFrame_KeyBindObject
----@field Text TutorialSingleKey_Frame_ContainerFrame_TextObject
-local TutorialSingleKey_Frame_ContainerFrameObject = {}
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:AddLayoutChildren(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:ClearFixedSize(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:GetAdditionalRegions(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:GetChildHeight(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:GetChildSize(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:GetChildWidth(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:GetFixedHeight(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:GetFixedSize(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:GetFixedWidth(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:GetHeightPadding(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:GetLayoutChildren(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:GetMaximumWidth(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:GetMinimumWidth(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:GetWidthPadding(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:IgnoreLayoutIndex(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:IsDirty(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:IsLayoutFrame(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:Layout(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:MarkClean(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:MarkDirty(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:MarkIgnoreInLayout(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:OnCleaned(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:OnShow(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:OnUpdate(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:SetFixedHeight(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:SetFixedSize(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:SetFixedWidth(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:SetHeightPadding(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:SetMaximumWidth(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:SetMinimumWidth(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:SetWidthPadding(...) end
----@return any ...
-function TutorialSingleKey_Frame_ContainerFrameObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class TutorialSingleKey_Frame_ContainerFrame_KeyBindObject : Frame
----@field KeyBind TutorialSingleKey_Frame_ContainerFrame_KeyBind_KeyBindObject
----@field KeyIcon TutorialSingleKey_Frame_ContainerFrame_KeyBind_KeyIconObject
-local TutorialSingleKey_Frame_ContainerFrame_KeyBindObject = {}
-end
-
-do
----@class TutorialSingleKey_Frame_ContainerFrame_KeyBind_KeyBindObject : FontString
-local TutorialSingleKey_Frame_ContainerFrame_KeyBind_KeyBindObject = {}
-end
-
-do
----@class TutorialSingleKey_Frame_ContainerFrame_KeyBind_KeyIconObject : Texture
-local TutorialSingleKey_Frame_ContainerFrame_KeyBind_KeyIconObject = {}
-end
-
-do
----@class TutorialSingleKey_Frame_ContainerFrame_TextObject : FontString
-local TutorialSingleKey_Frame_ContainerFrame_TextObject = {}
-end
-
-do
----@class TutorialSingleKey_Frame_FramePositionsObject
-local TutorialSingleKey_Frame_FramePositionsObject = {}
-end
-
-do
----@class TutorialSingleKey_Frame_LeftEdgeObject : Texture
-local TutorialSingleKey_Frame_LeftEdgeObject = {}
-end
-
-do
----@class TutorialSingleKey_Frame_RightEdgeObject : Texture
-local TutorialSingleKey_Frame_RightEdgeObject = {}
-end
-
-do
----@class TutorialSingleKey_Frame_StatesObject
-local TutorialSingleKey_Frame_StatesObject = {}
-end
-
-do
----@class TutorialSingleKey_Frame_TopEdgeObject : Texture
-local TutorialSingleKey_Frame_TopEdgeObject = {}
-end
-
-do
----@class TutorialSingleKey_Frame_TopLeftCornerObject : Texture
-local TutorialSingleKey_Frame_TopLeftCornerObject = {}
-end
-
-do
----@class TutorialSingleKey_Frame_TopRightCornerObject : Texture
-local TutorialSingleKey_Frame_TopRightCornerObject = {}
-end
-
-do
----@class UIErrorsFrameObject : MessageFrame
----@field flashingFontStrings table
-local UIErrorsFrameObject = {}
----@return any ...
-function UIErrorsFrameObject:AddExternalErrorMessage(...) end
----@return any ...
-function UIErrorsFrameObject:AddExternalWarningMessage(...) end
----@return any ...
-function UIErrorsFrameObject:CheckAddMessage(...) end
----@return any ...
-function UIErrorsFrameObject:FlashFontString(...) end
----@return any ...
-function UIErrorsFrameObject:GetMessagesSuppressed(...) end
----@return any ...
-function UIErrorsFrameObject:OnEvent(...) end
----@return any ...
-function UIErrorsFrameObject:OnLoad(...) end
----@return any ...
-function UIErrorsFrameObject:OnUpdate(...) end
----@return any ...
-function UIErrorsFrameObject:SetMessageTypeEnabled(...) end
----@return any ...
-function UIErrorsFrameObject:SetMessagesSuppressed(...) end
----@return any ...
-function UIErrorsFrameObject:ShouldDisplayMessageType(...) end
----@return any ...
-function UIErrorsFrameObject:SuppressMessagesThisFrame(...) end
----@return any ...
-function UIErrorsFrameObject:TryDisplayMessage(...) end
----@return any ...
-function UIErrorsFrameObject:TryFlashingExistingMessage(...) end
----@type UIErrorsFrameObject
-UIErrorsFrame = UIErrorsFrameObject
+---@class LossOfControlFrame_settingsDialogAnchor_relativeToObject
+local LossOfControlFrame_settingsDialogAnchor_relativeToObject = {}
 end
 
 do
----@class UIPanelLayoutFrameObject : Frame
-local UIPanelLayoutFrameObject = {}
----@type UIPanelLayoutFrameObject
-UIPanelLayoutFrame = UIPanelLayoutFrameObject
+---@class LossOfControlFrame_systemInfoObject
+---@field anchorInfo table
+---@field isInDefaultPosition boolean
+---@field settings table
+---@field system number
+local LossOfControlFrame_systemInfoObject = {}
 end
 
 do
----@class UIParentObject : Frame
----@field GamepadMainActionBarFrame UIParent_GamepadMainActionBarFrameObject
----@field GamepadPersistentInputLegend UIParent_GamepadPersistentInputLegendObject
----@field SettingsCheckboxDropdownControlinputLegend UIParent_SettingsCheckboxDropdownControlinputLegendObject
----@field SettingsCheckboxSliderControlinputLegend UIParent_SettingsCheckboxSliderControlinputLegendObject
----@field SettingsCheckboxWithColorSwatchControlinputLegend UIParent_SettingsCheckboxWithColorSwatchControlinputLegendObject
----@field SettingsDropdownControlinputLegend UIParent_SettingsDropdownControlinputLegendObject
----@field SettingsSliderControlinputLegend UIParent_SettingsSliderControlinputLegendObject
+---@class MacroFrameObject : Frame
+---@field Bg MacroFrame_BgObject
+---@field CloseButton MacroFrame_CloseButtonObject
+---@field FocusJumpHint MacroFrame_FocusJumpHintObject
+---@field FrameGlow MacroFrame_FrameGlowObject
+---@field Inset MacroFrame_InsetObject
+---@field LeftJumpHint MacroFrame_LeftJumpHintObject
+---@field MacroSelector MacroFrame_MacroSelectorObject
+---@field NineSlice MacroFrame_NineSliceObject
+---@field PortraitContainer MacroFrame_PortraitContainerObject
+---@field RightJumpHint MacroFrame_RightJumpHintObject
+---@field SelectedMacroButton MacroFrame_SelectedMacroButtonObject
 ---@field Tabs table
-local UIParentObject = {}
----@type UIParentObject
-UIParent = UIParentObject
-end
-
-do
----@class UIParent_GamepadMainActionBarFrameObject
-local UIParent_GamepadMainActionBarFrameObject = {}
-end
-
-do
----@class UIParent_GamepadPersistentInputLegendObject
-local UIParent_GamepadPersistentInputLegendObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegendObject : Frame
----@field actions table
----@field promptContainerFrame UIParent_SettingsCheckboxDropdownControlinputLegend_promptContainerFrameObject
----@field promptFrames UIParent_SettingsCheckboxDropdownControlinputLegend_promptFramesObject
----@field promptFramesAddOrder table
----@field promptMap table
----@field wrapAroundRowWidth boolean
-local UIParent_SettingsCheckboxDropdownControlinputLegendObject = {}
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegendObject:AddModifierSection(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegendObject:ApplyDefaultPromptPositioning(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegendObject:ApplyDefaultStyle(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegendObject:ApplyEnabledStyleToModifierSection(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegendObject:ApplyFocusedStyleToModifierSection(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegendObject:ApplyFocusedStyleToPromptContainer(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegendObject:ApplyNeutralStyleToPromptContainer(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegendObject:ApplyWideStyle(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegendObject:GetOrCreatePromptFrameUsingTemplateAndInputs(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegendObject:InitializePrompts(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegendObject:OnBackgroundAlphaChanged(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegendObject:RefreshWithPromptedBindings(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegendObject:SetLegendWidth(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptContainerFrameObject : Frame
----@field backgroundBorder UIParent_SettingsCheckboxDropdownControlinputLegend_promptContainerFrame_backgroundBorderObject
----@field backgroundSlot UIParent_SettingsCheckboxDropdownControlinputLegend_promptContainerFrame_backgroundSlotObject
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptContainerFrameObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptContainerFrame_backgroundBorderObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptContainerFrame_backgroundBorderObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptContainerFrame_backgroundSlotObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptContainerFrame_backgroundSlotObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFramesObject
----@field StandardOneIconPAD1SLASH UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject
----@field StandardOneIconPAD4SLASH UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject
----@field StandardOneIconPADDLEFTSLASH UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject
----@field StandardOneIconPADDRIGHTSLASH UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFramesObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject : Frame
----@field ControlDescText UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescTextObject
----@field InputIcon1 UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object
----@field InputIcons table
----@field template string
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject = {}
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:DisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:EnableOrDisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:EnablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetDividerSpacingInfo(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetIconDividerControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetInputIconControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetPromptTextControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:RefreshInputPromptSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetDividerType(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetInputIconSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPromptFont(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPromptInputIconKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPromptText(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetUseDropShadow(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescTextObject : Frame
----@field FontString UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescText_FontStringObject
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescTextObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescText_FontStringObject : FontString
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescText_FontStringObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object : Frame
----@field ActiveTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_ActiveTextureObject
----@field DisabledTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_DisabledTextureObject
----@field HoldAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnimObject
----@field HoldIndicator UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoverTextureObject
----@field LoadBar UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarObject
----@field LoadBarBG UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarBGObject
----@field LoadBarGlow UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarGlowObject
----@field NormalTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_NormalTextureObject
----@field PressedTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_PressedTextureObject
----@field SpinnerTip UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object = {}
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_ActiveTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_DisabledTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarAnimObject
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorBGObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoverTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarBGObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarGlowObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_NormalTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_PressedTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_SpinnerTipObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject : Frame
----@field ControlDescText UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_ControlDescTextObject
----@field InputIcon1 UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object
----@field InputIcons table
----@field template string
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject = {}
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:DisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:EnableOrDisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:EnablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:GetDividerSpacingInfo(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:GetIconDividerControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:GetInputIconControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:GetPromptTextControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:RefreshInputPromptSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetDividerType(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetInputIconSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetPromptFont(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetPromptInputIconKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetPromptText(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetUseDropShadow(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_ControlDescTextObject : Frame
----@field FontString UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_ControlDescText_FontStringObject
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_ControlDescTextObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_ControlDescText_FontStringObject : FontString
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_ControlDescText_FontStringObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object : Frame
----@field ActiveTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_ActiveTextureObject
----@field DisabledTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_DisabledTextureObject
----@field HoldAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnimObject
----@field HoldIndicator UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoverTextureObject
----@field LoadBar UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarObject
----@field LoadBarBG UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarBGObject
----@field LoadBarGlow UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarGlowObject
----@field NormalTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_NormalTextureObject
----@field PressedTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_PressedTextureObject
----@field SpinnerTip UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object = {}
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_ActiveTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_DisabledTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_LoadBarAnimObject
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldIndicatorObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldIndicatorBGObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoverTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarBGObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarGlowObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_NormalTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_PressedTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_SpinnerTipObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject : Frame
----@field ControlDescText UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescTextObject
----@field InputIcon1 UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object
----@field InputIcons table
----@field template string
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject = {}
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:DisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:EnableOrDisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:EnablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetDividerSpacingInfo(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetIconDividerControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetInputIconControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetPromptTextControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:RefreshInputPromptSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetDividerType(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetInputIconSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPromptFont(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPromptInputIconKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPromptText(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetUseDropShadow(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescTextObject : Frame
----@field FontString UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescText_FontStringObject
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescTextObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescText_FontStringObject : FontString
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescText_FontStringObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object : Frame
----@field ActiveTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_ActiveTextureObject
----@field DisabledTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_DisabledTextureObject
----@field HoldAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnimObject
----@field HoldIndicator UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoverTextureObject
----@field LoadBar UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarObject
----@field LoadBarBG UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarBGObject
----@field LoadBarGlow UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarGlowObject
----@field NormalTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_NormalTextureObject
----@field PressedTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_PressedTextureObject
----@field SpinnerTip UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object = {}
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_ActiveTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_DisabledTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorBGObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoverTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarBGObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarGlowObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_NormalTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_PressedTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_SpinnerTipObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject : Frame
----@field ControlDescText UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescTextObject
----@field InputIcon1 UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object
----@field InputIcons table
----@field template string
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject = {}
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:DisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:EnableOrDisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:EnablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetDividerSpacingInfo(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetIconDividerControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetInputIconControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetPromptTextControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:RefreshInputPromptSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetDividerType(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetInputIconSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPromptFont(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPromptInputIconKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPromptText(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetUseDropShadow(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescTextObject : Frame
----@field FontString UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescText_FontStringObject
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescTextObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescText_FontStringObject : FontString
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescText_FontStringObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object : Frame
----@field ActiveTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_ActiveTextureObject
----@field DisabledTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_DisabledTextureObject
----@field HoldAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnimObject
----@field HoldIndicator UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoverTextureObject
----@field LoadBar UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarObject
----@field LoadBarBG UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarBGObject
----@field LoadBarGlow UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarGlowObject
----@field NormalTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_NormalTextureObject
----@field PressedTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_PressedTextureObject
----@field SpinnerTip UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object = {}
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_ActiveTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_DisabledTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorBGObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoverTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarBGObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarGlowObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_NormalTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_PressedTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_SpinnerTipObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegendObject : Frame
----@field actions table
----@field promptContainerFrame UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrameObject
----@field promptFrames UIParent_SettingsCheckboxSliderControlinputLegend_promptFramesObject
----@field promptFramesAddOrder table
----@field promptMap table
----@field wrapAroundRowWidth boolean
-local UIParent_SettingsCheckboxSliderControlinputLegendObject = {}
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:AddModifierSection(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:ApplyDefaultPromptPositioning(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:ApplyDefaultStyle(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:ApplyEnabledStyleToModifierSection(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:ApplyFocusedStyleToModifierSection(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:ApplyFocusedStyleToPromptContainer(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:ApplyNeutralStyleToPromptContainer(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:ApplyWideStyle(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:GetOrCreatePromptFrameUsingTemplateAndInputs(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:InitializePrompts(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:OnBackgroundAlphaChanged(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:RefreshWithPromptedBindings(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:SetLegendWidth(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrameObject : Frame
----@field backgroundBorder UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrame_backgroundBorderObject
----@field backgroundSlot UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrame_backgroundSlotObject
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrameObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrame_backgroundBorderObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrame_backgroundBorderObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrame_backgroundSlotObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrame_backgroundSlotObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFramesObject
----@field StandardOneIconPAD1SLASH UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject
----@field StandardOneIconPADDLEFTSLASH UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject
----@field StandardOneIconPADDRIGHTSLASH UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFramesObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject : Frame
----@field ControlDescText UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescTextObject
----@field InputIcon1 UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object
----@field InputIcons table
----@field template string
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject = {}
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:DisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:EnableOrDisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:EnablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetDividerSpacingInfo(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetIconDividerControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetInputIconControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetPromptTextControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:RefreshInputPromptSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetDividerType(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetInputIconSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPromptFont(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPromptInputIconKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPromptText(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetUseDropShadow(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescTextObject : Frame
----@field FontString UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescText_FontStringObject
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescTextObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescText_FontStringObject : FontString
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescText_FontStringObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object : Frame
----@field ActiveTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_ActiveTextureObject
----@field DisabledTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_DisabledTextureObject
----@field HoldAnim UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnimObject
----@field HoldIndicator UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoverTextureObject
----@field LoadBar UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarObject
----@field LoadBarBG UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarBGObject
----@field LoadBarGlow UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarGlowObject
----@field NormalTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_NormalTextureObject
----@field PressedTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_PressedTextureObject
----@field SpinnerTip UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object = {}
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_ActiveTextureObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_DisabledTextureObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarAnimObject
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorBGObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoverTextureObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarBGObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarGlowObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_NormalTextureObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_PressedTextureObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_SpinnerTipObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject : Frame
----@field ControlDescText UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescTextObject
----@field InputIcon1 UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object
----@field InputIcons table
----@field template string
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject = {}
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:DisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:EnableOrDisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:EnablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetDividerSpacingInfo(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetIconDividerControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetInputIconControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetPromptTextControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:RefreshInputPromptSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetDividerType(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetInputIconSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPromptFont(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPromptInputIconKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPromptText(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetUseDropShadow(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescTextObject : Frame
----@field FontString UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescText_FontStringObject
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescTextObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescText_FontStringObject : FontString
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescText_FontStringObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object : Frame
----@field ActiveTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_ActiveTextureObject
----@field DisabledTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_DisabledTextureObject
----@field HoldAnim UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnimObject
----@field HoldIndicator UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoverTextureObject
----@field LoadBar UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarObject
----@field LoadBarBG UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarBGObject
----@field LoadBarGlow UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarGlowObject
----@field NormalTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_NormalTextureObject
----@field PressedTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_PressedTextureObject
----@field SpinnerTip UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object = {}
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_ActiveTextureObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_DisabledTextureObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorBGObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoverTextureObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarBGObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarGlowObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_NormalTextureObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_PressedTextureObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_SpinnerTipObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject : Frame
----@field ControlDescText UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescTextObject
----@field InputIcon1 UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object
----@field InputIcons table
----@field template string
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject = {}
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:DisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:EnableOrDisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:EnablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetDividerSpacingInfo(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetIconDividerControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetInputIconControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetPromptTextControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:RefreshInputPromptSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetDividerType(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetInputIconSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPromptFont(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPromptInputIconKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPromptText(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetUseDropShadow(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescTextObject : Frame
----@field FontString UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescText_FontStringObject
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescTextObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescText_FontStringObject : FontString
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescText_FontStringObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object : Frame
----@field ActiveTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_ActiveTextureObject
----@field DisabledTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_DisabledTextureObject
----@field HoldAnim UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnimObject
----@field HoldIndicator UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoverTextureObject
----@field LoadBar UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarObject
----@field LoadBarBG UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarBGObject
----@field LoadBarGlow UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarGlowObject
----@field NormalTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_NormalTextureObject
----@field PressedTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_PressedTextureObject
----@field SpinnerTip UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object = {}
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_ActiveTextureObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_DisabledTextureObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorBGObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoverTextureObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarBGObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarGlowObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_NormalTextureObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_PressedTextureObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_SpinnerTipObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegendObject : Frame
----@field actions table
----@field promptContainerFrame UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptContainerFrameObject
----@field promptFrames UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFramesObject
----@field promptFramesAddOrder table
----@field promptMap table
----@field wrapAroundRowWidth boolean
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegendObject = {}
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegendObject:AddModifierSection(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegendObject:ApplyDefaultPromptPositioning(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegendObject:ApplyDefaultStyle(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegendObject:ApplyEnabledStyleToModifierSection(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegendObject:ApplyFocusedStyleToModifierSection(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegendObject:ApplyFocusedStyleToPromptContainer(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegendObject:ApplyNeutralStyleToPromptContainer(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegendObject:ApplyWideStyle(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegendObject:GetOrCreatePromptFrameUsingTemplateAndInputs(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegendObject:InitializePrompts(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegendObject:OnBackgroundAlphaChanged(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegendObject:RefreshWithPromptedBindings(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegendObject:SetLegendWidth(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptContainerFrameObject : Frame
----@field backgroundBorder UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptContainerFrame_backgroundBorderObject
----@field backgroundSlot UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptContainerFrame_backgroundSlotObject
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptContainerFrameObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptContainerFrame_backgroundBorderObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptContainerFrame_backgroundBorderObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptContainerFrame_backgroundSlotObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptContainerFrame_backgroundSlotObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFramesObject
----@field StandardOneIconPAD1SLASH UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject
----@field StandardOneIconPAD4SLASH UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFramesObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject : Frame
----@field ControlDescText UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescTextObject
----@field InputIcon1 UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object
----@field InputIcons table
----@field template string
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject = {}
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:DisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:EnableOrDisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:EnablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetDividerSpacingInfo(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetIconDividerControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetInputIconControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetPromptTextControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:RefreshInputPromptSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetDividerType(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetInputIconSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPromptFont(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPromptInputIconKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPromptText(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetUseDropShadow(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescTextObject : Frame
----@field FontString UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescText_FontStringObject
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescTextObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescText_FontStringObject : FontString
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescText_FontStringObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object : Frame
----@field ActiveTexture UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_ActiveTextureObject
----@field DisabledTexture UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_DisabledTextureObject
----@field HoldAnim UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnimObject
----@field HoldIndicator UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoverTextureObject
----@field LoadBar UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarObject
----@field LoadBarBG UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarBGObject
----@field LoadBarGlow UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarGlowObject
----@field NormalTexture UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_NormalTextureObject
----@field PressedTexture UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_PressedTextureObject
----@field SpinnerTip UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object = {}
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_ActiveTextureObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_DisabledTextureObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarAnimObject
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorBGObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoverTextureObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarBGObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarGlowObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_NormalTextureObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_PressedTextureObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_SpinnerTipObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject : Frame
----@field ControlDescText UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_ControlDescTextObject
----@field InputIcon1 UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object
----@field InputIcons table
----@field template string
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject = {}
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:DisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:EnableOrDisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:EnablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:GetDividerSpacingInfo(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:GetIconDividerControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:GetInputIconControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:GetPromptTextControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:RefreshInputPromptSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetDividerType(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetInputIconSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetPromptFont(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetPromptInputIconKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetPromptText(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetUseDropShadow(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_ControlDescTextObject : Frame
----@field FontString UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_ControlDescText_FontStringObject
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_ControlDescTextObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_ControlDescText_FontStringObject : FontString
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_ControlDescText_FontStringObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object : Frame
----@field ActiveTexture UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_ActiveTextureObject
----@field DisabledTexture UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_DisabledTextureObject
----@field HoldAnim UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnimObject
----@field HoldIndicator UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoverTextureObject
----@field LoadBar UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarObject
----@field LoadBarBG UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarBGObject
----@field LoadBarGlow UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarGlowObject
----@field NormalTexture UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_NormalTextureObject
----@field PressedTexture UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_PressedTextureObject
----@field SpinnerTip UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object = {}
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_ActiveTextureObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_DisabledTextureObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_LoadBarAnimObject
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldIndicatorObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldIndicatorBGObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoverTextureObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarBGObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarGlowObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_NormalTextureObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_PressedTextureObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_SpinnerTipObject : Texture
-local UIParent_SettingsCheckboxWithColorSwatchControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegendObject : Frame
----@field actions table
----@field promptContainerFrame UIParent_SettingsDropdownControlinputLegend_promptContainerFrameObject
----@field promptFrames UIParent_SettingsDropdownControlinputLegend_promptFramesObject
----@field promptFramesAddOrder table
----@field promptMap table
----@field wrapAroundRowWidth boolean
-local UIParent_SettingsDropdownControlinputLegendObject = {}
----@return any ...
-function UIParent_SettingsDropdownControlinputLegendObject:AddModifierSection(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegendObject:ApplyDefaultPromptPositioning(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegendObject:ApplyDefaultStyle(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegendObject:ApplyEnabledStyleToModifierSection(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegendObject:ApplyFocusedStyleToModifierSection(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegendObject:ApplyFocusedStyleToPromptContainer(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegendObject:ApplyNeutralStyleToPromptContainer(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegendObject:ApplyWideStyle(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegendObject:GetOrCreatePromptFrameUsingTemplateAndInputs(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegendObject:InitializePrompts(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegendObject:OnBackgroundAlphaChanged(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegendObject:RefreshWithPromptedBindings(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegendObject:SetLegendWidth(...) end
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptContainerFrameObject : Frame
----@field backgroundBorder UIParent_SettingsDropdownControlinputLegend_promptContainerFrame_backgroundBorderObject
----@field backgroundSlot UIParent_SettingsDropdownControlinputLegend_promptContainerFrame_backgroundSlotObject
-local UIParent_SettingsDropdownControlinputLegend_promptContainerFrameObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptContainerFrame_backgroundBorderObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptContainerFrame_backgroundBorderObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptContainerFrame_backgroundSlotObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptContainerFrame_backgroundSlotObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFramesObject
----@field StandardOneIconPAD1SLASH UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject
----@field StandardOneIconPAD4SLASH UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject
----@field StandardOneIconPADDLEFTSLASH UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject
----@field StandardOneIconPADDRIGHTSLASH UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject
-local UIParent_SettingsDropdownControlinputLegend_promptFramesObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject : Frame
----@field ControlDescText UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescTextObject
----@field InputIcon1 UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object
----@field InputIcons table
----@field template string
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject = {}
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:BeginHold(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:DisablePrompt(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:EnableOrDisablePrompt(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:EnablePrompt(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:EndHold(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetDividerSpacingInfo(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetIconDividerControl(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetInputIconControl(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetPromptTextControl(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:OnLoad(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:RefreshInputPromptSize(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetDividerType(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetFocused(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetInputIconSize(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPressable(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPromptFont(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPromptInputIconKey(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPromptText(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetUseDropShadow(...) end
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescTextObject : Frame
----@field FontString UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescText_FontStringObject
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescTextObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescText_FontStringObject : FontString
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescText_FontStringObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object : Frame
----@field ActiveTexture UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_ActiveTextureObject
----@field DisabledTexture UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_DisabledTextureObject
----@field HoldAnim UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnimObject
----@field HoldIndicator UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoverTextureObject
----@field LoadBar UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarObject
----@field LoadBarBG UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarBGObject
----@field LoadBarGlow UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarGlowObject
----@field NormalTexture UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_NormalTextureObject
----@field PressedTexture UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_PressedTextureObject
----@field SpinnerTip UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object = {}
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:BeginHold(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:EndHold(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:OnLoad(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetFocused(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetPressable(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_ActiveTextureObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_DisabledTextureObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarAnimObject
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorBGObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoverTextureObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarBGObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarGlowObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_NormalTextureObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_PressedTextureObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_SpinnerTipObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject : Frame
----@field ControlDescText UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_ControlDescTextObject
----@field InputIcon1 UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object
----@field InputIcons table
----@field template string
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject = {}
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:BeginHold(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:DisablePrompt(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:EnableOrDisablePrompt(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:EnablePrompt(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:EndHold(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:GetDividerSpacingInfo(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:GetIconDividerControl(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:GetInputIconControl(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:GetPromptTextControl(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:OnLoad(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:RefreshInputPromptSize(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetDividerType(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetFocused(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetInputIconSize(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetPressable(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetPromptFont(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetPromptInputIconKey(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetPromptText(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASHObject:SetUseDropShadow(...) end
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_ControlDescTextObject : Frame
----@field FontString UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_ControlDescText_FontStringObject
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_ControlDescTextObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_ControlDescText_FontStringObject : FontString
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_ControlDescText_FontStringObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object : Frame
----@field ActiveTexture UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_ActiveTextureObject
----@field DisabledTexture UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_DisabledTextureObject
----@field HoldAnim UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnimObject
----@field HoldIndicator UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoverTextureObject
----@field LoadBar UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarObject
----@field LoadBarBG UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarBGObject
----@field LoadBarGlow UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarGlowObject
----@field NormalTexture UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_NormalTextureObject
----@field PressedTexture UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_PressedTextureObject
----@field SpinnerTip UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object = {}
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:BeginHold(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:EndHold(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:OnLoad(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetFocused(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetPressable(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_ActiveTextureObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_DisabledTextureObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_LoadBarAnimObject
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldIndicatorObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldIndicatorBGObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoverTextureObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarBGObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarGlowObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_NormalTextureObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_PressedTextureObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_SpinnerTipObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPAD4SLASH_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject : Frame
----@field ControlDescText UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescTextObject
----@field InputIcon1 UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object
----@field InputIcons table
----@field template string
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject = {}
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:BeginHold(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:DisablePrompt(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:EnableOrDisablePrompt(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:EnablePrompt(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:EndHold(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetDividerSpacingInfo(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetIconDividerControl(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetInputIconControl(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetPromptTextControl(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:OnLoad(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:RefreshInputPromptSize(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetDividerType(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetFocused(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetInputIconSize(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPressable(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPromptFont(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPromptInputIconKey(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPromptText(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetUseDropShadow(...) end
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescTextObject : Frame
----@field FontString UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescText_FontStringObject
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescTextObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescText_FontStringObject : FontString
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescText_FontStringObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object : Frame
----@field ActiveTexture UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_ActiveTextureObject
----@field DisabledTexture UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_DisabledTextureObject
----@field HoldAnim UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnimObject
----@field HoldIndicator UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoverTextureObject
----@field LoadBar UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarObject
----@field LoadBarBG UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarBGObject
----@field LoadBarGlow UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarGlowObject
----@field NormalTexture UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_NormalTextureObject
----@field PressedTexture UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_PressedTextureObject
----@field SpinnerTip UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object = {}
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:BeginHold(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:EndHold(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:OnLoad(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetFocused(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetPressable(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_ActiveTextureObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_DisabledTextureObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorBGObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoverTextureObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarBGObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarGlowObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_NormalTextureObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_PressedTextureObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_SpinnerTipObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject : Frame
----@field ControlDescText UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescTextObject
----@field InputIcon1 UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object
----@field InputIcons table
----@field template string
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject = {}
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:BeginHold(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:DisablePrompt(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:EnableOrDisablePrompt(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:EnablePrompt(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:EndHold(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetDividerSpacingInfo(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetIconDividerControl(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetInputIconControl(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetPromptTextControl(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:OnLoad(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:RefreshInputPromptSize(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetDividerType(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetFocused(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetInputIconSize(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPressable(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPromptFont(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPromptInputIconKey(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPromptText(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetUseDropShadow(...) end
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescTextObject : Frame
----@field FontString UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescText_FontStringObject
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescTextObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescText_FontStringObject : FontString
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescText_FontStringObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object : Frame
----@field ActiveTexture UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_ActiveTextureObject
----@field DisabledTexture UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_DisabledTextureObject
----@field HoldAnim UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnimObject
----@field HoldIndicator UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoverTextureObject
----@field LoadBar UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarObject
----@field LoadBarBG UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarBGObject
----@field LoadBarGlow UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarGlowObject
----@field NormalTexture UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_NormalTextureObject
----@field PressedTexture UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_PressedTextureObject
----@field SpinnerTip UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object = {}
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:BeginHold(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:EndHold(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:OnLoad(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetFocused(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetPressable(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_ActiveTextureObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_DisabledTextureObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorBGObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoverTextureObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarBGObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarGlowObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_NormalTextureObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_PressedTextureObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_SpinnerTipObject : Texture
-local UIParent_SettingsDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegendObject : Frame
----@field actions table
----@field promptContainerFrame UIParent_SettingsSliderControlinputLegend_promptContainerFrameObject
----@field promptFrames UIParent_SettingsSliderControlinputLegend_promptFramesObject
----@field promptFramesAddOrder table
----@field promptMap table
----@field wrapAroundRowWidth boolean
-local UIParent_SettingsSliderControlinputLegendObject = {}
----@return any ...
-function UIParent_SettingsSliderControlinputLegendObject:AddModifierSection(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegendObject:ApplyDefaultPromptPositioning(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegendObject:ApplyDefaultStyle(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegendObject:ApplyEnabledStyleToModifierSection(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegendObject:ApplyFocusedStyleToModifierSection(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegendObject:ApplyFocusedStyleToPromptContainer(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegendObject:ApplyNeutralStyleToPromptContainer(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegendObject:ApplyWideStyle(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegendObject:GetOrCreatePromptFrameUsingTemplateAndInputs(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegendObject:InitializePrompts(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegendObject:OnBackgroundAlphaChanged(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegendObject:RefreshWithPromptedBindings(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegendObject:SetLegendWidth(...) end
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptContainerFrameObject : Frame
----@field backgroundBorder UIParent_SettingsSliderControlinputLegend_promptContainerFrame_backgroundBorderObject
----@field backgroundSlot UIParent_SettingsSliderControlinputLegend_promptContainerFrame_backgroundSlotObject
-local UIParent_SettingsSliderControlinputLegend_promptContainerFrameObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptContainerFrame_backgroundBorderObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptContainerFrame_backgroundBorderObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptContainerFrame_backgroundSlotObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptContainerFrame_backgroundSlotObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFramesObject
----@field StandardOneIconPADDLEFTSLASH UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject
----@field StandardOneIconPADDRIGHTSLASH UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject
-local UIParent_SettingsSliderControlinputLegend_promptFramesObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject : Frame
----@field ControlDescText UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescTextObject
----@field InputIcon1 UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object
----@field InputIcons table
----@field template string
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject = {}
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:BeginHold(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:DisablePrompt(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:EnableOrDisablePrompt(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:EnablePrompt(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:EndHold(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetDividerSpacingInfo(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetIconDividerControl(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetInputIconControl(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetPromptTextControl(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:OnLoad(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:RefreshInputPromptSize(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetDividerType(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetFocused(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetInputIconSize(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPressable(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPromptFont(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPromptInputIconKey(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPromptText(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetUseDropShadow(...) end
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescTextObject : Frame
----@field FontString UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescText_FontStringObject
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescTextObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescText_FontStringObject : FontString
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescText_FontStringObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object : Frame
----@field ActiveTexture UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_ActiveTextureObject
----@field DisabledTexture UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_DisabledTextureObject
----@field HoldAnim UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnimObject
----@field HoldIndicator UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoverTextureObject
----@field LoadBar UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarObject
----@field LoadBarBG UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarBGObject
----@field LoadBarGlow UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarGlowObject
----@field NormalTexture UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_NormalTextureObject
----@field PressedTexture UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_PressedTextureObject
----@field SpinnerTip UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object = {}
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:BeginHold(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:EndHold(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:OnLoad(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetFocused(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetPressable(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_ActiveTextureObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_DisabledTextureObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorBGObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoverTextureObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarBGObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarGlowObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_NormalTextureObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_PressedTextureObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_SpinnerTipObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject : Frame
----@field ControlDescText UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescTextObject
----@field InputIcon1 UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object
----@field InputIcons table
----@field template string
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject = {}
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:BeginHold(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:DisablePrompt(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:EnableOrDisablePrompt(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:EnablePrompt(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:EndHold(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetDividerSpacingInfo(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetIconDividerControl(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetInputIconControl(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetPromptTextControl(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:OnLoad(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:RefreshInputPromptSize(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetDividerType(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetFocused(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetInputIconSize(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPressable(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPromptFont(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPromptInputIconKey(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPromptText(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetUseDropShadow(...) end
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescTextObject : Frame
----@field FontString UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescText_FontStringObject
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescTextObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescText_FontStringObject : FontString
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescText_FontStringObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object : Frame
----@field ActiveTexture UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_ActiveTextureObject
----@field DisabledTexture UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_DisabledTextureObject
----@field HoldAnim UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnimObject
----@field HoldIndicator UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoverTextureObject
----@field LoadBar UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarObject
----@field LoadBarBG UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarBGObject
----@field LoadBarGlow UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarGlowObject
----@field NormalTexture UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_NormalTextureObject
----@field PressedTexture UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_PressedTextureObject
----@field SpinnerTip UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object = {}
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:BeginHold(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:EndHold(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:OnLoad(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetFocused(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetPressable(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_ActiveTextureObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_DisabledTextureObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorBGObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoverTextureObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarBGObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarGlowObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_NormalTextureObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_PressedTextureObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_SpinnerTipObject : Texture
-local UIParent_SettingsSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class UIWidgetCenterDisplayFrameObject : Frame
----@field Background UIWidgetCenterDisplayFrame_BackgroundObject
----@field CloseButton UIWidgetCenterDisplayFrame_CloseButtonObject
----@field ExtraButton UIWidgetCenterDisplayFrame_ExtraButtonObject
----@field NineSlice UIWidgetCenterDisplayFrame_NineSliceObject
----@field TitleContainer UIWidgetCenterDisplayFrame_TitleContainerObject
----@field WidgetContainer UIWidgetCenterDisplayFrame_WidgetContainerObject
+---@field TitleContainer MacroFrame_TitleContainerObject
+---@field TopTileStreaks MacroFrame_TopTileStreaksObject
 ---@field layoutType string
-local UIWidgetCenterDisplayFrameObject = {}
+---@field maxTabWidth number
+---@field numTabs number
+---@field selectedTab number
+local MacroFrameObject = {}
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:AddLayoutChildren(...) end
+function MacroFrameObject:ChangeTab(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:ClearFixedSize(...) end
+function MacroFrameObject:DeleteMacro(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:GetAdditionalRegions(...) end
+function MacroFrameObject:EndFocus(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:GetChildHeight(...) end
+function MacroFrameObject:FocusGamepad(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:GetChildSize(...) end
+function MacroFrameObject:GetFocusFrameGlow(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:GetChildWidth(...) end
+function MacroFrameObject:GetFocusFrameRoot(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:GetFixedHeight(...) end
+function MacroFrameObject:GetMacroDataIndex(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:GetFixedSize(...) end
+function MacroFrameObject:GetPortrait(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:GetFixedWidth(...) end
+function MacroFrameObject:GetSelectedIndex(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:GetHeightPadding(...) end
+function MacroFrameObject:GetTitleText(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:GetLayoutChildren(...) end
+function MacroFrameObject:HasPortraitTexture(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:GetMaximumWidth(...) end
+function MacroFrameObject:HideDetails(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:GetMinimumWidth(...) end
+function MacroFrameObject:HideFocusJumpHint(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:GetWidthPadding(...) end
+function MacroFrameObject:HideLeftJumpHint(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:IgnoreLayoutIndex(...) end
+function MacroFrameObject:HideRightJumpHint(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:IsDirty(...) end
+function MacroFrameObject:LockInFocus(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:IsLayoutFrame(...) end
+function MacroFrameObject:OnEvent(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:Layout(...) end
+function MacroFrameObject:OnHide(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:MarkClean(...) end
+function MacroFrameObject:OnLoad(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:MarkDirty(...) end
+function MacroFrameObject:OnShow(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:MarkIgnoreInLayout(...) end
+function MacroFrameObject:RefreshFocus(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:OnCleaned(...) end
+function MacroFrameObject:RefreshIconDataProvider(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:OnEvent(...) end
+function MacroFrameObject:RegisterForInterfaceTransitions(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:OnHide(...) end
+function MacroFrameObject:SaveMacro(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:OnLoad(...) end
+function MacroFrameObject:SelectMacro(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:OnShow(...) end
+function MacroFrameObject:SelectTab(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:OnUpdate(...) end
+function MacroFrameObject:SetAccountMacros(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:SetFixedHeight(...) end
+function MacroFrameObject:SetBorder(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:SetFixedSize(...) end
+function MacroFrameObject:SetCharacterMacros(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:SetFixedWidth(...) end
+function MacroFrameObject:SetFrameLevelsFromBaseLevel(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:SetHeightPadding(...) end
+function MacroFrameObject:SetPortraitAtlasRaw(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:SetMaximumWidth(...) end
+function MacroFrameObject:SetPortraitShown(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:SetMinimumWidth(...) end
+function MacroFrameObject:SetPortraitTexCoord(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:SetWidthPadding(...) end
+function MacroFrameObject:SetPortraitTextureRaw(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:Setup(...) end
+function MacroFrameObject:SetPortraitTextureSizeAndOffset(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:SetupButtons(...) end
+function MacroFrameObject:SetPortraitToAsset(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrameObject:ShouldClearOnUpdateAfterClean(...) end
----@type UIWidgetCenterDisplayFrameObject
-UIWidgetCenterDisplayFrame = UIWidgetCenterDisplayFrameObject
+function MacroFrameObject:SetPortraitToBag(...) end
+---@return any ...
+function MacroFrameObject:SetPortraitToClassIcon(...) end
+---@return any ...
+function MacroFrameObject:SetPortraitToSpecIcon(...) end
+---@return any ...
+function MacroFrameObject:SetPortraitToUnit(...) end
+---@return any ...
+function MacroFrameObject:SetTitle(...) end
+---@return any ...
+function MacroFrameObject:SetTitleColor(...) end
+---@return any ...
+function MacroFrameObject:SetTitleFormatted(...) end
+---@return any ...
+function MacroFrameObject:SetTitleMaxLinesAndHeight(...) end
+---@return any ...
+function MacroFrameObject:SetTitleOffsets(...) end
+---@return any ...
+function MacroFrameObject:SetUpGamepad(...) end
+---@return any ...
+function MacroFrameObject:ShowDetails(...) end
+---@return any ...
+function MacroFrameObject:ShowFocusJumpHint(...) end
+---@return any ...
+function MacroFrameObject:ShowLeftJumpHint(...) end
+---@return any ...
+function MacroFrameObject:ShowRightJumpHint(...) end
+---@return any ...
+function MacroFrameObject:StartFocus(...) end
+---@return any ...
+function MacroFrameObject:UnfocusGamepad(...) end
+---@return any ...
+function MacroFrameObject:Update(...) end
+---@return any ...
+function MacroFrameObject:UpdateButtons(...) end
+---@type MacroFrameObject
+MacroFrame = MacroFrameObject
 end
 
 do
----@class UIWidgetCenterDisplayFrame_BackgroundObject : Texture
+---@class MacroFrame_BgObject : Texture
+local MacroFrame_BgObject = {}
+end
+
+do
+---@class MacroFrame_CloseButtonObject : Button
+local MacroFrame_CloseButtonObject = {}
+---@return any ...
+function MacroFrame_CloseButtonObject:NarrationGetName(...) end
+---@return any ...
+function MacroFrame_CloseButtonObject:OnLoad(...) end
+end
+
+do
+---@class MacroFrame_FocusJumpHintObject : Frame
+---@field ActiveTexture MacroFrame_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture MacroFrame_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim MacroFrame_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator MacroFrame_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG MacroFrame_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture MacroFrame_FocusJumpHint_HoverTextureObject
+---@field LoadBar MacroFrame_FocusJumpHint_LoadBarObject
+---@field LoadBarBG MacroFrame_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow MacroFrame_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture MacroFrame_FocusJumpHint_NormalTextureObject
+---@field PressedTexture MacroFrame_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip MacroFrame_FocusJumpHint_SpinnerTipObject
 ---@field ignoreInLayout boolean
-local UIWidgetCenterDisplayFrame_BackgroundObject = {}
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local MacroFrame_FocusJumpHintObject = {}
+---@return any ...
+function MacroFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function MacroFrame_FocusJumpHintObject:BeginHold(...) end
+---@return any ...
+function MacroFrame_FocusJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function MacroFrame_FocusJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function MacroFrame_FocusJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function MacroFrame_FocusJumpHintObject:EndHold(...) end
+---@return any ...
+function MacroFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function MacroFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function MacroFrame_FocusJumpHintObject:OnLoad(...) end
+---@return any ...
+function MacroFrame_FocusJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function MacroFrame_FocusJumpHintObject:SetDisabled(...) end
+---@return any ...
+function MacroFrame_FocusJumpHintObject:SetEnabled(...) end
+---@return any ...
+function MacroFrame_FocusJumpHintObject:SetFocused(...) end
+---@return any ...
+function MacroFrame_FocusJumpHintObject:SetHoldState(...) end
+---@return any ...
+function MacroFrame_FocusJumpHintObject:SetInputKey(...) end
+---@return any ...
+function MacroFrame_FocusJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function MacroFrame_FocusJumpHintObject:SetPressable(...) end
+---@return any ...
+function MacroFrame_FocusJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function MacroFrame_FocusJumpHintObject:SetTextureState(...) end
+---@return any ...
+function MacroFrame_FocusJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function MacroFrame_FocusJumpHintObject:SetUsableState(...) end
+---@return any ...
+function MacroFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class UIWidgetCenterDisplayFrame_CloseButtonObject : Button
----@field Left UIWidgetCenterDisplayFrame_CloseButton_LeftObject
----@field Middle UIWidgetCenterDisplayFrame_CloseButton_MiddleObject
----@field Right UIWidgetCenterDisplayFrame_CloseButton_RightObject
----@field Text UIWidgetCenterDisplayFrame_CloseButton_TextObject
+---@class MacroFrame_FocusJumpHint_ActiveTextureObject : Texture
+local MacroFrame_FocusJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class MacroFrame_FocusJumpHint_DisabledTextureObject : Texture
+local MacroFrame_FocusJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class MacroFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim MacroFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim MacroFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim MacroFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local MacroFrame_FocusJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class MacroFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local MacroFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class MacroFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local MacroFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class MacroFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local MacroFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class MacroFrame_FocusJumpHint_HoldIndicatorObject : Texture
+local MacroFrame_FocusJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class MacroFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
+local MacroFrame_FocusJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class MacroFrame_FocusJumpHint_HoverTextureObject : Texture
+local MacroFrame_FocusJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class MacroFrame_FocusJumpHint_LoadBarObject : Texture
+local MacroFrame_FocusJumpHint_LoadBarObject = {}
+end
+
+do
+---@class MacroFrame_FocusJumpHint_LoadBarBGObject : Texture
+local MacroFrame_FocusJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class MacroFrame_FocusJumpHint_LoadBarGlowObject : Texture
+local MacroFrame_FocusJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class MacroFrame_FocusJumpHint_NormalTextureObject : Texture
+local MacroFrame_FocusJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class MacroFrame_FocusJumpHint_PressedTextureObject : Texture
+local MacroFrame_FocusJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class MacroFrame_FocusJumpHint_SpinnerTipObject : Texture
+local MacroFrame_FocusJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class MacroFrame_FrameGlowObject : Frame
+---@field GlowTexture MacroFrame_FrameGlow_GlowTextureObject
+---@field glowTextures table
+local MacroFrame_FrameGlowObject = {}
+---@return any ...
+function MacroFrame_FrameGlowObject:GetContainerFrame(...) end
+---@return any ...
+function MacroFrame_FrameGlowObject:GetFrameLayoutType(...) end
+---@return any ...
+function MacroFrame_FrameGlowObject:GetHeaderFrame(...) end
+---@return any ...
+function MacroFrame_FrameGlowObject:OnLoad(...) end
+end
+
+do
+---@class MacroFrame_FrameGlow_GlowTextureObject : Texture
+local MacroFrame_FrameGlow_GlowTextureObject = {}
+end
+
+do
+---@class MacroFrame_InsetObject : Frame
+---@field Bg MacroFrame_Inset_BgObject
+---@field NineSlice MacroFrame_Inset_NineSliceObject
+---@field layoutType string
+local MacroFrame_InsetObject = {}
+end
+
+do
+---@class MacroFrame_Inset_BgObject : Texture
+local MacroFrame_Inset_BgObject = {}
+end
+
+do
+---@class MacroFrame_Inset_NineSliceObject : Frame
+---@field BottomEdge MacroFrame_Inset_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner MacroFrame_Inset_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner MacroFrame_Inset_NineSlice_BottomRightCornerObject
+---@field LeftEdge MacroFrame_Inset_NineSlice_LeftEdgeObject
+---@field RightEdge MacroFrame_Inset_NineSlice_RightEdgeObject
+---@field TopEdge MacroFrame_Inset_NineSlice_TopEdgeObject
+---@field TopLeftCorner MacroFrame_Inset_NineSlice_TopLeftCornerObject
+---@field TopRightCorner MacroFrame_Inset_NineSlice_TopRightCornerObject
+local MacroFrame_Inset_NineSliceObject = {}
+---@return any ...
+function MacroFrame_Inset_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function MacroFrame_Inset_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function MacroFrame_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function MacroFrame_Inset_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function MacroFrame_Inset_NineSliceObject:OnLoad(...) end
+---@return any ...
+function MacroFrame_Inset_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function MacroFrame_Inset_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function MacroFrame_Inset_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function MacroFrame_Inset_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function MacroFrame_Inset_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class MacroFrame_Inset_NineSlice_BottomEdgeObject : Texture
+local MacroFrame_Inset_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class MacroFrame_Inset_NineSlice_BottomLeftCornerObject : Texture
+local MacroFrame_Inset_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class MacroFrame_Inset_NineSlice_BottomRightCornerObject : Texture
+local MacroFrame_Inset_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class MacroFrame_Inset_NineSlice_LeftEdgeObject : Texture
+local MacroFrame_Inset_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class MacroFrame_Inset_NineSlice_RightEdgeObject : Texture
+local MacroFrame_Inset_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class MacroFrame_Inset_NineSlice_TopEdgeObject : Texture
+local MacroFrame_Inset_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class MacroFrame_Inset_NineSlice_TopLeftCornerObject : Texture
+local MacroFrame_Inset_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class MacroFrame_Inset_NineSlice_TopRightCornerObject : Texture
+local MacroFrame_Inset_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class MacroFrame_LeftJumpHintObject : Frame
+---@field ActiveTexture MacroFrame_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture MacroFrame_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim MacroFrame_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator MacroFrame_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG MacroFrame_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture MacroFrame_LeftJumpHint_HoverTextureObject
+---@field LoadBar MacroFrame_LeftJumpHint_LoadBarObject
+---@field LoadBarBG MacroFrame_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow MacroFrame_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture MacroFrame_LeftJumpHint_NormalTextureObject
+---@field PressedTexture MacroFrame_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip MacroFrame_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local MacroFrame_LeftJumpHintObject = {}
+---@return any ...
+function MacroFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function MacroFrame_LeftJumpHintObject:BeginHold(...) end
+---@return any ...
+function MacroFrame_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function MacroFrame_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function MacroFrame_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function MacroFrame_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function MacroFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function MacroFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function MacroFrame_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function MacroFrame_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function MacroFrame_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function MacroFrame_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function MacroFrame_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function MacroFrame_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function MacroFrame_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function MacroFrame_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function MacroFrame_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function MacroFrame_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function MacroFrame_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function MacroFrame_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function MacroFrame_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function MacroFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class MacroFrame_LeftJumpHint_ActiveTextureObject : Texture
+local MacroFrame_LeftJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class MacroFrame_LeftJumpHint_DisabledTextureObject : Texture
+local MacroFrame_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class MacroFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim MacroFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim MacroFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim MacroFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local MacroFrame_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class MacroFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local MacroFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class MacroFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local MacroFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class MacroFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local MacroFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class MacroFrame_LeftJumpHint_HoldIndicatorObject : Texture
+local MacroFrame_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class MacroFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
+local MacroFrame_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class MacroFrame_LeftJumpHint_HoverTextureObject : Texture
+local MacroFrame_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class MacroFrame_LeftJumpHint_LoadBarObject : Texture
+local MacroFrame_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class MacroFrame_LeftJumpHint_LoadBarBGObject : Texture
+local MacroFrame_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class MacroFrame_LeftJumpHint_LoadBarGlowObject : Texture
+local MacroFrame_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class MacroFrame_LeftJumpHint_NormalTextureObject : Texture
+local MacroFrame_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class MacroFrame_LeftJumpHint_PressedTextureObject : Texture
+local MacroFrame_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class MacroFrame_LeftJumpHint_SpinnerTipObject : Texture
+local MacroFrame_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class MacroFrame_MacroSelectorObject : Frame
+---@field ScrollBar MacroFrame_MacroSelector_ScrollBarObject
+---@field ScrollBox MacroFrame_MacroSelector_ScrollBoxObject
+---@field bottom number
+---@field buttonTemplate string
+---@field customStride number
+---@field horizontalSpacing number
+---@field left number
+---@field retainScrollPosition boolean
+---@field right number
+---@field templateType string
+---@field top number
+---@field verticalSpacing number
+local MacroFrame_MacroSelectorObject = {}
+---@return any ...
+function MacroFrame_MacroSelectorObject:AdjustScrollBarOffsets(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:EnumerateButtons(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:GetButtonHeight(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:GetButtonTemplate(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:GetButtonWidth(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:GetNumSelections(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:GetPadding(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:GetSelectedIndex(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:GetSelection(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:GetSetupCallback(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:GetStride(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:Init(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:IsSelected(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:OnSelection(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:OnShow(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:RunSetup(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:ScrollToElementDataIndex(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:ScrollToSelectedIndex(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:SetCustomButtonHeight(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:SetCustomButtonTemplate(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:SetCustomButtonWidth(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:SetCustomPadding(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:SetCustomStride(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:SetSelectedCallback(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:SetSelectedIndex(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:SetSelectionsArray(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:SetSelectionsDataProvider(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:SetSetupCallback(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:UpdateAllSelectedTextures(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:UpdateSelections(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:selectedCallback(...) end
+---@return any ...
+function MacroFrame_MacroSelectorObject:setupCallback(...) end
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBarObject : Frame
+---@field Back MacroFrame_MacroSelector_ScrollBar_BackObject
+---@field Defaults MacroFrame_MacroSelector_ScrollBar_DefaultsObject
+---@field Directions MacroFrame_MacroSelector_ScrollBar_DirectionsObject
+---@field Event MacroFrame_MacroSelector_ScrollBar_EventObject
+---@field Forward MacroFrame_MacroSelector_ScrollBar_ForwardObject
+---@field Track MacroFrame_MacroSelector_ScrollBar_TrackObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field hideTrack boolean
+---@field hideTrackIfThumbExceedsTrack boolean
+---@field isScrollController boolean
+---@field minThumbExtent number
+---@field panDelay number
+---@field panExtentPercentage number
+---@field panRepeatTime number
+---@field smartNavigationIgnored boolean
+---@field snapToInterval boolean
+---@field thumbAnchor string
+---@field useProportionalThumb boolean
+---@field visibleExtentPercentage number
+---@field wheelPanScalar number
+local MacroFrame_MacroSelector_ScrollBarObject = {}
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:CallInternalScope(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:CanCursorStepInDirection(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:CanInterpolateScroll(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:DisableControls(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:EnableInternalPriority(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:EnableSnapToInterval(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:GenerateCallbackEvents(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:GetBackStepper(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:GetCallbackTable(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:GetCallbackTables(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:GetCallbacksByEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:GetForwardStepper(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:GetFrameExtent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:GetIntervalRange(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:GetLower(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:GetPanExtentPercentage(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:GetPanRepeatDelay(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:GetPanRepeatTime(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:GetScrollInterpolator(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:GetScrollPercentage(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:GetThumb(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:GetThumbAnchor(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:GetTrack(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:GetTrackExtent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:GetUpper(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:GetWheelPanPercentage(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:HasScrollableExtent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:Init(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:InitializeNarration(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:Interpolate(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:IsAtBegin(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:IsAtEnd(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:IsHorizontal(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:IsScrollAllowed(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:IsThumbMouseDown(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:OnHide_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:OnLoad(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:OnMouseWheel(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:OnShow_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:OnStepperMouseDown(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:OnThumbMouseDown(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:OnTrackMouseDown(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:RegisterCallback(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:ScrollDecrease(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:ScrollInDirection(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:ScrollIncrease(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:ScrollPageInDirection(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:ScrollStepInDirection(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:ScrollToBegin(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:ScrollToEnd(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:ScrollWheelInDirection(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:SecureInsertEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:SelectCursorComponent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:SelectPointComponent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:SetFrameExtent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:SetHideIfUnscrollable(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:SetHorizontal(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:SetInterpolateScroll(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:SetPanExtentPercentage(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:SetScrollAllowed(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:SetScrollPercentage(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:SetThumbExtent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:SetVisibleExtentPercentage(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:TriggerEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:UnregisterCallback(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:UnregisterEvents(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:UnregisterUpdate(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:Update(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:onButtonMouseUp(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBarObject:scrollInternal(...) end
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBar_BackObject : Button
+---@field Event MacroFrame_MacroSelector_ScrollBar_Back_EventObject
+---@field Texture MacroFrame_MacroSelector_ScrollBar_Back_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local MacroFrame_MacroSelector_ScrollBar_BackObject = {}
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:GetAtlas(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:GetCallbackTable(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:GetCallbackTables(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:IsDown(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:IsDownOver(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:IsOver(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:NarrationGetName(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:OnButtonStateChanged(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:OnDisable(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:OnEnable(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:OnEnter(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:OnLeave(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:OnLoad(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:OnMouseDown(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:OnMouseUp(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:OnShow(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:RegisterCallback(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:SecureInsertEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:SetDisplacedRegions(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:TriggerEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:UnregisterCallback(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:UnregisterEvents(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBar_Back_EventObject
+local MacroFrame_MacroSelector_ScrollBar_Back_EventObject = {}
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBar_Back_TextureObject : Texture
+local MacroFrame_MacroSelector_ScrollBar_Back_TextureObject = {}
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBar_DefaultsObject
+local MacroFrame_MacroSelector_ScrollBar_DefaultsObject = {}
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBar_DirectionsObject
+local MacroFrame_MacroSelector_ScrollBar_DirectionsObject = {}
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBar_EventObject
+local MacroFrame_MacroSelector_ScrollBar_EventObject = {}
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBar_ForwardObject : Button
+---@field Event MacroFrame_MacroSelector_ScrollBar_Forward_EventObject
+---@field Texture MacroFrame_MacroSelector_ScrollBar_Forward_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local MacroFrame_MacroSelector_ScrollBar_ForwardObject = {}
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:GetAtlas(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:GetCallbackTable(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:GetCallbackTables(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:IsDown(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:IsDownOver(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:IsOver(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:NarrationGetName(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:OnDisable(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:OnEnable(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:OnEnter(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:OnLeave(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:OnLoad(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:OnMouseDown(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:OnMouseUp(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:OnShow(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:RegisterCallback(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:TriggerEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:UnregisterCallback(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:UnregisterEvents(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBar_Forward_EventObject
+local MacroFrame_MacroSelector_ScrollBar_Forward_EventObject = {}
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBar_Forward_TextureObject : Texture
+local MacroFrame_MacroSelector_ScrollBar_Forward_TextureObject = {}
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBar_TrackObject : Frame
+---@field Begin MacroFrame_MacroSelector_ScrollBar_Track_BeginObject
+---@field End MacroFrame_MacroSelector_ScrollBar_Track_EndObject
+---@field Middle MacroFrame_MacroSelector_ScrollBar_Track_MiddleObject
+---@field Thumb MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject
+local MacroFrame_MacroSelector_ScrollBar_TrackObject = {}
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBar_Track_BeginObject : Texture
+local MacroFrame_MacroSelector_ScrollBar_Track_BeginObject = {}
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBar_Track_EndObject : Texture
+local MacroFrame_MacroSelector_ScrollBar_Track_EndObject = {}
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBar_Track_MiddleObject : Texture
+local MacroFrame_MacroSelector_ScrollBar_Track_MiddleObject = {}
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject : Button
+---@field Begin MacroFrame_MacroSelector_ScrollBar_Track_Thumb_BeginObject
+---@field End MacroFrame_MacroSelector_ScrollBar_Track_Thumb_EndObject
+---@field Event MacroFrame_MacroSelector_ScrollBar_Track_Thumb_EventObject
+---@field Middle MacroFrame_MacroSelector_ScrollBar_Track_Thumb_MiddleObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field downBeginTexture string
+---@field downEndTexture string
+---@field downMiddleTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field overBeginTexture string
+---@field overEndTexture string
+---@field overMiddleTexture string
+---@field upBeginTexture string
+---@field upEndTexture string
+---@field upMiddleTexture string
+local MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject = {}
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:IsDown(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:IsOver(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:OnDisable(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:OnEnable(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:OnEnter(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:OnLeave(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:OnLoad(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:OnShow(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBar_Track_Thumb_BeginObject : Texture
+local MacroFrame_MacroSelector_ScrollBar_Track_Thumb_BeginObject = {}
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBar_Track_Thumb_EndObject : Texture
+local MacroFrame_MacroSelector_ScrollBar_Track_Thumb_EndObject = {}
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBar_Track_Thumb_EventObject
+local MacroFrame_MacroSelector_ScrollBar_Track_Thumb_EventObject = {}
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBar_Track_Thumb_MiddleObject : Texture
+local MacroFrame_MacroSelector_ScrollBar_Track_Thumb_MiddleObject = {}
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBoxObject : Frame
+---@field Defaults MacroFrame_MacroSelector_ScrollBox_DefaultsObject
+---@field Directions MacroFrame_MacroSelector_ScrollBox_DirectionsObject
+---@field DragDelegate MacroFrame_MacroSelector_ScrollBox_DragDelegateObject
+---@field Event MacroFrame_MacroSelector_ScrollBox_EventObject
+---@field ScrollTarget MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject
+---@field Shadows MacroFrame_MacroSelector_ScrollBox_ShadowsObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field debugInspectionSystem string
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field isScrollController boolean
+---@field panExtentPercentage number
+---@field wheelPanScalar number
+local MacroFrame_MacroSelector_ScrollBoxObject = {}
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ApplyEdgeFade(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:CalculateEdgeFade(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:CalculatePanExtentPercentage(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:CalculateScrollPercentage(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:CanInterpolateScroll(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ClearEdgeFade(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ContainsElementDataByPredicate(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:EnableSnapToInterval(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:EnumerateDataProvider(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:EnumerateDataProviderEntireRange(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:EnumerateFrames(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:FindByPredicate(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:FindElementData(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:FindElementDataByPredicate(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:FindElementDataIndex(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:FindElementDataIndexByPredicate(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:FindFrame(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:FindFrameByPredicate(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:FindFrameElementDataIndex(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:Flush(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:FlushDataProvider(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ForEachElementData(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ForEachFrame(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:FullUpdate(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:FullUpdateInternal(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GenerateCallbackEvents(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetBottomPadding(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetCallbackTable(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetCallbackTables(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetCallbacksByEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetDataIndexBegin(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetDataIndexEnd(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetDataProvider(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetDataProviderSize(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetDerivedExtent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetDerivedScrollOffset(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetDerivedScrollRange(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetElementExtent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetExtent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetExtentPadding(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetExtentUntil(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetFrameCount(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetFrameExtent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetFrames(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetIntervalRange(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetLeftPadding(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetLower(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetLowerPadding(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetLowerShadowTexture(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetPadding(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetPanExtent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetPanExtentPercentage(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetRightPadding(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetScrollInterpolator(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetScrollPercentage(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetScrollTarget(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetTopPadding(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetUpper(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetUpperPadding(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetUpperShadowTexture(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetView(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetVisibleExtent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:GetWheelPanPercentage(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:HasDataProvider(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:HasEdgeFade(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:HasScrollableExtent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:HasView(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:Init(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:Interpolate(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:IsAcquireLocked(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:IsAlignmentOverlapIgnored(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:IsAtBegin(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:IsAtEnd(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:IsHorizontal(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:IsScrollAllowed(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:IsScrollToDataIndexSafe(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:IsUpdateLocked(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:IsVirtualized(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:Layout(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:OnLoad(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:OnMouseWheel(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:OnScrollTargetSizeChanged(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:OnSizeChanged(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:OnViewAcquiredFrame(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:OnViewDataChanged(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:OnViewDataProviderReassigned(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:OnViewInitializedFrame(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:OnViewReleasedFrame(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:Rebuild(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:RecalculateDerivedExtent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:RegisterCallback(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ReinitializeFrames(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:RemoveDataProvider(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ReverseEnumerateDataProvider(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ReverseForEachElementData(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ReverseForEachFrame(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SanitizeAlignment(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ScrollDecrease(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ScrollInDirection(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ScrollIncrease(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ScrollToBegin(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ScrollToElementData(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ScrollToElementDataByPredicate(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ScrollToElementDataIndex(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ScrollToEnd(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ScrollToFrame(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ScrollToNearest(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ScrollToNearestByPredicate(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ScrollToOffset(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SecureInsertEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SelectCursorComponent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SelectPointComponent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SetAlignmentOverlapIgnored(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SetDataProvider(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SetEdgeFadeLength(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SetFrameExtent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SetHorizontal(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SetInterpolateScroll(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SetLowerShadowAtlas(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SetPadding(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SetPanExtent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SetPanExtentPercentage(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SetScrollAllowed(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SetScrollPercentage(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SetScrollTargetOffset(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SetShadowsFrameLevel(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SetShadowsScale(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SetShadowsShown(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SetUpdateLocked(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SetUpperShadowAtlas(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SetUseShadowsForEdgeFade(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:SetView(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:TriggerEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:UnregisterCallback(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:UnregisterEvents(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:Update(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBoxObject:scrollInternal(...) end
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBox_DefaultsObject
+local MacroFrame_MacroSelector_ScrollBox_DefaultsObject = {}
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBox_DirectionsObject
+local MacroFrame_MacroSelector_ScrollBox_DirectionsObject = {}
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBox_DragDelegateObject : Frame
+local MacroFrame_MacroSelector_ScrollBox_DragDelegateObject = {}
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBox_EventObject
+local MacroFrame_MacroSelector_ScrollBox_EventObject = {}
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject : Frame
+---@field Event MacroFrame_MacroSelector_ScrollBox_ScrollTarget_EventObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+local MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject = {}
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject:GetCallbackTable(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject:GetCallbackTables(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject:OnLoad(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject:RegisterCallback(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject:TriggerEvent(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject:UnregisterCallback(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject:UnregisterEvents(...) end
+---@return any ...
+function MacroFrame_MacroSelector_ScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBox_ScrollTarget_EventObject
+local MacroFrame_MacroSelector_ScrollBox_ScrollTarget_EventObject = {}
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBox_ShadowsObject : Frame
+---@field Lower MacroFrame_MacroSelector_ScrollBox_Shadows_LowerObject
+---@field Upper MacroFrame_MacroSelector_ScrollBox_Shadows_UpperObject
+local MacroFrame_MacroSelector_ScrollBox_ShadowsObject = {}
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBox_Shadows_LowerObject : Texture
+local MacroFrame_MacroSelector_ScrollBox_Shadows_LowerObject = {}
+end
+
+do
+---@class MacroFrame_MacroSelector_ScrollBox_Shadows_UpperObject : Texture
+local MacroFrame_MacroSelector_ScrollBox_Shadows_UpperObject = {}
+end
+
+do
+---@class MacroFrame_NineSliceObject : Frame
+---@field BottomEdge MacroFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner MacroFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner MacroFrame_NineSlice_BottomRightCornerObject
+---@field Center MacroFrame_NineSlice_CenterObject
+---@field LeftEdge MacroFrame_NineSlice_LeftEdgeObject
+---@field RightEdge MacroFrame_NineSlice_RightEdgeObject
+---@field TopEdge MacroFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner MacroFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner MacroFrame_NineSlice_TopRightCornerObject
+local MacroFrame_NineSliceObject = {}
+---@return any ...
+function MacroFrame_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function MacroFrame_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function MacroFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function MacroFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function MacroFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function MacroFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function MacroFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function MacroFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function MacroFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function MacroFrame_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class MacroFrame_NineSlice_BottomEdgeObject : Texture
+local MacroFrame_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class MacroFrame_NineSlice_BottomLeftCornerObject : Texture
+local MacroFrame_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class MacroFrame_NineSlice_BottomRightCornerObject : Texture
+local MacroFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class MacroFrame_NineSlice_CenterObject : Texture
+local MacroFrame_NineSlice_CenterObject = {}
+end
+
+do
+---@class MacroFrame_NineSlice_LeftEdgeObject : Texture
+local MacroFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class MacroFrame_NineSlice_RightEdgeObject : Texture
+local MacroFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class MacroFrame_NineSlice_TopEdgeObject : Texture
+local MacroFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class MacroFrame_NineSlice_TopLeftCornerObject : Texture
+local MacroFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class MacroFrame_NineSlice_TopRightCornerObject : Texture
+local MacroFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class MacroFrame_PortraitContainerObject : Frame
+---@field CircleMask MacroFrame_PortraitContainer_CircleMaskObject
+---@field portrait MacroFrame_PortraitContainer_portraitObject
+local MacroFrame_PortraitContainerObject = {}
+end
+
+do
+---@class MacroFrame_PortraitContainer_CircleMaskObject : MaskTexture
+local MacroFrame_PortraitContainer_CircleMaskObject = {}
+end
+
+do
+---@class MacroFrame_PortraitContainer_portraitObject : Texture
+local MacroFrame_PortraitContainer_portraitObject = {}
+end
+
+do
+---@class MacroFrame_RightJumpHintObject : Frame
+---@field ActiveTexture MacroFrame_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture MacroFrame_RightJumpHint_DisabledTextureObject
+---@field HoldAnim MacroFrame_RightJumpHint_HoldAnimObject
+---@field HoldIndicator MacroFrame_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG MacroFrame_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture MacroFrame_RightJumpHint_HoverTextureObject
+---@field LoadBar MacroFrame_RightJumpHint_LoadBarObject
+---@field LoadBarBG MacroFrame_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow MacroFrame_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture MacroFrame_RightJumpHint_NormalTextureObject
+---@field PressedTexture MacroFrame_RightJumpHint_PressedTextureObject
+---@field SpinnerTip MacroFrame_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local MacroFrame_RightJumpHintObject = {}
+---@return any ...
+function MacroFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function MacroFrame_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function MacroFrame_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function MacroFrame_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function MacroFrame_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function MacroFrame_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function MacroFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function MacroFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function MacroFrame_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function MacroFrame_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function MacroFrame_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function MacroFrame_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function MacroFrame_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function MacroFrame_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function MacroFrame_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function MacroFrame_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function MacroFrame_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function MacroFrame_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function MacroFrame_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function MacroFrame_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function MacroFrame_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function MacroFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class MacroFrame_RightJumpHint_ActiveTextureObject : Texture
+local MacroFrame_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class MacroFrame_RightJumpHint_DisabledTextureObject : Texture
+local MacroFrame_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class MacroFrame_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim MacroFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim MacroFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim MacroFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local MacroFrame_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class MacroFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+local MacroFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class MacroFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local MacroFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class MacroFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local MacroFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class MacroFrame_RightJumpHint_HoldIndicatorObject : Texture
+local MacroFrame_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class MacroFrame_RightJumpHint_HoldIndicatorBGObject : Texture
+local MacroFrame_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class MacroFrame_RightJumpHint_HoverTextureObject : Texture
+local MacroFrame_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class MacroFrame_RightJumpHint_LoadBarObject : Texture
+local MacroFrame_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class MacroFrame_RightJumpHint_LoadBarBGObject : Texture
+local MacroFrame_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class MacroFrame_RightJumpHint_LoadBarGlowObject : Texture
+local MacroFrame_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class MacroFrame_RightJumpHint_NormalTextureObject : Texture
+local MacroFrame_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class MacroFrame_RightJumpHint_PressedTextureObject : Texture
+local MacroFrame_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class MacroFrame_RightJumpHint_SpinnerTipObject : Texture
+local MacroFrame_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class MacroFrame_SelectedMacroButtonObject : CheckButton
+---@field Highlight MacroFrame_SelectedMacroButton_HighlightObject
+---@field Icon MacroFrame_SelectedMacroButton_IconObject
+---@field Name MacroFrame_SelectedMacroButton_NameObject
+---@field SelectedTexture MacroFrame_SelectedMacroButton_SelectedTextureObject
+---@field buttonContext string
+local MacroFrame_SelectedMacroButtonObject = {}
+---@return any ...
+function MacroFrame_SelectedMacroButtonObject:GetIconTexture(...) end
+---@return any ...
+function MacroFrame_SelectedMacroButtonObject:GetSelection(...) end
+---@return any ...
+function MacroFrame_SelectedMacroButtonObject:GetSelectionIndex(...) end
+---@return any ...
+function MacroFrame_SelectedMacroButtonObject:GetSelectorFrame(...) end
+---@return any ...
+function MacroFrame_SelectedMacroButtonObject:Init(...) end
+---@return any ...
+function MacroFrame_SelectedMacroButtonObject:OnClick(...) end
+---@return any ...
+function MacroFrame_SelectedMacroButtonObject:OnDragStart(...) end
+---@return any ...
+function MacroFrame_SelectedMacroButtonObject:OnLoad(...) end
+---@return any ...
+function MacroFrame_SelectedMacroButtonObject:SetIconTexture(...) end
+---@return any ...
+function MacroFrame_SelectedMacroButtonObject:SetSelectionIndex(...) end
+---@return any ...
+function MacroFrame_SelectedMacroButtonObject:UpdateSelectedTexture(...) end
+end
+
+do
+---@class MacroFrame_SelectedMacroButton_HighlightObject : Texture
+local MacroFrame_SelectedMacroButton_HighlightObject = {}
+end
+
+do
+---@class MacroFrame_SelectedMacroButton_IconObject : Texture
+local MacroFrame_SelectedMacroButton_IconObject = {}
+end
+
+do
+---@class MacroFrame_SelectedMacroButton_NameObject : FontString
+local MacroFrame_SelectedMacroButton_NameObject = {}
+end
+
+do
+---@class MacroFrame_SelectedMacroButton_SelectedTextureObject : Texture
+local MacroFrame_SelectedMacroButton_SelectedTextureObject = {}
+end
+
+do
+---@class MacroFrame_TitleContainerObject : Frame
+---@field TitleText MacroFrame_TitleContainer_TitleTextObject
+local MacroFrame_TitleContainerObject = {}
+end
+
+do
+---@class MacroFrame_TitleContainer_TitleTextObject : FontString
+local MacroFrame_TitleContainer_TitleTextObject = {}
+end
+
+do
+---@class MacroFrame_TopTileStreaksObject : Texture
+local MacroFrame_TopTileStreaksObject = {}
+end
+
+do
+---@class MailFrameObject : Frame
+---@field Bg MailFrame_BgObject
+---@field CloseButton MailFrame_CloseButtonObject
+---@field FocusJumpHint MailFrame_FocusJumpHintObject
+---@field FrameGlow MailFrame_FrameGlowObject
+---@field InboxFrame MailFrame_InboxFrameObject
+---@field Inset MailFrame_InsetObject
+---@field LeftJumpHint MailFrame_LeftJumpHintObject
+---@field NineSlice MailFrame_NineSliceObject
+---@field PortraitContainer MailFrame_PortraitContainerObject
+---@field RightJumpHint MailFrame_RightJumpHintObject
+---@field SendMail MailFrame_SendMailObject
+---@field TabIndicators MailFrame_TabIndicatorsObject
+---@field Tabs table
+---@field TitleContainer MailFrame_TitleContainerObject
+---@field TopTileStreaks MailFrame_TopTileStreaksObject
+---@field layoutType string
+---@field maxTabWidth number
+---@field numTabs number
+---@field selectedTab number
+---@field trialError MailFrame_trialErrorObject
+local MailFrameObject = {}
+---@return any ...
+function MailFrameObject:EndFocus(...) end
+---@return any ...
+function MailFrameObject:FocusGamepad(...) end
+---@return any ...
+function MailFrameObject:GetFocusFrameGlow(...) end
+---@return any ...
+function MailFrameObject:GetFocusFrameRoot(...) end
+---@return any ...
+function MailFrameObject:GetPortrait(...) end
+---@return any ...
+function MailFrameObject:GetTitleText(...) end
+---@return any ...
+function MailFrameObject:HasPortraitTexture(...) end
+---@return any ...
+function MailFrameObject:HideFocusJumpHint(...) end
+---@return any ...
+function MailFrameObject:HideLeftJumpHint(...) end
+---@return any ...
+function MailFrameObject:HideRightJumpHint(...) end
+---@return any ...
+function MailFrameObject:InitializeGamepad(...) end
+---@return any ...
+function MailFrameObject:LockInFocus(...) end
+---@return any ...
+function MailFrameObject:OnEvent(...) end
+---@return any ...
+function MailFrameObject:OnHide(...) end
+---@return any ...
+function MailFrameObject:OnLoad(...) end
+---@return any ...
+function MailFrameObject:OnMouseWheel(...) end
+---@return any ...
+function MailFrameObject:RefreshFocus(...) end
+---@return any ...
+function MailFrameObject:RefreshInbox(...) end
+---@return any ...
+function MailFrameObject:RegisterForTransitions(...) end
+---@return any ...
+function MailFrameObject:SetBorder(...) end
+---@return any ...
+function MailFrameObject:SetFrameLevelsFromBaseLevel(...) end
+---@return any ...
+function MailFrameObject:SetPortraitAtlasRaw(...) end
+---@return any ...
+function MailFrameObject:SetPortraitShown(...) end
+---@return any ...
+function MailFrameObject:SetPortraitTexCoord(...) end
+---@return any ...
+function MailFrameObject:SetPortraitTextureRaw(...) end
+---@return any ...
+function MailFrameObject:SetPortraitTextureSizeAndOffset(...) end
+---@return any ...
+function MailFrameObject:SetPortraitToAsset(...) end
+---@return any ...
+function MailFrameObject:SetPortraitToBag(...) end
+---@return any ...
+function MailFrameObject:SetPortraitToClassIcon(...) end
+---@return any ...
+function MailFrameObject:SetPortraitToSpecIcon(...) end
+---@return any ...
+function MailFrameObject:SetPortraitToUnit(...) end
+---@return any ...
+function MailFrameObject:SetTitle(...) end
+---@return any ...
+function MailFrameObject:SetTitleColor(...) end
+---@return any ...
+function MailFrameObject:SetTitleFormatted(...) end
+---@return any ...
+function MailFrameObject:SetTitleMaxLinesAndHeight(...) end
+---@return any ...
+function MailFrameObject:SetTitleOffsets(...) end
+---@return any ...
+function MailFrameObject:SetupGamepad(...) end
+---@return any ...
+function MailFrameObject:ShowFocusJumpHint(...) end
+---@return any ...
+function MailFrameObject:ShowLeftJumpHint(...) end
+---@return any ...
+function MailFrameObject:ShowRightJumpHint(...) end
+---@return any ...
+function MailFrameObject:StartFocus(...) end
+---@return any ...
+function MailFrameObject:UnfocusGamepad(...) end
+---@return any ...
+function MailFrameObject:UninitializeGamepad(...) end
+---@return any ...
+function MailFrameObject:UpdateTrialState(...) end
+---@type MailFrameObject
+MailFrame = MailFrameObject
+end
+
+do
+---@class MailFrame_BgObject : Texture
+local MailFrame_BgObject = {}
+end
+
+do
+---@class MailFrame_CloseButtonObject : Button
+local MailFrame_CloseButtonObject = {}
+---@return any ...
+function MailFrame_CloseButtonObject:NarrationGetName(...) end
+---@return any ...
+function MailFrame_CloseButtonObject:OnLoad(...) end
+end
+
+do
+---@class MailFrame_FocusJumpHintObject : Frame
+---@field ActiveTexture MailFrame_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture MailFrame_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim MailFrame_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator MailFrame_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG MailFrame_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture MailFrame_FocusJumpHint_HoverTextureObject
+---@field LoadBar MailFrame_FocusJumpHint_LoadBarObject
+---@field LoadBarBG MailFrame_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow MailFrame_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture MailFrame_FocusJumpHint_NormalTextureObject
+---@field PressedTexture MailFrame_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip MailFrame_FocusJumpHint_SpinnerTipObject
+---@field ignoreInLayout boolean
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local MailFrame_FocusJumpHintObject = {}
+---@return any ...
+function MailFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function MailFrame_FocusJumpHintObject:BeginHold(...) end
+---@return any ...
+function MailFrame_FocusJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function MailFrame_FocusJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function MailFrame_FocusJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function MailFrame_FocusJumpHintObject:EndHold(...) end
+---@return any ...
+function MailFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function MailFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function MailFrame_FocusJumpHintObject:OnLoad(...) end
+---@return any ...
+function MailFrame_FocusJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function MailFrame_FocusJumpHintObject:SetDisabled(...) end
+---@return any ...
+function MailFrame_FocusJumpHintObject:SetEnabled(...) end
+---@return any ...
+function MailFrame_FocusJumpHintObject:SetFocused(...) end
+---@return any ...
+function MailFrame_FocusJumpHintObject:SetHoldState(...) end
+---@return any ...
+function MailFrame_FocusJumpHintObject:SetInputKey(...) end
+---@return any ...
+function MailFrame_FocusJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function MailFrame_FocusJumpHintObject:SetPressable(...) end
+---@return any ...
+function MailFrame_FocusJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function MailFrame_FocusJumpHintObject:SetTextureState(...) end
+---@return any ...
+function MailFrame_FocusJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function MailFrame_FocusJumpHintObject:SetUsableState(...) end
+---@return any ...
+function MailFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class MailFrame_FocusJumpHint_ActiveTextureObject : Texture
+local MailFrame_FocusJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class MailFrame_FocusJumpHint_DisabledTextureObject : Texture
+local MailFrame_FocusJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class MailFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim MailFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim MailFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim MailFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local MailFrame_FocusJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class MailFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local MailFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class MailFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local MailFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class MailFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local MailFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class MailFrame_FocusJumpHint_HoldIndicatorObject : Texture
+local MailFrame_FocusJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class MailFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
+local MailFrame_FocusJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class MailFrame_FocusJumpHint_HoverTextureObject : Texture
+local MailFrame_FocusJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class MailFrame_FocusJumpHint_LoadBarObject : Texture
+local MailFrame_FocusJumpHint_LoadBarObject = {}
+end
+
+do
+---@class MailFrame_FocusJumpHint_LoadBarBGObject : Texture
+local MailFrame_FocusJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class MailFrame_FocusJumpHint_LoadBarGlowObject : Texture
+local MailFrame_FocusJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class MailFrame_FocusJumpHint_NormalTextureObject : Texture
+local MailFrame_FocusJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class MailFrame_FocusJumpHint_PressedTextureObject : Texture
+local MailFrame_FocusJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class MailFrame_FocusJumpHint_SpinnerTipObject : Texture
+local MailFrame_FocusJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class MailFrame_FrameGlowObject : Frame
+---@field GlowTexture MailFrame_FrameGlow_GlowTextureObject
+---@field glowTextures table
+local MailFrame_FrameGlowObject = {}
+---@return any ...
+function MailFrame_FrameGlowObject:GetContainerFrame(...) end
+---@return any ...
+function MailFrame_FrameGlowObject:GetFrameLayoutType(...) end
+---@return any ...
+function MailFrame_FrameGlowObject:GetHeaderFrame(...) end
+---@return any ...
+function MailFrame_FrameGlowObject:OnLoad(...) end
+end
+
+do
+---@class MailFrame_FrameGlow_GlowTextureObject : Texture
+local MailFrame_FrameGlow_GlowTextureObject = {}
+end
+
+do
+---@class MailFrame_InboxFrameObject : Frame
+---@field NextPageButton MailFrame_InboxFrame_NextPageButtonObject
+---@field OpenAllMail MailFrame_InboxFrame_OpenAllMailObject
+---@field PageTurnIndicatorLeft MailFrame_InboxFrame_PageTurnIndicatorLeftObject
+---@field PageTurnIndicatorRight MailFrame_InboxFrame_PageTurnIndicatorRightObject
+---@field PrevPageButton MailFrame_InboxFrame_PrevPageButtonObject
+---@field pageNum number
+local MailFrame_InboxFrameObject = {}
+---@return any ...
+function MailFrame_InboxFrameObject:FocusGamepad(...) end
+---@return any ...
+function MailFrame_InboxFrameObject:GetMoreMail(...) end
+---@return any ...
+function MailFrame_InboxFrameObject:InitializeGamepad(...) end
+---@return any ...
+function MailFrame_InboxFrameObject:OnLoad(...) end
+---@return any ...
+function MailFrame_InboxFrameObject:RefreshFooter(...) end
+---@return any ...
+function MailFrame_InboxFrameObject:RegisterForTransitions(...) end
+---@return any ...
+function MailFrame_InboxFrameObject:SetupGamepad(...) end
+---@return any ...
+function MailFrame_InboxFrameObject:UnfocusGamepad(...) end
+---@return any ...
+function MailFrame_InboxFrameObject:UninitializeGamepad(...) end
+---@return any ...
+function MailFrame_InboxFrameObject:Update(...) end
+end
+
+do
+---@class MailFrame_InboxFrame_NextPageButtonObject : Button
+local MailFrame_InboxFrame_NextPageButtonObject = {}
+---@return any ...
+function MailFrame_InboxFrame_NextPageButtonObject:NextPage(...) end
+---@return any ...
+function MailFrame_InboxFrame_NextPageButtonObject:OnClick(...) end
+end
+
+do
+---@class MailFrame_InboxFrame_OpenAllMailObject : Button
+---@field Left MailFrame_InboxFrame_OpenAllMail_LeftObject
+---@field Middle MailFrame_InboxFrame_OpenAllMail_MiddleObject
+---@field Right MailFrame_InboxFrame_OpenAllMail_RightObject
+---@field Text MailFrame_InboxFrame_OpenAllMail_TextObject
+---@field attachmentIndex number
 ---@field fitTextCanWidthDecrease boolean
 ---@field fitTextWidthPadding number
-local UIWidgetCenterDisplayFrame_CloseButtonObject = {}
+---@field mailIndex number
+local MailFrame_InboxFrame_OpenAllMailObject = {}
 ---@return any ...
-function UIWidgetCenterDisplayFrame_CloseButtonObject:FitToText(...) end
+function MailFrame_InboxFrame_OpenAllMailObject:AddFailedItem(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrame_CloseButtonObject:GetDisabledTooltip(...) end
+function MailFrame_InboxFrame_OpenAllMailObject:AdvanceAndProcessNextItem(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrame_CloseButtonObject:OnClick(...) end
+function MailFrame_InboxFrame_OpenAllMailObject:AdvanceToNextItem(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrame_CloseButtonObject:OnEnter(...) end
+function MailFrame_InboxFrame_OpenAllMailObject:AdvanceToNextMail(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrame_CloseButtonObject:OnLeave(...) end
+function MailFrame_InboxFrame_OpenAllMailObject:FitToText(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrame_CloseButtonObject:SetDisabledState(...) end
+function MailFrame_InboxFrame_OpenAllMailObject:GetDisabledTooltip(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrame_CloseButtonObject:SetDisabledTooltip(...) end
+function MailFrame_InboxFrame_OpenAllMailObject:IsItemFailed(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrame_CloseButtonObject:SetTextToFit(...) end
+function MailFrame_InboxFrame_OpenAllMailObject:OnClick(...) end
+---@return any ...
+function MailFrame_InboxFrame_OpenAllMailObject:OnEnter(...) end
+---@return any ...
+function MailFrame_InboxFrame_OpenAllMailObject:OnEvent(...) end
+---@return any ...
+function MailFrame_InboxFrame_OpenAllMailObject:OnHide(...) end
+---@return any ...
+function MailFrame_InboxFrame_OpenAllMailObject:OnLeave(...) end
+---@return any ...
+function MailFrame_InboxFrame_OpenAllMailObject:OnLoad(...) end
+---@return any ...
+function MailFrame_InboxFrame_OpenAllMailObject:OnUpdate(...) end
+---@return any ...
+function MailFrame_InboxFrame_OpenAllMailObject:ProcessNextItem(...) end
+---@return any ...
+function MailFrame_InboxFrame_OpenAllMailObject:Reset(...) end
+---@return any ...
+function MailFrame_InboxFrame_OpenAllMailObject:SetDisabledState(...) end
+---@return any ...
+function MailFrame_InboxFrame_OpenAllMailObject:SetDisabledTooltip(...) end
+---@return any ...
+function MailFrame_InboxFrame_OpenAllMailObject:SetTextToFit(...) end
+---@return any ...
+function MailFrame_InboxFrame_OpenAllMailObject:ShouldSkipCurrentAttachment(...) end
+---@return any ...
+function MailFrame_InboxFrame_OpenAllMailObject:ShouldSkipCurrentMail(...) end
+---@return any ...
+function MailFrame_InboxFrame_OpenAllMailObject:StartOpening(...) end
+---@return any ...
+function MailFrame_InboxFrame_OpenAllMailObject:StopOpening(...) end
 end
 
 do
----@class UIWidgetCenterDisplayFrame_CloseButton_LeftObject : Texture
-local UIWidgetCenterDisplayFrame_CloseButton_LeftObject = {}
+---@class MailFrame_InboxFrame_OpenAllMail_LeftObject : Texture
+local MailFrame_InboxFrame_OpenAllMail_LeftObject = {}
 end
 
 do
----@class UIWidgetCenterDisplayFrame_CloseButton_MiddleObject : Texture
-local UIWidgetCenterDisplayFrame_CloseButton_MiddleObject = {}
+---@class MailFrame_InboxFrame_OpenAllMail_MiddleObject : Texture
+local MailFrame_InboxFrame_OpenAllMail_MiddleObject = {}
 end
 
 do
----@class UIWidgetCenterDisplayFrame_CloseButton_RightObject : Texture
-local UIWidgetCenterDisplayFrame_CloseButton_RightObject = {}
+---@class MailFrame_InboxFrame_OpenAllMail_RightObject : Texture
+local MailFrame_InboxFrame_OpenAllMail_RightObject = {}
 end
 
 do
----@class UIWidgetCenterDisplayFrame_CloseButton_TextObject : FontString
-local UIWidgetCenterDisplayFrame_CloseButton_TextObject = {}
+---@class MailFrame_InboxFrame_OpenAllMail_TextObject : FontString
+local MailFrame_InboxFrame_OpenAllMail_TextObject = {}
 end
 
 do
----@class UIWidgetCenterDisplayFrame_ExtraButtonObject : Button
----@field Left UIWidgetCenterDisplayFrame_ExtraButton_LeftObject
----@field Middle UIWidgetCenterDisplayFrame_ExtraButton_MiddleObject
----@field Right UIWidgetCenterDisplayFrame_ExtraButton_RightObject
----@field Text UIWidgetCenterDisplayFrame_ExtraButton_TextObject
+---@class MailFrame_InboxFrame_PageTurnIndicatorLeftObject : Button
+---@field smartNavigationIgnored boolean
+local MailFrame_InboxFrame_PageTurnIndicatorLeftObject = {}
+---@return any ...
+function MailFrame_InboxFrame_PageTurnIndicatorLeftObject:OnHide(...) end
+---@return any ...
+function MailFrame_InboxFrame_PageTurnIndicatorLeftObject:SetEnabledCondition(...) end
+---@return any ...
+function MailFrame_InboxFrame_PageTurnIndicatorLeftObject:SetOnClick(...) end
+---@return any ...
+function MailFrame_InboxFrame_PageTurnIndicatorLeftObject:UpdateEnabledState(...) end
+end
+
+do
+---@class MailFrame_InboxFrame_PageTurnIndicatorRightObject : Button
+---@field smartNavigationIgnored boolean
+local MailFrame_InboxFrame_PageTurnIndicatorRightObject = {}
+---@return any ...
+function MailFrame_InboxFrame_PageTurnIndicatorRightObject:OnHide(...) end
+---@return any ...
+function MailFrame_InboxFrame_PageTurnIndicatorRightObject:SetEnabledCondition(...) end
+---@return any ...
+function MailFrame_InboxFrame_PageTurnIndicatorRightObject:SetOnClick(...) end
+---@return any ...
+function MailFrame_InboxFrame_PageTurnIndicatorRightObject:UpdateEnabledState(...) end
+end
+
+do
+---@class MailFrame_InboxFrame_PrevPageButtonObject : Button
+local MailFrame_InboxFrame_PrevPageButtonObject = {}
+---@return any ...
+function MailFrame_InboxFrame_PrevPageButtonObject:OnClick(...) end
+---@return any ...
+function MailFrame_InboxFrame_PrevPageButtonObject:PrevPage(...) end
+end
+
+do
+---@class MailFrame_InsetObject : Frame
+---@field Bg MailFrame_Inset_BgObject
+---@field NineSlice MailFrame_Inset_NineSliceObject
+---@field layoutType string
+local MailFrame_InsetObject = {}
+end
+
+do
+---@class MailFrame_Inset_BgObject : Texture
+local MailFrame_Inset_BgObject = {}
+end
+
+do
+---@class MailFrame_Inset_NineSliceObject : Frame
+---@field BottomEdge MailFrame_Inset_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner MailFrame_Inset_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner MailFrame_Inset_NineSlice_BottomRightCornerObject
+---@field LeftEdge MailFrame_Inset_NineSlice_LeftEdgeObject
+---@field RightEdge MailFrame_Inset_NineSlice_RightEdgeObject
+---@field TopEdge MailFrame_Inset_NineSlice_TopEdgeObject
+---@field TopLeftCorner MailFrame_Inset_NineSlice_TopLeftCornerObject
+---@field TopRightCorner MailFrame_Inset_NineSlice_TopRightCornerObject
+local MailFrame_Inset_NineSliceObject = {}
+---@return any ...
+function MailFrame_Inset_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function MailFrame_Inset_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function MailFrame_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function MailFrame_Inset_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function MailFrame_Inset_NineSliceObject:OnLoad(...) end
+---@return any ...
+function MailFrame_Inset_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function MailFrame_Inset_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function MailFrame_Inset_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function MailFrame_Inset_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function MailFrame_Inset_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class MailFrame_Inset_NineSlice_BottomEdgeObject : Texture
+local MailFrame_Inset_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class MailFrame_Inset_NineSlice_BottomLeftCornerObject : Texture
+local MailFrame_Inset_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class MailFrame_Inset_NineSlice_BottomRightCornerObject : Texture
+local MailFrame_Inset_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class MailFrame_Inset_NineSlice_LeftEdgeObject : Texture
+local MailFrame_Inset_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class MailFrame_Inset_NineSlice_RightEdgeObject : Texture
+local MailFrame_Inset_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class MailFrame_Inset_NineSlice_TopEdgeObject : Texture
+local MailFrame_Inset_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class MailFrame_Inset_NineSlice_TopLeftCornerObject : Texture
+local MailFrame_Inset_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class MailFrame_Inset_NineSlice_TopRightCornerObject : Texture
+local MailFrame_Inset_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class MailFrame_LeftJumpHintObject : Frame
+---@field ActiveTexture MailFrame_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture MailFrame_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim MailFrame_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator MailFrame_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG MailFrame_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture MailFrame_LeftJumpHint_HoverTextureObject
+---@field LoadBar MailFrame_LeftJumpHint_LoadBarObject
+---@field LoadBarBG MailFrame_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow MailFrame_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture MailFrame_LeftJumpHint_NormalTextureObject
+---@field PressedTexture MailFrame_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip MailFrame_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local MailFrame_LeftJumpHintObject = {}
+---@return any ...
+function MailFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function MailFrame_LeftJumpHintObject:BeginHold(...) end
+---@return any ...
+function MailFrame_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function MailFrame_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function MailFrame_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function MailFrame_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function MailFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function MailFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function MailFrame_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function MailFrame_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function MailFrame_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function MailFrame_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function MailFrame_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function MailFrame_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function MailFrame_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function MailFrame_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function MailFrame_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function MailFrame_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function MailFrame_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function MailFrame_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function MailFrame_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function MailFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class MailFrame_LeftJumpHint_ActiveTextureObject : Texture
+local MailFrame_LeftJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class MailFrame_LeftJumpHint_DisabledTextureObject : Texture
+local MailFrame_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class MailFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim MailFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim MailFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim MailFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local MailFrame_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class MailFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local MailFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class MailFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local MailFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class MailFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local MailFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class MailFrame_LeftJumpHint_HoldIndicatorObject : Texture
+local MailFrame_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class MailFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
+local MailFrame_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class MailFrame_LeftJumpHint_HoverTextureObject : Texture
+local MailFrame_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class MailFrame_LeftJumpHint_LoadBarObject : Texture
+local MailFrame_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class MailFrame_LeftJumpHint_LoadBarBGObject : Texture
+local MailFrame_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class MailFrame_LeftJumpHint_LoadBarGlowObject : Texture
+local MailFrame_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class MailFrame_LeftJumpHint_NormalTextureObject : Texture
+local MailFrame_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class MailFrame_LeftJumpHint_PressedTextureObject : Texture
+local MailFrame_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class MailFrame_LeftJumpHint_SpinnerTipObject : Texture
+local MailFrame_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class MailFrame_NineSliceObject : Frame
+---@field BottomEdge MailFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner MailFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner MailFrame_NineSlice_BottomRightCornerObject
+---@field Center MailFrame_NineSlice_CenterObject
+---@field LeftEdge MailFrame_NineSlice_LeftEdgeObject
+---@field RightEdge MailFrame_NineSlice_RightEdgeObject
+---@field TopEdge MailFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner MailFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner MailFrame_NineSlice_TopRightCornerObject
+local MailFrame_NineSliceObject = {}
+---@return any ...
+function MailFrame_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function MailFrame_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function MailFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function MailFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function MailFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function MailFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function MailFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function MailFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function MailFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function MailFrame_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class MailFrame_NineSlice_BottomEdgeObject : Texture
+local MailFrame_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class MailFrame_NineSlice_BottomLeftCornerObject : Texture
+local MailFrame_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class MailFrame_NineSlice_BottomRightCornerObject : Texture
+local MailFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class MailFrame_NineSlice_CenterObject : Texture
+local MailFrame_NineSlice_CenterObject = {}
+end
+
+do
+---@class MailFrame_NineSlice_LeftEdgeObject : Texture
+local MailFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class MailFrame_NineSlice_RightEdgeObject : Texture
+local MailFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class MailFrame_NineSlice_TopEdgeObject : Texture
+local MailFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class MailFrame_NineSlice_TopLeftCornerObject : Texture
+local MailFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class MailFrame_NineSlice_TopRightCornerObject : Texture
+local MailFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class MailFrame_PortraitContainerObject : Frame
+---@field CircleMask MailFrame_PortraitContainer_CircleMaskObject
+---@field portrait MailFrame_PortraitContainer_portraitObject
+local MailFrame_PortraitContainerObject = {}
+end
+
+do
+---@class MailFrame_PortraitContainer_CircleMaskObject : MaskTexture
+local MailFrame_PortraitContainer_CircleMaskObject = {}
+end
+
+do
+---@class MailFrame_PortraitContainer_portraitObject : Texture
+local MailFrame_PortraitContainer_portraitObject = {}
+end
+
+do
+---@class MailFrame_RightJumpHintObject : Frame
+---@field ActiveTexture MailFrame_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture MailFrame_RightJumpHint_DisabledTextureObject
+---@field HoldAnim MailFrame_RightJumpHint_HoldAnimObject
+---@field HoldIndicator MailFrame_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG MailFrame_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture MailFrame_RightJumpHint_HoverTextureObject
+---@field LoadBar MailFrame_RightJumpHint_LoadBarObject
+---@field LoadBarBG MailFrame_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow MailFrame_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture MailFrame_RightJumpHint_NormalTextureObject
+---@field PressedTexture MailFrame_RightJumpHint_PressedTextureObject
+---@field SpinnerTip MailFrame_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local MailFrame_RightJumpHintObject = {}
+---@return any ...
+function MailFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function MailFrame_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function MailFrame_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function MailFrame_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function MailFrame_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function MailFrame_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function MailFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function MailFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function MailFrame_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function MailFrame_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function MailFrame_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function MailFrame_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function MailFrame_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function MailFrame_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function MailFrame_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function MailFrame_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function MailFrame_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function MailFrame_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function MailFrame_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function MailFrame_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function MailFrame_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function MailFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class MailFrame_RightJumpHint_ActiveTextureObject : Texture
+local MailFrame_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class MailFrame_RightJumpHint_DisabledTextureObject : Texture
+local MailFrame_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class MailFrame_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim MailFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim MailFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim MailFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local MailFrame_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class MailFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+local MailFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class MailFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local MailFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class MailFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local MailFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class MailFrame_RightJumpHint_HoldIndicatorObject : Texture
+local MailFrame_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class MailFrame_RightJumpHint_HoldIndicatorBGObject : Texture
+local MailFrame_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class MailFrame_RightJumpHint_HoverTextureObject : Texture
+local MailFrame_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class MailFrame_RightJumpHint_LoadBarObject : Texture
+local MailFrame_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class MailFrame_RightJumpHint_LoadBarBGObject : Texture
+local MailFrame_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class MailFrame_RightJumpHint_LoadBarGlowObject : Texture
+local MailFrame_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class MailFrame_RightJumpHint_NormalTextureObject : Texture
+local MailFrame_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class MailFrame_RightJumpHint_PressedTextureObject : Texture
+local MailFrame_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class MailFrame_RightJumpHint_SpinnerTipObject : Texture
+local MailFrame_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class MailFrame_SendMailObject : Frame
+---@field CancelButton MailFrame_SendMail_CancelButtonObject
+---@field NameEditBox MailFrame_SendMail_NameEditBoxObject
+---@field ScrollFrame MailFrame_SendMail_ScrollFrameObject
+---@field SendButton MailFrame_SendMail_SendButtonObject
+---@field SendMailAttachments table
+---@field SubjectEditBox MailFrame_SendMail_SubjectEditBoxObject
+---@field smartNavigationIgnoredDontPropagate boolean
+local MailFrame_SendMailObject = {}
+---@return any ...
+function MailFrame_SendMailObject:FocusGamepad(...) end
+---@return any ...
+function MailFrame_SendMailObject:InitializeGamepad(...) end
+---@return any ...
+function MailFrame_SendMailObject:OnLoad(...) end
+---@return any ...
+function MailFrame_SendMailObject:RefreshFooter(...) end
+---@return any ...
+function MailFrame_SendMailObject:RegisterForTransitions(...) end
+---@return any ...
+function MailFrame_SendMailObject:SetupGamepad(...) end
+---@return any ...
+function MailFrame_SendMailObject:UnfocusGamepad(...) end
+---@return any ...
+function MailFrame_SendMailObject:UninitializeGamepad(...) end
+end
+
+do
+---@class MailFrame_SendMail_CancelButtonObject : Button
+---@field Left MailFrame_SendMail_CancelButton_LeftObject
+---@field Middle MailFrame_SendMail_CancelButton_MiddleObject
+---@field Right MailFrame_SendMail_CancelButton_RightObject
+---@field Text MailFrame_SendMail_CancelButton_TextObject
 ---@field fitTextCanWidthDecrease boolean
 ---@field fitTextWidthPadding number
-local UIWidgetCenterDisplayFrame_ExtraButtonObject = {}
+local MailFrame_SendMail_CancelButtonObject = {}
 ---@return any ...
-function UIWidgetCenterDisplayFrame_ExtraButtonObject:FitToText(...) end
+function MailFrame_SendMail_CancelButtonObject:FitToText(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrame_ExtraButtonObject:GetDisabledTooltip(...) end
+function MailFrame_SendMail_CancelButtonObject:GetDisabledTooltip(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrame_ExtraButtonObject:OnClick(...) end
+function MailFrame_SendMail_CancelButtonObject:OnEnter(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrame_ExtraButtonObject:OnEnter(...) end
+function MailFrame_SendMail_CancelButtonObject:OnLeave(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrame_ExtraButtonObject:OnLeave(...) end
+function MailFrame_SendMail_CancelButtonObject:SetDisabledState(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrame_ExtraButtonObject:SetDisabledState(...) end
+function MailFrame_SendMail_CancelButtonObject:SetDisabledTooltip(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrame_ExtraButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_ExtraButtonObject:SetTextToFit(...) end
+function MailFrame_SendMail_CancelButtonObject:SetTextToFit(...) end
 end
 
 do
----@class UIWidgetCenterDisplayFrame_ExtraButton_LeftObject : Texture
-local UIWidgetCenterDisplayFrame_ExtraButton_LeftObject = {}
+---@class MailFrame_SendMail_CancelButton_LeftObject : Texture
+local MailFrame_SendMail_CancelButton_LeftObject = {}
 end
 
 do
----@class UIWidgetCenterDisplayFrame_ExtraButton_MiddleObject : Texture
-local UIWidgetCenterDisplayFrame_ExtraButton_MiddleObject = {}
+---@class MailFrame_SendMail_CancelButton_MiddleObject : Texture
+local MailFrame_SendMail_CancelButton_MiddleObject = {}
 end
 
 do
----@class UIWidgetCenterDisplayFrame_ExtraButton_RightObject : Texture
-local UIWidgetCenterDisplayFrame_ExtraButton_RightObject = {}
+---@class MailFrame_SendMail_CancelButton_RightObject : Texture
+local MailFrame_SendMail_CancelButton_RightObject = {}
 end
 
 do
----@class UIWidgetCenterDisplayFrame_ExtraButton_TextObject : FontString
-local UIWidgetCenterDisplayFrame_ExtraButton_TextObject = {}
+---@class MailFrame_SendMail_CancelButton_TextObject : FontString
+local MailFrame_SendMail_CancelButton_TextObject = {}
 end
 
 do
----@class UIWidgetCenterDisplayFrame_NineSliceObject : Frame
----@field BottomEdge UIWidgetCenterDisplayFrame_NineSlice_BottomEdgeObject
----@field BottomLeftCorner UIWidgetCenterDisplayFrame_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner UIWidgetCenterDisplayFrame_NineSlice_BottomRightCornerObject
----@field LeftEdge UIWidgetCenterDisplayFrame_NineSlice_LeftEdgeObject
----@field RightEdge UIWidgetCenterDisplayFrame_NineSlice_RightEdgeObject
----@field TopEdge UIWidgetCenterDisplayFrame_NineSlice_TopEdgeObject
----@field TopLeftCorner UIWidgetCenterDisplayFrame_NineSlice_TopLeftCornerObject
----@field TopRightCorner UIWidgetCenterDisplayFrame_NineSlice_TopRightCornerObject
+---@class MailFrame_SendMail_NameEditBoxObject : EditBox
+---@field addHighlightedText boolean
+---@field autoCompleteContext string
+local MailFrame_SendMail_NameEditBoxObject = {}
+end
+
+do
+---@class MailFrame_SendMail_ScrollFrameObject : ScrollFrame
+---@field GamepadFocusArea MailFrame_SendMail_ScrollFrame_GamepadFocusAreaObject
+---@field ScrollBar MailFrame_SendMail_ScrollFrame_ScrollBarObject
+---@field panExtent number
+---@field scrollBarBottomY number
+---@field scrollBarTopY number
+---@field scrollBarX number
+local MailFrame_SendMail_ScrollFrameObject = {}
+---@return any ...
+function MailFrame_SendMail_ScrollFrameObject:GetPanExtent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrameObject:SetPanExtent(...) end
+end
+
+do
+---@class MailFrame_SendMail_ScrollFrame_GamepadFocusAreaObject : Frame
+---@field smartNavigationCanFocus boolean
+local MailFrame_SendMail_ScrollFrame_GamepadFocusAreaObject = {}
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_GamepadFocusAreaObject:OnMouseUp(...) end
+end
+
+do
+---@class MailFrame_SendMail_ScrollFrame_ScrollBarObject : Frame
+---@field Back MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject
+---@field Defaults MailFrame_SendMail_ScrollFrame_ScrollBar_DefaultsObject
+---@field Directions MailFrame_SendMail_ScrollFrame_ScrollBar_DirectionsObject
+---@field Event MailFrame_SendMail_ScrollFrame_ScrollBar_EventObject
+---@field Forward MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject
+---@field Track MailFrame_SendMail_ScrollFrame_ScrollBar_TrackObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field hideTrack boolean
+---@field interpolator MailFrame_SendMail_ScrollFrame_ScrollBar_interpolatorObject
+---@field isScrollController boolean
+---@field minThumbExtent number
+---@field panDelay number
+---@field panExtentPercentage number
+---@field panRepeatTime number
+---@field smartNavigationIgnored boolean
+---@field snapToInterval boolean
+---@field thumbAnchor string
+---@field useProportionalThumb boolean
+---@field visibleExtentPercentage number
+---@field wheelPanScalar number
+local MailFrame_SendMail_ScrollFrame_ScrollBarObject = {}
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:CallInternalScope(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:CanCursorStepInDirection(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:CanInterpolateScroll(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:DisableControls(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:EnableInternalPriority(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:EnableSnapToInterval(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:GenerateCallbackEvents(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:GetBackStepper(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:GetCallbackTable(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:GetCallbackTables(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:GetCallbacksByEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:GetForwardStepper(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:GetFrameExtent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:GetIntervalRange(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:GetLower(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:GetPanExtentPercentage(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:GetPanRepeatDelay(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:GetPanRepeatTime(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:GetScrollInterpolator(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:GetScrollPercentage(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:GetThumb(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:GetThumbAnchor(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:GetTrack(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:GetTrackExtent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:GetUpper(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:GetWheelPanPercentage(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:HasScrollableExtent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:Init(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:InitializeNarration(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:Interpolate(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:IsAtBegin(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:IsAtEnd(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:IsHorizontal(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:IsScrollAllowed(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:IsThumbMouseDown(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:OnHide_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:OnLoad(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:OnMouseWheel(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:OnShow_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:OnStepperMouseDown(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:OnThumbMouseDown(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:OnTrackMouseDown(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:RegisterCallback(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:ScrollDecrease(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:ScrollInDirection(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:ScrollIncrease(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:ScrollPageInDirection(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:ScrollStepInDirection(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:ScrollToBegin(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:ScrollToEnd(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:ScrollWheelInDirection(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:SecureInsertEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:SelectCursorComponent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:SelectPointComponent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:SetFrameExtent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:SetHideIfUnscrollable(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:SetHorizontal(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:SetInterpolateScroll(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:SetPanExtentPercentage(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:SetScrollAllowed(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:SetScrollPercentage(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:SetThumbExtent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:SetVisibleExtentPercentage(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:TriggerEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:UnregisterCallback(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:UnregisterEvents(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:UnregisterUpdate(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:Update(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:onButtonMouseUp(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBarObject:scrollInternal(...) end
+end
+
+do
+---@class MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject : Button
+---@field Event MailFrame_SendMail_ScrollFrame_ScrollBar_Back_EventObject
+---@field Texture MailFrame_SendMail_ScrollFrame_ScrollBar_Back_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject = {}
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:GetAtlas(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:GetCallbackTable(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:GetCallbackTables(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:IsDown(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:IsDownOver(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:IsOver(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:NarrationGetName(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:OnButtonStateChanged(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:OnDisable(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:OnEnable(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:OnEnter(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:OnLeave(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:OnLoad(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:OnMouseDown(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:OnMouseUp(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:OnShow(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:RegisterCallback(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:SecureInsertEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:SetDisplacedRegions(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:TriggerEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:UnregisterCallback(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:UnregisterEvents(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class MailFrame_SendMail_ScrollFrame_ScrollBar_Back_EventObject
+local MailFrame_SendMail_ScrollFrame_ScrollBar_Back_EventObject = {}
+end
+
+do
+---@class MailFrame_SendMail_ScrollFrame_ScrollBar_Back_TextureObject : Texture
+local MailFrame_SendMail_ScrollFrame_ScrollBar_Back_TextureObject = {}
+end
+
+do
+---@class MailFrame_SendMail_ScrollFrame_ScrollBar_DefaultsObject
+local MailFrame_SendMail_ScrollFrame_ScrollBar_DefaultsObject = {}
+end
+
+do
+---@class MailFrame_SendMail_ScrollFrame_ScrollBar_DirectionsObject
+local MailFrame_SendMail_ScrollFrame_ScrollBar_DirectionsObject = {}
+end
+
+do
+---@class MailFrame_SendMail_ScrollFrame_ScrollBar_EventObject
+local MailFrame_SendMail_ScrollFrame_ScrollBar_EventObject = {}
+end
+
+do
+---@class MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject : Button
+---@field Event MailFrame_SendMail_ScrollFrame_ScrollBar_Forward_EventObject
+---@field Texture MailFrame_SendMail_ScrollFrame_ScrollBar_Forward_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject = {}
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:GetAtlas(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:GetCallbackTable(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:GetCallbackTables(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:IsDown(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:IsDownOver(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:IsOver(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:NarrationGetName(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:OnDisable(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:OnEnable(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:OnEnter(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:OnLeave(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:OnLoad(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:OnMouseDown(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:OnMouseUp(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:OnShow(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:RegisterCallback(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:TriggerEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:UnregisterCallback(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:UnregisterEvents(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class MailFrame_SendMail_ScrollFrame_ScrollBar_Forward_EventObject
+local MailFrame_SendMail_ScrollFrame_ScrollBar_Forward_EventObject = {}
+end
+
+do
+---@class MailFrame_SendMail_ScrollFrame_ScrollBar_Forward_TextureObject : Texture
+local MailFrame_SendMail_ScrollFrame_ScrollBar_Forward_TextureObject = {}
+end
+
+do
+---@class MailFrame_SendMail_ScrollFrame_ScrollBar_TrackObject : Frame
+---@field Begin MailFrame_SendMail_ScrollFrame_ScrollBar_Track_BeginObject
+---@field End MailFrame_SendMail_ScrollFrame_ScrollBar_Track_EndObject
+---@field Middle MailFrame_SendMail_ScrollFrame_ScrollBar_Track_MiddleObject
+---@field Thumb MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject
+local MailFrame_SendMail_ScrollFrame_ScrollBar_TrackObject = {}
+end
+
+do
+---@class MailFrame_SendMail_ScrollFrame_ScrollBar_Track_BeginObject : Texture
+local MailFrame_SendMail_ScrollFrame_ScrollBar_Track_BeginObject = {}
+end
+
+do
+---@class MailFrame_SendMail_ScrollFrame_ScrollBar_Track_EndObject : Texture
+local MailFrame_SendMail_ScrollFrame_ScrollBar_Track_EndObject = {}
+end
+
+do
+---@class MailFrame_SendMail_ScrollFrame_ScrollBar_Track_MiddleObject : Texture
+local MailFrame_SendMail_ScrollFrame_ScrollBar_Track_MiddleObject = {}
+end
+
+do
+---@class MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject : Button
+---@field Begin MailFrame_SendMail_ScrollFrame_ScrollBar_Track_Thumb_BeginObject
+---@field End MailFrame_SendMail_ScrollFrame_ScrollBar_Track_Thumb_EndObject
+---@field Event MailFrame_SendMail_ScrollFrame_ScrollBar_Track_Thumb_EventObject
+---@field Middle MailFrame_SendMail_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field downBeginTexture string
+---@field downEndTexture string
+---@field downMiddleTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field overBeginTexture string
+---@field overEndTexture string
+---@field overMiddleTexture string
+---@field upBeginTexture string
+---@field upEndTexture string
+---@field upMiddleTexture string
+local MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject = {}
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:IsDown(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:IsOver(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:OnDisable(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnable(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnter(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:OnLeave(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:OnLoad(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:OnShow(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class MailFrame_SendMail_ScrollFrame_ScrollBar_Track_Thumb_BeginObject : Texture
+local MailFrame_SendMail_ScrollFrame_ScrollBar_Track_Thumb_BeginObject = {}
+end
+
+do
+---@class MailFrame_SendMail_ScrollFrame_ScrollBar_Track_Thumb_EndObject : Texture
+local MailFrame_SendMail_ScrollFrame_ScrollBar_Track_Thumb_EndObject = {}
+end
+
+do
+---@class MailFrame_SendMail_ScrollFrame_ScrollBar_Track_Thumb_EventObject
+local MailFrame_SendMail_ScrollFrame_ScrollBar_Track_Thumb_EventObject = {}
+end
+
+do
+---@class MailFrame_SendMail_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject : Texture
+local MailFrame_SendMail_ScrollFrame_ScrollBar_Track_Thumb_MiddleObject = {}
+end
+
+do
+---@class MailFrame_SendMail_ScrollFrame_ScrollBar_interpolatorObject
+local MailFrame_SendMail_ScrollFrame_ScrollBar_interpolatorObject = {}
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_interpolatorObject:Cancel(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_interpolatorObject:Interpolate(...) end
+---@return any ...
+function MailFrame_SendMail_ScrollFrame_ScrollBar_interpolatorObject:interpolateFunc(...) end
+end
+
+do
+---@class MailFrame_SendMail_SendButtonObject : Button
+---@field Left MailFrame_SendMail_SendButton_LeftObject
+---@field Middle MailFrame_SendMail_SendButton_MiddleObject
+---@field Right MailFrame_SendMail_SendButton_RightObject
+---@field Text MailFrame_SendMail_SendButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local MailFrame_SendMail_SendButtonObject = {}
+---@return any ...
+function MailFrame_SendMail_SendButtonObject:FitToText(...) end
+---@return any ...
+function MailFrame_SendMail_SendButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function MailFrame_SendMail_SendButtonObject:OnClick(...) end
+---@return any ...
+function MailFrame_SendMail_SendButtonObject:OnEnter(...) end
+---@return any ...
+function MailFrame_SendMail_SendButtonObject:OnLeave(...) end
+---@return any ...
+function MailFrame_SendMail_SendButtonObject:SetDisabledState(...) end
+---@return any ...
+function MailFrame_SendMail_SendButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function MailFrame_SendMail_SendButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class MailFrame_SendMail_SendButton_LeftObject : Texture
+local MailFrame_SendMail_SendButton_LeftObject = {}
+end
+
+do
+---@class MailFrame_SendMail_SendButton_MiddleObject : Texture
+local MailFrame_SendMail_SendButton_MiddleObject = {}
+end
+
+do
+---@class MailFrame_SendMail_SendButton_RightObject : Texture
+local MailFrame_SendMail_SendButton_RightObject = {}
+end
+
+do
+---@class MailFrame_SendMail_SendButton_TextObject : FontString
+local MailFrame_SendMail_SendButton_TextObject = {}
+end
+
+do
+---@class MailFrame_SendMail_SubjectEditBoxObject : EditBox
+local MailFrame_SendMail_SubjectEditBoxObject = {}
+end
+
+do
+---@class MailFrame_TabIndicatorsObject : Frame
+---@field LeftTabButton MailFrame_TabIndicators_LeftTabButtonObject
+---@field RightTabButton MailFrame_TabIndicators_RightTabButtonObject
+---@field bindings MailFrame_TabIndicators_bindingsObject
+---@field currentIndex number
+---@field tabs table
+---@field visibleTabs table
+local MailFrame_TabIndicatorsObject = {}
+---@return any ...
+function MailFrame_TabIndicatorsObject:ClickCurrentTab(...) end
+---@return any ...
+function MailFrame_TabIndicatorsObject:GetNumTabs(...) end
+---@return any ...
+function MailFrame_TabIndicatorsObject:LockTabs(...) end
+---@return any ...
+function MailFrame_TabIndicatorsObject:OnHide(...) end
+---@return any ...
+function MailFrame_TabIndicatorsObject:OnLoad(...) end
+---@return any ...
+function MailFrame_TabIndicatorsObject:OnShow(...) end
+---@return any ...
+function MailFrame_TabIndicatorsObject:SetCurrentIndex(...) end
+---@return any ...
+function MailFrame_TabIndicatorsObject:SetUpTabs(...) end
+---@return any ...
+function MailFrame_TabIndicatorsObject:Tab(...) end
+---@return any ...
+function MailFrame_TabIndicatorsObject:UpdateTabIndicators(...) end
+---@return any ...
+function MailFrame_TabIndicatorsObject:UpdateTabVisibility(...) end
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButtonObject : Button
+---@field ActiveTexture MailFrame_TabIndicators_LeftTabButton_ActiveTextureObject
+---@field DisabledTexture MailFrame_TabIndicators_LeftTabButton_DisabledTextureObject
+---@field HoldAnim MailFrame_TabIndicators_LeftTabButton_HoldAnimObject
+---@field HoldIndicator MailFrame_TabIndicators_LeftTabButton_HoldIndicatorObject
+---@field HoldIndicatorBG MailFrame_TabIndicators_LeftTabButton_HoldIndicatorBGObject
+---@field HoverTexture MailFrame_TabIndicators_LeftTabButton_HoverTextureObject
+---@field LoadBar MailFrame_TabIndicators_LeftTabButton_LoadBarObject
+---@field LoadBarBG MailFrame_TabIndicators_LeftTabButton_LoadBarBGObject
+---@field LoadBarGlow MailFrame_TabIndicators_LeftTabButton_LoadBarGlowObject
+---@field NormalTexture MailFrame_TabIndicators_LeftTabButton_NormalTextureObject
+---@field PressedTexture MailFrame_TabIndicators_LeftTabButton_PressedTextureObject
+---@field SpinnerTip MailFrame_TabIndicators_LeftTabButton_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field offset number
+---@field smartNavigationIgnored boolean
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local MailFrame_TabIndicators_LeftTabButtonObject = {}
+---@return any ...
+function MailFrame_TabIndicators_LeftTabButtonObject:ApplyTextureLayout(...) end
+---@return any ...
+function MailFrame_TabIndicators_LeftTabButtonObject:BeginHold(...) end
+---@return any ...
+function MailFrame_TabIndicators_LeftTabButtonObject:CanEnterTextureState(...) end
+---@return any ...
+function MailFrame_TabIndicators_LeftTabButtonObject:DisableDropShadow(...) end
+---@return any ...
+function MailFrame_TabIndicators_LeftTabButtonObject:EnableDropShadow(...) end
+---@return any ...
+function MailFrame_TabIndicators_LeftTabButtonObject:EndHold(...) end
+---@return any ...
+function MailFrame_TabIndicators_LeftTabButtonObject:OnClick(...) end
+---@return any ...
+function MailFrame_TabIndicators_LeftTabButtonObject:OnHoldAnimFinished(...) end
+---@return any ...
+function MailFrame_TabIndicators_LeftTabButtonObject:OnHoldAnimStopped(...) end
+---@return any ...
+function MailFrame_TabIndicators_LeftTabButtonObject:OnLoad(...) end
+---@return any ...
+function MailFrame_TabIndicators_LeftTabButtonObject:RefreshIconTextures(...) end
+---@return any ...
+function MailFrame_TabIndicators_LeftTabButtonObject:SetDisabled(...) end
+---@return any ...
+function MailFrame_TabIndicators_LeftTabButtonObject:SetFocused(...) end
+---@return any ...
+function MailFrame_TabIndicators_LeftTabButtonObject:SetHoldState(...) end
+---@return any ...
+function MailFrame_TabIndicators_LeftTabButtonObject:SetInputKey(...) end
+---@return any ...
+function MailFrame_TabIndicators_LeftTabButtonObject:SetIsHoldAction(...) end
+---@return any ...
+function MailFrame_TabIndicators_LeftTabButtonObject:SetPressable(...) end
+---@return any ...
+function MailFrame_TabIndicators_LeftTabButtonObject:SetTextureHeight(...) end
+---@return any ...
+function MailFrame_TabIndicators_LeftTabButtonObject:SetTextureState(...) end
+---@return any ...
+function MailFrame_TabIndicators_LeftTabButtonObject:SetTextureWidth(...) end
+---@return any ...
+function MailFrame_TabIndicators_LeftTabButtonObject:SetUsableState(...) end
+---@return any ...
+function MailFrame_TabIndicators_LeftTabButtonObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_ActiveTextureObject : Texture
+local MailFrame_TabIndicators_LeftTabButton_ActiveTextureObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_DisabledTextureObject : Texture
+local MailFrame_TabIndicators_LeftTabButton_DisabledTextureObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim MailFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim MailFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim MailFrame_TabIndicators_LeftTabButton_HoldAnim_SpinnerTipAnimObject
+local MailFrame_TabIndicators_LeftTabButton_HoldAnimObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarAnimObject
+local MailFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarGlowAnimObject : Alpha
+local MailFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_HoldAnim_SpinnerTipAnimObject : Rotation
+local MailFrame_TabIndicators_LeftTabButton_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_HoldIndicatorObject : Texture
+local MailFrame_TabIndicators_LeftTabButton_HoldIndicatorObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_HoldIndicatorBGObject : Texture
+local MailFrame_TabIndicators_LeftTabButton_HoldIndicatorBGObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_HoverTextureObject : Texture
+local MailFrame_TabIndicators_LeftTabButton_HoverTextureObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_LoadBarObject : Texture
+local MailFrame_TabIndicators_LeftTabButton_LoadBarObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_LoadBarBGObject : Texture
+local MailFrame_TabIndicators_LeftTabButton_LoadBarBGObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_LoadBarGlowObject : Texture
+local MailFrame_TabIndicators_LeftTabButton_LoadBarGlowObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_NormalTextureObject : Texture
+local MailFrame_TabIndicators_LeftTabButton_NormalTextureObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_PressedTextureObject : Texture
+local MailFrame_TabIndicators_LeftTabButton_PressedTextureObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_SpinnerTipObject : Texture
+local MailFrame_TabIndicators_LeftTabButton_SpinnerTipObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButtonObject : Button
+---@field ActiveTexture MailFrame_TabIndicators_RightTabButton_ActiveTextureObject
+---@field DisabledTexture MailFrame_TabIndicators_RightTabButton_DisabledTextureObject
+---@field HoldAnim MailFrame_TabIndicators_RightTabButton_HoldAnimObject
+---@field HoldIndicator MailFrame_TabIndicators_RightTabButton_HoldIndicatorObject
+---@field HoldIndicatorBG MailFrame_TabIndicators_RightTabButton_HoldIndicatorBGObject
+---@field HoverTexture MailFrame_TabIndicators_RightTabButton_HoverTextureObject
+---@field LoadBar MailFrame_TabIndicators_RightTabButton_LoadBarObject
+---@field LoadBarBG MailFrame_TabIndicators_RightTabButton_LoadBarBGObject
+---@field LoadBarGlow MailFrame_TabIndicators_RightTabButton_LoadBarGlowObject
+---@field NormalTexture MailFrame_TabIndicators_RightTabButton_NormalTextureObject
+---@field PressedTexture MailFrame_TabIndicators_RightTabButton_PressedTextureObject
+---@field SpinnerTip MailFrame_TabIndicators_RightTabButton_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field offset number
+---@field smartNavigationIgnored boolean
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local MailFrame_TabIndicators_RightTabButtonObject = {}
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:ApplyTextureLayout(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:BeginHold(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:CanEnterTextureState(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:DisableDropShadow(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:EnableDropShadow(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:EndHold(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:OnClick(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:OnHoldAnimFinished(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:OnHoldAnimStopped(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:OnLoad(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:RefreshIconTextures(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:SetDisabled(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:SetFocused(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:SetHoldState(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:SetInputKey(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:SetIsHoldAction(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:SetPressable(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:SetTextureHeight(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:SetTextureState(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:SetTextureWidth(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:SetUsableState(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_ActiveTextureObject : Texture
+local MailFrame_TabIndicators_RightTabButton_ActiveTextureObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_DisabledTextureObject : Texture
+local MailFrame_TabIndicators_RightTabButton_DisabledTextureObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim MailFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim MailFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim MailFrame_TabIndicators_RightTabButton_HoldAnim_SpinnerTipAnimObject
+local MailFrame_TabIndicators_RightTabButton_HoldAnimObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarAnimObject
+local MailFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarGlowAnimObject : Alpha
+local MailFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_HoldAnim_SpinnerTipAnimObject : Rotation
+local MailFrame_TabIndicators_RightTabButton_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_HoldIndicatorObject : Texture
+local MailFrame_TabIndicators_RightTabButton_HoldIndicatorObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_HoldIndicatorBGObject : Texture
+local MailFrame_TabIndicators_RightTabButton_HoldIndicatorBGObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_HoverTextureObject : Texture
+local MailFrame_TabIndicators_RightTabButton_HoverTextureObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_LoadBarObject : Texture
+local MailFrame_TabIndicators_RightTabButton_LoadBarObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_LoadBarBGObject : Texture
+local MailFrame_TabIndicators_RightTabButton_LoadBarBGObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_LoadBarGlowObject : Texture
+local MailFrame_TabIndicators_RightTabButton_LoadBarGlowObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_NormalTextureObject : Texture
+local MailFrame_TabIndicators_RightTabButton_NormalTextureObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_PressedTextureObject : Texture
+local MailFrame_TabIndicators_RightTabButton_PressedTextureObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_SpinnerTipObject : Texture
+local MailFrame_TabIndicators_RightTabButton_SpinnerTipObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_bindingsObject
+---@field actions table
+---@field axes table
+---@field buttons table
+---@field functions table
+---@field name string
+---@field nextButtonId number
+---@field nextFunctionId number
+---@field treatBindsAsCore boolean
+local MailFrame_TabIndicators_bindingsObject = {}
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:AddAxisBinding(...) end
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:AddButtonBinding(...) end
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:AddFunctionBinding(...) end
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:BlockDpad(...) end
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:BlockDpadAndFaceButtons(...) end
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:BlockEverything(...) end
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:BlockKeys(...) end
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:BlockKeysWithModifiers(...) end
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:BlockKeysWithoutModifiers(...) end
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:Init(...) end
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:RemoveKeys(...) end
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:TreatAsCore(...) end
+end
+
+do
+---@class MailFrame_TitleContainerObject : Frame
+---@field TitleText MailFrame_TitleContainer_TitleTextObject
+local MailFrame_TitleContainerObject = {}
+end
+
+do
+---@class MailFrame_TitleContainer_TitleTextObject : FontString
+local MailFrame_TitleContainer_TitleTextObject = {}
+end
+
+do
+---@class MailFrame_TopTileStreaksObject : Texture
+local MailFrame_TopTileStreaksObject = {}
+end
+
+do
+---@class MailFrame_trialErrorObject : FontString
+local MailFrame_trialErrorObject = {}
+end
+
+do
+---@class MajorFactionUnlockToastObject : Frame
+---@field FactionName MajorFactionUnlockToast_FactionNameObject
+---@field Glow1 MajorFactionUnlockToast_Glow1Object
+---@field Glow2 MajorFactionUnlockToast_Glow2Object
+---@field GlowLineBottom MajorFactionUnlockToast_GlowLineBottomObject
+---@field HeaderText MajorFactionUnlockToast_HeaderTextObject
+---@field Mask MajorFactionUnlockToast_MaskObject
+---@field ShowAnim MajorFactionUnlockToast_ShowAnimObject
+---@field Star1 MajorFactionUnlockToast_Star1Object
+---@field Star2 MajorFactionUnlockToast_Star2Object
+---@field ToastBG MajorFactionUnlockToast_ToastBGObject
+---@field TopBorder MajorFactionUnlockToast_TopBorderObject
+---@field TopIcon MajorFactionUnlockToast_TopIconObject
+local MajorFactionUnlockToastObject = {}
+---@return any ...
+function MajorFactionUnlockToastObject:OnAnimFinished(...) end
+---@return any ...
+function MajorFactionUnlockToastObject:OnEvent(...) end
+---@return any ...
+function MajorFactionUnlockToastObject:OnHide(...) end
+---@return any ...
+function MajorFactionUnlockToastObject:OnLoad(...) end
+---@return any ...
+function MajorFactionUnlockToastObject:PlayBanner(...) end
+---@return any ...
+function MajorFactionUnlockToastObject:PlayMajorFactionUnlockToast(...) end
+---@return any ...
+function MajorFactionUnlockToastObject:SetMajorFactionTextureKit(...) end
+---@return any ...
+function MajorFactionUnlockToastObject:StopBanner(...) end
+---@type MajorFactionUnlockToastObject
+MajorFactionUnlockToast = MajorFactionUnlockToastObject
+end
+
+do
+---@class MajorFactionUnlockToast_FactionNameObject : FontString
+local MajorFactionUnlockToast_FactionNameObject = {}
+end
+
+do
+---@class MajorFactionUnlockToast_Glow1Object : Texture
+local MajorFactionUnlockToast_Glow1Object = {}
+end
+
+do
+---@class MajorFactionUnlockToast_Glow2Object : Texture
+local MajorFactionUnlockToast_Glow2Object = {}
+end
+
+do
+---@class MajorFactionUnlockToast_GlowLineBottomObject : Texture
+local MajorFactionUnlockToast_GlowLineBottomObject = {}
+end
+
+do
+---@class MajorFactionUnlockToast_HeaderTextObject : FontString
+local MajorFactionUnlockToast_HeaderTextObject = {}
+end
+
+do
+---@class MajorFactionUnlockToast_MaskObject : Frame
+---@field MaskTexture MajorFactionUnlockToast_Mask_MaskTextureObject
+---@field Shine MajorFactionUnlockToast_Mask_ShineObject
+local MajorFactionUnlockToast_MaskObject = {}
+end
+
+do
+---@class MajorFactionUnlockToast_Mask_MaskTextureObject : MaskTexture
+local MajorFactionUnlockToast_Mask_MaskTextureObject = {}
+end
+
+do
+---@class MajorFactionUnlockToast_Mask_ShineObject : Texture
+local MajorFactionUnlockToast_Mask_ShineObject = {}
+end
+
+do
+---@class MajorFactionUnlockToast_ShowAnimObject : AnimationGroup
+local MajorFactionUnlockToast_ShowAnimObject = {}
+end
+
+do
+---@class MajorFactionUnlockToast_Star1Object : Texture
+local MajorFactionUnlockToast_Star1Object = {}
+end
+
+do
+---@class MajorFactionUnlockToast_Star2Object : Texture
+local MajorFactionUnlockToast_Star2Object = {}
+end
+
+do
+---@class MajorFactionUnlockToast_ToastBGObject : Texture
+local MajorFactionUnlockToast_ToastBGObject = {}
+end
+
+do
+---@class MajorFactionUnlockToast_TopBorderObject : Texture
+local MajorFactionUnlockToast_TopBorderObject = {}
+end
+
+do
+---@class MajorFactionUnlockToast_TopIconObject : Texture
+local MajorFactionUnlockToast_TopIconObject = {}
+end
+
+do
+---@class MajorFactionsRenownToastObject : Frame
+---@field Glow1 MajorFactionsRenownToast_Glow1Object
+---@field Glow2 MajorFactionsRenownToast_Glow2Object
+---@field GlowLineBottom MajorFactionsRenownToast_GlowLineBottomObject
+---@field Mask MajorFactionsRenownToast_MaskObject
+---@field RenownLabel MajorFactionsRenownToast_RenownLabelObject
+---@field RewardDescription MajorFactionsRenownToast_RewardDescriptionObject
+---@field RewardIcon MajorFactionsRenownToast_RewardIconObject
+---@field RewardIconMask MajorFactionsRenownToast_RewardIconMaskObject
+---@field RewardIconMouseOver MajorFactionsRenownToast_RewardIconMouseOverObject
+---@field RewardIconRing MajorFactionsRenownToast_RewardIconRingObject
+---@field ShowAnim MajorFactionsRenownToast_ShowAnimObject
+---@field Star1 MajorFactionsRenownToast_Star1Object
+---@field Star2 MajorFactionsRenownToast_Star2Object
+---@field ToastBG MajorFactionsRenownToast_ToastBGObject
+---@field TopBorder MajorFactionsRenownToast_TopBorderObject
+---@field TopIcon MajorFactionsRenownToast_TopIconObject
+---@field waitAndAnimOut MajorFactionsRenownToast_waitAndAnimOutObject
+local MajorFactionsRenownToastObject = {}
+---@return any ...
+function MajorFactionsRenownToastObject:OnAnimFinished(...) end
+---@return any ...
+function MajorFactionsRenownToastObject:OnEvent(...) end
+---@return any ...
+function MajorFactionsRenownToastObject:OnHide(...) end
+---@return any ...
+function MajorFactionsRenownToastObject:OnLoad(...) end
+---@return any ...
+function MajorFactionsRenownToastObject:OnMouseEnter(...) end
+---@return any ...
+function MajorFactionsRenownToastObject:OnMouseLeave(...) end
+---@return any ...
+function MajorFactionsRenownToastObject:PlayBanner(...) end
+---@return any ...
+function MajorFactionsRenownToastObject:RefreshTooltip(...) end
+---@return any ...
+function MajorFactionsRenownToastObject:SetMajorFactionTextureKit(...) end
+---@return any ...
+function MajorFactionsRenownToastObject:SetupRewardVisuals(...) end
+---@return any ...
+function MajorFactionsRenownToastObject:ShowRenownLevelUpToast(...) end
+---@return any ...
+function MajorFactionsRenownToastObject:StopBanner(...) end
+---@type MajorFactionsRenownToastObject
+MajorFactionsRenownToast = MajorFactionsRenownToastObject
+end
+
+do
+---@class MajorFactionsRenownToast_Glow1Object : Texture
+local MajorFactionsRenownToast_Glow1Object = {}
+end
+
+do
+---@class MajorFactionsRenownToast_Glow2Object : Texture
+local MajorFactionsRenownToast_Glow2Object = {}
+end
+
+do
+---@class MajorFactionsRenownToast_GlowLineBottomObject : Texture
+local MajorFactionsRenownToast_GlowLineBottomObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_MaskObject : Frame
+---@field MaskTexture MajorFactionsRenownToast_Mask_MaskTextureObject
+---@field Shine MajorFactionsRenownToast_Mask_ShineObject
+local MajorFactionsRenownToast_MaskObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_Mask_MaskTextureObject : MaskTexture
+local MajorFactionsRenownToast_Mask_MaskTextureObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_Mask_ShineObject : Texture
+local MajorFactionsRenownToast_Mask_ShineObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_RenownLabelObject : FontString
+local MajorFactionsRenownToast_RenownLabelObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_RewardDescriptionObject : FontString
+local MajorFactionsRenownToast_RewardDescriptionObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_RewardIconObject : Texture
+local MajorFactionsRenownToast_RewardIconObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_RewardIconMaskObject : MaskTexture
+local MajorFactionsRenownToast_RewardIconMaskObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_RewardIconMouseOverObject : Frame
+local MajorFactionsRenownToast_RewardIconMouseOverObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_RewardIconRingObject : Texture
+local MajorFactionsRenownToast_RewardIconRingObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_ShowAnimObject : AnimationGroup
+local MajorFactionsRenownToast_ShowAnimObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_Star1Object : Texture
+local MajorFactionsRenownToast_Star1Object = {}
+end
+
+do
+---@class MajorFactionsRenownToast_Star2Object : Texture
+local MajorFactionsRenownToast_Star2Object = {}
+end
+
+do
+---@class MajorFactionsRenownToast_ToastBGObject : Texture
+local MajorFactionsRenownToast_ToastBGObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_TopBorderObject : Texture
+local MajorFactionsRenownToast_TopBorderObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_TopIconObject : Texture
+local MajorFactionsRenownToast_TopIconObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_waitAndAnimOutObject : AnimationGroup
+---@field animOut MajorFactionsRenownToast_waitAndAnimOut_animOutObject
+local MajorFactionsRenownToast_waitAndAnimOutObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_waitAndAnimOut_animOutObject : Alpha
+local MajorFactionsRenownToast_waitAndAnimOut_animOutObject = {}
+end
+
+do
+---@class MerchantFrameObject : Frame
+---@field Bg MerchantFrame_BgObject
+---@field CloseButton MerchantFrame_CloseButtonObject
+---@field FilterDropdown MerchantFrame_FilterDropdownObject
+---@field FocusJumpHint MerchantFrame_FocusJumpHintObject
+---@field FrameGlow MerchantFrame_FrameGlowObject
+---@field Inset MerchantFrame_InsetObject
+---@field LeftJumpHint MerchantFrame_LeftJumpHintObject
+---@field NineSlice MerchantFrame_NineSliceObject
+---@field PortraitContainer MerchantFrame_PortraitContainerObject
+---@field RightJumpHint MerchantFrame_RightJumpHintObject
+---@field TabIndicators MerchantFrame_TabIndicatorsObject
+---@field Tabs table
+---@field TitleContainer MerchantFrame_TitleContainerObject
+---@field TopTileStreaks MerchantFrame_TopTileStreaksObject
+---@field lastTab number
+---@field layoutType string
+---@field numTabs number
+---@field page number
+---@field selectedTab number
+local MerchantFrameObject = {}
+---@return any ...
+function MerchantFrameObject:EndFocus(...) end
+---@return any ...
+function MerchantFrameObject:GetFocusFrameGlow(...) end
+---@return any ...
+function MerchantFrameObject:GetFocusFrameRoot(...) end
+---@return any ...
+function MerchantFrameObject:GetPortrait(...) end
+---@return any ...
+function MerchantFrameObject:GetTitleText(...) end
+---@return any ...
+function MerchantFrameObject:HasPortraitTexture(...) end
+---@return any ...
+function MerchantFrameObject:HideFocusJumpHint(...) end
+---@return any ...
+function MerchantFrameObject:HideLeftJumpHint(...) end
+---@return any ...
+function MerchantFrameObject:HideRightJumpHint(...) end
+---@return any ...
+function MerchantFrameObject:LockInFocus(...) end
+---@return any ...
+function MerchantFrameObject:RefreshFocus(...) end
+---@return any ...
+function MerchantFrameObject:SetBorder(...) end
+---@return any ...
+function MerchantFrameObject:SetFrameLevelsFromBaseLevel(...) end
+---@return any ...
+function MerchantFrameObject:SetPortraitAtlasRaw(...) end
+---@return any ...
+function MerchantFrameObject:SetPortraitShown(...) end
+---@return any ...
+function MerchantFrameObject:SetPortraitTexCoord(...) end
+---@return any ...
+function MerchantFrameObject:SetPortraitTextureRaw(...) end
+---@return any ...
+function MerchantFrameObject:SetPortraitTextureSizeAndOffset(...) end
+---@return any ...
+function MerchantFrameObject:SetPortraitToAsset(...) end
+---@return any ...
+function MerchantFrameObject:SetPortraitToBag(...) end
+---@return any ...
+function MerchantFrameObject:SetPortraitToClassIcon(...) end
+---@return any ...
+function MerchantFrameObject:SetPortraitToSpecIcon(...) end
+---@return any ...
+function MerchantFrameObject:SetPortraitToUnit(...) end
+---@return any ...
+function MerchantFrameObject:SetTitle(...) end
+---@return any ...
+function MerchantFrameObject:SetTitleColor(...) end
+---@return any ...
+function MerchantFrameObject:SetTitleFormatted(...) end
+---@return any ...
+function MerchantFrameObject:SetTitleMaxLinesAndHeight(...) end
+---@return any ...
+function MerchantFrameObject:SetTitleOffsets(...) end
+---@return any ...
+function MerchantFrameObject:ShowFocusJumpHint(...) end
+---@return any ...
+function MerchantFrameObject:ShowLeftJumpHint(...) end
+---@return any ...
+function MerchantFrameObject:ShowRightJumpHint(...) end
+---@return any ...
+function MerchantFrameObject:StartFocus(...) end
+---@type MerchantFrameObject
+MerchantFrame = MerchantFrameObject
+end
+
+do
+---@class MerchantFrame_BgObject : Texture
+local MerchantFrame_BgObject = {}
+end
+
+do
+---@class MerchantFrame_CloseButtonObject : Button
+local MerchantFrame_CloseButtonObject = {}
+---@return any ...
+function MerchantFrame_CloseButtonObject:NarrationGetName(...) end
+---@return any ...
+function MerchantFrame_CloseButtonObject:OnLoad(...) end
+end
+
+do
+---@class MerchantFrame_FilterDropdownObject : Button
+---@field Arrow MerchantFrame_FilterDropdown_ArrowObject
+---@field Background MerchantFrame_FilterDropdown_BackgroundObject
+---@field Event MerchantFrame_FilterDropdown_EventObject
+---@field Text MerchantFrame_FilterDropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor MerchantFrame_FilterDropdown_menuAnchorObject
+---@field menuDescription MerchantFrame_FilterDropdown_menuDescriptionObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+---@field text string
+local MerchantFrame_FilterDropdownObject = {}
+---@return any ...
+function MerchantFrame_FilterDropdownObject:ClearMenuState(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:CloseMenu(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:CollectSelectionData(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:CreateRootDescription(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:Decrement(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:GenerateMenu(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:GetArrowAtlas(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:GetCallbackTable(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:GetCallbackTables(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:GetDefaultText(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:GetMenuDescription(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:GetSelectionData(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:GetUpdateText(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:HasElements(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:HasStickyFocus(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:Increment(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:IsDown(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:IsDownOver(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:IsMenuOpen(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:IsOver(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:NarrationGetContext(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:NarrationGetName(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnDisable(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnEnable(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnEnter(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnLeave(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnLoad(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnMenuChanged(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnMenuClosed(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnMenuOpened(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnMenuResponse(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnMouseDown(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnMouseUp(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnShow(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OpenMenu(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OverrideText(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:Pick(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:RegisterCallback(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:RegisterMenu(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:Rotate(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:SetDefaultText(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:SetMenuOpen(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:SetSelectionText(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:SetTooltip(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:SetupMenu(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:ShowTooltip(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:SignalUpdate(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:TriggerEvent(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:UnregisterCallback(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:UnregisterEvents(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:Update(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:UpdateSelections(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:UpdateText(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:menuGenerator(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:selectionTranslator(...) end
+end
+
+do
+---@class MerchantFrame_FilterDropdown_ArrowObject : Texture
+local MerchantFrame_FilterDropdown_ArrowObject = {}
+end
+
+do
+---@class MerchantFrame_FilterDropdown_BackgroundObject : Texture
+local MerchantFrame_FilterDropdown_BackgroundObject = {}
+end
+
+do
+---@class MerchantFrame_FilterDropdown_EventObject
+local MerchantFrame_FilterDropdown_EventObject = {}
+end
+
+do
+---@class MerchantFrame_FilterDropdown_TextObject : FontString
+local MerchantFrame_FilterDropdown_TextObject = {}
+end
+
+do
+---@class MerchantFrame_FilterDropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo MerchantFrame_FilterDropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local MerchantFrame_FilterDropdown_menuAnchorObject = {}
+---@return any ...
+function MerchantFrame_FilterDropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class MerchantFrame_FilterDropdown_menuAnchor_relativeToObject
+local MerchantFrame_FilterDropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class MerchantFrame_FilterDropdown_menuDescriptionObject
+---@field tag string
+local MerchantFrame_FilterDropdown_menuDescriptionObject = {}
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateButton(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateCheckbox(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateColorSwatch(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateDivider(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateFrame(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateHighlightButton(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateHighlightRadio(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateRadio(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateSearchEntry(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateSpacer(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateTemplate(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateTitle(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:QueueDivider(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:QueueSpacer(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:QueueTitle(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:SetTooltip(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:private(...) end
+end
+
+do
+---@class MerchantFrame_FocusJumpHintObject : Frame
+---@field ActiveTexture MerchantFrame_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture MerchantFrame_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim MerchantFrame_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator MerchantFrame_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG MerchantFrame_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture MerchantFrame_FocusJumpHint_HoverTextureObject
+---@field LoadBar MerchantFrame_FocusJumpHint_LoadBarObject
+---@field LoadBarBG MerchantFrame_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow MerchantFrame_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture MerchantFrame_FocusJumpHint_NormalTextureObject
+---@field PressedTexture MerchantFrame_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip MerchantFrame_FocusJumpHint_SpinnerTipObject
 ---@field ignoreInLayout boolean
-local UIWidgetCenterDisplayFrame_NineSliceObject = {}
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local MerchantFrame_FocusJumpHintObject = {}
 ---@return any ...
-function UIWidgetCenterDisplayFrame_NineSliceObject:GetBorderColor(...) end
+function MerchantFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrame_NineSliceObject:GetCenterColor(...) end
+function MerchantFrame_FocusJumpHintObject:BeginHold(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+function MerchantFrame_FocusJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrame_NineSliceObject:GetFrameLayoutType(...) end
+function MerchantFrame_FocusJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrame_NineSliceObject:OnLoad(...) end
+function MerchantFrame_FocusJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrame_NineSliceObject:SetBlendMode(...) end
+function MerchantFrame_FocusJumpHintObject:EndHold(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrame_NineSliceObject:SetBorderBlendMode(...) end
+function MerchantFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrame_NineSliceObject:SetBorderColor(...) end
+function MerchantFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrame_NineSliceObject:SetCenterColor(...) end
+function MerchantFrame_FocusJumpHintObject:OnLoad(...) end
 ---@return any ...
-function UIWidgetCenterDisplayFrame_NineSliceObject:SetVertexColor(...) end
+function MerchantFrame_FocusJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:SetDisabled(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:SetEnabled(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:SetFocused(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:SetHoldState(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:SetInputKey(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:SetPressable(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:SetTextureState(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:SetUsableState(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class UIWidgetCenterDisplayFrame_NineSlice_BottomEdgeObject : Texture
-local UIWidgetCenterDisplayFrame_NineSlice_BottomEdgeObject = {}
+---@class MerchantFrame_FocusJumpHint_ActiveTextureObject : Texture
+local MerchantFrame_FocusJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class UIWidgetCenterDisplayFrame_NineSlice_BottomLeftCornerObject : Texture
-local UIWidgetCenterDisplayFrame_NineSlice_BottomLeftCornerObject = {}
+---@class MerchantFrame_FocusJumpHint_DisabledTextureObject : Texture
+local MerchantFrame_FocusJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class UIWidgetCenterDisplayFrame_NineSlice_BottomRightCornerObject : Texture
-local UIWidgetCenterDisplayFrame_NineSlice_BottomRightCornerObject = {}
+---@class MerchantFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim MerchantFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim MerchantFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim MerchantFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local MerchantFrame_FocusJumpHint_HoldAnimObject = {}
 end
 
 do
----@class UIWidgetCenterDisplayFrame_NineSlice_LeftEdgeObject : Texture
-local UIWidgetCenterDisplayFrame_NineSlice_LeftEdgeObject = {}
+---@class MerchantFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local MerchantFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class UIWidgetCenterDisplayFrame_NineSlice_RightEdgeObject : Texture
-local UIWidgetCenterDisplayFrame_NineSlice_RightEdgeObject = {}
+---@class MerchantFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local MerchantFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class UIWidgetCenterDisplayFrame_NineSlice_TopEdgeObject : Texture
-local UIWidgetCenterDisplayFrame_NineSlice_TopEdgeObject = {}
+---@class MerchantFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local MerchantFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class UIWidgetCenterDisplayFrame_NineSlice_TopLeftCornerObject : Texture
-local UIWidgetCenterDisplayFrame_NineSlice_TopLeftCornerObject = {}
+---@class MerchantFrame_FocusJumpHint_HoldIndicatorObject : Texture
+local MerchantFrame_FocusJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class UIWidgetCenterDisplayFrame_NineSlice_TopRightCornerObject : Texture
-local UIWidgetCenterDisplayFrame_NineSlice_TopRightCornerObject = {}
+---@class MerchantFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
+local MerchantFrame_FocusJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class UIWidgetCenterDisplayFrame_TitleContainerObject : Frame
----@field Title UIWidgetCenterDisplayFrame_TitleContainer_TitleObject
----@field topPadding number
-local UIWidgetCenterDisplayFrame_TitleContainerObject = {}
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:AddLayoutChildren(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:CalculateFrameSize(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:ClearFixedSize(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:GetChildHeight(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:GetChildPadding(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:GetChildSize(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:GetChildWidth(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:GetFixedHeight(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:GetFixedSize(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:GetFixedWidth(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:GetHeightPadding(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:GetLayoutChildren(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:GetPadding(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:GetWidthPadding(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:IsDirty(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:IsLayoutFrame(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:Layout(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:LayoutChildren(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:MarkClean(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:MarkDirty(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:OnCleaned(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:OnShow(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:OnUpdate(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:SetFixedHeight(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:SetFixedSize(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:SetFixedWidth(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:SetHeightPadding(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:SetWidthPadding(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_TitleContainerObject:ShouldClearOnUpdateAfterClean(...) end
+---@class MerchantFrame_FocusJumpHint_HoverTextureObject : Texture
+local MerchantFrame_FocusJumpHint_HoverTextureObject = {}
 end
 
 do
----@class UIWidgetCenterDisplayFrame_TitleContainer_TitleObject : FontString
----@field layoutIndex number
-local UIWidgetCenterDisplayFrame_TitleContainer_TitleObject = {}
+---@class MerchantFrame_FocusJumpHint_LoadBarObject : Texture
+local MerchantFrame_FocusJumpHint_LoadBarObject = {}
 end
 
 do
----@class UIWidgetCenterDisplayFrame_WidgetContainerObject : Frame
----@field BackModelScene UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject
----@field FrontModelScene UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject
----@field horizontalAnchorPoint string
----@field horizontalAnchorXOffset number
----@field horizontalRelativePoint string
----@field horizontalRowContainerPool UIWidgetCenterDisplayFrame_WidgetContainer_horizontalRowContainerPoolObject
----@field showAndHideOnWidgetSetRegistration boolean
----@field verticalAnchorPoint string
----@field verticalRelativePoint string
----@field widgetPools UIWidgetCenterDisplayFrame_WidgetContainer_widgetPoolsObject
-local UIWidgetCenterDisplayFrame_WidgetContainerObject = {}
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:AddLayoutChildren(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:AnimateOutAllMarkedWidgets(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:ClearFixedSize(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:CreateWidget(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:GatherWidgetsByWidgetTag(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:GetChildHeight(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:GetChildSize(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:GetChildWidth(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:GetFixedHeight(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:GetFixedSize(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:GetFixedWidth(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:GetHeightPadding(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:GetLayoutChildren(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:GetMaximumWidth(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:GetMinimumWidth(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:GetNumWidgetsShowing(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:GetWidgetFromPools(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:GetWidthPadding(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:HasAnyWidgetsShowing(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:IsDirty(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:IsLayoutFrame(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:IsRegisteredForWidgetSet(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:Layout(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:MarkAllWidgetsForRemoval(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:MarkClean(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:MarkCleanLayout(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:MarkDirty(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:MarkDirtyLayout(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:NeedsOnUpdate(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:OnCleaned(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:OnEvent(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:OnLoad(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:OnShow(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:OnUpdate(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:OverrideOnUpdate(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:ProcessAllWidgets(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:ProcessWidget(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:RegisterForWidgetSet(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:RegisterTimerWidget(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:RemoveAllWidgets(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:RemoveWidget(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:SetAttachedUnitAndType(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:SetFixedHeight(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:SetFixedSize(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:SetFixedWidth(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:SetHeightPadding(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:SetMaximumWidth(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:SetMinimumWidth(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:SetModelScenesShown(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:SetWidthPadding(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:ShouldRegisterOnUpdate(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:UnregisterForWidgetSet(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:UnregisterTimerWidget(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:UpdateOnUpdateRegistration(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainerObject:UpdateWidgetLayout(...) end
+---@class MerchantFrame_FocusJumpHint_LoadBarBGObject : Texture
+local MerchantFrame_FocusJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject
+---@class MerchantFrame_FocusJumpHint_LoadBarGlowObject : Texture
+local MerchantFrame_FocusJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class MerchantFrame_FocusJumpHint_NormalTextureObject : Texture
+local MerchantFrame_FocusJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class MerchantFrame_FocusJumpHint_PressedTextureObject : Texture
+local MerchantFrame_FocusJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class MerchantFrame_FocusJumpHint_SpinnerTipObject : Texture
+local MerchantFrame_FocusJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class MerchantFrame_FrameGlowObject : Frame
+---@field GlowTexture MerchantFrame_FrameGlow_GlowTextureObject
+---@field glowTextures table
+local MerchantFrame_FrameGlowObject = {}
+---@return any ...
+function MerchantFrame_FrameGlowObject:GetContainerFrame(...) end
+---@return any ...
+function MerchantFrame_FrameGlowObject:GetFrameLayoutType(...) end
+---@return any ...
+function MerchantFrame_FrameGlowObject:GetHeaderFrame(...) end
+---@return any ...
+function MerchantFrame_FrameGlowObject:OnLoad(...) end
+end
+
+do
+---@class MerchantFrame_FrameGlow_GlowTextureObject : Texture
+local MerchantFrame_FrameGlow_GlowTextureObject = {}
+end
+
+do
+---@class MerchantFrame_InsetObject : Frame
+---@field Bg MerchantFrame_Inset_BgObject
+---@field NineSlice MerchantFrame_Inset_NineSliceObject
+---@field layoutType string
+local MerchantFrame_InsetObject = {}
+end
+
+do
+---@class MerchantFrame_Inset_BgObject : Texture
+local MerchantFrame_Inset_BgObject = {}
+end
+
+do
+---@class MerchantFrame_Inset_NineSliceObject : Frame
+---@field BottomEdge MerchantFrame_Inset_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner MerchantFrame_Inset_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner MerchantFrame_Inset_NineSlice_BottomRightCornerObject
+---@field LeftEdge MerchantFrame_Inset_NineSlice_LeftEdgeObject
+---@field RightEdge MerchantFrame_Inset_NineSlice_RightEdgeObject
+---@field TopEdge MerchantFrame_Inset_NineSlice_TopEdgeObject
+---@field TopLeftCorner MerchantFrame_Inset_NineSlice_TopLeftCornerObject
+---@field TopRightCorner MerchantFrame_Inset_NineSlice_TopRightCornerObject
+local MerchantFrame_Inset_NineSliceObject = {}
+---@return any ...
+function MerchantFrame_Inset_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function MerchantFrame_Inset_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function MerchantFrame_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function MerchantFrame_Inset_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function MerchantFrame_Inset_NineSliceObject:OnLoad(...) end
+---@return any ...
+function MerchantFrame_Inset_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function MerchantFrame_Inset_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function MerchantFrame_Inset_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function MerchantFrame_Inset_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function MerchantFrame_Inset_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class MerchantFrame_Inset_NineSlice_BottomEdgeObject : Texture
+local MerchantFrame_Inset_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class MerchantFrame_Inset_NineSlice_BottomLeftCornerObject : Texture
+local MerchantFrame_Inset_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class MerchantFrame_Inset_NineSlice_BottomRightCornerObject : Texture
+local MerchantFrame_Inset_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class MerchantFrame_Inset_NineSlice_LeftEdgeObject : Texture
+local MerchantFrame_Inset_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class MerchantFrame_Inset_NineSlice_RightEdgeObject : Texture
+local MerchantFrame_Inset_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class MerchantFrame_Inset_NineSlice_TopEdgeObject : Texture
+local MerchantFrame_Inset_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class MerchantFrame_Inset_NineSlice_TopLeftCornerObject : Texture
+local MerchantFrame_Inset_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class MerchantFrame_Inset_NineSlice_TopRightCornerObject : Texture
+local MerchantFrame_Inset_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHintObject : Frame
+---@field ActiveTexture MerchantFrame_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture MerchantFrame_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim MerchantFrame_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator MerchantFrame_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG MerchantFrame_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture MerchantFrame_LeftJumpHint_HoverTextureObject
+---@field LoadBar MerchantFrame_LeftJumpHint_LoadBarObject
+---@field LoadBarBG MerchantFrame_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow MerchantFrame_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture MerchantFrame_LeftJumpHint_NormalTextureObject
+---@field PressedTexture MerchantFrame_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip MerchantFrame_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local MerchantFrame_LeftJumpHintObject = {}
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:BeginHold(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_ActiveTextureObject : Texture
+local MerchantFrame_LeftJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_DisabledTextureObject : Texture
+local MerchantFrame_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim MerchantFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim MerchantFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim MerchantFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local MerchantFrame_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local MerchantFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local MerchantFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local MerchantFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_HoldIndicatorObject : Texture
+local MerchantFrame_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
+local MerchantFrame_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_HoverTextureObject : Texture
+local MerchantFrame_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_LoadBarObject : Texture
+local MerchantFrame_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_LoadBarBGObject : Texture
+local MerchantFrame_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_LoadBarGlowObject : Texture
+local MerchantFrame_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_NormalTextureObject : Texture
+local MerchantFrame_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_PressedTextureObject : Texture
+local MerchantFrame_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_SpinnerTipObject : Texture
+local MerchantFrame_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class MerchantFrame_NineSliceObject : Frame
+---@field BottomEdge MerchantFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner MerchantFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner MerchantFrame_NineSlice_BottomRightCornerObject
+---@field Center MerchantFrame_NineSlice_CenterObject
+---@field LeftEdge MerchantFrame_NineSlice_LeftEdgeObject
+---@field RightEdge MerchantFrame_NineSlice_RightEdgeObject
+---@field TopEdge MerchantFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner MerchantFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner MerchantFrame_NineSlice_TopRightCornerObject
+local MerchantFrame_NineSliceObject = {}
+---@return any ...
+function MerchantFrame_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function MerchantFrame_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function MerchantFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function MerchantFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function MerchantFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function MerchantFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function MerchantFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function MerchantFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function MerchantFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function MerchantFrame_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class MerchantFrame_NineSlice_BottomEdgeObject : Texture
+local MerchantFrame_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class MerchantFrame_NineSlice_BottomLeftCornerObject : Texture
+local MerchantFrame_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class MerchantFrame_NineSlice_BottomRightCornerObject : Texture
+local MerchantFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class MerchantFrame_NineSlice_CenterObject : Texture
+local MerchantFrame_NineSlice_CenterObject = {}
+end
+
+do
+---@class MerchantFrame_NineSlice_LeftEdgeObject : Texture
+local MerchantFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class MerchantFrame_NineSlice_RightEdgeObject : Texture
+local MerchantFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class MerchantFrame_NineSlice_TopEdgeObject : Texture
+local MerchantFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class MerchantFrame_NineSlice_TopLeftCornerObject : Texture
+local MerchantFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class MerchantFrame_NineSlice_TopRightCornerObject : Texture
+local MerchantFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class MerchantFrame_PortraitContainerObject : Frame
+---@field CircleMask MerchantFrame_PortraitContainer_CircleMaskObject
+---@field portrait MerchantFrame_PortraitContainer_portraitObject
+local MerchantFrame_PortraitContainerObject = {}
+end
+
+do
+---@class MerchantFrame_PortraitContainer_CircleMaskObject : MaskTexture
+local MerchantFrame_PortraitContainer_CircleMaskObject = {}
+end
+
+do
+---@class MerchantFrame_PortraitContainer_portraitObject : Texture
+local MerchantFrame_PortraitContainer_portraitObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHintObject : Frame
+---@field ActiveTexture MerchantFrame_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture MerchantFrame_RightJumpHint_DisabledTextureObject
+---@field HoldAnim MerchantFrame_RightJumpHint_HoldAnimObject
+---@field HoldIndicator MerchantFrame_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG MerchantFrame_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture MerchantFrame_RightJumpHint_HoverTextureObject
+---@field LoadBar MerchantFrame_RightJumpHint_LoadBarObject
+---@field LoadBarBG MerchantFrame_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow MerchantFrame_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture MerchantFrame_RightJumpHint_NormalTextureObject
+---@field PressedTexture MerchantFrame_RightJumpHint_PressedTextureObject
+---@field SpinnerTip MerchantFrame_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local MerchantFrame_RightJumpHintObject = {}
+---@return any ...
+function MerchantFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class MerchantFrame_RightJumpHint_ActiveTextureObject : Texture
+local MerchantFrame_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_DisabledTextureObject : Texture
+local MerchantFrame_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim MerchantFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim MerchantFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim MerchantFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local MerchantFrame_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+local MerchantFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local MerchantFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local MerchantFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_HoldIndicatorObject : Texture
+local MerchantFrame_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_HoldIndicatorBGObject : Texture
+local MerchantFrame_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_HoverTextureObject : Texture
+local MerchantFrame_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_LoadBarObject : Texture
+local MerchantFrame_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_LoadBarBGObject : Texture
+local MerchantFrame_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_LoadBarGlowObject : Texture
+local MerchantFrame_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_NormalTextureObject : Texture
+local MerchantFrame_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_PressedTextureObject : Texture
+local MerchantFrame_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_SpinnerTipObject : Texture
+local MerchantFrame_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicatorsObject : Frame
+---@field LeftTabButton MerchantFrame_TabIndicators_LeftTabButtonObject
+---@field RightTabButton MerchantFrame_TabIndicators_RightTabButtonObject
+---@field bindings MerchantFrame_TabIndicators_bindingsObject
+---@field currentIndex number
+---@field tabs table
+---@field visibleTabs table
+local MerchantFrame_TabIndicatorsObject = {}
+---@return any ...
+function MerchantFrame_TabIndicatorsObject:ClickCurrentTab(...) end
+---@return any ...
+function MerchantFrame_TabIndicatorsObject:GetNumTabs(...) end
+---@return any ...
+function MerchantFrame_TabIndicatorsObject:LockTabs(...) end
+---@return any ...
+function MerchantFrame_TabIndicatorsObject:OnHide(...) end
+---@return any ...
+function MerchantFrame_TabIndicatorsObject:OnLoad(...) end
+---@return any ...
+function MerchantFrame_TabIndicatorsObject:OnShow(...) end
+---@return any ...
+function MerchantFrame_TabIndicatorsObject:SetCurrentIndex(...) end
+---@return any ...
+function MerchantFrame_TabIndicatorsObject:SetUpTabs(...) end
+---@return any ...
+function MerchantFrame_TabIndicatorsObject:Tab(...) end
+---@return any ...
+function MerchantFrame_TabIndicatorsObject:UpdateTabIndicators(...) end
+---@return any ...
+function MerchantFrame_TabIndicatorsObject:UpdateTabVisibility(...) end
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButtonObject : Button
+---@field ActiveTexture MerchantFrame_TabIndicators_LeftTabButton_ActiveTextureObject
+---@field DisabledTexture MerchantFrame_TabIndicators_LeftTabButton_DisabledTextureObject
+---@field HoldAnim MerchantFrame_TabIndicators_LeftTabButton_HoldAnimObject
+---@field HoldIndicator MerchantFrame_TabIndicators_LeftTabButton_HoldIndicatorObject
+---@field HoldIndicatorBG MerchantFrame_TabIndicators_LeftTabButton_HoldIndicatorBGObject
+---@field HoverTexture MerchantFrame_TabIndicators_LeftTabButton_HoverTextureObject
+---@field LoadBar MerchantFrame_TabIndicators_LeftTabButton_LoadBarObject
+---@field LoadBarBG MerchantFrame_TabIndicators_LeftTabButton_LoadBarBGObject
+---@field LoadBarGlow MerchantFrame_TabIndicators_LeftTabButton_LoadBarGlowObject
+---@field NormalTexture MerchantFrame_TabIndicators_LeftTabButton_NormalTextureObject
+---@field PressedTexture MerchantFrame_TabIndicators_LeftTabButton_PressedTextureObject
+---@field SpinnerTip MerchantFrame_TabIndicators_LeftTabButton_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field offset number
+---@field smartNavigationIgnored boolean
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local MerchantFrame_TabIndicators_LeftTabButtonObject = {}
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:ApplyTextureLayout(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:BeginHold(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:CanEnterTextureState(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:DisableDropShadow(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:EnableDropShadow(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:EndHold(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:OnClick(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:OnHoldAnimFinished(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:OnHoldAnimStopped(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:OnLoad(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:RefreshIconTextures(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:SetDisabled(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:SetFocused(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:SetHoldState(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:SetInputKey(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:SetIsHoldAction(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:SetPressable(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:SetTextureHeight(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:SetTextureState(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:SetTextureWidth(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:SetUsableState(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_ActiveTextureObject : Texture
+local MerchantFrame_TabIndicators_LeftTabButton_ActiveTextureObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_DisabledTextureObject : Texture
+local MerchantFrame_TabIndicators_LeftTabButton_DisabledTextureObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_SpinnerTipAnimObject
+local MerchantFrame_TabIndicators_LeftTabButton_HoldAnimObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarAnimObject
+local MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarGlowAnimObject : Alpha
+local MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_SpinnerTipAnimObject : Rotation
+local MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_HoldIndicatorObject : Texture
+local MerchantFrame_TabIndicators_LeftTabButton_HoldIndicatorObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_HoldIndicatorBGObject : Texture
+local MerchantFrame_TabIndicators_LeftTabButton_HoldIndicatorBGObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_HoverTextureObject : Texture
+local MerchantFrame_TabIndicators_LeftTabButton_HoverTextureObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_LoadBarObject : Texture
+local MerchantFrame_TabIndicators_LeftTabButton_LoadBarObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_LoadBarBGObject : Texture
+local MerchantFrame_TabIndicators_LeftTabButton_LoadBarBGObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_LoadBarGlowObject : Texture
+local MerchantFrame_TabIndicators_LeftTabButton_LoadBarGlowObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_NormalTextureObject : Texture
+local MerchantFrame_TabIndicators_LeftTabButton_NormalTextureObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_PressedTextureObject : Texture
+local MerchantFrame_TabIndicators_LeftTabButton_PressedTextureObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_SpinnerTipObject : Texture
+local MerchantFrame_TabIndicators_LeftTabButton_SpinnerTipObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_RightTabButtonObject : Button
+---@field ActiveTexture MerchantFrame_TabIndicators_RightTabButton_ActiveTextureObject
+---@field DisabledTexture MerchantFrame_TabIndicators_RightTabButton_DisabledTextureObject
+---@field HoldAnim MerchantFrame_TabIndicators_RightTabButton_HoldAnimObject
+---@field HoldIndicator MerchantFrame_TabIndicators_RightTabButton_HoldIndicatorObject
+---@field HoldIndicatorBG MerchantFrame_TabIndicators_RightTabButton_HoldIndicatorBGObject
+---@field HoverTexture MerchantFrame_TabIndicators_RightTabButton_HoverTextureObject
+---@field LoadBar MerchantFrame_TabIndicators_RightTabButton_LoadBarObject
+---@field LoadBarBG MerchantFrame_TabIndicators_RightTabButton_LoadBarBGObject
+---@field LoadBarGlow MerchantFrame_TabIndicators_RightTabButton_LoadBarGlowObject
+---@field NormalTexture MerchantFrame_TabIndicators_RightTabButton_NormalTextureObject
+---@field PressedTexture MerchantFrame_TabIndicators_RightTabButton_PressedTextureObject
+---@field SpinnerTip MerchantFrame_TabIndicators_RightTabButton_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field offset number
+---@field smartNavigationIgnored boolean
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local MerchantFrame_TabIndicators_RightTabButtonObject = {}
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:ApplyTextureLayout(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:BeginHold(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:CanEnterTextureState(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:DisableDropShadow(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:EnableDropShadow(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:EndHold(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:OnClick(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:OnHoldAnimFinished(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:OnHoldAnimStopped(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:OnLoad(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:RefreshIconTextures(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:SetDisabled(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:SetFocused(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:SetHoldState(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:SetInputKey(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:SetIsHoldAction(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:SetPressable(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:SetTextureHeight(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:SetTextureState(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:SetTextureWidth(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:SetUsableState(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class MerchantFrame_TabIndicators_RightTabButton_ActiveTextureObject : Texture
+local MerchantFrame_TabIndicators_RightTabButton_ActiveTextureObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_RightTabButton_DisabledTextureObject : Texture
+local MerchantFrame_TabIndicators_RightTabButton_DisabledTextureObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_RightTabButton_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim MerchantFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim MerchantFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim MerchantFrame_TabIndicators_RightTabButton_HoldAnim_SpinnerTipAnimObject
+local MerchantFrame_TabIndicators_RightTabButton_HoldAnimObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarAnimObject
+local MerchantFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarGlowAnimObject : Alpha
+local MerchantFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_RightTabButton_HoldAnim_SpinnerTipAnimObject : Rotation
+local MerchantFrame_TabIndicators_RightTabButton_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_RightTabButton_HoldIndicatorObject : Texture
+local MerchantFrame_TabIndicators_RightTabButton_HoldIndicatorObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_RightTabButton_HoldIndicatorBGObject : Texture
+local MerchantFrame_TabIndicators_RightTabButton_HoldIndicatorBGObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_RightTabButton_HoverTextureObject : Texture
+local MerchantFrame_TabIndicators_RightTabButton_HoverTextureObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_RightTabButton_LoadBarObject : Texture
+local MerchantFrame_TabIndicators_RightTabButton_LoadBarObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_RightTabButton_LoadBarBGObject : Texture
+local MerchantFrame_TabIndicators_RightTabButton_LoadBarBGObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_RightTabButton_LoadBarGlowObject : Texture
+local MerchantFrame_TabIndicators_RightTabButton_LoadBarGlowObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_RightTabButton_NormalTextureObject : Texture
+local MerchantFrame_TabIndicators_RightTabButton_NormalTextureObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_RightTabButton_PressedTextureObject : Texture
+local MerchantFrame_TabIndicators_RightTabButton_PressedTextureObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_RightTabButton_SpinnerTipObject : Texture
+local MerchantFrame_TabIndicators_RightTabButton_SpinnerTipObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_bindingsObject
+---@field actions table
+---@field axes table
+---@field buttons table
+---@field functions table
+---@field name string
+---@field nextButtonId number
+---@field nextFunctionId number
+---@field treatBindsAsCore boolean
+local MerchantFrame_TabIndicators_bindingsObject = {}
+---@return any ...
+function MerchantFrame_TabIndicators_bindingsObject:AddAxisBinding(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_bindingsObject:AddButtonBinding(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_bindingsObject:AddFunctionBinding(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_bindingsObject:BlockDpad(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_bindingsObject:BlockDpadAndFaceButtons(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_bindingsObject:BlockEverything(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_bindingsObject:BlockKeys(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_bindingsObject:BlockKeysWithModifiers(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_bindingsObject:BlockKeysWithoutModifiers(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_bindingsObject:Init(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_bindingsObject:RemoveKeys(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_bindingsObject:TreatAsCore(...) end
+end
+
+do
+---@class MerchantFrame_TitleContainerObject : Frame
+---@field TitleText MerchantFrame_TitleContainer_TitleTextObject
+local MerchantFrame_TitleContainerObject = {}
+end
+
+do
+---@class MerchantFrame_TitleContainer_TitleTextObject : FontString
+local MerchantFrame_TitleContainer_TitleTextObject = {}
+end
+
+do
+---@class MerchantFrame_TopTileStreaksObject : Texture
+local MerchantFrame_TopTileStreaksObject = {}
+end
+
+do
+---@class MinimapObject
+---@field ZoomHitArea Minimap_ZoomHitAreaObject
+---@field ZoomIn Minimap_ZoomInObject
+---@field ZoomOut Minimap_ZoomOutObject
+---@field buttonContext string
+---@field timer number
+local MinimapObject = {}
+---@return any ...
+function MinimapObject:AbortDrag(...) end
+---@return any ...
+function MinimapObject:AddAccessRestrictions(...) end
+---@return any ...
+function MinimapObject:AddForbiddenAspects(...) end
+---@return any ...
+function MinimapObject:AddRoleset(...) end
+---@return any ...
+function MinimapObject:AddSecretAspect(...) end
+---@return any ...
+function MinimapObject:AdjustPointsOffset(...) end
+---@return any ...
+function MinimapObject:CanBeAccessedInContext(...) end
+---@return any ...
+function MinimapObject:CanChangeAttribute(...) end
+---@return any ...
+function MinimapObject:CanChangeProtectedState(...) end
+---@return any ...
+function MinimapObject:CanPropagateMouseClicks(...) end
+---@return any ...
+function MinimapObject:CanPropagateMouseMotion(...) end
+---@return any ...
+function MinimapObject:ClearAllPoints(...) end
+---@return any ...
+function MinimapObject:ClearAlphaGradient(...) end
+---@return any ...
+function MinimapObject:ClearAttribute(...) end
+---@return any ...
+function MinimapObject:ClearAttributes(...) end
+---@return any ...
+function MinimapObject:ClearParentKey(...) end
+---@return any ...
+function MinimapObject:ClearPoint(...) end
+---@return any ...
+function MinimapObject:ClearPointsOffset(...) end
+---@return any ...
+function MinimapObject:ClearScripts(...) end
+---@return any ...
+function MinimapObject:CollapsesLayout(...) end
+---@return any ...
+function MinimapObject:CreateAnimationGroup(...) end
+---@return any ...
+function MinimapObject:CreateFontString(...) end
+---@return any ...
+function MinimapObject:CreateLine(...) end
+---@return any ...
+function MinimapObject:CreateMaskTexture(...) end
+---@return any ...
+function MinimapObject:CreateTexture(...) end
+---@return any ...
+function MinimapObject:CreateVectorGraphics(...) end
+---@return any ...
+function MinimapObject:DesaturateHierarchy(...) end
+---@return any ...
+function MinimapObject:DisableDrawLayer(...) end
+---@return any ...
+function MinimapObject:DoesClipChildren(...) end
+---@return any ...
+function MinimapObject:DoesHyperlinkPropagateToParent(...) end
+---@return any ...
+function MinimapObject:EnableDrawLayer(...) end
+---@return any ...
+function MinimapObject:EnableGamePadButton(...) end
+---@return any ...
+function MinimapObject:EnableGamePadStick(...) end
+---@return any ...
+function MinimapObject:EnableKeyboard(...) end
+---@return any ...
+function MinimapObject:EnableMouse(...) end
+---@return any ...
+function MinimapObject:EnableMouseMotion(...) end
+---@return any ...
+function MinimapObject:EnableMouseWheel(...) end
+---@return any ...
+function MinimapObject:ExecuteAttribute(...) end
+---@return any ...
+function MinimapObject:FocusEnter(...) end
+---@return any ...
+function MinimapObject:FocusExit(...) end
+---@return any ...
+function MinimapObject:GetAccessRestrictions(...) end
+---@return any ...
+function MinimapObject:GetAlpha(...) end
+---@return any ...
+function MinimapObject:GetAnimationGroups(...) end
+---@return any ...
+function MinimapObject:GetAttribute(...) end
+---@return any ...
+function MinimapObject:GetBottom(...) end
+---@return any ...
+function MinimapObject:GetBoundsRect(...) end
+---@return any ...
+function MinimapObject:GetCenter(...) end
+---@return any ...
+function MinimapObject:GetChildren(...) end
+---@return any ...
+function MinimapObject:GetClampRectInsets(...) end
+---@return any ...
+function MinimapObject:GetDebugName(...) end
+---@return any ...
+function MinimapObject:GetDontSavePosition(...) end
+---@return any ...
+function MinimapObject:GetEffectiveAlpha(...) end
+---@return any ...
+function MinimapObject:GetEffectiveScale(...) end
+---@return any ...
+function MinimapObject:GetEffectivelyFlattensRenderLayers(...) end
+---@return any ...
+function MinimapObject:GetFlattensRenderLayers(...) end
+---@return any ...
+function MinimapObject:GetForbiddenAspects(...) end
+---@return any ...
+function MinimapObject:GetFrameLevel(...) end
+---@return any ...
+function MinimapObject:GetFrameStrata(...) end
+---@return any ...
+function MinimapObject:GetHeight(...) end
+---@return any ...
+function MinimapObject:GetHighestFrameLevel(...) end
+---@return any ...
+function MinimapObject:GetHitRectInsets(...) end
+---@return any ...
+function MinimapObject:GetHyperlinksEnabled(...) end
+---@return any ...
+function MinimapObject:GetID(...) end
+---@return any ...
+function MinimapObject:GetInheritableForbiddenAspects(...) end
+---@return any ...
+function MinimapObject:GetLeft(...) end
+---@return any ...
+function MinimapObject:GetName(...) end
+---@return any ...
+function MinimapObject:GetNumChildren(...) end
+---@return any ...
+function MinimapObject:GetNumPoints(...) end
+---@return any ...
+function MinimapObject:GetNumRegions(...) end
+---@return any ...
+function MinimapObject:GetObjectTable(...) end
+---@return any ...
+function MinimapObject:GetObjectType(...) end
+---@return any ...
+function MinimapObject:GetOnUpdateMode(...) end
+---@return any ...
+function MinimapObject:GetParent(...) end
+---@return any ...
+function MinimapObject:GetParentKey(...) end
+---@return any ...
+function MinimapObject:GetPingPosition(...) end
+---@return any ...
+function MinimapObject:GetPoint(...) end
+---@return any ...
+function MinimapObject:GetPointByName(...) end
+---@return any ...
+function MinimapObject:GetPropagateKeyboardInput(...) end
+---@return any ...
+function MinimapObject:GetRaisedFrameLevel(...) end
+---@return any ...
+function MinimapObject:GetRect(...) end
+---@return any ...
+function MinimapObject:GetRegions(...) end
+---@return any ...
+function MinimapObject:GetResizeBounds(...) end
+---@return any ...
+function MinimapObject:GetRight(...) end
+---@return any ...
+function MinimapObject:GetRolesetNames(...) end
+---@return any ...
+function MinimapObject:GetRoundLayoutToNearestPixel(...) end
+---@return any ...
+function MinimapObject:GetScale(...) end
+---@return any ...
+function MinimapObject:GetScaledRect(...) end
+---@return any ...
+function MinimapObject:GetScript(...) end
+---@return any ...
+function MinimapObject:GetSize(...) end
+---@return any ...
+function MinimapObject:GetSourceLocation(...) end
+---@return any ...
+function MinimapObject:GetTop(...) end
+---@return any ...
+function MinimapObject:GetWidth(...) end
+---@return any ...
+function MinimapObject:GetWindow(...) end
+---@return any ...
+function MinimapObject:GetZoom(...) end
+---@return any ...
+function MinimapObject:GetZoomLevels(...) end
+---@return any ...
+function MinimapObject:HasAccessConstraints(...) end
+---@return any ...
+function MinimapObject:HasAlphaGradient(...) end
+---@return any ...
+function MinimapObject:HasAnyAccessRestrictions(...) end
+---@return any ...
+function MinimapObject:HasAnyForbiddenAspects(...) end
+---@return any ...
+function MinimapObject:HasAnySecretAspect(...) end
+---@return any ...
+function MinimapObject:HasFixedFrameLevel(...) end
+---@return any ...
+function MinimapObject:HasFixedFrameStrata(...) end
+---@return any ...
+function MinimapObject:HasScript(...) end
+---@return any ...
+function MinimapObject:HasSecretAspect(...) end
+---@return any ...
+function MinimapObject:HasSecretValues(...) end
+---@return any ...
+function MinimapObject:Hide(...) end
+---@return any ...
+function MinimapObject:HookScript(...) end
+---@return any ...
+function MinimapObject:InterceptStartDrag(...) end
+---@return any ...
+function MinimapObject:Intersects(...) end
+---@return any ...
+function MinimapObject:IsAnchoringRestricted(...) end
+---@return any ...
+function MinimapObject:IsAnchoringSecret(...) end
+---@return any ...
+function MinimapObject:IsClampedToScreen(...) end
+---@return any ...
+function MinimapObject:IsCollapsed(...) end
+---@return any ...
+function MinimapObject:IsDragging(...) end
+---@return any ...
+function MinimapObject:IsDrawLayerEnabled(...) end
+---@return any ...
+function MinimapObject:IsEventRegistered(...) end
+---@return any ...
+function MinimapObject:IsForbidden(...) end
+---@return any ...
+function MinimapObject:IsFrameBuffer(...) end
+---@return any ...
+function MinimapObject:IsGamePadButtonEnabled(...) end
+---@return any ...
+function MinimapObject:IsGamePadStickEnabled(...) end
+---@return any ...
+function MinimapObject:IsHighlightLocked(...) end
+---@return any ...
+function MinimapObject:IsIgnoringChildrenForBounds(...) end
+---@return any ...
+function MinimapObject:IsIgnoringParentAlpha(...) end
+---@return any ...
+function MinimapObject:IsIgnoringParentScale(...) end
+---@return any ...
+function MinimapObject:IsKeyboardEnabled(...) end
+---@return any ...
+function MinimapObject:IsMouseClickEnabled(...) end
+---@return any ...
+function MinimapObject:IsMouseEnabled(...) end
+---@return any ...
+function MinimapObject:IsMouseMotionEnabled(...) end
+---@return any ...
+function MinimapObject:IsMouseMotionFocus(...) end
+---@return any ...
+function MinimapObject:IsMouseOver(...) end
+---@return any ...
+function MinimapObject:IsMouseWheelEnabled(...) end
+---@return any ...
+function MinimapObject:IsMovable(...) end
+---@return any ...
+function MinimapObject:IsObjectLoaded(...) end
+---@return any ...
+function MinimapObject:IsObjectType(...) end
+---@return any ...
+function MinimapObject:IsPreventingSecretValues(...) end
+---@return any ...
+function MinimapObject:IsProtected(...) end
+---@return any ...
+function MinimapObject:IsRectValid(...) end
+---@return any ...
+function MinimapObject:IsResizable(...) end
+---@return any ...
+function MinimapObject:IsRolesetFiltered(...) end
+---@return any ...
+function MinimapObject:IsShown(...) end
+---@return any ...
+function MinimapObject:IsToplevel(...) end
+---@return any ...
+function MinimapObject:IsUserPlaced(...) end
+---@return any ...
+function MinimapObject:IsUsingParentLevel(...) end
+---@return any ...
+function MinimapObject:IsVisible(...) end
+---@return any ...
+function MinimapObject:LockHighlight(...) end
+---@return any ...
+function MinimapObject:Lower(...) end
+---@return any ...
+function MinimapObject:MouseDown(...) end
+---@return any ...
+function MinimapObject:MouseUp(...) end
+---@return any ...
+function MinimapObject:OnClick(...) end
+---@return any ...
+function MinimapObject:OnEnter(...) end
+---@return any ...
+function MinimapObject:OnEvent(...) end
+---@return any ...
+function MinimapObject:OnLeave(...) end
+---@return any ...
+function MinimapObject:OnLoad(...) end
+---@return any ...
+function MinimapObject:OnMouseWheel(...) end
+---@return any ...
+function MinimapObject:PingLocation(...) end
+---@return any ...
+function MinimapObject:Raise(...) end
+---@return any ...
+function MinimapObject:RegisterAllEvents(...) end
+---@return any ...
+function MinimapObject:RegisterEvent(...) end
+---@return any ...
+function MinimapObject:RegisterEventCallback(...) end
+---@return any ...
+function MinimapObject:RegisterForDrag(...) end
+---@return any ...
+function MinimapObject:RegisterUnitEvent(...) end
+---@return any ...
+function MinimapObject:RegisterUnitEventCallback(...) end
+---@return any ...
+function MinimapObject:RemoveRoleset(...) end
+---@return any ...
+function MinimapObject:ResizeToBoundsRect(...) end
+---@return any ...
+function MinimapObject:RotateTextures(...) end
+---@return any ...
+function MinimapObject:SetAllPoints(...) end
+---@return any ...
+function MinimapObject:SetAlpha(...) end
+---@return any ...
+function MinimapObject:SetAlphaFromBoolean(...) end
+---@return any ...
+function MinimapObject:SetAlphaGradient(...) end
+---@return any ...
+function MinimapObject:SetArchBlobInsideAlpha(...) end
+---@return any ...
+function MinimapObject:SetArchBlobInsideTexture(...) end
+---@return any ...
+function MinimapObject:SetArchBlobOutsideAlpha(...) end
+---@return any ...
+function MinimapObject:SetArchBlobOutsideTexture(...) end
+---@return any ...
+function MinimapObject:SetArchBlobRingAlpha(...) end
+---@return any ...
+function MinimapObject:SetArchBlobRingScalar(...) end
+---@return any ...
+function MinimapObject:SetArchBlobRingTexture(...) end
+---@return any ...
+function MinimapObject:SetAttribute(...) end
+---@return any ...
+function MinimapObject:SetAttributeNoHandler(...) end
+---@return any ...
+function MinimapObject:SetClampRectInsets(...) end
+---@return any ...
+function MinimapObject:SetClampedToScreen(...) end
+---@return any ...
+function MinimapObject:SetClipsChildren(...) end
+---@return any ...
+function MinimapObject:SetCollapsesLayout(...) end
+---@return any ...
+function MinimapObject:SetDontSavePosition(...) end
+---@return any ...
+function MinimapObject:SetDrawLayerEnabled(...) end
+---@return any ...
+function MinimapObject:SetFixedFrameLevel(...) end
+---@return any ...
+function MinimapObject:SetFixedFrameStrata(...) end
+---@return any ...
+function MinimapObject:SetFlattensRenderLayers(...) end
+---@return any ...
+function MinimapObject:SetForbidden(...) end
+---@return any ...
+function MinimapObject:SetFrameLevel(...) end
+---@return any ...
+function MinimapObject:SetFrameStrata(...) end
+---@return any ...
+function MinimapObject:SetHeight(...) end
+---@return any ...
+function MinimapObject:SetHighlightLocked(...) end
+---@return any ...
+function MinimapObject:SetHitRectInsets(...) end
+---@return any ...
+function MinimapObject:SetHyperlinkPropagateToParent(...) end
+---@return any ...
+function MinimapObject:SetHyperlinksEnabled(...) end
+---@return any ...
+function MinimapObject:SetID(...) end
+---@return any ...
+function MinimapObject:SetIconScale(...) end
+---@return any ...
+function MinimapObject:SetIgnoreParentAlpha(...) end
+---@return any ...
+function MinimapObject:SetIgnoreParentScale(...) end
+---@return any ...
+function MinimapObject:SetIgnoringChildrenForBounds(...) end
+---@return any ...
+function MinimapObject:SetIsFrameBuffer(...) end
+---@return any ...
+function MinimapObject:SetMaskTexture(...) end
+---@return any ...
+function MinimapObject:SetMouseClickEnabled(...) end
+---@return any ...
+function MinimapObject:SetMouseMotionEnabled(...) end
+---@return any ...
+function MinimapObject:SetMovable(...) end
+---@return any ...
+function MinimapObject:SetOnUpdateMode(...) end
+---@return any ...
+function MinimapObject:SetParent(...) end
+---@return any ...
+function MinimapObject:SetParentKey(...) end
+---@return any ...
+function MinimapObject:SetPassThroughButtons(...) end
+---@return any ...
+function MinimapObject:SetPoint(...) end
+---@return any ...
+function MinimapObject:SetPointsOffset(...) end
+---@return any ...
+function MinimapObject:SetPropagateKeyboardInput(...) end
+---@return any ...
+function MinimapObject:SetPropagateMouseClicks(...) end
+---@return any ...
+function MinimapObject:SetPropagateMouseMotion(...) end
+---@return any ...
+function MinimapObject:SetQuestBlobInsideAlpha(...) end
+---@return any ...
+function MinimapObject:SetQuestBlobInsideTexture(...) end
+---@return any ...
+function MinimapObject:SetQuestBlobOutsideAlpha(...) end
+---@return any ...
+function MinimapObject:SetQuestBlobOutsideTexture(...) end
+---@return any ...
+function MinimapObject:SetQuestBlobRingAlpha(...) end
+---@return any ...
+function MinimapObject:SetQuestBlobRingScalar(...) end
+---@return any ...
+function MinimapObject:SetQuestBlobRingTexture(...) end
+---@return any ...
+function MinimapObject:SetResizable(...) end
+---@return any ...
+function MinimapObject:SetResizeBounds(...) end
+---@return any ...
+function MinimapObject:SetRolesets(...) end
+---@return any ...
+function MinimapObject:SetRoundLayoutToNearestPixel(...) end
+---@return any ...
+function MinimapObject:SetScale(...) end
+---@return any ...
+function MinimapObject:SetScript(...) end
+---@return any ...
+function MinimapObject:SetShown(...) end
+---@return any ...
+function MinimapObject:SetSize(...) end
+---@return any ...
+function MinimapObject:SetTaskBlobInsideAlpha(...) end
+---@return any ...
+function MinimapObject:SetTaskBlobInsideTexture(...) end
+---@return any ...
+function MinimapObject:SetTaskBlobOutsideAlpha(...) end
+---@return any ...
+function MinimapObject:SetTaskBlobOutsideTexture(...) end
+---@return any ...
+function MinimapObject:SetTaskBlobRingAlpha(...) end
+---@return any ...
+function MinimapObject:SetTaskBlobRingScalar(...) end
+---@return any ...
+function MinimapObject:SetTaskBlobRingTexture(...) end
+---@return any ...
+function MinimapObject:SetToDefaults(...) end
+---@return any ...
+function MinimapObject:SetToplevel(...) end
+---@return any ...
+function MinimapObject:SetUserPlaced(...) end
+---@return any ...
+function MinimapObject:SetUsingParentLevel(...) end
+---@return any ...
+function MinimapObject:SetUsingSoftCursor(...) end
+---@return any ...
+function MinimapObject:SetWidth(...) end
+---@return any ...
+function MinimapObject:SetWindow(...) end
+---@return any ...
+function MinimapObject:SetZoom(...) end
+---@return any ...
+function MinimapObject:ShouldButtonPassThrough(...) end
+---@return any ...
+function MinimapObject:Show(...) end
+---@return any ...
+function MinimapObject:StartMoving(...) end
+---@return any ...
+function MinimapObject:StartSizing(...) end
+---@return any ...
+function MinimapObject:StopAnimating(...) end
+---@return any ...
+function MinimapObject:StopMovingOrSizing(...) end
+---@return any ...
+function MinimapObject:UnlockHighlight(...) end
+---@return any ...
+function MinimapObject:UnregisterAllEvents(...) end
+---@return any ...
+function MinimapObject:UnregisterEvent(...) end
+---@return any ...
+function MinimapObject:UpdateBlips(...) end
+---@return any ...
+function MinimapObject:UpdateMouseoverAtPoint(...) end
+---@return any ...
+function MinimapObject:UpdateStaticOverlayTexture(...) end
+---@type MinimapObject
+Minimap = MinimapObject
+end
+
+do
+---@class Minimap_ZoomHitAreaObject : Frame
+local Minimap_ZoomHitAreaObject = {}
+end
+
+do
+---@class Minimap_ZoomInObject : Button
+local Minimap_ZoomInObject = {}
+---@return any ...
+function Minimap_ZoomInObject:OnClick(...) end
+---@return any ...
+function Minimap_ZoomInObject:OnEnter(...) end
+---@return any ...
+function Minimap_ZoomInObject:OnLeave(...) end
+end
+
+do
+---@class Minimap_ZoomOutObject : Button
+local Minimap_ZoomOutObject = {}
+---@return any ...
+function Minimap_ZoomOutObject:OnClick(...) end
+---@return any ...
+function Minimap_ZoomOutObject:OnEnter(...) end
+---@return any ...
+function Minimap_ZoomOutObject:OnLeave(...) end
+end
+
+do
+---@class MinimapBackdropObject : Frame
+---@field ExternalEventURLButton MinimapBackdrop_ExternalEventURLButtonObject
+---@field StaticOverlayTexture MinimapBackdrop_StaticOverlayTextureObject
+local MinimapBackdropObject = {}
+---@type MinimapBackdropObject
+MinimapBackdrop = MinimapBackdropObject
+end
+
+do
+---@class MinimapBackdrop_ExternalEventURLButtonObject : Button
+---@field Border MinimapBackdrop_ExternalEventURLButton_BorderObject
+---@field Icon MinimapBackdrop_ExternalEventURLButton_IconObject
+---@field SpellEffectModelScene MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject
+local MinimapBackdrop_ExternalEventURLButtonObject = {}
+---@return any ...
+function MinimapBackdrop_ExternalEventURLButtonObject:ApplyBorderStyle(...) end
+---@return any ...
+function MinimapBackdrop_ExternalEventURLButtonObject:ApplyEffectStyle(...) end
+---@return any ...
+function MinimapBackdrop_ExternalEventURLButtonObject:DesaturateIfDisabled(...) end
+---@return any ...
+function MinimapBackdrop_ExternalEventURLButtonObject:IsDown(...) end
+---@return any ...
+function MinimapBackdrop_ExternalEventURLButtonObject:IsDownOver(...) end
+---@return any ...
+function MinimapBackdrop_ExternalEventURLButtonObject:IsOver(...) end
+---@return any ...
+function MinimapBackdrop_ExternalEventURLButtonObject:OnButtonStateChanged(...) end
+---@return any ...
+function MinimapBackdrop_ExternalEventURLButtonObject:OnClick(...) end
+---@return any ...
+function MinimapBackdrop_ExternalEventURLButtonObject:OnDisable(...) end
+---@return any ...
+function MinimapBackdrop_ExternalEventURLButtonObject:OnEnable(...) end
+---@return any ...
+function MinimapBackdrop_ExternalEventURLButtonObject:OnEnter(...) end
+---@return any ...
+function MinimapBackdrop_ExternalEventURLButtonObject:OnEvent(...) end
+---@return any ...
+function MinimapBackdrop_ExternalEventURLButtonObject:OnHide(...) end
+---@return any ...
+function MinimapBackdrop_ExternalEventURLButtonObject:OnLeave(...) end
+---@return any ...
+function MinimapBackdrop_ExternalEventURLButtonObject:OnLoad(...) end
+---@return any ...
+function MinimapBackdrop_ExternalEventURLButtonObject:OnMouseDown(...) end
+---@return any ...
+function MinimapBackdrop_ExternalEventURLButtonObject:OnMouseUp(...) end
+---@return any ...
+function MinimapBackdrop_ExternalEventURLButtonObject:OnShow(...) end
+---@return any ...
+function MinimapBackdrop_ExternalEventURLButtonObject:Refresh(...) end
+---@return any ...
+function MinimapBackdrop_ExternalEventURLButtonObject:SetDisplacedRegions(...) end
+---@return any ...
+function MinimapBackdrop_ExternalEventURLButtonObject:SetEffectShown(...) end
+end
+
+do
+---@class MinimapBackdrop_ExternalEventURLButton_BorderObject : Texture
+local MinimapBackdrop_ExternalEventURLButton_BorderObject = {}
+end
+
+do
+---@class MinimapBackdrop_ExternalEventURLButton_IconObject : Texture
+local MinimapBackdrop_ExternalEventURLButton_IconObject = {}
+end
+
+do
+---@class MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject
+---@field activeCamera MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject
+---@field actorPool MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_actorPoolObject
 ---@field actorTemplate string
+---@field cameraModificationType number
+---@field cameraTransitionType number
 ---@field cameras table
----@field centerX number
----@field centerY number
----@field delayedActions table
----@field effectControllers table
----@field ignoreInLayout boolean
----@field pixelsPerSceneUnit number
----@field tagToActor table
----@field tagToCamera table
----@field useViewInsetNormalization boolean
-local UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject = {}
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:AcquireActor(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:AcquireAndInitializeActor(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:AddCamera(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:AddDynamicEffect(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:AddEffect(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:AddOrUpdateDropShadow(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:AdjustCameraYaw(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:AttachPlayerToMount(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:CalculatePixelsPerSceneUnit(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:ClearEffects(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:ClearScene(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:CreateActorFromScene(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:CreateCameraFromScene(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:CreateOrTransitionActorFromScene(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:CreateOrTransitionCameraFromScene(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:EnumerateActiveActors(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:ExecuteOrDelayUntilSceneSet(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:GetActiveCamera(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:GetActorByTag(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:GetCameraByTag(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:GetEffectSpeed(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:GetModelSceneID(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:GetNumActiveActors(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:GetOrAcquireDropShadow(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:GetPixelsPerSceneUnit(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:GetPlayerActor(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:GetSceneSize(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:HasActiveCamera(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:HasActiveEffects(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:InitializeActor(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:InternalAddEffect(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:IsLeftMouseButtonDown(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:IsModelSceneSet(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:IsRightMouseButtonDown(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:OnEnter(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:OnEvent(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:OnHide(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:OnLeave(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:OnLoad(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:OnMouseDown(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:OnMouseUp(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:OnMouseWheel(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:OnShow(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:OnSizeChanged(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:OnUpdate(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:RefreshModelScene(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:ReleaseActor(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:ReleaseAllActors(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:ReleaseAllCameras(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:RemoveEffectController(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:Reset(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:SetActiveCamera(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:SetActorPositionFromPixels(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:SetEffectSpeed(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:SetFromModelSceneID(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:SetResetCallback(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:ShowAndAnimateActors(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:StopCameraYaw(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:SynchronizeActiveCamera(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:Transform3DPointTo2D(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_BackModelSceneObject:TransitionToModelSceneID(...) end
-end
-
-do
----@class UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject
----@field actorTemplate string
----@field cameras table
----@field centerX number
----@field centerY number
----@field delayedActions table
----@field effectControllers table
----@field ignoreInLayout boolean
----@field pixelsPerSceneUnit number
----@field tagToActor table
----@field tagToCamera table
----@field useViewInsetNormalization boolean
-local UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject = {}
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:AcquireActor(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:AcquireAndInitializeActor(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:AddCamera(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:AddDynamicEffect(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:AddEffect(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:AddOrUpdateDropShadow(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:AdjustCameraYaw(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:AttachPlayerToMount(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:CalculatePixelsPerSceneUnit(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:ClearEffects(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:ClearScene(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:CreateActorFromScene(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:CreateCameraFromScene(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:CreateOrTransitionActorFromScene(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:CreateOrTransitionCameraFromScene(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:EnumerateActiveActors(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:ExecuteOrDelayUntilSceneSet(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:GetActiveCamera(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:GetActorByTag(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:GetCameraByTag(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:GetEffectSpeed(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:GetModelSceneID(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:GetNumActiveActors(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:GetOrAcquireDropShadow(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:GetPixelsPerSceneUnit(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:GetPlayerActor(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:GetSceneSize(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:HasActiveCamera(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:HasActiveEffects(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:InitializeActor(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:InternalAddEffect(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:IsLeftMouseButtonDown(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:IsModelSceneSet(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:IsRightMouseButtonDown(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:OnEnter(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:OnEvent(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:OnHide(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:OnLeave(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:OnLoad(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:OnMouseDown(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:OnMouseUp(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:OnMouseWheel(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:OnShow(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:OnSizeChanged(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:OnUpdate(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:RefreshModelScene(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:ReleaseActor(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:ReleaseAllActors(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:ReleaseAllCameras(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:RemoveEffectController(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:Reset(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:SetActiveCamera(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:SetActorPositionFromPixels(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:SetEffectSpeed(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:SetFromModelSceneID(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:SetResetCallback(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:ShowAndAnimateActors(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:StopCameraYaw(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:SynchronizeActiveCamera(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:Transform3DPointTo2D(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_FrontModelSceneObject:TransitionToModelSceneID(...) end
-end
-
-do
----@class UIWidgetCenterDisplayFrame_WidgetContainer_horizontalRowContainerPoolObject
-local UIWidgetCenterDisplayFrame_WidgetContainer_horizontalRowContainerPoolObject = {}
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_horizontalRowContainerPoolObject:GetTemplate(...) end
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_horizontalRowContainerPoolObject:private(...) end
-end
-
-do
----@class UIWidgetCenterDisplayFrame_WidgetContainer_widgetPoolsObject
-local UIWidgetCenterDisplayFrame_WidgetContainer_widgetPoolsObject = {}
----@return any ...
-function UIWidgetCenterDisplayFrame_WidgetContainer_widgetPoolsObject:private(...) end
-end
-
-do
----@class UIWidgetCenterScreenContainerFrameObject : Frame
----@field BackModelScene UIWidgetCenterScreenContainerFrame_BackModelSceneObject
----@field FrontModelScene UIWidgetCenterScreenContainerFrame_FrontModelSceneObject
----@field horizontalAnchorPoint string
----@field horizontalAnchorXOffset number
----@field horizontalRelativePoint string
----@field horizontalRowContainerPool UIWidgetCenterScreenContainerFrame_horizontalRowContainerPoolObject
----@field showAndHideOnWidgetSetRegistration boolean
----@field verticalAnchorPoint string
----@field verticalRelativePoint string
----@field widgetPools UIWidgetCenterScreenContainerFrame_widgetPoolsObject
-local UIWidgetCenterScreenContainerFrameObject = {}
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:AnimateOutAllMarkedWidgets(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:CreateWidget(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:GatherWidgetsByWidgetTag(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:GetNumWidgetsShowing(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:GetWidgetFromPools(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:HasAnyWidgetsShowing(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:IsRegisteredForWidgetSet(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:Layout(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:MarkAllWidgetsForRemoval(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:MarkCleanLayout(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:MarkDirtyLayout(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:OnEvent(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:OnLoad(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:OnUpdate(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:ProcessAllWidgets(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:ProcessWidget(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:RegisterForWidgetSet(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:RegisterTimerWidget(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:RemoveAllWidgets(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:RemoveWidget(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:SetAttachedUnitAndType(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:SetModelScenesShown(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:UnregisterForWidgetSet(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:UnregisterTimerWidget(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrameObject:UpdateWidgetLayout(...) end
----@type UIWidgetCenterScreenContainerFrameObject
-UIWidgetCenterScreenContainerFrame = UIWidgetCenterScreenContainerFrameObject
-end
-
-do
----@class UIWidgetCenterScreenContainerFrame_BackModelSceneObject
----@field activeCamera UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject
----@field actorTemplate string
----@field cameras table
----@field centerX number
----@field centerY number
----@field effectControllers table
----@field ignoreInLayout boolean
 ---@field modelSceneID number
----@field modelSceneSet boolean
----@field pixelsPerSceneUnit number
----@field tagToActor table
----@field tagToCamera UIWidgetCenterScreenContainerFrame_BackModelScene_tagToCameraObject
----@field useViewInsetNormalization boolean
-local UIWidgetCenterScreenContainerFrame_BackModelSceneObject = {}
+---@field tagToActor MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToActorObject
+---@field tagToCamera MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToCameraObject
+local MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject = {}
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:AcquireActor(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:AcquireActor(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:AcquireAndInitializeActor(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:AcquireAndInitializeActor(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:AddCamera(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:AddCamera(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:AddDynamicEffect(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:AddOrUpdateDropShadow(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:AddEffect(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:AdjustCameraYaw(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:AddOrUpdateDropShadow(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:AttachPlayerToMount(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:AdjustCameraYaw(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:ClearScene(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:AttachPlayerToMount(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:CreateActorFromScene(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:CalculatePixelsPerSceneUnit(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:CreateCameraFromScene(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:ClearEffects(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:CreateOrTransitionActorFromScene(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:ClearScene(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:CreateOrTransitionCameraFromScene(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:CreateActorFromScene(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:EnumerateActiveActors(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:CreateCameraFromScene(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:GetActiveCamera(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:CreateOrTransitionActorFromScene(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:GetActorByTag(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:CreateOrTransitionCameraFromScene(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:GetCameraByTag(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:EnumerateActiveActors(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:GetModelSceneID(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:ExecuteOrDelayUntilSceneSet(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:GetNumActiveActors(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:GetActiveCamera(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:GetOrAcquireDropShadow(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:GetActorByTag(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:GetPlayerActor(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:GetCameraByTag(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:HasActiveCamera(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:GetEffectSpeed(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:InitializeActor(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:GetModelSceneID(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:IsLeftMouseButtonDown(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:GetNumActiveActors(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:IsRightMouseButtonDown(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:GetOrAcquireDropShadow(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:OnEnter(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:GetPixelsPerSceneUnit(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:OnLeave(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:GetPlayerActor(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:OnLoad(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:GetSceneSize(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:OnMouseDown(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:HasActiveCamera(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:OnMouseUp(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:HasActiveEffects(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:OnMouseWheel(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:InitializeActor(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:OnUpdate(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:InternalAddEffect(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:ReleaseActor(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:IsLeftMouseButtonDown(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:ReleaseAllActors(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:IsModelSceneSet(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:ReleaseAllCameras(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:IsRightMouseButtonDown(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:Reset(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:OnEnter(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:SetActiveCamera(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:OnEvent(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:SetFromModelSceneID(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:OnHide(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:SetResetCallback(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:OnLeave(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:ShowAndAnimateActors(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:OnLoad(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:StopCameraYaw(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:OnMouseDown(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:SynchronizeActiveCamera(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:OnMouseUp(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:Transform3DPointTo2D(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:OnMouseWheel(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:OnShow(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:OnSizeChanged(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:OnUpdate(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:RefreshModelScene(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:ReleaseActor(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:ReleaseAllActors(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:ReleaseAllCameras(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:RemoveEffectController(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:Reset(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:SetActiveCamera(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:SetActorPositionFromPixels(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:SetEffectSpeed(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:SetFromModelSceneID(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:SetResetCallback(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:ShowAndAnimateActors(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:StopCameraYaw(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:SynchronizeActiveCamera(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:Transform3DPointTo2D(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelSceneObject:TransitionToModelSceneID(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelSceneObject:TransitionToModelSceneID(...) end
 end
 
 do
----@class UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject
+---@class MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject
 ---@field buttonModes table
 ---@field maxZoomDistance number
 ---@field minZoomDistance number
 ---@field modelSceneCameraInfo table
----@field owningScene UIWidgetCenterScreenContainerFrame_BackModelScene_activeCamera_owningSceneObject
+---@field owningScene MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCamera_owningSceneObject
 ---@field panningXOffset number
 ---@field panningYOffset number
 ---@field pitch number
@@ -5882,1412 +6665,3639 @@ do
 ---@field yawInterpolationAmount number
 ---@field zoomInterpolationAmount number
 ---@field zoomPercent number
-local UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject = {}
+local MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject = {}
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:AdjustYaw(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:AdjustYaw(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:ApplyFromModelSceneCameraInfo(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:ApplyFromModelSceneCameraInfo(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:CalculatePositionByDistanceFromTarget(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:CalculatePositionByDistanceFromTarget(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:CalculateTransitionalValues(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:CalculateTransitionalValues(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:CalculateZoomDistanceFromPercent(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:CalculateZoomDistanceFromPercent(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:CalculateZoomPercentFromDistance(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:CalculateZoomPercentFromDistance(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetCameraType(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetCameraType(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetDeltaModifierForCameraMode(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetDeltaModifierForCameraMode(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetDerivedOrientation(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetDerivedOrientation(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetDerivedTarget(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetDerivedTarget(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetDerivedZoomDistance(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetDerivedZoomDistance(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetForwardVector(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetForwardVector(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetInterpolatedOrientation(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetInterpolatedOrientation(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetInterpolatedTarget(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetInterpolatedTarget(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetInterpolatedZoomDistance(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetInterpolatedZoomDistance(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetLeftMouseButtonXMode(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetLeftMouseButtonXMode(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetLeftYMouseButtonYMode(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetLeftYMouseButtonYMode(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetMaxZoomDistance(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetMaxZoomDistance(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetMinZoomDistance(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetMinZoomDistance(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetMouseWheelMode(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetMouseWheelMode(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetOrientationSpline(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetOrientationSpline(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetOwningScene(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetOwningScene(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetPitch(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetPitch(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetPitchInterpolationAmount(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetPitchInterpolationAmount(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetPosition(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetPosition(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetRightMouseButtonXMode(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetRightMouseButtonXMode(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetRightMouseButtonYMode(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetRightMouseButtonYMode(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetRightVector(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetRightVector(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetRoll(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetRoll(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetRollInterpolationAmount(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetRollInterpolationAmount(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetTarget(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetTarget(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetTargetInterpolationAmount(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetTargetInterpolationAmount(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetTargetSpline(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetTargetSpline(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetUpVector(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetUpVector(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetYaw(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetYaw(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetYawInterpolationAmount(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetYawInterpolationAmount(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetZoomAvailable(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetZoomAvailable(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetZoomDistance(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetZoomDistance(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetZoomInterpolationAmount(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetZoomInterpolationAmount(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetZoomPercent(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetZoomPercent(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:GetZoomSpline(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:GetZoomSpline(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:HandleMouseMovement(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:HandleMouseMovement(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:IsLeftMouseButtonDown(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:IsLeftMouseButtonDown(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:IsRightMouseButtonDown(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:IsRightMouseButtonDown(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:OnActivated(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:OnActivated(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:OnAdded(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:OnAdded(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:OnDeactivated(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:OnDeactivated(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:OnMouseDown(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:OnMouseDown(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:OnMouseUp(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:OnMouseUp(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:OnMouseWheel(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:OnMouseWheel(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:OnRemoved(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:OnRemoved(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:OnUpdate(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:OnUpdate(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:ResetDefaultInputModes(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:ResetDefaultInputModes(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetAlignLightToOrbitDelta(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetAlignLightToOrbitDelta(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetLeftMouseButtonXMode(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetLeftMouseButtonXMode(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetLeftMouseButtonYMode(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetLeftMouseButtonYMode(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetMaxZoomDistance(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetMaxZoomDistance(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetMinZoomDistance(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetMinZoomDistance(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetMouseWheelMode(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetMouseWheelMode(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetOrientationSpline(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetOrientationSpline(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetOwningScene(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetOwningScene(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetPitch(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetPitch(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetPitchInterpolationAmount(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetPitchInterpolationAmount(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetPosition(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetPosition(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetRightMouseButtonXMode(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetRightMouseButtonXMode(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetRightMouseButtonYMode(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetRightMouseButtonYMode(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetRoll(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetRoll(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetRollInterpolationAmount(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetRollInterpolationAmount(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetTarget(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetTarget(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetTargetInterpolationAmount(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetTargetInterpolationAmount(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetTargetSpline(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetTargetSpline(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetYaw(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetYaw(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetYawInterpolationAmount(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetYawInterpolationAmount(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetZoomDistance(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetZoomDistance(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetZoomInterpolationAmount(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetZoomInterpolationAmount(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetZoomPercent(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetZoomPercent(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SetZoomSpline(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SetZoomSpline(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:ShouldAlignLightToOrbitDelta(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:ShouldAlignLightToOrbitDelta(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SnapAllInterpolatedValues(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SnapAllInterpolatedValues(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SnapToTargetInterpolationPitch(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SnapToTargetInterpolationPitch(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SnapToTargetInterpolationRoll(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SnapToTargetInterpolationRoll(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SnapToTargetInterpolationTarget(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SnapToTargetInterpolationTarget(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SnapToTargetInterpolationYaw(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SnapToTargetInterpolationYaw(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SnapToTargetInterpolationZoom(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SnapToTargetInterpolationZoom(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:SynchronizeCamera(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:SynchronizeCamera(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:UpdateCameraOrientationAndPosition(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:UpdateCameraOrientationAndPosition(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:UpdateInterpolationTargets(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:UpdateInterpolationTargets(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:UpdateLight(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:UpdateLight(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:ZoomBy(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:ZoomBy(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_BackModelScene_activeCameraObject:ZoomByPercent(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCameraObject:ZoomByPercent(...) end
 end
 
 do
----@class UIWidgetCenterScreenContainerFrame_BackModelScene_activeCamera_owningSceneObject
-local UIWidgetCenterScreenContainerFrame_BackModelScene_activeCamera_owningSceneObject = {}
+---@class MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCamera_owningSceneObject
+local MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_activeCamera_owningSceneObject = {}
 end
 
 do
----@class UIWidgetCenterScreenContainerFrame_BackModelScene_tagToCameraObject
----@field primary table
-local UIWidgetCenterScreenContainerFrame_BackModelScene_tagToCameraObject = {}
+---@class MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_actorPoolObject
+local MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_actorPoolObject = {}
+---@return any ...
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_actorPoolObject:GetTemplate(...) end
+---@return any ...
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_actorPoolObject:private(...) end
 end
 
 do
----@class UIWidgetCenterScreenContainerFrame_FrontModelSceneObject
----@field activeCamera UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject
----@field actorTemplate string
----@field cameras table
----@field centerX number
----@field centerY number
----@field effectControllers table
----@field ignoreInLayout boolean
----@field modelSceneID number
----@field modelSceneSet boolean
----@field pixelsPerSceneUnit number
----@field tagToActor table
----@field tagToCamera UIWidgetCenterScreenContainerFrame_FrontModelScene_tagToCameraObject
----@field useViewInsetNormalization boolean
-local UIWidgetCenterScreenContainerFrame_FrontModelSceneObject = {}
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:AcquireActor(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:AcquireAndInitializeActor(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:AddCamera(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:AddDynamicEffect(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:AddEffect(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:AddOrUpdateDropShadow(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:AdjustCameraYaw(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:AttachPlayerToMount(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:CalculatePixelsPerSceneUnit(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:ClearEffects(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:ClearScene(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:CreateActorFromScene(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:CreateCameraFromScene(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:CreateOrTransitionActorFromScene(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:CreateOrTransitionCameraFromScene(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:EnumerateActiveActors(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:ExecuteOrDelayUntilSceneSet(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:GetActiveCamera(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:GetActorByTag(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:GetCameraByTag(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:GetEffectSpeed(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:GetModelSceneID(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:GetNumActiveActors(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:GetOrAcquireDropShadow(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:GetPixelsPerSceneUnit(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:GetPlayerActor(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:GetSceneSize(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:HasActiveCamera(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:HasActiveEffects(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:InitializeActor(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:InternalAddEffect(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:IsLeftMouseButtonDown(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:IsModelSceneSet(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:IsRightMouseButtonDown(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:OnEnter(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:OnEvent(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:OnHide(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:OnLeave(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:OnLoad(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:OnMouseDown(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:OnMouseUp(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:OnMouseWheel(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:OnShow(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:OnSizeChanged(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:OnUpdate(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:RefreshModelScene(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:ReleaseActor(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:ReleaseAllActors(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:ReleaseAllCameras(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:RemoveEffectController(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:Reset(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:SetActiveCamera(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:SetActorPositionFromPixels(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:SetEffectSpeed(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:SetFromModelSceneID(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:SetResetCallback(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:ShowAndAnimateActors(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:StopCameraYaw(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:SynchronizeActiveCamera(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:Transform3DPointTo2D(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelSceneObject:TransitionToModelSceneID(...) end
+---@class MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToActorObject
+---@field target MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToActor_targetObject
+local MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToActorObject = {}
 end
 
 do
----@class UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject
----@field buttonModes table
----@field maxZoomDistance number
----@field minZoomDistance number
----@field modelSceneCameraInfo table
----@field owningScene UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCamera_owningSceneObject
----@field panningXOffset number
----@field panningYOffset number
----@field pitch number
----@field pitchInterpolationAmount number
----@field roll number
----@field rollInterpolationAmount number
----@field targetInterpolationAmount number
----@field targetX number
----@field targetY number
----@field targetZ number
----@field yaw number
----@field yawInterpolationAmount number
----@field zoomInterpolationAmount number
----@field zoomPercent number
-local UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject = {}
+---@class MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToActor_targetObject
+---@field normalizedScaleAggressiveness number
+---@field requestedScale number
+---@field scaleDirty boolean
+local MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToActor_targetObject = {}
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:AdjustYaw(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToActor_targetObject:ApplyFromModelSceneActorInfo(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:ApplyFromModelSceneCameraInfo(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToActor_targetObject:CalculateNormalizedScale(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:CalculatePositionByDistanceFromTarget(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToActor_targetObject:GetNormalizedScaleAggressiveness(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:CalculateTransitionalValues(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToActor_targetObject:GetOnModelLoadedCallback(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:CalculateZoomDistanceFromPercent(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToActor_targetObject:GetOnSizeChangedCallback(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:CalculateZoomPercentFromDistance(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToActor_targetObject:GetRequestedScale(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetCameraType(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToActor_targetObject:MarkScaleDirty(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetDeltaModifierForCameraMode(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToActor_targetObject:OnModelCleared(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetDerivedOrientation(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToActor_targetObject:OnModelLoaded(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetDerivedTarget(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToActor_targetObject:OnReleased(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetDerivedZoomDistance(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToActor_targetObject:OnUpdate(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetForwardVector(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToActor_targetObject:SetNormalizedScaleAggressiveness(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetInterpolatedOrientation(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToActor_targetObject:SetOnModelLoadedCallback(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetInterpolatedTarget(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToActor_targetObject:SetOnSizeChangedCallback(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetInterpolatedZoomDistance(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToActor_targetObject:SetRequestedScale(...) end
 ---@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetLeftMouseButtonXMode(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetLeftYMouseButtonYMode(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetMaxZoomDistance(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetMinZoomDistance(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetMouseWheelMode(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetOrientationSpline(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetOwningScene(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetPitch(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetPitchInterpolationAmount(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetPosition(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetRightMouseButtonXMode(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetRightMouseButtonYMode(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetRightVector(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetRoll(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetRollInterpolationAmount(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetTarget(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetTargetInterpolationAmount(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetTargetSpline(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetUpVector(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetYaw(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetYawInterpolationAmount(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetZoomAvailable(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetZoomDistance(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetZoomInterpolationAmount(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetZoomPercent(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:GetZoomSpline(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:HandleMouseMovement(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:IsLeftMouseButtonDown(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:IsRightMouseButtonDown(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:OnActivated(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:OnAdded(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:OnDeactivated(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:OnMouseDown(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:OnMouseUp(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:OnMouseWheel(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:OnRemoved(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:OnUpdate(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:ResetDefaultInputModes(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetAlignLightToOrbitDelta(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetLeftMouseButtonXMode(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetLeftMouseButtonYMode(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetMaxZoomDistance(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetMinZoomDistance(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetMouseWheelMode(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetOrientationSpline(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetOwningScene(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetPitch(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetPitchInterpolationAmount(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetPosition(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetRightMouseButtonXMode(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetRightMouseButtonYMode(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetRoll(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetRollInterpolationAmount(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetTarget(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetTargetInterpolationAmount(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetTargetSpline(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetYaw(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetYawInterpolationAmount(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetZoomDistance(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetZoomInterpolationAmount(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetZoomPercent(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SetZoomSpline(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:ShouldAlignLightToOrbitDelta(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SnapAllInterpolatedValues(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SnapToTargetInterpolationPitch(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SnapToTargetInterpolationRoll(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SnapToTargetInterpolationTarget(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SnapToTargetInterpolationYaw(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SnapToTargetInterpolationZoom(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:SynchronizeCamera(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:UpdateCameraOrientationAndPosition(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:UpdateInterpolationTargets(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:UpdateLight(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:ZoomBy(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCameraObject:ZoomByPercent(...) end
+function MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToActor_targetObject:UpdateScale(...) end
 end
 
 do
----@class UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCamera_owningSceneObject
-local UIWidgetCenterScreenContainerFrame_FrontModelScene_activeCamera_owningSceneObject = {}
+---@class MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToCameraObject
+---@field camera table
+local MinimapBackdrop_ExternalEventURLButton_SpellEffectModelScene_tagToCameraObject = {}
 end
 
 do
----@class UIWidgetCenterScreenContainerFrame_FrontModelScene_tagToCameraObject
----@field primary table
-local UIWidgetCenterScreenContainerFrame_FrontModelScene_tagToCameraObject = {}
+---@class MinimapBackdrop_StaticOverlayTextureObject : Texture
+local MinimapBackdrop_StaticOverlayTextureObject = {}
 end
 
 do
----@class UIWidgetCenterScreenContainerFrame_horizontalRowContainerPoolObject
-local UIWidgetCenterScreenContainerFrame_horizontalRowContainerPoolObject = {}
----@return any ...
-function UIWidgetCenterScreenContainerFrame_horizontalRowContainerPoolObject:GetTemplate(...) end
----@return any ...
-function UIWidgetCenterScreenContainerFrame_horizontalRowContainerPoolObject:private(...) end
-end
-
-do
----@class UIWidgetCenterScreenContainerFrame_widgetPoolsObject
-local UIWidgetCenterScreenContainerFrame_widgetPoolsObject = {}
----@return any ...
-function UIWidgetCenterScreenContainerFrame_widgetPoolsObject:private(...) end
-end
-
-do
----@class UIWidgetTopCenterContainerFrameObject : Frame
----@field BackModelScene UIWidgetTopCenterContainerFrame_BackModelSceneObject
----@field FrontModelScene UIWidgetTopCenterContainerFrame_FrontModelSceneObject
+---@class MinimapClusterObject : Frame
+---@field DielFrame MinimapCluster_DielFrameObject
+---@field GamepadButtons MinimapCluster_GamepadButtonsObject
+---@field GamepadHudBackground MinimapCluster_GamepadHudBackgroundObject
+---@field IndicatorFrame MinimapCluster_IndicatorFrameObject
+---@field MinimapContainer MinimapCluster_MinimapContainerObject
+---@field Selection MinimapCluster_SelectionObject
+---@field Tracking MinimapCluster_TrackingObject
+---@field ZoneTextButton MinimapCluster_ZoneTextButtonObject
 ---@field dirty boolean
----@field dirtyLayout boolean
----@field horizontalAnchorPoint string
----@field horizontalAnchorXOffset number
----@field horizontalRelativePoint string
----@field horizontalRowContainerPool UIWidgetTopCenterContainerFrame_horizontalRowContainerPoolObject
----@field numTimers number
----@field numWidgetsShowing number
----@field showAndHideOnWidgetSetRegistration boolean
----@field timerWidgets table
----@field verticalAnchorPoint string
----@field verticalAnchorYOffset number
----@field verticalRelativePoint string
----@field widgetFrames table
----@field widgetPools UIWidgetTopCenterContainerFrame_widgetPoolsObject
----@field widgetSetID number
----@field widgetSetLayoutDirection number
-local UIWidgetTopCenterContainerFrameObject = {}
+---@field dirtySettings table
+---@field downKeys table
+---@field hasActiveChanges boolean
+---@field savedSystemInfo MinimapCluster_savedSystemInfoObject
+---@field scaleMinimapHeader boolean
+---@field settingDisplayInfoMap table
+---@field settingMap table
+---@field settingsDialogAnchor MinimapCluster_settingsDialogAnchorObject
+---@field snappedFrames table
+---@field system number
+---@field systemInfo MinimapCluster_systemInfoObject
+---@field systemNameString string
+---@field widthPadding number
+local MinimapClusterObject = {}
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:AddLayoutChildren(...) end
+function MinimapClusterObject:AddExtraButtons(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:AnimateOutAllMarkedWidgets(...) end
+function MinimapClusterObject:AddLayoutChildren(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:ClearFixedSize(...) end
+function MinimapClusterObject:AddSnappedFrame(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:CreateWidget(...) end
+function MinimapClusterObject:AnchorSelectionFrame(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:GatherWidgetsByWidgetTag(...) end
+function MinimapClusterObject:AnySettingsDirty(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:GetAdditionalRegions(...) end
+function MinimapClusterObject:ApplyExternalEventURLButtonAnchor(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:GetChildHeight(...) end
+function MinimapClusterObject:ApplySystemAnchor(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:GetChildSize(...) end
+function MinimapClusterObject:AreAllSystemSettingsDefault(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:GetChildWidth(...) end
+function MinimapClusterObject:BreakFrameSnap(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:GetFixedHeight(...) end
+function MinimapClusterObject:BreakFromFrameManager(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:GetFixedSize(...) end
+function MinimapClusterObject:BreakSnappedFrames(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:GetFixedWidth(...) end
+function MinimapClusterObject:CanBeMoved(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:GetHeightPadding(...) end
+function MinimapClusterObject:CheckTutorials(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:GetLayoutChildren(...) end
+function MinimapClusterObject:ClearAllPointsBase(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:GetMaximumWidth(...) end
+function MinimapClusterObject:ClearAllPointsOverride(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:GetMinimumWidth(...) end
+function MinimapClusterObject:ClearDirtySetting(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:GetNumWidgetsShowing(...) end
+function MinimapClusterObject:ClearDownKeys(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:GetWidgetFromPools(...) end
+function MinimapClusterObject:ClearFixedSize(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:GetWidthPadding(...) end
+function MinimapClusterObject:ClearFrameSnap(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:HasAnyWidgetsShowing(...) end
+function MinimapClusterObject:ClearHighlight(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:IgnoreLayoutIndex(...) end
+function MinimapClusterObject:ConvertSettingDisplayValueToRawValue(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:IsDirty(...) end
+function MinimapClusterObject:CreateInstanceDifficultyFrame(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:IsLayoutFrame(...) end
+function MinimapClusterObject:DoesSettingDisplayValueEqual(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:IsRegisteredForWidgetSet(...) end
+function MinimapClusterObject:DoesSettingValueEqual(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:Layout(...) end
+function MinimapClusterObject:GetAdditionalRegions(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:MarkAllWidgetsForRemoval(...) end
+function MinimapClusterObject:GetBottomOffset(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:MarkClean(...) end
+function MinimapClusterObject:GetChildHeight(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:MarkCleanLayout(...) end
+function MinimapClusterObject:GetChildSize(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:MarkDirty(...) end
+function MinimapClusterObject:GetChildWidth(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:MarkDirtyLayout(...) end
+function MinimapClusterObject:GetCombinedCenterOffset(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:MarkIgnoreInLayout(...) end
+function MinimapClusterObject:GetCombinedSelectionOffset(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:NeedsOnUpdate(...) end
+function MinimapClusterObject:GetCompositeNumberSettingValue(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:OnCleaned(...) end
+function MinimapClusterObject:GetEditModeScale(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:OnEvent(...) end
+function MinimapClusterObject:GetFixedHeight(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:OnLoad(...) end
+function MinimapClusterObject:GetFixedSize(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:OnShow(...) end
+function MinimapClusterObject:GetFixedWidth(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:OnUpdate(...) end
+function MinimapClusterObject:GetFrameMagneticEligibility(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:OverrideOnUpdate(...) end
+function MinimapClusterObject:GetHeightPadding(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:ProcessAllWidgets(...) end
+function MinimapClusterObject:GetLayoutChildren(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:ProcessWidget(...) end
+function MinimapClusterObject:GetLeftOffset(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:RegisterForWidgetSet(...) end
+function MinimapClusterObject:GetManagedFrameContainer(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:RegisterTimerWidget(...) end
+function MinimapClusterObject:GetMaximumWidth(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:RemoveAllWidgets(...) end
+function MinimapClusterObject:GetMinimumWidth(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:RemoveWidget(...) end
+function MinimapClusterObject:GetRightOffset(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:SetAttachedUnitAndType(...) end
+function MinimapClusterObject:GetScaledCenter(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:SetFixedHeight(...) end
+function MinimapClusterObject:GetScaledSelectionCenter(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:SetFixedSize(...) end
+function MinimapClusterObject:GetScaledSelectionSides(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:SetFixedWidth(...) end
+function MinimapClusterObject:GetSelectionOffset(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:SetHeightPadding(...) end
+function MinimapClusterObject:GetSettingValue(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:SetMaximumWidth(...) end
+function MinimapClusterObject:GetSettingValueBool(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:SetMinimumWidth(...) end
+function MinimapClusterObject:GetSettingsDialogAnchor(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:SetModelScenesShown(...) end
+function MinimapClusterObject:GetSnapOffsets(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:SetWidthPadding(...) end
+function MinimapClusterObject:GetSystemName(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:ShouldClearOnUpdateAfterClean(...) end
+function MinimapClusterObject:GetTopOffset(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:ShouldRegisterOnUpdate(...) end
+function MinimapClusterObject:GetWidthPadding(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:UnregisterForWidgetSet(...) end
+function MinimapClusterObject:HasActiveChanges(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:UnregisterTimerWidget(...) end
+function MinimapClusterObject:HasCompositeNumberSetting(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:UpdateOnUpdateRegistration(...) end
+function MinimapClusterObject:HasSetting(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:UpdateWidgetLayout(...) end
+function MinimapClusterObject:HasValidSelectionRect(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrameObject:layoutFunc(...) end
----@type UIWidgetTopCenterContainerFrameObject
-UIWidgetTopCenterContainerFrame = UIWidgetTopCenterContainerFrameObject
+function MinimapClusterObject:HideBase(...) end
+---@return any ...
+function MinimapClusterObject:HideOverride(...) end
+---@return any ...
+function MinimapClusterObject:HighlightSystem(...) end
+---@return any ...
+function MinimapClusterObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function MinimapClusterObject:IsAboveFrame(...) end
+---@return any ...
+function MinimapClusterObject:IsBelowFrame(...) end
+---@return any ...
+function MinimapClusterObject:IsDirty(...) end
+---@return any ...
+function MinimapClusterObject:IsEditModeDragging(...) end
+---@return any ...
+function MinimapClusterObject:IsFrameAnchoredToMe(...) end
+---@return any ...
+function MinimapClusterObject:IsHorizontallyAlignedWithFrame(...) end
+---@return any ...
+function MinimapClusterObject:IsInDefaultPosition(...) end
+---@return any ...
+function MinimapClusterObject:IsInitialized(...) end
+---@return any ...
+function MinimapClusterObject:IsLayoutFrame(...) end
+---@return any ...
+function MinimapClusterObject:IsSettingDirty(...) end
+---@return any ...
+function MinimapClusterObject:IsShiftKeyDown(...) end
+---@return any ...
+function MinimapClusterObject:IsSystemSettingDefault(...) end
+---@return any ...
+function MinimapClusterObject:IsToTheLeftOfFrame(...) end
+---@return any ...
+function MinimapClusterObject:IsToTheRightOfFrame(...) end
+---@return any ...
+function MinimapClusterObject:IsVerticallyAlignedWithFrame(...) end
+---@return any ...
+function MinimapClusterObject:Layout(...) end
+---@return any ...
+function MinimapClusterObject:MarkAllSettingsDirty(...) end
+---@return any ...
+function MinimapClusterObject:MarkClean(...) end
+---@return any ...
+function MinimapClusterObject:MarkDirty(...) end
+---@return any ...
+function MinimapClusterObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function MinimapClusterObject:OnAnyEditModeSystemAnchorChanged(...) end
+---@return any ...
+function MinimapClusterObject:OnCleaned(...) end
+---@return any ...
+function MinimapClusterObject:OnDragStart(...) end
+---@return any ...
+function MinimapClusterObject:OnDragStop(...) end
+---@return any ...
+function MinimapClusterObject:OnEditModeEnter(...) end
+---@return any ...
+function MinimapClusterObject:OnEditModeExit(...) end
+---@return any ...
+function MinimapClusterObject:OnEvent(...) end
+---@return any ...
+function MinimapClusterObject:OnKeyDown(...) end
+---@return any ...
+function MinimapClusterObject:OnKeyUp(...) end
+---@return any ...
+function MinimapClusterObject:OnLoad(...) end
+---@return any ...
+function MinimapClusterObject:OnShow(...) end
+---@return any ...
+function MinimapClusterObject:OnSystemHide(...) end
+---@return any ...
+function MinimapClusterObject:OnSystemLoad(...) end
+---@return any ...
+function MinimapClusterObject:OnSystemPositionChange(...) end
+---@return any ...
+function MinimapClusterObject:OnUpdate(...) end
+---@return any ...
+function MinimapClusterObject:OnUpdateSystem(...) end
+---@return any ...
+function MinimapClusterObject:PrepareForSave(...) end
+---@return any ...
+function MinimapClusterObject:ProcessMovementKey(...) end
+---@return any ...
+function MinimapClusterObject:RemoveSnappedFrame(...) end
+---@return any ...
+function MinimapClusterObject:ResetFramePoints(...) end
+---@return any ...
+function MinimapClusterObject:ResetToDefaultPosition(...) end
+---@return any ...
+function MinimapClusterObject:SelectSystem(...) end
+---@return any ...
+function MinimapClusterObject:SetEditModeScale(...) end
+---@return any ...
+function MinimapClusterObject:SetFixedHeight(...) end
+---@return any ...
+function MinimapClusterObject:SetFixedSize(...) end
+---@return any ...
+function MinimapClusterObject:SetFixedWidth(...) end
+---@return any ...
+function MinimapClusterObject:SetHasActiveChanges(...) end
+---@return any ...
+function MinimapClusterObject:SetHeaderUnderneath(...) end
+---@return any ...
+function MinimapClusterObject:SetHeightPadding(...) end
+---@return any ...
+function MinimapClusterObject:SetIconScale(...) end
+---@return any ...
+function MinimapClusterObject:SetMaximumWidth(...) end
+---@return any ...
+function MinimapClusterObject:SetMinimumWidth(...) end
+---@return any ...
+function MinimapClusterObject:SetPointBase(...) end
+---@return any ...
+function MinimapClusterObject:SetPointOverride(...) end
+---@return any ...
+function MinimapClusterObject:SetRotateMinimap(...) end
+---@return any ...
+function MinimapClusterObject:SetScaleBase(...) end
+---@return any ...
+function MinimapClusterObject:SetScaleOverride(...) end
+---@return any ...
+function MinimapClusterObject:SetSelectionShown(...) end
+---@return any ...
+function MinimapClusterObject:SetShowPlayerCoords(...) end
+---@return any ...
+function MinimapClusterObject:SetShownBase(...) end
+---@return any ...
+function MinimapClusterObject:SetShownOverride(...) end
+---@return any ...
+function MinimapClusterObject:SetSnappedToFrame(...) end
+---@return any ...
+function MinimapClusterObject:SetWidthPadding(...) end
+---@return any ...
+function MinimapClusterObject:SetupSettingsDialogAnchor(...) end
+---@return any ...
+function MinimapClusterObject:SetupVisibilityFunctionOverrides(...) end
+---@return any ...
+function MinimapClusterObject:ShouldBreakSnappedFramesOnHide(...) end
+---@return any ...
+function MinimapClusterObject:ShouldClearOnUpdateAfterClean(...) end
+---@return any ...
+function MinimapClusterObject:ShouldResetSettingsDialogAnchors(...) end
+---@return any ...
+function MinimapClusterObject:ShouldShowSetting(...) end
+---@return any ...
+function MinimapClusterObject:ShowEditInstructions(...) end
+---@return any ...
+function MinimapClusterObject:SnapToFrame(...) end
+---@return any ...
+function MinimapClusterObject:TrySetCompositeNumberSettingValue(...) end
+---@return any ...
+function MinimapClusterObject:UpdateClampOffsets(...) end
+---@return any ...
+function MinimapClusterObject:UpdateDirtySettings(...) end
+---@return any ...
+function MinimapClusterObject:UpdateDisplayInfoOptions(...) end
+---@return any ...
+function MinimapClusterObject:UpdateMagnetismRegistration(...) end
+---@return any ...
+function MinimapClusterObject:UpdateMinimapConfig(...) end
+---@return any ...
+function MinimapClusterObject:UpdateSettingMap(...) end
+---@return any ...
+function MinimapClusterObject:UpdateSystem(...) end
+---@return any ...
+function MinimapClusterObject:UpdateSystemSetting(...) end
+---@return any ...
+function MinimapClusterObject:UpdateSystemSettingHeaderUnderneath(...) end
+---@return any ...
+function MinimapClusterObject:UpdateSystemSettingIconScale(...) end
+---@return any ...
+function MinimapClusterObject:UpdateSystemSettingRotateMinimap(...) end
+---@return any ...
+function MinimapClusterObject:UpdateSystemSettingSize(...) end
+---@return any ...
+function MinimapClusterObject:UpdateSystemSettingValue(...) end
+---@return any ...
+function MinimapClusterObject:UseSettingAltName(...) end
+---@type MinimapClusterObject
+MinimapCluster = MinimapClusterObject
 end
 
 do
----@class UIWidgetTopCenterContainerFrame_BackModelSceneObject
----@field activeCamera UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject
+---@class MinimapCluster_DielFrameObject : Frame
+---@field Background MinimapCluster_DielFrame_BackgroundObject
+---@field ignoreInLayout boolean
+local MinimapCluster_DielFrameObject = {}
+end
+
+do
+---@class MinimapCluster_DielFrame_BackgroundObject : Texture
+local MinimapCluster_DielFrame_BackgroundObject = {}
+end
+
+do
+---@class MinimapCluster_GamepadButtonsObject : Frame
+local MinimapCluster_GamepadButtonsObject = {}
+end
+
+do
+---@class MinimapCluster_GamepadHudBackgroundObject : Frame
+local MinimapCluster_GamepadHudBackgroundObject = {}
+end
+
+do
+---@class MinimapCluster_IndicatorFrameObject : Frame
+---@field MailFrame MinimapCluster_IndicatorFrame_MailFrameObject
+---@field defaultFramePoints table
+---@field dirty boolean
+---@field fixedHeight number
+---@field fixedWidth number
+local MinimapCluster_IndicatorFrameObject = {}
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:AddLayoutChildren(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:CalculateFrameSize(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:ClearFixedSize(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:GetAdditionalRegions(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:GetChildHeight(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:GetChildPadding(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:GetChildSize(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:GetChildWidth(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:GetFixedHeight(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:GetFixedSize(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:GetFixedWidth(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:GetHeightPadding(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:GetLayoutChildren(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:GetPadding(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:GetWidthPadding(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:IsDirty(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:IsLayoutFrame(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:Layout(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:LayoutChildren(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:MarkClean(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:MarkDirty(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:OnCleaned(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:OnShow(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:OnUpdate(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:SetFixedHeight(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:SetFixedSize(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:SetFixedWidth(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:SetHeightPadding(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:SetWidthPadding(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrameObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class MinimapCluster_IndicatorFrame_MailFrameObject : Frame
+---@field MailIcon MinimapCluster_IndicatorFrame_MailFrame_MailIconObject
+---@field buttonContext string
+---@field layoutIndex number
+local MinimapCluster_IndicatorFrame_MailFrameObject = {}
+---@return any ...
+function MinimapCluster_IndicatorFrame_MailFrameObject:OnEnter(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrame_MailFrameObject:OnEvent(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrame_MailFrameObject:OnHide(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrame_MailFrameObject:OnLeave(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrame_MailFrameObject:OnLoad(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrame_MailFrameObject:ResetMailIcon(...) end
+---@return any ...
+function MinimapCluster_IndicatorFrame_MailFrameObject:TryPlayMailNotification(...) end
+end
+
+do
+---@class MinimapCluster_IndicatorFrame_MailFrame_MailIconObject : Texture
+local MinimapCluster_IndicatorFrame_MailFrame_MailIconObject = {}
+end
+
+do
+---@class MinimapCluster_MinimapContainerObject : Frame
+---@field Minimap MinimapCluster_MinimapContainer_MinimapObject
+---@field PlayerCoords MinimapCluster_MinimapContainer_PlayerCoordsObject
+---@field defaultFramePoints table
+---@field smartNavigationIgnored boolean
+local MinimapCluster_MinimapContainerObject = {}
+end
+
+do
+---@class MinimapCluster_MinimapContainer_MinimapObject
+local MinimapCluster_MinimapContainer_MinimapObject = {}
+end
+
+do
+---@class MinimapCluster_MinimapContainer_PlayerCoordsObject : Frame
+---@field CoordText MinimapCluster_MinimapContainer_PlayerCoords_CoordTextObject
+---@field coordsByTenths boolean
+---@field showPlayerCoords boolean
+---@field updateThrottle number
+local MinimapCluster_MinimapContainer_PlayerCoordsObject = {}
+---@return any ...
+function MinimapCluster_MinimapContainer_PlayerCoordsObject:CVarsUpdated(...) end
+---@return any ...
+function MinimapCluster_MinimapContainer_PlayerCoordsObject:OnLoad(...) end
+---@return any ...
+function MinimapCluster_MinimapContainer_PlayerCoordsObject:OnUpdate(...) end
+end
+
+do
+---@class MinimapCluster_MinimapContainer_PlayerCoords_CoordTextObject : FontString
+local MinimapCluster_MinimapContainer_PlayerCoords_CoordTextObject = {}
+end
+
+do
+---@class MinimapCluster_SelectionObject : Frame
+---@field Label MinimapCluster_Selection_LabelObject
+---@field MouseOverHighlight MinimapCluster_Selection_MouseOverHighlightObject
+---@field highlightTextureKit string
+---@field ignoreInLayout boolean
+---@field parent MinimapCluster_Selection_parentObject
+---@field selectedTextureKit string
+---@field system MinimapCluster_Selection_systemObject
+local MinimapCluster_SelectionObject = {}
+---@return any ...
+function MinimapCluster_SelectionObject:CheckShowInstructionalTooltip(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:GetBorderColor(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:GetCenterColor(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:GetFrameLayoutType(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:GetLabelText(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:HideInstructionalTooltip(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:IsSelected(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:IsShowingEditInstructions(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:OnDragStart(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:OnDragStop(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:OnEnter(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:OnLeave(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:OnLoad(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:OnMouseDown(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:SetBlendMode(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:SetBorderBlendMode(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:SetBorderColor(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:SetCenterColor(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:SetSystem(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:SetVertexColor(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:ShouldShowLabelText(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:ShowEditInstructions(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:ShowHighlighted(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:ShowSelected(...) end
+---@return any ...
+function MinimapCluster_SelectionObject:UpdateLabelVisibility(...) end
+end
+
+do
+---@class MinimapCluster_Selection_LabelObject : FontString
+---@field fontObjectsToTry table
+local MinimapCluster_Selection_LabelObject = {}
+---@return any ...
+function MinimapCluster_Selection_LabelObject:ApplyFontObjects(...) end
+---@return any ...
+function MinimapCluster_Selection_LabelObject:SetFontObjectsToTry(...) end
+end
+
+do
+---@class MinimapCluster_Selection_MouseOverHighlightObject : Frame
+---@field BottomEdge MinimapCluster_Selection_MouseOverHighlight_BottomEdgeObject
+---@field BottomLeftCorner MinimapCluster_Selection_MouseOverHighlight_BottomLeftCornerObject
+---@field BottomRightCorner MinimapCluster_Selection_MouseOverHighlight_BottomRightCornerObject
+---@field Center MinimapCluster_Selection_MouseOverHighlight_CenterObject
+---@field LeftEdge MinimapCluster_Selection_MouseOverHighlight_LeftEdgeObject
+---@field RightEdge MinimapCluster_Selection_MouseOverHighlight_RightEdgeObject
+---@field TopEdge MinimapCluster_Selection_MouseOverHighlight_TopEdgeObject
+---@field TopLeftCorner MinimapCluster_Selection_MouseOverHighlight_TopLeftCornerObject
+---@field TopRightCorner MinimapCluster_Selection_MouseOverHighlight_TopRightCornerObject
+local MinimapCluster_Selection_MouseOverHighlightObject = {}
+---@return any ...
+function MinimapCluster_Selection_MouseOverHighlightObject:GetBorderColor(...) end
+---@return any ...
+function MinimapCluster_Selection_MouseOverHighlightObject:GetCenterColor(...) end
+---@return any ...
+function MinimapCluster_Selection_MouseOverHighlightObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function MinimapCluster_Selection_MouseOverHighlightObject:GetFrameLayoutType(...) end
+---@return any ...
+function MinimapCluster_Selection_MouseOverHighlightObject:OnLoad(...) end
+---@return any ...
+function MinimapCluster_Selection_MouseOverHighlightObject:SetBlendMode(...) end
+---@return any ...
+function MinimapCluster_Selection_MouseOverHighlightObject:SetBorderBlendMode(...) end
+---@return any ...
+function MinimapCluster_Selection_MouseOverHighlightObject:SetBorderColor(...) end
+---@return any ...
+function MinimapCluster_Selection_MouseOverHighlightObject:SetCenterColor(...) end
+---@return any ...
+function MinimapCluster_Selection_MouseOverHighlightObject:SetVertexColor(...) end
+end
+
+do
+---@class MinimapCluster_Selection_MouseOverHighlight_BottomEdgeObject : Texture
+local MinimapCluster_Selection_MouseOverHighlight_BottomEdgeObject = {}
+end
+
+do
+---@class MinimapCluster_Selection_MouseOverHighlight_BottomLeftCornerObject : Texture
+local MinimapCluster_Selection_MouseOverHighlight_BottomLeftCornerObject = {}
+end
+
+do
+---@class MinimapCluster_Selection_MouseOverHighlight_BottomRightCornerObject : Texture
+local MinimapCluster_Selection_MouseOverHighlight_BottomRightCornerObject = {}
+end
+
+do
+---@class MinimapCluster_Selection_MouseOverHighlight_CenterObject : Texture
+local MinimapCluster_Selection_MouseOverHighlight_CenterObject = {}
+end
+
+do
+---@class MinimapCluster_Selection_MouseOverHighlight_LeftEdgeObject : Texture
+local MinimapCluster_Selection_MouseOverHighlight_LeftEdgeObject = {}
+end
+
+do
+---@class MinimapCluster_Selection_MouseOverHighlight_RightEdgeObject : Texture
+local MinimapCluster_Selection_MouseOverHighlight_RightEdgeObject = {}
+end
+
+do
+---@class MinimapCluster_Selection_MouseOverHighlight_TopEdgeObject : Texture
+local MinimapCluster_Selection_MouseOverHighlight_TopEdgeObject = {}
+end
+
+do
+---@class MinimapCluster_Selection_MouseOverHighlight_TopLeftCornerObject : Texture
+local MinimapCluster_Selection_MouseOverHighlight_TopLeftCornerObject = {}
+end
+
+do
+---@class MinimapCluster_Selection_MouseOverHighlight_TopRightCornerObject : Texture
+local MinimapCluster_Selection_MouseOverHighlight_TopRightCornerObject = {}
+end
+
+do
+---@class MinimapCluster_Selection_parentObject
+local MinimapCluster_Selection_parentObject = {}
+end
+
+do
+---@class MinimapCluster_Selection_systemObject
+local MinimapCluster_Selection_systemObject = {}
+end
+
+do
+---@class MinimapCluster_TrackingObject : Frame
+---@field Background MinimapCluster_Tracking_BackgroundObject
+---@field Button MinimapCluster_Tracking_ButtonObject
+---@field smartNavigationIgnored boolean
+local MinimapCluster_TrackingObject = {}
+end
+
+do
+---@class MinimapCluster_Tracking_BackgroundObject : Texture
+local MinimapCluster_Tracking_BackgroundObject = {}
+end
+
+do
+---@class MinimapCluster_Tracking_ButtonObject : Button
+---@field AddTexture MinimapCluster_Tracking_Button_AddTextureObject
+---@field Event MinimapCluster_Tracking_Button_EventObject
+---@field StateTexture MinimapCluster_Tracking_Button_StateTextureObject
+---@field buttonContext string
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor MinimapCluster_Tracking_Button_menuAnchorObject
+---@field menuDescription MinimapCluster_Tracking_Button_menuDescriptionObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+---@field mousedownAddAlpha number
+---@field mouseoverAddAlpha number
+local MinimapCluster_Tracking_ButtonObject = {}
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:ClearMenuState(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:CloseMenu(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:CollectSelectionData(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:CreateRootDescription(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:Decrement(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:DesaturateIfDisabled(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:GamepadHandleRStick(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:GenerateCallbackEvents(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:GenerateMenu(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:GetCallbackTable(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:GetCallbackTables(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:GetCallbacksByEvent(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:GetMenuDescription(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:GetSelectionData(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:GetTrackingButtonStateAtlas(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:HasElements(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:HasStickyFocus(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:Increment(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:IsDown(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:IsDownOver(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:IsMenuOpen(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:IsOver(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:OnButtonStateChanged(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:OnDisable(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:OnEnable(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:OnEnter(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:OnEvent(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:OnLeave(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:OnLoad(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:OnMenuAssigned(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:OnMenuChanged(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:OnMenuClosed(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:OnMenuOpened(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:OnMenuResponse(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:OnMouseDown(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:OnMouseUp(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:OnShow(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:OpenMenu(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:Pick(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:RegisterCallback(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:RegisterMenu(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:RegisterSettingEntryCallbacks(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:Rotate(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:SecureInsertEvent(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:SetDisplacedRegions(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:SetMenuAnchor(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:SetMenuOpen(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:SetupGamepad(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:SetupMenu(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:SignalUpdate(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:TriggerEvent(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:UnregisterCallback(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:UnregisterEvents(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:Update(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:UpdateSelections(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:UpdateToMenuSelections(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:menuGenerator(...) end
+---@return any ...
+function MinimapCluster_Tracking_ButtonObject:onMenuClosedCallback(...) end
+end
+
+do
+---@class MinimapCluster_Tracking_Button_AddTextureObject : Texture
+local MinimapCluster_Tracking_Button_AddTextureObject = {}
+end
+
+do
+---@class MinimapCluster_Tracking_Button_EventObject
+local MinimapCluster_Tracking_Button_EventObject = {}
+end
+
+do
+---@class MinimapCluster_Tracking_Button_StateTextureObject : Texture
+local MinimapCluster_Tracking_Button_StateTextureObject = {}
+end
+
+do
+---@class MinimapCluster_Tracking_Button_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo MinimapCluster_Tracking_Button_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local MinimapCluster_Tracking_Button_menuAnchorObject = {}
+---@return any ...
+function MinimapCluster_Tracking_Button_menuAnchorObject:Get(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuAnchorObject:Init(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuAnchorObject:Set(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class MinimapCluster_Tracking_Button_menuAnchor_relativeToObject
+local MinimapCluster_Tracking_Button_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class MinimapCluster_Tracking_Button_menuDescriptionObject
+---@field tag string
+local MinimapCluster_Tracking_Button_menuDescriptionObject = {}
+---@return any ...
+function MinimapCluster_Tracking_Button_menuDescriptionObject:CreateButton(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuDescriptionObject:CreateCheckbox(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuDescriptionObject:CreateColorSwatch(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuDescriptionObject:CreateDivider(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuDescriptionObject:CreateFrame(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuDescriptionObject:CreateHighlightButton(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuDescriptionObject:CreateHighlightRadio(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuDescriptionObject:CreateRadio(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuDescriptionObject:CreateRedHighlightButton(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuDescriptionObject:CreateSearchEntry(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuDescriptionObject:CreateSpacer(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuDescriptionObject:CreateTemplate(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuDescriptionObject:CreateTitle(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuDescriptionObject:QueueDivider(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuDescriptionObject:QueueSpacer(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuDescriptionObject:QueueTitle(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuDescriptionObject:SetTitleAndTextTooltip(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuDescriptionObject:SetTooltip(...) end
+---@return any ...
+function MinimapCluster_Tracking_Button_menuDescriptionObject:private(...) end
+end
+
+do
+---@class MinimapCluster_ZoneTextButtonObject : Button
+---@field AddTexture MinimapCluster_ZoneTextButton_AddTextureObject
+---@field StateTexture MinimapCluster_ZoneTextButton_StateTextureObject
+---@field buttonContext string
+---@field defaultFramePoints table
+---@field mousedownAddAlpha number
+---@field mouseoverAddAlpha number
+---@field tooltipText string
+local MinimapCluster_ZoneTextButtonObject = {}
+---@return any ...
+function MinimapCluster_ZoneTextButtonObject:DesaturateIfDisabled(...) end
+---@return any ...
+function MinimapCluster_ZoneTextButtonObject:IsDown(...) end
+---@return any ...
+function MinimapCluster_ZoneTextButtonObject:IsDownOver(...) end
+---@return any ...
+function MinimapCluster_ZoneTextButtonObject:IsOver(...) end
+---@return any ...
+function MinimapCluster_ZoneTextButtonObject:OnButtonStateChanged(...) end
+---@return any ...
+function MinimapCluster_ZoneTextButtonObject:OnClick(...) end
+---@return any ...
+function MinimapCluster_ZoneTextButtonObject:OnDisable(...) end
+---@return any ...
+function MinimapCluster_ZoneTextButtonObject:OnEnable(...) end
+---@return any ...
+function MinimapCluster_ZoneTextButtonObject:OnEnter(...) end
+---@return any ...
+function MinimapCluster_ZoneTextButtonObject:OnEvent(...) end
+---@return any ...
+function MinimapCluster_ZoneTextButtonObject:OnLeave(...) end
+---@return any ...
+function MinimapCluster_ZoneTextButtonObject:OnLoad(...) end
+---@return any ...
+function MinimapCluster_ZoneTextButtonObject:OnMouseDown(...) end
+---@return any ...
+function MinimapCluster_ZoneTextButtonObject:OnMouseUp(...) end
+---@return any ...
+function MinimapCluster_ZoneTextButtonObject:OnShow(...) end
+---@return any ...
+function MinimapCluster_ZoneTextButtonObject:SetDisplacedRegions(...) end
+end
+
+do
+---@class MinimapCluster_ZoneTextButton_AddTextureObject : Texture
+local MinimapCluster_ZoneTextButton_AddTextureObject = {}
+end
+
+do
+---@class MinimapCluster_ZoneTextButton_StateTextureObject : Texture
+local MinimapCluster_ZoneTextButton_StateTextureObject = {}
+end
+
+do
+---@class MinimapCluster_savedSystemInfoObject
+---@field anchorInfo table
+---@field isInDefaultPosition boolean
+---@field settings table
+---@field system number
+local MinimapCluster_savedSystemInfoObject = {}
+end
+
+do
+---@class MinimapCluster_settingsDialogAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo MinimapCluster_settingsDialogAnchor_relativeToObject
+---@field x number
+---@field y number
+local MinimapCluster_settingsDialogAnchorObject = {}
+---@return any ...
+function MinimapCluster_settingsDialogAnchorObject:Get(...) end
+---@return any ...
+function MinimapCluster_settingsDialogAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function MinimapCluster_settingsDialogAnchorObject:Init(...) end
+---@return any ...
+function MinimapCluster_settingsDialogAnchorObject:Set(...) end
+---@return any ...
+function MinimapCluster_settingsDialogAnchorObject:SetFromPoint(...) end
+---@return any ...
+function MinimapCluster_settingsDialogAnchorObject:SetOffsets(...) end
+---@return any ...
+function MinimapCluster_settingsDialogAnchorObject:SetPoint(...) end
+---@return any ...
+function MinimapCluster_settingsDialogAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function MinimapCluster_settingsDialogAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class MinimapCluster_settingsDialogAnchor_relativeToObject
+local MinimapCluster_settingsDialogAnchor_relativeToObject = {}
+end
+
+do
+---@class MinimapCluster_systemInfoObject
+---@field anchorInfo table
+---@field isInDefaultPosition boolean
+---@field settings table
+---@field system number
+local MinimapCluster_systemInfoObject = {}
+end
+
+do
+---@class MirrorTimerContainerObject : Frame
+---@field Selection MirrorTimerContainer_SelectionObject
+---@field activeTimers table
+---@field defaultHideSelection boolean
+---@field dirty boolean
+---@field dirtySettings table
+---@field downKeys table
+---@field hasActiveChanges boolean
+---@field mirrorTimers table
+---@field savedSystemInfo MirrorTimerContainer_savedSystemInfoObject
+---@field settingDisplayInfoMap table
+---@field settingMap table
+---@field settingsDialogAnchor MirrorTimerContainer_settingsDialogAnchorObject
+---@field snappedFrames table
+---@field system number
+---@field systemInfo MirrorTimerContainer_systemInfoObject
+---@field systemNameString string
+local MirrorTimerContainerObject = {}
+---@return any ...
+function MirrorTimerContainerObject:AddExtraButtons(...) end
+---@return any ...
+function MirrorTimerContainerObject:AddLayoutChildren(...) end
+---@return any ...
+function MirrorTimerContainerObject:AddSnappedFrame(...) end
+---@return any ...
+function MirrorTimerContainerObject:AnchorSelectionFrame(...) end
+---@return any ...
+function MirrorTimerContainerObject:AnySettingsDirty(...) end
+---@return any ...
+function MirrorTimerContainerObject:ApplySystemAnchor(...) end
+---@return any ...
+function MirrorTimerContainerObject:AreAllSystemSettingsDefault(...) end
+---@return any ...
+function MirrorTimerContainerObject:BreakFrameSnap(...) end
+---@return any ...
+function MirrorTimerContainerObject:BreakFromFrameManager(...) end
+---@return any ...
+function MirrorTimerContainerObject:BreakSnappedFrames(...) end
+---@return any ...
+function MirrorTimerContainerObject:CalculateFrameSize(...) end
+---@return any ...
+function MirrorTimerContainerObject:CanBeMoved(...) end
+---@return any ...
+function MirrorTimerContainerObject:ClearAllPointsBase(...) end
+---@return any ...
+function MirrorTimerContainerObject:ClearAllPointsOverride(...) end
+---@return any ...
+function MirrorTimerContainerObject:ClearDirtySetting(...) end
+---@return any ...
+function MirrorTimerContainerObject:ClearDownKeys(...) end
+---@return any ...
+function MirrorTimerContainerObject:ClearFixedSize(...) end
+---@return any ...
+function MirrorTimerContainerObject:ClearFrameSnap(...) end
+---@return any ...
+function MirrorTimerContainerObject:ClearHighlight(...) end
+---@return any ...
+function MirrorTimerContainerObject:ClearTimer(...) end
+---@return any ...
+function MirrorTimerContainerObject:ConvertSettingDisplayValueToRawValue(...) end
+---@return any ...
+function MirrorTimerContainerObject:DoesSettingDisplayValueEqual(...) end
+---@return any ...
+function MirrorTimerContainerObject:DoesSettingValueEqual(...) end
+---@return any ...
+function MirrorTimerContainerObject:ForceUpdateTimers(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetActiveTimer(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetAdditionalRegions(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetAvailableTimer(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetBottomOffset(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetChildHeight(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetChildPadding(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetChildSize(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetChildWidth(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetCombinedCenterOffset(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetCombinedSelectionOffset(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetCompositeNumberSettingValue(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetFixedHeight(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetFixedSize(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetFixedWidth(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetFrameMagneticEligibility(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetHeightPadding(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetLayoutChildren(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetLeftOffset(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetManagedFrameContainer(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetPadding(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetRightOffset(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetScaledCenter(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetScaledSelectionCenter(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetScaledSelectionSides(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetSelectionOffset(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetSettingValue(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetSettingValueBool(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetSettingsDialogAnchor(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetSnapOffsets(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetSystemName(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetTopOffset(...) end
+---@return any ...
+function MirrorTimerContainerObject:GetWidthPadding(...) end
+---@return any ...
+function MirrorTimerContainerObject:HasActiveChanges(...) end
+---@return any ...
+function MirrorTimerContainerObject:HasAnyTimersShowing(...) end
+---@return any ...
+function MirrorTimerContainerObject:HasCompositeNumberSetting(...) end
+---@return any ...
+function MirrorTimerContainerObject:HasSetting(...) end
+---@return any ...
+function MirrorTimerContainerObject:HasValidSelectionRect(...) end
+---@return any ...
+function MirrorTimerContainerObject:HideBase(...) end
+---@return any ...
+function MirrorTimerContainerObject:HideOverride(...) end
+---@return any ...
+function MirrorTimerContainerObject:HighlightSystem(...) end
+---@return any ...
+function MirrorTimerContainerObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function MirrorTimerContainerObject:IsAboveFrame(...) end
+---@return any ...
+function MirrorTimerContainerObject:IsBelowFrame(...) end
+---@return any ...
+function MirrorTimerContainerObject:IsDirty(...) end
+---@return any ...
+function MirrorTimerContainerObject:IsEditModeDragging(...) end
+---@return any ...
+function MirrorTimerContainerObject:IsFrameAnchoredToMe(...) end
+---@return any ...
+function MirrorTimerContainerObject:IsHorizontallyAlignedWithFrame(...) end
+---@return any ...
+function MirrorTimerContainerObject:IsInDefaultPosition(...) end
+---@return any ...
+function MirrorTimerContainerObject:IsInitialized(...) end
+---@return any ...
+function MirrorTimerContainerObject:IsLayoutFrame(...) end
+---@return any ...
+function MirrorTimerContainerObject:IsSettingDirty(...) end
+---@return any ...
+function MirrorTimerContainerObject:IsShiftKeyDown(...) end
+---@return any ...
+function MirrorTimerContainerObject:IsSystemSettingDefault(...) end
+---@return any ...
+function MirrorTimerContainerObject:IsToTheLeftOfFrame(...) end
+---@return any ...
+function MirrorTimerContainerObject:IsToTheRightOfFrame(...) end
+---@return any ...
+function MirrorTimerContainerObject:IsVerticallyAlignedWithFrame(...) end
+---@return any ...
+function MirrorTimerContainerObject:Layout(...) end
+---@return any ...
+function MirrorTimerContainerObject:LayoutChildren(...) end
+---@return any ...
+function MirrorTimerContainerObject:MarkAllSettingsDirty(...) end
+---@return any ...
+function MirrorTimerContainerObject:MarkClean(...) end
+---@return any ...
+function MirrorTimerContainerObject:MarkDirty(...) end
+---@return any ...
+function MirrorTimerContainerObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function MirrorTimerContainerObject:OnAnyEditModeSystemAnchorChanged(...) end
+---@return any ...
+function MirrorTimerContainerObject:OnCleaned(...) end
+---@return any ...
+function MirrorTimerContainerObject:OnDragStart(...) end
+---@return any ...
+function MirrorTimerContainerObject:OnDragStop(...) end
+---@return any ...
+function MirrorTimerContainerObject:OnEditModeEnter(...) end
+---@return any ...
+function MirrorTimerContainerObject:OnEditModeExit(...) end
+---@return any ...
+function MirrorTimerContainerObject:OnEvent(...) end
+---@return any ...
+function MirrorTimerContainerObject:OnKeyDown(...) end
+---@return any ...
+function MirrorTimerContainerObject:OnKeyUp(...) end
+---@return any ...
+function MirrorTimerContainerObject:OnLoad(...) end
+---@return any ...
+function MirrorTimerContainerObject:OnShow(...) end
+---@return any ...
+function MirrorTimerContainerObject:OnSystemHide(...) end
+---@return any ...
+function MirrorTimerContainerObject:OnSystemLoad(...) end
+---@return any ...
+function MirrorTimerContainerObject:OnSystemPositionChange(...) end
+---@return any ...
+function MirrorTimerContainerObject:OnUpdate(...) end
+---@return any ...
+function MirrorTimerContainerObject:OnUpdateSystem(...) end
+---@return any ...
+function MirrorTimerContainerObject:PrepareForSave(...) end
+---@return any ...
+function MirrorTimerContainerObject:ProcessMovementKey(...) end
+---@return any ...
+function MirrorTimerContainerObject:RemoveSnappedFrame(...) end
+---@return any ...
+function MirrorTimerContainerObject:ResetToDefaultPosition(...) end
+---@return any ...
+function MirrorTimerContainerObject:SelectSystem(...) end
+---@return any ...
+function MirrorTimerContainerObject:SetFixedHeight(...) end
+---@return any ...
+function MirrorTimerContainerObject:SetFixedSize(...) end
+---@return any ...
+function MirrorTimerContainerObject:SetFixedWidth(...) end
+---@return any ...
+function MirrorTimerContainerObject:SetHasActiveChanges(...) end
+---@return any ...
+function MirrorTimerContainerObject:SetHeightPadding(...) end
+---@return any ...
+function MirrorTimerContainerObject:SetIsInEditMode(...) end
+---@return any ...
+function MirrorTimerContainerObject:SetPointBase(...) end
+---@return any ...
+function MirrorTimerContainerObject:SetPointOverride(...) end
+---@return any ...
+function MirrorTimerContainerObject:SetScaleBase(...) end
+---@return any ...
+function MirrorTimerContainerObject:SetScaleOverride(...) end
+---@return any ...
+function MirrorTimerContainerObject:SetSelectionShown(...) end
+---@return any ...
+function MirrorTimerContainerObject:SetShownBase(...) end
+---@return any ...
+function MirrorTimerContainerObject:SetShownOverride(...) end
+---@return any ...
+function MirrorTimerContainerObject:SetSnappedToFrame(...) end
+---@return any ...
+function MirrorTimerContainerObject:SetWidthPadding(...) end
+---@return any ...
+function MirrorTimerContainerObject:SetupSettingsDialogAnchor(...) end
+---@return any ...
+function MirrorTimerContainerObject:SetupTimer(...) end
+---@return any ...
+function MirrorTimerContainerObject:SetupVisibilityFunctionOverrides(...) end
+---@return any ...
+function MirrorTimerContainerObject:ShouldBreakSnappedFramesOnHide(...) end
+---@return any ...
+function MirrorTimerContainerObject:ShouldClearOnUpdateAfterClean(...) end
+---@return any ...
+function MirrorTimerContainerObject:ShouldResetSettingsDialogAnchors(...) end
+---@return any ...
+function MirrorTimerContainerObject:ShouldShow(...) end
+---@return any ...
+function MirrorTimerContainerObject:ShouldShowSetting(...) end
+---@return any ...
+function MirrorTimerContainerObject:ShowEditInstructions(...) end
+---@return any ...
+function MirrorTimerContainerObject:SnapToFrame(...) end
+---@return any ...
+function MirrorTimerContainerObject:TrySetCompositeNumberSettingValue(...) end
+---@return any ...
+function MirrorTimerContainerObject:UpdateClampOffsets(...) end
+---@return any ...
+function MirrorTimerContainerObject:UpdateDirtySettings(...) end
+---@return any ...
+function MirrorTimerContainerObject:UpdateDisplayInfoOptions(...) end
+---@return any ...
+function MirrorTimerContainerObject:UpdateMagnetismRegistration(...) end
+---@return any ...
+function MirrorTimerContainerObject:UpdateSettingMap(...) end
+---@return any ...
+function MirrorTimerContainerObject:UpdateSystem(...) end
+---@return any ...
+function MirrorTimerContainerObject:UpdateSystemSetting(...) end
+---@return any ...
+function MirrorTimerContainerObject:UpdateSystemSettingSize(...) end
+---@return any ...
+function MirrorTimerContainerObject:UpdateSystemSettingValue(...) end
+---@return any ...
+function MirrorTimerContainerObject:UseSettingAltName(...) end
+---@type MirrorTimerContainerObject
+MirrorTimerContainer = MirrorTimerContainerObject
+end
+
+do
+---@class MirrorTimerContainer_SelectionObject : Frame
+---@field Label MirrorTimerContainer_Selection_LabelObject
+---@field MouseOverHighlight MirrorTimerContainer_Selection_MouseOverHighlightObject
+---@field highlightTextureKit string
+---@field ignoreInLayout boolean
+---@field parent MirrorTimerContainer_Selection_parentObject
+---@field selectedTextureKit string
+---@field system MirrorTimerContainer_Selection_systemObject
+local MirrorTimerContainer_SelectionObject = {}
+---@return any ...
+function MirrorTimerContainer_SelectionObject:CheckShowInstructionalTooltip(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:GetBorderColor(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:GetCenterColor(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:GetFrameLayoutType(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:GetLabelText(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:HideInstructionalTooltip(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:IsSelected(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:IsShowingEditInstructions(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:OnDragStart(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:OnDragStop(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:OnEnter(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:OnLeave(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:OnLoad(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:OnMouseDown(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:SetBlendMode(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:SetBorderBlendMode(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:SetBorderColor(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:SetCenterColor(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:SetSystem(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:SetVertexColor(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:ShouldShowLabelText(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:ShowEditInstructions(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:ShowHighlighted(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:ShowSelected(...) end
+---@return any ...
+function MirrorTimerContainer_SelectionObject:UpdateLabelVisibility(...) end
+end
+
+do
+---@class MirrorTimerContainer_Selection_LabelObject : FontString
+---@field fontObjectsToTry table
+local MirrorTimerContainer_Selection_LabelObject = {}
+---@return any ...
+function MirrorTimerContainer_Selection_LabelObject:ApplyFontObjects(...) end
+---@return any ...
+function MirrorTimerContainer_Selection_LabelObject:SetFontObjectsToTry(...) end
+end
+
+do
+---@class MirrorTimerContainer_Selection_MouseOverHighlightObject : Frame
+---@field BottomEdge MirrorTimerContainer_Selection_MouseOverHighlight_BottomEdgeObject
+---@field BottomLeftCorner MirrorTimerContainer_Selection_MouseOverHighlight_BottomLeftCornerObject
+---@field BottomRightCorner MirrorTimerContainer_Selection_MouseOverHighlight_BottomRightCornerObject
+---@field Center MirrorTimerContainer_Selection_MouseOverHighlight_CenterObject
+---@field LeftEdge MirrorTimerContainer_Selection_MouseOverHighlight_LeftEdgeObject
+---@field RightEdge MirrorTimerContainer_Selection_MouseOverHighlight_RightEdgeObject
+---@field TopEdge MirrorTimerContainer_Selection_MouseOverHighlight_TopEdgeObject
+---@field TopLeftCorner MirrorTimerContainer_Selection_MouseOverHighlight_TopLeftCornerObject
+---@field TopRightCorner MirrorTimerContainer_Selection_MouseOverHighlight_TopRightCornerObject
+local MirrorTimerContainer_Selection_MouseOverHighlightObject = {}
+---@return any ...
+function MirrorTimerContainer_Selection_MouseOverHighlightObject:GetBorderColor(...) end
+---@return any ...
+function MirrorTimerContainer_Selection_MouseOverHighlightObject:GetCenterColor(...) end
+---@return any ...
+function MirrorTimerContainer_Selection_MouseOverHighlightObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function MirrorTimerContainer_Selection_MouseOverHighlightObject:GetFrameLayoutType(...) end
+---@return any ...
+function MirrorTimerContainer_Selection_MouseOverHighlightObject:OnLoad(...) end
+---@return any ...
+function MirrorTimerContainer_Selection_MouseOverHighlightObject:SetBlendMode(...) end
+---@return any ...
+function MirrorTimerContainer_Selection_MouseOverHighlightObject:SetBorderBlendMode(...) end
+---@return any ...
+function MirrorTimerContainer_Selection_MouseOverHighlightObject:SetBorderColor(...) end
+---@return any ...
+function MirrorTimerContainer_Selection_MouseOverHighlightObject:SetCenterColor(...) end
+---@return any ...
+function MirrorTimerContainer_Selection_MouseOverHighlightObject:SetVertexColor(...) end
+end
+
+do
+---@class MirrorTimerContainer_Selection_MouseOverHighlight_BottomEdgeObject : Texture
+local MirrorTimerContainer_Selection_MouseOverHighlight_BottomEdgeObject = {}
+end
+
+do
+---@class MirrorTimerContainer_Selection_MouseOverHighlight_BottomLeftCornerObject : Texture
+local MirrorTimerContainer_Selection_MouseOverHighlight_BottomLeftCornerObject = {}
+end
+
+do
+---@class MirrorTimerContainer_Selection_MouseOverHighlight_BottomRightCornerObject : Texture
+local MirrorTimerContainer_Selection_MouseOverHighlight_BottomRightCornerObject = {}
+end
+
+do
+---@class MirrorTimerContainer_Selection_MouseOverHighlight_CenterObject : Texture
+local MirrorTimerContainer_Selection_MouseOverHighlight_CenterObject = {}
+end
+
+do
+---@class MirrorTimerContainer_Selection_MouseOverHighlight_LeftEdgeObject : Texture
+local MirrorTimerContainer_Selection_MouseOverHighlight_LeftEdgeObject = {}
+end
+
+do
+---@class MirrorTimerContainer_Selection_MouseOverHighlight_RightEdgeObject : Texture
+local MirrorTimerContainer_Selection_MouseOverHighlight_RightEdgeObject = {}
+end
+
+do
+---@class MirrorTimerContainer_Selection_MouseOverHighlight_TopEdgeObject : Texture
+local MirrorTimerContainer_Selection_MouseOverHighlight_TopEdgeObject = {}
+end
+
+do
+---@class MirrorTimerContainer_Selection_MouseOverHighlight_TopLeftCornerObject : Texture
+local MirrorTimerContainer_Selection_MouseOverHighlight_TopLeftCornerObject = {}
+end
+
+do
+---@class MirrorTimerContainer_Selection_MouseOverHighlight_TopRightCornerObject : Texture
+local MirrorTimerContainer_Selection_MouseOverHighlight_TopRightCornerObject = {}
+end
+
+do
+---@class MirrorTimerContainer_Selection_parentObject
+local MirrorTimerContainer_Selection_parentObject = {}
+end
+
+do
+---@class MirrorTimerContainer_Selection_systemObject
+local MirrorTimerContainer_Selection_systemObject = {}
+end
+
+do
+---@class MirrorTimerContainer_savedSystemInfoObject
+---@field anchorInfo table
+---@field isInDefaultPosition boolean
+---@field settings table
+---@field system number
+local MirrorTimerContainer_savedSystemInfoObject = {}
+end
+
+do
+---@class MirrorTimerContainer_settingsDialogAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo MirrorTimerContainer_settingsDialogAnchor_relativeToObject
+---@field x number
+---@field y number
+local MirrorTimerContainer_settingsDialogAnchorObject = {}
+---@return any ...
+function MirrorTimerContainer_settingsDialogAnchorObject:Get(...) end
+---@return any ...
+function MirrorTimerContainer_settingsDialogAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function MirrorTimerContainer_settingsDialogAnchorObject:Init(...) end
+---@return any ...
+function MirrorTimerContainer_settingsDialogAnchorObject:Set(...) end
+---@return any ...
+function MirrorTimerContainer_settingsDialogAnchorObject:SetFromPoint(...) end
+---@return any ...
+function MirrorTimerContainer_settingsDialogAnchorObject:SetOffsets(...) end
+---@return any ...
+function MirrorTimerContainer_settingsDialogAnchorObject:SetPoint(...) end
+---@return any ...
+function MirrorTimerContainer_settingsDialogAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function MirrorTimerContainer_settingsDialogAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class MirrorTimerContainer_settingsDialogAnchor_relativeToObject
+local MirrorTimerContainer_settingsDialogAnchor_relativeToObject = {}
+end
+
+do
+---@class MirrorTimerContainer_systemInfoObject
+---@field anchorInfo table
+---@field isInDefaultPosition boolean
+---@field settings table
+---@field system number
+local MirrorTimerContainer_systemInfoObject = {}
+end
+
+do
+---@class ModelPreviewFrameObject : Frame
+---@field Bg ModelPreviewFrame_BgObject
+---@field CloseButton ModelPreviewFrame_CloseButtonObject
+---@field Display ModelPreviewFrame_DisplayObject
+---@field FocusJumpHint ModelPreviewFrame_FocusJumpHintObject
+---@field FrameGlow ModelPreviewFrame_FrameGlowObject
+---@field Inset ModelPreviewFrame_InsetObject
+---@field LeftJumpHint ModelPreviewFrame_LeftJumpHintObject
+---@field NineSlice ModelPreviewFrame_NineSliceObject
+---@field PortraitContainer ModelPreviewFrame_PortraitContainerObject
+---@field RightJumpHint ModelPreviewFrame_RightJumpHintObject
+---@field TitleContainer ModelPreviewFrame_TitleContainerObject
+---@field TopTileStreaks ModelPreviewFrame_TopTileStreaksObject
+---@field layoutType string
+local ModelPreviewFrameObject = {}
+---@return any ...
+function ModelPreviewFrameObject:EndFocus(...) end
+---@return any ...
+function ModelPreviewFrameObject:GetFocusFrameGlow(...) end
+---@return any ...
+function ModelPreviewFrameObject:GetFocusFrameRoot(...) end
+---@return any ...
+function ModelPreviewFrameObject:GetPortrait(...) end
+---@return any ...
+function ModelPreviewFrameObject:GetTitleText(...) end
+---@return any ...
+function ModelPreviewFrameObject:HasPortraitTexture(...) end
+---@return any ...
+function ModelPreviewFrameObject:HideFocusJumpHint(...) end
+---@return any ...
+function ModelPreviewFrameObject:HideLeftJumpHint(...) end
+---@return any ...
+function ModelPreviewFrameObject:HideRightJumpHint(...) end
+---@return any ...
+function ModelPreviewFrameObject:LockInFocus(...) end
+---@return any ...
+function ModelPreviewFrameObject:RefreshFocus(...) end
+---@return any ...
+function ModelPreviewFrameObject:SetBorder(...) end
+---@return any ...
+function ModelPreviewFrameObject:SetFrameLevelsFromBaseLevel(...) end
+---@return any ...
+function ModelPreviewFrameObject:SetPortraitAtlasRaw(...) end
+---@return any ...
+function ModelPreviewFrameObject:SetPortraitShown(...) end
+---@return any ...
+function ModelPreviewFrameObject:SetPortraitTexCoord(...) end
+---@return any ...
+function ModelPreviewFrameObject:SetPortraitTextureRaw(...) end
+---@return any ...
+function ModelPreviewFrameObject:SetPortraitTextureSizeAndOffset(...) end
+---@return any ...
+function ModelPreviewFrameObject:SetPortraitToAsset(...) end
+---@return any ...
+function ModelPreviewFrameObject:SetPortraitToBag(...) end
+---@return any ...
+function ModelPreviewFrameObject:SetPortraitToClassIcon(...) end
+---@return any ...
+function ModelPreviewFrameObject:SetPortraitToSpecIcon(...) end
+---@return any ...
+function ModelPreviewFrameObject:SetPortraitToUnit(...) end
+---@return any ...
+function ModelPreviewFrameObject:SetTitle(...) end
+---@return any ...
+function ModelPreviewFrameObject:SetTitleColor(...) end
+---@return any ...
+function ModelPreviewFrameObject:SetTitleFormatted(...) end
+---@return any ...
+function ModelPreviewFrameObject:SetTitleMaxLinesAndHeight(...) end
+---@return any ...
+function ModelPreviewFrameObject:SetTitleOffsets(...) end
+---@return any ...
+function ModelPreviewFrameObject:ShowFocusJumpHint(...) end
+---@return any ...
+function ModelPreviewFrameObject:ShowLeftJumpHint(...) end
+---@return any ...
+function ModelPreviewFrameObject:ShowRightJumpHint(...) end
+---@return any ...
+function ModelPreviewFrameObject:StartFocus(...) end
+---@type ModelPreviewFrameObject
+ModelPreviewFrame = ModelPreviewFrameObject
+end
+
+do
+---@class ModelPreviewFrame_BgObject : Texture
+local ModelPreviewFrame_BgObject = {}
+end
+
+do
+---@class ModelPreviewFrame_CloseButtonObject : Button
+---@field Left ModelPreviewFrame_CloseButton_LeftObject
+---@field Middle ModelPreviewFrame_CloseButton_MiddleObject
+---@field Right ModelPreviewFrame_CloseButton_RightObject
+---@field Text ModelPreviewFrame_CloseButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local ModelPreviewFrame_CloseButtonObject = {}
+---@return any ...
+function ModelPreviewFrame_CloseButtonObject:FitToText(...) end
+---@return any ...
+function ModelPreviewFrame_CloseButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function ModelPreviewFrame_CloseButtonObject:OnEnter(...) end
+---@return any ...
+function ModelPreviewFrame_CloseButtonObject:OnLeave(...) end
+---@return any ...
+function ModelPreviewFrame_CloseButtonObject:SetDisabledState(...) end
+---@return any ...
+function ModelPreviewFrame_CloseButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function ModelPreviewFrame_CloseButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class ModelPreviewFrame_CloseButton_LeftObject : Texture
+local ModelPreviewFrame_CloseButton_LeftObject = {}
+end
+
+do
+---@class ModelPreviewFrame_CloseButton_MiddleObject : Texture
+local ModelPreviewFrame_CloseButton_MiddleObject = {}
+end
+
+do
+---@class ModelPreviewFrame_CloseButton_RightObject : Texture
+local ModelPreviewFrame_CloseButton_RightObject = {}
+end
+
+do
+---@class ModelPreviewFrame_CloseButton_TextObject : FontString
+local ModelPreviewFrame_CloseButton_TextObject = {}
+end
+
+do
+---@class ModelPreviewFrame_DisplayObject : Frame
+---@field CarouselText ModelPreviewFrame_Display_CarouselTextObject
+---@field ModelScene ModelPreviewFrame_Display_ModelSceneObject
+---@field Name ModelPreviewFrame_Display_NameObject
+---@field ShadowOverlay ModelPreviewFrame_Display_ShadowOverlayObject
+---@field YesMountsTex ModelPreviewFrame_Display_YesMountsTexObject
+local ModelPreviewFrame_DisplayObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_CarouselTextObject : FontString
+local ModelPreviewFrame_Display_CarouselTextObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelSceneObject
+---@field CarouselLeftButton ModelPreviewFrame_Display_ModelScene_CarouselLeftButtonObject
+---@field CarouselRightButton ModelPreviewFrame_Display_ModelScene_CarouselRightButtonObject
+---@field ControlFrame ModelPreviewFrame_Display_ModelScene_ControlFrameObject
 ---@field actorTemplate string
 ---@field cameras table
----@field centerX number
----@field centerY number
----@field effectControllers table
----@field ignoreInLayout boolean
----@field modelSceneID number
----@field modelSceneSet boolean
----@field pixelsPerSceneUnit number
 ---@field tagToActor table
----@field tagToCamera UIWidgetTopCenterContainerFrame_BackModelScene_tagToCameraObject
----@field useViewInsetNormalization boolean
-local UIWidgetTopCenterContainerFrame_BackModelSceneObject = {}
+---@field tagToCamera table
+local ModelPreviewFrame_Display_ModelSceneObject = {}
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:AcquireActor(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:AcquireActor(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:AcquireAndInitializeActor(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:AcquireAndInitializeActor(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:AddCamera(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:AddCamera(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:AddDynamicEffect(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:AddOrUpdateDropShadow(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:AddEffect(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:AdjustCameraYaw(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:AddOrUpdateDropShadow(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:AttachPlayerToMount(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:AdjustCameraYaw(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:ClearScene(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:AttachPlayerToMount(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:CreateActorFromScene(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:CalculatePixelsPerSceneUnit(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:CreateCameraFromScene(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:ClearEffects(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:CreateOrTransitionActorFromScene(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:ClearScene(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:CreateOrTransitionCameraFromScene(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:CreateActorFromScene(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:EnumerateActiveActors(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:CreateCameraFromScene(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:GetActiveCamera(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:CreateOrTransitionActorFromScene(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:GetActorByTag(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:CreateOrTransitionCameraFromScene(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:GetCameraByTag(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:EnumerateActiveActors(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:GetModelSceneID(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:ExecuteOrDelayUntilSceneSet(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:GetNumActiveActors(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:GetActiveCamera(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:GetOrAcquireDropShadow(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:GetActorByTag(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:GetPlayerActor(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:GetCameraByTag(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:HasActiveCamera(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:GetEffectSpeed(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:InitializeActor(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:GetModelSceneID(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:IsLeftMouseButtonDown(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:GetNumActiveActors(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:IsRightMouseButtonDown(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:GetOrAcquireDropShadow(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:OnEnter(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:GetPixelsPerSceneUnit(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:OnLeave(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:GetPlayerActor(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:OnLoad(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:GetSceneSize(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:OnMouseDown(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:HasActiveCamera(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:OnMouseUp(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:HasActiveEffects(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:OnMouseWheel(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:InitializeActor(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:OnUpdate(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:InternalAddEffect(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:ReleaseActor(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:IsLeftMouseButtonDown(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:ReleaseAllActors(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:IsModelSceneSet(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:ReleaseAllCameras(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:IsRightMouseButtonDown(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:Reset(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:OnEnter(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:SetActiveCamera(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:OnEvent(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:SetFromModelSceneID(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:OnHide(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:SetResetCallback(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:OnLeave(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:ShowAndAnimateActors(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:OnLoad(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:StopCameraYaw(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:OnMouseDown(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:SynchronizeActiveCamera(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:OnMouseUp(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:Transform3DPointTo2D(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:OnMouseWheel(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:TransitionToModelSceneID(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:OnShow(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:OnSizeChanged(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:OnUpdate(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:RefreshModelScene(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:ReleaseActor(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:ReleaseAllActors(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:ReleaseAllCameras(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:RemoveEffectController(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:Reset(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:SetActiveCamera(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:SetActorPositionFromPixels(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:SetEffectSpeed(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:SetFromModelSceneID(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:SetResetCallback(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:ShowAndAnimateActors(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:StopCameraYaw(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:SynchronizeActiveCamera(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:Transform3DPointTo2D(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelSceneObject:TransitionToModelSceneID(...) end
+function ModelPreviewFrame_Display_ModelSceneObject:resetCallback(...) end
 end
 
 do
----@class UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject
----@field buttonModes table
----@field maxZoomDistance number
----@field minZoomDistance number
----@field modelSceneCameraInfo table
----@field owningScene UIWidgetTopCenterContainerFrame_BackModelScene_activeCamera_owningSceneObject
----@field panningXOffset number
----@field panningYOffset number
----@field pitch number
----@field pitchInterpolationAmount number
----@field roll number
----@field rollInterpolationAmount number
----@field targetInterpolationAmount number
----@field targetX number
----@field targetY number
----@field targetZ number
----@field yaw number
----@field yawInterpolationAmount number
----@field zoomInterpolationAmount number
----@field zoomPercent number
-local UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject = {}
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:AdjustYaw(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:ApplyFromModelSceneCameraInfo(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:CalculatePositionByDistanceFromTarget(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:CalculateTransitionalValues(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:CalculateZoomDistanceFromPercent(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:CalculateZoomPercentFromDistance(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetCameraType(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetDeltaModifierForCameraMode(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetDerivedOrientation(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetDerivedTarget(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetDerivedZoomDistance(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetForwardVector(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetInterpolatedOrientation(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetInterpolatedTarget(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetInterpolatedZoomDistance(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetLeftMouseButtonXMode(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetLeftYMouseButtonYMode(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetMaxZoomDistance(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetMinZoomDistance(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetMouseWheelMode(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetOrientationSpline(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetOwningScene(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetPitch(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetPitchInterpolationAmount(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetPosition(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetRightMouseButtonXMode(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetRightMouseButtonYMode(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetRightVector(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetRoll(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetRollInterpolationAmount(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetTarget(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetTargetInterpolationAmount(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetTargetSpline(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetUpVector(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetYaw(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetYawInterpolationAmount(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetZoomAvailable(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetZoomDistance(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetZoomInterpolationAmount(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetZoomPercent(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:GetZoomSpline(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:HandleMouseMovement(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:IsLeftMouseButtonDown(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:IsRightMouseButtonDown(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:OnActivated(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:OnAdded(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:OnDeactivated(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:OnMouseDown(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:OnMouseUp(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:OnMouseWheel(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:OnRemoved(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:OnUpdate(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:ResetDefaultInputModes(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetAlignLightToOrbitDelta(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetLeftMouseButtonXMode(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetLeftMouseButtonYMode(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetMaxZoomDistance(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetMinZoomDistance(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetMouseWheelMode(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetOrientationSpline(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetOwningScene(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetPitch(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetPitchInterpolationAmount(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetPosition(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetRightMouseButtonXMode(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetRightMouseButtonYMode(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetRoll(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetRollInterpolationAmount(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetTarget(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetTargetInterpolationAmount(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetTargetSpline(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetYaw(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetYawInterpolationAmount(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetZoomDistance(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetZoomInterpolationAmount(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetZoomPercent(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SetZoomSpline(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:ShouldAlignLightToOrbitDelta(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SnapAllInterpolatedValues(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SnapToTargetInterpolationPitch(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SnapToTargetInterpolationRoll(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SnapToTargetInterpolationTarget(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SnapToTargetInterpolationYaw(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SnapToTargetInterpolationZoom(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:SynchronizeCamera(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:UpdateCameraOrientationAndPosition(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:UpdateInterpolationTargets(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:UpdateLight(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:ZoomBy(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_BackModelScene_activeCameraObject:ZoomByPercent(...) end
+---@class ModelPreviewFrame_Display_ModelScene_CarouselLeftButtonObject : Button
+local ModelPreviewFrame_Display_ModelScene_CarouselLeftButtonObject = {}
 end
 
 do
----@class UIWidgetTopCenterContainerFrame_BackModelScene_activeCamera_owningSceneObject
-local UIWidgetTopCenterContainerFrame_BackModelScene_activeCamera_owningSceneObject = {}
+---@class ModelPreviewFrame_Display_ModelScene_CarouselRightButtonObject : Button
+local ModelPreviewFrame_Display_ModelScene_CarouselRightButtonObject = {}
 end
 
 do
----@class UIWidgetTopCenterContainerFrame_BackModelScene_tagToCameraObject
----@field primary table
-local UIWidgetTopCenterContainerFrame_BackModelScene_tagToCameraObject = {}
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrameObject : Frame
+---@field buttonHorizontalPadding number
+---@field enableReset boolean
+---@field enableRotate boolean
+---@field enableZoom boolean
+---@field modelScene ModelPreviewFrame_Display_ModelScene_ControlFrame_modelSceneObject
+---@field resetButton ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButtonObject
+---@field rotateLeftButton ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButtonObject
+---@field rotateRightButton ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButtonObject
+---@field rotationIncrement number
+---@field zoomInButton ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButtonObject
+---@field zoomIncrement number
+---@field zoomOutButton ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButtonObject
+local ModelPreviewFrame_Display_ModelScene_ControlFrameObject = {}
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrameObject:GetRotateIncrement(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrameObject:GetZoomIncrement(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrameObject:OnEnter(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrameObject:OnLeave(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrameObject:OnLoad(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrameObject:OnShow(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrameObject:SetModelScene(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrameObject:SetRotateIncrement(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrameObject:SetZoomIncrement(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrameObject:UpdateLayout(...) end
 end
 
 do
----@class UIWidgetTopCenterContainerFrame_FrontModelSceneObject
----@field activeCamera UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject
----@field actorTemplate string
----@field cameras table
----@field centerX number
----@field centerY number
----@field effectControllers table
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_modelSceneObject
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_modelSceneObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButtonObject : Button
+---@field HighlightTexture ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButton_HighlightTextureObject
+---@field Icon ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButton_IconObject
+---@field NormalTexture ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButton_NormalTextureObject
+---@field PushedTexture ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButton_PushedTextureObject
+---@field modelScene ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButton_modelSceneObject
+---@field tooltip string
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButtonObject = {}
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButtonObject:Init(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButtonObject:OnClick(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButtonObject:OnEnter(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButtonObject:OnLeave(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButtonObject:OnLoad(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButtonObject:OnMouseDown(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButtonObject:OnMouseUp(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButtonObject:SetModelScene(...) end
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButton_HighlightTextureObject : Texture
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButton_HighlightTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButton_IconObject : Texture
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButton_IconObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButton_NormalTextureObject : Texture
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButton_NormalTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButton_PushedTextureObject : Texture
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButton_PushedTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButton_modelSceneObject
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_resetButton_modelSceneObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButtonObject : Button
+---@field HighlightTexture ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButton_HighlightTextureObject
+---@field Icon ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButton_IconObject
+---@field NormalTexture ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButton_NormalTextureObject
+---@field PushedTexture ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButton_PushedTextureObject
+---@field modelScene ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButton_modelSceneObject
+---@field rotateDirection string
+---@field rotationIncrement number
+---@field tooltip string
+---@field tooltipText string
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButtonObject = {}
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButtonObject:Init(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButtonObject:OnClick(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButtonObject:OnEnter(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButtonObject:OnLeave(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButtonObject:OnLoad(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButtonObject:OnMouseDown(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButtonObject:OnMouseUp(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButtonObject:OnSmartNavClick(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButtonObject:RotateStep(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButtonObject:SetModelScene(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButtonObject:SetRotation(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButtonObject:SetRotationIncrement(...) end
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButton_HighlightTextureObject : Texture
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButton_HighlightTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButton_IconObject : Texture
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButton_IconObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButton_NormalTextureObject : Texture
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButton_NormalTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButton_PushedTextureObject : Texture
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButton_PushedTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButton_modelSceneObject
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateLeftButton_modelSceneObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButtonObject : Button
+---@field HighlightTexture ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButton_HighlightTextureObject
+---@field Icon ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButton_IconObject
+---@field NormalTexture ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButton_NormalTextureObject
+---@field PushedTexture ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButton_PushedTextureObject
+---@field modelScene ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButton_modelSceneObject
+---@field rotateDirection string
+---@field rotationIncrement number
+---@field tooltip string
+---@field tooltipText string
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButtonObject = {}
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButtonObject:Init(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButtonObject:OnClick(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButtonObject:OnEnter(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButtonObject:OnLeave(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButtonObject:OnLoad(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButtonObject:OnMouseDown(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButtonObject:OnMouseUp(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButtonObject:OnSmartNavClick(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButtonObject:RotateStep(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButtonObject:SetModelScene(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButtonObject:SetRotation(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButtonObject:SetRotationIncrement(...) end
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButton_HighlightTextureObject : Texture
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButton_HighlightTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButton_IconObject : Texture
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButton_IconObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButton_NormalTextureObject : Texture
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButton_NormalTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButton_PushedTextureObject : Texture
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButton_PushedTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButton_modelSceneObject
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_rotateRightButton_modelSceneObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButtonObject : Button
+---@field HighlightTexture ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButton_HighlightTextureObject
+---@field Icon ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButton_IconObject
+---@field NormalTexture ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButton_NormalTextureObject
+---@field PushedTexture ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButton_PushedTextureObject
+---@field modelScene ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButton_modelSceneObject
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButtonObject = {}
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButtonObject:Init(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButtonObject:OnClick(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButtonObject:OnEnter(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButtonObject:OnLeave(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButtonObject:OnLoad(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButtonObject:OnMouseDown(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButtonObject:OnMouseUp(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButtonObject:SetModelScene(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButtonObject:SetZoomAmount(...) end
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButton_HighlightTextureObject : Texture
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButton_HighlightTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButton_IconObject : Texture
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButton_IconObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButton_NormalTextureObject : Texture
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButton_NormalTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButton_PushedTextureObject : Texture
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButton_PushedTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButton_modelSceneObject
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomInButton_modelSceneObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButtonObject : Button
+---@field HighlightTexture ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButton_HighlightTextureObject
+---@field Icon ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButton_IconObject
+---@field NormalTexture ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButton_NormalTextureObject
+---@field PushedTexture ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButton_PushedTextureObject
+---@field modelScene ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButton_modelSceneObject
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButtonObject = {}
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButtonObject:Init(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButtonObject:OnClick(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButtonObject:OnEnter(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButtonObject:OnLeave(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButtonObject:OnLoad(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButtonObject:OnMouseDown(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButtonObject:OnMouseUp(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButtonObject:SetModelScene(...) end
+---@return any ...
+function ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButtonObject:SetZoomAmount(...) end
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButton_HighlightTextureObject : Texture
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButton_HighlightTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButton_IconObject : Texture
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButton_IconObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButton_NormalTextureObject : Texture
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButton_NormalTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButton_PushedTextureObject : Texture
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButton_PushedTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButton_modelSceneObject
+local ModelPreviewFrame_Display_ModelScene_ControlFrame_zoomOutButton_modelSceneObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_NameObject : FontString
+local ModelPreviewFrame_Display_NameObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ShadowOverlayObject : Frame
+---@field BottomLeft ModelPreviewFrame_Display_ShadowOverlay_BottomLeftObject
+---@field BottomRight ModelPreviewFrame_Display_ShadowOverlay_BottomRightObject
+---@field TopLeft ModelPreviewFrame_Display_ShadowOverlay_TopLeftObject
+---@field TopRight ModelPreviewFrame_Display_ShadowOverlay_TopRightObject
+local ModelPreviewFrame_Display_ShadowOverlayObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ShadowOverlay_BottomLeftObject : Texture
+local ModelPreviewFrame_Display_ShadowOverlay_BottomLeftObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ShadowOverlay_BottomRightObject : Texture
+local ModelPreviewFrame_Display_ShadowOverlay_BottomRightObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ShadowOverlay_TopLeftObject : Texture
+local ModelPreviewFrame_Display_ShadowOverlay_TopLeftObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_ShadowOverlay_TopRightObject : Texture
+local ModelPreviewFrame_Display_ShadowOverlay_TopRightObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Display_YesMountsTexObject : Texture
+local ModelPreviewFrame_Display_YesMountsTexObject = {}
+end
+
+do
+---@class ModelPreviewFrame_FocusJumpHintObject : Frame
+---@field ActiveTexture ModelPreviewFrame_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture ModelPreviewFrame_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim ModelPreviewFrame_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator ModelPreviewFrame_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG ModelPreviewFrame_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture ModelPreviewFrame_FocusJumpHint_HoverTextureObject
+---@field LoadBar ModelPreviewFrame_FocusJumpHint_LoadBarObject
+---@field LoadBarBG ModelPreviewFrame_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow ModelPreviewFrame_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture ModelPreviewFrame_FocusJumpHint_NormalTextureObject
+---@field PressedTexture ModelPreviewFrame_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip ModelPreviewFrame_FocusJumpHint_SpinnerTipObject
 ---@field ignoreInLayout boolean
----@field modelSceneID number
----@field modelSceneSet boolean
----@field pixelsPerSceneUnit number
----@field tagToActor table
----@field tagToCamera UIWidgetTopCenterContainerFrame_FrontModelScene_tagToCameraObject
----@field useViewInsetNormalization boolean
-local UIWidgetTopCenterContainerFrame_FrontModelSceneObject = {}
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local ModelPreviewFrame_FocusJumpHintObject = {}
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:AcquireActor(...) end
+function ModelPreviewFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:AcquireAndInitializeActor(...) end
+function ModelPreviewFrame_FocusJumpHintObject:BeginHold(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:AddCamera(...) end
+function ModelPreviewFrame_FocusJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:AddDynamicEffect(...) end
+function ModelPreviewFrame_FocusJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:AddEffect(...) end
+function ModelPreviewFrame_FocusJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:AddOrUpdateDropShadow(...) end
+function ModelPreviewFrame_FocusJumpHintObject:EndHold(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:AdjustCameraYaw(...) end
+function ModelPreviewFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:AttachPlayerToMount(...) end
+function ModelPreviewFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:CalculatePixelsPerSceneUnit(...) end
+function ModelPreviewFrame_FocusJumpHintObject:OnLoad(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:ClearEffects(...) end
+function ModelPreviewFrame_FocusJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:ClearScene(...) end
+function ModelPreviewFrame_FocusJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:CreateActorFromScene(...) end
+function ModelPreviewFrame_FocusJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:CreateCameraFromScene(...) end
+function ModelPreviewFrame_FocusJumpHintObject:SetFocused(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:CreateOrTransitionActorFromScene(...) end
+function ModelPreviewFrame_FocusJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:CreateOrTransitionCameraFromScene(...) end
+function ModelPreviewFrame_FocusJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:EnumerateActiveActors(...) end
+function ModelPreviewFrame_FocusJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:ExecuteOrDelayUntilSceneSet(...) end
+function ModelPreviewFrame_FocusJumpHintObject:SetPressable(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:GetActiveCamera(...) end
+function ModelPreviewFrame_FocusJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:GetActorByTag(...) end
+function ModelPreviewFrame_FocusJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:GetCameraByTag(...) end
+function ModelPreviewFrame_FocusJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:GetEffectSpeed(...) end
+function ModelPreviewFrame_FocusJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:GetModelSceneID(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:GetNumActiveActors(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:GetOrAcquireDropShadow(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:GetPixelsPerSceneUnit(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:GetPlayerActor(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:GetSceneSize(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:HasActiveCamera(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:HasActiveEffects(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:InitializeActor(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:InternalAddEffect(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:IsLeftMouseButtonDown(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:IsModelSceneSet(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:IsRightMouseButtonDown(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:OnEnter(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:OnEvent(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:OnHide(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:OnLeave(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:OnLoad(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:OnMouseDown(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:OnMouseUp(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:OnMouseWheel(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:OnShow(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:OnSizeChanged(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:OnUpdate(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:RefreshModelScene(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:ReleaseActor(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:ReleaseAllActors(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:ReleaseAllCameras(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:RemoveEffectController(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:Reset(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:SetActiveCamera(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:SetActorPositionFromPixels(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:SetEffectSpeed(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:SetFromModelSceneID(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:SetResetCallback(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:ShowAndAnimateActors(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:StopCameraYaw(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:SynchronizeActiveCamera(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:Transform3DPointTo2D(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelSceneObject:TransitionToModelSceneID(...) end
+function ModelPreviewFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject
----@field buttonModes table
----@field maxZoomDistance number
----@field minZoomDistance number
----@field modelSceneCameraInfo table
----@field owningScene UIWidgetTopCenterContainerFrame_FrontModelScene_activeCamera_owningSceneObject
----@field panningXOffset number
----@field panningYOffset number
----@field pitch number
----@field pitchInterpolationAmount number
----@field roll number
----@field rollInterpolationAmount number
----@field targetInterpolationAmount number
----@field targetX number
----@field targetY number
----@field targetZ number
----@field yaw number
----@field yawInterpolationAmount number
----@field zoomInterpolationAmount number
----@field zoomPercent number
-local UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject = {}
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:AdjustYaw(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:ApplyFromModelSceneCameraInfo(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:CalculatePositionByDistanceFromTarget(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:CalculateTransitionalValues(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:CalculateZoomDistanceFromPercent(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:CalculateZoomPercentFromDistance(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetCameraType(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetDeltaModifierForCameraMode(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetDerivedOrientation(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetDerivedTarget(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetDerivedZoomDistance(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetForwardVector(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetInterpolatedOrientation(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetInterpolatedTarget(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetInterpolatedZoomDistance(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetLeftMouseButtonXMode(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetLeftYMouseButtonYMode(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetMaxZoomDistance(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetMinZoomDistance(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetMouseWheelMode(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetOrientationSpline(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetOwningScene(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetPitch(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetPitchInterpolationAmount(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetPosition(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetRightMouseButtonXMode(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetRightMouseButtonYMode(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetRightVector(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetRoll(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetRollInterpolationAmount(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetTarget(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetTargetInterpolationAmount(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetTargetSpline(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetUpVector(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetYaw(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetYawInterpolationAmount(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetZoomAvailable(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetZoomDistance(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetZoomInterpolationAmount(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetZoomPercent(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:GetZoomSpline(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:HandleMouseMovement(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:IsLeftMouseButtonDown(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:IsRightMouseButtonDown(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:OnActivated(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:OnAdded(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:OnDeactivated(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:OnMouseDown(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:OnMouseUp(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:OnMouseWheel(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:OnRemoved(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:OnUpdate(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:ResetDefaultInputModes(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetAlignLightToOrbitDelta(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetLeftMouseButtonXMode(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetLeftMouseButtonYMode(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetMaxZoomDistance(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetMinZoomDistance(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetMouseWheelMode(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetOrientationSpline(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetOwningScene(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetPitch(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetPitchInterpolationAmount(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetPosition(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetRightMouseButtonXMode(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetRightMouseButtonYMode(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetRoll(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetRollInterpolationAmount(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetTarget(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetTargetInterpolationAmount(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetTargetSpline(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetYaw(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetYawInterpolationAmount(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetZoomDistance(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetZoomInterpolationAmount(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetZoomPercent(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SetZoomSpline(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:ShouldAlignLightToOrbitDelta(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SnapAllInterpolatedValues(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SnapToTargetInterpolationPitch(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SnapToTargetInterpolationRoll(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SnapToTargetInterpolationTarget(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SnapToTargetInterpolationYaw(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SnapToTargetInterpolationZoom(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:SynchronizeCamera(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:UpdateCameraOrientationAndPosition(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:UpdateInterpolationTargets(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:UpdateLight(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:ZoomBy(...) end
----@return any ...
-function UIWidgetTopCenterContainerFrame_FrontModelScene_activeCameraObject:ZoomByPercent(...) end
+---@class ModelPreviewFrame_FocusJumpHint_ActiveTextureObject : Texture
+local ModelPreviewFrame_FocusJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_FocusJumpHint_DisabledTextureObject : Texture
+local ModelPreviewFrame_FocusJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim ModelPreviewFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim ModelPreviewFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim ModelPreviewFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local ModelPreviewFrame_FocusJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class ModelPreviewFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local ModelPreviewFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class ModelPreviewFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local ModelPreviewFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class ModelPreviewFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local ModelPreviewFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class ModelPreviewFrame_FocusJumpHint_HoldIndicatorObject : Texture
+local ModelPreviewFrame_FocusJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class ModelPreviewFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
+local ModelPreviewFrame_FocusJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class ModelPreviewFrame_FocusJumpHint_HoverTextureObject : Texture
+local ModelPreviewFrame_FocusJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_FocusJumpHint_LoadBarObject : Texture
+local ModelPreviewFrame_FocusJumpHint_LoadBarObject = {}
+end
+
+do
+---@class ModelPreviewFrame_FocusJumpHint_LoadBarBGObject : Texture
+local ModelPreviewFrame_FocusJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class ModelPreviewFrame_FocusJumpHint_LoadBarGlowObject : Texture
+local ModelPreviewFrame_FocusJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class ModelPreviewFrame_FocusJumpHint_NormalTextureObject : Texture
+local ModelPreviewFrame_FocusJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_FocusJumpHint_PressedTextureObject : Texture
+local ModelPreviewFrame_FocusJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_FocusJumpHint_SpinnerTipObject : Texture
+local ModelPreviewFrame_FocusJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class ModelPreviewFrame_FrameGlowObject : Frame
+---@field GlowTexture ModelPreviewFrame_FrameGlow_GlowTextureObject
+---@field glowTextures table
+local ModelPreviewFrame_FrameGlowObject = {}
+---@return any ...
+function ModelPreviewFrame_FrameGlowObject:GetContainerFrame(...) end
+---@return any ...
+function ModelPreviewFrame_FrameGlowObject:GetFrameLayoutType(...) end
+---@return any ...
+function ModelPreviewFrame_FrameGlowObject:GetHeaderFrame(...) end
+---@return any ...
+function ModelPreviewFrame_FrameGlowObject:OnLoad(...) end
+end
+
+do
+---@class ModelPreviewFrame_FrameGlow_GlowTextureObject : Texture
+local ModelPreviewFrame_FrameGlow_GlowTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_InsetObject : Frame
+---@field Bg ModelPreviewFrame_Inset_BgObject
+---@field NineSlice ModelPreviewFrame_Inset_NineSliceObject
+---@field layoutType string
+local ModelPreviewFrame_InsetObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Inset_BgObject : Texture
+local ModelPreviewFrame_Inset_BgObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Inset_NineSliceObject : Frame
+---@field BottomEdge ModelPreviewFrame_Inset_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner ModelPreviewFrame_Inset_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner ModelPreviewFrame_Inset_NineSlice_BottomRightCornerObject
+---@field LeftEdge ModelPreviewFrame_Inset_NineSlice_LeftEdgeObject
+---@field RightEdge ModelPreviewFrame_Inset_NineSlice_RightEdgeObject
+---@field TopEdge ModelPreviewFrame_Inset_NineSlice_TopEdgeObject
+---@field TopLeftCorner ModelPreviewFrame_Inset_NineSlice_TopLeftCornerObject
+---@field TopRightCorner ModelPreviewFrame_Inset_NineSlice_TopRightCornerObject
+local ModelPreviewFrame_Inset_NineSliceObject = {}
+---@return any ...
+function ModelPreviewFrame_Inset_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function ModelPreviewFrame_Inset_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function ModelPreviewFrame_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function ModelPreviewFrame_Inset_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function ModelPreviewFrame_Inset_NineSliceObject:OnLoad(...) end
+---@return any ...
+function ModelPreviewFrame_Inset_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function ModelPreviewFrame_Inset_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function ModelPreviewFrame_Inset_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function ModelPreviewFrame_Inset_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function ModelPreviewFrame_Inset_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class ModelPreviewFrame_Inset_NineSlice_BottomEdgeObject : Texture
+local ModelPreviewFrame_Inset_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Inset_NineSlice_BottomLeftCornerObject : Texture
+local ModelPreviewFrame_Inset_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Inset_NineSlice_BottomRightCornerObject : Texture
+local ModelPreviewFrame_Inset_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Inset_NineSlice_LeftEdgeObject : Texture
+local ModelPreviewFrame_Inset_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Inset_NineSlice_RightEdgeObject : Texture
+local ModelPreviewFrame_Inset_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Inset_NineSlice_TopEdgeObject : Texture
+local ModelPreviewFrame_Inset_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Inset_NineSlice_TopLeftCornerObject : Texture
+local ModelPreviewFrame_Inset_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class ModelPreviewFrame_Inset_NineSlice_TopRightCornerObject : Texture
+local ModelPreviewFrame_Inset_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class ModelPreviewFrame_LeftJumpHintObject : Frame
+---@field ActiveTexture ModelPreviewFrame_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture ModelPreviewFrame_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim ModelPreviewFrame_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator ModelPreviewFrame_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG ModelPreviewFrame_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture ModelPreviewFrame_LeftJumpHint_HoverTextureObject
+---@field LoadBar ModelPreviewFrame_LeftJumpHint_LoadBarObject
+---@field LoadBarBG ModelPreviewFrame_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow ModelPreviewFrame_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture ModelPreviewFrame_LeftJumpHint_NormalTextureObject
+---@field PressedTexture ModelPreviewFrame_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip ModelPreviewFrame_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local ModelPreviewFrame_LeftJumpHintObject = {}
+---@return any ...
+function ModelPreviewFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function ModelPreviewFrame_LeftJumpHintObject:BeginHold(...) end
+---@return any ...
+function ModelPreviewFrame_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function ModelPreviewFrame_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function ModelPreviewFrame_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function ModelPreviewFrame_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function ModelPreviewFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function ModelPreviewFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function ModelPreviewFrame_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function ModelPreviewFrame_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function ModelPreviewFrame_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function ModelPreviewFrame_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function ModelPreviewFrame_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function ModelPreviewFrame_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function ModelPreviewFrame_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function ModelPreviewFrame_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function ModelPreviewFrame_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function ModelPreviewFrame_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function ModelPreviewFrame_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function ModelPreviewFrame_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function ModelPreviewFrame_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function ModelPreviewFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class ModelPreviewFrame_LeftJumpHint_ActiveTextureObject : Texture
+local ModelPreviewFrame_LeftJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_LeftJumpHint_DisabledTextureObject : Texture
+local ModelPreviewFrame_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim ModelPreviewFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim ModelPreviewFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim ModelPreviewFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local ModelPreviewFrame_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class ModelPreviewFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local ModelPreviewFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class ModelPreviewFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local ModelPreviewFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class ModelPreviewFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local ModelPreviewFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class ModelPreviewFrame_LeftJumpHint_HoldIndicatorObject : Texture
+local ModelPreviewFrame_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class ModelPreviewFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
+local ModelPreviewFrame_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class ModelPreviewFrame_LeftJumpHint_HoverTextureObject : Texture
+local ModelPreviewFrame_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_LeftJumpHint_LoadBarObject : Texture
+local ModelPreviewFrame_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class ModelPreviewFrame_LeftJumpHint_LoadBarBGObject : Texture
+local ModelPreviewFrame_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class ModelPreviewFrame_LeftJumpHint_LoadBarGlowObject : Texture
+local ModelPreviewFrame_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class ModelPreviewFrame_LeftJumpHint_NormalTextureObject : Texture
+local ModelPreviewFrame_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_LeftJumpHint_PressedTextureObject : Texture
+local ModelPreviewFrame_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_LeftJumpHint_SpinnerTipObject : Texture
+local ModelPreviewFrame_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class ModelPreviewFrame_NineSliceObject : Frame
+---@field BottomEdge ModelPreviewFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner ModelPreviewFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner ModelPreviewFrame_NineSlice_BottomRightCornerObject
+---@field Center ModelPreviewFrame_NineSlice_CenterObject
+---@field LeftEdge ModelPreviewFrame_NineSlice_LeftEdgeObject
+---@field RightEdge ModelPreviewFrame_NineSlice_RightEdgeObject
+---@field TopEdge ModelPreviewFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner ModelPreviewFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner ModelPreviewFrame_NineSlice_TopRightCornerObject
+local ModelPreviewFrame_NineSliceObject = {}
+---@return any ...
+function ModelPreviewFrame_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function ModelPreviewFrame_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function ModelPreviewFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function ModelPreviewFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function ModelPreviewFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function ModelPreviewFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function ModelPreviewFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function ModelPreviewFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function ModelPreviewFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function ModelPreviewFrame_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class ModelPreviewFrame_NineSlice_BottomEdgeObject : Texture
+local ModelPreviewFrame_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class ModelPreviewFrame_NineSlice_BottomLeftCornerObject : Texture
+local ModelPreviewFrame_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class ModelPreviewFrame_NineSlice_BottomRightCornerObject : Texture
+local ModelPreviewFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class ModelPreviewFrame_NineSlice_CenterObject : Texture
+local ModelPreviewFrame_NineSlice_CenterObject = {}
+end
+
+do
+---@class ModelPreviewFrame_NineSlice_LeftEdgeObject : Texture
+local ModelPreviewFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class ModelPreviewFrame_NineSlice_RightEdgeObject : Texture
+local ModelPreviewFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class ModelPreviewFrame_NineSlice_TopEdgeObject : Texture
+local ModelPreviewFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class ModelPreviewFrame_NineSlice_TopLeftCornerObject : Texture
+local ModelPreviewFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class ModelPreviewFrame_NineSlice_TopRightCornerObject : Texture
+local ModelPreviewFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class ModelPreviewFrame_PortraitContainerObject : Frame
+---@field CircleMask ModelPreviewFrame_PortraitContainer_CircleMaskObject
+---@field portrait ModelPreviewFrame_PortraitContainer_portraitObject
+local ModelPreviewFrame_PortraitContainerObject = {}
+end
+
+do
+---@class ModelPreviewFrame_PortraitContainer_CircleMaskObject : MaskTexture
+local ModelPreviewFrame_PortraitContainer_CircleMaskObject = {}
+end
+
+do
+---@class ModelPreviewFrame_PortraitContainer_portraitObject : Texture
+local ModelPreviewFrame_PortraitContainer_portraitObject = {}
+end
+
+do
+---@class ModelPreviewFrame_RightJumpHintObject : Frame
+---@field ActiveTexture ModelPreviewFrame_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture ModelPreviewFrame_RightJumpHint_DisabledTextureObject
+---@field HoldAnim ModelPreviewFrame_RightJumpHint_HoldAnimObject
+---@field HoldIndicator ModelPreviewFrame_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG ModelPreviewFrame_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture ModelPreviewFrame_RightJumpHint_HoverTextureObject
+---@field LoadBar ModelPreviewFrame_RightJumpHint_LoadBarObject
+---@field LoadBarBG ModelPreviewFrame_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow ModelPreviewFrame_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture ModelPreviewFrame_RightJumpHint_NormalTextureObject
+---@field PressedTexture ModelPreviewFrame_RightJumpHint_PressedTextureObject
+---@field SpinnerTip ModelPreviewFrame_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local ModelPreviewFrame_RightJumpHintObject = {}
+---@return any ...
+function ModelPreviewFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function ModelPreviewFrame_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function ModelPreviewFrame_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function ModelPreviewFrame_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function ModelPreviewFrame_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function ModelPreviewFrame_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function ModelPreviewFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function ModelPreviewFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function ModelPreviewFrame_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function ModelPreviewFrame_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function ModelPreviewFrame_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function ModelPreviewFrame_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function ModelPreviewFrame_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function ModelPreviewFrame_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function ModelPreviewFrame_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function ModelPreviewFrame_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function ModelPreviewFrame_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function ModelPreviewFrame_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function ModelPreviewFrame_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function ModelPreviewFrame_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function ModelPreviewFrame_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function ModelPreviewFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class ModelPreviewFrame_RightJumpHint_ActiveTextureObject : Texture
+local ModelPreviewFrame_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_RightJumpHint_DisabledTextureObject : Texture
+local ModelPreviewFrame_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim ModelPreviewFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim ModelPreviewFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim ModelPreviewFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local ModelPreviewFrame_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class ModelPreviewFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+local ModelPreviewFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class ModelPreviewFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local ModelPreviewFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class ModelPreviewFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local ModelPreviewFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class ModelPreviewFrame_RightJumpHint_HoldIndicatorObject : Texture
+local ModelPreviewFrame_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class ModelPreviewFrame_RightJumpHint_HoldIndicatorBGObject : Texture
+local ModelPreviewFrame_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class ModelPreviewFrame_RightJumpHint_HoverTextureObject : Texture
+local ModelPreviewFrame_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_RightJumpHint_LoadBarObject : Texture
+local ModelPreviewFrame_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class ModelPreviewFrame_RightJumpHint_LoadBarBGObject : Texture
+local ModelPreviewFrame_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class ModelPreviewFrame_RightJumpHint_LoadBarGlowObject : Texture
+local ModelPreviewFrame_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class ModelPreviewFrame_RightJumpHint_NormalTextureObject : Texture
+local ModelPreviewFrame_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_RightJumpHint_PressedTextureObject : Texture
+local ModelPreviewFrame_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class ModelPreviewFrame_RightJumpHint_SpinnerTipObject : Texture
+local ModelPreviewFrame_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class ModelPreviewFrame_TitleContainerObject : Frame
+---@field TitleText ModelPreviewFrame_TitleContainer_TitleTextObject
+local ModelPreviewFrame_TitleContainerObject = {}
+end
+
+do
+---@class ModelPreviewFrame_TitleContainer_TitleTextObject : FontString
+local ModelPreviewFrame_TitleContainer_TitleTextObject = {}
+end
+
+do
+---@class ModelPreviewFrame_TopTileStreaksObject : Texture
+local ModelPreviewFrame_TopTileStreaksObject = {}
+end
+
+do
+---@class MotionSicknessFrameObject : Frame
+---@field FocalCircle MotionSicknessFrame_FocalCircleObject
+---@field LandscapeDarkeningBottom MotionSicknessFrame_LandscapeDarkeningBottomObject
+---@field LandscapeDarkeningCenter MotionSicknessFrame_LandscapeDarkeningCenterObject
+---@field LandscapeDarkeningLeft MotionSicknessFrame_LandscapeDarkeningLeftObject
+---@field LandscapeDarkeningRight MotionSicknessFrame_LandscapeDarkeningRightObject
+---@field LandscapeDarkeningTextures table
+---@field LandscapeDarkeningTop MotionSicknessFrame_LandscapeDarkeningTopObject
+---@field focalCircle boolean
+---@field focalCircleArtScale number
+---@field focalCircleAtlas string
+---@field focalCircleUseFixedScale boolean
+---@field focalCircleVerticalOffset number
+---@field landscapeDarkening boolean
+---@field landscapeDarkeningArtScale number
+---@field landscapeDarkeningCircleAtlas string
+---@field landscapeDarkeningMaxAlpha number
+---@field landscapeDarkeningMaxSpeed number
+---@field landscapeDarkeningMinAlpha number
+---@field landscapeDarkeningMinSpeed number
+---@field landscapeDarkeningOvalAtlas string
+---@field landscapeDarkeningUseFixedScale boolean
+---@field landscapeDarkeningUseOval boolean
+---@field landscapeDarkeningVerticalOffset number
+local MotionSicknessFrameObject = {}
+---@return any ...
+function MotionSicknessFrameObject:ApplyDarkening(...) end
+---@return any ...
+function MotionSicknessFrameObject:ApplySettings(...) end
+---@return any ...
+function MotionSicknessFrameObject:FullUpdate(...) end
+---@return any ...
+function MotionSicknessFrameObject:OnCVarChanged(...) end
+---@return any ...
+function MotionSicknessFrameObject:OnEvent(...) end
+---@return any ...
+function MotionSicknessFrameObject:OnLoad(...) end
+---@return any ...
+function MotionSicknessFrameObject:OnUpdate(...) end
+---@return any ...
+function MotionSicknessFrameObject:SetLandscapeDarkeningUseOval(...) end
+---@return any ...
+function MotionSicknessFrameObject:UpdateScale(...) end
+---@type MotionSicknessFrameObject
+MotionSicknessFrame = MotionSicknessFrameObject
+end
+
+do
+---@class MotionSicknessFrame_FocalCircleObject : Texture
+local MotionSicknessFrame_FocalCircleObject = {}
+end
+
+do
+---@class MotionSicknessFrame_LandscapeDarkeningBottomObject : Texture
+local MotionSicknessFrame_LandscapeDarkeningBottomObject = {}
+end
+
+do
+---@class MotionSicknessFrame_LandscapeDarkeningCenterObject : Texture
+local MotionSicknessFrame_LandscapeDarkeningCenterObject = {}
+end
+
+do
+---@class MotionSicknessFrame_LandscapeDarkeningLeftObject : Texture
+local MotionSicknessFrame_LandscapeDarkeningLeftObject = {}
+end
+
+do
+---@class MotionSicknessFrame_LandscapeDarkeningRightObject : Texture
+local MotionSicknessFrame_LandscapeDarkeningRightObject = {}
+end
+
+do
+---@class MotionSicknessFrame_LandscapeDarkeningTopObject : Texture
+local MotionSicknessFrame_LandscapeDarkeningTopObject = {}
+end
+
+do
+---@class NamePlatesTutorialObject : Frame
+---@field Aggro NamePlatesTutorial_AggroObject
+---@field Bg NamePlatesTutorial_BgObject
+---@field BuffsDebuffs NamePlatesTutorial_BuffsDebuffsObject
+---@field CloseButton NamePlatesTutorial_CloseButtonObject
+---@field DragBar NamePlatesTutorial_DragBarObject
+---@field EnemyVsFriendly NamePlatesTutorial_EnemyVsFriendlyObject
+---@field FocusJumpHint NamePlatesTutorial_FocusJumpHintObject
+---@field FrameGlow NamePlatesTutorial_FrameGlowObject
+---@field Inset NamePlatesTutorial_InsetObject
+---@field LeftJumpHint NamePlatesTutorial_LeftJumpHintObject
+---@field NineSlice NamePlatesTutorial_NineSliceObject
+---@field PortraitContainer NamePlatesTutorial_PortraitContainerObject
+---@field RightJumpHint NamePlatesTutorial_RightJumpHintObject
+---@field StyleOptions NamePlatesTutorial_StyleOptionsObject
+---@field TitleContainer NamePlatesTutorial_TitleContainerObject
+---@field TopTileStreaks NamePlatesTutorial_TopTileStreaksObject
+---@field layoutType string
+local NamePlatesTutorialObject = {}
+---@return any ...
+function NamePlatesTutorialObject:EndFocus(...) end
+---@return any ...
+function NamePlatesTutorialObject:GetFocusFrameGlow(...) end
+---@return any ...
+function NamePlatesTutorialObject:GetFocusFrameRoot(...) end
+---@return any ...
+function NamePlatesTutorialObject:GetPortrait(...) end
+---@return any ...
+function NamePlatesTutorialObject:GetTitleText(...) end
+---@return any ...
+function NamePlatesTutorialObject:HasPortraitTexture(...) end
+---@return any ...
+function NamePlatesTutorialObject:HideFocusJumpHint(...) end
+---@return any ...
+function NamePlatesTutorialObject:HideLeftJumpHint(...) end
+---@return any ...
+function NamePlatesTutorialObject:HideRightJumpHint(...) end
+---@return any ...
+function NamePlatesTutorialObject:LockInFocus(...) end
+---@return any ...
+function NamePlatesTutorialObject:OnHide(...) end
+---@return any ...
+function NamePlatesTutorialObject:OnLoad(...) end
+---@return any ...
+function NamePlatesTutorialObject:OnShow(...) end
+---@return any ...
+function NamePlatesTutorialObject:RefreshFocus(...) end
+---@return any ...
+function NamePlatesTutorialObject:SetBorder(...) end
+---@return any ...
+function NamePlatesTutorialObject:SetFrameLevelsFromBaseLevel(...) end
+---@return any ...
+function NamePlatesTutorialObject:SetPortraitAtlasRaw(...) end
+---@return any ...
+function NamePlatesTutorialObject:SetPortraitShown(...) end
+---@return any ...
+function NamePlatesTutorialObject:SetPortraitTexCoord(...) end
+---@return any ...
+function NamePlatesTutorialObject:SetPortraitTextureRaw(...) end
+---@return any ...
+function NamePlatesTutorialObject:SetPortraitTextureSizeAndOffset(...) end
+---@return any ...
+function NamePlatesTutorialObject:SetPortraitToAsset(...) end
+---@return any ...
+function NamePlatesTutorialObject:SetPortraitToBag(...) end
+---@return any ...
+function NamePlatesTutorialObject:SetPortraitToClassIcon(...) end
+---@return any ...
+function NamePlatesTutorialObject:SetPortraitToSpecIcon(...) end
+---@return any ...
+function NamePlatesTutorialObject:SetPortraitToUnit(...) end
+---@return any ...
+function NamePlatesTutorialObject:SetTitle(...) end
+---@return any ...
+function NamePlatesTutorialObject:SetTitleColor(...) end
+---@return any ...
+function NamePlatesTutorialObject:SetTitleFormatted(...) end
+---@return any ...
+function NamePlatesTutorialObject:SetTitleMaxLinesAndHeight(...) end
+---@return any ...
+function NamePlatesTutorialObject:SetTitleOffsets(...) end
+---@return any ...
+function NamePlatesTutorialObject:ShowFocusJumpHint(...) end
+---@return any ...
+function NamePlatesTutorialObject:ShowLeftJumpHint(...) end
+---@return any ...
+function NamePlatesTutorialObject:ShowRightJumpHint(...) end
+---@return any ...
+function NamePlatesTutorialObject:StartFocus(...) end
+---@type NamePlatesTutorialObject
+NamePlatesTutorial = NamePlatesTutorialObject
+end
+
+do
+---@class NamePlatesTutorial_AggroObject : Texture
+local NamePlatesTutorial_AggroObject = {}
+end
+
+do
+---@class NamePlatesTutorial_BgObject : Texture
+local NamePlatesTutorial_BgObject = {}
+end
+
+do
+---@class NamePlatesTutorial_BuffsDebuffsObject : Texture
+local NamePlatesTutorial_BuffsDebuffsObject = {}
+end
+
+do
+---@class NamePlatesTutorial_CloseButtonObject : Button
+local NamePlatesTutorial_CloseButtonObject = {}
+---@return any ...
+function NamePlatesTutorial_CloseButtonObject:NarrationGetName(...) end
+---@return any ...
+function NamePlatesTutorial_CloseButtonObject:OnLoad(...) end
+end
+
+do
+---@class NamePlatesTutorial_DragBarObject : Frame
+---@field isMovingTarget boolean
+---@field showCursorOnHover boolean
+---@field suspendDrag boolean
+---@field target NamePlatesTutorial_DragBar_targetObject
+local NamePlatesTutorial_DragBarObject = {}
+---@return any ...
+function NamePlatesTutorial_DragBarObject:Init(...) end
+---@return any ...
+function NamePlatesTutorial_DragBarObject:OnDragStart(...) end
+---@return any ...
+function NamePlatesTutorial_DragBarObject:OnDragStop(...) end
+---@return any ...
+function NamePlatesTutorial_DragBarObject:OnEnter(...) end
+---@return any ...
+function NamePlatesTutorial_DragBarObject:OnLeave(...) end
+---@return any ...
+function NamePlatesTutorial_DragBarObject:OnLoad(...) end
+---@return any ...
+function NamePlatesTutorial_DragBarObject:SetDragSuspended(...) end
+---@return any ...
+function NamePlatesTutorial_DragBarObject:SetOnDragStartCallback(...) end
+---@return any ...
+function NamePlatesTutorial_DragBarObject:SetOnDragStopCallback(...) end
+---@return any ...
+function NamePlatesTutorial_DragBarObject:SetTarget(...) end
+---@return any ...
+function NamePlatesTutorial_DragBarObject:UpdateCursor(...) end
+end
+
+do
+---@class NamePlatesTutorial_DragBar_targetObject
+local NamePlatesTutorial_DragBar_targetObject = {}
+end
+
+do
+---@class NamePlatesTutorial_EnemyVsFriendlyObject : Texture
+local NamePlatesTutorial_EnemyVsFriendlyObject = {}
+end
+
+do
+---@class NamePlatesTutorial_FocusJumpHintObject : Frame
+---@field ActiveTexture NamePlatesTutorial_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture NamePlatesTutorial_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim NamePlatesTutorial_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator NamePlatesTutorial_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG NamePlatesTutorial_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture NamePlatesTutorial_FocusJumpHint_HoverTextureObject
+---@field LoadBar NamePlatesTutorial_FocusJumpHint_LoadBarObject
+---@field LoadBarBG NamePlatesTutorial_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow NamePlatesTutorial_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture NamePlatesTutorial_FocusJumpHint_NormalTextureObject
+---@field PressedTexture NamePlatesTutorial_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip NamePlatesTutorial_FocusJumpHint_SpinnerTipObject
+---@field ignoreInLayout boolean
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local NamePlatesTutorial_FocusJumpHintObject = {}
+---@return any ...
+function NamePlatesTutorial_FocusJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function NamePlatesTutorial_FocusJumpHintObject:BeginHold(...) end
+---@return any ...
+function NamePlatesTutorial_FocusJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function NamePlatesTutorial_FocusJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function NamePlatesTutorial_FocusJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function NamePlatesTutorial_FocusJumpHintObject:EndHold(...) end
+---@return any ...
+function NamePlatesTutorial_FocusJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function NamePlatesTutorial_FocusJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function NamePlatesTutorial_FocusJumpHintObject:OnLoad(...) end
+---@return any ...
+function NamePlatesTutorial_FocusJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function NamePlatesTutorial_FocusJumpHintObject:SetDisabled(...) end
+---@return any ...
+function NamePlatesTutorial_FocusJumpHintObject:SetEnabled(...) end
+---@return any ...
+function NamePlatesTutorial_FocusJumpHintObject:SetFocused(...) end
+---@return any ...
+function NamePlatesTutorial_FocusJumpHintObject:SetHoldState(...) end
+---@return any ...
+function NamePlatesTutorial_FocusJumpHintObject:SetInputKey(...) end
+---@return any ...
+function NamePlatesTutorial_FocusJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function NamePlatesTutorial_FocusJumpHintObject:SetPressable(...) end
+---@return any ...
+function NamePlatesTutorial_FocusJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function NamePlatesTutorial_FocusJumpHintObject:SetTextureState(...) end
+---@return any ...
+function NamePlatesTutorial_FocusJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function NamePlatesTutorial_FocusJumpHintObject:SetUsableState(...) end
+---@return any ...
+function NamePlatesTutorial_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class NamePlatesTutorial_FocusJumpHint_ActiveTextureObject : Texture
+local NamePlatesTutorial_FocusJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class NamePlatesTutorial_FocusJumpHint_DisabledTextureObject : Texture
+local NamePlatesTutorial_FocusJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class NamePlatesTutorial_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim NamePlatesTutorial_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim NamePlatesTutorial_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim NamePlatesTutorial_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local NamePlatesTutorial_FocusJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class NamePlatesTutorial_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local NamePlatesTutorial_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class NamePlatesTutorial_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local NamePlatesTutorial_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class NamePlatesTutorial_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local NamePlatesTutorial_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class NamePlatesTutorial_FocusJumpHint_HoldIndicatorObject : Texture
+local NamePlatesTutorial_FocusJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class NamePlatesTutorial_FocusJumpHint_HoldIndicatorBGObject : Texture
+local NamePlatesTutorial_FocusJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class NamePlatesTutorial_FocusJumpHint_HoverTextureObject : Texture
+local NamePlatesTutorial_FocusJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class NamePlatesTutorial_FocusJumpHint_LoadBarObject : Texture
+local NamePlatesTutorial_FocusJumpHint_LoadBarObject = {}
+end
+
+do
+---@class NamePlatesTutorial_FocusJumpHint_LoadBarBGObject : Texture
+local NamePlatesTutorial_FocusJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class NamePlatesTutorial_FocusJumpHint_LoadBarGlowObject : Texture
+local NamePlatesTutorial_FocusJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class NamePlatesTutorial_FocusJumpHint_NormalTextureObject : Texture
+local NamePlatesTutorial_FocusJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class NamePlatesTutorial_FocusJumpHint_PressedTextureObject : Texture
+local NamePlatesTutorial_FocusJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class NamePlatesTutorial_FocusJumpHint_SpinnerTipObject : Texture
+local NamePlatesTutorial_FocusJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class NamePlatesTutorial_FrameGlowObject : Frame
+---@field GlowTexture NamePlatesTutorial_FrameGlow_GlowTextureObject
+---@field glowTextures table
+local NamePlatesTutorial_FrameGlowObject = {}
+---@return any ...
+function NamePlatesTutorial_FrameGlowObject:GetContainerFrame(...) end
+---@return any ...
+function NamePlatesTutorial_FrameGlowObject:GetFrameLayoutType(...) end
+---@return any ...
+function NamePlatesTutorial_FrameGlowObject:GetHeaderFrame(...) end
+---@return any ...
+function NamePlatesTutorial_FrameGlowObject:OnLoad(...) end
+end
+
+do
+---@class NamePlatesTutorial_FrameGlow_GlowTextureObject : Texture
+local NamePlatesTutorial_FrameGlow_GlowTextureObject = {}
+end
+
+do
+---@class NamePlatesTutorial_InsetObject : Frame
+---@field Bg NamePlatesTutorial_Inset_BgObject
+---@field NineSlice NamePlatesTutorial_Inset_NineSliceObject
+---@field layoutType string
+local NamePlatesTutorial_InsetObject = {}
+end
+
+do
+---@class NamePlatesTutorial_Inset_BgObject : Texture
+local NamePlatesTutorial_Inset_BgObject = {}
+end
+
+do
+---@class NamePlatesTutorial_Inset_NineSliceObject : Frame
+---@field BottomEdge NamePlatesTutorial_Inset_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner NamePlatesTutorial_Inset_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner NamePlatesTutorial_Inset_NineSlice_BottomRightCornerObject
+---@field LeftEdge NamePlatesTutorial_Inset_NineSlice_LeftEdgeObject
+---@field RightEdge NamePlatesTutorial_Inset_NineSlice_RightEdgeObject
+---@field TopEdge NamePlatesTutorial_Inset_NineSlice_TopEdgeObject
+---@field TopLeftCorner NamePlatesTutorial_Inset_NineSlice_TopLeftCornerObject
+---@field TopRightCorner NamePlatesTutorial_Inset_NineSlice_TopRightCornerObject
+local NamePlatesTutorial_Inset_NineSliceObject = {}
+---@return any ...
+function NamePlatesTutorial_Inset_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function NamePlatesTutorial_Inset_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function NamePlatesTutorial_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function NamePlatesTutorial_Inset_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function NamePlatesTutorial_Inset_NineSliceObject:OnLoad(...) end
+---@return any ...
+function NamePlatesTutorial_Inset_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function NamePlatesTutorial_Inset_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function NamePlatesTutorial_Inset_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function NamePlatesTutorial_Inset_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function NamePlatesTutorial_Inset_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class NamePlatesTutorial_Inset_NineSlice_BottomEdgeObject : Texture
+local NamePlatesTutorial_Inset_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class NamePlatesTutorial_Inset_NineSlice_BottomLeftCornerObject : Texture
+local NamePlatesTutorial_Inset_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class NamePlatesTutorial_Inset_NineSlice_BottomRightCornerObject : Texture
+local NamePlatesTutorial_Inset_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class NamePlatesTutorial_Inset_NineSlice_LeftEdgeObject : Texture
+local NamePlatesTutorial_Inset_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class NamePlatesTutorial_Inset_NineSlice_RightEdgeObject : Texture
+local NamePlatesTutorial_Inset_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class NamePlatesTutorial_Inset_NineSlice_TopEdgeObject : Texture
+local NamePlatesTutorial_Inset_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class NamePlatesTutorial_Inset_NineSlice_TopLeftCornerObject : Texture
+local NamePlatesTutorial_Inset_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class NamePlatesTutorial_Inset_NineSlice_TopRightCornerObject : Texture
+local NamePlatesTutorial_Inset_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class NamePlatesTutorial_LeftJumpHintObject : Frame
+---@field ActiveTexture NamePlatesTutorial_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture NamePlatesTutorial_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim NamePlatesTutorial_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator NamePlatesTutorial_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG NamePlatesTutorial_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture NamePlatesTutorial_LeftJumpHint_HoverTextureObject
+---@field LoadBar NamePlatesTutorial_LeftJumpHint_LoadBarObject
+---@field LoadBarBG NamePlatesTutorial_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow NamePlatesTutorial_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture NamePlatesTutorial_LeftJumpHint_NormalTextureObject
+---@field PressedTexture NamePlatesTutorial_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip NamePlatesTutorial_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local NamePlatesTutorial_LeftJumpHintObject = {}
+---@return any ...
+function NamePlatesTutorial_LeftJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function NamePlatesTutorial_LeftJumpHintObject:BeginHold(...) end
+---@return any ...
+function NamePlatesTutorial_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function NamePlatesTutorial_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function NamePlatesTutorial_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function NamePlatesTutorial_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function NamePlatesTutorial_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function NamePlatesTutorial_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function NamePlatesTutorial_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function NamePlatesTutorial_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function NamePlatesTutorial_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function NamePlatesTutorial_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function NamePlatesTutorial_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function NamePlatesTutorial_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function NamePlatesTutorial_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function NamePlatesTutorial_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function NamePlatesTutorial_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function NamePlatesTutorial_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function NamePlatesTutorial_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function NamePlatesTutorial_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function NamePlatesTutorial_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function NamePlatesTutorial_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end

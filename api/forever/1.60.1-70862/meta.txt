@@ -1,8 +1,10 @@
-addonGlobals=2258
+addonGlobals=1159
 build=70862
 date=Nov  6 2026
 docs=APIDocumentation
 interface=16001
+loadOnDemand=22/30
+loadOnDemandMissing=Blizzard_BindingUI Blizzard_ClassTalentUI Blizzard_TalentUI Blizzard_TradeSkillUI Blizzard_ArenaUI
 locale=ruRU
-time=1794150733
+time=1794151774
 version=1.60.1

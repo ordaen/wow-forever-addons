@@ -3,2067 +3,1985 @@
 
 
 do
----@class PetBattleFrame_BottomFrame_CatchButton_BetterIconObject : Texture
-local PetBattleFrame_BottomFrame_CatchButton_BetterIconObject = {}
+---@class GlobalFXBackgroundModelScene_activeCamera_owningSceneObject
+local GlobalFXBackgroundModelScene_activeCamera_owningSceneObject = {}
 end
 
 do
----@class PetBattleFrame_BottomFrame_CatchButton_CooldownObject : FontString
-local PetBattleFrame_BottomFrame_CatchButton_CooldownObject = {}
+---@class GlobalFXBackgroundModelScene_tagToCameraObject
+---@field primary table
+local GlobalFXBackgroundModelScene_tagToCameraObject = {}
 end
 
 do
----@class PetBattleFrame_BottomFrame_CatchButton_CooldownFlashObject : Texture
-local PetBattleFrame_BottomFrame_CatchButton_CooldownFlashObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_CatchButton_CooldownFlashAnimObject : AnimationGroup
-local PetBattleFrame_BottomFrame_CatchButton_CooldownFlashAnimObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_CatchButton_CooldownShadowObject : Texture
-local PetBattleFrame_BottomFrame_CatchButton_CooldownShadowObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_CatchButton_HotKeyObject : FontString
-local PetBattleFrame_BottomFrame_CatchButton_HotKeyObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_CatchButton_IconObject : Texture
-local PetBattleFrame_BottomFrame_CatchButton_IconObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_CatchButton_LockObject : Texture
-local PetBattleFrame_BottomFrame_CatchButton_LockObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_CatchButton_NormalTextureObject : Texture
-local PetBattleFrame_BottomFrame_CatchButton_NormalTextureObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_CatchButton_SelectedHighlightObject : Texture
-local PetBattleFrame_BottomFrame_CatchButton_SelectedHighlightObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_DelimiterObject : Frame
-local PetBattleFrame_BottomFrame_DelimiterObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_FlowFrameObject : Frame
----@field LeftEndCap PetBattleFrame_BottomFrame_FlowFrame_LeftEndCapObject
----@field RightEndCap PetBattleFrame_BottomFrame_FlowFrame_RightEndCapObject
----@field SelectPetInstruction PetBattleFrame_BottomFrame_FlowFrame_SelectPetInstructionObject
----@field flowFrameTypes table
----@field flowFrames table
----@field flowHorizontalSpacing number
----@field flowMaxPrimaryUsed number
----@field flowMaxSecondaryUsed number
----@field flowOrientation string
-local PetBattleFrame_BottomFrame_FlowFrameObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_FlowFrame_LeftEndCapObject : Texture
-local PetBattleFrame_BottomFrame_FlowFrame_LeftEndCapObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_FlowFrame_RightEndCapObject : Texture
-local PetBattleFrame_BottomFrame_FlowFrame_RightEndCapObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_FlowFrame_SelectPetInstructionObject : FontString
-local PetBattleFrame_BottomFrame_FlowFrame_SelectPetInstructionObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_ForfeitButtonObject : Button
----@field BetterIcon PetBattleFrame_BottomFrame_ForfeitButton_BetterIconObject
----@field Cooldown PetBattleFrame_BottomFrame_ForfeitButton_CooldownObject
----@field CooldownFlash PetBattleFrame_BottomFrame_ForfeitButton_CooldownFlashObject
----@field CooldownFlashAnim PetBattleFrame_BottomFrame_ForfeitButton_CooldownFlashAnimObject
----@field CooldownShadow PetBattleFrame_BottomFrame_ForfeitButton_CooldownShadowObject
----@field HotKey PetBattleFrame_BottomFrame_ForfeitButton_HotKeyObject
----@field Icon PetBattleFrame_BottomFrame_ForfeitButton_IconObject
----@field Lock PetBattleFrame_BottomFrame_ForfeitButton_LockObject
----@field NormalTexture PetBattleFrame_BottomFrame_ForfeitButton_NormalTextureObject
----@field SelectedHighlight PetBattleFrame_BottomFrame_ForfeitButton_SelectedHighlightObject
-local PetBattleFrame_BottomFrame_ForfeitButtonObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_ForfeitButton_BetterIconObject : Texture
-local PetBattleFrame_BottomFrame_ForfeitButton_BetterIconObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_ForfeitButton_CooldownObject : FontString
-local PetBattleFrame_BottomFrame_ForfeitButton_CooldownObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_ForfeitButton_CooldownFlashObject : Texture
-local PetBattleFrame_BottomFrame_ForfeitButton_CooldownFlashObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_ForfeitButton_CooldownFlashAnimObject : AnimationGroup
-local PetBattleFrame_BottomFrame_ForfeitButton_CooldownFlashAnimObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_ForfeitButton_CooldownShadowObject : Texture
-local PetBattleFrame_BottomFrame_ForfeitButton_CooldownShadowObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_ForfeitButton_HotKeyObject : FontString
-local PetBattleFrame_BottomFrame_ForfeitButton_HotKeyObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_ForfeitButton_IconObject : Texture
-local PetBattleFrame_BottomFrame_ForfeitButton_IconObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_ForfeitButton_LockObject : Texture
-local PetBattleFrame_BottomFrame_ForfeitButton_LockObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_ForfeitButton_NormalTextureObject : Texture
-local PetBattleFrame_BottomFrame_ForfeitButton_NormalTextureObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_ForfeitButton_SelectedHighlightObject : Texture
-local PetBattleFrame_BottomFrame_ForfeitButton_SelectedHighlightObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_LeftEndCapObject : Texture
-local PetBattleFrame_BottomFrame_LeftEndCapObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_MicroButtonFrameObject : Frame
----@field LeftEndCap PetBattleFrame_BottomFrame_MicroButtonFrame_LeftEndCapObject
----@field RightEndCap PetBattleFrame_BottomFrame_MicroButtonFrame_RightEndCapObject
-local PetBattleFrame_BottomFrame_MicroButtonFrameObject = {}
----@return any ...
-function PetBattleFrame_BottomFrame_MicroButtonFrameObject:OnShow(...) end
-end
-
-do
----@class PetBattleFrame_BottomFrame_MicroButtonFrame_LeftEndCapObject : Texture
-local PetBattleFrame_BottomFrame_MicroButtonFrame_LeftEndCapObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_MicroButtonFrame_RightEndCapObject : Texture
-local PetBattleFrame_BottomFrame_MicroButtonFrame_RightEndCapObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrameObject : Frame
----@field Pet1 PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1Object
----@field Pet2 PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2Object
----@field Pet3 PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3Object
-local PetBattleFrame_BottomFrame_PetSelectionFrameObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1Object : Button
----@field ActualHealthBar PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_ActualHealthBarObject
----@field BorderDead PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_BorderDeadObject
----@field DeadOverlay PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_DeadOverlayObject
----@field Framing PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_FramingObject
----@field HealthBarBG PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_HealthBarBGObject
----@field HealthDivider PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_HealthDividerObject
----@field HealthText PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_HealthTextObject
----@field Icon PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_IconObject
----@field Level PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_LevelObject
----@field MouseoverHighlight PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_MouseoverHighlightObject
----@field Name PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_NameObject
----@field PetModelScene PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject
----@field SelectedTexture PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_SelectedTextureObject
----@field healthBarWidth number
----@field petIndex number
----@field petOwner number
----@field showWhenDeadList table
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1Object = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_ActualHealthBarObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_ActualHealthBarObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_BorderDeadObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_BorderDeadObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_DeadOverlayObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_DeadOverlayObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_FramingObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_FramingObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_HealthBarBGObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_HealthBarBGObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_HealthDividerObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_HealthDividerObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_HealthTextObject : FontString
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_HealthTextObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_IconObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_IconObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_LevelObject : FontString
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_LevelObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_MouseoverHighlightObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_MouseoverHighlightObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_NameObject : FontString
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_NameObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject
----@field Shadow PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelScene_ShadowObject
+---@class GlobalFXDialogModelSceneObject
+---@field activeCamera GlobalFXDialogModelScene_activeCameraObject
 ---@field actorTemplate string
 ---@field cameras table
+---@field centerX number
+---@field centerY number
+---@field effectControllers table
+---@field modelSceneID number
+---@field modelSceneSet boolean
+---@field pixelsPerSceneUnit number
 ---@field tagToActor table
----@field tagToCamera table
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject = {}
+---@field tagToCamera GlobalFXDialogModelScene_tagToCameraObject
+---@field useViewInsetNormalization boolean
+local GlobalFXDialogModelSceneObject = {}
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:AcquireActor(...) end
+function GlobalFXDialogModelSceneObject:AbortDrag(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:AcquireAndInitializeActor(...) end
+function GlobalFXDialogModelSceneObject:AcquireActor(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:AddCamera(...) end
+function GlobalFXDialogModelSceneObject:AcquireAndInitializeActor(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:AddOrUpdateDropShadow(...) end
+function GlobalFXDialogModelSceneObject:AddAccessRestrictions(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:AdjustCameraYaw(...) end
+function GlobalFXDialogModelSceneObject:AddCamera(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:AttachPlayerToMount(...) end
+function GlobalFXDialogModelSceneObject:AddDynamicEffect(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:ClearScene(...) end
+function GlobalFXDialogModelSceneObject:AddEffect(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:CreateActorFromScene(...) end
+function GlobalFXDialogModelSceneObject:AddForbiddenAspects(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:CreateCameraFromScene(...) end
+function GlobalFXDialogModelSceneObject:AddOrUpdateDropShadow(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:CreateOrTransitionActorFromScene(...) end
+function GlobalFXDialogModelSceneObject:AddRoleset(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:CreateOrTransitionCameraFromScene(...) end
+function GlobalFXDialogModelSceneObject:AddSecretAspect(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:EnumerateActiveActors(...) end
+function GlobalFXDialogModelSceneObject:AdjustCameraYaw(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:GetActiveCamera(...) end
+function GlobalFXDialogModelSceneObject:AdjustPointsOffset(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:GetActorByTag(...) end
+function GlobalFXDialogModelSceneObject:AttachPlayerToMount(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:GetCameraByTag(...) end
+function GlobalFXDialogModelSceneObject:CalculatePixelsPerSceneUnit(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:GetModelSceneID(...) end
+function GlobalFXDialogModelSceneObject:CanBeAccessedInContext(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:GetNumActiveActors(...) end
+function GlobalFXDialogModelSceneObject:CanChangeAttribute(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:GetOrAcquireDropShadow(...) end
+function GlobalFXDialogModelSceneObject:CanChangeProtectedState(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:GetPlayerActor(...) end
+function GlobalFXDialogModelSceneObject:CanPropagateMouseClicks(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:HasActiveCamera(...) end
+function GlobalFXDialogModelSceneObject:CanPropagateMouseMotion(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:InitializeActor(...) end
+function GlobalFXDialogModelSceneObject:ClearAllPoints(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:IsLeftMouseButtonDown(...) end
+function GlobalFXDialogModelSceneObject:ClearAlphaGradient(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:IsRightMouseButtonDown(...) end
+function GlobalFXDialogModelSceneObject:ClearAttribute(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:OnEnter(...) end
+function GlobalFXDialogModelSceneObject:ClearAttributes(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:OnLeave(...) end
+function GlobalFXDialogModelSceneObject:ClearEffects(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:OnLoad(...) end
+function GlobalFXDialogModelSceneObject:ClearFog(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:OnMouseDown(...) end
+function GlobalFXDialogModelSceneObject:ClearParentKey(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:OnMouseUp(...) end
+function GlobalFXDialogModelSceneObject:ClearPoint(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:OnMouseWheel(...) end
+function GlobalFXDialogModelSceneObject:ClearPointsOffset(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:OnUpdate(...) end
+function GlobalFXDialogModelSceneObject:ClearScene(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:ReleaseActor(...) end
+function GlobalFXDialogModelSceneObject:ClearScripts(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:ReleaseAllActors(...) end
+function GlobalFXDialogModelSceneObject:CollapsesLayout(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:ReleaseAllCameras(...) end
+function GlobalFXDialogModelSceneObject:CreateActor(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:Reset(...) end
+function GlobalFXDialogModelSceneObject:CreateActorFromScene(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:SetActiveCamera(...) end
+function GlobalFXDialogModelSceneObject:CreateAnimationGroup(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:SetFromModelSceneID(...) end
+function GlobalFXDialogModelSceneObject:CreateCameraFromScene(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:SetResetCallback(...) end
+function GlobalFXDialogModelSceneObject:CreateFontString(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:ShowAndAnimateActors(...) end
+function GlobalFXDialogModelSceneObject:CreateLine(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:StopCameraYaw(...) end
+function GlobalFXDialogModelSceneObject:CreateMaskTexture(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:SynchronizeActiveCamera(...) end
+function GlobalFXDialogModelSceneObject:CreateOrTransitionActorFromScene(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:Transform3DPointTo2D(...) end
+function GlobalFXDialogModelSceneObject:CreateOrTransitionCameraFromScene(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelSceneObject:TransitionToModelSceneID(...) end
+function GlobalFXDialogModelSceneObject:CreateTexture(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:CreateVectorGraphics(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:DesaturateHierarchy(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:DisableDrawLayer(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:DoesClipChildren(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:DoesHyperlinkPropagateToParent(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:EnableDrawLayer(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:EnableGamePadButton(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:EnableGamePadStick(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:EnableKeyboard(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:EnableMouse(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:EnableMouseMotion(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:EnableMouseWheel(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:EnumerateActiveActors(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:ExecuteAttribute(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:ExecuteOrDelayUntilSceneSet(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:FocusEnter(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:FocusExit(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetAccessRestrictions(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetActiveCamera(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetActorAtIndex(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetActorByTag(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetAllowOverlappedModels(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetAlpha(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetAnimationGroups(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetAttribute(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetBottom(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetBoundsRect(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetCameraByTag(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetCameraFarClip(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetCameraFieldOfView(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetCameraForward(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetCameraNearClip(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetCameraPosition(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetCameraRight(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetCameraUp(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetCenter(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetChildren(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetClampRectInsets(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetDebugName(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetDontSavePosition(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetDrawLayer(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetEffectSpeed(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetEffectiveAlpha(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetEffectiveScale(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetEffectivelyFlattensRenderLayers(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetFlattensRenderLayers(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetFogColor(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetFogFar(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetFogNear(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetForbiddenAspects(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetFrameLevel(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetFrameStrata(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetHeight(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetHighestFrameLevel(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetHitRectInsets(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetHyperlinksEnabled(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetID(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetInheritableForbiddenAspects(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetLeft(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetLightAmbientColor(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetLightDiffuseColor(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetLightDirection(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetLightPosition(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetLightType(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetModelSceneID(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetName(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetNumActiveActors(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetNumActors(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetNumChildren(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetNumPoints(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetNumRegions(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetObjectTable(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetObjectType(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetOnUpdateMode(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetOrAcquireDropShadow(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetParent(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetParentKey(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetPixelsPerSceneUnit(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetPlayerActor(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetPoint(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetPointByName(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetPropagateKeyboardInput(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetRaisedFrameLevel(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetRect(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetRegions(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetResizeBounds(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetRight(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetRolesetNames(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetRoundLayoutToNearestPixel(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetScale(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetScaledRect(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetSceneSize(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetScript(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetSize(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetSourceLocation(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetTop(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetViewInsets(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetViewTranslation(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetWidth(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:GetWindow(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:HasAccessConstraints(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:HasActiveCamera(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:HasActiveEffects(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:HasAlphaGradient(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:HasAnyAccessRestrictions(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:HasAnyForbiddenAspects(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:HasAnySecretAspect(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:HasFixedFrameLevel(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:HasFixedFrameStrata(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:HasScript(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:HasSecretAspect(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:HasSecretValues(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:Hide(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:HookScript(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:InitializeActor(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:InterceptStartDrag(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:InternalAddEffect(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:Intersects(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsAnchoringRestricted(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsAnchoringSecret(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsClampedToScreen(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsCollapsed(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsDragging(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsDrawLayerEnabled(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsEventRegistered(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsForbidden(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsFrameBuffer(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsGamePadButtonEnabled(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsGamePadStickEnabled(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsHighlightLocked(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsIgnoringChildrenForBounds(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsIgnoringParentAlpha(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsIgnoringParentScale(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsKeyboardEnabled(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsLeftMouseButtonDown(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsLightVisible(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsModelSceneSet(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsMouseClickEnabled(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsMouseEnabled(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsMouseMotionEnabled(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsMouseMotionFocus(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsMouseOver(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsMouseWheelEnabled(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsMovable(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsObjectLoaded(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsObjectType(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsPreventingSecretValues(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsProtected(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsRectValid(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsResizable(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsRightMouseButtonDown(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsRolesetFiltered(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsShown(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsToplevel(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsUserPlaced(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsUsingParentLevel(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:IsVisible(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:LockHighlight(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:Lower(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:MouseDown(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:MouseUp(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:OnEnter(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:OnEvent(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:OnHide(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:OnLeave(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:OnLoad(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:OnMouseDown(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:OnMouseUp(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:OnMouseWheel(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:OnShow(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:OnSizeChanged(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:OnUpdate(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:Project3DPointTo2D(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:Raise(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:RefreshModelScene(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:RegisterAllEvents(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:RegisterEvent(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:RegisterEventCallback(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:RegisterForDrag(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:RegisterUnitEvent(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:RegisterUnitEventCallback(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:ReleaseActor(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:ReleaseAllActors(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:ReleaseAllCameras(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:RemoveEffectController(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:RemoveRoleset(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:Reset(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:ResizeToBoundsRect(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:RotateTextures(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetActiveCamera(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetActorPositionFromPixels(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetAllPoints(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetAllowOverlappedModels(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetAlpha(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetAlphaFromBoolean(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetAlphaGradient(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetAttribute(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetAttributeNoHandler(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetCameraFarClip(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetCameraFieldOfView(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetCameraNearClip(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetCameraOrientationByAxisVectors(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetCameraOrientationByYawPitchRoll(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetCameraPosition(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetClampRectInsets(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetClampedToScreen(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetClipsChildren(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetCollapsesLayout(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetDesaturation(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetDontSavePosition(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetDrawLayer(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetDrawLayerEnabled(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetEffectSpeed(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetFixedFrameLevel(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetFixedFrameStrata(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetFlattensRenderLayers(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetFogColor(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetFogFar(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetFogNear(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetForbidden(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetFrameLevel(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetFrameStrata(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetFromModelSceneID(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetHeight(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetHighlightLocked(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetHitRectInsets(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetHyperlinkPropagateToParent(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetHyperlinksEnabled(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetID(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetIgnoreParentAlpha(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetIgnoreParentScale(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetIgnoringChildrenForBounds(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetIsFrameBuffer(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetLightAmbientColor(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetLightDiffuseColor(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetLightDirection(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetLightPosition(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetLightType(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetLightVisible(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetMouseClickEnabled(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetMouseMotionEnabled(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetMovable(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetOnUpdateMode(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetParent(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetParentKey(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetPassThroughButtons(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetPaused(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetPoint(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetPointsOffset(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetPropagateKeyboardInput(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetPropagateMouseClicks(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetPropagateMouseMotion(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetResetCallback(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetResizable(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetResizeBounds(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetRolesets(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetRoundLayoutToNearestPixel(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetScale(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetScript(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetShown(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetSize(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetToDefaults(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetToplevel(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetUserPlaced(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetUsingParentLevel(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetViewInsets(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetViewTranslation(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetWidth(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SetWindow(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:ShouldButtonPassThrough(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:Show(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:ShowAndAnimateActors(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:StartMoving(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:StartSizing(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:StopAnimating(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:StopCameraYaw(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:StopMovingOrSizing(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:SynchronizeActiveCamera(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:TakeActor(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:Transform3DPointTo2D(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:TransitionToModelSceneID(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:UnlockHighlight(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:UnregisterAllEvents(...) end
+---@return any ...
+function GlobalFXDialogModelSceneObject:UnregisterEvent(...) end
+---@type GlobalFXDialogModelSceneObject
+GlobalFXDialogModelScene = GlobalFXDialogModelSceneObject
 end
 
 do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelScene_ShadowObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_PetModelScene_ShadowObject = {}
+---@class GlobalFXDialogModelScene_activeCameraObject
+---@field buttonModes table
+---@field maxZoomDistance number
+---@field minZoomDistance number
+---@field modelSceneCameraInfo table
+---@field owningScene GlobalFXDialogModelScene_activeCamera_owningSceneObject
+---@field panningXOffset number
+---@field panningYOffset number
+---@field pitch number
+---@field pitchInterpolationAmount number
+---@field roll number
+---@field rollInterpolationAmount number
+---@field targetInterpolationAmount number
+---@field targetX number
+---@field targetY number
+---@field targetZ number
+---@field yaw number
+---@field yawInterpolationAmount number
+---@field zoomInterpolationAmount number
+---@field zoomPercent number
+local GlobalFXDialogModelScene_activeCameraObject = {}
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:AdjustYaw(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:ApplyFromModelSceneCameraInfo(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:CalculatePositionByDistanceFromTarget(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:CalculateTransitionalValues(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:CalculateZoomDistanceFromPercent(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:CalculateZoomPercentFromDistance(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetCameraType(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetDeltaModifierForCameraMode(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetDerivedOrientation(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetDerivedTarget(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetDerivedZoomDistance(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetForwardVector(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetInterpolatedOrientation(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetInterpolatedTarget(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetInterpolatedZoomDistance(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetLeftMouseButtonXMode(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetLeftYMouseButtonYMode(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetMaxZoomDistance(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetMinZoomDistance(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetMouseWheelMode(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetOrientationSpline(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetOwningScene(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetPitch(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetPitchInterpolationAmount(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetPosition(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetRightMouseButtonXMode(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetRightMouseButtonYMode(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetRightVector(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetRoll(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetRollInterpolationAmount(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetTarget(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetTargetInterpolationAmount(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetTargetSpline(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetUpVector(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetYaw(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetYawInterpolationAmount(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetZoomAvailable(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetZoomDistance(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetZoomInterpolationAmount(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetZoomPercent(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:GetZoomSpline(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:HandleMouseMovement(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:IsLeftMouseButtonDown(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:IsRightMouseButtonDown(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:OnActivated(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:OnAdded(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:OnDeactivated(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:OnMouseDown(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:OnMouseUp(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:OnMouseWheel(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:OnRemoved(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:OnUpdate(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:ResetDefaultInputModes(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetAlignLightToOrbitDelta(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetLeftMouseButtonXMode(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetLeftMouseButtonYMode(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetMaxZoomDistance(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetMinZoomDistance(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetMouseWheelMode(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetOrientationSpline(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetOwningScene(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetPitch(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetPitchInterpolationAmount(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetPosition(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetRightMouseButtonXMode(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetRightMouseButtonYMode(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetRoll(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetRollInterpolationAmount(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetTarget(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetTargetInterpolationAmount(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetTargetSpline(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetYaw(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetYawInterpolationAmount(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetZoomDistance(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetZoomInterpolationAmount(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetZoomPercent(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SetZoomSpline(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:ShouldAlignLightToOrbitDelta(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SnapAllInterpolatedValues(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SnapToTargetInterpolationPitch(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SnapToTargetInterpolationRoll(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SnapToTargetInterpolationTarget(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SnapToTargetInterpolationYaw(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SnapToTargetInterpolationZoom(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:SynchronizeCamera(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:UpdateCameraOrientationAndPosition(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:UpdateInterpolationTargets(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:UpdateLight(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:ZoomBy(...) end
+---@return any ...
+function GlobalFXDialogModelScene_activeCameraObject:ZoomByPercent(...) end
 end
 
 do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_SelectedTextureObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet1_SelectedTextureObject = {}
+---@class GlobalFXDialogModelScene_activeCamera_owningSceneObject
+local GlobalFXDialogModelScene_activeCamera_owningSceneObject = {}
 end
 
 do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2Object : Button
----@field ActualHealthBar PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_ActualHealthBarObject
----@field BorderDead PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_BorderDeadObject
----@field DeadOverlay PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_DeadOverlayObject
----@field Framing PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_FramingObject
----@field HealthBarBG PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_HealthBarBGObject
----@field HealthDivider PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_HealthDividerObject
----@field HealthText PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_HealthTextObject
----@field Icon PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_IconObject
----@field Level PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_LevelObject
----@field MouseoverHighlight PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_MouseoverHighlightObject
----@field Name PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_NameObject
----@field PetModelScene PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject
----@field SelectedTexture PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_SelectedTextureObject
----@field healthBarWidth number
----@field petIndex number
----@field petOwner number
----@field showWhenDeadList table
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2Object = {}
+---@class GlobalFXDialogModelScene_tagToCameraObject
+---@field primary table
+local GlobalFXDialogModelScene_tagToCameraObject = {}
 end
 
 do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_ActualHealthBarObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_ActualHealthBarObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_BorderDeadObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_BorderDeadObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_DeadOverlayObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_DeadOverlayObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_FramingObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_FramingObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_HealthBarBGObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_HealthBarBGObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_HealthDividerObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_HealthDividerObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_HealthTextObject : FontString
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_HealthTextObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_IconObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_IconObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_LevelObject : FontString
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_LevelObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_MouseoverHighlightObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_MouseoverHighlightObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_NameObject : FontString
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_NameObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject
----@field Shadow PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelScene_ShadowObject
+---@class GlobalFXMediumModelSceneObject
+---@field activeCamera GlobalFXMediumModelScene_activeCameraObject
 ---@field actorTemplate string
 ---@field cameras table
+---@field centerX number
+---@field centerY number
+---@field effectControllers table
+---@field modelSceneID number
+---@field modelSceneSet boolean
+---@field pixelsPerSceneUnit number
 ---@field tagToActor table
----@field tagToCamera table
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject = {}
+---@field tagToCamera GlobalFXMediumModelScene_tagToCameraObject
+---@field useViewInsetNormalization boolean
+local GlobalFXMediumModelSceneObject = {}
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:AcquireActor(...) end
+function GlobalFXMediumModelSceneObject:AbortDrag(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:AcquireAndInitializeActor(...) end
+function GlobalFXMediumModelSceneObject:AcquireActor(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:AddCamera(...) end
+function GlobalFXMediumModelSceneObject:AcquireAndInitializeActor(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:AddOrUpdateDropShadow(...) end
+function GlobalFXMediumModelSceneObject:AddAccessRestrictions(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:AdjustCameraYaw(...) end
+function GlobalFXMediumModelSceneObject:AddCamera(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:AttachPlayerToMount(...) end
+function GlobalFXMediumModelSceneObject:AddDynamicEffect(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:ClearScene(...) end
+function GlobalFXMediumModelSceneObject:AddEffect(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:CreateActorFromScene(...) end
+function GlobalFXMediumModelSceneObject:AddForbiddenAspects(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:CreateCameraFromScene(...) end
+function GlobalFXMediumModelSceneObject:AddOrUpdateDropShadow(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:CreateOrTransitionActorFromScene(...) end
+function GlobalFXMediumModelSceneObject:AddRoleset(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:CreateOrTransitionCameraFromScene(...) end
+function GlobalFXMediumModelSceneObject:AddSecretAspect(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:EnumerateActiveActors(...) end
+function GlobalFXMediumModelSceneObject:AdjustCameraYaw(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:GetActiveCamera(...) end
+function GlobalFXMediumModelSceneObject:AdjustPointsOffset(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:GetActorByTag(...) end
+function GlobalFXMediumModelSceneObject:AttachPlayerToMount(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:GetCameraByTag(...) end
+function GlobalFXMediumModelSceneObject:CalculatePixelsPerSceneUnit(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:GetModelSceneID(...) end
+function GlobalFXMediumModelSceneObject:CanBeAccessedInContext(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:GetNumActiveActors(...) end
+function GlobalFXMediumModelSceneObject:CanChangeAttribute(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:GetOrAcquireDropShadow(...) end
+function GlobalFXMediumModelSceneObject:CanChangeProtectedState(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:GetPlayerActor(...) end
+function GlobalFXMediumModelSceneObject:CanPropagateMouseClicks(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:HasActiveCamera(...) end
+function GlobalFXMediumModelSceneObject:CanPropagateMouseMotion(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:InitializeActor(...) end
+function GlobalFXMediumModelSceneObject:ClearAllPoints(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:IsLeftMouseButtonDown(...) end
+function GlobalFXMediumModelSceneObject:ClearAlphaGradient(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:IsRightMouseButtonDown(...) end
+function GlobalFXMediumModelSceneObject:ClearAttribute(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:OnEnter(...) end
+function GlobalFXMediumModelSceneObject:ClearAttributes(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:OnLeave(...) end
+function GlobalFXMediumModelSceneObject:ClearEffects(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:OnLoad(...) end
+function GlobalFXMediumModelSceneObject:ClearFog(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:OnMouseDown(...) end
+function GlobalFXMediumModelSceneObject:ClearParentKey(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:OnMouseUp(...) end
+function GlobalFXMediumModelSceneObject:ClearPoint(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:OnMouseWheel(...) end
+function GlobalFXMediumModelSceneObject:ClearPointsOffset(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:OnUpdate(...) end
+function GlobalFXMediumModelSceneObject:ClearScene(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:ReleaseActor(...) end
+function GlobalFXMediumModelSceneObject:ClearScripts(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:ReleaseAllActors(...) end
+function GlobalFXMediumModelSceneObject:CollapsesLayout(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:ReleaseAllCameras(...) end
+function GlobalFXMediumModelSceneObject:CreateActor(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:Reset(...) end
+function GlobalFXMediumModelSceneObject:CreateActorFromScene(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:SetActiveCamera(...) end
+function GlobalFXMediumModelSceneObject:CreateAnimationGroup(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:SetFromModelSceneID(...) end
+function GlobalFXMediumModelSceneObject:CreateCameraFromScene(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:SetResetCallback(...) end
+function GlobalFXMediumModelSceneObject:CreateFontString(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:ShowAndAnimateActors(...) end
+function GlobalFXMediumModelSceneObject:CreateLine(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:StopCameraYaw(...) end
+function GlobalFXMediumModelSceneObject:CreateMaskTexture(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:SynchronizeActiveCamera(...) end
+function GlobalFXMediumModelSceneObject:CreateOrTransitionActorFromScene(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:Transform3DPointTo2D(...) end
+function GlobalFXMediumModelSceneObject:CreateOrTransitionCameraFromScene(...) end
 ---@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelSceneObject:TransitionToModelSceneID(...) end
+function GlobalFXMediumModelSceneObject:CreateTexture(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:CreateVectorGraphics(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:DesaturateHierarchy(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:DisableDrawLayer(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:DoesClipChildren(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:DoesHyperlinkPropagateToParent(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:EnableDrawLayer(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:EnableGamePadButton(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:EnableGamePadStick(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:EnableKeyboard(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:EnableMouse(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:EnableMouseMotion(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:EnableMouseWheel(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:EnumerateActiveActors(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:ExecuteAttribute(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:ExecuteOrDelayUntilSceneSet(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:FocusEnter(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:FocusExit(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetAccessRestrictions(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetActiveCamera(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetActorAtIndex(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetActorByTag(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetAllowOverlappedModels(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetAlpha(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetAnimationGroups(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetAttribute(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetBottom(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetBoundsRect(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetCameraByTag(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetCameraFarClip(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetCameraFieldOfView(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetCameraForward(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetCameraNearClip(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetCameraPosition(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetCameraRight(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetCameraUp(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetCenter(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetChildren(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetClampRectInsets(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetDebugName(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetDontSavePosition(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetDrawLayer(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetEffectSpeed(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetEffectiveAlpha(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetEffectiveScale(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetEffectivelyFlattensRenderLayers(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetFlattensRenderLayers(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetFogColor(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetFogFar(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetFogNear(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetForbiddenAspects(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetFrameLevel(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetFrameStrata(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetHeight(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetHighestFrameLevel(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetHitRectInsets(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetHyperlinksEnabled(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetID(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetInheritableForbiddenAspects(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetLeft(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetLightAmbientColor(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetLightDiffuseColor(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetLightDirection(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetLightPosition(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetLightType(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetModelSceneID(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetName(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetNumActiveActors(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetNumActors(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetNumChildren(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetNumPoints(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetNumRegions(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetObjectTable(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetObjectType(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetOnUpdateMode(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetOrAcquireDropShadow(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetParent(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetParentKey(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetPixelsPerSceneUnit(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetPlayerActor(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetPoint(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetPointByName(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetPropagateKeyboardInput(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetRaisedFrameLevel(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetRect(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetRegions(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetResizeBounds(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetRight(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetRolesetNames(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetRoundLayoutToNearestPixel(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetScale(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetScaledRect(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetSceneSize(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetScript(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetSize(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetSourceLocation(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetTop(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetViewInsets(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetViewTranslation(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetWidth(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:GetWindow(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:HasAccessConstraints(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:HasActiveCamera(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:HasActiveEffects(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:HasAlphaGradient(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:HasAnyAccessRestrictions(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:HasAnyForbiddenAspects(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:HasAnySecretAspect(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:HasFixedFrameLevel(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:HasFixedFrameStrata(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:HasScript(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:HasSecretAspect(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:HasSecretValues(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:Hide(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:HookScript(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:InitializeActor(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:InterceptStartDrag(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:InternalAddEffect(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:Intersects(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsAnchoringRestricted(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsAnchoringSecret(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsClampedToScreen(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsCollapsed(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsDragging(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsDrawLayerEnabled(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsEventRegistered(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsForbidden(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsFrameBuffer(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsGamePadButtonEnabled(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsGamePadStickEnabled(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsHighlightLocked(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsIgnoringChildrenForBounds(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsIgnoringParentAlpha(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsIgnoringParentScale(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsKeyboardEnabled(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsLeftMouseButtonDown(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsLightVisible(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsModelSceneSet(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsMouseClickEnabled(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsMouseEnabled(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsMouseMotionEnabled(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsMouseMotionFocus(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsMouseOver(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsMouseWheelEnabled(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsMovable(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsObjectLoaded(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsObjectType(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsPreventingSecretValues(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsProtected(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsRectValid(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsResizable(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsRightMouseButtonDown(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsRolesetFiltered(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsShown(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsToplevel(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsUserPlaced(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsUsingParentLevel(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:IsVisible(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:LockHighlight(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:Lower(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:MouseDown(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:MouseUp(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:OnEnter(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:OnEvent(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:OnHide(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:OnLeave(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:OnLoad(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:OnMouseDown(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:OnMouseUp(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:OnMouseWheel(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:OnShow(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:OnSizeChanged(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:OnUpdate(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:Project3DPointTo2D(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:Raise(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:RefreshModelScene(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:RegisterAllEvents(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:RegisterEvent(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:RegisterEventCallback(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:RegisterForDrag(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:RegisterUnitEvent(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:RegisterUnitEventCallback(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:ReleaseActor(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:ReleaseAllActors(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:ReleaseAllCameras(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:RemoveEffectController(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:RemoveRoleset(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:Reset(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:ResizeToBoundsRect(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:RotateTextures(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetActiveCamera(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetActorPositionFromPixels(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetAllPoints(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetAllowOverlappedModels(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetAlpha(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetAlphaFromBoolean(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetAlphaGradient(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetAttribute(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetAttributeNoHandler(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetCameraFarClip(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetCameraFieldOfView(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetCameraNearClip(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetCameraOrientationByAxisVectors(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetCameraOrientationByYawPitchRoll(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetCameraPosition(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetClampRectInsets(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetClampedToScreen(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetClipsChildren(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetCollapsesLayout(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetDesaturation(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetDontSavePosition(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetDrawLayer(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetDrawLayerEnabled(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetEffectSpeed(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetFixedFrameLevel(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetFixedFrameStrata(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetFlattensRenderLayers(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetFogColor(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetFogFar(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetFogNear(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetForbidden(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetFrameLevel(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetFrameStrata(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetFromModelSceneID(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetHeight(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetHighlightLocked(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetHitRectInsets(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetHyperlinkPropagateToParent(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetHyperlinksEnabled(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetID(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetIgnoreParentAlpha(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetIgnoreParentScale(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetIgnoringChildrenForBounds(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetIsFrameBuffer(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetLightAmbientColor(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetLightDiffuseColor(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetLightDirection(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetLightPosition(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetLightType(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetLightVisible(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetMouseClickEnabled(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetMouseMotionEnabled(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetMovable(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetOnUpdateMode(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetParent(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetParentKey(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetPassThroughButtons(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetPaused(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetPoint(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetPointsOffset(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetPropagateKeyboardInput(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetPropagateMouseClicks(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetPropagateMouseMotion(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetResetCallback(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetResizable(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetResizeBounds(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetRolesets(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetRoundLayoutToNearestPixel(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetScale(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetScript(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetShown(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetSize(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetToDefaults(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetToplevel(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetUserPlaced(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetUsingParentLevel(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetViewInsets(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetViewTranslation(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetWidth(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SetWindow(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:ShouldButtonPassThrough(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:Show(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:ShowAndAnimateActors(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:StartMoving(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:StartSizing(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:StopAnimating(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:StopCameraYaw(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:StopMovingOrSizing(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:SynchronizeActiveCamera(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:TakeActor(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:Transform3DPointTo2D(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:TransitionToModelSceneID(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:UnlockHighlight(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:UnregisterAllEvents(...) end
+---@return any ...
+function GlobalFXMediumModelSceneObject:UnregisterEvent(...) end
+---@type GlobalFXMediumModelSceneObject
+GlobalFXMediumModelScene = GlobalFXMediumModelSceneObject
 end
 
 do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelScene_ShadowObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_PetModelScene_ShadowObject = {}
+---@class GlobalFXMediumModelScene_activeCameraObject
+---@field buttonModes table
+---@field maxZoomDistance number
+---@field minZoomDistance number
+---@field modelSceneCameraInfo table
+---@field owningScene GlobalFXMediumModelScene_activeCamera_owningSceneObject
+---@field panningXOffset number
+---@field panningYOffset number
+---@field pitch number
+---@field pitchInterpolationAmount number
+---@field roll number
+---@field rollInterpolationAmount number
+---@field targetInterpolationAmount number
+---@field targetX number
+---@field targetY number
+---@field targetZ number
+---@field yaw number
+---@field yawInterpolationAmount number
+---@field zoomInterpolationAmount number
+---@field zoomPercent number
+local GlobalFXMediumModelScene_activeCameraObject = {}
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:AdjustYaw(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:ApplyFromModelSceneCameraInfo(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:CalculatePositionByDistanceFromTarget(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:CalculateTransitionalValues(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:CalculateZoomDistanceFromPercent(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:CalculateZoomPercentFromDistance(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetCameraType(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetDeltaModifierForCameraMode(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetDerivedOrientation(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetDerivedTarget(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetDerivedZoomDistance(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetForwardVector(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetInterpolatedOrientation(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetInterpolatedTarget(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetInterpolatedZoomDistance(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetLeftMouseButtonXMode(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetLeftYMouseButtonYMode(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetMaxZoomDistance(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetMinZoomDistance(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetMouseWheelMode(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetOrientationSpline(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetOwningScene(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetPitch(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetPitchInterpolationAmount(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetPosition(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetRightMouseButtonXMode(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetRightMouseButtonYMode(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetRightVector(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetRoll(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetRollInterpolationAmount(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetTarget(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetTargetInterpolationAmount(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetTargetSpline(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetUpVector(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetYaw(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetYawInterpolationAmount(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetZoomAvailable(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetZoomDistance(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetZoomInterpolationAmount(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetZoomPercent(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:GetZoomSpline(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:HandleMouseMovement(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:IsLeftMouseButtonDown(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:IsRightMouseButtonDown(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:OnActivated(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:OnAdded(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:OnDeactivated(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:OnMouseDown(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:OnMouseUp(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:OnMouseWheel(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:OnRemoved(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:OnUpdate(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:ResetDefaultInputModes(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetAlignLightToOrbitDelta(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetLeftMouseButtonXMode(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetLeftMouseButtonYMode(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetMaxZoomDistance(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetMinZoomDistance(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetMouseWheelMode(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetOrientationSpline(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetOwningScene(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetPitch(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetPitchInterpolationAmount(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetPosition(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetRightMouseButtonXMode(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetRightMouseButtonYMode(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetRoll(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetRollInterpolationAmount(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetTarget(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetTargetInterpolationAmount(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetTargetSpline(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetYaw(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetYawInterpolationAmount(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetZoomDistance(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetZoomInterpolationAmount(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetZoomPercent(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SetZoomSpline(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:ShouldAlignLightToOrbitDelta(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SnapAllInterpolatedValues(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SnapToTargetInterpolationPitch(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SnapToTargetInterpolationRoll(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SnapToTargetInterpolationTarget(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SnapToTargetInterpolationYaw(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SnapToTargetInterpolationZoom(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:SynchronizeCamera(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:UpdateCameraOrientationAndPosition(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:UpdateInterpolationTargets(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:UpdateLight(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:ZoomBy(...) end
+---@return any ...
+function GlobalFXMediumModelScene_activeCameraObject:ZoomByPercent(...) end
 end
 
 do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_SelectedTextureObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet2_SelectedTextureObject = {}
+---@class GlobalFXMediumModelScene_activeCamera_owningSceneObject
+local GlobalFXMediumModelScene_activeCamera_owningSceneObject = {}
 end
 
 do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3Object : Button
----@field ActualHealthBar PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_ActualHealthBarObject
----@field BorderDead PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_BorderDeadObject
----@field DeadOverlay PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_DeadOverlayObject
----@field Framing PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_FramingObject
----@field HealthBarBG PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_HealthBarBGObject
----@field HealthDivider PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_HealthDividerObject
----@field HealthText PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_HealthTextObject
----@field Icon PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_IconObject
----@field Level PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_LevelObject
----@field MouseoverHighlight PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_MouseoverHighlightObject
----@field Name PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_NameObject
----@field PetModelScene PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject
----@field SelectedTexture PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_SelectedTextureObject
----@field healthBarWidth number
----@field petIndex number
----@field petOwner number
----@field showWhenDeadList table
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3Object = {}
+---@class GlobalFXMediumModelScene_tagToCameraObject
+---@field primary table
+local GlobalFXMediumModelScene_tagToCameraObject = {}
 end
 
 do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_ActualHealthBarObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_ActualHealthBarObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_BorderDeadObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_BorderDeadObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_DeadOverlayObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_DeadOverlayObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_FramingObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_FramingObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_HealthBarBGObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_HealthBarBGObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_HealthDividerObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_HealthDividerObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_HealthTextObject : FontString
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_HealthTextObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_IconObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_IconObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_LevelObject : FontString
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_LevelObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_MouseoverHighlightObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_MouseoverHighlightObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_NameObject : FontString
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_NameObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject
----@field Shadow PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelScene_ShadowObject
----@field actorTemplate string
----@field cameras table
----@field tagToActor table
----@field tagToCamera table
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject = {}
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:AcquireActor(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:AcquireAndInitializeActor(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:AddCamera(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:AddOrUpdateDropShadow(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:AdjustCameraYaw(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:AttachPlayerToMount(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:ClearScene(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:CreateActorFromScene(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:CreateCameraFromScene(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:CreateOrTransitionActorFromScene(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:CreateOrTransitionCameraFromScene(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:EnumerateActiveActors(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:GetActiveCamera(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:GetActorByTag(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:GetCameraByTag(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:GetModelSceneID(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:GetNumActiveActors(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:GetOrAcquireDropShadow(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:GetPlayerActor(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:HasActiveCamera(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:InitializeActor(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:IsLeftMouseButtonDown(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:IsRightMouseButtonDown(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:OnEnter(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:OnLeave(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:OnLoad(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:OnMouseDown(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:OnMouseUp(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:OnMouseWheel(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:OnUpdate(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:ReleaseActor(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:ReleaseAllActors(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:ReleaseAllCameras(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:Reset(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:SetActiveCamera(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:SetFromModelSceneID(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:SetResetCallback(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:ShowAndAnimateActors(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:StopCameraYaw(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:SynchronizeActiveCamera(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:Transform3DPointTo2D(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelSceneObject:TransitionToModelSceneID(...) end
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelScene_ShadowObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_PetModelScene_ShadowObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_SelectedTextureObject : Texture
-local PetBattleFrame_BottomFrame_PetSelectionFrame_Pet3_SelectedTextureObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_RightEndCapObject : Texture
-local PetBattleFrame_BottomFrame_RightEndCapObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_SwitchPetButtonObject : CheckButton
----@field BetterIcon PetBattleFrame_BottomFrame_SwitchPetButton_BetterIconObject
----@field Cooldown PetBattleFrame_BottomFrame_SwitchPetButton_CooldownObject
----@field CooldownFlash PetBattleFrame_BottomFrame_SwitchPetButton_CooldownFlashObject
----@field CooldownFlashAnim PetBattleFrame_BottomFrame_SwitchPetButton_CooldownFlashAnimObject
----@field CooldownShadow PetBattleFrame_BottomFrame_SwitchPetButton_CooldownShadowObject
----@field HotKey PetBattleFrame_BottomFrame_SwitchPetButton_HotKeyObject
----@field Icon PetBattleFrame_BottomFrame_SwitchPetButton_IconObject
----@field Lock PetBattleFrame_BottomFrame_SwitchPetButton_LockObject
----@field NormalTexture PetBattleFrame_BottomFrame_SwitchPetButton_NormalTextureObject
----@field SelectedHighlight PetBattleFrame_BottomFrame_SwitchPetButton_SelectedHighlightObject
----@field actionType number
-local PetBattleFrame_BottomFrame_SwitchPetButtonObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_SwitchPetButton_BetterIconObject : Texture
-local PetBattleFrame_BottomFrame_SwitchPetButton_BetterIconObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_SwitchPetButton_CooldownObject : FontString
-local PetBattleFrame_BottomFrame_SwitchPetButton_CooldownObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_SwitchPetButton_CooldownFlashObject : Texture
-local PetBattleFrame_BottomFrame_SwitchPetButton_CooldownFlashObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_SwitchPetButton_CooldownFlashAnimObject : AnimationGroup
-local PetBattleFrame_BottomFrame_SwitchPetButton_CooldownFlashAnimObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_SwitchPetButton_CooldownShadowObject : Texture
-local PetBattleFrame_BottomFrame_SwitchPetButton_CooldownShadowObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_SwitchPetButton_HotKeyObject : FontString
-local PetBattleFrame_BottomFrame_SwitchPetButton_HotKeyObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_SwitchPetButton_IconObject : Texture
-local PetBattleFrame_BottomFrame_SwitchPetButton_IconObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_SwitchPetButton_LockObject : Texture
-local PetBattleFrame_BottomFrame_SwitchPetButton_LockObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_SwitchPetButton_NormalTextureObject : Texture
-local PetBattleFrame_BottomFrame_SwitchPetButton_NormalTextureObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_SwitchPetButton_SelectedHighlightObject : Texture
-local PetBattleFrame_BottomFrame_SwitchPetButton_SelectedHighlightObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_TurnTimerObject : Frame
----@field ArtFrame PetBattleFrame_BottomFrame_TurnTimer_ArtFrameObject
----@field ArtFrame2 PetBattleFrame_BottomFrame_TurnTimer_ArtFrame2Object
----@field Bar PetBattleFrame_BottomFrame_TurnTimer_BarObject
----@field SkipButton PetBattleFrame_BottomFrame_TurnTimer_SkipButtonObject
----@field TimerBG PetBattleFrame_BottomFrame_TurnTimer_TimerBGObject
----@field TimerText PetBattleFrame_BottomFrame_TurnTimer_TimerTextObject
-local PetBattleFrame_BottomFrame_TurnTimerObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_TurnTimer_ArtFrameObject : Texture
-local PetBattleFrame_BottomFrame_TurnTimer_ArtFrameObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_TurnTimer_ArtFrame2Object : Texture
-local PetBattleFrame_BottomFrame_TurnTimer_ArtFrame2Object = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_TurnTimer_BarObject : Texture
-local PetBattleFrame_BottomFrame_TurnTimer_BarObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_TurnTimer_SkipButtonObject : Button
----@field Left PetBattleFrame_BottomFrame_TurnTimer_SkipButton_LeftObject
----@field Middle PetBattleFrame_BottomFrame_TurnTimer_SkipButton_MiddleObject
----@field Right PetBattleFrame_BottomFrame_TurnTimer_SkipButton_RightObject
----@field Text PetBattleFrame_BottomFrame_TurnTimer_SkipButton_TextObject
----@field actionType number
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local PetBattleFrame_BottomFrame_TurnTimer_SkipButtonObject = {}
----@return any ...
-function PetBattleFrame_BottomFrame_TurnTimer_SkipButtonObject:FitToText(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_TurnTimer_SkipButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_TurnTimer_SkipButtonObject:OnEnter(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_TurnTimer_SkipButtonObject:OnLeave(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_TurnTimer_SkipButtonObject:SetDisabledState(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_TurnTimer_SkipButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_TurnTimer_SkipButtonObject:SetTextToFit(...) end
-end
-
-do
----@class PetBattleFrame_BottomFrame_TurnTimer_SkipButton_LeftObject : Texture
-local PetBattleFrame_BottomFrame_TurnTimer_SkipButton_LeftObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_TurnTimer_SkipButton_MiddleObject : Texture
-local PetBattleFrame_BottomFrame_TurnTimer_SkipButton_MiddleObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_TurnTimer_SkipButton_RightObject : Texture
-local PetBattleFrame_BottomFrame_TurnTimer_SkipButton_RightObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_TurnTimer_SkipButton_TextObject : FontString
-local PetBattleFrame_BottomFrame_TurnTimer_SkipButton_TextObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_TurnTimer_TimerBGObject : Texture
-local PetBattleFrame_BottomFrame_TurnTimer_TimerBGObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_TurnTimer_TimerTextObject : FontString
-local PetBattleFrame_BottomFrame_TurnTimer_TimerTextObject = {}
-end
-
-do
----@class PetBattleFrame_BottomFrame_xpBarObject : StatusBar
----@field TextString PetBattleFrame_BottomFrame_xpBar_TextStringObject
----@field controlsShownState boolean
----@field lockShow number
----@field prefix string
-local PetBattleFrame_BottomFrame_xpBarObject = {}
----@return any ...
-function PetBattleFrame_BottomFrame_xpBarObject:GetNumericDisplay(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_xpBarObject:HideStatusBarText(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_xpBarObject:InitializeTextStatusBar(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_xpBarObject:OnStatusBarEnter(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_xpBarObject:OnStatusBarLeave(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_xpBarObject:OnStatusBarMinMaxChanged(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_xpBarObject:OnStatusBarValueChanged(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_xpBarObject:SetBarText(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_xpBarObject:SetBarTextPrefix(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_xpBarObject:SetBarTextZeroText(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_xpBarObject:SetForceShow(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_xpBarObject:ShowStatusBarText(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_xpBarObject:TextStatusBarOnEvent(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_xpBarObject:UpdateTextString(...) end
----@return any ...
-function PetBattleFrame_BottomFrame_xpBarObject:UpdateTextStringWithValues(...) end
-end
-
-do
----@class PetBattleFrame_BottomFrame_xpBar_TextStringObject : FontString
-local PetBattleFrame_BottomFrame_xpBar_TextStringObject = {}
-end
-
-do
----@class PetBattleFrame_Enemy2Object : Button
----@field ActualHealthBar PetBattleFrame_Enemy2_ActualHealthBarObject
----@field BorderAlive PetBattleFrame_Enemy2_BorderAliveObject
----@field BorderDead PetBattleFrame_Enemy2_BorderDeadObject
----@field HealthBarBG PetBattleFrame_Enemy2_HealthBarBGObject
----@field HealthDivider PetBattleFrame_Enemy2_HealthDividerObject
----@field Icon PetBattleFrame_Enemy2_IconObject
----@field healthBarWidth number
----@field hideWhenDeadList table
-local PetBattleFrame_Enemy2Object = {}
-end
-
-do
----@class PetBattleFrame_Enemy2_ActualHealthBarObject : Texture
-local PetBattleFrame_Enemy2_ActualHealthBarObject = {}
-end
-
-do
----@class PetBattleFrame_Enemy2_BorderAliveObject : Texture
-local PetBattleFrame_Enemy2_BorderAliveObject = {}
-end
-
-do
----@class PetBattleFrame_Enemy2_BorderDeadObject : Texture
-local PetBattleFrame_Enemy2_BorderDeadObject = {}
-end
-
-do
----@class PetBattleFrame_Enemy2_HealthBarBGObject : Texture
-local PetBattleFrame_Enemy2_HealthBarBGObject = {}
-end
-
-do
----@class PetBattleFrame_Enemy2_HealthDividerObject : Texture
-local PetBattleFrame_Enemy2_HealthDividerObject = {}
-end
-
-do
----@class PetBattleFrame_Enemy2_IconObject : Texture
-local PetBattleFrame_Enemy2_IconObject = {}
-end
-
-do
----@class PetBattleFrame_Enemy3Object : Button
----@field ActualHealthBar PetBattleFrame_Enemy3_ActualHealthBarObject
----@field BorderAlive PetBattleFrame_Enemy3_BorderAliveObject
----@field BorderDead PetBattleFrame_Enemy3_BorderDeadObject
----@field HealthBarBG PetBattleFrame_Enemy3_HealthBarBGObject
----@field HealthDivider PetBattleFrame_Enemy3_HealthDividerObject
----@field Icon PetBattleFrame_Enemy3_IconObject
----@field healthBarWidth number
----@field hideWhenDeadList table
-local PetBattleFrame_Enemy3Object = {}
-end
-
-do
----@class PetBattleFrame_Enemy3_ActualHealthBarObject : Texture
-local PetBattleFrame_Enemy3_ActualHealthBarObject = {}
-end
-
-do
----@class PetBattleFrame_Enemy3_BorderAliveObject : Texture
-local PetBattleFrame_Enemy3_BorderAliveObject = {}
-end
-
-do
----@class PetBattleFrame_Enemy3_BorderDeadObject : Texture
-local PetBattleFrame_Enemy3_BorderDeadObject = {}
-end
-
-do
----@class PetBattleFrame_Enemy3_HealthBarBGObject : Texture
-local PetBattleFrame_Enemy3_HealthBarBGObject = {}
-end
-
-do
----@class PetBattleFrame_Enemy3_HealthDividerObject : Texture
-local PetBattleFrame_Enemy3_HealthDividerObject = {}
-end
-
-do
----@class PetBattleFrame_Enemy3_IconObject : Texture
-local PetBattleFrame_Enemy3_IconObject = {}
-end
-
-do
----@class PetBattleFrame_EnemyBuffFrameObject : Frame
----@field displayBuffs boolean
----@field displayDebuffs boolean
+---@class GossipFrameObject : Frame
+---@field Background GossipFrame_BackgroundObject
+---@field Bg GossipFrame_BgObject
+---@field CloseButton GossipFrame_CloseButtonObject
+---@field FocusJumpHint GossipFrame_FocusJumpHintObject
+---@field FrameGlow GossipFrame_FrameGlowObject
+---@field FriendshipStatusBar GossipFrame_FriendshipStatusBarObject
+---@field GreetingPanel GossipFrame_GreetingPanelObject
+---@field Inset GossipFrame_InsetObject
+---@field LeftJumpHint GossipFrame_LeftJumpHintObject
+---@field NineSlice GossipFrame_NineSliceObject
+---@field PortraitContainer GossipFrame_PortraitContainerObject
+---@field RightJumpHint GossipFrame_RightJumpHintObject
+---@field TitleContainer GossipFrame_TitleContainerObject
+---@field TopTileStreaks GossipFrame_TopTileStreaksObject
+---@field cvar string
+---@field fontStrings table
 ---@field frames table
----@field growsToDirection string
----@field numPerRow number
----@field template string
-local PetBattleFrame_EnemyBuffFrameObject = {}
-end
-
-do
----@class PetBattleFrame_EnemyDebuffFrameObject : Frame
----@field displayBuffs boolean
----@field displayDebuffs boolean
----@field frames table
----@field growsToDirection string
----@field numPerRow number
----@field template string
-local PetBattleFrame_EnemyDebuffFrameObject = {}
-end
-
-do
----@class PetBattleFrame_EnemyPadBuffFrameObject : Frame
----@field displayBuffs boolean
----@field displayDebuffs boolean
----@field frames table
----@field growsToDirection string
----@field numPerRow number
----@field template string
-local PetBattleFrame_EnemyPadBuffFrameObject = {}
-end
-
-do
----@class PetBattleFrame_EnemyPadDebuffFrameObject : Frame
----@field displayBuffs boolean
----@field displayDebuffs boolean
----@field frames table
----@field growsToDirection string
----@field numPerRow number
----@field template string
-local PetBattleFrame_EnemyPadDebuffFrameObject = {}
-end
-
-do
----@class PetBattleFrame_TopArtLeftObject : Texture
-local PetBattleFrame_TopArtLeftObject = {}
-end
-
-do
----@class PetBattleFrame_TopArtRightObject : Texture
-local PetBattleFrame_TopArtRightObject = {}
-end
-
-do
----@class PetBattleFrame_TopVersusObject : Texture
-local PetBattleFrame_TopVersusObject = {}
-end
-
-do
----@class PetBattleFrame_TopVersusTextObject : FontString
-local PetBattleFrame_TopVersusTextObject = {}
-end
-
-do
----@class PetBattleFrame_WeatherFrameObject : Frame
----@field BackgroundArt PetBattleFrame_WeatherFrame_BackgroundArtObject
----@field Duration PetBattleFrame_WeatherFrame_DurationObject
----@field DurationShadow PetBattleFrame_WeatherFrame_DurationShadowObject
----@field Icon PetBattleFrame_WeatherFrame_IconObject
----@field Label PetBattleFrame_WeatherFrame_LabelObject
----@field Name PetBattleFrame_WeatherFrame_NameObject
-local PetBattleFrame_WeatherFrameObject = {}
-end
-
-do
----@class PetBattleFrame_WeatherFrame_BackgroundArtObject : Texture
-local PetBattleFrame_WeatherFrame_BackgroundArtObject = {}
-end
-
-do
----@class PetBattleFrame_WeatherFrame_DurationObject : FontString
-local PetBattleFrame_WeatherFrame_DurationObject = {}
-end
-
-do
----@class PetBattleFrame_WeatherFrame_DurationShadowObject : Texture
-local PetBattleFrame_WeatherFrame_DurationShadowObject = {}
-end
-
-do
----@class PetBattleFrame_WeatherFrame_IconObject : Texture
-local PetBattleFrame_WeatherFrame_IconObject = {}
-end
-
-do
----@class PetBattleFrame_WeatherFrame_LabelObject : FontString
-local PetBattleFrame_WeatherFrame_LabelObject = {}
-end
-
-do
----@class PetBattleFrame_WeatherFrame_NameObject : FontString
-local PetBattleFrame_WeatherFrame_NameObject = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltipObject : Frame
----@field AbilityPetType PetBattlePrimaryAbilityTooltip_AbilityPetTypeObject
----@field AdditionalText PetBattlePrimaryAbilityTooltip_AdditionalTextObject
----@field CurrentCooldown PetBattlePrimaryAbilityTooltip_CurrentCooldownObject
----@field Delimiter1 PetBattlePrimaryAbilityTooltip_Delimiter1Object
----@field Delimiter2 PetBattlePrimaryAbilityTooltip_Delimiter2Object
----@field Description PetBattlePrimaryAbilityTooltip_DescriptionObject
----@field Duration PetBattlePrimaryAbilityTooltip_DurationObject
----@field MaxCooldown PetBattlePrimaryAbilityTooltip_MaxCooldownObject
----@field Name PetBattlePrimaryAbilityTooltip_NameObject
----@field NineSlice PetBattlePrimaryAbilityTooltip_NineSliceObject
----@field StrongAgainstIcon PetBattlePrimaryAbilityTooltip_StrongAgainstIconObject
----@field StrongAgainstLabel PetBattlePrimaryAbilityTooltip_StrongAgainstLabelObject
----@field StrongAgainstType1 PetBattlePrimaryAbilityTooltip_StrongAgainstType1Object
----@field StrongAgainstType1Label PetBattlePrimaryAbilityTooltip_StrongAgainstType1LabelObject
----@field WeakAgainstIcon PetBattlePrimaryAbilityTooltip_WeakAgainstIconObject
----@field WeakAgainstLabel PetBattlePrimaryAbilityTooltip_WeakAgainstLabelObject
----@field WeakAgainstType1 PetBattlePrimaryAbilityTooltip_WeakAgainstType1Object
----@field WeakAgainstType1Label PetBattlePrimaryAbilityTooltip_WeakAgainstType1LabelObject
 ---@field layoutType string
----@field strongAgainstTextures table
----@field weakAgainstTextures table
-local PetBattlePrimaryAbilityTooltipObject = {}
+---@field tutorialButtons table
+local GossipFrameObject = {}
 ---@return any ...
-function PetBattlePrimaryAbilityTooltipObject:GetBackdropBorderColor(...) end
+function GossipFrameObject:AvailableQuestButtonInit(...) end
 ---@return any ...
-function PetBattlePrimaryAbilityTooltipObject:GetBackdropColor(...) end
+function GossipFrameObject:CheckUpdateTheme(...) end
 ---@return any ...
-function PetBattlePrimaryAbilityTooltipObject:SetBackdropBorderColor(...) end
+function GossipFrameObject:EndFocus(...) end
 ---@return any ...
-function PetBattlePrimaryAbilityTooltipObject:SetBackdropColor(...) end
+function GossipFrameObject:GetCVarValue(...) end
 ---@return any ...
-function PetBattlePrimaryAbilityTooltipObject:SetBorderBlendMode(...) end
+function GossipFrameObject:GetFocusFrameGlow(...) end
 ---@return any ...
-function PetBattlePrimaryAbilityTooltipObject:TooltipBackdropOnLoad(...) end
----@type PetBattlePrimaryAbilityTooltipObject
-PetBattlePrimaryAbilityTooltip = PetBattlePrimaryAbilityTooltipObject
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_AbilityPetTypeObject : Texture
-local PetBattlePrimaryAbilityTooltip_AbilityPetTypeObject = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_AdditionalTextObject : FontString
-local PetBattlePrimaryAbilityTooltip_AdditionalTextObject = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_CurrentCooldownObject : FontString
-local PetBattlePrimaryAbilityTooltip_CurrentCooldownObject = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_Delimiter1Object : Texture
-local PetBattlePrimaryAbilityTooltip_Delimiter1Object = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_Delimiter2Object : Texture
-local PetBattlePrimaryAbilityTooltip_Delimiter2Object = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_DescriptionObject : FontString
-local PetBattlePrimaryAbilityTooltip_DescriptionObject = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_DurationObject : FontString
-local PetBattlePrimaryAbilityTooltip_DurationObject = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_MaxCooldownObject : FontString
-local PetBattlePrimaryAbilityTooltip_MaxCooldownObject = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_NameObject : FontString
-local PetBattlePrimaryAbilityTooltip_NameObject = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_NineSliceObject : Frame
----@field BottomEdge PetBattlePrimaryAbilityTooltip_NineSlice_BottomEdgeObject
----@field BottomLeftCorner PetBattlePrimaryAbilityTooltip_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner PetBattlePrimaryAbilityTooltip_NineSlice_BottomRightCornerObject
----@field Center PetBattlePrimaryAbilityTooltip_NineSlice_CenterObject
----@field LeftEdge PetBattlePrimaryAbilityTooltip_NineSlice_LeftEdgeObject
----@field RightEdge PetBattlePrimaryAbilityTooltip_NineSlice_RightEdgeObject
----@field TopEdge PetBattlePrimaryAbilityTooltip_NineSlice_TopEdgeObject
----@field TopLeftCorner PetBattlePrimaryAbilityTooltip_NineSlice_TopLeftCornerObject
----@field TopRightCorner PetBattlePrimaryAbilityTooltip_NineSlice_TopRightCornerObject
-local PetBattlePrimaryAbilityTooltip_NineSliceObject = {}
----@return any ...
-function PetBattlePrimaryAbilityTooltip_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function PetBattlePrimaryAbilityTooltip_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function PetBattlePrimaryAbilityTooltip_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function PetBattlePrimaryAbilityTooltip_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function PetBattlePrimaryAbilityTooltip_NineSliceObject:OnLoad(...) end
----@return any ...
-function PetBattlePrimaryAbilityTooltip_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function PetBattlePrimaryAbilityTooltip_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function PetBattlePrimaryAbilityTooltip_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function PetBattlePrimaryAbilityTooltip_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function PetBattlePrimaryAbilityTooltip_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_NineSlice_BottomEdgeObject : Texture
-local PetBattlePrimaryAbilityTooltip_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_NineSlice_BottomLeftCornerObject : Texture
-local PetBattlePrimaryAbilityTooltip_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_NineSlice_BottomRightCornerObject : Texture
-local PetBattlePrimaryAbilityTooltip_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_NineSlice_CenterObject : Texture
-local PetBattlePrimaryAbilityTooltip_NineSlice_CenterObject = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_NineSlice_LeftEdgeObject : Texture
-local PetBattlePrimaryAbilityTooltip_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_NineSlice_RightEdgeObject : Texture
-local PetBattlePrimaryAbilityTooltip_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_NineSlice_TopEdgeObject : Texture
-local PetBattlePrimaryAbilityTooltip_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_NineSlice_TopLeftCornerObject : Texture
-local PetBattlePrimaryAbilityTooltip_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_NineSlice_TopRightCornerObject : Texture
-local PetBattlePrimaryAbilityTooltip_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_StrongAgainstIconObject : Texture
-local PetBattlePrimaryAbilityTooltip_StrongAgainstIconObject = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_StrongAgainstLabelObject : FontString
-local PetBattlePrimaryAbilityTooltip_StrongAgainstLabelObject = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_StrongAgainstType1Object : Texture
-local PetBattlePrimaryAbilityTooltip_StrongAgainstType1Object = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_StrongAgainstType1LabelObject : FontString
-local PetBattlePrimaryAbilityTooltip_StrongAgainstType1LabelObject = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_WeakAgainstIconObject : Texture
-local PetBattlePrimaryAbilityTooltip_WeakAgainstIconObject = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_WeakAgainstLabelObject : FontString
-local PetBattlePrimaryAbilityTooltip_WeakAgainstLabelObject = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_WeakAgainstType1Object : Texture
-local PetBattlePrimaryAbilityTooltip_WeakAgainstType1Object = {}
-end
-
-do
----@class PetBattlePrimaryAbilityTooltip_WeakAgainstType1LabelObject : FontString
-local PetBattlePrimaryAbilityTooltip_WeakAgainstType1LabelObject = {}
-end
-
-do
----@class PetBattleQueueReadyFrameObject : Frame
----@field AcceptButton PetBattleQueueReadyFrame_AcceptButtonObject
----@field Art PetBattleQueueReadyFrame_ArtObject
----@field Border PetBattleQueueReadyFrame_BorderObject
----@field DeclineButton PetBattleQueueReadyFrame_DeclineButtonObject
----@field Label PetBattleQueueReadyFrame_LabelObject
----@field hideOnEscape number
-local PetBattleQueueReadyFrameObject = {}
----@type PetBattleQueueReadyFrameObject
-PetBattleQueueReadyFrame = PetBattleQueueReadyFrameObject
-end
-
-do
----@class PetBattleQueueReadyFrame_AcceptButtonObject : Button
----@field Left PetBattleQueueReadyFrame_AcceptButton_LeftObject
----@field Middle PetBattleQueueReadyFrame_AcceptButton_MiddleObject
----@field Right PetBattleQueueReadyFrame_AcceptButton_RightObject
----@field Text PetBattleQueueReadyFrame_AcceptButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local PetBattleQueueReadyFrame_AcceptButtonObject = {}
----@return any ...
-function PetBattleQueueReadyFrame_AcceptButtonObject:FitToText(...) end
----@return any ...
-function PetBattleQueueReadyFrame_AcceptButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function PetBattleQueueReadyFrame_AcceptButtonObject:OnEnter(...) end
----@return any ...
-function PetBattleQueueReadyFrame_AcceptButtonObject:OnLeave(...) end
----@return any ...
-function PetBattleQueueReadyFrame_AcceptButtonObject:SetDisabledState(...) end
----@return any ...
-function PetBattleQueueReadyFrame_AcceptButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function PetBattleQueueReadyFrame_AcceptButtonObject:SetTextToFit(...) end
-end
-
-do
----@class PetBattleQueueReadyFrame_AcceptButton_LeftObject : Texture
-local PetBattleQueueReadyFrame_AcceptButton_LeftObject = {}
-end
-
-do
----@class PetBattleQueueReadyFrame_AcceptButton_MiddleObject : Texture
-local PetBattleQueueReadyFrame_AcceptButton_MiddleObject = {}
-end
-
-do
----@class PetBattleQueueReadyFrame_AcceptButton_RightObject : Texture
-local PetBattleQueueReadyFrame_AcceptButton_RightObject = {}
-end
-
-do
----@class PetBattleQueueReadyFrame_AcceptButton_TextObject : FontString
-local PetBattleQueueReadyFrame_AcceptButton_TextObject = {}
-end
-
-do
----@class PetBattleQueueReadyFrame_ArtObject : Texture
-local PetBattleQueueReadyFrame_ArtObject = {}
-end
-
-do
----@class PetBattleQueueReadyFrame_BorderObject : Frame
----@field Bg PetBattleQueueReadyFrame_Border_BgObject
----@field BottomEdge PetBattleQueueReadyFrame_Border_BottomEdgeObject
----@field BottomLeftCorner PetBattleQueueReadyFrame_Border_BottomLeftCornerObject
----@field BottomRightCorner PetBattleQueueReadyFrame_Border_BottomRightCornerObject
----@field LeftEdge PetBattleQueueReadyFrame_Border_LeftEdgeObject
----@field RightEdge PetBattleQueueReadyFrame_Border_RightEdgeObject
----@field TopEdge PetBattleQueueReadyFrame_Border_TopEdgeObject
----@field TopLeftCorner PetBattleQueueReadyFrame_Border_TopLeftCornerObject
----@field TopRightCorner PetBattleQueueReadyFrame_Border_TopRightCornerObject
----@field layoutType string
-local PetBattleQueueReadyFrame_BorderObject = {}
----@return any ...
-function PetBattleQueueReadyFrame_BorderObject:GetBorderColor(...) end
----@return any ...
-function PetBattleQueueReadyFrame_BorderObject:GetCenterColor(...) end
----@return any ...
-function PetBattleQueueReadyFrame_BorderObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function PetBattleQueueReadyFrame_BorderObject:GetFrameLayoutType(...) end
----@return any ...
-function PetBattleQueueReadyFrame_BorderObject:OnLoad(...) end
----@return any ...
-function PetBattleQueueReadyFrame_BorderObject:SetBlendMode(...) end
----@return any ...
-function PetBattleQueueReadyFrame_BorderObject:SetBorderBlendMode(...) end
----@return any ...
-function PetBattleQueueReadyFrame_BorderObject:SetBorderColor(...) end
----@return any ...
-function PetBattleQueueReadyFrame_BorderObject:SetCenterColor(...) end
----@return any ...
-function PetBattleQueueReadyFrame_BorderObject:SetVertexColor(...) end
-end
-
-do
----@class PetBattleQueueReadyFrame_Border_BgObject : Texture
-local PetBattleQueueReadyFrame_Border_BgObject = {}
-end
-
-do
----@class PetBattleQueueReadyFrame_Border_BottomEdgeObject : Texture
-local PetBattleQueueReadyFrame_Border_BottomEdgeObject = {}
-end
-
-do
----@class PetBattleQueueReadyFrame_Border_BottomLeftCornerObject : Texture
-local PetBattleQueueReadyFrame_Border_BottomLeftCornerObject = {}
-end
-
-do
----@class PetBattleQueueReadyFrame_Border_BottomRightCornerObject : Texture
-local PetBattleQueueReadyFrame_Border_BottomRightCornerObject = {}
-end
-
-do
----@class PetBattleQueueReadyFrame_Border_LeftEdgeObject : Texture
-local PetBattleQueueReadyFrame_Border_LeftEdgeObject = {}
-end
-
-do
----@class PetBattleQueueReadyFrame_Border_RightEdgeObject : Texture
-local PetBattleQueueReadyFrame_Border_RightEdgeObject = {}
-end
-
-do
----@class PetBattleQueueReadyFrame_Border_TopEdgeObject : Texture
-local PetBattleQueueReadyFrame_Border_TopEdgeObject = {}
-end
-
-do
----@class PetBattleQueueReadyFrame_Border_TopLeftCornerObject : Texture
-local PetBattleQueueReadyFrame_Border_TopLeftCornerObject = {}
-end
-
-do
----@class PetBattleQueueReadyFrame_Border_TopRightCornerObject : Texture
-local PetBattleQueueReadyFrame_Border_TopRightCornerObject = {}
-end
-
-do
----@class PetBattleQueueReadyFrame_DeclineButtonObject : Button
----@field Left PetBattleQueueReadyFrame_DeclineButton_LeftObject
----@field Middle PetBattleQueueReadyFrame_DeclineButton_MiddleObject
----@field Right PetBattleQueueReadyFrame_DeclineButton_RightObject
----@field Text PetBattleQueueReadyFrame_DeclineButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local PetBattleQueueReadyFrame_DeclineButtonObject = {}
----@return any ...
-function PetBattleQueueReadyFrame_DeclineButtonObject:FitToText(...) end
----@return any ...
-function PetBattleQueueReadyFrame_DeclineButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function PetBattleQueueReadyFrame_DeclineButtonObject:OnEnter(...) end
----@return any ...
-function PetBattleQueueReadyFrame_DeclineButtonObject:OnLeave(...) end
----@return any ...
-function PetBattleQueueReadyFrame_DeclineButtonObject:SetDisabledState(...) end
----@return any ...
-function PetBattleQueueReadyFrame_DeclineButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function PetBattleQueueReadyFrame_DeclineButtonObject:SetTextToFit(...) end
-end
-
-do
----@class PetBattleQueueReadyFrame_DeclineButton_LeftObject : Texture
-local PetBattleQueueReadyFrame_DeclineButton_LeftObject = {}
-end
-
-do
----@class PetBattleQueueReadyFrame_DeclineButton_MiddleObject : Texture
-local PetBattleQueueReadyFrame_DeclineButton_MiddleObject = {}
-end
-
-do
----@class PetBattleQueueReadyFrame_DeclineButton_RightObject : Texture
-local PetBattleQueueReadyFrame_DeclineButton_RightObject = {}
-end
-
-do
----@class PetBattleQueueReadyFrame_DeclineButton_TextObject : FontString
-local PetBattleQueueReadyFrame_DeclineButton_TextObject = {}
-end
-
-do
----@class PetBattleQueueReadyFrame_LabelObject : FontString
-local PetBattleQueueReadyFrame_LabelObject = {}
-end
-
-do
----@class PetCastingBarFrameObject : StatusBar
----@field Background PetCastingBarFrame_BackgroundObject
----@field BaseGlow PetCastingBarFrame_BaseGlowObject
----@field Border PetCastingBarFrame_BorderObject
----@field BorderMask PetCastingBarFrame_BorderMaskObject
----@field BorderShield PetCastingBarFrame_BorderShieldObject
----@field CastTimeText PetCastingBarFrame_CastTimeTextObject
----@field ChannelFinish PetCastingBarFrame_ChannelFinishObject
----@field ChannelShadow PetCastingBarFrame_ChannelShadowObject
----@field ChargeFlash PetCastingBarFrame_ChargeFlashObject
----@field ChargeGlow PetCastingBarFrame_ChargeGlowObject
----@field CraftGlow PetCastingBarFrame_CraftGlowObject
----@field CraftingFinish PetCastingBarFrame_CraftingFinishObject
----@field CraftingMask PetCastingBarFrame_CraftingMaskObject
----@field DropShadow PetCastingBarFrame_DropShadowObject
----@field EnergyGlow PetCastingBarFrame_EnergyGlowObject
----@field EnergyMask PetCastingBarFrame_EnergyMaskObject
----@field FadeOutAnim PetCastingBarFrame_FadeOutAnimObject
----@field Flakes01 PetCastingBarFrame_Flakes01Object
----@field Flakes02 PetCastingBarFrame_Flakes02Object
----@field Flakes03 PetCastingBarFrame_Flakes03Object
----@field Flash PetCastingBarFrame_FlashObject
----@field FlashAnim PetCastingBarFrame_FlashAnimObject
----@field FlashLoopingAnim PetCastingBarFrame_FlashLoopingAnimObject
----@field HoldFadeOutAnim PetCastingBarFrame_HoldFadeOutAnimObject
----@field Icon PetCastingBarFrame_IconObject
----@field InterruptGlow PetCastingBarFrame_InterruptGlowObject
----@field InterruptGlowAnim PetCastingBarFrame_InterruptGlowAnimObject
----@field InterruptShakeAnim PetCastingBarFrame_InterruptShakeAnimObject
----@field InterruptSparkAnim PetCastingBarFrame_InterruptSparkAnimObject
----@field Shine PetCastingBarFrame_ShineObject
----@field Spark PetCastingBarFrame_SparkObject
----@field Sparkles01 PetCastingBarFrame_Sparkles01Object
----@field Sparkles02 PetCastingBarFrame_Sparkles02Object
----@field StageFinish PetCastingBarFrame_StageFinishObject
----@field StageFlash PetCastingBarFrame_StageFlashObject
----@field StagePips table
----@field StagePoints table
----@field StageTiers table
----@field StandardFinish PetCastingBarFrame_StandardFinishObject
----@field StandardGlow PetCastingBarFrame_StandardGlowObject
----@field Text PetCastingBarFrame_TextObject
----@field TextBorder PetCastingBarFrame_TextBorderObject
----@field WispGlow PetCastingBarFrame_WispGlowObject
----@field WispMask PetCastingBarFrame_WispMaskObject
----@field look string
----@field playCastFX boolean
----@field showCastbar boolean
----@field showIcon boolean
----@field showShield boolean
----@field showTradeSkills boolean
----@field unit string
-local PetCastingBarFrameObject = {}
----@return any ...
-function PetCastingBarFrameObject:AddStages(...) end
----@return any ...
-function PetCastingBarFrameObject:AddWidgetForFade(...) end
----@return any ...
-function PetCastingBarFrameObject:ApplyAlpha(...) end
----@return any ...
-function PetCastingBarFrameObject:ApplyInterruptFilledState(...) end
----@return any ...
-function PetCastingBarFrameObject:ClearStages(...) end
----@return any ...
-function PetCastingBarFrameObject:FinishSpell(...) end
----@return any ...
-function PetCastingBarFrameObject:GetEffectiveType(...) end
----@return any ...
-function PetCastingBarFrameObject:GetHighlightImportantCasts(...) end
----@return any ...
-function PetCastingBarFrameObject:GetHighlightWhenCastTarget(...) end
----@return any ...
-function PetCastingBarFrameObject:GetInterruptText(...) end
----@return any ...
-function PetCastingBarFrameObject:GetIsHighlightedCastTarget(...) end
----@return any ...
-function PetCastingBarFrameObject:GetIsHighlightedImportantCast(...) end
----@return any ...
-function PetCastingBarFrameObject:GetTypeInfo(...) end
----@return any ...
-function PetCastingBarFrameObject:HandleCastDelayed(...) end
----@return any ...
-function PetCastingBarFrameObject:HandleCastStart(...) end
----@return any ...
-function PetCastingBarFrameObject:HandleCastStop(...) end
----@return any ...
-function PetCastingBarFrameObject:HandleChannelUpdateDelayed(...) end
----@return any ...
-function PetCastingBarFrameObject:HandleInterruptOrSpellFailed(...) end
----@return any ...
-function PetCastingBarFrameObject:HideSpark(...) end
----@return any ...
-function PetCastingBarFrameObject:IsInterruptable(...) end
----@return any ...
-function PetCastingBarFrameObject:OnEvent(...) end
----@return any ...
-function PetCastingBarFrameObject:OnLoad(...) end
----@return any ...
-function PetCastingBarFrameObject:OnShow(...) end
----@return any ...
-function PetCastingBarFrameObject:OnUpdate(...) end
----@return any ...
-function PetCastingBarFrameObject:PlayFadeAnim(...) end
----@return any ...
-function PetCastingBarFrameObject:PlayFinishAnim(...) end
----@return any ...
-function PetCastingBarFrameObject:PlayInterruptAnims(...) end
----@return any ...
-function PetCastingBarFrameObject:SetAndUpdateShowCastbar(...) end
----@return any ...
-function PetCastingBarFrameObject:SetCastTimeTextShown(...) end
----@return any ...
-function PetCastingBarFrameObject:SetHighlightImportantCasts(...) end
----@return any ...
-function PetCastingBarFrameObject:SetHighlightWhenCastTarget(...) end
----@return any ...
-function PetCastingBarFrameObject:SetIconShown(...) end
----@return any ...
-function PetCastingBarFrameObject:SetIsHighlightedCastTarget(...) end
----@return any ...
-function PetCastingBarFrameObject:SetIsHighlightedImportantCast(...) end
----@return any ...
-function PetCastingBarFrameObject:SetLook(...) end
----@return any ...
-function PetCastingBarFrameObject:SetNameTextShown(...) end
----@return any ...
-function PetCastingBarFrameObject:SetTargetNameText(...) end
----@return any ...
-function PetCastingBarFrameObject:SetTargetNameTextShown(...) end
----@return any ...
-function PetCastingBarFrameObject:SetUnit(...) end
----@return any ...
-function PetCastingBarFrameObject:ShouldIconBeShown(...) end
+function GossipFrameObject:GetFocusFrameRoot(...) end
 ---@return any ...
-function PetCastingBarFrameObject:ShouldShowCastBar(...) end
+function GossipFrameObject:GetPortrait(...) end
 ---@return any ...
-function PetCastingBarFrameObject:ShowSpark(...) end
+function GossipFrameObject:GetTitleText(...) end
 ---@return any ...
-function PetCastingBarFrameObject:SimulateCast(...) end
+function GossipFrameObject:GetTutorialButtons(...) end
 ---@return any ...
-function PetCastingBarFrameObject:StopAnims(...) end
+function GossipFrameObject:HandleHide(...) end
 ---@return any ...
-function PetCastingBarFrameObject:StopFinishAnims(...) end
+function GossipFrameObject:HandleShow(...) end
 ---@return any ...
-function PetCastingBarFrameObject:StopInterruptAnims(...) end
+function GossipFrameObject:HasPortraitTexture(...) end
 ---@return any ...
-function PetCastingBarFrameObject:UpdateBarFillTexture(...) end
+function GossipFrameObject:HideFocusJumpHint(...) end
 ---@return any ...
-function PetCastingBarFrameObject:UpdateCastTimeText(...) end
+function GossipFrameObject:HideLeftJumpHint(...) end
 ---@return any ...
-function PetCastingBarFrameObject:UpdateCastTimeTextShown(...) end
+function GossipFrameObject:HideRightJumpHint(...) end
 ---@return any ...
-function PetCastingBarFrameObject:UpdateHighlightImportantCast(...) end
+function GossipFrameObject:InitializeGamepad(...) end
 ---@return any ...
-function PetCastingBarFrameObject:UpdateHighlightWhenCastTarget(...) end
----@return any ...
-function PetCastingBarFrameObject:UpdateIconShown(...) end
----@return any ...
-function PetCastingBarFrameObject:UpdateInterruptibleState(...) end
----@return any ...
-function PetCastingBarFrameObject:UpdateIsShown(...) end
----@return any ...
-function PetCastingBarFrameObject:UpdateShownState(...) end
----@return any ...
-function PetCastingBarFrameObject:UpdateStage(...) end
----@return any ...
-function PetCastingBarFrameObject:UpdateTargetNameText(...) end
----@type PetCastingBarFrameObject
-PetCastingBarFrame = PetCastingBarFrameObject
-end
-
-do
----@class PetCastingBarFrame_BackgroundObject : Texture
-local PetCastingBarFrame_BackgroundObject = {}
-end
-
-do
----@class PetCastingBarFrame_BaseGlowObject : Texture
-local PetCastingBarFrame_BaseGlowObject = {}
-end
-
-do
----@class PetCastingBarFrame_BorderObject : Texture
-local PetCastingBarFrame_BorderObject = {}
-end
-
-do
----@class PetCastingBarFrame_BorderMaskObject : MaskTexture
-local PetCastingBarFrame_BorderMaskObject = {}
-end
-
-do
----@class PetCastingBarFrame_BorderShieldObject : Texture
-local PetCastingBarFrame_BorderShieldObject = {}
-end
-
-do
----@class PetCastingBarFrame_CastTimeTextObject : FontString
-local PetCastingBarFrame_CastTimeTextObject = {}
-end
-
-do
----@class PetCastingBarFrame_ChannelFinishObject : AnimationGroup
-local PetCastingBarFrame_ChannelFinishObject = {}
-end
-
-do
----@class PetCastingBarFrame_ChannelShadowObject : Texture
-local PetCastingBarFrame_ChannelShadowObject = {}
-end
-
-do
----@class PetCastingBarFrame_ChargeFlashObject : Texture
-local PetCastingBarFrame_ChargeFlashObject = {}
-end
-
-do
----@class PetCastingBarFrame_ChargeGlowObject : Texture
-local PetCastingBarFrame_ChargeGlowObject = {}
-end
-
-do
----@class PetCastingBarFrame_CraftGlowObject : Texture
-local PetCastingBarFrame_CraftGlowObject = {}
-end
-
-do
----@class PetCastingBarFrame_CraftingFinishObject : AnimationGroup
-local PetCastingBarFrame_CraftingFinishObject = {}
-end
-
-do
----@class PetCastingBarFrame_CraftingMaskObject : MaskTexture
-local PetCastingBarFrame_CraftingMaskObject = {}
-end
-
-do
----@class PetCastingBarFrame_DropShadowObject : Texture
-local PetCastingBarFrame_DropShadowObject = {}
-end
-
-do
----@class PetCastingBarFrame_EnergyGlowObject : Texture
-local PetCastingBarFrame_EnergyGlowObject = {}
-end
-
-do
----@class PetCastingBarFrame_EnergyMaskObject : MaskTexture
-local PetCastingBarFrame_EnergyMaskObject = {}
-end
-
-do
----@class PetCastingBarFrame_FadeOutAnimObject : AnimationGroup
-local PetCastingBarFrame_FadeOutAnimObject = {}
-end
-
-do
----@class PetCastingBarFrame_Flakes01Object : Texture
-local PetCastingBarFrame_Flakes01Object = {}
-end
-
-do
----@class PetCastingBarFrame_Flakes02Object : Texture
-local PetCastingBarFrame_Flakes02Object = {}
-end
-
-do
----@class PetCastingBarFrame_Flakes03Object : Texture
-local PetCastingBarFrame_Flakes03Object = {}
-end
-
-do
----@class PetCastingBarFrame_FlashObject : Texture
-local PetCastingBarFrame_FlashObject = {}
-end
-
-do
----@class PetCastingBarFrame_FlashAnimObject : AnimationGroup
-local PetCastingBarFrame_FlashAnimObject = {}
-end
-
-do
----@class PetCastingBarFrame_FlashLoopingAnimObject : AnimationGroup
-local PetCastingBarFrame_FlashLoopingAnimObject = {}
-end
-
-do
----@class PetCastingBarFrame_HoldFadeOutAnimObject : AnimationGroup
-local PetCastingBarFrame_HoldFadeOutAnimObject = {}
-end
-
-do
----@class PetCastingBarFrame_IconObject : Texture
-local PetCastingBarFrame_IconObject = {}
-end
-
-do
----@class PetCastingBarFrame_InterruptGlowObject : Texture
-local PetCastingBarFrame_InterruptGlowObject = {}
-end
-
-do
----@class PetCastingBarFrame_InterruptGlowAnimObject : AnimationGroup
-local PetCastingBarFrame_InterruptGlowAnimObject = {}
-end
-
-do
----@class PetCastingBarFrame_InterruptShakeAnimObject : AnimationGroup
-local PetCastingBarFrame_InterruptShakeAnimObject = {}
-end
-
-do
----@class PetCastingBarFrame_InterruptSparkAnimObject : AnimationGroup
-local PetCastingBarFrame_InterruptSparkAnimObject = {}
-end
-
-do
----@class PetCastingBarFrame_ShineObject : Texture
-local PetCastingBarFrame_ShineObject = {}
-end
-
-do
----@class PetCastingBarFrame_SparkObject : Texture
----@field offsetY number
-local PetCastingBarFrame_SparkObject = {}
-end
-
-do
----@class PetCastingBarFrame_Sparkles01Object : Texture
-local PetCastingBarFrame_Sparkles01Object = {}
-end
-
-do
----@class PetCastingBarFrame_Sparkles02Object : Texture
-local PetCastingBarFrame_Sparkles02Object = {}
-end
-
-do
----@class PetCastingBarFrame_StageFinishObject : AnimationGroup
-local PetCastingBarFrame_StageFinishObject = {}
-end
-
-do
----@class PetCastingBarFrame_StageFlashObject : AnimationGroup
-local PetCastingBarFrame_StageFlashObject = {}
-end
-
-do
----@class PetCastingBarFrame_StandardFinishObject : AnimationGroup
-local PetCastingBarFrame_StandardFinishObject = {}
+function GossipFrameObject:IsDarkMode(...) end
 ---@return any ...
-function PetCastingBarFrame_StandardFinishObject:Hide(...) end
+function GossipFrameObject:LockInFocus(...) end
 ---@return any ...
-function PetCastingBarFrame_StandardFinishObject:SetTargetsShown(...) end
+function GossipFrameObject:OnEvent(...) end
 ---@return any ...
-function PetCastingBarFrame_StandardFinishObject:Show(...) end
-end
-
-do
----@class PetCastingBarFrame_StandardGlowObject : Texture
-local PetCastingBarFrame_StandardGlowObject = {}
-end
-
-do
----@class PetCastingBarFrame_TextObject : FontString
-local PetCastingBarFrame_TextObject = {}
-end
-
-do
----@class PetCastingBarFrame_TextBorderObject : Texture
-local PetCastingBarFrame_TextBorderObject = {}
-end
-
-do
----@class PetCastingBarFrame_WispGlowObject : Texture
-local PetCastingBarFrame_WispGlowObject = {}
-end
-
-do
----@class PetCastingBarFrame_WispMaskObject : MaskTexture
-local PetCastingBarFrame_WispMaskObject = {}
-end
-
-do
----@class PetStableFrameObject : Frame
----@field Background PetStableFrame_BackgroundObject
----@field Bg PetStableFrame_BgObject
----@field BottomDividerFrame PetStableFrame_BottomDividerFrameObject
----@field CloseButton PetStableFrame_CloseButtonObject
----@field FocusJumpHint PetStableFrame_FocusJumpHintObject
----@field FrameGlow PetStableFrame_FrameGlowObject
----@field GamepadSlotCostText PetStableFrame_GamepadSlotCostTextObject
----@field LeftJumpHint PetStableFrame_LeftJumpHintObject
----@field NineSlice PetStableFrame_NineSliceObject
----@field PortraitContainer PetStableFrame_PortraitContainerObject
----@field RightJumpHint PetStableFrame_RightJumpHintObject
----@field TitleContainer PetStableFrame_TitleContainerObject
----@field TopDividerFrame PetStableFrame_TopDividerFrameObject
----@field TopTileStreaks PetStableFrame_TopTileStreaksObject
----@field diet PetStableFrame_dietObject
----@field expBar PetStableFrame_expBarObject
----@field insideFrameBottom PetStableFrame_insideFrameBottomObject
----@field layoutType string
----@field modelScene PetStableFrame_modelSceneObject
----@field purchaseButton PetStableFrame_purchaseButtonObject
-local PetStableFrameObject = {}
+function GossipFrameObject:OnHide(...) end
 ---@return any ...
-function PetStableFrameObject:EndFocus(...) end
+function GossipFrameObject:OnLoad(...) end
 ---@return any ...
-function PetStableFrameObject:FocusGamepad(...) end
+function GossipFrameObject:OnShow(...) end
 ---@return any ...
-function PetStableFrameObject:GetFocusFrameGlow(...) end
+function GossipFrameObject:RefreshFocus(...) end
 ---@return any ...
-function PetStableFrameObject:GetFocusFrameRoot(...) end
+function GossipFrameObject:RegisterBackgroundTexture(...) end
 ---@return any ...
-function PetStableFrameObject:GetPortrait(...) end
+function GossipFrameObject:RegisterFontString(...) end
 ---@return any ...
-function PetStableFrameObject:GetSlotFrame(...) end
+function GossipFrameObject:RegisterFontStrings(...) end
 ---@return any ...
-function PetStableFrameObject:GetTitleText(...) end
+function GossipFrameObject:RegisterForTransitions(...) end
 ---@return any ...
-function PetStableFrameObject:HasPortraitTexture(...) end
+function GossipFrameObject:RegisterFrame(...) end
 ---@return any ...
-function PetStableFrameObject:HideFocusJumpHint(...) end
+function GossipFrameObject:RegisterFrames(...) end
 ---@return any ...
-function PetStableFrameObject:HideLeftJumpHint(...) end
+function GossipFrameObject:RegisterObject(...) end
 ---@return any ...
-function PetStableFrameObject:HideRightJumpHint(...) end
+function GossipFrameObject:RegisterObjects(...) end
 ---@return any ...
-function PetStableFrameObject:InitializeGamepad(...) end
+function GossipFrameObject:SelectGossipOption(...) end
 ---@return any ...
-function PetStableFrameObject:LockInFocus(...) end
+function GossipFrameObject:SetBorder(...) end
 ---@return any ...
-function PetStableFrameObject:OnEvent(...) end
+function GossipFrameObject:SetFrameLevelsFromBaseLevel(...) end
 ---@return any ...
-function PetStableFrameObject:OnHide(...) end
+function GossipFrameObject:SetGossipTitle(...) end
 ---@return any ...
-function PetStableFrameObject:OnLoad(...) end
+function GossipFrameObject:SetGossipTutorialMode(...) end
 ---@return any ...
-function PetStableFrameObject:OnPetSelected(...) end
+function GossipFrameObject:SetInteractionIsContinuing(...) end
 ---@return any ...
-function PetStableFrameObject:OnPetSwapRequested(...) end
+function GossipFrameObject:SetPortraitAtlasRaw(...) end
 ---@return any ...
-function PetStableFrameObject:OnShow(...) end
+function GossipFrameObject:SetPortraitShown(...) end
 ---@return any ...
-function PetStableFrameObject:OnUpdate(...) end
+function GossipFrameObject:SetPortraitTexCoord(...) end
 ---@return any ...
-function PetStableFrameObject:RefreshFocus(...) end
+function GossipFrameObject:SetPortraitTextureRaw(...) end
 ---@return any ...
-function PetStableFrameObject:RegisterForTransitions(...) end
+function GossipFrameObject:SetPortraitTextureSizeAndOffset(...) end
 ---@return any ...
-function PetStableFrameObject:SelectPet(...) end
+function GossipFrameObject:SetPortraitToAsset(...) end
 ---@return any ...
-function PetStableFrameObject:SetBorder(...) end
+function GossipFrameObject:SetPortraitToBag(...) end
 ---@return any ...
-function PetStableFrameObject:SetFrameLevelsFromBaseLevel(...) end
+function GossipFrameObject:SetPortraitToClassIcon(...) end
 ---@return any ...
-function PetStableFrameObject:SetPortraitAtlasRaw(...) end
+function GossipFrameObject:SetPortraitToSpecIcon(...) end
 ---@return any ...
-function PetStableFrameObject:SetPortraitShown(...) end
+function GossipFrameObject:SetPortraitToUnit(...) end
 ---@return any ...
-function PetStableFrameObject:SetPortraitTexCoord(...) end
+function GossipFrameObject:SetTitle(...) end
 ---@return any ...
-function PetStableFrameObject:SetPortraitTextureRaw(...) end
+function GossipFrameObject:SetTitleColor(...) end
 ---@return any ...
-function PetStableFrameObject:SetPortraitTextureSizeAndOffset(...) end
+function GossipFrameObject:SetTitleFormatted(...) end
 ---@return any ...
-function PetStableFrameObject:SetPortraitToAsset(...) end
+function GossipFrameObject:SetTitleMaxLinesAndHeight(...) end
 ---@return any ...
-function PetStableFrameObject:SetPortraitToBag(...) end
+function GossipFrameObject:SetTitleOffsets(...) end
 ---@return any ...
-function PetStableFrameObject:SetPortraitToClassIcon(...) end
+function GossipFrameObject:SetUpGamepad(...) end
 ---@return any ...
-function PetStableFrameObject:SetPortraitToSpecIcon(...) end
+function GossipFrameObject:ShowFocusJumpHint(...) end
 ---@return any ...
-function PetStableFrameObject:SetPortraitToUnit(...) end
+function GossipFrameObject:ShowLeftJumpHint(...) end
 ---@return any ...
-function PetStableFrameObject:SetTitle(...) end
+function GossipFrameObject:ShowRightJumpHint(...) end
 ---@return any ...
-function PetStableFrameObject:SetTitleColor(...) end
+function GossipFrameObject:SortOrder(...) end
 ---@return any ...
-function PetStableFrameObject:SetTitleFormatted(...) end
+function GossipFrameObject:StartFocus(...) end
 ---@return any ...
-function PetStableFrameObject:SetTitleMaxLinesAndHeight(...) end
+function GossipFrameObject:UIThemeContainerFrame_OnPostEvent(...) end
 ---@return any ...
-function PetStableFrameObject:SetTitleOffsets(...) end
+function GossipFrameObject:UIThemeContainerFrame_OnPostHide(...) end
 ---@return any ...
-function PetStableFrameObject:SetZoomAndRotateSpeeds(...) end
+function GossipFrameObject:UIThemeContainerFrame_OnPreLoad(...) end
 ---@return any ...
-function PetStableFrameObject:SetupGamepad(...) end
+function GossipFrameObject:UIThemeContainerFrame_OnPreShow(...) end
 ---@return any ...
-function PetStableFrameObject:ShowFocusJumpHint(...) end
+function GossipFrameObject:UninitializeGamepad(...) end
 ---@return any ...
-function PetStableFrameObject:ShowLeftJumpHint(...) end
+function GossipFrameObject:Update(...) end
 ---@return any ...
-function PetStableFrameObject:ShowRightJumpHint(...) end
+function GossipFrameObject:UpdateBackground(...) end
 ---@return any ...
-function PetStableFrameObject:StartFocus(...) end
+function GossipFrameObject:UpdateFontStrings(...) end
 ---@return any ...
-function PetStableFrameObject:UnfocusGamepad(...) end
+function GossipFrameObject:UpdateFrames(...) end
 ---@return any ...
-function PetStableFrameObject:UninitializeGamepad(...) end
+function GossipFrameObject:UpdateScrollBox(...) end
 ---@return any ...
-function PetStableFrameObject:Update(...) end
----@type PetStableFrameObject
-PetStableFrame = PetStableFrameObject
-end
-
-do
----@class PetStableFrame_BackgroundObject : Texture
-local PetStableFrame_BackgroundObject = {}
-end
-
-do
----@class PetStableFrame_BgObject : Texture
-local PetStableFrame_BgObject = {}
+function GossipFrameObject:UpdateTheme(...) end
+---@type GossipFrameObject
+GossipFrame = GossipFrameObject
 end
 
 do
----@class PetStableFrame_BottomDividerFrameObject : Frame
----@field horzDivider PetStableFrame_BottomDividerFrame_horzDividerObject
-local PetStableFrame_BottomDividerFrameObject = {}
+---@class GossipFrame_BackgroundObject : Texture
+local GossipFrame_BackgroundObject = {}
 end
 
 do
----@class PetStableFrame_BottomDividerFrame_horzDividerObject : Texture
-local PetStableFrame_BottomDividerFrame_horzDividerObject = {}
+---@class GossipFrame_BgObject : Texture
+local GossipFrame_BgObject = {}
 end
 
 do
----@class PetStableFrame_CloseButtonObject : Button
-local PetStableFrame_CloseButtonObject = {}
+---@class GossipFrame_CloseButtonObject : Button
+local GossipFrame_CloseButtonObject = {}
 ---@return any ...
-function PetStableFrame_CloseButtonObject:NarrationGetName(...) end
+function GossipFrame_CloseButtonObject:NarrationGetName(...) end
 ---@return any ...
-function PetStableFrame_CloseButtonObject:OnLoad(...) end
+function GossipFrame_CloseButtonObject:OnLoad(...) end
 end
 
 do
----@class PetStableFrame_FocusJumpHintObject : Frame
----@field ActiveTexture PetStableFrame_FocusJumpHint_ActiveTextureObject
----@field DisabledTexture PetStableFrame_FocusJumpHint_DisabledTextureObject
----@field HoldAnim PetStableFrame_FocusJumpHint_HoldAnimObject
----@field HoldIndicator PetStableFrame_FocusJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG PetStableFrame_FocusJumpHint_HoldIndicatorBGObject
----@field HoverTexture PetStableFrame_FocusJumpHint_HoverTextureObject
----@field LoadBar PetStableFrame_FocusJumpHint_LoadBarObject
----@field LoadBarBG PetStableFrame_FocusJumpHint_LoadBarBGObject
----@field LoadBarGlow PetStableFrame_FocusJumpHint_LoadBarGlowObject
----@field NormalTexture PetStableFrame_FocusJumpHint_NormalTextureObject
----@field PressedTexture PetStableFrame_FocusJumpHint_PressedTextureObject
----@field SpinnerTip PetStableFrame_FocusJumpHint_SpinnerTipObject
+---@class GossipFrame_FocusJumpHintObject : Frame
+---@field ActiveTexture GossipFrame_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture GossipFrame_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim GossipFrame_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator GossipFrame_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GossipFrame_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GossipFrame_FocusJumpHint_HoverTextureObject
+---@field LoadBar GossipFrame_FocusJumpHint_LoadBarObject
+---@field LoadBarBG GossipFrame_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow GossipFrame_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture GossipFrame_FocusJumpHint_NormalTextureObject
+---@field PressedTexture GossipFrame_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip GossipFrame_FocusJumpHint_SpinnerTipObject
 ---@field ignoreInLayout boolean
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
@@ -2071,2009 +1989,291 @@ do
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local PetStableFrame_FocusJumpHintObject = {}
+local GossipFrame_FocusJumpHintObject = {}
 ---@return any ...
-function PetStableFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
+function GossipFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function PetStableFrame_FocusJumpHintObject:BeginHold(...) end
+function GossipFrame_FocusJumpHintObject:BeginHold(...) end
 ---@return any ...
-function PetStableFrame_FocusJumpHintObject:CanEnterTextureState(...) end
+function GossipFrame_FocusJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function PetStableFrame_FocusJumpHintObject:DisableDropShadow(...) end
+function GossipFrame_FocusJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function PetStableFrame_FocusJumpHintObject:EnableDropShadow(...) end
+function GossipFrame_FocusJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function PetStableFrame_FocusJumpHintObject:EndHold(...) end
+function GossipFrame_FocusJumpHintObject:EndHold(...) end
 ---@return any ...
-function PetStableFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
+function GossipFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function PetStableFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
+function GossipFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function PetStableFrame_FocusJumpHintObject:OnLoad(...) end
+function GossipFrame_FocusJumpHintObject:OnLoad(...) end
 ---@return any ...
-function PetStableFrame_FocusJumpHintObject:RefreshIconTextures(...) end
+function GossipFrame_FocusJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function PetStableFrame_FocusJumpHintObject:SetDisabled(...) end
+function GossipFrame_FocusJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function PetStableFrame_FocusJumpHintObject:SetEnabled(...) end
+function GossipFrame_FocusJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function PetStableFrame_FocusJumpHintObject:SetFocused(...) end
+function GossipFrame_FocusJumpHintObject:SetFocused(...) end
 ---@return any ...
-function PetStableFrame_FocusJumpHintObject:SetHoldState(...) end
+function GossipFrame_FocusJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function PetStableFrame_FocusJumpHintObject:SetInputKey(...) end
+function GossipFrame_FocusJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function PetStableFrame_FocusJumpHintObject:SetIsHoldAction(...) end
+function GossipFrame_FocusJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function PetStableFrame_FocusJumpHintObject:SetPressable(...) end
+function GossipFrame_FocusJumpHintObject:SetPressable(...) end
 ---@return any ...
-function PetStableFrame_FocusJumpHintObject:SetTextureHeight(...) end
+function GossipFrame_FocusJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function PetStableFrame_FocusJumpHintObject:SetTextureState(...) end
+function GossipFrame_FocusJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function PetStableFrame_FocusJumpHintObject:SetTextureWidth(...) end
+function GossipFrame_FocusJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function PetStableFrame_FocusJumpHintObject:SetUsableState(...) end
+function GossipFrame_FocusJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function PetStableFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+function GossipFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PetStableFrame_FocusJumpHint_ActiveTextureObject : Texture
-local PetStableFrame_FocusJumpHint_ActiveTextureObject = {}
+---@class GossipFrame_FocusJumpHint_ActiveTextureObject : Texture
+local GossipFrame_FocusJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class PetStableFrame_FocusJumpHint_DisabledTextureObject : Texture
-local PetStableFrame_FocusJumpHint_DisabledTextureObject = {}
+---@class GossipFrame_FocusJumpHint_DisabledTextureObject : Texture
+local GossipFrame_FocusJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class PetStableFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim PetStableFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim PetStableFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim PetStableFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
-local PetStableFrame_FocusJumpHint_HoldAnimObject = {}
+---@class GossipFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GossipFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GossipFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GossipFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local GossipFrame_FocusJumpHint_HoldAnimObject = {}
 end
 
 do
----@class PetStableFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
-local PetStableFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+---@class GossipFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local GossipFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PetStableFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local PetStableFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+---@class GossipFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GossipFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PetStableFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local PetStableFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+---@class GossipFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GossipFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PetStableFrame_FocusJumpHint_HoldIndicatorObject : Texture
-local PetStableFrame_FocusJumpHint_HoldIndicatorObject = {}
+---@class GossipFrame_FocusJumpHint_HoldIndicatorObject : Texture
+local GossipFrame_FocusJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class PetStableFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
-local PetStableFrame_FocusJumpHint_HoldIndicatorBGObject = {}
+---@class GossipFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
+local GossipFrame_FocusJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class PetStableFrame_FocusJumpHint_HoverTextureObject : Texture
-local PetStableFrame_FocusJumpHint_HoverTextureObject = {}
+---@class GossipFrame_FocusJumpHint_HoverTextureObject : Texture
+local GossipFrame_FocusJumpHint_HoverTextureObject = {}
 end
 
 do
----@class PetStableFrame_FocusJumpHint_LoadBarObject : Texture
-local PetStableFrame_FocusJumpHint_LoadBarObject = {}
+---@class GossipFrame_FocusJumpHint_LoadBarObject : Texture
+local GossipFrame_FocusJumpHint_LoadBarObject = {}
 end
 
 do
----@class PetStableFrame_FocusJumpHint_LoadBarBGObject : Texture
-local PetStableFrame_FocusJumpHint_LoadBarBGObject = {}
+---@class GossipFrame_FocusJumpHint_LoadBarBGObject : Texture
+local GossipFrame_FocusJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class PetStableFrame_FocusJumpHint_LoadBarGlowObject : Texture
-local PetStableFrame_FocusJumpHint_LoadBarGlowObject = {}
+---@class GossipFrame_FocusJumpHint_LoadBarGlowObject : Texture
+local GossipFrame_FocusJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class PetStableFrame_FocusJumpHint_NormalTextureObject : Texture
-local PetStableFrame_FocusJumpHint_NormalTextureObject = {}
+---@class GossipFrame_FocusJumpHint_NormalTextureObject : Texture
+local GossipFrame_FocusJumpHint_NormalTextureObject = {}
 end
 
 do
----@class PetStableFrame_FocusJumpHint_PressedTextureObject : Texture
-local PetStableFrame_FocusJumpHint_PressedTextureObject = {}
+---@class GossipFrame_FocusJumpHint_PressedTextureObject : Texture
+local GossipFrame_FocusJumpHint_PressedTextureObject = {}
 end
 
 do
----@class PetStableFrame_FocusJumpHint_SpinnerTipObject : Texture
-local PetStableFrame_FocusJumpHint_SpinnerTipObject = {}
+---@class GossipFrame_FocusJumpHint_SpinnerTipObject : Texture
+local GossipFrame_FocusJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class PetStableFrame_FrameGlowObject : Frame
----@field GlowTexture PetStableFrame_FrameGlow_GlowTextureObject
+---@class GossipFrame_FrameGlowObject : Frame
+---@field GlowTexture GossipFrame_FrameGlow_GlowTextureObject
 ---@field glowTextures table
-local PetStableFrame_FrameGlowObject = {}
+local GossipFrame_FrameGlowObject = {}
 ---@return any ...
-function PetStableFrame_FrameGlowObject:GetContainerFrame(...) end
+function GossipFrame_FrameGlowObject:GetContainerFrame(...) end
 ---@return any ...
-function PetStableFrame_FrameGlowObject:GetFrameLayoutType(...) end
+function GossipFrame_FrameGlowObject:GetFrameLayoutType(...) end
 ---@return any ...
-function PetStableFrame_FrameGlowObject:GetHeaderFrame(...) end
+function GossipFrame_FrameGlowObject:GetHeaderFrame(...) end
 ---@return any ...
-function PetStableFrame_FrameGlowObject:OnLoad(...) end
+function GossipFrame_FrameGlowObject:OnLoad(...) end
 end
 
 do
----@class PetStableFrame_FrameGlow_GlowTextureObject : Texture
-local PetStableFrame_FrameGlow_GlowTextureObject = {}
+---@class GossipFrame_FrameGlow_GlowTextureObject : Texture
+local GossipFrame_FrameGlow_GlowTextureObject = {}
 end
 
 do
----@class PetStableFrame_GamepadSlotCostTextObject : FontString
-local PetStableFrame_GamepadSlotCostTextObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHintObject : Frame
----@field ActiveTexture PetStableFrame_LeftJumpHint_ActiveTextureObject
----@field DisabledTexture PetStableFrame_LeftJumpHint_DisabledTextureObject
----@field HoldAnim PetStableFrame_LeftJumpHint_HoldAnimObject
----@field HoldIndicator PetStableFrame_LeftJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG PetStableFrame_LeftJumpHint_HoldIndicatorBGObject
----@field HoverTexture PetStableFrame_LeftJumpHint_HoverTextureObject
----@field LoadBar PetStableFrame_LeftJumpHint_LoadBarObject
----@field LoadBarBG PetStableFrame_LeftJumpHint_LoadBarBGObject
----@field LoadBarGlow PetStableFrame_LeftJumpHint_LoadBarGlowObject
----@field NormalTexture PetStableFrame_LeftJumpHint_NormalTextureObject
----@field PressedTexture PetStableFrame_LeftJumpHint_PressedTextureObject
----@field SpinnerTip PetStableFrame_LeftJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local PetStableFrame_LeftJumpHintObject = {}
----@return any ...
-function PetStableFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:BeginHold(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:EndHold(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:SetDisabled(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:SetEnabled(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:SetFocused(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:SetHoldState(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:SetInputKey(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:SetPressable(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:SetTextureState(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:SetUsableState(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class PetStableFrame_LeftJumpHint_ActiveTextureObject : Texture
-local PetStableFrame_LeftJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_DisabledTextureObject : Texture
-local PetStableFrame_LeftJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim PetStableFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim PetStableFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim PetStableFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
-local PetStableFrame_LeftJumpHint_HoldAnimObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
-local PetStableFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local PetStableFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local PetStableFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_HoldIndicatorObject : Texture
-local PetStableFrame_LeftJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
-local PetStableFrame_LeftJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_HoverTextureObject : Texture
-local PetStableFrame_LeftJumpHint_HoverTextureObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_LoadBarObject : Texture
-local PetStableFrame_LeftJumpHint_LoadBarObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_LoadBarBGObject : Texture
-local PetStableFrame_LeftJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_LoadBarGlowObject : Texture
-local PetStableFrame_LeftJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_NormalTextureObject : Texture
-local PetStableFrame_LeftJumpHint_NormalTextureObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_PressedTextureObject : Texture
-local PetStableFrame_LeftJumpHint_PressedTextureObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_SpinnerTipObject : Texture
-local PetStableFrame_LeftJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class PetStableFrame_NineSliceObject : Frame
----@field BottomEdge PetStableFrame_NineSlice_BottomEdgeObject
----@field BottomLeftCorner PetStableFrame_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner PetStableFrame_NineSlice_BottomRightCornerObject
----@field Center PetStableFrame_NineSlice_CenterObject
----@field LeftEdge PetStableFrame_NineSlice_LeftEdgeObject
----@field RightEdge PetStableFrame_NineSlice_RightEdgeObject
----@field TopEdge PetStableFrame_NineSlice_TopEdgeObject
----@field TopLeftCorner PetStableFrame_NineSlice_TopLeftCornerObject
----@field TopRightCorner PetStableFrame_NineSlice_TopRightCornerObject
-local PetStableFrame_NineSliceObject = {}
----@return any ...
-function PetStableFrame_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function PetStableFrame_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function PetStableFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function PetStableFrame_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function PetStableFrame_NineSliceObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function PetStableFrame_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function PetStableFrame_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function PetStableFrame_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function PetStableFrame_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class PetStableFrame_NineSlice_BottomEdgeObject : Texture
-local PetStableFrame_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class PetStableFrame_NineSlice_BottomLeftCornerObject : Texture
-local PetStableFrame_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class PetStableFrame_NineSlice_BottomRightCornerObject : Texture
-local PetStableFrame_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class PetStableFrame_NineSlice_CenterObject : Texture
-local PetStableFrame_NineSlice_CenterObject = {}
-end
-
-do
----@class PetStableFrame_NineSlice_LeftEdgeObject : Texture
-local PetStableFrame_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class PetStableFrame_NineSlice_RightEdgeObject : Texture
-local PetStableFrame_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class PetStableFrame_NineSlice_TopEdgeObject : Texture
-local PetStableFrame_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class PetStableFrame_NineSlice_TopLeftCornerObject : Texture
-local PetStableFrame_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class PetStableFrame_NineSlice_TopRightCornerObject : Texture
-local PetStableFrame_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class PetStableFrame_PortraitContainerObject : Frame
----@field CircleMask PetStableFrame_PortraitContainer_CircleMaskObject
----@field portrait PetStableFrame_PortraitContainer_portraitObject
-local PetStableFrame_PortraitContainerObject = {}
-end
-
-do
----@class PetStableFrame_PortraitContainer_CircleMaskObject : MaskTexture
-local PetStableFrame_PortraitContainer_CircleMaskObject = {}
-end
-
-do
----@class PetStableFrame_PortraitContainer_portraitObject : Texture
-local PetStableFrame_PortraitContainer_portraitObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHintObject : Frame
----@field ActiveTexture PetStableFrame_RightJumpHint_ActiveTextureObject
----@field DisabledTexture PetStableFrame_RightJumpHint_DisabledTextureObject
----@field HoldAnim PetStableFrame_RightJumpHint_HoldAnimObject
----@field HoldIndicator PetStableFrame_RightJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG PetStableFrame_RightJumpHint_HoldIndicatorBGObject
----@field HoverTexture PetStableFrame_RightJumpHint_HoverTextureObject
----@field LoadBar PetStableFrame_RightJumpHint_LoadBarObject
----@field LoadBarBG PetStableFrame_RightJumpHint_LoadBarBGObject
----@field LoadBarGlow PetStableFrame_RightJumpHint_LoadBarGlowObject
----@field NormalTexture PetStableFrame_RightJumpHint_NormalTextureObject
----@field PressedTexture PetStableFrame_RightJumpHint_PressedTextureObject
----@field SpinnerTip PetStableFrame_RightJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local PetStableFrame_RightJumpHintObject = {}
----@return any ...
-function PetStableFrame_RightJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:BeginHold(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:EndHold(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:SetDisabled(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:SetEnabled(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:SetFocused(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:SetHoldState(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:SetInputKey(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:SetPressable(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:SetTextureState(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:SetUsableState(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class PetStableFrame_RightJumpHint_ActiveTextureObject : Texture
-local PetStableFrame_RightJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_DisabledTextureObject : Texture
-local PetStableFrame_RightJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim PetStableFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim PetStableFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim PetStableFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
-local PetStableFrame_RightJumpHint_HoldAnimObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
-local PetStableFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local PetStableFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local PetStableFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_HoldIndicatorObject : Texture
-local PetStableFrame_RightJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_HoldIndicatorBGObject : Texture
-local PetStableFrame_RightJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_HoverTextureObject : Texture
-local PetStableFrame_RightJumpHint_HoverTextureObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_LoadBarObject : Texture
-local PetStableFrame_RightJumpHint_LoadBarObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_LoadBarBGObject : Texture
-local PetStableFrame_RightJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_LoadBarGlowObject : Texture
-local PetStableFrame_RightJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_NormalTextureObject : Texture
-local PetStableFrame_RightJumpHint_NormalTextureObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_PressedTextureObject : Texture
-local PetStableFrame_RightJumpHint_PressedTextureObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_SpinnerTipObject : Texture
-local PetStableFrame_RightJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class PetStableFrame_TitleContainerObject : Frame
----@field TitleText PetStableFrame_TitleContainer_TitleTextObject
-local PetStableFrame_TitleContainerObject = {}
-end
-
-do
----@class PetStableFrame_TitleContainer_TitleTextObject : FontString
-local PetStableFrame_TitleContainer_TitleTextObject = {}
-end
-
-do
----@class PetStableFrame_TopDividerFrameObject : Frame
----@field horzDivider PetStableFrame_TopDividerFrame_horzDividerObject
-local PetStableFrame_TopDividerFrameObject = {}
-end
-
-do
----@class PetStableFrame_TopDividerFrame_horzDividerObject : Texture
-local PetStableFrame_TopDividerFrame_horzDividerObject = {}
-end
-
-do
----@class PetStableFrame_TopTileStreaksObject : Texture
-local PetStableFrame_TopTileStreaksObject = {}
-end
-
-do
----@class PetStableFrame_dietObject : Frame
----@field Texture PetStableFrame_diet_TextureObject
-local PetStableFrame_dietObject = {}
----@return any ...
-function PetStableFrame_dietObject:GetHappinessStats(...) end
----@return any ...
-function PetStableFrame_dietObject:OnEnter(...) end
----@return any ...
-function PetStableFrame_dietObject:OnEvent(...) end
----@return any ...
-function PetStableFrame_dietObject:OnLeave(...) end
----@return any ...
-function PetStableFrame_dietObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_dietObject:ShouldShow(...) end
----@return any ...
-function PetStableFrame_dietObject:UpdateHappiness(...) end
-end
-
-do
----@class PetStableFrame_diet_TextureObject : Texture
-local PetStableFrame_diet_TextureObject = {}
-end
-
-do
----@class PetStableFrame_expBarObject : Frame
----@field ColorType PetStableFrame_expBar_ColorTypeObject
----@field Fill PetStableFrame_expBar_FillObject
----@field FillArea PetStableFrame_expBar_FillAreaObject
----@field Mask PetStableFrame_expBar_MaskObject
----@field Text PetStableFrame_expBar_TextObject
----@field fillPercent number
-local PetStableFrame_expBarObject = {}
----@return any ...
-function PetStableFrame_expBarObject:GetPetExperience(...) end
----@return any ...
-function PetStableFrame_expBarObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_expBarObject:OnUpdate(...) end
----@return any ...
-function PetStableFrame_expBarObject:SetFillPercent(...) end
----@return any ...
-function PetStableFrame_expBarObject:SetFillTextureByColorType(...) end
----@return any ...
-function PetStableFrame_expBarObject:SetFillWidth(...) end
----@return any ...
-function PetStableFrame_expBarObject:SetText(...) end
-end
-
-do
----@class PetStableFrame_expBar_ColorTypeObject
----@field Blue number
----@field Green number
----@field Red number
----@field White number
-local PetStableFrame_expBar_ColorTypeObject = {}
-end
-
-do
----@class PetStableFrame_expBar_FillObject : Texture
-local PetStableFrame_expBar_FillObject = {}
-end
-
-do
----@class PetStableFrame_expBar_FillAreaObject : Frame
-local PetStableFrame_expBar_FillAreaObject = {}
-end
-
-do
----@class PetStableFrame_expBar_MaskObject : MaskTexture
-local PetStableFrame_expBar_MaskObject = {}
-end
-
-do
----@class PetStableFrame_expBar_TextObject : FontString
-local PetStableFrame_expBar_TextObject = {}
-end
-
-do
----@class PetStableFrame_insideFrameBottomObject : Texture
-local PetStableFrame_insideFrameBottomObject = {}
-end
-
-do
----@class PetStableFrame_modelSceneObject
----@field Background PetStableFrame_modelScene_BackgroundObject
----@field ControlFrame PetStableFrame_modelScene_ControlFrameObject
----@field Inset PetStableFrame_modelScene_InsetObject
----@field PetModelSceneShadow PetStableFrame_modelScene_PetModelSceneShadowObject
----@field PetShadow PetStableFrame_modelScene_PetShadowObject
----@field actorTemplate string
----@field cameras table
----@field tagToActor table
----@field tagToCamera table
-local PetStableFrame_modelSceneObject = {}
----@return any ...
-function PetStableFrame_modelSceneObject:AcquireActor(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:AcquireAndInitializeActor(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:AddCamera(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:AddOrUpdateDropShadow(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:AdjustCameraYaw(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:AttachPlayerToMount(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:ClearScene(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:CreateActorFromScene(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:CreateCameraFromScene(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:CreateOrTransitionActorFromScene(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:CreateOrTransitionCameraFromScene(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:EnumerateActiveActors(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:GetActiveCamera(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:GetActorByTag(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:GetCameraByTag(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:GetModelSceneID(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:GetNumActiveActors(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:GetOrAcquireDropShadow(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:GetPlayerActor(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:HasActiveCamera(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:InitializeActor(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:IsLeftMouseButtonDown(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:IsRightMouseButtonDown(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:OnEnter(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:OnLeave(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:OnModelLoaded(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:OnMouseDown(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:OnMouseUp(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:OnMouseWheel(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:OnUpdate(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:ReleaseActor(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:ReleaseAllActors(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:ReleaseAllCameras(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:Reset(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:SetActiveCamera(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:SetFromModelSceneID(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:SetPet(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:SetResetCallback(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:ShowAndAnimateActors(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:StopCameraYaw(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:SynchronizeActiveCamera(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:Transform3DPointTo2D(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:TransitionToModelSceneID(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:UpdateBackgroundForPet(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:UpdatePetModel(...) end
-end
-
-do
----@class PetStableFrame_modelScene_BackgroundObject : Texture
-local PetStableFrame_modelScene_BackgroundObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrameObject : Frame
----@field buttonHorizontalPadding number
----@field enableReset boolean
----@field enableRotate boolean
----@field enableZoom boolean
----@field modelScene PetStableFrame_modelScene_ControlFrame_modelSceneObject
----@field resetButton PetStableFrame_modelScene_ControlFrame_resetButtonObject
----@field rotateLeftButton PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject
----@field rotateRightButton PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject
----@field rotationIncrement number
----@field zoomInButton PetStableFrame_modelScene_ControlFrame_zoomInButtonObject
----@field zoomIncrement number
----@field zoomOutButton PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject
-local PetStableFrame_modelScene_ControlFrameObject = {}
----@return any ...
-function PetStableFrame_modelScene_ControlFrameObject:GetRotateIncrement(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrameObject:GetZoomIncrement(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrameObject:OnEnter(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrameObject:OnLeave(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrameObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrameObject:OnShow(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrameObject:SetModelScene(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrameObject:SetRotateIncrement(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrameObject:SetZoomIncrement(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrameObject:UpdateLayout(...) end
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_modelSceneObject
-local PetStableFrame_modelScene_ControlFrame_modelSceneObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_resetButtonObject : Button
----@field HighlightTexture PetStableFrame_modelScene_ControlFrame_resetButton_HighlightTextureObject
----@field Icon PetStableFrame_modelScene_ControlFrame_resetButton_IconObject
----@field NormalTexture PetStableFrame_modelScene_ControlFrame_resetButton_NormalTextureObject
----@field PushedTexture PetStableFrame_modelScene_ControlFrame_resetButton_PushedTextureObject
----@field modelScene PetStableFrame_modelScene_ControlFrame_resetButton_modelSceneObject
----@field tooltip string
-local PetStableFrame_modelScene_ControlFrame_resetButtonObject = {}
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_resetButtonObject:Init(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_resetButtonObject:OnClick(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_resetButtonObject:OnEnter(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_resetButtonObject:OnLeave(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_resetButtonObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_resetButtonObject:OnMouseDown(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_resetButtonObject:OnMouseUp(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_resetButtonObject:SetModelScene(...) end
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_resetButton_HighlightTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_resetButton_HighlightTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_resetButton_IconObject : Texture
-local PetStableFrame_modelScene_ControlFrame_resetButton_IconObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_resetButton_NormalTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_resetButton_NormalTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_resetButton_PushedTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_resetButton_PushedTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_resetButton_modelSceneObject
-local PetStableFrame_modelScene_ControlFrame_resetButton_modelSceneObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject : Button
----@field HighlightTexture PetStableFrame_modelScene_ControlFrame_rotateLeftButton_HighlightTextureObject
----@field Icon PetStableFrame_modelScene_ControlFrame_rotateLeftButton_IconObject
----@field NormalTexture PetStableFrame_modelScene_ControlFrame_rotateLeftButton_NormalTextureObject
----@field PushedTexture PetStableFrame_modelScene_ControlFrame_rotateLeftButton_PushedTextureObject
----@field modelScene PetStableFrame_modelScene_ControlFrame_rotateLeftButton_modelSceneObject
----@field rotateDirection string
----@field rotationIncrement number
----@field tooltip string
----@field tooltipText string
-local PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject = {}
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:Init(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:OnClick(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:OnEnter(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:OnLeave(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:OnMouseDown(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:OnMouseUp(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:OnSmartNavClick(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:RotateStep(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:SetModelScene(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:SetRotation(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:SetRotationIncrement(...) end
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateLeftButton_HighlightTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_rotateLeftButton_HighlightTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateLeftButton_IconObject : Texture
-local PetStableFrame_modelScene_ControlFrame_rotateLeftButton_IconObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateLeftButton_NormalTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_rotateLeftButton_NormalTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateLeftButton_PushedTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_rotateLeftButton_PushedTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateLeftButton_modelSceneObject
-local PetStableFrame_modelScene_ControlFrame_rotateLeftButton_modelSceneObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject : Button
----@field HighlightTexture PetStableFrame_modelScene_ControlFrame_rotateRightButton_HighlightTextureObject
----@field Icon PetStableFrame_modelScene_ControlFrame_rotateRightButton_IconObject
----@field NormalTexture PetStableFrame_modelScene_ControlFrame_rotateRightButton_NormalTextureObject
----@field PushedTexture PetStableFrame_modelScene_ControlFrame_rotateRightButton_PushedTextureObject
----@field modelScene PetStableFrame_modelScene_ControlFrame_rotateRightButton_modelSceneObject
----@field rotateDirection string
----@field rotationIncrement number
----@field tooltip string
----@field tooltipText string
-local PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject = {}
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:Init(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:OnClick(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:OnEnter(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:OnLeave(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:OnMouseDown(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:OnMouseUp(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:OnSmartNavClick(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:RotateStep(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:SetModelScene(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:SetRotation(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:SetRotationIncrement(...) end
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateRightButton_HighlightTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_rotateRightButton_HighlightTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateRightButton_IconObject : Texture
-local PetStableFrame_modelScene_ControlFrame_rotateRightButton_IconObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateRightButton_NormalTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_rotateRightButton_NormalTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateRightButton_PushedTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_rotateRightButton_PushedTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateRightButton_modelSceneObject
-local PetStableFrame_modelScene_ControlFrame_rotateRightButton_modelSceneObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_zoomInButtonObject : Button
----@field HighlightTexture PetStableFrame_modelScene_ControlFrame_zoomInButton_HighlightTextureObject
----@field Icon PetStableFrame_modelScene_ControlFrame_zoomInButton_IconObject
----@field NormalTexture PetStableFrame_modelScene_ControlFrame_zoomInButton_NormalTextureObject
----@field PushedTexture PetStableFrame_modelScene_ControlFrame_zoomInButton_PushedTextureObject
----@field modelScene PetStableFrame_modelScene_ControlFrame_zoomInButton_modelSceneObject
----@field tooltip string
----@field tooltipText string
----@field zoomAmount number
-local PetStableFrame_modelScene_ControlFrame_zoomInButtonObject = {}
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:Init(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:OnClick(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:OnEnter(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:OnLeave(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:OnMouseDown(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:OnMouseUp(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:SetModelScene(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:SetZoomAmount(...) end
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_zoomInButton_HighlightTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_zoomInButton_HighlightTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_zoomInButton_IconObject : Texture
-local PetStableFrame_modelScene_ControlFrame_zoomInButton_IconObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_zoomInButton_NormalTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_zoomInButton_NormalTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_zoomInButton_PushedTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_zoomInButton_PushedTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_zoomInButton_modelSceneObject
-local PetStableFrame_modelScene_ControlFrame_zoomInButton_modelSceneObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject : Button
----@field HighlightTexture PetStableFrame_modelScene_ControlFrame_zoomOutButton_HighlightTextureObject
----@field Icon PetStableFrame_modelScene_ControlFrame_zoomOutButton_IconObject
----@field NormalTexture PetStableFrame_modelScene_ControlFrame_zoomOutButton_NormalTextureObject
----@field PushedTexture PetStableFrame_modelScene_ControlFrame_zoomOutButton_PushedTextureObject
----@field modelScene PetStableFrame_modelScene_ControlFrame_zoomOutButton_modelSceneObject
----@field tooltip string
----@field tooltipText string
----@field zoomAmount number
-local PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject = {}
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:Init(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:OnClick(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:OnEnter(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:OnLeave(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:OnMouseDown(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:OnMouseUp(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:SetModelScene(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:SetZoomAmount(...) end
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_zoomOutButton_HighlightTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_zoomOutButton_HighlightTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_zoomOutButton_IconObject : Texture
-local PetStableFrame_modelScene_ControlFrame_zoomOutButton_IconObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_zoomOutButton_NormalTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_zoomOutButton_NormalTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_zoomOutButton_PushedTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_zoomOutButton_PushedTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_zoomOutButton_modelSceneObject
-local PetStableFrame_modelScene_ControlFrame_zoomOutButton_modelSceneObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_InsetObject : Frame
----@field Bg PetStableFrame_modelScene_Inset_BgObject
----@field NineSlice PetStableFrame_modelScene_Inset_NineSliceObject
----@field layoutType string
-local PetStableFrame_modelScene_InsetObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_Inset_BgObject : Texture
-local PetStableFrame_modelScene_Inset_BgObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_Inset_NineSliceObject : Frame
----@field BottomEdge PetStableFrame_modelScene_Inset_NineSlice_BottomEdgeObject
----@field BottomLeftCorner PetStableFrame_modelScene_Inset_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner PetStableFrame_modelScene_Inset_NineSlice_BottomRightCornerObject
----@field LeftEdge PetStableFrame_modelScene_Inset_NineSlice_LeftEdgeObject
----@field RightEdge PetStableFrame_modelScene_Inset_NineSlice_RightEdgeObject
----@field TopEdge PetStableFrame_modelScene_Inset_NineSlice_TopEdgeObject
----@field TopLeftCorner PetStableFrame_modelScene_Inset_NineSlice_TopLeftCornerObject
----@field TopRightCorner PetStableFrame_modelScene_Inset_NineSlice_TopRightCornerObject
-local PetStableFrame_modelScene_Inset_NineSliceObject = {}
+---@class GossipFrame_FriendshipStatusBarObject : StatusBar
+---@field Bar GossipFrame_FriendshipStatusBar_BarObject
+---@field BarBorder GossipFrame_FriendshipStatusBar_BarBorderObject
+---@field BarCircle GossipFrame_FriendshipStatusBar_BarCircleObject
+---@field BarRingBackground GossipFrame_FriendshipStatusBar_BarRingBackgroundObject
+---@field FriendshipIconMask GossipFrame_FriendshipStatusBar_FriendshipIconMaskObject
+---@field Notch1 GossipFrame_FriendshipStatusBar_Notch1Object
+---@field Notch2 GossipFrame_FriendshipStatusBar_Notch2Object
+---@field Notch3 GossipFrame_FriendshipStatusBar_Notch3Object
+---@field Notch4 GossipFrame_FriendshipStatusBar_Notch4Object
+---@field icon GossipFrame_FriendshipStatusBar_iconObject
+local GossipFrame_FriendshipStatusBarObject = {}
 ---@return any ...
-function PetStableFrame_modelScene_Inset_NineSliceObject:GetBorderColor(...) end
+function GossipFrame_FriendshipStatusBarObject:GetColorIndex(...) end
 ---@return any ...
-function PetStableFrame_modelScene_Inset_NineSliceObject:GetCenterColor(...) end
+function GossipFrame_FriendshipStatusBarObject:OnEnter(...) end
 ---@return any ...
-function PetStableFrame_modelScene_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
+function GossipFrame_FriendshipStatusBarObject:OnLoad(...) end
 ---@return any ...
-function PetStableFrame_modelScene_Inset_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function PetStableFrame_modelScene_Inset_NineSliceObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_modelScene_Inset_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function PetStableFrame_modelScene_Inset_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function PetStableFrame_modelScene_Inset_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function PetStableFrame_modelScene_Inset_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function PetStableFrame_modelScene_Inset_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class PetStableFrame_modelScene_Inset_NineSlice_BottomEdgeObject : Texture
-local PetStableFrame_modelScene_Inset_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_Inset_NineSlice_BottomLeftCornerObject : Texture
-local PetStableFrame_modelScene_Inset_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_Inset_NineSlice_BottomRightCornerObject : Texture
-local PetStableFrame_modelScene_Inset_NineSlice_BottomRightCornerObject = {}
+function GossipFrame_FriendshipStatusBarObject:Update(...) end
 end
 
 do
----@class PetStableFrame_modelScene_Inset_NineSlice_LeftEdgeObject : Texture
-local PetStableFrame_modelScene_Inset_NineSlice_LeftEdgeObject = {}
+---@class GossipFrame_FriendshipStatusBar_BarObject : Texture
+local GossipFrame_FriendshipStatusBar_BarObject = {}
 end
 
 do
----@class PetStableFrame_modelScene_Inset_NineSlice_RightEdgeObject : Texture
-local PetStableFrame_modelScene_Inset_NineSlice_RightEdgeObject = {}
+---@class GossipFrame_FriendshipStatusBar_BarBorderObject : Texture
+local GossipFrame_FriendshipStatusBar_BarBorderObject = {}
 end
 
 do
----@class PetStableFrame_modelScene_Inset_NineSlice_TopEdgeObject : Texture
-local PetStableFrame_modelScene_Inset_NineSlice_TopEdgeObject = {}
+---@class GossipFrame_FriendshipStatusBar_BarCircleObject : Texture
+local GossipFrame_FriendshipStatusBar_BarCircleObject = {}
 end
 
 do
----@class PetStableFrame_modelScene_Inset_NineSlice_TopLeftCornerObject : Texture
-local PetStableFrame_modelScene_Inset_NineSlice_TopLeftCornerObject = {}
+---@class GossipFrame_FriendshipStatusBar_BarRingBackgroundObject : Texture
+local GossipFrame_FriendshipStatusBar_BarRingBackgroundObject = {}
 end
 
 do
----@class PetStableFrame_modelScene_Inset_NineSlice_TopRightCornerObject : Texture
-local PetStableFrame_modelScene_Inset_NineSlice_TopRightCornerObject = {}
+---@class GossipFrame_FriendshipStatusBar_FriendshipIconMaskObject : MaskTexture
+local GossipFrame_FriendshipStatusBar_FriendshipIconMaskObject = {}
 end
 
 do
----@class PetStableFrame_modelScene_PetModelSceneShadowObject : Frame
----@field BottomLeft PetStableFrame_modelScene_PetModelSceneShadow_BottomLeftObject
----@field BottomRight PetStableFrame_modelScene_PetModelSceneShadow_BottomRightObject
----@field TopLeft PetStableFrame_modelScene_PetModelSceneShadow_TopLeftObject
----@field TopRight PetStableFrame_modelScene_PetModelSceneShadow_TopRightObject
-local PetStableFrame_modelScene_PetModelSceneShadowObject = {}
+---@class GossipFrame_FriendshipStatusBar_Notch1Object : Texture
+local GossipFrame_FriendshipStatusBar_Notch1Object = {}
 end
 
 do
----@class PetStableFrame_modelScene_PetModelSceneShadow_BottomLeftObject : Texture
-local PetStableFrame_modelScene_PetModelSceneShadow_BottomLeftObject = {}
+---@class GossipFrame_FriendshipStatusBar_Notch2Object : Texture
+local GossipFrame_FriendshipStatusBar_Notch2Object = {}
 end
 
 do
----@class PetStableFrame_modelScene_PetModelSceneShadow_BottomRightObject : Texture
-local PetStableFrame_modelScene_PetModelSceneShadow_BottomRightObject = {}
+---@class GossipFrame_FriendshipStatusBar_Notch3Object : Texture
+local GossipFrame_FriendshipStatusBar_Notch3Object = {}
 end
 
 do
----@class PetStableFrame_modelScene_PetModelSceneShadow_TopLeftObject : Texture
-local PetStableFrame_modelScene_PetModelSceneShadow_TopLeftObject = {}
+---@class GossipFrame_FriendshipStatusBar_Notch4Object : Texture
+local GossipFrame_FriendshipStatusBar_Notch4Object = {}
 end
 
 do
----@class PetStableFrame_modelScene_PetModelSceneShadow_TopRightObject : Texture
-local PetStableFrame_modelScene_PetModelSceneShadow_TopRightObject = {}
+---@class GossipFrame_FriendshipStatusBar_iconObject : Texture
+local GossipFrame_FriendshipStatusBar_iconObject = {}
 end
 
 do
----@class PetStableFrame_modelScene_PetShadowObject : Texture
-local PetStableFrame_modelScene_PetShadowObject = {}
+---@class GossipFrame_GreetingPanelObject : Frame
+---@field GoodbyeButton GossipFrame_GreetingPanel_GoodbyeButtonObject
+---@field MaterialTopLeft GossipFrame_GreetingPanel_MaterialTopLeftObject
+---@field ScrollBar GossipFrame_GreetingPanel_ScrollBarObject
+---@field ScrollBox GossipFrame_GreetingPanel_ScrollBoxObject
+local GossipFrame_GreetingPanelObject = {}
 end
 
 do
----@class PetStableFrame_purchaseButtonObject : Button
----@field Left PetStableFrame_purchaseButton_LeftObject
----@field Middle PetStableFrame_purchaseButton_MiddleObject
----@field Right PetStableFrame_purchaseButton_RightObject
----@field Text PetStableFrame_purchaseButton_TextObject
+---@class GossipFrame_GreetingPanel_GoodbyeButtonObject : Button
+---@field Left GossipFrame_GreetingPanel_GoodbyeButton_LeftObject
+---@field Middle GossipFrame_GreetingPanel_GoodbyeButton_MiddleObject
+---@field Right GossipFrame_GreetingPanel_GoodbyeButton_RightObject
+---@field Text GossipFrame_GreetingPanel_GoodbyeButton_TextObject
 ---@field fitTextCanWidthDecrease boolean
 ---@field fitTextWidthPadding number
-local PetStableFrame_purchaseButtonObject = {}
+local GossipFrame_GreetingPanel_GoodbyeButtonObject = {}
 ---@return any ...
-function PetStableFrame_purchaseButtonObject:FitToText(...) end
+function GossipFrame_GreetingPanel_GoodbyeButtonObject:FitToText(...) end
 ---@return any ...
-function PetStableFrame_purchaseButtonObject:GetDisabledTooltip(...) end
+function GossipFrame_GreetingPanel_GoodbyeButtonObject:GetDisabledTooltip(...) end
 ---@return any ...
-function PetStableFrame_purchaseButtonObject:OnClick(...) end
+function GossipFrame_GreetingPanel_GoodbyeButtonObject:OnEnter(...) end
 ---@return any ...
-function PetStableFrame_purchaseButtonObject:OnEnter(...) end
+function GossipFrame_GreetingPanel_GoodbyeButtonObject:OnLeave(...) end
 ---@return any ...
-function PetStableFrame_purchaseButtonObject:OnLeave(...) end
+function GossipFrame_GreetingPanel_GoodbyeButtonObject:SetDisabledState(...) end
 ---@return any ...
-function PetStableFrame_purchaseButtonObject:SetDisabledState(...) end
+function GossipFrame_GreetingPanel_GoodbyeButtonObject:SetDisabledTooltip(...) end
 ---@return any ...
-function PetStableFrame_purchaseButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function PetStableFrame_purchaseButtonObject:SetTextToFit(...) end
----@return any ...
-function PetStableFrame_purchaseButtonObject:Update(...) end
-end
-
-do
----@class PetStableFrame_purchaseButton_LeftObject : Texture
-local PetStableFrame_purchaseButton_LeftObject = {}
-end
-
-do
----@class PetStableFrame_purchaseButton_MiddleObject : Texture
-local PetStableFrame_purchaseButton_MiddleObject = {}
-end
-
-do
----@class PetStableFrame_purchaseButton_RightObject : Texture
-local PetStableFrame_purchaseButton_RightObject = {}
-end
-
-do
----@class PetStableFrame_purchaseButton_TextObject : FontString
-local PetStableFrame_purchaseButton_TextObject = {}
-end
-
-do
----@class PetitionFrameObject : Frame
----@field Bg PetitionFrame_BgObject
----@field CloseButton PetitionFrame_CloseButtonObject
----@field FocusJumpHint PetitionFrame_FocusJumpHintObject
----@field FrameGlow PetitionFrame_FrameGlowObject
----@field Inset PetitionFrame_InsetObject
----@field LeftJumpHint PetitionFrame_LeftJumpHintObject
----@field NineSlice PetitionFrame_NineSliceObject
----@field PortraitContainer PetitionFrame_PortraitContainerObject
----@field RightJumpHint PetitionFrame_RightJumpHintObject
----@field ScrollBar PetitionFrame_ScrollBarObject
----@field TitleContainer PetitionFrame_TitleContainerObject
----@field TopTileStreaks PetitionFrame_TopTileStreaksObject
----@field layoutType string
-local PetitionFrameObject = {}
----@return any ...
-function PetitionFrameObject:EndFocus(...) end
----@return any ...
-function PetitionFrameObject:GetFocusFrameGlow(...) end
----@return any ...
-function PetitionFrameObject:GetFocusFrameRoot(...) end
----@return any ...
-function PetitionFrameObject:GetPortrait(...) end
----@return any ...
-function PetitionFrameObject:GetTitleText(...) end
----@return any ...
-function PetitionFrameObject:HasPortraitTexture(...) end
----@return any ...
-function PetitionFrameObject:HideFocusJumpHint(...) end
----@return any ...
-function PetitionFrameObject:HideLeftJumpHint(...) end
----@return any ...
-function PetitionFrameObject:HideRightJumpHint(...) end
----@return any ...
-function PetitionFrameObject:LockInFocus(...) end
----@return any ...
-function PetitionFrameObject:RefreshFocus(...) end
----@return any ...
-function PetitionFrameObject:SetBorder(...) end
----@return any ...
-function PetitionFrameObject:SetFrameLevelsFromBaseLevel(...) end
----@return any ...
-function PetitionFrameObject:SetPortraitAtlasRaw(...) end
----@return any ...
-function PetitionFrameObject:SetPortraitShown(...) end
----@return any ...
-function PetitionFrameObject:SetPortraitTexCoord(...) end
----@return any ...
-function PetitionFrameObject:SetPortraitTextureRaw(...) end
----@return any ...
-function PetitionFrameObject:SetPortraitTextureSizeAndOffset(...) end
----@return any ...
-function PetitionFrameObject:SetPortraitToAsset(...) end
----@return any ...
-function PetitionFrameObject:SetPortraitToBag(...) end
----@return any ...
-function PetitionFrameObject:SetPortraitToClassIcon(...) end
----@return any ...
-function PetitionFrameObject:SetPortraitToSpecIcon(...) end
----@return any ...
-function PetitionFrameObject:SetPortraitToUnit(...) end
----@return any ...
-function PetitionFrameObject:SetTitle(...) end
----@return any ...
-function PetitionFrameObject:SetTitleColor(...) end
----@return any ...
-function PetitionFrameObject:SetTitleFormatted(...) end
----@return any ...
-function PetitionFrameObject:SetTitleMaxLinesAndHeight(...) end
----@return any ...
-function PetitionFrameObject:SetTitleOffsets(...) end
----@return any ...
-function PetitionFrameObject:ShowFocusJumpHint(...) end
----@return any ...
-function PetitionFrameObject:ShowLeftJumpHint(...) end
----@return any ...
-function PetitionFrameObject:ShowRightJumpHint(...) end
----@return any ...
-function PetitionFrameObject:StartFocus(...) end
----@type PetitionFrameObject
-PetitionFrame = PetitionFrameObject
-end
-
-do
----@class PetitionFrame_BgObject : Texture
-local PetitionFrame_BgObject = {}
-end
-
-do
----@class PetitionFrame_CloseButtonObject : Button
-local PetitionFrame_CloseButtonObject = {}
----@return any ...
-function PetitionFrame_CloseButtonObject:NarrationGetName(...) end
----@return any ...
-function PetitionFrame_CloseButtonObject:OnLoad(...) end
-end
-
-do
----@class PetitionFrame_FocusJumpHintObject : Frame
----@field ActiveTexture PetitionFrame_FocusJumpHint_ActiveTextureObject
----@field DisabledTexture PetitionFrame_FocusJumpHint_DisabledTextureObject
----@field HoldAnim PetitionFrame_FocusJumpHint_HoldAnimObject
----@field HoldIndicator PetitionFrame_FocusJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG PetitionFrame_FocusJumpHint_HoldIndicatorBGObject
----@field HoverTexture PetitionFrame_FocusJumpHint_HoverTextureObject
----@field LoadBar PetitionFrame_FocusJumpHint_LoadBarObject
----@field LoadBarBG PetitionFrame_FocusJumpHint_LoadBarBGObject
----@field LoadBarGlow PetitionFrame_FocusJumpHint_LoadBarGlowObject
----@field NormalTexture PetitionFrame_FocusJumpHint_NormalTextureObject
----@field PressedTexture PetitionFrame_FocusJumpHint_PressedTextureObject
----@field SpinnerTip PetitionFrame_FocusJumpHint_SpinnerTipObject
----@field ignoreInLayout boolean
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local PetitionFrame_FocusJumpHintObject = {}
----@return any ...
-function PetitionFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function PetitionFrame_FocusJumpHintObject:BeginHold(...) end
----@return any ...
-function PetitionFrame_FocusJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function PetitionFrame_FocusJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function PetitionFrame_FocusJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function PetitionFrame_FocusJumpHintObject:EndHold(...) end
----@return any ...
-function PetitionFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function PetitionFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function PetitionFrame_FocusJumpHintObject:OnLoad(...) end
----@return any ...
-function PetitionFrame_FocusJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function PetitionFrame_FocusJumpHintObject:SetDisabled(...) end
----@return any ...
-function PetitionFrame_FocusJumpHintObject:SetEnabled(...) end
----@return any ...
-function PetitionFrame_FocusJumpHintObject:SetFocused(...) end
----@return any ...
-function PetitionFrame_FocusJumpHintObject:SetHoldState(...) end
----@return any ...
-function PetitionFrame_FocusJumpHintObject:SetInputKey(...) end
----@return any ...
-function PetitionFrame_FocusJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function PetitionFrame_FocusJumpHintObject:SetPressable(...) end
----@return any ...
-function PetitionFrame_FocusJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function PetitionFrame_FocusJumpHintObject:SetTextureState(...) end
----@return any ...
-function PetitionFrame_FocusJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function PetitionFrame_FocusJumpHintObject:SetUsableState(...) end
----@return any ...
-function PetitionFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class PetitionFrame_FocusJumpHint_ActiveTextureObject : Texture
-local PetitionFrame_FocusJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class PetitionFrame_FocusJumpHint_DisabledTextureObject : Texture
-local PetitionFrame_FocusJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class PetitionFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim PetitionFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim PetitionFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim PetitionFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
-local PetitionFrame_FocusJumpHint_HoldAnimObject = {}
-end
-
-do
----@class PetitionFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
-local PetitionFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class PetitionFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local PetitionFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class PetitionFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local PetitionFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class PetitionFrame_FocusJumpHint_HoldIndicatorObject : Texture
-local PetitionFrame_FocusJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class PetitionFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
-local PetitionFrame_FocusJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class PetitionFrame_FocusJumpHint_HoverTextureObject : Texture
-local PetitionFrame_FocusJumpHint_HoverTextureObject = {}
-end
-
-do
----@class PetitionFrame_FocusJumpHint_LoadBarObject : Texture
-local PetitionFrame_FocusJumpHint_LoadBarObject = {}
-end
-
-do
----@class PetitionFrame_FocusJumpHint_LoadBarBGObject : Texture
-local PetitionFrame_FocusJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class PetitionFrame_FocusJumpHint_LoadBarGlowObject : Texture
-local PetitionFrame_FocusJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class PetitionFrame_FocusJumpHint_NormalTextureObject : Texture
-local PetitionFrame_FocusJumpHint_NormalTextureObject = {}
-end
-
-do
----@class PetitionFrame_FocusJumpHint_PressedTextureObject : Texture
-local PetitionFrame_FocusJumpHint_PressedTextureObject = {}
-end
-
-do
----@class PetitionFrame_FocusJumpHint_SpinnerTipObject : Texture
-local PetitionFrame_FocusJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class PetitionFrame_FrameGlowObject : Frame
----@field GlowTexture PetitionFrame_FrameGlow_GlowTextureObject
----@field glowTextures table
-local PetitionFrame_FrameGlowObject = {}
----@return any ...
-function PetitionFrame_FrameGlowObject:GetContainerFrame(...) end
----@return any ...
-function PetitionFrame_FrameGlowObject:GetFrameLayoutType(...) end
----@return any ...
-function PetitionFrame_FrameGlowObject:GetHeaderFrame(...) end
----@return any ...
-function PetitionFrame_FrameGlowObject:OnLoad(...) end
-end
-
-do
----@class PetitionFrame_FrameGlow_GlowTextureObject : Texture
-local PetitionFrame_FrameGlow_GlowTextureObject = {}
-end
-
-do
----@class PetitionFrame_InsetObject : Frame
----@field Bg PetitionFrame_Inset_BgObject
----@field NineSlice PetitionFrame_Inset_NineSliceObject
----@field layoutType string
-local PetitionFrame_InsetObject = {}
-end
-
-do
----@class PetitionFrame_Inset_BgObject : Texture
-local PetitionFrame_Inset_BgObject = {}
-end
-
-do
----@class PetitionFrame_Inset_NineSliceObject : Frame
----@field BottomEdge PetitionFrame_Inset_NineSlice_BottomEdgeObject
----@field BottomLeftCorner PetitionFrame_Inset_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner PetitionFrame_Inset_NineSlice_BottomRightCornerObject
----@field LeftEdge PetitionFrame_Inset_NineSlice_LeftEdgeObject
----@field RightEdge PetitionFrame_Inset_NineSlice_RightEdgeObject
----@field TopEdge PetitionFrame_Inset_NineSlice_TopEdgeObject
----@field TopLeftCorner PetitionFrame_Inset_NineSlice_TopLeftCornerObject
----@field TopRightCorner PetitionFrame_Inset_NineSlice_TopRightCornerObject
-local PetitionFrame_Inset_NineSliceObject = {}
----@return any ...
-function PetitionFrame_Inset_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function PetitionFrame_Inset_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function PetitionFrame_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function PetitionFrame_Inset_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function PetitionFrame_Inset_NineSliceObject:OnLoad(...) end
----@return any ...
-function PetitionFrame_Inset_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function PetitionFrame_Inset_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function PetitionFrame_Inset_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function PetitionFrame_Inset_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function PetitionFrame_Inset_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class PetitionFrame_Inset_NineSlice_BottomEdgeObject : Texture
-local PetitionFrame_Inset_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class PetitionFrame_Inset_NineSlice_BottomLeftCornerObject : Texture
-local PetitionFrame_Inset_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class PetitionFrame_Inset_NineSlice_BottomRightCornerObject : Texture
-local PetitionFrame_Inset_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class PetitionFrame_Inset_NineSlice_LeftEdgeObject : Texture
-local PetitionFrame_Inset_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class PetitionFrame_Inset_NineSlice_RightEdgeObject : Texture
-local PetitionFrame_Inset_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class PetitionFrame_Inset_NineSlice_TopEdgeObject : Texture
-local PetitionFrame_Inset_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class PetitionFrame_Inset_NineSlice_TopLeftCornerObject : Texture
-local PetitionFrame_Inset_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class PetitionFrame_Inset_NineSlice_TopRightCornerObject : Texture
-local PetitionFrame_Inset_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class PetitionFrame_LeftJumpHintObject : Frame
----@field ActiveTexture PetitionFrame_LeftJumpHint_ActiveTextureObject
----@field DisabledTexture PetitionFrame_LeftJumpHint_DisabledTextureObject
----@field HoldAnim PetitionFrame_LeftJumpHint_HoldAnimObject
----@field HoldIndicator PetitionFrame_LeftJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG PetitionFrame_LeftJumpHint_HoldIndicatorBGObject
----@field HoverTexture PetitionFrame_LeftJumpHint_HoverTextureObject
----@field LoadBar PetitionFrame_LeftJumpHint_LoadBarObject
----@field LoadBarBG PetitionFrame_LeftJumpHint_LoadBarBGObject
----@field LoadBarGlow PetitionFrame_LeftJumpHint_LoadBarGlowObject
----@field NormalTexture PetitionFrame_LeftJumpHint_NormalTextureObject
----@field PressedTexture PetitionFrame_LeftJumpHint_PressedTextureObject
----@field SpinnerTip PetitionFrame_LeftJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local PetitionFrame_LeftJumpHintObject = {}
----@return any ...
-function PetitionFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function PetitionFrame_LeftJumpHintObject:BeginHold(...) end
----@return any ...
-function PetitionFrame_LeftJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function PetitionFrame_LeftJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function PetitionFrame_LeftJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function PetitionFrame_LeftJumpHintObject:EndHold(...) end
----@return any ...
-function PetitionFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function PetitionFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function PetitionFrame_LeftJumpHintObject:OnLoad(...) end
----@return any ...
-function PetitionFrame_LeftJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function PetitionFrame_LeftJumpHintObject:SetDisabled(...) end
----@return any ...
-function PetitionFrame_LeftJumpHintObject:SetEnabled(...) end
----@return any ...
-function PetitionFrame_LeftJumpHintObject:SetFocused(...) end
----@return any ...
-function PetitionFrame_LeftJumpHintObject:SetHoldState(...) end
----@return any ...
-function PetitionFrame_LeftJumpHintObject:SetInputKey(...) end
----@return any ...
-function PetitionFrame_LeftJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function PetitionFrame_LeftJumpHintObject:SetPressable(...) end
----@return any ...
-function PetitionFrame_LeftJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function PetitionFrame_LeftJumpHintObject:SetTextureState(...) end
----@return any ...
-function PetitionFrame_LeftJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function PetitionFrame_LeftJumpHintObject:SetUsableState(...) end
----@return any ...
-function PetitionFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class PetitionFrame_LeftJumpHint_ActiveTextureObject : Texture
-local PetitionFrame_LeftJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class PetitionFrame_LeftJumpHint_DisabledTextureObject : Texture
-local PetitionFrame_LeftJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class PetitionFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim PetitionFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim PetitionFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim PetitionFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
-local PetitionFrame_LeftJumpHint_HoldAnimObject = {}
-end
-
-do
----@class PetitionFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
-local PetitionFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class PetitionFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local PetitionFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class PetitionFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local PetitionFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class PetitionFrame_LeftJumpHint_HoldIndicatorObject : Texture
-local PetitionFrame_LeftJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class PetitionFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
-local PetitionFrame_LeftJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class PetitionFrame_LeftJumpHint_HoverTextureObject : Texture
-local PetitionFrame_LeftJumpHint_HoverTextureObject = {}
-end
-
-do
----@class PetitionFrame_LeftJumpHint_LoadBarObject : Texture
-local PetitionFrame_LeftJumpHint_LoadBarObject = {}
-end
-
-do
----@class PetitionFrame_LeftJumpHint_LoadBarBGObject : Texture
-local PetitionFrame_LeftJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class PetitionFrame_LeftJumpHint_LoadBarGlowObject : Texture
-local PetitionFrame_LeftJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class PetitionFrame_LeftJumpHint_NormalTextureObject : Texture
-local PetitionFrame_LeftJumpHint_NormalTextureObject = {}
-end
-
-do
----@class PetitionFrame_LeftJumpHint_PressedTextureObject : Texture
-local PetitionFrame_LeftJumpHint_PressedTextureObject = {}
-end
-
-do
----@class PetitionFrame_LeftJumpHint_SpinnerTipObject : Texture
-local PetitionFrame_LeftJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class PetitionFrame_NineSliceObject : Frame
----@field BottomEdge PetitionFrame_NineSlice_BottomEdgeObject
----@field BottomLeftCorner PetitionFrame_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner PetitionFrame_NineSlice_BottomRightCornerObject
----@field Center PetitionFrame_NineSlice_CenterObject
----@field LeftEdge PetitionFrame_NineSlice_LeftEdgeObject
----@field RightEdge PetitionFrame_NineSlice_RightEdgeObject
----@field TopEdge PetitionFrame_NineSlice_TopEdgeObject
----@field TopLeftCorner PetitionFrame_NineSlice_TopLeftCornerObject
----@field TopRightCorner PetitionFrame_NineSlice_TopRightCornerObject
-local PetitionFrame_NineSliceObject = {}
----@return any ...
-function PetitionFrame_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function PetitionFrame_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function PetitionFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function PetitionFrame_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function PetitionFrame_NineSliceObject:OnLoad(...) end
----@return any ...
-function PetitionFrame_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function PetitionFrame_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function PetitionFrame_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function PetitionFrame_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function PetitionFrame_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class PetitionFrame_NineSlice_BottomEdgeObject : Texture
-local PetitionFrame_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class PetitionFrame_NineSlice_BottomLeftCornerObject : Texture
-local PetitionFrame_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class PetitionFrame_NineSlice_BottomRightCornerObject : Texture
-local PetitionFrame_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class PetitionFrame_NineSlice_CenterObject : Texture
-local PetitionFrame_NineSlice_CenterObject = {}
-end
-
-do
----@class PetitionFrame_NineSlice_LeftEdgeObject : Texture
-local PetitionFrame_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class PetitionFrame_NineSlice_RightEdgeObject : Texture
-local PetitionFrame_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class PetitionFrame_NineSlice_TopEdgeObject : Texture
-local PetitionFrame_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class PetitionFrame_NineSlice_TopLeftCornerObject : Texture
-local PetitionFrame_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class PetitionFrame_NineSlice_TopRightCornerObject : Texture
-local PetitionFrame_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class PetitionFrame_PortraitContainerObject : Frame
----@field CircleMask PetitionFrame_PortraitContainer_CircleMaskObject
----@field portrait PetitionFrame_PortraitContainer_portraitObject
-local PetitionFrame_PortraitContainerObject = {}
-end
-
-do
----@class PetitionFrame_PortraitContainer_CircleMaskObject : MaskTexture
-local PetitionFrame_PortraitContainer_CircleMaskObject = {}
-end
-
-do
----@class PetitionFrame_PortraitContainer_portraitObject : Texture
-local PetitionFrame_PortraitContainer_portraitObject = {}
-end
-
-do
----@class PetitionFrame_RightJumpHintObject : Frame
----@field ActiveTexture PetitionFrame_RightJumpHint_ActiveTextureObject
----@field DisabledTexture PetitionFrame_RightJumpHint_DisabledTextureObject
----@field HoldAnim PetitionFrame_RightJumpHint_HoldAnimObject
----@field HoldIndicator PetitionFrame_RightJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG PetitionFrame_RightJumpHint_HoldIndicatorBGObject
----@field HoverTexture PetitionFrame_RightJumpHint_HoverTextureObject
----@field LoadBar PetitionFrame_RightJumpHint_LoadBarObject
----@field LoadBarBG PetitionFrame_RightJumpHint_LoadBarBGObject
----@field LoadBarGlow PetitionFrame_RightJumpHint_LoadBarGlowObject
----@field NormalTexture PetitionFrame_RightJumpHint_NormalTextureObject
----@field PressedTexture PetitionFrame_RightJumpHint_PressedTextureObject
----@field SpinnerTip PetitionFrame_RightJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local PetitionFrame_RightJumpHintObject = {}
----@return any ...
-function PetitionFrame_RightJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function PetitionFrame_RightJumpHintObject:BeginHold(...) end
----@return any ...
-function PetitionFrame_RightJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function PetitionFrame_RightJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function PetitionFrame_RightJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function PetitionFrame_RightJumpHintObject:EndHold(...) end
----@return any ...
-function PetitionFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function PetitionFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function PetitionFrame_RightJumpHintObject:OnLoad(...) end
----@return any ...
-function PetitionFrame_RightJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function PetitionFrame_RightJumpHintObject:SetDisabled(...) end
----@return any ...
-function PetitionFrame_RightJumpHintObject:SetEnabled(...) end
----@return any ...
-function PetitionFrame_RightJumpHintObject:SetFocused(...) end
----@return any ...
-function PetitionFrame_RightJumpHintObject:SetHoldState(...) end
----@return any ...
-function PetitionFrame_RightJumpHintObject:SetInputKey(...) end
----@return any ...
-function PetitionFrame_RightJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function PetitionFrame_RightJumpHintObject:SetPressable(...) end
----@return any ...
-function PetitionFrame_RightJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function PetitionFrame_RightJumpHintObject:SetTextureState(...) end
----@return any ...
-function PetitionFrame_RightJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function PetitionFrame_RightJumpHintObject:SetUsableState(...) end
----@return any ...
-function PetitionFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class PetitionFrame_RightJumpHint_ActiveTextureObject : Texture
-local PetitionFrame_RightJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class PetitionFrame_RightJumpHint_DisabledTextureObject : Texture
-local PetitionFrame_RightJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class PetitionFrame_RightJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim PetitionFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim PetitionFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim PetitionFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
-local PetitionFrame_RightJumpHint_HoldAnimObject = {}
-end
-
-do
----@class PetitionFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
-local PetitionFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class PetitionFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local PetitionFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class PetitionFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local PetitionFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class PetitionFrame_RightJumpHint_HoldIndicatorObject : Texture
-local PetitionFrame_RightJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class PetitionFrame_RightJumpHint_HoldIndicatorBGObject : Texture
-local PetitionFrame_RightJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class PetitionFrame_RightJumpHint_HoverTextureObject : Texture
-local PetitionFrame_RightJumpHint_HoverTextureObject = {}
-end
-
-do
----@class PetitionFrame_RightJumpHint_LoadBarObject : Texture
-local PetitionFrame_RightJumpHint_LoadBarObject = {}
+function GossipFrame_GreetingPanel_GoodbyeButtonObject:SetTextToFit(...) end
 end
 
 do
----@class PetitionFrame_RightJumpHint_LoadBarBGObject : Texture
-local PetitionFrame_RightJumpHint_LoadBarBGObject = {}
+---@class GossipFrame_GreetingPanel_GoodbyeButton_LeftObject : Texture
+local GossipFrame_GreetingPanel_GoodbyeButton_LeftObject = {}
 end
 
 do
----@class PetitionFrame_RightJumpHint_LoadBarGlowObject : Texture
-local PetitionFrame_RightJumpHint_LoadBarGlowObject = {}
+---@class GossipFrame_GreetingPanel_GoodbyeButton_MiddleObject : Texture
+local GossipFrame_GreetingPanel_GoodbyeButton_MiddleObject = {}
 end
 
 do
----@class PetitionFrame_RightJumpHint_NormalTextureObject : Texture
-local PetitionFrame_RightJumpHint_NormalTextureObject = {}
+---@class GossipFrame_GreetingPanel_GoodbyeButton_RightObject : Texture
+local GossipFrame_GreetingPanel_GoodbyeButton_RightObject = {}
 end
 
 do
----@class PetitionFrame_RightJumpHint_PressedTextureObject : Texture
-local PetitionFrame_RightJumpHint_PressedTextureObject = {}
+---@class GossipFrame_GreetingPanel_GoodbyeButton_TextObject : FontString
+local GossipFrame_GreetingPanel_GoodbyeButton_TextObject = {}
 end
 
 do
----@class PetitionFrame_RightJumpHint_SpinnerTipObject : Texture
-local PetitionFrame_RightJumpHint_SpinnerTipObject = {}
+---@class GossipFrame_GreetingPanel_MaterialTopLeftObject : Texture
+local GossipFrame_GreetingPanel_MaterialTopLeftObject = {}
 end
 
 do
----@class PetitionFrame_ScrollBarObject : Frame
----@field Back PetitionFrame_ScrollBar_BackObject
----@field Defaults PetitionFrame_ScrollBar_DefaultsObject
----@field Directions PetitionFrame_ScrollBar_DirectionsObject
----@field Event PetitionFrame_ScrollBar_EventObject
----@field Forward PetitionFrame_ScrollBar_ForwardObject
----@field Track PetitionFrame_ScrollBar_TrackObject
+---@class GossipFrame_GreetingPanel_ScrollBarObject : Frame
+---@field Back GossipFrame_GreetingPanel_ScrollBar_BackObject
+---@field Defaults GossipFrame_GreetingPanel_ScrollBar_DefaultsObject
+---@field Directions GossipFrame_GreetingPanel_ScrollBar_DirectionsObject
+---@field Event GossipFrame_GreetingPanel_ScrollBar_EventObject
+---@field Forward GossipFrame_GreetingPanel_ScrollBar_ForwardObject
+---@field Track GossipFrame_GreetingPanel_ScrollBar_TrackObject
 ---@field allowScroll boolean
 ---@field callbackTables table
 ---@field canInterpolateScroll boolean
@@ -4081,190 +2281,193 @@ do
 ---@field executingEvents table
 ---@field hideTrack boolean
 ---@field hideTrackIfThumbExceedsTrack boolean
+---@field interpolator GossipFrame_GreetingPanel_ScrollBar_interpolatorObject
 ---@field isScrollController boolean
 ---@field minThumbExtent number
 ---@field panDelay number
 ---@field panExtentPercentage number
 ---@field panRepeatTime number
+---@field registeredScrollBox GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject
+---@field scrollPercentage number
 ---@field smartNavigationIgnored boolean
 ---@field snapToInterval boolean
 ---@field thumbAnchor string
 ---@field useProportionalThumb boolean
 ---@field visibleExtentPercentage number
 ---@field wheelPanScalar number
-local PetitionFrame_ScrollBarObject = {}
+local GossipFrame_GreetingPanel_ScrollBarObject = {}
 ---@return any ...
-function PetitionFrame_ScrollBarObject:CallInternalScope(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:CallInternalScope(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:CanCursorStepInDirection(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:CanCursorStepInDirection(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:CanInterpolateScroll(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:CanInterpolateScroll(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:CopyDeferredCallbacks(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:DisableControls(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:DisableControls(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:DoesFrameHaveEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:EnableInternalPriority(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:EnableInternalPriority(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:EnableSnapToInterval(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:EnableSnapToInterval(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:GenerateCallbackEvents(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:GetBackStepper(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:GetBackStepper(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:GetCallbackTable(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:GetCallbackTable(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:GetCallbackTables(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:GetCallbackTables(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:GetCallbacksByEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:GetForwardStepper(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:GetForwardStepper(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:GetFrameExtent(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:GetFrameExtent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:GetIntervalRange(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:GetIntervalRange(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:GetLower(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:GetLower(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:GetPanExtentPercentage(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:GetPanRepeatDelay(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:GetPanRepeatDelay(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:GetPanRepeatTime(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:GetPanRepeatTime(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:GetScrollInterpolator(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:GetScrollInterpolator(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:GetScrollPercentage(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:GetScrollPercentage(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:GetThumb(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:GetThumb(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:GetThumbAnchor(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:GetThumbAnchor(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:GetTrack(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:GetTrack(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:GetTrackExtent(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:GetTrackExtent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:GetUpper(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:GetUpper(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:GetVisibleExtentPercentage(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:GetWheelPanPercentage(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:HasRegistrantsForEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:HasScrollableExtent(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:HasScrollableExtent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:Init(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:Init(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:InitializeNarration(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:InitializeNarration(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:Interpolate(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:Interpolate(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:IsAtBegin(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:IsAtBegin(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:IsAtEnd(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:IsAtEnd(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:IsHorizontal(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:IsHorizontal(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:IsScrollAllowed(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:IsScrollAllowed(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:IsThumbMouseDown(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:IsThumbMouseDown(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:OnHide_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:OnLoad(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:OnLoad(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:OnLoad_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:OnMouseWheel(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:OnMouseWheel(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:OnShow_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:OnStepperMouseDown(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:OnStepperMouseDown(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:OnThumbMouseDown(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:OnThumbMouseDown(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:OnTrackMouseDown(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:OnTrackMouseDown(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:RegisterCallback(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:RegisterCallback(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:RegisterCallbackWithHandle(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:ScrollDecrease(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:ScrollDecrease(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:ScrollInDirection(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:ScrollInDirection(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:ScrollIncrease(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:ScrollIncrease(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:ScrollPageInDirection(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:ScrollPageInDirection(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:ScrollStepInDirection(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:ScrollStepInDirection(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:ScrollToBegin(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:ScrollToBegin(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:ScrollToEnd(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:ScrollToEnd(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:ScrollWheelInDirection(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:ScrollWheelInDirection(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:SecureInsertEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:SecureInsertEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:SelectCursorComponent(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:SelectCursorComponent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:SelectPointComponent(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:SelectPointComponent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:SetFrameExtent(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:SetFrameExtent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:SetHideIfUnscrollable(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:SetHideIfUnscrollable(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:SetHorizontal(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:SetHorizontal(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:SetInterpolateScroll(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:SetInterpolateScroll(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:SetPanExtentPercentage(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:SetScrollAllowed(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:SetScrollAllowed(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:SetScrollPercentage(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:SetScrollPercentage(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:SetScrollPercentageInternal(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:SetThumbExtent(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:SetThumbExtent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:SetVisibleExtentPercentage(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:SetVisibleExtentPercentage(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:TriggerEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:TriggerEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:UnregisterCallback(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:UnregisterCallback(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:UnregisterEvents(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:UnregisterEvents(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:UnregisterEventsByEventTable(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:UnregisterUpdate(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:UnregisterUpdate(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:Update(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:Update(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:onButtonMouseUp(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:onButtonMouseUp(...) end
 ---@return any ...
-function PetitionFrame_ScrollBarObject:scrollInternal(...) end
+function GossipFrame_GreetingPanel_ScrollBarObject:scrollInternal(...) end
 end
 
 do
----@class PetitionFrame_ScrollBar_BackObject : Button
----@field Event PetitionFrame_ScrollBar_Back_EventObject
----@field Texture PetitionFrame_ScrollBar_Back_TextureObject
+---@class GossipFrame_GreetingPanel_ScrollBar_BackObject : Button
+---@field Event GossipFrame_GreetingPanel_ScrollBar_Back_EventObject
+---@field Texture GossipFrame_GreetingPanel_ScrollBar_Back_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -4278,118 +2481,118 @@ do
 ---@field mouseDownSoundKitID number
 ---@field normalTexture string
 ---@field overTexture string
-local PetitionFrame_ScrollBar_BackObject = {}
+local GossipFrame_GreetingPanel_ScrollBar_BackObject = {}
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:GetAtlas(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:GetAtlas(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:GetCallbackTable(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:GetCallbackTable(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:GetCallbackTables(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:GetCallbackTables(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:IsDown(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:IsDown(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:IsDownOver(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:IsDownOver(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:IsOver(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:IsOver(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:NarrationGetName(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:NarrationGetName(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:OnButtonStateChanged(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnButtonStateChanged(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:OnDisable(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnDisable(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:OnEnable(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnEnable(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:OnEnter(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnEnter(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:OnLeave(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnLeave(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:OnLoad(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnLoad(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:OnMouseDown(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnMouseDown(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:OnMouseUp(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnMouseUp(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:OnShow(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnShow(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:RegisterCallback(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:RegisterCallback(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:SecureInsertEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:SecureInsertEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:SetDisplacedRegions(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:SetDisplacedRegions(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:TriggerEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:TriggerEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:UnregisterCallback(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:UnregisterCallback(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:UnregisterEvents(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:UnregisterEvents(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+function GossipFrame_GreetingPanel_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class PetitionFrame_ScrollBar_Back_EventObject
-local PetitionFrame_ScrollBar_Back_EventObject = {}
+---@class GossipFrame_GreetingPanel_ScrollBar_Back_EventObject
+local GossipFrame_GreetingPanel_ScrollBar_Back_EventObject = {}
 end
 
 do
----@class PetitionFrame_ScrollBar_Back_TextureObject : Texture
-local PetitionFrame_ScrollBar_Back_TextureObject = {}
+---@class GossipFrame_GreetingPanel_ScrollBar_Back_TextureObject : Texture
+local GossipFrame_GreetingPanel_ScrollBar_Back_TextureObject = {}
 end
 
 do
----@class PetitionFrame_ScrollBar_DefaultsObject
-local PetitionFrame_ScrollBar_DefaultsObject = {}
+---@class GossipFrame_GreetingPanel_ScrollBar_DefaultsObject
+local GossipFrame_GreetingPanel_ScrollBar_DefaultsObject = {}
 end
 
 do
----@class PetitionFrame_ScrollBar_DirectionsObject
-local PetitionFrame_ScrollBar_DirectionsObject = {}
+---@class GossipFrame_GreetingPanel_ScrollBar_DirectionsObject
+local GossipFrame_GreetingPanel_ScrollBar_DirectionsObject = {}
 end
 
 do
----@class PetitionFrame_ScrollBar_EventObject
-local PetitionFrame_ScrollBar_EventObject = {}
+---@class GossipFrame_GreetingPanel_ScrollBar_EventObject
+local GossipFrame_GreetingPanel_ScrollBar_EventObject = {}
 end
 
 do
----@class PetitionFrame_ScrollBar_ForwardObject : Button
----@field Event PetitionFrame_ScrollBar_Forward_EventObject
----@field Texture PetitionFrame_ScrollBar_Forward_TextureObject
+---@class GossipFrame_GreetingPanel_ScrollBar_ForwardObject : Button
+---@field Event GossipFrame_GreetingPanel_ScrollBar_Forward_EventObject
+---@field Texture GossipFrame_GreetingPanel_ScrollBar_Forward_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -4403,129 +2606,129 @@ do
 ---@field mouseDownSoundKitID number
 ---@field normalTexture string
 ---@field overTexture string
-local PetitionFrame_ScrollBar_ForwardObject = {}
+local GossipFrame_GreetingPanel_ScrollBar_ForwardObject = {}
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:GetAtlas(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:GetAtlas(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:GetCallbackTable(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:GetCallbackTable(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:GetCallbackTables(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:GetCallbackTables(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:IsDown(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:IsDown(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:IsDownOver(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:IsDownOver(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:IsOver(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:IsOver(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:NarrationGetName(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:NarrationGetName(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:OnDisable(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnDisable(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:OnEnable(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnEnable(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:OnEnter(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnEnter(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:OnLeave(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnLeave(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:OnLoad(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnLoad(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:OnMouseDown(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnMouseDown(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:OnMouseUp(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnMouseUp(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:OnShow(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnShow(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:RegisterCallback(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:RegisterCallback(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:SecureInsertEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:TriggerEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:TriggerEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:UnregisterCallback(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:UnregisterCallback(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:UnregisterEvents(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:UnregisterEvents(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class PetitionFrame_ScrollBar_Forward_EventObject
-local PetitionFrame_ScrollBar_Forward_EventObject = {}
+---@class GossipFrame_GreetingPanel_ScrollBar_Forward_EventObject
+local GossipFrame_GreetingPanel_ScrollBar_Forward_EventObject = {}
 end
 
 do
----@class PetitionFrame_ScrollBar_Forward_TextureObject : Texture
-local PetitionFrame_ScrollBar_Forward_TextureObject = {}
+---@class GossipFrame_GreetingPanel_ScrollBar_Forward_TextureObject : Texture
+local GossipFrame_GreetingPanel_ScrollBar_Forward_TextureObject = {}
 end
 
 do
----@class PetitionFrame_ScrollBar_TrackObject : Frame
----@field Begin PetitionFrame_ScrollBar_Track_BeginObject
----@field End PetitionFrame_ScrollBar_Track_EndObject
----@field Middle PetitionFrame_ScrollBar_Track_MiddleObject
----@field Thumb PetitionFrame_ScrollBar_Track_ThumbObject
-local PetitionFrame_ScrollBar_TrackObject = {}
+---@class GossipFrame_GreetingPanel_ScrollBar_TrackObject : Frame
+---@field Begin GossipFrame_GreetingPanel_ScrollBar_Track_BeginObject
+---@field End GossipFrame_GreetingPanel_ScrollBar_Track_EndObject
+---@field Middle GossipFrame_GreetingPanel_ScrollBar_Track_MiddleObject
+---@field Thumb GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject
+local GossipFrame_GreetingPanel_ScrollBar_TrackObject = {}
 end
 
 do
----@class PetitionFrame_ScrollBar_Track_BeginObject : Texture
-local PetitionFrame_ScrollBar_Track_BeginObject = {}
+---@class GossipFrame_GreetingPanel_ScrollBar_Track_BeginObject : Texture
+local GossipFrame_GreetingPanel_ScrollBar_Track_BeginObject = {}
 end
 
 do
----@class PetitionFrame_ScrollBar_Track_EndObject : Texture
-local PetitionFrame_ScrollBar_Track_EndObject = {}
+---@class GossipFrame_GreetingPanel_ScrollBar_Track_EndObject : Texture
+local GossipFrame_GreetingPanel_ScrollBar_Track_EndObject = {}
 end
 
 do
----@class PetitionFrame_ScrollBar_Track_MiddleObject : Texture
-local PetitionFrame_ScrollBar_Track_MiddleObject = {}
+---@class GossipFrame_GreetingPanel_ScrollBar_Track_MiddleObject : Texture
+local GossipFrame_GreetingPanel_ScrollBar_Track_MiddleObject = {}
 end
 
 do
----@class PetitionFrame_ScrollBar_Track_ThumbObject : Button
----@field Begin PetitionFrame_ScrollBar_Track_Thumb_BeginObject
----@field End PetitionFrame_ScrollBar_Track_Thumb_EndObject
----@field Event PetitionFrame_ScrollBar_Track_Thumb_EventObject
----@field Middle PetitionFrame_ScrollBar_Track_Thumb_MiddleObject
+---@class GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject : Button
+---@field Begin GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_BeginObject
+---@field End GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_EndObject
+---@field Event GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_EventObject
+---@field Middle GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_MiddleObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -4540,3841 +2743,2110 @@ do
 ---@field upBeginTexture string
 ---@field upEndTexture string
 ---@field upMiddleTexture string
-local PetitionFrame_ScrollBar_Track_ThumbObject = {}
+local GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject = {}
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:GetAtlas(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:IsDown(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:IsDown(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:IsDownOver(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:IsOver(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:IsOver(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:OnDisable(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnDisable(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:OnEnable(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnEnable(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:OnEnter(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnEnter(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:OnLeave(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnLeave(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:OnLoad(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnLoad(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:OnShow(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnShow(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
 ---@return any ...
-function PetitionFrame_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class PetitionFrame_ScrollBar_Track_Thumb_BeginObject : Texture
-local PetitionFrame_ScrollBar_Track_Thumb_BeginObject = {}
+---@class GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_BeginObject : Texture
+local GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_BeginObject = {}
 end
 
 do
----@class PetitionFrame_ScrollBar_Track_Thumb_EndObject : Texture
-local PetitionFrame_ScrollBar_Track_Thumb_EndObject = {}
+---@class GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_EndObject : Texture
+local GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_EndObject = {}
 end
 
 do
----@class PetitionFrame_ScrollBar_Track_Thumb_EventObject
-local PetitionFrame_ScrollBar_Track_Thumb_EventObject = {}
+---@class GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_EventObject
+local GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_EventObject = {}
 end
 
 do
----@class PetitionFrame_ScrollBar_Track_Thumb_MiddleObject : Texture
-local PetitionFrame_ScrollBar_Track_Thumb_MiddleObject = {}
+---@class GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_MiddleObject : Texture
+local GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_MiddleObject = {}
 end
 
 do
----@class PetitionFrame_TitleContainerObject : Frame
----@field TitleText PetitionFrame_TitleContainer_TitleTextObject
-local PetitionFrame_TitleContainerObject = {}
+---@class GossipFrame_GreetingPanel_ScrollBar_interpolatorObject
+local GossipFrame_GreetingPanel_ScrollBar_interpolatorObject = {}
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_interpolatorObject:Cancel(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_interpolatorObject:Interpolate(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_interpolatorObject:interpolateFunc(...) end
 end
 
 do
----@class PetitionFrame_TitleContainer_TitleTextObject : FontString
-local PetitionFrame_TitleContainer_TitleTextObject = {}
+---@class GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject : Frame
+---@field Defaults GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_DefaultsObject
+---@field Directions GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_DirectionsObject
+---@field DragDelegate GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_DragDelegateObject
+---@field Event GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_EventObject
+---@field ScrollTarget GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject
+---@field Shadows GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ShadowsObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field debugInspectionSystem string
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field isScrollController boolean
+---@field panExtentPercentage number
+---@field registeredScrollBar GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_registeredScrollBarObject
+---@field view GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject
+---@field wheelPanScalar number
+local GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject = {}
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ApplyEdgeFade(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:CalculateEdgeFade(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:CalculatePanExtentPercentage(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:CalculateScrollPercentage(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:CanInterpolateScroll(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ClearEdgeFade(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ContainsElementDataByPredicate(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:EnableSnapToInterval(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:EnumerateDataProvider(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:EnumerateDataProviderEntireRange(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:EnumerateFrames(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:FindByPredicate(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:FindElementData(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:FindElementDataByPredicate(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:FindElementDataIndex(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:FindElementDataIndexByPredicate(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:FindFrame(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:FindFrameByPredicate(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:FindFrameElementDataIndex(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:Flush(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:FlushDataProvider(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ForEachElementData(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ForEachFrame(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:FullUpdate(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:FullUpdateInternal(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GenerateCallbackEvents(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetBottomPadding(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetCallbackTable(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetCallbackTables(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetCallbacksByEvent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetDataIndexBegin(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetDataIndexEnd(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetDataProvider(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetDataProviderSize(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetDerivedExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetDerivedScrollOffset(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetDerivedScrollRange(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetElementExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetExtentPadding(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetExtentUntil(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetFrameCount(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetFrameExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetFrames(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetIntervalRange(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetLeftPadding(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetLower(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetLowerPadding(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetLowerShadowTexture(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetPadding(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetPanExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetPanExtentPercentage(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetRightPadding(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetScrollInterpolator(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetScrollPercentage(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetScrollTarget(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetTopPadding(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetUpper(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetUpperPadding(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetUpperShadowTexture(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetView(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetVisibleExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetWheelPanPercentage(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:HasDataProvider(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:HasEdgeFade(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:HasScrollableExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:HasView(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:Init(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:Interpolate(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:IsAcquireLocked(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:IsAlignmentOverlapIgnored(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:IsAtBegin(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:IsAtEnd(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:IsHorizontal(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:IsScrollAllowed(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:IsScrollToDataIndexSafe(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:IsUpdateLocked(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:IsVirtualized(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:Layout(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:OnLoad(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:OnMouseWheel(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:OnScrollTargetSizeChanged(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:OnSizeChanged(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:OnViewAcquiredFrame(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:OnViewDataChanged(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:OnViewDataProviderReassigned(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:OnViewInitializedFrame(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:OnViewReleasedFrame(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:Rebuild(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:RecalculateDerivedExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:RegisterCallback(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ReinitializeFrames(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:RemoveDataProvider(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProvider(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ReverseForEachElementData(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ReverseForEachFrame(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SanitizeAlignment(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollDecrease(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollInDirection(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollIncrease(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollToBegin(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollToElementData(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollToElementDataByPredicate(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollToElementDataIndex(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollToEnd(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollToFrame(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollToNearest(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollToNearestByPredicate(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollToOffset(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SecureInsertEvent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SelectCursorComponent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SelectPointComponent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetAlignmentOverlapIgnored(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetDataProvider(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetEdgeFadeLength(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetFrameExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetHorizontal(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetInterpolateScroll(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetLowerShadowAtlas(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetPadding(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetPanExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetPanExtentPercentage(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetScrollAllowed(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetScrollPercentage(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetScrollTargetOffset(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetShadowsFrameLevel(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetShadowsScale(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetShadowsShown(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetUpdateLocked(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetUpperShadowAtlas(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetUseShadowsForEdgeFade(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetView(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:TriggerEvent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:UnregisterCallback(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:UnregisterEvents(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:Update(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:scrollInternal(...) end
 end
 
 do
----@class PetitionFrame_TopTileStreaksObject : Texture
-local PetitionFrame_TopTileStreaksObject = {}
+---@class GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_DefaultsObject
+local GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_DefaultsObject = {}
 end
 
 do
----@class PingSystemTutorialObject : Frame
----@field Bg PingSystemTutorial_BgObject
----@field CloseButton PingSystemTutorial_CloseButtonObject
----@field DragBar PingSystemTutorial_DragBarObject
----@field FocusJumpHint PingSystemTutorial_FocusJumpHintObject
----@field FrameGlow PingSystemTutorial_FrameGlowObject
----@field Inset PingSystemTutorial_InsetObject
----@field LeftJumpHint PingSystemTutorial_LeftJumpHintObject
----@field NineSlice PingSystemTutorial_NineSliceObject
----@field PortraitContainer PingSystemTutorial_PortraitContainerObject
----@field RightJumpHint PingSystemTutorial_RightJumpHintObject
----@field TitleContainer PingSystemTutorial_TitleContainerObject
----@field TopTileStreaks PingSystemTutorial_TopTileStreaksObject
----@field Tutorial PingSystemTutorial_TutorialObject
----@field Tutorial1 PingSystemTutorial_Tutorial1Object
----@field Tutorial2 PingSystemTutorial_Tutorial2Object
----@field Tutorial3 PingSystemTutorial_Tutorial3Object
----@field Tutorial4 PingSystemTutorial_Tutorial4Object
+---@class GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_DirectionsObject
+local GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_DirectionsObject = {}
+end
+
+do
+---@class GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_DragDelegateObject : Frame
+local GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_DragDelegateObject = {}
+end
+
+do
+---@class GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_EventObject
+local GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_EventObject = {}
+end
+
+do
+---@class GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject : Frame
+---@field Event GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+local GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject = {}
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTable(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTables(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallback(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject:TriggerEvent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterCallback(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEvents(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
+local GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTarget_EventObject = {}
+end
+
+do
+---@class GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ShadowsObject : Frame
+---@field Lower GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_Shadows_LowerObject
+---@field Upper GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_Shadows_UpperObject
+local GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ShadowsObject = {}
+end
+
+do
+---@class GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_Shadows_LowerObject : Texture
+local GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_Shadows_LowerObject = {}
+end
+
+do
+---@class GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_Shadows_UpperObject : Texture
+local GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_Shadows_UpperObject = {}
+end
+
+do
+---@class GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_registeredScrollBarObject
+local GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_registeredScrollBarObject = {}
+end
+
+do
+---@class GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject
+---@field Event table
+---@field FrameLevelPolicy table
+---@field callbackTables table
+---@field canSignalWithoutInitializer boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field frameFactory table
+---@field frames table
+---@field initialized boolean
+---@field initializers table
+---@field padding table
+---@field scrollBox GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_view_scrollBoxObject
+---@field templateInfoCache table
+local GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject = {}
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:AcquireInternal(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:AcquireRange(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:AssignAccessors(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:AttachDataProviderCallbacks(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:CalculateDataIndices(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:CalculateFrameExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:ClearCachedData(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:ClearElementExtentData(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:ClearInvalidation(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:ContainsElementDataByPredicate(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:DataProviderContentsChanged(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:DetachDataProviderCallbacks(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProvider(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:EnumerateFrames(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:FindByPredicate(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:FindElementData(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:FindElementDataByPredicate(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndex(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:FindFrame(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:FindFrameByPredicate(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:FindFrameElementDataIndex(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:Flush(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:FlushDataProvider(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:ForEachElementData(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:ForEachFrame(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GenerateCallbackEvents(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetCallbackTable(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetCallbackTables(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetCallbacksByEvent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetDataIndexBegin(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetDataIndexEnd(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetDataProvider(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetDataProviderSize(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetDataRange(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetDataScrollOffset(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetElementExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetElementExtentCalculator(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetElementIndent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetExtentFromInfo(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetExtentSpacing(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetExtentTo(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetExtentUntil(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetFactoryDataFromElementData(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetFirstTemplateInfo(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetFrameCount(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetFrameExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelCounter(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelPolicy(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetFrames(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetIdenticalElementExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetIdenticalStrideExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetInvalidationReason(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetLayoutFunction(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetLower(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetPadding(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetPanExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetScrollBox(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetScrollTarget(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetSpacing(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetStride(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetTemplateInfo(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:GetUpper(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:HasBiaxalLayout(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:HasDataProvider(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:HasElementExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:HasIdenticalElementExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:HasIdenticalStrideExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:Init(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:InitDefaultDrag(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:InvokeInitializer(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:InvokeInitializers(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:IsAcquireLocked(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:IsDataIndexWithinRange(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:IsElementStretchDisabled(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:IsExtentValid(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:IsHorizontal(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:IsInitialized(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:IsInvalidated(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:IsVirtualized(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:Layout(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:LayoutInternal(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSizeChanged(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSort(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:OnLoad(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementData(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:RebuildTemplateInfoCache(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:RecalculateExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:RefreshSmartNav(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:RegisterCallback(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:ReinitializeFrames(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:Release(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:RemoveDataProvider(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:RemoveDataProviderInternal(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:ResizeFrame(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:ReverseForEachElementData(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:ReverseForEachFrame(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SecureInsertEvent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SelectCursorComponent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SelectPointComponent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SetAcquireLocked(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SetDataProvider(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SetDataRange(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SetElementExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SetElementExtentCalculator(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SetElementFactory(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SetElementIndentCalculator(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SetElementInitializer(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SetElementResetter(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SetElementStretchDisabled(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SetExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SetFrameExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SetFrameFactoryResetter(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SetFrameLevelPolicy(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SetHorizontal(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SetInvalidationReason(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SetMaxPanExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SetPadding(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SetPanExtent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SetScrollBox(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SetVirtualized(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SignalDataChangeEvent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:SortFrames(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:TriggerEvent(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:UnassignAccessors(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:UnregisterCallback(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:UnregisterEvents(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:ValidateDataRange(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:elementExtentCalculator(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:elementFactory(...) end
+---@return any ...
+function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject:factory(...) end
+end
+
+do
+---@class GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_view_scrollBoxObject
+local GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_view_scrollBoxObject = {}
+end
+
+do
+---@class GossipFrame_GreetingPanel_ScrollBoxObject
+local GossipFrame_GreetingPanel_ScrollBoxObject = {}
+end
+
+do
+---@class GossipFrame_InsetObject : Frame
+---@field Bg GossipFrame_Inset_BgObject
+---@field NineSlice GossipFrame_Inset_NineSliceObject
 ---@field layoutType string
-local PingSystemTutorialObject = {}
----@return any ...
-function PingSystemTutorialObject:EndFocus(...) end
----@return any ...
-function PingSystemTutorialObject:GetFocusFrameGlow(...) end
----@return any ...
-function PingSystemTutorialObject:GetFocusFrameRoot(...) end
----@return any ...
-function PingSystemTutorialObject:GetPortrait(...) end
----@return any ...
-function PingSystemTutorialObject:GetTitleText(...) end
----@return any ...
-function PingSystemTutorialObject:HasPortraitTexture(...) end
----@return any ...
-function PingSystemTutorialObject:HideFocusJumpHint(...) end
----@return any ...
-function PingSystemTutorialObject:HideLeftJumpHint(...) end
----@return any ...
-function PingSystemTutorialObject:HideRightJumpHint(...) end
----@return any ...
-function PingSystemTutorialObject:LockInFocus(...) end
----@return any ...
-function PingSystemTutorialObject:OnHide(...) end
----@return any ...
-function PingSystemTutorialObject:OnLoad(...) end
----@return any ...
-function PingSystemTutorialObject:OnShow(...) end
----@return any ...
-function PingSystemTutorialObject:RefreshFocus(...) end
----@return any ...
-function PingSystemTutorialObject:SetBorder(...) end
----@return any ...
-function PingSystemTutorialObject:SetFrameLevelsFromBaseLevel(...) end
----@return any ...
-function PingSystemTutorialObject:SetPortraitAtlasRaw(...) end
----@return any ...
-function PingSystemTutorialObject:SetPortraitShown(...) end
----@return any ...
-function PingSystemTutorialObject:SetPortraitTexCoord(...) end
----@return any ...
-function PingSystemTutorialObject:SetPortraitTextureRaw(...) end
----@return any ...
-function PingSystemTutorialObject:SetPortraitTextureSizeAndOffset(...) end
----@return any ...
-function PingSystemTutorialObject:SetPortraitToAsset(...) end
----@return any ...
-function PingSystemTutorialObject:SetPortraitToBag(...) end
----@return any ...
-function PingSystemTutorialObject:SetPortraitToClassIcon(...) end
----@return any ...
-function PingSystemTutorialObject:SetPortraitToSpecIcon(...) end
----@return any ...
-function PingSystemTutorialObject:SetPortraitToUnit(...) end
----@return any ...
-function PingSystemTutorialObject:SetTitle(...) end
----@return any ...
-function PingSystemTutorialObject:SetTitleColor(...) end
----@return any ...
-function PingSystemTutorialObject:SetTitleFormatted(...) end
----@return any ...
-function PingSystemTutorialObject:SetTitleMaxLinesAndHeight(...) end
----@return any ...
-function PingSystemTutorialObject:SetTitleOffsets(...) end
----@return any ...
-function PingSystemTutorialObject:ShowFocusJumpHint(...) end
----@return any ...
-function PingSystemTutorialObject:ShowLeftJumpHint(...) end
----@return any ...
-function PingSystemTutorialObject:ShowRightJumpHint(...) end
----@return any ...
-function PingSystemTutorialObject:StartFocus(...) end
----@type PingSystemTutorialObject
-PingSystemTutorial = PingSystemTutorialObject
+local GossipFrame_InsetObject = {}
 end
 
 do
----@class PingSystemTutorial_BgObject : Texture
-local PingSystemTutorial_BgObject = {}
+---@class GossipFrame_Inset_BgObject : Texture
+local GossipFrame_Inset_BgObject = {}
 end
 
 do
----@class PingSystemTutorial_CloseButtonObject : Button
-local PingSystemTutorial_CloseButtonObject = {}
+---@class GossipFrame_Inset_NineSliceObject : Frame
+---@field BottomEdge GossipFrame_Inset_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner GossipFrame_Inset_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner GossipFrame_Inset_NineSlice_BottomRightCornerObject
+---@field LeftEdge GossipFrame_Inset_NineSlice_LeftEdgeObject
+---@field RightEdge GossipFrame_Inset_NineSlice_RightEdgeObject
+---@field TopEdge GossipFrame_Inset_NineSlice_TopEdgeObject
+---@field TopLeftCorner GossipFrame_Inset_NineSlice_TopLeftCornerObject
+---@field TopRightCorner GossipFrame_Inset_NineSlice_TopRightCornerObject
+local GossipFrame_Inset_NineSliceObject = {}
 ---@return any ...
-function PingSystemTutorial_CloseButtonObject:NarrationGetName(...) end
+function GossipFrame_Inset_NineSliceObject:GetBorderColor(...) end
 ---@return any ...
-function PingSystemTutorial_CloseButtonObject:OnLoad(...) end
+function GossipFrame_Inset_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function GossipFrame_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function GossipFrame_Inset_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function GossipFrame_Inset_NineSliceObject:OnLoad(...) end
+---@return any ...
+function GossipFrame_Inset_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function GossipFrame_Inset_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function GossipFrame_Inset_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function GossipFrame_Inset_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function GossipFrame_Inset_NineSliceObject:SetVertexColor(...) end
 end
 
 do
----@class PingSystemTutorial_DragBarObject : Frame
----@field isMovingTarget boolean
----@field showCursorOnHover boolean
----@field suspendDrag boolean
----@field target PingSystemTutorial_DragBar_targetObject
-local PingSystemTutorial_DragBarObject = {}
----@return any ...
-function PingSystemTutorial_DragBarObject:Init(...) end
----@return any ...
-function PingSystemTutorial_DragBarObject:OnDragStart(...) end
----@return any ...
-function PingSystemTutorial_DragBarObject:OnDragStop(...) end
----@return any ...
-function PingSystemTutorial_DragBarObject:OnEnter(...) end
----@return any ...
-function PingSystemTutorial_DragBarObject:OnLeave(...) end
----@return any ...
-function PingSystemTutorial_DragBarObject:OnLoad(...) end
----@return any ...
-function PingSystemTutorial_DragBarObject:SetDragSuspended(...) end
----@return any ...
-function PingSystemTutorial_DragBarObject:SetOnDragStartCallback(...) end
----@return any ...
-function PingSystemTutorial_DragBarObject:SetOnDragStopCallback(...) end
----@return any ...
-function PingSystemTutorial_DragBarObject:SetTarget(...) end
----@return any ...
-function PingSystemTutorial_DragBarObject:UpdateCursor(...) end
+---@class GossipFrame_Inset_NineSlice_BottomEdgeObject : Texture
+local GossipFrame_Inset_NineSlice_BottomEdgeObject = {}
 end
 
 do
----@class PingSystemTutorial_DragBar_targetObject
-local PingSystemTutorial_DragBar_targetObject = {}
+---@class GossipFrame_Inset_NineSlice_BottomLeftCornerObject : Texture
+local GossipFrame_Inset_NineSlice_BottomLeftCornerObject = {}
 end
 
 do
----@class PingSystemTutorial_FocusJumpHintObject : Frame
----@field ActiveTexture PingSystemTutorial_FocusJumpHint_ActiveTextureObject
----@field DisabledTexture PingSystemTutorial_FocusJumpHint_DisabledTextureObject
----@field HoldAnim PingSystemTutorial_FocusJumpHint_HoldAnimObject
----@field HoldIndicator PingSystemTutorial_FocusJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG PingSystemTutorial_FocusJumpHint_HoldIndicatorBGObject
----@field HoverTexture PingSystemTutorial_FocusJumpHint_HoverTextureObject
----@field LoadBar PingSystemTutorial_FocusJumpHint_LoadBarObject
----@field LoadBarBG PingSystemTutorial_FocusJumpHint_LoadBarBGObject
----@field LoadBarGlow PingSystemTutorial_FocusJumpHint_LoadBarGlowObject
----@field NormalTexture PingSystemTutorial_FocusJumpHint_NormalTextureObject
----@field PressedTexture PingSystemTutorial_FocusJumpHint_PressedTextureObject
----@field SpinnerTip PingSystemTutorial_FocusJumpHint_SpinnerTipObject
----@field ignoreInLayout boolean
+---@class GossipFrame_Inset_NineSlice_BottomRightCornerObject : Texture
+local GossipFrame_Inset_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class GossipFrame_Inset_NineSlice_LeftEdgeObject : Texture
+local GossipFrame_Inset_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class GossipFrame_Inset_NineSlice_RightEdgeObject : Texture
+local GossipFrame_Inset_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class GossipFrame_Inset_NineSlice_TopEdgeObject : Texture
+local GossipFrame_Inset_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class GossipFrame_Inset_NineSlice_TopLeftCornerObject : Texture
+local GossipFrame_Inset_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class GossipFrame_Inset_NineSlice_TopRightCornerObject : Texture
+local GossipFrame_Inset_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class GossipFrame_LeftJumpHintObject : Frame
+---@field ActiveTexture GossipFrame_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture GossipFrame_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim GossipFrame_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator GossipFrame_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GossipFrame_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GossipFrame_LeftJumpHint_HoverTextureObject
+---@field LoadBar GossipFrame_LeftJumpHint_LoadBarObject
+---@field LoadBarBG GossipFrame_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow GossipFrame_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture GossipFrame_LeftJumpHint_NormalTextureObject
+---@field PressedTexture GossipFrame_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip GossipFrame_LeftJumpHint_SpinnerTipObject
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
 ---@field textureState number
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local PingSystemTutorial_FocusJumpHintObject = {}
+local GossipFrame_LeftJumpHintObject = {}
 ---@return any ...
-function PingSystemTutorial_FocusJumpHintObject:ApplyTextureLayout(...) end
+function GossipFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function PingSystemTutorial_FocusJumpHintObject:BeginHold(...) end
+function GossipFrame_LeftJumpHintObject:BeginHold(...) end
 ---@return any ...
-function PingSystemTutorial_FocusJumpHintObject:CanEnterTextureState(...) end
+function GossipFrame_LeftJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function PingSystemTutorial_FocusJumpHintObject:DisableDropShadow(...) end
+function GossipFrame_LeftJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function PingSystemTutorial_FocusJumpHintObject:EnableDropShadow(...) end
+function GossipFrame_LeftJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function PingSystemTutorial_FocusJumpHintObject:EndHold(...) end
+function GossipFrame_LeftJumpHintObject:EndHold(...) end
 ---@return any ...
-function PingSystemTutorial_FocusJumpHintObject:OnHoldAnimFinished(...) end
+function GossipFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function PingSystemTutorial_FocusJumpHintObject:OnHoldAnimStopped(...) end
+function GossipFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function PingSystemTutorial_FocusJumpHintObject:OnLoad(...) end
+function GossipFrame_LeftJumpHintObject:OnLoad(...) end
 ---@return any ...
-function PingSystemTutorial_FocusJumpHintObject:RefreshIconTextures(...) end
+function GossipFrame_LeftJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function PingSystemTutorial_FocusJumpHintObject:SetDisabled(...) end
+function GossipFrame_LeftJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function PingSystemTutorial_FocusJumpHintObject:SetEnabled(...) end
+function GossipFrame_LeftJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function PingSystemTutorial_FocusJumpHintObject:SetFocused(...) end
+function GossipFrame_LeftJumpHintObject:SetFocused(...) end
 ---@return any ...
-function PingSystemTutorial_FocusJumpHintObject:SetHoldState(...) end
+function GossipFrame_LeftJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function PingSystemTutorial_FocusJumpHintObject:SetInputKey(...) end
+function GossipFrame_LeftJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function PingSystemTutorial_FocusJumpHintObject:SetIsHoldAction(...) end
+function GossipFrame_LeftJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function PingSystemTutorial_FocusJumpHintObject:SetPressable(...) end
+function GossipFrame_LeftJumpHintObject:SetPressable(...) end
 ---@return any ...
-function PingSystemTutorial_FocusJumpHintObject:SetTextureHeight(...) end
+function GossipFrame_LeftJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function PingSystemTutorial_FocusJumpHintObject:SetTextureState(...) end
+function GossipFrame_LeftJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function PingSystemTutorial_FocusJumpHintObject:SetTextureWidth(...) end
+function GossipFrame_LeftJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function PingSystemTutorial_FocusJumpHintObject:SetUsableState(...) end
+function GossipFrame_LeftJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function PingSystemTutorial_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+function GossipFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PingSystemTutorial_FocusJumpHint_ActiveTextureObject : Texture
-local PingSystemTutorial_FocusJumpHint_ActiveTextureObject = {}
+---@class GossipFrame_LeftJumpHint_ActiveTextureObject : Texture
+local GossipFrame_LeftJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class PingSystemTutorial_FocusJumpHint_DisabledTextureObject : Texture
-local PingSystemTutorial_FocusJumpHint_DisabledTextureObject = {}
+---@class GossipFrame_LeftJumpHint_DisabledTextureObject : Texture
+local GossipFrame_LeftJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class PingSystemTutorial_FocusJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim PingSystemTutorial_FocusJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim PingSystemTutorial_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim PingSystemTutorial_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
-local PingSystemTutorial_FocusJumpHint_HoldAnimObject = {}
+---@class GossipFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GossipFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GossipFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GossipFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local GossipFrame_LeftJumpHint_HoldAnimObject = {}
 end
 
 do
----@class PingSystemTutorial_FocusJumpHint_HoldAnim_LoadBarAnimObject
-local PingSystemTutorial_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+---@class GossipFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local GossipFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PingSystemTutorial_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local PingSystemTutorial_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+---@class GossipFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GossipFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PingSystemTutorial_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local PingSystemTutorial_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+---@class GossipFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GossipFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PingSystemTutorial_FocusJumpHint_HoldIndicatorObject : Texture
-local PingSystemTutorial_FocusJumpHint_HoldIndicatorObject = {}
+---@class GossipFrame_LeftJumpHint_HoldIndicatorObject : Texture
+local GossipFrame_LeftJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class PingSystemTutorial_FocusJumpHint_HoldIndicatorBGObject : Texture
-local PingSystemTutorial_FocusJumpHint_HoldIndicatorBGObject = {}
+---@class GossipFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
+local GossipFrame_LeftJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class PingSystemTutorial_FocusJumpHint_HoverTextureObject : Texture
-local PingSystemTutorial_FocusJumpHint_HoverTextureObject = {}
+---@class GossipFrame_LeftJumpHint_HoverTextureObject : Texture
+local GossipFrame_LeftJumpHint_HoverTextureObject = {}
 end
 
 do
----@class PingSystemTutorial_FocusJumpHint_LoadBarObject : Texture
-local PingSystemTutorial_FocusJumpHint_LoadBarObject = {}
+---@class GossipFrame_LeftJumpHint_LoadBarObject : Texture
+local GossipFrame_LeftJumpHint_LoadBarObject = {}
 end
 
 do
----@class PingSystemTutorial_FocusJumpHint_LoadBarBGObject : Texture
-local PingSystemTutorial_FocusJumpHint_LoadBarBGObject = {}
+---@class GossipFrame_LeftJumpHint_LoadBarBGObject : Texture
+local GossipFrame_LeftJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class PingSystemTutorial_FocusJumpHint_LoadBarGlowObject : Texture
-local PingSystemTutorial_FocusJumpHint_LoadBarGlowObject = {}
+---@class GossipFrame_LeftJumpHint_LoadBarGlowObject : Texture
+local GossipFrame_LeftJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class PingSystemTutorial_FocusJumpHint_NormalTextureObject : Texture
-local PingSystemTutorial_FocusJumpHint_NormalTextureObject = {}
+---@class GossipFrame_LeftJumpHint_NormalTextureObject : Texture
+local GossipFrame_LeftJumpHint_NormalTextureObject = {}
 end
 
 do
----@class PingSystemTutorial_FocusJumpHint_PressedTextureObject : Texture
-local PingSystemTutorial_FocusJumpHint_PressedTextureObject = {}
+---@class GossipFrame_LeftJumpHint_PressedTextureObject : Texture
+local GossipFrame_LeftJumpHint_PressedTextureObject = {}
 end
 
 do
----@class PingSystemTutorial_FocusJumpHint_SpinnerTipObject : Texture
-local PingSystemTutorial_FocusJumpHint_SpinnerTipObject = {}
+---@class GossipFrame_LeftJumpHint_SpinnerTipObject : Texture
+local GossipFrame_LeftJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class PingSystemTutorial_FrameGlowObject : Frame
----@field GlowTexture PingSystemTutorial_FrameGlow_GlowTextureObject
----@field glowTextures table
-local PingSystemTutorial_FrameGlowObject = {}
+---@class GossipFrame_NineSliceObject : Frame
+---@field BottomEdge GossipFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner GossipFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner GossipFrame_NineSlice_BottomRightCornerObject
+---@field Center GossipFrame_NineSlice_CenterObject
+---@field LeftEdge GossipFrame_NineSlice_LeftEdgeObject
+---@field RightEdge GossipFrame_NineSlice_RightEdgeObject
+---@field TopEdge GossipFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner GossipFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner GossipFrame_NineSlice_TopRightCornerObject
+local GossipFrame_NineSliceObject = {}
 ---@return any ...
-function PingSystemTutorial_FrameGlowObject:GetContainerFrame(...) end
+function GossipFrame_NineSliceObject:GetBorderColor(...) end
 ---@return any ...
-function PingSystemTutorial_FrameGlowObject:GetFrameLayoutType(...) end
+function GossipFrame_NineSliceObject:GetCenterColor(...) end
 ---@return any ...
-function PingSystemTutorial_FrameGlowObject:GetHeaderFrame(...) end
+function GossipFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
 ---@return any ...
-function PingSystemTutorial_FrameGlowObject:OnLoad(...) end
+function GossipFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function GossipFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function GossipFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function GossipFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function GossipFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function GossipFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function GossipFrame_NineSliceObject:SetVertexColor(...) end
 end
 
 do
----@class PingSystemTutorial_FrameGlow_GlowTextureObject : Texture
-local PingSystemTutorial_FrameGlow_GlowTextureObject = {}
+---@class GossipFrame_NineSlice_BottomEdgeObject : Texture
+local GossipFrame_NineSlice_BottomEdgeObject = {}
 end
 
 do
----@class PingSystemTutorial_InsetObject : Frame
----@field Bg PingSystemTutorial_Inset_BgObject
----@field NineSlice PingSystemTutorial_Inset_NineSliceObject
----@field layoutType string
-local PingSystemTutorial_InsetObject = {}
+---@class GossipFrame_NineSlice_BottomLeftCornerObject : Texture
+local GossipFrame_NineSlice_BottomLeftCornerObject = {}
 end
 
 do
----@class PingSystemTutorial_Inset_BgObject : Texture
-local PingSystemTutorial_Inset_BgObject = {}
+---@class GossipFrame_NineSlice_BottomRightCornerObject : Texture
+local GossipFrame_NineSlice_BottomRightCornerObject = {}
 end
 
 do
----@class PingSystemTutorial_Inset_NineSliceObject : Frame
----@field BottomEdge PingSystemTutorial_Inset_NineSlice_BottomEdgeObject
----@field BottomLeftCorner PingSystemTutorial_Inset_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner PingSystemTutorial_Inset_NineSlice_BottomRightCornerObject
----@field LeftEdge PingSystemTutorial_Inset_NineSlice_LeftEdgeObject
----@field RightEdge PingSystemTutorial_Inset_NineSlice_RightEdgeObject
----@field TopEdge PingSystemTutorial_Inset_NineSlice_TopEdgeObject
----@field TopLeftCorner PingSystemTutorial_Inset_NineSlice_TopLeftCornerObject
----@field TopRightCorner PingSystemTutorial_Inset_NineSlice_TopRightCornerObject
-local PingSystemTutorial_Inset_NineSliceObject = {}
----@return any ...
-function PingSystemTutorial_Inset_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function PingSystemTutorial_Inset_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function PingSystemTutorial_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function PingSystemTutorial_Inset_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function PingSystemTutorial_Inset_NineSliceObject:OnLoad(...) end
----@return any ...
-function PingSystemTutorial_Inset_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function PingSystemTutorial_Inset_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function PingSystemTutorial_Inset_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function PingSystemTutorial_Inset_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function PingSystemTutorial_Inset_NineSliceObject:SetVertexColor(...) end
+---@class GossipFrame_NineSlice_CenterObject : Texture
+local GossipFrame_NineSlice_CenterObject = {}
 end
 
 do
----@class PingSystemTutorial_Inset_NineSlice_BottomEdgeObject : Texture
-local PingSystemTutorial_Inset_NineSlice_BottomEdgeObject = {}
+---@class GossipFrame_NineSlice_LeftEdgeObject : Texture
+local GossipFrame_NineSlice_LeftEdgeObject = {}
 end
 
 do
----@class PingSystemTutorial_Inset_NineSlice_BottomLeftCornerObject : Texture
-local PingSystemTutorial_Inset_NineSlice_BottomLeftCornerObject = {}
+---@class GossipFrame_NineSlice_RightEdgeObject : Texture
+local GossipFrame_NineSlice_RightEdgeObject = {}
 end
 
 do
----@class PingSystemTutorial_Inset_NineSlice_BottomRightCornerObject : Texture
-local PingSystemTutorial_Inset_NineSlice_BottomRightCornerObject = {}
+---@class GossipFrame_NineSlice_TopEdgeObject : Texture
+local GossipFrame_NineSlice_TopEdgeObject = {}
 end
 
 do
----@class PingSystemTutorial_Inset_NineSlice_LeftEdgeObject : Texture
-local PingSystemTutorial_Inset_NineSlice_LeftEdgeObject = {}
+---@class GossipFrame_NineSlice_TopLeftCornerObject : Texture
+local GossipFrame_NineSlice_TopLeftCornerObject = {}
 end
 
 do
----@class PingSystemTutorial_Inset_NineSlice_RightEdgeObject : Texture
-local PingSystemTutorial_Inset_NineSlice_RightEdgeObject = {}
+---@class GossipFrame_NineSlice_TopRightCornerObject : Texture
+local GossipFrame_NineSlice_TopRightCornerObject = {}
 end
 
 do
----@class PingSystemTutorial_Inset_NineSlice_TopEdgeObject : Texture
-local PingSystemTutorial_Inset_NineSlice_TopEdgeObject = {}
+---@class GossipFrame_PortraitContainerObject : Frame
+---@field CircleMask GossipFrame_PortraitContainer_CircleMaskObject
+---@field portrait GossipFrame_PortraitContainer_portraitObject
+local GossipFrame_PortraitContainerObject = {}
 end
 
 do
----@class PingSystemTutorial_Inset_NineSlice_TopLeftCornerObject : Texture
-local PingSystemTutorial_Inset_NineSlice_TopLeftCornerObject = {}
+---@class GossipFrame_PortraitContainer_CircleMaskObject : MaskTexture
+local GossipFrame_PortraitContainer_CircleMaskObject = {}
 end
 
 do
----@class PingSystemTutorial_Inset_NineSlice_TopRightCornerObject : Texture
-local PingSystemTutorial_Inset_NineSlice_TopRightCornerObject = {}
+---@class GossipFrame_PortraitContainer_portraitObject : Texture
+local GossipFrame_PortraitContainer_portraitObject = {}
 end
 
 do
----@class PingSystemTutorial_LeftJumpHintObject : Frame
----@field ActiveTexture PingSystemTutorial_LeftJumpHint_ActiveTextureObject
----@field DisabledTexture PingSystemTutorial_LeftJumpHint_DisabledTextureObject
----@field HoldAnim PingSystemTutorial_LeftJumpHint_HoldAnimObject
----@field HoldIndicator PingSystemTutorial_LeftJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG PingSystemTutorial_LeftJumpHint_HoldIndicatorBGObject
----@field HoverTexture PingSystemTutorial_LeftJumpHint_HoverTextureObject
----@field LoadBar PingSystemTutorial_LeftJumpHint_LoadBarObject
----@field LoadBarBG PingSystemTutorial_LeftJumpHint_LoadBarBGObject
----@field LoadBarGlow PingSystemTutorial_LeftJumpHint_LoadBarGlowObject
----@field NormalTexture PingSystemTutorial_LeftJumpHint_NormalTextureObject
----@field PressedTexture PingSystemTutorial_LeftJumpHint_PressedTextureObject
----@field SpinnerTip PingSystemTutorial_LeftJumpHint_SpinnerTipObject
+---@class GossipFrame_RightJumpHintObject : Frame
+---@field ActiveTexture GossipFrame_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture GossipFrame_RightJumpHint_DisabledTextureObject
+---@field HoldAnim GossipFrame_RightJumpHint_HoldAnimObject
+---@field HoldIndicator GossipFrame_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GossipFrame_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GossipFrame_RightJumpHint_HoverTextureObject
+---@field LoadBar GossipFrame_RightJumpHint_LoadBarObject
+---@field LoadBarBG GossipFrame_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow GossipFrame_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture GossipFrame_RightJumpHint_NormalTextureObject
+---@field PressedTexture GossipFrame_RightJumpHint_PressedTextureObject
+---@field SpinnerTip GossipFrame_RightJumpHint_SpinnerTipObject
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
 ---@field textureState number
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local PingSystemTutorial_LeftJumpHintObject = {}
+local GossipFrame_RightJumpHintObject = {}
 ---@return any ...
-function PingSystemTutorial_LeftJumpHintObject:ApplyTextureLayout(...) end
+function GossipFrame_RightJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function PingSystemTutorial_LeftJumpHintObject:BeginHold(...) end
+function GossipFrame_RightJumpHintObject:BeginHold(...) end
 ---@return any ...
-function PingSystemTutorial_LeftJumpHintObject:CanEnterTextureState(...) end
+function GossipFrame_RightJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function PingSystemTutorial_LeftJumpHintObject:DisableDropShadow(...) end
+function GossipFrame_RightJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function PingSystemTutorial_LeftJumpHintObject:EnableDropShadow(...) end
+function GossipFrame_RightJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function PingSystemTutorial_LeftJumpHintObject:EndHold(...) end
+function GossipFrame_RightJumpHintObject:EndHold(...) end
 ---@return any ...
-function PingSystemTutorial_LeftJumpHintObject:OnHoldAnimFinished(...) end
+function GossipFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function PingSystemTutorial_LeftJumpHintObject:OnHoldAnimStopped(...) end
+function GossipFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function PingSystemTutorial_LeftJumpHintObject:OnLoad(...) end
+function GossipFrame_RightJumpHintObject:OnLoad(...) end
 ---@return any ...
-function PingSystemTutorial_LeftJumpHintObject:RefreshIconTextures(...) end
+function GossipFrame_RightJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function PingSystemTutorial_LeftJumpHintObject:SetDisabled(...) end
+function GossipFrame_RightJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function PingSystemTutorial_LeftJumpHintObject:SetEnabled(...) end
+function GossipFrame_RightJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function PingSystemTutorial_LeftJumpHintObject:SetFocused(...) end
+function GossipFrame_RightJumpHintObject:SetFocused(...) end
 ---@return any ...
-function PingSystemTutorial_LeftJumpHintObject:SetHoldState(...) end
+function GossipFrame_RightJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function PingSystemTutorial_LeftJumpHintObject:SetInputKey(...) end
+function GossipFrame_RightJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function PingSystemTutorial_LeftJumpHintObject:SetIsHoldAction(...) end
+function GossipFrame_RightJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function PingSystemTutorial_LeftJumpHintObject:SetPressable(...) end
+function GossipFrame_RightJumpHintObject:SetPressable(...) end
 ---@return any ...
-function PingSystemTutorial_LeftJumpHintObject:SetTextureHeight(...) end
+function GossipFrame_RightJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function PingSystemTutorial_LeftJumpHintObject:SetTextureState(...) end
+function GossipFrame_RightJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function PingSystemTutorial_LeftJumpHintObject:SetTextureWidth(...) end
+function GossipFrame_RightJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function PingSystemTutorial_LeftJumpHintObject:SetUsableState(...) end
+function GossipFrame_RightJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function PingSystemTutorial_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+function GossipFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PingSystemTutorial_LeftJumpHint_ActiveTextureObject : Texture
-local PingSystemTutorial_LeftJumpHint_ActiveTextureObject = {}
+---@class GossipFrame_RightJumpHint_ActiveTextureObject : Texture
+local GossipFrame_RightJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class PingSystemTutorial_LeftJumpHint_DisabledTextureObject : Texture
-local PingSystemTutorial_LeftJumpHint_DisabledTextureObject = {}
+---@class GossipFrame_RightJumpHint_DisabledTextureObject : Texture
+local GossipFrame_RightJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class PingSystemTutorial_LeftJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim PingSystemTutorial_LeftJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim PingSystemTutorial_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim PingSystemTutorial_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
-local PingSystemTutorial_LeftJumpHint_HoldAnimObject = {}
+---@class GossipFrame_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GossipFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GossipFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GossipFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local GossipFrame_RightJumpHint_HoldAnimObject = {}
 end
 
 do
----@class PingSystemTutorial_LeftJumpHint_HoldAnim_LoadBarAnimObject
-local PingSystemTutorial_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+---@class GossipFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+local GossipFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PingSystemTutorial_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local PingSystemTutorial_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+---@class GossipFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GossipFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PingSystemTutorial_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local PingSystemTutorial_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+---@class GossipFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GossipFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PingSystemTutorial_LeftJumpHint_HoldIndicatorObject : Texture
-local PingSystemTutorial_LeftJumpHint_HoldIndicatorObject = {}
+---@class GossipFrame_RightJumpHint_HoldIndicatorObject : Texture
+local GossipFrame_RightJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class PingSystemTutorial_LeftJumpHint_HoldIndicatorBGObject : Texture
-local PingSystemTutorial_LeftJumpHint_HoldIndicatorBGObject = {}
+---@class GossipFrame_RightJumpHint_HoldIndicatorBGObject : Texture
+local GossipFrame_RightJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class PingSystemTutorial_LeftJumpHint_HoverTextureObject : Texture
-local PingSystemTutorial_LeftJumpHint_HoverTextureObject = {}
+---@class GossipFrame_RightJumpHint_HoverTextureObject : Texture
+local GossipFrame_RightJumpHint_HoverTextureObject = {}
 end
 
 do
----@class PingSystemTutorial_LeftJumpHint_LoadBarObject : Texture
-local PingSystemTutorial_LeftJumpHint_LoadBarObject = {}
+---@class GossipFrame_RightJumpHint_LoadBarObject : Texture
+local GossipFrame_RightJumpHint_LoadBarObject = {}
 end
 
 do
----@class PingSystemTutorial_LeftJumpHint_LoadBarBGObject : Texture
-local PingSystemTutorial_LeftJumpHint_LoadBarBGObject = {}
+---@class GossipFrame_RightJumpHint_LoadBarBGObject : Texture
+local GossipFrame_RightJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class PingSystemTutorial_LeftJumpHint_LoadBarGlowObject : Texture
-local PingSystemTutorial_LeftJumpHint_LoadBarGlowObject = {}
+---@class GossipFrame_RightJumpHint_LoadBarGlowObject : Texture
+local GossipFrame_RightJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class PingSystemTutorial_LeftJumpHint_NormalTextureObject : Texture
-local PingSystemTutorial_LeftJumpHint_NormalTextureObject = {}
+---@class GossipFrame_RightJumpHint_NormalTextureObject : Texture
+local GossipFrame_RightJumpHint_NormalTextureObject = {}
 end
 
 do
----@class PingSystemTutorial_LeftJumpHint_PressedTextureObject : Texture
-local PingSystemTutorial_LeftJumpHint_PressedTextureObject = {}
+---@class GossipFrame_RightJumpHint_PressedTextureObject : Texture
+local GossipFrame_RightJumpHint_PressedTextureObject = {}
 end
 
 do
----@class PingSystemTutorial_LeftJumpHint_SpinnerTipObject : Texture
-local PingSystemTutorial_LeftJumpHint_SpinnerTipObject = {}
+---@class GossipFrame_RightJumpHint_SpinnerTipObject : Texture
+local GossipFrame_RightJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class PingSystemTutorial_NineSliceObject : Frame
----@field BottomEdge PingSystemTutorial_NineSlice_BottomEdgeObject
----@field BottomLeftCorner PingSystemTutorial_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner PingSystemTutorial_NineSlice_BottomRightCornerObject
----@field Center PingSystemTutorial_NineSlice_CenterObject
----@field LeftEdge PingSystemTutorial_NineSlice_LeftEdgeObject
----@field RightEdge PingSystemTutorial_NineSlice_RightEdgeObject
----@field TopEdge PingSystemTutorial_NineSlice_TopEdgeObject
----@field TopLeftCorner PingSystemTutorial_NineSlice_TopLeftCornerObject
----@field TopRightCorner PingSystemTutorial_NineSlice_TopRightCornerObject
-local PingSystemTutorial_NineSliceObject = {}
----@return any ...
-function PingSystemTutorial_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function PingSystemTutorial_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function PingSystemTutorial_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function PingSystemTutorial_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function PingSystemTutorial_NineSliceObject:OnLoad(...) end
----@return any ...
-function PingSystemTutorial_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function PingSystemTutorial_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function PingSystemTutorial_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function PingSystemTutorial_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function PingSystemTutorial_NineSliceObject:SetVertexColor(...) end
+---@class GossipFrame_TitleContainerObject : Frame
+---@field TitleText GossipFrame_TitleContainer_TitleTextObject
+local GossipFrame_TitleContainerObject = {}
 end
 
 do
----@class PingSystemTutorial_NineSlice_BottomEdgeObject : Texture
-local PingSystemTutorial_NineSlice_BottomEdgeObject = {}
+---@class GossipFrame_TitleContainer_TitleTextObject : FontString
+local GossipFrame_TitleContainer_TitleTextObject = {}
 end
 
 do
----@class PingSystemTutorial_NineSlice_BottomLeftCornerObject : Texture
-local PingSystemTutorial_NineSlice_BottomLeftCornerObject = {}
+---@class GossipFrame_TopTileStreaksObject : Texture
+local GossipFrame_TopTileStreaksObject = {}
 end
 
 do
----@class PingSystemTutorial_NineSlice_BottomRightCornerObject : Texture
-local PingSystemTutorial_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class PingSystemTutorial_NineSlice_CenterObject : Texture
-local PingSystemTutorial_NineSlice_CenterObject = {}
-end
-
-do
----@class PingSystemTutorial_NineSlice_LeftEdgeObject : Texture
-local PingSystemTutorial_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class PingSystemTutorial_NineSlice_RightEdgeObject : Texture
-local PingSystemTutorial_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class PingSystemTutorial_NineSlice_TopEdgeObject : Texture
-local PingSystemTutorial_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class PingSystemTutorial_NineSlice_TopLeftCornerObject : Texture
-local PingSystemTutorial_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class PingSystemTutorial_NineSlice_TopRightCornerObject : Texture
-local PingSystemTutorial_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class PingSystemTutorial_PortraitContainerObject : Frame
----@field CircleMask PingSystemTutorial_PortraitContainer_CircleMaskObject
----@field portrait PingSystemTutorial_PortraitContainer_portraitObject
-local PingSystemTutorial_PortraitContainerObject = {}
-end
-
-do
----@class PingSystemTutorial_PortraitContainer_CircleMaskObject : MaskTexture
-local PingSystemTutorial_PortraitContainer_CircleMaskObject = {}
-end
-
-do
----@class PingSystemTutorial_PortraitContainer_portraitObject : Texture
-local PingSystemTutorial_PortraitContainer_portraitObject = {}
-end
-
-do
----@class PingSystemTutorial_RightJumpHintObject : Frame
----@field ActiveTexture PingSystemTutorial_RightJumpHint_ActiveTextureObject
----@field DisabledTexture PingSystemTutorial_RightJumpHint_DisabledTextureObject
----@field HoldAnim PingSystemTutorial_RightJumpHint_HoldAnimObject
----@field HoldIndicator PingSystemTutorial_RightJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG PingSystemTutorial_RightJumpHint_HoldIndicatorBGObject
----@field HoverTexture PingSystemTutorial_RightJumpHint_HoverTextureObject
----@field LoadBar PingSystemTutorial_RightJumpHint_LoadBarObject
----@field LoadBarBG PingSystemTutorial_RightJumpHint_LoadBarBGObject
----@field LoadBarGlow PingSystemTutorial_RightJumpHint_LoadBarGlowObject
----@field NormalTexture PingSystemTutorial_RightJumpHint_NormalTextureObject
----@field PressedTexture PingSystemTutorial_RightJumpHint_PressedTextureObject
----@field SpinnerTip PingSystemTutorial_RightJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local PingSystemTutorial_RightJumpHintObject = {}
----@return any ...
-function PingSystemTutorial_RightJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function PingSystemTutorial_RightJumpHintObject:BeginHold(...) end
----@return any ...
-function PingSystemTutorial_RightJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function PingSystemTutorial_RightJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function PingSystemTutorial_RightJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function PingSystemTutorial_RightJumpHintObject:EndHold(...) end
----@return any ...
-function PingSystemTutorial_RightJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function PingSystemTutorial_RightJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function PingSystemTutorial_RightJumpHintObject:OnLoad(...) end
----@return any ...
-function PingSystemTutorial_RightJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function PingSystemTutorial_RightJumpHintObject:SetDisabled(...) end
----@return any ...
-function PingSystemTutorial_RightJumpHintObject:SetEnabled(...) end
----@return any ...
-function PingSystemTutorial_RightJumpHintObject:SetFocused(...) end
----@return any ...
-function PingSystemTutorial_RightJumpHintObject:SetHoldState(...) end
----@return any ...
-function PingSystemTutorial_RightJumpHintObject:SetInputKey(...) end
----@return any ...
-function PingSystemTutorial_RightJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function PingSystemTutorial_RightJumpHintObject:SetPressable(...) end
----@return any ...
-function PingSystemTutorial_RightJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function PingSystemTutorial_RightJumpHintObject:SetTextureState(...) end
----@return any ...
-function PingSystemTutorial_RightJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function PingSystemTutorial_RightJumpHintObject:SetUsableState(...) end
----@return any ...
-function PingSystemTutorial_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class PingSystemTutorial_RightJumpHint_ActiveTextureObject : Texture
-local PingSystemTutorial_RightJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class PingSystemTutorial_RightJumpHint_DisabledTextureObject : Texture
-local PingSystemTutorial_RightJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class PingSystemTutorial_RightJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim PingSystemTutorial_RightJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim PingSystemTutorial_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim PingSystemTutorial_RightJumpHint_HoldAnim_SpinnerTipAnimObject
-local PingSystemTutorial_RightJumpHint_HoldAnimObject = {}
-end
-
-do
----@class PingSystemTutorial_RightJumpHint_HoldAnim_LoadBarAnimObject
-local PingSystemTutorial_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class PingSystemTutorial_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local PingSystemTutorial_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class PingSystemTutorial_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local PingSystemTutorial_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class PingSystemTutorial_RightJumpHint_HoldIndicatorObject : Texture
-local PingSystemTutorial_RightJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class PingSystemTutorial_RightJumpHint_HoldIndicatorBGObject : Texture
-local PingSystemTutorial_RightJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class PingSystemTutorial_RightJumpHint_HoverTextureObject : Texture
-local PingSystemTutorial_RightJumpHint_HoverTextureObject = {}
-end
-
-do
----@class PingSystemTutorial_RightJumpHint_LoadBarObject : Texture
-local PingSystemTutorial_RightJumpHint_LoadBarObject = {}
-end
-
-do
----@class PingSystemTutorial_RightJumpHint_LoadBarBGObject : Texture
-local PingSystemTutorial_RightJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class PingSystemTutorial_RightJumpHint_LoadBarGlowObject : Texture
-local PingSystemTutorial_RightJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class PingSystemTutorial_RightJumpHint_NormalTextureObject : Texture
-local PingSystemTutorial_RightJumpHint_NormalTextureObject = {}
-end
-
-do
----@class PingSystemTutorial_RightJumpHint_PressedTextureObject : Texture
-local PingSystemTutorial_RightJumpHint_PressedTextureObject = {}
-end
-
-do
----@class PingSystemTutorial_RightJumpHint_SpinnerTipObject : Texture
-local PingSystemTutorial_RightJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class PingSystemTutorial_TitleContainerObject : Frame
----@field TitleText PingSystemTutorial_TitleContainer_TitleTextObject
-local PingSystemTutorial_TitleContainerObject = {}
-end
-
-do
----@class PingSystemTutorial_TitleContainer_TitleTextObject : FontString
-local PingSystemTutorial_TitleContainer_TitleTextObject = {}
-end
-
-do
----@class PingSystemTutorial_TopTileStreaksObject : Texture
-local PingSystemTutorial_TopTileStreaksObject = {}
-end
-
-do
----@class PingSystemTutorial_TutorialObject : Texture
-local PingSystemTutorial_TutorialObject = {}
-end
-
-do
----@class PingSystemTutorial_Tutorial1Object : Frame
----@field ImageBounds PingSystemTutorial_Tutorial1_ImageBoundsObject
----@field TutorialHeader PingSystemTutorial_Tutorial1_TutorialHeaderObject
-local PingSystemTutorial_Tutorial1Object = {}
-end
-
-do
----@class PingSystemTutorial_Tutorial1_ImageBoundsObject : Frame
-local PingSystemTutorial_Tutorial1_ImageBoundsObject = {}
-end
-
-do
----@class PingSystemTutorial_Tutorial1_TutorialHeaderObject : FontString
-local PingSystemTutorial_Tutorial1_TutorialHeaderObject = {}
-end
-
-do
----@class PingSystemTutorial_Tutorial2Object : Frame
----@field ImageBounds PingSystemTutorial_Tutorial2_ImageBoundsObject
----@field TutorialHeader PingSystemTutorial_Tutorial2_TutorialHeaderObject
-local PingSystemTutorial_Tutorial2Object = {}
-end
-
-do
----@class PingSystemTutorial_Tutorial2_ImageBoundsObject : Frame
-local PingSystemTutorial_Tutorial2_ImageBoundsObject = {}
-end
-
-do
----@class PingSystemTutorial_Tutorial2_TutorialHeaderObject : FontString
-local PingSystemTutorial_Tutorial2_TutorialHeaderObject = {}
-end
-
-do
----@class PingSystemTutorial_Tutorial3Object : Frame
----@field ImageBounds PingSystemTutorial_Tutorial3_ImageBoundsObject
----@field TutorialHeader PingSystemTutorial_Tutorial3_TutorialHeaderObject
-local PingSystemTutorial_Tutorial3Object = {}
-end
-
-do
----@class PingSystemTutorial_Tutorial3_ImageBoundsObject : Frame
-local PingSystemTutorial_Tutorial3_ImageBoundsObject = {}
-end
-
-do
----@class PingSystemTutorial_Tutorial3_TutorialHeaderObject : FontString
-local PingSystemTutorial_Tutorial3_TutorialHeaderObject = {}
-end
-
-do
----@class PingSystemTutorial_Tutorial4Object : Frame
----@field ImageBounds PingSystemTutorial_Tutorial4_ImageBoundsObject
----@field TutorialHeader PingSystemTutorial_Tutorial4_TutorialHeaderObject
-local PingSystemTutorial_Tutorial4Object = {}
-end
-
-do
----@class PingSystemTutorial_Tutorial4_ImageBoundsObject : Frame
----@field TutorialBody1 PingSystemTutorial_Tutorial4_ImageBounds_TutorialBody1Object
----@field TutorialBody2 PingSystemTutorial_Tutorial4_ImageBounds_TutorialBody2Object
----@field TutorialBody3 PingSystemTutorial_Tutorial4_ImageBounds_TutorialBody3Object
-local PingSystemTutorial_Tutorial4_ImageBoundsObject = {}
-end
-
-do
----@class PingSystemTutorial_Tutorial4_ImageBounds_TutorialBody1Object : FontString
-local PingSystemTutorial_Tutorial4_ImageBounds_TutorialBody1Object = {}
-end
-
-do
----@class PingSystemTutorial_Tutorial4_ImageBounds_TutorialBody2Object : FontString
-local PingSystemTutorial_Tutorial4_ImageBounds_TutorialBody2Object = {}
-end
-
-do
----@class PingSystemTutorial_Tutorial4_ImageBounds_TutorialBody3Object : FontString
-local PingSystemTutorial_Tutorial4_ImageBounds_TutorialBody3Object = {}
-end
-
-do
----@class PingSystemTutorial_Tutorial4_TutorialHeaderObject : FontString
-local PingSystemTutorial_Tutorial4_TutorialHeaderObject = {}
-end
-
-do
----@class PlayerBuffTimerManagerObject : Frame
----@field unit string
-local PlayerBuffTimerManagerObject = {}
----@type PlayerBuffTimerManagerObject
-PlayerBuffTimerManager = PlayerBuffTimerManagerObject
-end
-
-do
----@class PlayerCastingBarFrameObject : StatusBar
----@field Background PlayerCastingBarFrame_BackgroundObject
----@field BaseGlow PlayerCastingBarFrame_BaseGlowObject
----@field Border PlayerCastingBarFrame_BorderObject
----@field BorderMask PlayerCastingBarFrame_BorderMaskObject
----@field BorderShield PlayerCastingBarFrame_BorderShieldObject
----@field CastTimeText PlayerCastingBarFrame_CastTimeTextObject
----@field ChannelFinish PlayerCastingBarFrame_ChannelFinishObject
----@field ChannelShadow PlayerCastingBarFrame_ChannelShadowObject
----@field ChargeFlash PlayerCastingBarFrame_ChargeFlashObject
----@field ChargeGlow PlayerCastingBarFrame_ChargeGlowObject
----@field CraftGlow PlayerCastingBarFrame_CraftGlowObject
----@field CraftingFinish PlayerCastingBarFrame_CraftingFinishObject
----@field CraftingMask PlayerCastingBarFrame_CraftingMaskObject
----@field DropShadow PlayerCastingBarFrame_DropShadowObject
----@field EnergyGlow PlayerCastingBarFrame_EnergyGlowObject
----@field EnergyMask PlayerCastingBarFrame_EnergyMaskObject
----@field FadeOutAnim PlayerCastingBarFrame_FadeOutAnimObject
----@field Flakes01 PlayerCastingBarFrame_Flakes01Object
----@field Flakes02 PlayerCastingBarFrame_Flakes02Object
----@field Flakes03 PlayerCastingBarFrame_Flakes03Object
----@field Flash PlayerCastingBarFrame_FlashObject
----@field FlashAnim PlayerCastingBarFrame_FlashAnimObject
----@field FlashLoopingAnim PlayerCastingBarFrame_FlashLoopingAnimObject
----@field HoldFadeOutAnim PlayerCastingBarFrame_HoldFadeOutAnimObject
----@field Icon PlayerCastingBarFrame_IconObject
----@field InterruptGlow PlayerCastingBarFrame_InterruptGlowObject
----@field InterruptGlowAnim PlayerCastingBarFrame_InterruptGlowAnimObject
----@field InterruptShakeAnim PlayerCastingBarFrame_InterruptShakeAnimObject
----@field InterruptSparkAnim PlayerCastingBarFrame_InterruptSparkAnimObject
----@field Selection PlayerCastingBarFrame_SelectionObject
----@field Shine PlayerCastingBarFrame_ShineObject
----@field Spark PlayerCastingBarFrame_SparkObject
----@field Sparkles01 PlayerCastingBarFrame_Sparkles01Object
----@field Sparkles02 PlayerCastingBarFrame_Sparkles02Object
----@field StageFinish PlayerCastingBarFrame_StageFinishObject
----@field StageFlash PlayerCastingBarFrame_StageFlashObject
----@field StagePips table
----@field StagePoints table
----@field StageTiers table
----@field StandardFinish PlayerCastingBarFrame_StandardFinishObject
----@field StandardGlow PlayerCastingBarFrame_StandardGlowObject
----@field Text PlayerCastingBarFrame_TextObject
----@field TextBorder PlayerCastingBarFrame_TextBorderObject
----@field WispGlow PlayerCastingBarFrame_WispGlowObject
----@field WispMask PlayerCastingBarFrame_WispMaskObject
+---@class GroupLootContainerObject : Button
+---@field alertContainer GroupLootContainer_alertContainerObject
 ---@field align string
----@field attachedToPlayerFrame boolean
----@field bottomPadding number
----@field defaultHideSelection boolean
----@field dirtySettings table
----@field downKeys table
----@field editModeSelectionBottomOffset number
----@field editModeSelectionTopOffset number
----@field hasActiveChanges boolean
 ---@field hideWhenActionBarIsOverriden boolean
 ---@field ignoreInLayoutWhenActionBarIsOverriden boolean
 ---@field isBottomManagedFrame boolean
 ---@field isManagedFrame boolean
 ---@field layoutIndex number
----@field layoutParent PlayerCastingBarFrame_layoutParentObject
----@field lockedToPlayerFrame boolean
----@field look string
----@field playCastFX boolean
----@field savedSystemInfo PlayerCastingBarFrame_savedSystemInfoObject
----@field settingDisplayInfoMap table
----@field settingMap table
----@field settingsDialogAnchor PlayerCastingBarFrame_settingsDialogAnchorObject
----@field showCastTimeSetting boolean
----@field showCastbar boolean
----@field showIcon boolean
----@field showShield boolean
----@field showTradeSkills boolean
----@field snappedFrames table
----@field system number
----@field systemInfo PlayerCastingBarFrame_systemInfoObject
----@field systemNameString string
----@field unit string
-local PlayerCastingBarFrameObject = {}
+---@field layoutParent GroupLootContainer_layoutParentObject
+---@field maxIndex number
+---@field reservedSize number
+---@field rollFrames table
+---@field waitingRolls table
+local GroupLootContainerObject = {}
 ---@return any ...
-function PlayerCastingBarFrameObject:AddExtraButtons(...) end
+function GroupLootContainerObject:GetAlertContainer(...) end
 ---@return any ...
-function PlayerCastingBarFrameObject:AddSnappedFrame(...) end
+function GroupLootContainerObject:ManagesOwnOutroAnimation(...) end
 ---@return any ...
-function PlayerCastingBarFrameObject:AddStages(...) end
+function GroupLootContainerObject:OnHide(...) end
 ---@return any ...
-function PlayerCastingBarFrameObject:AddWidgetForFade(...) end
+function GroupLootContainerObject:OnManagedAlertFrameVisibilityChanged(...) end
 ---@return any ...
-function PlayerCastingBarFrameObject:AnchorSelectionFrame(...) end
+function GroupLootContainerObject:OnPostHide(...) end
 ---@return any ...
-function PlayerCastingBarFrameObject:AnySettingsDirty(...) end
+function GroupLootContainerObject:OnPostShow(...) end
 ---@return any ...
-function PlayerCastingBarFrameObject:ApplyAlpha(...) end
+function GroupLootContainerObject:OnShow(...) end
 ---@return any ...
-function PlayerCastingBarFrameObject:ApplyInterruptFilledState(...) end
+function GroupLootContainerObject:SetAlertContainer(...) end
 ---@return any ...
-function PlayerCastingBarFrameObject:ApplySystemAnchor(...) end
----@return any ...
-function PlayerCastingBarFrameObject:AreAllSystemSettingsDefault(...) end
----@return any ...
-function PlayerCastingBarFrameObject:BreakFrameSnap(...) end
----@return any ...
-function PlayerCastingBarFrameObject:BreakFromFrameManager(...) end
----@return any ...
-function PlayerCastingBarFrameObject:BreakSnappedFrames(...) end
----@return any ...
-function PlayerCastingBarFrameObject:CanBeMoved(...) end
----@return any ...
-function PlayerCastingBarFrameObject:ClearAllPointsBase(...) end
----@return any ...
-function PlayerCastingBarFrameObject:ClearAllPointsOverride(...) end
----@return any ...
-function PlayerCastingBarFrameObject:ClearDirtySetting(...) end
----@return any ...
-function PlayerCastingBarFrameObject:ClearDownKeys(...) end
----@return any ...
-function PlayerCastingBarFrameObject:ClearFrameSnap(...) end
----@return any ...
-function PlayerCastingBarFrameObject:ClearHighlight(...) end
----@return any ...
-function PlayerCastingBarFrameObject:ClearStages(...) end
----@return any ...
-function PlayerCastingBarFrameObject:ConvertSettingDisplayValueToRawValue(...) end
----@return any ...
-function PlayerCastingBarFrameObject:DoesSettingDisplayValueEqual(...) end
----@return any ...
-function PlayerCastingBarFrameObject:DoesSettingValueEqual(...) end
----@return any ...
-function PlayerCastingBarFrameObject:FinishSpell(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetBottomOffset(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetCombinedCenterOffset(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetCombinedSelectionOffset(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetCompositeNumberSettingValue(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetEffectiveType(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetFrameMagneticEligibility(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetHighlightImportantCasts(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetHighlightWhenCastTarget(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetInterruptText(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetIsHighlightedCastTarget(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetIsHighlightedImportantCast(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetLeftOffset(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetManagedFrameContainer(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetRightOffset(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetScaledCenter(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetScaledSelectionCenter(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetScaledSelectionSides(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetSelectionOffset(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetSettingValue(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetSettingValueBool(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetSettingsDialogAnchor(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetSnapOffsets(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetSystemName(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetTopOffset(...) end
----@return any ...
-function PlayerCastingBarFrameObject:GetTypeInfo(...) end
----@return any ...
-function PlayerCastingBarFrameObject:HandleCastDelayed(...) end
----@return any ...
-function PlayerCastingBarFrameObject:HandleCastStart(...) end
----@return any ...
-function PlayerCastingBarFrameObject:HandleCastStop(...) end
----@return any ...
-function PlayerCastingBarFrameObject:HandleChannelUpdateDelayed(...) end
----@return any ...
-function PlayerCastingBarFrameObject:HandleInterruptOrSpellFailed(...) end
----@return any ...
-function PlayerCastingBarFrameObject:HasActiveChanges(...) end
----@return any ...
-function PlayerCastingBarFrameObject:HasCompositeNumberSetting(...) end
----@return any ...
-function PlayerCastingBarFrameObject:HasSetting(...) end
----@return any ...
-function PlayerCastingBarFrameObject:HasValidSelectionRect(...) end
----@return any ...
-function PlayerCastingBarFrameObject:HideBase(...) end
----@return any ...
-function PlayerCastingBarFrameObject:HideOverride(...) end
----@return any ...
-function PlayerCastingBarFrameObject:HideSpark(...) end
----@return any ...
-function PlayerCastingBarFrameObject:HighlightSystem(...) end
----@return any ...
-function PlayerCastingBarFrameObject:IsAboveFrame(...) end
----@return any ...
-function PlayerCastingBarFrameObject:IsAttachedToPlayerFrame(...) end
----@return any ...
-function PlayerCastingBarFrameObject:IsBelowFrame(...) end
----@return any ...
-function PlayerCastingBarFrameObject:IsEditModeDragging(...) end
----@return any ...
-function PlayerCastingBarFrameObject:IsFrameAnchoredToMe(...) end
----@return any ...
-function PlayerCastingBarFrameObject:IsHorizontallyAlignedWithFrame(...) end
----@return any ...
-function PlayerCastingBarFrameObject:IsInDefaultPosition(...) end
----@return any ...
-function PlayerCastingBarFrameObject:IsInitialized(...) end
----@return any ...
-function PlayerCastingBarFrameObject:IsInterruptable(...) end
----@return any ...
-function PlayerCastingBarFrameObject:IsSettingDirty(...) end
----@return any ...
-function PlayerCastingBarFrameObject:IsShiftKeyDown(...) end
----@return any ...
-function PlayerCastingBarFrameObject:IsSystemSettingDefault(...) end
----@return any ...
-function PlayerCastingBarFrameObject:IsToTheLeftOfFrame(...) end
----@return any ...
-function PlayerCastingBarFrameObject:IsToTheRightOfFrame(...) end
----@return any ...
-function PlayerCastingBarFrameObject:IsVerticallyAlignedWithFrame(...) end
----@return any ...
-function PlayerCastingBarFrameObject:MarkAllSettingsDirty(...) end
----@return any ...
-function PlayerCastingBarFrameObject:OnAnyEditModeSystemAnchorChanged(...) end
----@return any ...
-function PlayerCastingBarFrameObject:OnDragStart(...) end
----@return any ...
-function PlayerCastingBarFrameObject:OnDragStop(...) end
----@return any ...
-function PlayerCastingBarFrameObject:OnEditModeEnter(...) end
----@return any ...
-function PlayerCastingBarFrameObject:OnEditModeExit(...) end
----@return any ...
-function PlayerCastingBarFrameObject:OnEvent(...) end
----@return any ...
-function PlayerCastingBarFrameObject:OnHide(...) end
----@return any ...
-function PlayerCastingBarFrameObject:OnKeyDown(...) end
----@return any ...
-function PlayerCastingBarFrameObject:OnKeyUp(...) end
----@return any ...
-function PlayerCastingBarFrameObject:OnLoad(...) end
----@return any ...
-function PlayerCastingBarFrameObject:OnShow(...) end
----@return any ...
-function PlayerCastingBarFrameObject:OnSystemHide(...) end
----@return any ...
-function PlayerCastingBarFrameObject:OnSystemLoad(...) end
----@return any ...
-function PlayerCastingBarFrameObject:OnSystemPositionChange(...) end
----@return any ...
-function PlayerCastingBarFrameObject:OnUpdate(...) end
----@return any ...
-function PlayerCastingBarFrameObject:OnUpdateSystem(...) end
----@return any ...
-function PlayerCastingBarFrameObject:PlayFadeAnim(...) end
----@return any ...
-function PlayerCastingBarFrameObject:PlayFinishAnim(...) end
----@return any ...
-function PlayerCastingBarFrameObject:PlayInterruptAnims(...) end
----@return any ...
-function PlayerCastingBarFrameObject:PrepareForSave(...) end
----@return any ...
-function PlayerCastingBarFrameObject:ProcessMovementKey(...) end
----@return any ...
-function PlayerCastingBarFrameObject:RemoveSnappedFrame(...) end
----@return any ...
-function PlayerCastingBarFrameObject:ResetToDefaultPosition(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SelectSystem(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SetAndUpdateShowCastbar(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SetCastTimeTextShown(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SetHasActiveChanges(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SetHighlightImportantCasts(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SetHighlightWhenCastTarget(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SetIconShown(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SetIsHighlightedCastTarget(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SetIsHighlightedImportantCast(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SetLook(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SetNameTextShown(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SetPointBase(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SetPointOverride(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SetScaleBase(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SetScaleOverride(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SetSelectionShown(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SetShownBase(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SetShownOverride(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SetSnappedToFrame(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SetTargetNameText(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SetTargetNameTextShown(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SetUnit(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SetupSettingsDialogAnchor(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SetupVisibilityFunctionOverrides(...) end
----@return any ...
-function PlayerCastingBarFrameObject:ShouldBreakSnappedFramesOnHide(...) end
----@return any ...
-function PlayerCastingBarFrameObject:ShouldIconBeShown(...) end
----@return any ...
-function PlayerCastingBarFrameObject:ShouldResetSettingsDialogAnchors(...) end
----@return any ...
-function PlayerCastingBarFrameObject:ShouldShowCastBar(...) end
----@return any ...
-function PlayerCastingBarFrameObject:ShouldShowSetting(...) end
----@return any ...
-function PlayerCastingBarFrameObject:ShowEditInstructions(...) end
----@return any ...
-function PlayerCastingBarFrameObject:ShowSpark(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SimulateCast(...) end
----@return any ...
-function PlayerCastingBarFrameObject:SnapToFrame(...) end
----@return any ...
-function PlayerCastingBarFrameObject:StopAnims(...) end
----@return any ...
-function PlayerCastingBarFrameObject:StopFinishAnims(...) end
----@return any ...
-function PlayerCastingBarFrameObject:StopInterruptAnims(...) end
----@return any ...
-function PlayerCastingBarFrameObject:TrySetCompositeNumberSettingValue(...) end
----@return any ...
-function PlayerCastingBarFrameObject:UpdateBarFillTexture(...) end
----@return any ...
-function PlayerCastingBarFrameObject:UpdateCastTimeText(...) end
----@return any ...
-function PlayerCastingBarFrameObject:UpdateCastTimeTextShown(...) end
----@return any ...
-function PlayerCastingBarFrameObject:UpdateClampOffsets(...) end
----@return any ...
-function PlayerCastingBarFrameObject:UpdateDirtySettings(...) end
----@return any ...
-function PlayerCastingBarFrameObject:UpdateDisplayInfoOptions(...) end
----@return any ...
-function PlayerCastingBarFrameObject:UpdateHighlightImportantCast(...) end
----@return any ...
-function PlayerCastingBarFrameObject:UpdateHighlightWhenCastTarget(...) end
----@return any ...
-function PlayerCastingBarFrameObject:UpdateIconShown(...) end
----@return any ...
-function PlayerCastingBarFrameObject:UpdateInterruptibleState(...) end
----@return any ...
-function PlayerCastingBarFrameObject:UpdateIsShown(...) end
----@return any ...
-function PlayerCastingBarFrameObject:UpdateMagnetismRegistration(...) end
----@return any ...
-function PlayerCastingBarFrameObject:UpdateSettingMap(...) end
----@return any ...
-function PlayerCastingBarFrameObject:UpdateShownState(...) end
----@return any ...
-function PlayerCastingBarFrameObject:UpdateStage(...) end
----@return any ...
-function PlayerCastingBarFrameObject:UpdateSystem(...) end
----@return any ...
-function PlayerCastingBarFrameObject:UpdateSystemSetting(...) end
----@return any ...
-function PlayerCastingBarFrameObject:UpdateSystemSettingBarSize(...) end
----@return any ...
-function PlayerCastingBarFrameObject:UpdateSystemSettingLockToPlayerFrame(...) end
----@return any ...
-function PlayerCastingBarFrameObject:UpdateSystemSettingShowCastTime(...) end
----@return any ...
-function PlayerCastingBarFrameObject:UpdateSystemSettingValue(...) end
----@return any ...
-function PlayerCastingBarFrameObject:UpdateTargetNameText(...) end
----@return any ...
-function PlayerCastingBarFrameObject:UseSettingAltName(...) end
----@type PlayerCastingBarFrameObject
-PlayerCastingBarFrame = PlayerCastingBarFrameObject
+function GroupLootContainerObject:SetExternallyManagedOutroAnimation(...) end
+---@type GroupLootContainerObject
+GroupLootContainer = GroupLootContainerObject
 end
 
 do
----@class PlayerCastingBarFrame_BackgroundObject : Texture
-local PlayerCastingBarFrame_BackgroundObject = {}
+---@class GroupLootContainer_alertContainerObject
+local GroupLootContainer_alertContainerObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_BaseGlowObject : Texture
-local PlayerCastingBarFrame_BaseGlowObject = {}
+---@class GroupLootContainer_layoutParentObject
+local GroupLootContainer_layoutParentObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_BorderObject : Texture
-local PlayerCastingBarFrame_BorderObject = {}
+---@class GroupLootFrame1Object : Frame
+---@field Background GroupLootFrame1_BackgroundObject
+---@field Border GroupLootFrame1_BorderObject
+---@field FocusJumpHint GroupLootFrame1_FocusJumpHintObject
+---@field FrameGlow GroupLootFrame1_FrameGlowObject
+---@field IconFrame GroupLootFrame1_IconFrameObject
+---@field LeftJumpHint GroupLootFrame1_LeftJumpHintObject
+---@field LootButtonContainer GroupLootFrame1_LootButtonContainerObject
+---@field Name GroupLootFrame1_NameObject
+---@field NeedRollAnim GroupLootFrame1_NeedRollAnimObject
+---@field RightJumpHint GroupLootFrame1_RightJumpHintObject
+---@field Timer GroupLootFrame1_TimerObject
+---@field layoutType string
+local GroupLootFrame1Object = {}
+---@return any ...
+function GroupLootFrame1Object:EndFocus(...) end
+---@return any ...
+function GroupLootFrame1Object:GetFocusFrameGlow(...) end
+---@return any ...
+function GroupLootFrame1Object:GetFocusFrameRoot(...) end
+---@return any ...
+function GroupLootFrame1Object:HideFocusJumpHint(...) end
+---@return any ...
+function GroupLootFrame1Object:HideLeftJumpHint(...) end
+---@return any ...
+function GroupLootFrame1Object:HideRightJumpHint(...) end
+---@return any ...
+function GroupLootFrame1Object:LockInFocus(...) end
+---@return any ...
+function GroupLootFrame1Object:RefreshFocus(...) end
+---@return any ...
+function GroupLootFrame1Object:ShowFocusJumpHint(...) end
+---@return any ...
+function GroupLootFrame1Object:ShowLeftJumpHint(...) end
+---@return any ...
+function GroupLootFrame1Object:ShowRightJumpHint(...) end
+---@return any ...
+function GroupLootFrame1Object:StartFocus(...) end
+---@type GroupLootFrame1Object
+GroupLootFrame1 = GroupLootFrame1Object
 end
 
 do
----@class PlayerCastingBarFrame_BorderMaskObject : MaskTexture
-local PlayerCastingBarFrame_BorderMaskObject = {}
+---@class GroupLootFrame1_BackgroundObject : Texture
+local GroupLootFrame1_BackgroundObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_BorderShieldObject : Texture
-local PlayerCastingBarFrame_BorderShieldObject = {}
+---@class GroupLootFrame1_BorderObject : Texture
+local GroupLootFrame1_BorderObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_CastTimeTextObject : FontString
-local PlayerCastingBarFrame_CastTimeTextObject = {}
-end
-
-do
----@class PlayerCastingBarFrame_ChannelFinishObject : AnimationGroup
-local PlayerCastingBarFrame_ChannelFinishObject = {}
-end
-
-do
----@class PlayerCastingBarFrame_ChannelShadowObject : Texture
-local PlayerCastingBarFrame_ChannelShadowObject = {}
-end
-
-do
----@class PlayerCastingBarFrame_ChargeFlashObject : Texture
-local PlayerCastingBarFrame_ChargeFlashObject = {}
-end
-
-do
----@class PlayerCastingBarFrame_ChargeGlowObject : Texture
-local PlayerCastingBarFrame_ChargeGlowObject = {}
-end
-
-do
----@class PlayerCastingBarFrame_CraftGlowObject : Texture
-local PlayerCastingBarFrame_CraftGlowObject = {}
-end
-
-do
----@class PlayerCastingBarFrame_CraftingFinishObject : AnimationGroup
-local PlayerCastingBarFrame_CraftingFinishObject = {}
-end
-
-do
----@class PlayerCastingBarFrame_CraftingMaskObject : MaskTexture
-local PlayerCastingBarFrame_CraftingMaskObject = {}
-end
-
-do
----@class PlayerCastingBarFrame_DropShadowObject : Texture
-local PlayerCastingBarFrame_DropShadowObject = {}
-end
-
-do
----@class PlayerCastingBarFrame_EnergyGlowObject : Texture
-local PlayerCastingBarFrame_EnergyGlowObject = {}
-end
-
-do
----@class PlayerCastingBarFrame_EnergyMaskObject : MaskTexture
-local PlayerCastingBarFrame_EnergyMaskObject = {}
-end
-
-do
----@class PlayerCastingBarFrame_FadeOutAnimObject : AnimationGroup
-local PlayerCastingBarFrame_FadeOutAnimObject = {}
-end
-
-do
----@class PlayerCastingBarFrame_Flakes01Object : Texture
-local PlayerCastingBarFrame_Flakes01Object = {}
-end
-
-do
----@class PlayerCastingBarFrame_Flakes02Object : Texture
-local PlayerCastingBarFrame_Flakes02Object = {}
-end
-
-do
----@class PlayerCastingBarFrame_Flakes03Object : Texture
-local PlayerCastingBarFrame_Flakes03Object = {}
-end
-
-do
----@class PlayerCastingBarFrame_FlashObject : Texture
-local PlayerCastingBarFrame_FlashObject = {}
-end
-
-do
----@class PlayerCastingBarFrame_FlashAnimObject : AnimationGroup
-local PlayerCastingBarFrame_FlashAnimObject = {}
-end
-
-do
----@class PlayerCastingBarFrame_FlashLoopingAnimObject : AnimationGroup
-local PlayerCastingBarFrame_FlashLoopingAnimObject = {}
-end
-
-do
----@class PlayerCastingBarFrame_HoldFadeOutAnimObject : AnimationGroup
-local PlayerCastingBarFrame_HoldFadeOutAnimObject = {}
-end
-
-do
----@class PlayerCastingBarFrame_IconObject : Texture
-local PlayerCastingBarFrame_IconObject = {}
-end
-
-do
----@class PlayerCastingBarFrame_InterruptGlowObject : Texture
-local PlayerCastingBarFrame_InterruptGlowObject = {}
-end
-
-do
----@class PlayerCastingBarFrame_InterruptGlowAnimObject : AnimationGroup
-local PlayerCastingBarFrame_InterruptGlowAnimObject = {}
-end
-
-do
----@class PlayerCastingBarFrame_InterruptShakeAnimObject : AnimationGroup
-local PlayerCastingBarFrame_InterruptShakeAnimObject = {}
-end
-
-do
----@class PlayerCastingBarFrame_InterruptSparkAnimObject : AnimationGroup
-local PlayerCastingBarFrame_InterruptSparkAnimObject = {}
-end
-
-do
----@class PlayerCastingBarFrame_SelectionObject : Frame
----@field Label PlayerCastingBarFrame_Selection_LabelObject
----@field MouseOverHighlight PlayerCastingBarFrame_Selection_MouseOverHighlightObject
----@field highlightTextureKit string
+---@class GroupLootFrame1_FocusJumpHintObject : Frame
+---@field ActiveTexture GroupLootFrame1_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture GroupLootFrame1_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim GroupLootFrame1_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator GroupLootFrame1_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GroupLootFrame1_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GroupLootFrame1_FocusJumpHint_HoverTextureObject
+---@field LoadBar GroupLootFrame1_FocusJumpHint_LoadBarObject
+---@field LoadBarBG GroupLootFrame1_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow GroupLootFrame1_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture GroupLootFrame1_FocusJumpHint_NormalTextureObject
+---@field PressedTexture GroupLootFrame1_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip GroupLootFrame1_FocusJumpHint_SpinnerTipObject
 ---@field ignoreInLayout boolean
----@field parent PlayerCastingBarFrame_Selection_parentObject
----@field selectedTextureKit string
----@field system PlayerCastingBarFrame_Selection_systemObject
-local PlayerCastingBarFrame_SelectionObject = {}
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GroupLootFrame1_FocusJumpHintObject = {}
 ---@return any ...
-function PlayerCastingBarFrame_SelectionObject:CheckShowInstructionalTooltip(...) end
+function GroupLootFrame1_FocusJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function PlayerCastingBarFrame_SelectionObject:GetBorderColor(...) end
+function GroupLootFrame1_FocusJumpHintObject:BeginHold(...) end
 ---@return any ...
-function PlayerCastingBarFrame_SelectionObject:GetCenterColor(...) end
+function GroupLootFrame1_FocusJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function PlayerCastingBarFrame_SelectionObject:GetFrameLayoutTextureKit(...) end
+function GroupLootFrame1_FocusJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function PlayerCastingBarFrame_SelectionObject:GetFrameLayoutType(...) end
+function GroupLootFrame1_FocusJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function PlayerCastingBarFrame_SelectionObject:GetLabelText(...) end
+function GroupLootFrame1_FocusJumpHintObject:EndHold(...) end
 ---@return any ...
-function PlayerCastingBarFrame_SelectionObject:HideInstructionalTooltip(...) end
+function GroupLootFrame1_FocusJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function PlayerCastingBarFrame_SelectionObject:IsSelected(...) end
+function GroupLootFrame1_FocusJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function PlayerCastingBarFrame_SelectionObject:IsShowingEditInstructions(...) end
+function GroupLootFrame1_FocusJumpHintObject:OnLoad(...) end
 ---@return any ...
-function PlayerCastingBarFrame_SelectionObject:OnDragStart(...) end
+function GroupLootFrame1_FocusJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function PlayerCastingBarFrame_SelectionObject:OnDragStop(...) end
+function GroupLootFrame1_FocusJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function PlayerCastingBarFrame_SelectionObject:OnEnter(...) end
+function GroupLootFrame1_FocusJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function PlayerCastingBarFrame_SelectionObject:OnLeave(...) end
+function GroupLootFrame1_FocusJumpHintObject:SetFocused(...) end
 ---@return any ...
-function PlayerCastingBarFrame_SelectionObject:OnLoad(...) end
+function GroupLootFrame1_FocusJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function PlayerCastingBarFrame_SelectionObject:OnMouseDown(...) end
+function GroupLootFrame1_FocusJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function PlayerCastingBarFrame_SelectionObject:SetBlendMode(...) end
+function GroupLootFrame1_FocusJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function PlayerCastingBarFrame_SelectionObject:SetBorderBlendMode(...) end
+function GroupLootFrame1_FocusJumpHintObject:SetPressable(...) end
 ---@return any ...
-function PlayerCastingBarFrame_SelectionObject:SetBorderColor(...) end
+function GroupLootFrame1_FocusJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function PlayerCastingBarFrame_SelectionObject:SetCenterColor(...) end
+function GroupLootFrame1_FocusJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function PlayerCastingBarFrame_SelectionObject:SetSystem(...) end
+function GroupLootFrame1_FocusJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function PlayerCastingBarFrame_SelectionObject:SetVertexColor(...) end
+function GroupLootFrame1_FocusJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function PlayerCastingBarFrame_SelectionObject:ShouldShowLabelText(...) end
----@return any ...
-function PlayerCastingBarFrame_SelectionObject:ShowEditInstructions(...) end
----@return any ...
-function PlayerCastingBarFrame_SelectionObject:ShowHighlighted(...) end
----@return any ...
-function PlayerCastingBarFrame_SelectionObject:ShowSelected(...) end
----@return any ...
-function PlayerCastingBarFrame_SelectionObject:UpdateLabelVisibility(...) end
+function GroupLootFrame1_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PlayerCastingBarFrame_Selection_LabelObject : FontString
----@field fontObjectsToTry table
-local PlayerCastingBarFrame_Selection_LabelObject = {}
----@return any ...
-function PlayerCastingBarFrame_Selection_LabelObject:ApplyFontObjects(...) end
----@return any ...
-function PlayerCastingBarFrame_Selection_LabelObject:SetFontObjectsToTry(...) end
+---@class GroupLootFrame1_FocusJumpHint_ActiveTextureObject : Texture
+local GroupLootFrame1_FocusJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_Selection_MouseOverHighlightObject : Frame
----@field BottomEdge PlayerCastingBarFrame_Selection_MouseOverHighlight_BottomEdgeObject
----@field BottomLeftCorner PlayerCastingBarFrame_Selection_MouseOverHighlight_BottomLeftCornerObject
----@field BottomRightCorner PlayerCastingBarFrame_Selection_MouseOverHighlight_BottomRightCornerObject
----@field Center PlayerCastingBarFrame_Selection_MouseOverHighlight_CenterObject
----@field LeftEdge PlayerCastingBarFrame_Selection_MouseOverHighlight_LeftEdgeObject
----@field RightEdge PlayerCastingBarFrame_Selection_MouseOverHighlight_RightEdgeObject
----@field TopEdge PlayerCastingBarFrame_Selection_MouseOverHighlight_TopEdgeObject
----@field TopLeftCorner PlayerCastingBarFrame_Selection_MouseOverHighlight_TopLeftCornerObject
----@field TopRightCorner PlayerCastingBarFrame_Selection_MouseOverHighlight_TopRightCornerObject
-local PlayerCastingBarFrame_Selection_MouseOverHighlightObject = {}
----@return any ...
-function PlayerCastingBarFrame_Selection_MouseOverHighlightObject:GetBorderColor(...) end
----@return any ...
-function PlayerCastingBarFrame_Selection_MouseOverHighlightObject:GetCenterColor(...) end
----@return any ...
-function PlayerCastingBarFrame_Selection_MouseOverHighlightObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function PlayerCastingBarFrame_Selection_MouseOverHighlightObject:GetFrameLayoutType(...) end
----@return any ...
-function PlayerCastingBarFrame_Selection_MouseOverHighlightObject:OnLoad(...) end
----@return any ...
-function PlayerCastingBarFrame_Selection_MouseOverHighlightObject:SetBlendMode(...) end
----@return any ...
-function PlayerCastingBarFrame_Selection_MouseOverHighlightObject:SetBorderBlendMode(...) end
----@return any ...
-function PlayerCastingBarFrame_Selection_MouseOverHighlightObject:SetBorderColor(...) end
----@return any ...
-function PlayerCastingBarFrame_Selection_MouseOverHighlightObject:SetCenterColor(...) end
----@return any ...
-function PlayerCastingBarFrame_Selection_MouseOverHighlightObject:SetVertexColor(...) end
+---@class GroupLootFrame1_FocusJumpHint_DisabledTextureObject : Texture
+local GroupLootFrame1_FocusJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_Selection_MouseOverHighlight_BottomEdgeObject : Texture
-local PlayerCastingBarFrame_Selection_MouseOverHighlight_BottomEdgeObject = {}
+---@class GroupLootFrame1_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GroupLootFrame1_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GroupLootFrame1_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GroupLootFrame1_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local GroupLootFrame1_FocusJumpHint_HoldAnimObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_Selection_MouseOverHighlight_BottomLeftCornerObject : Texture
-local PlayerCastingBarFrame_Selection_MouseOverHighlight_BottomLeftCornerObject = {}
+---@class GroupLootFrame1_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local GroupLootFrame1_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_Selection_MouseOverHighlight_BottomRightCornerObject : Texture
-local PlayerCastingBarFrame_Selection_MouseOverHighlight_BottomRightCornerObject = {}
+---@class GroupLootFrame1_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GroupLootFrame1_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_Selection_MouseOverHighlight_CenterObject : Texture
-local PlayerCastingBarFrame_Selection_MouseOverHighlight_CenterObject = {}
+---@class GroupLootFrame1_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GroupLootFrame1_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_Selection_MouseOverHighlight_LeftEdgeObject : Texture
-local PlayerCastingBarFrame_Selection_MouseOverHighlight_LeftEdgeObject = {}
+---@class GroupLootFrame1_FocusJumpHint_HoldIndicatorObject : Texture
+local GroupLootFrame1_FocusJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_Selection_MouseOverHighlight_RightEdgeObject : Texture
-local PlayerCastingBarFrame_Selection_MouseOverHighlight_RightEdgeObject = {}
+---@class GroupLootFrame1_FocusJumpHint_HoldIndicatorBGObject : Texture
+local GroupLootFrame1_FocusJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_Selection_MouseOverHighlight_TopEdgeObject : Texture
-local PlayerCastingBarFrame_Selection_MouseOverHighlight_TopEdgeObject = {}
+---@class GroupLootFrame1_FocusJumpHint_HoverTextureObject : Texture
+local GroupLootFrame1_FocusJumpHint_HoverTextureObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_Selection_MouseOverHighlight_TopLeftCornerObject : Texture
-local PlayerCastingBarFrame_Selection_MouseOverHighlight_TopLeftCornerObject = {}
+---@class GroupLootFrame1_FocusJumpHint_LoadBarObject : Texture
+local GroupLootFrame1_FocusJumpHint_LoadBarObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_Selection_MouseOverHighlight_TopRightCornerObject : Texture
-local PlayerCastingBarFrame_Selection_MouseOverHighlight_TopRightCornerObject = {}
+---@class GroupLootFrame1_FocusJumpHint_LoadBarBGObject : Texture
+local GroupLootFrame1_FocusJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_Selection_parentObject
-local PlayerCastingBarFrame_Selection_parentObject = {}
+---@class GroupLootFrame1_FocusJumpHint_LoadBarGlowObject : Texture
+local GroupLootFrame1_FocusJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_Selection_systemObject
-local PlayerCastingBarFrame_Selection_systemObject = {}
+---@class GroupLootFrame1_FocusJumpHint_NormalTextureObject : Texture
+local GroupLootFrame1_FocusJumpHint_NormalTextureObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_ShineObject : Texture
-local PlayerCastingBarFrame_ShineObject = {}
+---@class GroupLootFrame1_FocusJumpHint_PressedTextureObject : Texture
+local GroupLootFrame1_FocusJumpHint_PressedTextureObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_SparkObject : Texture
----@field offsetY number
-local PlayerCastingBarFrame_SparkObject = {}
+---@class GroupLootFrame1_FocusJumpHint_SpinnerTipObject : Texture
+local GroupLootFrame1_FocusJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_Sparkles01Object : Texture
-local PlayerCastingBarFrame_Sparkles01Object = {}
+---@class GroupLootFrame1_FrameGlowObject : Frame
+---@field GlowTexture GroupLootFrame1_FrameGlow_GlowTextureObject
+local GroupLootFrame1_FrameGlowObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_Sparkles02Object : Texture
-local PlayerCastingBarFrame_Sparkles02Object = {}
+---@class GroupLootFrame1_FrameGlow_GlowTextureObject : Texture
+local GroupLootFrame1_FrameGlow_GlowTextureObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_StageFinishObject : AnimationGroup
-local PlayerCastingBarFrame_StageFinishObject = {}
+---@class GroupLootFrame1_IconFrameObject : Button
+---@field Border GroupLootFrame1_IconFrame_BorderObject
+---@field Count GroupLootFrame1_IconFrame_CountObject
+---@field Icon GroupLootFrame1_IconFrame_IconObject
+---@field hasItem number
+local GroupLootFrame1_IconFrameObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_StageFlashObject : AnimationGroup
-local PlayerCastingBarFrame_StageFlashObject = {}
+---@class GroupLootFrame1_IconFrame_BorderObject : Texture
+local GroupLootFrame1_IconFrame_BorderObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_StandardFinishObject : AnimationGroup
-local PlayerCastingBarFrame_StandardFinishObject = {}
----@return any ...
-function PlayerCastingBarFrame_StandardFinishObject:Hide(...) end
----@return any ...
-function PlayerCastingBarFrame_StandardFinishObject:SetTargetsShown(...) end
----@return any ...
-function PlayerCastingBarFrame_StandardFinishObject:Show(...) end
+---@class GroupLootFrame1_IconFrame_CountObject : FontString
+local GroupLootFrame1_IconFrame_CountObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_StandardGlowObject : Texture
-local PlayerCastingBarFrame_StandardGlowObject = {}
+---@class GroupLootFrame1_IconFrame_IconObject : Texture
+local GroupLootFrame1_IconFrame_IconObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_TextObject : FontString
-local PlayerCastingBarFrame_TextObject = {}
+---@class GroupLootFrame1_LeftJumpHintObject : Frame
+---@field ActiveTexture GroupLootFrame1_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture GroupLootFrame1_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim GroupLootFrame1_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator GroupLootFrame1_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GroupLootFrame1_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GroupLootFrame1_LeftJumpHint_HoverTextureObject
+---@field LoadBar GroupLootFrame1_LeftJumpHint_LoadBarObject
+---@field LoadBarBG GroupLootFrame1_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow GroupLootFrame1_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture GroupLootFrame1_LeftJumpHint_NormalTextureObject
+---@field PressedTexture GroupLootFrame1_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip GroupLootFrame1_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GroupLootFrame1_LeftJumpHintObject = {}
+---@return any ...
+function GroupLootFrame1_LeftJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function GroupLootFrame1_LeftJumpHintObject:BeginHold(...) end
+---@return any ...
+function GroupLootFrame1_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function GroupLootFrame1_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function GroupLootFrame1_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function GroupLootFrame1_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function GroupLootFrame1_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function GroupLootFrame1_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function GroupLootFrame1_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function GroupLootFrame1_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function GroupLootFrame1_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function GroupLootFrame1_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function GroupLootFrame1_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function GroupLootFrame1_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function GroupLootFrame1_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function GroupLootFrame1_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function GroupLootFrame1_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function GroupLootFrame1_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function GroupLootFrame1_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function GroupLootFrame1_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function GroupLootFrame1_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function GroupLootFrame1_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PlayerCastingBarFrame_TextBorderObject : Texture
-local PlayerCastingBarFrame_TextBorderObject = {}
+---@class GroupLootFrame1_LeftJumpHint_ActiveTextureObject : Texture
+local GroupLootFrame1_LeftJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_WispGlowObject : Texture
-local PlayerCastingBarFrame_WispGlowObject = {}
+---@class GroupLootFrame1_LeftJumpHint_DisabledTextureObject : Texture
+local GroupLootFrame1_LeftJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_WispMaskObject : MaskTexture
-local PlayerCastingBarFrame_WispMaskObject = {}
+---@class GroupLootFrame1_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GroupLootFrame1_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GroupLootFrame1_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GroupLootFrame1_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local GroupLootFrame1_LeftJumpHint_HoldAnimObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_layoutParentObject
-local PlayerCastingBarFrame_layoutParentObject = {}
+---@class GroupLootFrame1_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local GroupLootFrame1_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_savedSystemInfoObject
----@field anchorInfo table
----@field isInDefaultPosition boolean
----@field settings table
----@field system number
-local PlayerCastingBarFrame_savedSystemInfoObject = {}
+---@class GroupLootFrame1_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GroupLootFrame1_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_settingsDialogAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo PlayerCastingBarFrame_settingsDialogAnchor_relativeToObject
----@field x number
-local PlayerCastingBarFrame_settingsDialogAnchorObject = {}
----@return any ...
-function PlayerCastingBarFrame_settingsDialogAnchorObject:Get(...) end
----@return any ...
-function PlayerCastingBarFrame_settingsDialogAnchorObject:GetRelativeTo(...) end
----@return any ...
-function PlayerCastingBarFrame_settingsDialogAnchorObject:Init(...) end
----@return any ...
-function PlayerCastingBarFrame_settingsDialogAnchorObject:Set(...) end
----@return any ...
-function PlayerCastingBarFrame_settingsDialogAnchorObject:SetFromPoint(...) end
----@return any ...
-function PlayerCastingBarFrame_settingsDialogAnchorObject:SetOffsets(...) end
----@return any ...
-function PlayerCastingBarFrame_settingsDialogAnchorObject:SetPoint(...) end
----@return any ...
-function PlayerCastingBarFrame_settingsDialogAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function PlayerCastingBarFrame_settingsDialogAnchorObject:SetRelativeTo(...) end
+---@class GroupLootFrame1_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GroupLootFrame1_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_settingsDialogAnchor_relativeToObject
-local PlayerCastingBarFrame_settingsDialogAnchor_relativeToObject = {}
+---@class GroupLootFrame1_LeftJumpHint_HoldIndicatorObject : Texture
+local GroupLootFrame1_LeftJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class PlayerCastingBarFrame_systemInfoObject
----@field anchorInfo table
----@field isInDefaultPosition boolean
----@field settings table
----@field system number
-local PlayerCastingBarFrame_systemInfoObject = {}
+---@class GroupLootFrame1_LeftJumpHint_HoldIndicatorBGObject : Texture
+local GroupLootFrame1_LeftJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class PlayerFrameObject : Button
----@field PlayerFrameContainer PlayerFrame_PlayerFrameContainerObject
----@field PlayerFrameContent PlayerFrame_PlayerFrameContentObject
----@field Selection PlayerFrame_SelectionObject
----@field dirtySettings table
----@field disablePortraitMask boolean
----@field downKeys table
----@field feedbackFontHeight number
----@field feedbackText PlayerFrame_feedbackTextObject
----@field frameType string
----@field hasActiveChanges boolean
----@field healAbsorbBar PlayerFrame_healAbsorbBarObject
----@field healthbar PlayerFrame_healthbarObject
----@field lastSystemIndex number
----@field manabar PlayerFrame_manabarObject
----@field myHealPredictionBar PlayerFrame_myHealPredictionBarObject
----@field myManaCostPredictionBar PlayerFrame_myManaCostPredictionBarObject
----@field name PlayerFrame_nameObject
----@field otherHealPredictionBar PlayerFrame_otherHealPredictionBarObject
----@field overAbsorbGlow PlayerFrame_overAbsorbGlowObject
----@field overHealAbsorbGlow PlayerFrame_overHealAbsorbGlowObject
----@field portrait PlayerFrame_portraitObject
----@field replacePortraitSettingChangedHandlers table
----@field savedSystemInfo PlayerFrame_savedSystemInfoObject
----@field settingDisplayInfoMap PlayerFrame_settingDisplayInfoMapObject
----@field settingMap table
----@field settingsDialogAnchor PlayerFrame_settingsDialogAnchorObject
----@field snappedFrames table
----@field state string
----@field statusCounter number
----@field statusSign number
----@field system number
----@field systemIndex number
----@field systemInfo PlayerFrame_systemInfoObject
----@field systemNameString string
----@field tempMaxHealthLossBar PlayerFrame_tempMaxHealthLossBarObject
----@field threatIndicator PlayerFrame_threatIndicatorObject
----@field totalAbsorbBar PlayerFrame_totalAbsorbBarObject
----@field unit string
-local PlayerFrameObject = {}
----@return any ...
-function PlayerFrameObject:AddExtraButtons(...) end
----@return any ...
-function PlayerFrameObject:AddSnappedFrame(...) end
----@return any ...
-function PlayerFrameObject:AnchorSelectionFrame(...) end
----@return any ...
-function PlayerFrameObject:AnySettingsDirty(...) end
----@return any ...
-function PlayerFrameObject:ApplySystemAnchor(...) end
----@return any ...
-function PlayerFrameObject:AreAllSystemSettingsDefault(...) end
----@return any ...
-function PlayerFrameObject:BreakFrameSnap(...) end
----@return any ...
-function PlayerFrameObject:BreakFromFrameManager(...) end
----@return any ...
-function PlayerFrameObject:BreakSnappedFrames(...) end
----@return any ...
-function PlayerFrameObject:CanBeMoved(...) end
----@return any ...
-function PlayerFrameObject:ClearAllPointsBase(...) end
----@return any ...
-function PlayerFrameObject:ClearAllPointsOverride(...) end
----@return any ...
-function PlayerFrameObject:ClearDirtySetting(...) end
----@return any ...
-function PlayerFrameObject:ClearDownKeys(...) end
----@return any ...
-function PlayerFrameObject:ClearFrameSnap(...) end
----@return any ...
-function PlayerFrameObject:ClearHighlight(...) end
----@return any ...
-function PlayerFrameObject:ConvertSettingDisplayValueToRawValue(...) end
----@return any ...
-function PlayerFrameObject:DoesSettingDisplayValueEqual(...) end
----@return any ...
-function PlayerFrameObject:DoesSettingValueEqual(...) end
----@return any ...
-function PlayerFrameObject:GetAllowRadialWheel(...) end
----@return any ...
-function PlayerFrameObject:GetBottomOffset(...) end
----@return any ...
-function PlayerFrameObject:GetCombinedCenterOffset(...) end
----@return any ...
-function PlayerFrameObject:GetCombinedSelectionOffset(...) end
----@return any ...
-function PlayerFrameObject:GetCompositeNumberSettingValue(...) end
----@return any ...
-function PlayerFrameObject:GetFrameMagneticEligibility(...) end
----@return any ...
-function PlayerFrameObject:GetIsPingable(...) end
----@return any ...
-function PlayerFrameObject:GetLeftOffset(...) end
----@return any ...
-function PlayerFrameObject:GetManagedFrameContainer(...) end
----@return any ...
-function PlayerFrameObject:GetRightOffset(...) end
----@return any ...
-function PlayerFrameObject:GetScaledCenter(...) end
----@return any ...
-function PlayerFrameObject:GetScaledSelectionCenter(...) end
----@return any ...
-function PlayerFrameObject:GetScaledSelectionSides(...) end
----@return any ...
-function PlayerFrameObject:GetSelectionOffset(...) end
----@return any ...
-function PlayerFrameObject:GetSettingValue(...) end
----@return any ...
-function PlayerFrameObject:GetSettingValueBool(...) end
----@return any ...
-function PlayerFrameObject:GetSettingsDialogAnchor(...) end
----@return any ...
-function PlayerFrameObject:GetSnapOffsets(...) end
----@return any ...
-function PlayerFrameObject:GetSystemName(...) end
----@return any ...
-function PlayerFrameObject:GetTargetInfo(...) end
----@return any ...
-function PlayerFrameObject:GetTopOffset(...) end
----@return any ...
-function PlayerFrameObject:HasActiveChanges(...) end
----@return any ...
-function PlayerFrameObject:HasCompositeNumberSetting(...) end
----@return any ...
-function PlayerFrameObject:HasSetting(...) end
----@return any ...
-function PlayerFrameObject:HasValidSelectionRect(...) end
----@return any ...
-function PlayerFrameObject:HideBase(...) end
----@return any ...
-function PlayerFrameObject:HideOverride(...) end
----@return any ...
-function PlayerFrameObject:HighlightSystem(...) end
----@return any ...
-function PlayerFrameObject:IsAboveFrame(...) end
----@return any ...
-function PlayerFrameObject:IsBelowFrame(...) end
----@return any ...
-function PlayerFrameObject:IsEditModeDragging(...) end
----@return any ...
-function PlayerFrameObject:IsFrameAnchoredToMe(...) end
----@return any ...
-function PlayerFrameObject:IsHorizontallyAlignedWithFrame(...) end
----@return any ...
-function PlayerFrameObject:IsInDefaultPosition(...) end
----@return any ...
-function PlayerFrameObject:IsInitialized(...) end
----@return any ...
-function PlayerFrameObject:IsSettingDirty(...) end
----@return any ...
-function PlayerFrameObject:IsShiftKeyDown(...) end
----@return any ...
-function PlayerFrameObject:IsSystemSettingDefault(...) end
----@return any ...
-function PlayerFrameObject:IsToTheLeftOfFrame(...) end
----@return any ...
-function PlayerFrameObject:IsToTheRightOfFrame(...) end
----@return any ...
-function PlayerFrameObject:IsVerticallyAlignedWithFrame(...) end
----@return any ...
-function PlayerFrameObject:MarkAllSettingsDirty(...) end
----@return any ...
-function PlayerFrameObject:OnAnyEditModeSystemAnchorChanged(...) end
----@return any ...
-function PlayerFrameObject:OnDragStart(...) end
----@return any ...
-function PlayerFrameObject:OnDragStop(...) end
----@return any ...
-function PlayerFrameObject:OnEditModeEnter(...) end
----@return any ...
-function PlayerFrameObject:OnEditModeExit(...) end
----@return any ...
-function PlayerFrameObject:OnEvent(...) end
----@return any ...
-function PlayerFrameObject:OnKeyDown(...) end
----@return any ...
-function PlayerFrameObject:OnKeyUp(...) end
----@return any ...
-function PlayerFrameObject:OnSystemHide(...) end
----@return any ...
-function PlayerFrameObject:OnSystemLoad(...) end
----@return any ...
-function PlayerFrameObject:OnSystemPositionChange(...) end
----@return any ...
-function PlayerFrameObject:OnUpdateSystem(...) end
----@return any ...
-function PlayerFrameObject:PrepareForSave(...) end
----@return any ...
-function PlayerFrameObject:ProcessMovementKey(...) end
----@return any ...
-function PlayerFrameObject:RegisterForInterfaceTransitions(...) end
----@return any ...
-function PlayerFrameObject:RemoveSnappedFrame(...) end
----@return any ...
-function PlayerFrameObject:ResetToDefaultPosition(...) end
----@return any ...
-function PlayerFrameObject:SelectSystem(...) end
----@return any ...
-function PlayerFrameObject:SetHasActiveChanges(...) end
----@return any ...
-function PlayerFrameObject:SetPointBase(...) end
----@return any ...
-function PlayerFrameObject:SetPointOverride(...) end
----@return any ...
-function PlayerFrameObject:SetScaleBase(...) end
----@return any ...
-function PlayerFrameObject:SetScaleOverride(...) end
----@return any ...
-function PlayerFrameObject:SetSelectionShown(...) end
----@return any ...
-function PlayerFrameObject:SetShownBase(...) end
----@return any ...
-function PlayerFrameObject:SetShownOverride(...) end
----@return any ...
-function PlayerFrameObject:SetSnappedToFrame(...) end
----@return any ...
-function PlayerFrameObject:SetupSettingsDialogAnchor(...) end
----@return any ...
-function PlayerFrameObject:SetupVisibilityFunctionOverrides(...) end
----@return any ...
-function PlayerFrameObject:ShouldBreakSnappedFramesOnHide(...) end
----@return any ...
-function PlayerFrameObject:ShouldResetSettingsDialogAnchors(...) end
----@return any ...
-function PlayerFrameObject:ShouldShowSetting(...) end
----@return any ...
-function PlayerFrameObject:ShowEditInstructions(...) end
----@return any ...
-function PlayerFrameObject:SnapToFrame(...) end
----@return any ...
-function PlayerFrameObject:TrySetCompositeNumberSettingValue(...) end
----@return any ...
-function PlayerFrameObject:UpdateClampOffsets(...) end
----@return any ...
-function PlayerFrameObject:UpdateCompactRaidFrameContainerSetting(...) end
----@return any ...
-function PlayerFrameObject:UpdateDirtySettings(...) end
----@return any ...
-function PlayerFrameObject:UpdateDisplayInfoOptions(...) end
----@return any ...
-function PlayerFrameObject:UpdateMagnetismRegistration(...) end
----@return any ...
-function PlayerFrameObject:UpdatePingAttributes(...) end
----@return any ...
-function PlayerFrameObject:UpdateSelectionVerticalState(...) end
----@return any ...
-function PlayerFrameObject:UpdateSettingMap(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystem(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystemSetting(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystemSettingAuraOrganizationType(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystemSettingBigDefensiveIconSize(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystemSettingBuffIconSize(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystemSettingBuffsOnTop(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystemSettingCastBarOnSide(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystemSettingDebuffIconSize(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystemSettingDisplayBorder(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystemSettingFrameHeight(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystemSettingFrameSize(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystemSettingFrameWidth(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystemSettingOpacity(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystemSettingRaidGroupDisplayType(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystemSettingRowSize(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystemSettingShowCastTime(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystemSettingShowPartyFrameBackground(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystemSettingSortPlayersBy(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystemSettingUseHorizontalGroups(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystemSettingUseLargerFrame(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystemSettingUseRaidStylePartyFrames(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystemSettingValue(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystemSettingViewArenaSize(...) end
----@return any ...
-function PlayerFrameObject:UpdateSystemSettingViewRaidSize(...) end
----@return any ...
-function PlayerFrameObject:UseCombinedGroups(...) end
----@return any ...
-function PlayerFrameObject:UseSettingAltName(...) end
----@type PlayerFrameObject
-PlayerFrame = PlayerFrameObject
+---@class GroupLootFrame1_LeftJumpHint_HoverTextureObject : Texture
+local GroupLootFrame1_LeftJumpHint_HoverTextureObject = {}
 end
 
 do
----@class PlayerFrame_PlayerFrameContainerObject : Frame
----@field AlternatePowerFrameTexture PlayerFrame_PlayerFrameContainer_AlternatePowerFrameTextureObject
----@field FrameFlash PlayerFrame_PlayerFrameContainer_FrameFlashObject
----@field FrameTexture PlayerFrame_PlayerFrameContainer_FrameTextureObject
----@field PlayerPortrait PlayerFrame_PlayerFrameContainer_PlayerPortraitObject
----@field PlayerPortraitMask PlayerFrame_PlayerFrameContainer_PlayerPortraitMaskObject
----@field VehicleFrameTexture PlayerFrame_PlayerFrameContainer_VehicleFrameTextureObject
-local PlayerFrame_PlayerFrameContainerObject = {}
+---@class GroupLootFrame1_LeftJumpHint_LoadBarObject : Texture
+local GroupLootFrame1_LeftJumpHint_LoadBarObject = {}
 end
 
 do
----@class PlayerFrame_PlayerFrameContainer_AlternatePowerFrameTextureObject : Texture
-local PlayerFrame_PlayerFrameContainer_AlternatePowerFrameTextureObject = {}
+---@class GroupLootFrame1_LeftJumpHint_LoadBarBGObject : Texture
+local GroupLootFrame1_LeftJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class PlayerFrame_PlayerFrameContainer_FrameFlashObject : Texture
----@field feedbackUnit string
----@field unit string
-local PlayerFrame_PlayerFrameContainer_FrameFlashObject = {}
+---@class GroupLootFrame1_LeftJumpHint_LoadBarGlowObject : Texture
+local GroupLootFrame1_LeftJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class PlayerFrame_PlayerFrameContainer_FrameTextureObject : Texture
-local PlayerFrame_PlayerFrameContainer_FrameTextureObject = {}
+---@class GroupLootFrame1_LeftJumpHint_NormalTextureObject : Texture
+local GroupLootFrame1_LeftJumpHint_NormalTextureObject = {}
 end
 
 do
----@class PlayerFrame_PlayerFrameContainer_PlayerPortraitObject
-local PlayerFrame_PlayerFrameContainer_PlayerPortraitObject = {}
+---@class GroupLootFrame1_LeftJumpHint_PressedTextureObject : Texture
+local GroupLootFrame1_LeftJumpHint_PressedTextureObject = {}
 end
 
 do
----@class PlayerFrame_PlayerFrameContainer_PlayerPortraitMaskObject : MaskTexture
-local PlayerFrame_PlayerFrameContainer_PlayerPortraitMaskObject = {}
+---@class GroupLootFrame1_LeftJumpHint_SpinnerTipObject : Texture
+local GroupLootFrame1_LeftJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class PlayerFrame_PlayerFrameContainer_VehicleFrameTextureObject : Texture
-local PlayerFrame_PlayerFrameContainer_VehicleFrameTextureObject = {}
+---@class GroupLootFrame1_LootButtonContainerObject : Frame
+---@field GreedButton GroupLootFrame1_LootButtonContainer_GreedButtonObject
+---@field LootButtons table
+---@field NeedButton GroupLootFrame1_LootButtonContainer_NeedButtonObject
+---@field PassButton GroupLootFrame1_LootButtonContainer_PassButtonObject
+---@field TransmogButton GroupLootFrame1_LootButtonContainer_TransmogButtonObject
+local GroupLootFrame1_LootButtonContainerObject = {}
 end
 
 do
----@class PlayerFrame_PlayerFrameContentObject : Frame
----@field PlayerFrameContentContextual PlayerFrame_PlayerFrameContent_PlayerFrameContentContextualObject
----@field PlayerFrameContentMain PlayerFrame_PlayerFrameContent_PlayerFrameContentMainObject
-local PlayerFrame_PlayerFrameContentObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentContextualObject : Frame
----@field AttackIcon PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_AttackIconObject
----@field GroupIndicator PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_GroupIndicatorObject
----@field GuideIcon PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_GuideIconObject
----@field LeaderIcon PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_LeaderIconObject
----@field PVPIcon PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PVPIconObject
----@field PlayerPlayTime PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PlayerPlayTimeObject
----@field PlayerPortraitCornerIcon PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PlayerPortraitCornerIconObject
----@field PlayerRestLoop PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PlayerRestLoopObject
----@field PrestigeBadge PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PrestigeBadgeObject
----@field PrestigePortrait PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PrestigePortraitObject
----@field PvpTimerText PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PvpTimerTextObject
----@field ReadyCheck PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_ReadyCheckObject
----@field RoleIcon PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_RoleIconObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentContextualObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_AttackIconObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_AttackIconObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_GroupIndicatorObject : Frame
----@field GroupIndicatorLeft PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_GroupIndicator_GroupIndicatorLeftObject
----@field GroupIndicatorRight PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_GroupIndicator_GroupIndicatorRightObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_GroupIndicatorObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_GroupIndicator_GroupIndicatorLeftObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_GroupIndicator_GroupIndicatorLeftObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_GroupIndicator_GroupIndicatorRightObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_GroupIndicator_GroupIndicatorRightObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_GuideIconObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_GuideIconObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_LeaderIconObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_LeaderIconObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PVPIconObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PVPIconObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PlayerPlayTimeObject : Frame
----@field PlayTimeIcon PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PlayerPlayTime_PlayTimeIconObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PlayerPlayTimeObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PlayerPlayTime_PlayTimeIconObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PlayerPlayTime_PlayTimeIconObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PlayerPortraitCornerIconObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PlayerPortraitCornerIconObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PlayerRestLoopObject : Frame
----@field PlayerRestLoopAnim PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PlayerRestLoop_PlayerRestLoopAnimObject
----@field RestTexture PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PlayerRestLoop_RestTextureObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PlayerRestLoopObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PlayerRestLoop_PlayerRestLoopAnimObject : AnimationGroup
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PlayerRestLoop_PlayerRestLoopAnimObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PlayerRestLoop_RestTextureObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PlayerRestLoop_RestTextureObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PrestigeBadgeObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PrestigeBadgeObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PrestigePortraitObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PrestigePortraitObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PvpTimerTextObject : FontString
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_PvpTimerTextObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_ReadyCheckObject : Frame
----@field Texture PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_ReadyCheck_TextureObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_ReadyCheckObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_ReadyCheck_TextureObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_ReadyCheck_TextureObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_RoleIconObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentContextual_RoleIconObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMainObject : Frame
----@field AlternatePowerBarArea PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_AlternatePowerBarAreaObject
----@field HealthBarsContainer PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainerObject
----@field HitIndicator PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HitIndicatorObject
----@field LevelBackgroundCircle PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_LevelBackgroundCircleObject
----@field ManaBarArea PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarAreaObject
----@field PvpBackgroundIcon PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_PvpBackgroundIconObject
----@field StatusTexture PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_StatusTextureObject
----@field skipLevelTextLocalizationAdjustment boolean
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMainObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_AlternatePowerBarAreaObject : Frame
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_AlternatePowerBarAreaObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainerObject : Frame
----@field HealthBar PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarObject
----@field HealthBarMask PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarMaskObject
----@field HealthBarText PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarTextObject
----@field LeftText PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_LeftTextObject
----@field PlayerFrameHealthBarAnimatedLoss PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_PlayerFrameHealthBarAnimatedLossObject
----@field PlayerFrameTempMaxHealthLoss PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_PlayerFrameTempMaxHealthLossObject
----@field RightText PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_RightTextObject
----@field TempMaxHealthLossDivider PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_TempMaxHealthLossDividerObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainerObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarObject : StatusBar
----@field AnimatedLossBar PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_AnimatedLossBarObject
----@field Background PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_BackgroundObject
----@field HealAbsorbBar PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_HealAbsorbBarObject
----@field LeftText PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_LeftTextObject
----@field MyHealPredictionBar PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_MyHealPredictionBarObject
----@field OtherHealPredictionBar PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OtherHealPredictionBarObject
----@field OverAbsorbGlow PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OverAbsorbGlowObject
----@field OverHealAbsorbGlow PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OverHealAbsorbGlowObject
----@field RightText PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_RightTextObject
----@field TextString PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TextStringObject
----@field TotalAbsorbBar PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TotalAbsorbBarObject
----@field capNumericDisplay boolean
----@field controlsShownState boolean
----@field currValue number
----@field cvar string
----@field cvarLabel string
----@field disconnected boolean
----@field forceHideText boolean
----@field frequentUpdates boolean
----@field lockColor boolean
----@field lockShow number
----@field textLockable number
+---@class GroupLootFrame1_LootButtonContainer_GreedButtonObject : Button
+---@field newbieText string
 ---@field tooltipText string
----@field tooltipTitle string
----@field unit string
----@field unitFrame PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_unitFrameObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarObject = {}
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarObject:GetNumericDisplay(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarObject:HideStatusBarText(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarObject:InitializeTextStatusBar(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarObject:OnStatusBarEnter(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarObject:OnStatusBarLeave(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarObject:OnStatusBarMinMaxChanged(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarObject:OnStatusBarValueChanged(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarObject:SetBarText(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarObject:SetBarTextPrefix(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarObject:SetBarTextZeroText(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarObject:SetForceShow(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarObject:ShowStatusBarText(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarObject:TextStatusBarOnEvent(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarObject:UpdateTextString(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarObject:UpdateTextStringWithValues(...) end
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_AnimatedLossBarObject : StatusBar
----@field animationDuration number
----@field animationPauseDelay number
----@field animationPostponeDelay number
----@field animationStartDelay number
----@field unit string
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_AnimatedLossBarObject = {}
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_AnimatedLossBarObject:BeginAnimation(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_AnimatedLossBarObject:CancelAnimation(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_AnimatedLossBarObject:GetHealthLossAnimationData(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_AnimatedLossBarObject:OnLoad(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_AnimatedLossBarObject:PostponeStartTime(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_AnimatedLossBarObject:SetDuration(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_AnimatedLossBarObject:SetPauseDelay(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_AnimatedLossBarObject:SetPostponeDelay(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_AnimatedLossBarObject:SetStartDelay(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_AnimatedLossBarObject:SetUnitHealthBar(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_AnimatedLossBarObject:UpdateHealth(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_AnimatedLossBarObject:UpdateHealthMinMax(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_AnimatedLossBarObject:UpdateLossAnimation(...) end
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_BackgroundObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_BackgroundObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_HealAbsorbBarObject : Frame
----@field Fill PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_HealAbsorbBar_FillObject
----@field FillMask PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_HealAbsorbBar_FillMaskObject
----@field LeftShadow PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_HealAbsorbBar_LeftShadowObject
----@field RightShadow PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_HealAbsorbBar_RightShadowObject
----@field fillAtlas string
----@field fillColor PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_HealAbsorbBar_fillColorObject
----@field fillOverlays table
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_HealAbsorbBarObject = {}
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_HealAbsorbBarObject:Initialize(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_HealAbsorbBarObject:OnLoad(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_HealAbsorbBarObject:SetFillColor(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_HealAbsorbBarObject:SetStatusBar(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_HealAbsorbBarObject:UpdateFillPosition(...) end
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_HealAbsorbBar_FillObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_HealAbsorbBar_FillObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_HealAbsorbBar_FillMaskObject : MaskTexture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_HealAbsorbBar_FillMaskObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_HealAbsorbBar_LeftShadowObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_HealAbsorbBar_LeftShadowObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_HealAbsorbBar_RightShadowObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_HealAbsorbBar_RightShadowObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_HealAbsorbBar_fillColorObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_HealAbsorbBar_fillColorObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_LeftTextObject : FontString
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_LeftTextObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_MyHealPredictionBarObject : Frame
----@field Fill PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_MyHealPredictionBar_FillObject
----@field FillMask PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_MyHealPredictionBar_FillMaskObject
----@field fillAtlas string
----@field fillColor PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_MyHealPredictionBar_fillColorObject
----@field initialized boolean
----@field statusBar PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_MyHealPredictionBar_statusBarObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_MyHealPredictionBarObject = {}
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_MyHealPredictionBarObject:Initialize(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_MyHealPredictionBarObject:OnLoad(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_MyHealPredictionBarObject:SetFillColor(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_MyHealPredictionBarObject:SetStatusBar(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_MyHealPredictionBarObject:UpdateFillPosition(...) end
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_MyHealPredictionBar_FillObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_MyHealPredictionBar_FillObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_MyHealPredictionBar_FillMaskObject : MaskTexture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_MyHealPredictionBar_FillMaskObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_MyHealPredictionBar_fillColorObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_MyHealPredictionBar_fillColorObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_MyHealPredictionBar_statusBarObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_MyHealPredictionBar_statusBarObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OtherHealPredictionBarObject : Frame
----@field Fill PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OtherHealPredictionBar_FillObject
----@field FillMask PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OtherHealPredictionBar_FillMaskObject
----@field fillAtlas string
----@field fillColor PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OtherHealPredictionBar_fillColorObject
----@field initialized boolean
----@field statusBar PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OtherHealPredictionBar_statusBarObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OtherHealPredictionBarObject = {}
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OtherHealPredictionBarObject:Initialize(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OtherHealPredictionBarObject:OnLoad(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OtherHealPredictionBarObject:SetFillColor(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OtherHealPredictionBarObject:SetStatusBar(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OtherHealPredictionBarObject:UpdateFillPosition(...) end
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OtherHealPredictionBar_FillObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OtherHealPredictionBar_FillObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OtherHealPredictionBar_FillMaskObject : MaskTexture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OtherHealPredictionBar_FillMaskObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OtherHealPredictionBar_fillColorObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OtherHealPredictionBar_fillColorObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OtherHealPredictionBar_statusBarObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OtherHealPredictionBar_statusBarObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OverAbsorbGlowObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OverAbsorbGlowObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OverHealAbsorbGlowObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_OverHealAbsorbGlowObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_RightTextObject : FontString
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_RightTextObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TextStringObject : FontString
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TextStringObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TotalAbsorbBarObject : Frame
----@field Fill PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TotalAbsorbBar_FillObject
----@field FillMask PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TotalAbsorbBar_FillMaskObject
----@field TiledFillOverlay PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TotalAbsorbBar_TiledFillOverlayObject
----@field fillAtlas string
----@field fillColor PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TotalAbsorbBar_fillColorObject
----@field fillOverlays table
----@field initialized boolean
----@field statusBar PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TotalAbsorbBar_statusBarObject
----@field tiledFillOverlaySize number
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TotalAbsorbBarObject = {}
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TotalAbsorbBarObject:Initialize(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TotalAbsorbBarObject:OnLoad(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TotalAbsorbBarObject:SetFillColor(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TotalAbsorbBarObject:SetStatusBar(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TotalAbsorbBarObject:UpdateFillPosition(...) end
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TotalAbsorbBar_FillObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TotalAbsorbBar_FillObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TotalAbsorbBar_FillMaskObject : MaskTexture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TotalAbsorbBar_FillMaskObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TotalAbsorbBar_TiledFillOverlayObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TotalAbsorbBar_TiledFillOverlayObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TotalAbsorbBar_fillColorObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TotalAbsorbBar_fillColorObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TotalAbsorbBar_statusBarObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_TotalAbsorbBar_statusBarObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_unitFrameObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBar_unitFrameObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarMaskObject : MaskTexture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarMaskObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarTextObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_HealthBarTextObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_LeftTextObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_LeftTextObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_PlayerFrameHealthBarAnimatedLossObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_PlayerFrameHealthBarAnimatedLossObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_PlayerFrameTempMaxHealthLossObject : StatusBar
----@field healthBar PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_PlayerFrameTempMaxHealthLoss_healthBarObject
----@field initialized boolean
----@field myHealthBarContainer PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_PlayerFrameTempMaxHealthLoss_myHealthBarContainerObject
----@field tempMaxHealthLossDivider PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_PlayerFrameTempMaxHealthLoss_tempMaxHealthLossDividerObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_PlayerFrameTempMaxHealthLossObject = {}
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_PlayerFrameTempMaxHealthLossObject:InitializeMaxHealthLossBar(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_PlayerFrameTempMaxHealthLossObject:OnMaxHealthModifiersChanged(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_PlayerFrameTempMaxHealthLossObject:SetShouldAdjustHealthBarAnchor(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_PlayerFrameTempMaxHealthLossObject:Update_MaxHealthLoss(...) end
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_PlayerFrameTempMaxHealthLoss_healthBarObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_PlayerFrameTempMaxHealthLoss_healthBarObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_PlayerFrameTempMaxHealthLoss_myHealthBarContainerObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_PlayerFrameTempMaxHealthLoss_myHealthBarContainerObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_PlayerFrameTempMaxHealthLoss_tempMaxHealthLossDividerObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_PlayerFrameTempMaxHealthLoss_tempMaxHealthLossDividerObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_RightTextObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_RightTextObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_TempMaxHealthLossDividerObject : Frame
----@field TempHPLossDivider PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_TempMaxHealthLossDivider_TempHPLossDividerObject
----@field TempHPLossDividerMask PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_TempMaxHealthLossDivider_TempHPLossDividerMaskObject
----@field TempHPLossDividerShadow PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_TempMaxHealthLossDivider_TempHPLossDividerShadowObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_TempMaxHealthLossDividerObject = {}
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_TempMaxHealthLossDividerObject:SetXPosition(...) end
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_TempMaxHealthLossDivider_TempHPLossDividerObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_TempMaxHealthLossDivider_TempHPLossDividerObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_TempMaxHealthLossDivider_TempHPLossDividerMaskObject : MaskTexture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_TempMaxHealthLossDivider_TempHPLossDividerMaskObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_TempMaxHealthLossDivider_TempHPLossDividerShadowObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HealthBarsContainer_TempMaxHealthLossDivider_TempHPLossDividerShadowObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HitIndicatorObject : Frame
----@field HitText PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HitIndicator_HitTextObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HitIndicatorObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HitIndicator_HitTextObject : FontString
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_HitIndicator_HitTextObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_LevelBackgroundCircleObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_LevelBackgroundCircleObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarAreaObject : Frame
----@field ManaBar PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBarObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarAreaObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBarObject : StatusBar
----@field FeedbackFrame PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FeedbackFrameObject
----@field FullPowerFrame PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrameObject
----@field LeftText PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_LeftTextObject
----@field ManaBarMask PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaBarMaskObject
----@field ManaBarText PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaBarTextObject
----@field ManaCostPredictionBar PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBarObject
----@field RightText PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_RightTextObject
----@field Spark PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_SparkObject
----@field TextString PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_TextStringObject
----@field capNumericDisplay boolean
----@field controlsShownState boolean
----@field currValue number
----@field cvar string
----@field cvarLabel string
----@field disconnected boolean
----@field frequentUpdates boolean
----@field lockColor boolean
----@field lockShow number
----@field powerToken string
----@field powerType number
----@field textLockable number
----@field texture PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_textureObject
----@field unit string
----@field unitFrame PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_unitFrameObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBarObject = {}
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBarObject:GetNumericDisplay(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBarObject:HideStatusBarText(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBarObject:InitializeTextStatusBar(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBarObject:OnStatusBarEnter(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBarObject:OnStatusBarLeave(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBarObject:OnStatusBarMinMaxChanged(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBarObject:OnStatusBarValueChanged(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBarObject:SetBarText(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBarObject:SetBarTextPrefix(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBarObject:SetBarTextZeroText(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBarObject:SetForceShow(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBarObject:ShowStatusBarText(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBarObject:TextStatusBarOnEvent(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBarObject:UpdateTextString(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBarObject:UpdateTextStringWithValues(...) end
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FeedbackFrameObject : Frame
----@field BarTexture PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FeedbackFrame_BarTextureObject
----@field GainGlowTexture PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FeedbackFrame_GainGlowTextureObject
----@field LossGlowTexture PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FeedbackFrame_LossGlowTextureObject
----@field initialized boolean
----@field maxValue number
----@field powerType number
----@field unit string
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FeedbackFrameObject = {}
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FeedbackFrameObject:AddMaskTexture(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FeedbackFrameObject:EndFeedbackGain(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FeedbackFrameObject:EndFeedbackLoss(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FeedbackFrameObject:GetMaxValue(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FeedbackFrameObject:Initialize(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FeedbackFrameObject:OnLoad(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FeedbackFrameObject:SetMaxValue(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FeedbackFrameObject:StartFeedbackAnim(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FeedbackFrameObject:StopFeedbackAnim(...) end
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FeedbackFrame_BarTextureObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FeedbackFrame_BarTextureObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FeedbackFrame_GainGlowTextureObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FeedbackFrame_GainGlowTextureObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FeedbackFrame_LossGlowTextureObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FeedbackFrame_LossGlowTextureObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrameObject : Frame
----@field FadeoutAnim PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_FadeoutAnimObject
----@field PulseFrame PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_PulseFrameObject
----@field SpikeFrame PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_SpikeFrameObject
----@field active boolean
----@field maxValue number
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrameObject = {}
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrameObject:GetMaxValue(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrameObject:Initialize(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrameObject:RemoveAnims(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrameObject:SetMaxValue(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrameObject:StartAnimIfFull(...) end
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_FadeoutAnimObject : AnimationGroup
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_FadeoutAnimObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_PulseFrameObject : Frame
----@field PulseAnim PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_PulseFrame_PulseAnimObject
----@field SoftGlow PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_PulseFrame_SoftGlowObject
----@field YellowGlow PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_PulseFrame_YellowGlowObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_PulseFrameObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_PulseFrame_PulseAnimObject : AnimationGroup
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_PulseFrame_PulseAnimObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_PulseFrame_SoftGlowObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_PulseFrame_SoftGlowObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_PulseFrame_YellowGlowObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_PulseFrame_YellowGlowObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_SpikeFrameObject : Frame
----@field AlertSpikeStay PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_SpikeFrame_AlertSpikeStayObject
----@field BigSpikeGlow PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_SpikeFrame_BigSpikeGlowObject
----@field SpikeAnim PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_SpikeFrame_SpikeAnimObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_SpikeFrameObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_SpikeFrame_AlertSpikeStayObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_SpikeFrame_AlertSpikeStayObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_SpikeFrame_BigSpikeGlowObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_SpikeFrame_BigSpikeGlowObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_SpikeFrame_SpikeAnimObject : AnimationGroup
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_FullPowerFrame_SpikeFrame_SpikeAnimObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_LeftTextObject : FontString
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_LeftTextObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaBarMaskObject : MaskTexture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaBarMaskObject = {}
-end
-
-do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaBarTextObject : FontString
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaBarTextObject = {}
+local GroupLootFrame1_LootButtonContainer_GreedButtonObject = {}
 end
 
 do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBarObject : Frame
----@field Fill PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_FillObject
----@field FillMask PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_FillMaskObject
----@field fillAtlas string
----@field fillColor PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_fillColorObject
----@field initialized boolean
----@field statusBar PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_statusBarObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBarObject = {}
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBarObject:Initialize(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBarObject:OnLoad(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBarObject:SetFillColor(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBarObject:SetStatusBar(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBarObject:UpdateFillPosition(...) end
+---@class GroupLootFrame1_LootButtonContainer_NeedButtonObject : Button
+---@field newbieText string
+---@field tooltipText string
+local GroupLootFrame1_LootButtonContainer_NeedButtonObject = {}
 end
 
 do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_FillObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_FillObject = {}
+---@class GroupLootFrame1_LootButtonContainer_PassButtonObject : Button
+---@field newbieText string
+---@field tooltipText string
+local GroupLootFrame1_LootButtonContainer_PassButtonObject = {}
 end
 
 do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_FillMaskObject : MaskTexture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_FillMaskObject = {}
+---@class GroupLootFrame1_LootButtonContainer_TransmogButtonObject : Button
+---@field tooltipText string
+local GroupLootFrame1_LootButtonContainer_TransmogButtonObject = {}
 end
 
 do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_fillColorObject
----@field a number
----@field b number
----@field g number
----@field r number
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_fillColorObject = {}
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_fillColorObject:GenerateHexColor(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_fillColorObject:GenerateHexColorMarkup(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_fillColorObject:GenerateHexColorNoAlpha(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_fillColorObject:GetHSL(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_fillColorObject:GetRGB(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_fillColorObject:GetRGBA(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_fillColorObject:GetRGBAAsBytes(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_fillColorObject:GetRGBAsBytes(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_fillColorObject:IsEqualTo(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_fillColorObject:IsRGBEqualTo(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_fillColorObject:OnLoad(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_fillColorObject:SetRGB(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_fillColorObject:SetRGBA(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_fillColorObject:WrapTextInColorCode(...) end
+---@class GroupLootFrame1_NameObject : FontString
+local GroupLootFrame1_NameObject = {}
 end
 
 do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_statusBarObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_ManaCostPredictionBar_statusBarObject = {}
+---@class GroupLootFrame1_NeedRollAnimObject : Frame
+---@field Animation GroupLootFrame1_NeedRollAnim_AnimationObject
+---@field DiceGlow GroupLootFrame1_NeedRollAnim_DiceGlowObject
+---@field DiceRoll GroupLootFrame1_NeedRollAnim_DiceRollObject
+---@field FX_RevealA GroupLootFrame1_NeedRollAnim_FX_RevealAObject
+---@field FX_RevealB1 GroupLootFrame1_NeedRollAnim_FX_RevealB1Object
+---@field FX_RevealB2 GroupLootFrame1_NeedRollAnim_FX_RevealB2Object
+---@field FX_RevealFade GroupLootFrame1_NeedRollAnim_FX_RevealFadeObject
+---@field RollNumber GroupLootFrame1_NeedRollAnim_RollNumberObject
+local GroupLootFrame1_NeedRollAnimObject = {}
 end
 
 do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_RightTextObject : FontString
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_RightTextObject = {}
+---@class GroupLootFrame1_NeedRollAnim_AnimationObject : AnimationGroup
+local GroupLootFrame1_NeedRollAnim_AnimationObject = {}
 end
 
 do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_SparkObject : Texture
----@field isActive boolean
----@field statusBar PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_Spark_statusBarObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_SparkObject = {}
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_SparkObject:GetIsActive(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_SparkObject:Initialize(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_SparkObject:OnBarValuesUpdated(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_SparkObject:SetVisuals(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_SparkObject:UpdateShown(...) end
----@return any ...
-function PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_SparkObject:UpdateSize(...) end
+---@class GroupLootFrame1_NeedRollAnim_DiceGlowObject : Texture
+local GroupLootFrame1_NeedRollAnim_DiceGlowObject = {}
 end
 
 do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_Spark_statusBarObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_Spark_statusBarObject = {}
+---@class GroupLootFrame1_NeedRollAnim_DiceRollObject : Texture
+local GroupLootFrame1_NeedRollAnim_DiceRollObject = {}
 end
 
 do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_TextStringObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_TextStringObject = {}
+---@class GroupLootFrame1_NeedRollAnim_FX_RevealAObject : Texture
+local GroupLootFrame1_NeedRollAnim_FX_RevealAObject = {}
 end
 
 do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_textureObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_textureObject = {}
+---@class GroupLootFrame1_NeedRollAnim_FX_RevealB1Object : Texture
+local GroupLootFrame1_NeedRollAnim_FX_RevealB1Object = {}
 end
 
 do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_unitFrameObject
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_ManaBarArea_ManaBar_unitFrameObject = {}
+---@class GroupLootFrame1_NeedRollAnim_FX_RevealB2Object : Texture
+local GroupLootFrame1_NeedRollAnim_FX_RevealB2Object = {}
 end
 
 do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_PvpBackgroundIconObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_PvpBackgroundIconObject = {}
+---@class GroupLootFrame1_NeedRollAnim_FX_RevealFadeObject : Texture
+local GroupLootFrame1_NeedRollAnim_FX_RevealFadeObject = {}
 end
 
 do
----@class PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_StatusTextureObject : Texture
-local PlayerFrame_PlayerFrameContent_PlayerFrameContentMain_StatusTextureObject = {}
+---@class GroupLootFrame1_NeedRollAnim_RollNumberObject : FontString
+local GroupLootFrame1_NeedRollAnim_RollNumberObject = {}
 end
 
 do
----@class PlayerFrame_SelectionObject : Frame
----@field HorizontalLabel PlayerFrame_Selection_HorizontalLabelObject
----@field MouseOverHighlight PlayerFrame_Selection_MouseOverHighlightObject
----@field VerticalLabel PlayerFrame_Selection_VerticalLabelObject
----@field highlightTextureKit string
----@field ignoreInLayout boolean
----@field parent PlayerFrame_Selection_parentObject
----@field selectedTextureKit string
----@field system PlayerFrame_Selection_systemObject
-local PlayerFrame_SelectionObject = {}
----@return any ...
-function PlayerFrame_SelectionObject:CheckShowInstructionalTooltip(...) end
----@return any ...
-function PlayerFrame_SelectionObject:GetBorderColor(...) end
----@return any ...
-function PlayerFrame_SelectionObject:GetCenterColor(...) end
----@return any ...
-function PlayerFrame_SelectionObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function PlayerFrame_SelectionObject:GetFrameLayoutType(...) end
----@return any ...
-function PlayerFrame_SelectionObject:GetLabelText(...) end
----@return any ...
-function PlayerFrame_SelectionObject:HideInstructionalTooltip(...) end
+---@class GroupLootFrame1_RightJumpHintObject : Frame
+---@field ActiveTexture GroupLootFrame1_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture GroupLootFrame1_RightJumpHint_DisabledTextureObject
+---@field HoldAnim GroupLootFrame1_RightJumpHint_HoldAnimObject
+---@field HoldIndicator GroupLootFrame1_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GroupLootFrame1_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GroupLootFrame1_RightJumpHint_HoverTextureObject
+---@field LoadBar GroupLootFrame1_RightJumpHint_LoadBarObject
+---@field LoadBarBG GroupLootFrame1_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow GroupLootFrame1_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture GroupLootFrame1_RightJumpHint_NormalTextureObject
+---@field PressedTexture GroupLootFrame1_RightJumpHint_PressedTextureObject
+---@field SpinnerTip GroupLootFrame1_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GroupLootFrame1_RightJumpHintObject = {}
 ---@return any ...
-function PlayerFrame_SelectionObject:IsSelected(...) end
+function GroupLootFrame1_RightJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function PlayerFrame_SelectionObject:IsShowingEditInstructions(...) end
+function GroupLootFrame1_RightJumpHintObject:BeginHold(...) end
 ---@return any ...
-function PlayerFrame_SelectionObject:OnDragStart(...) end
+function GroupLootFrame1_RightJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function PlayerFrame_SelectionObject:OnDragStop(...) end
+function GroupLootFrame1_RightJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function PlayerFrame_SelectionObject:OnEnter(...) end
+function GroupLootFrame1_RightJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function PlayerFrame_SelectionObject:OnLeave(...) end
+function GroupLootFrame1_RightJumpHintObject:EndHold(...) end
 ---@return any ...
-function PlayerFrame_SelectionObject:OnLoad(...) end
+function GroupLootFrame1_RightJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function PlayerFrame_SelectionObject:OnMouseDown(...) end
+function GroupLootFrame1_RightJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function PlayerFrame_SelectionObject:SetBlendMode(...) end
+function GroupLootFrame1_RightJumpHintObject:OnLoad(...) end
 ---@return any ...
-function PlayerFrame_SelectionObject:SetBorderBlendMode(...) end
----@return any ...
-function PlayerFrame_SelectionObject:SetBorderColor(...) end
----@return any ...
-function PlayerFrame_SelectionObject:SetCenterColor(...) end
----@return any ...
-function PlayerFrame_SelectionObject:SetSystem(...) end
----@return any ...
-function PlayerFrame_SelectionObject:SetVertexColor(...) end
----@return any ...
-function PlayerFrame_SelectionObject:SetVerticalState(...) end
----@return any ...
-function PlayerFrame_SelectionObject:ShouldShowLabelText(...) end
----@return any ...
-function PlayerFrame_SelectionObject:ShowEditInstructions(...) end
----@return any ...
-function PlayerFrame_SelectionObject:ShowHighlighted(...) end
----@return any ...
-function PlayerFrame_SelectionObject:ShowSelected(...) end
----@return any ...
-function PlayerFrame_SelectionObject:UpdateLabelVisibility(...) end
-end
-
-do
----@class PlayerFrame_Selection_HorizontalLabelObject : FontString
----@field fontObjectsToTry table
-local PlayerFrame_Selection_HorizontalLabelObject = {}
+function GroupLootFrame1_RightJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function PlayerFrame_Selection_HorizontalLabelObject:ApplyFontObjects(...) end
+function GroupLootFrame1_RightJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function PlayerFrame_Selection_HorizontalLabelObject:SetFontObjectsToTry(...) end
-end
-
-do
----@class PlayerFrame_Selection_MouseOverHighlightObject : Frame
----@field BottomEdge PlayerFrame_Selection_MouseOverHighlight_BottomEdgeObject
----@field BottomLeftCorner PlayerFrame_Selection_MouseOverHighlight_BottomLeftCornerObject
----@field BottomRightCorner PlayerFrame_Selection_MouseOverHighlight_BottomRightCornerObject
----@field Center PlayerFrame_Selection_MouseOverHighlight_CenterObject
----@field LeftEdge PlayerFrame_Selection_MouseOverHighlight_LeftEdgeObject
----@field RightEdge PlayerFrame_Selection_MouseOverHighlight_RightEdgeObject
----@field TopEdge PlayerFrame_Selection_MouseOverHighlight_TopEdgeObject
----@field TopLeftCorner PlayerFrame_Selection_MouseOverHighlight_TopLeftCornerObject
----@field TopRightCorner PlayerFrame_Selection_MouseOverHighlight_TopRightCornerObject
-local PlayerFrame_Selection_MouseOverHighlightObject = {}
+function GroupLootFrame1_RightJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function PlayerFrame_Selection_MouseOverHighlightObject:GetBorderColor(...) end
+function GroupLootFrame1_RightJumpHintObject:SetFocused(...) end
 ---@return any ...
-function PlayerFrame_Selection_MouseOverHighlightObject:GetCenterColor(...) end
+function GroupLootFrame1_RightJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function PlayerFrame_Selection_MouseOverHighlightObject:GetFrameLayoutTextureKit(...) end
+function GroupLootFrame1_RightJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function PlayerFrame_Selection_MouseOverHighlightObject:GetFrameLayoutType(...) end
+function GroupLootFrame1_RightJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function PlayerFrame_Selection_MouseOverHighlightObject:OnLoad(...) end
+function GroupLootFrame1_RightJumpHintObject:SetPressable(...) end
 ---@return any ...
-function PlayerFrame_Selection_MouseOverHighlightObject:SetBlendMode(...) end
+function GroupLootFrame1_RightJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function PlayerFrame_Selection_MouseOverHighlightObject:SetBorderBlendMode(...) end
+function GroupLootFrame1_RightJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function PlayerFrame_Selection_MouseOverHighlightObject:SetBorderColor(...) end
+function GroupLootFrame1_RightJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function PlayerFrame_Selection_MouseOverHighlightObject:SetCenterColor(...) end
+function GroupLootFrame1_RightJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function PlayerFrame_Selection_MouseOverHighlightObject:SetVertexColor(...) end
-end
-
-do
----@class PlayerFrame_Selection_MouseOverHighlight_BottomEdgeObject : Texture
-local PlayerFrame_Selection_MouseOverHighlight_BottomEdgeObject = {}
-end
-
-do
----@class PlayerFrame_Selection_MouseOverHighlight_BottomLeftCornerObject : Texture
-local PlayerFrame_Selection_MouseOverHighlight_BottomLeftCornerObject = {}
-end
-
-do
----@class PlayerFrame_Selection_MouseOverHighlight_BottomRightCornerObject : Texture
-local PlayerFrame_Selection_MouseOverHighlight_BottomRightCornerObject = {}
-end
-
-do
----@class PlayerFrame_Selection_MouseOverHighlight_CenterObject : Texture
-local PlayerFrame_Selection_MouseOverHighlight_CenterObject = {}
-end
-
-do
----@class PlayerFrame_Selection_MouseOverHighlight_LeftEdgeObject : Texture
-local PlayerFrame_Selection_MouseOverHighlight_LeftEdgeObject = {}
-end
-
-do
----@class PlayerFrame_Selection_MouseOverHighlight_RightEdgeObject : Texture
-local PlayerFrame_Selection_MouseOverHighlight_RightEdgeObject = {}
-end
-
-do
----@class PlayerFrame_Selection_MouseOverHighlight_TopEdgeObject : Texture
-local PlayerFrame_Selection_MouseOverHighlight_TopEdgeObject = {}
-end
-
-do
----@class PlayerFrame_Selection_MouseOverHighlight_TopLeftCornerObject : Texture
-local PlayerFrame_Selection_MouseOverHighlight_TopLeftCornerObject = {}
+function GroupLootFrame1_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class PlayerFrame_Selection_MouseOverHighlight_TopRightCornerObject : Texture
-local PlayerFrame_Selection_MouseOverHighlight_TopRightCornerObject = {}
+---@class GroupLootFrame1_RightJumpHint_ActiveTextureObject : Texture
+local GroupLootFrame1_RightJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class PlayerFrame_Selection_VerticalLabelObject : FontString
-local PlayerFrame_Selection_VerticalLabelObject = {}
+---@class GroupLootFrame1_RightJumpHint_DisabledTextureObject : Texture
+local GroupLootFrame1_RightJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class PlayerFrame_Selection_parentObject
-local PlayerFrame_Selection_parentObject = {}
+---@class GroupLootFrame1_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GroupLootFrame1_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GroupLootFrame1_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GroupLootFrame1_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local GroupLootFrame1_RightJumpHint_HoldAnimObject = {}
 end
 
 do
----@class PlayerFrame_Selection_systemObject
-local PlayerFrame_Selection_systemObject = {}
+---@class GroupLootFrame1_RightJumpHint_HoldAnim_LoadBarAnimObject
+local GroupLootFrame1_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class PlayerFrame_feedbackTextObject
-local PlayerFrame_feedbackTextObject = {}
+---@class GroupLootFrame1_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GroupLootFrame1_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class PlayerFrame_healAbsorbBarObject
-local PlayerFrame_healAbsorbBarObject = {}
+---@class GroupLootFrame1_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GroupLootFrame1_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class PlayerFrame_healthbarObject
-local PlayerFrame_healthbarObject = {}
+---@class GroupLootFrame1_RightJumpHint_HoldIndicatorObject : Texture
+local GroupLootFrame1_RightJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class PlayerFrame_manabarObject
-local PlayerFrame_manabarObject = {}
+---@class GroupLootFrame1_RightJumpHint_HoldIndicatorBGObject : Texture
+local GroupLootFrame1_RightJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class PlayerFrame_myHealPredictionBarObject
-local PlayerFrame_myHealPredictionBarObject = {}
+---@class GroupLootFrame1_RightJumpHint_HoverTextureObject : Texture
+local GroupLootFrame1_RightJumpHint_HoverTextureObject = {}
 end
 
 do
----@class PlayerFrame_myManaCostPredictionBarObject
-local PlayerFrame_myManaCostPredictionBarObject = {}
+---@class GroupLootFrame1_RightJumpHint_LoadBarObject : Texture
+local GroupLootFrame1_RightJumpHint_LoadBarObject = {}
 end
 
 do
----@class PlayerFrame_nameObject
-local PlayerFrame_nameObject = {}
+---@class GroupLootFrame1_RightJumpHint_LoadBarBGObject : Texture
+local GroupLootFrame1_RightJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class PlayerFrame_otherHealPredictionBarObject
-local PlayerFrame_otherHealPredictionBarObject = {}
+---@class GroupLootFrame1_RightJumpHint_LoadBarGlowObject : Texture
+local GroupLootFrame1_RightJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class PlayerFrame_overAbsorbGlowObject
-local PlayerFrame_overAbsorbGlowObject = {}
+---@class GroupLootFrame1_RightJumpHint_NormalTextureObject : Texture
+local GroupLootFrame1_RightJumpHint_NormalTextureObject = {}
 end
 
 do
----@class PlayerFrame_overHealAbsorbGlowObject
-local PlayerFrame_overHealAbsorbGlowObject = {}
-end
-
-do
----@class PlayerFrame_portraitObject : Texture
-local PlayerFrame_portraitObject = {}
-end
-
-do
----@class PlayerFrame_savedSystemInfoObject
----@field anchorInfo table
----@field isInDefaultPosition boolean
----@field settings table
----@field system number
----@field systemIndex number
-local PlayerFrame_savedSystemInfoObject = {}
-end
-
-do
----@class PlayerFrame_settingDisplayInfoMapObject
-local PlayerFrame_settingDisplayInfoMapObject = {}
-end
-
-do
----@class PlayerFrame_settingsDialogAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo PlayerFrame_settingsDialogAnchor_relativeToObject
----@field x number
-local PlayerFrame_settingsDialogAnchorObject = {}
----@return any ...
-function PlayerFrame_settingsDialogAnchorObject:Get(...) end
----@return any ...
-function PlayerFrame_settingsDialogAnchorObject:GetRelativeTo(...) end
----@return any ...
-function PlayerFrame_settingsDialogAnchorObject:Init(...) end
----@return any ...
-function PlayerFrame_settingsDialogAnchorObject:Set(...) end
----@return any ...
-function PlayerFrame_settingsDialogAnchorObject:SetFromPoint(...) end
----@return any ...
-function PlayerFrame_settingsDialogAnchorObject:SetOffsets(...) end
----@return any ...
-function PlayerFrame_settingsDialogAnchorObject:SetPoint(...) end
----@return any ...
-function PlayerFrame_settingsDialogAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function PlayerFrame_settingsDialogAnchorObject:SetRelativeTo(...) end
-end
-
-do
----@class PlayerFrame_settingsDialogAnchor_relativeToObject
-local PlayerFrame_settingsDialogAnchor_relativeToObject = {}
-end
-
-do
----@class PlayerFrame_systemInfoObject
----@field anchorInfo table
----@field isInDefaultPosition boolean
----@field settings table
----@field system number
----@field systemIndex number
-local PlayerFrame_systemInfoObject = {}
-end
-
-do
----@class PlayerFrame_tempMaxHealthLossBarObject
-local PlayerFrame_tempMaxHealthLossBarObject = {}
-end
-
-do
----@class PlayerFrame_threatIndicatorObject
-local PlayerFrame_threatIndicatorObject = {}
-end
-
-do
----@class PlayerFrame_totalAbsorbBarObject
-local PlayerFrame_totalAbsorbBarObject = {}
-end
-
-do
----@class PlunderstormFramePopupObject : Frame
----@field AcceptButton PlunderstormFramePopup_AcceptButtonObject
----@field Border PlunderstormFramePopup_BorderObject
----@field DeclineButton PlunderstormFramePopup_DeclineButtonObject
----@field QueueTypeIcon PlunderstormFramePopup_QueueTypeIconObject
----@field QueueTypeText PlunderstormFramePopup_QueueTypeTextObject
----@field SubTitle PlunderstormFramePopup_SubTitleObject
----@field Title PlunderstormFramePopup_TitleObject
-local PlunderstormFramePopupObject = {}
----@return any ...
-function PlunderstormFramePopupObject:OnEvent(...) end
----@return any ...
-function PlunderstormFramePopupObject:OnLoad(...) end
----@return any ...
-function PlunderstormFramePopupObject:ShowPopup(...) end
----@type PlunderstormFramePopupObject
-PlunderstormFramePopup = PlunderstormFramePopupObject
-end
-
-do
----@class PlunderstormFramePopup_AcceptButtonObject : Button
----@field Left PlunderstormFramePopup_AcceptButton_LeftObject
----@field Middle PlunderstormFramePopup_AcceptButton_MiddleObject
----@field Right PlunderstormFramePopup_AcceptButton_RightObject
----@field Text PlunderstormFramePopup_AcceptButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local PlunderstormFramePopup_AcceptButtonObject = {}
----@return any ...
-function PlunderstormFramePopup_AcceptButtonObject:FitToText(...) end
----@return any ...
-function PlunderstormFramePopup_AcceptButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function PlunderstormFramePopup_AcceptButtonObject:OnEnter(...) end
----@return any ...
-function PlunderstormFramePopup_AcceptButtonObject:OnLeave(...) end
----@return any ...
-function PlunderstormFramePopup_AcceptButtonObject:SetDisabledState(...) end
----@return any ...
-function PlunderstormFramePopup_AcceptButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function PlunderstormFramePopup_AcceptButtonObject:SetTextToFit(...) end
+---@class GroupLootFrame1_RightJumpHint_PressedTextureObject : Texture
+local GroupLootFrame1_RightJumpHint_PressedTextureObject = {}
 end
 
 do
----@class PlunderstormFramePopup_AcceptButton_LeftObject : Texture
-local PlunderstormFramePopup_AcceptButton_LeftObject = {}
+---@class GroupLootFrame1_RightJumpHint_SpinnerTipObject : Texture
+local GroupLootFrame1_RightJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class PlunderstormFramePopup_AcceptButton_MiddleObject : Texture
-local PlunderstormFramePopup_AcceptButton_MiddleObject = {}
+---@class GroupLootFrame1_TimerObject : StatusBar
+---@field Background GroupLootFrame1_Timer_BackgroundObject
+---@field Bar GroupLootFrame1_Timer_BarObject
+local GroupLootFrame1_TimerObject = {}
 end
 
 do
----@class PlunderstormFramePopup_AcceptButton_RightObject : Texture
-local PlunderstormFramePopup_AcceptButton_RightObject = {}
+---@class GroupLootFrame1_Timer_BackgroundObject : Texture
+local GroupLootFrame1_Timer_BackgroundObject = {}
 end
 
 do
----@class PlunderstormFramePopup_AcceptButton_TextObject : FontString
-local PlunderstormFramePopup_AcceptButton_TextObject = {}
+---@class GroupLootFrame1_Timer_BarObject : Texture
+local GroupLootFrame1_Timer_BarObject = {}
 end
 
 do
----@class PlunderstormFramePopup_BorderObject : Frame
----@field Bg PlunderstormFramePopup_Border_BgObject
----@field BottomEdge PlunderstormFramePopup_Border_BottomEdgeObject
----@field BottomLeftCorner PlunderstormFramePopup_Border_BottomLeftCornerObject
----@field BottomRightCorner PlunderstormFramePopup_Border_BottomRightCornerObject
----@field LeftEdge PlunderstormFramePopup_Border_LeftEdgeObject
----@field RightEdge PlunderstormFramePopup_Border_RightEdgeObject
----@field TopEdge PlunderstormFramePopup_Border_TopEdgeObject
----@field TopLeftCorner PlunderstormFramePopup_Border_TopLeftCornerObject
----@field TopRightCorner PlunderstormFramePopup_Border_TopRightCornerObject
+---@class GroupLootFrame2Object : Frame
+---@field Background GroupLootFrame2_BackgroundObject
+---@field Border GroupLootFrame2_BorderObject
+---@field FocusJumpHint GroupLootFrame2_FocusJumpHintObject
+---@field FrameGlow GroupLootFrame2_FrameGlowObject
+---@field IconFrame GroupLootFrame2_IconFrameObject
+---@field LeftJumpHint GroupLootFrame2_LeftJumpHintObject
+---@field LootButtonContainer GroupLootFrame2_LootButtonContainerObject
+---@field Name GroupLootFrame2_NameObject
+---@field NeedRollAnim GroupLootFrame2_NeedRollAnimObject
+---@field RightJumpHint GroupLootFrame2_RightJumpHintObject
+---@field Timer GroupLootFrame2_TimerObject
 ---@field layoutType string
-local PlunderstormFramePopup_BorderObject = {}
+local GroupLootFrame2Object = {}
 ---@return any ...
-function PlunderstormFramePopup_BorderObject:GetBorderColor(...) end
+function GroupLootFrame2Object:EndFocus(...) end
 ---@return any ...
-function PlunderstormFramePopup_BorderObject:GetCenterColor(...) end
+function GroupLootFrame2Object:GetFocusFrameGlow(...) end
 ---@return any ...
-function PlunderstormFramePopup_BorderObject:GetFrameLayoutTextureKit(...) end
+function GroupLootFrame2Object:GetFocusFrameRoot(...) end
 ---@return any ...
-function PlunderstormFramePopup_BorderObject:GetFrameLayoutType(...) end
+function GroupLootFrame2Object:HideFocusJumpHint(...) end
 ---@return any ...
-function PlunderstormFramePopup_BorderObject:OnLoad(...) end
+function GroupLootFrame2Object:HideLeftJumpHint(...) end
 ---@return any ...
-function PlunderstormFramePopup_BorderObject:SetBlendMode(...) end
+function GroupLootFrame2Object:HideRightJumpHint(...) end
 ---@return any ...
-function PlunderstormFramePopup_BorderObject:SetBorderBlendMode(...) end
+function GroupLootFrame2Object:LockInFocus(...) end
 ---@return any ...
-function PlunderstormFramePopup_BorderObject:SetBorderColor(...) end
+function GroupLootFrame2Object:RefreshFocus(...) end
 ---@return any ...
-function PlunderstormFramePopup_BorderObject:SetCenterColor(...) end
+function GroupLootFrame2Object:ShowFocusJumpHint(...) end
 ---@return any ...
-function PlunderstormFramePopup_BorderObject:SetVertexColor(...) end
+function GroupLootFrame2Object:ShowLeftJumpHint(...) end
+---@return any ...
+function GroupLootFrame2Object:ShowRightJumpHint(...) end
+---@return any ...
+function GroupLootFrame2Object:StartFocus(...) end
+---@type GroupLootFrame2Object
+GroupLootFrame2 = GroupLootFrame2Object
 end
 
 do
----@class PlunderstormFramePopup_Border_BgObject : Texture
-local PlunderstormFramePopup_Border_BgObject = {}
+---@class GroupLootFrame2_BackgroundObject : Texture
+local GroupLootFrame2_BackgroundObject = {}
 end
 
 do
----@class PlunderstormFramePopup_Border_BottomEdgeObject : Texture
-local PlunderstormFramePopup_Border_BottomEdgeObject = {}
+---@class GroupLootFrame2_BorderObject : Texture
+local GroupLootFrame2_BorderObject = {}
 end
 
 do
----@class PlunderstormFramePopup_Border_BottomLeftCornerObject : Texture
-local PlunderstormFramePopup_Border_BottomLeftCornerObject = {}
-end
-
-do
----@class PlunderstormFramePopup_Border_BottomRightCornerObject : Texture
-local PlunderstormFramePopup_Border_BottomRightCornerObject = {}
-end
-
-do
----@class PlunderstormFramePopup_Border_LeftEdgeObject : Texture
-local PlunderstormFramePopup_Border_LeftEdgeObject = {}
-end
-
-do
----@class PlunderstormFramePopup_Border_RightEdgeObject : Texture
-local PlunderstormFramePopup_Border_RightEdgeObject = {}
-end
-
-do
----@class PlunderstormFramePopup_Border_TopEdgeObject : Texture
-local PlunderstormFramePopup_Border_TopEdgeObject = {}
-end
-
-do
----@class PlunderstormFramePopup_Border_TopLeftCornerObject : Texture
-local PlunderstormFramePopup_Border_TopLeftCornerObject = {}
-end
-
-do
----@class PlunderstormFramePopup_Border_TopRightCornerObject : Texture
-local PlunderstormFramePopup_Border_TopRightCornerObject = {}
-end
-
-do
----@class PlunderstormFramePopup_DeclineButtonObject : Button
----@field Left PlunderstormFramePopup_DeclineButton_LeftObject
----@field Middle PlunderstormFramePopup_DeclineButton_MiddleObject
----@field Right PlunderstormFramePopup_DeclineButton_RightObject
----@field Text PlunderstormFramePopup_DeclineButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local PlunderstormFramePopup_DeclineButtonObject = {}
----@return any ...
-function PlunderstormFramePopup_DeclineButtonObject:FitToText(...) end
----@return any ...
-function PlunderstormFramePopup_DeclineButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function PlunderstormFramePopup_DeclineButtonObject:OnEnter(...) end
----@return any ...
-function PlunderstormFramePopup_DeclineButtonObject:OnLeave(...) end
----@return any ...
-function PlunderstormFramePopup_DeclineButtonObject:SetDisabledState(...) end
----@return any ...
-function PlunderstormFramePopup_DeclineButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function PlunderstormFramePopup_DeclineButtonObject:SetTextToFit(...) end
-end
-
-do
----@class PlunderstormFramePopup_DeclineButton_LeftObject : Texture
-local PlunderstormFramePopup_DeclineButton_LeftObject = {}
-end
-
-do
----@class PlunderstormFramePopup_DeclineButton_MiddleObject : Texture
-local PlunderstormFramePopup_DeclineButton_MiddleObject = {}
-end
-
-do
----@class PlunderstormFramePopup_DeclineButton_RightObject : Texture
-local PlunderstormFramePopup_DeclineButton_RightObject = {}
-end
-
-do
----@class PlunderstormFramePopup_DeclineButton_TextObject : FontString
-local PlunderstormFramePopup_DeclineButton_TextObject = {}
-end
-
-do
----@class PlunderstormFramePopup_QueueTypeIconObject : Texture
-local PlunderstormFramePopup_QueueTypeIconObject = {}
-end
-
-do
----@class PlunderstormFramePopup_QueueTypeTextObject : FontString
-local PlunderstormFramePopup_QueueTypeTextObject = {}
-end
-
-do
----@class PlunderstormFramePopup_SubTitleObject : FontString
-local PlunderstormFramePopup_SubTitleObject = {}
-end
-
-do
----@class PlunderstormFramePopup_TitleObject : FontString
-local PlunderstormFramePopup_TitleObject = {}
-end
-
-do
----@class PrivateRaidBossEmoteFrameAnchorObject : Frame
-local PrivateRaidBossEmoteFrameAnchorObject = {}
----@return any ...
-function PrivateRaidBossEmoteFrameAnchorObject:OnLoad(...) end
----@type PrivateRaidBossEmoteFrameAnchorObject
-PrivateRaidBossEmoteFrameAnchor = PrivateRaidBossEmoteFrameAnchorObject
-end
-
-do
----@class PvPObjectiveBannerFrameObject : Frame
----@field Anim PvPObjectiveBannerFrame_AnimObject
----@field BG1 PvPObjectiveBannerFrame_BG1Object
----@field BG2 PvPObjectiveBannerFrame_BG2Object
----@field BonusLabel PvPObjectiveBannerFrame_BonusLabelObject
----@field Icon PvPObjectiveBannerFrame_IconObject
----@field Icon2 PvPObjectiveBannerFrame_Icon2Object
----@field Icon3 PvPObjectiveBannerFrame_Icon3Object
----@field Title PvPObjectiveBannerFrame_TitleObject
----@field TitleFlash PvPObjectiveBannerFrame_TitleFlashObject
-local PvPObjectiveBannerFrameObject = {}
----@return any ...
-function PvPObjectiveBannerFrameObject:PlayBanner(...) end
----@return any ...
-function PvPObjectiveBannerFrameObject:StopBanner(...) end
----@type PvPObjectiveBannerFrameObject
-PvPObjectiveBannerFrame = PvPObjectiveBannerFrameObject
-end
-
-do
----@class PvPObjectiveBannerFrame_AnimObject : AnimationGroup
----@field BG1Translation PvPObjectiveBannerFrame_Anim_BG1TranslationObject
----@field BonusLabelTranslation PvPObjectiveBannerFrame_Anim_BonusLabelTranslationObject
----@field IconTranslation PvPObjectiveBannerFrame_Anim_IconTranslationObject
----@field TitleTranslation PvPObjectiveBannerFrame_Anim_TitleTranslationObject
-local PvPObjectiveBannerFrame_AnimObject = {}
-end
-
-do
----@class PvPObjectiveBannerFrame_Anim_BG1TranslationObject : Translation
-local PvPObjectiveBannerFrame_Anim_BG1TranslationObject = {}
-end
-
-do
----@class PvPObjectiveBannerFrame_Anim_BonusLabelTranslationObject : Translation
-local PvPObjectiveBannerFrame_Anim_BonusLabelTranslationObject = {}
-end
-
-do
----@class PvPObjectiveBannerFrame_Anim_IconTranslationObject : Translation
-local PvPObjectiveBannerFrame_Anim_IconTranslationObject = {}
-end
-
-do
----@class PvPObjectiveBannerFrame_Anim_TitleTranslationObject : Translation
-local PvPObjectiveBannerFrame_Anim_TitleTranslationObject = {}
-end
-
-do
----@class PvPObjectiveBannerFrame_BG1Object : Texture
-local PvPObjectiveBannerFrame_BG1Object = {}
-end
-
-do
----@class PvPObjectiveBannerFrame_BG2Object : Texture
-local PvPObjectiveBannerFrame_BG2Object = {}
-end
-
-do
----@class PvPObjectiveBannerFrame_BonusLabelObject : FontString
-local PvPObjectiveBannerFrame_BonusLabelObject = {}
-end
-
-do
----@class PvPObjectiveBannerFrame_IconObject : Texture
-local PvPObjectiveBannerFrame_IconObject = {}
-end
-
-do
----@class PvPObjectiveBannerFrame_Icon2Object : Texture
-local PvPObjectiveBannerFrame_Icon2Object = {}
-end
-
-do
----@class PvPObjectiveBannerFrame_Icon3Object : Texture
-local PvPObjectiveBannerFrame_Icon3Object = {}
-end
-
-do
----@class PvPObjectiveBannerFrame_TitleObject : FontString
-local PvPObjectiveBannerFrame_TitleObject = {}
-end
-
-do
----@class PvPObjectiveBannerFrame_TitleFlashObject : FontString
-local PvPObjectiveBannerFrame_TitleFlashObject = {}
-end
-
-do
----@class QuestFrameObject : Frame
----@field AccountCompletedNotice QuestFrame_AccountCompletedNoticeObject
----@field Bg QuestFrame_BgObject
----@field CloseButton QuestFrame_CloseButtonObject
----@field FocusJumpHint QuestFrame_FocusJumpHintObject
----@field FrameGlow QuestFrame_FrameGlowObject
----@field FriendshipStatusBar QuestFrame_FriendshipStatusBarObject
----@field Inset QuestFrame_InsetObject
----@field LeftJumpHint QuestFrame_LeftJumpHintObject
----@field NineSlice QuestFrame_NineSliceObject
----@field PortraitContainer QuestFrame_PortraitContainerObject
----@field RightJumpHint QuestFrame_RightJumpHintObject
----@field TitleContainer QuestFrame_TitleContainerObject
----@field TopTileStreaks QuestFrame_TopTileStreaksObject
----@field layoutType string
-local QuestFrameObject = {}
----@return any ...
-function QuestFrameObject:EndFocus(...) end
----@return any ...
-function QuestFrameObject:GetFocusFrameGlow(...) end
----@return any ...
-function QuestFrameObject:GetFocusFrameRoot(...) end
----@return any ...
-function QuestFrameObject:GetPortrait(...) end
----@return any ...
-function QuestFrameObject:GetTitleText(...) end
----@return any ...
-function QuestFrameObject:HasPortraitTexture(...) end
----@return any ...
-function QuestFrameObject:HideFocusJumpHint(...) end
----@return any ...
-function QuestFrameObject:HideLeftJumpHint(...) end
----@return any ...
-function QuestFrameObject:HideRightJumpHint(...) end
----@return any ...
-function QuestFrameObject:LockInFocus(...) end
----@return any ...
-function QuestFrameObject:RefreshFocus(...) end
----@return any ...
-function QuestFrameObject:SetBorder(...) end
----@return any ...
-function QuestFrameObject:SetFrameLevelsFromBaseLevel(...) end
----@return any ...
-function QuestFrameObject:SetPortraitAtlasRaw(...) end
----@return any ...
-function QuestFrameObject:SetPortraitShown(...) end
----@return any ...
-function QuestFrameObject:SetPortraitTexCoord(...) end
----@return any ...
-function QuestFrameObject:SetPortraitTextureRaw(...) end
----@return any ...
-function QuestFrameObject:SetPortraitTextureSizeAndOffset(...) end
----@return any ...
-function QuestFrameObject:SetPortraitToAsset(...) end
----@return any ...
-function QuestFrameObject:SetPortraitToBag(...) end
----@return any ...
-function QuestFrameObject:SetPortraitToClassIcon(...) end
----@return any ...
-function QuestFrameObject:SetPortraitToSpecIcon(...) end
----@return any ...
-function QuestFrameObject:SetPortraitToUnit(...) end
----@return any ...
-function QuestFrameObject:SetTitle(...) end
----@return any ...
-function QuestFrameObject:SetTitleColor(...) end
----@return any ...
-function QuestFrameObject:SetTitleFormatted(...) end
----@return any ...
-function QuestFrameObject:SetTitleMaxLinesAndHeight(...) end
----@return any ...
-function QuestFrameObject:SetTitleOffsets(...) end
----@return any ...
-function QuestFrameObject:ShowFocusJumpHint(...) end
----@return any ...
-function QuestFrameObject:ShowLeftJumpHint(...) end
----@return any ...
-function QuestFrameObject:ShowRightJumpHint(...) end
----@return any ...
-function QuestFrameObject:StartFocus(...) end
----@type QuestFrameObject
-QuestFrame = QuestFrameObject
-end
-
-do
----@class QuestFrame_AccountCompletedNoticeObject : Frame
----@field AccountCompletedIcon QuestFrame_AccountCompletedNotice_AccountCompletedIconObject
----@field Text QuestFrame_AccountCompletedNotice_TextObject
-local QuestFrame_AccountCompletedNoticeObject = {}
----@return any ...
-function QuestFrame_AccountCompletedNoticeObject:OnEnter(...) end
----@return any ...
-function QuestFrame_AccountCompletedNoticeObject:OnLeave(...) end
----@return any ...
-function QuestFrame_AccountCompletedNoticeObject:OnLoad(...) end
----@return any ...
-function QuestFrame_AccountCompletedNoticeObject:Refresh(...) end
-end
-
-do
----@class QuestFrame_AccountCompletedNotice_AccountCompletedIconObject : Texture
-local QuestFrame_AccountCompletedNotice_AccountCompletedIconObject = {}
-end
-
-do
----@class QuestFrame_AccountCompletedNotice_TextObject : FontString
-local QuestFrame_AccountCompletedNotice_TextObject = {}
-end
-
-do
----@class QuestFrame_BgObject : Texture
-local QuestFrame_BgObject = {}
-end
-
-do
----@class QuestFrame_CloseButtonObject : Button
-local QuestFrame_CloseButtonObject = {}
----@return any ...
-function QuestFrame_CloseButtonObject:NarrationGetName(...) end
----@return any ...
-function QuestFrame_CloseButtonObject:OnLoad(...) end
-end
-
-do
----@class QuestFrame_FocusJumpHintObject : Frame
----@field ActiveTexture QuestFrame_FocusJumpHint_ActiveTextureObject
----@field DisabledTexture QuestFrame_FocusJumpHint_DisabledTextureObject
----@field HoldAnim QuestFrame_FocusJumpHint_HoldAnimObject
----@field HoldIndicator QuestFrame_FocusJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG QuestFrame_FocusJumpHint_HoldIndicatorBGObject
----@field HoverTexture QuestFrame_FocusJumpHint_HoverTextureObject
----@field LoadBar QuestFrame_FocusJumpHint_LoadBarObject
----@field LoadBarBG QuestFrame_FocusJumpHint_LoadBarBGObject
----@field LoadBarGlow QuestFrame_FocusJumpHint_LoadBarGlowObject
----@field NormalTexture QuestFrame_FocusJumpHint_NormalTextureObject
----@field PressedTexture QuestFrame_FocusJumpHint_PressedTextureObject
----@field SpinnerTip QuestFrame_FocusJumpHint_SpinnerTipObject
+---@class GroupLootFrame2_FocusJumpHintObject : Frame
+---@field ActiveTexture GroupLootFrame2_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture GroupLootFrame2_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim GroupLootFrame2_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator GroupLootFrame2_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GroupLootFrame2_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GroupLootFrame2_FocusJumpHint_HoverTextureObject
+---@field LoadBar GroupLootFrame2_FocusJumpHint_LoadBarObject
+---@field LoadBarBG GroupLootFrame2_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow GroupLootFrame2_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture GroupLootFrame2_FocusJumpHint_NormalTextureObject
+---@field PressedTexture GroupLootFrame2_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip GroupLootFrame2_FocusJumpHint_SpinnerTipObject
 ---@field ignoreInLayout boolean
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
@@ -8382,908 +4854,635 @@ do
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local QuestFrame_FocusJumpHintObject = {}
+local GroupLootFrame2_FocusJumpHintObject = {}
 ---@return any ...
-function QuestFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
+function GroupLootFrame2_FocusJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function QuestFrame_FocusJumpHintObject:BeginHold(...) end
+function GroupLootFrame2_FocusJumpHintObject:BeginHold(...) end
 ---@return any ...
-function QuestFrame_FocusJumpHintObject:CanEnterTextureState(...) end
+function GroupLootFrame2_FocusJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function QuestFrame_FocusJumpHintObject:DisableDropShadow(...) end
+function GroupLootFrame2_FocusJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function QuestFrame_FocusJumpHintObject:EnableDropShadow(...) end
+function GroupLootFrame2_FocusJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function QuestFrame_FocusJumpHintObject:EndHold(...) end
+function GroupLootFrame2_FocusJumpHintObject:EndHold(...) end
 ---@return any ...
-function QuestFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
+function GroupLootFrame2_FocusJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function QuestFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
+function GroupLootFrame2_FocusJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function QuestFrame_FocusJumpHintObject:OnLoad(...) end
+function GroupLootFrame2_FocusJumpHintObject:OnLoad(...) end
 ---@return any ...
-function QuestFrame_FocusJumpHintObject:RefreshIconTextures(...) end
+function GroupLootFrame2_FocusJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function QuestFrame_FocusJumpHintObject:SetDisabled(...) end
+function GroupLootFrame2_FocusJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function QuestFrame_FocusJumpHintObject:SetEnabled(...) end
+function GroupLootFrame2_FocusJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function QuestFrame_FocusJumpHintObject:SetFocused(...) end
+function GroupLootFrame2_FocusJumpHintObject:SetFocused(...) end
 ---@return any ...
-function QuestFrame_FocusJumpHintObject:SetHoldState(...) end
+function GroupLootFrame2_FocusJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function QuestFrame_FocusJumpHintObject:SetInputKey(...) end
+function GroupLootFrame2_FocusJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function QuestFrame_FocusJumpHintObject:SetIsHoldAction(...) end
+function GroupLootFrame2_FocusJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function QuestFrame_FocusJumpHintObject:SetPressable(...) end
+function GroupLootFrame2_FocusJumpHintObject:SetPressable(...) end
 ---@return any ...
-function QuestFrame_FocusJumpHintObject:SetTextureHeight(...) end
+function GroupLootFrame2_FocusJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function QuestFrame_FocusJumpHintObject:SetTextureState(...) end
+function GroupLootFrame2_FocusJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function QuestFrame_FocusJumpHintObject:SetTextureWidth(...) end
+function GroupLootFrame2_FocusJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function QuestFrame_FocusJumpHintObject:SetUsableState(...) end
+function GroupLootFrame2_FocusJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function QuestFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+function GroupLootFrame2_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class QuestFrame_FocusJumpHint_ActiveTextureObject : Texture
-local QuestFrame_FocusJumpHint_ActiveTextureObject = {}
+---@class GroupLootFrame2_FocusJumpHint_ActiveTextureObject : Texture
+local GroupLootFrame2_FocusJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class QuestFrame_FocusJumpHint_DisabledTextureObject : Texture
-local QuestFrame_FocusJumpHint_DisabledTextureObject = {}
+---@class GroupLootFrame2_FocusJumpHint_DisabledTextureObject : Texture
+local GroupLootFrame2_FocusJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class QuestFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim QuestFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim QuestFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim QuestFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
-local QuestFrame_FocusJumpHint_HoldAnimObject = {}
+---@class GroupLootFrame2_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GroupLootFrame2_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GroupLootFrame2_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GroupLootFrame2_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local GroupLootFrame2_FocusJumpHint_HoldAnimObject = {}
 end
 
 do
----@class QuestFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
-local QuestFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+---@class GroupLootFrame2_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local GroupLootFrame2_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class QuestFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local QuestFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+---@class GroupLootFrame2_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GroupLootFrame2_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class QuestFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local QuestFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+---@class GroupLootFrame2_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GroupLootFrame2_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class QuestFrame_FocusJumpHint_HoldIndicatorObject : Texture
-local QuestFrame_FocusJumpHint_HoldIndicatorObject = {}
+---@class GroupLootFrame2_FocusJumpHint_HoldIndicatorObject : Texture
+local GroupLootFrame2_FocusJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class QuestFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
-local QuestFrame_FocusJumpHint_HoldIndicatorBGObject = {}
+---@class GroupLootFrame2_FocusJumpHint_HoldIndicatorBGObject : Texture
+local GroupLootFrame2_FocusJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class QuestFrame_FocusJumpHint_HoverTextureObject : Texture
-local QuestFrame_FocusJumpHint_HoverTextureObject = {}
+---@class GroupLootFrame2_FocusJumpHint_HoverTextureObject : Texture
+local GroupLootFrame2_FocusJumpHint_HoverTextureObject = {}
 end
 
 do
----@class QuestFrame_FocusJumpHint_LoadBarObject : Texture
-local QuestFrame_FocusJumpHint_LoadBarObject = {}
+---@class GroupLootFrame2_FocusJumpHint_LoadBarObject : Texture
+local GroupLootFrame2_FocusJumpHint_LoadBarObject = {}
 end
 
 do
----@class QuestFrame_FocusJumpHint_LoadBarBGObject : Texture
-local QuestFrame_FocusJumpHint_LoadBarBGObject = {}
+---@class GroupLootFrame2_FocusJumpHint_LoadBarBGObject : Texture
+local GroupLootFrame2_FocusJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class QuestFrame_FocusJumpHint_LoadBarGlowObject : Texture
-local QuestFrame_FocusJumpHint_LoadBarGlowObject = {}
+---@class GroupLootFrame2_FocusJumpHint_LoadBarGlowObject : Texture
+local GroupLootFrame2_FocusJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class QuestFrame_FocusJumpHint_NormalTextureObject : Texture
-local QuestFrame_FocusJumpHint_NormalTextureObject = {}
+---@class GroupLootFrame2_FocusJumpHint_NormalTextureObject : Texture
+local GroupLootFrame2_FocusJumpHint_NormalTextureObject = {}
 end
 
 do
----@class QuestFrame_FocusJumpHint_PressedTextureObject : Texture
-local QuestFrame_FocusJumpHint_PressedTextureObject = {}
+---@class GroupLootFrame2_FocusJumpHint_PressedTextureObject : Texture
+local GroupLootFrame2_FocusJumpHint_PressedTextureObject = {}
 end
 
 do
----@class QuestFrame_FocusJumpHint_SpinnerTipObject : Texture
-local QuestFrame_FocusJumpHint_SpinnerTipObject = {}
+---@class GroupLootFrame2_FocusJumpHint_SpinnerTipObject : Texture
+local GroupLootFrame2_FocusJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class QuestFrame_FrameGlowObject : Frame
----@field GlowTexture QuestFrame_FrameGlow_GlowTextureObject
----@field glowTextures table
-local QuestFrame_FrameGlowObject = {}
----@return any ...
-function QuestFrame_FrameGlowObject:GetContainerFrame(...) end
----@return any ...
-function QuestFrame_FrameGlowObject:GetFrameLayoutType(...) end
----@return any ...
-function QuestFrame_FrameGlowObject:GetHeaderFrame(...) end
----@return any ...
-function QuestFrame_FrameGlowObject:OnLoad(...) end
+---@class GroupLootFrame2_FrameGlowObject : Frame
+---@field GlowTexture GroupLootFrame2_FrameGlow_GlowTextureObject
+local GroupLootFrame2_FrameGlowObject = {}
 end
 
 do
----@class QuestFrame_FrameGlow_GlowTextureObject : Texture
-local QuestFrame_FrameGlow_GlowTextureObject = {}
+---@class GroupLootFrame2_FrameGlow_GlowTextureObject : Texture
+local GroupLootFrame2_FrameGlow_GlowTextureObject = {}
 end
 
 do
----@class QuestFrame_FriendshipStatusBarObject : StatusBar
----@field Bar QuestFrame_FriendshipStatusBar_BarObject
----@field BarBorder QuestFrame_FriendshipStatusBar_BarBorderObject
----@field BarCircle QuestFrame_FriendshipStatusBar_BarCircleObject
----@field BarRingBackground QuestFrame_FriendshipStatusBar_BarRingBackgroundObject
----@field FriendshipIconMask QuestFrame_FriendshipStatusBar_FriendshipIconMaskObject
----@field Notch1 QuestFrame_FriendshipStatusBar_Notch1Object
----@field Notch2 QuestFrame_FriendshipStatusBar_Notch2Object
----@field Notch3 QuestFrame_FriendshipStatusBar_Notch3Object
----@field Notch4 QuestFrame_FriendshipStatusBar_Notch4Object
----@field icon QuestFrame_FriendshipStatusBar_iconObject
-local QuestFrame_FriendshipStatusBarObject = {}
----@return any ...
-function QuestFrame_FriendshipStatusBarObject:GetColorIndex(...) end
----@return any ...
-function QuestFrame_FriendshipStatusBarObject:OnEnter(...) end
----@return any ...
-function QuestFrame_FriendshipStatusBarObject:OnLoad(...) end
----@return any ...
-function QuestFrame_FriendshipStatusBarObject:Update(...) end
+---@class GroupLootFrame2_IconFrameObject : Button
+---@field Border GroupLootFrame2_IconFrame_BorderObject
+---@field Count GroupLootFrame2_IconFrame_CountObject
+---@field Icon GroupLootFrame2_IconFrame_IconObject
+---@field hasItem number
+local GroupLootFrame2_IconFrameObject = {}
 end
 
 do
----@class QuestFrame_FriendshipStatusBar_BarObject : Texture
-local QuestFrame_FriendshipStatusBar_BarObject = {}
+---@class GroupLootFrame2_IconFrame_BorderObject : Texture
+local GroupLootFrame2_IconFrame_BorderObject = {}
 end
 
 do
----@class QuestFrame_FriendshipStatusBar_BarBorderObject : Texture
-local QuestFrame_FriendshipStatusBar_BarBorderObject = {}
+---@class GroupLootFrame2_IconFrame_CountObject : FontString
+local GroupLootFrame2_IconFrame_CountObject = {}
 end
 
 do
----@class QuestFrame_FriendshipStatusBar_BarCircleObject : Texture
-local QuestFrame_FriendshipStatusBar_BarCircleObject = {}
+---@class GroupLootFrame2_IconFrame_IconObject : Texture
+local GroupLootFrame2_IconFrame_IconObject = {}
 end
 
 do
----@class QuestFrame_FriendshipStatusBar_BarRingBackgroundObject : Texture
-local QuestFrame_FriendshipStatusBar_BarRingBackgroundObject = {}
-end
-
-do
----@class QuestFrame_FriendshipStatusBar_FriendshipIconMaskObject : MaskTexture
-local QuestFrame_FriendshipStatusBar_FriendshipIconMaskObject = {}
-end
-
-do
----@class QuestFrame_FriendshipStatusBar_Notch1Object : Texture
-local QuestFrame_FriendshipStatusBar_Notch1Object = {}
-end
-
-do
----@class QuestFrame_FriendshipStatusBar_Notch2Object : Texture
-local QuestFrame_FriendshipStatusBar_Notch2Object = {}
-end
-
-do
----@class QuestFrame_FriendshipStatusBar_Notch3Object : Texture
-local QuestFrame_FriendshipStatusBar_Notch3Object = {}
-end
-
-do
----@class QuestFrame_FriendshipStatusBar_Notch4Object : Texture
-local QuestFrame_FriendshipStatusBar_Notch4Object = {}
-end
-
-do
----@class QuestFrame_FriendshipStatusBar_iconObject : Texture
-local QuestFrame_FriendshipStatusBar_iconObject = {}
-end
-
-do
----@class QuestFrame_InsetObject : Frame
----@field Bg QuestFrame_Inset_BgObject
----@field NineSlice QuestFrame_Inset_NineSliceObject
----@field layoutType string
-local QuestFrame_InsetObject = {}
-end
-
-do
----@class QuestFrame_Inset_BgObject : Texture
-local QuestFrame_Inset_BgObject = {}
-end
-
-do
----@class QuestFrame_Inset_NineSliceObject : Frame
----@field BottomEdge QuestFrame_Inset_NineSlice_BottomEdgeObject
----@field BottomLeftCorner QuestFrame_Inset_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner QuestFrame_Inset_NineSlice_BottomRightCornerObject
----@field LeftEdge QuestFrame_Inset_NineSlice_LeftEdgeObject
----@field RightEdge QuestFrame_Inset_NineSlice_RightEdgeObject
----@field TopEdge QuestFrame_Inset_NineSlice_TopEdgeObject
----@field TopLeftCorner QuestFrame_Inset_NineSlice_TopLeftCornerObject
----@field TopRightCorner QuestFrame_Inset_NineSlice_TopRightCornerObject
-local QuestFrame_Inset_NineSliceObject = {}
----@return any ...
-function QuestFrame_Inset_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function QuestFrame_Inset_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function QuestFrame_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function QuestFrame_Inset_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function QuestFrame_Inset_NineSliceObject:OnLoad(...) end
----@return any ...
-function QuestFrame_Inset_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function QuestFrame_Inset_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function QuestFrame_Inset_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function QuestFrame_Inset_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function QuestFrame_Inset_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class QuestFrame_Inset_NineSlice_BottomEdgeObject : Texture
-local QuestFrame_Inset_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class QuestFrame_Inset_NineSlice_BottomLeftCornerObject : Texture
-local QuestFrame_Inset_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class QuestFrame_Inset_NineSlice_BottomRightCornerObject : Texture
-local QuestFrame_Inset_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class QuestFrame_Inset_NineSlice_LeftEdgeObject : Texture
-local QuestFrame_Inset_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class QuestFrame_Inset_NineSlice_RightEdgeObject : Texture
-local QuestFrame_Inset_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class QuestFrame_Inset_NineSlice_TopEdgeObject : Texture
-local QuestFrame_Inset_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class QuestFrame_Inset_NineSlice_TopLeftCornerObject : Texture
-local QuestFrame_Inset_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class QuestFrame_Inset_NineSlice_TopRightCornerObject : Texture
-local QuestFrame_Inset_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class QuestFrame_LeftJumpHintObject : Frame
----@field ActiveTexture QuestFrame_LeftJumpHint_ActiveTextureObject
----@field DisabledTexture QuestFrame_LeftJumpHint_DisabledTextureObject
----@field HoldAnim QuestFrame_LeftJumpHint_HoldAnimObject
----@field HoldIndicator QuestFrame_LeftJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG QuestFrame_LeftJumpHint_HoldIndicatorBGObject
----@field HoverTexture QuestFrame_LeftJumpHint_HoverTextureObject
----@field LoadBar QuestFrame_LeftJumpHint_LoadBarObject
----@field LoadBarBG QuestFrame_LeftJumpHint_LoadBarBGObject
----@field LoadBarGlow QuestFrame_LeftJumpHint_LoadBarGlowObject
----@field NormalTexture QuestFrame_LeftJumpHint_NormalTextureObject
----@field PressedTexture QuestFrame_LeftJumpHint_PressedTextureObject
----@field SpinnerTip QuestFrame_LeftJumpHint_SpinnerTipObject
+---@class GroupLootFrame2_LeftJumpHintObject : Frame
+---@field ActiveTexture GroupLootFrame2_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture GroupLootFrame2_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim GroupLootFrame2_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator GroupLootFrame2_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GroupLootFrame2_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GroupLootFrame2_LeftJumpHint_HoverTextureObject
+---@field LoadBar GroupLootFrame2_LeftJumpHint_LoadBarObject
+---@field LoadBarBG GroupLootFrame2_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow GroupLootFrame2_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture GroupLootFrame2_LeftJumpHint_NormalTextureObject
+---@field PressedTexture GroupLootFrame2_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip GroupLootFrame2_LeftJumpHint_SpinnerTipObject
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
 ---@field textureState number
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local QuestFrame_LeftJumpHintObject = {}
+local GroupLootFrame2_LeftJumpHintObject = {}
 ---@return any ...
-function QuestFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
+function GroupLootFrame2_LeftJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function QuestFrame_LeftJumpHintObject:BeginHold(...) end
+function GroupLootFrame2_LeftJumpHintObject:BeginHold(...) end
 ---@return any ...
-function QuestFrame_LeftJumpHintObject:CanEnterTextureState(...) end
+function GroupLootFrame2_LeftJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function QuestFrame_LeftJumpHintObject:DisableDropShadow(...) end
+function GroupLootFrame2_LeftJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function QuestFrame_LeftJumpHintObject:EnableDropShadow(...) end
+function GroupLootFrame2_LeftJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function QuestFrame_LeftJumpHintObject:EndHold(...) end
+function GroupLootFrame2_LeftJumpHintObject:EndHold(...) end
 ---@return any ...
-function QuestFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
+function GroupLootFrame2_LeftJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function QuestFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
+function GroupLootFrame2_LeftJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function QuestFrame_LeftJumpHintObject:OnLoad(...) end
+function GroupLootFrame2_LeftJumpHintObject:OnLoad(...) end
 ---@return any ...
-function QuestFrame_LeftJumpHintObject:RefreshIconTextures(...) end
+function GroupLootFrame2_LeftJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function QuestFrame_LeftJumpHintObject:SetDisabled(...) end
+function GroupLootFrame2_LeftJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function QuestFrame_LeftJumpHintObject:SetEnabled(...) end
+function GroupLootFrame2_LeftJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function QuestFrame_LeftJumpHintObject:SetFocused(...) end
+function GroupLootFrame2_LeftJumpHintObject:SetFocused(...) end
 ---@return any ...
-function QuestFrame_LeftJumpHintObject:SetHoldState(...) end
+function GroupLootFrame2_LeftJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function QuestFrame_LeftJumpHintObject:SetInputKey(...) end
+function GroupLootFrame2_LeftJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function QuestFrame_LeftJumpHintObject:SetIsHoldAction(...) end
+function GroupLootFrame2_LeftJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function QuestFrame_LeftJumpHintObject:SetPressable(...) end
+function GroupLootFrame2_LeftJumpHintObject:SetPressable(...) end
 ---@return any ...
-function QuestFrame_LeftJumpHintObject:SetTextureHeight(...) end
+function GroupLootFrame2_LeftJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function QuestFrame_LeftJumpHintObject:SetTextureState(...) end
+function GroupLootFrame2_LeftJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function QuestFrame_LeftJumpHintObject:SetTextureWidth(...) end
+function GroupLootFrame2_LeftJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function QuestFrame_LeftJumpHintObject:SetUsableState(...) end
+function GroupLootFrame2_LeftJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function QuestFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+function GroupLootFrame2_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class QuestFrame_LeftJumpHint_ActiveTextureObject : Texture
-local QuestFrame_LeftJumpHint_ActiveTextureObject = {}
+---@class GroupLootFrame2_LeftJumpHint_ActiveTextureObject : Texture
+local GroupLootFrame2_LeftJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class QuestFrame_LeftJumpHint_DisabledTextureObject : Texture
-local QuestFrame_LeftJumpHint_DisabledTextureObject = {}
+---@class GroupLootFrame2_LeftJumpHint_DisabledTextureObject : Texture
+local GroupLootFrame2_LeftJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class QuestFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim QuestFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim QuestFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim QuestFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
-local QuestFrame_LeftJumpHint_HoldAnimObject = {}
+---@class GroupLootFrame2_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GroupLootFrame2_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GroupLootFrame2_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GroupLootFrame2_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local GroupLootFrame2_LeftJumpHint_HoldAnimObject = {}
 end
 
 do
----@class QuestFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
-local QuestFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+---@class GroupLootFrame2_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local GroupLootFrame2_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class QuestFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local QuestFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+---@class GroupLootFrame2_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GroupLootFrame2_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class QuestFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local QuestFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+---@class GroupLootFrame2_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GroupLootFrame2_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class QuestFrame_LeftJumpHint_HoldIndicatorObject : Texture
-local QuestFrame_LeftJumpHint_HoldIndicatorObject = {}
+---@class GroupLootFrame2_LeftJumpHint_HoldIndicatorObject : Texture
+local GroupLootFrame2_LeftJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class QuestFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
-local QuestFrame_LeftJumpHint_HoldIndicatorBGObject = {}
+---@class GroupLootFrame2_LeftJumpHint_HoldIndicatorBGObject : Texture
+local GroupLootFrame2_LeftJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class QuestFrame_LeftJumpHint_HoverTextureObject : Texture
-local QuestFrame_LeftJumpHint_HoverTextureObject = {}
+---@class GroupLootFrame2_LeftJumpHint_HoverTextureObject : Texture
+local GroupLootFrame2_LeftJumpHint_HoverTextureObject = {}
 end
 
 do
----@class QuestFrame_LeftJumpHint_LoadBarObject : Texture
-local QuestFrame_LeftJumpHint_LoadBarObject = {}
+---@class GroupLootFrame2_LeftJumpHint_LoadBarObject : Texture
+local GroupLootFrame2_LeftJumpHint_LoadBarObject = {}
 end
 
 do
----@class QuestFrame_LeftJumpHint_LoadBarBGObject : Texture
-local QuestFrame_LeftJumpHint_LoadBarBGObject = {}
+---@class GroupLootFrame2_LeftJumpHint_LoadBarBGObject : Texture
+local GroupLootFrame2_LeftJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class QuestFrame_LeftJumpHint_LoadBarGlowObject : Texture
-local QuestFrame_LeftJumpHint_LoadBarGlowObject = {}
+---@class GroupLootFrame2_LeftJumpHint_LoadBarGlowObject : Texture
+local GroupLootFrame2_LeftJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class QuestFrame_LeftJumpHint_NormalTextureObject : Texture
-local QuestFrame_LeftJumpHint_NormalTextureObject = {}
+---@class GroupLootFrame2_LeftJumpHint_NormalTextureObject : Texture
+local GroupLootFrame2_LeftJumpHint_NormalTextureObject = {}
 end
 
 do
----@class QuestFrame_LeftJumpHint_PressedTextureObject : Texture
-local QuestFrame_LeftJumpHint_PressedTextureObject = {}
+---@class GroupLootFrame2_LeftJumpHint_PressedTextureObject : Texture
+local GroupLootFrame2_LeftJumpHint_PressedTextureObject = {}
 end
 
 do
----@class QuestFrame_LeftJumpHint_SpinnerTipObject : Texture
-local QuestFrame_LeftJumpHint_SpinnerTipObject = {}
+---@class GroupLootFrame2_LeftJumpHint_SpinnerTipObject : Texture
+local GroupLootFrame2_LeftJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class QuestFrame_NineSliceObject : Frame
----@field BottomEdge QuestFrame_NineSlice_BottomEdgeObject
----@field BottomLeftCorner QuestFrame_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner QuestFrame_NineSlice_BottomRightCornerObject
----@field Center QuestFrame_NineSlice_CenterObject
----@field LeftEdge QuestFrame_NineSlice_LeftEdgeObject
----@field RightEdge QuestFrame_NineSlice_RightEdgeObject
----@field TopEdge QuestFrame_NineSlice_TopEdgeObject
----@field TopLeftCorner QuestFrame_NineSlice_TopLeftCornerObject
----@field TopRightCorner QuestFrame_NineSlice_TopRightCornerObject
-local QuestFrame_NineSliceObject = {}
----@return any ...
-function QuestFrame_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function QuestFrame_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function QuestFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function QuestFrame_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function QuestFrame_NineSliceObject:OnLoad(...) end
----@return any ...
-function QuestFrame_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function QuestFrame_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function QuestFrame_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function QuestFrame_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function QuestFrame_NineSliceObject:SetVertexColor(...) end
+---@class GroupLootFrame2_LootButtonContainerObject : Frame
+---@field GreedButton GroupLootFrame2_LootButtonContainer_GreedButtonObject
+---@field LootButtons table
+---@field NeedButton GroupLootFrame2_LootButtonContainer_NeedButtonObject
+---@field PassButton GroupLootFrame2_LootButtonContainer_PassButtonObject
+---@field TransmogButton GroupLootFrame2_LootButtonContainer_TransmogButtonObject
+local GroupLootFrame2_LootButtonContainerObject = {}
 end
 
 do
----@class QuestFrame_NineSlice_BottomEdgeObject : Texture
-local QuestFrame_NineSlice_BottomEdgeObject = {}
+---@class GroupLootFrame2_LootButtonContainer_GreedButtonObject : Button
+---@field newbieText string
+---@field tooltipText string
+local GroupLootFrame2_LootButtonContainer_GreedButtonObject = {}
 end
 
 do
----@class QuestFrame_NineSlice_BottomLeftCornerObject : Texture
-local QuestFrame_NineSlice_BottomLeftCornerObject = {}
+---@class GroupLootFrame2_LootButtonContainer_NeedButtonObject : Button
+---@field newbieText string
+---@field tooltipText string
+local GroupLootFrame2_LootButtonContainer_NeedButtonObject = {}
 end
 
 do
----@class QuestFrame_NineSlice_BottomRightCornerObject : Texture
-local QuestFrame_NineSlice_BottomRightCornerObject = {}
+---@class GroupLootFrame2_LootButtonContainer_PassButtonObject : Button
+---@field newbieText string
+---@field tooltipText string
+local GroupLootFrame2_LootButtonContainer_PassButtonObject = {}
 end
 
 do
----@class QuestFrame_NineSlice_CenterObject : Texture
-local QuestFrame_NineSlice_CenterObject = {}
+---@class GroupLootFrame2_LootButtonContainer_TransmogButtonObject : Button
+---@field tooltipText string
+local GroupLootFrame2_LootButtonContainer_TransmogButtonObject = {}
 end
 
 do
----@class QuestFrame_NineSlice_LeftEdgeObject : Texture
-local QuestFrame_NineSlice_LeftEdgeObject = {}
+---@class GroupLootFrame2_NameObject : FontString
+local GroupLootFrame2_NameObject = {}
 end
 
 do
----@class QuestFrame_NineSlice_RightEdgeObject : Texture
-local QuestFrame_NineSlice_RightEdgeObject = {}
+---@class GroupLootFrame2_NeedRollAnimObject : Frame
+---@field Animation GroupLootFrame2_NeedRollAnim_AnimationObject
+---@field DiceGlow GroupLootFrame2_NeedRollAnim_DiceGlowObject
+---@field DiceRoll GroupLootFrame2_NeedRollAnim_DiceRollObject
+---@field FX_RevealA GroupLootFrame2_NeedRollAnim_FX_RevealAObject
+---@field FX_RevealB1 GroupLootFrame2_NeedRollAnim_FX_RevealB1Object
+---@field FX_RevealB2 GroupLootFrame2_NeedRollAnim_FX_RevealB2Object
+---@field FX_RevealFade GroupLootFrame2_NeedRollAnim_FX_RevealFadeObject
+---@field RollNumber GroupLootFrame2_NeedRollAnim_RollNumberObject
+local GroupLootFrame2_NeedRollAnimObject = {}
 end
 
 do
----@class QuestFrame_NineSlice_TopEdgeObject : Texture
-local QuestFrame_NineSlice_TopEdgeObject = {}
+---@class GroupLootFrame2_NeedRollAnim_AnimationObject : AnimationGroup
+local GroupLootFrame2_NeedRollAnim_AnimationObject = {}
 end
 
 do
----@class QuestFrame_NineSlice_TopLeftCornerObject : Texture
-local QuestFrame_NineSlice_TopLeftCornerObject = {}
+---@class GroupLootFrame2_NeedRollAnim_DiceGlowObject : Texture
+local GroupLootFrame2_NeedRollAnim_DiceGlowObject = {}
 end
 
 do
----@class QuestFrame_NineSlice_TopRightCornerObject : Texture
-local QuestFrame_NineSlice_TopRightCornerObject = {}
+---@class GroupLootFrame2_NeedRollAnim_DiceRollObject : Texture
+local GroupLootFrame2_NeedRollAnim_DiceRollObject = {}
 end
 
 do
----@class QuestFrame_PortraitContainerObject : Frame
----@field CircleMask QuestFrame_PortraitContainer_CircleMaskObject
----@field portrait QuestFrame_PortraitContainer_portraitObject
-local QuestFrame_PortraitContainerObject = {}
+---@class GroupLootFrame2_NeedRollAnim_FX_RevealAObject : Texture
+local GroupLootFrame2_NeedRollAnim_FX_RevealAObject = {}
 end
 
 do
----@class QuestFrame_PortraitContainer_CircleMaskObject : MaskTexture
-local QuestFrame_PortraitContainer_CircleMaskObject = {}
+---@class GroupLootFrame2_NeedRollAnim_FX_RevealB1Object : Texture
+local GroupLootFrame2_NeedRollAnim_FX_RevealB1Object = {}
 end
 
 do
----@class QuestFrame_PortraitContainer_portraitObject : Texture
-local QuestFrame_PortraitContainer_portraitObject = {}
+---@class GroupLootFrame2_NeedRollAnim_FX_RevealB2Object : Texture
+local GroupLootFrame2_NeedRollAnim_FX_RevealB2Object = {}
 end
 
 do
----@class QuestFrame_RightJumpHintObject : Frame
----@field ActiveTexture QuestFrame_RightJumpHint_ActiveTextureObject
----@field DisabledTexture QuestFrame_RightJumpHint_DisabledTextureObject
----@field HoldAnim QuestFrame_RightJumpHint_HoldAnimObject
----@field HoldIndicator QuestFrame_RightJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG QuestFrame_RightJumpHint_HoldIndicatorBGObject
----@field HoverTexture QuestFrame_RightJumpHint_HoverTextureObject
----@field LoadBar QuestFrame_RightJumpHint_LoadBarObject
----@field LoadBarBG QuestFrame_RightJumpHint_LoadBarBGObject
----@field LoadBarGlow QuestFrame_RightJumpHint_LoadBarGlowObject
----@field NormalTexture QuestFrame_RightJumpHint_NormalTextureObject
----@field PressedTexture QuestFrame_RightJumpHint_PressedTextureObject
----@field SpinnerTip QuestFrame_RightJumpHint_SpinnerTipObject
+---@class GroupLootFrame2_NeedRollAnim_FX_RevealFadeObject : Texture
+local GroupLootFrame2_NeedRollAnim_FX_RevealFadeObject = {}
+end
+
+do
+---@class GroupLootFrame2_NeedRollAnim_RollNumberObject : FontString
+local GroupLootFrame2_NeedRollAnim_RollNumberObject = {}
+end
+
+do
+---@class GroupLootFrame2_RightJumpHintObject : Frame
+---@field ActiveTexture GroupLootFrame2_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture GroupLootFrame2_RightJumpHint_DisabledTextureObject
+---@field HoldAnim GroupLootFrame2_RightJumpHint_HoldAnimObject
+---@field HoldIndicator GroupLootFrame2_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GroupLootFrame2_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GroupLootFrame2_RightJumpHint_HoverTextureObject
+---@field LoadBar GroupLootFrame2_RightJumpHint_LoadBarObject
+---@field LoadBarBG GroupLootFrame2_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow GroupLootFrame2_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture GroupLootFrame2_RightJumpHint_NormalTextureObject
+---@field PressedTexture GroupLootFrame2_RightJumpHint_PressedTextureObject
+---@field SpinnerTip GroupLootFrame2_RightJumpHint_SpinnerTipObject
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
 ---@field textureState number
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local QuestFrame_RightJumpHintObject = {}
+local GroupLootFrame2_RightJumpHintObject = {}
 ---@return any ...
-function QuestFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+function GroupLootFrame2_RightJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function QuestFrame_RightJumpHintObject:BeginHold(...) end
+function GroupLootFrame2_RightJumpHintObject:BeginHold(...) end
 ---@return any ...
-function QuestFrame_RightJumpHintObject:CanEnterTextureState(...) end
+function GroupLootFrame2_RightJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function QuestFrame_RightJumpHintObject:DisableDropShadow(...) end
+function GroupLootFrame2_RightJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function QuestFrame_RightJumpHintObject:EnableDropShadow(...) end
+function GroupLootFrame2_RightJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function QuestFrame_RightJumpHintObject:EndHold(...) end
+function GroupLootFrame2_RightJumpHintObject:EndHold(...) end
 ---@return any ...
-function QuestFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+function GroupLootFrame2_RightJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function QuestFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+function GroupLootFrame2_RightJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function QuestFrame_RightJumpHintObject:OnLoad(...) end
+function GroupLootFrame2_RightJumpHintObject:OnLoad(...) end
 ---@return any ...
-function QuestFrame_RightJumpHintObject:RefreshIconTextures(...) end
+function GroupLootFrame2_RightJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function QuestFrame_RightJumpHintObject:SetDisabled(...) end
+function GroupLootFrame2_RightJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function QuestFrame_RightJumpHintObject:SetEnabled(...) end
+function GroupLootFrame2_RightJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function QuestFrame_RightJumpHintObject:SetFocused(...) end
+function GroupLootFrame2_RightJumpHintObject:SetFocused(...) end
 ---@return any ...
-function QuestFrame_RightJumpHintObject:SetHoldState(...) end
+function GroupLootFrame2_RightJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function QuestFrame_RightJumpHintObject:SetInputKey(...) end
+function GroupLootFrame2_RightJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function QuestFrame_RightJumpHintObject:SetIsHoldAction(...) end
+function GroupLootFrame2_RightJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function QuestFrame_RightJumpHintObject:SetPressable(...) end
+function GroupLootFrame2_RightJumpHintObject:SetPressable(...) end
 ---@return any ...
-function QuestFrame_RightJumpHintObject:SetTextureHeight(...) end
+function GroupLootFrame2_RightJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function QuestFrame_RightJumpHintObject:SetTextureState(...) end
+function GroupLootFrame2_RightJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function QuestFrame_RightJumpHintObject:SetTextureWidth(...) end
+function GroupLootFrame2_RightJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function QuestFrame_RightJumpHintObject:SetUsableState(...) end
+function GroupLootFrame2_RightJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function QuestFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+function GroupLootFrame2_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class QuestFrame_RightJumpHint_ActiveTextureObject : Texture
-local QuestFrame_RightJumpHint_ActiveTextureObject = {}
+---@class GroupLootFrame2_RightJumpHint_ActiveTextureObject : Texture
+local GroupLootFrame2_RightJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class QuestFrame_RightJumpHint_DisabledTextureObject : Texture
-local QuestFrame_RightJumpHint_DisabledTextureObject = {}
+---@class GroupLootFrame2_RightJumpHint_DisabledTextureObject : Texture
+local GroupLootFrame2_RightJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class QuestFrame_RightJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim QuestFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim QuestFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim QuestFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
-local QuestFrame_RightJumpHint_HoldAnimObject = {}
+---@class GroupLootFrame2_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GroupLootFrame2_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GroupLootFrame2_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GroupLootFrame2_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local GroupLootFrame2_RightJumpHint_HoldAnimObject = {}
 end
 
 do
----@class QuestFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
-local QuestFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+---@class GroupLootFrame2_RightJumpHint_HoldAnim_LoadBarAnimObject
+local GroupLootFrame2_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class QuestFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local QuestFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+---@class GroupLootFrame2_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GroupLootFrame2_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class QuestFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local QuestFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+---@class GroupLootFrame2_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GroupLootFrame2_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class QuestFrame_RightJumpHint_HoldIndicatorObject : Texture
-local QuestFrame_RightJumpHint_HoldIndicatorObject = {}
+---@class GroupLootFrame2_RightJumpHint_HoldIndicatorObject : Texture
+local GroupLootFrame2_RightJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class QuestFrame_RightJumpHint_HoldIndicatorBGObject : Texture
-local QuestFrame_RightJumpHint_HoldIndicatorBGObject = {}
+---@class GroupLootFrame2_RightJumpHint_HoldIndicatorBGObject : Texture
+local GroupLootFrame2_RightJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class QuestFrame_RightJumpHint_HoverTextureObject : Texture
-local QuestFrame_RightJumpHint_HoverTextureObject = {}
+---@class GroupLootFrame2_RightJumpHint_HoverTextureObject : Texture
+local GroupLootFrame2_RightJumpHint_HoverTextureObject = {}
 end
 
 do
----@class QuestFrame_RightJumpHint_LoadBarObject : Texture
-local QuestFrame_RightJumpHint_LoadBarObject = {}
+---@class GroupLootFrame2_RightJumpHint_LoadBarObject : Texture
+local GroupLootFrame2_RightJumpHint_LoadBarObject = {}
 end
 
 do
----@class QuestFrame_RightJumpHint_LoadBarBGObject : Texture
-local QuestFrame_RightJumpHint_LoadBarBGObject = {}
+---@class GroupLootFrame2_RightJumpHint_LoadBarBGObject : Texture
+local GroupLootFrame2_RightJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class QuestFrame_RightJumpHint_LoadBarGlowObject : Texture
-local QuestFrame_RightJumpHint_LoadBarGlowObject = {}
+---@class GroupLootFrame2_RightJumpHint_LoadBarGlowObject : Texture
+local GroupLootFrame2_RightJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class QuestFrame_RightJumpHint_NormalTextureObject : Texture
-local QuestFrame_RightJumpHint_NormalTextureObject = {}
+---@class GroupLootFrame2_RightJumpHint_NormalTextureObject : Texture
+local GroupLootFrame2_RightJumpHint_NormalTextureObject = {}
 end
 
 do
----@class QuestFrame_RightJumpHint_PressedTextureObject : Texture
-local QuestFrame_RightJumpHint_PressedTextureObject = {}
+---@class GroupLootFrame2_RightJumpHint_PressedTextureObject : Texture
+local GroupLootFrame2_RightJumpHint_PressedTextureObject = {}
 end
 
 do
----@class QuestFrame_RightJumpHint_SpinnerTipObject : Texture
-local QuestFrame_RightJumpHint_SpinnerTipObject = {}
+---@class GroupLootFrame2_RightJumpHint_SpinnerTipObject : Texture
+local GroupLootFrame2_RightJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class QuestFrame_TitleContainerObject : Frame
----@field TitleText QuestFrame_TitleContainer_TitleTextObject
-local QuestFrame_TitleContainerObject = {}
+---@class GroupLootFrame2_TimerObject : StatusBar
+---@field Background GroupLootFrame2_Timer_BackgroundObject
+---@field Bar GroupLootFrame2_Timer_BarObject
+local GroupLootFrame2_TimerObject = {}
 end
 
 do
----@class QuestFrame_TitleContainer_TitleTextObject : FontString
-local QuestFrame_TitleContainer_TitleTextObject = {}
+---@class GroupLootFrame2_Timer_BackgroundObject : Texture
+local GroupLootFrame2_Timer_BackgroundObject = {}
 end
 
 do
----@class QuestFrame_TopTileStreaksObject : Texture
-local QuestFrame_TopTileStreaksObject = {}
+---@class GroupLootFrame2_Timer_BarObject : Texture
+local GroupLootFrame2_Timer_BarObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrameObject : Frame
----@field AbandonButton QuestLogPopupDetailFrame_AbandonButtonObject
----@field Bg QuestLogPopupDetailFrame_BgObject
----@field CloseButton QuestLogPopupDetailFrame_CloseButtonObject
----@field FocusJumpHint QuestLogPopupDetailFrame_FocusJumpHintObject
----@field FrameGlow QuestLogPopupDetailFrame_FrameGlowObject
----@field Inset QuestLogPopupDetailFrame_InsetObject
----@field LeftJumpHint QuestLogPopupDetailFrame_LeftJumpHintObject
----@field MaterialBotLeft QuestLogPopupDetailFrame_MaterialBotLeftObject
----@field MaterialBotRight QuestLogPopupDetailFrame_MaterialBotRightObject
----@field MaterialTopLeft QuestLogPopupDetailFrame_MaterialTopLeftObject
----@field MaterialTopRight QuestLogPopupDetailFrame_MaterialTopRightObject
----@field NineSlice QuestLogPopupDetailFrame_NineSliceObject
----@field PortraitContainer QuestLogPopupDetailFrame_PortraitContainerObject
----@field RightJumpHint QuestLogPopupDetailFrame_RightJumpHintObject
----@field ScrollFrame QuestLogPopupDetailFrame_ScrollFrameObject
----@field SealMaterialBG QuestLogPopupDetailFrame_SealMaterialBGObject
----@field ShareButton QuestLogPopupDetailFrame_ShareButtonObject
----@field ShowMapButton QuestLogPopupDetailFrame_ShowMapButtonObject
----@field TitleContainer QuestLogPopupDetailFrame_TitleContainerObject
----@field TopTileStreaks QuestLogPopupDetailFrame_TopTileStreaksObject
----@field TrackButton QuestLogPopupDetailFrame_TrackButtonObject
+---@class GroupLootFrame3Object : Frame
+---@field Background GroupLootFrame3_BackgroundObject
+---@field Border GroupLootFrame3_BorderObject
+---@field FocusJumpHint GroupLootFrame3_FocusJumpHintObject
+---@field FrameGlow GroupLootFrame3_FrameGlowObject
+---@field IconFrame GroupLootFrame3_IconFrameObject
+---@field LeftJumpHint GroupLootFrame3_LeftJumpHintObject
+---@field LootButtonContainer GroupLootFrame3_LootButtonContainerObject
+---@field Name GroupLootFrame3_NameObject
+---@field NeedRollAnim GroupLootFrame3_NeedRollAnimObject
+---@field RightJumpHint GroupLootFrame3_RightJumpHintObject
+---@field Timer GroupLootFrame3_TimerObject
 ---@field layoutType string
-local QuestLogPopupDetailFrameObject = {}
+local GroupLootFrame3Object = {}
 ---@return any ...
-function QuestLogPopupDetailFrameObject:EndFocus(...) end
+function GroupLootFrame3Object:EndFocus(...) end
 ---@return any ...
-function QuestLogPopupDetailFrameObject:FocusGamepad(...) end
+function GroupLootFrame3Object:GetFocusFrameGlow(...) end
 ---@return any ...
-function QuestLogPopupDetailFrameObject:GamepadHideUnneededElements(...) end
+function GroupLootFrame3Object:GetFocusFrameRoot(...) end
 ---@return any ...
-function QuestLogPopupDetailFrameObject:GamepadShowUnneededElements(...) end
+function GroupLootFrame3Object:HideFocusJumpHint(...) end
 ---@return any ...
-function QuestLogPopupDetailFrameObject:GetFocusFrameGlow(...) end
+function GroupLootFrame3Object:HideLeftJumpHint(...) end
 ---@return any ...
-function QuestLogPopupDetailFrameObject:GetFocusFrameRoot(...) end
+function GroupLootFrame3Object:HideRightJumpHint(...) end
 ---@return any ...
-function QuestLogPopupDetailFrameObject:GetPortrait(...) end
+function GroupLootFrame3Object:LockInFocus(...) end
 ---@return any ...
-function QuestLogPopupDetailFrameObject:GetTitleText(...) end
+function GroupLootFrame3Object:RefreshFocus(...) end
 ---@return any ...
-function QuestLogPopupDetailFrameObject:HasPortraitTexture(...) end
+function GroupLootFrame3Object:ShowFocusJumpHint(...) end
 ---@return any ...
-function QuestLogPopupDetailFrameObject:HideFocusJumpHint(...) end
+function GroupLootFrame3Object:ShowLeftJumpHint(...) end
 ---@return any ...
-function QuestLogPopupDetailFrameObject:HideLeftJumpHint(...) end
+function GroupLootFrame3Object:ShowRightJumpHint(...) end
 ---@return any ...
-function QuestLogPopupDetailFrameObject:HideRightJumpHint(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:InitializeGamepad(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:IsShowingQuest(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:LockInFocus(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:OnHide(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:OnLoad(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:OpenQuestOptions(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:RefreshFocus(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:RegisterForTransitions(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:SetBorder(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:SetFrameLevelsFromBaseLevel(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:SetPortraitAtlasRaw(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:SetPortraitShown(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:SetPortraitTexCoord(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:SetPortraitTextureRaw(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:SetPortraitTextureSizeAndOffset(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:SetPortraitToAsset(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:SetPortraitToBag(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:SetPortraitToClassIcon(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:SetPortraitToSpecIcon(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:SetPortraitToUnit(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:SetTitle(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:SetTitleColor(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:SetTitleFormatted(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:SetTitleMaxLinesAndHeight(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:SetTitleOffsets(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:SetupGamepad(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:ShowFocusJumpHint(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:ShowLeftJumpHint(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:ShowQuest(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:ShowRightJumpHint(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:StartFocus(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:ToggleQuestFocus(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:UnfocusGamepad(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:UninitializeGamepad(...) end
----@return any ...
-function QuestLogPopupDetailFrameObject:Update(...) end
----@type QuestLogPopupDetailFrameObject
-QuestLogPopupDetailFrame = QuestLogPopupDetailFrameObject
+function GroupLootFrame3Object:StartFocus(...) end
+---@type GroupLootFrame3Object
+GroupLootFrame3 = GroupLootFrame3Object
 end
 
 do
----@class QuestLogPopupDetailFrame_AbandonButtonObject : Button
----@field Left QuestLogPopupDetailFrame_AbandonButton_LeftObject
----@field Middle QuestLogPopupDetailFrame_AbandonButton_MiddleObject
----@field Right QuestLogPopupDetailFrame_AbandonButton_RightObject
----@field Text QuestLogPopupDetailFrame_AbandonButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local QuestLogPopupDetailFrame_AbandonButtonObject = {}
----@return any ...
-function QuestLogPopupDetailFrame_AbandonButtonObject:FitToText(...) end
----@return any ...
-function QuestLogPopupDetailFrame_AbandonButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function QuestLogPopupDetailFrame_AbandonButtonObject:OnEnter(...) end
----@return any ...
-function QuestLogPopupDetailFrame_AbandonButtonObject:OnLeave(...) end
----@return any ...
-function QuestLogPopupDetailFrame_AbandonButtonObject:SetDisabledState(...) end
----@return any ...
-function QuestLogPopupDetailFrame_AbandonButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function QuestLogPopupDetailFrame_AbandonButtonObject:SetTextToFit(...) end
+---@class GroupLootFrame3_BackgroundObject : Texture
+local GroupLootFrame3_BackgroundObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_AbandonButton_LeftObject : Texture
-local QuestLogPopupDetailFrame_AbandonButton_LeftObject = {}
+---@class GroupLootFrame3_BorderObject : Texture
+local GroupLootFrame3_BorderObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_AbandonButton_MiddleObject : Texture
-local QuestLogPopupDetailFrame_AbandonButton_MiddleObject = {}
-end
-
-do
----@class QuestLogPopupDetailFrame_AbandonButton_RightObject : Texture
-local QuestLogPopupDetailFrame_AbandonButton_RightObject = {}
-end
-
-do
----@class QuestLogPopupDetailFrame_AbandonButton_TextObject : FontString
-local QuestLogPopupDetailFrame_AbandonButton_TextObject = {}
-end
-
-do
----@class QuestLogPopupDetailFrame_BgObject : Texture
-local QuestLogPopupDetailFrame_BgObject = {}
-end
-
-do
----@class QuestLogPopupDetailFrame_CloseButtonObject : Button
-local QuestLogPopupDetailFrame_CloseButtonObject = {}
----@return any ...
-function QuestLogPopupDetailFrame_CloseButtonObject:NarrationGetName(...) end
----@return any ...
-function QuestLogPopupDetailFrame_CloseButtonObject:OnLoad(...) end
-end
-
-do
----@class QuestLogPopupDetailFrame_FocusJumpHintObject : Frame
----@field ActiveTexture QuestLogPopupDetailFrame_FocusJumpHint_ActiveTextureObject
----@field DisabledTexture QuestLogPopupDetailFrame_FocusJumpHint_DisabledTextureObject
----@field HoldAnim QuestLogPopupDetailFrame_FocusJumpHint_HoldAnimObject
----@field HoldIndicator QuestLogPopupDetailFrame_FocusJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG QuestLogPopupDetailFrame_FocusJumpHint_HoldIndicatorBGObject
----@field HoverTexture QuestLogPopupDetailFrame_FocusJumpHint_HoverTextureObject
----@field LoadBar QuestLogPopupDetailFrame_FocusJumpHint_LoadBarObject
----@field LoadBarBG QuestLogPopupDetailFrame_FocusJumpHint_LoadBarBGObject
----@field LoadBarGlow QuestLogPopupDetailFrame_FocusJumpHint_LoadBarGlowObject
----@field NormalTexture QuestLogPopupDetailFrame_FocusJumpHint_NormalTextureObject
----@field PressedTexture QuestLogPopupDetailFrame_FocusJumpHint_PressedTextureObject
----@field SpinnerTip QuestLogPopupDetailFrame_FocusJumpHint_SpinnerTipObject
+---@class GroupLootFrame3_FocusJumpHintObject : Frame
+---@field ActiveTexture GroupLootFrame3_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture GroupLootFrame3_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim GroupLootFrame3_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator GroupLootFrame3_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GroupLootFrame3_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GroupLootFrame3_FocusJumpHint_HoverTextureObject
+---@field LoadBar GroupLootFrame3_FocusJumpHint_LoadBarObject
+---@field LoadBarBG GroupLootFrame3_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow GroupLootFrame3_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture GroupLootFrame3_FocusJumpHint_NormalTextureObject
+---@field PressedTexture GroupLootFrame3_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip GroupLootFrame3_FocusJumpHint_SpinnerTipObject
 ---@field ignoreInLayout boolean
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
@@ -9291,911 +5490,4217 @@ do
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local QuestLogPopupDetailFrame_FocusJumpHintObject = {}
+local GroupLootFrame3_FocusJumpHintObject = {}
 ---@return any ...
-function QuestLogPopupDetailFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
+function GroupLootFrame3_FocusJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FocusJumpHintObject:BeginHold(...) end
+function GroupLootFrame3_FocusJumpHintObject:BeginHold(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FocusJumpHintObject:CanEnterTextureState(...) end
+function GroupLootFrame3_FocusJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FocusJumpHintObject:DisableDropShadow(...) end
+function GroupLootFrame3_FocusJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FocusJumpHintObject:EnableDropShadow(...) end
+function GroupLootFrame3_FocusJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FocusJumpHintObject:EndHold(...) end
+function GroupLootFrame3_FocusJumpHintObject:EndHold(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
+function GroupLootFrame3_FocusJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
+function GroupLootFrame3_FocusJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FocusJumpHintObject:OnLoad(...) end
+function GroupLootFrame3_FocusJumpHintObject:OnLoad(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FocusJumpHintObject:RefreshIconTextures(...) end
+function GroupLootFrame3_FocusJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FocusJumpHintObject:SetDisabled(...) end
+function GroupLootFrame3_FocusJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FocusJumpHintObject:SetEnabled(...) end
+function GroupLootFrame3_FocusJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FocusJumpHintObject:SetFocused(...) end
+function GroupLootFrame3_FocusJumpHintObject:SetFocused(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FocusJumpHintObject:SetHoldState(...) end
+function GroupLootFrame3_FocusJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FocusJumpHintObject:SetInputKey(...) end
+function GroupLootFrame3_FocusJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FocusJumpHintObject:SetIsHoldAction(...) end
+function GroupLootFrame3_FocusJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FocusJumpHintObject:SetPressable(...) end
+function GroupLootFrame3_FocusJumpHintObject:SetPressable(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FocusJumpHintObject:SetTextureHeight(...) end
+function GroupLootFrame3_FocusJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FocusJumpHintObject:SetTextureState(...) end
+function GroupLootFrame3_FocusJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FocusJumpHintObject:SetTextureWidth(...) end
+function GroupLootFrame3_FocusJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FocusJumpHintObject:SetUsableState(...) end
+function GroupLootFrame3_FocusJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+function GroupLootFrame3_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class QuestLogPopupDetailFrame_FocusJumpHint_ActiveTextureObject : Texture
-local QuestLogPopupDetailFrame_FocusJumpHint_ActiveTextureObject = {}
+---@class GroupLootFrame3_FocusJumpHint_ActiveTextureObject : Texture
+local GroupLootFrame3_FocusJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_FocusJumpHint_DisabledTextureObject : Texture
-local QuestLogPopupDetailFrame_FocusJumpHint_DisabledTextureObject = {}
+---@class GroupLootFrame3_FocusJumpHint_DisabledTextureObject : Texture
+local GroupLootFrame3_FocusJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim QuestLogPopupDetailFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim QuestLogPopupDetailFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim QuestLogPopupDetailFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
-local QuestLogPopupDetailFrame_FocusJumpHint_HoldAnimObject = {}
+---@class GroupLootFrame3_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GroupLootFrame3_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GroupLootFrame3_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GroupLootFrame3_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local GroupLootFrame3_FocusJumpHint_HoldAnimObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
-local QuestLogPopupDetailFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+---@class GroupLootFrame3_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local GroupLootFrame3_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local QuestLogPopupDetailFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+---@class GroupLootFrame3_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GroupLootFrame3_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local QuestLogPopupDetailFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+---@class GroupLootFrame3_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GroupLootFrame3_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_FocusJumpHint_HoldIndicatorObject : Texture
-local QuestLogPopupDetailFrame_FocusJumpHint_HoldIndicatorObject = {}
+---@class GroupLootFrame3_FocusJumpHint_HoldIndicatorObject : Texture
+local GroupLootFrame3_FocusJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
-local QuestLogPopupDetailFrame_FocusJumpHint_HoldIndicatorBGObject = {}
+---@class GroupLootFrame3_FocusJumpHint_HoldIndicatorBGObject : Texture
+local GroupLootFrame3_FocusJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_FocusJumpHint_HoverTextureObject : Texture
-local QuestLogPopupDetailFrame_FocusJumpHint_HoverTextureObject = {}
+---@class GroupLootFrame3_FocusJumpHint_HoverTextureObject : Texture
+local GroupLootFrame3_FocusJumpHint_HoverTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_FocusJumpHint_LoadBarObject : Texture
-local QuestLogPopupDetailFrame_FocusJumpHint_LoadBarObject = {}
+---@class GroupLootFrame3_FocusJumpHint_LoadBarObject : Texture
+local GroupLootFrame3_FocusJumpHint_LoadBarObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_FocusJumpHint_LoadBarBGObject : Texture
-local QuestLogPopupDetailFrame_FocusJumpHint_LoadBarBGObject = {}
+---@class GroupLootFrame3_FocusJumpHint_LoadBarBGObject : Texture
+local GroupLootFrame3_FocusJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_FocusJumpHint_LoadBarGlowObject : Texture
-local QuestLogPopupDetailFrame_FocusJumpHint_LoadBarGlowObject = {}
+---@class GroupLootFrame3_FocusJumpHint_LoadBarGlowObject : Texture
+local GroupLootFrame3_FocusJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_FocusJumpHint_NormalTextureObject : Texture
-local QuestLogPopupDetailFrame_FocusJumpHint_NormalTextureObject = {}
+---@class GroupLootFrame3_FocusJumpHint_NormalTextureObject : Texture
+local GroupLootFrame3_FocusJumpHint_NormalTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_FocusJumpHint_PressedTextureObject : Texture
-local QuestLogPopupDetailFrame_FocusJumpHint_PressedTextureObject = {}
+---@class GroupLootFrame3_FocusJumpHint_PressedTextureObject : Texture
+local GroupLootFrame3_FocusJumpHint_PressedTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_FocusJumpHint_SpinnerTipObject : Texture
-local QuestLogPopupDetailFrame_FocusJumpHint_SpinnerTipObject = {}
+---@class GroupLootFrame3_FocusJumpHint_SpinnerTipObject : Texture
+local GroupLootFrame3_FocusJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_FrameGlowObject : Frame
----@field GlowTexture QuestLogPopupDetailFrame_FrameGlow_GlowTextureObject
----@field glowTextures table
-local QuestLogPopupDetailFrame_FrameGlowObject = {}
+---@class GroupLootFrame3_FrameGlowObject : Frame
+---@field GlowTexture GroupLootFrame3_FrameGlow_GlowTextureObject
+local GroupLootFrame3_FrameGlowObject = {}
+end
+
+do
+---@class GroupLootFrame3_FrameGlow_GlowTextureObject : Texture
+local GroupLootFrame3_FrameGlow_GlowTextureObject = {}
+end
+
+do
+---@class GroupLootFrame3_IconFrameObject : Button
+---@field Border GroupLootFrame3_IconFrame_BorderObject
+---@field Count GroupLootFrame3_IconFrame_CountObject
+---@field Icon GroupLootFrame3_IconFrame_IconObject
+---@field hasItem number
+local GroupLootFrame3_IconFrameObject = {}
+end
+
+do
+---@class GroupLootFrame3_IconFrame_BorderObject : Texture
+local GroupLootFrame3_IconFrame_BorderObject = {}
+end
+
+do
+---@class GroupLootFrame3_IconFrame_CountObject : FontString
+local GroupLootFrame3_IconFrame_CountObject = {}
+end
+
+do
+---@class GroupLootFrame3_IconFrame_IconObject : Texture
+local GroupLootFrame3_IconFrame_IconObject = {}
+end
+
+do
+---@class GroupLootFrame3_LeftJumpHintObject : Frame
+---@field ActiveTexture GroupLootFrame3_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture GroupLootFrame3_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim GroupLootFrame3_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator GroupLootFrame3_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GroupLootFrame3_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GroupLootFrame3_LeftJumpHint_HoverTextureObject
+---@field LoadBar GroupLootFrame3_LeftJumpHint_LoadBarObject
+---@field LoadBarBG GroupLootFrame3_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow GroupLootFrame3_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture GroupLootFrame3_LeftJumpHint_NormalTextureObject
+---@field PressedTexture GroupLootFrame3_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip GroupLootFrame3_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GroupLootFrame3_LeftJumpHintObject = {}
 ---@return any ...
-function QuestLogPopupDetailFrame_FrameGlowObject:GetContainerFrame(...) end
+function GroupLootFrame3_LeftJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FrameGlowObject:GetFrameLayoutType(...) end
+function GroupLootFrame3_LeftJumpHintObject:BeginHold(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FrameGlowObject:GetHeaderFrame(...) end
+function GroupLootFrame3_LeftJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_FrameGlowObject:OnLoad(...) end
+function GroupLootFrame3_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function GroupLootFrame3_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function GroupLootFrame3_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function GroupLootFrame3_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function GroupLootFrame3_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function GroupLootFrame3_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function GroupLootFrame3_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function GroupLootFrame3_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function GroupLootFrame3_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function GroupLootFrame3_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function GroupLootFrame3_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function GroupLootFrame3_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function GroupLootFrame3_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function GroupLootFrame3_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function GroupLootFrame3_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function GroupLootFrame3_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function GroupLootFrame3_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function GroupLootFrame3_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function GroupLootFrame3_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class QuestLogPopupDetailFrame_FrameGlow_GlowTextureObject : Texture
-local QuestLogPopupDetailFrame_FrameGlow_GlowTextureObject = {}
+---@class GroupLootFrame3_LeftJumpHint_ActiveTextureObject : Texture
+local GroupLootFrame3_LeftJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_InsetObject : Frame
----@field Bg QuestLogPopupDetailFrame_Inset_BgObject
----@field NineSlice QuestLogPopupDetailFrame_Inset_NineSliceObject
+---@class GroupLootFrame3_LeftJumpHint_DisabledTextureObject : Texture
+local GroupLootFrame3_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class GroupLootFrame3_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GroupLootFrame3_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GroupLootFrame3_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GroupLootFrame3_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local GroupLootFrame3_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class GroupLootFrame3_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local GroupLootFrame3_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GroupLootFrame3_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GroupLootFrame3_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GroupLootFrame3_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GroupLootFrame3_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GroupLootFrame3_LeftJumpHint_HoldIndicatorObject : Texture
+local GroupLootFrame3_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class GroupLootFrame3_LeftJumpHint_HoldIndicatorBGObject : Texture
+local GroupLootFrame3_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GroupLootFrame3_LeftJumpHint_HoverTextureObject : Texture
+local GroupLootFrame3_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class GroupLootFrame3_LeftJumpHint_LoadBarObject : Texture
+local GroupLootFrame3_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class GroupLootFrame3_LeftJumpHint_LoadBarBGObject : Texture
+local GroupLootFrame3_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class GroupLootFrame3_LeftJumpHint_LoadBarGlowObject : Texture
+local GroupLootFrame3_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class GroupLootFrame3_LeftJumpHint_NormalTextureObject : Texture
+local GroupLootFrame3_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class GroupLootFrame3_LeftJumpHint_PressedTextureObject : Texture
+local GroupLootFrame3_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class GroupLootFrame3_LeftJumpHint_SpinnerTipObject : Texture
+local GroupLootFrame3_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class GroupLootFrame3_LootButtonContainerObject : Frame
+---@field GreedButton GroupLootFrame3_LootButtonContainer_GreedButtonObject
+---@field LootButtons table
+---@field NeedButton GroupLootFrame3_LootButtonContainer_NeedButtonObject
+---@field PassButton GroupLootFrame3_LootButtonContainer_PassButtonObject
+---@field TransmogButton GroupLootFrame3_LootButtonContainer_TransmogButtonObject
+local GroupLootFrame3_LootButtonContainerObject = {}
+end
+
+do
+---@class GroupLootFrame3_LootButtonContainer_GreedButtonObject : Button
+---@field newbieText string
+---@field tooltipText string
+local GroupLootFrame3_LootButtonContainer_GreedButtonObject = {}
+end
+
+do
+---@class GroupLootFrame3_LootButtonContainer_NeedButtonObject : Button
+---@field newbieText string
+---@field tooltipText string
+local GroupLootFrame3_LootButtonContainer_NeedButtonObject = {}
+end
+
+do
+---@class GroupLootFrame3_LootButtonContainer_PassButtonObject : Button
+---@field newbieText string
+---@field tooltipText string
+local GroupLootFrame3_LootButtonContainer_PassButtonObject = {}
+end
+
+do
+---@class GroupLootFrame3_LootButtonContainer_TransmogButtonObject : Button
+---@field tooltipText string
+local GroupLootFrame3_LootButtonContainer_TransmogButtonObject = {}
+end
+
+do
+---@class GroupLootFrame3_NameObject : FontString
+local GroupLootFrame3_NameObject = {}
+end
+
+do
+---@class GroupLootFrame3_NeedRollAnimObject : Frame
+---@field Animation GroupLootFrame3_NeedRollAnim_AnimationObject
+---@field DiceGlow GroupLootFrame3_NeedRollAnim_DiceGlowObject
+---@field DiceRoll GroupLootFrame3_NeedRollAnim_DiceRollObject
+---@field FX_RevealA GroupLootFrame3_NeedRollAnim_FX_RevealAObject
+---@field FX_RevealB1 GroupLootFrame3_NeedRollAnim_FX_RevealB1Object
+---@field FX_RevealB2 GroupLootFrame3_NeedRollAnim_FX_RevealB2Object
+---@field FX_RevealFade GroupLootFrame3_NeedRollAnim_FX_RevealFadeObject
+---@field RollNumber GroupLootFrame3_NeedRollAnim_RollNumberObject
+local GroupLootFrame3_NeedRollAnimObject = {}
+end
+
+do
+---@class GroupLootFrame3_NeedRollAnim_AnimationObject : AnimationGroup
+local GroupLootFrame3_NeedRollAnim_AnimationObject = {}
+end
+
+do
+---@class GroupLootFrame3_NeedRollAnim_DiceGlowObject : Texture
+local GroupLootFrame3_NeedRollAnim_DiceGlowObject = {}
+end
+
+do
+---@class GroupLootFrame3_NeedRollAnim_DiceRollObject : Texture
+local GroupLootFrame3_NeedRollAnim_DiceRollObject = {}
+end
+
+do
+---@class GroupLootFrame3_NeedRollAnim_FX_RevealAObject : Texture
+local GroupLootFrame3_NeedRollAnim_FX_RevealAObject = {}
+end
+
+do
+---@class GroupLootFrame3_NeedRollAnim_FX_RevealB1Object : Texture
+local GroupLootFrame3_NeedRollAnim_FX_RevealB1Object = {}
+end
+
+do
+---@class GroupLootFrame3_NeedRollAnim_FX_RevealB2Object : Texture
+local GroupLootFrame3_NeedRollAnim_FX_RevealB2Object = {}
+end
+
+do
+---@class GroupLootFrame3_NeedRollAnim_FX_RevealFadeObject : Texture
+local GroupLootFrame3_NeedRollAnim_FX_RevealFadeObject = {}
+end
+
+do
+---@class GroupLootFrame3_NeedRollAnim_RollNumberObject : FontString
+local GroupLootFrame3_NeedRollAnim_RollNumberObject = {}
+end
+
+do
+---@class GroupLootFrame3_RightJumpHintObject : Frame
+---@field ActiveTexture GroupLootFrame3_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture GroupLootFrame3_RightJumpHint_DisabledTextureObject
+---@field HoldAnim GroupLootFrame3_RightJumpHint_HoldAnimObject
+---@field HoldIndicator GroupLootFrame3_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GroupLootFrame3_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GroupLootFrame3_RightJumpHint_HoverTextureObject
+---@field LoadBar GroupLootFrame3_RightJumpHint_LoadBarObject
+---@field LoadBarBG GroupLootFrame3_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow GroupLootFrame3_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture GroupLootFrame3_RightJumpHint_NormalTextureObject
+---@field PressedTexture GroupLootFrame3_RightJumpHint_PressedTextureObject
+---@field SpinnerTip GroupLootFrame3_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GroupLootFrame3_RightJumpHintObject = {}
+---@return any ...
+function GroupLootFrame3_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function GroupLootFrame3_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function GroupLootFrame3_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function GroupLootFrame3_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function GroupLootFrame3_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function GroupLootFrame3_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function GroupLootFrame3_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function GroupLootFrame3_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function GroupLootFrame3_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function GroupLootFrame3_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function GroupLootFrame3_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function GroupLootFrame3_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function GroupLootFrame3_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function GroupLootFrame3_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function GroupLootFrame3_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function GroupLootFrame3_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function GroupLootFrame3_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function GroupLootFrame3_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function GroupLootFrame3_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function GroupLootFrame3_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function GroupLootFrame3_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function GroupLootFrame3_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GroupLootFrame3_RightJumpHint_ActiveTextureObject : Texture
+local GroupLootFrame3_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class GroupLootFrame3_RightJumpHint_DisabledTextureObject : Texture
+local GroupLootFrame3_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class GroupLootFrame3_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GroupLootFrame3_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GroupLootFrame3_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GroupLootFrame3_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local GroupLootFrame3_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class GroupLootFrame3_RightJumpHint_HoldAnim_LoadBarAnimObject
+local GroupLootFrame3_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GroupLootFrame3_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GroupLootFrame3_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GroupLootFrame3_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GroupLootFrame3_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GroupLootFrame3_RightJumpHint_HoldIndicatorObject : Texture
+local GroupLootFrame3_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class GroupLootFrame3_RightJumpHint_HoldIndicatorBGObject : Texture
+local GroupLootFrame3_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GroupLootFrame3_RightJumpHint_HoverTextureObject : Texture
+local GroupLootFrame3_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class GroupLootFrame3_RightJumpHint_LoadBarObject : Texture
+local GroupLootFrame3_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class GroupLootFrame3_RightJumpHint_LoadBarBGObject : Texture
+local GroupLootFrame3_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class GroupLootFrame3_RightJumpHint_LoadBarGlowObject : Texture
+local GroupLootFrame3_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class GroupLootFrame3_RightJumpHint_NormalTextureObject : Texture
+local GroupLootFrame3_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class GroupLootFrame3_RightJumpHint_PressedTextureObject : Texture
+local GroupLootFrame3_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class GroupLootFrame3_RightJumpHint_SpinnerTipObject : Texture
+local GroupLootFrame3_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class GroupLootFrame3_TimerObject : StatusBar
+---@field Background GroupLootFrame3_Timer_BackgroundObject
+---@field Bar GroupLootFrame3_Timer_BarObject
+local GroupLootFrame3_TimerObject = {}
+end
+
+do
+---@class GroupLootFrame3_Timer_BackgroundObject : Texture
+local GroupLootFrame3_Timer_BackgroundObject = {}
+end
+
+do
+---@class GroupLootFrame3_Timer_BarObject : Texture
+local GroupLootFrame3_Timer_BarObject = {}
+end
+
+do
+---@class GroupLootFrame4Object : Frame
+---@field Background GroupLootFrame4_BackgroundObject
+---@field Border GroupLootFrame4_BorderObject
+---@field FocusJumpHint GroupLootFrame4_FocusJumpHintObject
+---@field FrameGlow GroupLootFrame4_FrameGlowObject
+---@field IconFrame GroupLootFrame4_IconFrameObject
+---@field LeftJumpHint GroupLootFrame4_LeftJumpHintObject
+---@field LootButtonContainer GroupLootFrame4_LootButtonContainerObject
+---@field Name GroupLootFrame4_NameObject
+---@field NeedRollAnim GroupLootFrame4_NeedRollAnimObject
+---@field RightJumpHint GroupLootFrame4_RightJumpHintObject
+---@field Timer GroupLootFrame4_TimerObject
 ---@field layoutType string
-local QuestLogPopupDetailFrame_InsetObject = {}
-end
-
-do
----@class QuestLogPopupDetailFrame_Inset_BgObject : Texture
-local QuestLogPopupDetailFrame_Inset_BgObject = {}
-end
-
-do
----@class QuestLogPopupDetailFrame_Inset_NineSliceObject : Frame
----@field BottomEdge QuestLogPopupDetailFrame_Inset_NineSlice_BottomEdgeObject
----@field BottomLeftCorner QuestLogPopupDetailFrame_Inset_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner QuestLogPopupDetailFrame_Inset_NineSlice_BottomRightCornerObject
----@field LeftEdge QuestLogPopupDetailFrame_Inset_NineSlice_LeftEdgeObject
----@field RightEdge QuestLogPopupDetailFrame_Inset_NineSlice_RightEdgeObject
----@field TopEdge QuestLogPopupDetailFrame_Inset_NineSlice_TopEdgeObject
----@field TopLeftCorner QuestLogPopupDetailFrame_Inset_NineSlice_TopLeftCornerObject
----@field TopRightCorner QuestLogPopupDetailFrame_Inset_NineSlice_TopRightCornerObject
-local QuestLogPopupDetailFrame_Inset_NineSliceObject = {}
+local GroupLootFrame4Object = {}
 ---@return any ...
-function QuestLogPopupDetailFrame_Inset_NineSliceObject:GetBorderColor(...) end
+function GroupLootFrame4Object:EndFocus(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_Inset_NineSliceObject:GetCenterColor(...) end
+function GroupLootFrame4Object:GetFocusFrameGlow(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
+function GroupLootFrame4Object:GetFocusFrameRoot(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_Inset_NineSliceObject:GetFrameLayoutType(...) end
+function GroupLootFrame4Object:HideFocusJumpHint(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_Inset_NineSliceObject:OnLoad(...) end
+function GroupLootFrame4Object:HideLeftJumpHint(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_Inset_NineSliceObject:SetBlendMode(...) end
+function GroupLootFrame4Object:HideRightJumpHint(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_Inset_NineSliceObject:SetBorderBlendMode(...) end
+function GroupLootFrame4Object:LockInFocus(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_Inset_NineSliceObject:SetBorderColor(...) end
+function GroupLootFrame4Object:RefreshFocus(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_Inset_NineSliceObject:SetCenterColor(...) end
+function GroupLootFrame4Object:ShowFocusJumpHint(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_Inset_NineSliceObject:SetVertexColor(...) end
+function GroupLootFrame4Object:ShowLeftJumpHint(...) end
+---@return any ...
+function GroupLootFrame4Object:ShowRightJumpHint(...) end
+---@return any ...
+function GroupLootFrame4Object:StartFocus(...) end
+---@type GroupLootFrame4Object
+GroupLootFrame4 = GroupLootFrame4Object
 end
 
 do
----@class QuestLogPopupDetailFrame_Inset_NineSlice_BottomEdgeObject : Texture
-local QuestLogPopupDetailFrame_Inset_NineSlice_BottomEdgeObject = {}
+---@class GroupLootFrame4_BackgroundObject : Texture
+local GroupLootFrame4_BackgroundObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_Inset_NineSlice_BottomLeftCornerObject : Texture
-local QuestLogPopupDetailFrame_Inset_NineSlice_BottomLeftCornerObject = {}
+---@class GroupLootFrame4_BorderObject : Texture
+local GroupLootFrame4_BorderObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_Inset_NineSlice_BottomRightCornerObject : Texture
-local QuestLogPopupDetailFrame_Inset_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class QuestLogPopupDetailFrame_Inset_NineSlice_LeftEdgeObject : Texture
-local QuestLogPopupDetailFrame_Inset_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class QuestLogPopupDetailFrame_Inset_NineSlice_RightEdgeObject : Texture
-local QuestLogPopupDetailFrame_Inset_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class QuestLogPopupDetailFrame_Inset_NineSlice_TopEdgeObject : Texture
-local QuestLogPopupDetailFrame_Inset_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class QuestLogPopupDetailFrame_Inset_NineSlice_TopLeftCornerObject : Texture
-local QuestLogPopupDetailFrame_Inset_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class QuestLogPopupDetailFrame_Inset_NineSlice_TopRightCornerObject : Texture
-local QuestLogPopupDetailFrame_Inset_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class QuestLogPopupDetailFrame_LeftJumpHintObject : Frame
----@field ActiveTexture QuestLogPopupDetailFrame_LeftJumpHint_ActiveTextureObject
----@field DisabledTexture QuestLogPopupDetailFrame_LeftJumpHint_DisabledTextureObject
----@field HoldAnim QuestLogPopupDetailFrame_LeftJumpHint_HoldAnimObject
----@field HoldIndicator QuestLogPopupDetailFrame_LeftJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG QuestLogPopupDetailFrame_LeftJumpHint_HoldIndicatorBGObject
----@field HoverTexture QuestLogPopupDetailFrame_LeftJumpHint_HoverTextureObject
----@field LoadBar QuestLogPopupDetailFrame_LeftJumpHint_LoadBarObject
----@field LoadBarBG QuestLogPopupDetailFrame_LeftJumpHint_LoadBarBGObject
----@field LoadBarGlow QuestLogPopupDetailFrame_LeftJumpHint_LoadBarGlowObject
----@field NormalTexture QuestLogPopupDetailFrame_LeftJumpHint_NormalTextureObject
----@field PressedTexture QuestLogPopupDetailFrame_LeftJumpHint_PressedTextureObject
----@field SpinnerTip QuestLogPopupDetailFrame_LeftJumpHint_SpinnerTipObject
+---@class GroupLootFrame4_FocusJumpHintObject : Frame
+---@field ActiveTexture GroupLootFrame4_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture GroupLootFrame4_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim GroupLootFrame4_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator GroupLootFrame4_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GroupLootFrame4_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GroupLootFrame4_FocusJumpHint_HoverTextureObject
+---@field LoadBar GroupLootFrame4_FocusJumpHint_LoadBarObject
+---@field LoadBarBG GroupLootFrame4_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow GroupLootFrame4_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture GroupLootFrame4_FocusJumpHint_NormalTextureObject
+---@field PressedTexture GroupLootFrame4_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip GroupLootFrame4_FocusJumpHint_SpinnerTipObject
+---@field ignoreInLayout boolean
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
 ---@field textureState number
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local QuestLogPopupDetailFrame_LeftJumpHintObject = {}
+local GroupLootFrame4_FocusJumpHintObject = {}
 ---@return any ...
-function QuestLogPopupDetailFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
+function GroupLootFrame4_FocusJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_LeftJumpHintObject:BeginHold(...) end
+function GroupLootFrame4_FocusJumpHintObject:BeginHold(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_LeftJumpHintObject:CanEnterTextureState(...) end
+function GroupLootFrame4_FocusJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_LeftJumpHintObject:DisableDropShadow(...) end
+function GroupLootFrame4_FocusJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_LeftJumpHintObject:EnableDropShadow(...) end
+function GroupLootFrame4_FocusJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_LeftJumpHintObject:EndHold(...) end
+function GroupLootFrame4_FocusJumpHintObject:EndHold(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
+function GroupLootFrame4_FocusJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
+function GroupLootFrame4_FocusJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_LeftJumpHintObject:OnLoad(...) end
+function GroupLootFrame4_FocusJumpHintObject:OnLoad(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_LeftJumpHintObject:RefreshIconTextures(...) end
+function GroupLootFrame4_FocusJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_LeftJumpHintObject:SetDisabled(...) end
+function GroupLootFrame4_FocusJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_LeftJumpHintObject:SetEnabled(...) end
+function GroupLootFrame4_FocusJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_LeftJumpHintObject:SetFocused(...) end
+function GroupLootFrame4_FocusJumpHintObject:SetFocused(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_LeftJumpHintObject:SetHoldState(...) end
+function GroupLootFrame4_FocusJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_LeftJumpHintObject:SetInputKey(...) end
+function GroupLootFrame4_FocusJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_LeftJumpHintObject:SetIsHoldAction(...) end
+function GroupLootFrame4_FocusJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_LeftJumpHintObject:SetPressable(...) end
+function GroupLootFrame4_FocusJumpHintObject:SetPressable(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_LeftJumpHintObject:SetTextureHeight(...) end
+function GroupLootFrame4_FocusJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_LeftJumpHintObject:SetTextureState(...) end
+function GroupLootFrame4_FocusJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_LeftJumpHintObject:SetTextureWidth(...) end
+function GroupLootFrame4_FocusJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_LeftJumpHintObject:SetUsableState(...) end
+function GroupLootFrame4_FocusJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+function GroupLootFrame4_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class QuestLogPopupDetailFrame_LeftJumpHint_ActiveTextureObject : Texture
-local QuestLogPopupDetailFrame_LeftJumpHint_ActiveTextureObject = {}
+---@class GroupLootFrame4_FocusJumpHint_ActiveTextureObject : Texture
+local GroupLootFrame4_FocusJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_LeftJumpHint_DisabledTextureObject : Texture
-local QuestLogPopupDetailFrame_LeftJumpHint_DisabledTextureObject = {}
+---@class GroupLootFrame4_FocusJumpHint_DisabledTextureObject : Texture
+local GroupLootFrame4_FocusJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim QuestLogPopupDetailFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim QuestLogPopupDetailFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim QuestLogPopupDetailFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
-local QuestLogPopupDetailFrame_LeftJumpHint_HoldAnimObject = {}
+---@class GroupLootFrame4_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GroupLootFrame4_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GroupLootFrame4_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GroupLootFrame4_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local GroupLootFrame4_FocusJumpHint_HoldAnimObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
-local QuestLogPopupDetailFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+---@class GroupLootFrame4_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local GroupLootFrame4_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local QuestLogPopupDetailFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+---@class GroupLootFrame4_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GroupLootFrame4_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local QuestLogPopupDetailFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+---@class GroupLootFrame4_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GroupLootFrame4_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_LeftJumpHint_HoldIndicatorObject : Texture
-local QuestLogPopupDetailFrame_LeftJumpHint_HoldIndicatorObject = {}
+---@class GroupLootFrame4_FocusJumpHint_HoldIndicatorObject : Texture
+local GroupLootFrame4_FocusJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
-local QuestLogPopupDetailFrame_LeftJumpHint_HoldIndicatorBGObject = {}
+---@class GroupLootFrame4_FocusJumpHint_HoldIndicatorBGObject : Texture
+local GroupLootFrame4_FocusJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_LeftJumpHint_HoverTextureObject : Texture
-local QuestLogPopupDetailFrame_LeftJumpHint_HoverTextureObject = {}
+---@class GroupLootFrame4_FocusJumpHint_HoverTextureObject : Texture
+local GroupLootFrame4_FocusJumpHint_HoverTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_LeftJumpHint_LoadBarObject : Texture
-local QuestLogPopupDetailFrame_LeftJumpHint_LoadBarObject = {}
+---@class GroupLootFrame4_FocusJumpHint_LoadBarObject : Texture
+local GroupLootFrame4_FocusJumpHint_LoadBarObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_LeftJumpHint_LoadBarBGObject : Texture
-local QuestLogPopupDetailFrame_LeftJumpHint_LoadBarBGObject = {}
+---@class GroupLootFrame4_FocusJumpHint_LoadBarBGObject : Texture
+local GroupLootFrame4_FocusJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_LeftJumpHint_LoadBarGlowObject : Texture
-local QuestLogPopupDetailFrame_LeftJumpHint_LoadBarGlowObject = {}
+---@class GroupLootFrame4_FocusJumpHint_LoadBarGlowObject : Texture
+local GroupLootFrame4_FocusJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_LeftJumpHint_NormalTextureObject : Texture
-local QuestLogPopupDetailFrame_LeftJumpHint_NormalTextureObject = {}
+---@class GroupLootFrame4_FocusJumpHint_NormalTextureObject : Texture
+local GroupLootFrame4_FocusJumpHint_NormalTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_LeftJumpHint_PressedTextureObject : Texture
-local QuestLogPopupDetailFrame_LeftJumpHint_PressedTextureObject = {}
+---@class GroupLootFrame4_FocusJumpHint_PressedTextureObject : Texture
+local GroupLootFrame4_FocusJumpHint_PressedTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_LeftJumpHint_SpinnerTipObject : Texture
-local QuestLogPopupDetailFrame_LeftJumpHint_SpinnerTipObject = {}
+---@class GroupLootFrame4_FocusJumpHint_SpinnerTipObject : Texture
+local GroupLootFrame4_FocusJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_MaterialBotLeftObject : Texture
-local QuestLogPopupDetailFrame_MaterialBotLeftObject = {}
+---@class GroupLootFrame4_FrameGlowObject : Frame
+---@field GlowTexture GroupLootFrame4_FrameGlow_GlowTextureObject
+local GroupLootFrame4_FrameGlowObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_MaterialBotRightObject : Texture
-local QuestLogPopupDetailFrame_MaterialBotRightObject = {}
+---@class GroupLootFrame4_FrameGlow_GlowTextureObject : Texture
+local GroupLootFrame4_FrameGlow_GlowTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_MaterialTopLeftObject : Texture
-local QuestLogPopupDetailFrame_MaterialTopLeftObject = {}
+---@class GroupLootFrame4_IconFrameObject : Button
+---@field Border GroupLootFrame4_IconFrame_BorderObject
+---@field Count GroupLootFrame4_IconFrame_CountObject
+---@field Icon GroupLootFrame4_IconFrame_IconObject
+---@field hasItem number
+local GroupLootFrame4_IconFrameObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_MaterialTopRightObject : Texture
-local QuestLogPopupDetailFrame_MaterialTopRightObject = {}
+---@class GroupLootFrame4_IconFrame_BorderObject : Texture
+local GroupLootFrame4_IconFrame_BorderObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_NineSliceObject : Frame
----@field BottomEdge QuestLogPopupDetailFrame_NineSlice_BottomEdgeObject
----@field BottomLeftCorner QuestLogPopupDetailFrame_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner QuestLogPopupDetailFrame_NineSlice_BottomRightCornerObject
----@field Center QuestLogPopupDetailFrame_NineSlice_CenterObject
----@field LeftEdge QuestLogPopupDetailFrame_NineSlice_LeftEdgeObject
----@field RightEdge QuestLogPopupDetailFrame_NineSlice_RightEdgeObject
----@field TopEdge QuestLogPopupDetailFrame_NineSlice_TopEdgeObject
----@field TopLeftCorner QuestLogPopupDetailFrame_NineSlice_TopLeftCornerObject
----@field TopRightCorner QuestLogPopupDetailFrame_NineSlice_TopRightCornerObject
-local QuestLogPopupDetailFrame_NineSliceObject = {}
----@return any ...
-function QuestLogPopupDetailFrame_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function QuestLogPopupDetailFrame_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function QuestLogPopupDetailFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function QuestLogPopupDetailFrame_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function QuestLogPopupDetailFrame_NineSliceObject:OnLoad(...) end
----@return any ...
-function QuestLogPopupDetailFrame_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function QuestLogPopupDetailFrame_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function QuestLogPopupDetailFrame_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function QuestLogPopupDetailFrame_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function QuestLogPopupDetailFrame_NineSliceObject:SetVertexColor(...) end
+---@class GroupLootFrame4_IconFrame_CountObject : FontString
+local GroupLootFrame4_IconFrame_CountObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_NineSlice_BottomEdgeObject : Texture
-local QuestLogPopupDetailFrame_NineSlice_BottomEdgeObject = {}
+---@class GroupLootFrame4_IconFrame_IconObject : Texture
+local GroupLootFrame4_IconFrame_IconObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_NineSlice_BottomLeftCornerObject : Texture
-local QuestLogPopupDetailFrame_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class QuestLogPopupDetailFrame_NineSlice_BottomRightCornerObject : Texture
-local QuestLogPopupDetailFrame_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class QuestLogPopupDetailFrame_NineSlice_CenterObject : Texture
-local QuestLogPopupDetailFrame_NineSlice_CenterObject = {}
-end
-
-do
----@class QuestLogPopupDetailFrame_NineSlice_LeftEdgeObject : Texture
-local QuestLogPopupDetailFrame_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class QuestLogPopupDetailFrame_NineSlice_RightEdgeObject : Texture
-local QuestLogPopupDetailFrame_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class QuestLogPopupDetailFrame_NineSlice_TopEdgeObject : Texture
-local QuestLogPopupDetailFrame_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class QuestLogPopupDetailFrame_NineSlice_TopLeftCornerObject : Texture
-local QuestLogPopupDetailFrame_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class QuestLogPopupDetailFrame_NineSlice_TopRightCornerObject : Texture
-local QuestLogPopupDetailFrame_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class QuestLogPopupDetailFrame_PortraitContainerObject : Frame
----@field CircleMask QuestLogPopupDetailFrame_PortraitContainer_CircleMaskObject
----@field portrait QuestLogPopupDetailFrame_PortraitContainer_portraitObject
-local QuestLogPopupDetailFrame_PortraitContainerObject = {}
-end
-
-do
----@class QuestLogPopupDetailFrame_PortraitContainer_CircleMaskObject : MaskTexture
-local QuestLogPopupDetailFrame_PortraitContainer_CircleMaskObject = {}
-end
-
-do
----@class QuestLogPopupDetailFrame_PortraitContainer_portraitObject : Texture
-local QuestLogPopupDetailFrame_PortraitContainer_portraitObject = {}
-end
-
-do
----@class QuestLogPopupDetailFrame_RightJumpHintObject : Frame
----@field ActiveTexture QuestLogPopupDetailFrame_RightJumpHint_ActiveTextureObject
----@field DisabledTexture QuestLogPopupDetailFrame_RightJumpHint_DisabledTextureObject
----@field HoldAnim QuestLogPopupDetailFrame_RightJumpHint_HoldAnimObject
----@field HoldIndicator QuestLogPopupDetailFrame_RightJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG QuestLogPopupDetailFrame_RightJumpHint_HoldIndicatorBGObject
----@field HoverTexture QuestLogPopupDetailFrame_RightJumpHint_HoverTextureObject
----@field LoadBar QuestLogPopupDetailFrame_RightJumpHint_LoadBarObject
----@field LoadBarBG QuestLogPopupDetailFrame_RightJumpHint_LoadBarBGObject
----@field LoadBarGlow QuestLogPopupDetailFrame_RightJumpHint_LoadBarGlowObject
----@field NormalTexture QuestLogPopupDetailFrame_RightJumpHint_NormalTextureObject
----@field PressedTexture QuestLogPopupDetailFrame_RightJumpHint_PressedTextureObject
----@field SpinnerTip QuestLogPopupDetailFrame_RightJumpHint_SpinnerTipObject
+---@class GroupLootFrame4_LeftJumpHintObject : Frame
+---@field ActiveTexture GroupLootFrame4_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture GroupLootFrame4_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim GroupLootFrame4_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator GroupLootFrame4_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GroupLootFrame4_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GroupLootFrame4_LeftJumpHint_HoverTextureObject
+---@field LoadBar GroupLootFrame4_LeftJumpHint_LoadBarObject
+---@field LoadBarBG GroupLootFrame4_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow GroupLootFrame4_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture GroupLootFrame4_LeftJumpHint_NormalTextureObject
+---@field PressedTexture GroupLootFrame4_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip GroupLootFrame4_LeftJumpHint_SpinnerTipObject
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
 ---@field textureState number
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local QuestLogPopupDetailFrame_RightJumpHintObject = {}
+local GroupLootFrame4_LeftJumpHintObject = {}
 ---@return any ...
-function QuestLogPopupDetailFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+function GroupLootFrame4_LeftJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_RightJumpHintObject:BeginHold(...) end
+function GroupLootFrame4_LeftJumpHintObject:BeginHold(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_RightJumpHintObject:CanEnterTextureState(...) end
+function GroupLootFrame4_LeftJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_RightJumpHintObject:DisableDropShadow(...) end
+function GroupLootFrame4_LeftJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_RightJumpHintObject:EnableDropShadow(...) end
+function GroupLootFrame4_LeftJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_RightJumpHintObject:EndHold(...) end
+function GroupLootFrame4_LeftJumpHintObject:EndHold(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+function GroupLootFrame4_LeftJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+function GroupLootFrame4_LeftJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_RightJumpHintObject:OnLoad(...) end
+function GroupLootFrame4_LeftJumpHintObject:OnLoad(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_RightJumpHintObject:RefreshIconTextures(...) end
+function GroupLootFrame4_LeftJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_RightJumpHintObject:SetDisabled(...) end
+function GroupLootFrame4_LeftJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_RightJumpHintObject:SetEnabled(...) end
+function GroupLootFrame4_LeftJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_RightJumpHintObject:SetFocused(...) end
+function GroupLootFrame4_LeftJumpHintObject:SetFocused(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_RightJumpHintObject:SetHoldState(...) end
+function GroupLootFrame4_LeftJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_RightJumpHintObject:SetInputKey(...) end
+function GroupLootFrame4_LeftJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_RightJumpHintObject:SetIsHoldAction(...) end
+function GroupLootFrame4_LeftJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_RightJumpHintObject:SetPressable(...) end
+function GroupLootFrame4_LeftJumpHintObject:SetPressable(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_RightJumpHintObject:SetTextureHeight(...) end
+function GroupLootFrame4_LeftJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_RightJumpHintObject:SetTextureState(...) end
+function GroupLootFrame4_LeftJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_RightJumpHintObject:SetTextureWidth(...) end
+function GroupLootFrame4_LeftJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_RightJumpHintObject:SetUsableState(...) end
+function GroupLootFrame4_LeftJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+function GroupLootFrame4_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class QuestLogPopupDetailFrame_RightJumpHint_ActiveTextureObject : Texture
-local QuestLogPopupDetailFrame_RightJumpHint_ActiveTextureObject = {}
+---@class GroupLootFrame4_LeftJumpHint_ActiveTextureObject : Texture
+local GroupLootFrame4_LeftJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_RightJumpHint_DisabledTextureObject : Texture
-local QuestLogPopupDetailFrame_RightJumpHint_DisabledTextureObject = {}
+---@class GroupLootFrame4_LeftJumpHint_DisabledTextureObject : Texture
+local GroupLootFrame4_LeftJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_RightJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim QuestLogPopupDetailFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim QuestLogPopupDetailFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim QuestLogPopupDetailFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
-local QuestLogPopupDetailFrame_RightJumpHint_HoldAnimObject = {}
+---@class GroupLootFrame4_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GroupLootFrame4_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GroupLootFrame4_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GroupLootFrame4_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local GroupLootFrame4_LeftJumpHint_HoldAnimObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
-local QuestLogPopupDetailFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+---@class GroupLootFrame4_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local GroupLootFrame4_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local QuestLogPopupDetailFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+---@class GroupLootFrame4_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GroupLootFrame4_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local QuestLogPopupDetailFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+---@class GroupLootFrame4_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GroupLootFrame4_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_RightJumpHint_HoldIndicatorObject : Texture
-local QuestLogPopupDetailFrame_RightJumpHint_HoldIndicatorObject = {}
+---@class GroupLootFrame4_LeftJumpHint_HoldIndicatorObject : Texture
+local GroupLootFrame4_LeftJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_RightJumpHint_HoldIndicatorBGObject : Texture
-local QuestLogPopupDetailFrame_RightJumpHint_HoldIndicatorBGObject = {}
+---@class GroupLootFrame4_LeftJumpHint_HoldIndicatorBGObject : Texture
+local GroupLootFrame4_LeftJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_RightJumpHint_HoverTextureObject : Texture
-local QuestLogPopupDetailFrame_RightJumpHint_HoverTextureObject = {}
+---@class GroupLootFrame4_LeftJumpHint_HoverTextureObject : Texture
+local GroupLootFrame4_LeftJumpHint_HoverTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_RightJumpHint_LoadBarObject : Texture
-local QuestLogPopupDetailFrame_RightJumpHint_LoadBarObject = {}
+---@class GroupLootFrame4_LeftJumpHint_LoadBarObject : Texture
+local GroupLootFrame4_LeftJumpHint_LoadBarObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_RightJumpHint_LoadBarBGObject : Texture
-local QuestLogPopupDetailFrame_RightJumpHint_LoadBarBGObject = {}
+---@class GroupLootFrame4_LeftJumpHint_LoadBarBGObject : Texture
+local GroupLootFrame4_LeftJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_RightJumpHint_LoadBarGlowObject : Texture
-local QuestLogPopupDetailFrame_RightJumpHint_LoadBarGlowObject = {}
+---@class GroupLootFrame4_LeftJumpHint_LoadBarGlowObject : Texture
+local GroupLootFrame4_LeftJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_RightJumpHint_NormalTextureObject : Texture
-local QuestLogPopupDetailFrame_RightJumpHint_NormalTextureObject = {}
+---@class GroupLootFrame4_LeftJumpHint_NormalTextureObject : Texture
+local GroupLootFrame4_LeftJumpHint_NormalTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_RightJumpHint_PressedTextureObject : Texture
-local QuestLogPopupDetailFrame_RightJumpHint_PressedTextureObject = {}
+---@class GroupLootFrame4_LeftJumpHint_PressedTextureObject : Texture
+local GroupLootFrame4_LeftJumpHint_PressedTextureObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_RightJumpHint_SpinnerTipObject : Texture
-local QuestLogPopupDetailFrame_RightJumpHint_SpinnerTipObject = {}
+---@class GroupLootFrame4_LeftJumpHint_SpinnerTipObject : Texture
+local GroupLootFrame4_LeftJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ScrollFrameObject : ScrollFrame
----@field Event QuestLogPopupDetailFrame_ScrollFrame_EventObject
----@field ScrollBar QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject
----@field ScrollChild QuestLogPopupDetailFrame_ScrollFrame_ScrollChildObject
+---@class GroupLootFrame4_LootButtonContainerObject : Frame
+---@field GreedButton GroupLootFrame4_LootButtonContainer_GreedButtonObject
+---@field LootButtons table
+---@field NeedButton GroupLootFrame4_LootButtonContainer_NeedButtonObject
+---@field PassButton GroupLootFrame4_LootButtonContainer_PassButtonObject
+---@field TransmogButton GroupLootFrame4_LootButtonContainer_TransmogButtonObject
+local GroupLootFrame4_LootButtonContainerObject = {}
+end
+
+do
+---@class GroupLootFrame4_LootButtonContainer_GreedButtonObject : Button
+---@field newbieText string
+---@field tooltipText string
+local GroupLootFrame4_LootButtonContainer_GreedButtonObject = {}
+end
+
+do
+---@class GroupLootFrame4_LootButtonContainer_NeedButtonObject : Button
+---@field newbieText string
+---@field tooltipText string
+local GroupLootFrame4_LootButtonContainer_NeedButtonObject = {}
+end
+
+do
+---@class GroupLootFrame4_LootButtonContainer_PassButtonObject : Button
+---@field newbieText string
+---@field tooltipText string
+local GroupLootFrame4_LootButtonContainer_PassButtonObject = {}
+end
+
+do
+---@class GroupLootFrame4_LootButtonContainer_TransmogButtonObject : Button
+---@field tooltipText string
+local GroupLootFrame4_LootButtonContainer_TransmogButtonObject = {}
+end
+
+do
+---@class GroupLootFrame4_NameObject : FontString
+local GroupLootFrame4_NameObject = {}
+end
+
+do
+---@class GroupLootFrame4_NeedRollAnimObject : Frame
+---@field Animation GroupLootFrame4_NeedRollAnim_AnimationObject
+---@field DiceGlow GroupLootFrame4_NeedRollAnim_DiceGlowObject
+---@field DiceRoll GroupLootFrame4_NeedRollAnim_DiceRollObject
+---@field FX_RevealA GroupLootFrame4_NeedRollAnim_FX_RevealAObject
+---@field FX_RevealB1 GroupLootFrame4_NeedRollAnim_FX_RevealB1Object
+---@field FX_RevealB2 GroupLootFrame4_NeedRollAnim_FX_RevealB2Object
+---@field FX_RevealFade GroupLootFrame4_NeedRollAnim_FX_RevealFadeObject
+---@field RollNumber GroupLootFrame4_NeedRollAnim_RollNumberObject
+local GroupLootFrame4_NeedRollAnimObject = {}
+end
+
+do
+---@class GroupLootFrame4_NeedRollAnim_AnimationObject : AnimationGroup
+local GroupLootFrame4_NeedRollAnim_AnimationObject = {}
+end
+
+do
+---@class GroupLootFrame4_NeedRollAnim_DiceGlowObject : Texture
+local GroupLootFrame4_NeedRollAnim_DiceGlowObject = {}
+end
+
+do
+---@class GroupLootFrame4_NeedRollAnim_DiceRollObject : Texture
+local GroupLootFrame4_NeedRollAnim_DiceRollObject = {}
+end
+
+do
+---@class GroupLootFrame4_NeedRollAnim_FX_RevealAObject : Texture
+local GroupLootFrame4_NeedRollAnim_FX_RevealAObject = {}
+end
+
+do
+---@class GroupLootFrame4_NeedRollAnim_FX_RevealB1Object : Texture
+local GroupLootFrame4_NeedRollAnim_FX_RevealB1Object = {}
+end
+
+do
+---@class GroupLootFrame4_NeedRollAnim_FX_RevealB2Object : Texture
+local GroupLootFrame4_NeedRollAnim_FX_RevealB2Object = {}
+end
+
+do
+---@class GroupLootFrame4_NeedRollAnim_FX_RevealFadeObject : Texture
+local GroupLootFrame4_NeedRollAnim_FX_RevealFadeObject = {}
+end
+
+do
+---@class GroupLootFrame4_NeedRollAnim_RollNumberObject : FontString
+local GroupLootFrame4_NeedRollAnim_RollNumberObject = {}
+end
+
+do
+---@class GroupLootFrame4_RightJumpHintObject : Frame
+---@field ActiveTexture GroupLootFrame4_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture GroupLootFrame4_RightJumpHint_DisabledTextureObject
+---@field HoldAnim GroupLootFrame4_RightJumpHint_HoldAnimObject
+---@field HoldIndicator GroupLootFrame4_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GroupLootFrame4_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GroupLootFrame4_RightJumpHint_HoverTextureObject
+---@field LoadBar GroupLootFrame4_RightJumpHint_LoadBarObject
+---@field LoadBarBG GroupLootFrame4_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow GroupLootFrame4_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture GroupLootFrame4_RightJumpHint_NormalTextureObject
+---@field PressedTexture GroupLootFrame4_RightJumpHint_PressedTextureObject
+---@field SpinnerTip GroupLootFrame4_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GroupLootFrame4_RightJumpHintObject = {}
+---@return any ...
+function GroupLootFrame4_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function GroupLootFrame4_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function GroupLootFrame4_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function GroupLootFrame4_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function GroupLootFrame4_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function GroupLootFrame4_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function GroupLootFrame4_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function GroupLootFrame4_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function GroupLootFrame4_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function GroupLootFrame4_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function GroupLootFrame4_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function GroupLootFrame4_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function GroupLootFrame4_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function GroupLootFrame4_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function GroupLootFrame4_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function GroupLootFrame4_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function GroupLootFrame4_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function GroupLootFrame4_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function GroupLootFrame4_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function GroupLootFrame4_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function GroupLootFrame4_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function GroupLootFrame4_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GroupLootFrame4_RightJumpHint_ActiveTextureObject : Texture
+local GroupLootFrame4_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class GroupLootFrame4_RightJumpHint_DisabledTextureObject : Texture
+local GroupLootFrame4_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class GroupLootFrame4_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GroupLootFrame4_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GroupLootFrame4_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GroupLootFrame4_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local GroupLootFrame4_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class GroupLootFrame4_RightJumpHint_HoldAnim_LoadBarAnimObject
+local GroupLootFrame4_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GroupLootFrame4_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GroupLootFrame4_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GroupLootFrame4_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GroupLootFrame4_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GroupLootFrame4_RightJumpHint_HoldIndicatorObject : Texture
+local GroupLootFrame4_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class GroupLootFrame4_RightJumpHint_HoldIndicatorBGObject : Texture
+local GroupLootFrame4_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GroupLootFrame4_RightJumpHint_HoverTextureObject : Texture
+local GroupLootFrame4_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class GroupLootFrame4_RightJumpHint_LoadBarObject : Texture
+local GroupLootFrame4_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class GroupLootFrame4_RightJumpHint_LoadBarBGObject : Texture
+local GroupLootFrame4_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class GroupLootFrame4_RightJumpHint_LoadBarGlowObject : Texture
+local GroupLootFrame4_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class GroupLootFrame4_RightJumpHint_NormalTextureObject : Texture
+local GroupLootFrame4_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class GroupLootFrame4_RightJumpHint_PressedTextureObject : Texture
+local GroupLootFrame4_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class GroupLootFrame4_RightJumpHint_SpinnerTipObject : Texture
+local GroupLootFrame4_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class GroupLootFrame4_TimerObject : StatusBar
+---@field Background GroupLootFrame4_Timer_BackgroundObject
+---@field Bar GroupLootFrame4_Timer_BarObject
+local GroupLootFrame4_TimerObject = {}
+end
+
+do
+---@class GroupLootFrame4_Timer_BackgroundObject : Texture
+local GroupLootFrame4_Timer_BackgroundObject = {}
+end
+
+do
+---@class GroupLootFrame4_Timer_BarObject : Texture
+local GroupLootFrame4_Timer_BarObject = {}
+end
+
+do
+---@class GroupLootHistoryFrameObject : Frame
+---@field Bg GroupLootHistoryFrame_BgObject
+---@field ClosePanelButton GroupLootHistoryFrame_ClosePanelButtonObject
+---@field EncounterDropdown GroupLootHistoryFrame_EncounterDropdownObject
+---@field FocusJumpHint GroupLootHistoryFrame_FocusJumpHintObject
+---@field FrameGlow GroupLootHistoryFrame_FrameGlowObject
+---@field LeftJumpHint GroupLootHistoryFrame_LeftJumpHintObject
+---@field NineSlice GroupLootHistoryFrame_NineSliceObject
+---@field NoInfoString GroupLootHistoryFrame_NoInfoStringObject
+---@field PerfectAnimFrame GroupLootHistoryFrame_PerfectAnimFrameObject
+---@field ResizeButton GroupLootHistoryFrame_ResizeButtonObject
+---@field RightJumpHint GroupLootHistoryFrame_RightJumpHintObject
+---@field ScrollBar GroupLootHistoryFrame_ScrollBarObject
+---@field ScrollBox GroupLootHistoryFrame_ScrollBoxObject
+---@field Timer GroupLootHistoryFrame_TimerObject
+---@field TitleContainer GroupLootHistoryFrame_TitleContainerObject
+---@field layoutType string
+---@field panelMaxHeight number
+---@field panelWidth number
+---@field uncommittedRegions table
+local GroupLootHistoryFrameObject = {}
+---@return any ...
+function GroupLootHistoryFrameObject:AddPerfectAnimToQueue(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:CleanUpPerfectRollAnim(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:DoFullRefresh(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:EndFocus(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:FocusGamepad(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:GetFocusFrameGlow(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:GetFocusFrameRoot(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:GetSelectedEncounterID(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:GetTitleText(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:HideFocusJumpHint(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:HideLeftJumpHint(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:HideRightJumpHint(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:InitRegions(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:InitScrollBox(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:InitializeGamepad(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:LockInFocus(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:OnDragStart(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:OnDragStop(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:OnEvent(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:OnHide(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:OnLoad(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:OnShow(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:OnUpdate(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:OpenToEncounter(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:OpenToEncounterInternal(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:RefreshFocus(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:RegisterForTransitions(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:RemoveItemFromQueue(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:SetInfoShown(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:SetTitle(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:SetTitleColor(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:SetTitleFormatted(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:SetTitleMaxLinesAndHeight(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:SetTitleOffsets(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:SetupEncounterDropdown(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:SetupGamepad(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:ShouldAutoOpen(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:ShowFocusJumpHint(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:ShowLeftJumpHint(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:ShowRightJumpHint(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:StartFocus(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:UnfocusGamepad(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:UninitializeGamepad(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:UpdatePerfectAnimQueue(...) end
+---@return any ...
+function GroupLootHistoryFrameObject:UpdateTimer(...) end
+---@type GroupLootHistoryFrameObject
+GroupLootHistoryFrame = GroupLootHistoryFrameObject
+end
+
+do
+---@class GroupLootHistoryFrame_BgObject : Frame
+---@field BottomEdge GroupLootHistoryFrame_Bg_BottomEdgeObject
+---@field BottomLeft GroupLootHistoryFrame_Bg_BottomLeftObject
+---@field BottomRight GroupLootHistoryFrame_Bg_BottomRightObject
+---@field TopSection GroupLootHistoryFrame_Bg_TopSectionObject
+local GroupLootHistoryFrame_BgObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_Bg_BottomEdgeObject : Texture
+local GroupLootHistoryFrame_Bg_BottomEdgeObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_Bg_BottomLeftObject : Texture
+local GroupLootHistoryFrame_Bg_BottomLeftObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_Bg_BottomRightObject : Texture
+local GroupLootHistoryFrame_Bg_BottomRightObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_Bg_TopSectionObject : Texture
+local GroupLootHistoryFrame_Bg_TopSectionObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ClosePanelButtonObject : Button
+local GroupLootHistoryFrame_ClosePanelButtonObject = {}
+---@return any ...
+function GroupLootHistoryFrame_ClosePanelButtonObject:NarrationGetName(...) end
+---@return any ...
+function GroupLootHistoryFrame_ClosePanelButtonObject:OnLoad(...) end
+end
+
+do
+---@class GroupLootHistoryFrame_EncounterDropdownObject : Button
+---@field Arrow GroupLootHistoryFrame_EncounterDropdown_ArrowObject
+---@field Background GroupLootHistoryFrame_EncounterDropdown_BackgroundObject
+---@field Event GroupLootHistoryFrame_EncounterDropdown_EventObject
+---@field Text GroupLootHistoryFrame_EncounterDropdown_TextObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field executingEvents table
----@field panExtent number
----@field scrollBarBottomY number
----@field scrollBarTopY number
----@field scrollBarX number
-local QuestLogPopupDetailFrame_ScrollFrameObject = {}
+---@field intrinsic string
+---@field menuAnchor GroupLootHistoryFrame_EncounterDropdown_menuAnchorObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+---@field smartNavigationIgnored boolean
+local GroupLootHistoryFrame_EncounterDropdownObject = {}
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:CopyDeferredCallbacks(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:ClearMenuState(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:DoesFrameHaveEvent(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:CloseMenu(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:GenerateCallbackEvents(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:CollectSelectionData(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:GetCallbackTable(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:GetCallbackTables(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:CreateDefaultRootMenuDescription(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:GetCallbacksByEvent(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:CreateRootDescription(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:GetMutableCallbacksByEvent(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:Decrement(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:GetPanExtent(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:HasRegistrantsForEvent(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:OnHorizontalScroll_Intrinsic(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:EnableRegenerateOnResponse(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:OnLoad(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:OnLoad_Intrinsic(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:GenerateMenu(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:OnMouseWheel_Intrinsic(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:GetArrowAtlas(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:OnScrollRangeChanged_Intrinsic(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:GetCallbackTable(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:OnSizeChanged_Intrinsic(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:GetCallbackTables(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:OnVerticalScroll_Intrinsic(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:ReconcileDeferredCallbacks(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:GetDefaultText(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:RegisterCallback(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:GetMenuDescription(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:RegisterCallbackWithHandle(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:SecureInsertEvent(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:GetSelectionData(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:SetPanExtent(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:GetUpdateText(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:SetUndefinedEventsAllowed(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:HandlesGlobalMouseEvent(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:TriggerEvent(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:HasAnyRadioDescriptions(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:UnregisterCallback(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:HasElements(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:UnregisterEvents(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:HasOnlyRadioDescriptions(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrameObject:UnregisterEventsByEventTable(...) end
+function GroupLootHistoryFrame_EncounterDropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:HasStickyFocus(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:Increment(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:IsDown(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:IsDownOver(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:IsMenuOpen(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:IsOver(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:NarrationGetContext(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:NarrationGetName(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:OnDisable(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:OnEnable(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:OnEnter(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:OnLeave(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:OnLoad(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:OnMenuChanged(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:OnMenuClosed(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:OnMenuOpened(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:OnMenuResponse(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:OnMouseDown(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:OnMouseUp(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:OnShow(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:OpenMenu(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:OverrideText(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:Pick(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:RegisterCallback(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:RegisterMenu(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:Rotate(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:SetDefaultText(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:SetMenuOpen(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:SetSelectionText(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:SetTooltip(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:SetupMenu(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:ShowTooltip(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:SignalUpdate(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:TriggerEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:UnregisterCallback(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:UnregisterEvents(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:Update(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:UpdateSelections(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:UpdateText(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdownObject:selectionTranslator(...) end
 end
 
 do
----@class QuestLogPopupDetailFrame_ScrollFrame_EventObject
----@field OnHorizontalScroll string
----@field OnMouseWheel string
----@field OnScrollRangeChanged string
----@field OnSizeChanged string
----@field OnVerticalScroll string
-local QuestLogPopupDetailFrame_ScrollFrame_EventObject = {}
+---@class GroupLootHistoryFrame_EncounterDropdown_ArrowObject : Texture
+local GroupLootHistoryFrame_EncounterDropdown_ArrowObject = {}
 end
 
 do
----@class QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject : Frame
----@field Back QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_BackObject
----@field Defaults QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_DefaultsObject
----@field Directions QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_DirectionsObject
----@field Event QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_EventObject
----@field Forward QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_ForwardObject
----@field Track QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_TrackObject
+---@class GroupLootHistoryFrame_EncounterDropdown_BackgroundObject : Texture
+local GroupLootHistoryFrame_EncounterDropdown_BackgroundObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_EncounterDropdown_EventObject
+local GroupLootHistoryFrame_EncounterDropdown_EventObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_EncounterDropdown_TextObject : FontString
+local GroupLootHistoryFrame_EncounterDropdown_TextObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_EncounterDropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo GroupLootHistoryFrame_EncounterDropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local GroupLootHistoryFrame_EncounterDropdown_menuAnchorObject = {}
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function GroupLootHistoryFrame_EncounterDropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class GroupLootHistoryFrame_EncounterDropdown_menuAnchor_relativeToObject
+local GroupLootHistoryFrame_EncounterDropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_FocusJumpHintObject : Frame
+---@field ActiveTexture GroupLootHistoryFrame_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture GroupLootHistoryFrame_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim GroupLootHistoryFrame_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator GroupLootHistoryFrame_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GroupLootHistoryFrame_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GroupLootHistoryFrame_FocusJumpHint_HoverTextureObject
+---@field LoadBar GroupLootHistoryFrame_FocusJumpHint_LoadBarObject
+---@field LoadBarBG GroupLootHistoryFrame_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow GroupLootHistoryFrame_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture GroupLootHistoryFrame_FocusJumpHint_NormalTextureObject
+---@field PressedTexture GroupLootHistoryFrame_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip GroupLootHistoryFrame_FocusJumpHint_SpinnerTipObject
+---@field ignoreInLayout boolean
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GroupLootHistoryFrame_FocusJumpHintObject = {}
+---@return any ...
+function GroupLootHistoryFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function GroupLootHistoryFrame_FocusJumpHintObject:BeginHold(...) end
+---@return any ...
+function GroupLootHistoryFrame_FocusJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function GroupLootHistoryFrame_FocusJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function GroupLootHistoryFrame_FocusJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function GroupLootHistoryFrame_FocusJumpHintObject:EndHold(...) end
+---@return any ...
+function GroupLootHistoryFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function GroupLootHistoryFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function GroupLootHistoryFrame_FocusJumpHintObject:OnLoad(...) end
+---@return any ...
+function GroupLootHistoryFrame_FocusJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function GroupLootHistoryFrame_FocusJumpHintObject:SetDisabled(...) end
+---@return any ...
+function GroupLootHistoryFrame_FocusJumpHintObject:SetEnabled(...) end
+---@return any ...
+function GroupLootHistoryFrame_FocusJumpHintObject:SetFocused(...) end
+---@return any ...
+function GroupLootHistoryFrame_FocusJumpHintObject:SetHoldState(...) end
+---@return any ...
+function GroupLootHistoryFrame_FocusJumpHintObject:SetInputKey(...) end
+---@return any ...
+function GroupLootHistoryFrame_FocusJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function GroupLootHistoryFrame_FocusJumpHintObject:SetPressable(...) end
+---@return any ...
+function GroupLootHistoryFrame_FocusJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function GroupLootHistoryFrame_FocusJumpHintObject:SetTextureState(...) end
+---@return any ...
+function GroupLootHistoryFrame_FocusJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function GroupLootHistoryFrame_FocusJumpHintObject:SetUsableState(...) end
+---@return any ...
+function GroupLootHistoryFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GroupLootHistoryFrame_FocusJumpHint_ActiveTextureObject : Texture
+local GroupLootHistoryFrame_FocusJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_FocusJumpHint_DisabledTextureObject : Texture
+local GroupLootHistoryFrame_FocusJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GroupLootHistoryFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GroupLootHistoryFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GroupLootHistoryFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local GroupLootHistoryFrame_FocusJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local GroupLootHistoryFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GroupLootHistoryFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GroupLootHistoryFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_FocusJumpHint_HoldIndicatorObject : Texture
+local GroupLootHistoryFrame_FocusJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
+local GroupLootHistoryFrame_FocusJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_FocusJumpHint_HoverTextureObject : Texture
+local GroupLootHistoryFrame_FocusJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_FocusJumpHint_LoadBarObject : Texture
+local GroupLootHistoryFrame_FocusJumpHint_LoadBarObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_FocusJumpHint_LoadBarBGObject : Texture
+local GroupLootHistoryFrame_FocusJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_FocusJumpHint_LoadBarGlowObject : Texture
+local GroupLootHistoryFrame_FocusJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_FocusJumpHint_NormalTextureObject : Texture
+local GroupLootHistoryFrame_FocusJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_FocusJumpHint_PressedTextureObject : Texture
+local GroupLootHistoryFrame_FocusJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_FocusJumpHint_SpinnerTipObject : Texture
+local GroupLootHistoryFrame_FocusJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_FrameGlowObject : Frame
+---@field GlowTexture GroupLootHistoryFrame_FrameGlow_GlowTextureObject
+---@field glowTextures table
+local GroupLootHistoryFrame_FrameGlowObject = {}
+---@return any ...
+function GroupLootHistoryFrame_FrameGlowObject:GetContainerFrame(...) end
+---@return any ...
+function GroupLootHistoryFrame_FrameGlowObject:GetFrameLayoutType(...) end
+---@return any ...
+function GroupLootHistoryFrame_FrameGlowObject:GetHeaderFrame(...) end
+---@return any ...
+function GroupLootHistoryFrame_FrameGlowObject:OnLoad(...) end
+end
+
+do
+---@class GroupLootHistoryFrame_FrameGlow_GlowTextureObject : Texture
+local GroupLootHistoryFrame_FrameGlow_GlowTextureObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_LeftJumpHintObject : Frame
+---@field ActiveTexture GroupLootHistoryFrame_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture GroupLootHistoryFrame_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim GroupLootHistoryFrame_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator GroupLootHistoryFrame_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GroupLootHistoryFrame_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GroupLootHistoryFrame_LeftJumpHint_HoverTextureObject
+---@field LoadBar GroupLootHistoryFrame_LeftJumpHint_LoadBarObject
+---@field LoadBarBG GroupLootHistoryFrame_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow GroupLootHistoryFrame_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture GroupLootHistoryFrame_LeftJumpHint_NormalTextureObject
+---@field PressedTexture GroupLootHistoryFrame_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip GroupLootHistoryFrame_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GroupLootHistoryFrame_LeftJumpHintObject = {}
+---@return any ...
+function GroupLootHistoryFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function GroupLootHistoryFrame_LeftJumpHintObject:BeginHold(...) end
+---@return any ...
+function GroupLootHistoryFrame_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function GroupLootHistoryFrame_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function GroupLootHistoryFrame_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function GroupLootHistoryFrame_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function GroupLootHistoryFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function GroupLootHistoryFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function GroupLootHistoryFrame_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function GroupLootHistoryFrame_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function GroupLootHistoryFrame_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function GroupLootHistoryFrame_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function GroupLootHistoryFrame_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function GroupLootHistoryFrame_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function GroupLootHistoryFrame_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function GroupLootHistoryFrame_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function GroupLootHistoryFrame_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function GroupLootHistoryFrame_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function GroupLootHistoryFrame_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function GroupLootHistoryFrame_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function GroupLootHistoryFrame_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function GroupLootHistoryFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GroupLootHistoryFrame_LeftJumpHint_ActiveTextureObject : Texture
+local GroupLootHistoryFrame_LeftJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_LeftJumpHint_DisabledTextureObject : Texture
+local GroupLootHistoryFrame_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GroupLootHistoryFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GroupLootHistoryFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GroupLootHistoryFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local GroupLootHistoryFrame_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local GroupLootHistoryFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GroupLootHistoryFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GroupLootHistoryFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_LeftJumpHint_HoldIndicatorObject : Texture
+local GroupLootHistoryFrame_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
+local GroupLootHistoryFrame_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_LeftJumpHint_HoverTextureObject : Texture
+local GroupLootHistoryFrame_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_LeftJumpHint_LoadBarObject : Texture
+local GroupLootHistoryFrame_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_LeftJumpHint_LoadBarBGObject : Texture
+local GroupLootHistoryFrame_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_LeftJumpHint_LoadBarGlowObject : Texture
+local GroupLootHistoryFrame_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_LeftJumpHint_NormalTextureObject : Texture
+local GroupLootHistoryFrame_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_LeftJumpHint_PressedTextureObject : Texture
+local GroupLootHistoryFrame_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_LeftJumpHint_SpinnerTipObject : Texture
+local GroupLootHistoryFrame_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_NineSliceObject : Frame
+---@field BottomEdge GroupLootHistoryFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner GroupLootHistoryFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner GroupLootHistoryFrame_NineSlice_BottomRightCornerObject
+---@field Center GroupLootHistoryFrame_NineSlice_CenterObject
+---@field LeftEdge GroupLootHistoryFrame_NineSlice_LeftEdgeObject
+---@field RightEdge GroupLootHistoryFrame_NineSlice_RightEdgeObject
+---@field TopEdge GroupLootHistoryFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner GroupLootHistoryFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner GroupLootHistoryFrame_NineSlice_TopRightCornerObject
+local GroupLootHistoryFrame_NineSliceObject = {}
+---@return any ...
+function GroupLootHistoryFrame_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function GroupLootHistoryFrame_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function GroupLootHistoryFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function GroupLootHistoryFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function GroupLootHistoryFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function GroupLootHistoryFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function GroupLootHistoryFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function GroupLootHistoryFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function GroupLootHistoryFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function GroupLootHistoryFrame_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class GroupLootHistoryFrame_NineSlice_BottomEdgeObject : Texture
+local GroupLootHistoryFrame_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_NineSlice_BottomLeftCornerObject : Texture
+local GroupLootHistoryFrame_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_NineSlice_BottomRightCornerObject : Texture
+local GroupLootHistoryFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_NineSlice_CenterObject : Texture
+local GroupLootHistoryFrame_NineSlice_CenterObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_NineSlice_LeftEdgeObject : Texture
+local GroupLootHistoryFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_NineSlice_RightEdgeObject : Texture
+local GroupLootHistoryFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_NineSlice_TopEdgeObject : Texture
+local GroupLootHistoryFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_NineSlice_TopLeftCornerObject : Texture
+local GroupLootHistoryFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_NineSlice_TopRightCornerObject : Texture
+local GroupLootHistoryFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_NoInfoStringObject : FontString
+local GroupLootHistoryFrame_NoInfoStringObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrameObject : Frame
+---@field AllPassedInfo GroupLootHistoryFrame_PerfectAnimFrame_AllPassedInfoObject
+---@field BackgroundArtFrame GroupLootHistoryFrame_PerfectAnimFrame_BackgroundArtFrameObject
+---@field Item GroupLootHistoryFrame_PerfectAnimFrame_ItemObject
+---@field ItemName GroupLootHistoryFrame_PerfectAnimFrame_ItemNameObject
+---@field PendingRollInfo GroupLootHistoryFrame_PerfectAnimFrame_PendingRollInfoObject
+---@field PerfectRollFrame GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrameObject
+---@field PerfectRollTopFrame GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollTopFrameObject
+---@field PlayerRoll GroupLootHistoryFrame_PerfectAnimFrame_PlayerRollObject
+---@field WinningRollInfo GroupLootHistoryFrame_PerfectAnimFrame_WinningRollInfoObject
+---@field smartNavigationCanFocus boolean
+local GroupLootHistoryFrame_PerfectAnimFrameObject = {}
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrameObject:Init(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrameObject:InitAndStartAnim(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrameObject:OnEnter(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrameObject:OnEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrameObject:OnHide(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrameObject:OnLeave(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrameObject:OnLoad(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrameObject:OnShow(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrameObject:PlayPerfectRollAnim(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrameObject:SetDrop(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrameObject:SetTooltip(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrameObject:StopPerfectRollAnim(...) end
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_AllPassedInfoObject : Frame
+---@field AllPassedText GroupLootHistoryFrame_PerfectAnimFrame_AllPassedInfo_AllPassedTextObject
+---@field Icon GroupLootHistoryFrame_PerfectAnimFrame_AllPassedInfo_IconObject
+local GroupLootHistoryFrame_PerfectAnimFrame_AllPassedInfoObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_AllPassedInfo_AllPassedTextObject : FontString
+local GroupLootHistoryFrame_PerfectAnimFrame_AllPassedInfo_AllPassedTextObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_AllPassedInfo_IconObject : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_AllPassedInfo_IconObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_BackgroundArtFrameObject : Frame
+---@field BorderFrame GroupLootHistoryFrame_PerfectAnimFrame_BackgroundArtFrame_BorderFrameObject
+---@field NameFrame GroupLootHistoryFrame_PerfectAnimFrame_BackgroundArtFrame_NameFrameObject
+local GroupLootHistoryFrame_PerfectAnimFrame_BackgroundArtFrameObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_BackgroundArtFrame_BorderFrameObject : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_BackgroundArtFrame_BorderFrameObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_BackgroundArtFrame_NameFrameObject : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_BackgroundArtFrame_NameFrameObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_ItemObject : Button
+---@field Count GroupLootHistoryFrame_PerfectAnimFrame_Item_CountObject
+---@field HighlightTexture GroupLootHistoryFrame_PerfectAnimFrame_Item_HighlightTextureObject
+---@field IconBorder GroupLootHistoryFrame_PerfectAnimFrame_Item_IconBorderObject
+---@field IconOverlay GroupLootHistoryFrame_PerfectAnimFrame_Item_IconOverlayObject
+---@field IconOverlay2 GroupLootHistoryFrame_PerfectAnimFrame_Item_IconOverlay2Object
+---@field ItemContextOverlay GroupLootHistoryFrame_PerfectAnimFrame_Item_ItemContextOverlayObject
+---@field Mask GroupLootHistoryFrame_PerfectAnimFrame_Item_MaskObject
+---@field NormalTexture GroupLootHistoryFrame_PerfectAnimFrame_Item_NormalTextureObject
+---@field PushedTexture GroupLootHistoryFrame_PerfectAnimFrame_Item_PushedTextureObject
+---@field Stock GroupLootHistoryFrame_PerfectAnimFrame_Item_StockObject
+---@field icon GroupLootHistoryFrame_PerfectAnimFrame_Item_iconObject
+---@field searchOverlay GroupLootHistoryFrame_PerfectAnimFrame_Item_searchOverlayObject
+---@field showMatchHighlight boolean
+---@field smartNavigationIgnored boolean
+local GroupLootHistoryFrame_PerfectAnimFrame_ItemObject = {}
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:GetBagID(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:GetItem(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:GetItemButtonCount(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:GetItemButtonIconTexture(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:GetItemContextOverlayMode(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:GetItemID(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:GetItemInfo(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:GetItemLink(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:GetItemLocation(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:GetMatchesSearch(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:GetSlotAndBagID(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:OnItemContextChanged(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:PostOnEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:PostOnHide(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:PostOnLoad(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:PostOnShow(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:Reset(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:SetBagID(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:SetItem(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:SetItemButtonCount(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:SetItemButtonQuality(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:SetItemButtonScale(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:SetItemButtonTexture(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:SetItemInternal(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:SetItemLocation(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:SetItemSource(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:SetMatchesSearch(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:UpdateItemContextMatching(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:UpdateItemContextOverlay(...) end
+---@return any ...
+function GroupLootHistoryFrame_PerfectAnimFrame_ItemObject:UpdateItemContextOverlayTextures(...) end
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_Item_CountObject : FontString
+local GroupLootHistoryFrame_PerfectAnimFrame_Item_CountObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_Item_HighlightTextureObject : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_Item_HighlightTextureObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_Item_IconBorderObject : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_Item_IconBorderObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_Item_IconOverlayObject : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_Item_IconOverlayObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_Item_IconOverlay2Object : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_Item_IconOverlay2Object = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_Item_ItemContextOverlayObject : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_Item_ItemContextOverlayObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_Item_MaskObject : MaskTexture
+local GroupLootHistoryFrame_PerfectAnimFrame_Item_MaskObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_Item_NormalTextureObject : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_Item_NormalTextureObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_Item_PushedTextureObject : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_Item_PushedTextureObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_Item_StockObject : FontString
+local GroupLootHistoryFrame_PerfectAnimFrame_Item_StockObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_Item_iconObject : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_Item_iconObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_Item_searchOverlayObject : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_Item_searchOverlayObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_ItemNameObject : FontString
+local GroupLootHistoryFrame_PerfectAnimFrame_ItemNameObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_PendingRollInfoObject : Frame
+---@field CurrentWinnerText GroupLootHistoryFrame_PerfectAnimFrame_PendingRollInfo_CurrentWinnerTextObject
+---@field WaitAnim GroupLootHistoryFrame_PerfectAnimFrame_PendingRollInfo_WaitAnimObject
+---@field WaitDot1 GroupLootHistoryFrame_PerfectAnimFrame_PendingRollInfo_WaitDot1Object
+---@field WaitDot2 GroupLootHistoryFrame_PerfectAnimFrame_PendingRollInfo_WaitDot2Object
+local GroupLootHistoryFrame_PerfectAnimFrame_PendingRollInfoObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_PendingRollInfo_CurrentWinnerTextObject : FontString
+local GroupLootHistoryFrame_PerfectAnimFrame_PendingRollInfo_CurrentWinnerTextObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_PendingRollInfo_WaitAnimObject : AnimationGroup
+local GroupLootHistoryFrame_PerfectAnimFrame_PendingRollInfo_WaitAnimObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_PendingRollInfo_WaitDot1Object : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_PendingRollInfo_WaitDot1Object = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_PendingRollInfo_WaitDot2Object : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_PendingRollInfo_WaitDot2Object = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrameObject : Frame
+---@field Anim GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_AnimObject
+---@field ShineSwipe GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_ShineSwipeObject
+---@field innerGlow GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_innerGlowObject
+---@field outerGlow_1 GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_outerGlow_1Object
+---@field outerGlow_2 GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_outerGlow_2Object
+---@field outerGlow_3 GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_outerGlow_3Object
+---@field outlineTop GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_outlineTopObject
+---@field slamGlow GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_slamGlowObject
+local GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrameObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_AnimObject : AnimationGroup
+local GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_AnimObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_ShineSwipeObject : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_ShineSwipeObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_innerGlowObject : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_innerGlowObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_outerGlow_1Object : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_outerGlow_1Object = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_outerGlow_2Object : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_outerGlow_2Object = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_outerGlow_3Object : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_outerGlow_3Object = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_outlineTopObject : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_outlineTopObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_slamGlowObject : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollFrame_slamGlowObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollTopFrameObject : Frame
+---@field Anim GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollTopFrame_AnimObject
+---@field slamCard GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollTopFrame_slamCardObject
+---@field sparkSlam1 GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollTopFrame_sparkSlam1Object
+---@field sparksTrail1 GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollTopFrame_sparksTrail1Object
+---@field sparksTrail2 GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollTopFrame_sparksTrail2Object
+local GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollTopFrameObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollTopFrame_AnimObject : AnimationGroup
+local GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollTopFrame_AnimObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollTopFrame_slamCardObject : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollTopFrame_slamCardObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollTopFrame_sparkSlam1Object : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollTopFrame_sparkSlam1Object = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollTopFrame_sparksTrail1Object : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollTopFrame_sparksTrail1Object = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollTopFrame_sparksTrail2Object : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_PerfectRollTopFrame_sparksTrail2Object = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_PlayerRollObject : Frame
+---@field PlayerRollIcon GroupLootHistoryFrame_PerfectAnimFrame_PlayerRoll_PlayerRollIconObject
+local GroupLootHistoryFrame_PerfectAnimFrame_PlayerRollObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_PlayerRoll_PlayerRollIconObject : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_PlayerRoll_PlayerRollIconObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_WinningRollInfoObject : Frame
+---@field Check GroupLootHistoryFrame_PerfectAnimFrame_WinningRollInfo_CheckObject
+---@field WinningRoll GroupLootHistoryFrame_PerfectAnimFrame_WinningRollInfo_WinningRollObject
+local GroupLootHistoryFrame_PerfectAnimFrame_WinningRollInfoObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_WinningRollInfo_CheckObject : Texture
+local GroupLootHistoryFrame_PerfectAnimFrame_WinningRollInfo_CheckObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_PerfectAnimFrame_WinningRollInfo_WinningRollObject : FontString
+local GroupLootHistoryFrame_PerfectAnimFrame_WinningRollInfo_WinningRollObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ResizeButtonObject : Button
+local GroupLootHistoryFrame_ResizeButtonObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_RightJumpHintObject : Frame
+---@field ActiveTexture GroupLootHistoryFrame_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture GroupLootHistoryFrame_RightJumpHint_DisabledTextureObject
+---@field HoldAnim GroupLootHistoryFrame_RightJumpHint_HoldAnimObject
+---@field HoldIndicator GroupLootHistoryFrame_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GroupLootHistoryFrame_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GroupLootHistoryFrame_RightJumpHint_HoverTextureObject
+---@field LoadBar GroupLootHistoryFrame_RightJumpHint_LoadBarObject
+---@field LoadBarBG GroupLootHistoryFrame_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow GroupLootHistoryFrame_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture GroupLootHistoryFrame_RightJumpHint_NormalTextureObject
+---@field PressedTexture GroupLootHistoryFrame_RightJumpHint_PressedTextureObject
+---@field SpinnerTip GroupLootHistoryFrame_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GroupLootHistoryFrame_RightJumpHintObject = {}
+---@return any ...
+function GroupLootHistoryFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function GroupLootHistoryFrame_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function GroupLootHistoryFrame_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function GroupLootHistoryFrame_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function GroupLootHistoryFrame_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function GroupLootHistoryFrame_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function GroupLootHistoryFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function GroupLootHistoryFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function GroupLootHistoryFrame_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function GroupLootHistoryFrame_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function GroupLootHistoryFrame_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function GroupLootHistoryFrame_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function GroupLootHistoryFrame_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function GroupLootHistoryFrame_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function GroupLootHistoryFrame_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function GroupLootHistoryFrame_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function GroupLootHistoryFrame_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function GroupLootHistoryFrame_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function GroupLootHistoryFrame_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function GroupLootHistoryFrame_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function GroupLootHistoryFrame_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function GroupLootHistoryFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GroupLootHistoryFrame_RightJumpHint_ActiveTextureObject : Texture
+local GroupLootHistoryFrame_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_RightJumpHint_DisabledTextureObject : Texture
+local GroupLootHistoryFrame_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GroupLootHistoryFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GroupLootHistoryFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GroupLootHistoryFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local GroupLootHistoryFrame_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+local GroupLootHistoryFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GroupLootHistoryFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GroupLootHistoryFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_RightJumpHint_HoldIndicatorObject : Texture
+local GroupLootHistoryFrame_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_RightJumpHint_HoldIndicatorBGObject : Texture
+local GroupLootHistoryFrame_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_RightJumpHint_HoverTextureObject : Texture
+local GroupLootHistoryFrame_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_RightJumpHint_LoadBarObject : Texture
+local GroupLootHistoryFrame_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_RightJumpHint_LoadBarBGObject : Texture
+local GroupLootHistoryFrame_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_RightJumpHint_LoadBarGlowObject : Texture
+local GroupLootHistoryFrame_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_RightJumpHint_NormalTextureObject : Texture
+local GroupLootHistoryFrame_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_RightJumpHint_PressedTextureObject : Texture
+local GroupLootHistoryFrame_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_RightJumpHint_SpinnerTipObject : Texture
+local GroupLootHistoryFrame_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBarObject : Frame
+---@field Back GroupLootHistoryFrame_ScrollBar_BackObject
+---@field Defaults GroupLootHistoryFrame_ScrollBar_DefaultsObject
+---@field Directions GroupLootHistoryFrame_ScrollBar_DirectionsObject
+---@field Event GroupLootHistoryFrame_ScrollBar_EventObject
+---@field Forward GroupLootHistoryFrame_ScrollBar_ForwardObject
+---@field Track GroupLootHistoryFrame_ScrollBar_TrackObject
 ---@field allowScroll boolean
 ---@field callbackTables table
 ---@field canInterpolateScroll boolean
 ---@field deferredCallbacks table
 ---@field executingEvents table
 ---@field hideTrack boolean
----@field interpolator QuestLogPopupDetailFrame_ScrollFrame_ScrollBar_interpolatorObject
+---@field hideTrackIfThumbExceedsTrack boolean
+---@field interpolator GroupLootHistoryFrame_ScrollBar_interpolatorObject
 ---@field isScrollController boolean
 ---@field minThumbExtent number
 ---@field panDelay number
 ---@field panExtentPercentage number
 ---@field panRepeatTime number
+---@field registeredScrollBox GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject
+---@field scrollPercentage number
 ---@field smartNavigationIgnored boolean
 ---@field snapToInterval boolean
 ---@field thumbAnchor string
 ---@field useProportionalThumb boolean
 ---@field visibleExtentPercentage number
 ---@field wheelPanScalar number
-local QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject = {}
+local GroupLootHistoryFrame_ScrollBarObject = {}
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:CallInternalScope(...) end
+function GroupLootHistoryFrame_ScrollBarObject:CallInternalScope(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:CanCursorStepInDirection(...) end
+function GroupLootHistoryFrame_ScrollBarObject:CanCursorStepInDirection(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:CanInterpolateScroll(...) end
+function GroupLootHistoryFrame_ScrollBarObject:CanInterpolateScroll(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:CopyDeferredCallbacks(...) end
+function GroupLootHistoryFrame_ScrollBarObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:DisableControls(...) end
+function GroupLootHistoryFrame_ScrollBarObject:DisableControls(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:DoesFrameHaveEvent(...) end
+function GroupLootHistoryFrame_ScrollBarObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:EnableInternalPriority(...) end
+function GroupLootHistoryFrame_ScrollBarObject:EnableInternalPriority(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:EnableSnapToInterval(...) end
+function GroupLootHistoryFrame_ScrollBarObject:EnableSnapToInterval(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:GenerateCallbackEvents(...) end
+function GroupLootHistoryFrame_ScrollBarObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:GetBackStepper(...) end
+function GroupLootHistoryFrame_ScrollBarObject:GetBackStepper(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:GetCallbackTable(...) end
+function GroupLootHistoryFrame_ScrollBarObject:GetCallbackTable(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:GetCallbackTables(...) end
+function GroupLootHistoryFrame_ScrollBarObject:GetCallbackTables(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:GetCallbacksByEvent(...) end
+function GroupLootHistoryFrame_ScrollBarObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:GetForwardStepper(...) end
+function GroupLootHistoryFrame_ScrollBarObject:GetForwardStepper(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:GetFrameExtent(...) end
+function GroupLootHistoryFrame_ScrollBarObject:GetFrameExtent(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:GetIntervalRange(...) end
+function GroupLootHistoryFrame_ScrollBarObject:GetIntervalRange(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:GetLower(...) end
+function GroupLootHistoryFrame_ScrollBarObject:GetLower(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+function GroupLootHistoryFrame_ScrollBarObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:GetPanExtentPercentage(...) end
+function GroupLootHistoryFrame_ScrollBarObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:GetPanRepeatDelay(...) end
+function GroupLootHistoryFrame_ScrollBarObject:GetPanRepeatDelay(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:GetPanRepeatTime(...) end
+function GroupLootHistoryFrame_ScrollBarObject:GetPanRepeatTime(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:GetScrollInterpolator(...) end
+function GroupLootHistoryFrame_ScrollBarObject:GetScrollInterpolator(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:GetScrollPercentage(...) end
+function GroupLootHistoryFrame_ScrollBarObject:GetScrollPercentage(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:GetThumb(...) end
+function GroupLootHistoryFrame_ScrollBarObject:GetThumb(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:GetThumbAnchor(...) end
+function GroupLootHistoryFrame_ScrollBarObject:GetThumbAnchor(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:GetTrack(...) end
+function GroupLootHistoryFrame_ScrollBarObject:GetTrack(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:GetTrackExtent(...) end
+function GroupLootHistoryFrame_ScrollBarObject:GetTrackExtent(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:GetUpper(...) end
+function GroupLootHistoryFrame_ScrollBarObject:GetUpper(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:GetVisibleExtentPercentage(...) end
+function GroupLootHistoryFrame_ScrollBarObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:GetWheelPanPercentage(...) end
+function GroupLootHistoryFrame_ScrollBarObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:HasRegistrantsForEvent(...) end
+function GroupLootHistoryFrame_ScrollBarObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:HasScrollableExtent(...) end
+function GroupLootHistoryFrame_ScrollBarObject:HasScrollableExtent(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:Init(...) end
+function GroupLootHistoryFrame_ScrollBarObject:Init(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:InitializeNarration(...) end
+function GroupLootHistoryFrame_ScrollBarObject:InitializeNarration(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:Interpolate(...) end
+function GroupLootHistoryFrame_ScrollBarObject:Interpolate(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:IsAtBegin(...) end
+function GroupLootHistoryFrame_ScrollBarObject:IsAtBegin(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:IsAtEnd(...) end
+function GroupLootHistoryFrame_ScrollBarObject:IsAtEnd(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:IsHorizontal(...) end
+function GroupLootHistoryFrame_ScrollBarObject:IsHorizontal(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:IsScrollAllowed(...) end
+function GroupLootHistoryFrame_ScrollBarObject:IsScrollAllowed(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:IsThumbMouseDown(...) end
+function GroupLootHistoryFrame_ScrollBarObject:IsThumbMouseDown(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:OnHide_Intrinsic(...) end
+function GroupLootHistoryFrame_ScrollBarObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:OnLoad(...) end
+function GroupLootHistoryFrame_ScrollBarObject:OnLoad(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:OnLoad_Intrinsic(...) end
+function GroupLootHistoryFrame_ScrollBarObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:OnMouseWheel(...) end
+function GroupLootHistoryFrame_ScrollBarObject:OnMouseWheel(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:OnShow_Intrinsic(...) end
+function GroupLootHistoryFrame_ScrollBarObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+function GroupLootHistoryFrame_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:OnStepperMouseDown(...) end
+function GroupLootHistoryFrame_ScrollBarObject:OnStepperMouseDown(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:OnThumbMouseDown(...) end
+function GroupLootHistoryFrame_ScrollBarObject:OnThumbMouseDown(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:OnTrackMouseDown(...) end
+function GroupLootHistoryFrame_ScrollBarObject:OnTrackMouseDown(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+function GroupLootHistoryFrame_ScrollBarObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:RegisterCallback(...) end
+function GroupLootHistoryFrame_ScrollBarObject:RegisterCallback(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:RegisterCallbackWithHandle(...) end
+function GroupLootHistoryFrame_ScrollBarObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:ScrollDecrease(...) end
+function GroupLootHistoryFrame_ScrollBarObject:ScrollDecrease(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:ScrollInDirection(...) end
+function GroupLootHistoryFrame_ScrollBarObject:ScrollInDirection(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:ScrollIncrease(...) end
+function GroupLootHistoryFrame_ScrollBarObject:ScrollIncrease(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:ScrollPageInDirection(...) end
+function GroupLootHistoryFrame_ScrollBarObject:ScrollPageInDirection(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:ScrollStepInDirection(...) end
+function GroupLootHistoryFrame_ScrollBarObject:ScrollStepInDirection(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:ScrollToBegin(...) end
+function GroupLootHistoryFrame_ScrollBarObject:ScrollToBegin(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:ScrollToEnd(...) end
+function GroupLootHistoryFrame_ScrollBarObject:ScrollToEnd(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:ScrollWheelInDirection(...) end
+function GroupLootHistoryFrame_ScrollBarObject:ScrollWheelInDirection(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:SecureInsertEvent(...) end
+function GroupLootHistoryFrame_ScrollBarObject:SecureInsertEvent(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:SelectCursorComponent(...) end
+function GroupLootHistoryFrame_ScrollBarObject:SelectCursorComponent(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:SelectPointComponent(...) end
+function GroupLootHistoryFrame_ScrollBarObject:SelectPointComponent(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:SetFrameExtent(...) end
+function GroupLootHistoryFrame_ScrollBarObject:SetFrameExtent(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:SetHideIfUnscrollable(...) end
+function GroupLootHistoryFrame_ScrollBarObject:SetHideIfUnscrollable(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+function GroupLootHistoryFrame_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:SetHorizontal(...) end
+function GroupLootHistoryFrame_ScrollBarObject:SetHorizontal(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:SetInterpolateScroll(...) end
+function GroupLootHistoryFrame_ScrollBarObject:SetInterpolateScroll(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:SetPanExtentPercentage(...) end
+function GroupLootHistoryFrame_ScrollBarObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:SetScrollAllowed(...) end
+function GroupLootHistoryFrame_ScrollBarObject:SetScrollAllowed(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:SetScrollPercentage(...) end
+function GroupLootHistoryFrame_ScrollBarObject:SetScrollPercentage(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:SetScrollPercentageInternal(...) end
+function GroupLootHistoryFrame_ScrollBarObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:SetThumbExtent(...) end
+function GroupLootHistoryFrame_ScrollBarObject:SetThumbExtent(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+function GroupLootHistoryFrame_ScrollBarObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:SetVisibleExtentPercentage(...) end
+function GroupLootHistoryFrame_ScrollBarObject:SetVisibleExtentPercentage(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:TriggerEvent(...) end
+function GroupLootHistoryFrame_ScrollBarObject:TriggerEvent(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:UnregisterCallback(...) end
+function GroupLootHistoryFrame_ScrollBarObject:UnregisterCallback(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:UnregisterEvents(...) end
+function GroupLootHistoryFrame_ScrollBarObject:UnregisterEvents(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:UnregisterEventsByEventTable(...) end
+function GroupLootHistoryFrame_ScrollBarObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:UnregisterUpdate(...) end
+function GroupLootHistoryFrame_ScrollBarObject:UnregisterUpdate(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:Update(...) end
+function GroupLootHistoryFrame_ScrollBarObject:Update(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:onButtonMouseUp(...) end
+function GroupLootHistoryFrame_ScrollBarObject:onButtonMouseUp(...) end
 ---@return any ...
-function QuestLogPopupDetailFrame_ScrollFrame_ScrollBarObject:scrollInternal(...) end
+function GroupLootHistoryFrame_ScrollBarObject:scrollInternal(...) end
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_BackObject : Button
+---@field Event GroupLootHistoryFrame_ScrollBar_Back_EventObject
+---@field Texture GroupLootHistoryFrame_ScrollBar_Back_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local GroupLootHistoryFrame_ScrollBar_BackObject = {}
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:GetAtlas(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:GetCallbackTable(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:GetCallbackTables(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:IsDown(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:IsDownOver(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:IsOver(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:NarrationGetName(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:OnButtonStateChanged(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:OnDisable(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:OnEnable(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:OnEnter(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:OnLeave(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:OnLoad(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:OnMouseDown(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:OnMouseUp(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:OnShow(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:RegisterCallback(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:SecureInsertEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:SetDisplacedRegions(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:TriggerEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:UnregisterCallback(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:UnregisterEvents(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_Back_EventObject
+local GroupLootHistoryFrame_ScrollBar_Back_EventObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_Back_TextureObject : Texture
+local GroupLootHistoryFrame_ScrollBar_Back_TextureObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_DefaultsObject
+local GroupLootHistoryFrame_ScrollBar_DefaultsObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_DirectionsObject
+local GroupLootHistoryFrame_ScrollBar_DirectionsObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_EventObject
+local GroupLootHistoryFrame_ScrollBar_EventObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_ForwardObject : Button
+---@field Event GroupLootHistoryFrame_ScrollBar_Forward_EventObject
+---@field Texture GroupLootHistoryFrame_ScrollBar_Forward_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local GroupLootHistoryFrame_ScrollBar_ForwardObject = {}
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:GetAtlas(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:GetCallbackTable(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:GetCallbackTables(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:IsDown(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:IsDownOver(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:IsOver(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:NarrationGetName(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:OnDisable(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:OnEnable(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:OnEnter(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:OnLeave(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:OnLoad(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:OnMouseDown(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:OnMouseUp(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:OnShow(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:RegisterCallback(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:TriggerEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:UnregisterCallback(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:UnregisterEvents(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_Forward_EventObject
+local GroupLootHistoryFrame_ScrollBar_Forward_EventObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_Forward_TextureObject : Texture
+local GroupLootHistoryFrame_ScrollBar_Forward_TextureObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_TrackObject : Frame
+---@field Begin GroupLootHistoryFrame_ScrollBar_Track_BeginObject
+---@field End GroupLootHistoryFrame_ScrollBar_Track_EndObject
+---@field Middle GroupLootHistoryFrame_ScrollBar_Track_MiddleObject
+---@field Thumb GroupLootHistoryFrame_ScrollBar_Track_ThumbObject
+local GroupLootHistoryFrame_ScrollBar_TrackObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_Track_BeginObject : Texture
+local GroupLootHistoryFrame_ScrollBar_Track_BeginObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_Track_EndObject : Texture
+local GroupLootHistoryFrame_ScrollBar_Track_EndObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_Track_MiddleObject : Texture
+local GroupLootHistoryFrame_ScrollBar_Track_MiddleObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_Track_ThumbObject : Button
+---@field Begin GroupLootHistoryFrame_ScrollBar_Track_Thumb_BeginObject
+---@field End GroupLootHistoryFrame_ScrollBar_Track_Thumb_EndObject
+---@field Event GroupLootHistoryFrame_ScrollBar_Track_Thumb_EventObject
+---@field Middle GroupLootHistoryFrame_ScrollBar_Track_Thumb_MiddleObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field downBeginTexture string
+---@field downEndTexture string
+---@field downMiddleTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field overBeginTexture string
+---@field overEndTexture string
+---@field overMiddleTexture string
+---@field upBeginTexture string
+---@field upEndTexture string
+---@field upMiddleTexture string
+local GroupLootHistoryFrame_ScrollBar_Track_ThumbObject = {}
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:IsDown(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:IsOver(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:OnDisable(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:OnEnable(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:OnEnter(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:OnLeave(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:OnLoad(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:OnShow(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_Track_Thumb_BeginObject : Texture
+local GroupLootHistoryFrame_ScrollBar_Track_Thumb_BeginObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_Track_Thumb_EndObject : Texture
+local GroupLootHistoryFrame_ScrollBar_Track_Thumb_EndObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_Track_Thumb_EventObject
+local GroupLootHistoryFrame_ScrollBar_Track_Thumb_EventObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_Track_Thumb_MiddleObject : Texture
+local GroupLootHistoryFrame_ScrollBar_Track_Thumb_MiddleObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_interpolatorObject
+local GroupLootHistoryFrame_ScrollBar_interpolatorObject = {}
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_interpolatorObject:Cancel(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_interpolatorObject:Interpolate(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_interpolatorObject:interpolateFunc(...) end
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject : Frame
+---@field Defaults GroupLootHistoryFrame_ScrollBar_registeredScrollBox_DefaultsObject
+---@field Directions GroupLootHistoryFrame_ScrollBar_registeredScrollBox_DirectionsObject
+---@field DragDelegate GroupLootHistoryFrame_ScrollBar_registeredScrollBox_DragDelegateObject
+---@field Event GroupLootHistoryFrame_ScrollBar_registeredScrollBox_EventObject
+---@field ScrollTarget GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject
+---@field Shadows GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ShadowsObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field debugInspectionSystem string
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field isScrollController boolean
+---@field panExtentPercentage number
+---@field registeredScrollBar GroupLootHistoryFrame_ScrollBar_registeredScrollBox_registeredScrollBarObject
+---@field updateLock boolean
+---@field view GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject
+---@field wheelPanScalar number
+local GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject = {}
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ApplyEdgeFade(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:CalculateEdgeFade(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:CalculatePanExtentPercentage(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:CalculateScrollPercentage(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:CanInterpolateScroll(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ClearEdgeFade(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ContainsElementDataByPredicate(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:EnableSnapToInterval(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:EnumerateDataProvider(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:EnumerateDataProviderEntireRange(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:EnumerateFrames(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:FindByPredicate(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:FindElementData(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:FindElementDataByPredicate(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:FindElementDataIndex(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:FindElementDataIndexByPredicate(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:FindFrame(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:FindFrameByPredicate(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:FindFrameElementDataIndex(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:Flush(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:FlushDataProvider(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ForEachElementData(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ForEachFrame(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:FullUpdate(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:FullUpdateInternal(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GenerateCallbackEvents(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetBottomPadding(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetCallbackTable(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetCallbackTables(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetCallbacksByEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetDataIndexBegin(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetDataIndexEnd(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetDataProvider(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetDataProviderSize(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetDerivedExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetDerivedScrollOffset(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetDerivedScrollRange(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetElementExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetExtentPadding(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetExtentUntil(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetFrameCount(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetFrameExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetFrames(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetIntervalRange(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetLeftPadding(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetLower(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetLowerPadding(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetLowerShadowTexture(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetPadding(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetPanExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetPanExtentPercentage(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetRightPadding(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetScrollInterpolator(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetScrollPercentage(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetScrollTarget(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetTopPadding(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetUpper(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetUpperPadding(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetUpperShadowTexture(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetView(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetVisibleExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:GetWheelPanPercentage(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:HasDataProvider(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:HasEdgeFade(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:HasScrollableExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:HasView(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:Init(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:Interpolate(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:IsAcquireLocked(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:IsAlignmentOverlapIgnored(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:IsAtBegin(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:IsAtEnd(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:IsHorizontal(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:IsScrollAllowed(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:IsScrollToDataIndexSafe(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:IsUpdateLocked(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:IsVirtualized(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:Layout(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:OnLoad(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:OnMouseWheel(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:OnScrollTargetSizeChanged(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:OnSizeChanged(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:OnViewAcquiredFrame(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:OnViewDataChanged(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:OnViewDataProviderReassigned(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:OnViewInitializedFrame(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:OnViewReleasedFrame(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:Rebuild(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:RecalculateDerivedExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:RegisterCallback(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ReinitializeFrames(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:RemoveDataProvider(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProvider(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ReverseForEachElementData(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ReverseForEachFrame(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SanitizeAlignment(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ScrollDecrease(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ScrollInDirection(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ScrollIncrease(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ScrollToBegin(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ScrollToElementData(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ScrollToElementDataByPredicate(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ScrollToElementDataIndex(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ScrollToEnd(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ScrollToFrame(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ScrollToNearest(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ScrollToNearestByPredicate(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ScrollToOffset(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SecureInsertEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SelectCursorComponent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SelectPointComponent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SetAlignmentOverlapIgnored(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SetDataProvider(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SetEdgeFadeLength(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SetFrameExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SetHorizontal(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SetInterpolateScroll(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SetLowerShadowAtlas(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SetPadding(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SetPanExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SetPanExtentPercentage(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SetScrollAllowed(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SetScrollPercentage(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SetScrollTargetOffset(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SetShadowsFrameLevel(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SetShadowsScale(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SetShadowsShown(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SetUpdateLocked(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SetUpperShadowAtlas(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SetUseShadowsForEdgeFade(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:SetView(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:TriggerEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:UnregisterCallback(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:UnregisterEvents(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:Update(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBoxObject:scrollInternal(...) end
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_registeredScrollBox_DefaultsObject
+local GroupLootHistoryFrame_ScrollBar_registeredScrollBox_DefaultsObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_registeredScrollBox_DirectionsObject
+local GroupLootHistoryFrame_ScrollBar_registeredScrollBox_DirectionsObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_registeredScrollBox_DragDelegateObject : Frame
+local GroupLootHistoryFrame_ScrollBar_registeredScrollBox_DragDelegateObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_registeredScrollBox_EventObject
+local GroupLootHistoryFrame_ScrollBar_registeredScrollBox_EventObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject : Frame
+---@field Event GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+local GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject = {}
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTable(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTables(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallback(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:TriggerEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterCallback(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEvents(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
+local GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ScrollTarget_EventObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ShadowsObject : Frame
+---@field Lower GroupLootHistoryFrame_ScrollBar_registeredScrollBox_Shadows_LowerObject
+---@field Upper GroupLootHistoryFrame_ScrollBar_registeredScrollBox_Shadows_UpperObject
+local GroupLootHistoryFrame_ScrollBar_registeredScrollBox_ShadowsObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_registeredScrollBox_Shadows_LowerObject : Texture
+local GroupLootHistoryFrame_ScrollBar_registeredScrollBox_Shadows_LowerObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_registeredScrollBox_Shadows_UpperObject : Texture
+local GroupLootHistoryFrame_ScrollBar_registeredScrollBox_Shadows_UpperObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_registeredScrollBox_registeredScrollBarObject
+local GroupLootHistoryFrame_ScrollBar_registeredScrollBox_registeredScrollBarObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject
+---@field Event table
+---@field FrameLevelPolicy table
+---@field callbackTables table
+---@field canSignalWithoutInitializer boolean
+---@field dataIndexBegin number
+---@field dataIndexEnd number
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field frameFactory table
+---@field frames table
+---@field initialized boolean
+---@field initializers table
+---@field padding table
+---@field scrollBox GroupLootHistoryFrame_ScrollBar_registeredScrollBox_view_scrollBoxObject
+---@field templateInfoCache table
+local GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject = {}
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:AcquireInternal(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:AcquireRange(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:AssignAccessors(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:AttachDataProviderCallbacks(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:CalculateDataIndices(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:CalculateFrameExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:ClearCachedData(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:ClearElementExtentData(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:ClearInvalidation(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:ContainsElementDataByPredicate(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:DataProviderContentsChanged(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:DetachDataProviderCallbacks(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProvider(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:EnumerateFrames(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:FindByPredicate(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:FindElementData(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:FindElementDataByPredicate(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndex(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:FindFrame(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:FindFrameByPredicate(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:FindFrameElementDataIndex(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:Flush(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:FlushDataProvider(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:ForEachElementData(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:ForEachFrame(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GenerateCallbackEvents(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetCallbackTable(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetCallbackTables(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetCallbacksByEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetDataIndexBegin(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetDataIndexEnd(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetDataProvider(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetDataProviderSize(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetDataRange(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetDataScrollOffset(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetElementExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetElementExtentCalculator(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetElementIndent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetExtentFromInfo(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetExtentSpacing(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetExtentTo(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetExtentUntil(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetFactoryDataFromElementData(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetFirstTemplateInfo(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetFrameCount(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetFrameExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelCounter(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelPolicy(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetFrames(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetIdenticalElementExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetIdenticalStrideExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetInvalidationReason(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetLayoutFunction(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetLower(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetPadding(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetPanExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetScrollBox(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetScrollTarget(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetSpacing(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetStride(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetTemplateInfo(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:GetUpper(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:HasBiaxalLayout(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:HasDataProvider(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:HasElementExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:HasIdenticalElementExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:HasIdenticalStrideExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:Init(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:InitDefaultDrag(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:InvokeInitializer(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:InvokeInitializers(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:IsAcquireLocked(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:IsDataIndexWithinRange(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:IsElementStretchDisabled(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:IsExtentValid(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:IsHorizontal(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:IsInitialized(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:IsInvalidated(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:IsVirtualized(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:Layout(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:LayoutInternal(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSizeChanged(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSort(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:OnLoad(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementData(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:RebuildTemplateInfoCache(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:RecalculateExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:RefreshSmartNav(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:RegisterCallback(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:ReinitializeFrames(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:Release(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:RemoveDataProvider(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:RemoveDataProviderInternal(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:ResizeFrame(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:ReverseForEachElementData(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:ReverseForEachFrame(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SecureInsertEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SelectCursorComponent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SelectPointComponent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SetAcquireLocked(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SetDataProvider(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SetDataRange(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SetElementExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SetElementExtentCalculator(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SetElementFactory(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SetElementIndentCalculator(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SetElementInitializer(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SetElementResetter(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SetElementStretchDisabled(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SetExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SetFrameExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SetFrameFactoryResetter(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SetFrameLevelPolicy(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SetHorizontal(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SetInvalidationReason(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SetMaxPanExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SetPadding(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SetPanExtent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SetScrollBox(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SetVirtualized(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SignalDataChangeEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:SortFrames(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:TriggerEvent(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:UnassignAccessors(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:UnregisterCallback(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:UnregisterEvents(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:ValidateDataRange(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:elementExtentCalculator(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:elementFactory(...) end
+---@return any ...
+function GroupLootHistoryFrame_ScrollBar_registeredScrollBox_viewObject:factory(...) end
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBar_registeredScrollBox_view_scrollBoxObject
+local GroupLootHistoryFrame_ScrollBar_registeredScrollBox_view_scrollBoxObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_ScrollBoxObject
+local GroupLootHistoryFrame_ScrollBoxObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_TimerObject : Frame
+---@field Background GroupLootHistoryFrame_Timer_BackgroundObject
+---@field Border GroupLootHistoryFrame_Timer_BorderObject
+---@field Fill GroupLootHistoryFrame_Timer_FillObject
+local GroupLootHistoryFrame_TimerObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_Timer_BackgroundObject : Texture
+local GroupLootHistoryFrame_Timer_BackgroundObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_Timer_BorderObject : Texture
+local GroupLootHistoryFrame_Timer_BorderObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_Timer_FillObject : Texture
+local GroupLootHistoryFrame_Timer_FillObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_TitleContainerObject : Frame
+---@field TitleText GroupLootHistoryFrame_TitleContainer_TitleTextObject
+local GroupLootHistoryFrame_TitleContainerObject = {}
+end
+
+do
+---@class GroupLootHistoryFrame_TitleContainer_TitleTextObject : FontString
+local GroupLootHistoryFrame_TitleContainer_TitleTextObject = {}
+end
+
+do
+---@class GuildBankFrameObject : Frame
+---@field BankTabs table
+---@field Bg GuildBankFrame_BgObject
+---@field BlackBG GuildBankFrame_BlackBGObject
+---@field BotLeftCorner GuildBankFrame_BotLeftCornerObject
+---@field BotRightCorner GuildBankFrame_BotRightCornerObject
+---@field BottomBorder GuildBankFrame_BottomBorderObject
+---@field BuyInfo GuildBankFrame_BuyInfoObject
+---@field CloseButton GuildBankFrame_CloseButtonObject
+---@field Column1 GuildBankFrame_Column1Object
+---@field Column2 GuildBankFrame_Column2Object
+---@field Column3 GuildBankFrame_Column3Object
+---@field Column4 GuildBankFrame_Column4Object
+---@field Column5 GuildBankFrame_Column5Object
+---@field Column6 GuildBankFrame_Column6Object
+---@field Column7 GuildBankFrame_Column7Object
+---@field Columns table
+---@field DepositButton GuildBankFrame_DepositButtonObject
+---@field Emblem GuildBankFrame_EmblemObject
+---@field ErrorMessage GuildBankFrame_ErrorMessageObject
+---@field Info GuildBankFrame_InfoObject
+---@field LeftBorder GuildBankFrame_LeftBorderObject
+---@field LimitLabel GuildBankFrame_LimitLabelObject
+---@field Log GuildBankFrame_LogObject
+---@field MoneyFrame GuildBankFrame_MoneyFrameObject
+---@field MoneyFrameBG GuildBankFrame_MoneyFrameBGObject
+---@field Portrait GuildBankFrame_PortraitObject
+---@field RedMarbleBG GuildBankFrame_RedMarbleBGObject
+---@field RightBorder GuildBankFrame_RightBorderObject
+---@field TabLimitBG GuildBankFrame_TabLimitBGObject
+---@field TabLimitBGLeft GuildBankFrame_TabLimitBGLeftObject
+---@field TabLimitBGRight GuildBankFrame_TabLimitBGRightObject
+---@field TabTitle GuildBankFrame_TabTitleObject
+---@field TabTitleBG GuildBankFrame_TabTitleBGObject
+---@field TabTitleBGLeft GuildBankFrame_TabTitleBGLeftObject
+---@field TabTitleBGRight GuildBankFrame_TabTitleBGRightObject
+---@field Tabs table
+---@field TitleBg GuildBankFrame_TitleBgObject
+---@field TitleText GuildBankFrame_TitleTextObject
+---@field TopBorder GuildBankFrame_TopBorderObject
+---@field TopLeftCorner GuildBankFrame_TopLeftCornerObject
+---@field TopRightCorner GuildBankFrame_TopRightCornerObject
+---@field TopTileStreaks GuildBankFrame_TopTileStreaksObject
+---@field WithdrawButton GuildBankFrame_WithdrawButtonObject
+---@field WithdrawMoneyFrame GuildBankFrame_WithdrawMoneyFrameObject
+---@field maxTabWidth number
+---@field mode string
+---@field noViewableTabs number
+---@field numTabs number
+local GuildBankFrameObject = {}
+---@return any ...
+function GuildBankFrameObject:DesaturateColumns(...) end
+---@return any ...
+function GuildBankFrameObject:HideColumns(...) end
+---@return any ...
+function GuildBankFrameObject:IsTabViewable(...) end
+---@return any ...
+function GuildBankFrameObject:OnEvent(...) end
+---@return any ...
+function GuildBankFrameObject:OnHide(...) end
+---@return any ...
+function GuildBankFrameObject:OnLoad(...) end
+---@return any ...
+function GuildBankFrameObject:OnShow(...) end
+---@return any ...
+function GuildBankFrameObject:RefreshIconList(...) end
+---@return any ...
+function GuildBankFrameObject:SelectAvailableTab(...) end
+---@return any ...
+function GuildBankFrameObject:ShowColumns(...) end
+---@return any ...
+function GuildBankFrameObject:Update(...) end
+---@return any ...
+function GuildBankFrameObject:UpdateFiltered(...) end
+---@return any ...
+function GuildBankFrameObject:UpdateTabBuyingInfo(...) end
+---@return any ...
+function GuildBankFrameObject:UpdateTabInfo(...) end
+---@return any ...
+function GuildBankFrameObject:UpdateTabard(...) end
+---@return any ...
+function GuildBankFrameObject:UpdateTabs(...) end
+---@return any ...
+function GuildBankFrameObject:UpdateWithdrawMoney(...) end
+---@type GuildBankFrameObject
+GuildBankFrame = GuildBankFrameObject
+end
+
+do
+---@class GuildBankFrame_BgObject : Texture
+local GuildBankFrame_BgObject = {}
+end
+
+do
+---@class GuildBankFrame_BlackBGObject : Texture
+local GuildBankFrame_BlackBGObject = {}
+end
+
+do
+---@class GuildBankFrame_BotLeftCornerObject : Texture
+local GuildBankFrame_BotLeftCornerObject = {}
+end
+
+do
+---@class GuildBankFrame_BotRightCornerObject : Texture
+local GuildBankFrame_BotRightCornerObject = {}
+end
+
+do
+---@class GuildBankFrame_BottomBorderObject : Texture
+local GuildBankFrame_BottomBorderObject = {}
+end
+
+do
+---@class GuildBankFrame_BuyInfoObject : Frame
+---@field PurchaseButton GuildBankFrame_BuyInfo_PurchaseButtonObject
+---@field PurchasedText GuildBankFrame_BuyInfo_PurchasedTextObject
+---@field TabText GuildBankFrame_BuyInfo_TabTextObject
+local GuildBankFrame_BuyInfoObject = {}
+end
+
+do
+---@class GuildBankFrame_BuyInfo_PurchaseButtonObject : Button
+---@field Left GuildBankFrame_BuyInfo_PurchaseButton_LeftObject
+---@field Middle GuildBankFrame_BuyInfo_PurchaseButton_MiddleObject
+---@field Right GuildBankFrame_BuyInfo_PurchaseButton_RightObject
+---@field Text GuildBankFrame_BuyInfo_PurchaseButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local GuildBankFrame_BuyInfo_PurchaseButtonObject = {}
+---@return any ...
+function GuildBankFrame_BuyInfo_PurchaseButtonObject:FitToText(...) end
+---@return any ...
+function GuildBankFrame_BuyInfo_PurchaseButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function GuildBankFrame_BuyInfo_PurchaseButtonObject:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_BuyInfo_PurchaseButtonObject:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_BuyInfo_PurchaseButtonObject:SetDisabledState(...) end
+---@return any ...
+function GuildBankFrame_BuyInfo_PurchaseButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function GuildBankFrame_BuyInfo_PurchaseButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class GuildBankFrame_BuyInfo_PurchaseButton_LeftObject : Texture
+local GuildBankFrame_BuyInfo_PurchaseButton_LeftObject = {}
+end
+
+do
+---@class GuildBankFrame_BuyInfo_PurchaseButton_MiddleObject : Texture
+local GuildBankFrame_BuyInfo_PurchaseButton_MiddleObject = {}
+end
+
+do
+---@class GuildBankFrame_BuyInfo_PurchaseButton_RightObject : Texture
+local GuildBankFrame_BuyInfo_PurchaseButton_RightObject = {}
+end
+
+do
+---@class GuildBankFrame_BuyInfo_PurchaseButton_TextObject : FontString
+local GuildBankFrame_BuyInfo_PurchaseButton_TextObject = {}
+end
+
+do
+---@class GuildBankFrame_BuyInfo_PurchasedTextObject : FontString
+local GuildBankFrame_BuyInfo_PurchasedTextObject = {}
+end
+
+do
+---@class GuildBankFrame_BuyInfo_TabTextObject : FontString
+local GuildBankFrame_BuyInfo_TabTextObject = {}
+end
+
+do
+---@class GuildBankFrame_CloseButtonObject : Button
+local GuildBankFrame_CloseButtonObject = {}
+---@return any ...
+function GuildBankFrame_CloseButtonObject:NarrationGetName(...) end
+---@return any ...
+function GuildBankFrame_CloseButtonObject:OnLoad(...) end
+end
+
+do
+---@class GuildBankFrame_Column1Object : Frame
+---@field Background GuildBankFrame_Column1_BackgroundObject
+---@field Button1 GuildBankFrame_Column1_Button1Object
+---@field Button10 GuildBankFrame_Column1_Button10Object
+---@field Button11 GuildBankFrame_Column1_Button11Object
+---@field Button12 GuildBankFrame_Column1_Button12Object
+---@field Button13 GuildBankFrame_Column1_Button13Object
+---@field Button14 GuildBankFrame_Column1_Button14Object
+---@field Button2 GuildBankFrame_Column1_Button2Object
+---@field Button3 GuildBankFrame_Column1_Button3Object
+---@field Button4 GuildBankFrame_Column1_Button4Object
+---@field Button5 GuildBankFrame_Column1_Button5Object
+---@field Button6 GuildBankFrame_Column1_Button6Object
+---@field Button7 GuildBankFrame_Column1_Button7Object
+---@field Button8 GuildBankFrame_Column1_Button8Object
+---@field Button9 GuildBankFrame_Column1_Button9Object
+---@field Buttons table
+local GuildBankFrame_Column1Object = {}
+end
+
+do
+---@class GuildBankFrame_Column1_BackgroundObject : Texture
+local GuildBankFrame_Column1_BackgroundObject = {}
+end
+
+do
+---@class GuildBankFrame_Column1_Button1Object : Button
+---@field Count GuildBankFrame_Column1_Button1_CountObject
+---@field HighlightTexture GuildBankFrame_Column1_Button1_HighlightTextureObject
+---@field IconBorder GuildBankFrame_Column1_Button1_IconBorderObject
+---@field IconOverlay GuildBankFrame_Column1_Button1_IconOverlayObject
+---@field IconOverlay2 GuildBankFrame_Column1_Button1_IconOverlay2Object
+---@field ItemContextOverlay GuildBankFrame_Column1_Button1_ItemContextOverlayObject
+---@field Mask GuildBankFrame_Column1_Button1_MaskObject
+---@field NormalTexture GuildBankFrame_Column1_Button1_NormalTextureObject
+---@field PushedTexture GuildBankFrame_Column1_Button1_PushedTextureObject
+---@field Stock GuildBankFrame_Column1_Button1_StockObject
+---@field icon GuildBankFrame_Column1_Button1_iconObject
+---@field searchOverlay GuildBankFrame_Column1_Button1_searchOverlayObject
+---@field showMatchHighlight boolean
+local GuildBankFrame_Column1_Button1Object = {}
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:GetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:GetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:GetItemButtonBackgroundTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:GetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:GetItemButtonIconTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:GetItemContextOverlayMode(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:GetItemID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:GetItemInfo(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:GetItemLink(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:GetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:GetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:GetSlotAndBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:OnClick(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:OnDragStart(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:OnEnter(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:OnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:OnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:OnItemContextChanged(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:OnLeave(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:OnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:OnReceiveDrag(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:OnUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:PostOnEvent(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:PostOnHide(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:PostOnLoad(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:PostOnShow(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:RegisterBagButtonUpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:Reset(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:SetBagID(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:SetItem(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:SetItemButtonAnchorPoint(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:SetItemButtonBorderVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:SetItemButtonCount(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:SetItemButtonQuality(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:SetItemButtonScale(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:SetItemButtonTexture(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:SetItemButtonTextureVertexColor(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:SetItemInternal(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:SetItemLocation(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:SetItemSource(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:SetMatchesSearch(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:SplitStack(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:UpdateCraftedProfessionsQualityShown(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:UpdateItemContextMatching(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:UpdateItemContextOverlay(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:UpdateItemContextOverlayTextures(...) end
+---@return any ...
+function GuildBankFrame_Column1_Button1Object:UpdateTooltip(...) end
 end

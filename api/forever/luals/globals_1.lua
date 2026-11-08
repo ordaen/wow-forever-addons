@@ -131,6 +131,21 @@ ACCOUNT_WIDE_ACHIEVEMENT_COMPLETED = ""
 ACCOUNT_WIDE_FONT_COLOR_CODE = ""
 ACCOUNT_WIDE_REPUTATION_TUTORIAL = ""
 ACHIEVEMENT = ""
+ACHIEVEMENTBUTTON_COLLAPSEDHEIGHT = 0
+ACHIEVEMENTBUTTON_CRITERIAROWHEIGHT = 0
+ACHIEVEMENTBUTTON_DESCRIPTIONHEIGHT = 0
+ACHIEVEMENTBUTTON_LABELWIDTH = 0
+ACHIEVEMENTBUTTON_MAXHEIGHT = 0
+ACHIEVEMENTBUTTON_METAROWHEIGHT = 0
+ACHIEVEMENTBUTTON_TEXTUREHEIGHT = 0
+---@type table
+ACHIEVEMENTCOMPARISON_FRIENDSHIELDFONT1 = {}
+---@type table
+ACHIEVEMENTCOMPARISON_FRIENDSHIELDFONT2 = {}
+---@type table
+ACHIEVEMENTCOMPARISON_PLAYERSHIELDFONT1 = {}
+---@type table
+ACHIEVEMENTCOMPARISON_PLAYERSHIELDFONT2 = {}
 ACHIEVEMENTFRAME_FILTER_ALL = ""
 ACHIEVEMENTFRAME_FILTER_COMPLETED = ""
 ACHIEVEMENTFRAME_FILTER_INCOMPLETE = ""
@@ -138,9 +153,33 @@ ACHIEVEMENTS = ""
 ACHIEVEMENTS_COMPLETED = ""
 ACHIEVEMENTS_COMPLETED_CATEGORY = ""
 ACHIEVEMENTS_GUILD_TAB = ""
+ACHIEVEMENTUI_CATEGORIESWIDTH = 0
+ACHIEVEMENTUI_CRITERIACHECKWIDTH = 0
+---@type table
+ACHIEVEMENTUI_DEFAULTGUILDSUMMARYACHIEVEMENTS = {}
+---@type table
+ACHIEVEMENTUI_DEFAULTSUMMARYACHIEVEMENTS = {}
+---@type table
+ACHIEVEMENTUI_GUILDSUMMARYCATEGORIES = {}
+ACHIEVEMENTUI_MAXCONTENTWIDTH = 0
+ACHIEVEMENTUI_MAX_SUMMARY_ACHIEVEMENTS = 0
+ACHIEVEMENTUI_PROGRESSIVEHEIGHT = 0
+ACHIEVEMENTUI_PROGRESSIVEWIDTH = 0
+---@return any ...
+function ACHIEVEMENTUI_SELECTEDFILTER(...) end
+---@type table
+ACHIEVEMENTUI_SUMMARYCATEGORIES = {}
 ACHIEVEMENT_BROADCAST = ""
 ACHIEVEMENT_BROADCAST_SELF = ""
 ACHIEVEMENT_BUTTON = ""
+ACHIEVEMENT_CATEGORY_HIGHLIGHT_A = 0
+ACHIEVEMENT_CATEGORY_HIGHLIGHT_B = 0
+ACHIEVEMENT_CATEGORY_HIGHLIGHT_G = 0
+ACHIEVEMENT_CATEGORY_HIGHLIGHT_R = 0
+ACHIEVEMENT_CATEGORY_NORMAL_A = 0
+ACHIEVEMENT_CATEGORY_NORMAL_B = 0
+ACHIEVEMENT_CATEGORY_NORMAL_G = 0
+ACHIEVEMENT_CATEGORY_NORMAL_R = 0
 ACHIEVEMENT_CATEGORY_PROGRESS = ""
 ACHIEVEMENT_COLOR_CODE = ""
 ACHIEVEMENT_COMPARISON_COMPLETED = ""
@@ -149,11 +188,16 @@ ACHIEVEMENT_COMPARISON_CRITERIA_WITH_CHECK = ""
 ACHIEVEMENT_COMPARISON_IN_PROGRESS = ""
 ACHIEVEMENT_COMPARISON_NOT_COMPLETED = ""
 ACHIEVEMENT_COMPARISON_NO_PROGRESS = ""
+ACHIEVEMENT_COMPARISON_STATS_SUMMARY_ID = 0
+ACHIEVEMENT_COMPARISON_SUMMARY_ID = 0
 ACHIEVEMENT_COMPLETED_BY = ""
 ACHIEVEMENT_COMPLETE_COLOR_CODE = ""
 ACHIEVEMENT_EARNED_BY = ""
+ACHIEVEMENT_FILTER_ALL = 0
 ACHIEVEMENT_FILTER_ALL_EXPLANATION = ""
+ACHIEVEMENT_FILTER_COMPLETE = 0
 ACHIEVEMENT_FILTER_COMPLETE_EXPLANATION = ""
+ACHIEVEMENT_FILTER_INCOMPLETE = 0
 ACHIEVEMENT_FILTER_INCOMPLETE_EXPLANATION = ""
 ACHIEVEMENT_FILTER_TITLE = ""
 ACHIEVEMENT_FLAGS_ACCOUNT = 0
@@ -1204,8 +1248,10 @@ ATTACK_TOOLTIP_SUBTEXT = ""
 ATTRIBUTE_NOOP = ""
 AT_WAR = ""
 AUCTIONS = ""
+AUCTIONS_BUTTON_HEIGHT = 0
 AUCTION_BROWSE_UNIT_PRICE_SORT = ""
 AUCTION_BUYOUT_ERROR = ""
+AUCTION_CANCEL_COST = 0
 AUCTION_CATEGORY_ARMOR = ""
 AUCTION_CATEGORY_BATTLE_PETS = ""
 AUCTION_CATEGORY_CONSUMABLES = ""
@@ -1261,6 +1307,8 @@ AUCTION_HOUSE_CANCEL_AUCTION_BUTTON = ""
 AUCTION_HOUSE_COMMODITIES_QUANTITY_FORMAT = ""
 AUCTION_HOUSE_CRAFTING_REAGANT_QUALITY_FORMAT = ""
 AUCTION_HOUSE_CUT_COLON = ""
+---@type table
+AUCTION_HOUSE_DEFAULT_FILTERS = {}
 AUCTION_HOUSE_DEPOSIT_LABEL = ""
 AUCTION_HOUSE_DEPRECATED = ""
 AUCTION_HOUSE_DIALOG_BUY_NOW = ""
@@ -1285,6 +1333,8 @@ AUCTION_HOUSE_FILTER_DROPDOWN_CUSTOM = ""
 AUCTION_HOUSE_FILTER_DROPDOWN_NONE = ""
 AUCTION_HOUSE_FILTER_DROP_DOWN_LEVEL_RANGE = ""
 AUCTION_HOUSE_FILTER_RUNECARVING = ""
+---@type table
+AUCTION_HOUSE_FILTER_STRINGS = {}
 AUCTION_HOUSE_FILTER_UNCOLLECTED_ONLY = ""
 AUCTION_HOUSE_FILTER_UPGRADES_ONLY = ""
 AUCTION_HOUSE_FILTER_USABLE_ONLY = ""
@@ -1332,6 +1382,8 @@ AUCTION_HOUSE_SELL_FRAME_ERROR_ITEM = ""
 AUCTION_HOUSE_SELL_FRAME_ERROR_PRICE = ""
 AUCTION_HOUSE_SELL_FRAME_ERROR_QUANTITY = ""
 AUCTION_HOUSE_SELL_TAB = ""
+---@type table
+AUCTION_HOUSE_STATIC_POPUPS = {}
 AUCTION_HOUSE_TIME_LEFT_FORMAT_ACTIVE = ""
 AUCTION_HOUSE_TIME_LEFT_FORMAT_SOLD = ""
 AUCTION_HOUSE_TOOLTIP_DURATION_FORMAT = ""
@@ -1380,6 +1432,7 @@ AUCTION_SUBCATEGORY_REAGENT_CONTAINER = ""
 AUCTION_SUBCATEGORY_RELIC = ""
 AUCTION_SUBCATEGORY_STANDARD_CONTAINER = ""
 AUCTION_SUBCATEGORY_TWO_HANDED = ""
+AUCTION_TIMER_UPDATE_DELAY = 0
 AUCTION_TIME_LEFT0 = ""
 AUCTION_TIME_LEFT0_DETAIL = ""
 AUCTION_TIME_LEFT1 = ""
@@ -1562,10 +1615,184 @@ function AcceptTrade(...) end
 function Accumulate(...) end
 ---@return any ...
 function AccumulateOp(...) end
+---@type table
+AceConfigDialogTooltipStatusBar = {}
+---@type table
+AceConfigDialogTooltipStatusBarTexture = {}
+---@type table
+AceConfigDialogTooltipTextLeft1 = {}
+---@type table
+AceConfigDialogTooltipTextLeft2 = {}
+---@type table
+AceConfigDialogTooltipTextRight1 = {}
+---@type table
+AceConfigDialogTooltipTextRight2 = {}
+---@type table
+AceConfigDialogTooltipTexture1 = {}
+---@type table
+AceConfigDialogTooltipTexture10 = {}
+---@type table
+AceConfigDialogTooltipTexture11 = {}
+---@type table
+AceConfigDialogTooltipTexture12 = {}
+---@type table
+AceConfigDialogTooltipTexture13 = {}
+---@type table
+AceConfigDialogTooltipTexture14 = {}
+---@type table
+AceConfigDialogTooltipTexture15 = {}
+---@type table
+AceConfigDialogTooltipTexture16 = {}
+---@type table
+AceConfigDialogTooltipTexture17 = {}
+---@type table
+AceConfigDialogTooltipTexture18 = {}
+---@type table
+AceConfigDialogTooltipTexture19 = {}
+---@type table
+AceConfigDialogTooltipTexture2 = {}
+---@type table
+AceConfigDialogTooltipTexture20 = {}
+---@type table
+AceConfigDialogTooltipTexture21 = {}
+---@type table
+AceConfigDialogTooltipTexture22 = {}
+---@type table
+AceConfigDialogTooltipTexture23 = {}
+---@type table
+AceConfigDialogTooltipTexture24 = {}
+---@type table
+AceConfigDialogTooltipTexture25 = {}
+---@type table
+AceConfigDialogTooltipTexture26 = {}
+---@type table
+AceConfigDialogTooltipTexture27 = {}
+---@type table
+AceConfigDialogTooltipTexture28 = {}
+---@type table
+AceConfigDialogTooltipTexture29 = {}
+---@type table
+AceConfigDialogTooltipTexture3 = {}
+---@type table
+AceConfigDialogTooltipTexture30 = {}
+---@type table
+AceConfigDialogTooltipTexture4 = {}
+---@type table
+AceConfigDialogTooltipTexture5 = {}
+---@type table
+AceConfigDialogTooltipTexture6 = {}
+---@type table
+AceConfigDialogTooltipTexture7 = {}
+---@type table
+AceConfigDialogTooltipTexture8 = {}
+---@type table
+AceConfigDialogTooltipTexture9 = {}
+---@type table
+AceGUITooltipStatusBar = {}
+---@type table
+AceGUITooltipStatusBarTexture = {}
+---@type table
+AceGUITooltipTextLeft1 = {}
+---@type table
+AceGUITooltipTextLeft2 = {}
+---@type table
+AceGUITooltipTextRight1 = {}
+---@type table
+AceGUITooltipTextRight2 = {}
+---@type table
+AceGUITooltipTexture1 = {}
+---@type table
+AceGUITooltipTexture10 = {}
+---@type table
+AceGUITooltipTexture11 = {}
+---@type table
+AceGUITooltipTexture12 = {}
+---@type table
+AceGUITooltipTexture13 = {}
+---@type table
+AceGUITooltipTexture14 = {}
+---@type table
+AceGUITooltipTexture15 = {}
+---@type table
+AceGUITooltipTexture16 = {}
+---@type table
+AceGUITooltipTexture17 = {}
+---@type table
+AceGUITooltipTexture18 = {}
+---@type table
+AceGUITooltipTexture19 = {}
+---@type table
+AceGUITooltipTexture2 = {}
+---@type table
+AceGUITooltipTexture20 = {}
+---@type table
+AceGUITooltipTexture21 = {}
+---@type table
+AceGUITooltipTexture22 = {}
+---@type table
+AceGUITooltipTexture23 = {}
+---@type table
+AceGUITooltipTexture24 = {}
+---@type table
+AceGUITooltipTexture25 = {}
+---@type table
+AceGUITooltipTexture26 = {}
+---@type table
+AceGUITooltipTexture27 = {}
+---@type table
+AceGUITooltipTexture28 = {}
+---@type table
+AceGUITooltipTexture29 = {}
+---@type table
+AceGUITooltipTexture3 = {}
+---@type table
+AceGUITooltipTexture30 = {}
+---@type table
+AceGUITooltipTexture4 = {}
+---@type table
+AceGUITooltipTexture5 = {}
+---@type table
+AceGUITooltipTexture6 = {}
+---@type table
+AceGUITooltipTexture7 = {}
+---@type table
+AceGUITooltipTexture8 = {}
+---@type table
+AceGUITooltipTexture9 = {}
+---@return any ...
+function AcheivementFullSearchResultsButton_OnClick(...) end
 ---@return any ...
 function AchievementAlertFrame_OnClick(...) end
 ---@return any ...
 function AchievementAlertFrame_SetUp(...) end
+---@return any ...
+function AchievementButton_GetProgressivePoints(...) end
+---@return any ...
+function AchievementButton_Localize(...) end
+---@return any ...
+function AchievementButton_LocalizeMetaAchievement(...) end
+---@return any ...
+function AchievementButton_LocalizeMiniAchievement(...) end
+---@return any ...
+function AchievementButton_LocalizeProgressBar(...) end
+---@return any ...
+function AchievementButton_ResetTable(...) end
+---@return any ...
+function AchievementCategoryButton_Localize(...) end
+---@return any ...
+function AchievementComparisonButton_Localize(...) end
+---@return any ...
+function AchievementComparisonFriendButton_Desaturate(...) end
+---@return any ...
+function AchievementComparisonFriendButton_OnLoad(...) end
+---@return any ...
+function AchievementComparisonFriendButton_Saturate(...) end
+---@return any ...
+function AchievementComparisonPlayerButton_Desaturate(...) end
+---@return any ...
+function AchievementComparisonPlayerButton_OnLoad(...) end
+---@return any ...
+function AchievementComparisonPlayerButton_Saturate(...) end
 ---@type table
 AchievementCriteriaFont = {}
 ---@type table
@@ -1574,16 +1801,676 @@ AchievementDateFont = {}
 AchievementDescriptionFont = {}
 ---@type table
 AchievementFont_Small = {}
+---@type table
+AchievementFrameAchievements = {}
+---@return any ...
+function AchievementFrameAchievementsBackdrop_OnLoad(...) end
+---@type table
+AchievementFrameAchievementsFeatOfStrengthText = {}
+---@type table
+AchievementFrameAchievementsObjectives = {}
+---@return any ...
+function AchievementFrameAchievements_CheckGuildMembersTooltip(...) end
+---@return any ...
+function AchievementFrameAchievements_ForceUpdate(...) end
+---@return any ...
+function AchievementFrameAchievements_GetSelectedAchievementId(...) end
+---@return any ...
+function AchievementFrameAchievements_GetSelectedElementData(...) end
+---@return any ...
+function AchievementFrameAchievements_OnAchievementEarned(...) end
+---@return any ...
+function AchievementFrameAchievements_OnCriteriaUpdate(...) end
+---@return any ...
+function AchievementFrameAchievements_OnEvent(...) end
+---@return any ...
+function AchievementFrameAchievements_OnHide(...) end
+---@return any ...
+function AchievementFrameAchievements_OnLoad(...) end
+---@return any ...
+function AchievementFrameAchievements_OnShow(...) end
+---@return any ...
+function AchievementFrameAchievements_UpdateDataProvider(...) end
+---@return any ...
+function AchievementFrameAchievements_UpdateTrackedAchievements(...) end
+---@return any ...
+function AchievementFrameBaseTab_OnClick(...) end
+---@type table
+AchievementFrameCategories = {}
+---@type table
+AchievementFrameCategoriesBG = {}
+---@return any ...
+function AchievementFrameCategories_ExpandToCategory(...) end
+---@return any ...
+function AchievementFrameCategories_FindCategoryElement(...) end
+---@return any ...
+function AchievementFrameCategories_OnCategoryChanged(...) end
+---@return any ...
+function AchievementFrameCategories_OnCategoryClicked(...) end
+---@return any ...
+function AchievementFrameCategories_OnLoad(...) end
+---@return any ...
+function AchievementFrameCategories_OnShow(...) end
+---@return any ...
+function AchievementFrameCategories_SelectDefaultElementData(...) end
+---@return any ...
+function AchievementFrameCategories_SelectElementData(...) end
+---@return any ...
+function AchievementFrameCategories_UpdateDataProvider(...) end
+---@return any ...
+function AchievementFrameCategories_UpdateTooltip(...) end
+---@return any ...
+function AchievementFrameCategory_FeatOfStrengthTooltip(...) end
+---@return any ...
+function AchievementFrameCategory_StatusBarTooltip(...) end
+---@type table
+AchievementFrameClearButton = {}
+---@type table
+AchievementFrameCloseButton = {}
+---@type table
+AchievementFrameComparison = {}
+---@type table
+AchievementFrameComparisonBackground = {}
+---@type table
+AchievementFrameComparisonHeader = {}
+---@type table
+AchievementFrameComparisonHeaderBG = {}
+---@type table
+AchievementFrameComparisonHeaderName = {}
+---@type table
+AchievementFrameComparisonHeaderPortrait = {}
+---@type table
+AchievementFrameComparisonHeaderPortraitBg = {}
+---@return any ...
+function AchievementFrameComparisonStat_OnLoad(...) end
+---@return any ...
+function AchievementFrameComparisonTab_OnClick(...) end
+---@return any ...
+function AchievementFrameComparison_ForceUpdate(...) end
+---@return any ...
+function AchievementFrameComparison_OnEvent(...) end
+---@return any ...
+function AchievementFrameComparison_OnHide(...) end
+---@return any ...
+function AchievementFrameComparison_OnLoad(...) end
+---@return any ...
+function AchievementFrameComparison_OnShow(...) end
+---@return any ...
+function AchievementFrameComparison_SetUnit(...) end
+---@return any ...
+function AchievementFrameComparison_UpdateDataProvider(...) end
+---@return any ...
+function AchievementFrameComparison_UpdateStatsDataProvider(...) end
+---@return any ...
+function AchievementFrameComparison_UpdateStatusBars(...) end
+---@type table
+AchievementFrameFilterStrings = {}
+---@type table
+AchievementFrameFilters = {}
+---@type table
+AchievementFrameGuildEmblemLeft = {}
+---@type table
+AchievementFrameGuildEmblemRight = {}
+---@type table
+AchievementFrameMetalBorderBottom = {}
+---@type table
+AchievementFrameMetalBorderBottomLeft = {}
+---@type table
+AchievementFrameMetalBorderBottomRight = {}
+---@type table
+AchievementFrameMetalBorderLeft = {}
+---@type table
+AchievementFrameMetalBorderRight = {}
+---@type table
+AchievementFrameMetalBorderTop = {}
+---@type table
+AchievementFrameMetalBorderTopLeft = {}
+---@type table
+AchievementFrameMetalBorderTopRight = {}
+---@return any ...
+function AchievementFrameSearchBoxContainer_OnLoad(...) end
+---@return any ...
+function AchievementFrameSearchBox_OnEnterPressed(...) end
+---@return any ...
+function AchievementFrameSearchBox_OnFocusGained(...) end
+---@return any ...
+function AchievementFrameSearchBox_OnFocusLost(...) end
+---@return any ...
+function AchievementFrameSearchBox_OnKeyDown(...) end
+---@return any ...
+function AchievementFrameSearchBox_OnLoad(...) end
+---@return any ...
+function AchievementFrameSearchBox_OnShow(...) end
+---@return any ...
+function AchievementFrameSearchBox_OnTextChanged(...) end
+---@return any ...
+function AchievementFrameSearchBox_OnUpdate(...) end
+---@type table
+AchievementFrameSearchIcon = {}
+---@return any ...
+function AchievementFrameSearchProgressBar_OnUpdate(...) end
+---@return any ...
+function AchievementFrameSearch_InitButton(...) end
+---@return any ...
+function AchievementFrameShowAllSearchResults_OnEnter(...) end
+---@type table
+AchievementFrameStats = {}
+---@type table
+AchievementFrameStatsBG = {}
+---@return any ...
+function AchievementFrameStats_OnEvent(...) end
+---@return any ...
+function AchievementFrameStats_OnHide(...) end
+---@return any ...
+function AchievementFrameStats_OnLoad(...) end
+---@return any ...
+function AchievementFrameStats_OnShow(...) end
+---@return any ...
+function AchievementFrameStats_UpdateDataProvider(...) end
+---@type table
+AchievementFrameSummary = {}
+---@return any ...
+function AchievementFrameSummaryAchievement_OnClick(...) end
+---@return any ...
+function AchievementFrameSummaryAchievement_OnEnter(...) end
+---@return any ...
+function AchievementFrameSummaryAchievement_OnLoad(...) end
+---@return any ...
+function AchievementFrameSummaryAchievement_SetGuildTextures(...) end
+---@type table
+AchievementFrameSummaryAchievements = {}
+---@type table
+AchievementFrameSummaryAchievementsEmptyText = {}
+---@type table
+AchievementFrameSummaryAchievementsHeader = {}
+---@type table
+AchievementFrameSummaryAchievementsHeaderHeader = {}
+---@type table
+AchievementFrameSummaryAchievementsHeaderTitle = {}
+---@type table
+AchievementFrameSummaryCategories = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory1 = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory10 = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory10Bar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory10Button = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory10ButtonHighlight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory10ButtonHighlightLeft = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory10ButtonHighlightMiddle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory10ButtonHighlightRight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory10FillBar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory10Left = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory10Middle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory10Right = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory10Text = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory11 = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory11Bar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory11Button = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory11ButtonHighlight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory11ButtonHighlightLeft = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory11ButtonHighlightMiddle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory11ButtonHighlightRight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory11FillBar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory11Left = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory11Middle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory11Right = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory11Text = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory12 = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory12Bar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory12Button = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory12ButtonHighlight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory12ButtonHighlightLeft = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory12ButtonHighlightMiddle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory12ButtonHighlightRight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory12FillBar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory12Left = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory12Middle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory12Right = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory12Text = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory1Bar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory1Button = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory1ButtonHighlight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory1ButtonHighlightLeft = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory1ButtonHighlightMiddle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory1ButtonHighlightRight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory1FillBar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory1Left = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory1Middle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory1Right = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory1Text = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory2 = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory2Bar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory2Button = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory2ButtonHighlight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory2ButtonHighlightLeft = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory2ButtonHighlightMiddle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory2ButtonHighlightRight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory2FillBar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory2Left = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory2Middle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory2Right = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory2Text = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory3 = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory3Bar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory3Button = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory3ButtonHighlight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory3ButtonHighlightLeft = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory3ButtonHighlightMiddle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory3ButtonHighlightRight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory3FillBar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory3Left = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory3Middle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory3Right = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory3Text = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory4 = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory4Bar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory4Button = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory4ButtonHighlight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory4ButtonHighlightLeft = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory4ButtonHighlightMiddle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory4ButtonHighlightRight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory4FillBar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory4Left = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory4Middle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory4Right = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory4Text = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory5 = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory5Bar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory5Button = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory5ButtonHighlight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory5ButtonHighlightLeft = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory5ButtonHighlightMiddle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory5ButtonHighlightRight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory5FillBar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory5Left = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory5Middle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory5Right = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory5Text = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory6 = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory6Bar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory6Button = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory6ButtonHighlight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory6ButtonHighlightLeft = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory6ButtonHighlightMiddle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory6ButtonHighlightRight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory6FillBar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory6Left = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory6Middle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory6Right = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory6Text = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory7 = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory7Bar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory7Button = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory7ButtonHighlight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory7ButtonHighlightLeft = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory7ButtonHighlightMiddle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory7ButtonHighlightRight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory7FillBar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory7Left = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory7Middle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory7Right = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory7Text = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory8 = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory8Bar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory8Button = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory8ButtonHighlight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory8ButtonHighlightLeft = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory8ButtonHighlightMiddle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory8ButtonHighlightRight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory8FillBar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory8Left = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory8Middle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory8Right = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory8Text = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory9 = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory9Bar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory9Button = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory9ButtonHighlight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory9ButtonHighlightLeft = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory9ButtonHighlightMiddle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory9ButtonHighlightRight = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory9FillBar = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory9Left = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory9Middle = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory9Right = {}
+---@type table
+AchievementFrameSummaryCategoriesCategory9Text = {}
+---@type table
+AchievementFrameSummaryCategoriesHeader = {}
+---@type table
+AchievementFrameSummaryCategoriesHeaderTexture = {}
+---@type table
+AchievementFrameSummaryCategoriesHeaderTitle = {}
+---@type table
+AchievementFrameSummaryCategoriesStatusBar = {}
+---@type table
+AchievementFrameSummaryCategoriesStatusBarBar = {}
+---@type table
+AchievementFrameSummaryCategoriesStatusBarFillBar = {}
+---@type table
+AchievementFrameSummaryCategoriesStatusBarLeft = {}
+---@type table
+AchievementFrameSummaryCategoriesStatusBarMiddle = {}
+---@type table
+AchievementFrameSummaryCategoriesStatusBarRight = {}
+---@type table
+AchievementFrameSummaryCategoriesStatusBarText = {}
+---@type table
+AchievementFrameSummaryCategoriesStatusBarTitle = {}
+---@return any ...
+function AchievementFrameSummaryCategoriesStatusBar_Update(...) end
+---@return any ...
+function AchievementFrameSummaryCategoryButton_OnClick(...) end
+---@return any ...
+function AchievementFrameSummaryCategory_OnEvent(...) end
+---@return any ...
+function AchievementFrameSummaryCategory_OnHide(...) end
+---@return any ...
+function AchievementFrameSummaryCategory_OnLoad(...) end
+---@return any ...
+function AchievementFrameSummaryCategory_OnShow(...) end
+---@return any ...
+function AchievementFrameSummary_LocalizeButton(...) end
+---@return any ...
+function AchievementFrameSummary_OnShow(...) end
+---@return any ...
+function AchievementFrameSummary_Refresh(...) end
+---@return any ...
+function AchievementFrameSummary_Update(...) end
+---@return any ...
+function AchievementFrameSummary_UpdateAchievements(...) end
+---@return any ...
+function AchievementFrameSummary_UpdateSummaryProgressBars(...) end
+---@type table
+AchievementFrameTab1 = {}
+---@type table
+AchievementFrameTab1Text = {}
+---@type table
+AchievementFrameTab2 = {}
+---@type table
+AchievementFrameTab2Text = {}
+---@type table
+AchievementFrameTab3 = {}
+---@type table
+AchievementFrameTab3Text = {}
+---@return any ...
+function AchievementFrameTab_OnClick(...) end
+---@type table
+AchievementFrameText = {}
+---@type table
+AchievementFrameWaterMark = {}
+---@type table
+AchievementFrameWoodBorderBottomLeft = {}
+---@type table
+AchievementFrameWoodBorderBottomRight = {}
+---@type table
+AchievementFrameWoodBorderTopLeft = {}
+---@type table
+AchievementFrameWoodBorderTopRight = {}
+---@return any ...
+function AchievementFrame_DisplayComparison(...) end
+---@return any ...
+function AchievementFrame_FindDisplayedAchievement(...) end
+---@return any ...
+function AchievementFrame_ForceUpdate(...) end
+---@return any ...
+function AchievementFrame_GetCategoryNumAchievements_All(...) end
+---@return any ...
+function AchievementFrame_GetCategoryNumAchievements_Complete(...) end
+---@return any ...
+function AchievementFrame_GetCategoryNumAchievements_Incomplete(...) end
+---@return any ...
+function AchievementFrame_GetCategoryTotalNumAchievements(...) end
+---@return any ...
+function AchievementFrame_GetOverridePoints(...) end
+---@return any ...
+function AchievementFrame_HideFilterDropdown(...) end
+---@return any ...
+function AchievementFrame_HideSearchPreview(...) end
+---@return any ...
+function AchievementFrame_IsComparison(...) end
 ---@return any ...
 function AchievementFrame_LoadUI(...) end
+---@return any ...
+function AchievementFrame_LocalizeCriteria(...) end
+---@return any ...
+function AchievementFrame_OnHide(...) end
+---@return any ...
+function AchievementFrame_OnLoad(...) end
+---@return any ...
+function AchievementFrame_OnShow(...) end
+---@return any ...
+function AchievementFrame_RefreshBackButton(...) end
+---@return any ...
+function AchievementFrame_RefreshView(...) end
+---@return any ...
+function AchievementFrame_SelectAchievement(...) end
+---@return any ...
+function AchievementFrame_SelectAndScrollToAchievementId(...) end
+---@return any ...
+function AchievementFrame_SelectSearchItem(...) end
+---@return any ...
+function AchievementFrame_SetComparisonMode(...) end
+---@return any ...
+function AchievementFrame_SetComparisonTabs(...) end
+---@return any ...
+function AchievementFrame_SetDateCompleted(...) end
+---@return any ...
+function AchievementFrame_SetFilter(...) end
+---@return any ...
+function AchievementFrame_SetRestrictedMode(...) end
+---@return any ...
+function AchievementFrame_SetSearchPreviewSelection(...) end
+---@return any ...
+function AchievementFrame_SetTabs(...) end
+---@return any ...
+function AchievementFrame_ShowAsComplete(...) end
+---@return any ...
+function AchievementFrame_ShowDateCompleted(...) end
+---@return any ...
+function AchievementFrame_ShowFullSearch(...) end
+---@return any ...
+function AchievementFrame_ShowSearchPreviewResults(...) end
+---@return any ...
+function AchievementFrame_ShowSubFrame(...) end
+---@return any ...
+function AchievementFrame_ToggleAchievementFrame(...) end
+---@return any ...
+function AchievementFrame_TryShowFilterDropdown(...) end
+---@return any ...
+function AchievementFrame_UpdateAndSelectCategory(...) end
+---@return any ...
+function AchievementFrame_UpdateFullSearchResults(...) end
+---@return any ...
+function AchievementFrame_UpdateSearch(...) end
+---@return any ...
+function AchievementFrame_UpdateSearchPreview(...) end
+---@return any ...
+function AchievementFrame_UpdateTabs(...) end
+---@return any ...
+function AchievementFrame_ViewStatisticByAchievementID(...) end
+---@return any ...
+function AchievementIcon_Desaturate(...) end
+---@return any ...
+function AchievementIcon_OnLoad(...) end
+---@return any ...
+function AchievementIcon_Saturate(...) end
+---@return any ...
+function AchievementMeta_OnLeave(...) end
 ---@type table
 AchievementMicroButton = {}
 ---@type table
 AchievementObjectiveTracker = {}
+---@return any ...
+function AchievementObjectives_DisplayCriteria(...) end
+---@return any ...
+function AchievementObjectives_DisplayProgressiveAchievement(...) end
 ---@type table
 AchievementPointsFont = {}
 ---@type table
 AchievementPointsFontSmall = {}
+---@return any ...
+function AchievementSearchPreviewButton_OnClick(...) end
+---@return any ...
+function AchievementSearchPreviewButton_OnEnter(...) end
+---@return any ...
+function AchievementSearchPreviewButton_OnLoad(...) end
+---@return any ...
+function AchievementSearchPreviewButton_OnShow(...) end
+---@return any ...
+function AchievementShield_Desaturate(...) end
+---@return any ...
+function AchievementShield_OnEnter(...) end
+---@return any ...
+function AchievementShield_OnLeave(...) end
+---@return any ...
+function AchievementShield_OnLoad(...) end
+---@return any ...
+function AchievementShield_Saturate(...) end
+---@return any ...
+function AchievementShield_SetPoints(...) end
 ---@return any ...
 function AcknowledgeAutoAcceptQuest(...) end
 ---@return any ...
@@ -1959,6 +2846,78 @@ AddonDialogButton2Text = {}
 ---@type table
 AddonDialogText = {}
 ---@type table
+AddonFactory_TooltipStatusBar = {}
+---@type table
+AddonFactory_TooltipStatusBarTexture = {}
+---@type table
+AddonFactory_TooltipTextLeft1 = {}
+---@type table
+AddonFactory_TooltipTextLeft2 = {}
+---@type table
+AddonFactory_TooltipTextRight1 = {}
+---@type table
+AddonFactory_TooltipTextRight2 = {}
+---@type table
+AddonFactory_TooltipTexture1 = {}
+---@type table
+AddonFactory_TooltipTexture10 = {}
+---@type table
+AddonFactory_TooltipTexture11 = {}
+---@type table
+AddonFactory_TooltipTexture12 = {}
+---@type table
+AddonFactory_TooltipTexture13 = {}
+---@type table
+AddonFactory_TooltipTexture14 = {}
+---@type table
+AddonFactory_TooltipTexture15 = {}
+---@type table
+AddonFactory_TooltipTexture16 = {}
+---@type table
+AddonFactory_TooltipTexture17 = {}
+---@type table
+AddonFactory_TooltipTexture18 = {}
+---@type table
+AddonFactory_TooltipTexture19 = {}
+---@type table
+AddonFactory_TooltipTexture2 = {}
+---@type table
+AddonFactory_TooltipTexture20 = {}
+---@type table
+AddonFactory_TooltipTexture21 = {}
+---@type table
+AddonFactory_TooltipTexture22 = {}
+---@type table
+AddonFactory_TooltipTexture23 = {}
+---@type table
+AddonFactory_TooltipTexture24 = {}
+---@type table
+AddonFactory_TooltipTexture25 = {}
+---@type table
+AddonFactory_TooltipTexture26 = {}
+---@type table
+AddonFactory_TooltipTexture27 = {}
+---@type table
+AddonFactory_TooltipTexture28 = {}
+---@type table
+AddonFactory_TooltipTexture29 = {}
+---@type table
+AddonFactory_TooltipTexture3 = {}
+---@type table
+AddonFactory_TooltipTexture30 = {}
+---@type table
+AddonFactory_TooltipTexture4 = {}
+---@type table
+AddonFactory_TooltipTexture5 = {}
+---@type table
+AddonFactory_TooltipTexture6 = {}
+---@type table
+AddonFactory_TooltipTexture7 = {}
+---@type table
+AddonFactory_TooltipTexture8 = {}
+---@type table
+AddonFactory_TooltipTexture9 = {}
+---@type table
 AddonListBg = {}
 ---@type table
 AddonListClearButton = {}
@@ -2050,6 +3009,92 @@ function AltCurrencyFrame_Update(...) end
 AlternatePowerBar = {}
 ---@type table
 AlternatePowerBarText = {}
+---@type table
+AltoMessageBoxText = {}
+---@type table
+AltoScanningTooltipStatusBar = {}
+---@type table
+AltoScanningTooltipStatusBarTexture = {}
+---@type table
+AltoScanningTooltipTextLeft1 = {}
+---@type table
+AltoScanningTooltipTextLeft2 = {}
+---@type table
+AltoScanningTooltipTextRight1 = {}
+---@type table
+AltoScanningTooltipTextRight2 = {}
+---@type table
+AltoScanningTooltipTexture1 = {}
+---@type table
+AltoScanningTooltipTexture10 = {}
+---@type table
+AltoScanningTooltipTexture11 = {}
+---@type table
+AltoScanningTooltipTexture12 = {}
+---@type table
+AltoScanningTooltipTexture13 = {}
+---@type table
+AltoScanningTooltipTexture14 = {}
+---@type table
+AltoScanningTooltipTexture15 = {}
+---@type table
+AltoScanningTooltipTexture16 = {}
+---@type table
+AltoScanningTooltipTexture17 = {}
+---@type table
+AltoScanningTooltipTexture18 = {}
+---@type table
+AltoScanningTooltipTexture19 = {}
+---@type table
+AltoScanningTooltipTexture2 = {}
+---@type table
+AltoScanningTooltipTexture20 = {}
+---@type table
+AltoScanningTooltipTexture21 = {}
+---@type table
+AltoScanningTooltipTexture22 = {}
+---@type table
+AltoScanningTooltipTexture23 = {}
+---@type table
+AltoScanningTooltipTexture24 = {}
+---@type table
+AltoScanningTooltipTexture25 = {}
+---@type table
+AltoScanningTooltipTexture26 = {}
+---@type table
+AltoScanningTooltipTexture27 = {}
+---@type table
+AltoScanningTooltipTexture28 = {}
+---@type table
+AltoScanningTooltipTexture29 = {}
+---@type table
+AltoScanningTooltipTexture3 = {}
+---@type table
+AltoScanningTooltipTexture30 = {}
+---@type table
+AltoScanningTooltipTexture4 = {}
+---@type table
+AltoScanningTooltipTexture5 = {}
+---@type table
+AltoScanningTooltipTexture6 = {}
+---@type table
+AltoScanningTooltipTexture7 = {}
+---@type table
+AltoScanningTooltipTexture8 = {}
+---@type table
+AltoScanningTooltipTexture9 = {}
+---@type table
+AltoholicFrameBg = {}
+---@type table
+AltoholicFrameClearButton = {}
+---@type table
+AltoholicFrameCloseButton = {}
+---@type table
+AltoholicFramePortrait = {}
+---@type table
+AltoholicFrameSearchIcon = {}
+---@type table
+AltoholicFrameTitleText = {}
 ---@param fullName string
 ---@param context string
 ---@return string result
@@ -2646,8 +3691,90 @@ function AssistUnit(name, exactMatch) end
 ---@return any ...
 function AttachGlyphToSpell(...) end
 function AttackTarget() end
+---@type table
+AuctionCategories = {}
+---@return any ...
+function AuctionFrameFilter_OnEnter(...) end
+---@return any ...
+function AuctionFrameFilter_OnLeave(...) end
+---@return any ...
+function AuctionFrameFilter_OnLoad(...) end
+---@return any ...
+function AuctionFrameFilter_OnMouseDown(...) end
+---@return any ...
+function AuctionFrameFilter_OnMouseUp(...) end
+---@return any ...
+function AuctionFrameFilters_AddSubCategories(...) end
+---@return any ...
+function AuctionFrameFilters_AddSubSubCategories(...) end
+---@return any ...
+function AuctionFrameFilters_Update(...) end
+---@return any ...
+function AuctionFrameFilters_UpdateCategories(...) end
+---@return any ...
+function AuctionFrame_CreateCategory(...) end
+---@return any ...
+function AuctionFrame_DoesCategoryHaveFlag(...) end
+---@return any ...
+function AuctionFrame_GetDetailColumnString(...) end
+---@return any ...
+function AuctionFrame_GetDetailColumnStringUnsafe(...) end
+---@return any ...
+function AuctionHouseCategory_FindDeepest(...) end
+---@return any ...
+function AuctionHouseFavoriteContextMenu(...) end
+---@return any ...
+function AuctionHouseFilterButton_SetUp(...) end
+---@type table
+AuctionHouseFrameAuctionsFrame = {}
+---@type table
+AuctionHouseFrameAuctionsFrameAuctionsTab = {}
+---@type table
+AuctionHouseFrameAuctionsFrameBidsTab = {}
+---@type table
+AuctionHouseFrameAuctionsFrameText = {}
+---@type table
+AuctionHouseFrameAuctionsTab = {}
+---@type table
+AuctionHouseFrameBg = {}
+---@type table
+AuctionHouseFrameBuyTab = {}
+---@type table
+AuctionHouseFrameClearButton = {}
+---@type table
+AuctionHouseFrameCloseButton = {}
+---@type table
+AuctionHouseFrameDialogs = {}
+---@type table
+AuctionHouseFrameLeft = {}
+---@type table
+AuctionHouseFrameMiddle = {}
+---@type table
+AuctionHouseFramePopups = {}
+---@type table
+AuctionHouseFramePortrait = {}
+---@type table
+AuctionHouseFrameRight = {}
+---@type table
+AuctionHouseFrameSearchIcon = {}
+---@type table
+AuctionHouseFrameSellTab = {}
+---@type table
+AuctionHouseFrameText = {}
+---@type table
+AuctionHouseFrameTitleText = {}
 ---@return any ...
 function AuctionHouseFrame_LoadUI(...) end
+---@return any ...
+function AuctionHouse_ShouldUseRequiredLevel(...) end
+---@return any ...
+function AuctionWowToken_CancelUpdateTicker(...) end
+---@return any ...
+function AuctionWowToken_ShouldUpdatePrice(...) end
+---@return any ...
+function AuctionWowToken_UpdateMarketPrice(...) end
+---@return any ...
+function AuctionWowToken_UpdateMarketPriceCallback(...) end
 ---@type table
 AuraContainerItemEnchantmentSortOrder = {}
 ---@type table
@@ -3650,6 +4777,14 @@ BLACK_MARKET_HOT_ITEM_TIME_LEFT = ""
 BLACK_MARKET_NO_ITEMS = ""
 BLACK_MARKET_TITLE = ""
 BLACK_MARKET_YOUR_BID = ""
+BLIZZARD_COLLECTIONS_COUNT_DISPLAY_STYLE = ""
+BLIZZARD_COLLECTIONS_COUNT_DISPLAY_STYLE_CENTER = ""
+BLIZZARD_COLLECTIONS_COUNT_DISPLAY_STYLE_LEFT = ""
+BLIZZARD_COLLECTIONS_MOUNT_JOURNAL_SHOW_FAVORITES = false
+BLIZZARD_COLLECTIONS_PETS_SHOW_SUMMON_RANDOM = false
+BLIZZARD_COLLECTIONS_TAB_STYLE = ""
+BLIZZARD_COLLECTIONS_TAB_STYLE_BOTTOM = ""
+BLIZZARD_COLLECTIONS_TAB_STYLE_SIDE = ""
 BLIZZARD_COMBAT_LOG_MENU_BOTH = ""
 BLIZZARD_COMBAT_LOG_MENU_EVERYTHING = ""
 BLIZZARD_COMBAT_LOG_MENU_INCOMING = ""
@@ -4224,6 +5359,7 @@ BROWSER_SETTINGS_BUTTON_TOOLTIP = ""
 BROWSER_SETTINGS_TOOLTIP = ""
 BROWSER_STOP_TOOLTIP = ""
 BROWSE_AUCTIONS = ""
+BROWSE_FILTER_HEIGHT = 0
 BROWSE_GROUPS = ""
 BROWSE_GUILDS_BUTTON = ""
 BROWSE_GUILDS_NUM_MEMBERS = ""
@@ -4231,6 +5367,1350 @@ BROWSE_NO_RESULTS = ""
 BROWSE_ORDERS = ""
 BROWSE_SEARCH_TEXT = ""
 BROWSING = ""
+---@type table
+BT4Button10Border = {}
+---@type table
+BT4Button10Cooldown = {}
+---@type table
+BT4Button10Count = {}
+---@type table
+BT4Button10Flash = {}
+---@type table
+BT4Button10HotKey = {}
+---@type table
+BT4Button10Icon = {}
+---@type table
+BT4Button10Name = {}
+---@type table
+BT4Button10NormalTexture = {}
+---@type table
+BT4Button11Border = {}
+---@type table
+BT4Button11Cooldown = {}
+---@type table
+BT4Button11Count = {}
+---@type table
+BT4Button11Flash = {}
+---@type table
+BT4Button11HotKey = {}
+---@type table
+BT4Button11Icon = {}
+---@type table
+BT4Button11Name = {}
+---@type table
+BT4Button11NormalTexture = {}
+---@type table
+BT4Button12Border = {}
+---@type table
+BT4Button12Cooldown = {}
+---@type table
+BT4Button12Count = {}
+---@type table
+BT4Button12Flash = {}
+---@type table
+BT4Button12HotKey = {}
+---@type table
+BT4Button12Icon = {}
+---@type table
+BT4Button12Name = {}
+---@type table
+BT4Button12NormalTexture = {}
+---@type table
+BT4Button1Border = {}
+---@type table
+BT4Button1Cooldown = {}
+---@type table
+BT4Button1Count = {}
+---@type table
+BT4Button1Flash = {}
+---@type table
+BT4Button1HotKey = {}
+---@type table
+BT4Button1Icon = {}
+---@type table
+BT4Button1Name = {}
+---@type table
+BT4Button1NormalTexture = {}
+---@type table
+BT4Button25Border = {}
+---@type table
+BT4Button25Cooldown = {}
+---@type table
+BT4Button25Count = {}
+---@type table
+BT4Button25Flash = {}
+---@type table
+BT4Button25HotKey = {}
+---@type table
+BT4Button25Icon = {}
+---@type table
+BT4Button25Name = {}
+---@type table
+BT4Button25NormalTexture = {}
+---@type table
+BT4Button26Border = {}
+---@type table
+BT4Button26Cooldown = {}
+---@type table
+BT4Button26Count = {}
+---@type table
+BT4Button26Flash = {}
+---@type table
+BT4Button26HotKey = {}
+---@type table
+BT4Button26Icon = {}
+---@type table
+BT4Button26Name = {}
+---@type table
+BT4Button26NormalTexture = {}
+---@type table
+BT4Button27Border = {}
+---@type table
+BT4Button27Cooldown = {}
+---@type table
+BT4Button27Count = {}
+---@type table
+BT4Button27Flash = {}
+---@type table
+BT4Button27HotKey = {}
+---@type table
+BT4Button27Icon = {}
+---@type table
+BT4Button27Name = {}
+---@type table
+BT4Button27NormalTexture = {}
+---@type table
+BT4Button28Border = {}
+---@type table
+BT4Button28Cooldown = {}
+---@type table
+BT4Button28Count = {}
+---@type table
+BT4Button28Flash = {}
+---@type table
+BT4Button28HotKey = {}
+---@type table
+BT4Button28Icon = {}
+---@type table
+BT4Button28Name = {}
+---@type table
+BT4Button28NormalTexture = {}
+---@type table
+BT4Button29Border = {}
+---@type table
+BT4Button29Cooldown = {}
+---@type table
+BT4Button29Count = {}
+---@type table
+BT4Button29Flash = {}
+---@type table
+BT4Button29HotKey = {}
+---@type table
+BT4Button29Icon = {}
+---@type table
+BT4Button29Name = {}
+---@type table
+BT4Button29NormalTexture = {}
+---@type table
+BT4Button2Border = {}
+---@type table
+BT4Button2Cooldown = {}
+---@type table
+BT4Button2Count = {}
+---@type table
+BT4Button2Flash = {}
+---@type table
+BT4Button2HotKey = {}
+---@type table
+BT4Button2Icon = {}
+---@type table
+BT4Button2Name = {}
+---@type table
+BT4Button2NormalTexture = {}
+---@type table
+BT4Button30Border = {}
+---@type table
+BT4Button30Cooldown = {}
+---@type table
+BT4Button30Count = {}
+---@type table
+BT4Button30Flash = {}
+---@type table
+BT4Button30HotKey = {}
+---@type table
+BT4Button30Icon = {}
+---@type table
+BT4Button30Name = {}
+---@type table
+BT4Button30NormalTexture = {}
+---@type table
+BT4Button31Border = {}
+---@type table
+BT4Button31Cooldown = {}
+---@type table
+BT4Button31Count = {}
+---@type table
+BT4Button31Flash = {}
+---@type table
+BT4Button31HotKey = {}
+---@type table
+BT4Button31Icon = {}
+---@type table
+BT4Button31Name = {}
+---@type table
+BT4Button31NormalTexture = {}
+---@type table
+BT4Button32Border = {}
+---@type table
+BT4Button32Cooldown = {}
+---@type table
+BT4Button32Count = {}
+---@type table
+BT4Button32Flash = {}
+---@type table
+BT4Button32HotKey = {}
+---@type table
+BT4Button32Icon = {}
+---@type table
+BT4Button32Name = {}
+---@type table
+BT4Button32NormalTexture = {}
+---@type table
+BT4Button33Border = {}
+---@type table
+BT4Button33Cooldown = {}
+---@type table
+BT4Button33Count = {}
+---@type table
+BT4Button33Flash = {}
+---@type table
+BT4Button33HotKey = {}
+---@type table
+BT4Button33Icon = {}
+---@type table
+BT4Button33Name = {}
+---@type table
+BT4Button33NormalTexture = {}
+---@type table
+BT4Button34Border = {}
+---@type table
+BT4Button34Cooldown = {}
+---@type table
+BT4Button34Count = {}
+---@type table
+BT4Button34Flash = {}
+---@type table
+BT4Button34HotKey = {}
+---@type table
+BT4Button34Icon = {}
+---@type table
+BT4Button34Name = {}
+---@type table
+BT4Button34NormalTexture = {}
+---@type table
+BT4Button35Border = {}
+---@type table
+BT4Button35Cooldown = {}
+---@type table
+BT4Button35Count = {}
+---@type table
+BT4Button35Flash = {}
+---@type table
+BT4Button35HotKey = {}
+---@type table
+BT4Button35Icon = {}
+---@type table
+BT4Button35Name = {}
+---@type table
+BT4Button35NormalTexture = {}
+---@type table
+BT4Button36Border = {}
+---@type table
+BT4Button36Cooldown = {}
+---@type table
+BT4Button36Count = {}
+---@type table
+BT4Button36Flash = {}
+---@type table
+BT4Button36HotKey = {}
+---@type table
+BT4Button36Icon = {}
+---@type table
+BT4Button36Name = {}
+---@type table
+BT4Button36NormalTexture = {}
+---@type table
+BT4Button37Border = {}
+---@type table
+BT4Button37Cooldown = {}
+---@type table
+BT4Button37Count = {}
+---@type table
+BT4Button37Flash = {}
+---@type table
+BT4Button37HotKey = {}
+---@type table
+BT4Button37Icon = {}
+---@type table
+BT4Button37Name = {}
+---@type table
+BT4Button37NormalTexture = {}
+---@type table
+BT4Button38Border = {}
+---@type table
+BT4Button38Cooldown = {}
+---@type table
+BT4Button38Count = {}
+---@type table
+BT4Button38Flash = {}
+---@type table
+BT4Button38HotKey = {}
+---@type table
+BT4Button38Icon = {}
+---@type table
+BT4Button38Name = {}
+---@type table
+BT4Button38NormalTexture = {}
+---@type table
+BT4Button39Border = {}
+---@type table
+BT4Button39Cooldown = {}
+---@type table
+BT4Button39Count = {}
+---@type table
+BT4Button39Flash = {}
+---@type table
+BT4Button39HotKey = {}
+---@type table
+BT4Button39Icon = {}
+---@type table
+BT4Button39Name = {}
+---@type table
+BT4Button39NormalTexture = {}
+---@type table
+BT4Button3Border = {}
+---@type table
+BT4Button3Cooldown = {}
+---@type table
+BT4Button3Count = {}
+---@type table
+BT4Button3Flash = {}
+---@type table
+BT4Button3HotKey = {}
+---@type table
+BT4Button3Icon = {}
+---@type table
+BT4Button3Name = {}
+---@type table
+BT4Button3NormalTexture = {}
+---@type table
+BT4Button40Border = {}
+---@type table
+BT4Button40Cooldown = {}
+---@type table
+BT4Button40Count = {}
+---@type table
+BT4Button40Flash = {}
+---@type table
+BT4Button40HotKey = {}
+---@type table
+BT4Button40Icon = {}
+---@type table
+BT4Button40Name = {}
+---@type table
+BT4Button40NormalTexture = {}
+---@type table
+BT4Button41Border = {}
+---@type table
+BT4Button41Cooldown = {}
+---@type table
+BT4Button41Count = {}
+---@type table
+BT4Button41Flash = {}
+---@type table
+BT4Button41HotKey = {}
+---@type table
+BT4Button41Icon = {}
+---@type table
+BT4Button41Name = {}
+---@type table
+BT4Button41NormalTexture = {}
+---@type table
+BT4Button42Border = {}
+---@type table
+BT4Button42Cooldown = {}
+---@type table
+BT4Button42Count = {}
+---@type table
+BT4Button42Flash = {}
+---@type table
+BT4Button42HotKey = {}
+---@type table
+BT4Button42Icon = {}
+---@type table
+BT4Button42Name = {}
+---@type table
+BT4Button42NormalTexture = {}
+---@type table
+BT4Button43Border = {}
+---@type table
+BT4Button43Cooldown = {}
+---@type table
+BT4Button43Count = {}
+---@type table
+BT4Button43Flash = {}
+---@type table
+BT4Button43HotKey = {}
+---@type table
+BT4Button43Icon = {}
+---@type table
+BT4Button43Name = {}
+---@type table
+BT4Button43NormalTexture = {}
+---@type table
+BT4Button44Border = {}
+---@type table
+BT4Button44Cooldown = {}
+---@type table
+BT4Button44Count = {}
+---@type table
+BT4Button44Flash = {}
+---@type table
+BT4Button44HotKey = {}
+---@type table
+BT4Button44Icon = {}
+---@type table
+BT4Button44Name = {}
+---@type table
+BT4Button44NormalTexture = {}
+---@type table
+BT4Button45Border = {}
+---@type table
+BT4Button45Cooldown = {}
+---@type table
+BT4Button45Count = {}
+---@type table
+BT4Button45Flash = {}
+---@type table
+BT4Button45HotKey = {}
+---@type table
+BT4Button45Icon = {}
+---@type table
+BT4Button45Name = {}
+---@type table
+BT4Button45NormalTexture = {}
+---@type table
+BT4Button46Border = {}
+---@type table
+BT4Button46Cooldown = {}
+---@type table
+BT4Button46Count = {}
+---@type table
+BT4Button46Flash = {}
+---@type table
+BT4Button46HotKey = {}
+---@type table
+BT4Button46Icon = {}
+---@type table
+BT4Button46Name = {}
+---@type table
+BT4Button46NormalTexture = {}
+---@type table
+BT4Button47Border = {}
+---@type table
+BT4Button47Cooldown = {}
+---@type table
+BT4Button47Count = {}
+---@type table
+BT4Button47Flash = {}
+---@type table
+BT4Button47HotKey = {}
+---@type table
+BT4Button47Icon = {}
+---@type table
+BT4Button47Name = {}
+---@type table
+BT4Button47NormalTexture = {}
+---@type table
+BT4Button48Border = {}
+---@type table
+BT4Button48Cooldown = {}
+---@type table
+BT4Button48Count = {}
+---@type table
+BT4Button48Flash = {}
+---@type table
+BT4Button48HotKey = {}
+---@type table
+BT4Button48Icon = {}
+---@type table
+BT4Button48Name = {}
+---@type table
+BT4Button48NormalTexture = {}
+---@type table
+BT4Button49Border = {}
+---@type table
+BT4Button49Cooldown = {}
+---@type table
+BT4Button49Count = {}
+---@type table
+BT4Button49Flash = {}
+---@type table
+BT4Button49HotKey = {}
+---@type table
+BT4Button49Icon = {}
+---@type table
+BT4Button49Name = {}
+---@type table
+BT4Button49NormalTexture = {}
+---@type table
+BT4Button4Border = {}
+---@type table
+BT4Button4Cooldown = {}
+---@type table
+BT4Button4Count = {}
+---@type table
+BT4Button4Flash = {}
+---@type table
+BT4Button4HotKey = {}
+---@type table
+BT4Button4Icon = {}
+---@type table
+BT4Button4Name = {}
+---@type table
+BT4Button4NormalTexture = {}
+---@type table
+BT4Button50Border = {}
+---@type table
+BT4Button50Cooldown = {}
+---@type table
+BT4Button50Count = {}
+---@type table
+BT4Button50Flash = {}
+---@type table
+BT4Button50HotKey = {}
+---@type table
+BT4Button50Icon = {}
+---@type table
+BT4Button50Name = {}
+---@type table
+BT4Button50NormalTexture = {}
+---@type table
+BT4Button51Border = {}
+---@type table
+BT4Button51Cooldown = {}
+---@type table
+BT4Button51Count = {}
+---@type table
+BT4Button51Flash = {}
+---@type table
+BT4Button51HotKey = {}
+---@type table
+BT4Button51Icon = {}
+---@type table
+BT4Button51Name = {}
+---@type table
+BT4Button51NormalTexture = {}
+---@type table
+BT4Button52Border = {}
+---@type table
+BT4Button52Cooldown = {}
+---@type table
+BT4Button52Count = {}
+---@type table
+BT4Button52Flash = {}
+---@type table
+BT4Button52HotKey = {}
+---@type table
+BT4Button52Icon = {}
+---@type table
+BT4Button52Name = {}
+---@type table
+BT4Button52NormalTexture = {}
+---@type table
+BT4Button53Border = {}
+---@type table
+BT4Button53Cooldown = {}
+---@type table
+BT4Button53Count = {}
+---@type table
+BT4Button53Flash = {}
+---@type table
+BT4Button53HotKey = {}
+---@type table
+BT4Button53Icon = {}
+---@type table
+BT4Button53Name = {}
+---@type table
+BT4Button53NormalTexture = {}
+---@type table
+BT4Button54Border = {}
+---@type table
+BT4Button54Cooldown = {}
+---@type table
+BT4Button54Count = {}
+---@type table
+BT4Button54Flash = {}
+---@type table
+BT4Button54HotKey = {}
+---@type table
+BT4Button54Icon = {}
+---@type table
+BT4Button54Name = {}
+---@type table
+BT4Button54NormalTexture = {}
+---@type table
+BT4Button55Border = {}
+---@type table
+BT4Button55Cooldown = {}
+---@type table
+BT4Button55Count = {}
+---@type table
+BT4Button55Flash = {}
+---@type table
+BT4Button55HotKey = {}
+---@type table
+BT4Button55Icon = {}
+---@type table
+BT4Button55Name = {}
+---@type table
+BT4Button55NormalTexture = {}
+---@type table
+BT4Button56Border = {}
+---@type table
+BT4Button56Cooldown = {}
+---@type table
+BT4Button56Count = {}
+---@type table
+BT4Button56Flash = {}
+---@type table
+BT4Button56HotKey = {}
+---@type table
+BT4Button56Icon = {}
+---@type table
+BT4Button56Name = {}
+---@type table
+BT4Button56NormalTexture = {}
+---@type table
+BT4Button57Border = {}
+---@type table
+BT4Button57Cooldown = {}
+---@type table
+BT4Button57Count = {}
+---@type table
+BT4Button57Flash = {}
+---@type table
+BT4Button57HotKey = {}
+---@type table
+BT4Button57Icon = {}
+---@type table
+BT4Button57Name = {}
+---@type table
+BT4Button57NormalTexture = {}
+---@type table
+BT4Button58Border = {}
+---@type table
+BT4Button58Cooldown = {}
+---@type table
+BT4Button58Count = {}
+---@type table
+BT4Button58Flash = {}
+---@type table
+BT4Button58HotKey = {}
+---@type table
+BT4Button58Icon = {}
+---@type table
+BT4Button58Name = {}
+---@type table
+BT4Button58NormalTexture = {}
+---@type table
+BT4Button59Border = {}
+---@type table
+BT4Button59Cooldown = {}
+---@type table
+BT4Button59Count = {}
+---@type table
+BT4Button59Flash = {}
+---@type table
+BT4Button59HotKey = {}
+---@type table
+BT4Button59Icon = {}
+---@type table
+BT4Button59Name = {}
+---@type table
+BT4Button59NormalTexture = {}
+---@type table
+BT4Button5Border = {}
+---@type table
+BT4Button5Cooldown = {}
+---@type table
+BT4Button5Count = {}
+---@type table
+BT4Button5Flash = {}
+---@type table
+BT4Button5HotKey = {}
+---@type table
+BT4Button5Icon = {}
+---@type table
+BT4Button5Name = {}
+---@type table
+BT4Button5NormalTexture = {}
+---@type table
+BT4Button60Border = {}
+---@type table
+BT4Button60Cooldown = {}
+---@type table
+BT4Button60Count = {}
+---@type table
+BT4Button60Flash = {}
+---@type table
+BT4Button60HotKey = {}
+---@type table
+BT4Button60Icon = {}
+---@type table
+BT4Button60Name = {}
+---@type table
+BT4Button60NormalTexture = {}
+---@type table
+BT4Button61Border = {}
+---@type table
+BT4Button61Cooldown = {}
+---@type table
+BT4Button61Count = {}
+---@type table
+BT4Button61Flash = {}
+---@type table
+BT4Button61HotKey = {}
+---@type table
+BT4Button61Icon = {}
+---@type table
+BT4Button61Name = {}
+---@type table
+BT4Button61NormalTexture = {}
+---@type table
+BT4Button62Border = {}
+---@type table
+BT4Button62Cooldown = {}
+---@type table
+BT4Button62Count = {}
+---@type table
+BT4Button62Flash = {}
+---@type table
+BT4Button62HotKey = {}
+---@type table
+BT4Button62Icon = {}
+---@type table
+BT4Button62Name = {}
+---@type table
+BT4Button62NormalTexture = {}
+---@type table
+BT4Button63Border = {}
+---@type table
+BT4Button63Cooldown = {}
+---@type table
+BT4Button63Count = {}
+---@type table
+BT4Button63Flash = {}
+---@type table
+BT4Button63HotKey = {}
+---@type table
+BT4Button63Icon = {}
+---@type table
+BT4Button63Name = {}
+---@type table
+BT4Button63NormalTexture = {}
+---@type table
+BT4Button64Border = {}
+---@type table
+BT4Button64Cooldown = {}
+---@type table
+BT4Button64Count = {}
+---@type table
+BT4Button64Flash = {}
+---@type table
+BT4Button64HotKey = {}
+---@type table
+BT4Button64Icon = {}
+---@type table
+BT4Button64Name = {}
+---@type table
+BT4Button64NormalTexture = {}
+---@type table
+BT4Button65Border = {}
+---@type table
+BT4Button65Cooldown = {}
+---@type table
+BT4Button65Count = {}
+---@type table
+BT4Button65Flash = {}
+---@type table
+BT4Button65HotKey = {}
+---@type table
+BT4Button65Icon = {}
+---@type table
+BT4Button65Name = {}
+---@type table
+BT4Button65NormalTexture = {}
+---@type table
+BT4Button66Border = {}
+---@type table
+BT4Button66Cooldown = {}
+---@type table
+BT4Button66Count = {}
+---@type table
+BT4Button66Flash = {}
+---@type table
+BT4Button66HotKey = {}
+---@type table
+BT4Button66Icon = {}
+---@type table
+BT4Button66Name = {}
+---@type table
+BT4Button66NormalTexture = {}
+---@type table
+BT4Button67Border = {}
+---@type table
+BT4Button67Cooldown = {}
+---@type table
+BT4Button67Count = {}
+---@type table
+BT4Button67Flash = {}
+---@type table
+BT4Button67HotKey = {}
+---@type table
+BT4Button67Icon = {}
+---@type table
+BT4Button67Name = {}
+---@type table
+BT4Button67NormalTexture = {}
+---@type table
+BT4Button68Border = {}
+---@type table
+BT4Button68Cooldown = {}
+---@type table
+BT4Button68Count = {}
+---@type table
+BT4Button68Flash = {}
+---@type table
+BT4Button68HotKey = {}
+---@type table
+BT4Button68Icon = {}
+---@type table
+BT4Button68Name = {}
+---@type table
+BT4Button68NormalTexture = {}
+---@type table
+BT4Button69Border = {}
+---@type table
+BT4Button69Cooldown = {}
+---@type table
+BT4Button69Count = {}
+---@type table
+BT4Button69Flash = {}
+---@type table
+BT4Button69HotKey = {}
+---@type table
+BT4Button69Icon = {}
+---@type table
+BT4Button69Name = {}
+---@type table
+BT4Button69NormalTexture = {}
+---@type table
+BT4Button6Border = {}
+---@type table
+BT4Button6Cooldown = {}
+---@type table
+BT4Button6Count = {}
+---@type table
+BT4Button6Flash = {}
+---@type table
+BT4Button6HotKey = {}
+---@type table
+BT4Button6Icon = {}
+---@type table
+BT4Button6Name = {}
+---@type table
+BT4Button6NormalTexture = {}
+---@type table
+BT4Button70Border = {}
+---@type table
+BT4Button70Cooldown = {}
+---@type table
+BT4Button70Count = {}
+---@type table
+BT4Button70Flash = {}
+---@type table
+BT4Button70HotKey = {}
+---@type table
+BT4Button70Icon = {}
+---@type table
+BT4Button70Name = {}
+---@type table
+BT4Button70NormalTexture = {}
+---@type table
+BT4Button71Border = {}
+---@type table
+BT4Button71Cooldown = {}
+---@type table
+BT4Button71Count = {}
+---@type table
+BT4Button71Flash = {}
+---@type table
+BT4Button71HotKey = {}
+---@type table
+BT4Button71Icon = {}
+---@type table
+BT4Button71Name = {}
+---@type table
+BT4Button71NormalTexture = {}
+---@type table
+BT4Button72Border = {}
+---@type table
+BT4Button72Cooldown = {}
+---@type table
+BT4Button72Count = {}
+---@type table
+BT4Button72Flash = {}
+---@type table
+BT4Button72HotKey = {}
+---@type table
+BT4Button72Icon = {}
+---@type table
+BT4Button72Name = {}
+---@type table
+BT4Button72NormalTexture = {}
+---@type table
+BT4Button73Border = {}
+---@type table
+BT4Button73Cooldown = {}
+---@type table
+BT4Button73Count = {}
+---@type table
+BT4Button73Flash = {}
+---@type table
+BT4Button73HotKey = {}
+---@type table
+BT4Button73Icon = {}
+---@type table
+BT4Button73Name = {}
+---@type table
+BT4Button73NormalTexture = {}
+---@type table
+BT4Button74Border = {}
+---@type table
+BT4Button74Cooldown = {}
+---@type table
+BT4Button74Count = {}
+---@type table
+BT4Button74Flash = {}
+---@type table
+BT4Button74HotKey = {}
+---@type table
+BT4Button74Icon = {}
+---@type table
+BT4Button74Name = {}
+---@type table
+BT4Button74NormalTexture = {}
+---@type table
+BT4Button75Border = {}
+---@type table
+BT4Button75Cooldown = {}
+---@type table
+BT4Button75Count = {}
+---@type table
+BT4Button75Flash = {}
+---@type table
+BT4Button75HotKey = {}
+---@type table
+BT4Button75Icon = {}
+---@type table
+BT4Button75Name = {}
+---@type table
+BT4Button75NormalTexture = {}
+---@type table
+BT4Button76Border = {}
+---@type table
+BT4Button76Cooldown = {}
+---@type table
+BT4Button76Count = {}
+---@type table
+BT4Button76Flash = {}
+---@type table
+BT4Button76HotKey = {}
+---@type table
+BT4Button76Icon = {}
+---@type table
+BT4Button76Name = {}
+---@type table
+BT4Button76NormalTexture = {}
+---@type table
+BT4Button77Border = {}
+---@type table
+BT4Button77Cooldown = {}
+---@type table
+BT4Button77Count = {}
+---@type table
+BT4Button77Flash = {}
+---@type table
+BT4Button77HotKey = {}
+---@type table
+BT4Button77Icon = {}
+---@type table
+BT4Button77Name = {}
+---@type table
+BT4Button77NormalTexture = {}
+---@type table
+BT4Button78Border = {}
+---@type table
+BT4Button78Cooldown = {}
+---@type table
+BT4Button78Count = {}
+---@type table
+BT4Button78Flash = {}
+---@type table
+BT4Button78HotKey = {}
+---@type table
+BT4Button78Icon = {}
+---@type table
+BT4Button78Name = {}
+---@type table
+BT4Button78NormalTexture = {}
+---@type table
+BT4Button79Border = {}
+---@type table
+BT4Button79Cooldown = {}
+---@type table
+BT4Button79Count = {}
+---@type table
+BT4Button79Flash = {}
+---@type table
+BT4Button79HotKey = {}
+---@type table
+BT4Button79Icon = {}
+---@type table
+BT4Button79Name = {}
+---@type table
+BT4Button79NormalTexture = {}
+---@type table
+BT4Button7Border = {}
+---@type table
+BT4Button7Cooldown = {}
+---@type table
+BT4Button7Count = {}
+---@type table
+BT4Button7Flash = {}
+---@type table
+BT4Button7HotKey = {}
+---@type table
+BT4Button7Icon = {}
+---@type table
+BT4Button7Name = {}
+---@type table
+BT4Button7NormalTexture = {}
+---@type table
+BT4Button80Border = {}
+---@type table
+BT4Button80Cooldown = {}
+---@type table
+BT4Button80Count = {}
+---@type table
+BT4Button80Flash = {}
+---@type table
+BT4Button80HotKey = {}
+---@type table
+BT4Button80Icon = {}
+---@type table
+BT4Button80Name = {}
+---@type table
+BT4Button80NormalTexture = {}
+---@type table
+BT4Button81Border = {}
+---@type table
+BT4Button81Cooldown = {}
+---@type table
+BT4Button81Count = {}
+---@type table
+BT4Button81Flash = {}
+---@type table
+BT4Button81HotKey = {}
+---@type table
+BT4Button81Icon = {}
+---@type table
+BT4Button81Name = {}
+---@type table
+BT4Button81NormalTexture = {}
+---@type table
+BT4Button82Border = {}
+---@type table
+BT4Button82Cooldown = {}
+---@type table
+BT4Button82Count = {}
+---@type table
+BT4Button82Flash = {}
+---@type table
+BT4Button82HotKey = {}
+---@type table
+BT4Button82Icon = {}
+---@type table
+BT4Button82Name = {}
+---@type table
+BT4Button82NormalTexture = {}
+---@type table
+BT4Button83Border = {}
+---@type table
+BT4Button83Cooldown = {}
+---@type table
+BT4Button83Count = {}
+---@type table
+BT4Button83Flash = {}
+---@type table
+BT4Button83HotKey = {}
+---@type table
+BT4Button83Icon = {}
+---@type table
+BT4Button83Name = {}
+---@type table
+BT4Button83NormalTexture = {}
+---@type table
+BT4Button84Border = {}
+---@type table
+BT4Button84Cooldown = {}
+---@type table
+BT4Button84Count = {}
+---@type table
+BT4Button84Flash = {}
+---@type table
+BT4Button84HotKey = {}
+---@type table
+BT4Button84Icon = {}
+---@type table
+BT4Button84Name = {}
+---@type table
+BT4Button84NormalTexture = {}
+---@type table
+BT4Button8Border = {}
+---@type table
+BT4Button8Cooldown = {}
+---@type table
+BT4Button8Count = {}
+---@type table
+BT4Button8Flash = {}
+---@type table
+BT4Button8HotKey = {}
+---@type table
+BT4Button8Icon = {}
+---@type table
+BT4Button8Name = {}
+---@type table
+BT4Button8NormalTexture = {}
+---@type table
+BT4Button9Border = {}
+---@type table
+BT4Button9Cooldown = {}
+---@type table
+BT4Button9Count = {}
+---@type table
+BT4Button9Flash = {}
+---@type table
+BT4Button9HotKey = {}
+---@type table
+BT4Button9Icon = {}
+---@type table
+BT4Button9Name = {}
+---@type table
+BT4Button9NormalTexture = {}
+---@type table
+BT4PetButton10Border = {}
+---@type table
+BT4PetButton10Cooldown = {}
+---@type table
+BT4PetButton10Count = {}
+---@type table
+BT4PetButton10Flash = {}
+---@type table
+BT4PetButton10HotKey = {}
+---@type table
+BT4PetButton10Icon = {}
+---@type table
+BT4PetButton10Name = {}
+---@type table
+BT4PetButton10NormalTexture = {}
+---@type table
+BT4PetButton1Border = {}
+---@type table
+BT4PetButton1Cooldown = {}
+---@type table
+BT4PetButton1Count = {}
+---@type table
+BT4PetButton1Flash = {}
+---@type table
+BT4PetButton1HotKey = {}
+---@type table
+BT4PetButton1Icon = {}
+---@type table
+BT4PetButton1Name = {}
+---@type table
+BT4PetButton1NormalTexture = {}
+---@type table
+BT4PetButton2Border = {}
+---@type table
+BT4PetButton2Cooldown = {}
+---@type table
+BT4PetButton2Count = {}
+---@type table
+BT4PetButton2Flash = {}
+---@type table
+BT4PetButton2HotKey = {}
+---@type table
+BT4PetButton2Icon = {}
+---@type table
+BT4PetButton2Name = {}
+---@type table
+BT4PetButton2NormalTexture = {}
+---@type table
+BT4PetButton3Border = {}
+---@type table
+BT4PetButton3Cooldown = {}
+---@type table
+BT4PetButton3Count = {}
+---@type table
+BT4PetButton3Flash = {}
+---@type table
+BT4PetButton3HotKey = {}
+---@type table
+BT4PetButton3Icon = {}
+---@type table
+BT4PetButton3Name = {}
+---@type table
+BT4PetButton3NormalTexture = {}
+---@type table
+BT4PetButton4Border = {}
+---@type table
+BT4PetButton4Cooldown = {}
+---@type table
+BT4PetButton4Count = {}
+---@type table
+BT4PetButton4Flash = {}
+---@type table
+BT4PetButton4HotKey = {}
+---@type table
+BT4PetButton4Icon = {}
+---@type table
+BT4PetButton4Name = {}
+---@type table
+BT4PetButton4NormalTexture = {}
+---@type table
+BT4PetButton5Border = {}
+---@type table
+BT4PetButton5Cooldown = {}
+---@type table
+BT4PetButton5Count = {}
+---@type table
+BT4PetButton5Flash = {}
+---@type table
+BT4PetButton5HotKey = {}
+---@type table
+BT4PetButton5Icon = {}
+---@type table
+BT4PetButton5Name = {}
+---@type table
+BT4PetButton5NormalTexture = {}
+---@type table
+BT4PetButton6Border = {}
+---@type table
+BT4PetButton6Cooldown = {}
+---@type table
+BT4PetButton6Count = {}
+---@type table
+BT4PetButton6Flash = {}
+---@type table
+BT4PetButton6HotKey = {}
+---@type table
+BT4PetButton6Icon = {}
+---@type table
+BT4PetButton6Name = {}
+---@type table
+BT4PetButton6NormalTexture = {}
+---@type table
+BT4PetButton7Border = {}
+---@type table
+BT4PetButton7Cooldown = {}
+---@type table
+BT4PetButton7Count = {}
+---@type table
+BT4PetButton7Flash = {}
+---@type table
+BT4PetButton7HotKey = {}
+---@type table
+BT4PetButton7Icon = {}
+---@type table
+BT4PetButton7Name = {}
+---@type table
+BT4PetButton7NormalTexture = {}
+---@type table
+BT4PetButton8Border = {}
+---@type table
+BT4PetButton8Cooldown = {}
+---@type table
+BT4PetButton8Count = {}
+---@type table
+BT4PetButton8Flash = {}
+---@type table
+BT4PetButton8HotKey = {}
+---@type table
+BT4PetButton8Icon = {}
+---@type table
+BT4PetButton8Name = {}
+---@type table
+BT4PetButton8NormalTexture = {}
+---@type table
+BT4PetButton9Border = {}
+---@type table
+BT4PetButton9Cooldown = {}
+---@type table
+BT4PetButton9Count = {}
+---@type table
+BT4PetButton9Flash = {}
+---@type table
+BT4PetButton9HotKey = {}
+---@type table
+BT4PetButton9Icon = {}
+---@type table
+BT4PetButton9Name = {}
+---@type table
+BT4PetButton9NormalTexture = {}
+---@type table
+BT4StanceButton1Border = {}
+---@type table
+BT4StanceButton1Cooldown = {}
+---@type table
+BT4StanceButton1Count = {}
+---@type table
+BT4StanceButton1Flash = {}
+---@type table
+BT4StanceButton1HotKey = {}
+---@type table
+BT4StanceButton1Icon = {}
+---@type table
+BT4StanceButton1Name = {}
+---@type table
+BT4StanceButton1NormalTexture = {}
+---@type table
+BT4StanceButton2Border = {}
+---@type table
+BT4StanceButton2Cooldown = {}
+---@type table
+BT4StanceButton2Count = {}
+---@type table
+BT4StanceButton2Flash = {}
+---@type table
+BT4StanceButton2HotKey = {}
+---@type table
+BT4StanceButton2Icon = {}
+---@type table
+BT4StanceButton2Name = {}
+---@type table
+BT4StanceButton2NormalTexture = {}
 BUFFERING = ""
 BUFFER_DOUBLE = ""
 BUFFOPTIONS_LABEL = ""
@@ -4405,6 +6885,10 @@ BankPanelText = {}
 BankPanelTrialErrorButton = {}
 ---@return any ...
 function BankUtil_IsAccountBankDepositRefundable(...) end
+---@type table
+BarberShopFrame = {}
+---@type table
+BarberShopFrameText = {}
 ---@return any ...
 function BarberShopFrame_LoadUI(...) end
 ---@return any ...
@@ -4454,6 +6938,32 @@ function BeginTrade() end
 function BehavioralMessagingTray_OnNotification(...) end
 ---@return any ...
 function BehavioralMessaging_LoadUI(...) end
+---@type table
+BidAmount = {}
+---@type table
+BidAmountCopper = {}
+---@type table
+BidAmountCopperLeft = {}
+---@type table
+BidAmountCopperMiddle = {}
+---@type table
+BidAmountCopperRight = {}
+---@type table
+BidAmountGold = {}
+---@type table
+BidAmountGoldLeft = {}
+---@type table
+BidAmountGoldMiddle = {}
+---@type table
+BidAmountGoldRight = {}
+---@type table
+BidAmountSilver = {}
+---@type table
+BidAmountSilverLeft = {}
+---@type table
+BidAmountSilverMiddle = {}
+---@type table
+BidAmountSilverRight = {}
 ---@return any ...
 function BindingButtonTemplate_IsSelected(...) end
 ---@return any ...
@@ -4759,6 +7269,22 @@ BottomBackground = {}
 ---@param natural? boolean
 ---@return string result
 function BreakUpLargeNumbers(largeNumber, natural) end
+---@return any ...
+function BrowseWowTokenResultsBuyout_OnClick(...) end
+---@return any ...
+function BrowseWowTokenResultsBuyout_OnEnter(...) end
+---@return any ...
+function BrowseWowTokenResults_OnEvent(...) end
+---@return any ...
+function BrowseWowTokenResults_OnHide(...) end
+---@return any ...
+function BrowseWowTokenResults_OnLoad(...) end
+---@return any ...
+function BrowseWowTokenResults_OnShow(...) end
+---@return any ...
+function BrowseWowTokenResults_OnUpdate(...) end
+---@return any ...
+function BrowseWowTokenResults_Update(...) end
 ---@type table
 BrowserSettingsTooltipText = {}
 ---@type table
@@ -5114,6 +7640,8 @@ CALENDAR_EVENT_REMOVED_MAIL_BODY = ""
 CALENDAR_EVENT_REMOVED_MAIL_SUBJECT = ""
 CALENDAR_FILTERS = ""
 CALENDAR_FILTER_BATTLEGROUND = ""
+---@type table
+CALENDAR_FILTER_CVARS = {}
 CALENDAR_FILTER_DARKMOON = ""
 CALENDAR_FILTER_DISCORD = ""
 CALENDAR_FILTER_HOLIDAYS = ""
@@ -5121,6 +7649,7 @@ CALENDAR_FILTER_RAID_LOCKOUTS = ""
 CALENDAR_FILTER_RAID_RESETS = ""
 CALENDAR_FILTER_WEEKLY_HOLIDAYS = ""
 CALENDAR_FIRST_WEEKDAY = 0
+CALENDAR_FRAME_EXTRA_WIDTH = 0
 ---@type table
 CALENDAR_FULLDATE_MONTH_NAMES = {}
 CALENDAR_GUILDEVENT_INVITEDBY_YOURSELF = ""
@@ -5620,6 +8149,7 @@ CHAR_CREATE_NO_AVAILABLE_CLASSES = ""
 CHAR_CUSTOMIZATION_TOOLTIP_MUTE_SOUND = ""
 CHAR_CUSTOMIZATION_TOOLTIP_PLAY_VOICE_SAMPLE = ""
 CHAR_CUSTOMIZATION_TOOLTIP_UNMUTE_SOUND = ""
+CHAR_CUSTOMIZE_MAX_SCALE = 0
 CHAR_NAME_CONSECUTIVE_SPACES = ""
 CHAT = ""
 CHATCONFIG_CHANNELS_MAXWIDTH = 0
@@ -6004,6 +8534,8 @@ CLASSIC_STYLE = ""
 CLASSIC_TURN_STRAFE_KEYBINDINGS_BUTTON_TEXT = ""
 CLASS_ABBR = ""
 CLASS_COLORS = ""
+---@type table
+CLASS_FILTERS = {}
 CLASS_ROLES = ""
 CLASS_ROLE_NOT_RECOMMENDED = ""
 CLASS_SKILLS = ""
@@ -6011,6 +8543,11 @@ CLASS_SKILLS = ""
 CLASS_SORT_ORDER = {}
 CLASS_TALENT_SEARCH_OPTION_HIDE_PASSIVES = ""
 CLASS_TALENT_SEARCH_OPTION_SHOW_RANKS = ""
+CLASS_TRAINER_SCROLL_HEIGHT = 0
+CLASS_TRAINER_SKILLS_DISPLAYED = 0
+CLASS_TRAINER_SKILL_BARBUTTON_WIDTH = 0
+CLASS_TRAINER_SKILL_BUTTON_WIDTH = 0
+CLASS_TRAINER_SKILL_HEIGHT = 0
 CLASS_TRIAL_CHOOSE_BOOST_LOGOUT_PROMPT_TEXT = ""
 CLASS_TRIAL_CHOOSE_BOOST_TYPE_TEXT = ""
 CLASS_TRIAL_THANKS_DIALOG_APPLY_BOOST_BUTTON = ""
@@ -6249,6 +8786,7 @@ COLLAPSE_BUFFS_TOOLTIP = ""
 COLLECTED = ""
 COLLECTED_APPEARANCE = ""
 COLLECTIONS = ""
+COLLECTIONS_FANFARE_ICON = ""
 COLLECTIONS_JOUNRAL_DISABLED_TOOLTIP = ""
 COLLECTIONS_JOURNAL_TAB_INDEX_APPEARANCES = 0
 COLLECTIONS_JOURNAL_TAB_INDEX_HEIRLOOMS = 0
@@ -7740,8 +10278,3166 @@ function CalculateDistanceSq(...) end
 ---@param secondString string
 ---@return number distance
 function CalculateStringEditDistance(firstString, secondString) end
+---@type table
+CalendarClassButton1 = {}
+---@type table
+CalendarClassButton1Count = {}
+---@type table
+CalendarClassButton2 = {}
+---@type table
+CalendarClassButton2Count = {}
+---@type table
+CalendarClassButton3 = {}
+---@type table
+CalendarClassButton3Count = {}
+---@type table
+CalendarClassButton4 = {}
+---@type table
+CalendarClassButton4Count = {}
+---@type table
+CalendarClassButton5 = {}
+---@type table
+CalendarClassButton5Count = {}
+---@type table
+CalendarClassButton6 = {}
+---@type table
+CalendarClassButton6Count = {}
+---@type table
+CalendarClassButton7 = {}
+---@type table
+CalendarClassButton7Count = {}
+---@type table
+CalendarClassButton8 = {}
+---@type table
+CalendarClassButton8Count = {}
+---@type table
+CalendarClassButton9 = {}
+---@type table
+CalendarClassButton9Count = {}
+---@type table
+CalendarClassButtonContainer = {}
+---@return any ...
+function CalendarClassButtonContainer_Hide(...) end
+---@return any ...
+function CalendarClassButtonContainer_OnLoad(...) end
+---@return any ...
+function CalendarClassButtonContainer_Show(...) end
+---@return any ...
+function CalendarClassButtonContainer_Update(...) end
+---@return any ...
+function CalendarClassButton_OnEnter(...) end
+---@return any ...
+function CalendarClassButton_OnLoad(...) end
+---@type table
+CalendarClassTotalsButton = {}
+---@type table
+CalendarClassTotalsButtonBackgroundBottom = {}
+---@type table
+CalendarClassTotalsButtonBackgroundMiddle = {}
+---@type table
+CalendarClassTotalsButtonBackgroundTop = {}
+---@return any ...
+function CalendarClassTotalsButton_OnEnter(...) end
+---@return any ...
+function CalendarClassTotalsButton_Update(...) end
+---@type table
+CalendarClassTotalsText = {}
+---@type table
+CalendarCloseButton = {}
+---@type table
+CalendarCreateEventAutoApproveCheck = {}
+---@type table
+CalendarCreateEventAutoApproveCheckText = {}
+---@return any ...
+function CalendarCreateEventAutoApproveCheck_OnClick(...) end
+---@return any ...
+function CalendarCreateEventAutoApproveCheck_OnLoad(...) end
+---@type table
+CalendarCreateEventCloseButton = {}
+---@type table
+CalendarCreateEventCommunityName = {}
+---@type table
+CalendarCreateEventCreateButton = {}
+---@type table
+CalendarCreateEventCreateButtonBorder = {}
+---@type table
+CalendarCreateEventCreateButtonText = {}
+---@return any ...
+function CalendarCreateEventCreateButton_OnClick(...) end
+---@return any ...
+function CalendarCreateEventCreateButton_OnUpdate(...) end
+---@return any ...
+function CalendarCreateEventCreateButton_SetText(...) end
+---@return any ...
+function CalendarCreateEventCreateButton_Update(...) end
+---@type table
+CalendarCreateEventCreatorName = {}
+---@return any ...
+function CalendarCreateEventCreatorName_Update(...) end
+---@type table
+CalendarCreateEventDateLabel = {}
+---@type table
+CalendarCreateEventDescriptionContainer = {}
+---@return any ...
+function CalendarCreateEventDescriptionContainer_OnLoad(...) end
+---@type table
+CalendarCreateEventDivider = {}
+---@type table
+CalendarCreateEventFrame = {}
+---@type table
+CalendarCreateEventFrameButtonBackground = {}
+---@type table
+CalendarCreateEventFrameModalOverlay = {}
+---@type table
+CalendarCreateEventFrameRetrievingFrame = {}
+---@type table
+CalendarCreateEventFrameRetrievingFrameDots = {}
+---@type table
+CalendarCreateEventFrameRetrievingFrameText = {}
+---@return any ...
+function CalendarCreateEventFrame_OnEvent(...) end
+---@return any ...
+function CalendarCreateEventFrame_OnHide(...) end
+---@return any ...
+function CalendarCreateEventFrame_OnLoad(...) end
+---@return any ...
+function CalendarCreateEventFrame_OnShow(...) end
+---@return any ...
+function CalendarCreateEventFrame_SetSelectedInvite(...) end
+---@return any ...
+function CalendarCreateEventFrame_Update(...) end
+---@type table
+CalendarCreateEventIcon = {}
+---@type table
+CalendarCreateEventInviteButton = {}
+---@type table
+CalendarCreateEventInviteButtonText = {}
+---@return any ...
+function CalendarCreateEventInviteButton_OnClick(...) end
+---@return any ...
+function CalendarCreateEventInviteButton_OnUpdate(...) end
+---@return any ...
+function CalendarCreateEventInviteButton_Update(...) end
+---@type table
+CalendarCreateEventInviteEdit = {}
+---@return any ...
+function CalendarCreateEventInviteEdit_OnEditFocusLost(...) end
+---@return any ...
+function CalendarCreateEventInviteEdit_OnEnterPressed(...) end
+---@type table
+CalendarCreateEventInviteList = {}
+---@return any ...
+function CalendarCreateEventInviteListButton_OnClick(...) end
+---@type table
+CalendarCreateEventInviteListClassSortButton = {}
+---@type table
+CalendarCreateEventInviteListClassSortButtonDirection = {}
+---@type table
+CalendarCreateEventInviteListNameSortButton = {}
+---@type table
+CalendarCreateEventInviteListNameSortButtonDirection = {}
+---@return any ...
+function CalendarCreateEventInviteListScrollFrame_Update(...) end
+---@type table
+CalendarCreateEventInviteListSection = {}
+---@type table
+CalendarCreateEventInviteListStatusSortButton = {}
+---@type table
+CalendarCreateEventInviteListStatusSortButtonDirection = {}
+---@return any ...
+function CalendarCreateEventInviteList_InitButton(...) end
+---@return any ...
+function CalendarCreateEventInviteList_OnLoad(...) end
+---@return any ...
+function CalendarCreateEventInviteList_Update(...) end
+---@type table
+CalendarCreateEventLockEventCheck = {}
+---@type table
+CalendarCreateEventLockEventCheckText = {}
+---@return any ...
+function CalendarCreateEventLockEventCheck_OnClick(...) end
+---@return any ...
+function CalendarCreateEventLockEventCheck_OnLoad(...) end
+---@type table
+CalendarCreateEventMassInviteButton = {}
+---@type table
+CalendarCreateEventMassInviteButtonBorder = {}
+---@type table
+CalendarCreateEventMassInviteButtonText = {}
+---@return any ...
+function CalendarCreateEventMassInviteButton_OnClick(...) end
+---@return any ...
+function CalendarCreateEventMassInviteButton_OnUpdate(...) end
+---@return any ...
+function CalendarCreateEventMassInviteButton_Update(...) end
+---@type table
+CalendarCreateEventRaidInviteButton = {}
+---@type table
+CalendarCreateEventRaidInviteButtonBorder = {}
+---@type table
+CalendarCreateEventRaidInviteButtonText = {}
+---@return any ...
+function CalendarCreateEventRaidInviteButton_OnClick(...) end
+---@return any ...
+function CalendarCreateEventRaidInviteButton_OnEnter(...) end
+---@return any ...
+function CalendarCreateEventRaidInviteButton_OnEvent(...) end
+---@return any ...
+function CalendarCreateEventRaidInviteButton_OnLoad(...) end
+---@return any ...
+function CalendarCreateEventRaidInviteButton_Update(...) end
+---@type table
+CalendarCreateEventTextureName = {}
+---@return any ...
+function CalendarCreateEventTexture_Update(...) end
+---@type table
+CalendarCreateEventTitleEdit = {}
+---@return any ...
+function CalendarCreateEventTitleEdit_OnEditFocusLost(...) end
+---@return any ...
+function CalendarCreateEventTitleEdit_OnTextChanged(...) end
+---@return any ...
+function CalendarCreateEvent_SetAutoApprove(...) end
+---@return any ...
+function CalendarCreateEvent_SetEventTime(...) end
+---@return any ...
+function CalendarCreateEvent_SetLockEvent(...) end
+---@return any ...
+function CalendarCreateEvent_SetSelectedIndex(...) end
+---@return any ...
+function CalendarCreateEvent_UpdateEventTime(...) end
+---@return any ...
+function CalendarCreateEvent_UpdateEventType(...) end
+---@return any ...
+function CalendarCreateEvent_UpdateTimeFormat(...) end
+---@type table
+CalendarDayButton1 = {}
+---@type table
+CalendarDayButton10 = {}
+---@type table
+CalendarDayButton10DarkFrame = {}
+---@type table
+CalendarDayButton10DarkFrameBottom = {}
+---@type table
+CalendarDayButton10DarkFrameTop = {}
+---@type table
+CalendarDayButton10DateFrame = {}
+---@type table
+CalendarDayButton10DateFrameBackground = {}
+---@type table
+CalendarDayButton10DateFrameDate = {}
+---@type table
+CalendarDayButton10EventBackgroundTexture = {}
+---@type table
+CalendarDayButton10EventButton1 = {}
+---@type table
+CalendarDayButton10EventButton1Black = {}
+---@type table
+CalendarDayButton10EventButton1Text1 = {}
+---@type table
+CalendarDayButton10EventButton1Text2 = {}
+---@type table
+CalendarDayButton10EventButton2 = {}
+---@type table
+CalendarDayButton10EventButton2Black = {}
+---@type table
+CalendarDayButton10EventButton2Text1 = {}
+---@type table
+CalendarDayButton10EventButton2Text2 = {}
+---@type table
+CalendarDayButton10EventButton3 = {}
+---@type table
+CalendarDayButton10EventButton3Black = {}
+---@type table
+CalendarDayButton10EventButton3Text1 = {}
+---@type table
+CalendarDayButton10EventButton3Text2 = {}
+---@type table
+CalendarDayButton10EventButton4 = {}
+---@type table
+CalendarDayButton10EventButton4Black = {}
+---@type table
+CalendarDayButton10EventButton4Text1 = {}
+---@type table
+CalendarDayButton10EventButton4Text2 = {}
+---@type table
+CalendarDayButton10EventTexture = {}
+---@type table
+CalendarDayButton10MoreEventsButton = {}
+---@type table
+CalendarDayButton10OverlayFrame = {}
+---@type table
+CalendarDayButton10OverlayFrameTexture = {}
+---@type table
+CalendarDayButton10PendingInviteTexture = {}
+---@type table
+CalendarDayButton11 = {}
+---@type table
+CalendarDayButton11DarkFrame = {}
+---@type table
+CalendarDayButton11DarkFrameBottom = {}
+---@type table
+CalendarDayButton11DarkFrameTop = {}
+---@type table
+CalendarDayButton11DateFrame = {}
+---@type table
+CalendarDayButton11DateFrameBackground = {}
+---@type table
+CalendarDayButton11DateFrameDate = {}
+---@type table
+CalendarDayButton11EventBackgroundTexture = {}
+---@type table
+CalendarDayButton11EventButton1 = {}
+---@type table
+CalendarDayButton11EventButton1Black = {}
+---@type table
+CalendarDayButton11EventButton1Text1 = {}
+---@type table
+CalendarDayButton11EventButton1Text2 = {}
+---@type table
+CalendarDayButton11EventButton2 = {}
+---@type table
+CalendarDayButton11EventButton2Black = {}
+---@type table
+CalendarDayButton11EventButton2Text1 = {}
+---@type table
+CalendarDayButton11EventButton2Text2 = {}
+---@type table
+CalendarDayButton11EventButton3 = {}
+---@type table
+CalendarDayButton11EventButton3Black = {}
+---@type table
+CalendarDayButton11EventButton3Text1 = {}
+---@type table
+CalendarDayButton11EventButton3Text2 = {}
+---@type table
+CalendarDayButton11EventButton4 = {}
+---@type table
+CalendarDayButton11EventButton4Black = {}
+---@type table
+CalendarDayButton11EventButton4Text1 = {}
+---@type table
+CalendarDayButton11EventButton4Text2 = {}
+---@type table
+CalendarDayButton11EventTexture = {}
+---@type table
+CalendarDayButton11MoreEventsButton = {}
+---@type table
+CalendarDayButton11OverlayFrame = {}
+---@type table
+CalendarDayButton11OverlayFrameTexture = {}
+---@type table
+CalendarDayButton11PendingInviteTexture = {}
+---@type table
+CalendarDayButton12 = {}
+---@type table
+CalendarDayButton12DarkFrame = {}
+---@type table
+CalendarDayButton12DarkFrameBottom = {}
+---@type table
+CalendarDayButton12DarkFrameTop = {}
+---@type table
+CalendarDayButton12DateFrame = {}
+---@type table
+CalendarDayButton12DateFrameBackground = {}
+---@type table
+CalendarDayButton12DateFrameDate = {}
+---@type table
+CalendarDayButton12EventBackgroundTexture = {}
+---@type table
+CalendarDayButton12EventButton1 = {}
+---@type table
+CalendarDayButton12EventButton1Black = {}
+---@type table
+CalendarDayButton12EventButton1Text1 = {}
+---@type table
+CalendarDayButton12EventButton1Text2 = {}
+---@type table
+CalendarDayButton12EventButton2 = {}
+---@type table
+CalendarDayButton12EventButton2Black = {}
+---@type table
+CalendarDayButton12EventButton2Text1 = {}
+---@type table
+CalendarDayButton12EventButton2Text2 = {}
+---@type table
+CalendarDayButton12EventButton3 = {}
+---@type table
+CalendarDayButton12EventButton3Black = {}
+---@type table
+CalendarDayButton12EventButton3Text1 = {}
+---@type table
+CalendarDayButton12EventButton3Text2 = {}
+---@type table
+CalendarDayButton12EventButton4 = {}
+---@type table
+CalendarDayButton12EventButton4Black = {}
+---@type table
+CalendarDayButton12EventButton4Text1 = {}
+---@type table
+CalendarDayButton12EventButton4Text2 = {}
+---@type table
+CalendarDayButton12EventTexture = {}
+---@type table
+CalendarDayButton12MoreEventsButton = {}
+---@type table
+CalendarDayButton12OverlayFrame = {}
+---@type table
+CalendarDayButton12OverlayFrameTexture = {}
+---@type table
+CalendarDayButton12PendingInviteTexture = {}
+---@type table
+CalendarDayButton13 = {}
+---@type table
+CalendarDayButton13DarkFrame = {}
+---@type table
+CalendarDayButton13DarkFrameBottom = {}
+---@type table
+CalendarDayButton13DarkFrameTop = {}
+---@type table
+CalendarDayButton13DateFrame = {}
+---@type table
+CalendarDayButton13DateFrameBackground = {}
+---@type table
+CalendarDayButton13DateFrameDate = {}
+---@type table
+CalendarDayButton13EventBackgroundTexture = {}
+---@type table
+CalendarDayButton13EventButton1 = {}
+---@type table
+CalendarDayButton13EventButton1Black = {}
+---@type table
+CalendarDayButton13EventButton1Text1 = {}
+---@type table
+CalendarDayButton13EventButton1Text2 = {}
+---@type table
+CalendarDayButton13EventButton2 = {}
+---@type table
+CalendarDayButton13EventButton2Black = {}
+---@type table
+CalendarDayButton13EventButton2Text1 = {}
+---@type table
+CalendarDayButton13EventButton2Text2 = {}
+---@type table
+CalendarDayButton13EventButton3 = {}
+---@type table
+CalendarDayButton13EventButton3Black = {}
+---@type table
+CalendarDayButton13EventButton3Text1 = {}
+---@type table
+CalendarDayButton13EventButton3Text2 = {}
+---@type table
+CalendarDayButton13EventButton4 = {}
+---@type table
+CalendarDayButton13EventButton4Black = {}
+---@type table
+CalendarDayButton13EventButton4Text1 = {}
+---@type table
+CalendarDayButton13EventButton4Text2 = {}
+---@type table
+CalendarDayButton13EventTexture = {}
+---@type table
+CalendarDayButton13MoreEventsButton = {}
+---@type table
+CalendarDayButton13OverlayFrame = {}
+---@type table
+CalendarDayButton13OverlayFrameTexture = {}
+---@type table
+CalendarDayButton13PendingInviteTexture = {}
+---@type table
+CalendarDayButton14 = {}
+---@type table
+CalendarDayButton14DarkFrame = {}
+---@type table
+CalendarDayButton14DarkFrameBottom = {}
+---@type table
+CalendarDayButton14DarkFrameTop = {}
+---@type table
+CalendarDayButton14DateFrame = {}
+---@type table
+CalendarDayButton14DateFrameBackground = {}
+---@type table
+CalendarDayButton14DateFrameDate = {}
+---@type table
+CalendarDayButton14EventBackgroundTexture = {}
+---@type table
+CalendarDayButton14EventButton1 = {}
+---@type table
+CalendarDayButton14EventButton1Black = {}
+---@type table
+CalendarDayButton14EventButton1Text1 = {}
+---@type table
+CalendarDayButton14EventButton1Text2 = {}
+---@type table
+CalendarDayButton14EventButton2 = {}
+---@type table
+CalendarDayButton14EventButton2Black = {}
+---@type table
+CalendarDayButton14EventButton2Text1 = {}
+---@type table
+CalendarDayButton14EventButton2Text2 = {}
+---@type table
+CalendarDayButton14EventButton3 = {}
+---@type table
+CalendarDayButton14EventButton3Black = {}
+---@type table
+CalendarDayButton14EventButton3Text1 = {}
+---@type table
+CalendarDayButton14EventButton3Text2 = {}
+---@type table
+CalendarDayButton14EventButton4 = {}
+---@type table
+CalendarDayButton14EventButton4Black = {}
+---@type table
+CalendarDayButton14EventButton4Text1 = {}
+---@type table
+CalendarDayButton14EventButton4Text2 = {}
+---@type table
+CalendarDayButton14EventTexture = {}
+---@type table
+CalendarDayButton14MoreEventsButton = {}
+---@type table
+CalendarDayButton14OverlayFrame = {}
+---@type table
+CalendarDayButton14OverlayFrameTexture = {}
+---@type table
+CalendarDayButton14PendingInviteTexture = {}
+---@type table
+CalendarDayButton15 = {}
+---@type table
+CalendarDayButton15DarkFrame = {}
+---@type table
+CalendarDayButton15DarkFrameBottom = {}
+---@type table
+CalendarDayButton15DarkFrameTop = {}
+---@type table
+CalendarDayButton15DateFrame = {}
+---@type table
+CalendarDayButton15DateFrameBackground = {}
+---@type table
+CalendarDayButton15DateFrameDate = {}
+---@type table
+CalendarDayButton15EventBackgroundTexture = {}
+---@type table
+CalendarDayButton15EventButton1 = {}
+---@type table
+CalendarDayButton15EventButton1Black = {}
+---@type table
+CalendarDayButton15EventButton1Text1 = {}
+---@type table
+CalendarDayButton15EventButton1Text2 = {}
+---@type table
+CalendarDayButton15EventButton2 = {}
+---@type table
+CalendarDayButton15EventButton2Black = {}
+---@type table
+CalendarDayButton15EventButton2Text1 = {}
+---@type table
+CalendarDayButton15EventButton2Text2 = {}
+---@type table
+CalendarDayButton15EventButton3 = {}
+---@type table
+CalendarDayButton15EventButton3Black = {}
+---@type table
+CalendarDayButton15EventButton3Text1 = {}
+---@type table
+CalendarDayButton15EventButton3Text2 = {}
+---@type table
+CalendarDayButton15EventButton4 = {}
+---@type table
+CalendarDayButton15EventButton4Black = {}
+---@type table
+CalendarDayButton15EventButton4Text1 = {}
+---@type table
+CalendarDayButton15EventButton4Text2 = {}
+---@type table
+CalendarDayButton15EventTexture = {}
+---@type table
+CalendarDayButton15MoreEventsButton = {}
+---@type table
+CalendarDayButton15OverlayFrame = {}
+---@type table
+CalendarDayButton15OverlayFrameTexture = {}
+---@type table
+CalendarDayButton15PendingInviteTexture = {}
+---@type table
+CalendarDayButton16 = {}
+---@type table
+CalendarDayButton16DarkFrame = {}
+---@type table
+CalendarDayButton16DarkFrameBottom = {}
+---@type table
+CalendarDayButton16DarkFrameTop = {}
+---@type table
+CalendarDayButton16DateFrame = {}
+---@type table
+CalendarDayButton16DateFrameBackground = {}
+---@type table
+CalendarDayButton16DateFrameDate = {}
+---@type table
+CalendarDayButton16EventBackgroundTexture = {}
+---@type table
+CalendarDayButton16EventButton1 = {}
+---@type table
+CalendarDayButton16EventButton1Black = {}
+---@type table
+CalendarDayButton16EventButton1Text1 = {}
+---@type table
+CalendarDayButton16EventButton1Text2 = {}
+---@type table
+CalendarDayButton16EventButton2 = {}
+---@type table
+CalendarDayButton16EventButton2Black = {}
+---@type table
+CalendarDayButton16EventButton2Text1 = {}
+---@type table
+CalendarDayButton16EventButton2Text2 = {}
+---@type table
+CalendarDayButton16EventButton3 = {}
+---@type table
+CalendarDayButton16EventButton3Black = {}
+---@type table
+CalendarDayButton16EventButton3Text1 = {}
+---@type table
+CalendarDayButton16EventButton3Text2 = {}
+---@type table
+CalendarDayButton16EventButton4 = {}
+---@type table
+CalendarDayButton16EventButton4Black = {}
+---@type table
+CalendarDayButton16EventButton4Text1 = {}
+---@type table
+CalendarDayButton16EventButton4Text2 = {}
+---@type table
+CalendarDayButton16EventTexture = {}
+---@type table
+CalendarDayButton16MoreEventsButton = {}
+---@type table
+CalendarDayButton16OverlayFrame = {}
+---@type table
+CalendarDayButton16OverlayFrameTexture = {}
+---@type table
+CalendarDayButton16PendingInviteTexture = {}
+---@type table
+CalendarDayButton17 = {}
+---@type table
+CalendarDayButton17DarkFrame = {}
+---@type table
+CalendarDayButton17DarkFrameBottom = {}
+---@type table
+CalendarDayButton17DarkFrameTop = {}
+---@type table
+CalendarDayButton17DateFrame = {}
+---@type table
+CalendarDayButton17DateFrameBackground = {}
+---@type table
+CalendarDayButton17DateFrameDate = {}
+---@type table
+CalendarDayButton17EventBackgroundTexture = {}
+---@type table
+CalendarDayButton17EventButton1 = {}
+---@type table
+CalendarDayButton17EventButton1Black = {}
+---@type table
+CalendarDayButton17EventButton1Text1 = {}
+---@type table
+CalendarDayButton17EventButton1Text2 = {}
+---@type table
+CalendarDayButton17EventButton2 = {}
+---@type table
+CalendarDayButton17EventButton2Black = {}
+---@type table
+CalendarDayButton17EventButton2Text1 = {}
+---@type table
+CalendarDayButton17EventButton2Text2 = {}
+---@type table
+CalendarDayButton17EventButton3 = {}
+---@type table
+CalendarDayButton17EventButton3Black = {}
+---@type table
+CalendarDayButton17EventButton3Text1 = {}
+---@type table
+CalendarDayButton17EventButton3Text2 = {}
+---@type table
+CalendarDayButton17EventButton4 = {}
+---@type table
+CalendarDayButton17EventButton4Black = {}
+---@type table
+CalendarDayButton17EventButton4Text1 = {}
+---@type table
+CalendarDayButton17EventButton4Text2 = {}
+---@type table
+CalendarDayButton17EventTexture = {}
+---@type table
+CalendarDayButton17MoreEventsButton = {}
+---@type table
+CalendarDayButton17OverlayFrame = {}
+---@type table
+CalendarDayButton17OverlayFrameTexture = {}
+---@type table
+CalendarDayButton17PendingInviteTexture = {}
+---@type table
+CalendarDayButton18 = {}
+---@type table
+CalendarDayButton18DarkFrame = {}
+---@type table
+CalendarDayButton18DarkFrameBottom = {}
+---@type table
+CalendarDayButton18DarkFrameTop = {}
+---@type table
+CalendarDayButton18DateFrame = {}
+---@type table
+CalendarDayButton18DateFrameBackground = {}
+---@type table
+CalendarDayButton18DateFrameDate = {}
+---@type table
+CalendarDayButton18EventBackgroundTexture = {}
+---@type table
+CalendarDayButton18EventButton1 = {}
+---@type table
+CalendarDayButton18EventButton1Black = {}
+---@type table
+CalendarDayButton18EventButton1Text1 = {}
+---@type table
+CalendarDayButton18EventButton1Text2 = {}
+---@type table
+CalendarDayButton18EventButton2 = {}
+---@type table
+CalendarDayButton18EventButton2Black = {}
+---@type table
+CalendarDayButton18EventButton2Text1 = {}
+---@type table
+CalendarDayButton18EventButton2Text2 = {}
+---@type table
+CalendarDayButton18EventButton3 = {}
+---@type table
+CalendarDayButton18EventButton3Black = {}
+---@type table
+CalendarDayButton18EventButton3Text1 = {}
+---@type table
+CalendarDayButton18EventButton3Text2 = {}
+---@type table
+CalendarDayButton18EventButton4 = {}
+---@type table
+CalendarDayButton18EventButton4Black = {}
+---@type table
+CalendarDayButton18EventButton4Text1 = {}
+---@type table
+CalendarDayButton18EventButton4Text2 = {}
+---@type table
+CalendarDayButton18EventTexture = {}
+---@type table
+CalendarDayButton18MoreEventsButton = {}
+---@type table
+CalendarDayButton18OverlayFrame = {}
+---@type table
+CalendarDayButton18OverlayFrameTexture = {}
+---@type table
+CalendarDayButton18PendingInviteTexture = {}
+---@type table
+CalendarDayButton19 = {}
+---@type table
+CalendarDayButton19DarkFrame = {}
+---@type table
+CalendarDayButton19DarkFrameBottom = {}
+---@type table
+CalendarDayButton19DarkFrameTop = {}
+---@type table
+CalendarDayButton19DateFrame = {}
+---@type table
+CalendarDayButton19DateFrameBackground = {}
+---@type table
+CalendarDayButton19DateFrameDate = {}
+---@type table
+CalendarDayButton19EventBackgroundTexture = {}
+---@type table
+CalendarDayButton19EventButton1 = {}
+---@type table
+CalendarDayButton19EventButton1Black = {}
+---@type table
+CalendarDayButton19EventButton1Text1 = {}
+---@type table
+CalendarDayButton19EventButton1Text2 = {}
+---@type table
+CalendarDayButton19EventButton2 = {}
+---@type table
+CalendarDayButton19EventButton2Black = {}
+---@type table
+CalendarDayButton19EventButton2Text1 = {}
+---@type table
+CalendarDayButton19EventButton2Text2 = {}
+---@type table
+CalendarDayButton19EventButton3 = {}
+---@type table
+CalendarDayButton19EventButton3Black = {}
+---@type table
+CalendarDayButton19EventButton3Text1 = {}
+---@type table
+CalendarDayButton19EventButton3Text2 = {}
+---@type table
+CalendarDayButton19EventButton4 = {}
+---@type table
+CalendarDayButton19EventButton4Black = {}
+---@type table
+CalendarDayButton19EventButton4Text1 = {}
+---@type table
+CalendarDayButton19EventButton4Text2 = {}
+---@type table
+CalendarDayButton19EventTexture = {}
+---@type table
+CalendarDayButton19MoreEventsButton = {}
+---@type table
+CalendarDayButton19OverlayFrame = {}
+---@type table
+CalendarDayButton19OverlayFrameTexture = {}
+---@type table
+CalendarDayButton19PendingInviteTexture = {}
+---@type table
+CalendarDayButton1DarkFrame = {}
+---@type table
+CalendarDayButton1DarkFrameBottom = {}
+---@type table
+CalendarDayButton1DarkFrameTop = {}
+---@type table
+CalendarDayButton1DateFrame = {}
+---@type table
+CalendarDayButton1DateFrameBackground = {}
+---@type table
+CalendarDayButton1DateFrameDate = {}
+---@type table
+CalendarDayButton1EventBackgroundTexture = {}
+---@type table
+CalendarDayButton1EventButton1 = {}
+---@type table
+CalendarDayButton1EventButton1Black = {}
+---@type table
+CalendarDayButton1EventButton1Text1 = {}
+---@type table
+CalendarDayButton1EventButton1Text2 = {}
+---@type table
+CalendarDayButton1EventButton2 = {}
+---@type table
+CalendarDayButton1EventButton2Black = {}
+---@type table
+CalendarDayButton1EventButton2Text1 = {}
+---@type table
+CalendarDayButton1EventButton2Text2 = {}
+---@type table
+CalendarDayButton1EventButton3 = {}
+---@type table
+CalendarDayButton1EventButton3Black = {}
+---@type table
+CalendarDayButton1EventButton3Text1 = {}
+---@type table
+CalendarDayButton1EventButton3Text2 = {}
+---@type table
+CalendarDayButton1EventButton4 = {}
+---@type table
+CalendarDayButton1EventButton4Black = {}
+---@type table
+CalendarDayButton1EventButton4Text1 = {}
+---@type table
+CalendarDayButton1EventButton4Text2 = {}
+---@type table
+CalendarDayButton1EventTexture = {}
+---@type table
+CalendarDayButton1MoreEventsButton = {}
+---@type table
+CalendarDayButton1OverlayFrame = {}
+---@type table
+CalendarDayButton1OverlayFrameTexture = {}
+---@type table
+CalendarDayButton1PendingInviteTexture = {}
+---@type table
+CalendarDayButton2 = {}
+---@type table
+CalendarDayButton20 = {}
+---@type table
+CalendarDayButton20DarkFrame = {}
+---@type table
+CalendarDayButton20DarkFrameBottom = {}
+---@type table
+CalendarDayButton20DarkFrameTop = {}
+---@type table
+CalendarDayButton20DateFrame = {}
+---@type table
+CalendarDayButton20DateFrameBackground = {}
+---@type table
+CalendarDayButton20DateFrameDate = {}
+---@type table
+CalendarDayButton20EventBackgroundTexture = {}
+---@type table
+CalendarDayButton20EventButton1 = {}
+---@type table
+CalendarDayButton20EventButton1Black = {}
+---@type table
+CalendarDayButton20EventButton1Text1 = {}
+---@type table
+CalendarDayButton20EventButton1Text2 = {}
+---@type table
+CalendarDayButton20EventButton2 = {}
+---@type table
+CalendarDayButton20EventButton2Black = {}
+---@type table
+CalendarDayButton20EventButton2Text1 = {}
+---@type table
+CalendarDayButton20EventButton2Text2 = {}
+---@type table
+CalendarDayButton20EventButton3 = {}
+---@type table
+CalendarDayButton20EventButton3Black = {}
+---@type table
+CalendarDayButton20EventButton3Text1 = {}
+---@type table
+CalendarDayButton20EventButton3Text2 = {}
+---@type table
+CalendarDayButton20EventButton4 = {}
+---@type table
+CalendarDayButton20EventButton4Black = {}
+---@type table
+CalendarDayButton20EventButton4Text1 = {}
+---@type table
+CalendarDayButton20EventButton4Text2 = {}
+---@type table
+CalendarDayButton20EventTexture = {}
+---@type table
+CalendarDayButton20MoreEventsButton = {}
+---@type table
+CalendarDayButton20OverlayFrame = {}
+---@type table
+CalendarDayButton20OverlayFrameTexture = {}
+---@type table
+CalendarDayButton20PendingInviteTexture = {}
+---@type table
+CalendarDayButton21 = {}
+---@type table
+CalendarDayButton21DarkFrame = {}
+---@type table
+CalendarDayButton21DarkFrameBottom = {}
+---@type table
+CalendarDayButton21DarkFrameTop = {}
+---@type table
+CalendarDayButton21DateFrame = {}
+---@type table
+CalendarDayButton21DateFrameBackground = {}
+---@type table
+CalendarDayButton21DateFrameDate = {}
+---@type table
+CalendarDayButton21EventBackgroundTexture = {}
+---@type table
+CalendarDayButton21EventButton1 = {}
+---@type table
+CalendarDayButton21EventButton1Black = {}
+---@type table
+CalendarDayButton21EventButton1Text1 = {}
+---@type table
+CalendarDayButton21EventButton1Text2 = {}
+---@type table
+CalendarDayButton21EventButton2 = {}
+---@type table
+CalendarDayButton21EventButton2Black = {}
+---@type table
+CalendarDayButton21EventButton2Text1 = {}
+---@type table
+CalendarDayButton21EventButton2Text2 = {}
+---@type table
+CalendarDayButton21EventButton3 = {}
+---@type table
+CalendarDayButton21EventButton3Black = {}
+---@type table
+CalendarDayButton21EventButton3Text1 = {}
+---@type table
+CalendarDayButton21EventButton3Text2 = {}
+---@type table
+CalendarDayButton21EventButton4 = {}
+---@type table
+CalendarDayButton21EventButton4Black = {}
+---@type table
+CalendarDayButton21EventButton4Text1 = {}
+---@type table
+CalendarDayButton21EventButton4Text2 = {}
+---@type table
+CalendarDayButton21EventTexture = {}
+---@type table
+CalendarDayButton21MoreEventsButton = {}
+---@type table
+CalendarDayButton21OverlayFrame = {}
+---@type table
+CalendarDayButton21OverlayFrameTexture = {}
+---@type table
+CalendarDayButton21PendingInviteTexture = {}
+---@type table
+CalendarDayButton22 = {}
+---@type table
+CalendarDayButton22DarkFrame = {}
+---@type table
+CalendarDayButton22DarkFrameBottom = {}
+---@type table
+CalendarDayButton22DarkFrameTop = {}
+---@type table
+CalendarDayButton22DateFrame = {}
+---@type table
+CalendarDayButton22DateFrameBackground = {}
+---@type table
+CalendarDayButton22DateFrameDate = {}
+---@type table
+CalendarDayButton22EventBackgroundTexture = {}
+---@type table
+CalendarDayButton22EventButton1 = {}
+---@type table
+CalendarDayButton22EventButton1Black = {}
+---@type table
+CalendarDayButton22EventButton1Text1 = {}
+---@type table
+CalendarDayButton22EventButton1Text2 = {}
+---@type table
+CalendarDayButton22EventButton2 = {}
+---@type table
+CalendarDayButton22EventButton2Black = {}
+---@type table
+CalendarDayButton22EventButton2Text1 = {}
+---@type table
+CalendarDayButton22EventButton2Text2 = {}
+---@type table
+CalendarDayButton22EventButton3 = {}
+---@type table
+CalendarDayButton22EventButton3Black = {}
+---@type table
+CalendarDayButton22EventButton3Text1 = {}
+---@type table
+CalendarDayButton22EventButton3Text2 = {}
+---@type table
+CalendarDayButton22EventButton4 = {}
+---@type table
+CalendarDayButton22EventButton4Black = {}
+---@type table
+CalendarDayButton22EventButton4Text1 = {}
+---@type table
+CalendarDayButton22EventButton4Text2 = {}
+---@type table
+CalendarDayButton22EventTexture = {}
+---@type table
+CalendarDayButton22MoreEventsButton = {}
+---@type table
+CalendarDayButton22OverlayFrame = {}
+---@type table
+CalendarDayButton22OverlayFrameTexture = {}
+---@type table
+CalendarDayButton22PendingInviteTexture = {}
+---@type table
+CalendarDayButton23 = {}
+---@type table
+CalendarDayButton23DarkFrame = {}
+---@type table
+CalendarDayButton23DarkFrameBottom = {}
+---@type table
+CalendarDayButton23DarkFrameTop = {}
+---@type table
+CalendarDayButton23DateFrame = {}
+---@type table
+CalendarDayButton23DateFrameBackground = {}
+---@type table
+CalendarDayButton23DateFrameDate = {}
+---@type table
+CalendarDayButton23EventBackgroundTexture = {}
+---@type table
+CalendarDayButton23EventButton1 = {}
+---@type table
+CalendarDayButton23EventButton1Black = {}
+---@type table
+CalendarDayButton23EventButton1Text1 = {}
+---@type table
+CalendarDayButton23EventButton1Text2 = {}
+---@type table
+CalendarDayButton23EventButton2 = {}
+---@type table
+CalendarDayButton23EventButton2Black = {}
+---@type table
+CalendarDayButton23EventButton2Text1 = {}
+---@type table
+CalendarDayButton23EventButton2Text2 = {}
+---@type table
+CalendarDayButton23EventButton3 = {}
+---@type table
+CalendarDayButton23EventButton3Black = {}
+---@type table
+CalendarDayButton23EventButton3Text1 = {}
+---@type table
+CalendarDayButton23EventButton3Text2 = {}
+---@type table
+CalendarDayButton23EventButton4 = {}
+---@type table
+CalendarDayButton23EventButton4Black = {}
+---@type table
+CalendarDayButton23EventButton4Text1 = {}
+---@type table
+CalendarDayButton23EventButton4Text2 = {}
+---@type table
+CalendarDayButton23EventTexture = {}
+---@type table
+CalendarDayButton23MoreEventsButton = {}
+---@type table
+CalendarDayButton23OverlayFrame = {}
+---@type table
+CalendarDayButton23OverlayFrameTexture = {}
+---@type table
+CalendarDayButton23PendingInviteTexture = {}
+---@type table
+CalendarDayButton24 = {}
+---@type table
+CalendarDayButton24DarkFrame = {}
+---@type table
+CalendarDayButton24DarkFrameBottom = {}
+---@type table
+CalendarDayButton24DarkFrameTop = {}
+---@type table
+CalendarDayButton24DateFrame = {}
+---@type table
+CalendarDayButton24DateFrameBackground = {}
+---@type table
+CalendarDayButton24DateFrameDate = {}
+---@type table
+CalendarDayButton24EventBackgroundTexture = {}
+---@type table
+CalendarDayButton24EventButton1 = {}
+---@type table
+CalendarDayButton24EventButton1Black = {}
+---@type table
+CalendarDayButton24EventButton1Text1 = {}
+---@type table
+CalendarDayButton24EventButton1Text2 = {}
+---@type table
+CalendarDayButton24EventButton2 = {}
+---@type table
+CalendarDayButton24EventButton2Black = {}
+---@type table
+CalendarDayButton24EventButton2Text1 = {}
+---@type table
+CalendarDayButton24EventButton2Text2 = {}
+---@type table
+CalendarDayButton24EventButton3 = {}
+---@type table
+CalendarDayButton24EventButton3Black = {}
+---@type table
+CalendarDayButton24EventButton3Text1 = {}
+---@type table
+CalendarDayButton24EventButton3Text2 = {}
+---@type table
+CalendarDayButton24EventButton4 = {}
+---@type table
+CalendarDayButton24EventButton4Black = {}
+---@type table
+CalendarDayButton24EventButton4Text1 = {}
+---@type table
+CalendarDayButton24EventButton4Text2 = {}
+---@type table
+CalendarDayButton24EventTexture = {}
+---@type table
+CalendarDayButton24MoreEventsButton = {}
+---@type table
+CalendarDayButton24OverlayFrame = {}
+---@type table
+CalendarDayButton24OverlayFrameTexture = {}
+---@type table
+CalendarDayButton24PendingInviteTexture = {}
+---@type table
+CalendarDayButton25 = {}
+---@type table
+CalendarDayButton25DarkFrame = {}
+---@type table
+CalendarDayButton25DarkFrameBottom = {}
+---@type table
+CalendarDayButton25DarkFrameTop = {}
+---@type table
+CalendarDayButton25DateFrame = {}
+---@type table
+CalendarDayButton25DateFrameBackground = {}
+---@type table
+CalendarDayButton25DateFrameDate = {}
+---@type table
+CalendarDayButton25EventBackgroundTexture = {}
+---@type table
+CalendarDayButton25EventButton1 = {}
+---@type table
+CalendarDayButton25EventButton1Black = {}
+---@type table
+CalendarDayButton25EventButton1Text1 = {}
+---@type table
+CalendarDayButton25EventButton1Text2 = {}
+---@type table
+CalendarDayButton25EventButton2 = {}
+---@type table
+CalendarDayButton25EventButton2Black = {}
+---@type table
+CalendarDayButton25EventButton2Text1 = {}
+---@type table
+CalendarDayButton25EventButton2Text2 = {}
+---@type table
+CalendarDayButton25EventButton3 = {}
+---@type table
+CalendarDayButton25EventButton3Black = {}
+---@type table
+CalendarDayButton25EventButton3Text1 = {}
+---@type table
+CalendarDayButton25EventButton3Text2 = {}
+---@type table
+CalendarDayButton25EventButton4 = {}
+---@type table
+CalendarDayButton25EventButton4Black = {}
+---@type table
+CalendarDayButton25EventButton4Text1 = {}
+---@type table
+CalendarDayButton25EventButton4Text2 = {}
+---@type table
+CalendarDayButton25EventTexture = {}
+---@type table
+CalendarDayButton25MoreEventsButton = {}
+---@type table
+CalendarDayButton25OverlayFrame = {}
+---@type table
+CalendarDayButton25OverlayFrameTexture = {}
+---@type table
+CalendarDayButton25PendingInviteTexture = {}
+---@type table
+CalendarDayButton26 = {}
+---@type table
+CalendarDayButton26DarkFrame = {}
+---@type table
+CalendarDayButton26DarkFrameBottom = {}
+---@type table
+CalendarDayButton26DarkFrameTop = {}
+---@type table
+CalendarDayButton26DateFrame = {}
+---@type table
+CalendarDayButton26DateFrameBackground = {}
+---@type table
+CalendarDayButton26DateFrameDate = {}
+---@type table
+CalendarDayButton26EventBackgroundTexture = {}
+---@type table
+CalendarDayButton26EventButton1 = {}
+---@type table
+CalendarDayButton26EventButton1Black = {}
+---@type table
+CalendarDayButton26EventButton1Text1 = {}
+---@type table
+CalendarDayButton26EventButton1Text2 = {}
+---@type table
+CalendarDayButton26EventButton2 = {}
+---@type table
+CalendarDayButton26EventButton2Black = {}
+---@type table
+CalendarDayButton26EventButton2Text1 = {}
+---@type table
+CalendarDayButton26EventButton2Text2 = {}
+---@type table
+CalendarDayButton26EventButton3 = {}
+---@type table
+CalendarDayButton26EventButton3Black = {}
+---@type table
+CalendarDayButton26EventButton3Text1 = {}
+---@type table
+CalendarDayButton26EventButton3Text2 = {}
+---@type table
+CalendarDayButton26EventButton4 = {}
+---@type table
+CalendarDayButton26EventButton4Black = {}
+---@type table
+CalendarDayButton26EventButton4Text1 = {}
+---@type table
+CalendarDayButton26EventButton4Text2 = {}
+---@type table
+CalendarDayButton26EventTexture = {}
+---@type table
+CalendarDayButton26MoreEventsButton = {}
+---@type table
+CalendarDayButton26OverlayFrame = {}
+---@type table
+CalendarDayButton26OverlayFrameTexture = {}
+---@type table
+CalendarDayButton26PendingInviteTexture = {}
+---@type table
+CalendarDayButton27 = {}
+---@type table
+CalendarDayButton27DarkFrame = {}
+---@type table
+CalendarDayButton27DarkFrameBottom = {}
+---@type table
+CalendarDayButton27DarkFrameTop = {}
+---@type table
+CalendarDayButton27DateFrame = {}
+---@type table
+CalendarDayButton27DateFrameBackground = {}
+---@type table
+CalendarDayButton27DateFrameDate = {}
+---@type table
+CalendarDayButton27EventBackgroundTexture = {}
+---@type table
+CalendarDayButton27EventButton1 = {}
+---@type table
+CalendarDayButton27EventButton1Black = {}
+---@type table
+CalendarDayButton27EventButton1Text1 = {}
+---@type table
+CalendarDayButton27EventButton1Text2 = {}
+---@type table
+CalendarDayButton27EventButton2 = {}
+---@type table
+CalendarDayButton27EventButton2Black = {}
+---@type table
+CalendarDayButton27EventButton2Text1 = {}
+---@type table
+CalendarDayButton27EventButton2Text2 = {}
+---@type table
+CalendarDayButton27EventButton3 = {}
+---@type table
+CalendarDayButton27EventButton3Black = {}
+---@type table
+CalendarDayButton27EventButton3Text1 = {}
+---@type table
+CalendarDayButton27EventButton3Text2 = {}
+---@type table
+CalendarDayButton27EventButton4 = {}
+---@type table
+CalendarDayButton27EventButton4Black = {}
+---@type table
+CalendarDayButton27EventButton4Text1 = {}
+---@type table
+CalendarDayButton27EventButton4Text2 = {}
+---@type table
+CalendarDayButton27EventTexture = {}
+---@type table
+CalendarDayButton27MoreEventsButton = {}
+---@type table
+CalendarDayButton27OverlayFrame = {}
+---@type table
+CalendarDayButton27OverlayFrameTexture = {}
+---@type table
+CalendarDayButton27PendingInviteTexture = {}
+---@type table
+CalendarDayButton28 = {}
+---@type table
+CalendarDayButton28DarkFrame = {}
+---@type table
+CalendarDayButton28DarkFrameBottom = {}
+---@type table
+CalendarDayButton28DarkFrameTop = {}
+---@type table
+CalendarDayButton28DateFrame = {}
+---@type table
+CalendarDayButton28DateFrameBackground = {}
+---@type table
+CalendarDayButton28DateFrameDate = {}
+---@type table
+CalendarDayButton28EventBackgroundTexture = {}
+---@type table
+CalendarDayButton28EventButton1 = {}
+---@type table
+CalendarDayButton28EventButton1Black = {}
+---@type table
+CalendarDayButton28EventButton1Text1 = {}
+---@type table
+CalendarDayButton28EventButton1Text2 = {}
+---@type table
+CalendarDayButton28EventButton2 = {}
+---@type table
+CalendarDayButton28EventButton2Black = {}
+---@type table
+CalendarDayButton28EventButton2Text1 = {}
+---@type table
+CalendarDayButton28EventButton2Text2 = {}
+---@type table
+CalendarDayButton28EventButton3 = {}
+---@type table
+CalendarDayButton28EventButton3Black = {}
+---@type table
+CalendarDayButton28EventButton3Text1 = {}
+---@type table
+CalendarDayButton28EventButton3Text2 = {}
+---@type table
+CalendarDayButton28EventButton4 = {}
+---@type table
+CalendarDayButton28EventButton4Black = {}
+---@type table
+CalendarDayButton28EventButton4Text1 = {}
+---@type table
+CalendarDayButton28EventButton4Text2 = {}
+---@type table
+CalendarDayButton28EventTexture = {}
+---@type table
+CalendarDayButton28MoreEventsButton = {}
+---@type table
+CalendarDayButton28OverlayFrame = {}
+---@type table
+CalendarDayButton28OverlayFrameTexture = {}
+---@type table
+CalendarDayButton28PendingInviteTexture = {}
+---@type table
+CalendarDayButton29 = {}
+---@type table
+CalendarDayButton29DarkFrame = {}
+---@type table
+CalendarDayButton29DarkFrameBottom = {}
+---@type table
+CalendarDayButton29DarkFrameTop = {}
+---@type table
+CalendarDayButton29DateFrame = {}
+---@type table
+CalendarDayButton29DateFrameBackground = {}
+---@type table
+CalendarDayButton29DateFrameDate = {}
+---@type table
+CalendarDayButton29EventBackgroundTexture = {}
+---@type table
+CalendarDayButton29EventButton1 = {}
+---@type table
+CalendarDayButton29EventButton1Black = {}
+---@type table
+CalendarDayButton29EventButton1Text1 = {}
+---@type table
+CalendarDayButton29EventButton1Text2 = {}
+---@type table
+CalendarDayButton29EventButton2 = {}
+---@type table
+CalendarDayButton29EventButton2Black = {}
+---@type table
+CalendarDayButton29EventButton2Text1 = {}
+---@type table
+CalendarDayButton29EventButton2Text2 = {}
+---@type table
+CalendarDayButton29EventButton3 = {}
+---@type table
+CalendarDayButton29EventButton3Black = {}
+---@type table
+CalendarDayButton29EventButton3Text1 = {}
+---@type table
+CalendarDayButton29EventButton3Text2 = {}
+---@type table
+CalendarDayButton29EventButton4 = {}
+---@type table
+CalendarDayButton29EventButton4Black = {}
+---@type table
+CalendarDayButton29EventButton4Text1 = {}
+---@type table
+CalendarDayButton29EventButton4Text2 = {}
+---@type table
+CalendarDayButton29EventTexture = {}
+---@type table
+CalendarDayButton29MoreEventsButton = {}
+---@type table
+CalendarDayButton29OverlayFrame = {}
+---@type table
+CalendarDayButton29OverlayFrameTexture = {}
+---@type table
+CalendarDayButton29PendingInviteTexture = {}
+---@type table
+CalendarDayButton2DarkFrame = {}
+---@type table
+CalendarDayButton2DarkFrameBottom = {}
+---@type table
+CalendarDayButton2DarkFrameTop = {}
+---@type table
+CalendarDayButton2DateFrame = {}
+---@type table
+CalendarDayButton2DateFrameBackground = {}
+---@type table
+CalendarDayButton2DateFrameDate = {}
+---@type table
+CalendarDayButton2EventBackgroundTexture = {}
+---@type table
+CalendarDayButton2EventButton1 = {}
+---@type table
+CalendarDayButton2EventButton1Black = {}
+---@type table
+CalendarDayButton2EventButton1Text1 = {}
+---@type table
+CalendarDayButton2EventButton1Text2 = {}
+---@type table
+CalendarDayButton2EventButton2 = {}
+---@type table
+CalendarDayButton2EventButton2Black = {}
+---@type table
+CalendarDayButton2EventButton2Text1 = {}
+---@type table
+CalendarDayButton2EventButton2Text2 = {}
+---@type table
+CalendarDayButton2EventButton3 = {}
+---@type table
+CalendarDayButton2EventButton3Black = {}
+---@type table
+CalendarDayButton2EventButton3Text1 = {}
+---@type table
+CalendarDayButton2EventButton3Text2 = {}
+---@type table
+CalendarDayButton2EventButton4 = {}
+---@type table
+CalendarDayButton2EventButton4Black = {}
+---@type table
+CalendarDayButton2EventButton4Text1 = {}
+---@type table
+CalendarDayButton2EventButton4Text2 = {}
+---@type table
+CalendarDayButton2EventTexture = {}
+---@type table
+CalendarDayButton2MoreEventsButton = {}
+---@type table
+CalendarDayButton2OverlayFrame = {}
+---@type table
+CalendarDayButton2OverlayFrameTexture = {}
+---@type table
+CalendarDayButton2PendingInviteTexture = {}
+---@type table
+CalendarDayButton3 = {}
+---@type table
+CalendarDayButton30 = {}
+---@type table
+CalendarDayButton30DarkFrame = {}
+---@type table
+CalendarDayButton30DarkFrameBottom = {}
+---@type table
+CalendarDayButton30DarkFrameTop = {}
+---@type table
+CalendarDayButton30DateFrame = {}
+---@type table
+CalendarDayButton30DateFrameBackground = {}
+---@type table
+CalendarDayButton30DateFrameDate = {}
+---@type table
+CalendarDayButton30EventBackgroundTexture = {}
+---@type table
+CalendarDayButton30EventButton1 = {}
+---@type table
+CalendarDayButton30EventButton1Black = {}
+---@type table
+CalendarDayButton30EventButton1Text1 = {}
+---@type table
+CalendarDayButton30EventButton1Text2 = {}
+---@type table
+CalendarDayButton30EventButton2 = {}
+---@type table
+CalendarDayButton30EventButton2Black = {}
+---@type table
+CalendarDayButton30EventButton2Text1 = {}
+---@type table
+CalendarDayButton30EventButton2Text2 = {}
+---@type table
+CalendarDayButton30EventButton3 = {}
+---@type table
+CalendarDayButton30EventButton3Black = {}
+---@type table
+CalendarDayButton30EventButton3Text1 = {}
+---@type table
+CalendarDayButton30EventButton3Text2 = {}
+---@type table
+CalendarDayButton30EventButton4 = {}
+---@type table
+CalendarDayButton30EventButton4Black = {}
+---@type table
+CalendarDayButton30EventButton4Text1 = {}
+---@type table
+CalendarDayButton30EventButton4Text2 = {}
+---@type table
+CalendarDayButton30EventTexture = {}
+---@type table
+CalendarDayButton30MoreEventsButton = {}
+---@type table
+CalendarDayButton30OverlayFrame = {}
+---@type table
+CalendarDayButton30OverlayFrameTexture = {}
+---@type table
+CalendarDayButton30PendingInviteTexture = {}
+---@type table
+CalendarDayButton31 = {}
+---@type table
+CalendarDayButton31DarkFrame = {}
+---@type table
+CalendarDayButton31DarkFrameBottom = {}
+---@type table
+CalendarDayButton31DarkFrameTop = {}
+---@type table
+CalendarDayButton31DateFrame = {}
+---@type table
+CalendarDayButton31DateFrameBackground = {}
+---@type table
+CalendarDayButton31DateFrameDate = {}
+---@type table
+CalendarDayButton31EventBackgroundTexture = {}
+---@type table
+CalendarDayButton31EventButton1 = {}
+---@type table
+CalendarDayButton31EventButton1Black = {}
+---@type table
+CalendarDayButton31EventButton1Text1 = {}
+---@type table
+CalendarDayButton31EventButton1Text2 = {}
+---@type table
+CalendarDayButton31EventButton2 = {}
+---@type table
+CalendarDayButton31EventButton2Black = {}
+---@type table
+CalendarDayButton31EventButton2Text1 = {}
+---@type table
+CalendarDayButton31EventButton2Text2 = {}
+---@type table
+CalendarDayButton31EventButton3 = {}
+---@type table
+CalendarDayButton31EventButton3Black = {}
+---@type table
+CalendarDayButton31EventButton3Text1 = {}
+---@type table
+CalendarDayButton31EventButton3Text2 = {}
+---@type table
+CalendarDayButton31EventButton4 = {}
+---@type table
+CalendarDayButton31EventButton4Black = {}
+---@type table
+CalendarDayButton31EventButton4Text1 = {}
+---@type table
+CalendarDayButton31EventButton4Text2 = {}
+---@type table
+CalendarDayButton31EventTexture = {}
+---@type table
+CalendarDayButton31MoreEventsButton = {}
+---@type table
+CalendarDayButton31OverlayFrame = {}
+---@type table
+CalendarDayButton31OverlayFrameTexture = {}
+---@type table
+CalendarDayButton31PendingInviteTexture = {}
+---@type table
+CalendarDayButton32 = {}
+---@type table
+CalendarDayButton32DarkFrame = {}
+---@type table
+CalendarDayButton32DarkFrameBottom = {}
+---@type table
+CalendarDayButton32DarkFrameTop = {}
+---@type table
+CalendarDayButton32DateFrame = {}
+---@type table
+CalendarDayButton32DateFrameBackground = {}
+---@type table
+CalendarDayButton32DateFrameDate = {}
+---@type table
+CalendarDayButton32EventBackgroundTexture = {}
+---@type table
+CalendarDayButton32EventButton1 = {}
+---@type table
+CalendarDayButton32EventButton1Black = {}
+---@type table
+CalendarDayButton32EventButton1Text1 = {}
+---@type table
+CalendarDayButton32EventButton1Text2 = {}
+---@type table
+CalendarDayButton32EventButton2 = {}
+---@type table
+CalendarDayButton32EventButton2Black = {}
+---@type table
+CalendarDayButton32EventButton2Text1 = {}
+---@type table
+CalendarDayButton32EventButton2Text2 = {}
+---@type table
+CalendarDayButton32EventButton3 = {}
+---@type table
+CalendarDayButton32EventButton3Black = {}
+---@type table
+CalendarDayButton32EventButton3Text1 = {}
+---@type table
+CalendarDayButton32EventButton3Text2 = {}
+---@type table
+CalendarDayButton32EventButton4 = {}
+---@type table
+CalendarDayButton32EventButton4Black = {}
+---@type table
+CalendarDayButton32EventButton4Text1 = {}
+---@type table
+CalendarDayButton32EventButton4Text2 = {}
+---@type table
+CalendarDayButton32EventTexture = {}
+---@type table
+CalendarDayButton32MoreEventsButton = {}
+---@type table
+CalendarDayButton32OverlayFrame = {}
+---@type table
+CalendarDayButton32OverlayFrameTexture = {}
+---@type table
+CalendarDayButton32PendingInviteTexture = {}
+---@type table
+CalendarDayButton33 = {}
+---@type table
+CalendarDayButton33DarkFrame = {}
+---@type table
+CalendarDayButton33DarkFrameBottom = {}
+---@type table
+CalendarDayButton33DarkFrameTop = {}
+---@type table
+CalendarDayButton33DateFrame = {}
+---@type table
+CalendarDayButton33DateFrameBackground = {}
+---@type table
+CalendarDayButton33DateFrameDate = {}
+---@type table
+CalendarDayButton33EventBackgroundTexture = {}
+---@type table
+CalendarDayButton33EventButton1 = {}
+---@type table
+CalendarDayButton33EventButton1Black = {}
+---@type table
+CalendarDayButton33EventButton1Text1 = {}
+---@type table
+CalendarDayButton33EventButton1Text2 = {}
+---@type table
+CalendarDayButton33EventButton2 = {}
+---@type table
+CalendarDayButton33EventButton2Black = {}
+---@type table
+CalendarDayButton33EventButton2Text1 = {}
+---@type table
+CalendarDayButton33EventButton2Text2 = {}
+---@type table
+CalendarDayButton33EventButton3 = {}
+---@type table
+CalendarDayButton33EventButton3Black = {}
+---@type table
+CalendarDayButton33EventButton3Text1 = {}
+---@type table
+CalendarDayButton33EventButton3Text2 = {}
+---@type table
+CalendarDayButton33EventButton4 = {}
+---@type table
+CalendarDayButton33EventButton4Black = {}
+---@type table
+CalendarDayButton33EventButton4Text1 = {}
+---@type table
+CalendarDayButton33EventButton4Text2 = {}
+---@type table
+CalendarDayButton33EventTexture = {}
+---@type table
+CalendarDayButton33MoreEventsButton = {}
+---@type table
+CalendarDayButton33OverlayFrame = {}
+---@type table
+CalendarDayButton33OverlayFrameTexture = {}
+---@type table
+CalendarDayButton33PendingInviteTexture = {}
+---@type table
+CalendarDayButton34 = {}
+---@type table
+CalendarDayButton34DarkFrame = {}
+---@type table
+CalendarDayButton34DarkFrameBottom = {}
+---@type table
+CalendarDayButton34DarkFrameTop = {}
+---@type table
+CalendarDayButton34DateFrame = {}
+---@type table
+CalendarDayButton34DateFrameBackground = {}
+---@type table
+CalendarDayButton34DateFrameDate = {}
+---@type table
+CalendarDayButton34EventBackgroundTexture = {}
+---@type table
+CalendarDayButton34EventButton1 = {}
+---@type table
+CalendarDayButton34EventButton1Black = {}
+---@type table
+CalendarDayButton34EventButton1Text1 = {}
+---@type table
+CalendarDayButton34EventButton1Text2 = {}
+---@type table
+CalendarDayButton34EventButton2 = {}
+---@type table
+CalendarDayButton34EventButton2Black = {}
+---@type table
+CalendarDayButton34EventButton2Text1 = {}
+---@type table
+CalendarDayButton34EventButton2Text2 = {}
+---@type table
+CalendarDayButton34EventButton3 = {}
+---@type table
+CalendarDayButton34EventButton3Black = {}
+---@type table
+CalendarDayButton34EventButton3Text1 = {}
+---@type table
+CalendarDayButton34EventButton3Text2 = {}
+---@type table
+CalendarDayButton34EventButton4 = {}
+---@type table
+CalendarDayButton34EventButton4Black = {}
+---@type table
+CalendarDayButton34EventButton4Text1 = {}
+---@type table
+CalendarDayButton34EventButton4Text2 = {}
+---@type table
+CalendarDayButton34EventTexture = {}
+---@type table
+CalendarDayButton34MoreEventsButton = {}
+---@type table
+CalendarDayButton34OverlayFrame = {}
+---@type table
+CalendarDayButton34OverlayFrameTexture = {}
+---@type table
+CalendarDayButton34PendingInviteTexture = {}
+---@type table
+CalendarDayButton35 = {}
+---@type table
+CalendarDayButton35DarkFrame = {}
+---@type table
+CalendarDayButton35DarkFrameBottom = {}
+---@type table
+CalendarDayButton35DarkFrameTop = {}
+---@type table
+CalendarDayButton35DateFrame = {}
+---@type table
+CalendarDayButton35DateFrameBackground = {}
+---@type table
+CalendarDayButton35DateFrameDate = {}
+---@type table
+CalendarDayButton35EventBackgroundTexture = {}
+---@type table
+CalendarDayButton35EventButton1 = {}
+---@type table
+CalendarDayButton35EventButton1Black = {}
+---@type table
+CalendarDayButton35EventButton1Text1 = {}
+---@type table
+CalendarDayButton35EventButton1Text2 = {}
+---@type table
+CalendarDayButton35EventButton2 = {}
+---@type table
+CalendarDayButton35EventButton2Black = {}
+---@type table
+CalendarDayButton35EventButton2Text1 = {}
+---@type table
+CalendarDayButton35EventButton2Text2 = {}
+---@type table
+CalendarDayButton35EventButton3 = {}
+---@type table
+CalendarDayButton35EventButton3Black = {}
+---@type table
+CalendarDayButton35EventButton3Text1 = {}
+---@type table
+CalendarDayButton35EventButton3Text2 = {}
+---@type table
+CalendarDayButton35EventButton4 = {}
+---@type table
+CalendarDayButton35EventButton4Black = {}
+---@type table
+CalendarDayButton35EventButton4Text1 = {}
+---@type table
+CalendarDayButton35EventButton4Text2 = {}
+---@type table
+CalendarDayButton35EventTexture = {}
+---@type table
+CalendarDayButton35MoreEventsButton = {}
+---@type table
+CalendarDayButton35OverlayFrame = {}
+---@type table
+CalendarDayButton35OverlayFrameTexture = {}
+---@type table
+CalendarDayButton35PendingInviteTexture = {}
+---@type table
+CalendarDayButton36 = {}
+---@type table
+CalendarDayButton36DarkFrame = {}
+---@type table
+CalendarDayButton36DarkFrameBottom = {}
+---@type table
+CalendarDayButton36DarkFrameTop = {}
+---@type table
+CalendarDayButton36DateFrame = {}
+---@type table
+CalendarDayButton36DateFrameBackground = {}
+---@type table
+CalendarDayButton36DateFrameDate = {}
+---@type table
+CalendarDayButton36EventBackgroundTexture = {}
+---@type table
+CalendarDayButton36EventButton1 = {}
+---@type table
+CalendarDayButton36EventButton1Black = {}
+---@type table
+CalendarDayButton36EventButton1Text1 = {}
+---@type table
+CalendarDayButton36EventButton1Text2 = {}
+---@type table
+CalendarDayButton36EventButton2 = {}
+---@type table
+CalendarDayButton36EventButton2Black = {}
+---@type table
+CalendarDayButton36EventButton2Text1 = {}
+---@type table
+CalendarDayButton36EventButton2Text2 = {}
+---@type table
+CalendarDayButton36EventButton3 = {}
+---@type table
+CalendarDayButton36EventButton3Black = {}
+---@type table
+CalendarDayButton36EventButton3Text1 = {}
+---@type table
+CalendarDayButton36EventButton3Text2 = {}
+---@type table
+CalendarDayButton36EventButton4 = {}
+---@type table
+CalendarDayButton36EventButton4Black = {}
+---@type table
+CalendarDayButton36EventButton4Text1 = {}
+---@type table
+CalendarDayButton36EventButton4Text2 = {}
+---@type table
+CalendarDayButton36EventTexture = {}
+---@type table
+CalendarDayButton36MoreEventsButton = {}
+---@type table
+CalendarDayButton36OverlayFrame = {}
+---@type table
+CalendarDayButton36OverlayFrameTexture = {}
+---@type table
+CalendarDayButton36PendingInviteTexture = {}
+---@type table
+CalendarDayButton37 = {}
+---@type table
+CalendarDayButton37DarkFrame = {}
+---@type table
+CalendarDayButton37DarkFrameBottom = {}
+---@type table
+CalendarDayButton37DarkFrameTop = {}
+---@type table
+CalendarDayButton37DateFrame = {}
+---@type table
+CalendarDayButton37DateFrameBackground = {}
+---@type table
+CalendarDayButton37DateFrameDate = {}
+---@type table
+CalendarDayButton37EventBackgroundTexture = {}
+---@type table
+CalendarDayButton37EventButton1 = {}
+---@type table
+CalendarDayButton37EventButton1Black = {}
+---@type table
+CalendarDayButton37EventButton1Text1 = {}
+---@type table
+CalendarDayButton37EventButton1Text2 = {}
+---@type table
+CalendarDayButton37EventButton2 = {}
+---@type table
+CalendarDayButton37EventButton2Black = {}
+---@type table
+CalendarDayButton37EventButton2Text1 = {}
+---@type table
+CalendarDayButton37EventButton2Text2 = {}
+---@type table
+CalendarDayButton37EventButton3 = {}
+---@type table
+CalendarDayButton37EventButton3Black = {}
+---@type table
+CalendarDayButton37EventButton3Text1 = {}
+---@type table
+CalendarDayButton37EventButton3Text2 = {}
+---@type table
+CalendarDayButton37EventButton4 = {}
+---@type table
+CalendarDayButton37EventButton4Black = {}
+---@type table
+CalendarDayButton37EventButton4Text1 = {}
+---@type table
+CalendarDayButton37EventButton4Text2 = {}
+---@type table
+CalendarDayButton37EventTexture = {}
+---@type table
+CalendarDayButton37MoreEventsButton = {}
+---@type table
+CalendarDayButton37OverlayFrame = {}
+---@type table
+CalendarDayButton37OverlayFrameTexture = {}
+---@type table
+CalendarDayButton37PendingInviteTexture = {}
+---@type table
+CalendarDayButton38 = {}
+---@type table
+CalendarDayButton38DarkFrame = {}
+---@type table
+CalendarDayButton38DarkFrameBottom = {}
+---@type table
+CalendarDayButton38DarkFrameTop = {}
+---@type table
+CalendarDayButton38DateFrame = {}
+---@type table
+CalendarDayButton38DateFrameBackground = {}
+---@type table
+CalendarDayButton38DateFrameDate = {}
+---@type table
+CalendarDayButton38EventBackgroundTexture = {}
+---@type table
+CalendarDayButton38EventButton1 = {}
+---@type table
+CalendarDayButton38EventButton1Black = {}
+---@type table
+CalendarDayButton38EventButton1Text1 = {}
+---@type table
+CalendarDayButton38EventButton1Text2 = {}
+---@type table
+CalendarDayButton38EventButton2 = {}
+---@type table
+CalendarDayButton38EventButton2Black = {}
+---@type table
+CalendarDayButton38EventButton2Text1 = {}
+---@type table
+CalendarDayButton38EventButton2Text2 = {}
+---@type table
+CalendarDayButton38EventButton3 = {}
+---@type table
+CalendarDayButton38EventButton3Black = {}
+---@type table
+CalendarDayButton38EventButton3Text1 = {}
+---@type table
+CalendarDayButton38EventButton3Text2 = {}
+---@type table
+CalendarDayButton38EventButton4 = {}
+---@type table
+CalendarDayButton38EventButton4Black = {}
+---@type table
+CalendarDayButton38EventButton4Text1 = {}
+---@type table
+CalendarDayButton38EventButton4Text2 = {}
+---@type table
+CalendarDayButton38EventTexture = {}
+---@type table
+CalendarDayButton38MoreEventsButton = {}
+---@type table
+CalendarDayButton38OverlayFrame = {}
+---@type table
+CalendarDayButton38OverlayFrameTexture = {}
+---@type table
+CalendarDayButton38PendingInviteTexture = {}
+---@type table
+CalendarDayButton39 = {}
+---@type table
+CalendarDayButton39DarkFrame = {}
+---@type table
+CalendarDayButton39DarkFrameBottom = {}
+---@type table
+CalendarDayButton39DarkFrameTop = {}
+---@type table
+CalendarDayButton39DateFrame = {}
+---@type table
+CalendarDayButton39DateFrameBackground = {}
+---@type table
+CalendarDayButton39DateFrameDate = {}
+---@type table
+CalendarDayButton39EventBackgroundTexture = {}
+---@type table
+CalendarDayButton39EventButton1 = {}
+---@type table
+CalendarDayButton39EventButton1Black = {}
+---@type table
+CalendarDayButton39EventButton1Text1 = {}
+---@type table
+CalendarDayButton39EventButton1Text2 = {}
+---@type table
+CalendarDayButton39EventButton2 = {}
+---@type table
+CalendarDayButton39EventButton2Black = {}
+---@type table
+CalendarDayButton39EventButton2Text1 = {}
+---@type table
+CalendarDayButton39EventButton2Text2 = {}
+---@type table
+CalendarDayButton39EventButton3 = {}
+---@type table
+CalendarDayButton39EventButton3Black = {}
+---@type table
+CalendarDayButton39EventButton3Text1 = {}
+---@type table
+CalendarDayButton39EventButton3Text2 = {}
+---@type table
+CalendarDayButton39EventButton4 = {}
+---@type table
+CalendarDayButton39EventButton4Black = {}
+---@type table
+CalendarDayButton39EventButton4Text1 = {}
+---@type table
+CalendarDayButton39EventButton4Text2 = {}
+---@type table
+CalendarDayButton39EventTexture = {}
+---@type table
+CalendarDayButton39MoreEventsButton = {}
+---@type table
+CalendarDayButton39OverlayFrame = {}
+---@type table
+CalendarDayButton39OverlayFrameTexture = {}
+---@type table
+CalendarDayButton39PendingInviteTexture = {}
+---@type table
+CalendarDayButton3DarkFrame = {}
+---@type table
+CalendarDayButton3DarkFrameBottom = {}
+---@type table
+CalendarDayButton3DarkFrameTop = {}
+---@type table
+CalendarDayButton3DateFrame = {}
+---@type table
+CalendarDayButton3DateFrameBackground = {}
+---@type table
+CalendarDayButton3DateFrameDate = {}
+---@type table
+CalendarDayButton3EventBackgroundTexture = {}
+---@type table
+CalendarDayButton3EventButton1 = {}
+---@type table
+CalendarDayButton3EventButton1Black = {}
+---@type table
+CalendarDayButton3EventButton1Text1 = {}
+---@type table
+CalendarDayButton3EventButton1Text2 = {}
+---@type table
+CalendarDayButton3EventButton2 = {}
+---@type table
+CalendarDayButton3EventButton2Black = {}
+---@type table
+CalendarDayButton3EventButton2Text1 = {}
+---@type table
+CalendarDayButton3EventButton2Text2 = {}
+---@type table
+CalendarDayButton3EventButton3 = {}
+---@type table
+CalendarDayButton3EventButton3Black = {}
+---@type table
+CalendarDayButton3EventButton3Text1 = {}
+---@type table
+CalendarDayButton3EventButton3Text2 = {}
+---@type table
+CalendarDayButton3EventButton4 = {}
+---@type table
+CalendarDayButton3EventButton4Black = {}
+---@type table
+CalendarDayButton3EventButton4Text1 = {}
+---@type table
+CalendarDayButton3EventButton4Text2 = {}
+---@type table
+CalendarDayButton3EventTexture = {}
+---@type table
+CalendarDayButton3MoreEventsButton = {}
+---@type table
+CalendarDayButton3OverlayFrame = {}
+---@type table
+CalendarDayButton3OverlayFrameTexture = {}
+---@type table
+CalendarDayButton3PendingInviteTexture = {}
+---@type table
+CalendarDayButton4 = {}
+---@type table
+CalendarDayButton40 = {}
+---@type table
+CalendarDayButton40DarkFrame = {}
+---@type table
+CalendarDayButton40DarkFrameBottom = {}
+---@type table
+CalendarDayButton40DarkFrameTop = {}
+---@type table
+CalendarDayButton40DateFrame = {}
+---@type table
+CalendarDayButton40DateFrameBackground = {}
+---@type table
+CalendarDayButton40DateFrameDate = {}
+---@type table
+CalendarDayButton40EventBackgroundTexture = {}
+---@type table
+CalendarDayButton40EventButton1 = {}
+---@type table
+CalendarDayButton40EventButton1Black = {}
+---@type table
+CalendarDayButton40EventButton1Text1 = {}
+---@type table
+CalendarDayButton40EventButton1Text2 = {}
+---@type table
+CalendarDayButton40EventButton2 = {}
+---@type table
+CalendarDayButton40EventButton2Black = {}
+---@type table
+CalendarDayButton40EventButton2Text1 = {}
+---@type table
+CalendarDayButton40EventButton2Text2 = {}
+---@type table
+CalendarDayButton40EventButton3 = {}
+---@type table
+CalendarDayButton40EventButton3Black = {}
+---@type table
+CalendarDayButton40EventButton3Text1 = {}
+---@type table
+CalendarDayButton40EventButton3Text2 = {}
+---@type table
+CalendarDayButton40EventButton4 = {}
+---@type table
+CalendarDayButton40EventButton4Black = {}
+---@type table
+CalendarDayButton40EventButton4Text1 = {}
+---@type table
+CalendarDayButton40EventButton4Text2 = {}
+---@type table
+CalendarDayButton40EventTexture = {}
+---@type table
+CalendarDayButton40MoreEventsButton = {}
+---@type table
+CalendarDayButton40OverlayFrame = {}
+---@type table
+CalendarDayButton40OverlayFrameTexture = {}
+---@type table
+CalendarDayButton40PendingInviteTexture = {}
+---@type table
+CalendarDayButton41 = {}
+---@type table
+CalendarDayButton41DarkFrame = {}
+---@type table
+CalendarDayButton41DarkFrameBottom = {}
+---@type table
+CalendarDayButton41DarkFrameTop = {}
+---@type table
+CalendarDayButton41DateFrame = {}
+---@type table
+CalendarDayButton41DateFrameBackground = {}
+---@type table
+CalendarDayButton41DateFrameDate = {}
+---@type table
+CalendarDayButton41EventBackgroundTexture = {}
+---@type table
+CalendarDayButton41EventButton1 = {}
+---@type table
+CalendarDayButton41EventButton1Black = {}
+---@type table
+CalendarDayButton41EventButton1Text1 = {}
+---@type table
+CalendarDayButton41EventButton1Text2 = {}
+---@type table
+CalendarDayButton41EventButton2 = {}
+---@type table
+CalendarDayButton41EventButton2Black = {}
+---@type table
+CalendarDayButton41EventButton2Text1 = {}
+---@type table
+CalendarDayButton41EventButton2Text2 = {}
+---@type table
+CalendarDayButton41EventButton3 = {}
+---@type table
+CalendarDayButton41EventButton3Black = {}
+---@type table
+CalendarDayButton41EventButton3Text1 = {}
+---@type table
+CalendarDayButton41EventButton3Text2 = {}
+---@type table
+CalendarDayButton41EventButton4 = {}
+---@type table
+CalendarDayButton41EventButton4Black = {}
+---@type table
+CalendarDayButton41EventButton4Text1 = {}
+---@type table
+CalendarDayButton41EventButton4Text2 = {}
+---@type table
+CalendarDayButton41EventTexture = {}
+---@type table
+CalendarDayButton41MoreEventsButton = {}
+---@type table
+CalendarDayButton41OverlayFrame = {}
+---@type table
+CalendarDayButton41OverlayFrameTexture = {}
+---@type table
+CalendarDayButton41PendingInviteTexture = {}
+---@type table
+CalendarDayButton42 = {}
+---@type table
+CalendarDayButton42DarkFrame = {}
+---@type table
+CalendarDayButton42DarkFrameBottom = {}
+---@type table
+CalendarDayButton42DarkFrameTop = {}
+---@type table
+CalendarDayButton42DateFrame = {}
+---@type table
+CalendarDayButton42DateFrameBackground = {}
+---@type table
+CalendarDayButton42DateFrameDate = {}
+---@type table
+CalendarDayButton42EventBackgroundTexture = {}
+---@type table
+CalendarDayButton42EventButton1 = {}
+---@type table
+CalendarDayButton42EventButton1Black = {}
+---@type table
+CalendarDayButton42EventButton1Text1 = {}
+---@type table
+CalendarDayButton42EventButton1Text2 = {}
+---@type table
+CalendarDayButton42EventButton2 = {}
+---@type table
+CalendarDayButton42EventButton2Black = {}
+---@type table
+CalendarDayButton42EventButton2Text1 = {}
+---@type table
+CalendarDayButton42EventButton2Text2 = {}
+---@type table
+CalendarDayButton42EventButton3 = {}
+---@type table
+CalendarDayButton42EventButton3Black = {}
+---@type table
+CalendarDayButton42EventButton3Text1 = {}
+---@type table
+CalendarDayButton42EventButton3Text2 = {}
+---@type table
+CalendarDayButton42EventButton4 = {}
+---@type table
+CalendarDayButton42EventButton4Black = {}
+---@type table
+CalendarDayButton42EventButton4Text1 = {}
+---@type table
+CalendarDayButton42EventButton4Text2 = {}
+---@type table
+CalendarDayButton42EventTexture = {}
+---@type table
+CalendarDayButton42MoreEventsButton = {}
+---@type table
+CalendarDayButton42OverlayFrame = {}
+---@type table
+CalendarDayButton42OverlayFrameTexture = {}
+---@type table
+CalendarDayButton42PendingInviteTexture = {}
+---@type table
+CalendarDayButton4DarkFrame = {}
+---@type table
+CalendarDayButton4DarkFrameBottom = {}
+---@type table
+CalendarDayButton4DarkFrameTop = {}
+---@type table
+CalendarDayButton4DateFrame = {}
+---@type table
+CalendarDayButton4DateFrameBackground = {}
+---@type table
+CalendarDayButton4DateFrameDate = {}
+---@type table
+CalendarDayButton4EventBackgroundTexture = {}
+---@type table
+CalendarDayButton4EventButton1 = {}
+---@type table
+CalendarDayButton4EventButton1Black = {}
+---@type table
+CalendarDayButton4EventButton1Text1 = {}
+---@type table
+CalendarDayButton4EventButton1Text2 = {}
+---@type table
+CalendarDayButton4EventButton2 = {}
+---@type table
+CalendarDayButton4EventButton2Black = {}
+---@type table
+CalendarDayButton4EventButton2Text1 = {}
+---@type table
+CalendarDayButton4EventButton2Text2 = {}
+---@type table
+CalendarDayButton4EventButton3 = {}
+---@type table
+CalendarDayButton4EventButton3Black = {}
+---@type table
+CalendarDayButton4EventButton3Text1 = {}
+---@type table
+CalendarDayButton4EventButton3Text2 = {}
+---@type table
+CalendarDayButton4EventButton4 = {}
+---@type table
+CalendarDayButton4EventButton4Black = {}
+---@type table
+CalendarDayButton4EventButton4Text1 = {}
+---@type table
+CalendarDayButton4EventButton4Text2 = {}
+---@type table
+CalendarDayButton4EventTexture = {}
+---@type table
+CalendarDayButton4MoreEventsButton = {}
+---@type table
+CalendarDayButton4OverlayFrame = {}
+---@type table
+CalendarDayButton4OverlayFrameTexture = {}
+---@type table
+CalendarDayButton4PendingInviteTexture = {}
+---@type table
+CalendarDayButton5 = {}
+---@type table
+CalendarDayButton5DarkFrame = {}
+---@type table
+CalendarDayButton5DarkFrameBottom = {}
+---@type table
+CalendarDayButton5DarkFrameTop = {}
+---@type table
+CalendarDayButton5DateFrame = {}
+---@type table
+CalendarDayButton5DateFrameBackground = {}
+---@type table
+CalendarDayButton5DateFrameDate = {}
+---@type table
+CalendarDayButton5EventBackgroundTexture = {}
+---@type table
+CalendarDayButton5EventButton1 = {}
+---@type table
+CalendarDayButton5EventButton1Black = {}
+---@type table
+CalendarDayButton5EventButton1Text1 = {}
+---@type table
+CalendarDayButton5EventButton1Text2 = {}
+---@type table
+CalendarDayButton5EventButton2 = {}
+---@type table
+CalendarDayButton5EventButton2Black = {}
+---@type table
+CalendarDayButton5EventButton2Text1 = {}
+---@type table
+CalendarDayButton5EventButton2Text2 = {}
+---@type table
+CalendarDayButton5EventButton3 = {}
+---@type table
+CalendarDayButton5EventButton3Black = {}
+---@type table
+CalendarDayButton5EventButton3Text1 = {}
+---@type table
+CalendarDayButton5EventButton3Text2 = {}
+---@type table
+CalendarDayButton5EventButton4 = {}
+---@type table
+CalendarDayButton5EventButton4Black = {}
+---@type table
+CalendarDayButton5EventButton4Text1 = {}
+---@type table
+CalendarDayButton5EventButton4Text2 = {}
+---@type table
+CalendarDayButton5EventTexture = {}
+---@type table
+CalendarDayButton5MoreEventsButton = {}
+---@type table
+CalendarDayButton5OverlayFrame = {}
+---@type table
+CalendarDayButton5OverlayFrameTexture = {}
+---@type table
+CalendarDayButton5PendingInviteTexture = {}
+---@type table
+CalendarDayButton6 = {}
+---@type table
+CalendarDayButton6DarkFrame = {}
+---@type table
+CalendarDayButton6DarkFrameBottom = {}
+---@type table
+CalendarDayButton6DarkFrameTop = {}
+---@type table
+CalendarDayButton6DateFrame = {}
+---@type table
+CalendarDayButton6DateFrameBackground = {}
+---@type table
+CalendarDayButton6DateFrameDate = {}
+---@type table
+CalendarDayButton6EventBackgroundTexture = {}
+---@type table
+CalendarDayButton6EventButton1 = {}
+---@type table
+CalendarDayButton6EventButton1Black = {}
+---@type table
+CalendarDayButton6EventButton1Text1 = {}
+---@type table
+CalendarDayButton6EventButton1Text2 = {}
+---@type table
+CalendarDayButton6EventButton2 = {}
+---@type table
+CalendarDayButton6EventButton2Black = {}
+---@type table
+CalendarDayButton6EventButton2Text1 = {}
+---@type table
+CalendarDayButton6EventButton2Text2 = {}
+---@type table
+CalendarDayButton6EventButton3 = {}
+---@type table
+CalendarDayButton6EventButton3Black = {}
+---@type table
+CalendarDayButton6EventButton3Text1 = {}
+---@type table
+CalendarDayButton6EventButton3Text2 = {}
+---@type table
+CalendarDayButton6EventButton4 = {}
+---@type table
+CalendarDayButton6EventButton4Black = {}
+---@type table
+CalendarDayButton6EventButton4Text1 = {}
+---@type table
+CalendarDayButton6EventButton4Text2 = {}
+---@type table
+CalendarDayButton6EventTexture = {}
+---@type table
+CalendarDayButton6MoreEventsButton = {}
+---@type table
+CalendarDayButton6OverlayFrame = {}
+---@type table
+CalendarDayButton6OverlayFrameTexture = {}
+---@type table
+CalendarDayButton6PendingInviteTexture = {}
+---@type table
+CalendarDayButton7 = {}
+---@type table
+CalendarDayButton7DarkFrame = {}
+---@type table
+CalendarDayButton7DarkFrameBottom = {}
+---@type table
+CalendarDayButton7DarkFrameTop = {}
+---@type table
+CalendarDayButton7DateFrame = {}
+---@type table
+CalendarDayButton7DateFrameBackground = {}
+---@type table
+CalendarDayButton7DateFrameDate = {}
+---@type table
+CalendarDayButton7EventBackgroundTexture = {}
+---@type table
+CalendarDayButton7EventButton1 = {}
+---@type table
+CalendarDayButton7EventButton1Black = {}
+---@type table
+CalendarDayButton7EventButton1Text1 = {}
+---@type table
+CalendarDayButton7EventButton1Text2 = {}
+---@type table
+CalendarDayButton7EventButton2 = {}
+---@type table
+CalendarDayButton7EventButton2Black = {}
+---@type table
+CalendarDayButton7EventButton2Text1 = {}
+---@type table
+CalendarDayButton7EventButton2Text2 = {}
+---@type table
+CalendarDayButton7EventButton3 = {}
+---@type table
+CalendarDayButton7EventButton3Black = {}
+---@type table
+CalendarDayButton7EventButton3Text1 = {}
+---@type table
+CalendarDayButton7EventButton3Text2 = {}
+---@type table
+CalendarDayButton7EventButton4 = {}
+---@type table
+CalendarDayButton7EventButton4Black = {}
+---@type table
+CalendarDayButton7EventButton4Text1 = {}
+---@type table
+CalendarDayButton7EventButton4Text2 = {}
+---@type table
+CalendarDayButton7EventTexture = {}
+---@type table
+CalendarDayButton7MoreEventsButton = {}
+---@type table
+CalendarDayButton7OverlayFrame = {}
+---@type table
+CalendarDayButton7OverlayFrameTexture = {}
+---@type table
+CalendarDayButton7PendingInviteTexture = {}
+---@type table
+CalendarDayButton8 = {}
+---@type table
+CalendarDayButton8DarkFrame = {}
+---@type table
+CalendarDayButton8DarkFrameBottom = {}
+---@type table
+CalendarDayButton8DarkFrameTop = {}
+---@type table
+CalendarDayButton8DateFrame = {}
+---@type table
+CalendarDayButton8DateFrameBackground = {}
+---@type table
+CalendarDayButton8DateFrameDate = {}
+---@type table
+CalendarDayButton8EventBackgroundTexture = {}
+---@type table
+CalendarDayButton8EventButton1 = {}
+---@type table
+CalendarDayButton8EventButton1Black = {}
+---@type table
+CalendarDayButton8EventButton1Text1 = {}
+---@type table
+CalendarDayButton8EventButton1Text2 = {}
+---@type table
+CalendarDayButton8EventButton2 = {}
+---@type table
+CalendarDayButton8EventButton2Black = {}
+---@type table
+CalendarDayButton8EventButton2Text1 = {}
+---@type table
+CalendarDayButton8EventButton2Text2 = {}
+---@type table
+CalendarDayButton8EventButton3 = {}
+---@type table
+CalendarDayButton8EventButton3Black = {}
+---@type table
+CalendarDayButton8EventButton3Text1 = {}
+---@type table
+CalendarDayButton8EventButton3Text2 = {}
+---@type table
+CalendarDayButton8EventButton4 = {}
+---@type table
+CalendarDayButton8EventButton4Black = {}
+---@type table
+CalendarDayButton8EventButton4Text1 = {}
+---@type table
+CalendarDayButton8EventButton4Text2 = {}
+---@type table
+CalendarDayButton8EventTexture = {}
+---@type table
+CalendarDayButton8MoreEventsButton = {}
+---@type table
+CalendarDayButton8OverlayFrame = {}
+---@type table
+CalendarDayButton8OverlayFrameTexture = {}
+---@type table
+CalendarDayButton8PendingInviteTexture = {}
+---@type table
+CalendarDayButton9 = {}
+---@type table
+CalendarDayButton9DarkFrame = {}
+---@type table
+CalendarDayButton9DarkFrameBottom = {}
+---@type table
+CalendarDayButton9DarkFrameTop = {}
+---@type table
+CalendarDayButton9DateFrame = {}
+---@type table
+CalendarDayButton9DateFrameBackground = {}
+---@type table
+CalendarDayButton9DateFrameDate = {}
+---@type table
+CalendarDayButton9EventBackgroundTexture = {}
+---@type table
+CalendarDayButton9EventButton1 = {}
+---@type table
+CalendarDayButton9EventButton1Black = {}
+---@type table
+CalendarDayButton9EventButton1Text1 = {}
+---@type table
+CalendarDayButton9EventButton1Text2 = {}
+---@type table
+CalendarDayButton9EventButton2 = {}
+---@type table
+CalendarDayButton9EventButton2Black = {}
+---@type table
+CalendarDayButton9EventButton2Text1 = {}
+---@type table
+CalendarDayButton9EventButton2Text2 = {}
+---@type table
+CalendarDayButton9EventButton3 = {}
+---@type table
+CalendarDayButton9EventButton3Black = {}
+---@type table
+CalendarDayButton9EventButton3Text1 = {}
+---@type table
+CalendarDayButton9EventButton3Text2 = {}
+---@type table
+CalendarDayButton9EventButton4 = {}
+---@type table
+CalendarDayButton9EventButton4Black = {}
+---@type table
+CalendarDayButton9EventButton4Text1 = {}
+---@type table
+CalendarDayButton9EventButton4Text2 = {}
+---@type table
+CalendarDayButton9EventTexture = {}
+---@type table
+CalendarDayButton9MoreEventsButton = {}
+---@type table
+CalendarDayButton9OverlayFrame = {}
+---@type table
+CalendarDayButton9OverlayFrameTexture = {}
+---@type table
+CalendarDayButton9PendingInviteTexture = {}
+---@return any ...
+function CalendarDayButtonMoreEventsButton_OnClick(...) end
+---@return any ...
+function CalendarDayButtonMoreEventsButton_OnEnter(...) end
+---@return any ...
+function CalendarDayButtonMoreEventsButton_OnLeave(...) end
+---@return any ...
+function CalendarDayButtonMoreEventsButton_OnLoad(...) end
+---@return any ...
+function CalendarDayButton_Click(...) end
+---@return any ...
+function CalendarDayButton_OnClick(...) end
+---@return any ...
+function CalendarDayButton_OnEnter(...) end
+---@return any ...
+function CalendarDayButton_OnLeave(...) end
+---@return any ...
+function CalendarDayButton_OnLoad(...) end
+---@return any ...
+function CalendarDayContextMenu_AcceptInvite(...) end
+---@return any ...
+function CalendarDayContextMenu_ClearEvent(...) end
+---@return any ...
+function CalendarDayContextMenu_CreateCommunityEvent(...) end
+---@return any ...
+function CalendarDayContextMenu_CreateEvent(...) end
+---@return any ...
+function CalendarDayContextMenu_CreateGuildAnnouncement(...) end
+---@return any ...
+function CalendarDayContextMenu_CreateGuildEvent(...) end
+---@return any ...
+function CalendarDayContextMenu_DeclineInvite(...) end
+---@return any ...
+function CalendarDayContextMenu_DeleteEvent(...) end
+---@return any ...
+function CalendarDayContextMenu_PasteEvent(...) end
+---@return any ...
+function CalendarDayContextMenu_RemoveInvite(...) end
+---@return any ...
+function CalendarDayContextMenu_ReportSpam(...) end
+---@return any ...
+function CalendarDayContextMenu_SignUp(...) end
+---@return any ...
+function CalendarDayContextMenu_TentativeInvite(...) end
+---@return any ...
+function CalendarDayEventButton_Click(...) end
+---@return any ...
+function CalendarDayEventButton_OnClick(...) end
+---@return any ...
+function CalendarDayEventButton_OnEnter(...) end
+---@return any ...
+function CalendarDayEventButton_OnLeave(...) end
+---@return any ...
+function CalendarDayEventButton_OnLoad(...) end
+---@return any ...
+function CalendarEventCloseButton_OnClick(...) end
+---@type table
+CalendarEventFrameBlocker = {}
+---@return any ...
+function CalendarEventFrameBlocker_OnHide(...) end
+---@return any ...
+function CalendarEventFrameBlocker_OnShow(...) end
+---@return any ...
+function CalendarEventFrameBlocker_Update(...) end
+---@return any ...
+function CalendarEventInviteListButton_OnEnter(...) end
+---@return any ...
+function CalendarEventInviteList_AnchorSortButtons(...) end
+---@return any ...
+function CalendarEventInviteList_InitButtonShared(...) end
+---@return any ...
+function CalendarEventInviteList_UpdateSortButtons(...) end
+---@return any ...
+function CalendarEventInviteSortButton_OnClick(...) end
+---@return any ...
+function CalendarEventInviteSortButton_OnLoad(...) end
+---@return any ...
+function CalendarEventPickerButton_Click(...) end
+---@return any ...
+function CalendarEventPickerButton_OnClick(...) end
+---@return any ...
+function CalendarEventPickerButton_OnDoubleClick(...) end
+---@return any ...
+function CalendarEventPickerButton_OnLoad(...) end
+---@type table
+CalendarEventPickerCloseButton = {}
+---@type table
+CalendarEventPickerCloseButtonBorder = {}
+---@type table
+CalendarEventPickerCloseButtonText = {}
+---@return any ...
+function CalendarEventPickerCloseButton_OnClick(...) end
+---@type table
+CalendarEventPickerFrame = {}
+---@type table
+CalendarEventPickerFrameButtonBackground = {}
+---@return any ...
+function CalendarEventPickerFrame_Hide(...) end
+---@return any ...
+function CalendarEventPickerFrame_InitButton(...) end
+---@return any ...
+function CalendarEventPickerFrame_OnEvent(...) end
+---@return any ...
+function CalendarEventPickerFrame_OnLoad(...) end
+---@return any ...
+function CalendarEventPickerFrame_SetSelectedEvent(...) end
+---@return any ...
+function CalendarEventPickerFrame_Show(...) end
+---@return any ...
+function CalendarEventPickerFrame_Toggle(...) end
+---@return any ...
+function CalendarEventPickerFrame_Update(...) end
+---@return any ...
+function CalendarEventRetrievingFrame_OnUpdate(...) end
+---@type table
+CalendarEventTypeNames = {}
+---@return any ...
+function CalendarEvent_InitManagedScrollBarVisibility(...) end
+---@type table
+CalendarFrameBlocker = {}
+---@type table
+CalendarFrameBottomLeftTexture = {}
+---@type table
+CalendarFrameBottomMiddleTexture = {}
+---@type table
+CalendarFrameBottomRightTexture = {}
+---@type table
+CalendarFrameLeftBottomTexture = {}
+---@type table
+CalendarFrameLeftMiddleTexture = {}
+---@type table
+CalendarFrameLeftTopTexture = {}
+---@type table
+CalendarFrameModalOverlay = {}
+---@type table
+CalendarFrameRightBottomTexture = {}
+---@type table
+CalendarFrameRightMiddleTexture = {}
+---@type table
+CalendarFrameRightTopTexture = {}
+---@type table
+CalendarFrameTopLeftTexture = {}
+---@type table
+CalendarFrameTopMiddleTexture = {}
+---@type table
+CalendarFrameTopRightTexture = {}
+---@return any ...
+function CalendarFrame_CloseEvent(...) end
+---@return any ...
+function CalendarFrame_GetEventFrame(...) end
+---@return any ...
+function CalendarFrame_GetModal(...) end
+---@return any ...
+function CalendarFrame_HideEventFrame(...) end
+---@return any ...
+function CalendarFrame_InitDay(...) end
+---@return any ...
+function CalendarFrame_InitWeekday(...) end
+---@return any ...
+function CalendarFrame_OffsetMonth(...) end
+---@return any ...
+function CalendarFrame_OnEvent(...) end
+---@return any ...
+function CalendarFrame_OnHide(...) end
+---@return any ...
+function CalendarFrame_OnLoad(...) end
+---@return any ...
+function CalendarFrame_OnMouseWheel(...) end
+---@return any ...
+function CalendarFrame_OnShow(...) end
+---@return any ...
+function CalendarFrame_OpenEvent(...) end
+---@return any ...
+function CalendarFrame_OpenToGuildEventIndex(...) end
+---@return any ...
+function CalendarFrame_PopModal(...) end
+---@return any ...
+function CalendarFrame_PushModal(...) end
+---@return any ...
+function CalendarFrame_SetLastDay(...) end
+---@return any ...
+function CalendarFrame_SetSelectedDay(...) end
+---@return any ...
+function CalendarFrame_SetSelectedEvent(...) end
+---@return any ...
+function CalendarFrame_SetToday(...) end
+---@return any ...
+function CalendarFrame_ShowEventFrame(...) end
+---@return any ...
+function CalendarFrame_Update(...) end
+---@return any ...
+function CalendarFrame_UpdateDay(...) end
+---@return any ...
+function CalendarFrame_UpdateDayEvents(...) end
+---@return any ...
+function CalendarFrame_UpdateDayTextures(...) end
+---@return any ...
+function CalendarFrame_UpdateFilter(...) end
+---@return any ...
+function CalendarFrame_UpdateMonthOffsetButtons(...) end
+---@return any ...
+function CalendarFrame_UpdateTimeFormat(...) end
+---@return any ...
+function CalendarFrame_UpdateTitle(...) end
+---@type table
+CalendarLastDayDarkTexture = {}
+---@type table
+CalendarMassInviteAcceptButton = {}
+---@type table
+CalendarMassInviteAcceptButtonText = {}
+---@return any ...
+function CalendarMassInviteAcceptButton_OnClick(...) end
+---@type table
+CalendarMassInviteCloseButton = {}
+---@type table
+CalendarMassInviteFrame = {}
+---@type table
+CalendarMassInviteFrameLevelDivider = {}
+---@type table
+CalendarMassInviteFrameModalOverlay = {}
+---@return any ...
+function CalendarMassInviteFrame_OnEvent(...) end
+---@return any ...
+function CalendarMassInviteFrame_OnLoad(...) end
+---@return any ...
+function CalendarMassInviteFrame_OnShow(...) end
+---@type table
+CalendarMassInviteLevelText = {}
+---@type table
+CalendarMassInviteMaxLevelEdit = {}
+---@type table
+CalendarMassInviteMinLevelEdit = {}
+---@type table
+CalendarMassInviteRankText = {}
+---@return any ...
+function CalendarMassInvite_GenerateDropdowns(...) end
+---@return any ...
+function CalendarMassInvite_Update(...) end
+---@type table
+CalendarModalDummy = {}
+---@return any ...
+function CalendarModalDummy_Hide(...) end
+---@return any ...
+function CalendarModalDummy_Show(...) end
+---@type table
+CalendarMonthBackground = {}
+---@type table
+CalendarMonthName = {}
+---@type table
+CalendarNextMonthButton = {}
+---@return any ...
+function CalendarNextMonthButton_OnClick(...) end
+---@return any ...
+function CalendarOnEditBoxTab(...) end
+---@type table
+CalendarPrevMonthButton = {}
+---@return any ...
+function CalendarPrevMonthButton_OnClick(...) end
+---@type table
+CalendarTexturePickerAcceptButton = {}
+---@type table
+CalendarTexturePickerAcceptButtonBorder = {}
+---@type table
+CalendarTexturePickerAcceptButtonText = {}
+---@return any ...
+function CalendarTexturePickerAcceptButton_OnClick(...) end
+---@return any ...
+function CalendarTexturePickerButton_OnClick(...) end
+---@return any ...
+function CalendarTexturePickerButton_OnDoubleClick(...) end
+---@return any ...
+function CalendarTexturePickerButton_OnLoad(...) end
+---@type table
+CalendarTexturePickerCancelButton = {}
+---@type table
+CalendarTexturePickerCancelButtonBorder = {}
+---@type table
+CalendarTexturePickerCancelButtonText = {}
+---@type table
+CalendarTexturePickerFrame = {}
+---@type table
+CalendarTexturePickerFrameButtonBackground = {}
+---@return any ...
+function CalendarTexturePickerFrame_Hide(...) end
+---@return any ...
+function CalendarTexturePickerFrame_OnLoad(...) end
+---@return any ...
+function CalendarTexturePickerFrame_Show(...) end
+---@return any ...
+function CalendarTexturePickerFrame_Toggle(...) end
+---@return any ...
+function CalendarTexturePickerFrame_Update(...) end
+---@return any ...
+function CalendarTexturePickerFrame_UpdateScrollBox(...) end
+---@return any ...
+function CalendarTexturePickerTitleFrame_Update(...) end
+---@return any ...
+function CalendarTexturePicker_InitButton(...) end
+---@return any ...
+function CalendarTitleFrame_SetText(...) end
+---@type table
+CalendarTodayFrame = {}
+---@return any ...
+function CalendarTodayFrame_OnUpdate(...) end
+---@type table
+CalendarTodayTexture = {}
+---@type table
+CalendarTodayTextureGlow = {}
+---@type table
+CalendarViewEventAcceptButton = {}
+---@type table
+CalendarViewEventAcceptButtonFlashTexture = {}
+---@type table
+CalendarViewEventAcceptButtonText = {}
+---@return any ...
+function CalendarViewEventAcceptButton_OnClick(...) end
+---@return any ...
+function CalendarViewEventAcceptButton_OnEnter(...) end
+---@type table
+CalendarViewEventCloseButton = {}
+---@type table
+CalendarViewEventCommunityName = {}
+---@type table
+CalendarViewEventCreatorName = {}
+---@type table
+CalendarViewEventDateLabel = {}
+---@type table
+CalendarViewEventDeclineButton = {}
+---@type table
+CalendarViewEventDeclineButtonFlashTexture = {}
+---@type table
+CalendarViewEventDeclineButtonText = {}
+---@return any ...
+function CalendarViewEventDeclineButton_OnClick(...) end
+---@return any ...
+function CalendarViewEventDeclineButton_OnEnter(...) end
+---@type table
+CalendarViewEventDescriptionContainer = {}
+---@return any ...
+function CalendarViewEventDescriptionContainer_OnLoad(...) end
+---@type table
+CalendarViewEventDivider = {}
+---@type table
+CalendarViewEventFlashTimer = {}
+---@type table
+CalendarViewEventFrame = {}
+---@return any ...
+function CalendarViewEventFrameHeaderFrame_OnEnter(...) end
+---@type table
+CalendarViewEventFrameModalOverlay = {}
+---@type table
+CalendarViewEventFrameRetrievingFrame = {}
+---@type table
+CalendarViewEventFrameRetrievingFrameDots = {}
+---@type table
+CalendarViewEventFrameRetrievingFrameText = {}
+---@return any ...
+function CalendarViewEventFrame_OnEvent(...) end
+---@return any ...
+function CalendarViewEventFrame_OnLoad(...) end
+---@return any ...
+function CalendarViewEventFrame_OnShow(...) end
+---@return any ...
+function CalendarViewEventFrame_SetSelectedInvite(...) end
+---@return any ...
+function CalendarViewEventFrame_Update(...) end
+---@type table
+CalendarViewEventIcon = {}
+---@type table
+CalendarViewEventInviteList = {}
+---@return any ...
+function CalendarViewEventInviteListButton_Click(...) end
+---@return any ...
+function CalendarViewEventInviteListButton_OnClick(...) end
+---@type table
+CalendarViewEventInviteListClassSortButton = {}
+---@type table
+CalendarViewEventInviteListClassSortButtonDirection = {}
+---@type table
+CalendarViewEventInviteListNameSortButton = {}
+---@type table
+CalendarViewEventInviteListNameSortButtonDirection = {}
+---@return any ...
+function CalendarViewEventInviteListScrollFrame_Update(...) end
+---@type table
+CalendarViewEventInviteListSection = {}
+---@type table
+CalendarViewEventInviteListStatusSortButton = {}
+---@type table
+CalendarViewEventInviteListStatusSortButtonDirection = {}
+---@return any ...
+function CalendarViewEventInviteList_InitButton(...) end
+---@return any ...
+function CalendarViewEventInviteList_OnLoad(...) end
+---@return any ...
+function CalendarViewEventInviteList_Update(...) end
+---@return any ...
+function CalendarViewEventRSVPButton_OnUpdate(...) end
+---@return any ...
+function CalendarViewEventRSVP_Update(...) end
+---@type table
+CalendarViewEventRemoveButton = {}
+---@type table
+CalendarViewEventRemoveButtonText = {}
+---@return any ...
+function CalendarViewEventRemoveButton_OnClick(...) end
+---@return any ...
+function CalendarViewEventRemoveButton_OnEnter(...) end
+---@type table
+CalendarViewEventTentativeButton = {}
+---@type table
+CalendarViewEventTentativeButtonFlashTexture = {}
+---@type table
+CalendarViewEventTentativeButtonText = {}
+---@return any ...
+function CalendarViewEventTentativeButton_OnClick(...) end
+---@return any ...
+function CalendarViewEventTentativeButton_OnEnter(...) end
+---@type table
+CalendarViewEventTimeLabel = {}
+---@type table
+CalendarViewEventTitle = {}
+---@type table
+CalendarViewEventTypeName = {}
+---@return any ...
+function CalendarViewEvent_SetEventButtons(...) end
+---@type table
+CalendarViewHolidayCloseButton = {}
+---@type table
+CalendarViewHolidayFrame = {}
+---@type table
+CalendarViewHolidayFrameModalOverlay = {}
+---@return any ...
+function CalendarViewHolidayFrame_OnLoad(...) end
+---@return any ...
+function CalendarViewHolidayFrame_OnShow(...) end
+---@return any ...
+function CalendarViewHolidayFrame_Update(...) end
+---@type table
+CalendarViewRaidCloseButton = {}
+---@type table
+CalendarViewRaidFrame = {}
+---@type table
+CalendarViewRaidFrameModalOverlay = {}
+---@return any ...
+function CalendarViewRaidFrame_OnLoad(...) end
+---@return any ...
+function CalendarViewRaidFrame_OnShow(...) end
+---@return any ...
+function CalendarViewRaidFrame_Update(...) end
+---@type table
+CalendarWeekday1Background = {}
+---@type table
+CalendarWeekday1Name = {}
+---@type table
+CalendarWeekday2Background = {}
+---@type table
+CalendarWeekday2Name = {}
+---@type table
+CalendarWeekday3Background = {}
+---@type table
+CalendarWeekday3Name = {}
+---@type table
+CalendarWeekday4Background = {}
+---@type table
+CalendarWeekday4Name = {}
+---@type table
+CalendarWeekday5Background = {}
+---@type table
+CalendarWeekday5Name = {}
+---@type table
+CalendarWeekday6Background = {}
+---@type table
+CalendarWeekday6Name = {}
+---@type table
+CalendarWeekday7Background = {}
+---@type table
+CalendarWeekday7Name = {}
+---@type table
+CalendarWeekdaySelectedTexture = {}
+---@type table
+CalendarYearBackground = {}
+---@type table
+CalendarYearName = {}
+---@return any ...
+function Calendar_Hide(...) end
 ---@return any ...
 function Calendar_LoadUI(...) end
+---@return any ...
+function Calendar_Show(...) end
+---@return any ...
+function Calendar_Toggle(...) end
 ---@return any ...
 function CallCompanion(...) end
 ---@return any ...
@@ -7782,5100 +13478,3 @@ function CanCooperateWithGameAccount(...) end
 function CanCreateFilters(...) end
 ---@return boolean result
 function CanDualWield() end
----@return any ...
-function CanEditGuildBankTabInfo(...) end
----@return any ...
-function CanEditGuildEvent(...) end
----@return any ...
-function CanEditGuildInfo(...) end
----@return any ...
-function CanEditGuildTabInfo(...) end
----@return any ...
-function CanEditMOTD(...) end
----@return any ...
-function CanEditPublicNote(...) end
----@param virtualSeatIndex integer
----@return boolean result
-function CanEjectPassengerFromSeat(virtualSeatIndex) end
----@return any ...
-function CanExitVehicle(...) end
----@return any ...
-function CanGamePadControlCursor(...) end
----@return any ...
-function CanGroupWithAccount(...) end
----@return any ...
-function CanGuildBankRepair(...) end
----@return any ...
-function CanGuildDemote(...) end
----@return any ...
-function CanGuildInvite(...) end
----@return any ...
-function CanGuildPromote(...) end
----@return any ...
-function CanGuildRemove(...) end
----@return any ...
-function CanHearthAndResurrectFromArea(...) end
----@return any ...
-function CanInitiateWarGame(...) end
----@param targetGUID UnitToken
----@return boolean result
-function CanInspect(targetGUID) end
----@return any ...
-function CanItemBeSocketedToArtifact(...) end
----@return any ...
-function CanJoinBattlefieldAsGroup(...) end
----@param targetUnit WOWGUID
----@return boolean hasLoot
----@return boolean canLoot
-function CanLootUnit(targetUnit) end
----@param mapID? number
----@return boolean canChange
-function CanMapChangeDifficulty(mapID) end
----@return any ...
-function CanMerchantRepair(...) end
----@return any ...
-function CanOpenPanels(...) end
----@return any ...
-function CanPartyLFGBackfill(...) end
----@return boolean canPortGraveyard
-function CanPortGraveyard() end
----@return any ...
-function CanReplaceGuildMaster(...) end
----@return any ...
-function CanResetTutorials(...) end
----@return any ...
-function CanScanResearchSite(...) end
----@return any ...
-function CanShowAchievementUI(...) end
----@return any ...
-function CanShowCenterUIPanel(...) end
----@return any ...
-function CanShowProfessionEquipmentTutorial(...) end
----@return boolean result
-function CanShowResetInstances() end
----@return any ...
-function CanShowRightUIPanel(...) end
----@return boolean result
-function CanShowSetRoleButton() end
----@return any ...
-function CanShowUIPanels(...) end
----@return any ...
-function CanSignPetition(...) end
----@return any ...
-function CanSolveArtifact(...) end
----@return boolean result
-function CanSwitchVehicleSeat() end
----@return any ...
-function CanSwitchVehicleSeats(...) end
----@return boolean canUpgradeExpansion
-function CanUpgradeToCurrentExpansion() end
----@return any ...
-function CanViewGuildRecipes(...) end
----@return any ...
-function CanWithdrawGuildBankMoney(...) end
----@return any ...
-function CancelAnimations(...) end
-function CancelAreaSpiritHeal() end
----@return any ...
-function CancelDuel(...) end
----@return any ...
-function CancelEmote(...) end
----@return any ...
-function CancelItemTempEnchantment(...) end
-function CancelLogout() end
----@return any ...
-function CancelMasterLootRoll(...) end
----@param index number
-function CancelPendingEquip(index) end
----@return any ...
-function CancelPetPossess(...) end
----@param movieId number
-function CancelPreloadingMovie(movieId) end
----@return any ...
-function CancelScene(...) end
----@return any ...
-function CancelShapeshiftForm(...) end
----@return any ...
-function CancelSpellByName(...) end
-function CancelTrade() end
----@return any ...
-function CancelTradeAccept(...) end
----@return any ...
-function CancelUnitBuff(...) end
----@return any ...
-function CannotBeResurrected(...) end
----@return any ...
-function CapProgressBar_SetNotches(...) end
----@return any ...
-function CapProgressBar_Update(...) end
----@type table
-CarouselContainer = {}
----@return any ...
-function CarouselLeftButton_OnClick(...) end
----@return any ...
-function CarouselRightButton_OnClick(...) end
----@param name string
----@return string result
-function CaseAccentInsensitiveParse(name) end
----@return any ...
-function CastPetAction(...) end
----@return any ...
-function CastShapeshiftForm(...) end
----@return any ...
-function CastSpell(...) end
----@return any ...
-function CastSpellByID(...) end
----@return any ...
-function CastSpellByName(...) end
----@return any ...
-function CastingBarAnim_OnFadeOutFinish(...) end
----@return any ...
-function CastingBarAnim_OnInterruptSparkAnimFinish(...) end
----@return any ...
-function CatalogShopFocusCarouselGamepad(...) end
----@return any ...
-function CatalogShopFocusGamepad(...) end
----@type table
-CatalogShopFrameBg = {}
----@type table
-CatalogShopFrameClearButton = {}
----@type table
-CatalogShopFrameCloseButton = {}
----@type table
-CatalogShopFramePortrait = {}
----@type table
-CatalogShopFrameSearchIcon = {}
----@type table
-CatalogShopFrameTitleText = {}
----@return any ...
-function CatalogShopHideProductDetails(...) end
----@return any ...
-function CatalogShopRefreshGamepadPurchaseButton(...) end
----@return any ...
-function CatalogShopRefreshSmartNav(...) end
----@return any ...
-function CatalogShopRefundFlow_Show(...) end
----@type table
-CatalogShopRefundFrameBg = {}
----@type table
-CatalogShopRefundFrameTitleText = {}
----@type table
-CatalogShopRefundFrameTopTileStreaks = {}
----@return any ...
-function CatalogShopSetItemTooltip(...) end
----@return any ...
-function CatalogShopSetupGamepad(...) end
----@return any ...
-function CatalogShopShowProductDetails(...) end
----@type table
-CatalogShopTooltipTextLeft1 = {}
----@type table
-CatalogShopTooltipTextLeft2 = {}
----@type table
-CatalogShopTooltipTextRight1 = {}
----@type table
-CatalogShopTooltipTextRight2 = {}
----@type table
-CatalogShopTooltipTexture1 = {}
----@type table
-CatalogShopTooltipTexture10 = {}
----@type table
-CatalogShopTooltipTexture11 = {}
----@type table
-CatalogShopTooltipTexture12 = {}
----@type table
-CatalogShopTooltipTexture13 = {}
----@type table
-CatalogShopTooltipTexture14 = {}
----@type table
-CatalogShopTooltipTexture15 = {}
----@type table
-CatalogShopTooltipTexture16 = {}
----@type table
-CatalogShopTooltipTexture17 = {}
----@type table
-CatalogShopTooltipTexture18 = {}
----@type table
-CatalogShopTooltipTexture19 = {}
----@type table
-CatalogShopTooltipTexture2 = {}
----@type table
-CatalogShopTooltipTexture20 = {}
----@type table
-CatalogShopTooltipTexture21 = {}
----@type table
-CatalogShopTooltipTexture22 = {}
----@type table
-CatalogShopTooltipTexture23 = {}
----@type table
-CatalogShopTooltipTexture24 = {}
----@type table
-CatalogShopTooltipTexture25 = {}
----@type table
-CatalogShopTooltipTexture26 = {}
----@type table
-CatalogShopTooltipTexture27 = {}
----@type table
-CatalogShopTooltipTexture28 = {}
----@type table
-CatalogShopTooltipTexture29 = {}
----@type table
-CatalogShopTooltipTexture3 = {}
----@type table
-CatalogShopTooltipTexture30 = {}
----@type table
-CatalogShopTooltipTexture4 = {}
----@type table
-CatalogShopTooltipTexture5 = {}
----@type table
-CatalogShopTooltipTexture6 = {}
----@type table
-CatalogShopTooltipTexture7 = {}
----@type table
-CatalogShopTooltipTexture8 = {}
----@type table
-CatalogShopTooltipTexture9 = {}
----@return any ...
-function CatalogShopTopUpFrame_GetFrame(...) end
----@return any ...
-function CatalogShopUnfocusCarouselGamepad(...) end
----@return any ...
-function CatalogShopUnfocusGamepad(...) end
----@return any ...
-function CatalogShopVisibilityUpdated(...) end
----@return any ...
-function CatmullRom_Calculate2DPointOnCurve(...) end
----@return any ...
-function CatmullRom_Calculate3DPointOnCurve(...) end
----@return any ...
-function CatmullRom_Calculate4DPointOnCurve(...) end
----@return any ...
-function CatmullRom_CalculatePointOnCurve(...) end
----@return any ...
-function CenterCamera(...) end
----@return any ...
-function ChangeActionBarPage(...) end
----@return any ...
-function ChangeChatColor(...) end
----@return any ...
-function ChangeMultiCastActionPage(...) end
----@return any ...
-function ChannelBan(...) end
----@type table
-ChannelFrameBg = {}
----@type table
-ChannelFrameCloseButton = {}
----@type table
-ChannelFrameInset = {}
----@type table
-ChannelFramePortrait = {}
----@type table
-ChannelFrameText = {}
----@type table
-ChannelFrameTitleText = {}
----@return any ...
-function ChannelFrame_Desaturate(...) end
----@return any ...
-function ChannelFrame_GetIdealChannelName(...) end
----@return any ...
-function ChannelFrame_IsCategoryCustom(...) end
----@return any ...
-function ChannelFrame_IsCategoryGlobal(...) end
----@return any ...
-function ChannelFrame_IsCategoryGroup(...) end
----@return any ...
-function ChannelInvite(...) end
----@return any ...
-function ChannelKick(...) end
----@return any ...
-function ChannelModerator(...) end
----@return any ...
-function ChannelSetAllSilent(...) end
----@return any ...
-function ChannelSetPartyMemberSilent(...) end
----@return any ...
-function ChannelToggleAnnouncements(...) end
----@return any ...
-function ChannelUnban(...) end
----@return any ...
-function ChannelUnmoderator(...) end
----@type table
-CharacterAmmoSlot = {}
----@type table
-CharacterAmmoSlotCooldown = {}
----@type table
-CharacterAmmoSlotCount = {}
----@type table
-CharacterAmmoSlotIconTexture = {}
----@type table
-CharacterAmmoSlotNormalTexture = {}
----@type table
-CharacterAmmoSlotSearchOverlay = {}
----@type table
-CharacterAmmoSlotStock = {}
----@return any ...
-function CharacterAttackFrame_OnEnter(...) end
----@type table
-CharacterBackSlot = {}
----@type table
-CharacterBackSlotCooldown = {}
----@type table
-CharacterBackSlotCount = {}
----@type table
-CharacterBackSlotIconTexture = {}
----@type table
-CharacterBackSlotNormalTexture = {}
----@type table
-CharacterBackSlotPopoutButton = {}
----@type table
-CharacterBackSlotSearchOverlay = {}
----@type table
-CharacterBackSlotStock = {}
----@type table
-CharacterChestSlot = {}
----@type table
-CharacterChestSlotCooldown = {}
----@type table
-CharacterChestSlotCount = {}
----@type table
-CharacterChestSlotIconTexture = {}
----@type table
-CharacterChestSlotNormalTexture = {}
----@type table
-CharacterChestSlotPopoutButton = {}
----@type table
-CharacterChestSlotSearchOverlay = {}
----@type table
-CharacterChestSlotStock = {}
----@type table
-CharacterCreateTooltipFont = {}
----@return any ...
-function CharacterCritChanceFrame_OnEnter(...) end
----@return any ...
-function CharacterDamageFrame_OnEnter(...) end
----@return any ...
-function CharacterDefenseFrame_OnEnter(...) end
----@type table
-CharacterFeetSlot = {}
----@type table
-CharacterFeetSlotCooldown = {}
----@type table
-CharacterFeetSlotCount = {}
----@type table
-CharacterFeetSlotIconTexture = {}
----@type table
-CharacterFeetSlotNormalTexture = {}
----@type table
-CharacterFeetSlotPopoutButton = {}
----@type table
-CharacterFeetSlotSearchOverlay = {}
----@type table
-CharacterFeetSlotStock = {}
----@type table
-CharacterFinger0Slot = {}
----@type table
-CharacterFinger0SlotCooldown = {}
----@type table
-CharacterFinger0SlotCount = {}
----@type table
-CharacterFinger0SlotIconTexture = {}
----@type table
-CharacterFinger0SlotNormalTexture = {}
----@type table
-CharacterFinger0SlotPopoutButton = {}
----@type table
-CharacterFinger0SlotSearchOverlay = {}
----@type table
-CharacterFinger0SlotStock = {}
----@type table
-CharacterFinger1Slot = {}
----@type table
-CharacterFinger1SlotCooldown = {}
----@type table
-CharacterFinger1SlotCount = {}
----@type table
-CharacterFinger1SlotIconTexture = {}
----@type table
-CharacterFinger1SlotNormalTexture = {}
----@type table
-CharacterFinger1SlotPopoutButton = {}
----@type table
-CharacterFinger1SlotSearchOverlay = {}
----@type table
-CharacterFinger1SlotStock = {}
----@type table
-CharacterFrameCloseButton = {}
----@type table
-CharacterFrameLeftPaneHost = {}
----@type table
-CharacterFrameModeTab1 = {}
----@type table
-CharacterFrameModeTab2 = {}
----@type table
-CharacterFrameModeTab3 = {}
----@type table
-CharacterFrameModeTab4 = {}
----@type table
-CharacterFrameModeTab5 = {}
----@type table
-CharacterFrameModeTab6 = {}
----@type table
-CharacterFrameModeTabs = {}
----@type table
-CharacterFramePortrait = {}
----@type table
-CharacterFrameRightPaneHost = {}
----@type table
-CharacterFrameRightPaneHostStoneBg = {}
----@type table
-CharacterFrameRightPaneToggleButton = {}
----@type table
-CharacterFrameTabIndicators = {}
----@type table
-CharacterFrameTabIndicatorsLeftTabButton = {}
----@type table
-CharacterFrameTabIndicatorsRightTabButton = {}
----@type table
-CharacterFrameTitleText = {}
----@return any ...
-function CharacterFrame_GetTab(...) end
----@type table
-CharacterHandsSlot = {}
----@type table
-CharacterHandsSlotCooldown = {}
----@type table
-CharacterHandsSlotCount = {}
----@type table
-CharacterHandsSlotIconTexture = {}
----@type table
-CharacterHandsSlotNormalTexture = {}
----@type table
-CharacterHandsSlotPopoutButton = {}
----@type table
-CharacterHandsSlotSearchOverlay = {}
----@type table
-CharacterHandsSlotStock = {}
----@return any ...
-function CharacterHasteFrame_OnEnter(...) end
----@type table
-CharacterHeadSlot = {}
----@type table
-CharacterHeadSlotCooldown = {}
----@type table
-CharacterHeadSlotCount = {}
----@type table
-CharacterHeadSlotIconTexture = {}
----@type table
-CharacterHeadSlotNormalTexture = {}
----@type table
-CharacterHeadSlotPopoutButton = {}
----@type table
-CharacterHeadSlotSearchOverlay = {}
----@type table
-CharacterHeadSlotStock = {}
----@return any ...
-function CharacterHitFrame_OnEnter(...) end
----@type table
-CharacterLegsSlot = {}
----@type table
-CharacterLegsSlotCooldown = {}
----@type table
-CharacterLegsSlotCount = {}
----@type table
-CharacterLegsSlotIconTexture = {}
----@type table
-CharacterLegsSlotNormalTexture = {}
----@type table
-CharacterLegsSlotPopoutButton = {}
----@type table
-CharacterLegsSlotSearchOverlay = {}
----@type table
-CharacterLegsSlotStock = {}
----@type table
-CharacterLevelText = {}
----@type table
-CharacterMainHandSlot = {}
----@type table
-CharacterMainHandSlotCooldown = {}
----@type table
-CharacterMainHandSlotCount = {}
----@type table
-CharacterMainHandSlotIconTexture = {}
----@type table
-CharacterMainHandSlotNormalTexture = {}
----@type table
-CharacterMainHandSlotPopoutButton = {}
----@type table
-CharacterMainHandSlotSearchOverlay = {}
----@type table
-CharacterMainHandSlotStock = {}
----@type table
-CharacterModelFrameBackgroundBotLeft = {}
----@type table
-CharacterModelFrameBackgroundBotRight = {}
----@type table
-CharacterModelFrameBackgroundTopLeft = {}
----@type table
-CharacterModelFrameBackgroundTopRight = {}
----@type table
-CharacterModelScene = {}
----@type table
-CharacterNeckSlot = {}
----@type table
-CharacterNeckSlotCooldown = {}
----@type table
-CharacterNeckSlotCount = {}
----@type table
-CharacterNeckSlotIconTexture = {}
----@type table
-CharacterNeckSlotNormalTexture = {}
----@type table
-CharacterNeckSlotPopoutButton = {}
----@type table
-CharacterNeckSlotSearchOverlay = {}
----@type table
-CharacterNeckSlotStock = {}
----@type table
-CharacterRangedSlot = {}
----@type table
-CharacterRangedSlotCooldown = {}
----@type table
-CharacterRangedSlotCount = {}
----@type table
-CharacterRangedSlotIconTexture = {}
----@type table
-CharacterRangedSlotNormalTexture = {}
----@type table
-CharacterRangedSlotPopoutButton = {}
----@type table
-CharacterRangedSlotSearchOverlay = {}
----@type table
-CharacterRangedSlotStock = {}
----@type table
-CharacterSecondaryHandSlot = {}
----@type table
-CharacterSecondaryHandSlotCooldown = {}
----@type table
-CharacterSecondaryHandSlotCount = {}
----@type table
-CharacterSecondaryHandSlotIconTexture = {}
----@type table
-CharacterSecondaryHandSlotNormalTexture = {}
----@type table
-CharacterSecondaryHandSlotPopoutButton = {}
----@type table
-CharacterSecondaryHandSlotSearchOverlay = {}
----@type table
-CharacterSecondaryHandSlotStock = {}
----@type table
-CharacterShirtSlot = {}
----@type table
-CharacterShirtSlotCooldown = {}
----@type table
-CharacterShirtSlotCount = {}
----@type table
-CharacterShirtSlotIconTexture = {}
----@type table
-CharacterShirtSlotNormalTexture = {}
----@type table
-CharacterShirtSlotPopoutButton = {}
----@type table
-CharacterShirtSlotSearchOverlay = {}
----@type table
-CharacterShirtSlotStock = {}
----@type table
-CharacterShoulderSlot = {}
----@type table
-CharacterShoulderSlotCooldown = {}
----@type table
-CharacterShoulderSlotCount = {}
----@type table
-CharacterShoulderSlotIconTexture = {}
----@type table
-CharacterShoulderSlotNormalTexture = {}
----@type table
-CharacterShoulderSlotPopoutButton = {}
----@type table
-CharacterShoulderSlotSearchOverlay = {}
----@type table
-CharacterShoulderSlotStock = {}
----@return any ...
-function CharacterSpellBonusDamage_OnEnter(...) end
----@type table
-CharacterStatsPane = {}
----@type table
-CharacterStatsPanePetScrollBox = {}
----@type table
-CharacterStatsPaneScrollBox = {}
----@type table
-CharacterTabardSlot = {}
----@type table
-CharacterTabardSlotCooldown = {}
----@type table
-CharacterTabardSlotCount = {}
----@type table
-CharacterTabardSlotIconTexture = {}
----@type table
-CharacterTabardSlotNormalTexture = {}
----@type table
-CharacterTabardSlotPopoutButton = {}
----@type table
-CharacterTabardSlotSearchOverlay = {}
----@type table
-CharacterTabardSlotStock = {}
----@type table
-CharacterTrinket0Slot = {}
----@type table
-CharacterTrinket0SlotCooldown = {}
----@type table
-CharacterTrinket0SlotCount = {}
----@type table
-CharacterTrinket0SlotIconTexture = {}
----@type table
-CharacterTrinket0SlotNormalTexture = {}
----@type table
-CharacterTrinket0SlotPopoutButton = {}
----@type table
-CharacterTrinket0SlotSearchOverlay = {}
----@type table
-CharacterTrinket0SlotStock = {}
----@type table
-CharacterTrinket1Slot = {}
----@type table
-CharacterTrinket1SlotCooldown = {}
----@type table
-CharacterTrinket1SlotCount = {}
----@type table
-CharacterTrinket1SlotIconTexture = {}
----@type table
-CharacterTrinket1SlotNormalTexture = {}
----@type table
-CharacterTrinket1SlotPopoutButton = {}
----@type table
-CharacterTrinket1SlotSearchOverlay = {}
----@type table
-CharacterTrinket1SlotStock = {}
----@type table
-CharacterWaistSlot = {}
----@type table
-CharacterWaistSlotCooldown = {}
----@type table
-CharacterWaistSlotCount = {}
----@type table
-CharacterWaistSlotIconTexture = {}
----@type table
-CharacterWaistSlotNormalTexture = {}
----@type table
-CharacterWaistSlotPopoutButton = {}
----@type table
-CharacterWaistSlotSearchOverlay = {}
----@type table
-CharacterWaistSlotStock = {}
----@type table
-CharacterWristSlot = {}
----@type table
-CharacterWristSlotCooldown = {}
----@type table
-CharacterWristSlotCount = {}
----@type table
-CharacterWristSlotIconTexture = {}
----@type table
-CharacterWristSlotNormalTexture = {}
----@type table
-CharacterWristSlotPopoutButton = {}
----@type table
-CharacterWristSlotSearchOverlay = {}
----@type table
-CharacterWristSlotStock = {}
----@return any ...
-function ChatAdditionalColor_OpenColorPicker(...) end
----@type table
-ChatBubbleFont = {}
----@type table
-ChatConfigBackgroundFrame = {}
----@return any ...
-function ChatConfigBaseCheckButton_MouseUp(...) end
----@return any ...
-function ChatConfigCancel_OnClick(...) end
----@type table
-ChatConfigCategoryFrame = {}
----@type table
-ChatConfigCategoryFrameButton1 = {}
----@type table
-ChatConfigCategoryFrameButton1Highlight = {}
----@type table
-ChatConfigCategoryFrameButton1NormalText = {}
----@type table
-ChatConfigCategoryFrameButton2 = {}
----@type table
-ChatConfigCategoryFrameButton2Highlight = {}
----@type table
-ChatConfigCategoryFrameButton2NormalText = {}
----@type table
-ChatConfigCategoryFrameButton3 = {}
----@type table
-ChatConfigCategoryFrameButton3Highlight = {}
----@type table
-ChatConfigCategoryFrameButton3NormalText = {}
----@type table
-ChatConfigCategoryFrameButton4 = {}
----@type table
-ChatConfigCategoryFrameButton4Highlight = {}
----@type table
-ChatConfigCategoryFrameButton4NormalText = {}
----@type table
-ChatConfigCategoryFrameButton5 = {}
----@type table
-ChatConfigCategoryFrameButton5Highlight = {}
----@type table
-ChatConfigCategoryFrameButton5NormalText = {}
----@type table
-ChatConfigCategoryFrameButton6 = {}
----@type table
-ChatConfigCategoryFrameButton6Highlight = {}
----@type table
-ChatConfigCategoryFrameButton6NormalText = {}
----@type table
-ChatConfigCategoryFrameButton7 = {}
----@type table
-ChatConfigCategoryFrameButton7Highlight = {}
----@type table
-ChatConfigCategoryFrameButton7NormalText = {}
----@return any ...
-function ChatConfigCategoryFrame_Refresh(...) end
----@return any ...
-function ChatConfigCategory_OnClick(...) end
----@return any ...
-function ChatConfigCategory_UpdateEnabled(...) end
----@type table
-ChatConfigChannelSettings = {}
----@type table
-ChatConfigChannelSettingsLeft = {}
----@type table
-ChatConfigChannelSettingsLeftColorHeader = {}
----@type table
-ChatConfigChannelSettingsLeftTitle = {}
----@return any ...
-function ChatConfigChannelSettings_MoveChannelDown(...) end
----@return any ...
-function ChatConfigChannelSettings_MoveChannelUp(...) end
----@return any ...
-function ChatConfigChannelSettings_OnShow(...) end
----@return any ...
-function ChatConfigChannelSettings_SwapChannelsByIndex(...) end
----@return any ...
-function ChatConfigChannelSettings_UpdateCheckboxes(...) end
----@type table
-ChatConfigChatSettings = {}
----@type table
-ChatConfigChatSettingsLeft = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox1 = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox10 = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox10Check = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox10CheckText = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox10ColorSwatch = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox10ColorSwatchSwatchBg = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox11 = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox11Check = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox11CheckText = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox11ColorSwatch = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox11ColorSwatchSwatchBg = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox12 = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox12Check = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox12CheckText = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox12ColorSwatch = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox12ColorSwatchSwatchBg = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox13 = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox13Check = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox13CheckText = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox13ColorSwatch = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox13ColorSwatchSwatchBg = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox14 = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox14Check = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox14CheckText = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox14ColorSwatch = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox14ColorSwatchSwatchBg = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox15 = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox15Check = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox15CheckText = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox15ColorSwatch = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox15ColorSwatchSwatchBg = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox16 = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox16Check = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox16CheckText = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox16ColorSwatch = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox16ColorSwatchSwatchBg = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox17 = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox17Check = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox17CheckText = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox17ColorSwatch = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox17ColorSwatchSwatchBg = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox18 = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox18Check = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox18CheckText = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox18ColorSwatch = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox18ColorSwatchSwatchBg = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox1Check = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox1CheckText = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox1ColorSwatch = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox1ColorSwatchSwatchBg = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox2 = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox2Check = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox2CheckText = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox2ColorSwatch = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox2ColorSwatchSwatchBg = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox3 = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox3Check = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox3CheckText = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox3ColorSwatch = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox3ColorSwatchSwatchBg = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox4 = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox4Check = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox4CheckText = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox4ColorSwatch = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox4ColorSwatchSwatchBg = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox5 = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox5Check = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox5CheckText = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox5ColorSwatch = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox5ColorSwatchSwatchBg = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox6 = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox6Check = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox6CheckText = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox6ColorSwatch = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox6ColorSwatchSwatchBg = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox7 = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox7Check = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox7CheckText = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox7ColorSwatch = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox7ColorSwatchSwatchBg = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox8 = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox8Check = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox8CheckText = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox8ColorSwatch = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox8ColorSwatchSwatchBg = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox9 = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox9Check = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox9CheckText = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox9ColorSwatch = {}
----@type table
-ChatConfigChatSettingsLeftCheckbox9ColorSwatchSwatchBg = {}
----@type table
-ChatConfigChatSettingsLeftColorHeader = {}
----@type table
-ChatConfigChatSettingsLeftTitle = {}
----@return any ...
-function ChatConfigChatSettings_OnShow(...) end
----@return any ...
-function ChatConfigChatSettings_UpdateCheckboxes(...) end
----@return any ...
-function ChatConfigCombatButton_OnClick(...) end
----@type table
-ChatConfigCombatSettings = {}
----@type table
-ChatConfigCombatSettingsFilters = {}
----@type table
-ChatConfigCombatSettingsFiltersAddFilterButton = {}
----@type table
-ChatConfigCombatSettingsFiltersAddFilterButtonText = {}
----@type table
-ChatConfigCombatSettingsFiltersCopyFilterButton = {}
----@type table
-ChatConfigCombatSettingsFiltersCopyFilterButtonText = {}
----@type table
-ChatConfigCombatSettingsFiltersDeleteButton = {}
----@type table
-ChatConfigCombatSettingsFiltersDeleteButtonText = {}
----@return any ...
-function ChatConfigCombat_InitButton(...) end
----@return any ...
-function ChatConfigCombat_OnEvent(...) end
----@return any ...
-function ChatConfigCombat_OnHide(...) end
----@return any ...
-function ChatConfigCombat_OnLoad(...) end
----@return any ...
-function ChatConfigCombat_OnShow(...) end
----@return any ...
-function ChatConfigFilter_OnClick(...) end
----@type table
-ChatConfigFrameCancelButton = {}
----@type table
-ChatConfigFrameCancelButtonText = {}
----@type table
-ChatConfigFrameChatTabManager = {}
----@type table
-ChatConfigFrameChatTabManagerGlow = {}
----@type table
-ChatConfigFrameDefaultButton = {}
----@type table
-ChatConfigFrameDefaultButtonText = {}
----@return any ...
-function ChatConfigFrameDefaultButton_OnClick(...) end
----@type table
-ChatConfigFrameOkayButton = {}
----@type table
-ChatConfigFrameOkayButtonText = {}
----@type table
-ChatConfigFrameRedockButton = {}
----@type table
-ChatConfigFrameRedockButtonText = {}
----@return any ...
-function ChatConfigFrameRedockButton_OnClick(...) end
----@return any ...
-function ChatConfigFrameRedockButton_OnLoad(...) end
----@return any ...
-function ChatConfigFrame_OnChatDisabledChanged(...) end
----@return any ...
-function ChatConfigFrame_OnEvent(...) end
----@return any ...
-function ChatConfigFrame_OnLoad(...) end
----@return any ...
-function ChatConfigFrame_PlayCheckboxSound(...) end
----@return any ...
-function ChatConfigFrame_ReplaceChatConfigLeftTooltips(...) end
----@type table
-ChatConfigMoveFilterDownButton = {}
----@type table
-ChatConfigMoveFilterUpButton = {}
----@type table
-ChatConfigOtherSettings = {}
----@type table
-ChatConfigOtherSettingsAdditionalColors = {}
----@type table
-ChatConfigOtherSettingsAdditionalColorsSwatch1 = {}
----@type table
-ChatConfigOtherSettingsAdditionalColorsSwatch1ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsAdditionalColorsSwatch1ColorSwatchNormalTexture = {}
----@type table
-ChatConfigOtherSettingsAdditionalColorsSwatch1ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsAdditionalColorsSwatch1Text = {}
----@type table
-ChatConfigOtherSettingsAdditionalColorsTitle = {}
----@type table
-ChatConfigOtherSettingsCombat = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox1 = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox10 = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox10Check = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox10CheckText = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox10ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox10ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox11 = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox11Check = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox11CheckText = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox11ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox11ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox1Check = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox1CheckText = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox1ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox1ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox2 = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox2Check = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox2CheckText = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox2ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox2ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox3 = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox3Check = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox3CheckText = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox3ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox3ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox4 = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox4Check = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox4CheckText = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox4ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox4ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox5 = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox5Check = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox5CheckText = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox5ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox5ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox6 = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox6Check = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox6CheckText = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox6ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox6ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox7 = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox7Check = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox7CheckText = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox7ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox7ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox8 = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox8Check = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox8CheckText = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox8ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox8ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox9 = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox9Check = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox9CheckText = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox9ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsCombatCheckbox9ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsCombatTitle = {}
----@type table
-ChatConfigOtherSettingsCreature = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox1 = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox1Check = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox1CheckText = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox1ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox1ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox2 = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox2Check = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox2CheckText = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox2ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox2ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox3 = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox3Check = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox3CheckText = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox3ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox3ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox4 = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox4Check = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox4CheckText = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox4ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox4ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox5 = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox5Check = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox5CheckText = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox5ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox5ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox6 = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox6Check = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox6CheckText = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox6ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsCreatureCheckbox6ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsCreatureTitle = {}
----@type table
-ChatConfigOtherSettingsPVP = {}
----@type table
-ChatConfigOtherSettingsPVPCheckbox1 = {}
----@type table
-ChatConfigOtherSettingsPVPCheckbox1Check = {}
----@type table
-ChatConfigOtherSettingsPVPCheckbox1CheckText = {}
----@type table
-ChatConfigOtherSettingsPVPCheckbox1ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsPVPCheckbox1ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsPVPCheckbox2 = {}
----@type table
-ChatConfigOtherSettingsPVPCheckbox2Check = {}
----@type table
-ChatConfigOtherSettingsPVPCheckbox2CheckText = {}
----@type table
-ChatConfigOtherSettingsPVPCheckbox2ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsPVPCheckbox2ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsPVPCheckbox3 = {}
----@type table
-ChatConfigOtherSettingsPVPCheckbox3Check = {}
----@type table
-ChatConfigOtherSettingsPVPCheckbox3CheckText = {}
----@type table
-ChatConfigOtherSettingsPVPCheckbox3ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsPVPCheckbox3ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsPVPTitle = {}
----@type table
-ChatConfigOtherSettingsSystem = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox1 = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox1Check = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox1CheckText = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox1ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox1ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox2 = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox2Check = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox2CheckText = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox2ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox2ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox3 = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox3Check = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox3CheckText = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox3ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox3ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox4 = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox4Check = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox4CheckText = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox4ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox4ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox5 = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox5Check = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox5CheckText = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox5ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox5ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox6 = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox6Check = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox6CheckText = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox6ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox6ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox7 = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox7Check = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox7CheckText = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox7ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox7ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox8 = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox8Check = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox8CheckText = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox8ColorSwatch = {}
----@type table
-ChatConfigOtherSettingsSystemCheckbox8ColorSwatchSwatchBg = {}
----@type table
-ChatConfigOtherSettingsSystemTitle = {}
----@return any ...
-function ChatConfigOtherSettings_OnShow(...) end
----@return any ...
-function ChatConfigOtherSettings_UpdateCheckboxes(...) end
----@type table
-ChatConfigTextToSpeechChannelSettings = {}
----@type table
-ChatConfigTextToSpeechChannelSettingsLeft = {}
----@type table
-ChatConfigTextToSpeechChannelSettingsLeftCheckbox1 = {}
----@type table
-ChatConfigTextToSpeechChannelSettingsLeftCheckbox1Check = {}
----@type table
-ChatConfigTextToSpeechChannelSettingsLeftCheckbox1CheckText = {}
----@type table
-ChatConfigTextToSpeechChannelSettingsLeftCheckbox2 = {}
----@type table
-ChatConfigTextToSpeechChannelSettingsLeftCheckbox2Check = {}
----@type table
-ChatConfigTextToSpeechChannelSettingsLeftCheckbox2CheckText = {}
----@type table
-ChatConfigTextToSpeechChannelSettingsLeftCheckbox3 = {}
----@type table
-ChatConfigTextToSpeechChannelSettingsLeftCheckbox3Check = {}
----@type table
-ChatConfigTextToSpeechChannelSettingsLeftCheckbox3CheckText = {}
----@type table
-ChatConfigTextToSpeechChannelSettingsLeftCheckbox4 = {}
----@type table
-ChatConfigTextToSpeechChannelSettingsLeftCheckbox4Check = {}
----@type table
-ChatConfigTextToSpeechChannelSettingsLeftCheckbox4CheckText = {}
----@type table
-ChatConfigTextToSpeechChannelSettingsLeftCheckbox5 = {}
----@type table
-ChatConfigTextToSpeechChannelSettingsLeftCheckbox5Check = {}
----@type table
-ChatConfigTextToSpeechChannelSettingsLeftCheckbox5CheckText = {}
----@type table
-ChatConfigTextToSpeechChannelSettingsLeftTitle = {}
----@return any ...
-function ChatConfigTextToSpeechChannelSettings_OnShow(...) end
----@return any ...
-function ChatConfigTextToSpeechChannelSettings_UpdateCheckboxes(...) end
----@type table
-ChatConfigTextToSpeechMessageSettings = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox1 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox10 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox11 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox12 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox13 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox14 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox15 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox16 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox17 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox18 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox19 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox2 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox20 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox21 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox22 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox23 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox24 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox25 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox26 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox27 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox28 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox3 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox4 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox5 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox6 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox7 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox8 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsCheckbox9 = {}
----@type table
-ChatConfigTextToSpeechMessageSettingsScroll = {}
----@type table
-ChatConfigTextToSpeechSettings = {}
----@return any ...
-function ChatConfigTextToSpeechSettings_OnShow(...) end
----@return any ...
-function ChatConfig_CreateCheckboxes(...) end
----@return any ...
-function ChatConfig_CreateColorSwatches(...) end
----@return any ...
-function ChatConfig_CreateTieredCheckboxes(...) end
----@return any ...
-function ChatConfig_HideCombatTabs(...) end
----@return any ...
-function ChatConfig_MoveFilterDown(...) end
----@return any ...
-function ChatConfig_MoveFilterUp(...) end
----@return any ...
-function ChatConfig_RefreshCurrentChatCategory(...) end
----@return any ...
-function ChatConfig_ResetChatSettings(...) end
----@return any ...
-function ChatConfig_ShowCombatTabs(...) end
----@return any ...
-function ChatConfig_UpdateChatSettings(...) end
----@return any ...
-function ChatConfig_UpdateCheckboxes(...) end
----@return any ...
-function ChatConfig_UpdateCombatSettings(...) end
----@return any ...
-function ChatConfig_UpdateCombatTabs(...) end
----@return any ...
-function ChatConfig_UpdateFilterList(...) end
----@return any ...
-function ChatConfig_UpdateSwatches(...) end
----@return any ...
-function ChatConfig_UpdateTieredCheckboxFrame(...) end
----@return any ...
-function ChatConfig_UpdateTieredCheckboxes(...) end
----@return any ...
-function ChatEdit_ActivateChat(...) end
----@return any ...
-function ChatEdit_AddHistory(...) end
----@return any ...
-function ChatEdit_ChooseBoxForSend(...) end
----@return any ...
-function ChatEdit_ClearChat(...) end
----@return any ...
-function ChatEdit_CustomTabPressed(...) end
----@return any ...
-function ChatEdit_DeactivateChat(...) end
----@return any ...
-function ChatEdit_DoesCurrentChannelTargetMatch(...) end
----@return any ...
-function ChatEdit_ExtractChannel(...) end
----@return any ...
-function ChatEdit_ExtractTellTarget(...) end
----@return any ...
-function ChatEdit_FocusActiveWindow(...) end
----@return any ...
-function ChatEdit_GetActiveChatType(...) end
----@return any ...
-function ChatEdit_GetActiveWindow(...) end
----@return any ...
-function ChatEdit_GetChannelTarget(...) end
----@return any ...
-function ChatEdit_GetLastActiveWindow(...) end
----@return any ...
-function ChatEdit_GetLastTellTarget(...) end
----@return any ...
-function ChatEdit_GetLastToldTarget(...) end
----@return any ...
-function ChatEdit_GetNextTellTarget(...) end
----@return any ...
-function ChatEdit_HandleChatType(...) end
----@return any ...
-function ChatEdit_HasStickyFocus(...) end
----@return any ...
-function ChatEdit_LinkItem(...) end
----@return any ...
-function ChatEdit_ParseText(...) end
----@return any ...
-function ChatEdit_ResetChatType(...) end
----@return any ...
-function ChatEdit_ResetChatTypeToSticky(...) end
----@return any ...
-function ChatEdit_SendText(...) end
----@return any ...
-function ChatEdit_SetDeactivated(...) end
----@return any ...
-function ChatEdit_SetLastActiveWindow(...) end
----@return any ...
-function ChatEdit_SetLastTellTarget(...) end
----@return any ...
-function ChatEdit_SetLastToldTarget(...) end
----@return any ...
-function ChatEdit_TryInsertChatLink(...) end
----@return any ...
-function ChatEdit_TryInsertQuestLinkForQuestID(...) end
----@return any ...
-function ChatEdit_UpdateHeader(...) end
----@type table
-ChatFontNormal = {}
----@type table
-ChatFontSmall = {}
----@type table
-ChatFrame10Background = {}
----@type table
-ChatFrame10BottomLeftTexture = {}
----@type table
-ChatFrame10BottomRightTexture = {}
----@type table
-ChatFrame10BottomTexture = {}
----@type table
-ChatFrame10ButtonFrame = {}
----@type table
-ChatFrame10ButtonFrameBackground = {}
----@type table
-ChatFrame10ButtonFrameBottomLeftTexture = {}
----@type table
-ChatFrame10ButtonFrameBottomRightTexture = {}
----@type table
-ChatFrame10ButtonFrameBottomTexture = {}
----@type table
-ChatFrame10ButtonFrameLeftTexture = {}
----@type table
-ChatFrame10ButtonFrameMinimizeButton = {}
----@type table
-ChatFrame10ButtonFrameRightTexture = {}
----@type table
-ChatFrame10ButtonFrameTopLeftTexture = {}
----@type table
-ChatFrame10ButtonFrameTopRightTexture = {}
----@type table
-ChatFrame10ButtonFrameTopTexture = {}
----@type table
-ChatFrame10ClickAnywhereButton = {}
----@type table
-ChatFrame10EditBoxFocusLeft = {}
----@type table
-ChatFrame10EditBoxFocusMid = {}
----@type table
-ChatFrame10EditBoxFocusRight = {}
----@type table
-ChatFrame10EditBoxHeader = {}
----@type table
-ChatFrame10EditBoxHeaderSuffix = {}
----@type table
-ChatFrame10EditBoxLanguage = {}
----@type table
-ChatFrame10EditBoxLeft = {}
----@type table
-ChatFrame10EditBoxMid = {}
----@type table
-ChatFrame10EditBoxNewcomerHint = {}
----@type table
-ChatFrame10EditBoxPrompt = {}
----@type table
-ChatFrame10EditBoxRight = {}
----@type table
-ChatFrame10LeftTexture = {}
----@type table
-ChatFrame10ResizeButton = {}
----@type table
-ChatFrame10RightTexture = {}
----@type table
-ChatFrame10TabFlash = {}
----@type table
-ChatFrame10TabGlow = {}
----@type table
-ChatFrame10TopLeftTexture = {}
----@type table
-ChatFrame10TopRightTexture = {}
----@type table
-ChatFrame10TopTexture = {}
----@type table
-ChatFrame1Background = {}
----@type table
-ChatFrame1BottomLeftTexture = {}
----@type table
-ChatFrame1BottomRightTexture = {}
----@type table
-ChatFrame1BottomTexture = {}
----@type table
-ChatFrame1ButtonFrame = {}
----@type table
-ChatFrame1ButtonFrameBackground = {}
----@type table
-ChatFrame1ButtonFrameBottomLeftTexture = {}
----@type table
-ChatFrame1ButtonFrameBottomRightTexture = {}
----@type table
-ChatFrame1ButtonFrameBottomTexture = {}
----@type table
-ChatFrame1ButtonFrameLeftTexture = {}
----@type table
-ChatFrame1ButtonFrameMinimizeButton = {}
----@type table
-ChatFrame1ButtonFrameRightTexture = {}
----@type table
-ChatFrame1ButtonFrameTopLeftTexture = {}
----@type table
-ChatFrame1ButtonFrameTopRightTexture = {}
----@type table
-ChatFrame1ButtonFrameTopTexture = {}
----@type table
-ChatFrame1ClickAnywhereButton = {}
----@type table
-ChatFrame1EditBoxFocusLeft = {}
----@type table
-ChatFrame1EditBoxFocusMid = {}
----@type table
-ChatFrame1EditBoxFocusRight = {}
----@type table
-ChatFrame1EditBoxHeader = {}
----@type table
-ChatFrame1EditBoxHeaderSuffix = {}
----@type table
-ChatFrame1EditBoxLanguage = {}
----@type table
-ChatFrame1EditBoxLeft = {}
----@type table
-ChatFrame1EditBoxMid = {}
----@type table
-ChatFrame1EditBoxNewcomerHint = {}
----@type table
-ChatFrame1EditBoxPrompt = {}
----@type table
-ChatFrame1EditBoxRight = {}
----@type table
-ChatFrame1LeftTexture = {}
----@type table
-ChatFrame1ResizeButton = {}
----@type table
-ChatFrame1RightTexture = {}
----@type table
-ChatFrame1Tab = {}
----@type table
-ChatFrame1TabFlash = {}
----@type table
-ChatFrame1TabGlow = {}
----@type table
-ChatFrame1TopLeftTexture = {}
----@type table
-ChatFrame1TopRightTexture = {}
----@type table
-ChatFrame1TopTexture = {}
----@type table
-ChatFrame2Background = {}
----@type table
-ChatFrame2BottomLeftTexture = {}
----@type table
-ChatFrame2BottomRightTexture = {}
----@type table
-ChatFrame2BottomTexture = {}
----@type table
-ChatFrame2ButtonFrame = {}
----@type table
-ChatFrame2ButtonFrameBackground = {}
----@type table
-ChatFrame2ButtonFrameBottomLeftTexture = {}
----@type table
-ChatFrame2ButtonFrameBottomRightTexture = {}
----@type table
-ChatFrame2ButtonFrameBottomTexture = {}
----@type table
-ChatFrame2ButtonFrameLeftTexture = {}
----@type table
-ChatFrame2ButtonFrameMinimizeButton = {}
----@type table
-ChatFrame2ButtonFrameRightTexture = {}
----@type table
-ChatFrame2ButtonFrameTopLeftTexture = {}
----@type table
-ChatFrame2ButtonFrameTopRightTexture = {}
----@type table
-ChatFrame2ButtonFrameTopTexture = {}
----@type table
-ChatFrame2ClickAnywhereButton = {}
----@type table
-ChatFrame2EditBoxFocusLeft = {}
----@type table
-ChatFrame2EditBoxFocusMid = {}
----@type table
-ChatFrame2EditBoxFocusRight = {}
----@type table
-ChatFrame2EditBoxHeader = {}
----@type table
-ChatFrame2EditBoxHeaderSuffix = {}
----@type table
-ChatFrame2EditBoxLanguage = {}
----@type table
-ChatFrame2EditBoxLeft = {}
----@type table
-ChatFrame2EditBoxMid = {}
----@type table
-ChatFrame2EditBoxNewcomerHint = {}
----@type table
-ChatFrame2EditBoxPrompt = {}
----@type table
-ChatFrame2EditBoxRight = {}
----@type table
-ChatFrame2LeftTexture = {}
----@type table
-ChatFrame2ResizeButton = {}
----@type table
-ChatFrame2RightTexture = {}
----@type table
-ChatFrame2Tab = {}
----@type table
-ChatFrame2TabFlash = {}
----@type table
-ChatFrame2TabGlow = {}
----@type table
-ChatFrame2TopLeftTexture = {}
----@type table
-ChatFrame2TopRightTexture = {}
----@type table
-ChatFrame2TopTexture = {}
----@type table
-ChatFrame3Background = {}
----@type table
-ChatFrame3BottomLeftTexture = {}
----@type table
-ChatFrame3BottomRightTexture = {}
----@type table
-ChatFrame3BottomTexture = {}
----@type table
-ChatFrame3ButtonFrame = {}
----@type table
-ChatFrame3ButtonFrameBackground = {}
----@type table
-ChatFrame3ButtonFrameBottomLeftTexture = {}
----@type table
-ChatFrame3ButtonFrameBottomRightTexture = {}
----@type table
-ChatFrame3ButtonFrameBottomTexture = {}
----@type table
-ChatFrame3ButtonFrameLeftTexture = {}
----@type table
-ChatFrame3ButtonFrameMinimizeButton = {}
----@type table
-ChatFrame3ButtonFrameRightTexture = {}
----@type table
-ChatFrame3ButtonFrameTopLeftTexture = {}
----@type table
-ChatFrame3ButtonFrameTopRightTexture = {}
----@type table
-ChatFrame3ButtonFrameTopTexture = {}
----@type table
-ChatFrame3ClickAnywhereButton = {}
----@type table
-ChatFrame3EditBoxFocusLeft = {}
----@type table
-ChatFrame3EditBoxFocusMid = {}
----@type table
-ChatFrame3EditBoxFocusRight = {}
----@type table
-ChatFrame3EditBoxHeader = {}
----@type table
-ChatFrame3EditBoxHeaderSuffix = {}
----@type table
-ChatFrame3EditBoxLanguage = {}
----@type table
-ChatFrame3EditBoxLeft = {}
----@type table
-ChatFrame3EditBoxMid = {}
----@type table
-ChatFrame3EditBoxNewcomerHint = {}
----@type table
-ChatFrame3EditBoxPrompt = {}
----@type table
-ChatFrame3EditBoxRight = {}
----@type table
-ChatFrame3LeftTexture = {}
----@type table
-ChatFrame3ResizeButton = {}
----@type table
-ChatFrame3RightTexture = {}
----@type table
-ChatFrame3TabFlash = {}
----@type table
-ChatFrame3TabGlow = {}
----@type table
-ChatFrame3TopLeftTexture = {}
----@type table
-ChatFrame3TopRightTexture = {}
----@type table
-ChatFrame3TopTexture = {}
----@type table
-ChatFrame4Background = {}
----@type table
-ChatFrame4BottomLeftTexture = {}
----@type table
-ChatFrame4BottomRightTexture = {}
----@type table
-ChatFrame4BottomTexture = {}
----@type table
-ChatFrame4ButtonFrame = {}
----@type table
-ChatFrame4ButtonFrameBackground = {}
----@type table
-ChatFrame4ButtonFrameBottomLeftTexture = {}
----@type table
-ChatFrame4ButtonFrameBottomRightTexture = {}
----@type table
-ChatFrame4ButtonFrameBottomTexture = {}
----@type table
-ChatFrame4ButtonFrameLeftTexture = {}
----@type table
-ChatFrame4ButtonFrameMinimizeButton = {}
----@type table
-ChatFrame4ButtonFrameRightTexture = {}
----@type table
-ChatFrame4ButtonFrameTopLeftTexture = {}
----@type table
-ChatFrame4ButtonFrameTopRightTexture = {}
----@type table
-ChatFrame4ButtonFrameTopTexture = {}
----@type table
-ChatFrame4ClickAnywhereButton = {}
----@type table
-ChatFrame4EditBoxFocusLeft = {}
----@type table
-ChatFrame4EditBoxFocusMid = {}
----@type table
-ChatFrame4EditBoxFocusRight = {}
----@type table
-ChatFrame4EditBoxHeader = {}
----@type table
-ChatFrame4EditBoxHeaderSuffix = {}
----@type table
-ChatFrame4EditBoxLanguage = {}
----@type table
-ChatFrame4EditBoxLeft = {}
----@type table
-ChatFrame4EditBoxMid = {}
----@type table
-ChatFrame4EditBoxNewcomerHint = {}
----@type table
-ChatFrame4EditBoxPrompt = {}
----@type table
-ChatFrame4EditBoxRight = {}
----@type table
-ChatFrame4LeftTexture = {}
----@type table
-ChatFrame4ResizeButton = {}
----@type table
-ChatFrame4RightTexture = {}
----@type table
-ChatFrame4Tab = {}
----@type table
-ChatFrame4TabFlash = {}
----@type table
-ChatFrame4TabGlow = {}
----@type table
-ChatFrame4TopLeftTexture = {}
----@type table
-ChatFrame4TopRightTexture = {}
----@type table
-ChatFrame4TopTexture = {}
----@type table
-ChatFrame5Background = {}
----@type table
-ChatFrame5BottomLeftTexture = {}
----@type table
-ChatFrame5BottomRightTexture = {}
----@type table
-ChatFrame5BottomTexture = {}
----@type table
-ChatFrame5ButtonFrame = {}
----@type table
-ChatFrame5ButtonFrameBackground = {}
----@type table
-ChatFrame5ButtonFrameBottomLeftTexture = {}
----@type table
-ChatFrame5ButtonFrameBottomRightTexture = {}
----@type table
-ChatFrame5ButtonFrameBottomTexture = {}
----@type table
-ChatFrame5ButtonFrameLeftTexture = {}
----@type table
-ChatFrame5ButtonFrameMinimizeButton = {}
----@type table
-ChatFrame5ButtonFrameRightTexture = {}
----@type table
-ChatFrame5ButtonFrameTopLeftTexture = {}
----@type table
-ChatFrame5ButtonFrameTopRightTexture = {}
----@type table
-ChatFrame5ButtonFrameTopTexture = {}
----@type table
-ChatFrame5ClickAnywhereButton = {}
----@type table
-ChatFrame5EditBoxFocusLeft = {}
----@type table
-ChatFrame5EditBoxFocusMid = {}
----@type table
-ChatFrame5EditBoxFocusRight = {}
----@type table
-ChatFrame5EditBoxHeader = {}
----@type table
-ChatFrame5EditBoxHeaderSuffix = {}
----@type table
-ChatFrame5EditBoxLanguage = {}
----@type table
-ChatFrame5EditBoxLeft = {}
----@type table
-ChatFrame5EditBoxMid = {}
----@type table
-ChatFrame5EditBoxNewcomerHint = {}
----@type table
-ChatFrame5EditBoxPrompt = {}
----@type table
-ChatFrame5EditBoxRight = {}
----@type table
-ChatFrame5LeftTexture = {}
----@type table
-ChatFrame5ResizeButton = {}
----@type table
-ChatFrame5RightTexture = {}
----@type table
-ChatFrame5Tab = {}
----@type table
-ChatFrame5TabFlash = {}
----@type table
-ChatFrame5TabGlow = {}
----@type table
-ChatFrame5TopLeftTexture = {}
----@type table
-ChatFrame5TopRightTexture = {}
----@type table
-ChatFrame5TopTexture = {}
----@type table
-ChatFrame6Background = {}
----@type table
-ChatFrame6BottomLeftTexture = {}
----@type table
-ChatFrame6BottomRightTexture = {}
----@type table
-ChatFrame6BottomTexture = {}
----@type table
-ChatFrame6ButtonFrame = {}
----@type table
-ChatFrame6ButtonFrameBackground = {}
----@type table
-ChatFrame6ButtonFrameBottomLeftTexture = {}
----@type table
-ChatFrame6ButtonFrameBottomRightTexture = {}
----@type table
-ChatFrame6ButtonFrameBottomTexture = {}
----@type table
-ChatFrame6ButtonFrameLeftTexture = {}
----@type table
-ChatFrame6ButtonFrameMinimizeButton = {}
----@type table
-ChatFrame6ButtonFrameRightTexture = {}
----@type table
-ChatFrame6ButtonFrameTopLeftTexture = {}
----@type table
-ChatFrame6ButtonFrameTopRightTexture = {}
----@type table
-ChatFrame6ButtonFrameTopTexture = {}
----@type table
-ChatFrame6ClickAnywhereButton = {}
----@type table
-ChatFrame6EditBoxFocusLeft = {}
----@type table
-ChatFrame6EditBoxFocusMid = {}
----@type table
-ChatFrame6EditBoxFocusRight = {}
----@type table
-ChatFrame6EditBoxHeader = {}
----@type table
-ChatFrame6EditBoxHeaderSuffix = {}
----@type table
-ChatFrame6EditBoxLanguage = {}
----@type table
-ChatFrame6EditBoxLeft = {}
----@type table
-ChatFrame6EditBoxMid = {}
----@type table
-ChatFrame6EditBoxNewcomerHint = {}
----@type table
-ChatFrame6EditBoxPrompt = {}
----@type table
-ChatFrame6EditBoxRight = {}
----@type table
-ChatFrame6LeftTexture = {}
----@type table
-ChatFrame6ResizeButton = {}
----@type table
-ChatFrame6RightTexture = {}
----@type table
-ChatFrame6TabFlash = {}
----@type table
-ChatFrame6TabGlow = {}
----@type table
-ChatFrame6TopLeftTexture = {}
----@type table
-ChatFrame6TopRightTexture = {}
----@type table
-ChatFrame6TopTexture = {}
----@type table
-ChatFrame7Background = {}
----@type table
-ChatFrame7BottomLeftTexture = {}
----@type table
-ChatFrame7BottomRightTexture = {}
----@type table
-ChatFrame7BottomTexture = {}
----@type table
-ChatFrame7ButtonFrame = {}
----@type table
-ChatFrame7ButtonFrameBackground = {}
----@type table
-ChatFrame7ButtonFrameBottomLeftTexture = {}
----@type table
-ChatFrame7ButtonFrameBottomRightTexture = {}
----@type table
-ChatFrame7ButtonFrameBottomTexture = {}
----@type table
-ChatFrame7ButtonFrameLeftTexture = {}
----@type table
-ChatFrame7ButtonFrameMinimizeButton = {}
----@type table
-ChatFrame7ButtonFrameRightTexture = {}
----@type table
-ChatFrame7ButtonFrameTopLeftTexture = {}
----@type table
-ChatFrame7ButtonFrameTopRightTexture = {}
----@type table
-ChatFrame7ButtonFrameTopTexture = {}
----@type table
-ChatFrame7ClickAnywhereButton = {}
----@type table
-ChatFrame7EditBoxFocusLeft = {}
----@type table
-ChatFrame7EditBoxFocusMid = {}
----@type table
-ChatFrame7EditBoxFocusRight = {}
----@type table
-ChatFrame7EditBoxHeader = {}
----@type table
-ChatFrame7EditBoxHeaderSuffix = {}
----@type table
-ChatFrame7EditBoxLanguage = {}
----@type table
-ChatFrame7EditBoxLeft = {}
----@type table
-ChatFrame7EditBoxMid = {}
----@type table
-ChatFrame7EditBoxNewcomerHint = {}
----@type table
-ChatFrame7EditBoxPrompt = {}
----@type table
-ChatFrame7EditBoxRight = {}
----@type table
-ChatFrame7LeftTexture = {}
----@type table
-ChatFrame7ResizeButton = {}
----@type table
-ChatFrame7RightTexture = {}
----@type table
-ChatFrame7TabFlash = {}
----@type table
-ChatFrame7TabGlow = {}
----@type table
-ChatFrame7TopLeftTexture = {}
----@type table
-ChatFrame7TopRightTexture = {}
----@type table
-ChatFrame7TopTexture = {}
----@type table
-ChatFrame8Background = {}
----@type table
-ChatFrame8BottomLeftTexture = {}
----@type table
-ChatFrame8BottomRightTexture = {}
----@type table
-ChatFrame8BottomTexture = {}
----@type table
-ChatFrame8ButtonFrame = {}
----@type table
-ChatFrame8ButtonFrameBackground = {}
----@type table
-ChatFrame8ButtonFrameBottomLeftTexture = {}
----@type table
-ChatFrame8ButtonFrameBottomRightTexture = {}
----@type table
-ChatFrame8ButtonFrameBottomTexture = {}
----@type table
-ChatFrame8ButtonFrameLeftTexture = {}
----@type table
-ChatFrame8ButtonFrameMinimizeButton = {}
----@type table
-ChatFrame8ButtonFrameRightTexture = {}
----@type table
-ChatFrame8ButtonFrameTopLeftTexture = {}
----@type table
-ChatFrame8ButtonFrameTopRightTexture = {}
----@type table
-ChatFrame8ButtonFrameTopTexture = {}
----@type table
-ChatFrame8ClickAnywhereButton = {}
----@type table
-ChatFrame8EditBoxFocusLeft = {}
----@type table
-ChatFrame8EditBoxFocusMid = {}
----@type table
-ChatFrame8EditBoxFocusRight = {}
----@type table
-ChatFrame8EditBoxHeader = {}
----@type table
-ChatFrame8EditBoxHeaderSuffix = {}
----@type table
-ChatFrame8EditBoxLanguage = {}
----@type table
-ChatFrame8EditBoxLeft = {}
----@type table
-ChatFrame8EditBoxMid = {}
----@type table
-ChatFrame8EditBoxNewcomerHint = {}
----@type table
-ChatFrame8EditBoxPrompt = {}
----@type table
-ChatFrame8EditBoxRight = {}
----@type table
-ChatFrame8LeftTexture = {}
----@type table
-ChatFrame8ResizeButton = {}
----@type table
-ChatFrame8RightTexture = {}
----@type table
-ChatFrame8TabFlash = {}
----@type table
-ChatFrame8TabGlow = {}
----@type table
-ChatFrame8TopLeftTexture = {}
----@type table
-ChatFrame8TopRightTexture = {}
----@type table
-ChatFrame8TopTexture = {}
----@type table
-ChatFrame9Background = {}
----@type table
-ChatFrame9BottomLeftTexture = {}
----@type table
-ChatFrame9BottomRightTexture = {}
----@type table
-ChatFrame9BottomTexture = {}
----@type table
-ChatFrame9ButtonFrame = {}
----@type table
-ChatFrame9ButtonFrameBackground = {}
----@type table
-ChatFrame9ButtonFrameBottomLeftTexture = {}
----@type table
-ChatFrame9ButtonFrameBottomRightTexture = {}
----@type table
-ChatFrame9ButtonFrameBottomTexture = {}
----@type table
-ChatFrame9ButtonFrameLeftTexture = {}
----@type table
-ChatFrame9ButtonFrameMinimizeButton = {}
----@type table
-ChatFrame9ButtonFrameRightTexture = {}
----@type table
-ChatFrame9ButtonFrameTopLeftTexture = {}
----@type table
-ChatFrame9ButtonFrameTopRightTexture = {}
----@type table
-ChatFrame9ButtonFrameTopTexture = {}
----@type table
-ChatFrame9ClickAnywhereButton = {}
----@type table
-ChatFrame9EditBoxFocusLeft = {}
----@type table
-ChatFrame9EditBoxFocusMid = {}
----@type table
-ChatFrame9EditBoxFocusRight = {}
----@type table
-ChatFrame9EditBoxHeader = {}
----@type table
-ChatFrame9EditBoxHeaderSuffix = {}
----@type table
-ChatFrame9EditBoxLanguage = {}
----@type table
-ChatFrame9EditBoxLeft = {}
----@type table
-ChatFrame9EditBoxMid = {}
----@type table
-ChatFrame9EditBoxNewcomerHint = {}
----@type table
-ChatFrame9EditBoxPrompt = {}
----@type table
-ChatFrame9EditBoxRight = {}
----@type table
-ChatFrame9LeftTexture = {}
----@type table
-ChatFrame9ResizeButton = {}
----@type table
-ChatFrame9RightTexture = {}
----@type table
-ChatFrame9TabFlash = {}
----@type table
-ChatFrame9TabGlow = {}
----@type table
-ChatFrame9TopLeftTexture = {}
----@type table
-ChatFrame9TopRightTexture = {}
----@type table
-ChatFrame9TopTexture = {}
----@type table
-ChatFrameChannelButton = {}
----@type table
-ChatFrameMenuButton = {}
----@return any ...
-function ChatFrame_AddCommunitiesChannel(...) end
----@return any ...
-function ChatFrame_AddMessage(...) end
----@return any ...
-function ChatFrame_AddMessageEventFilter(...) end
----@return any ...
-function ChatFrame_AddMessageGroup(...) end
----@return any ...
-function ChatFrame_AddPrivateMessageTarget(...) end
----@return any ...
-function ChatFrame_AddSingleMessageType(...) end
----@return any ...
-function ChatFrame_CanAddChannel(...) end
----@return any ...
-function ChatFrame_CanChatGroupPerformExpressionExpansion(...) end
----@return any ...
-function ChatFrame_ChatPageDown(...) end
----@return any ...
-function ChatFrame_ChatPageUp(...) end
----@return any ...
-function ChatFrame_ClearChatFocusOverride(...) end
----@return any ...
-function ChatFrame_ContainsChannel(...) end
----@return any ...
-function ChatFrame_ContainsMessageGroup(...) end
----@return any ...
-function ChatFrame_DisplayChatHelp(...) end
----@return any ...
-function ChatFrame_DisplayGMOTD(...) end
----@return any ...
-function ChatFrame_DisplayGameTime(...) end
----@return any ...
-function ChatFrame_DisplayHelpText(...) end
----@return any ...
-function ChatFrame_DisplayHelpTextSimple(...) end
----@return any ...
-function ChatFrame_DisplayMacroHelpText(...) end
----@return any ...
-function ChatFrame_DisplaySystemMessage(...) end
----@return any ...
-function ChatFrame_DisplaySystemMessageInCurrent(...) end
----@return any ...
-function ChatFrame_DisplaySystemMessageInPrimary(...) end
----@return any ...
-function ChatFrame_DisplayTimePlayed(...) end
----@return any ...
-function ChatFrame_DisplayUsageError(...) end
----@return any ...
-function ChatFrame_ExcludePrivateMessageTarget(...) end
----@return any ...
-function ChatFrame_GetChatFocusOverride(...) end
----@return any ...
-function ChatFrame_GetCommunitiesChannelLocalID(...) end
----@return any ...
-function ChatFrame_GetCommunityAndStreamFromChannel(...) end
----@return any ...
-function ChatFrame_GetCommunityAndStreamName(...) end
----@return any ...
-function ChatFrame_GetDefaultChatTarget(...) end
----@return any ...
-function ChatFrame_GetFullChannelInfo(...) end
----@return any ...
-function ChatFrame_GetMobileEmbeddedTexture(...) end
----@return any ...
-function ChatFrame_OpenChat(...) end
----@return any ...
-function ChatFrame_ReceiveAllPrivateMessages(...) end
----@return any ...
-function ChatFrame_RegisterForChannels(...) end
----@return any ...
-function ChatFrame_RegisterForMessages(...) end
----@return any ...
-function ChatFrame_RemoveAllChannels(...) end
----@return any ...
-function ChatFrame_RemoveAllMessageGroups(...) end
----@return any ...
-function ChatFrame_RemoveChannel(...) end
----@return any ...
-function ChatFrame_RemoveCommunitiesChannel(...) end
----@return any ...
-function ChatFrame_RemoveExcludePrivateMessageTarget(...) end
----@return any ...
-function ChatFrame_RemoveMessageEventFilter(...) end
----@return any ...
-function ChatFrame_RemoveMessageGroup(...) end
----@return any ...
-function ChatFrame_RemovePrivateMessageTarget(...) end
----@return any ...
-function ChatFrame_ReplyTell(...) end
----@return any ...
-function ChatFrame_ReplyTell2(...) end
----@return any ...
-function ChatFrame_ResolveChannelName(...) end
----@return any ...
-function ChatFrame_ResolvePrefixedChannelName(...) end
----@return any ...
-function ChatFrame_ScrollDown(...) end
----@return any ...
-function ChatFrame_ScrollToBottom(...) end
----@return any ...
-function ChatFrame_ScrollUp(...) end
----@return any ...
-function ChatFrame_SendTell(...) end
----@return any ...
-function ChatFrame_SendTellWithMessage(...) end
----@return any ...
-function ChatFrame_SetChatFocusOverride(...) end
----@return any ...
-function ChatFrame_TimeBreakDown(...) end
----@return any ...
-function ChatFrame_TruncateToMaxLength(...) end
----@return any ...
-function ChatFrame_UnregisterAllMessageGroups(...) end
----@return any ...
-function ChatFrame_UpdateChatFrames(...) end
----@return any ...
-function ChatFrame_UpdateColorByID(...) end
----@return any ...
-function ChatFrame_UpdateDefaultChatTarget(...) end
----@return any ...
-function ChatFrame_WargameTargetsVerifyBNetAccounts(...) end
----@return any ...
-function ChatHistory_GetAccessID(...) end
----@return any ...
-function ChatHistory_GetAllAccessIDsByChanSender(...) end
----@return any ...
-function ChatHistory_GetChatType(...) end
----@return any ...
-function ChatHistory_GetToken(...) end
----@type table
-ChatTypeInfo = {}
----@return any ...
-function ChatUnitColor_OpenColorPicker(...) end
----@return any ...
-function Chat_AddSystemMessage(...) end
----@return any ...
-function Chat_GetChannelColor(...) end
----@return any ...
-function Chat_GetChannelShortcutName(...) end
----@return any ...
-function Chat_GetChatCategory(...) end
----@return any ...
-function Chat_GetChatFrame(...) end
----@return any ...
-function Chat_GetColoredChatName(...) end
----@return any ...
-function Chat_GetCommunitiesChannel(...) end
----@return any ...
-function Chat_GetCommunitiesChannelColor(...) end
----@return any ...
-function Chat_GetCommunitiesChannelName(...) end
----@return any ...
-function Chat_ShouldColorChatByClass(...) end
----@return any ...
-function CheckActiveStoreForFree(...) end
----@return any ...
-function CheckColorOverrideForPVPInactive(...) end
----@return any ...
-function CheckHardcoreGuildLeadStatus(...) end
----@return any ...
-function CheckInbox(...) end
----@param unitGUID UnitToken
----@param distIndex integer
----@return boolean result
-function CheckInteractDistance(unitGUID, distIndex) end
----@return any ...
-function CheckSetAtlas(...) end
----@return boolean result
-function CheckTalentMasterDist() end
----@return any ...
-function CheckToggleDifficulty(...) end
----@return any ...
-function ChromieTimeFrame_LoadUI(...) end
----@param movieType CinematicType
----@param userCanceled? boolean
----@param didError? boolean
-function CinematicFinished(movieType, userCanceled, didError) end
----@type table
-CinematicFrame = {}
----@type table
-CinematicFrameCloseDialog = {}
----@type table
-CinematicFrameCloseDialogConfirmButton = {}
----@type table
-CinematicFrameCloseDialogResumeButton = {}
----@type table
-CinematicFrameCloseDialogText = {}
----@return any ...
-function CinematicFrame_CancelCinematic(...) end
----@return any ...
-function CinematicFrame_OnEvent(...) end
----@return any ...
-function CinematicFrame_OnHide(...) end
----@return any ...
-function CinematicFrame_OnKeyDown(...) end
----@return any ...
-function CinematicFrame_OnLoad(...) end
----@return any ...
-function CinematicFrame_UpdateLettboxForAspectRatio(...) end
----@param movieType CinematicType
----@param movieID number
----@param canCancel? boolean
-function CinematicStarted(movieType, movieID, canCancel) end
----@return any ...
-function ClaimRaidFrame(...) end
----@return any ...
-function Clamp(...) end
----@return any ...
-function ClampDegrees(...) end
----@return any ...
-function ClampMod(...) end
----@return any ...
-function ClampUIPanelY(...) end
----@return any ...
-function ClampedPercentageBetween(...) end
----@type table
-ClassNameplateManaBarFrame = {}
----@return any ...
-function ClassNameplateManaBar_OnUpdate(...) end
----@return any ...
-function ClassTrainerFrame_LoadUI(...) end
----@param expansionLevel number
----@return boolean isAtLeast
-function ClassicExpansionAtLeast(expansionLevel) end
----@param expansionLevel number
----@return boolean isAtMost
-function ClassicExpansionAtMost(expansionLevel) end
----@return any ...
-function ClearAchievementComparisonUnit(...) end
----@return any ...
-function ClearAchievementSearchString(...) end
----@return any ...
-function ClearActionButtonCooldowns(...) end
----@return any ...
-function ClearAllLFGDungeons(...) end
----@return any ...
-function ClearAlternateTopLevelParent(...) end
----@return any ...
-function ClearAutoAcceptQuestSound(...) end
----@return any ...
-function ClearBattlemaster(...) end
----@return any ...
-function ClearCachedActivitiesForPlayer(...) end
----@return any ...
-function ClearCachedAreaPOIsForPlayer(...) end
----@return any ...
-function ClearCachedQuestsForPlayer(...) end
----@return any ...
-function ClearClampedTextureRotation(...) end
-function ClearCursor() end
-function ClearCursorHoveredItem() end
----@return any ...
-function ClearFailedPVPTalentIDs(...) end
----@return any ...
-function ClearFailedTalentIDs(...) end
-function ClearFocus() end
----@return any ...
-function ClearInspectPlayer(...) end
----@return any ...
-function ClearItemButtonOverlay(...) end
----@return any ...
-function ClearItemCraftingQualityOverlay(...) end
----@return any ...
-function ClearNewActionHighlight(...) end
----@return any ...
-function ClearOnBarHighlightMarks(...) end
-function ClearOutage() end
----@return any ...
-function ClearOverrideBindings(...) end
----@return any ...
-function ClearPartyAssignment(...) end
-function ClearPendingBindConversionItem() end
----@param raidMarkerIndex integer
-function ClearRaidMarker(raidMarkerIndex) end
----@return any ...
-function ClearSendMail(...) end
----@return boolean willMakeChange
-function ClearTarget() end
----@return any ...
-function ClearTutorials(...) end
----@return any ...
-function ClickBindingFrame_LoadUI(...) end
----@return any ...
-function ClickSendMailItemButton(...) end
----@return any ...
-function ClickTargetTradeButton(...) end
----@return any ...
-function ClickTradeButton(...) end
----@return any ...
-function ClickWorldMapActionButton(...) end
----@type table
-ClientSceneVisManager = {}
----@return any ...
-function CloseAllBags(...) end
----@return any ...
-function CloseAllWindows(...) end
----@return any ...
-function CloseAllWindows_WithExceptions(...) end
----@return any ...
-function CloseBackpack(...) end
----@return any ...
-function CloseBag(...) end
----@return any ...
-function CloseChildWindows(...) end
----@return any ...
-function CloseCommunitiesSettingsDialog(...) end
----@return any ...
-function CloseDropDownMenus(...) end
----@return any ...
-function CloseGuildBankFrame(...) end
----@return any ...
-function CloseGuildRegistrar(...) end
----@return any ...
-function CloseGuildRoster(...) end
----@return any ...
-function CloseItemText(...) end
----@return any ...
-function CloseLoot(...) end
----@return any ...
-function CloseMail(...) end
----@return any ...
-function CloseMenus(...) end
----@return any ...
-function CloseMerchant(...) end
----@return any ...
-function ClosePetition(...) end
----@return any ...
-function CloseQuest(...) end
----@return any ...
-function CloseResearch(...) end
----@return any ...
-function CloseSideDressUpFrame(...) end
----@return any ...
-function CloseSpecialWindows(...) end
----@return any ...
-function CloseTabardCreation(...) end
----@return any ...
-function CloseTaxiMap(...) end
----@return any ...
-function CloseTrade(...) end
----@return any ...
-function CloseTrainer(...) end
----@return any ...
-function CloseWindows(...) end
----@param gameObjectID number
----@return number xPos
----@return number yPos
----@return number distance
-function ClosestGameObjectPosition(gameObjectID) end
----@param creatureID number
----@return number xPos
----@return number yPos
----@return number distance
-function ClosestUnitPosition(creatureID) end
----@return any ...
-function ClubFinderApplicantListColumnDisplay_OnClick(...) end
----@return any ...
-function ClubFinderApplicantReport(...) end
----@return any ...
-function ClubFinderApplicantSortFunction(...) end
----@return any ...
-function ClubFinderApplicantSortFunctionBySpecIds(...) end
----@return any ...
-function ClubFinderApplicantSpecSortReturnSpecValue(...) end
----@return any ...
-function ClubFinderCancelOrAcceptApplicant(...) end
----@type table
-ClubFinderCommunityAndGuildFinderFrame = {}
----@type table
-ClubFinderCommunityAndGuildFinderFrameClearButton = {}
----@type table
-ClubFinderCommunityAndGuildFinderFrameSearchIcon = {}
----@type table
-ClubFinderCommunityAndGuildFinderFrameText = {}
----@return any ...
-function ClubFinderCreateRecruitingSpecsMap(...) end
----@return any ...
-function ClubFinderDoesSelectedClubHaveActiveListing(...) end
----@return any ...
-function ClubFinderGetClubApplicationExpirationTime(...) end
----@return any ...
-function ClubFinderGetClubPostingExpirationTime(...) end
----@return any ...
-function ClubFinderGetCurrentClubListingInfo(...) end
----@return any ...
-function ClubFinderGetFocusStringFromFlags(...) end
----@return any ...
-function ClubFinderGetPlayerSettingsByValue(...) end
----@return any ...
-function ClubFinderGetPlayerSpecIds(...) end
----@return any ...
-function ClubFinderGetRecruitmentSettingByValue(...) end
----@type table
-ClubFinderGuildFinderFrame = {}
----@type table
-ClubFinderGuildFinderFrameClearButton = {}
----@type table
-ClubFinderGuildFinderFrameSearchIcon = {}
----@type table
-ClubFinderGuildFinderFrameText = {}
----@return any ...
-function ClubFinderMessageApplicant(...) end
----@return any ...
-function ClubFinderReportPosting(...) end
----@type table
-CoinPickupCancelButton = {}
----@type table
-CoinPickupCancelButtonText = {}
----@type table
-CoinPickupCopperIcon = {}
----@return any ...
-function CoinPickupFrameCancel_Click(...) end
----@return any ...
-function CoinPickupFrameLeft_Click(...) end
----@return any ...
-function CoinPickupFrameOkay_Click(...) end
----@return any ...
-function CoinPickupFrameRight_Click(...) end
----@return any ...
-function CoinPickupFrame_OnChar(...) end
----@return any ...
-function CoinPickupFrame_OnHide(...) end
----@return any ...
-function CoinPickupFrame_OnKeyDown(...) end
----@return any ...
-function CoinPickupFrame_OnKeyUp(...) end
----@type table
-CoinPickupGoldIcon = {}
----@type table
-CoinPickupLabel = {}
----@type table
-CoinPickupLeftButton = {}
----@type table
-CoinPickupOkayButton = {}
----@type table
-CoinPickupOkayButtonText = {}
----@type table
-CoinPickupRightButton = {}
----@type table
-CoinPickupSilverIcon = {}
----@type table
-CoinPickupText = {}
----@return any ...
-function CollapseGuildTradeSkillHeader(...) end
----@return any ...
-function CollapseQuestHeader(...) end
----@return any ...
-function CollapseWarGameHeader(...) end
----@return any ...
-function CollectTableDifferences(...) end
----@return any ...
-function CollectionsJournal_LoadUI(...) end
----@return any ...
-function CollectionsMicroButton_CanAlertBeShown(...) end
----@return any ...
-function CollectionsMicroButton_SetAlert(...) end
----@return any ...
-function CollectionsMicroButton_SetAlertShown(...) end
----@type table
-ColorPickerFrameText = {}
----@return any ...
-function ColorPickerSoftCursor_OnUpdate(...) end
----@return any ...
-function ColumnDisplayButton_OnClick(...) end
----@type table
-CombatAudioAlertManager = {}
----@type table
-CombatAudioAlertPulseSoundData = {}
----@type table
-CombatConfigColors = {}
----@type table
-CombatConfigColorsColorize = {}
----@type table
-CombatConfigColorsColorizeDamageNumber = {}
----@type table
-CombatConfigColorsColorizeDamageNumberCheck = {}
----@type table
-CombatConfigColorsColorizeDamageNumberCheckText = {}
----@type table
-CombatConfigColorsColorizeDamageNumberColorSwatch = {}
----@type table
-CombatConfigColorsColorizeDamageNumberColorSwatchNormalTexture = {}
----@type table
-CombatConfigColorsColorizeDamageNumberColorSwatchSwatchBg = {}
----@type table
-CombatConfigColorsColorizeDamageNumberSchoolColoring = {}
----@type table
-CombatConfigColorsColorizeDamageNumberSchoolColoringText = {}
----@type table
-CombatConfigColorsColorizeDamageSchool = {}
----@type table
-CombatConfigColorsColorizeDamageSchoolCheck = {}
----@type table
-CombatConfigColorsColorizeDamageSchoolCheckText = {}
----@type table
-CombatConfigColorsColorizeEntireLine = {}
----@type table
-CombatConfigColorsColorizeEntireLineBySource = {}
----@type table
-CombatConfigColorsColorizeEntireLineBySourceText = {}
----@type table
-CombatConfigColorsColorizeEntireLineByTarget = {}
----@type table
-CombatConfigColorsColorizeEntireLineByTargetText = {}
----@type table
-CombatConfigColorsColorizeEntireLineCheck = {}
----@type table
-CombatConfigColorsColorizeEntireLineCheckText = {}
----@type table
-CombatConfigColorsColorizeSpellNames = {}
----@type table
-CombatConfigColorsColorizeSpellNamesCheck = {}
----@type table
-CombatConfigColorsColorizeSpellNamesCheckText = {}
----@type table
-CombatConfigColorsColorizeSpellNamesColorSwatch = {}
----@type table
-CombatConfigColorsColorizeSpellNamesColorSwatchNormalTexture = {}
----@type table
-CombatConfigColorsColorizeSpellNamesColorSwatchSwatchBg = {}
----@type table
-CombatConfigColorsColorizeSpellNamesSchoolColoring = {}
----@type table
-CombatConfigColorsColorizeSpellNamesSchoolColoringText = {}
----@type table
-CombatConfigColorsColorizeUnitName = {}
----@type table
-CombatConfigColorsColorizeUnitNameCheck = {}
----@type table
-CombatConfigColorsColorizeUnitNameCheckText = {}
----@type table
-CombatConfigColorsExampleString1 = {}
----@type table
-CombatConfigColorsExampleString2 = {}
----@type table
-CombatConfigColorsExampleTitle = {}
----@type table
-CombatConfigColorsHighlighting = {}
----@type table
-CombatConfigColorsHighlightingAbility = {}
----@type table
-CombatConfigColorsHighlightingAbilityText = {}
----@type table
-CombatConfigColorsHighlightingDamage = {}
----@type table
-CombatConfigColorsHighlightingDamageText = {}
----@type table
-CombatConfigColorsHighlightingLine = {}
----@type table
-CombatConfigColorsHighlightingLineText = {}
----@type table
-CombatConfigColorsHighlightingSchool = {}
----@type table
-CombatConfigColorsHighlightingSchoolText = {}
----@type table
-CombatConfigColorsHighlightingTitle = {}
----@type table
-CombatConfigColorsUnitColors = {}
----@type table
-CombatConfigColorsUnitColorsSwatch1 = {}
----@type table
-CombatConfigColorsUnitColorsSwatch1ColorSwatch = {}
----@type table
-CombatConfigColorsUnitColorsSwatch1ColorSwatchNormalTexture = {}
----@type table
-CombatConfigColorsUnitColorsSwatch1ColorSwatchSwatchBg = {}
----@type table
-CombatConfigColorsUnitColorsSwatch1Text = {}
----@type table
-CombatConfigColorsUnitColorsSwatch2 = {}
----@type table
-CombatConfigColorsUnitColorsSwatch2ColorSwatch = {}
----@type table
-CombatConfigColorsUnitColorsSwatch2ColorSwatchNormalTexture = {}
----@type table
-CombatConfigColorsUnitColorsSwatch2ColorSwatchSwatchBg = {}
----@type table
-CombatConfigColorsUnitColorsSwatch2Text = {}
----@type table
-CombatConfigColorsUnitColorsSwatch3 = {}
----@type table
-CombatConfigColorsUnitColorsSwatch3ColorSwatch = {}
----@type table
-CombatConfigColorsUnitColorsSwatch3ColorSwatchNormalTexture = {}
----@type table
-CombatConfigColorsUnitColorsSwatch3ColorSwatchSwatchBg = {}
----@type table
-CombatConfigColorsUnitColorsSwatch3Text = {}
----@type table
-CombatConfigColorsUnitColorsSwatch4 = {}
----@type table
-CombatConfigColorsUnitColorsSwatch4ColorSwatch = {}
----@type table
-CombatConfigColorsUnitColorsSwatch4ColorSwatchNormalTexture = {}
----@type table
-CombatConfigColorsUnitColorsSwatch4ColorSwatchSwatchBg = {}
----@type table
-CombatConfigColorsUnitColorsSwatch4Text = {}
----@type table
-CombatConfigColorsUnitColorsSwatch5 = {}
----@type table
-CombatConfigColorsUnitColorsSwatch5ColorSwatch = {}
----@type table
-CombatConfigColorsUnitColorsSwatch5ColorSwatchNormalTexture = {}
----@type table
-CombatConfigColorsUnitColorsSwatch5ColorSwatchSwatchBg = {}
----@type table
-CombatConfigColorsUnitColorsSwatch5Text = {}
----@type table
-CombatConfigColorsUnitColorsSwatch6 = {}
----@type table
-CombatConfigColorsUnitColorsSwatch6ColorSwatch = {}
----@type table
-CombatConfigColorsUnitColorsSwatch6ColorSwatchNormalTexture = {}
----@type table
-CombatConfigColorsUnitColorsSwatch6ColorSwatchSwatchBg = {}
----@type table
-CombatConfigColorsUnitColorsSwatch6Text = {}
----@type table
-CombatConfigColorsUnitColorsSwatch7 = {}
----@type table
-CombatConfigColorsUnitColorsSwatch7ColorSwatch = {}
----@type table
-CombatConfigColorsUnitColorsSwatch7ColorSwatchNormalTexture = {}
----@type table
-CombatConfigColorsUnitColorsSwatch7ColorSwatchSwatchBg = {}
----@type table
-CombatConfigColorsUnitColorsSwatch7Text = {}
----@type table
-CombatConfigColorsUnitColorsTitle = {}
----@type table
-CombatConfigFormatting = {}
----@type table
-CombatConfigFormattingExampleString1 = {}
----@type table
-CombatConfigFormattingExampleString2 = {}
----@type table
-CombatConfigFormattingExampleTitle = {}
----@type table
-CombatConfigFormattingFullText = {}
----@type table
-CombatConfigFormattingFullTextText = {}
----@type table
-CombatConfigFormattingItemNames = {}
----@type table
-CombatConfigFormattingItemNamesText = {}
----@type table
-CombatConfigFormattingShowBraces = {}
----@type table
-CombatConfigFormattingShowBracesText = {}
----@type table
-CombatConfigFormattingShowTimeStamp = {}
----@type table
-CombatConfigFormattingShowTimeStampText = {}
----@type table
-CombatConfigFormattingSpellNames = {}
----@type table
-CombatConfigFormattingSpellNamesText = {}
----@type table
-CombatConfigFormattingUnitNames = {}
----@type table
-CombatConfigFormattingUnitNamesText = {}
----@type table
-CombatConfigMessageSources = {}
----@type table
-CombatConfigMessageSourcesDoneBy = {}
----@type table
-CombatConfigMessageSourcesDoneByCheckbox1 = {}
----@type table
-CombatConfigMessageSourcesDoneByCheckbox1Check = {}
----@type table
-CombatConfigMessageSourcesDoneByCheckbox1CheckText = {}
----@type table
-CombatConfigMessageSourcesDoneByCheckbox2 = {}
----@type table
-CombatConfigMessageSourcesDoneByCheckbox2Check = {}
----@type table
-CombatConfigMessageSourcesDoneByCheckbox2CheckText = {}
----@type table
-CombatConfigMessageSourcesDoneByCheckbox3 = {}
----@type table
-CombatConfigMessageSourcesDoneByCheckbox3Check = {}
----@type table
-CombatConfigMessageSourcesDoneByCheckbox3CheckText = {}
----@type table
-CombatConfigMessageSourcesDoneByCheckbox4 = {}
----@type table
-CombatConfigMessageSourcesDoneByCheckbox4Check = {}
----@type table
-CombatConfigMessageSourcesDoneByCheckbox4CheckText = {}
----@type table
-CombatConfigMessageSourcesDoneByCheckbox5 = {}
----@type table
-CombatConfigMessageSourcesDoneByCheckbox5Check = {}
----@type table
-CombatConfigMessageSourcesDoneByCheckbox5CheckText = {}
----@type table
-CombatConfigMessageSourcesDoneByCheckbox6 = {}
----@type table
-CombatConfigMessageSourcesDoneByCheckbox6Check = {}
----@type table
-CombatConfigMessageSourcesDoneByCheckbox6CheckText = {}
----@type table
-CombatConfigMessageSourcesDoneByCheckbox7 = {}
----@type table
-CombatConfigMessageSourcesDoneByCheckbox7Check = {}
----@type table
-CombatConfigMessageSourcesDoneByCheckbox7CheckText = {}
----@type table
-CombatConfigMessageSourcesDoneByTitle = {}
----@type table
-CombatConfigMessageSourcesDoneTo = {}
----@type table
-CombatConfigMessageSourcesDoneToCheckbox1 = {}
----@type table
-CombatConfigMessageSourcesDoneToCheckbox1Check = {}
----@type table
-CombatConfigMessageSourcesDoneToCheckbox1CheckText = {}
----@type table
-CombatConfigMessageSourcesDoneToCheckbox2 = {}
----@type table
-CombatConfigMessageSourcesDoneToCheckbox2Check = {}
----@type table
-CombatConfigMessageSourcesDoneToCheckbox2CheckText = {}
----@type table
-CombatConfigMessageSourcesDoneToCheckbox3 = {}
----@type table
-CombatConfigMessageSourcesDoneToCheckbox3Check = {}
----@type table
-CombatConfigMessageSourcesDoneToCheckbox3CheckText = {}
----@type table
-CombatConfigMessageSourcesDoneToCheckbox4 = {}
----@type table
-CombatConfigMessageSourcesDoneToCheckbox4Check = {}
----@type table
-CombatConfigMessageSourcesDoneToCheckbox4CheckText = {}
----@type table
-CombatConfigMessageSourcesDoneToCheckbox5 = {}
----@type table
-CombatConfigMessageSourcesDoneToCheckbox5Check = {}
----@type table
-CombatConfigMessageSourcesDoneToCheckbox5CheckText = {}
----@type table
-CombatConfigMessageSourcesDoneToCheckbox6 = {}
----@type table
-CombatConfigMessageSourcesDoneToCheckbox6Check = {}
----@type table
-CombatConfigMessageSourcesDoneToCheckbox6CheckText = {}
----@type table
-CombatConfigMessageSourcesDoneToCheckbox7 = {}
----@type table
-CombatConfigMessageSourcesDoneToCheckbox7Check = {}
----@type table
-CombatConfigMessageSourcesDoneToCheckbox7CheckText = {}
----@type table
-CombatConfigMessageSourcesDoneToTitle = {}
----@type table
-CombatConfigMessageTypes = {}
----@type table
-CombatConfigMessageTypesLeft = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox1 = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox1Text = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox1_1 = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox1_1Text = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox1_2 = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox1_2Text = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox2 = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox2Text = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox2_1 = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox2_1Text = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox2_2 = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox2_2Text = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox3 = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox3Text = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox3_1 = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox3_1Text = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox3_2 = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox3_2Text = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox3_3 = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox3_3Text = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox3_4 = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox3_4Text = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox4 = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox4Text = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox4_1 = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox4_1Text = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox4_2 = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox4_2Text = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox4_3 = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox4_3Text = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox4_4 = {}
----@type table
-CombatConfigMessageTypesLeftCheckbox4_4Text = {}
----@type table
-CombatConfigMessageTypesMisc = {}
----@type table
-CombatConfigMessageTypesMiscCheckbox1 = {}
----@type table
-CombatConfigMessageTypesMiscCheckbox1Text = {}
----@type table
-CombatConfigMessageTypesMiscCheckbox2 = {}
----@type table
-CombatConfigMessageTypesMiscCheckbox2Text = {}
----@type table
-CombatConfigMessageTypesMiscCheckbox3 = {}
----@type table
-CombatConfigMessageTypesMiscCheckbox3Text = {}
----@type table
-CombatConfigMessageTypesMiscCheckbox4 = {}
----@type table
-CombatConfigMessageTypesMiscCheckbox4Text = {}
----@type table
-CombatConfigMessageTypesRight = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1 = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1Text = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_1 = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_10 = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_10Text = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_11 = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_11Text = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_12 = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_12Text = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_13 = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_13Text = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_1Text = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_2 = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_2Text = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_3 = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_3Text = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_4 = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_4Text = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_5 = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_5Text = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_6 = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_6Text = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_7 = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_7Text = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_8 = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_8Text = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_9 = {}
----@type table
-CombatConfigMessageTypesRightCheckbox1_9Text = {}
----@type table
-CombatConfigMessageTypesRightCheckbox2 = {}
----@type table
-CombatConfigMessageTypesRightCheckbox2Text = {}
----@type table
-CombatConfigMessageTypesRightCheckbox2_1 = {}
----@type table
-CombatConfigMessageTypesRightCheckbox2_1Text = {}
----@type table
-CombatConfigMessageTypesRightCheckbox2_2 = {}
----@type table
-CombatConfigMessageTypesRightCheckbox2_2Text = {}
----@type table
-CombatConfigMessageTypesRightCheckbox2_3 = {}
----@type table
-CombatConfigMessageTypesRightCheckbox2_3Text = {}
----@type table
-CombatConfigSettings = {}
----@type table
-CombatConfigSettingsNameEditBox = {}
----@type table
-CombatConfigSettingsParty = {}
----@type table
-CombatConfigSettingsPartyText = {}
----@type table
-CombatConfigSettingsRaid = {}
----@type table
-CombatConfigSettingsRaidText = {}
----@type table
-CombatConfigSettingsSaveButton = {}
----@type table
-CombatConfigSettingsSaveButtonText = {}
----@type table
-CombatConfigSettingsShowQuickButton = {}
----@type table
-CombatConfigSettingsShowQuickButtonText = {}
----@type table
-CombatConfigSettingsSolo = {}
----@type table
-CombatConfigSettingsSoloText = {}
----@type table
-CombatConfigTab1 = {}
----@type table
-CombatConfigTab2 = {}
----@type table
-CombatConfigTab3 = {}
----@type table
-CombatConfigTab4 = {}
----@type table
-CombatConfigTab5 = {}
----@return any ...
-function CombatConfig_Colorize_Update(...) end
----@return any ...
-function CombatConfig_CreateCombatFilter(...) end
----@return any ...
-function CombatConfig_DeleteCurrentCombatFilter(...) end
----@return any ...
-function CombatConfig_Formatting_Update(...) end
----@return any ...
-function CombatConfig_SetCombatFiltersToDefault(...) end
----@return any ...
-function CombatConfig_SetFilterName(...) end
----@return any ...
-function CombatConfig_Settings_Update(...) end
----@return any ...
-function CombatFeedback_Initialize(...) end
----@return any ...
-function CombatFeedback_OnCombatEvent(...) end
----@return any ...
-function CombatFeedback_OnUpdate(...) end
----@return any ...
-function CombatLogClearEntries(...) end
----@type table
-CombatLogDefaultButton = {}
----@type table
-CombatLogDefaultButtonText = {}
----@type table
-CombatLogDriverFrame = {}
----@type table
-CombatLogFont = {}
----@return any ...
-function CombatLogGetRetentionTime(...) end
----@type table
-CombatLogQuickButtonFrameButton1 = {}
----@type table
-CombatLogQuickButtonFrameButton2 = {}
----@type table
-CombatLogQuickButtonFrame_Custom = {}
----@type table
-CombatLogQuickButtonFrame_CustomAdditionalFilterButton = {}
----@type table
-CombatLogQuickButtonFrame_CustomProgressBar = {}
----@type table
-CombatLogQuickButtonFrame_CustomTexture = {}
----@return any ...
-function CombatLogSetRetentionTime(...) end
----@return any ...
-function CombatLog_Color_ColorArrayByEventType(...) end
----@return any ...
-function CombatLog_Color_ColorArrayBySchool(...) end
----@return any ...
-function CombatLog_Color_ColorArrayByUnitType(...) end
----@return any ...
-function CombatLog_Color_ColorStringByEventType(...) end
----@return any ...
-function CombatLog_Color_ColorStringBySchool(...) end
----@return any ...
-function CombatLog_Color_ColorStringByUnitType(...) end
----@return any ...
-function CombatLog_Color_FloatToText(...) end
----@return any ...
-function CombatLog_Color_HighlightColorArray(...) end
----@return any ...
-function CombatLog_LoadUI(...) end
----@return any ...
-function CombatLog_Object_IsA(...) end
----@return any ...
-function CombatLog_String_DamageResultString(...) end
----@return any ...
-function CombatLog_String_GetIcon(...) end
----@return any ...
-function CombatLog_String_PowerType(...) end
----@return any ...
-function CombatLog_String_SchoolString(...) end
----@type table
-CombatTextFont = {}
----@type table
-CombatTextFontOutline = {}
----@return any ...
-function CombatTextSetActiveUnit(...) end
----@return any ...
-function CombatText_LoadUI(...) end
----@return any ...
-function CombatText_UpdateDisplayedMessages(...) end
----@type table
-ComboFrame = {}
----@type table
-CommentatorCCFont = {}
----@type table
-CommentatorDampeningFont = {}
----@type table
-CommentatorFontMedium = {}
----@type table
-CommentatorFontSmall = {}
----@type table
-CommentatorTeamNameFont = {}
----@type table
-CommentatorTeamScoreFont = {}
----@type table
-CommentatorVictoryFanfare = {}
----@type table
-CommentatorVictoryFanfareTeam = {}
----@return any ...
-function Commentator_LoadUI(...) end
----@type table
-CommunitiesAddDialog = {}
----@type table
-CommunitiesAddDialogText = {}
----@return any ...
-function CommunitiesAddLanguageInitializer(...) end
----@type table
-CommunitiesAvatarPickerDialogText = {}
----@return any ...
-function CommunitiesAvatarPicker_CloseDialog(...) end
----@return any ...
-function CommunitiesAvatarPicker_IsShown(...) end
----@return any ...
-function CommunitiesAvatarPicker_OpenDialog(...) end
----@return any ...
-function CommunitiesChatEditBox_OnEnterPressed(...) end
----@return any ...
-function CommunitiesChatEditBox_OnFocusGained(...) end
----@return any ...
-function CommunitiesChatEditBox_OnHide(...) end
----@return any ...
-function CommunitiesCreateBattleNetDialog(...) end
----@return any ...
-function CommunitiesCreateCommunityDialog(...) end
----@type table
-CommunitiesCreateDialog = {}
----@type table
-CommunitiesCreateDialogText = {}
----@return any ...
-function CommunitiesCreateDialog_ClearText(...) end
----@return any ...
-function CommunitiesCreateDialog_SetAvatarId(...) end
----@return any ...
-function CommunitiesCreateDialog_SetClubType(...) end
----@return any ...
-function CommunitiesCreateDialog_SetShown(...) end
----@type table
-CommunitiesFrameBg = {}
----@type table
-CommunitiesFrameBottomLeft = {}
----@type table
-CommunitiesFrameBottomMiddle = {}
----@type table
-CommunitiesFrameBottomRight = {}
----@type table
-CommunitiesFrameCloseButton = {}
----@type table
-CommunitiesFrameCommunitiesList = {}
----@type table
-CommunitiesFrameGuildDetailsFrame = {}
----@type table
-CommunitiesFrameGuildDetailsFrameInfo = {}
----@type table
-CommunitiesFrameGuildDetailsFrameInfoBar1Left = {}
----@type table
-CommunitiesFrameGuildDetailsFrameInfoBar2Left = {}
----@type table
-CommunitiesFrameGuildDetailsFrameInfoChallenge1 = {}
----@type table
-CommunitiesFrameGuildDetailsFrameInfoChallenge2 = {}
----@type table
-CommunitiesFrameGuildDetailsFrameInfoChallenge3 = {}
----@type table
-CommunitiesFrameGuildDetailsFrameInfoChallenge4 = {}
----@type table
-CommunitiesFrameGuildDetailsFrameInfoHeader1Label = {}
----@type table
-CommunitiesFrameGuildDetailsFrameInfoHeader2 = {}
----@type table
-CommunitiesFrameGuildDetailsFrameInfoHeader3 = {}
----@type table
-CommunitiesFrameGuildDetailsFrameInfoMOTDScrollFrame = {}
----@type table
-CommunitiesFrameGuildDetailsFrameNews = {}
----@type table
-CommunitiesFrameGuildPreferredPlaySettingsFrame = {}
----@type table
-CommunitiesFrameGuildPreferredPlaySettingsFrameText = {}
----@type table
-CommunitiesFrameInset = {}
----@return any ...
-function CommunitiesFrameMaximizeMinimizeButton_OnLoad(...) end
----@type table
-CommunitiesFrameMiddleLeft = {}
----@type table
-CommunitiesFrameMiddleMiddle = {}
----@type table
-CommunitiesFrameMiddleRight = {}
----@type table
-CommunitiesFramePortrait = {}
----@type table
-CommunitiesFrameText = {}
----@type table
-CommunitiesFrameTitleText = {}
----@type table
-CommunitiesFrameTopLeft = {}
----@type table
-CommunitiesFrameTopMiddle = {}
----@type table
-CommunitiesFrameTopRight = {}
----@return any ...
-function CommunitiesFrame_ShouldDisplayPersonalAchievements(...) end
----@return any ...
-function CommunitiesGetCurrentLocale(...) end
----@return any ...
-function CommunitiesGuildEventButton_OnClick(...) end
----@return any ...
-function CommunitiesGuildFinderFrameFindAGuildButton_OnClick(...) end
----@return any ...
-function CommunitiesGuildInfoFrame_HideChallenges(...) end
----@return any ...
-function CommunitiesGuildInfoFrame_OnEvent(...) end
----@return any ...
-function CommunitiesGuildInfoFrame_OnLoad(...) end
----@return any ...
-function CommunitiesGuildInfoFrame_OnShow(...) end
----@return any ...
-function CommunitiesGuildInfoFrame_UpdateChallenges(...) end
----@return any ...
-function CommunitiesGuildInfoFrame_UpdatePermissions(...) end
----@return any ...
-function CommunitiesGuildInfoFrame_UpdateText(...) end
----@type table
-CommunitiesGuildLogFrameBg = {}
----@type table
-CommunitiesGuildLogFrameBottomBorder = {}
----@type table
-CommunitiesGuildLogFrameBottomLeftCorner = {}
----@type table
-CommunitiesGuildLogFrameBottomRightCorner = {}
----@type table
-CommunitiesGuildLogFrameCloseButton = {}
----@type table
-CommunitiesGuildLogFrameCloseButtonText = {}
----@type table
-CommunitiesGuildLogFrameLeftBorder = {}
----@type table
-CommunitiesGuildLogFrameRightBorder = {}
----@type table
-CommunitiesGuildLogFrameTitle = {}
----@type table
-CommunitiesGuildLogFrameTopBorder = {}
----@type table
-CommunitiesGuildLogFrameTopLeftCorner = {}
----@type table
-CommunitiesGuildLogFrameTopRightCorner = {}
----@return any ...
-function CommunitiesGuildLogFrame_OnLoad(...) end
----@return any ...
-function CommunitiesGuildLogFrame_Update(...) end
----@return any ...
-function CommunitiesGuildNewsButton_AnchorTooltip(...) end
----@return any ...
-function CommunitiesGuildNewsButton_OnClick(...) end
----@return any ...
-function CommunitiesGuildNewsButton_OnEnter(...) end
----@return any ...
-function CommunitiesGuildNewsButton_OnLeave(...) end
----@return any ...
-function CommunitiesGuildNewsButton_SetEvent(...) end
----@return any ...
-function CommunitiesGuildNewsFilter_OnClick(...) end
----@type table
-CommunitiesGuildNewsFiltersFrameBg = {}
----@type table
-CommunitiesGuildNewsFiltersFrameBottomBorder = {}
----@type table
-CommunitiesGuildNewsFiltersFrameBottomLeftCorner = {}
----@type table
-CommunitiesGuildNewsFiltersFrameBottomRightCorner = {}
----@type table
-CommunitiesGuildNewsFiltersFrameLeftBorder = {}
----@type table
-CommunitiesGuildNewsFiltersFrameRightBorder = {}
----@type table
-CommunitiesGuildNewsFiltersFrameTopBorder = {}
----@type table
-CommunitiesGuildNewsFiltersFrameTopLeftCorner = {}
----@type table
-CommunitiesGuildNewsFiltersFrameTopRightCorner = {}
----@return any ...
-function CommunitiesGuildNewsFiltersFrame_HideInvalidFilters(...) end
----@return any ...
-function CommunitiesGuildNewsFiltersFrame_OnLoad(...) end
----@return any ...
-function CommunitiesGuildNewsFiltersFrame_OnShow(...) end
----@return any ...
-function CommunitiesGuildNewsFrame_OnEvent(...) end
----@return any ...
-function CommunitiesGuildNewsFrame_OnHide(...) end
----@return any ...
-function CommunitiesGuildNewsFrame_OnLoad(...) end
----@return any ...
-function CommunitiesGuildNewsFrame_OnShow(...) end
----@return any ...
-function CommunitiesGuildNews_Update(...) end
----@return any ...
-function CommunitiesGuildPerksButton_OnClick(...) end
----@return any ...
-function CommunitiesGuildPerksButton_OnEnter(...) end
----@return any ...
-function CommunitiesGuildPerksButton_OnLeave(...) end
----@return any ...
-function CommunitiesGuildPerksFrame_OnEvent(...) end
----@return any ...
-function CommunitiesGuildPerksFrame_OnLoad(...) end
----@return any ...
-function CommunitiesGuildPerksFrame_OnShow(...) end
----@return any ...
-function CommunitiesGuildPerks_Update(...) end
----@return any ...
-function CommunitiesGuildPreferredPlaySettingsFrame_OnDatacenterApplyButtonClick(...) end
----@return any ...
-function CommunitiesGuildPreferredPlaySettingsFrame_OnDatacenterApplyButtonEnter(...) end
----@return any ...
-function CommunitiesGuildPreferredPlaySettingsFrame_OnDatacenterApplyButtonLeave(...) end
----@return any ...
-function CommunitiesGuildPreferredPlaySettingsFrame_OnLocaleApplyButtonClick(...) end
----@return any ...
-function CommunitiesGuildPreferredPlaySettingsFrame_OnLocaleApplyButtonEnter(...) end
----@return any ...
-function CommunitiesGuildPreferredPlaySettingsFrame_OnLocaleApplyButtonLeave(...) end
----@return any ...
-function CommunitiesGuildRewardsButton_OnClick(...) end
----@return any ...
-function CommunitiesGuildRewardsButton_OnEnter(...) end
----@return any ...
-function CommunitiesGuildRewardsButton_OnLeave(...) end
----@type table
-CommunitiesGuildTextEditFrameAcceptButton = {}
----@type table
-CommunitiesGuildTextEditFrameAcceptButtonText = {}
----@type table
-CommunitiesGuildTextEditFrameBg = {}
----@type table
-CommunitiesGuildTextEditFrameBottomBorder = {}
----@type table
-CommunitiesGuildTextEditFrameBottomLeftCorner = {}
----@type table
-CommunitiesGuildTextEditFrameBottomRightCorner = {}
----@type table
-CommunitiesGuildTextEditFrameCloseButton = {}
----@type table
-CommunitiesGuildTextEditFrameCloseButtonText = {}
----@type table
-CommunitiesGuildTextEditFrameLeftBorder = {}
----@type table
-CommunitiesGuildTextEditFrameRightBorder = {}
----@type table
-CommunitiesGuildTextEditFrameTopBorder = {}
----@type table
-CommunitiesGuildTextEditFrameTopLeftCorner = {}
----@type table
-CommunitiesGuildTextEditFrameTopRightCorner = {}
----@return any ...
-function CommunitiesGuildTextEditFrame_OnAccept(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_OnLoad(...) end
----@return any ...
-function CommunitiesGuildTextEditFrame_SetType(...) end
----@return any ...
-function CommunitiesInviteButton_OnClick(...) end
----@return any ...
-function CommunitiesInvitebutton_OnHide(...) end
----@return any ...
-function CommunitiesJumpToUnreadButton_OnClick(...) end
----@return any ...
-function CommunitiesMassNotificationsSettingsButton_OnClick(...) end
----@return any ...
-function CommunitiesMemberListColumnDisplay_OnClick(...) end
----@return any ...
-function CommunitiesMemberListEntry_VoiceActivityNotificationCreatedCallback(...) end
----@return any ...
-function CommunitiesNotificationSettingsDialogCancelButton_OnClick(...) end
----@return any ...
-function CommunitiesNotificationSettingsDialogOkayButton_OnClick(...) end
----@return any ...
-function CommunitiesSettingsButton_OnClick(...) end
----@type table
-CommunitiesSettingsDialog = {}
----@return any ...
-function CommunitiesSettingsDialogAcceptButton_OnClick(...) end
----@return any ...
-function CommunitiesSettingsDialogAcceptButton_OnEnter(...) end
----@return any ...
-function CommunitiesSettingsDialogAcceptButton_OnLeave(...) end
----@return any ...
-function CommunitiesSettingsDialogCancelButton_OnClick(...) end
----@return any ...
-function CommunitiesSettingsDialogChangeAvatarButton_OnClick(...) end
----@return any ...
-function CommunitiesSettingsDialogDeleteButton_OnClick(...) end
----@type table
-CommunitiesSettingsDialogText = {}
----@return any ...
-function CommunitiesSettingsGetRecruitmentSettingByValue(...) end
----@type table
-CommunitiesTicketManagerDialogIcon = {}
----@type table
-CommunitiesTicketManagerDialogText = {}
----@return any ...
-function CommunitiesTicketManagerDialog_OnStreamChanged(...) end
----@return any ...
-function CommunitiesTicketManagerDialog_Open(...) end
----@type table
-CompactPartyFrame = {}
----@type table
-CompactPartyFrameBorderFrame = {}
----@type table
-CompactPartyFrameMember1 = {}
----@type table
-CompactPartyFrameMember1AggroHighlight = {}
----@type table
-CompactPartyFrameMember1Background = {}
----@type table
-CompactPartyFrameMember1CenterStatusIcon = {}
----@type table
-CompactPartyFrameMember1HealthBar = {}
----@type table
-CompactPartyFrameMember1MyHealAbsorb = {}
----@type table
-CompactPartyFrameMember1MyHealAbsorbLeftShadow = {}
----@type table
-CompactPartyFrameMember1MyHealAbsorbOverlay = {}
----@type table
-CompactPartyFrameMember1MyHealPrediction = {}
----@type table
-CompactPartyFrameMember1Name = {}
----@type table
-CompactPartyFrameMember1OtherHealPrediction = {}
----@type table
-CompactPartyFrameMember1OverAbsorbGlow = {}
----@type table
-CompactPartyFrameMember1OverHealAbsorbGlow = {}
----@type table
-CompactPartyFrameMember1PowerBar = {}
----@type table
-CompactPartyFrameMember1PowerBarBackground = {}
----@type table
-CompactPartyFrameMember1ReadyCheckIcon = {}
----@type table
-CompactPartyFrameMember1RoleIcon = {}
----@type table
-CompactPartyFrameMember1SelectionHighlight = {}
----@type table
-CompactPartyFrameMember1StatusText = {}
----@type table
-CompactPartyFrameMember1TempMaxHealthLoss = {}
----@type table
-CompactPartyFrameMember1TotalAbsorb = {}
----@type table
-CompactPartyFrameMember1TotalAbsorbOverlay = {}
----@type table
-CompactPartyFrameMember2 = {}
----@type table
-CompactPartyFrameMember2AggroHighlight = {}
----@type table
-CompactPartyFrameMember2Background = {}
----@type table
-CompactPartyFrameMember2CenterStatusIcon = {}
----@type table
-CompactPartyFrameMember2HealthBar = {}
----@type table
-CompactPartyFrameMember2MyHealAbsorb = {}
----@type table
-CompactPartyFrameMember2MyHealAbsorbLeftShadow = {}
----@type table
-CompactPartyFrameMember2MyHealAbsorbOverlay = {}
----@type table
-CompactPartyFrameMember2MyHealPrediction = {}
----@type table
-CompactPartyFrameMember2Name = {}
----@type table
-CompactPartyFrameMember2OtherHealPrediction = {}
----@type table
-CompactPartyFrameMember2OverAbsorbGlow = {}
----@type table
-CompactPartyFrameMember2OverHealAbsorbGlow = {}
----@type table
-CompactPartyFrameMember2PowerBar = {}
----@type table
-CompactPartyFrameMember2PowerBarBackground = {}
----@type table
-CompactPartyFrameMember2ReadyCheckIcon = {}
----@type table
-CompactPartyFrameMember2RoleIcon = {}
----@type table
-CompactPartyFrameMember2SelectionHighlight = {}
----@type table
-CompactPartyFrameMember2StatusText = {}
----@type table
-CompactPartyFrameMember2TempMaxHealthLoss = {}
----@type table
-CompactPartyFrameMember2TotalAbsorb = {}
----@type table
-CompactPartyFrameMember2TotalAbsorbOverlay = {}
----@type table
-CompactPartyFrameMember3 = {}
----@type table
-CompactPartyFrameMember3AggroHighlight = {}
----@type table
-CompactPartyFrameMember3Background = {}
----@type table
-CompactPartyFrameMember3CenterStatusIcon = {}
----@type table
-CompactPartyFrameMember3HealthBar = {}
----@type table
-CompactPartyFrameMember3MyHealAbsorb = {}
----@type table
-CompactPartyFrameMember3MyHealAbsorbLeftShadow = {}
----@type table
-CompactPartyFrameMember3MyHealAbsorbOverlay = {}
----@type table
-CompactPartyFrameMember3MyHealPrediction = {}
----@type table
-CompactPartyFrameMember3Name = {}
----@type table
-CompactPartyFrameMember3OtherHealPrediction = {}
----@type table
-CompactPartyFrameMember3OverAbsorbGlow = {}
----@type table
-CompactPartyFrameMember3OverHealAbsorbGlow = {}
----@type table
-CompactPartyFrameMember3PowerBar = {}
----@type table
-CompactPartyFrameMember3PowerBarBackground = {}
----@type table
-CompactPartyFrameMember3ReadyCheckIcon = {}
----@type table
-CompactPartyFrameMember3RoleIcon = {}
----@type table
-CompactPartyFrameMember3SelectionHighlight = {}
----@type table
-CompactPartyFrameMember3StatusText = {}
----@type table
-CompactPartyFrameMember3TempMaxHealthLoss = {}
----@type table
-CompactPartyFrameMember3TotalAbsorb = {}
----@type table
-CompactPartyFrameMember3TotalAbsorbOverlay = {}
----@type table
-CompactPartyFrameMember4 = {}
----@type table
-CompactPartyFrameMember4AggroHighlight = {}
----@type table
-CompactPartyFrameMember4Background = {}
----@type table
-CompactPartyFrameMember4CenterStatusIcon = {}
----@type table
-CompactPartyFrameMember4HealthBar = {}
----@type table
-CompactPartyFrameMember4MyHealAbsorb = {}
----@type table
-CompactPartyFrameMember4MyHealAbsorbLeftShadow = {}
----@type table
-CompactPartyFrameMember4MyHealAbsorbOverlay = {}
----@type table
-CompactPartyFrameMember4MyHealPrediction = {}
----@type table
-CompactPartyFrameMember4Name = {}
----@type table
-CompactPartyFrameMember4OtherHealPrediction = {}
----@type table
-CompactPartyFrameMember4OverAbsorbGlow = {}
----@type table
-CompactPartyFrameMember4OverHealAbsorbGlow = {}
----@type table
-CompactPartyFrameMember4PowerBar = {}
----@type table
-CompactPartyFrameMember4PowerBarBackground = {}
----@type table
-CompactPartyFrameMember4ReadyCheckIcon = {}
----@type table
-CompactPartyFrameMember4RoleIcon = {}
----@type table
-CompactPartyFrameMember4SelectionHighlight = {}
----@type table
-CompactPartyFrameMember4StatusText = {}
----@type table
-CompactPartyFrameMember4TempMaxHealthLoss = {}
----@type table
-CompactPartyFrameMember4TotalAbsorb = {}
----@type table
-CompactPartyFrameMember4TotalAbsorbOverlay = {}
----@type table
-CompactPartyFrameMember5 = {}
----@type table
-CompactPartyFrameMember5AggroHighlight = {}
----@type table
-CompactPartyFrameMember5Background = {}
----@type table
-CompactPartyFrameMember5CenterStatusIcon = {}
----@type table
-CompactPartyFrameMember5HealthBar = {}
----@type table
-CompactPartyFrameMember5MyHealAbsorb = {}
----@type table
-CompactPartyFrameMember5MyHealAbsorbLeftShadow = {}
----@type table
-CompactPartyFrameMember5MyHealAbsorbOverlay = {}
----@type table
-CompactPartyFrameMember5MyHealPrediction = {}
----@type table
-CompactPartyFrameMember5Name = {}
----@type table
-CompactPartyFrameMember5OtherHealPrediction = {}
----@type table
-CompactPartyFrameMember5OverAbsorbGlow = {}
----@type table
-CompactPartyFrameMember5OverHealAbsorbGlow = {}
----@type table
-CompactPartyFrameMember5PowerBar = {}
----@type table
-CompactPartyFrameMember5PowerBarBackground = {}
----@type table
-CompactPartyFrameMember5ReadyCheckIcon = {}
----@type table
-CompactPartyFrameMember5RoleIcon = {}
----@type table
-CompactPartyFrameMember5SelectionHighlight = {}
----@type table
-CompactPartyFrameMember5StatusText = {}
----@type table
-CompactPartyFrameMember5TempMaxHealthLoss = {}
----@type table
-CompactPartyFrameMember5TotalAbsorb = {}
----@type table
-CompactPartyFrameMember5TotalAbsorbOverlay = {}
----@type table
-CompactPartyFramePet1 = {}
----@type table
-CompactPartyFramePet1AggroHighlight = {}
----@type table
-CompactPartyFramePet1Background = {}
----@type table
-CompactPartyFramePet1CenterStatusIcon = {}
----@type table
-CompactPartyFramePet1HealthBar = {}
----@type table
-CompactPartyFramePet1MyHealAbsorb = {}
----@type table
-CompactPartyFramePet1MyHealAbsorbLeftShadow = {}
----@type table
-CompactPartyFramePet1MyHealAbsorbOverlay = {}
----@type table
-CompactPartyFramePet1MyHealPrediction = {}
----@type table
-CompactPartyFramePet1Name = {}
----@type table
-CompactPartyFramePet1OtherHealPrediction = {}
----@type table
-CompactPartyFramePet1OverAbsorbGlow = {}
----@type table
-CompactPartyFramePet1OverHealAbsorbGlow = {}
----@type table
-CompactPartyFramePet1PowerBar = {}
----@type table
-CompactPartyFramePet1PowerBarBackground = {}
----@type table
-CompactPartyFramePet1ReadyCheckIcon = {}
----@type table
-CompactPartyFramePet1RoleIcon = {}
----@type table
-CompactPartyFramePet1SelectionHighlight = {}
----@type table
-CompactPartyFramePet1StatusText = {}
----@type table
-CompactPartyFramePet1TempMaxHealthLoss = {}
----@type table
-CompactPartyFramePet1TotalAbsorb = {}
----@type table
-CompactPartyFramePet1TotalAbsorbOverlay = {}
----@type table
-CompactPartyFramePet2 = {}
----@type table
-CompactPartyFramePet2AggroHighlight = {}
----@type table
-CompactPartyFramePet2Background = {}
----@type table
-CompactPartyFramePet2CenterStatusIcon = {}
----@type table
-CompactPartyFramePet2HealthBar = {}
----@type table
-CompactPartyFramePet2MyHealAbsorb = {}
----@type table
-CompactPartyFramePet2MyHealAbsorbLeftShadow = {}
----@type table
-CompactPartyFramePet2MyHealAbsorbOverlay = {}
----@type table
-CompactPartyFramePet2MyHealPrediction = {}
----@type table
-CompactPartyFramePet2Name = {}
----@type table
-CompactPartyFramePet2OtherHealPrediction = {}
----@type table
-CompactPartyFramePet2OverAbsorbGlow = {}
----@type table
-CompactPartyFramePet2OverHealAbsorbGlow = {}
----@type table
-CompactPartyFramePet2PowerBar = {}
----@type table
-CompactPartyFramePet2PowerBarBackground = {}
----@type table
-CompactPartyFramePet2ReadyCheckIcon = {}
----@type table
-CompactPartyFramePet2RoleIcon = {}
----@type table
-CompactPartyFramePet2SelectionHighlight = {}
----@type table
-CompactPartyFramePet2StatusText = {}
----@type table
-CompactPartyFramePet2TempMaxHealthLoss = {}
----@type table
-CompactPartyFramePet2TotalAbsorb = {}
----@type table
-CompactPartyFramePet2TotalAbsorbOverlay = {}
----@type table
-CompactPartyFramePet3 = {}
----@type table
-CompactPartyFramePet3AggroHighlight = {}
----@type table
-CompactPartyFramePet3Background = {}
----@type table
-CompactPartyFramePet3CenterStatusIcon = {}
----@type table
-CompactPartyFramePet3HealthBar = {}
----@type table
-CompactPartyFramePet3MyHealAbsorb = {}
----@type table
-CompactPartyFramePet3MyHealAbsorbLeftShadow = {}
----@type table
-CompactPartyFramePet3MyHealAbsorbOverlay = {}
----@type table
-CompactPartyFramePet3MyHealPrediction = {}
----@type table
-CompactPartyFramePet3Name = {}
----@type table
-CompactPartyFramePet3OtherHealPrediction = {}
----@type table
-CompactPartyFramePet3OverAbsorbGlow = {}
----@type table
-CompactPartyFramePet3OverHealAbsorbGlow = {}
----@type table
-CompactPartyFramePet3PowerBar = {}
----@type table
-CompactPartyFramePet3PowerBarBackground = {}
----@type table
-CompactPartyFramePet3ReadyCheckIcon = {}
----@type table
-CompactPartyFramePet3RoleIcon = {}
----@type table
-CompactPartyFramePet3SelectionHighlight = {}
----@type table
-CompactPartyFramePet3StatusText = {}
----@type table
-CompactPartyFramePet3TempMaxHealthLoss = {}
----@type table
-CompactPartyFramePet3TotalAbsorb = {}
----@type table
-CompactPartyFramePet3TotalAbsorbOverlay = {}
----@type table
-CompactPartyFramePet4 = {}
----@type table
-CompactPartyFramePet4AggroHighlight = {}
----@type table
-CompactPartyFramePet4Background = {}
----@type table
-CompactPartyFramePet4CenterStatusIcon = {}
----@type table
-CompactPartyFramePet4HealthBar = {}
----@type table
-CompactPartyFramePet4MyHealAbsorb = {}
----@type table
-CompactPartyFramePet4MyHealAbsorbLeftShadow = {}
----@type table
-CompactPartyFramePet4MyHealAbsorbOverlay = {}
----@type table
-CompactPartyFramePet4MyHealPrediction = {}
----@type table
-CompactPartyFramePet4Name = {}
----@type table
-CompactPartyFramePet4OtherHealPrediction = {}
----@type table
-CompactPartyFramePet4OverAbsorbGlow = {}
----@type table
-CompactPartyFramePet4OverHealAbsorbGlow = {}
----@type table
-CompactPartyFramePet4PowerBar = {}
----@type table
-CompactPartyFramePet4PowerBarBackground = {}
----@type table
-CompactPartyFramePet4ReadyCheckIcon = {}
----@type table
-CompactPartyFramePet4RoleIcon = {}
----@type table
-CompactPartyFramePet4SelectionHighlight = {}
----@type table
-CompactPartyFramePet4StatusText = {}
----@type table
-CompactPartyFramePet4TempMaxHealthLoss = {}
----@type table
-CompactPartyFramePet4TotalAbsorb = {}
----@type table
-CompactPartyFramePet4TotalAbsorbOverlay = {}
----@type table
-CompactPartyFramePet5 = {}
----@type table
-CompactPartyFramePet5AggroHighlight = {}
----@type table
-CompactPartyFramePet5Background = {}
----@type table
-CompactPartyFramePet5CenterStatusIcon = {}
----@type table
-CompactPartyFramePet5HealthBar = {}
----@type table
-CompactPartyFramePet5MyHealAbsorb = {}
----@type table
-CompactPartyFramePet5MyHealAbsorbLeftShadow = {}
----@type table
-CompactPartyFramePet5MyHealAbsorbOverlay = {}
----@type table
-CompactPartyFramePet5MyHealPrediction = {}
----@type table
-CompactPartyFramePet5Name = {}
----@type table
-CompactPartyFramePet5OtherHealPrediction = {}
----@type table
-CompactPartyFramePet5OverAbsorbGlow = {}
----@type table
-CompactPartyFramePet5OverHealAbsorbGlow = {}
----@type table
-CompactPartyFramePet5PowerBar = {}
----@type table
-CompactPartyFramePet5PowerBarBackground = {}
----@type table
-CompactPartyFramePet5ReadyCheckIcon = {}
----@type table
-CompactPartyFramePet5RoleIcon = {}
----@type table
-CompactPartyFramePet5SelectionHighlight = {}
----@type table
-CompactPartyFramePet5StatusText = {}
----@type table
-CompactPartyFramePet5TempMaxHealthLoss = {}
----@type table
-CompactPartyFramePet5TotalAbsorb = {}
----@type table
-CompactPartyFramePet5TotalAbsorbOverlay = {}
----@type table
-CompactPartyFrameTitle = {}
----@return any ...
-function CompactPartyFrame_Generate(...) end
----@type table
-CompactRaidFrameContainerBorderFrame = {}
----@type table
-CompactRaidFrameContainerBorderFrameBorderBottom = {}
----@type table
-CompactRaidFrameContainerBorderFrameBorderBottomLeft = {}
----@type table
-CompactRaidFrameContainerBorderFrameBorderBottomRight = {}
----@type table
-CompactRaidFrameContainerBorderFrameBorderLeft = {}
----@type table
-CompactRaidFrameContainerBorderFrameBorderRight = {}
----@type table
-CompactRaidFrameContainerBorderFrameBorderTop = {}
----@type table
-CompactRaidFrameContainerBorderFrameBorderTopLeft = {}
----@type table
-CompactRaidFrameContainerBorderFrameBorderTopRight = {}
----@type table
-CompactRaidFrameManagerDisplayFrame = {}
----@type table
-CompactRaidFrameManagerDisplayFrameCountdown = {}
----@type table
-CompactRaidFrameManagerDisplayFrameDifficulty = {}
----@type table
-CompactRaidFrameManagerDisplayFrameEditMode = {}
----@type table
-CompactRaidFrameManagerDisplayFrameEveryoneIsAssistButton = {}
----@type table
-CompactRaidFrameManagerDisplayFrameFilterOptions = {}
----@type table
-CompactRaidFrameManagerDisplayFrameFilterOptionsFilterRoleDamager = {}
----@type table
-CompactRaidFrameManagerDisplayFrameFilterOptionsFilterRoleHealer = {}
----@type table
-CompactRaidFrameManagerDisplayFrameFilterOptionsFilterRoleTank = {}
----@type table
-CompactRaidFrameManagerDisplayFrameHiddenModeToggle = {}
----@type table
-CompactRaidFrameManagerDisplayFrameInitiateReadyCheck = {}
----@type table
-CompactRaidFrameManagerDisplayFrameInitiateRolePoll = {}
----@type table
-CompactRaidFrameManagerDisplayFrameModeControlDropdown = {}
----@type table
-CompactRaidFrameManagerDisplayFrameOptionsButton = {}
----@type table
-CompactRaidFrameManagerDisplayFrameOptionsButtonTexture = {}
----@type table
-CompactRaidFrameManagerDisplayFrameRaidMarkers = {}
----@type table
-CompactRaidFrameManagerDisplayFrameRaidMarkersRaidMarkerGroundTab = {}
----@type table
-CompactRaidFrameManagerDisplayFrameRaidMarkersRaidMarkerUnitTab = {}
----@type table
-CompactRaidFrameManagerDisplayFrameRaidMemberCountLabel = {}
----@type table
-CompactRaidFrameManagerDisplayFrameRaidMembersLabel = {}
----@type table
-CompactRaidFrameManagerDisplayFrameRestrictPingsDropdown = {}
----@type table
-CompactRaidFrameManagerDisplayFrameSettings = {}
----@type table
-CompactRaidFrameManagerLeaveInstanceGroupButton = {}
----@type table
-CompactRaidFrameManagerLeaveInstanceGroupButtonText = {}
----@type table
-CompactRaidFrameManagerLeavePartyButton = {}
----@type table
-CompactRaidFrameManagerLeavePartyButtonText = {}
----@type table
-CompactRaidFrameManagerToggleButtonBack = {}
----@type table
-CompactRaidFrameManagerToggleButtonForward = {}
----@return any ...
-function CompactRaidFrameManager_Collapse(...) end
----@return any ...
-function CompactRaidFrameManager_Expand(...) end
----@return any ...
-function CompactRaidFrameManager_GetSetting(...) end
----@return any ...
-function CompactRaidFrameManager_GetSettingBeforeLoad(...) end
----@return any ...
-function CompactRaidFrameManager_InitializeGamepad(...) end
----@return any ...
-function CompactRaidFrameManager_OnEvent(...) end
----@return any ...
-function CompactRaidFrameManager_OnLoad(...) end
----@return any ...
-function CompactRaidFrameManager_RefreshGroundTargetingBinding(...) end
----@return any ...
-function CompactRaidFrameManager_RefreshOpenBinding(...) end
----@return any ...
-function CompactRaidFrameManager_RefreshSmartNavJumps(...) end
----@return any ...
-function CompactRaidFrameManager_RegisterForTransitions(...) end
----@return any ...
-function CompactRaidFrameManager_SetSetting(...) end
----@return any ...
-function CompactRaidFrameManager_SetupExpandBinding(...) end
----@return any ...
-function CompactRaidFrameManager_SetupFrameFooter(...) end
----@return any ...
-function CompactRaidFrameManager_SetupGamepad(...) end
----@return any ...
-function CompactRaidFrameManager_SetupGroundTargetingBinding(...) end
----@return any ...
-function CompactRaidFrameManager_Toggle(...) end
----@return any ...
-function CompactRaidFrameManager_ToggleGroupFilter(...) end
----@return any ...
-function CompactRaidFrameManager_ToggleRoleFilter(...) end
----@return any ...
-function CompactRaidFrameManager_UpdateContainerBounds(...) end
----@return any ...
-function CompactRaidFrameManager_UpdateContainerVisibility(...) end
----@return any ...
-function CompactRaidFrameManager_UpdateDifficultyDropdown(...) end
----@return any ...
-function CompactRaidFrameManager_UpdateDisplayCounts(...) end
----@return any ...
-function CompactRaidFrameManager_UpdateFilterInfo(...) end
----@return any ...
-function CompactRaidFrameManager_UpdateGroupFilterButton(...) end
----@return any ...
-function CompactRaidFrameManager_UpdateHeaderInfo(...) end
----@return any ...
-function CompactRaidFrameManager_UpdateLabel(...) end
----@return any ...
-function CompactRaidFrameManager_UpdateOptionsFlowContainer(...) end
----@return any ...
-function CompactRaidFrameManager_UpdateRaidIcons(...) end
----@return any ...
-function CompactRaidFrameManager_UpdateRoleFilterButton(...) end
----@return any ...
-function CompactRaidFrameManager_UpdateShown(...) end
----@return any ...
-function CompactRaidFrameReservation_GetFrame(...) end
----@return any ...
-function CompactRaidFrameReservation_GetReservation(...) end
----@return any ...
-function CompactRaidFrameReservation_NewManager(...) end
----@return any ...
-function CompactRaidFrameReservation_RegisterReservation(...) end
----@return any ...
-function CompactRaidFrameReservation_ReleaseUnusedReservations(...) end
----@return any ...
-function CompactRaidGroup_ApplyFunctionToAllFrames(...) end
----@return any ...
-function CompactRaidGroup_GenerateForGroup(...) end
----@return any ...
-function CompactRaidGroup_InitializeForGroup(...) end
----@return any ...
-function CompactRaidGroup_OnEvent(...) end
----@return any ...
-function CompactRaidGroup_OnLoad(...) end
----@return any ...
-function CompactRaidGroup_UpdateBorder(...) end
----@return any ...
-function CompactRaidGroup_UpdateLayout(...) end
----@return any ...
-function CompactRaidGroup_UpdateUnits(...) end
----@return any ...
-function CompactUnitFrameLayoutTemplates_LayoutFrameElement(...) end
----@return any ...
-function CompactUnitFrameUtil_UpdateFillBar(...) end
----@return any ...
-function CompactUnitFrame_CheckNeedsUpdate(...) end
----@return any ...
-function CompactUnitFrame_CheckReadyCheckDecay(...) end
----@return any ...
-function CompactUnitFrame_ClearWidgetSet(...) end
----@return any ...
-function CompactUnitFrame_FinishReadyCheck(...) end
----@return any ...
-function CompactUnitFrame_GetCenterStatusIconState(...) end
----@return any ...
-function CompactUnitFrame_GetHealthValues(...) end
----@return any ...
-function CompactUnitFrame_GetHealthValuesActual(...) end
----@return any ...
-function CompactUnitFrame_GetOptionCustomHealthBarColorBG(...) end
----@return any ...
-function CompactUnitFrame_GetOptionCustomHealthBarColors(...) end
----@return any ...
-function CompactUnitFrame_GetOptionDispelIndicatorAnimatedBorder(...) end
----@return any ...
-function CompactUnitFrame_GetOptionDispelIndicatorOverlayAnimation(...) end
----@return any ...
-function CompactUnitFrame_GetOptionDispelIndicatorOverlayType(...) end
----@return any ...
-function CompactUnitFrame_GetOptionDispelIndicatorType(...) end
----@return any ...
-function CompactUnitFrame_GetOptionDisplayBuffs(...) end
----@return any ...
-function CompactUnitFrame_GetOptionDisplayDebuffs(...) end
----@return any ...
-function CompactUnitFrame_GetOptionDisplayDispelDebuffs(...) end
----@return any ...
-function CompactUnitFrame_GetOptionDisplayLargerRoleSpecificDebuffs(...) end
----@return any ...
-function CompactUnitFrame_GetOptionDisplayOnlyDispellableDebuffs(...) end
----@return any ...
-function CompactUnitFrame_GetOptionHealthText(...) end
----@return any ...
-function CompactUnitFrame_GetOptionShowBigDefensive(...) end
----@return any ...
-function CompactUnitFrame_GetOptionUseClassColors(...) end
----@return any ...
-function CompactUnitFrame_GetRangeAlpha(...) end
----@return any ...
-function CompactUnitFrame_IsOnThreatListWithPlayer(...) end
----@return any ...
-function CompactUnitFrame_IsPartyFrame(...) end
----@return any ...
-function CompactUnitFrame_IsPvpFrame(...) end
----@return any ...
-function CompactUnitFrame_IsTapDenied(...) end
----@return any ...
-function CompactUnitFrame_IsWithinDistanceThreshold(...) end
----@return any ...
-function CompactUnitFrame_OnEvent(...) end
----@return any ...
-function CompactUnitFrame_OnHide(...) end
----@return any ...
-function CompactUnitFrame_OnLoad(...) end
----@return any ...
-function CompactUnitFrame_OnShow(...) end
----@return any ...
-function CompactUnitFrame_OnUpdate(...) end
----@return any ...
-function CompactUnitFrame_OnVisiblityChanged(...) end
----@return any ...
-function CompactUnitFrame_OpenMenu(...) end
----@return any ...
-function CompactUnitFrame_RegisterEvents(...) end
----@return any ...
-function CompactUnitFrame_SetAurasDirty(...) end
----@return any ...
-function CompactUnitFrame_SetHealPredictionDirty(...) end
----@return any ...
-function CompactUnitFrame_SetHealthDirty(...) end
----@return any ...
-function CompactUnitFrame_SetMaxBuffs(...) end
----@return any ...
-function CompactUnitFrame_SetMaxDebuffs(...) end
----@return any ...
-function CompactUnitFrame_SetMaxDispelDebuffs(...) end
----@return any ...
-function CompactUnitFrame_SetOptionTable(...) end
----@return any ...
-function CompactUnitFrame_SetUnit(...) end
----@return any ...
-function CompactUnitFrame_SetUpClicks(...) end
----@return any ...
-function CompactUnitFrame_SetUpFrame(...) end
----@return any ...
-function CompactUnitFrame_SetUpdateAllEvent(...) end
----@return any ...
-function CompactUnitFrame_SetUpdateAllOnUpdate(...) end
----@return any ...
-function CompactUnitFrame_SubscribeToVisibilityChanged(...) end
----@return any ...
-function CompactUnitFrame_UnitExists(...) end
----@return any ...
-function CompactUnitFrame_UnregisterEvents(...) end
----@return any ...
-function CompactUnitFrame_UnsubscribeToVisibilityChanged(...) end
----@return any ...
-function CompactUnitFrame_UpdateAggroFlash(...) end
----@return any ...
-function CompactUnitFrame_UpdateAggroHighlight(...) end
----@return any ...
-function CompactUnitFrame_UpdateAll(...) end
----@return any ...
-function CompactUnitFrame_UpdateAllFromEditMode(...) end
----@return any ...
-function CompactUnitFrame_UpdateCenterStatusIcon(...) end
----@return any ...
-function CompactUnitFrame_UpdateDistance(...) end
----@return any ...
-function CompactUnitFrame_UpdateHealPrediction(...) end
----@return any ...
-function CompactUnitFrame_UpdateHealth(...) end
----@return any ...
-function CompactUnitFrame_UpdateHealthBorder(...) end
----@return any ...
-function CompactUnitFrame_UpdateHealthColor(...) end
----@return any ...
-function CompactUnitFrame_UpdateInRange(...) end
----@return any ...
-function CompactUnitFrame_UpdateInVehicle(...) end
----@return any ...
-function CompactUnitFrame_UpdateLevel(...) end
----@return any ...
-function CompactUnitFrame_UpdateLootFrame(...) end
----@return any ...
-function CompactUnitFrame_UpdateMaxHealth(...) end
----@return any ...
-function CompactUnitFrame_UpdateMaxPower(...) end
----@return any ...
-function CompactUnitFrame_UpdateName(...) end
----@return any ...
-function CompactUnitFrame_UpdatePlayerLevelDiff(...) end
----@return any ...
-function CompactUnitFrame_UpdatePower(...) end
----@return any ...
-function CompactUnitFrame_UpdatePowerColor(...) end
----@return any ...
-function CompactUnitFrame_UpdateReadyCheck(...) end
----@return any ...
-function CompactUnitFrame_UpdateRoleIcon(...) end
----@return any ...
-function CompactUnitFrame_UpdateSelectionHighlight(...) end
----@return any ...
-function CompactUnitFrame_UpdateStatusText(...) end
----@return any ...
-function CompactUnitFrame_UpdateTempMaxHPLoss(...) end
----@return any ...
-function CompactUnitFrame_UpdateUnitEvents(...) end
----@return any ...
-function CompactUnitFrame_UpdateVisible(...) end
----@return any ...
-function CompactUnitFrame_UpdateWidgetSet(...) end
----@type table
-CompanionInfoGLine = {}
----@return any ...
-function CompleteLFGReadyCheck(...) end
----@return any ...
-function CompleteLFGRoleCheck(...) end
----@return any ...
-function CompleteQuest(...) end
----@return any ...
-function ComputePetBonus(...) end
----@return any ...
-function ConcatinateServerNameToPlayerName(...) end
----@return any ...
-function ConfirmAcceptQuest(...) end
----@return any ...
-function ConfirmBNRequestInviteFriend(...) end
----@return any ...
-function ConfirmDisenchantRollDialog_Show(...) end
----@return any ...
-function ConfirmLootRoll(...) end
----@return any ...
-function ConfirmLootRollDialog_Show(...) end
----@return any ...
-function ConfirmLootSlot(...) end
----@return any ...
-function ConfirmOrLeaveBattlefield(...) end
----@return any ...
-function ConfirmOrLeaveLFGParty(...) end
----@return any ...
-function ConfirmOrLeaveParty(...) end
----@return any ...
-function ConfirmReadyCheck(...) end
----@return any ...
-function ConfirmSurrenderArena(...) end
-function ConfirmTalentWipe() end
----@return any ...
-function ConfirmTalentWipeDialog_Show(...) end
----@return any ...
-function ConfirmationEditBoxMatches(...) end
----@return any ...
-function ConfirmationStringMatches(...) end
----@param command string
----@param addToHistory? boolean
----@param prefix? string
----@return boolean result
-function ConsoleEcho(command, addToHistory, prefix) end
----@param command string
----@param addToHistory? boolean
----@return boolean result
-function ConsoleExec(command, addToHistory) end
----@type table
-ConsoleFontNormal = {}
----@type table
-ConsoleFontSmall = {}
----@return table commands
-function ConsoleGetAllCommands() end
----@param colorType ConsoleColorType
----@return colorRGB color
-function ConsoleGetColorFromType(colorType) end
----@return number fontHeightInPixels
-function ConsoleGetFontHeight() end
----@return boolean consoleIsActive
-function ConsoleIsActive() end
----@param partialCommandText string
-function ConsolePrintAllMatchingCommands(partialCommandText) end
----@param fontHeightInPixels number
-function ConsoleSetFontHeight(fontHeightInPixels) end
----@type table
-ConsortiumMailFrame = {}
----@return any ...
-function ConstructPVPMatchTable(...) end
----@type table
-ContainerFrame1 = {}
----@type table
-ContainerFrame1Background1Slot = {}
----@type table
-ContainerFrame1MoneyFrame = {}
----@type table
-ContainerFrame1MoneyFrameCopperButton = {}
----@type table
-ContainerFrame1MoneyFrameCopperButtonText = {}
----@type table
-ContainerFrame1MoneyFrameGoldButton = {}
----@type table
-ContainerFrame1MoneyFrameGoldButtonText = {}
----@type table
-ContainerFrame1MoneyFrameSilverButton = {}
----@type table
-ContainerFrame1MoneyFrameSilverButtonText = {}
----@type table
-ContainerFrame1MoneyFrameTrialErrorButton = {}
----@type table
-ContainerFrame1Portrait = {}
----@type table
-ContainerFrame1PortraitButton = {}
----@type table
-ContainerFrame1TitleText = {}
----@type table
-ContainerFrame2 = {}
----@type table
-ContainerFrame2Background1Slot = {}
----@type table
-ContainerFrame2Portrait = {}
----@type table
-ContainerFrame2PortraitButton = {}
----@type table
-ContainerFrame2TitleText = {}
----@type table
-ContainerFrame3 = {}
----@type table
-ContainerFrame3Background1Slot = {}
----@type table
-ContainerFrame3Portrait = {}
----@type table
-ContainerFrame3PortraitButton = {}
----@type table
-ContainerFrame3TitleText = {}
----@type table
-ContainerFrame4 = {}
----@type table
-ContainerFrame4Background1Slot = {}
----@type table
-ContainerFrame4Portrait = {}
----@type table
-ContainerFrame4PortraitButton = {}
----@type table
-ContainerFrame4TitleText = {}
----@type table
-ContainerFrame5 = {}
----@type table
-ContainerFrame5Background1Slot = {}
----@type table
-ContainerFrame5Portrait = {}
----@type table
-ContainerFrame5PortraitButton = {}
----@type table
-ContainerFrame5TitleText = {}
----@type table
-ContainerFrame6 = {}
----@type table
-ContainerFrame6Background1Slot = {}
----@type table
-ContainerFrame6Portrait = {}
----@type table
-ContainerFrame6PortraitButton = {}
----@type table
-ContainerFrame6TitleText = {}
----@type table
-ContainerFrame7 = {}
----@type table
-ContainerFrame7Background1Slot = {}
----@type table
-ContainerFrame7Portrait = {}
----@type table
-ContainerFrame7PortraitButton = {}
----@type table
-ContainerFrame7TitleText = {}
----@type table
-ContainerFrameCombinedBagsCopperButton = {}
----@type table
-ContainerFrameCombinedBagsCopperButtonText = {}
----@type table
-ContainerFrameCombinedBagsGoldButton = {}
----@type table
-ContainerFrameCombinedBagsGoldButtonText = {}
----@type table
-ContainerFrameCombinedBagsPortrait = {}
----@type table
-ContainerFrameCombinedBagsPortraitButton = {}
----@type table
-ContainerFrameCombinedBagsSilverButton = {}
----@type table
-ContainerFrameCombinedBagsSilverButtonText = {}
----@type table
-ContainerFrameCombinedBagsTitleText = {}
----@type table
-ContainerFrameCombinedBagsTrialErrorButton = {}
----@return any ...
-function ContainerFrameExtendedItemButton_OnEnter(...) end
----@return any ...
-function ContainerFrameItemButton_CalculateItemTooltipAnchors(...) end
----@return any ...
-function ContainerFrameItemButton_GetDebugReportInfo(...) end
----@return any ...
-function ContainerFrameItemButton_OnClick(...) end
----@return any ...
-function ContainerFrameItemButton_OnEnter(...) end
----@return any ...
-function ContainerFrameUtil_ConvertFilterFlagsToList(...) end
----@return any ...
-function ContainerFrameUtil_EnumerateBagFrames(...) end
----@return any ...
-function ContainerFrameUtil_EnumerateBagGearFilters(...) end
----@return any ...
-function ContainerFrameUtil_EnumerateContainerFrames(...) end
----@return any ...
-function ContainerFrameUtil_FindFirstItemButtonAndItemLocation(...) end
----@return any ...
-function ContainerFrameUtil_GetItemButtonAndContainer(...) end
----@return any ...
-function ContainerFrameUtil_GetShownFrameForID(...) end
----@return any ...
-function ContainerFrame_AddButtons_BagCleanup(...) end
----@return any ...
-function ContainerFrame_AddButtons_BagFilters(...) end
----@return any ...
-function ContainerFrame_AllowedToOpenBags(...) end
----@return any ...
-function ContainerFrame_AnchorTutorialToItemButton(...) end
----@return any ...
-function ContainerFrame_CanContainerUseFilterMenu(...) end
----@return any ...
-function ContainerFrame_CheckItemButtonForTutorials(...) end
----@return any ...
-function ContainerFrame_ClearFullScreenFrame(...) end
----@return any ...
-function ContainerFrame_ConsiderItemButtonForAzeriteTutorial(...) end
----@return any ...
-function ContainerFrame_ConsiderItemButtonForUpgradeTutorial(...) end
----@return any ...
-function ContainerFrame_ConsiderItemButtonForWarboundUntilEquipTutorial(...) end
----@return any ...
-function ContainerFrame_GenerateFrame(...) end
----@return any ...
-function ContainerFrame_GetApproximateWidth(...) end
----@return any ...
-function ContainerFrame_GetContainerNumSlots(...) end
----@return any ...
-function ContainerFrame_GetExtendedPriceString(...) end
----@return any ...
-function ContainerFrame_GetOpenFrame(...) end
----@return any ...
-function ContainerFrame_HasUnacknowledgedItemTutorial(...) end
----@return any ...
-function ContainerFrame_IsReagentBag(...) end
----@return any ...
-function ContainerFrame_IsTutorialShown(...) end
----@return any ...
-function ContainerFrame_OnCloseButtonClicked(...) end
----@return any ...
-function ContainerFrame_OnEvent(...) end
----@return any ...
-function ContainerFrame_OnHide(...) end
----@return any ...
-function ContainerFrame_OnLoad(...) end
----@return any ...
-function ContainerFrame_OnShow(...) end
----@return any ...
-function ContainerFrame_SetFullScreenFrame(...) end
----@return any ...
-function ContainerFrame_ShouldDoTutorialChecks(...) end
----@return any ...
-function ContainerFrame_ShowTutorialForItemButton(...) end
----@return any ...
-function ContainerFrame_UpdateAll(...) end
----@return any ...
-function ContainerFrame_UpdateLocked(...) end
----@return any ...
-function ContainerFrame_UpdateLockedItem(...) end
----@return any ...
-function ContainerFrame_UpdatePortraitPosition(...) end
----@return any ...
-function ContainsIf(...) end
----@return any ...
-function ContributionCollectionFrame_LoadUI(...) end
-function ConvertItemToBindToAccount() end
----@return any ...
-function ConvertPixelsToUI(...) end
----@return any ...
-function ConvertSecondsToUnits(...) end
----@return any ...
-function CooldownBroadcaster_LoadUI(...) end
----@return any ...
-function CooldownFrame_Clear(...) end
----@return any ...
-function CooldownFrame_Set(...) end
----@return any ...
-function CooldownFrame_SetDisplayAsPercentage(...) end
----@return any ...
-function CooldownManagerLayout_Create(...) end
----@return any ...
-function CooldownManagerLayout_GetClassAndSpecTag(...) end
----@return any ...
-function CooldownManagerLayout_GetCooldownInfo(...) end
----@return any ...
-function CooldownManagerLayout_GetGroupBuffVisualAlerts(...) end
----@return any ...
-function CooldownManagerLayout_GetHiddenGroupBuffs(...) end
----@return any ...
-function CooldownManagerLayout_GetID(...) end
----@return any ...
-function CooldownManagerLayout_GetName(...) end
----@return any ...
-function CooldownManagerLayout_GetNameExplicit(...) end
----@return any ...
-function CooldownManagerLayout_GetOrderedCooldownIDs(...) end
----@return any ...
-function CooldownManagerLayout_GetType(...) end
----@return any ...
-function CooldownManagerLayout_IsDefaultLayout(...) end
----@return any ...
-function CooldownManagerLayout_SetGroupBuffVisualAlerts(...) end
----@return any ...
-function CooldownManagerLayout_SetHiddenGroupBuffs(...) end
----@return any ...
-function CooldownManagerLayout_SetIsDefault(...) end
----@return any ...
-function CooldownManagerLayout_SetName(...) end
----@return any ...
-function CooldownManagerLayout_SetOrderedCooldownIDs(...) end
----@return any ...
-function CooldownViewerAlert_Assign(...) end
----@return any ...
-function CooldownViewerAlert_Create(...) end
----@return any ...
-function CooldownViewerAlert_GetAlertStatus(...) end
----@return any ...
-function CooldownViewerAlert_GetEvent(...) end
----@return any ...
-function CooldownViewerAlert_GetEventText(...) end
----@return any ...
-function CooldownViewerAlert_GetPayload(...) end
----@return any ...
-function CooldownViewerAlert_GetPayloadContextData(...) end
----@return any ...
-function CooldownViewerAlert_GetPayloadText(...) end
----@return any ...
-function CooldownViewerAlert_GetType(...) end
----@return any ...
-function CooldownViewerAlert_GetTypeAtlas(...) end
----@return any ...
-function CooldownViewerAlert_GetTypeText(...) end
----@return any ...
-function CooldownViewerAlert_GetValues(...) end
----@return any ...
-function CooldownViewerAlert_Matches(...) end
----@return any ...
-function CooldownViewerAlert_PlayAlert(...) end
----@return any ...
-function CooldownViewerAlert_SetEvent(...) end
----@return any ...
-function CooldownViewerAlert_SetPayload(...) end
----@return any ...
-function CooldownViewerAlert_SetType(...) end
----@return any ...
-function CooldownViewerAlert_SetupTypeButton(...) end
----@return any ...
-function CooldownViewerContextMenu_AddAlertEntryButton(...) end
----@return any ...
-function CooldownViewerContextMenu_AddNewAlertButton(...) end
----@return any ...
-function CooldownViewerDraggedItem_Clear(...) end
----@return any ...
-function CooldownViewerDraggedItem_Pickup(...) end
----@return any ...
-function CooldownViewerDraggedItem_SetIsLegalTarget(...) end
----@type table
-CooldownViewerImportLayoutDialogText = {}
----@type table
-CooldownViewerLayoutDialogText = {}
----@type table
-CooldownViewerSettingsBg = {}
----@type table
-CooldownViewerSettingsClearButton = {}
----@type table
-CooldownViewerSettingsCloseButton = {}
----@type table
-CooldownViewerSettingsContentMixin = {}
----@return any ...
-function CooldownViewerSettingsDataProvider_GetCategories(...) end
----@type table
-CooldownViewerSettingsEditAlert = {}
----@type table
-CooldownViewerSettingsEditAlertText = {}
----@type table
-CooldownViewerSettingsInset = {}
----@type table
-CooldownViewerSettingsPortrait = {}
----@type table
-CooldownViewerSettingsSearchIcon = {}
----@type table
-CooldownViewerSettingsText = {}
----@type table
-CooldownViewerSettingsTitleText = {}
----@type table
-CooldownViewerSoundData = {}
----@return any ...
-function CooldownViewer_MarkAuraCacheDirty(...) end
----@return any ...
-function CooldownViewer_MarkTotemCacheDirty(...) end
----@return any ...
-function CopyTable(...) end
----@return any ...
-function CopyTableSafe(...) end
----@param text string
----@param removeMarkup? boolean
----@return number length
-function CopyToClipboard(text, removeMarkup) end
----@return any ...
-function CopyTransformedValuesAsKeys(...) end
----@return any ...
-function CopyValuesAsKeys(...) end
----@type table
-CoreAbilityFont = {}
----@return any ...
-function CountTable(...) end
----@return any ...
-function CounterBar_GetDigit(...) end
----@return any ...
-function CounterBar_GetNumberCoord(...) end
----@return any ...
-function CounterBar_OnUpdate(...) end
----@return any ...
-function CounterBar_SetNumbers(...) end
----@return any ...
-function CounterBar_SetStyle(...) end
----@return any ...
-function CounterBar_SetStyleForUnit(...) end
----@return any ...
-function CounterBar_SetUp(...) end
----@return any ...
-function CounterBar_UpdateCount(...) end
----@return any ...
-function CovenantCalling_AreCallingsUnlocked(...) end
----@return any ...
-function CovenantCalling_CheckCallings(...) end
----@return any ...
-function CovenantCalling_Create(...) end
----@return any ...
-function CovenantCalling_GetAvailableCount(...) end
----@return any ...
-function CovenantCalling_GetCompletedCount(...) end
----@return any ...
-function CovenantCallings_LoadUI(...) end
----@return any ...
-function CovenantPreviewFrame_LoadUI(...) end
----@return any ...
-function CovenantRenown_LoadUI(...) end
----@return any ...
-function CovenantSanctum_LoadUI(...) end
----@param data table
----@return AbbreviateConfig config
-function CreateAbbreviateConfig(data) end
----@return any ...
-function CreateAccumulator(...) end
----@return any ...
-function CreateActorPool(...) end
----@return any ...
-function CreateAdvancedQualitySectionInitializer(...) end
----@return any ...
-function CreateAnchor(...) end
----@return any ...
-function CreateAndInitFromMixin(...) end
----@return any ...
-function CreateAtlasMarkup(...) end
----@return any ...
-function CreateAtlasMarkupWithAtlasSize(...) end
----@return any ...
-function CreateAutoLootInitializer(...) end
----@return any ...
-function CreateBaseTooltipInfo(...) end
----@return any ...
-function CreateButtonGroup(...) end
----@return any ...
-function CreateCVarAccessor(...) end
----@return any ...
-function CreateCanvasLayout(...) end
----@return any ...
-function CreateCategoryObjectLookup(...) end
----@return any ...
-function CreateCatmullRomSpline(...) end
----@type table
-CreateChannelPopupText = {}
----@return any ...
-function CreateChatChannelList(...) end
----@return any ...
-function CreateChatTextToSpeechChannelList(...) end
----@return any ...
-function CreateCircularBuffer(...) end
----@return any ...
-function CreateColor(...) end
----@return any ...
-function CreateColorFromBestRGBHexString(...) end
----@return any ...
-function CreateColorFromBytes(...) end
----@return any ...
-function CreateColorFromHexString(...) end
----@return any ...
-function CreateColorFromRGBAHexString(...) end
----@return any ...
-function CreateColorFromRGBHexString(...) end
----@return any ...
-function CreateCombatLogContextMenu(...) end
----@return any ...
-function CreateCommunitiesIconNotificationMarkup(...) end
----@return any ...
-function CreateCompositor(...) end
----@return any ...
-function CreateContinuableContainerForLFGRewards(...) end
----@return any ...
-function CreateCounter(...) end
----@return any ...
-function CreateDataProvider(...) end
----@return any ...
-function CreateDataProviderByIndexCount(...) end
----@return any ...
-function CreateDataProviderWithAssignedKey(...) end
----@return any ...
-function CreateDeselectableRadioButtonGroup(...) end
----@return any ...
-function CreateFlags(...) end
----@return any ...
-function CreateFont(...) end
----@param name string
----@param members table
----@return SimpleFont fontFamily
-function CreateFontFamily(name, members) end
----@return any ...
-function CreateFontStringPool(...) end
----@return any ...
-function CreateFontStringPoolCollection(...) end
----@return any ...
-function CreateFrameFactory(...) end
----@return any ...
-function CreateFramePool(...) end
----@return any ...
-function CreateFramePoolCollection(...) end
----@param options CreateFrameOptions
----@return Frame frame
-function CreateFrameWithOptions(options) end
----@param mixins LuaValueVariant
----@return LuaValueVariant object
-function CreateFromMixins(mixins) end
----@return any ...
-function CreateHDSDToggleOptions(...) end
----@return any ...
-function CreateIndexRangeDataProvider(...) end
----@return any ...
-function CreateInterpolator(...) end
----@return any ...
-function CreateKeyChordString(...) end
----@return any ...
-function CreateKeyChordStringFromTable(...) end
----@return any ...
-function CreateKeyChordStringUsingMetaKeyState(...) end
----@return any ...
-function CreateKeybindingEntryInitializer(...) end
----@return any ...
-function CreateKeybindingSectionInitializer(...) end
----@return any ...
-function CreateLoopingSoundEffectEmitter(...) end
----@return any ...
-function CreateMacro(...) end
----@return any ...
-function CreateMaskTexturePool(...) end
----@return any ...
-function CreateMinimalSliderFormatter(...) end
----@return any ...
-function CreateNewRaidProfile(...) end
----@return any ...
-function CreateObjectPool(...) end
----@return any ...
-function CreateObjectUpdater(...) end
----@return any ...
-function CreatePendingInviteConfirmationNames(...) end
----@return any ...
-function CreatePendingInviteConfirmationText(...) end
----@return any ...
-function CreatePendingInviteConfirmationText_AppendWarnings(...) end
----@return any ...
-function CreatePendingInviteConfirmationText_GetWarnings(...) end
----@return any ...
-function CreatePendingInviteConfirmationText_Request(...) end
----@return any ...
-function CreatePendingInviteConfirmationText_Suggest(...) end
----@return any ...
-function CreatePredictedSetting(...) end
----@return any ...
-function CreatePredictedToggle(...) end
----@return any ...
-function CreateRadioButtonGroup(...) end
----@return any ...
-function CreateRectangle(...) end
----@return any ...
-function CreateScrollBoxBiaxalPadding(...) end
----@return any ...
-function CreateScrollBoxDragBehavior(...) end
----@return any ...
-function CreateScrollBoxLinearView(...) end
----@return any ...
-function CreateScrollBoxListGridView(...) end
----@return any ...
-function CreateScrollBoxListLinearView(...) end
----@return any ...
-function CreateScrollBoxListSequenceView(...) end
----@return any ...
-function CreateScrollBoxListTreeListView(...) end
----@return any ...
-function CreateScrollBoxPadding(...) end
----@return any ...
-function CreateSecureActorPool(...) end
----@return any ...
-function CreateSecureFontStringPool(...) end
----@return any ...
-function CreateSecureFontStringPoolCollection(...) end
----@return any ...
-function CreateSecureFramePool(...) end
----@return any ...
-function CreateSecureFramePoolCollection(...) end
----@return any ...
-function CreateSecureMaskTexturePool(...) end
----@return any ...
-function CreateSecureObjectPool(...) end
----@return any ...
-function CreateSecureTexturePool(...) end
----@return any ...
-function CreateSequencer(...) end
----@return any ...
-function CreateSettingsAddOnDisabledLabelInitializer(...) end
----@return any ...
-function CreateSettingsButtonInitializer(...) end
----@return any ...
-function CreateSettingsCheckboxDropdownInitializer(...) end
----@return any ...
-function CreateSettingsCheckboxSliderInitializer(...) end
----@return any ...
-function CreateSettingsCheckboxWithButtonInitializer(...) end
----@return any ...
-function CreateSettingsCheckboxWithColorSwatchInitializer(...) end
----@return any ...
-function CreateSettingsExpandableSectionInitializer(...) end
----@return any ...
-function CreateSettingsListSearchCategoryInitializer(...) end
----@return any ...
-function CreateSettingsListSectionHeaderInitializer(...) end
----@return any ...
-function CreateSimpleTextureMarkup(...) end
----@return any ...
-function CreateTabGroup(...) end
----@return any ...
-function CreateTableBuilder(...) end
----@return any ...
-function CreateTableEnumerator(...) end
----@return any ...
-function CreateTableReverseEnumerator(...) end
----@return any ...
-function CreateTemplateInfoCache(...) end
----@return any ...
-function CreateTextureMarkup(...) end
----@return any ...
-function CreateTexturePool(...) end
----@return any ...
-function CreateTreeDataProvider(...) end
----@return UnitHealPredictionCalculator healPredictionCalculator
-function CreateUnitHealPredictionCalculator() end
----@return any ...
-function CreateUnsecuredFontStringPool(...) end
----@return any ...
-function CreateUnsecuredFramePool(...) end
----@return any ...
-function CreateUnsecuredFramePoolCollection(...) end
----@return any ...
-function CreateUnsecuredMaskTexturePool(...) end
----@return any ...
-function CreateUnsecuredObjectPool(...) end
----@return any ...
-function CreateUnsecuredRegionPoolInstance(...) end
----@return any ...
-function CreateUnsecuredTexturePool(...) end
----@return any ...
-function CreateVector2D(...) end
----@return any ...
-function CreateVector3D(...) end
----@return any ...
-function CreateVector4D(...) end
----@return any ...
-function CreateVerticalLayout(...) end
----@return any ...
-function CreateVoicePushToTalkBindingHandler(...) end
----@param popupStyle? boolean
----@param topMost? boolean
----@return SimpleWindow? window
-function CreateWindow(popupStyle, topMost) end
----@return any ...
-function CriteriaAlertFrame_SetUp(...) end
----@type table
-CurrencyCallbackRegistry = {}
----@type table
-CurrencyTransferLog = {}

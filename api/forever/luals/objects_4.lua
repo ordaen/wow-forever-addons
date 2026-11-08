@@ -3,4527 +3,831 @@
 
 
 do
----@class CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRaysObject : Frame
----@field Bloom CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_BloomObject
----@field RayAnim CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_RayAnimObject
----@field RaysLarge CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_RaysLargeObject
----@field RaysSmall CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_RaysSmallObject
-local CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRaysObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_LeftObject : Texture
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_LeftObject = {}
 end
 
 do
----@class CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_BloomObject : Texture
-local CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_BloomObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_MiddleObject : Texture
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_MiddleObject = {}
 end
 
 do
----@class CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_RayAnimObject : AnimationGroup
-local CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_RayAnimObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_RightObject : Texture
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_RightObject = {}
 end
 
 do
----@class CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_RaysLargeObject : Texture
-local CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_RaysLargeObject = {}
-end
-
-do
----@class CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_RaysSmallObject : Texture
-local CatalogShopFrame_ToyContainerFrame_AnimContainer_ShopRays_RaysSmallObject = {}
-end
-
-do
----@class CatalogShopFrame_ToyContainerFrame_AnimContainer_ToyIconFrameObject : Frame
----@field Icon CatalogShopFrame_ToyContainerFrame_AnimContainer_ToyIconFrame_IconObject
----@field IconBorder CatalogShopFrame_ToyContainerFrame_AnimContainer_ToyIconFrame_IconBorderObject
-local CatalogShopFrame_ToyContainerFrame_AnimContainer_ToyIconFrameObject = {}
-end
-
-do
----@class CatalogShopFrame_ToyContainerFrame_AnimContainer_ToyIconFrame_IconObject : Texture
-local CatalogShopFrame_ToyContainerFrame_AnimContainer_ToyIconFrame_IconObject = {}
-end
-
-do
----@class CatalogShopFrame_ToyContainerFrame_AnimContainer_ToyIconFrame_IconBorderObject : Texture
-local CatalogShopFrame_ToyContainerFrame_AnimContainer_ToyIconFrame_IconBorderObject = {}
-end
-
-do
----@class CatalogShopFrame_ToyContainerFrame_AnimContainer_loopingSoundEmitterObject
----@field loopFinishSoundEffect number
----@field loopStartSoundEffect number
----@field loopingSoundEffect number
----@field loopingSoundEffectFadeTime number
----@field loopingSoundEffectFinishDelay number
----@field loopingSoundEffectStartDelay number
-local CatalogShopFrame_ToyContainerFrame_AnimContainer_loopingSoundEmitterObject = {}
----@return any ...
-function CatalogShopFrame_ToyContainerFrame_AnimContainer_loopingSoundEmitterObject:CancelLoopingSound(...) end
----@return any ...
-function CatalogShopFrame_ToyContainerFrame_AnimContainer_loopingSoundEmitterObject:FinishLoopingSound(...) end
----@return any ...
-function CatalogShopFrame_ToyContainerFrame_AnimContainer_loopingSoundEmitterObject:OnLoad(...) end
----@return any ...
-function CatalogShopFrame_ToyContainerFrame_AnimContainer_loopingSoundEmitterObject:StartLoopingSound(...) end
-end
-
-do
----@class CatalogShopFrame_WoWTokenContainerFrameObject : Frame
----@field AnimContainer CatalogShopFrame_WoWTokenContainerFrame_AnimContainerObject
-local CatalogShopFrame_WoWTokenContainerFrameObject = {}
----@return any ...
-function CatalogShopFrame_WoWTokenContainerFrameObject:OnHide(...) end
----@return any ...
-function CatalogShopFrame_WoWTokenContainerFrameObject:OnLoad(...) end
----@return any ...
-function CatalogShopFrame_WoWTokenContainerFrameObject:OnShow(...) end
-end
-
-do
----@class CatalogShopFrame_WoWTokenContainerFrame_AnimContainerObject : Frame
----@field ShopRays CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRaysObject
----@field WoWTokenIconFrame CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_WoWTokenIconFrameObject
----@field loopingSoundEmitter CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_loopingSoundEmitterObject
----@field playLoopingSoundFX boolean
-local CatalogShopFrame_WoWTokenContainerFrame_AnimContainerObject = {}
----@return any ...
-function CatalogShopFrame_WoWTokenContainerFrame_AnimContainerObject:CreateLoopingSoundFX(...) end
----@return any ...
-function CatalogShopFrame_WoWTokenContainerFrame_AnimContainerObject:OnHide(...) end
----@return any ...
-function CatalogShopFrame_WoWTokenContainerFrame_AnimContainerObject:OnLoad(...) end
----@return any ...
-function CatalogShopFrame_WoWTokenContainerFrame_AnimContainerObject:OnShow(...) end
-end
-
-do
----@class CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRaysObject : Frame
----@field Bloom CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_BloomObject
----@field RayAnim CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_RayAnimObject
----@field RaysLarge CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_RaysLargeObject
----@field RaysSmall CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_RaysSmallObject
-local CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRaysObject = {}
-end
-
-do
----@class CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_BloomObject : Texture
-local CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_BloomObject = {}
-end
-
-do
----@class CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_RayAnimObject : AnimationGroup
-local CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_RayAnimObject = {}
-end
-
-do
----@class CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_RaysLargeObject : Texture
-local CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_RaysLargeObject = {}
-end
-
-do
----@class CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_RaysSmallObject : Texture
-local CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_ShopRays_RaysSmallObject = {}
-end
-
-do
----@class CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_WoWTokenIconFrameObject : Frame
----@field WoWTokenIcon CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_WoWTokenIconFrame_WoWTokenIconObject
-local CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_WoWTokenIconFrameObject = {}
-end
-
-do
----@class CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_WoWTokenIconFrame_WoWTokenIconObject : Texture
-local CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_WoWTokenIconFrame_WoWTokenIconObject = {}
-end
-
-do
----@class CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_loopingSoundEmitterObject
----@field loopFinishSoundEffect number
----@field loopStartSoundEffect number
----@field loopingSoundEffect number
----@field loopingSoundEffectFadeTime number
----@field loopingSoundEffectFinishDelay number
----@field loopingSoundEffectStartDelay number
-local CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_loopingSoundEmitterObject = {}
----@return any ...
-function CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_loopingSoundEmitterObject:CancelLoopingSound(...) end
----@return any ...
-function CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_loopingSoundEmitterObject:FinishLoopingSound(...) end
----@return any ...
-function CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_loopingSoundEmitterObject:OnLoad(...) end
----@return any ...
-function CatalogShopFrame_WoWTokenContainerFrame_AnimContainer_loopingSoundEmitterObject:StartLoopingSound(...) end
-end
-
-do
----@class CatalogShopFrame_tooltipObject
-local CatalogShopFrame_tooltipObject = {}
-end
-
-do
----@class CatalogShopRefundFrameObject : Frame
----@field Bg CatalogShopRefundFrame_BgObject
----@field CloseButton CatalogShopRefundFrame_CloseButtonObject
----@field CoverFrame CatalogShopRefundFrame_CoverFrameObject
----@field DecorsScrollBoxContainer CatalogShopRefundFrame_DecorsScrollBoxContainerObject
----@field DescriptionContainer CatalogShopRefundFrame_DescriptionContainerObject
----@field FocusJumpHint CatalogShopRefundFrame_FocusJumpHintObject
----@field FrameGlow CatalogShopRefundFrame_FrameGlowObject
----@field LeftJumpHint CatalogShopRefundFrame_LeftJumpHintObject
----@field NineSlice CatalogShopRefundFrame_NineSliceObject
----@field ProcessingContainer CatalogShopRefundFrame_ProcessingContainerObject
----@field RefundButton CatalogShopRefundFrame_RefundButtonObject
----@field RightJumpHint CatalogShopRefundFrame_RightJumpHintObject
----@field TitleContainer CatalogShopRefundFrame_TitleContainerObject
----@field TopTileStreaks CatalogShopRefundFrame_TopTileStreaksObject
----@field TotalRefundContainer CatalogShopRefundFrame_TotalRefundContainerObject
----@field isProcessingRefund boolean
----@field layoutType string
----@field refreshRequest CatalogShopRefundFrame_refreshRequestObject
----@field refundRequest CatalogShopRefundFrame_refundRequestObject
----@field refundableDecors table
----@field sortAscending boolean
----@field sortField string
-local CatalogShopRefundFrameObject = {}
----@return any ...
-function CatalogShopRefundFrameObject:EndFocus(...) end
----@return any ...
-function CatalogShopRefundFrameObject:GetDecor(...) end
----@return any ...
-function CatalogShopRefundFrameObject:GetDefaultSortAscending(...) end
----@return any ...
-function CatalogShopRefundFrameObject:GetFocusFrameGlow(...) end
----@return any ...
-function CatalogShopRefundFrameObject:GetFocusFrameRoot(...) end
----@return any ...
-function CatalogShopRefundFrameObject:GetSortAscending(...) end
----@return any ...
-function CatalogShopRefundFrameObject:GetSortField(...) end
----@return any ...
-function CatalogShopRefundFrameObject:GetTitleText(...) end
----@return any ...
-function CatalogShopRefundFrameObject:HideCoverFrame(...) end
----@return any ...
-function CatalogShopRefundFrameObject:HideFocusJumpHint(...) end
----@return any ...
-function CatalogShopRefundFrameObject:HideLeftJumpHint(...) end
----@return any ...
-function CatalogShopRefundFrameObject:HideRightJumpHint(...) end
----@return any ...
-function CatalogShopRefundFrameObject:Leave(...) end
----@return any ...
-function CatalogShopRefundFrameObject:LockInFocus(...) end
----@return any ...
-function CatalogShopRefundFrameObject:OnAttributeChanged(...) end
----@return any ...
-function CatalogShopRefundFrameObject:OnEvent(...) end
----@return any ...
-function CatalogShopRefundFrameObject:OnHide(...) end
----@return any ...
-function CatalogShopRefundFrameObject:OnLoad(...) end
----@return any ...
-function CatalogShopRefundFrameObject:OnShow(...) end
----@return any ...
-function CatalogShopRefundFrameObject:OnUpdate(...) end
----@return any ...
-function CatalogShopRefundFrameObject:RefreshFocus(...) end
----@return any ...
-function CatalogShopRefundFrameObject:RefundSelectedDecors(...) end
----@return any ...
-function CatalogShopRefundFrameObject:SelectAllDecors(...) end
----@return any ...
-function CatalogShopRefundFrameObject:SelectionsUpdated(...) end
----@return any ...
-function CatalogShopRefundFrameObject:SetSortAscending(...) end
----@return any ...
-function CatalogShopRefundFrameObject:SetSortField(...) end
----@return any ...
-function CatalogShopRefundFrameObject:SetTitle(...) end
----@return any ...
-function CatalogShopRefundFrameObject:SetTitleColor(...) end
----@return any ...
-function CatalogShopRefundFrameObject:SetTitleFormatted(...) end
----@return any ...
-function CatalogShopRefundFrameObject:SetTitleMaxLinesAndHeight(...) end
----@return any ...
-function CatalogShopRefundFrameObject:SetTitleOffsets(...) end
----@return any ...
-function CatalogShopRefundFrameObject:ShowBulkRefundError(...) end
----@return any ...
-function CatalogShopRefundFrameObject:ShowCoverFrame(...) end
----@return any ...
-function CatalogShopRefundFrameObject:ShowFocusJumpHint(...) end
----@return any ...
-function CatalogShopRefundFrameObject:ShowLeftJumpHint(...) end
----@return any ...
-function CatalogShopRefundFrameObject:ShowRightJumpHint(...) end
----@return any ...
-function CatalogShopRefundFrameObject:SortFieldSet(...) end
----@return any ...
-function CatalogShopRefundFrameObject:StartFocus(...) end
----@return any ...
-function CatalogShopRefundFrameObject:StartProcessing(...) end
----@return any ...
-function CatalogShopRefundFrameObject:StopProcessing(...) end
----@return any ...
-function CatalogShopRefundFrameObject:UpdateDecors(...) end
----@return any ...
-function CatalogShopRefundFrameObject:UpdateProcessing(...) end
----@return any ...
-function CatalogShopRefundFrameObject:onCloseCallback(...) end
----@type CatalogShopRefundFrameObject
-CatalogShopRefundFrame = CatalogShopRefundFrameObject
-end
-
-do
----@class CatalogShopRefundFrame_BgObject : Texture
-local CatalogShopRefundFrame_BgObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_CloseButtonObject : Button
-local CatalogShopRefundFrame_CloseButtonObject = {}
----@return any ...
-function CatalogShopRefundFrame_CloseButtonObject:NarrationGetName(...) end
-end
-
-do
----@class CatalogShopRefundFrame_CoverFrameObject : Frame
----@field ignoreInLayout boolean
-local CatalogShopRefundFrame_CoverFrameObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainerObject : Frame
----@field RefundDividerBottom CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundDividerBottomObject
----@field RefundDividerTop CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundDividerTopObject
----@field RefundSortButton CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject
----@field ScrollBar CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject
----@field ScrollBox CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBoxObject
----@field SelectAllButton CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject
----@field TimeSortButton CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject
-local CatalogShopRefundFrame_DecorsScrollBoxContainerObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundDividerBottomObject : Texture
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundDividerBottomObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundDividerTopObject : Texture
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundDividerTopObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject : Button
----@field Arrow CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButton_ArrowObject
----@field Icon CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButton_IconObject
----@field Label CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButton_LabelObject
----@field heightPadding number
----@field labelSet boolean
----@field labelText string
----@field sortField string
----@field widthPadding number
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject = {}
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:AddLayoutChildren(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:ClearFixedSize(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:GetAdditionalRegions(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:GetChildHeight(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:GetChildSize(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:GetChildWidth(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:GetFixedHeight(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:GetFixedSize(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:GetFixedWidth(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:GetHeightPadding(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:GetLayoutChildren(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:GetMaximumWidth(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:GetMinimumWidth(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:GetWidthPadding(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:IgnoreLayoutIndex(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:IsDirty(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:IsLayoutFrame(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:Layout(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:MarkClean(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:MarkDirty(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:MarkIgnoreInLayout(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:OnCleaned(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:OnClick(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:OnEnter(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:OnHide(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:OnLeave(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:OnLoad(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:OnShow(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:OnUpdate(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:SetFixedHeight(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:SetFixedSize(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:SetFixedWidth(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:SetHeightPadding(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:SetMaximumWidth(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:SetMinimumWidth(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:SetWidthPadding(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:SortFieldSet(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:UpdateArrow(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButtonObject:UpdateColor(...) end
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButton_ArrowObject : Texture
----@field ignoreInLayout boolean
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButton_ArrowObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButton_IconObject : Texture
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButton_IconObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButton_LabelObject : FontString
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_RefundSortButton_LabelObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject : Frame
----@field Back CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject
----@field Defaults CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_DefaultsObject
----@field Directions CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_DirectionsObject
----@field Event CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_EventObject
----@field Forward CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject
----@field Track CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_TrackObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field deferredCallbacks table
----@field executingEvents table
----@field hideTrack boolean
----@field hideTrackIfThumbExceedsTrack boolean
----@field interpolator CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_interpolatorObject
----@field isScrollController boolean
----@field minThumbExtent number
----@field panDelay number
----@field panExtentPercentage number
----@field panRepeatTime number
----@field registeredScrollBox CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject
----@field scrollPercentage number
----@field smartNavigationIgnored boolean
----@field snapToInterval boolean
----@field thumbAnchor string
----@field useProportionalThumb boolean
----@field visibleExtentPercentage number
----@field wheelPanScalar number
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject = {}
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:CallInternalScope(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:CanCursorStepInDirection(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:CanInterpolateScroll(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:DisableControls(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:EnableInternalPriority(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:EnableSnapToInterval(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:GenerateCallbackEvents(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:GetBackStepper(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:GetCallbackTable(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:GetCallbackTables(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:GetCallbacksByEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:GetForwardStepper(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:GetFrameExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:GetIntervalRange(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:GetLower(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:GetPanExtentPercentage(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:GetPanRepeatDelay(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:GetPanRepeatTime(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:GetScrollInterpolator(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:GetScrollPercentage(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:GetThumb(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:GetThumbAnchor(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:GetTrack(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:GetTrackExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:GetUpper(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:GetWheelPanPercentage(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:HasScrollableExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:Init(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:InitializeNarration(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:Interpolate(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:IsAtBegin(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:IsAtEnd(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:IsHorizontal(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:IsScrollAllowed(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:IsThumbMouseDown(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:OnHide_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:OnLoad(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:OnMouseWheel(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:OnShow_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:OnStepperMouseDown(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:OnThumbMouseDown(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:OnTrackMouseDown(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:RegisterCallback(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:ScrollDecrease(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:ScrollInDirection(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:ScrollIncrease(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:ScrollPageInDirection(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:ScrollStepInDirection(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:ScrollToBegin(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:ScrollToEnd(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:ScrollWheelInDirection(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:SecureInsertEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:SelectCursorComponent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:SelectPointComponent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:SetFrameExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:SetHideIfUnscrollable(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:SetHorizontal(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:SetInterpolateScroll(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:SetPanExtentPercentage(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:SetScrollAllowed(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:SetScrollPercentage(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:SetScrollPercentageInternal(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:SetThumbExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:SetVisibleExtentPercentage(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:TriggerEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:UnregisterCallback(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:UnregisterEvents(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:UnregisterUpdate(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:Update(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:onButtonMouseUp(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBarObject:scrollInternal(...) end
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject : Button
----@field Event CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Back_EventObject
----@field Texture CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Back_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject = {}
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:DesaturateIfDisabled(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:GenerateCallbackEvents(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:GetAtlas(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:GetCallbackTable(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:GetCallbackTables(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:GetCallbacksByEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:IsDown(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:IsDownOver(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:IsOver(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:NarrationGetName(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:OnButtonStateChanged(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:OnClick_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:OnDisable(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:OnEnable(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:OnEnter(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:OnLeave(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:OnLoad(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:OnMouseDown(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:OnMouseUp(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:OnShow(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:RegisterCallback(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:SecureInsertEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:SetDisplacedRegions(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:TriggerEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:UnregisterCallback(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:UnregisterEvents(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Back_EventObject
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Back_EventObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Back_TextureObject : Texture
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Back_TextureObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_DefaultsObject
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_DefaultsObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_DirectionsObject
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_DirectionsObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_EventObject
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_EventObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject : Button
----@field Event CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Forward_EventObject
----@field Texture CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Forward_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject = {}
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:GetAtlas(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:GetCallbackTable(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:GetCallbackTables(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:IsDown(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:IsDownOver(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:IsOver(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:NarrationGetName(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:OnDisable(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:OnEnable(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:OnEnter(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:OnLeave(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:OnLoad(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:OnMouseDown(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:OnMouseUp(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:OnShow(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:RegisterCallback(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:SecureInsertEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:TriggerEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:UnregisterCallback(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:UnregisterEvents(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Forward_EventObject
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Forward_EventObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Forward_TextureObject : Texture
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Forward_TextureObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_TrackObject : Frame
----@field Begin CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_BeginObject
----@field End CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_EndObject
----@field Middle CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_MiddleObject
----@field Thumb CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_TrackObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_BeginObject : Texture
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_BeginObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_EndObject : Texture
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_EndObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_MiddleObject : Texture
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_MiddleObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject : Button
----@field Begin CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_Thumb_BeginObject
----@field End CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_Thumb_EndObject
----@field Event CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_Thumb_EventObject
----@field Middle CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_Thumb_MiddleObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field downBeginTexture string
----@field downEndTexture string
----@field downMiddleTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field overBeginTexture string
----@field overEndTexture string
----@field overMiddleTexture string
----@field upBeginTexture string
----@field upEndTexture string
----@field upMiddleTexture string
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject = {}
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:GetAtlas(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:IsDown(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:IsDownOver(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:IsOver(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:OnDisable(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:OnEnable(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:OnEnter(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:OnLeave(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:OnLoad(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:OnShow(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_Thumb_BeginObject : Texture
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_Thumb_BeginObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_Thumb_EndObject : Texture
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_Thumb_EndObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_Thumb_EventObject
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_Thumb_EventObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_Thumb_MiddleObject : Texture
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_Track_Thumb_MiddleObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_interpolatorObject
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_interpolatorObject = {}
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_interpolatorObject:Cancel(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_interpolatorObject:Interpolate(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_interpolatorObject:interpolateFunc(...) end
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject : Frame
----@field Defaults CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_DefaultsObject
----@field Directions CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_DirectionsObject
----@field DragDelegate CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_DragDelegateObject
----@field Event CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_EventObject
----@field ScrollTarget CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject
----@field Shadows CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ShadowsObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field debugInspectionSystem string
----@field deferredCallbacks table
----@field executingEvents table
----@field isScrollController boolean
----@field panExtentPercentage number
----@field registeredScrollBar CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_registeredScrollBarObject
----@field view CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject
----@field wheelPanScalar number
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject = {}
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ApplyEdgeFade(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:CalculateEdgeFade(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:CalculatePanExtentPercentage(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:CalculateScrollPercentage(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:CanInterpolateScroll(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ClearEdgeFade(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ContainsElementDataByPredicate(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:EnableSnapToInterval(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:EnumerateDataProvider(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:EnumerateDataProviderEntireRange(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:EnumerateFrames(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:FindByPredicate(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:FindElementData(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:FindElementDataByPredicate(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:FindElementDataIndex(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:FindElementDataIndexByPredicate(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:FindFrame(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:FindFrameByPredicate(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:FindFrameElementDataIndex(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:Flush(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:FlushDataProvider(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ForEachElementData(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ForEachFrame(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:FullUpdate(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:FullUpdateInternal(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GenerateCallbackEvents(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetBottomPadding(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetCallbackTable(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetCallbackTables(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetCallbacksByEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetDataIndexBegin(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetDataIndexEnd(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetDataProvider(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetDataProviderSize(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetDerivedExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetDerivedScrollOffset(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetDerivedScrollRange(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetElementExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetExtentPadding(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetExtentUntil(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetFrameCount(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetFrameExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetFrames(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetIntervalRange(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetLeftPadding(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetLower(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetLowerPadding(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetLowerShadowTexture(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetPadding(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetPanExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetPanExtentPercentage(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetRightPadding(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetScrollInterpolator(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetScrollPercentage(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetScrollTarget(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetTopPadding(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetUpper(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetUpperPadding(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetUpperShadowTexture(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetView(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetVisibleExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:GetWheelPanPercentage(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:HasDataProvider(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:HasEdgeFade(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:HasScrollableExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:HasView(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:Init(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:Interpolate(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:IsAcquireLocked(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:IsAlignmentOverlapIgnored(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:IsAtBegin(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:IsAtEnd(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:IsHorizontal(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:IsScrollAllowed(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:IsScrollToDataIndexSafe(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:IsUpdateLocked(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:IsVirtualized(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:Layout(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:OnLoad(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:OnMouseWheel(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:OnScrollTargetSizeChanged(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:OnSizeChanged(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:OnViewAcquiredFrame(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:OnViewDataChanged(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:OnViewDataProviderReassigned(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:OnViewInitializedFrame(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:OnViewReleasedFrame(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:Rebuild(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:RecalculateDerivedExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:RegisterCallback(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ReinitializeFrames(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:RemoveDataProvider(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProvider(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ReverseForEachElementData(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ReverseForEachFrame(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SanitizeAlignment(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ScrollDecrease(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ScrollInDirection(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ScrollIncrease(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ScrollToBegin(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ScrollToElementData(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ScrollToElementDataByPredicate(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ScrollToElementDataIndex(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ScrollToEnd(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ScrollToFrame(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ScrollToNearest(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ScrollToNearestByPredicate(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ScrollToOffset(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SecureInsertEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SelectCursorComponent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SelectPointComponent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SetAlignmentOverlapIgnored(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SetDataProvider(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SetEdgeFadeLength(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SetFrameExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SetHorizontal(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SetInterpolateScroll(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SetLowerShadowAtlas(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SetPadding(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SetPanExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SetPanExtentPercentage(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SetScrollAllowed(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SetScrollPercentage(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SetScrollPercentageInternal(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SetScrollTargetOffset(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SetShadowsFrameLevel(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SetShadowsScale(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SetShadowsShown(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SetUpdateLocked(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SetUpperShadowAtlas(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SetUseShadowsForEdgeFade(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:SetView(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:TriggerEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:UnregisterCallback(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:UnregisterEvents(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:Update(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBoxObject:scrollInternal(...) end
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_DefaultsObject
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_DefaultsObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_DirectionsObject
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_DirectionsObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_DragDelegateObject : Frame
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_DragDelegateObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_EventObject
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_EventObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject : Frame
----@field Event CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject = {}
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTable(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTables(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallback(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject:TriggerEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterCallback(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEvents(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ScrollTarget_EventObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ShadowsObject : Frame
----@field Lower CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_Shadows_LowerObject
----@field Upper CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_Shadows_UpperObject
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_ShadowsObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_Shadows_LowerObject : Texture
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_Shadows_LowerObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_Shadows_UpperObject : Texture
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_Shadows_UpperObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_registeredScrollBarObject
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_registeredScrollBarObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject
----@field Event table
----@field FrameLevelPolicy table
----@field callbackTables table
----@field canSignalWithoutInitializer boolean
----@field deferredCallbacks table
----@field executingEvents table
----@field frameFactory table
----@field frames table
----@field initialized boolean
----@field initializers table
----@field padding table
----@field scrollBox CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_view_scrollBoxObject
----@field templateInfoCache table
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject = {}
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:AcquireInternal(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:AcquireRange(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:AssignAccessors(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:AttachDataProviderCallbacks(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:CalculateDataIndices(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:CalculateFrameExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:ClearCachedData(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:ClearElementExtentData(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:ClearInvalidation(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:ContainsElementDataByPredicate(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:DataProviderContentsChanged(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:DetachDataProviderCallbacks(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProvider(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:EnumerateFrames(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:FindByPredicate(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:FindElementData(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:FindElementDataByPredicate(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndex(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:FindFrame(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:FindFrameByPredicate(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:FindFrameElementDataIndex(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:Flush(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:FlushDataProvider(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:ForEachElementData(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:ForEachFrame(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GenerateCallbackEvents(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetCallbackTable(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetCallbackTables(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetCallbacksByEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetDataIndexBegin(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetDataIndexEnd(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetDataProvider(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetDataProviderSize(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetDataRange(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetDataScrollOffset(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetElementExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetElementExtentCalculator(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetElementIndent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetExtentFromInfo(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetExtentSpacing(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetExtentTo(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetExtentUntil(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetFactoryDataFromElementData(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetFirstTemplateInfo(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetFrameCount(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetFrameExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelCounter(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelPolicy(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetFrames(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetIdenticalElementExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetIdenticalStrideExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetInvalidationReason(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetLayoutFunction(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetLower(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetPadding(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetPanExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetScrollBox(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetScrollTarget(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetSpacing(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetStride(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetTemplateInfo(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:GetUpper(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:HasBiaxalLayout(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:HasDataProvider(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:HasElementExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:HasIdenticalElementExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:HasIdenticalStrideExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:Init(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:InitDefaultDrag(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:InvokeInitializer(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:InvokeInitializers(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:IsAcquireLocked(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:IsDataIndexWithinRange(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:IsElementStretchDisabled(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:IsExtentValid(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:IsHorizontal(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:IsInitialized(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:IsInvalidated(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:IsVirtualized(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:Layout(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:LayoutInternal(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSizeChanged(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSort(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:OnLoad(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementData(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:RebuildTemplateInfoCache(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:RecalculateExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:RefreshSmartNav(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:RegisterCallback(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:ReinitializeFrames(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:Release(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:RemoveDataProvider(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:RemoveDataProviderInternal(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:ResizeFrame(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:ReverseForEachElementData(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:ReverseForEachFrame(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SecureInsertEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SelectCursorComponent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SelectPointComponent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SetAcquireLocked(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SetDataProvider(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SetDataRange(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SetElementExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SetElementExtentCalculator(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SetElementFactory(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SetElementIndentCalculator(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SetElementInitializer(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SetElementResetter(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SetElementStretchDisabled(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SetExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SetFrameExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SetFrameFactoryResetter(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SetFrameLevelPolicy(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SetHorizontal(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SetInvalidationReason(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SetMaxPanExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SetPadding(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SetPanExtent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SetScrollBox(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SetVirtualized(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SignalDataChangeEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:SortFrames(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:TriggerEvent(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:UnassignAccessors(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:UnregisterCallback(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:UnregisterEvents(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:ValidateDataRange(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:elementFactory(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_viewObject:factory(...) end
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_view_scrollBoxObject
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBar_registeredScrollBox_view_scrollBoxObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBoxObject
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_ScrollBoxObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject : Button
----@field Center CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButton_CenterObject
----@field Controller CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButton_ControllerObject
----@field Left CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButton_LeftObject
----@field Right CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButton_RightObject
----@field atlasName string
----@field catalogShopRefundOnClickMethod string
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
----@field leftAtlasInfo CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButton_leftAtlasInfoObject
----@field rightAtlasInfo CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButton_rightAtlasInfoObject
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject = {}
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:ClearCustomTextFormatter(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:FitToText(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:GetCenterAtlasName(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:GetHighlightAtlasName(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:GetLeftAtlasName(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:GetOnClickSoundKit(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:GetRightAtlasName(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:InitButton(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:OnClick(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:OnEnter(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:OnLeave(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:OnLoad(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:OnMouseDown(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:OnMouseUp(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:RunCustomTextFormatter(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:SetButtonArtKit(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:SetCustomTextFormatter(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:SetOnClickHandler(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:SetOnEnterHandler(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:SetTextToFit(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:SetTooltipAnchor(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:SetTooltipInfo(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:UpdateButton(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButtonObject:UpdateScale(...) end
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButton_CenterObject : Texture
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButton_CenterObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButton_ControllerObject : Frame
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButton_ControllerObject = {}
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButton_ControllerObject:OnLoad(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButton_ControllerObject:OnShow(...) end
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButton_LeftObject : Texture
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButton_LeftObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButton_RightObject : Texture
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButton_RightObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButton_leftAtlasInfoObject
----@field bottomTexCoord number
----@field elementName string
----@field file number
----@field height number
----@field leftTexCoord number
----@field rawSize table
----@field rightTexCoord number
----@field tilesHorizontally boolean
----@field tilesVertically boolean
----@field topTexCoord number
----@field width number
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButton_leftAtlasInfoObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButton_rightAtlasInfoObject
----@field bottomTexCoord number
----@field elementName string
----@field file number
----@field height number
----@field leftTexCoord number
----@field rawSize table
----@field rightTexCoord number
----@field tilesHorizontally boolean
----@field tilesVertically boolean
----@field topTexCoord number
----@field width number
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_SelectAllButton_rightAtlasInfoObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject : Button
----@field Arrow CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButton_ArrowObject
----@field Icon CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButton_IconObject
----@field Label CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButton_LabelObject
----@field heightPadding number
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBoxObject : EditBox
+---@field Icon AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_IconObject
+---@field Left AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_LeftObject
+---@field Middle AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_MiddleObject
+---@field Right AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_RightObject
+---@field Text AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_TextObject
+---@field displayType table
 ---@field iconAtlas string
----@field labelSet boolean
----@field sortField string
----@field widthPadding number
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject = {}
+---@field nextEditBox AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject
+---@field previousEditBox AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_previousEditBoxObject
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBoxObject = {}
 ---@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:AddLayoutChildren(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBoxObject:Clear(...) end
 ---@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:ClearFixedSize(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBoxObject:GetAmount(...) end
 ---@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:GetAdditionalRegions(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBoxObject:NarrationGetContext(...) end
 ---@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:GetChildHeight(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBoxObject:NarrationGetDescription(...) end
 ---@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:GetChildSize(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBoxObject:NarrationGetName(...) end
 ---@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:GetChildWidth(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBoxObject:OnLoad(...) end
 ---@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:GetFixedHeight(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBoxObject:OnTextChanged(...) end
 ---@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:GetFixedSize(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBoxObject:SetAmount(...) end
 ---@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:GetFixedWidth(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:GetHeightPadding(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:GetLayoutChildren(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:GetMaximumWidth(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:GetMinimumWidth(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:GetWidthPadding(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:IgnoreLayoutIndex(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:IsDirty(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:IsLayoutFrame(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:Layout(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:MarkClean(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:MarkDirty(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:MarkIgnoreInLayout(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:OnCleaned(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:OnClick(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:OnEnter(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:OnHide(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:OnLeave(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:OnLoad(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:OnShow(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:OnUpdate(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:SetFixedHeight(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:SetFixedSize(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:SetFixedWidth(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:SetHeightPadding(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:SetMaximumWidth(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:SetMinimumWidth(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:SetWidthPadding(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:SortFieldSet(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:UpdateArrow(...) end
----@return any ...
-function CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButtonObject:UpdateColor(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBoxObject:SetNarrationLabelRegion(...) end
 end
 
 do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButton_ArrowObject : Texture
----@field ignoreInLayout boolean
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButton_ArrowObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_IconObject : Texture
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_IconObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButton_IconObject : Texture
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButton_IconObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_LeftObject : Texture
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_LeftObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButton_LabelObject : FontString
-local CatalogShopRefundFrame_DecorsScrollBoxContainer_TimeSortButton_LabelObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_MiddleObject : Texture
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_MiddleObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_DescriptionContainerObject : Frame
----@field DescriptionText CatalogShopRefundFrame_DescriptionContainer_DescriptionTextObject
-local CatalogShopRefundFrame_DescriptionContainerObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_RightObject : Texture
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_RightObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_DescriptionContainer_DescriptionTextObject : FontString
-local CatalogShopRefundFrame_DescriptionContainer_DescriptionTextObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_TextObject : FontString
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_TextObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_FocusJumpHintObject : Frame
----@field ActiveTexture CatalogShopRefundFrame_FocusJumpHint_ActiveTextureObject
----@field DisabledTexture CatalogShopRefundFrame_FocusJumpHint_DisabledTextureObject
----@field HoldAnim CatalogShopRefundFrame_FocusJumpHint_HoldAnimObject
----@field HoldIndicator CatalogShopRefundFrame_FocusJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG CatalogShopRefundFrame_FocusJumpHint_HoldIndicatorBGObject
----@field HoverTexture CatalogShopRefundFrame_FocusJumpHint_HoverTextureObject
----@field LoadBar CatalogShopRefundFrame_FocusJumpHint_LoadBarObject
----@field LoadBarBG CatalogShopRefundFrame_FocusJumpHint_LoadBarBGObject
----@field LoadBarGlow CatalogShopRefundFrame_FocusJumpHint_LoadBarGlowObject
----@field NormalTexture CatalogShopRefundFrame_FocusJumpHint_NormalTextureObject
----@field PressedTexture CatalogShopRefundFrame_FocusJumpHint_PressedTextureObject
----@field SpinnerTip CatalogShopRefundFrame_FocusJumpHint_SpinnerTipObject
----@field ignoreInLayout boolean
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local CatalogShopRefundFrame_FocusJumpHintObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject : EditBox
+---@field Icon AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_IconObject
+---@field Left AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_LeftObject
+---@field Middle AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_MiddleObject
+---@field Right AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_RightObject
+---@field Text AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_TextObject
+---@field displayType table
+---@field iconAtlas string
+---@field nextEditBox AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject
+---@field previousEditBox AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_previousEditBoxObject
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject = {}
 ---@return any ...
-function CatalogShopRefundFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject:Clear(...) end
 ---@return any ...
-function CatalogShopRefundFrame_FocusJumpHintObject:BeginHold(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject:GetAmount(...) end
 ---@return any ...
-function CatalogShopRefundFrame_FocusJumpHintObject:CanEnterTextureState(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject:NarrationGetContext(...) end
 ---@return any ...
-function CatalogShopRefundFrame_FocusJumpHintObject:DisableDropShadow(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject:NarrationGetDescription(...) end
 ---@return any ...
-function CatalogShopRefundFrame_FocusJumpHintObject:EnableDropShadow(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject:NarrationGetName(...) end
 ---@return any ...
-function CatalogShopRefundFrame_FocusJumpHintObject:EndHold(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject:OnLoad(...) end
 ---@return any ...
-function CatalogShopRefundFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject:OnTextChanged(...) end
 ---@return any ...
-function CatalogShopRefundFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject:SetAmount(...) end
 ---@return any ...
-function CatalogShopRefundFrame_FocusJumpHintObject:OnLoad(...) end
----@return any ...
-function CatalogShopRefundFrame_FocusJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function CatalogShopRefundFrame_FocusJumpHintObject:SetDisabled(...) end
----@return any ...
-function CatalogShopRefundFrame_FocusJumpHintObject:SetEnabled(...) end
----@return any ...
-function CatalogShopRefundFrame_FocusJumpHintObject:SetFocused(...) end
----@return any ...
-function CatalogShopRefundFrame_FocusJumpHintObject:SetHoldState(...) end
----@return any ...
-function CatalogShopRefundFrame_FocusJumpHintObject:SetInputKey(...) end
----@return any ...
-function CatalogShopRefundFrame_FocusJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function CatalogShopRefundFrame_FocusJumpHintObject:SetPressable(...) end
----@return any ...
-function CatalogShopRefundFrame_FocusJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function CatalogShopRefundFrame_FocusJumpHintObject:SetTextureState(...) end
----@return any ...
-function CatalogShopRefundFrame_FocusJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function CatalogShopRefundFrame_FocusJumpHintObject:SetUsableState(...) end
----@return any ...
-function CatalogShopRefundFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject:SetNarrationLabelRegion(...) end
 end
 
 do
----@class CatalogShopRefundFrame_FocusJumpHint_ActiveTextureObject : Texture
-local CatalogShopRefundFrame_FocusJumpHint_ActiveTextureObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_IconObject : Texture
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_IconObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_FocusJumpHint_DisabledTextureObject : Texture
-local CatalogShopRefundFrame_FocusJumpHint_DisabledTextureObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_LeftObject : Texture
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_LeftObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim CatalogShopRefundFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim CatalogShopRefundFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim CatalogShopRefundFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
-local CatalogShopRefundFrame_FocusJumpHint_HoldAnimObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_MiddleObject : Texture
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_MiddleObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
-local CatalogShopRefundFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_RightObject : Texture
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_RightObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local CatalogShopRefundFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_TextObject : FontString
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_TextObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local CatalogShopRefundFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject : EditBox
+---@field Icon AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_IconObject
+---@field Left AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_LeftObject
+---@field Middle AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_MiddleObject
+---@field Right AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_RightObject
+---@field Text AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_TextObject
+---@field displayType table
+---@field iconAtlas string
+---@field nextEditBox AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_nextEditBoxObject
+---@field previousEditBox AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_previousEditBoxObject
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject = {}
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject:Clear(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject:GetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject:NarrationGetContext(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject:NarrationGetDescription(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject:NarrationGetName(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject:OnTextChanged(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject:SetNarrationLabelRegion(...) end
 end
 
 do
----@class CatalogShopRefundFrame_FocusJumpHint_HoldIndicatorObject : Texture
-local CatalogShopRefundFrame_FocusJumpHint_HoldIndicatorObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_IconObject : Texture
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_IconObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
-local CatalogShopRefundFrame_FocusJumpHint_HoldIndicatorBGObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_LeftObject : Texture
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_LeftObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_FocusJumpHint_HoverTextureObject : Texture
-local CatalogShopRefundFrame_FocusJumpHint_HoverTextureObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_MiddleObject : Texture
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_MiddleObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_FocusJumpHint_LoadBarObject : Texture
-local CatalogShopRefundFrame_FocusJumpHint_LoadBarObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_RightObject : Texture
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_RightObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_FocusJumpHint_LoadBarBGObject : Texture
-local CatalogShopRefundFrame_FocusJumpHint_LoadBarBGObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_TextObject : FontString
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_TextObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_FocusJumpHint_LoadBarGlowObject : Texture
-local CatalogShopRefundFrame_FocusJumpHint_LoadBarGlowObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_nextEditBoxObject
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_nextEditBoxObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_FocusJumpHint_NormalTextureObject : Texture
-local CatalogShopRefundFrame_FocusJumpHint_NormalTextureObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_previousEditBoxObject
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_previousEditBoxObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_FocusJumpHint_PressedTextureObject : Texture
-local CatalogShopRefundFrame_FocusJumpHint_PressedTextureObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_previousEditBoxObject
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_previousEditBoxObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_FocusJumpHint_SpinnerTipObject : Texture
-local CatalogShopRefundFrame_FocusJumpHint_SpinnerTipObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_previousEditBoxObject
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_nextEditBox_previousEditBoxObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_FrameGlowObject : Frame
----@field GlowTexture CatalogShopRefundFrame_FrameGlow_GlowTextureObject
----@field glowTextures table
-local CatalogShopRefundFrame_FrameGlowObject = {}
----@return any ...
-function CatalogShopRefundFrame_FrameGlowObject:GetContainerFrame(...) end
----@return any ...
-function CatalogShopRefundFrame_FrameGlowObject:GetFrameLayoutType(...) end
----@return any ...
-function CatalogShopRefundFrame_FrameGlowObject:GetHeaderFrame(...) end
----@return any ...
-function CatalogShopRefundFrame_FrameGlowObject:OnLoad(...) end
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_previousEditBoxObject
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_InputBox_previousEditBoxObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_FrameGlow_GlowTextureObject : Texture
-local CatalogShopRefundFrame_FrameGlow_GlowTextureObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_LabelObject : FontString
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_LabelObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_LeftJumpHintObject : Frame
----@field ActiveTexture CatalogShopRefundFrame_LeftJumpHint_ActiveTextureObject
----@field DisabledTexture CatalogShopRefundFrame_LeftJumpHint_DisabledTextureObject
----@field HoldAnim CatalogShopRefundFrame_LeftJumpHint_HoldAnimObject
----@field HoldIndicator CatalogShopRefundFrame_LeftJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG CatalogShopRefundFrame_LeftJumpHint_HoldIndicatorBGObject
----@field HoverTexture CatalogShopRefundFrame_LeftJumpHint_HoverTextureObject
----@field LoadBar CatalogShopRefundFrame_LeftJumpHint_LoadBarObject
----@field LoadBarBG CatalogShopRefundFrame_LeftJumpHint_LoadBarBGObject
----@field LoadBarGlow CatalogShopRefundFrame_LeftJumpHint_LoadBarGlowObject
----@field NormalTexture CatalogShopRefundFrame_LeftJumpHint_NormalTextureObject
----@field PressedTexture CatalogShopRefundFrame_LeftJumpHint_PressedTextureObject
----@field SpinnerTip CatalogShopRefundFrame_LeftJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local CatalogShopRefundFrame_LeftJumpHintObject = {}
----@return any ...
-function CatalogShopRefundFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function CatalogShopRefundFrame_LeftJumpHintObject:BeginHold(...) end
----@return any ...
-function CatalogShopRefundFrame_LeftJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function CatalogShopRefundFrame_LeftJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function CatalogShopRefundFrame_LeftJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function CatalogShopRefundFrame_LeftJumpHintObject:EndHold(...) end
----@return any ...
-function CatalogShopRefundFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function CatalogShopRefundFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function CatalogShopRefundFrame_LeftJumpHintObject:OnLoad(...) end
----@return any ...
-function CatalogShopRefundFrame_LeftJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function CatalogShopRefundFrame_LeftJumpHintObject:SetDisabled(...) end
----@return any ...
-function CatalogShopRefundFrame_LeftJumpHintObject:SetEnabled(...) end
----@return any ...
-function CatalogShopRefundFrame_LeftJumpHintObject:SetFocused(...) end
----@return any ...
-function CatalogShopRefundFrame_LeftJumpHintObject:SetHoldState(...) end
----@return any ...
-function CatalogShopRefundFrame_LeftJumpHintObject:SetInputKey(...) end
----@return any ...
-function CatalogShopRefundFrame_LeftJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function CatalogShopRefundFrame_LeftJumpHintObject:SetPressable(...) end
----@return any ...
-function CatalogShopRefundFrame_LeftJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function CatalogShopRefundFrame_LeftJumpHintObject:SetTextureState(...) end
----@return any ...
-function CatalogShopRefundFrame_LeftJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function CatalogShopRefundFrame_LeftJumpHintObject:SetUsableState(...) end
----@return any ...
-function CatalogShopRefundFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_LabelTitleObject : FontString
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_LabelTitleObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_LeftJumpHint_ActiveTextureObject : Texture
-local CatalogShopRefundFrame_LeftJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_LeftJumpHint_DisabledTextureObject : Texture
-local CatalogShopRefundFrame_LeftJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim CatalogShopRefundFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim CatalogShopRefundFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim CatalogShopRefundFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
-local CatalogShopRefundFrame_LeftJumpHint_HoldAnimObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
-local CatalogShopRefundFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local CatalogShopRefundFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local CatalogShopRefundFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_LeftJumpHint_HoldIndicatorObject : Texture
-local CatalogShopRefundFrame_LeftJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
-local CatalogShopRefundFrame_LeftJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_LeftJumpHint_HoverTextureObject : Texture
-local CatalogShopRefundFrame_LeftJumpHint_HoverTextureObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_LeftJumpHint_LoadBarObject : Texture
-local CatalogShopRefundFrame_LeftJumpHint_LoadBarObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_LeftJumpHint_LoadBarBGObject : Texture
-local CatalogShopRefundFrame_LeftJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_LeftJumpHint_LoadBarGlowObject : Texture
-local CatalogShopRefundFrame_LeftJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_LeftJumpHint_NormalTextureObject : Texture
-local CatalogShopRefundFrame_LeftJumpHint_NormalTextureObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_LeftJumpHint_PressedTextureObject : Texture
-local CatalogShopRefundFrame_LeftJumpHint_PressedTextureObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_LeftJumpHint_SpinnerTipObject : Texture
-local CatalogShopRefundFrame_LeftJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_NineSliceObject : Frame
----@field BottomEdge CatalogShopRefundFrame_NineSlice_BottomEdgeObject
----@field BottomLeftCorner CatalogShopRefundFrame_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner CatalogShopRefundFrame_NineSlice_BottomRightCornerObject
----@field Center CatalogShopRefundFrame_NineSlice_CenterObject
----@field LeftEdge CatalogShopRefundFrame_NineSlice_LeftEdgeObject
----@field RightEdge CatalogShopRefundFrame_NineSlice_RightEdgeObject
----@field TopEdge CatalogShopRefundFrame_NineSlice_TopEdgeObject
----@field TopLeftCorner CatalogShopRefundFrame_NineSlice_TopLeftCornerObject
----@field TopRightCorner CatalogShopRefundFrame_NineSlice_TopRightCornerObject
-local CatalogShopRefundFrame_NineSliceObject = {}
----@return any ...
-function CatalogShopRefundFrame_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function CatalogShopRefundFrame_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function CatalogShopRefundFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function CatalogShopRefundFrame_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function CatalogShopRefundFrame_NineSliceObject:OnLoad(...) end
----@return any ...
-function CatalogShopRefundFrame_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function CatalogShopRefundFrame_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function CatalogShopRefundFrame_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function CatalogShopRefundFrame_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function CatalogShopRefundFrame_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class CatalogShopRefundFrame_NineSlice_BottomEdgeObject : Texture
-local CatalogShopRefundFrame_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_NineSlice_BottomLeftCornerObject : Texture
-local CatalogShopRefundFrame_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_NineSlice_BottomRightCornerObject : Texture
-local CatalogShopRefundFrame_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_NineSlice_CenterObject : Texture
-local CatalogShopRefundFrame_NineSlice_CenterObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_NineSlice_LeftEdgeObject : Texture
-local CatalogShopRefundFrame_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_NineSlice_RightEdgeObject : Texture
-local CatalogShopRefundFrame_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_NineSlice_TopEdgeObject : Texture
-local CatalogShopRefundFrame_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_NineSlice_TopLeftCornerObject : Texture
-local CatalogShopRefundFrame_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_NineSlice_TopRightCornerObject : Texture
-local CatalogShopRefundFrame_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_ProcessingContainerObject : Frame
----@field CoverFrame CatalogShopRefundFrame_ProcessingContainer_CoverFrameObject
----@field Spinner CatalogShopRefundFrame_ProcessingContainer_SpinnerObject
----@field loopingSoundEmitter CatalogShopRefundFrame_ProcessingContainer_loopingSoundEmitterObject
-local CatalogShopRefundFrame_ProcessingContainerObject = {}
----@return any ...
-function CatalogShopRefundFrame_ProcessingContainerObject:OnHide(...) end
----@return any ...
-function CatalogShopRefundFrame_ProcessingContainerObject:OnLoad(...) end
----@return any ...
-function CatalogShopRefundFrame_ProcessingContainerObject:OnShow(...) end
----@return any ...
-function CatalogShopRefundFrame_ProcessingContainerObject:StopLoopingSound(...) end
-end
-
-do
----@class CatalogShopRefundFrame_ProcessingContainer_CoverFrameObject : Frame
----@field ignoreInLayout boolean
-local CatalogShopRefundFrame_ProcessingContainer_CoverFrameObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_ProcessingContainer_SpinnerObject : Frame
----@field Anim CatalogShopRefundFrame_ProcessingContainer_Spinner_AnimObject
----@field Ring CatalogShopRefundFrame_ProcessingContainer_Spinner_RingObject
----@field Sparks CatalogShopRefundFrame_ProcessingContainer_Spinner_SparksObject
-local CatalogShopRefundFrame_ProcessingContainer_SpinnerObject = {}
----@return any ...
-function CatalogShopRefundFrame_ProcessingContainer_SpinnerObject:GetShadowAlpha(...) end
----@return any ...
-function CatalogShopRefundFrame_ProcessingContainer_SpinnerObject:OnHide(...) end
----@return any ...
-function CatalogShopRefundFrame_ProcessingContainer_SpinnerObject:OnShow(...) end
----@return any ...
-function CatalogShopRefundFrame_ProcessingContainer_SpinnerObject:OnSizeChanged(...) end
----@return any ...
-function CatalogShopRefundFrame_ProcessingContainer_SpinnerObject:SetDesaturated(...) end
----@return any ...
-function CatalogShopRefundFrame_ProcessingContainer_SpinnerObject:SetShadowEnabled(...) end
----@return any ...
-function CatalogShopRefundFrame_ProcessingContainer_SpinnerObject:UpdateShadowSize(...) end
----@return any ...
-function CatalogShopRefundFrame_ProcessingContainer_SpinnerObject:UpdateTheme(...) end
-end
-
-do
----@class CatalogShopRefundFrame_ProcessingContainer_Spinner_AnimObject : AnimationGroup
-local CatalogShopRefundFrame_ProcessingContainer_Spinner_AnimObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_ProcessingContainer_Spinner_RingObject : Texture
-local CatalogShopRefundFrame_ProcessingContainer_Spinner_RingObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_ProcessingContainer_Spinner_SparksObject : Texture
-local CatalogShopRefundFrame_ProcessingContainer_Spinner_SparksObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_ProcessingContainer_loopingSoundEmitterObject
----@field loopingSoundEffect number
----@field loopingSoundEffectFadeTime number
----@field loopingSoundEffectFinishDelay number
----@field loopingSoundEffectStartDelay number
-local CatalogShopRefundFrame_ProcessingContainer_loopingSoundEmitterObject = {}
----@return any ...
-function CatalogShopRefundFrame_ProcessingContainer_loopingSoundEmitterObject:CancelLoopingSound(...) end
----@return any ...
-function CatalogShopRefundFrame_ProcessingContainer_loopingSoundEmitterObject:FinishLoopingSound(...) end
----@return any ...
-function CatalogShopRefundFrame_ProcessingContainer_loopingSoundEmitterObject:OnLoad(...) end
----@return any ...
-function CatalogShopRefundFrame_ProcessingContainer_loopingSoundEmitterObject:StartLoopingSound(...) end
-end
-
-do
----@class CatalogShopRefundFrame_RefundButtonObject : Button
----@field Center CatalogShopRefundFrame_RefundButton_CenterObject
----@field Controller CatalogShopRefundFrame_RefundButton_ControllerObject
----@field Left CatalogShopRefundFrame_RefundButton_LeftObject
----@field Right CatalogShopRefundFrame_RefundButton_RightObject
----@field atlasName string
----@field catalogShopRefundOnClickMethod string
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_MaxButtonObject : Button
+---@field Left AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_MaxButton_LeftObject
+---@field Middle AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_MaxButton_MiddleObject
+---@field Right AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_MaxButton_RightObject
+---@field Text AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_MaxButton_TextObject
 ---@field fitTextCanWidthDecrease boolean
 ---@field fitTextWidthPadding number
----@field leftAtlasInfo CatalogShopRefundFrame_RefundButton_leftAtlasInfoObject
----@field rightAtlasInfo CatalogShopRefundFrame_RefundButton_rightAtlasInfoObject
-local CatalogShopRefundFrame_RefundButtonObject = {}
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_MaxButtonObject = {}
 ---@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:ClearCustomTextFormatter(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_MaxButtonObject:FitToText(...) end
 ---@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:FitToText(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_MaxButtonObject:GetDisabledTooltip(...) end
 ---@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:GetCenterAtlasName(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_MaxButtonObject:OnClick(...) end
 ---@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:GetHighlightAtlasName(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_MaxButtonObject:OnEnter(...) end
 ---@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:GetLeftAtlasName(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_MaxButtonObject:OnLeave(...) end
 ---@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:GetOnClickSoundKit(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_MaxButtonObject:SetDisabledState(...) end
 ---@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:GetRightAtlasName(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_MaxButtonObject:SetDisabledTooltip(...) end
 ---@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:InitButton(...) end
----@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:OnClick(...) end
----@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:OnEnter(...) end
----@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:OnLeave(...) end
----@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:OnLoad(...) end
----@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:OnMouseDown(...) end
----@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:OnMouseUp(...) end
----@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:RunCustomTextFormatter(...) end
----@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:SetButtonArtKit(...) end
----@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:SetCustomTextFormatter(...) end
----@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:SetOnClickHandler(...) end
----@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:SetOnEnterHandler(...) end
----@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:SetTextToFit(...) end
----@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:SetTooltipAnchor(...) end
----@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:SetTooltipInfo(...) end
----@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:UpdateButton(...) end
----@return any ...
-function CatalogShopRefundFrame_RefundButtonObject:UpdateScale(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_MaxButtonObject:SetTextToFit(...) end
 end
 
 do
----@class CatalogShopRefundFrame_RefundButton_CenterObject : Texture
-local CatalogShopRefundFrame_RefundButton_CenterObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_MaxButton_LeftObject : Texture
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_MaxButton_LeftObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_RefundButton_ControllerObject : Frame
-local CatalogShopRefundFrame_RefundButton_ControllerObject = {}
----@return any ...
-function CatalogShopRefundFrame_RefundButton_ControllerObject:OnLoad(...) end
----@return any ...
-function CatalogShopRefundFrame_RefundButton_ControllerObject:OnShow(...) end
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_MaxButton_MiddleObject : Texture
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_MaxButton_MiddleObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_RefundButton_LeftObject : Texture
-local CatalogShopRefundFrame_RefundButton_LeftObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_MaxButton_RightObject : Texture
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_MaxButton_RightObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_RefundButton_RightObject : Texture
-local CatalogShopRefundFrame_RefundButton_RightObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_MaxButton_TextObject : FontString
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_MaxButton_TextObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_RefundButton_leftAtlasInfoObject
----@field bottomTexCoord number
----@field elementName string
----@field file number
----@field height number
----@field leftTexCoord number
----@field rawSize table
----@field rightTexCoord number
----@field tilesHorizontally boolean
----@field tilesVertically boolean
----@field topTexCoord number
----@field width number
-local CatalogShopRefundFrame_RefundButton_leftAtlasInfoObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_SubtextObject : FontString
+local AuctionHouseFrame_CommoditiesSellFrame_QuantityInput_SubtextObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_RefundButton_rightAtlasInfoObject
----@field bottomTexCoord number
----@field elementName string
----@field file number
----@field height number
----@field leftTexCoord number
----@field rawSize table
----@field rightTexCoord number
----@field tilesHorizontally boolean
----@field tilesVertically boolean
----@field topTexCoord number
----@field width number
-local CatalogShopRefundFrame_RefundButton_rightAtlasInfoObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_TotalPriceObject : Frame
+---@field Label AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_LabelObject
+---@field LabelTitle AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_LabelTitleObject
+---@field MoneyDisplayFrame AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrameObject
+---@field Subtext AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_SubtextObject
+---@field labelText string
+---@field layoutIndex number
+local AuctionHouseFrame_CommoditiesSellFrame_TotalPriceObject = {}
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPriceObject:GetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPriceObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPriceObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPriceObject:SetLabel(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPriceObject:SetLabelColor(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPriceObject:SetSubtext(...) end
 end
 
 do
----@class CatalogShopRefundFrame_RightJumpHintObject : Frame
----@field ActiveTexture CatalogShopRefundFrame_RightJumpHint_ActiveTextureObject
----@field DisabledTexture CatalogShopRefundFrame_RightJumpHint_DisabledTextureObject
----@field HoldAnim CatalogShopRefundFrame_RightJumpHint_HoldAnimObject
----@field HoldIndicator CatalogShopRefundFrame_RightJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG CatalogShopRefundFrame_RightJumpHint_HoldIndicatorBGObject
----@field HoverTexture CatalogShopRefundFrame_RightJumpHint_HoverTextureObject
----@field LoadBar CatalogShopRefundFrame_RightJumpHint_LoadBarObject
----@field LoadBarBG CatalogShopRefundFrame_RightJumpHint_LoadBarBGObject
----@field LoadBarGlow CatalogShopRefundFrame_RightJumpHint_LoadBarGlowObject
----@field NormalTexture CatalogShopRefundFrame_RightJumpHint_NormalTextureObject
----@field PressedTexture CatalogShopRefundFrame_RightJumpHint_PressedTextureObject
----@field SpinnerTip CatalogShopRefundFrame_RightJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local CatalogShopRefundFrame_RightJumpHintObject = {}
----@return any ...
-function CatalogShopRefundFrame_RightJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function CatalogShopRefundFrame_RightJumpHintObject:BeginHold(...) end
----@return any ...
-function CatalogShopRefundFrame_RightJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function CatalogShopRefundFrame_RightJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function CatalogShopRefundFrame_RightJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function CatalogShopRefundFrame_RightJumpHintObject:EndHold(...) end
----@return any ...
-function CatalogShopRefundFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function CatalogShopRefundFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function CatalogShopRefundFrame_RightJumpHintObject:OnLoad(...) end
----@return any ...
-function CatalogShopRefundFrame_RightJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function CatalogShopRefundFrame_RightJumpHintObject:SetDisabled(...) end
----@return any ...
-function CatalogShopRefundFrame_RightJumpHintObject:SetEnabled(...) end
----@return any ...
-function CatalogShopRefundFrame_RightJumpHintObject:SetFocused(...) end
----@return any ...
-function CatalogShopRefundFrame_RightJumpHintObject:SetHoldState(...) end
----@return any ...
-function CatalogShopRefundFrame_RightJumpHintObject:SetInputKey(...) end
----@return any ...
-function CatalogShopRefundFrame_RightJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function CatalogShopRefundFrame_RightJumpHintObject:SetPressable(...) end
----@return any ...
-function CatalogShopRefundFrame_RightJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function CatalogShopRefundFrame_RightJumpHintObject:SetTextureState(...) end
----@return any ...
-function CatalogShopRefundFrame_RightJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function CatalogShopRefundFrame_RightJumpHintObject:SetUsableState(...) end
----@return any ...
-function CatalogShopRefundFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+---@class AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_LabelObject : FontString
+local AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_LabelObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_RightJumpHint_ActiveTextureObject : Texture
-local CatalogShopRefundFrame_RightJumpHint_ActiveTextureObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_LabelTitleObject : FontString
+local AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_LabelTitleObject = {}
 end
 
 do
----@class CatalogShopRefundFrame_RightJumpHint_DisabledTextureObject : Texture
-local CatalogShopRefundFrame_RightJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_RightJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim CatalogShopRefundFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim CatalogShopRefundFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim CatalogShopRefundFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
-local CatalogShopRefundFrame_RightJumpHint_HoldAnimObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
-local CatalogShopRefundFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local CatalogShopRefundFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local CatalogShopRefundFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_RightJumpHint_HoldIndicatorObject : Texture
-local CatalogShopRefundFrame_RightJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_RightJumpHint_HoldIndicatorBGObject : Texture
-local CatalogShopRefundFrame_RightJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_RightJumpHint_HoverTextureObject : Texture
-local CatalogShopRefundFrame_RightJumpHint_HoverTextureObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_RightJumpHint_LoadBarObject : Texture
-local CatalogShopRefundFrame_RightJumpHint_LoadBarObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_RightJumpHint_LoadBarBGObject : Texture
-local CatalogShopRefundFrame_RightJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_RightJumpHint_LoadBarGlowObject : Texture
-local CatalogShopRefundFrame_RightJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_RightJumpHint_NormalTextureObject : Texture
-local CatalogShopRefundFrame_RightJumpHint_NormalTextureObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_RightJumpHint_PressedTextureObject : Texture
-local CatalogShopRefundFrame_RightJumpHint_PressedTextureObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_RightJumpHint_SpinnerTipObject : Texture
-local CatalogShopRefundFrame_RightJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_TitleContainerObject : Frame
----@field TitleText CatalogShopRefundFrame_TitleContainer_TitleTextObject
-local CatalogShopRefundFrame_TitleContainerObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_TitleContainer_TitleTextObject : FontString
-local CatalogShopRefundFrame_TitleContainer_TitleTextObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_TopTileStreaksObject : Texture
-local CatalogShopRefundFrame_TopTileStreaksObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_TotalRefundContainerObject : Frame
----@field RefundAmountIcon CatalogShopRefundFrame_TotalRefundContainer_RefundAmountIconObject
----@field TotalRefundAmountText CatalogShopRefundFrame_TotalRefundContainer_TotalRefundAmountTextObject
----@field TotalRefundTitleText CatalogShopRefundFrame_TotalRefundContainer_TotalRefundTitleTextObject
-local CatalogShopRefundFrame_TotalRefundContainerObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_TotalRefundContainer_RefundAmountIconObject : Texture
-local CatalogShopRefundFrame_TotalRefundContainer_RefundAmountIconObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_TotalRefundContainer_TotalRefundAmountTextObject : FontString
-local CatalogShopRefundFrame_TotalRefundContainer_TotalRefundAmountTextObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_TotalRefundContainer_TotalRefundTitleTextObject : FontString
-local CatalogShopRefundFrame_TotalRefundContainer_TotalRefundTitleTextObject = {}
-end
-
-do
----@class CatalogShopRefundFrame_refreshRequestObject : Frame
----@field isRunning boolean
----@field responseEventName string
----@field timeoutSeconds number
-local CatalogShopRefundFrame_refreshRequestObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrameObject : Frame
+---@field CopperDisplay AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject
+---@field GoldDisplay AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject
+---@field SilverDisplay AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject
+---@field hideCopper boolean
+---@field leftAlign boolean
+---@field useAuctionHouseCopperValue boolean
+---@field useAuctionHouseIcons boolean
+local AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrameObject = {}
 ---@return any ...
-function CatalogShopRefundFrame_refreshRequestObject:Init(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrameObject:GetAmount(...) end
 ---@return any ...
-function CatalogShopRefundFrame_refreshRequestObject:StartRequest(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrameObject:GetFontObject(...) end
 ---@return any ...
-function CatalogShopRefundFrame_refreshRequestObject:StopRequest(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrameObject:OnLoad(...) end
 ---@return any ...
-function CatalogShopRefundFrame_refreshRequestObject:requestFunction(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrameObject:SetAmount(...) end
 ---@return any ...
-function CatalogShopRefundFrame_refreshRequestObject:responseEventCallback(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrameObject:SetFontAndIconDisabled(...) end
 ---@return any ...
-function CatalogShopRefundFrame_refreshRequestObject:timeoutCallback(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrameObject:SetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrameObject:SetResizeToFit(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrameObject:UpdateAnchoring(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrameObject:UpdateWidth(...) end
 end
 
 do
----@class CatalogShopRefundFrame_refundRequestObject : Frame
----@field isRunning boolean
----@field responseEventName string
----@field timeoutSeconds number
-local CatalogShopRefundFrame_refundRequestObject = {}
+---@class AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject : Frame
+---@field Icon AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplay_IconObject
+---@field Text AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplay_TextObject
+---@field amount number
+---@field displayType AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplay_displayTypeObject
+---@field showsZeroAmount boolean
+local AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject = {}
 ---@return any ...
-function CatalogShopRefundFrame_refundRequestObject:Init(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:GetFontObject(...) end
 ---@return any ...
-function CatalogShopRefundFrame_refundRequestObject:StartRequest(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:IsForcedHidden(...) end
 ---@return any ...
-function CatalogShopRefundFrame_refundRequestObject:StopRequest(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:OnLoad(...) end
 ---@return any ...
-function CatalogShopRefundFrame_refundRequestObject:requestFunction(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:SetAmount(...) end
 ---@return any ...
-function CatalogShopRefundFrame_refundRequestObject:responseEventCallback(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:SetDisplayType(...) end
 ---@return any ...
-function CatalogShopRefundFrame_refundRequestObject:timeoutCallback(...) end
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:SetFontAndIconDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:SetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:SetForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:SetFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:SetShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:ShouldBeShown(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:ShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:UpdateDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:UpdateWidth(...) end
 end
 
 do
----@class CatalogShopTooltipObject : GameTooltip
----@field BottomOverlay CatalogShopTooltip_BottomOverlayObject
----@field NineSlice CatalogShopTooltip_NineSliceObject
----@field TextLeft1 CatalogShopTooltip_TextLeft1Object
----@field TextLeft2 CatalogShopTooltip_TextLeft2Object
----@field TextRight1 CatalogShopTooltip_TextRight1Object
----@field TextRight2 CatalogShopTooltip_TextRight2Object
----@field TopOverlay CatalogShopTooltip_TopOverlayObject
+---@class AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplay_IconObject : Texture
+local AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplay_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplay_TextObject : FontString
+local AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplay_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplay_displayTypeObject
+local AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplay_displayTypeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject : Frame
+---@field Icon AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplay_IconObject
+---@field Text AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplay_TextObject
+---@field amount number
+---@field displayType AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplay_displayTypeObject
+local AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject = {}
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:GetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:IsForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:SetDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:SetFontAndIconDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:SetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:SetForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:SetFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:SetShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:ShouldBeShown(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:ShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:UpdateDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:UpdateWidth(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:formatter(...) end
+end
+
+do
+---@class AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplay_IconObject : Texture
+local AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplay_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplay_TextObject : FontString
+local AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplay_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplay_displayTypeObject
+local AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplay_displayTypeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject : Frame
+---@field Icon AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplay_IconObject
+---@field Text AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplay_TextObject
+---@field amount number
+---@field displayType AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplay_displayTypeObject
+---@field showsZeroAmount boolean
+local AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject = {}
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:GetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:IsForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:SetDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:SetFontAndIconDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:SetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:SetForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:SetFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:SetShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:ShouldBeShown(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:ShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:UpdateDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:UpdateWidth(...) end
+end
+
+do
+---@class AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplay_IconObject : Texture
+local AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplay_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplay_TextObject : FontString
+local AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplay_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplay_displayTypeObject
+local AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplay_displayTypeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_SubtextObject : FontString
+local AuctionHouseFrame_CommoditiesSellFrame_TotalPrice_SubtextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_CommoditiesSellListObject : Frame
+---@field Background AuctionHouseFrame_CommoditiesSellList_BackgroundObject
+---@field HeaderContainer AuctionHouseFrame_CommoditiesSellList_HeaderContainerObject
+---@field LoadingSpinner AuctionHouseFrame_CommoditiesSellList_LoadingSpinnerObject
+---@field NineSlice AuctionHouseFrame_CommoditiesSellList_NineSliceObject
+---@field RefreshFrame AuctionHouseFrame_CommoditiesSellList_RefreshFrameObject
+---@field ResultsText AuctionHouseFrame_CommoditiesSellList_ResultsTextObject
+---@field ScrollBar AuctionHouseFrame_CommoditiesSellList_ScrollBarObject
+---@field ScrollBox AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject
+---@field backgroundAtlas string
+---@field backgroundYOffset number
 ---@field layoutType string
----@field textLeft1Font string
----@field textLeft2Font string
----@field textRight1Font string
----@field textRight2Font string
-local CatalogShopTooltipObject = {}
----@type CatalogShopTooltipObject
-CatalogShopTooltip = CatalogShopTooltipObject
-end
-
-do
----@class CatalogShopTooltip_BottomOverlayObject : Texture
-local CatalogShopTooltip_BottomOverlayObject = {}
-end
-
-do
----@class CatalogShopTooltip_NineSliceObject : Frame
----@field BottomEdge CatalogShopTooltip_NineSlice_BottomEdgeObject
----@field BottomLeftCorner CatalogShopTooltip_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner CatalogShopTooltip_NineSlice_BottomRightCornerObject
----@field Center CatalogShopTooltip_NineSlice_CenterObject
----@field LeftEdge CatalogShopTooltip_NineSlice_LeftEdgeObject
----@field RightEdge CatalogShopTooltip_NineSlice_RightEdgeObject
----@field TopEdge CatalogShopTooltip_NineSlice_TopEdgeObject
----@field TopLeftCorner CatalogShopTooltip_NineSlice_TopLeftCornerObject
----@field TopRightCorner CatalogShopTooltip_NineSlice_TopRightCornerObject
-local CatalogShopTooltip_NineSliceObject = {}
----@return any ...
-function CatalogShopTooltip_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function CatalogShopTooltip_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function CatalogShopTooltip_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function CatalogShopTooltip_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function CatalogShopTooltip_NineSliceObject:OnLoad(...) end
----@return any ...
-function CatalogShopTooltip_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function CatalogShopTooltip_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function CatalogShopTooltip_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function CatalogShopTooltip_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function CatalogShopTooltip_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class CatalogShopTooltip_NineSlice_BottomEdgeObject : Texture
-local CatalogShopTooltip_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class CatalogShopTooltip_NineSlice_BottomLeftCornerObject : Texture
-local CatalogShopTooltip_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class CatalogShopTooltip_NineSlice_BottomRightCornerObject : Texture
-local CatalogShopTooltip_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class CatalogShopTooltip_NineSlice_CenterObject : Texture
-local CatalogShopTooltip_NineSlice_CenterObject = {}
-end
-
-do
----@class CatalogShopTooltip_NineSlice_LeftEdgeObject : Texture
-local CatalogShopTooltip_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class CatalogShopTooltip_NineSlice_RightEdgeObject : Texture
-local CatalogShopTooltip_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class CatalogShopTooltip_NineSlice_TopEdgeObject : Texture
-local CatalogShopTooltip_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class CatalogShopTooltip_NineSlice_TopLeftCornerObject : Texture
-local CatalogShopTooltip_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class CatalogShopTooltip_NineSlice_TopRightCornerObject : Texture
-local CatalogShopTooltip_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class CatalogShopTooltip_TextLeft1Object : FontString
-local CatalogShopTooltip_TextLeft1Object = {}
-end
-
-do
----@class CatalogShopTooltip_TextLeft2Object : FontString
-local CatalogShopTooltip_TextLeft2Object = {}
-end
-
-do
----@class CatalogShopTooltip_TextRight1Object : FontString
-local CatalogShopTooltip_TextRight1Object = {}
-end
-
-do
----@class CatalogShopTooltip_TextRight2Object : FontString
-local CatalogShopTooltip_TextRight2Object = {}
-end
-
-do
----@class CatalogShopTooltip_TopOverlayObject : Texture
-local CatalogShopTooltip_TopOverlayObject = {}
-end
-
-do
----@class CatalogShopTopUpFrameObject : Frame
----@field CloseButton CatalogShopTopUpFrame_CloseButtonObject
----@field CoverFrame CatalogShopTopUpFrame_CoverFrameObject
----@field CurrentBalance CatalogShopTopUpFrame_CurrentBalanceObject
----@field PurchaseTotal CatalogShopTopUpFrame_PurchaseTotalObject
----@field TopUpProductContainerFrame CatalogShopTopUpFrame_TopUpProductContainerFrameObject
-local CatalogShopTopUpFrameObject = {}
----@return any ...
-function CatalogShopTopUpFrameObject:GetVirtualCurrencyAmountForProduct(...) end
----@return any ...
-function CatalogShopTopUpFrameObject:HideCoverFrame(...) end
----@return any ...
-function CatalogShopTopUpFrameObject:Leave(...) end
----@return any ...
-function CatalogShopTopUpFrameObject:OnAttributeChanged(...) end
----@return any ...
-function CatalogShopTopUpFrameObject:OnEvent(...) end
----@return any ...
-function CatalogShopTopUpFrameObject:OnHide(...) end
----@return any ...
-function CatalogShopTopUpFrameObject:OnLoad(...) end
----@return any ...
-function CatalogShopTopUpFrameObject:OnShow(...) end
----@return any ...
-function CatalogShopTopUpFrameObject:PurchaseProduct(...) end
----@return any ...
-function CatalogShopTopUpFrameObject:SetCurrentBalance(...) end
----@return any ...
-function CatalogShopTopUpFrameObject:SetDesiredQuantity(...) end
----@return any ...
-function CatalogShopTopUpFrameObject:SetParentFrame(...) end
----@return any ...
-function CatalogShopTopUpFrameObject:SetSuggestedProduct(...) end
----@return any ...
-function CatalogShopTopUpFrameObject:ShowCoverFrame(...) end
----@return any ...
-function CatalogShopTopUpFrameObject:onCloseCallback(...) end
----@type CatalogShopTopUpFrameObject
-CatalogShopTopUpFrame = CatalogShopTopUpFrameObject
-end
-
-do
----@class CatalogShopTopUpFrame_CloseButtonObject : Button
-local CatalogShopTopUpFrame_CloseButtonObject = {}
----@return any ...
-function CatalogShopTopUpFrame_CloseButtonObject:NarrationGetName(...) end
-end
-
-do
----@class CatalogShopTopUpFrame_CoverFrameObject : Frame
----@field ignoreInLayout boolean
-local CatalogShopTopUpFrame_CoverFrameObject = {}
-end
-
-do
----@class CatalogShopTopUpFrame_CurrentBalanceObject : FontString
-local CatalogShopTopUpFrame_CurrentBalanceObject = {}
-end
-
-do
----@class CatalogShopTopUpFrame_PurchaseTotalObject : FontString
-local CatalogShopTopUpFrame_PurchaseTotalObject = {}
-end
-
-do
----@class CatalogShopTopUpFrame_TopUpProductContainerFrameObject : Frame
----@field HousingWarningText CatalogShopTopUpFrame_TopUpProductContainerFrame_HousingWarningTextObject
----@field ScrollBox CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject
-local CatalogShopTopUpFrame_TopUpProductContainerFrameObject = {}
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrameObject:Init(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrameObject:InitProductContainer(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrameObject:OnLoad(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrameObject:OnProductSelected(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrameObject:SetSelectedProductInfo(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrameObject:SetSuggestedProductID(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrameObject:SetupScrollView(...) end
-end
-
-do
----@class CatalogShopTopUpFrame_TopUpProductContainerFrame_HousingWarningTextObject : FontString
-local CatalogShopTopUpFrame_TopUpProductContainerFrame_HousingWarningTextObject = {}
-end
-
-do
----@class CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject : Frame
----@field Defaults CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_DefaultsObject
----@field Directions CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_DirectionsObject
----@field DragDelegate CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_DragDelegateObject
----@field Event CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_EventObject
----@field ScrollTarget CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject
----@field Shadows CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ShadowsObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field debugInspectionSystem string
----@field deferredCallbacks table
----@field executingEvents table
----@field isScrollController boolean
----@field panExtentPercentage number
----@field wheelPanScalar number
-local CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject = {}
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ApplyEdgeFade(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:CalculateEdgeFade(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:CalculatePanExtentPercentage(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:CalculateScrollPercentage(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:CanInterpolateScroll(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ClearEdgeFade(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ContainsElementDataByPredicate(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:EnableSnapToInterval(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:EnumerateDataProvider(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:EnumerateDataProviderEntireRange(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:EnumerateFrames(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:FindByPredicate(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:FindElementData(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:FindElementDataByPredicate(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:FindElementDataIndex(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:FindElementDataIndexByPredicate(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:FindFrame(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:FindFrameByPredicate(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:FindFrameElementDataIndex(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:Flush(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:FlushDataProvider(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ForEachElementData(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ForEachFrame(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:FullUpdate(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:FullUpdateInternal(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GenerateCallbackEvents(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetBottomPadding(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetCallbackTable(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetCallbackTables(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetCallbacksByEvent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetDataIndexBegin(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetDataIndexEnd(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetDataProvider(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetDataProviderSize(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetDerivedExtent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetDerivedScrollOffset(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetDerivedScrollRange(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetElementExtent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetExtent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetExtentPadding(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetExtentUntil(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetFrameCount(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetFrameExtent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetFrames(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetIntervalRange(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetLeftPadding(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetLower(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetLowerPadding(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetLowerShadowTexture(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetPadding(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetPanExtent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetPanExtentPercentage(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetRightPadding(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetScrollInterpolator(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetScrollPercentage(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetScrollTarget(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetTopPadding(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetUpper(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetUpperPadding(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetUpperShadowTexture(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetView(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetVisibleExtent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:GetWheelPanPercentage(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:HasDataProvider(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:HasEdgeFade(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:HasScrollableExtent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:HasView(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:Init(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:Interpolate(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:IsAcquireLocked(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:IsAlignmentOverlapIgnored(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:IsAtBegin(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:IsAtEnd(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:IsHorizontal(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:IsScrollAllowed(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:IsScrollToDataIndexSafe(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:IsUpdateLocked(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:IsVirtualized(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:Layout(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:OnLoad(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:OnMouseWheel(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:OnScrollTargetSizeChanged(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:OnSizeChanged(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:OnViewAcquiredFrame(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:OnViewDataChanged(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:OnViewDataProviderReassigned(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:OnViewInitializedFrame(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:OnViewReleasedFrame(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:Rebuild(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:RecalculateDerivedExtent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:RegisterCallback(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ReinitializeFrames(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:RemoveDataProvider(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ReverseEnumerateDataProvider(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ReverseForEachElementData(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ReverseForEachFrame(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SanitizeAlignment(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ScrollDecrease(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ScrollInDirection(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ScrollIncrease(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ScrollToBegin(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ScrollToElementData(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ScrollToElementDataByPredicate(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ScrollToElementDataIndex(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ScrollToEnd(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ScrollToFrame(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ScrollToNearest(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ScrollToNearestByPredicate(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ScrollToOffset(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SecureInsertEvent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SelectCursorComponent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SelectPointComponent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SetAlignmentOverlapIgnored(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SetDataProvider(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SetEdgeFadeLength(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SetFrameExtent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SetHorizontal(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SetInterpolateScroll(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SetLowerShadowAtlas(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SetPadding(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SetPanExtent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SetPanExtentPercentage(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SetScrollAllowed(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SetScrollPercentage(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SetScrollPercentageInternal(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SetScrollTargetOffset(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SetShadowsFrameLevel(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SetShadowsScale(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SetShadowsShown(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SetUpdateLocked(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SetUpperShadowAtlas(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SetUseShadowsForEdgeFade(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:SetView(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:TriggerEvent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:UnregisterCallback(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:UnregisterEvents(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:Update(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBoxObject:scrollInternal(...) end
-end
-
-do
----@class CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_DefaultsObject
-local CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_DefaultsObject = {}
-end
-
-do
----@class CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_DirectionsObject
-local CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_DirectionsObject = {}
-end
-
-do
----@class CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_DragDelegateObject : Frame
-local CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_DragDelegateObject = {}
-end
-
-do
----@class CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_EventObject
-local CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_EventObject = {}
-end
-
-do
----@class CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject : Frame
----@field Event CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTarget_EventObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
-local CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject = {}
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject:GetCallbackTable(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject:GetCallbackTables(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject:OnLoad(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject:RegisterCallback(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject:TriggerEvent(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject:UnregisterCallback(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject:UnregisterEvents(...) end
----@return any ...
-function CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTarget_EventObject
-local CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ScrollTarget_EventObject = {}
-end
-
-do
----@class CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ShadowsObject : Frame
----@field Lower CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_Shadows_LowerObject
----@field Upper CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_Shadows_UpperObject
-local CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_ShadowsObject = {}
-end
-
-do
----@class CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_Shadows_LowerObject : Texture
-local CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_Shadows_LowerObject = {}
-end
-
-do
----@class CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_Shadows_UpperObject : Texture
-local CatalogShopTopUpFrame_TopUpProductContainerFrame_ScrollBox_Shadows_UpperObject = {}
-end
-
-do
----@class ChannelFrameObject : Frame
----@field Bg ChannelFrame_BgObject
----@field ChannelList ChannelFrame_ChannelListObject
----@field ChannelRoster ChannelFrame_ChannelRosterObject
----@field CloseButton ChannelFrame_CloseButtonObject
----@field DirtyFlags ChannelFrame_DirtyFlagsObject
----@field FocusJumpHint ChannelFrame_FocusJumpHintObject
----@field FrameGlow ChannelFrame_FrameGlowObject
----@field Icon ChannelFrame_IconObject
----@field Inset ChannelFrame_InsetObject
----@field LeftInset ChannelFrame_LeftInsetObject
----@field LeftJumpHint ChannelFrame_LeftJumpHintObject
----@field NewButton ChannelFrame_NewButtonObject
----@field NineSlice ChannelFrame_NineSliceObject
----@field PortraitContainer ChannelFrame_PortraitContainerObject
----@field RightInset ChannelFrame_RightInsetObject
----@field RightJumpHint ChannelFrame_RightJumpHintObject
----@field SettingsButton ChannelFrame_SettingsButtonObject
----@field TitleContainer ChannelFrame_TitleContainerObject
----@field TopTileStreaks ChannelFrame_TopTileStreaksObject
----@field layoutType string
-local ChannelFrameObject = {}
----@return any ...
-function ChannelFrameObject:CheckActivateChannel(...) end
----@return any ...
-function ChannelFrameObject:CheckChannelAnnounceState(...) end
----@return any ...
-function ChannelFrameObject:CheckDiscoverChannels(...) end
----@return any ...
-function ChannelFrameObject:CheckNewcomerChannelJoin(...) end
----@return any ...
-function ChannelFrameObject:CheckShowTutorial(...) end
----@return any ...
-function ChannelFrameObject:CheckVoiceChannelRequestCompleted(...) end
----@return any ...
-function ChannelFrameObject:CreateVoiceChannel(...) end
----@return any ...
-function ChannelFrameObject:EndFocus(...) end
----@return any ...
-function ChannelFrameObject:FocusGamepad(...) end
----@return any ...
-function ChannelFrameObject:FocusInitialElement(...) end
----@return any ...
-function ChannelFrameObject:GetChannelSpeakerButton(...) end
----@return any ...
-function ChannelFrameObject:GetChannelTranscriptionButton(...) end
----@return any ...
-function ChannelFrameObject:GetChannelVoiceButton(...) end
----@return any ...
-function ChannelFrameObject:GetFocusFrameGlow(...) end
----@return any ...
-function ChannelFrameObject:GetFocusFrameRoot(...) end
----@return any ...
-function ChannelFrameObject:GetFocusedListButton(...) end
----@return any ...
-function ChannelFrameObject:GetList(...) end
----@return any ...
-function ChannelFrameObject:GetMoreActionsLabel(...) end
----@return any ...
-function ChannelFrameObject:GetNavLeftTarget(...) end
----@return any ...
-function ChannelFrameObject:GetNavRightTarget(...) end
----@return any ...
-function ChannelFrameObject:GetPortrait(...) end
----@return any ...
-function ChannelFrameObject:GetRoster(...) end
----@return any ...
-function ChannelFrameObject:GetTitleText(...) end
----@return any ...
-function ChannelFrameObject:GetTranscriptionLabel(...) end
----@return any ...
-function ChannelFrameObject:HasPortraitTexture(...) end
----@return any ...
-function ChannelFrameObject:HideFocusJumpHint(...) end
----@return any ...
-function ChannelFrameObject:HideLeftJumpHint(...) end
----@return any ...
-function ChannelFrameObject:HideRightJumpHint(...) end
----@return any ...
-function ChannelFrameObject:HideTutorial(...) end
----@return any ...
-function ChannelFrameObject:InitializeGamepad(...) end
----@return any ...
-function ChannelFrameObject:IsVoiceChannelRequestInProgress(...) end
----@return any ...
-function ChannelFrameObject:LockInFocus(...) end
----@return any ...
-function ChannelFrameObject:MarkDirty(...) end
----@return any ...
-function ChannelFrameObject:MoreActionsPressed(...) end
----@return any ...
-function ChannelFrameObject:OnActiveVoiceProviderChanged(...) end
----@return any ...
-function ChannelFrameObject:OnChannelLeavePrevented(...) end
----@return any ...
-function ChannelFrameObject:OnChannelLeft(...) end
----@return any ...
-function ChannelFrameObject:OnChannelNotice(...) end
----@return any ...
-function ChannelFrameObject:OnChatChannelTransmitChanged(...) end
----@return any ...
-function ChannelFrameObject:OnClubAdded(...) end
----@return any ...
-function ChannelFrameObject:OnClubRemoved(...) end
----@return any ...
-function ChannelFrameObject:OnClubStreamAdded(...) end
----@return any ...
-function ChannelFrameObject:OnClubStreamRemoved(...) end
----@return any ...
-function ChannelFrameObject:OnClubStreamsLoaded(...) end
----@return any ...
-function ChannelFrameObject:OnCommunityFavoriteChanged(...) end
----@return any ...
-function ChannelFrameObject:OnCountUpdate(...) end
----@return any ...
-function ChannelFrameObject:OnEvent(...) end
----@return any ...
-function ChannelFrameObject:OnGroupFormed(...) end
----@return any ...
-function ChannelFrameObject:OnGroupLeft(...) end
----@return any ...
-function ChannelFrameObject:OnHide(...) end
----@return any ...
-function ChannelFrameObject:OnLFGListActiveEntryUpdate(...) end
----@return any ...
-function ChannelFrameObject:OnLoad(...) end
----@return any ...
-function ChannelFrameObject:OnMemberActiveStateChanged(...) end
----@return any ...
-function ChannelFrameObject:OnMemberMuted(...) end
----@return any ...
-function ChannelFrameObject:OnMentorshipStatusChanged(...) end
----@return any ...
-function ChannelFrameObject:OnShow(...) end
----@return any ...
-function ChannelFrameObject:OnTextToSpeechChanged(...) end
----@return any ...
-function ChannelFrameObject:OnUpdate(...) end
----@return any ...
-function ChannelFrameObject:OnUserSelectedChannel(...) end
----@return any ...
-function ChannelFrameObject:OnVoiceChannelActivated(...) end
----@return any ...
-function ChannelFrameObject:OnVoiceChannelDeactivated(...) end
----@return any ...
-function ChannelFrameObject:OnVoiceChannelDisplayNameChanged(...) end
----@return any ...
-function ChannelFrameObject:OnVoiceChannelJoined(...) end
----@return any ...
-function ChannelFrameObject:OnVoiceChannelRemoved(...) end
----@return any ...
-function ChannelFrameObject:OnVoiceChannelTranscribingChanged(...) end
----@return any ...
-function ChannelFrameObject:OnVoiceChatConnectionSuccess(...) end
----@return any ...
-function ChannelFrameObject:OnVoiceChatError(...) end
----@return any ...
-function ChannelFrameObject:OnVoiceChatLogin(...) end
----@return any ...
-function ChannelFrameObject:OnVoiceChatLogout(...) end
----@return any ...
-function ChannelFrameObject:QueueVoiceChannelCommand(...) end
----@return any ...
-function ChannelFrameObject:RefreshFocus(...) end
----@return any ...
-function ChannelFrameObject:RegisterForTransitions(...) end
----@return any ...
-function ChannelFrameObject:SetBorder(...) end
----@return any ...
-function ChannelFrameObject:SetFocusedClub(...) end
----@return any ...
-function ChannelFrameObject:SetFrameLevelsFromBaseLevel(...) end
----@return any ...
-function ChannelFrameObject:SetIgnoreNextUnfocusForChatFlow(...) end
----@return any ...
-function ChannelFrameObject:SetPortraitAtlasRaw(...) end
----@return any ...
-function ChannelFrameObject:SetPortraitShown(...) end
----@return any ...
-function ChannelFrameObject:SetPortraitTexCoord(...) end
----@return any ...
-function ChannelFrameObject:SetPortraitTextureRaw(...) end
----@return any ...
-function ChannelFrameObject:SetPortraitTextureSizeAndOffset(...) end
----@return any ...
-function ChannelFrameObject:SetPortraitToAsset(...) end
----@return any ...
-function ChannelFrameObject:SetPortraitToBag(...) end
----@return any ...
-function ChannelFrameObject:SetPortraitToClassIcon(...) end
----@return any ...
-function ChannelFrameObject:SetPortraitToSpecIcon(...) end
----@return any ...
-function ChannelFrameObject:SetPortraitToUnit(...) end
----@return any ...
-function ChannelFrameObject:SetShouldReturnToChat(...) end
----@return any ...
-function ChannelFrameObject:SetTitle(...) end
----@return any ...
-function ChannelFrameObject:SetTitleColor(...) end
----@return any ...
-function ChannelFrameObject:SetTitleFormatted(...) end
----@return any ...
-function ChannelFrameObject:SetTitleMaxLinesAndHeight(...) end
----@return any ...
-function ChannelFrameObject:SetTitleOffsets(...) end
----@return any ...
-function ChannelFrameObject:SetVoiceChannelActiveState(...) end
+---@field refreshFrameXOffset number
+---@field refreshFrameYOffset number
+---@field searchContext number
+---@field tableBuilderLayoutDirty boolean
+---@field textureHeightClassic number
+---@field textureWidthClassic number
+local AuctionHouseFrame_CommoditiesSellListObject = {}
 ---@return any ...
-function ChannelFrameObject:SetupGamepad(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:CallRefreshCallback(...) end
 ---@return any ...
-function ChannelFrameObject:ShouldShowTutorial(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:DirtyScrollFrame(...) end
 ---@return any ...
-function ChannelFrameObject:ShowChannelAnnounce(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:GetAuctionHouseFrame(...) end
 ---@return any ...
-function ChannelFrameObject:ShowChannelManagementTip(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:GetHeaderContainer(...) end
 ---@return any ...
-function ChannelFrameObject:ShowFocusJumpHint(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:GetScrollBoxDataIndexBegin(...) end
 ---@return any ...
-function ChannelFrameObject:ShowLeftJumpHint(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:GetSelectedEntry(...) end
 ---@return any ...
-function ChannelFrameObject:ShowRightJumpHint(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:Init(...) end
 ---@return any ...
-function ChannelFrameObject:SmartNavigationCloseHandler(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:OnEnterListLine(...) end
 ---@return any ...
-function ChannelFrameObject:StartFocus(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:OnEvent(...) end
 ---@return any ...
-function ChannelFrameObject:Toggle(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:OnHide(...) end
 ---@return any ...
-function ChannelFrameObject:ToggleCreateChannel(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:OnLeaveListLine(...) end
 ---@return any ...
-function ChannelFrameObject:ToggleTranscription(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:OnLoad(...) end
 ---@return any ...
-function ChannelFrameObject:ToggleVoiceSettings(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:OnScrollBoxScroll(...) end
 ---@return any ...
-function ChannelFrameObject:TryCreateChannelFromPopup(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:OnShow(...) end
 ---@return any ...
-function ChannelFrameObject:TryCreateVoiceChannel(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:OnUpdate(...) end
 ---@return any ...
-function ChannelFrameObject:TryExecuteCommand(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:RefreshScrollFrame(...) end
 ---@return any ...
-function ChannelFrameObject:TryJoinCommunityStreamChannel(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:Reset(...) end
 ---@return any ...
-function ChannelFrameObject:TryJoinVoiceChannelByType(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:ScrollToEntryIndex(...) end
 ---@return any ...
-function ChannelFrameObject:TryPromptGroupVoiceChat(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:SetCustomError(...) end
 ---@return any ...
-function ChannelFrameObject:UnfocusGamepad(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:SetDataProvider(...) end
 ---@return any ...
-function ChannelFrameObject:Update(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:SetHighlightCallback(...) end
 ---@return any ...
-function ChannelFrameObject:UpdateChannelByNameIfSelected(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:SetItemID(...) end
 ---@return any ...
-function ChannelFrameObject:UpdateChannelIfSelected(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:SetLineOnEnterCallback(...) end
 ---@return any ...
-function ChannelFrameObject:UpdateCommunityChannelIfSelected(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:SetLineOnLeaveCallback(...) end
 ---@return any ...
-function ChannelFrameObject:UpdatePartyChannelIfSelected(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:SetLineTemplate(...) end
 ---@return any ...
-function ChannelFrameObject:UpdateVoiceChannelIfSelected(...) end
----@type ChannelFrameObject
-ChannelFrame = ChannelFrameObject
-end
-
-do
----@class ChannelFrame_BgObject : Texture
-local ChannelFrame_BgObject = {}
-end
-
-do
----@class ChannelFrame_ChannelListObject : ScrollFrame
----@field Child ChannelFrame_ChannelList_ChildObject
----@field ScrollBar ChannelFrame_ChannelList_ScrollBarObject
----@field collapsedStates table
----@field communityChannelButtonPool ChannelFrame_ChannelList_communityChannelButtonPoolObject
----@field headerButtonPool ChannelFrame_ChannelList_headerButtonPoolObject
----@field panExtent number
----@field scrollBarBottomY number
----@field scrollBarTopY number
----@field scrollBarX number
----@field textChannelButtonPool ChannelFrame_ChannelList_textChannelButtonPoolObject
----@field voiceChannelButtonPool ChannelFrame_ChannelList_voiceChannelButtonPoolObject
-local ChannelFrame_ChannelListObject = {}
----@return any ...
-function ChannelFrame_ChannelListObject:AddChannelButtonInternal(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:AddChatSystemButton(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:AddCommunityChannelButton(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:AddHeaderButton(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:AddTextChannelButton(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:AddVoiceChannelButton(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:AnchorChannelButton(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:GetButtonForActiveVoiceChannel(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:GetButtonForAnyVoiceChannel(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:GetButtonForChannelID(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:GetButtonForChannelType(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:GetButtonForCommunityStream(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:GetButtonForName(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:GetButtonForPredicate(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:GetButtonForTextChannelID(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:GetButtonForVoiceChannelID(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:GetChannelFrame(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:GetChannelListNavRightTarget(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:GetClosestNeighboringChannelButton(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:GetFirstAvailableChannelButton(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:GetHeightFromActiveButtons(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:GetPanExtent(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:GetScrollBar(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:GetSelectedChannelButton(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:GetSelectedChannelIDAndSupportsText(...) end
----@return any ...
-function ChannelFrame_ChannelListObject:HasChannel(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:SetRefreshCallback(...) end
 ---@return any ...
-function ChannelFrame_ChannelListObject:IsScrolling(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:SetRefreshFrameFunctions(...) end
 ---@return any ...
-function ChannelFrame_ChannelListObject:OnChannelLeft(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:SetSelectedEntry(...) end
 ---@return any ...
-function ChannelFrame_ChannelListObject:OnLoad(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:SetSelectedEntryByCondition(...) end
 ---@return any ...
-function ChannelFrame_ChannelListObject:ResetChannelButtonAnchors(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:SetSelectionCallback(...) end
 ---@return any ...
-function ChannelFrame_ChannelListObject:SelectChannelByID(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:SetState(...) end
 ---@return any ...
-function ChannelFrame_ChannelListObject:SelectChannelByName(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:SetTableBuilderLayout(...) end
 ---@return any ...
-function ChannelFrame_ChannelListObject:SetCollapsed(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:UpdateDataProvider(...) end
 ---@return any ...
-function ChannelFrame_ChannelListObject:SetPanExtent(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:UpdateRefreshFrame(...) end
 ---@return any ...
-function ChannelFrame_ChannelListObject:SetSelectedChannel(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:UpdateTableBuilderLayout(...) end
 ---@return any ...
-function ChannelFrame_ChannelListObject:ShowDropdown(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:highlightCallback(...) end
 ---@return any ...
-function ChannelFrame_ChannelListObject:Update(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:refreshResultsFunc(...) end
 ---@return any ...
-function ChannelFrame_ChannelListObject:UpdateScrollBar(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:tableBuilderLayoutFunction(...) end
 ---@return any ...
-function ChannelFrame_ChannelListObject:UpdateSmartNavJumps(...) end
+function AuctionHouseFrame_CommoditiesSellListObject:totalQuantityFunc(...) end
 end
 
 do
----@class ChannelFrame_ChannelList_ChildObject : Frame
-local ChannelFrame_ChannelList_ChildObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_BackgroundObject : Texture
+local AuctionHouseFrame_CommoditiesSellList_BackgroundObject = {}
 end
 
 do
----@class ChannelFrame_ChannelList_ScrollBarObject : Frame
----@field Back ChannelFrame_ChannelList_ScrollBar_BackObject
----@field Defaults ChannelFrame_ChannelList_ScrollBar_DefaultsObject
----@field Directions ChannelFrame_ChannelList_ScrollBar_DirectionsObject
----@field Event ChannelFrame_ChannelList_ScrollBar_EventObject
----@field Forward ChannelFrame_ChannelList_ScrollBar_ForwardObject
----@field Track ChannelFrame_ChannelList_ScrollBar_TrackObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field deferredCallbacks table
----@field executingEvents table
----@field hideTrack boolean
----@field interpolator ChannelFrame_ChannelList_ScrollBar_interpolatorObject
----@field isScrollController boolean
----@field minThumbExtent number
----@field panDelay number
----@field panExtentPercentage number
----@field panRepeatTime number
----@field smartNavigationIgnored boolean
----@field snapToInterval boolean
----@field thumbAnchor string
----@field useProportionalThumb boolean
----@field visibleExtentPercentage number
----@field wheelPanScalar number
-local ChannelFrame_ChannelList_ScrollBarObject = {}
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:CallInternalScope(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:CanCursorStepInDirection(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:CanInterpolateScroll(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:CopyDeferredCallbacks(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:DisableControls(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:DoesFrameHaveEvent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:EnableInternalPriority(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:EnableSnapToInterval(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:GenerateCallbackEvents(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:GetBackStepper(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:GetCallbackTable(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:GetCallbackTables(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:GetCallbacksByEvent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:GetForwardStepper(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:GetFrameExtent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:GetIntervalRange(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:GetLower(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:GetPanExtentPercentage(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:GetPanRepeatDelay(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:GetPanRepeatTime(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:GetScrollInterpolator(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:GetScrollPercentage(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:GetThumb(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:GetThumbAnchor(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:GetTrack(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:GetTrackExtent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:GetUpper(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:GetWheelPanPercentage(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:HasRegistrantsForEvent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:HasScrollableExtent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:Init(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:InitializeNarration(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:Interpolate(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:IsAtBegin(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:IsAtEnd(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:IsHorizontal(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:IsScrollAllowed(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:IsThumbMouseDown(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:OnHide_Intrinsic(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:OnLoad(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:OnLoad_Intrinsic(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:OnMouseWheel(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:OnShow_Intrinsic(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:OnStepperMouseDown(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:OnThumbMouseDown(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:OnTrackMouseDown(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:RegisterCallback(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:ScrollDecrease(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:ScrollInDirection(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:ScrollIncrease(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:ScrollPageInDirection(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:ScrollStepInDirection(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:ScrollToBegin(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:ScrollToEnd(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:ScrollWheelInDirection(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:SecureInsertEvent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:SelectCursorComponent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:SelectPointComponent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:SetFrameExtent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:SetHideIfUnscrollable(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:SetHorizontal(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:SetInterpolateScroll(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:SetPanExtentPercentage(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:SetScrollAllowed(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:SetScrollPercentage(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:SetScrollPercentageInternal(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:SetThumbExtent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:SetVisibleExtentPercentage(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:TriggerEvent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:UnregisterCallback(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:UnregisterEvents(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:UnregisterUpdate(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:Update(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:onButtonMouseUp(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBarObject:scrollInternal(...) end
+---@class AuctionHouseFrame_CommoditiesSellList_HeaderContainerObject : Frame
+local AuctionHouseFrame_CommoditiesSellList_HeaderContainerObject = {}
 end
 
 do
----@class ChannelFrame_ChannelList_ScrollBar_BackObject : Button
----@field Event ChannelFrame_ChannelList_ScrollBar_Back_EventObject
----@field Texture ChannelFrame_ChannelList_ScrollBar_Back_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local ChannelFrame_ChannelList_ScrollBar_BackObject = {}
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:DesaturateIfDisabled(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:GenerateCallbackEvents(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:GetAtlas(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:GetCallbackTable(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:GetCallbackTables(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:GetCallbacksByEvent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:IsDown(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:IsDownOver(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:IsOver(...) end
+---@class AuctionHouseFrame_CommoditiesSellList_LoadingSpinnerObject : Frame
+---@field Anim AuctionHouseFrame_CommoditiesSellList_LoadingSpinner_AnimObject
+---@field Ring AuctionHouseFrame_CommoditiesSellList_LoadingSpinner_RingObject
+---@field SearchingText AuctionHouseFrame_CommoditiesSellList_LoadingSpinner_SearchingTextObject
+---@field Sparks AuctionHouseFrame_CommoditiesSellList_LoadingSpinner_SparksObject
+local AuctionHouseFrame_CommoditiesSellList_LoadingSpinnerObject = {}
 ---@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:NarrationGetName(...) end
+function AuctionHouseFrame_CommoditiesSellList_LoadingSpinnerObject:GetShadowAlpha(...) end
 ---@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:OnButtonStateChanged(...) end
+function AuctionHouseFrame_CommoditiesSellList_LoadingSpinnerObject:OnHide(...) end
 ---@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_LoadingSpinnerObject:OnShow(...) end
 ---@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:OnDisable(...) end
+function AuctionHouseFrame_CommoditiesSellList_LoadingSpinnerObject:OnSizeChanged(...) end
 ---@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:OnEnable(...) end
+function AuctionHouseFrame_CommoditiesSellList_LoadingSpinnerObject:SetDesaturated(...) end
 ---@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:OnEnter(...) end
+function AuctionHouseFrame_CommoditiesSellList_LoadingSpinnerObject:SetShadowEnabled(...) end
 ---@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_LoadingSpinnerObject:UpdateShadowSize(...) end
 ---@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:OnLeave(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:OnLoad(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:OnMouseDown(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:OnMouseUp(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:OnShow(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:RegisterCallback(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:SecureInsertEvent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:SetDisplacedRegions(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:TriggerEvent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:UnregisterCallback(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:UnregisterEvents(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class ChannelFrame_ChannelList_ScrollBar_Back_EventObject
-local ChannelFrame_ChannelList_ScrollBar_Back_EventObject = {}
+function AuctionHouseFrame_CommoditiesSellList_LoadingSpinnerObject:UpdateTheme(...) end
 end
 
 do
----@class ChannelFrame_ChannelList_ScrollBar_Back_TextureObject : Texture
-local ChannelFrame_ChannelList_ScrollBar_Back_TextureObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_LoadingSpinner_AnimObject : AnimationGroup
+local AuctionHouseFrame_CommoditiesSellList_LoadingSpinner_AnimObject = {}
 end
 
 do
----@class ChannelFrame_ChannelList_ScrollBar_DefaultsObject
-local ChannelFrame_ChannelList_ScrollBar_DefaultsObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_LoadingSpinner_RingObject : Texture
+local AuctionHouseFrame_CommoditiesSellList_LoadingSpinner_RingObject = {}
 end
 
 do
----@class ChannelFrame_ChannelList_ScrollBar_DirectionsObject
-local ChannelFrame_ChannelList_ScrollBar_DirectionsObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_LoadingSpinner_SearchingTextObject : FontString
+local AuctionHouseFrame_CommoditiesSellList_LoadingSpinner_SearchingTextObject = {}
 end
 
 do
----@class ChannelFrame_ChannelList_ScrollBar_EventObject
-local ChannelFrame_ChannelList_ScrollBar_EventObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_LoadingSpinner_SparksObject : Texture
+local AuctionHouseFrame_CommoditiesSellList_LoadingSpinner_SparksObject = {}
 end
 
 do
----@class ChannelFrame_ChannelList_ScrollBar_ForwardObject : Button
----@field Event ChannelFrame_ChannelList_ScrollBar_Forward_EventObject
----@field Texture ChannelFrame_ChannelList_ScrollBar_Forward_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local ChannelFrame_ChannelList_ScrollBar_ForwardObject = {}
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:GetAtlas(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:GetCallbackTable(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:GetCallbackTables(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+---@class AuctionHouseFrame_CommoditiesSellList_NineSliceObject : Frame
+---@field BottomEdge AuctionHouseFrame_CommoditiesSellList_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner AuctionHouseFrame_CommoditiesSellList_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner AuctionHouseFrame_CommoditiesSellList_NineSlice_BottomRightCornerObject
+---@field LeftEdge AuctionHouseFrame_CommoditiesSellList_NineSlice_LeftEdgeObject
+---@field RightEdge AuctionHouseFrame_CommoditiesSellList_NineSlice_RightEdgeObject
+---@field TopEdge AuctionHouseFrame_CommoditiesSellList_NineSlice_TopEdgeObject
+---@field TopLeftCorner AuctionHouseFrame_CommoditiesSellList_NineSlice_TopLeftCornerObject
+---@field TopRightCorner AuctionHouseFrame_CommoditiesSellList_NineSlice_TopRightCornerObject
+local AuctionHouseFrame_CommoditiesSellList_NineSliceObject = {}
 ---@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:IsDown(...) end
+function AuctionHouseFrame_CommoditiesSellList_NineSliceObject:GetBorderColor(...) end
 ---@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:IsDownOver(...) end
+function AuctionHouseFrame_CommoditiesSellList_NineSliceObject:GetCenterColor(...) end
 ---@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:IsOver(...) end
+function AuctionHouseFrame_CommoditiesSellList_NineSliceObject:GetFrameLayoutTextureKit(...) end
 ---@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:NarrationGetName(...) end
+function AuctionHouseFrame_CommoditiesSellList_NineSliceObject:GetFrameLayoutType(...) end
 ---@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+function AuctionHouseFrame_CommoditiesSellList_NineSliceObject:OnLoad(...) end
 ---@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_NineSliceObject:SetBlendMode(...) end
 ---@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:OnDisable(...) end
+function AuctionHouseFrame_CommoditiesSellList_NineSliceObject:SetBorderBlendMode(...) end
 ---@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:OnEnable(...) end
+function AuctionHouseFrame_CommoditiesSellList_NineSliceObject:SetBorderColor(...) end
 ---@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:OnEnter(...) end
+function AuctionHouseFrame_CommoditiesSellList_NineSliceObject:SetCenterColor(...) end
 ---@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:OnLeave(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:OnLoad(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:OnMouseDown(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:OnMouseUp(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:OnShow(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:RegisterCallback(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:SecureInsertEvent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:TriggerEvent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:UnregisterCallback(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:UnregisterEvents(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class ChannelFrame_ChannelList_ScrollBar_Forward_EventObject
-local ChannelFrame_ChannelList_ScrollBar_Forward_EventObject = {}
-end
-
-do
----@class ChannelFrame_ChannelList_ScrollBar_Forward_TextureObject : Texture
-local ChannelFrame_ChannelList_ScrollBar_Forward_TextureObject = {}
-end
-
-do
----@class ChannelFrame_ChannelList_ScrollBar_TrackObject : Frame
----@field Begin ChannelFrame_ChannelList_ScrollBar_Track_BeginObject
----@field End ChannelFrame_ChannelList_ScrollBar_Track_EndObject
----@field Middle ChannelFrame_ChannelList_ScrollBar_Track_MiddleObject
----@field Thumb ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject
-local ChannelFrame_ChannelList_ScrollBar_TrackObject = {}
-end
-
-do
----@class ChannelFrame_ChannelList_ScrollBar_Track_BeginObject : Texture
-local ChannelFrame_ChannelList_ScrollBar_Track_BeginObject = {}
+function AuctionHouseFrame_CommoditiesSellList_NineSliceObject:SetVertexColor(...) end
 end
 
 do
----@class ChannelFrame_ChannelList_ScrollBar_Track_EndObject : Texture
-local ChannelFrame_ChannelList_ScrollBar_Track_EndObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_NineSlice_BottomEdgeObject : Texture
+local AuctionHouseFrame_CommoditiesSellList_NineSlice_BottomEdgeObject = {}
 end
 
 do
----@class ChannelFrame_ChannelList_ScrollBar_Track_MiddleObject : Texture
-local ChannelFrame_ChannelList_ScrollBar_Track_MiddleObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_NineSlice_BottomLeftCornerObject : Texture
+local AuctionHouseFrame_CommoditiesSellList_NineSlice_BottomLeftCornerObject = {}
 end
 
 do
----@class ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject : Button
----@field Begin ChannelFrame_ChannelList_ScrollBar_Track_Thumb_BeginObject
----@field End ChannelFrame_ChannelList_ScrollBar_Track_Thumb_EndObject
----@field Event ChannelFrame_ChannelList_ScrollBar_Track_Thumb_EventObject
----@field Middle ChannelFrame_ChannelList_ScrollBar_Track_Thumb_MiddleObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field downBeginTexture string
----@field downEndTexture string
----@field downMiddleTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field overBeginTexture string
----@field overEndTexture string
----@field overMiddleTexture string
----@field upBeginTexture string
----@field upEndTexture string
----@field upMiddleTexture string
-local ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject = {}
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:GetAtlas(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:IsDown(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:IsDownOver(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:IsOver(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:OnDisable(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:OnEnable(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:OnEnter(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:OnLeave(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:OnLoad(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:OnShow(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+---@class AuctionHouseFrame_CommoditiesSellList_NineSlice_BottomRightCornerObject : Texture
+local AuctionHouseFrame_CommoditiesSellList_NineSlice_BottomRightCornerObject = {}
 end
 
 do
----@class ChannelFrame_ChannelList_ScrollBar_Track_Thumb_BeginObject : Texture
-local ChannelFrame_ChannelList_ScrollBar_Track_Thumb_BeginObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_NineSlice_LeftEdgeObject : Texture
+local AuctionHouseFrame_CommoditiesSellList_NineSlice_LeftEdgeObject = {}
 end
 
 do
----@class ChannelFrame_ChannelList_ScrollBar_Track_Thumb_EndObject : Texture
-local ChannelFrame_ChannelList_ScrollBar_Track_Thumb_EndObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_NineSlice_RightEdgeObject : Texture
+local AuctionHouseFrame_CommoditiesSellList_NineSlice_RightEdgeObject = {}
 end
 
 do
----@class ChannelFrame_ChannelList_ScrollBar_Track_Thumb_EventObject
-local ChannelFrame_ChannelList_ScrollBar_Track_Thumb_EventObject = {}
-end
-
-do
----@class ChannelFrame_ChannelList_ScrollBar_Track_Thumb_MiddleObject : Texture
-local ChannelFrame_ChannelList_ScrollBar_Track_Thumb_MiddleObject = {}
-end
-
-do
----@class ChannelFrame_ChannelList_ScrollBar_interpolatorObject
-local ChannelFrame_ChannelList_ScrollBar_interpolatorObject = {}
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_interpolatorObject:Cancel(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_interpolatorObject:Interpolate(...) end
----@return any ...
-function ChannelFrame_ChannelList_ScrollBar_interpolatorObject:interpolateFunc(...) end
+---@class AuctionHouseFrame_CommoditiesSellList_NineSlice_TopEdgeObject : Texture
+local AuctionHouseFrame_CommoditiesSellList_NineSlice_TopEdgeObject = {}
 end
 
 do
----@class ChannelFrame_ChannelList_communityChannelButtonPoolObject
-local ChannelFrame_ChannelList_communityChannelButtonPoolObject = {}
----@return any ...
-function ChannelFrame_ChannelList_communityChannelButtonPoolObject:GetTemplate(...) end
----@return any ...
-function ChannelFrame_ChannelList_communityChannelButtonPoolObject:private(...) end
+---@class AuctionHouseFrame_CommoditiesSellList_NineSlice_TopLeftCornerObject : Texture
+local AuctionHouseFrame_CommoditiesSellList_NineSlice_TopLeftCornerObject = {}
 end
 
 do
----@class ChannelFrame_ChannelList_headerButtonPoolObject
-local ChannelFrame_ChannelList_headerButtonPoolObject = {}
----@return any ...
-function ChannelFrame_ChannelList_headerButtonPoolObject:GetTemplate(...) end
----@return any ...
-function ChannelFrame_ChannelList_headerButtonPoolObject:private(...) end
+---@class AuctionHouseFrame_CommoditiesSellList_NineSlice_TopRightCornerObject : Texture
+local AuctionHouseFrame_CommoditiesSellList_NineSlice_TopRightCornerObject = {}
 end
 
 do
----@class ChannelFrame_ChannelList_textChannelButtonPoolObject
-local ChannelFrame_ChannelList_textChannelButtonPoolObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_RefreshFrameObject : Frame
+---@field RefreshButton AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject
+---@field TotalQuantity AuctionHouseFrame_CommoditiesSellList_RefreshFrame_TotalQuantityObject
+local AuctionHouseFrame_CommoditiesSellList_RefreshFrameObject = {}
 ---@return any ...
-function ChannelFrame_ChannelList_textChannelButtonPoolObject:GetTemplate(...) end
----@return any ...
-function ChannelFrame_ChannelList_textChannelButtonPoolObject:private(...) end
-end
-
-do
----@class ChannelFrame_ChannelList_voiceChannelButtonPoolObject
-local ChannelFrame_ChannelList_voiceChannelButtonPoolObject = {}
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrameObject:Deactivate(...) end
 ---@return any ...
-function ChannelFrame_ChannelList_voiceChannelButtonPoolObject:GetTemplate(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrameObject:SetQuantity(...) end
 ---@return any ...
-function ChannelFrame_ChannelList_voiceChannelButtonPoolObject:private(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrameObject:SetRefreshCallback(...) end
 end
 
 do
----@class ChannelFrame_ChannelRosterObject : Frame
----@field ChannelCount ChannelFrame_ChannelRoster_ChannelCountObject
----@field ChannelName ChannelFrame_ChannelRoster_ChannelNameObject
----@field ScrollBar ChannelFrame_ChannelRoster_ScrollBarObject
----@field ScrollBox ChannelFrame_ChannelRoster_ScrollBoxObject
----@field Spinner ChannelFrame_ChannelRoster_SpinnerObject
-local ChannelFrame_ChannelRosterObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject : Button
+---@field Controller AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButton_ControllerObject
+---@field Icon AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButton_IconObject
+---@field iconAtlas string
+---@field iconSize number
+---@field tooltipTitle string
+local AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject = {}
 ---@return any ...
-function ChannelFrame_ChannelRosterObject:GetChannelCountText(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject:ClearCustomTextFormatter(...) end
 ---@return any ...
-function ChannelFrame_ChannelRosterObject:GetChannelFrame(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject:GetOnClickSoundKit(...) end
 ---@return any ...
-function ChannelFrame_ChannelRosterObject:GetChannelFrameNavLeftTarget(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject:InitButton(...) end
 ---@return any ...
-function ChannelFrame_ChannelRosterObject:GetChannelNameText(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject:OnClick(...) end
 ---@return any ...
-function ChannelFrame_ChannelRosterObject:GetGamepadSelectionData(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject:OnEnter(...) end
 ---@return any ...
-function ChannelFrame_ChannelRosterObject:GetRosterButtonForVoiceMemberID(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject:OnLeave(...) end
 ---@return any ...
-function ChannelFrame_ChannelRosterObject:InitializeScrollBox(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject:OnLoad(...) end
 ---@return any ...
-function ChannelFrame_ChannelRosterObject:OnEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject:OnMouseDown(...) end
 ---@return any ...
-function ChannelFrame_ChannelRosterObject:OnHide(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject:OnMouseUp(...) end
 ---@return any ...
-function ChannelFrame_ChannelRosterObject:OnLoad(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject:RunCustomTextFormatter(...) end
 ---@return any ...
-function ChannelFrame_ChannelRosterObject:OnShow(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject:SetAtlas(...) end
 ---@return any ...
-function ChannelFrame_ChannelRosterObject:OnUnitConnection(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject:SetButtonArtKit(...) end
 ---@return any ...
-function ChannelFrame_ChannelRosterObject:OnVoiceChannelMemberActiveStateChanged(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject:SetCustomTextFormatter(...) end
 ---@return any ...
-function ChannelFrame_ChannelRosterObject:OnVoiceChannelMemberStateUpdate(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject:SetDisabledTooltip(...) end
 ---@return any ...
-function ChannelFrame_ChannelRosterObject:ResetScrollAndGetTopEntry(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject:SetEnabledState(...) end
 ---@return any ...
-function ChannelFrame_ChannelRosterObject:ResetScrollPosition(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject:SetIcon(...) end
 ---@return any ...
-function ChannelFrame_ChannelRosterObject:RestorePreviousSelectionData(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject:SetOnClickHandler(...) end
 ---@return any ...
-function ChannelFrame_ChannelRosterObject:SetSpinnerShown(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject:SetOnEnterHandler(...) end
 ---@return any ...
-function ChannelFrame_ChannelRosterObject:Update(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject:SetTooltipAnchor(...) end
 ---@return any ...
-function ChannelFrame_ChannelRosterObject:UpdateFromCommunityStream(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject:SetTooltipInfo(...) end
 ---@return any ...
-function ChannelFrame_ChannelRosterObject:UpdateFromOpaqueChannel(...) end
----@return any ...
-function ChannelFrame_ChannelRosterObject:UpdateFromTextChannelID(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButtonObject:onClickHandler(...) end
+end
+
+do
+---@class AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButton_ControllerObject : Frame
+local AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButton_ControllerObject = {}
 ---@return any ...
-function ChannelFrame_ChannelRosterObject:UpdateFromVoiceChannelID(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButton_ControllerObject:OnLoad(...) end
 ---@return any ...
-function ChannelFrame_ChannelRosterObject:UpdateSmartNavJumps(...) end
+function AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButton_ControllerObject:OnShow(...) end
+end
+
+do
+---@class AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButton_IconObject : Texture
+local AuctionHouseFrame_CommoditiesSellList_RefreshFrame_RefreshButton_IconObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ChannelCountObject : FontString
-local ChannelFrame_ChannelRoster_ChannelCountObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_RefreshFrame_TotalQuantityObject : FontString
+local AuctionHouseFrame_CommoditiesSellList_RefreshFrame_TotalQuantityObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ChannelNameObject : FontString
-local ChannelFrame_ChannelRoster_ChannelNameObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ResultsTextObject : FontString
+local AuctionHouseFrame_CommoditiesSellList_ResultsTextObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBarObject : Frame
----@field Back ChannelFrame_ChannelRoster_ScrollBar_BackObject
----@field Defaults ChannelFrame_ChannelRoster_ScrollBar_DefaultsObject
----@field Directions ChannelFrame_ChannelRoster_ScrollBar_DirectionsObject
----@field Event ChannelFrame_ChannelRoster_ScrollBar_EventObject
----@field Forward ChannelFrame_ChannelRoster_ScrollBar_ForwardObject
----@field Track ChannelFrame_ChannelRoster_ScrollBar_TrackObject
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBarObject : Frame
+---@field Back AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject
+---@field Defaults AuctionHouseFrame_CommoditiesSellList_ScrollBar_DefaultsObject
+---@field Directions AuctionHouseFrame_CommoditiesSellList_ScrollBar_DirectionsObject
+---@field Event AuctionHouseFrame_CommoditiesSellList_ScrollBar_EventObject
+---@field Forward AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject
+---@field Track AuctionHouseFrame_CommoditiesSellList_ScrollBar_TrackObject
 ---@field allowScroll boolean
 ---@field callbackTables table
 ---@field canInterpolateScroll boolean
@@ -4531,193 +835,190 @@ do
 ---@field executingEvents table
 ---@field hideTrack boolean
 ---@field hideTrackIfThumbExceedsTrack boolean
----@field interpolator ChannelFrame_ChannelRoster_ScrollBar_interpolatorObject
 ---@field isScrollController boolean
 ---@field minThumbExtent number
 ---@field panDelay number
 ---@field panExtentPercentage number
 ---@field panRepeatTime number
----@field registeredScrollBox ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject
----@field scrollPercentage number
 ---@field smartNavigationIgnored boolean
 ---@field snapToInterval boolean
 ---@field thumbAnchor string
 ---@field useProportionalThumb boolean
 ---@field visibleExtentPercentage number
 ---@field wheelPanScalar number
-local ChannelFrame_ChannelRoster_ScrollBarObject = {}
+local AuctionHouseFrame_CommoditiesSellList_ScrollBarObject = {}
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:CallInternalScope(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:CallInternalScope(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:CanCursorStepInDirection(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:CanCursorStepInDirection(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:CanInterpolateScroll(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:CanInterpolateScroll(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:CopyDeferredCallbacks(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:DisableControls(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:DisableControls(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:DoesFrameHaveEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:EnableInternalPriority(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:EnableInternalPriority(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:EnableSnapToInterval(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:EnableSnapToInterval(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:GenerateCallbackEvents(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:GetBackStepper(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:GetBackStepper(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:GetCallbackTable(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:GetCallbackTable(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:GetCallbackTables(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:GetCallbackTables(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:GetCallbacksByEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:GetForwardStepper(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:GetForwardStepper(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:GetFrameExtent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:GetFrameExtent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:GetIntervalRange(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:GetIntervalRange(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:GetLower(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:GetLower(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:GetPanExtentPercentage(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:GetPanRepeatDelay(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:GetPanRepeatDelay(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:GetPanRepeatTime(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:GetPanRepeatTime(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:GetScrollInterpolator(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:GetScrollInterpolator(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:GetScrollPercentage(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:GetScrollPercentage(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:GetThumb(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:GetThumb(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:GetThumbAnchor(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:GetThumbAnchor(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:GetTrack(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:GetTrack(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:GetTrackExtent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:GetTrackExtent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:GetUpper(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:GetUpper(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:GetVisibleExtentPercentage(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:GetWheelPanPercentage(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:HasRegistrantsForEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:HasScrollableExtent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:HasScrollableExtent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:Init(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:Init(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:InitializeNarration(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:InitializeNarration(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:Interpolate(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:Interpolate(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:IsAtBegin(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:IsAtBegin(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:IsAtEnd(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:IsAtEnd(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:IsHorizontal(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:IsHorizontal(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:IsScrollAllowed(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:IsScrollAllowed(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:IsThumbMouseDown(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:IsThumbMouseDown(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:OnHide_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:OnLoad(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:OnLoad(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:OnLoad_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:OnMouseWheel(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:OnMouseWheel(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:OnShow_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:OnStepperMouseDown(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:OnStepperMouseDown(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:OnThumbMouseDown(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:OnThumbMouseDown(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:OnTrackMouseDown(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:OnTrackMouseDown(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:RegisterCallback(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:RegisterCallback(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:RegisterCallbackWithHandle(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:ScrollDecrease(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:ScrollDecrease(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:ScrollInDirection(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:ScrollInDirection(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:ScrollIncrease(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:ScrollIncrease(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:ScrollPageInDirection(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:ScrollPageInDirection(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:ScrollStepInDirection(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:ScrollStepInDirection(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:ScrollToBegin(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:ScrollToBegin(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:ScrollToEnd(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:ScrollToEnd(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:ScrollWheelInDirection(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:ScrollWheelInDirection(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:SecureInsertEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:SecureInsertEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:SelectCursorComponent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:SelectCursorComponent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:SelectPointComponent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:SelectPointComponent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:SetFrameExtent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:SetFrameExtent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:SetHideIfUnscrollable(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:SetHideIfUnscrollable(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:SetHorizontal(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:SetHorizontal(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:SetInterpolateScroll(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:SetInterpolateScroll(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:SetPanExtentPercentage(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:SetScrollAllowed(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:SetScrollAllowed(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:SetScrollPercentage(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:SetScrollPercentage(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:SetScrollPercentageInternal(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:SetThumbExtent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:SetThumbExtent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:SetVisibleExtentPercentage(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:SetVisibleExtentPercentage(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:TriggerEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:TriggerEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:UnregisterCallback(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:UnregisterCallback(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:UnregisterEvents(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:UnregisterEvents(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:UnregisterEventsByEventTable(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:UnregisterUpdate(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:UnregisterUpdate(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:Update(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:Update(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:onButtonMouseUp(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:onButtonMouseUp(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBarObject:scrollInternal(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBarObject:scrollInternal(...) end
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_BackObject : Button
----@field Event ChannelFrame_ChannelRoster_ScrollBar_Back_EventObject
----@field Texture ChannelFrame_ChannelRoster_ScrollBar_Back_TextureObject
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject : Button
+---@field Event AuctionHouseFrame_CommoditiesSellList_ScrollBar_Back_EventObject
+---@field Texture AuctionHouseFrame_CommoditiesSellList_ScrollBar_Back_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -4731,118 +1032,118 @@ do
 ---@field mouseDownSoundKitID number
 ---@field normalTexture string
 ---@field overTexture string
-local ChannelFrame_ChannelRoster_ScrollBar_BackObject = {}
+local AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject = {}
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:GetAtlas(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:GetAtlas(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:GetCallbackTable(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:GetCallbackTable(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:GetCallbackTables(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:GetCallbackTables(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:IsDown(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:IsDown(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:IsDownOver(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:IsDownOver(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:IsOver(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:IsOver(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:NarrationGetName(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:NarrationGetName(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:OnButtonStateChanged(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:OnButtonStateChanged(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:OnDisable(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:OnDisable(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:OnEnable(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:OnEnable(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:OnEnter(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:OnEnter(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:OnLeave(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:OnLeave(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:OnLoad(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:OnLoad(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:OnMouseDown(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:OnMouseDown(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:OnMouseUp(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:OnMouseUp(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:OnShow(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:OnShow(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:RegisterCallback(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:RegisterCallback(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:SecureInsertEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:SecureInsertEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:SetDisplacedRegions(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:SetDisplacedRegions(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:TriggerEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:TriggerEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:UnregisterCallback(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:UnregisterCallback(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:UnregisterEvents(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:UnregisterEvents(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_Back_EventObject
-local ChannelFrame_ChannelRoster_ScrollBar_Back_EventObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBar_Back_EventObject
+local AuctionHouseFrame_CommoditiesSellList_ScrollBar_Back_EventObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_Back_TextureObject : Texture
-local ChannelFrame_ChannelRoster_ScrollBar_Back_TextureObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBar_Back_TextureObject : Texture
+local AuctionHouseFrame_CommoditiesSellList_ScrollBar_Back_TextureObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_DefaultsObject
-local ChannelFrame_ChannelRoster_ScrollBar_DefaultsObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBar_DefaultsObject
+local AuctionHouseFrame_CommoditiesSellList_ScrollBar_DefaultsObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_DirectionsObject
-local ChannelFrame_ChannelRoster_ScrollBar_DirectionsObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBar_DirectionsObject
+local AuctionHouseFrame_CommoditiesSellList_ScrollBar_DirectionsObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_EventObject
-local ChannelFrame_ChannelRoster_ScrollBar_EventObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBar_EventObject
+local AuctionHouseFrame_CommoditiesSellList_ScrollBar_EventObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_ForwardObject : Button
----@field Event ChannelFrame_ChannelRoster_ScrollBar_Forward_EventObject
----@field Texture ChannelFrame_ChannelRoster_ScrollBar_Forward_TextureObject
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject : Button
+---@field Event AuctionHouseFrame_CommoditiesSellList_ScrollBar_Forward_EventObject
+---@field Texture AuctionHouseFrame_CommoditiesSellList_ScrollBar_Forward_TextureObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -4856,129 +1157,129 @@ do
 ---@field mouseDownSoundKitID number
 ---@field normalTexture string
 ---@field overTexture string
-local ChannelFrame_ChannelRoster_ScrollBar_ForwardObject = {}
+local AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject = {}
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:GetAtlas(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:GetAtlas(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:GetCallbackTable(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:GetCallbackTable(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:GetCallbackTables(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:GetCallbackTables(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:IsDown(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:IsDown(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:IsDownOver(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:IsDownOver(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:IsOver(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:IsOver(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:NarrationGetName(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:NarrationGetName(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:OnDisable(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:OnDisable(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:OnEnable(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:OnEnable(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:OnEnter(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:OnEnter(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:OnLeave(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:OnLeave(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:OnLoad(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:OnLoad(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:OnMouseDown(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:OnMouseDown(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:OnMouseUp(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:OnMouseUp(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:OnShow(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:OnShow(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:RegisterCallback(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:RegisterCallback(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:SecureInsertEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:TriggerEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:TriggerEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:UnregisterCallback(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:UnregisterCallback(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:UnregisterEvents(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:UnregisterEvents(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_Forward_EventObject
-local ChannelFrame_ChannelRoster_ScrollBar_Forward_EventObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBar_Forward_EventObject
+local AuctionHouseFrame_CommoditiesSellList_ScrollBar_Forward_EventObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_Forward_TextureObject : Texture
-local ChannelFrame_ChannelRoster_ScrollBar_Forward_TextureObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBar_Forward_TextureObject : Texture
+local AuctionHouseFrame_CommoditiesSellList_ScrollBar_Forward_TextureObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_TrackObject : Frame
----@field Begin ChannelFrame_ChannelRoster_ScrollBar_Track_BeginObject
----@field End ChannelFrame_ChannelRoster_ScrollBar_Track_EndObject
----@field Middle ChannelFrame_ChannelRoster_ScrollBar_Track_MiddleObject
----@field Thumb ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject
-local ChannelFrame_ChannelRoster_ScrollBar_TrackObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBar_TrackObject : Frame
+---@field Begin AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_BeginObject
+---@field End AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_EndObject
+---@field Middle AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_MiddleObject
+---@field Thumb AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject
+local AuctionHouseFrame_CommoditiesSellList_ScrollBar_TrackObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_Track_BeginObject : Texture
-local ChannelFrame_ChannelRoster_ScrollBar_Track_BeginObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_BeginObject : Texture
+local AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_BeginObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_Track_EndObject : Texture
-local ChannelFrame_ChannelRoster_ScrollBar_Track_EndObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_EndObject : Texture
+local AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_EndObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_Track_MiddleObject : Texture
-local ChannelFrame_ChannelRoster_ScrollBar_Track_MiddleObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_MiddleObject : Texture
+local AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_MiddleObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject : Button
----@field Begin ChannelFrame_ChannelRoster_ScrollBar_Track_Thumb_BeginObject
----@field End ChannelFrame_ChannelRoster_ScrollBar_Track_Thumb_EndObject
----@field Event ChannelFrame_ChannelRoster_ScrollBar_Track_Thumb_EventObject
----@field Middle ChannelFrame_ChannelRoster_ScrollBar_Track_Thumb_MiddleObject
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject : Button
+---@field Begin AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_Thumb_BeginObject
+---@field End AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_Thumb_EndObject
+---@field Event AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_Thumb_EventObject
+---@field Middle AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_Thumb_MiddleObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field desaturateIfDisabled boolean
@@ -4993,130 +1294,117 @@ do
 ---@field upBeginTexture string
 ---@field upEndTexture string
 ---@field upMiddleTexture string
-local ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject = {}
+local AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject = {}
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:GetAtlas(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:IsDown(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:IsDown(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:IsDownOver(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:IsOver(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:IsOver(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:OnDisable(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:OnDisable(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:OnEnable(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:OnEnable(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:OnEnter(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:OnEnter(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:OnLeave(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:OnLeave(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:OnLoad(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:OnLoad(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:OnShow(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:OnShow(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_Track_Thumb_BeginObject : Texture
-local ChannelFrame_ChannelRoster_ScrollBar_Track_Thumb_BeginObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_Thumb_BeginObject : Texture
+local AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_Thumb_BeginObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_Track_Thumb_EndObject : Texture
-local ChannelFrame_ChannelRoster_ScrollBar_Track_Thumb_EndObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_Thumb_EndObject : Texture
+local AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_Thumb_EndObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_Track_Thumb_EventObject
-local ChannelFrame_ChannelRoster_ScrollBar_Track_Thumb_EventObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_Thumb_EventObject
+local AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_Thumb_EventObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_Track_Thumb_MiddleObject : Texture
-local ChannelFrame_ChannelRoster_ScrollBar_Track_Thumb_MiddleObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_Thumb_MiddleObject : Texture
+local AuctionHouseFrame_CommoditiesSellList_ScrollBar_Track_Thumb_MiddleObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_interpolatorObject
-local ChannelFrame_ChannelRoster_ScrollBar_interpolatorObject = {}
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_interpolatorObject:Cancel(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_interpolatorObject:Interpolate(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_interpolatorObject:interpolateFunc(...) end
-end
-
-do
----@class ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject : Frame
----@field Defaults ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_DefaultsObject
----@field Directions ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_DirectionsObject
----@field DragDelegate ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_DragDelegateObject
----@field Event ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_EventObject
----@field ScrollTarget ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject
----@field Shadows ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ShadowsObject
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject : Frame
+---@field Defaults AuctionHouseFrame_CommoditiesSellList_ScrollBox_DefaultsObject
+---@field Directions AuctionHouseFrame_CommoditiesSellList_ScrollBox_DirectionsObject
+---@field DragDelegate AuctionHouseFrame_CommoditiesSellList_ScrollBox_DragDelegateObject
+---@field Event AuctionHouseFrame_CommoditiesSellList_ScrollBox_EventObject
+---@field ScrollTarget AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject
+---@field Shadows AuctionHouseFrame_CommoditiesSellList_ScrollBox_ShadowsObject
 ---@field allowScroll boolean
 ---@field callbackTables table
 ---@field canInterpolateScroll boolean
@@ -5125,846 +1413,622 @@ do
 ---@field executingEvents table
 ---@field isScrollController boolean
 ---@field panExtentPercentage number
----@field registeredScrollBar ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_registeredScrollBarObject
----@field updateLock boolean
----@field view ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject
 ---@field wheelPanScalar number
-local ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject = {}
+local AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject = {}
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ApplyEdgeFade(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ApplyEdgeFade(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:CalculateEdgeFade(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:CalculateEdgeFade(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:CalculatePanExtentPercentage(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:CalculatePanExtentPercentage(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:CalculateScrollPercentage(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:CalculateScrollPercentage(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:CanInterpolateScroll(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:CanInterpolateScroll(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ClearEdgeFade(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ClearEdgeFade(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ContainsElementDataByPredicate(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ContainsElementDataByPredicate(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:CopyDeferredCallbacks(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:DoesFrameHaveEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:EnableSnapToInterval(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:EnableSnapToInterval(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:EnumerateDataProvider(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:EnumerateDataProvider(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:EnumerateDataProviderEntireRange(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:EnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:EnumerateFrames(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:EnumerateFrames(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:FindByPredicate(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:FindByPredicate(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:FindElementData(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:FindElementData(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:FindElementDataByPredicate(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:FindElementDataByPredicate(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:FindElementDataIndex(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:FindElementDataIndex(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:FindElementDataIndexByPredicate(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:FindElementDataIndexByPredicate(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:FindFrame(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:FindFrame(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:FindFrameByPredicate(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:FindFrameByPredicate(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:FindFrameElementDataIndex(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:FindFrameElementDataIndex(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:Flush(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:Flush(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:FlushDataProvider(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:FlushDataProvider(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ForEachElementData(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ForEachElementData(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ForEachFrame(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ForEachFrame(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:FullUpdate(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:FullUpdate(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:FullUpdateInternal(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:FullUpdateInternal(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GenerateCallbackEvents(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetBottomPadding(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetBottomPadding(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetCallbackTable(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetCallbackTable(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetCallbackTables(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetCallbackTables(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetCallbacksByEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetDataIndexBegin(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetDataIndexBegin(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetDataIndexEnd(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetDataIndexEnd(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetDataProvider(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetDataProvider(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetDataProviderSize(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetDataProviderSize(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetDerivedExtent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetDerivedExtent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetDerivedScrollOffset(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetDerivedScrollOffset(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetDerivedScrollRange(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetDerivedScrollRange(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetElementExtent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetElementExtent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetExtent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetExtent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetExtentPadding(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetExtentPadding(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetExtentUntil(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetExtentUntil(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetFrameCount(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetFrameCount(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetFrameExtent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetFrameExtent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetFrames(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetFrames(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetIntervalRange(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetIntervalRange(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetLeftPadding(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetLeftPadding(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetLower(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetLower(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetLowerPadding(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetLowerPadding(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetLowerShadowTexture(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetLowerShadowTexture(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetMutableCallbacksByEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetPadding(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetPadding(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetPanExtent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetPanExtent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetPanExtentPercentage(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetRightPadding(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetRightPadding(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetScrollInterpolator(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetScrollInterpolator(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetScrollPercentage(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetScrollPercentage(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetScrollTarget(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetScrollTarget(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetTopPadding(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetTopPadding(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetUpper(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetUpper(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetUpperPadding(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetUpperPadding(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetUpperShadowTexture(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetUpperShadowTexture(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetView(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetView(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetVisibleExtent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetVisibleExtent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetVisibleExtentPercentage(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetVisibleExtentPercentage(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:GetWheelPanPercentage(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:GetWheelPanPercentage(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:HasDataProvider(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:HasDataProvider(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:HasEdgeFade(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:HasEdgeFade(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:HasRegistrantsForEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:HasScrollableExtent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:HasScrollableExtent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:HasView(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:HasView(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:Init(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:Init(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:Interpolate(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:Interpolate(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:IsAcquireLocked(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:IsAcquireLocked(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:IsAlignmentOverlapIgnored(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:IsAlignmentOverlapIgnored(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:IsAtBegin(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:IsAtBegin(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:IsAtEnd(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:IsAtEnd(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:IsHorizontal(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:IsHorizontal(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:IsScrollAllowed(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:IsScrollAllowed(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:IsScrollToDataIndexSafe(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:IsScrollToDataIndexSafe(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:IsUpdateLocked(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:IsUpdateLocked(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:IsVirtualized(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:IsVirtualized(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:Layout(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:Layout(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:OnLoad(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:OnLoad(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:OnMouseWheel(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:OnMouseWheel(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:OnScrollTargetSizeChanged(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:OnScrollTargetSizeChanged(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:OnSizeChanged(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:OnSizeChanged(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:OnViewAcquiredFrame(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:OnViewAcquiredFrame(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:OnViewDataChanged(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:OnViewDataChanged(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:OnViewDataProviderReassigned(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:OnViewDataProviderReassigned(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:OnViewInitializedFrame(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:OnViewInitializedFrame(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:OnViewReleasedFrame(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:OnViewReleasedFrame(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:Rebuild(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:Rebuild(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:RecalculateDerivedExtent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:RecalculateDerivedExtent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ReconcileDeferredCallbacks(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:RegisterCallback(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:RegisterCallback(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:RegisterCallbackWithHandle(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ReinitializeFrames(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ReinitializeFrames(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:RemoveDataProvider(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:RemoveDataProvider(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProvider(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ReverseEnumerateDataProvider(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ReverseForEachElementData(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ReverseForEachElementData(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ReverseForEachFrame(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ReverseForEachFrame(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SanitizeAlignment(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SanitizeAlignment(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ScrollDecrease(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ScrollDecrease(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ScrollInDirection(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ScrollInDirection(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ScrollIncrease(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ScrollIncrease(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ScrollToBegin(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ScrollToBegin(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ScrollToElementData(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ScrollToElementData(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ScrollToElementDataByPredicate(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ScrollToElementDataByPredicate(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ScrollToElementDataIndex(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ScrollToElementDataIndex(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ScrollToEnd(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ScrollToEnd(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ScrollToFrame(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ScrollToFrame(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ScrollToNearest(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ScrollToNearest(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ScrollToNearestByPredicate(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ScrollToNearestByPredicate(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ScrollToOffset(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ScrollToOffset(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SecureInsertEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SecureInsertEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SelectCursorComponent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SelectCursorComponent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SelectPointComponent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SelectPointComponent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SetAlignmentOverlapIgnored(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SetAlignmentOverlapIgnored(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SetDataProvider(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SetDataProvider(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SetEdgeFadeLength(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SetEdgeFadeLength(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SetFrameExtent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SetFrameExtent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SetHorizontal(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SetHorizontal(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SetInterpolateScroll(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SetInterpolateScroll(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SetLowerShadowAtlas(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SetLowerShadowAtlas(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SetPadding(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SetPadding(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SetPanExtent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SetPanExtent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SetPanExtentPercentage(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SetPanExtentPercentage(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SetScrollAllowed(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SetScrollAllowed(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SetScrollPercentage(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SetScrollPercentage(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SetScrollPercentageInternal(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SetScrollPercentageInternal(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SetScrollTargetOffset(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SetScrollTargetOffset(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SetShadowsFrameLevel(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SetShadowsFrameLevel(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SetShadowsScale(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SetShadowsScale(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SetShadowsShown(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SetShadowsShown(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SetUndefinedEventsAllowed(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SetUpdateLocked(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SetUpdateLocked(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SetUpperShadowAtlas(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SetUpperShadowAtlas(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SetUseShadowsForEdgeFade(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SetUseShadowsForEdgeFade(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:SetView(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:SetView(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:TriggerEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:TriggerEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:UnregisterCallback(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:UnregisterCallback(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:UnregisterEvents(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:UnregisterEvents(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:UnregisterEventsByEventTable(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:UnregisterEventsByEventTable(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:Update(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:Update(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBoxObject:scrollInternal(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBoxObject:scrollInternal(...) end
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_DefaultsObject
-local ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_DefaultsObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBox_DefaultsObject
+local AuctionHouseFrame_CommoditiesSellList_ScrollBox_DefaultsObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_DirectionsObject
-local ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_DirectionsObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBox_DirectionsObject
+local AuctionHouseFrame_CommoditiesSellList_ScrollBox_DirectionsObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_DragDelegateObject : Frame
-local ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_DragDelegateObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBox_DragDelegateObject : Frame
+local AuctionHouseFrame_CommoditiesSellList_ScrollBox_DragDelegateObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_EventObject
-local ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_EventObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBox_EventObject
+local AuctionHouseFrame_CommoditiesSellList_ScrollBox_EventObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject : Frame
----@field Event ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject : Frame
+---@field Event AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTarget_EventObject
 ---@field callbackTables table
 ---@field deferredCallbacks table
 ---@field executingEvents table
-local ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject = {}
+local AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject = {}
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTable(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject:GetCallbackTable(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbackTables(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject:GetCallbackTables(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject:OnLoad(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallback(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject:RegisterCallback(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject:TriggerEvent(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject:TriggerEvent(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterCallback(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject:UnregisterCallback(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEvents(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject:UnregisterEvents(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
+function AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTarget_EventObject
-local ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ScrollTarget_EventObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTarget_EventObject
+local AuctionHouseFrame_CommoditiesSellList_ScrollBox_ScrollTarget_EventObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ShadowsObject : Frame
----@field Lower ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_Shadows_LowerObject
----@field Upper ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_Shadows_UpperObject
-local ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_ShadowsObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBox_ShadowsObject : Frame
+---@field Lower AuctionHouseFrame_CommoditiesSellList_ScrollBox_Shadows_LowerObject
+---@field Upper AuctionHouseFrame_CommoditiesSellList_ScrollBox_Shadows_UpperObject
+local AuctionHouseFrame_CommoditiesSellList_ScrollBox_ShadowsObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_Shadows_LowerObject : Texture
-local ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_Shadows_LowerObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBox_Shadows_LowerObject : Texture
+local AuctionHouseFrame_CommoditiesSellList_ScrollBox_Shadows_LowerObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_Shadows_UpperObject : Texture
-local ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_Shadows_UpperObject = {}
+---@class AuctionHouseFrame_CommoditiesSellList_ScrollBox_Shadows_UpperObject : Texture
+local AuctionHouseFrame_CommoditiesSellList_ScrollBox_Shadows_UpperObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_registeredScrollBarObject
-local ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_registeredScrollBarObject = {}
+---@class AuctionHouseFrame_DialogOverlayObject : Button
+local AuctionHouseFrame_DialogOverlayObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject
----@field Event table
----@field FrameLevelPolicy table
----@field callbackTables table
----@field canSignalWithoutInitializer boolean
----@field dataIndexBegin number
----@field dataIndexEnd number
----@field deferredCallbacks table
----@field executingEvents table
----@field frameFactory table
----@field frameTemplateOrFrameType string
----@field frames table
----@field initialized boolean
----@field initializers table
----@field padding table
----@field scrollBox ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_view_scrollBoxObject
----@field templateInfoCache table
-local ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject = {}
+---@class AuctionHouseFrame_DummyMoneyDisplayFrameObject : Frame
+---@field CopperDisplay AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplayObject
+---@field GoldDisplay AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplayObject
+---@field SilverDisplay AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplayObject
+---@field hideCopper boolean
+---@field resizeToFit boolean
+---@field useAuctionHouseCopperValue boolean
+---@field useAuctionHouseIcons boolean
+local AuctionHouseFrame_DummyMoneyDisplayFrameObject = {}
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:AcquireInternal(...) end
+function AuctionHouseFrame_DummyMoneyDisplayFrameObject:GetAmount(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:AcquireRange(...) end
+function AuctionHouseFrame_DummyMoneyDisplayFrameObject:GetFontObject(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:AssignAccessors(...) end
+function AuctionHouseFrame_DummyMoneyDisplayFrameObject:OnLoad(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:AttachDataProviderCallbacks(...) end
+function AuctionHouseFrame_DummyMoneyDisplayFrameObject:SetAmount(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:CacheTemplateInfoFromElementData(...) end
+function AuctionHouseFrame_DummyMoneyDisplayFrameObject:SetFontAndIconDisabled(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:CalculateDataIndices(...) end
+function AuctionHouseFrame_DummyMoneyDisplayFrameObject:SetFontObject(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:CalculateFrameExtent(...) end
+function AuctionHouseFrame_DummyMoneyDisplayFrameObject:SetResizeToFit(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:ClearCachedData(...) end
+function AuctionHouseFrame_DummyMoneyDisplayFrameObject:UpdateAnchoring(...) end
 ---@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:ClearElementExtentData(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:ClearInvalidation(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:ContainsElementDataByPredicate(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:CopyDeferredCallbacks(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:DataProviderContentsChanged(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:DetachDataProviderCallbacks(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:DoesFrameHaveEvent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProvider(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:EnumerateDataProviderEntireRange(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:EnumerateFrames(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:FindByPredicate(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:FindElementData(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:FindElementDataByPredicate(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndex(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:FindElementDataIndexByPredicate(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:FindFrame(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:FindFrameByPredicate(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:FindFrameElementDataIndex(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:Flush(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:FlushDataProvider(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:ForEachElementData(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:ForEachFrame(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GenerateCallbackEvents(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetCallbackTable(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetCallbackTables(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetCallbacksByEvent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetDataIndexBegin(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetDataIndexEnd(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetDataProvider(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetDataProviderSize(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetDataRange(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetDataScrollOffset(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetElementExtent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetElementExtentCalculator(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetElementIndent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetExtent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetExtentFromInfo(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetExtentSpacing(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetExtentTo(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetExtentUntil(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetFactoryDataFromElementData(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetFirstTemplateInfo(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetFrameCount(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetFrameExtent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelCounter(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetFrameLevelPolicy(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetFrames(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetIdenticalElementExtent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetIdenticalStrideExtent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetInvalidationReason(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetLayoutFunction(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetLower(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetPadding(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetPanExtent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetScrollBox(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetScrollTarget(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetSpacing(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetStride(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetTemplateExtentFromElementData(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetTemplateInfo(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:GetUpper(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:HasAnyExtentOrSizeCalculator(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:HasBiaxalLayout(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:HasDataProvider(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:HasElementExtent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:HasIdenticalElementExtent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:HasIdenticalStrideExtent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:HasRegistrantsForEvent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:Init(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:InitDefaultDrag(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:InvokeInitializer(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:InvokeInitializers(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:IsAcquireLocked(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:IsDataIndexWithinRange(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:IsElementStretchDisabled(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:IsExtentValid(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:IsHorizontal(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:IsInitialized(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:IsInvalidated(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:IsScrollToDataIndexSafe(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:IsVirtualized(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:Layout(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:LayoutInternal(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSizeChanged(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:OnDataProviderSort(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:OnLoad(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementData(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:PrepareScrollToElementDataByPredicate(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:RebuildTemplateInfoCache(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:RecalculateExtent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:RefreshSmartNav(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:RegisterCallback(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:ReinitializeFrames(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:Release(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:RemoveDataProvider(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:RemoveDataProviderInternal(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:ResizeFrame(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProvider(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:ReverseEnumerateDataProviderEntireRange(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:ReverseForEachElementData(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:ReverseForEachFrame(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SecureInsertEvent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SelectCursorComponent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SelectPointComponent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SetAcquireLocked(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SetDataProvider(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SetDataRange(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SetElementExtent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SetElementExtentCalculator(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SetElementFactory(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SetElementIndentCalculator(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SetElementInitializer(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SetElementResetter(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SetElementStretchDisabled(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SetExtent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SetFrameExtent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SetFrameFactoryResetter(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SetFrameLevelPolicy(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SetHorizontal(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SetInvalidationReason(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SetMaxPanExtent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SetPadding(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SetPanExtent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SetScrollBox(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SetVirtualized(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SignalDataChangeEvent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:SortFrames(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:TranslateElementDataToUnderlyingData(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:TriggerEvent(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:UnassignAccessors(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:UnregisterCallback(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:UnregisterEvents(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:ValidateDataRange(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:elementFactory(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_viewObject:factory(...) end
+function AuctionHouseFrame_DummyMoneyDisplayFrameObject:UpdateWidth(...) end
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_view_scrollBoxObject
-local ChannelFrame_ChannelRoster_ScrollBar_registeredScrollBox_view_scrollBoxObject = {}
+---@class AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplayObject : Frame
+---@field Icon AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplay_IconObject
+---@field Text AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplay_TextObject
+---@field amount number
+---@field displayType AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplay_displayTypeObject
+---@field showsZeroAmount boolean
+local AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplayObject = {}
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplayObject:GetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplayObject:IsForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplayObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplayObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplayObject:SetDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplayObject:SetFontAndIconDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplayObject:SetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplayObject:SetForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplayObject:SetFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplayObject:SetShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplayObject:ShouldBeShown(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplayObject:ShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplayObject:UpdateDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplayObject:UpdateWidth(...) end
 end
 
 do
----@class ChannelFrame_ChannelRoster_ScrollBoxObject
-local ChannelFrame_ChannelRoster_ScrollBoxObject = {}
+---@class AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplay_IconObject : Texture
+local AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplay_IconObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_SpinnerObject : Frame
----@field Anim ChannelFrame_ChannelRoster_Spinner_AnimObject
----@field Ring ChannelFrame_ChannelRoster_Spinner_RingObject
----@field Sparks ChannelFrame_ChannelRoster_Spinner_SparksObject
-local ChannelFrame_ChannelRoster_SpinnerObject = {}
----@return any ...
-function ChannelFrame_ChannelRoster_SpinnerObject:GetShadowAlpha(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_SpinnerObject:OnHide(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_SpinnerObject:OnShow(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_SpinnerObject:OnSizeChanged(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_SpinnerObject:SetDesaturated(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_SpinnerObject:SetShadowEnabled(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_SpinnerObject:UpdateShadowSize(...) end
----@return any ...
-function ChannelFrame_ChannelRoster_SpinnerObject:UpdateTheme(...) end
+---@class AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplay_TextObject : FontString
+local AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplay_TextObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_Spinner_AnimObject : AnimationGroup
-local ChannelFrame_ChannelRoster_Spinner_AnimObject = {}
+---@class AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplay_displayTypeObject
+local AuctionHouseFrame_DummyMoneyDisplayFrame_CopperDisplay_displayTypeObject = {}
 end
 
 do
----@class ChannelFrame_ChannelRoster_Spinner_RingObject : Texture
-local ChannelFrame_ChannelRoster_Spinner_RingObject = {}
+---@class AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplayObject : Frame
+---@field Icon AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplay_IconObject
+---@field Text AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplay_TextObject
+---@field amount number
+---@field displayType AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplay_displayTypeObject
+local AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplayObject = {}
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplayObject:GetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplayObject:IsForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplayObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplayObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplayObject:SetDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplayObject:SetFontAndIconDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplayObject:SetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplayObject:SetForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplayObject:SetFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplayObject:SetShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplayObject:ShouldBeShown(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplayObject:ShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplayObject:UpdateDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplayObject:UpdateWidth(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplayObject:formatter(...) end
 end
 
 do
----@class ChannelFrame_ChannelRoster_Spinner_SparksObject : Texture
-local ChannelFrame_ChannelRoster_Spinner_SparksObject = {}
+---@class AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplay_IconObject : Texture
+local AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplay_IconObject = {}
 end
 
 do
----@class ChannelFrame_CloseButtonObject : Button
-local ChannelFrame_CloseButtonObject = {}
----@return any ...
-function ChannelFrame_CloseButtonObject:NarrationGetName(...) end
----@return any ...
-function ChannelFrame_CloseButtonObject:OnLoad(...) end
+---@class AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplay_TextObject : FontString
+local AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplay_TextObject = {}
 end
 
 do
----@class ChannelFrame_DirtyFlagsObject
----@field CheckShowTutorial number
----@field RefreshFooter number
----@field UpdateAll number
----@field UpdateChannelList number
----@field UpdateRoster number
----@field flags number
----@field isDirty boolean
-local ChannelFrame_DirtyFlagsObject = {}
----@return any ...
-function ChannelFrame_DirtyFlagsObject:AddNamedFlagsFromTable(...) end
----@return any ...
-function ChannelFrame_DirtyFlagsObject:AddNamedMask(...) end
----@return any ...
-function ChannelFrame_DirtyFlagsObject:AreAnySet(...) end
----@return any ...
-function ChannelFrame_DirtyFlagsObject:AreNoneSet(...) end
----@return any ...
-function ChannelFrame_DirtyFlagsObject:Clear(...) end
----@return any ...
-function ChannelFrame_DirtyFlagsObject:ClearAll(...) end
----@return any ...
-function ChannelFrame_DirtyFlagsObject:GetFlags(...) end
----@return any ...
-function ChannelFrame_DirtyFlagsObject:IsAnySet(...) end
----@return any ...
-function ChannelFrame_DirtyFlagsObject:IsDirty(...) end
----@return any ...
-function ChannelFrame_DirtyFlagsObject:IsSet(...) end
----@return any ...
-function ChannelFrame_DirtyFlagsObject:MarkClean(...) end
----@return any ...
-function ChannelFrame_DirtyFlagsObject:MarkDirty(...) end
----@return any ...
-function ChannelFrame_DirtyFlagsObject:OnLoad(...) end
----@return any ...
-function ChannelFrame_DirtyFlagsObject:Set(...) end
----@return any ...
-function ChannelFrame_DirtyFlagsObject:SetOrClear(...) end
+---@class AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplay_displayTypeObject
+local AuctionHouseFrame_DummyMoneyDisplayFrame_GoldDisplay_displayTypeObject = {}
 end
 
 do
----@class ChannelFrame_FocusJumpHintObject : Frame
----@field ActiveTexture ChannelFrame_FocusJumpHint_ActiveTextureObject
----@field DisabledTexture ChannelFrame_FocusJumpHint_DisabledTextureObject
----@field HoldAnim ChannelFrame_FocusJumpHint_HoldAnimObject
----@field HoldIndicator ChannelFrame_FocusJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG ChannelFrame_FocusJumpHint_HoldIndicatorBGObject
----@field HoverTexture ChannelFrame_FocusJumpHint_HoverTextureObject
----@field LoadBar ChannelFrame_FocusJumpHint_LoadBarObject
----@field LoadBarBG ChannelFrame_FocusJumpHint_LoadBarBGObject
----@field LoadBarGlow ChannelFrame_FocusJumpHint_LoadBarGlowObject
----@field NormalTexture ChannelFrame_FocusJumpHint_NormalTextureObject
----@field PressedTexture ChannelFrame_FocusJumpHint_PressedTextureObject
----@field SpinnerTip ChannelFrame_FocusJumpHint_SpinnerTipObject
+---@class AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplayObject : Frame
+---@field Icon AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplay_IconObject
+---@field Text AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplay_TextObject
+---@field amount number
+---@field displayType AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplay_displayTypeObject
+---@field showsZeroAmount boolean
+local AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplayObject = {}
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplayObject:GetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplayObject:IsForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplayObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplayObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplayObject:SetDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplayObject:SetFontAndIconDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplayObject:SetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplayObject:SetForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplayObject:SetFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplayObject:SetShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplayObject:ShouldBeShown(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplayObject:ShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplayObject:UpdateDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplayObject:UpdateWidth(...) end
+end
+
+do
+---@class AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplay_IconObject : Texture
+local AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplay_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplay_TextObject : FontString
+local AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplay_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplay_displayTypeObject
+local AuctionHouseFrame_DummyMoneyDisplayFrame_SilverDisplay_displayTypeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_EventObject
+---@field BrowseSearchStarted string
+---@field CategorySelected string
+---@field CommoditiesQuantitySelectionChanged string
+local AuctionHouseFrame_EventObject = {}
+end
+
+do
+---@class AuctionHouseFrame_FocusJumpHintObject : Frame
+---@field ActiveTexture AuctionHouseFrame_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture AuctionHouseFrame_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim AuctionHouseFrame_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator AuctionHouseFrame_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG AuctionHouseFrame_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture AuctionHouseFrame_FocusJumpHint_HoverTextureObject
+---@field LoadBar AuctionHouseFrame_FocusJumpHint_LoadBarObject
+---@field LoadBarBG AuctionHouseFrame_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow AuctionHouseFrame_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture AuctionHouseFrame_FocusJumpHint_NormalTextureObject
+---@field PressedTexture AuctionHouseFrame_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip AuctionHouseFrame_FocusJumpHint_SpinnerTipObject
 ---@field ignoreInLayout boolean
 ---@field isHoldAction boolean
 ---@field mappedButtonKey string
@@ -5972,2816 +2036,6286 @@ do
 ---@field textureStateTextures table
 ---@field usableState number
 ---@field useDropShadow boolean
-local ChannelFrame_FocusJumpHintObject = {}
+local AuctionHouseFrame_FocusJumpHintObject = {}
 ---@return any ...
-function ChannelFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
+function AuctionHouseFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
 ---@return any ...
-function ChannelFrame_FocusJumpHintObject:BeginHold(...) end
+function AuctionHouseFrame_FocusJumpHintObject:BeginHold(...) end
 ---@return any ...
-function ChannelFrame_FocusJumpHintObject:CanEnterTextureState(...) end
+function AuctionHouseFrame_FocusJumpHintObject:CanEnterTextureState(...) end
 ---@return any ...
-function ChannelFrame_FocusJumpHintObject:DisableDropShadow(...) end
+function AuctionHouseFrame_FocusJumpHintObject:DisableDropShadow(...) end
 ---@return any ...
-function ChannelFrame_FocusJumpHintObject:EnableDropShadow(...) end
+function AuctionHouseFrame_FocusJumpHintObject:EnableDropShadow(...) end
 ---@return any ...
-function ChannelFrame_FocusJumpHintObject:EndHold(...) end
+function AuctionHouseFrame_FocusJumpHintObject:EndHold(...) end
 ---@return any ...
-function ChannelFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
+function AuctionHouseFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
 ---@return any ...
-function ChannelFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
+function AuctionHouseFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
 ---@return any ...
-function ChannelFrame_FocusJumpHintObject:OnLoad(...) end
+function AuctionHouseFrame_FocusJumpHintObject:OnLoad(...) end
 ---@return any ...
-function ChannelFrame_FocusJumpHintObject:RefreshIconTextures(...) end
+function AuctionHouseFrame_FocusJumpHintObject:RefreshIconTextures(...) end
 ---@return any ...
-function ChannelFrame_FocusJumpHintObject:SetDisabled(...) end
+function AuctionHouseFrame_FocusJumpHintObject:SetDisabled(...) end
 ---@return any ...
-function ChannelFrame_FocusJumpHintObject:SetEnabled(...) end
+function AuctionHouseFrame_FocusJumpHintObject:SetEnabled(...) end
 ---@return any ...
-function ChannelFrame_FocusJumpHintObject:SetFocused(...) end
+function AuctionHouseFrame_FocusJumpHintObject:SetFocused(...) end
 ---@return any ...
-function ChannelFrame_FocusJumpHintObject:SetHoldState(...) end
+function AuctionHouseFrame_FocusJumpHintObject:SetHoldState(...) end
 ---@return any ...
-function ChannelFrame_FocusJumpHintObject:SetInputKey(...) end
+function AuctionHouseFrame_FocusJumpHintObject:SetInputKey(...) end
 ---@return any ...
-function ChannelFrame_FocusJumpHintObject:SetIsHoldAction(...) end
+function AuctionHouseFrame_FocusJumpHintObject:SetIsHoldAction(...) end
 ---@return any ...
-function ChannelFrame_FocusJumpHintObject:SetPressable(...) end
+function AuctionHouseFrame_FocusJumpHintObject:SetPressable(...) end
 ---@return any ...
-function ChannelFrame_FocusJumpHintObject:SetTextureHeight(...) end
+function AuctionHouseFrame_FocusJumpHintObject:SetTextureHeight(...) end
 ---@return any ...
-function ChannelFrame_FocusJumpHintObject:SetTextureState(...) end
+function AuctionHouseFrame_FocusJumpHintObject:SetTextureState(...) end
 ---@return any ...
-function ChannelFrame_FocusJumpHintObject:SetTextureWidth(...) end
+function AuctionHouseFrame_FocusJumpHintObject:SetTextureWidth(...) end
 ---@return any ...
-function ChannelFrame_FocusJumpHintObject:SetUsableState(...) end
+function AuctionHouseFrame_FocusJumpHintObject:SetUsableState(...) end
 ---@return any ...
-function ChannelFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+function AuctionHouseFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
 end
 
 do
----@class ChannelFrame_FocusJumpHint_ActiveTextureObject : Texture
-local ChannelFrame_FocusJumpHint_ActiveTextureObject = {}
+---@class AuctionHouseFrame_FocusJumpHint_ActiveTextureObject : Texture
+local AuctionHouseFrame_FocusJumpHint_ActiveTextureObject = {}
 end
 
 do
----@class ChannelFrame_FocusJumpHint_DisabledTextureObject : Texture
-local ChannelFrame_FocusJumpHint_DisabledTextureObject = {}
+---@class AuctionHouseFrame_FocusJumpHint_DisabledTextureObject : Texture
+local AuctionHouseFrame_FocusJumpHint_DisabledTextureObject = {}
 end
 
 do
----@class ChannelFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim ChannelFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim ChannelFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim ChannelFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
-local ChannelFrame_FocusJumpHint_HoldAnimObject = {}
+---@class AuctionHouseFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim AuctionHouseFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim AuctionHouseFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim AuctionHouseFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local AuctionHouseFrame_FocusJumpHint_HoldAnimObject = {}
 end
 
 do
----@class ChannelFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
-local ChannelFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+---@class AuctionHouseFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local AuctionHouseFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
 end
 
 do
----@class ChannelFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local ChannelFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+---@class AuctionHouseFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local AuctionHouseFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
 end
 
 do
----@class ChannelFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local ChannelFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+---@class AuctionHouseFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local AuctionHouseFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
 end
 
 do
----@class ChannelFrame_FocusJumpHint_HoldIndicatorObject : Texture
-local ChannelFrame_FocusJumpHint_HoldIndicatorObject = {}
+---@class AuctionHouseFrame_FocusJumpHint_HoldIndicatorObject : Texture
+local AuctionHouseFrame_FocusJumpHint_HoldIndicatorObject = {}
 end
 
 do
----@class ChannelFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
-local ChannelFrame_FocusJumpHint_HoldIndicatorBGObject = {}
+---@class AuctionHouseFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
+local AuctionHouseFrame_FocusJumpHint_HoldIndicatorBGObject = {}
 end
 
 do
----@class ChannelFrame_FocusJumpHint_HoverTextureObject : Texture
-local ChannelFrame_FocusJumpHint_HoverTextureObject = {}
+---@class AuctionHouseFrame_FocusJumpHint_HoverTextureObject : Texture
+local AuctionHouseFrame_FocusJumpHint_HoverTextureObject = {}
 end
 
 do
----@class ChannelFrame_FocusJumpHint_LoadBarObject : Texture
-local ChannelFrame_FocusJumpHint_LoadBarObject = {}
+---@class AuctionHouseFrame_FocusJumpHint_LoadBarObject : Texture
+local AuctionHouseFrame_FocusJumpHint_LoadBarObject = {}
 end
 
 do
----@class ChannelFrame_FocusJumpHint_LoadBarBGObject : Texture
-local ChannelFrame_FocusJumpHint_LoadBarBGObject = {}
+---@class AuctionHouseFrame_FocusJumpHint_LoadBarBGObject : Texture
+local AuctionHouseFrame_FocusJumpHint_LoadBarBGObject = {}
 end
 
 do
----@class ChannelFrame_FocusJumpHint_LoadBarGlowObject : Texture
-local ChannelFrame_FocusJumpHint_LoadBarGlowObject = {}
+---@class AuctionHouseFrame_FocusJumpHint_LoadBarGlowObject : Texture
+local AuctionHouseFrame_FocusJumpHint_LoadBarGlowObject = {}
 end
 
 do
----@class ChannelFrame_FocusJumpHint_NormalTextureObject : Texture
-local ChannelFrame_FocusJumpHint_NormalTextureObject = {}
+---@class AuctionHouseFrame_FocusJumpHint_NormalTextureObject : Texture
+local AuctionHouseFrame_FocusJumpHint_NormalTextureObject = {}
 end
 
 do
----@class ChannelFrame_FocusJumpHint_PressedTextureObject : Texture
-local ChannelFrame_FocusJumpHint_PressedTextureObject = {}
+---@class AuctionHouseFrame_FocusJumpHint_PressedTextureObject : Texture
+local AuctionHouseFrame_FocusJumpHint_PressedTextureObject = {}
 end
 
 do
----@class ChannelFrame_FocusJumpHint_SpinnerTipObject : Texture
-local ChannelFrame_FocusJumpHint_SpinnerTipObject = {}
+---@class AuctionHouseFrame_FocusJumpHint_SpinnerTipObject : Texture
+local AuctionHouseFrame_FocusJumpHint_SpinnerTipObject = {}
 end
 
 do
----@class ChannelFrame_FrameGlowObject : Frame
----@field GlowTexture ChannelFrame_FrameGlow_GlowTextureObject
+---@class AuctionHouseFrame_FrameGlowObject : Frame
+---@field GlowTexture AuctionHouseFrame_FrameGlow_GlowTextureObject
 ---@field glowTextures table
-local ChannelFrame_FrameGlowObject = {}
+local AuctionHouseFrame_FrameGlowObject = {}
 ---@return any ...
-function ChannelFrame_FrameGlowObject:GetContainerFrame(...) end
+function AuctionHouseFrame_FrameGlowObject:GetContainerFrame(...) end
 ---@return any ...
-function ChannelFrame_FrameGlowObject:GetFrameLayoutType(...) end
+function AuctionHouseFrame_FrameGlowObject:GetFrameLayoutType(...) end
 ---@return any ...
-function ChannelFrame_FrameGlowObject:GetHeaderFrame(...) end
+function AuctionHouseFrame_FrameGlowObject:GetHeaderFrame(...) end
 ---@return any ...
-function ChannelFrame_FrameGlowObject:OnLoad(...) end
+function AuctionHouseFrame_FrameGlowObject:OnLoad(...) end
 end
 
 do
----@class ChannelFrame_FrameGlow_GlowTextureObject : Texture
-local ChannelFrame_FrameGlow_GlowTextureObject = {}
+---@class AuctionHouseFrame_FrameGlow_GlowTextureObject : Texture
+local AuctionHouseFrame_FrameGlow_GlowTextureObject = {}
 end
 
 do
----@class ChannelFrame_IconObject : Texture
-local ChannelFrame_IconObject = {}
+---@class AuctionHouseFrame_ItemBuyFrameObject : Frame
+---@field BackButton AuctionHouseFrame_ItemBuyFrame_BackButtonObject
+---@field BidFrame AuctionHouseFrame_ItemBuyFrame_BidFrameObject
+---@field BuyoutFrame AuctionHouseFrame_ItemBuyFrame_BuyoutFrameObject
+---@field ItemDisplay AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject
+---@field ItemList AuctionHouseFrame_ItemBuyFrame_ItemListObject
+---@field headers table
+---@field minBid number
+---@field searchContext number
+local AuctionHouseFrame_ItemBuyFrameObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrameObject:BuyoutItem(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrameObject:GetAuctionHouseFrame(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrameObject:GetBidAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrameObject:GetBuyoutAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrameObject:GetSearchContext(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrameObject:GetSortOrderState(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrameObject:HasAuctionSelected(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrameObject:OnAuctionSelected(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrameObject:OnEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrameObject:OnHide(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrameObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrameObject:OnShow(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrameObject:PlaceBid(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrameObject:RegisterHeader(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrameObject:ResetPrice(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrameObject:SetAuction(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrameObject:SetAuctionID(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrameObject:SetItemKey(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrameObject:SetPrice(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrameObject:SetSearchContext(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrameObject:SetSortOrder(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrameObject:UpdateHeaders(...) end
 end
 
 do
----@class ChannelFrame_InsetObject : Frame
----@field Bg ChannelFrame_Inset_BgObject
----@field NineSlice ChannelFrame_Inset_NineSliceObject
----@field layoutType string
-local ChannelFrame_InsetObject = {}
-end
-
-do
----@class ChannelFrame_Inset_BgObject : Texture
-local ChannelFrame_Inset_BgObject = {}
-end
-
-do
----@class ChannelFrame_Inset_NineSliceObject : Frame
----@field BottomEdge ChannelFrame_Inset_NineSlice_BottomEdgeObject
----@field BottomLeftCorner ChannelFrame_Inset_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner ChannelFrame_Inset_NineSlice_BottomRightCornerObject
----@field LeftEdge ChannelFrame_Inset_NineSlice_LeftEdgeObject
----@field RightEdge ChannelFrame_Inset_NineSlice_RightEdgeObject
----@field TopEdge ChannelFrame_Inset_NineSlice_TopEdgeObject
----@field TopLeftCorner ChannelFrame_Inset_NineSlice_TopLeftCornerObject
----@field TopRightCorner ChannelFrame_Inset_NineSlice_TopRightCornerObject
-local ChannelFrame_Inset_NineSliceObject = {}
----@return any ...
-function ChannelFrame_Inset_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function ChannelFrame_Inset_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function ChannelFrame_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function ChannelFrame_Inset_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function ChannelFrame_Inset_NineSliceObject:OnLoad(...) end
----@return any ...
-function ChannelFrame_Inset_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function ChannelFrame_Inset_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function ChannelFrame_Inset_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function ChannelFrame_Inset_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function ChannelFrame_Inset_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class ChannelFrame_Inset_NineSlice_BottomEdgeObject : Texture
-local ChannelFrame_Inset_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class ChannelFrame_Inset_NineSlice_BottomLeftCornerObject : Texture
-local ChannelFrame_Inset_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class ChannelFrame_Inset_NineSlice_BottomRightCornerObject : Texture
-local ChannelFrame_Inset_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class ChannelFrame_Inset_NineSlice_LeftEdgeObject : Texture
-local ChannelFrame_Inset_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class ChannelFrame_Inset_NineSlice_RightEdgeObject : Texture
-local ChannelFrame_Inset_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class ChannelFrame_Inset_NineSlice_TopEdgeObject : Texture
-local ChannelFrame_Inset_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class ChannelFrame_Inset_NineSlice_TopLeftCornerObject : Texture
-local ChannelFrame_Inset_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class ChannelFrame_Inset_NineSlice_TopRightCornerObject : Texture
-local ChannelFrame_Inset_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class ChannelFrame_LeftInsetObject : Frame
----@field Bg ChannelFrame_LeftInset_BgObject
----@field NineSlice ChannelFrame_LeftInset_NineSliceObject
----@field layoutType string
-local ChannelFrame_LeftInsetObject = {}
-end
-
-do
----@class ChannelFrame_LeftInset_BgObject : Texture
-local ChannelFrame_LeftInset_BgObject = {}
-end
-
-do
----@class ChannelFrame_LeftInset_NineSliceObject : Frame
----@field BottomEdge ChannelFrame_LeftInset_NineSlice_BottomEdgeObject
----@field BottomLeftCorner ChannelFrame_LeftInset_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner ChannelFrame_LeftInset_NineSlice_BottomRightCornerObject
----@field LeftEdge ChannelFrame_LeftInset_NineSlice_LeftEdgeObject
----@field RightEdge ChannelFrame_LeftInset_NineSlice_RightEdgeObject
----@field TopEdge ChannelFrame_LeftInset_NineSlice_TopEdgeObject
----@field TopLeftCorner ChannelFrame_LeftInset_NineSlice_TopLeftCornerObject
----@field TopRightCorner ChannelFrame_LeftInset_NineSlice_TopRightCornerObject
-local ChannelFrame_LeftInset_NineSliceObject = {}
----@return any ...
-function ChannelFrame_LeftInset_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function ChannelFrame_LeftInset_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function ChannelFrame_LeftInset_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function ChannelFrame_LeftInset_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function ChannelFrame_LeftInset_NineSliceObject:OnLoad(...) end
----@return any ...
-function ChannelFrame_LeftInset_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function ChannelFrame_LeftInset_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function ChannelFrame_LeftInset_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function ChannelFrame_LeftInset_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function ChannelFrame_LeftInset_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class ChannelFrame_LeftInset_NineSlice_BottomEdgeObject : Texture
-local ChannelFrame_LeftInset_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class ChannelFrame_LeftInset_NineSlice_BottomLeftCornerObject : Texture
-local ChannelFrame_LeftInset_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class ChannelFrame_LeftInset_NineSlice_BottomRightCornerObject : Texture
-local ChannelFrame_LeftInset_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class ChannelFrame_LeftInset_NineSlice_LeftEdgeObject : Texture
-local ChannelFrame_LeftInset_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class ChannelFrame_LeftInset_NineSlice_RightEdgeObject : Texture
-local ChannelFrame_LeftInset_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class ChannelFrame_LeftInset_NineSlice_TopEdgeObject : Texture
-local ChannelFrame_LeftInset_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class ChannelFrame_LeftInset_NineSlice_TopLeftCornerObject : Texture
-local ChannelFrame_LeftInset_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class ChannelFrame_LeftInset_NineSlice_TopRightCornerObject : Texture
-local ChannelFrame_LeftInset_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class ChannelFrame_LeftJumpHintObject : Frame
----@field ActiveTexture ChannelFrame_LeftJumpHint_ActiveTextureObject
----@field DisabledTexture ChannelFrame_LeftJumpHint_DisabledTextureObject
----@field HoldAnim ChannelFrame_LeftJumpHint_HoldAnimObject
----@field HoldIndicator ChannelFrame_LeftJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG ChannelFrame_LeftJumpHint_HoldIndicatorBGObject
----@field HoverTexture ChannelFrame_LeftJumpHint_HoverTextureObject
----@field LoadBar ChannelFrame_LeftJumpHint_LoadBarObject
----@field LoadBarBG ChannelFrame_LeftJumpHint_LoadBarBGObject
----@field LoadBarGlow ChannelFrame_LeftJumpHint_LoadBarGlowObject
----@field NormalTexture ChannelFrame_LeftJumpHint_NormalTextureObject
----@field PressedTexture ChannelFrame_LeftJumpHint_PressedTextureObject
----@field SpinnerTip ChannelFrame_LeftJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local ChannelFrame_LeftJumpHintObject = {}
----@return any ...
-function ChannelFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function ChannelFrame_LeftJumpHintObject:BeginHold(...) end
----@return any ...
-function ChannelFrame_LeftJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function ChannelFrame_LeftJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function ChannelFrame_LeftJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function ChannelFrame_LeftJumpHintObject:EndHold(...) end
----@return any ...
-function ChannelFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function ChannelFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function ChannelFrame_LeftJumpHintObject:OnLoad(...) end
----@return any ...
-function ChannelFrame_LeftJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function ChannelFrame_LeftJumpHintObject:SetDisabled(...) end
----@return any ...
-function ChannelFrame_LeftJumpHintObject:SetEnabled(...) end
----@return any ...
-function ChannelFrame_LeftJumpHintObject:SetFocused(...) end
----@return any ...
-function ChannelFrame_LeftJumpHintObject:SetHoldState(...) end
----@return any ...
-function ChannelFrame_LeftJumpHintObject:SetInputKey(...) end
----@return any ...
-function ChannelFrame_LeftJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function ChannelFrame_LeftJumpHintObject:SetPressable(...) end
----@return any ...
-function ChannelFrame_LeftJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function ChannelFrame_LeftJumpHintObject:SetTextureState(...) end
----@return any ...
-function ChannelFrame_LeftJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function ChannelFrame_LeftJumpHintObject:SetUsableState(...) end
----@return any ...
-function ChannelFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class ChannelFrame_LeftJumpHint_ActiveTextureObject : Texture
-local ChannelFrame_LeftJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class ChannelFrame_LeftJumpHint_DisabledTextureObject : Texture
-local ChannelFrame_LeftJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class ChannelFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim ChannelFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim ChannelFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim ChannelFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
-local ChannelFrame_LeftJumpHint_HoldAnimObject = {}
-end
-
-do
----@class ChannelFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
-local ChannelFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class ChannelFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local ChannelFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class ChannelFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local ChannelFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class ChannelFrame_LeftJumpHint_HoldIndicatorObject : Texture
-local ChannelFrame_LeftJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class ChannelFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
-local ChannelFrame_LeftJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class ChannelFrame_LeftJumpHint_HoverTextureObject : Texture
-local ChannelFrame_LeftJumpHint_HoverTextureObject = {}
-end
-
-do
----@class ChannelFrame_LeftJumpHint_LoadBarObject : Texture
-local ChannelFrame_LeftJumpHint_LoadBarObject = {}
-end
-
-do
----@class ChannelFrame_LeftJumpHint_LoadBarBGObject : Texture
-local ChannelFrame_LeftJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class ChannelFrame_LeftJumpHint_LoadBarGlowObject : Texture
-local ChannelFrame_LeftJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class ChannelFrame_LeftJumpHint_NormalTextureObject : Texture
-local ChannelFrame_LeftJumpHint_NormalTextureObject = {}
-end
-
-do
----@class ChannelFrame_LeftJumpHint_PressedTextureObject : Texture
-local ChannelFrame_LeftJumpHint_PressedTextureObject = {}
-end
-
-do
----@class ChannelFrame_LeftJumpHint_SpinnerTipObject : Texture
-local ChannelFrame_LeftJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class ChannelFrame_NewButtonObject : Button
----@field Left ChannelFrame_NewButton_LeftObject
----@field Middle ChannelFrame_NewButton_MiddleObject
----@field Right ChannelFrame_NewButton_RightObject
----@field Text ChannelFrame_NewButton_TextObject
+---@class AuctionHouseFrame_ItemBuyFrame_BackButtonObject : Button
+---@field Left AuctionHouseFrame_ItemBuyFrame_BackButton_LeftObject
+---@field Middle AuctionHouseFrame_ItemBuyFrame_BackButton_MiddleObject
+---@field Right AuctionHouseFrame_ItemBuyFrame_BackButton_RightObject
+---@field Text AuctionHouseFrame_ItemBuyFrame_BackButton_TextObject
 ---@field fitTextCanWidthDecrease boolean
 ---@field fitTextWidthPadding number
-local ChannelFrame_NewButtonObject = {}
+local AuctionHouseFrame_ItemBuyFrame_BackButtonObject = {}
 ---@return any ...
-function ChannelFrame_NewButtonObject:FitToText(...) end
+function AuctionHouseFrame_ItemBuyFrame_BackButtonObject:FitToText(...) end
 ---@return any ...
-function ChannelFrame_NewButtonObject:GetDisabledTooltip(...) end
+function AuctionHouseFrame_ItemBuyFrame_BackButtonObject:GetDisabledTooltip(...) end
 ---@return any ...
-function ChannelFrame_NewButtonObject:OnEnter(...) end
+function AuctionHouseFrame_ItemBuyFrame_BackButtonObject:OnClick(...) end
 ---@return any ...
-function ChannelFrame_NewButtonObject:OnLeave(...) end
+function AuctionHouseFrame_ItemBuyFrame_BackButtonObject:OnEnter(...) end
 ---@return any ...
-function ChannelFrame_NewButtonObject:SetDisabledState(...) end
+function AuctionHouseFrame_ItemBuyFrame_BackButtonObject:OnLeave(...) end
 ---@return any ...
-function ChannelFrame_NewButtonObject:SetDisabledTooltip(...) end
+function AuctionHouseFrame_ItemBuyFrame_BackButtonObject:SetDisabledState(...) end
 ---@return any ...
-function ChannelFrame_NewButtonObject:SetTextToFit(...) end
+function AuctionHouseFrame_ItemBuyFrame_BackButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_BackButtonObject:SetTextToFit(...) end
 end
 
 do
----@class ChannelFrame_NewButton_LeftObject : Texture
-local ChannelFrame_NewButton_LeftObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BackButton_LeftObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_BackButton_LeftObject = {}
 end
 
 do
----@class ChannelFrame_NewButton_MiddleObject : Texture
-local ChannelFrame_NewButton_MiddleObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BackButton_MiddleObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_BackButton_MiddleObject = {}
 end
 
 do
----@class ChannelFrame_NewButton_RightObject : Texture
-local ChannelFrame_NewButton_RightObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BackButton_RightObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_BackButton_RightObject = {}
 end
 
 do
----@class ChannelFrame_NewButton_TextObject : FontString
-local ChannelFrame_NewButton_TextObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BackButton_TextObject : FontString
+local AuctionHouseFrame_ItemBuyFrame_BackButton_TextObject = {}
 end
 
 do
----@class ChannelFrame_NineSliceObject : Frame
----@field BottomEdge ChannelFrame_NineSlice_BottomEdgeObject
----@field BottomLeftCorner ChannelFrame_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner ChannelFrame_NineSlice_BottomRightCornerObject
----@field Center ChannelFrame_NineSlice_CenterObject
----@field LeftEdge ChannelFrame_NineSlice_LeftEdgeObject
----@field RightEdge ChannelFrame_NineSlice_RightEdgeObject
----@field TopEdge ChannelFrame_NineSlice_TopEdgeObject
----@field TopLeftCorner ChannelFrame_NineSlice_TopLeftCornerObject
----@field TopRightCorner ChannelFrame_NineSlice_TopRightCornerObject
-local ChannelFrame_NineSliceObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BidFrameObject : Frame
+---@field BidAmount AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmountObject
+---@field BidButton AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButtonObject
+local AuctionHouseFrame_ItemBuyFrame_BidFrameObject = {}
 ---@return any ...
-function ChannelFrame_NineSliceObject:GetBorderColor(...) end
+function AuctionHouseFrame_ItemBuyFrame_BidFrameObject:GetPrice(...) end
 ---@return any ...
-function ChannelFrame_NineSliceObject:GetCenterColor(...) end
+function AuctionHouseFrame_ItemBuyFrame_BidFrameObject:OnLoad(...) end
 ---@return any ...
-function ChannelFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+function AuctionHouseFrame_ItemBuyFrame_BidFrameObject:PlaceBid(...) end
 ---@return any ...
-function ChannelFrame_NineSliceObject:GetFrameLayoutType(...) end
+function AuctionHouseFrame_ItemBuyFrame_BidFrameObject:SetBidCallback(...) end
 ---@return any ...
-function ChannelFrame_NineSliceObject:OnLoad(...) end
+function AuctionHouseFrame_ItemBuyFrame_BidFrameObject:SetPrice(...) end
 ---@return any ...
-function ChannelFrame_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function ChannelFrame_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function ChannelFrame_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function ChannelFrame_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function ChannelFrame_NineSliceObject:SetVertexColor(...) end
+function AuctionHouseFrame_ItemBuyFrame_BidFrameObject:bidCallback(...) end
 end
 
 do
----@class ChannelFrame_NineSlice_BottomEdgeObject : Texture
-local ChannelFrame_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class ChannelFrame_NineSlice_BottomLeftCornerObject : Texture
-local ChannelFrame_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class ChannelFrame_NineSlice_BottomRightCornerObject : Texture
-local ChannelFrame_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class ChannelFrame_NineSlice_CenterObject : Texture
-local ChannelFrame_NineSlice_CenterObject = {}
-end
-
-do
----@class ChannelFrame_NineSlice_LeftEdgeObject : Texture
-local ChannelFrame_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class ChannelFrame_NineSlice_RightEdgeObject : Texture
-local ChannelFrame_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class ChannelFrame_NineSlice_TopEdgeObject : Texture
-local ChannelFrame_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class ChannelFrame_NineSlice_TopLeftCornerObject : Texture
-local ChannelFrame_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class ChannelFrame_NineSlice_TopRightCornerObject : Texture
-local ChannelFrame_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class ChannelFrame_PortraitContainerObject : Frame
----@field CircleMask ChannelFrame_PortraitContainer_CircleMaskObject
----@field portrait ChannelFrame_PortraitContainer_portraitObject
-local ChannelFrame_PortraitContainerObject = {}
-end
-
-do
----@class ChannelFrame_PortraitContainer_CircleMaskObject : MaskTexture
-local ChannelFrame_PortraitContainer_CircleMaskObject = {}
-end
-
-do
----@class ChannelFrame_PortraitContainer_portraitObject : Texture
-local ChannelFrame_PortraitContainer_portraitObject = {}
-end
-
-do
----@class ChannelFrame_RightInsetObject : Frame
----@field Bg ChannelFrame_RightInset_BgObject
----@field NineSlice ChannelFrame_RightInset_NineSliceObject
----@field layoutType string
-local ChannelFrame_RightInsetObject = {}
-end
-
-do
----@class ChannelFrame_RightInset_BgObject : Texture
-local ChannelFrame_RightInset_BgObject = {}
-end
-
-do
----@class ChannelFrame_RightInset_NineSliceObject : Frame
----@field BottomEdge ChannelFrame_RightInset_NineSlice_BottomEdgeObject
----@field BottomLeftCorner ChannelFrame_RightInset_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner ChannelFrame_RightInset_NineSlice_BottomRightCornerObject
----@field LeftEdge ChannelFrame_RightInset_NineSlice_LeftEdgeObject
----@field RightEdge ChannelFrame_RightInset_NineSlice_RightEdgeObject
----@field TopEdge ChannelFrame_RightInset_NineSlice_TopEdgeObject
----@field TopLeftCorner ChannelFrame_RightInset_NineSlice_TopLeftCornerObject
----@field TopRightCorner ChannelFrame_RightInset_NineSlice_TopRightCornerObject
-local ChannelFrame_RightInset_NineSliceObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmountObject : Frame
+---@field baseHeight number
+---@field baseWidth number
+---@field copper AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_copperObject
+---@field expectChanges number
+---@field gold AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_goldObject
+---@field silver AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_silverObject
+local AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmountObject = {}
 ---@return any ...
-function ChannelFrame_RightInset_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function ChannelFrame_RightInset_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function ChannelFrame_RightInset_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function ChannelFrame_RightInset_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function ChannelFrame_RightInset_NineSliceObject:OnLoad(...) end
----@return any ...
-function ChannelFrame_RightInset_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function ChannelFrame_RightInset_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function ChannelFrame_RightInset_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function ChannelFrame_RightInset_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function ChannelFrame_RightInset_NineSliceObject:SetVertexColor(...) end
+function AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmountObject:SetIsUserScaled(...) end
 end
 
 do
----@class ChannelFrame_RightInset_NineSlice_BottomEdgeObject : Texture
-local ChannelFrame_RightInset_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class ChannelFrame_RightInset_NineSlice_BottomLeftCornerObject : Texture
-local ChannelFrame_RightInset_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class ChannelFrame_RightInset_NineSlice_BottomRightCornerObject : Texture
-local ChannelFrame_RightInset_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class ChannelFrame_RightInset_NineSlice_LeftEdgeObject : Texture
-local ChannelFrame_RightInset_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class ChannelFrame_RightInset_NineSlice_RightEdgeObject : Texture
-local ChannelFrame_RightInset_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class ChannelFrame_RightInset_NineSlice_TopEdgeObject : Texture
-local ChannelFrame_RightInset_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class ChannelFrame_RightInset_NineSlice_TopLeftCornerObject : Texture
-local ChannelFrame_RightInset_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class ChannelFrame_RightInset_NineSlice_TopRightCornerObject : Texture
-local ChannelFrame_RightInset_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class ChannelFrame_RightJumpHintObject : Frame
----@field ActiveTexture ChannelFrame_RightJumpHint_ActiveTextureObject
----@field DisabledTexture ChannelFrame_RightJumpHint_DisabledTextureObject
----@field HoldAnim ChannelFrame_RightJumpHint_HoldAnimObject
----@field HoldIndicator ChannelFrame_RightJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG ChannelFrame_RightJumpHint_HoldIndicatorBGObject
----@field HoverTexture ChannelFrame_RightJumpHint_HoverTextureObject
----@field LoadBar ChannelFrame_RightJumpHint_LoadBarObject
----@field LoadBarBG ChannelFrame_RightJumpHint_LoadBarBGObject
----@field LoadBarGlow ChannelFrame_RightJumpHint_LoadBarGlowObject
----@field NormalTexture ChannelFrame_RightJumpHint_NormalTextureObject
----@field PressedTexture ChannelFrame_RightJumpHint_PressedTextureObject
----@field SpinnerTip ChannelFrame_RightJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local ChannelFrame_RightJumpHintObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_copperObject : EditBox
+---@field baseHeight number
+---@field baseWidth number
+---@field coinAtlas string
+---@field coinSymbol string
+---@field customSmartNavOffsetX number
+---@field label AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_copper_labelObject
+---@field left AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_copper_leftObject
+---@field right AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_copper_rightObject
+---@field texture AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_copper_textureObject
+local AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_copperObject = {}
 ---@return any ...
-function ChannelFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+function AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_copperObject:OnLoad(...) end
 ---@return any ...
-function ChannelFrame_RightJumpHintObject:BeginHold(...) end
+function AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_copperObject:SetDesiredWidth(...) end
 ---@return any ...
-function ChannelFrame_RightJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function ChannelFrame_RightJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function ChannelFrame_RightJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function ChannelFrame_RightJumpHintObject:EndHold(...) end
----@return any ...
-function ChannelFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function ChannelFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function ChannelFrame_RightJumpHintObject:OnLoad(...) end
----@return any ...
-function ChannelFrame_RightJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function ChannelFrame_RightJumpHintObject:SetDisabled(...) end
----@return any ...
-function ChannelFrame_RightJumpHintObject:SetEnabled(...) end
----@return any ...
-function ChannelFrame_RightJumpHintObject:SetFocused(...) end
----@return any ...
-function ChannelFrame_RightJumpHintObject:SetHoldState(...) end
----@return any ...
-function ChannelFrame_RightJumpHintObject:SetInputKey(...) end
----@return any ...
-function ChannelFrame_RightJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function ChannelFrame_RightJumpHintObject:SetPressable(...) end
----@return any ...
-function ChannelFrame_RightJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function ChannelFrame_RightJumpHintObject:SetTextureState(...) end
----@return any ...
-function ChannelFrame_RightJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function ChannelFrame_RightJumpHintObject:SetUsableState(...) end
----@return any ...
-function ChannelFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+function AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_copperObject:SetIsUserScaled(...) end
 end
 
 do
----@class ChannelFrame_RightJumpHint_ActiveTextureObject : Texture
-local ChannelFrame_RightJumpHint_ActiveTextureObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_copper_labelObject : FontString
+local AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_copper_labelObject = {}
 end
 
 do
----@class ChannelFrame_RightJumpHint_DisabledTextureObject : Texture
-local ChannelFrame_RightJumpHint_DisabledTextureObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_copper_leftObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_copper_leftObject = {}
 end
 
 do
----@class ChannelFrame_RightJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim ChannelFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim ChannelFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim ChannelFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
-local ChannelFrame_RightJumpHint_HoldAnimObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_copper_rightObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_copper_rightObject = {}
 end
 
 do
----@class ChannelFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
-local ChannelFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_copper_textureObject : Texture
+---@field baseHeight number
+---@field baseWidth number
+local AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_copper_textureObject = {}
 end
 
 do
----@class ChannelFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local ChannelFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_goldObject : EditBox
+---@field baseHeight number
+---@field baseWidth number
+---@field coinAtlas string
+---@field coinDisplayOffsetX number
+---@field coinSymbol string
+---@field customSmartNavOffsetX number
+---@field darkenOnDigits number
+---@field label AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_gold_labelObject
+---@field left AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_gold_leftObject
+---@field right AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_gold_rightObject
+---@field texture AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_gold_textureObject
+local AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_goldObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_goldObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_goldObject:SetDesiredWidth(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_goldObject:SetIsUserScaled(...) end
 end
 
 do
----@class ChannelFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local ChannelFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_gold_labelObject : FontString
+local AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_gold_labelObject = {}
 end
 
 do
----@class ChannelFrame_RightJumpHint_HoldIndicatorObject : Texture
-local ChannelFrame_RightJumpHint_HoldIndicatorObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_gold_leftObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_gold_leftObject = {}
 end
 
 do
----@class ChannelFrame_RightJumpHint_HoldIndicatorBGObject : Texture
-local ChannelFrame_RightJumpHint_HoldIndicatorBGObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_gold_rightObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_gold_rightObject = {}
 end
 
 do
----@class ChannelFrame_RightJumpHint_HoverTextureObject : Texture
-local ChannelFrame_RightJumpHint_HoverTextureObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_gold_textureObject : Texture
+---@field baseHeight number
+---@field baseWidth number
+local AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_gold_textureObject = {}
 end
 
 do
----@class ChannelFrame_RightJumpHint_LoadBarObject : Texture
-local ChannelFrame_RightJumpHint_LoadBarObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_silverObject : EditBox
+---@field baseHeight number
+---@field baseWidth number
+---@field coinAtlas string
+---@field coinSymbol string
+---@field customSmartNavOffsetX number
+---@field label AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_silver_labelObject
+---@field left AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_silver_leftObject
+---@field right AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_silver_rightObject
+---@field texture AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_silver_textureObject
+local AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_silverObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_silverObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_silverObject:SetDesiredWidth(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_silverObject:SetIsUserScaled(...) end
 end
 
 do
----@class ChannelFrame_RightJumpHint_LoadBarBGObject : Texture
-local ChannelFrame_RightJumpHint_LoadBarBGObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_silver_labelObject : FontString
+local AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_silver_labelObject = {}
 end
 
 do
----@class ChannelFrame_RightJumpHint_LoadBarGlowObject : Texture
-local ChannelFrame_RightJumpHint_LoadBarGlowObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_silver_leftObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_silver_leftObject = {}
 end
 
 do
----@class ChannelFrame_RightJumpHint_NormalTextureObject : Texture
-local ChannelFrame_RightJumpHint_NormalTextureObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_silver_rightObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_silver_rightObject = {}
 end
 
 do
----@class ChannelFrame_RightJumpHint_PressedTextureObject : Texture
-local ChannelFrame_RightJumpHint_PressedTextureObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_silver_textureObject : Texture
+---@field baseHeight number
+---@field baseWidth number
+local AuctionHouseFrame_ItemBuyFrame_BidFrame_BidAmount_silver_textureObject = {}
 end
 
 do
----@class ChannelFrame_RightJumpHint_SpinnerTipObject : Texture
-local ChannelFrame_RightJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class ChannelFrame_SettingsButtonObject : Button
----@field Left ChannelFrame_SettingsButton_LeftObject
----@field Middle ChannelFrame_SettingsButton_MiddleObject
----@field Right ChannelFrame_SettingsButton_RightObject
----@field Text ChannelFrame_SettingsButton_TextObject
+---@class AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButtonObject : Button
+---@field Left AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButton_LeftObject
+---@field Middle AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButton_MiddleObject
+---@field Right AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButton_RightObject
+---@field Text AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButton_TextObject
+---@field disableTooltipTitle string
 ---@field fitTextCanWidthDecrease boolean
 ---@field fitTextWidthPadding number
-local ChannelFrame_SettingsButtonObject = {}
+local AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButtonObject = {}
 ---@return any ...
-function ChannelFrame_SettingsButtonObject:FitToText(...) end
+function AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButtonObject:FitToText(...) end
 ---@return any ...
-function ChannelFrame_SettingsButtonObject:GetDisabledTooltip(...) end
+function AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButtonObject:GetDisabledTooltip(...) end
 ---@return any ...
-function ChannelFrame_SettingsButtonObject:OnEnter(...) end
+function AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButtonObject:OnClick(...) end
 ---@return any ...
-function ChannelFrame_SettingsButtonObject:OnLeave(...) end
+function AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButtonObject:OnEnter(...) end
 ---@return any ...
-function ChannelFrame_SettingsButtonObject:SetDisabledState(...) end
+function AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButtonObject:OnLeave(...) end
 ---@return any ...
-function ChannelFrame_SettingsButtonObject:SetDisabledTooltip(...) end
+function AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButtonObject:SetDisableTooltip(...) end
 ---@return any ...
-function ChannelFrame_SettingsButtonObject:SetTextToFit(...) end
+function AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButtonObject:SetDisabledState(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButtonObject:SetTextToFit(...) end
 end
 
 do
----@class ChannelFrame_SettingsButton_LeftObject : Texture
-local ChannelFrame_SettingsButton_LeftObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButton_LeftObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButton_LeftObject = {}
 end
 
 do
----@class ChannelFrame_SettingsButton_MiddleObject : Texture
-local ChannelFrame_SettingsButton_MiddleObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButton_MiddleObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButton_MiddleObject = {}
 end
 
 do
----@class ChannelFrame_SettingsButton_RightObject : Texture
-local ChannelFrame_SettingsButton_RightObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButton_RightObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButton_RightObject = {}
 end
 
 do
----@class ChannelFrame_SettingsButton_TextObject : FontString
-local ChannelFrame_SettingsButton_TextObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButton_TextObject : FontString
+local AuctionHouseFrame_ItemBuyFrame_BidFrame_BidButton_TextObject = {}
 end
 
 do
----@class ChannelFrame_TitleContainerObject : Frame
----@field TitleText ChannelFrame_TitleContainer_TitleTextObject
-local ChannelFrame_TitleContainerObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BuyoutFrameObject : Frame
+---@field BuyoutButton AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButtonObject
+---@field price number
+local AuctionHouseFrame_ItemBuyFrame_BuyoutFrameObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_BuyoutFrameObject:BuyoutItem(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_BuyoutFrameObject:GetPrice(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_BuyoutFrameObject:SetBuyoutCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_BuyoutFrameObject:SetPrice(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_BuyoutFrameObject:buyoutCallback(...) end
 end
 
 do
----@class ChannelFrame_TitleContainer_TitleTextObject : FontString
-local ChannelFrame_TitleContainer_TitleTextObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButtonObject : Button
+---@field Left AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButton_LeftObject
+---@field Middle AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButton_MiddleObject
+---@field Right AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButton_RightObject
+---@field Text AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButton_TextObject
+---@field disableTooltipTitle string
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButtonObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButtonObject:FitToText(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButtonObject:OnClick(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButtonObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButtonObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButtonObject:SetDisableTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButtonObject:SetDisabledState(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButtonObject:SetTextToFit(...) end
 end
 
 do
----@class ChannelFrame_TopTileStreaksObject : Texture
-local ChannelFrame_TopTileStreaksObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButton_LeftObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButton_LeftObject = {}
 end
 
 do
----@class CharacterFrameObject : Frame
----@field CloseButton CharacterFrame_CloseButtonObject
----@field FocusJumpHint CharacterFrame_FocusJumpHintObject
----@field FrameGlow CharacterFrame_FrameGlowObject
----@field LeftJumpHint CharacterFrame_LeftJumpHintObject
----@field LeftPaneHost CharacterFrame_LeftPaneHostObject
----@field ModeTabs CharacterFrame_ModeTabsObject
----@field NineSlice CharacterFrame_NineSliceObject
----@field PortraitContainer CharacterFrame_PortraitContainerObject
----@field RightJumpHint CharacterFrame_RightJumpHintObject
----@field RightPaneHost CharacterFrame_RightPaneHostObject
----@field RightPaneToggleButton CharacterFrame_RightPaneToggleButtonObject
----@field SidePanes table
----@field Tab CharacterFrame_TabObject
----@field TabIndicators CharacterFrame_TabIndicatorsObject
----@field TitleContainer CharacterFrame_TitleContainerObject
----@field TokenFrame CharacterFrame_TokenFrameObject
+---@class AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButton_MiddleObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButton_MiddleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButton_RightObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButton_RightObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButton_TextObject : FontString
+local AuctionHouseFrame_ItemBuyFrame_BuyoutFrame_BuyoutButton_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject : Button
+---@field Background AuctionHouseFrame_ItemBuyFrame_ItemDisplay_BackgroundObject
+---@field FavoriteButton AuctionHouseFrame_ItemBuyFrame_ItemDisplay_FavoriteButtonObject
+---@field ItemButton AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButtonObject
+---@field Name AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NameObject
+---@field NineSlice AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSliceObject
+---@field auctionHouseFrame AuctionHouseFrame_ItemBuyFrame_ItemDisplay_auctionHouseFrameObject
+---@field backgroundAtlas string
+---@field backgroundTextureClassic string
+---@field itemButtonXOffset number
+---@field itemButtonYOffset number
 ---@field layoutType string
----@field rightPaneCollapsed boolean
----@field selectedTab number
-local CharacterFrameObject = {}
+---@field textureHeightClassic number
+---@field textureWidthClassic number
+---@field textureXOffsetClassic number
+---@field textureYOffsetClassic number
+local AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject = {}
 ---@return any ...
-function CharacterFrameObject:Collapse(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:GetItem(...) end
 ---@return any ...
-function CharacterFrameObject:EndFocus(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:GetItemCount(...) end
 ---@return any ...
-function CharacterFrameObject:Expand(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:GetItemDisplayText(...) end
 ---@return any ...
-function CharacterFrameObject:FocusCharacterView(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:GetItemID(...) end
 ---@return any ...
-function CharacterFrameObject:FocusGamepad(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:GetItemInfo(...) end
 ---@return any ...
-function CharacterFrameObject:GetFocusFrameGlow(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:GetItemKey(...) end
 ---@return any ...
-function CharacterFrameObject:GetFocusFrameRoot(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:GetItemLink(...) end
 ---@return any ...
-function CharacterFrameObject:GetPortrait(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:GetItemLocation(...) end
 ---@return any ...
-function CharacterFrameObject:GetStatsPane(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:GetItemSource(...) end
 ---@return any ...
-function CharacterFrameObject:GetTab(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:IsPet(...) end
 ---@return any ...
-function CharacterFrameObject:GetTitleText(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:OnClick(...) end
 ---@return any ...
-function CharacterFrameObject:HandleGamepadClose(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:OnEnter(...) end
 ---@return any ...
-function CharacterFrameObject:HasPortraitTexture(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:OnEvent(...) end
 ---@return any ...
-function CharacterFrameObject:HideFocusJumpHint(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:OnLeave(...) end
 ---@return any ...
-function CharacterFrameObject:HideLeftJumpHint(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:OnLoad(...) end
 ---@return any ...
-function CharacterFrameObject:HidePaperDollRightPane(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:OnUpdate(...) end
 ---@return any ...
-function CharacterFrameObject:HideRightJumpHint(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:Reset(...) end
 ---@return any ...
-function CharacterFrameObject:InitializeGamepad(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:SetAuctionHouseFrame(...) end
 ---@return any ...
-function CharacterFrameObject:IsRightPaneCollapsed(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:SetItem(...) end
 ---@return any ...
-function CharacterFrameObject:LoadRightPaneCollapsedSetting(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:SetItemCountFunction(...) end
 ---@return any ...
-function CharacterFrameObject:LockInFocus(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:SetItemInternal(...) end
 ---@return any ...
-function CharacterFrameObject:OnEvent(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:SetItemKey(...) end
 ---@return any ...
-function CharacterFrameObject:OnHide(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:SetItemLevelShown(...) end
 ---@return any ...
-function CharacterFrameObject:OnLoad(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:SetItemLocation(...) end
 ---@return any ...
-function CharacterFrameObject:OnModeTabClicked(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:SetItemSource(...) end
 ---@return any ...
-function CharacterFrameObject:OnShow(...) end
----@return any ...
-function CharacterFrameObject:OnSmartNavFocus(...) end
----@return any ...
-function CharacterFrameObject:RefreshDisplay(...) end
----@return any ...
-function CharacterFrameObject:RefreshFocus(...) end
----@return any ...
-function CharacterFrameObject:RefreshFooters(...) end
----@return any ...
-function CharacterFrameObject:RefreshRightPane(...) end
----@return any ...
-function CharacterFrameObject:RegisterForTransitions(...) end
----@return any ...
-function CharacterFrameObject:RightSideSwapSmartNavigationJumpOverride(...) end
----@return any ...
-function CharacterFrameObject:SetBorder(...) end
----@return any ...
-function CharacterFrameObject:SetFrameLevelsFromBaseLevel(...) end
----@return any ...
-function CharacterFrameObject:SetPortraitAtlasRaw(...) end
----@return any ...
-function CharacterFrameObject:SetPortraitShown(...) end
----@return any ...
-function CharacterFrameObject:SetPortraitTexCoord(...) end
----@return any ...
-function CharacterFrameObject:SetPortraitTextureRaw(...) end
----@return any ...
-function CharacterFrameObject:SetPortraitTextureSizeAndOffset(...) end
----@return any ...
-function CharacterFrameObject:SetPortraitToAsset(...) end
----@return any ...
-function CharacterFrameObject:SetPortraitToBag(...) end
----@return any ...
-function CharacterFrameObject:SetPortraitToClassIcon(...) end
----@return any ...
-function CharacterFrameObject:SetPortraitToSpecIcon(...) end
----@return any ...
-function CharacterFrameObject:SetPortraitToUnit(...) end
----@return any ...
-function CharacterFrameObject:SetRightPaneCollapsed(...) end
----@return any ...
-function CharacterFrameObject:SetSelectedModeTabByFrame(...) end
----@return any ...
-function CharacterFrameObject:SetTitle(...) end
----@return any ...
-function CharacterFrameObject:SetTitleColor(...) end
----@return any ...
-function CharacterFrameObject:SetTitleFormatted(...) end
----@return any ...
-function CharacterFrameObject:SetTitleMaxLinesAndHeight(...) end
----@return any ...
-function CharacterFrameObject:SetTitleOffsets(...) end
----@return any ...
-function CharacterFrameObject:SetUIPanelAttribute(...) end
----@return any ...
-function CharacterFrameObject:SetupGamepad(...) end
----@return any ...
-function CharacterFrameObject:SetupModeTabs(...) end
----@return any ...
-function CharacterFrameObject:ShouldShowCurrencyTab(...) end
----@return any ...
-function CharacterFrameObject:ShowFocusJumpHint(...) end
----@return any ...
-function CharacterFrameObject:ShowLeftJumpHint(...) end
----@return any ...
-function CharacterFrameObject:ShowRightJumpHint(...) end
----@return any ...
-function CharacterFrameObject:ShowSubFrame(...) end
----@return any ...
-function CharacterFrameObject:StartFocus(...) end
----@return any ...
-function CharacterFrameObject:SwapToLeftSide(...) end
----@return any ...
-function CharacterFrameObject:SwapToRightSide(...) end
----@return any ...
-function CharacterFrameObject:ToggleRightPane(...) end
----@return any ...
-function CharacterFrameObject:ToggleTokenFrame(...) end
----@return any ...
-function CharacterFrameObject:UnfocusCharacterView(...) end
----@return any ...
-function CharacterFrameObject:UnfocusGamepad(...) end
----@return any ...
-function CharacterFrameObject:UninitializeGamepad(...) end
----@return any ...
-function CharacterFrameObject:UpdateCharacterModeTabPortrait(...) end
----@return any ...
-function CharacterFrameObject:UpdatePortrait(...) end
----@return any ...
-function CharacterFrameObject:UpdateRightPaneHeader(...) end
----@return any ...
-function CharacterFrameObject:UpdateRightPaneToggleButton(...) end
----@return any ...
-function CharacterFrameObject:UpdateSize(...) end
----@return any ...
-function CharacterFrameObject:UpdateSmartNavFocus(...) end
----@return any ...
-function CharacterFrameObject:UpdateTabLayout(...) end
----@return any ...
-function CharacterFrameObject:UpdateTitle(...) end
----@type CharacterFrameObject
-CharacterFrame = CharacterFrameObject
-end
-
-do
----@class CharacterFrame_CloseButtonObject : Button
-local CharacterFrame_CloseButtonObject = {}
----@return any ...
-function CharacterFrame_CloseButtonObject:NarrationGetName(...) end
----@return any ...
-function CharacterFrame_CloseButtonObject:OnLoad(...) end
-end
-
-do
----@class CharacterFrame_FocusJumpHintObject : Frame
----@field ActiveTexture CharacterFrame_FocusJumpHint_ActiveTextureObject
----@field DisabledTexture CharacterFrame_FocusJumpHint_DisabledTextureObject
----@field HoldAnim CharacterFrame_FocusJumpHint_HoldAnimObject
----@field HoldIndicator CharacterFrame_FocusJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG CharacterFrame_FocusJumpHint_HoldIndicatorBGObject
----@field HoverTexture CharacterFrame_FocusJumpHint_HoverTextureObject
----@field LoadBar CharacterFrame_FocusJumpHint_LoadBarObject
----@field LoadBarBG CharacterFrame_FocusJumpHint_LoadBarBGObject
----@field LoadBarGlow CharacterFrame_FocusJumpHint_LoadBarGlowObject
----@field NormalTexture CharacterFrame_FocusJumpHint_NormalTextureObject
----@field PressedTexture CharacterFrame_FocusJumpHint_PressedTextureObject
----@field SpinnerTip CharacterFrame_FocusJumpHint_SpinnerTipObject
----@field ignoreInLayout boolean
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local CharacterFrame_FocusJumpHintObject = {}
----@return any ...
-function CharacterFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function CharacterFrame_FocusJumpHintObject:BeginHold(...) end
----@return any ...
-function CharacterFrame_FocusJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function CharacterFrame_FocusJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function CharacterFrame_FocusJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function CharacterFrame_FocusJumpHintObject:EndHold(...) end
----@return any ...
-function CharacterFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function CharacterFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function CharacterFrame_FocusJumpHintObject:OnLoad(...) end
----@return any ...
-function CharacterFrame_FocusJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function CharacterFrame_FocusJumpHintObject:SetDisabled(...) end
----@return any ...
-function CharacterFrame_FocusJumpHintObject:SetEnabled(...) end
----@return any ...
-function CharacterFrame_FocusJumpHintObject:SetFocused(...) end
----@return any ...
-function CharacterFrame_FocusJumpHintObject:SetHoldState(...) end
----@return any ...
-function CharacterFrame_FocusJumpHintObject:SetInputKey(...) end
----@return any ...
-function CharacterFrame_FocusJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function CharacterFrame_FocusJumpHintObject:SetPressable(...) end
----@return any ...
-function CharacterFrame_FocusJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function CharacterFrame_FocusJumpHintObject:SetTextureState(...) end
----@return any ...
-function CharacterFrame_FocusJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function CharacterFrame_FocusJumpHintObject:SetUsableState(...) end
----@return any ...
-function CharacterFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class CharacterFrame_FocusJumpHint_ActiveTextureObject : Texture
-local CharacterFrame_FocusJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class CharacterFrame_FocusJumpHint_DisabledTextureObject : Texture
-local CharacterFrame_FocusJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class CharacterFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim CharacterFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim CharacterFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim CharacterFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
-local CharacterFrame_FocusJumpHint_HoldAnimObject = {}
-end
-
-do
----@class CharacterFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
-local CharacterFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class CharacterFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local CharacterFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class CharacterFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local CharacterFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class CharacterFrame_FocusJumpHint_HoldIndicatorObject : Texture
-local CharacterFrame_FocusJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class CharacterFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
-local CharacterFrame_FocusJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class CharacterFrame_FocusJumpHint_HoverTextureObject : Texture
-local CharacterFrame_FocusJumpHint_HoverTextureObject = {}
-end
-
-do
----@class CharacterFrame_FocusJumpHint_LoadBarObject : Texture
-local CharacterFrame_FocusJumpHint_LoadBarObject = {}
-end
-
-do
----@class CharacterFrame_FocusJumpHint_LoadBarBGObject : Texture
-local CharacterFrame_FocusJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class CharacterFrame_FocusJumpHint_LoadBarGlowObject : Texture
-local CharacterFrame_FocusJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class CharacterFrame_FocusJumpHint_NormalTextureObject : Texture
-local CharacterFrame_FocusJumpHint_NormalTextureObject = {}
-end
-
-do
----@class CharacterFrame_FocusJumpHint_PressedTextureObject : Texture
-local CharacterFrame_FocusJumpHint_PressedTextureObject = {}
-end
-
-do
----@class CharacterFrame_FocusJumpHint_SpinnerTipObject : Texture
-local CharacterFrame_FocusJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class CharacterFrame_FrameGlowObject : Frame
----@field GlowTexture CharacterFrame_FrameGlow_GlowTextureObject
----@field glowTextures table
-local CharacterFrame_FrameGlowObject = {}
----@return any ...
-function CharacterFrame_FrameGlowObject:GetContainerFrame(...) end
----@return any ...
-function CharacterFrame_FrameGlowObject:GetFrameLayoutType(...) end
----@return any ...
-function CharacterFrame_FrameGlowObject:GetHeaderFrame(...) end
----@return any ...
-function CharacterFrame_FrameGlowObject:OnLoad(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplayObject:SetItemValidationFunction(...) end
 end
 
 do
----@class CharacterFrame_FrameGlow_GlowTextureObject : Texture
-local CharacterFrame_FrameGlow_GlowTextureObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemDisplay_BackgroundObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemDisplay_BackgroundObject = {}
 end
 
 do
----@class CharacterFrame_LeftJumpHintObject : Frame
----@field ActiveTexture CharacterFrame_LeftJumpHint_ActiveTextureObject
----@field DisabledTexture CharacterFrame_LeftJumpHint_DisabledTextureObject
----@field HoldAnim CharacterFrame_LeftJumpHint_HoldAnimObject
----@field HoldIndicator CharacterFrame_LeftJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG CharacterFrame_LeftJumpHint_HoldIndicatorBGObject
----@field HoverTexture CharacterFrame_LeftJumpHint_HoverTextureObject
----@field LoadBar CharacterFrame_LeftJumpHint_LoadBarObject
----@field LoadBarBG CharacterFrame_LeftJumpHint_LoadBarBGObject
----@field LoadBarGlow CharacterFrame_LeftJumpHint_LoadBarGlowObject
----@field NormalTexture CharacterFrame_LeftJumpHint_NormalTextureObject
----@field PressedTexture CharacterFrame_LeftJumpHint_PressedTextureObject
----@field SpinnerTip CharacterFrame_LeftJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local CharacterFrame_LeftJumpHintObject = {}
----@return any ...
-function CharacterFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function CharacterFrame_LeftJumpHintObject:BeginHold(...) end
----@return any ...
-function CharacterFrame_LeftJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function CharacterFrame_LeftJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function CharacterFrame_LeftJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function CharacterFrame_LeftJumpHintObject:EndHold(...) end
----@return any ...
-function CharacterFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function CharacterFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function CharacterFrame_LeftJumpHintObject:OnLoad(...) end
----@return any ...
-function CharacterFrame_LeftJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function CharacterFrame_LeftJumpHintObject:SetDisabled(...) end
----@return any ...
-function CharacterFrame_LeftJumpHintObject:SetEnabled(...) end
----@return any ...
-function CharacterFrame_LeftJumpHintObject:SetFocused(...) end
+---@class AuctionHouseFrame_ItemBuyFrame_ItemDisplay_FavoriteButtonObject : Button
+---@field HighlightTexture AuctionHouseFrame_ItemBuyFrame_ItemDisplay_FavoriteButton_HighlightTextureObject
+---@field NormalTexture AuctionHouseFrame_ItemBuyFrame_ItemDisplay_FavoriteButton_NormalTextureObject
+local AuctionHouseFrame_ItemBuyFrame_ItemDisplay_FavoriteButtonObject = {}
 ---@return any ...
-function CharacterFrame_LeftJumpHintObject:SetHoldState(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplay_FavoriteButtonObject:IsFavorite(...) end
 ---@return any ...
-function CharacterFrame_LeftJumpHintObject:SetInputKey(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplay_FavoriteButtonObject:IsInteractionAvailable(...) end
 ---@return any ...
-function CharacterFrame_LeftJumpHintObject:SetIsHoldAction(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplay_FavoriteButtonObject:OnClick(...) end
 ---@return any ...
-function CharacterFrame_LeftJumpHintObject:SetPressable(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplay_FavoriteButtonObject:OnEnter(...) end
 ---@return any ...
-function CharacterFrame_LeftJumpHintObject:SetTextureHeight(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplay_FavoriteButtonObject:OnLeave(...) end
 ---@return any ...
-function CharacterFrame_LeftJumpHintObject:SetTextureState(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplay_FavoriteButtonObject:SetItemKey(...) end
 ---@return any ...
-function CharacterFrame_LeftJumpHintObject:SetTextureWidth(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplay_FavoriteButtonObject:ShowMaxedFavoritesTooltip(...) end
 ---@return any ...
-function CharacterFrame_LeftJumpHintObject:SetUsableState(...) end
----@return any ...
-function CharacterFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class CharacterFrame_LeftJumpHint_ActiveTextureObject : Texture
-local CharacterFrame_LeftJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class CharacterFrame_LeftJumpHint_DisabledTextureObject : Texture
-local CharacterFrame_LeftJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class CharacterFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim CharacterFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim CharacterFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim CharacterFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
-local CharacterFrame_LeftJumpHint_HoldAnimObject = {}
-end
-
-do
----@class CharacterFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
-local CharacterFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class CharacterFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local CharacterFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class CharacterFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local CharacterFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class CharacterFrame_LeftJumpHint_HoldIndicatorObject : Texture
-local CharacterFrame_LeftJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class CharacterFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
-local CharacterFrame_LeftJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class CharacterFrame_LeftJumpHint_HoverTextureObject : Texture
-local CharacterFrame_LeftJumpHint_HoverTextureObject = {}
-end
-
-do
----@class CharacterFrame_LeftJumpHint_LoadBarObject : Texture
-local CharacterFrame_LeftJumpHint_LoadBarObject = {}
-end
-
-do
----@class CharacterFrame_LeftJumpHint_LoadBarBGObject : Texture
-local CharacterFrame_LeftJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class CharacterFrame_LeftJumpHint_LoadBarGlowObject : Texture
-local CharacterFrame_LeftJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class CharacterFrame_LeftJumpHint_NormalTextureObject : Texture
-local CharacterFrame_LeftJumpHint_NormalTextureObject = {}
-end
-
-do
----@class CharacterFrame_LeftJumpHint_PressedTextureObject : Texture
-local CharacterFrame_LeftJumpHint_PressedTextureObject = {}
-end
-
-do
----@class CharacterFrame_LeftJumpHint_SpinnerTipObject : Texture
-local CharacterFrame_LeftJumpHint_SpinnerTipObject = {}
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplay_FavoriteButtonObject:UpdateFavoriteState(...) end
 end
 
 do
----@class CharacterFrame_LeftPaneHostObject : Frame
-local CharacterFrame_LeftPaneHostObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemDisplay_FavoriteButton_HighlightTextureObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemDisplay_FavoriteButton_HighlightTextureObject = {}
 end
 
 do
----@class CharacterFrame_ModeTabsObject : Frame
----@field CharacterTab CharacterFrame_ModeTabs_CharacterTabObject
----@field CurrencyTab CharacterFrame_ModeTabs_CurrencyTabObject
----@field PvPTab CharacterFrame_ModeTabs_PvPTabObject
----@field ReputationTab CharacterFrame_ModeTabs_ReputationTabObject
----@field SkillsTab CharacterFrame_ModeTabs_SkillsTabObject
----@field StatisticsTab CharacterFrame_ModeTabs_StatisticsTabObject
----@field Tabs table
-local CharacterFrame_ModeTabsObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemDisplay_FavoriteButton_NormalTextureObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemDisplay_FavoriteButton_NormalTextureObject = {}
 end
 
 do
----@class CharacterFrame_ModeTabs_CharacterTabObject : Frame
----@field Background CharacterFrame_ModeTabs_CharacterTab_BackgroundObject
----@field HighlightTexture CharacterFrame_ModeTabs_CharacterTab_HighlightTextureObject
----@field Icon CharacterFrame_ModeTabs_CharacterTab_IconObject
----@field Mask CharacterFrame_ModeTabs_CharacterTab_MaskObject
----@field SelectedTexture CharacterFrame_ModeTabs_CharacterTab_SelectedTextureObject
----@field TabGlow CharacterFrame_ModeTabs_CharacterTab_TabGlowObject
----@field TabGlowAnimation CharacterFrame_ModeTabs_CharacterTab_TabGlowAnimationObject
----@field fillToInterior boolean
----@field frameName string
----@field tooltipText string
-local CharacterFrame_ModeTabs_CharacterTabObject = {}
----@return any ...
-function CharacterFrame_ModeTabs_CharacterTabObject:CalculateTabSizeBasedOnTabArt(...) end
----@return any ...
-function CharacterFrame_ModeTabs_CharacterTabObject:GetFinalIconAnchorOffsets(...) end
----@return any ...
-function CharacterFrame_ModeTabs_CharacterTabObject:GetIconAnchorOffsetsForTabArt(...) end
+---@class AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButtonObject : Button
+---@field CircleMask AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButton_CircleMaskObject
+---@field Count AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButton_CountObject
+---@field Icon AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButton_IconObject
+---@field IconBorder AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButton_IconBorderObject
+---@field IconOverlay AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButton_IconOverlayObject
+---@field IconOverlay2 AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButton_IconOverlay2Object
+local AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButtonObject = {}
 ---@return any ...
-function CharacterFrame_ModeTabs_CharacterTabObject:GetPressedIconAnchorOffsets(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButtonObject:OnClick(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_CharacterTabObject:GetTooltipTextSetupFunction(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButtonObject:OnEnter(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_CharacterTabObject:InitializeIconAnchoring(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButtonObject:OnLeave(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_CharacterTabObject:InitializeSizeForTabArt(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButtonObject:OnLoad(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_CharacterTabObject:IsTabGlowAnimationPlaying(...) end
----@return any ...
-function CharacterFrame_ModeTabs_CharacterTabObject:OnEnter(...) end
----@return any ...
-function CharacterFrame_ModeTabs_CharacterTabObject:OnLeave(...) end
----@return any ...
-function CharacterFrame_ModeTabs_CharacterTabObject:OnLoad(...) end
----@return any ...
-function CharacterFrame_ModeTabs_CharacterTabObject:OnMouseDown(...) end
----@return any ...
-function CharacterFrame_ModeTabs_CharacterTabObject:OnMouseUp(...) end
----@return any ...
-function CharacterFrame_ModeTabs_CharacterTabObject:SetChecked(...) end
----@return any ...
-function CharacterFrame_ModeTabs_CharacterTabObject:SetCustomOnMouseUpHandler(...) end
----@return any ...
-function CharacterFrame_ModeTabs_CharacterTabObject:SetFillToInterior(...) end
----@return any ...
-function CharacterFrame_ModeTabs_CharacterTabObject:SetTabGlowAnimationPlaying(...) end
----@return any ...
-function CharacterFrame_ModeTabs_CharacterTabObject:UpdateIconInterior(...) end
----@return any ...
-function CharacterFrame_ModeTabs_CharacterTabObject:customMouseUpHandler(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButtonObject:SetItemButtonQuality(...) end
 end
 
 do
----@class CharacterFrame_ModeTabs_CharacterTab_BackgroundObject : Texture
-local CharacterFrame_ModeTabs_CharacterTab_BackgroundObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButton_CircleMaskObject : MaskTexture
+local AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButton_CircleMaskObject = {}
 end
 
 do
----@class CharacterFrame_ModeTabs_CharacterTab_HighlightTextureObject : Texture
-local CharacterFrame_ModeTabs_CharacterTab_HighlightTextureObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButton_CountObject : FontString
+local AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButton_CountObject = {}
 end
 
 do
----@class CharacterFrame_ModeTabs_CharacterTab_IconObject : Texture
-local CharacterFrame_ModeTabs_CharacterTab_IconObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButton_IconObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButton_IconObject = {}
 end
 
 do
----@class CharacterFrame_ModeTabs_CharacterTab_MaskObject : MaskTexture
-local CharacterFrame_ModeTabs_CharacterTab_MaskObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButton_IconBorderObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButton_IconBorderObject = {}
 end
 
 do
----@class CharacterFrame_ModeTabs_CharacterTab_SelectedTextureObject : Texture
-local CharacterFrame_ModeTabs_CharacterTab_SelectedTextureObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButton_IconOverlayObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButton_IconOverlayObject = {}
 end
 
 do
----@class CharacterFrame_ModeTabs_CharacterTab_TabGlowObject : Texture
-local CharacterFrame_ModeTabs_CharacterTab_TabGlowObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButton_IconOverlay2Object : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemDisplay_ItemButton_IconOverlay2Object = {}
 end
 
 do
----@class CharacterFrame_ModeTabs_CharacterTab_TabGlowAnimationObject : AnimationGroup
-local CharacterFrame_ModeTabs_CharacterTab_TabGlowAnimationObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NameObject : FontString
+local AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NameObject = {}
 end
 
 do
----@class CharacterFrame_ModeTabs_CurrencyTabObject : Frame
----@field Background CharacterFrame_ModeTabs_CurrencyTab_BackgroundObject
----@field HighlightTexture CharacterFrame_ModeTabs_CurrencyTab_HighlightTextureObject
----@field Icon CharacterFrame_ModeTabs_CurrencyTab_IconObject
----@field Mask CharacterFrame_ModeTabs_CurrencyTab_MaskObject
----@field SelectedTexture CharacterFrame_ModeTabs_CurrencyTab_SelectedTextureObject
----@field TabGlow CharacterFrame_ModeTabs_CurrencyTab_TabGlowObject
----@field TabGlowAnimation CharacterFrame_ModeTabs_CurrencyTab_TabGlowAnimationObject
----@field fillToInterior boolean
----@field frameName string
----@field iconTexture string
----@field tooltipText string
-local CharacterFrame_ModeTabs_CurrencyTabObject = {}
----@return any ...
-function CharacterFrame_ModeTabs_CurrencyTabObject:CalculateTabSizeBasedOnTabArt(...) end
+---@class AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSliceObject : Frame
+---@field BottomEdge AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_BottomRightCornerObject
+---@field LeftEdge AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_LeftEdgeObject
+---@field RightEdge AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_RightEdgeObject
+---@field TopEdge AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_TopEdgeObject
+---@field TopLeftCorner AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_TopLeftCornerObject
+---@field TopRightCorner AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_TopRightCornerObject
+local AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSliceObject = {}
 ---@return any ...
-function CharacterFrame_ModeTabs_CurrencyTabObject:GetFinalIconAnchorOffsets(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSliceObject:GetBorderColor(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_CurrencyTabObject:GetIconAnchorOffsetsForTabArt(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSliceObject:GetCenterColor(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_CurrencyTabObject:GetPressedIconAnchorOffsets(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSliceObject:GetFrameLayoutTextureKit(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_CurrencyTabObject:GetTooltipTextSetupFunction(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSliceObject:GetFrameLayoutType(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_CurrencyTabObject:InitializeIconAnchoring(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSliceObject:OnLoad(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_CurrencyTabObject:InitializeSizeForTabArt(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSliceObject:SetBlendMode(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_CurrencyTabObject:IsTabGlowAnimationPlaying(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSliceObject:SetBorderBlendMode(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_CurrencyTabObject:OnEnter(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSliceObject:SetBorderColor(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_CurrencyTabObject:OnLeave(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSliceObject:SetCenterColor(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_CurrencyTabObject:OnLoad(...) end
----@return any ...
-function CharacterFrame_ModeTabs_CurrencyTabObject:OnMouseDown(...) end
----@return any ...
-function CharacterFrame_ModeTabs_CurrencyTabObject:OnMouseUp(...) end
----@return any ...
-function CharacterFrame_ModeTabs_CurrencyTabObject:SetChecked(...) end
----@return any ...
-function CharacterFrame_ModeTabs_CurrencyTabObject:SetCustomOnMouseUpHandler(...) end
----@return any ...
-function CharacterFrame_ModeTabs_CurrencyTabObject:SetFillToInterior(...) end
----@return any ...
-function CharacterFrame_ModeTabs_CurrencyTabObject:SetTabGlowAnimationPlaying(...) end
----@return any ...
-function CharacterFrame_ModeTabs_CurrencyTabObject:UpdateIconInterior(...) end
----@return any ...
-function CharacterFrame_ModeTabs_CurrencyTabObject:customMouseUpHandler(...) end
-end
-
-do
----@class CharacterFrame_ModeTabs_CurrencyTab_BackgroundObject : Texture
-local CharacterFrame_ModeTabs_CurrencyTab_BackgroundObject = {}
-end
-
-do
----@class CharacterFrame_ModeTabs_CurrencyTab_HighlightTextureObject : Texture
-local CharacterFrame_ModeTabs_CurrencyTab_HighlightTextureObject = {}
-end
-
-do
----@class CharacterFrame_ModeTabs_CurrencyTab_IconObject : Texture
-local CharacterFrame_ModeTabs_CurrencyTab_IconObject = {}
-end
-
-do
----@class CharacterFrame_ModeTabs_CurrencyTab_MaskObject : MaskTexture
-local CharacterFrame_ModeTabs_CurrencyTab_MaskObject = {}
-end
-
-do
----@class CharacterFrame_ModeTabs_CurrencyTab_SelectedTextureObject : Texture
-local CharacterFrame_ModeTabs_CurrencyTab_SelectedTextureObject = {}
-end
-
-do
----@class CharacterFrame_ModeTabs_CurrencyTab_TabGlowObject : Texture
-local CharacterFrame_ModeTabs_CurrencyTab_TabGlowObject = {}
+function AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSliceObject:SetVertexColor(...) end
 end
 
 do
----@class CharacterFrame_ModeTabs_CurrencyTab_TabGlowAnimationObject : AnimationGroup
-local CharacterFrame_ModeTabs_CurrencyTab_TabGlowAnimationObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_BottomEdgeObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_BottomEdgeObject = {}
 end
 
 do
----@class CharacterFrame_ModeTabs_PvPTabObject : Frame
----@field Background CharacterFrame_ModeTabs_PvPTab_BackgroundObject
----@field HighlightTexture CharacterFrame_ModeTabs_PvPTab_HighlightTextureObject
----@field Icon CharacterFrame_ModeTabs_PvPTab_IconObject
----@field Mask CharacterFrame_ModeTabs_PvPTab_MaskObject
----@field SelectedTexture CharacterFrame_ModeTabs_PvPTab_SelectedTextureObject
----@field TabGlow CharacterFrame_ModeTabs_PvPTab_TabGlowObject
----@field TabGlowAnimation CharacterFrame_ModeTabs_PvPTab_TabGlowAnimationObject
----@field fillToInterior boolean
----@field frameName string
----@field iconTexture string
----@field tooltipText string
-local CharacterFrame_ModeTabs_PvPTabObject = {}
----@return any ...
-function CharacterFrame_ModeTabs_PvPTabObject:CalculateTabSizeBasedOnTabArt(...) end
----@return any ...
-function CharacterFrame_ModeTabs_PvPTabObject:GetFinalIconAnchorOffsets(...) end
----@return any ...
-function CharacterFrame_ModeTabs_PvPTabObject:GetIconAnchorOffsetsForTabArt(...) end
----@return any ...
-function CharacterFrame_ModeTabs_PvPTabObject:GetPressedIconAnchorOffsets(...) end
----@return any ...
-function CharacterFrame_ModeTabs_PvPTabObject:GetTooltipTextSetupFunction(...) end
----@return any ...
-function CharacterFrame_ModeTabs_PvPTabObject:InitializeIconAnchoring(...) end
----@return any ...
-function CharacterFrame_ModeTabs_PvPTabObject:InitializeSizeForTabArt(...) end
----@return any ...
-function CharacterFrame_ModeTabs_PvPTabObject:IsTabGlowAnimationPlaying(...) end
----@return any ...
-function CharacterFrame_ModeTabs_PvPTabObject:OnEnter(...) end
----@return any ...
-function CharacterFrame_ModeTabs_PvPTabObject:OnLeave(...) end
----@return any ...
-function CharacterFrame_ModeTabs_PvPTabObject:OnLoad(...) end
----@return any ...
-function CharacterFrame_ModeTabs_PvPTabObject:OnMouseDown(...) end
----@return any ...
-function CharacterFrame_ModeTabs_PvPTabObject:OnMouseUp(...) end
----@return any ...
-function CharacterFrame_ModeTabs_PvPTabObject:SetChecked(...) end
----@return any ...
-function CharacterFrame_ModeTabs_PvPTabObject:SetCustomOnMouseUpHandler(...) end
----@return any ...
-function CharacterFrame_ModeTabs_PvPTabObject:SetFillToInterior(...) end
----@return any ...
-function CharacterFrame_ModeTabs_PvPTabObject:SetTabGlowAnimationPlaying(...) end
----@return any ...
-function CharacterFrame_ModeTabs_PvPTabObject:UpdateIconInterior(...) end
----@return any ...
-function CharacterFrame_ModeTabs_PvPTabObject:customMouseUpHandler(...) end
+---@class AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_BottomLeftCornerObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_BottomLeftCornerObject = {}
 end
 
 do
----@class CharacterFrame_ModeTabs_PvPTab_BackgroundObject : Texture
-local CharacterFrame_ModeTabs_PvPTab_BackgroundObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_BottomRightCornerObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_BottomRightCornerObject = {}
 end
 
 do
----@class CharacterFrame_ModeTabs_PvPTab_HighlightTextureObject : Texture
-local CharacterFrame_ModeTabs_PvPTab_HighlightTextureObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_LeftEdgeObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_LeftEdgeObject = {}
 end
 
 do
----@class CharacterFrame_ModeTabs_PvPTab_IconObject : Texture
-local CharacterFrame_ModeTabs_PvPTab_IconObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_RightEdgeObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_RightEdgeObject = {}
 end
 
 do
----@class CharacterFrame_ModeTabs_PvPTab_MaskObject : MaskTexture
-local CharacterFrame_ModeTabs_PvPTab_MaskObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_TopEdgeObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_TopEdgeObject = {}
 end
 
 do
----@class CharacterFrame_ModeTabs_PvPTab_SelectedTextureObject : Texture
-local CharacterFrame_ModeTabs_PvPTab_SelectedTextureObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_TopLeftCornerObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_TopLeftCornerObject = {}
 end
 
 do
----@class CharacterFrame_ModeTabs_PvPTab_TabGlowObject : Texture
-local CharacterFrame_ModeTabs_PvPTab_TabGlowObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_TopRightCornerObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemDisplay_NineSlice_TopRightCornerObject = {}
 end
 
 do
----@class CharacterFrame_ModeTabs_PvPTab_TabGlowAnimationObject : AnimationGroup
-local CharacterFrame_ModeTabs_PvPTab_TabGlowAnimationObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemDisplay_auctionHouseFrameObject
+local AuctionHouseFrame_ItemBuyFrame_ItemDisplay_auctionHouseFrameObject = {}
 end
 
 do
----@class CharacterFrame_ModeTabs_ReputationTabObject : Frame
----@field Background CharacterFrame_ModeTabs_ReputationTab_BackgroundObject
----@field HighlightTexture CharacterFrame_ModeTabs_ReputationTab_HighlightTextureObject
----@field Icon CharacterFrame_ModeTabs_ReputationTab_IconObject
----@field Mask CharacterFrame_ModeTabs_ReputationTab_MaskObject
----@field SelectedTexture CharacterFrame_ModeTabs_ReputationTab_SelectedTextureObject
----@field TabGlow CharacterFrame_ModeTabs_ReputationTab_TabGlowObject
----@field TabGlowAnimation CharacterFrame_ModeTabs_ReputationTab_TabGlowAnimationObject
----@field fillToInterior boolean
----@field frameName string
----@field iconTexture string
----@field tooltipText string
-local CharacterFrame_ModeTabs_ReputationTabObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemListObject : Frame
+---@field Background AuctionHouseFrame_ItemBuyFrame_ItemList_BackgroundObject
+---@field HeaderContainer AuctionHouseFrame_ItemBuyFrame_ItemList_HeaderContainerObject
+---@field LoadingSpinner AuctionHouseFrame_ItemBuyFrame_ItemList_LoadingSpinnerObject
+---@field NineSlice AuctionHouseFrame_ItemBuyFrame_ItemList_NineSliceObject
+---@field RefreshFrame AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrameObject
+---@field ResultsText AuctionHouseFrame_ItemBuyFrame_ItemList_ResultsTextObject
+---@field ScrollBar AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject
+---@field ScrollBox AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject
+---@field backgroundAtlas string
+---@field backgroundYOffset number
+---@field layoutType string
+---@field refreshFrameXOffset number
+---@field refreshFrameYOffset number
+---@field tableBuilderLayoutDirty boolean
+---@field textureHeightClassic number
+---@field textureWidthClassic number
+local AuctionHouseFrame_ItemBuyFrame_ItemListObject = {}
 ---@return any ...
-function CharacterFrame_ModeTabs_ReputationTabObject:CalculateTabSizeBasedOnTabArt(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:CallRefreshCallback(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_ReputationTabObject:GetFinalIconAnchorOffsets(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:DirtyScrollFrame(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_ReputationTabObject:GetIconAnchorOffsetsForTabArt(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:GetHeaderContainer(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_ReputationTabObject:GetPressedIconAnchorOffsets(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:GetScrollBoxDataIndexBegin(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_ReputationTabObject:GetTooltipTextSetupFunction(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:GetSelectedEntry(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_ReputationTabObject:InitializeIconAnchoring(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:Init(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_ReputationTabObject:InitializeSizeForTabArt(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:OnEnterListLine(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_ReputationTabObject:IsTabGlowAnimationPlaying(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:OnLeaveListLine(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_ReputationTabObject:OnEnter(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:OnLoad(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_ReputationTabObject:OnLeave(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:OnScrollBoxScroll(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_ReputationTabObject:OnLoad(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:OnShow(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_ReputationTabObject:OnMouseDown(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:OnUpdate(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_ReputationTabObject:OnMouseUp(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:RefreshScrollFrame(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_ReputationTabObject:SetChecked(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:Reset(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_ReputationTabObject:SetCustomOnMouseUpHandler(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:ScrollToEntryIndex(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_ReputationTabObject:SetFillToInterior(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:SetCustomError(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_ReputationTabObject:SetTabGlowAnimationPlaying(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:SetDataProvider(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_ReputationTabObject:UpdateIconInterior(...) end
----@return any ...
-function CharacterFrame_ModeTabs_ReputationTabObject:customMouseUpHandler(...) end
-end
-
-do
----@class CharacterFrame_ModeTabs_ReputationTab_BackgroundObject : Texture
-local CharacterFrame_ModeTabs_ReputationTab_BackgroundObject = {}
-end
-
-do
----@class CharacterFrame_ModeTabs_ReputationTab_HighlightTextureObject : Texture
-local CharacterFrame_ModeTabs_ReputationTab_HighlightTextureObject = {}
-end
-
-do
----@class CharacterFrame_ModeTabs_ReputationTab_IconObject : Texture
-local CharacterFrame_ModeTabs_ReputationTab_IconObject = {}
-end
-
-do
----@class CharacterFrame_ModeTabs_ReputationTab_MaskObject : MaskTexture
-local CharacterFrame_ModeTabs_ReputationTab_MaskObject = {}
-end
-
-do
----@class CharacterFrame_ModeTabs_ReputationTab_SelectedTextureObject : Texture
-local CharacterFrame_ModeTabs_ReputationTab_SelectedTextureObject = {}
-end
-
-do
----@class CharacterFrame_ModeTabs_ReputationTab_TabGlowObject : Texture
-local CharacterFrame_ModeTabs_ReputationTab_TabGlowObject = {}
-end
-
-do
----@class CharacterFrame_ModeTabs_ReputationTab_TabGlowAnimationObject : AnimationGroup
-local CharacterFrame_ModeTabs_ReputationTab_TabGlowAnimationObject = {}
-end
-
-do
----@class CharacterFrame_ModeTabs_SkillsTabObject : Frame
----@field Background CharacterFrame_ModeTabs_SkillsTab_BackgroundObject
----@field HighlightTexture CharacterFrame_ModeTabs_SkillsTab_HighlightTextureObject
----@field Icon CharacterFrame_ModeTabs_SkillsTab_IconObject
----@field Mask CharacterFrame_ModeTabs_SkillsTab_MaskObject
----@field SelectedTexture CharacterFrame_ModeTabs_SkillsTab_SelectedTextureObject
----@field TabGlow CharacterFrame_ModeTabs_SkillsTab_TabGlowObject
----@field TabGlowAnimation CharacterFrame_ModeTabs_SkillsTab_TabGlowAnimationObject
----@field fillToInterior boolean
----@field frameName string
----@field iconTexture string
----@field tooltipText string
-local CharacterFrame_ModeTabs_SkillsTabObject = {}
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:SetHighlightCallback(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_SkillsTabObject:CalculateTabSizeBasedOnTabArt(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:SetLineOnEnterCallback(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_SkillsTabObject:GetFinalIconAnchorOffsets(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:SetLineOnLeaveCallback(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_SkillsTabObject:GetIconAnchorOffsetsForTabArt(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:SetLineTemplate(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_SkillsTabObject:GetPressedIconAnchorOffsets(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:SetRefreshCallback(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_SkillsTabObject:GetTooltipTextSetupFunction(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:SetRefreshFrameFunctions(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_SkillsTabObject:InitializeIconAnchoring(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:SetSelectedEntry(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_SkillsTabObject:InitializeSizeForTabArt(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:SetSelectedEntryByCondition(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_SkillsTabObject:IsTabGlowAnimationPlaying(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:SetSelectionCallback(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_SkillsTabObject:OnEnter(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:SetState(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_SkillsTabObject:OnLeave(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:SetTableBuilderLayout(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_SkillsTabObject:OnLoad(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:UpdateRefreshFrame(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_SkillsTabObject:OnMouseDown(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:UpdateTableBuilderLayout(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_SkillsTabObject:OnMouseUp(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:highlightCallback(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_SkillsTabObject:SetChecked(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:lineOnEnterCallback(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_SkillsTabObject:SetCustomOnMouseUpHandler(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:lineOnLeaveCallback(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_SkillsTabObject:SetFillToInterior(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:refreshResultsFunc(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_SkillsTabObject:SetTabGlowAnimationPlaying(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:selectionCallback(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_SkillsTabObject:UpdateIconInterior(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:tableBuilderLayoutFunction(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_SkillsTabObject:customMouseUpHandler(...) end
-end
-
-do
----@class CharacterFrame_ModeTabs_SkillsTab_BackgroundObject : Texture
-local CharacterFrame_ModeTabs_SkillsTab_BackgroundObject = {}
-end
-
-do
----@class CharacterFrame_ModeTabs_SkillsTab_HighlightTextureObject : Texture
-local CharacterFrame_ModeTabs_SkillsTab_HighlightTextureObject = {}
-end
-
-do
----@class CharacterFrame_ModeTabs_SkillsTab_IconObject : Texture
-local CharacterFrame_ModeTabs_SkillsTab_IconObject = {}
-end
-
-do
----@class CharacterFrame_ModeTabs_SkillsTab_MaskObject : MaskTexture
-local CharacterFrame_ModeTabs_SkillsTab_MaskObject = {}
-end
-
-do
----@class CharacterFrame_ModeTabs_SkillsTab_SelectedTextureObject : Texture
-local CharacterFrame_ModeTabs_SkillsTab_SelectedTextureObject = {}
+function AuctionHouseFrame_ItemBuyFrame_ItemListObject:totalQuantityFunc(...) end
 end
 
 do
----@class CharacterFrame_ModeTabs_SkillsTab_TabGlowObject : Texture
-local CharacterFrame_ModeTabs_SkillsTab_TabGlowObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_BackgroundObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemList_BackgroundObject = {}
 end
 
 do
----@class CharacterFrame_ModeTabs_SkillsTab_TabGlowAnimationObject : AnimationGroup
-local CharacterFrame_ModeTabs_SkillsTab_TabGlowAnimationObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_HeaderContainerObject : Frame
+local AuctionHouseFrame_ItemBuyFrame_ItemList_HeaderContainerObject = {}
 end
 
 do
----@class CharacterFrame_ModeTabs_StatisticsTabObject : Frame
----@field Background CharacterFrame_ModeTabs_StatisticsTab_BackgroundObject
----@field HighlightTexture CharacterFrame_ModeTabs_StatisticsTab_HighlightTextureObject
----@field Icon CharacterFrame_ModeTabs_StatisticsTab_IconObject
----@field Mask CharacterFrame_ModeTabs_StatisticsTab_MaskObject
----@field SelectedTexture CharacterFrame_ModeTabs_StatisticsTab_SelectedTextureObject
----@field TabGlow CharacterFrame_ModeTabs_StatisticsTab_TabGlowObject
----@field TabGlowAnimation CharacterFrame_ModeTabs_StatisticsTab_TabGlowAnimationObject
----@field fillToInterior boolean
----@field frameName string
----@field iconTexture string
----@field tooltipText string
-local CharacterFrame_ModeTabs_StatisticsTabObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_LoadingSpinnerObject : Frame
+---@field Anim AuctionHouseFrame_ItemBuyFrame_ItemList_LoadingSpinner_AnimObject
+---@field Ring AuctionHouseFrame_ItemBuyFrame_ItemList_LoadingSpinner_RingObject
+---@field SearchingText AuctionHouseFrame_ItemBuyFrame_ItemList_LoadingSpinner_SearchingTextObject
+---@field Sparks AuctionHouseFrame_ItemBuyFrame_ItemList_LoadingSpinner_SparksObject
+local AuctionHouseFrame_ItemBuyFrame_ItemList_LoadingSpinnerObject = {}
 ---@return any ...
-function CharacterFrame_ModeTabs_StatisticsTabObject:CalculateTabSizeBasedOnTabArt(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_LoadingSpinnerObject:GetShadowAlpha(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_StatisticsTabObject:GetFinalIconAnchorOffsets(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_LoadingSpinnerObject:OnHide(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_StatisticsTabObject:GetIconAnchorOffsetsForTabArt(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_LoadingSpinnerObject:OnShow(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_StatisticsTabObject:GetPressedIconAnchorOffsets(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_LoadingSpinnerObject:OnSizeChanged(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_StatisticsTabObject:GetTooltipTextSetupFunction(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_LoadingSpinnerObject:SetDesaturated(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_StatisticsTabObject:InitializeIconAnchoring(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_LoadingSpinnerObject:SetShadowEnabled(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_StatisticsTabObject:InitializeSizeForTabArt(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_LoadingSpinnerObject:UpdateShadowSize(...) end
 ---@return any ...
-function CharacterFrame_ModeTabs_StatisticsTabObject:IsTabGlowAnimationPlaying(...) end
----@return any ...
-function CharacterFrame_ModeTabs_StatisticsTabObject:OnEnter(...) end
----@return any ...
-function CharacterFrame_ModeTabs_StatisticsTabObject:OnLeave(...) end
----@return any ...
-function CharacterFrame_ModeTabs_StatisticsTabObject:OnLoad(...) end
----@return any ...
-function CharacterFrame_ModeTabs_StatisticsTabObject:OnMouseDown(...) end
----@return any ...
-function CharacterFrame_ModeTabs_StatisticsTabObject:OnMouseUp(...) end
----@return any ...
-function CharacterFrame_ModeTabs_StatisticsTabObject:SetChecked(...) end
----@return any ...
-function CharacterFrame_ModeTabs_StatisticsTabObject:SetCustomOnMouseUpHandler(...) end
----@return any ...
-function CharacterFrame_ModeTabs_StatisticsTabObject:SetFillToInterior(...) end
----@return any ...
-function CharacterFrame_ModeTabs_StatisticsTabObject:SetTabGlowAnimationPlaying(...) end
----@return any ...
-function CharacterFrame_ModeTabs_StatisticsTabObject:UpdateIconInterior(...) end
----@return any ...
-function CharacterFrame_ModeTabs_StatisticsTabObject:customMouseUpHandler(...) end
-end
-
-do
----@class CharacterFrame_ModeTabs_StatisticsTab_BackgroundObject : Texture
-local CharacterFrame_ModeTabs_StatisticsTab_BackgroundObject = {}
-end
-
-do
----@class CharacterFrame_ModeTabs_StatisticsTab_HighlightTextureObject : Texture
-local CharacterFrame_ModeTabs_StatisticsTab_HighlightTextureObject = {}
-end
-
-do
----@class CharacterFrame_ModeTabs_StatisticsTab_IconObject : Texture
-local CharacterFrame_ModeTabs_StatisticsTab_IconObject = {}
+function AuctionHouseFrame_ItemBuyFrame_ItemList_LoadingSpinnerObject:UpdateTheme(...) end
 end
 
 do
----@class CharacterFrame_ModeTabs_StatisticsTab_MaskObject : MaskTexture
-local CharacterFrame_ModeTabs_StatisticsTab_MaskObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_LoadingSpinner_AnimObject : AnimationGroup
+local AuctionHouseFrame_ItemBuyFrame_ItemList_LoadingSpinner_AnimObject = {}
 end
 
 do
----@class CharacterFrame_ModeTabs_StatisticsTab_SelectedTextureObject : Texture
-local CharacterFrame_ModeTabs_StatisticsTab_SelectedTextureObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_LoadingSpinner_RingObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemList_LoadingSpinner_RingObject = {}
 end
 
 do
----@class CharacterFrame_ModeTabs_StatisticsTab_TabGlowObject : Texture
-local CharacterFrame_ModeTabs_StatisticsTab_TabGlowObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_LoadingSpinner_SearchingTextObject : FontString
+local AuctionHouseFrame_ItemBuyFrame_ItemList_LoadingSpinner_SearchingTextObject = {}
 end
 
 do
----@class CharacterFrame_ModeTabs_StatisticsTab_TabGlowAnimationObject : AnimationGroup
-local CharacterFrame_ModeTabs_StatisticsTab_TabGlowAnimationObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_LoadingSpinner_SparksObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemList_LoadingSpinner_SparksObject = {}
 end
 
 do
----@class CharacterFrame_NineSliceObject : Frame
----@field BottomEdge CharacterFrame_NineSlice_BottomEdgeObject
----@field BottomLeftCorner CharacterFrame_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner CharacterFrame_NineSlice_BottomRightCornerObject
----@field Center CharacterFrame_NineSlice_CenterObject
----@field LeftEdge CharacterFrame_NineSlice_LeftEdgeObject
----@field RightEdge CharacterFrame_NineSlice_RightEdgeObject
----@field TopEdge CharacterFrame_NineSlice_TopEdgeObject
----@field TopLeftCorner CharacterFrame_NineSlice_TopLeftCornerObject
----@field TopRightCorner CharacterFrame_NineSlice_TopRightCornerObject
-local CharacterFrame_NineSliceObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_NineSliceObject : Frame
+---@field BottomEdge AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_BottomRightCornerObject
+---@field LeftEdge AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_LeftEdgeObject
+---@field RightEdge AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_RightEdgeObject
+---@field TopEdge AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_TopEdgeObject
+---@field TopLeftCorner AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_TopLeftCornerObject
+---@field TopRightCorner AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_TopRightCornerObject
+local AuctionHouseFrame_ItemBuyFrame_ItemList_NineSliceObject = {}
 ---@return any ...
-function CharacterFrame_NineSliceObject:GetBorderColor(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_NineSliceObject:GetBorderColor(...) end
 ---@return any ...
-function CharacterFrame_NineSliceObject:GetCenterColor(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_NineSliceObject:GetCenterColor(...) end
 ---@return any ...
-function CharacterFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_NineSliceObject:GetFrameLayoutTextureKit(...) end
 ---@return any ...
-function CharacterFrame_NineSliceObject:GetFrameLayoutType(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_NineSliceObject:GetFrameLayoutType(...) end
 ---@return any ...
-function CharacterFrame_NineSliceObject:OnLoad(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_NineSliceObject:OnLoad(...) end
 ---@return any ...
-function CharacterFrame_NineSliceObject:SetBlendMode(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_NineSliceObject:SetBlendMode(...) end
 ---@return any ...
-function CharacterFrame_NineSliceObject:SetBorderBlendMode(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_NineSliceObject:SetBorderBlendMode(...) end
 ---@return any ...
-function CharacterFrame_NineSliceObject:SetBorderColor(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_NineSliceObject:SetBorderColor(...) end
 ---@return any ...
-function CharacterFrame_NineSliceObject:SetCenterColor(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_NineSliceObject:SetCenterColor(...) end
 ---@return any ...
-function CharacterFrame_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class CharacterFrame_NineSlice_BottomEdgeObject : Texture
-local CharacterFrame_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class CharacterFrame_NineSlice_BottomLeftCornerObject : Texture
-local CharacterFrame_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class CharacterFrame_NineSlice_BottomRightCornerObject : Texture
-local CharacterFrame_NineSlice_BottomRightCornerObject = {}
+function AuctionHouseFrame_ItemBuyFrame_ItemList_NineSliceObject:SetVertexColor(...) end
 end
 
 do
----@class CharacterFrame_NineSlice_CenterObject : Texture
-local CharacterFrame_NineSlice_CenterObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_BottomEdgeObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_BottomEdgeObject = {}
 end
 
 do
----@class CharacterFrame_NineSlice_LeftEdgeObject : Texture
-local CharacterFrame_NineSlice_LeftEdgeObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_BottomLeftCornerObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_BottomLeftCornerObject = {}
 end
 
 do
----@class CharacterFrame_NineSlice_RightEdgeObject : Texture
-local CharacterFrame_NineSlice_RightEdgeObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_BottomRightCornerObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_BottomRightCornerObject = {}
 end
 
 do
----@class CharacterFrame_NineSlice_TopEdgeObject : Texture
-local CharacterFrame_NineSlice_TopEdgeObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_LeftEdgeObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_LeftEdgeObject = {}
 end
 
 do
----@class CharacterFrame_NineSlice_TopLeftCornerObject : Texture
-local CharacterFrame_NineSlice_TopLeftCornerObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_RightEdgeObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_RightEdgeObject = {}
 end
 
 do
----@class CharacterFrame_NineSlice_TopRightCornerObject : Texture
-local CharacterFrame_NineSlice_TopRightCornerObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_TopEdgeObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_TopEdgeObject = {}
 end
 
 do
----@class CharacterFrame_PortraitContainerObject : Frame
----@field CircleMask CharacterFrame_PortraitContainer_CircleMaskObject
----@field portrait CharacterFrame_PortraitContainer_portraitObject
-local CharacterFrame_PortraitContainerObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_TopLeftCornerObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_TopLeftCornerObject = {}
 end
 
 do
----@class CharacterFrame_PortraitContainer_CircleMaskObject : MaskTexture
-local CharacterFrame_PortraitContainer_CircleMaskObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_TopRightCornerObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemList_NineSlice_TopRightCornerObject = {}
 end
 
 do
----@class CharacterFrame_PortraitContainer_portraitObject : Texture
-local CharacterFrame_PortraitContainer_portraitObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrameObject : Frame
+---@field RefreshButton AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject
+---@field TotalQuantity AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_TotalQuantityObject
+local AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrameObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrameObject:Deactivate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrameObject:SetQuantity(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrameObject:SetRefreshCallback(...) end
 end
 
 do
----@class CharacterFrame_RightJumpHintObject : Frame
----@field ActiveTexture CharacterFrame_RightJumpHint_ActiveTextureObject
----@field DisabledTexture CharacterFrame_RightJumpHint_DisabledTextureObject
----@field HoldAnim CharacterFrame_RightJumpHint_HoldAnimObject
----@field HoldIndicator CharacterFrame_RightJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG CharacterFrame_RightJumpHint_HoldIndicatorBGObject
----@field HoverTexture CharacterFrame_RightJumpHint_HoverTextureObject
----@field LoadBar CharacterFrame_RightJumpHint_LoadBarObject
----@field LoadBarBG CharacterFrame_RightJumpHint_LoadBarBGObject
----@field LoadBarGlow CharacterFrame_RightJumpHint_LoadBarGlowObject
----@field NormalTexture CharacterFrame_RightJumpHint_NormalTextureObject
----@field PressedTexture CharacterFrame_RightJumpHint_PressedTextureObject
----@field SpinnerTip CharacterFrame_RightJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local CharacterFrame_RightJumpHintObject = {}
----@return any ...
-function CharacterFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject : Button
+---@field Controller AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButton_ControllerObject
+---@field Icon AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButton_IconObject
+---@field iconAtlas string
+---@field iconSize number
+---@field tooltipTitle string
+local AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject = {}
 ---@return any ...
-function CharacterFrame_RightJumpHintObject:BeginHold(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject:ClearCustomTextFormatter(...) end
 ---@return any ...
-function CharacterFrame_RightJumpHintObject:CanEnterTextureState(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject:GetOnClickSoundKit(...) end
 ---@return any ...
-function CharacterFrame_RightJumpHintObject:DisableDropShadow(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject:InitButton(...) end
 ---@return any ...
-function CharacterFrame_RightJumpHintObject:EnableDropShadow(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject:OnClick(...) end
 ---@return any ...
-function CharacterFrame_RightJumpHintObject:EndHold(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject:OnEnter(...) end
 ---@return any ...
-function CharacterFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject:OnLeave(...) end
 ---@return any ...
-function CharacterFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject:OnLoad(...) end
 ---@return any ...
-function CharacterFrame_RightJumpHintObject:OnLoad(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject:OnMouseDown(...) end
 ---@return any ...
-function CharacterFrame_RightJumpHintObject:RefreshIconTextures(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject:OnMouseUp(...) end
 ---@return any ...
-function CharacterFrame_RightJumpHintObject:SetDisabled(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject:RunCustomTextFormatter(...) end
 ---@return any ...
-function CharacterFrame_RightJumpHintObject:SetEnabled(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject:SetAtlas(...) end
 ---@return any ...
-function CharacterFrame_RightJumpHintObject:SetFocused(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject:SetButtonArtKit(...) end
 ---@return any ...
-function CharacterFrame_RightJumpHintObject:SetHoldState(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject:SetCustomTextFormatter(...) end
 ---@return any ...
-function CharacterFrame_RightJumpHintObject:SetInputKey(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject:SetDisabledTooltip(...) end
 ---@return any ...
-function CharacterFrame_RightJumpHintObject:SetIsHoldAction(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject:SetEnabledState(...) end
 ---@return any ...
-function CharacterFrame_RightJumpHintObject:SetPressable(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject:SetIcon(...) end
 ---@return any ...
-function CharacterFrame_RightJumpHintObject:SetTextureHeight(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject:SetOnClickHandler(...) end
 ---@return any ...
-function CharacterFrame_RightJumpHintObject:SetTextureState(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject:SetOnEnterHandler(...) end
 ---@return any ...
-function CharacterFrame_RightJumpHintObject:SetTextureWidth(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject:SetTooltipAnchor(...) end
 ---@return any ...
-function CharacterFrame_RightJumpHintObject:SetUsableState(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject:SetTooltipInfo(...) end
 ---@return any ...
-function CharacterFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class CharacterFrame_RightJumpHint_ActiveTextureObject : Texture
-local CharacterFrame_RightJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class CharacterFrame_RightJumpHint_DisabledTextureObject : Texture
-local CharacterFrame_RightJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class CharacterFrame_RightJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim CharacterFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim CharacterFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim CharacterFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
-local CharacterFrame_RightJumpHint_HoldAnimObject = {}
-end
-
-do
----@class CharacterFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
-local CharacterFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class CharacterFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local CharacterFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButtonObject:onClickHandler(...) end
 end
 
 do
----@class CharacterFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local CharacterFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class CharacterFrame_RightJumpHint_HoldIndicatorObject : Texture
-local CharacterFrame_RightJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class CharacterFrame_RightJumpHint_HoldIndicatorBGObject : Texture
-local CharacterFrame_RightJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class CharacterFrame_RightJumpHint_HoverTextureObject : Texture
-local CharacterFrame_RightJumpHint_HoverTextureObject = {}
-end
-
-do
----@class CharacterFrame_RightJumpHint_LoadBarObject : Texture
-local CharacterFrame_RightJumpHint_LoadBarObject = {}
-end
-
-do
----@class CharacterFrame_RightJumpHint_LoadBarBGObject : Texture
-local CharacterFrame_RightJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class CharacterFrame_RightJumpHint_LoadBarGlowObject : Texture
-local CharacterFrame_RightJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class CharacterFrame_RightJumpHint_NormalTextureObject : Texture
-local CharacterFrame_RightJumpHint_NormalTextureObject = {}
-end
-
-do
----@class CharacterFrame_RightJumpHint_PressedTextureObject : Texture
-local CharacterFrame_RightJumpHint_PressedTextureObject = {}
-end
-
-do
----@class CharacterFrame_RightJumpHint_SpinnerTipObject : Texture
-local CharacterFrame_RightJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class CharacterFrame_RightPaneHostObject : Frame
----@field StoneBg CharacterFrame_RightPaneHost_StoneBgObject
-local CharacterFrame_RightPaneHostObject = {}
-end
-
-do
----@class CharacterFrame_RightPaneHost_StoneBgObject : Texture
-local CharacterFrame_RightPaneHost_StoneBgObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButton_ControllerObject : Frame
+local AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButton_ControllerObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButton_ControllerObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButton_ControllerObject:OnShow(...) end
 end
 
 do
----@class CharacterFrame_RightPaneToggleButtonObject : Button
-local CharacterFrame_RightPaneToggleButtonObject = {}
----@return any ...
-function CharacterFrame_RightPaneToggleButtonObject:OnClick(...) end
----@return any ...
-function CharacterFrame_RightPaneToggleButtonObject:OnEnter(...) end
----@return any ...
-function CharacterFrame_RightPaneToggleButtonObject:OnLeave(...) end
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButton_IconObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_RefreshButton_IconObject = {}
 end
 
 do
----@class CharacterFrame_TabObject
----@field Character number
----@field Currency number
----@field PVP number
----@field Reputation number
----@field Skills number
----@field Statistics number
-local CharacterFrame_TabObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_TotalQuantityObject : FontString
+local AuctionHouseFrame_ItemBuyFrame_ItemList_RefreshFrame_TotalQuantityObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicatorsObject : Frame
----@field LeftTabButton CharacterFrame_TabIndicators_LeftTabButtonObject
----@field RightTabButton CharacterFrame_TabIndicators_RightTabButtonObject
----@field bindings CharacterFrame_TabIndicators_bindingsObject
----@field currentIndex number
----@field isVertical boolean
----@field tabs table
----@field visibleTabs table
-local CharacterFrame_TabIndicatorsObject = {}
----@return any ...
-function CharacterFrame_TabIndicatorsObject:ClickCurrentTab(...) end
----@return any ...
-function CharacterFrame_TabIndicatorsObject:GetNumTabs(...) end
----@return any ...
-function CharacterFrame_TabIndicatorsObject:LockTabs(...) end
----@return any ...
-function CharacterFrame_TabIndicatorsObject:OnHide(...) end
----@return any ...
-function CharacterFrame_TabIndicatorsObject:OnLoad(...) end
----@return any ...
-function CharacterFrame_TabIndicatorsObject:OnShow(...) end
----@return any ...
-function CharacterFrame_TabIndicatorsObject:SetCurrentIndex(...) end
----@return any ...
-function CharacterFrame_TabIndicatorsObject:SetUpTabs(...) end
----@return any ...
-function CharacterFrame_TabIndicatorsObject:Tab(...) end
----@return any ...
-function CharacterFrame_TabIndicatorsObject:UpdateTabIndicators(...) end
----@return any ...
-function CharacterFrame_TabIndicatorsObject:UpdateTabVisibility(...) end
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ResultsTextObject : FontString
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ResultsTextObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_LeftTabButtonObject : Button
----@field ActiveTexture CharacterFrame_TabIndicators_LeftTabButton_ActiveTextureObject
----@field DisabledTexture CharacterFrame_TabIndicators_LeftTabButton_DisabledTextureObject
----@field HoldAnim CharacterFrame_TabIndicators_LeftTabButton_HoldAnimObject
----@field HoldIndicator CharacterFrame_TabIndicators_LeftTabButton_HoldIndicatorObject
----@field HoldIndicatorBG CharacterFrame_TabIndicators_LeftTabButton_HoldIndicatorBGObject
----@field HoverTexture CharacterFrame_TabIndicators_LeftTabButton_HoverTextureObject
----@field LoadBar CharacterFrame_TabIndicators_LeftTabButton_LoadBarObject
----@field LoadBarBG CharacterFrame_TabIndicators_LeftTabButton_LoadBarBGObject
----@field LoadBarGlow CharacterFrame_TabIndicators_LeftTabButton_LoadBarGlowObject
----@field NormalTexture CharacterFrame_TabIndicators_LeftTabButton_NormalTextureObject
----@field PressedTexture CharacterFrame_TabIndicators_LeftTabButton_PressedTextureObject
----@field SpinnerTip CharacterFrame_TabIndicators_LeftTabButton_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field offset number
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject : Frame
+---@field Back AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject
+---@field Defaults AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_DefaultsObject
+---@field Directions AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_DirectionsObject
+---@field Event AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_EventObject
+---@field Forward AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject
+---@field Track AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_TrackObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field hideTrack boolean
+---@field hideTrackIfThumbExceedsTrack boolean
+---@field isScrollController boolean
+---@field minThumbExtent number
+---@field panDelay number
+---@field panExtentPercentage number
+---@field panRepeatTime number
 ---@field smartNavigationIgnored boolean
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local CharacterFrame_TabIndicators_LeftTabButtonObject = {}
+---@field snapToInterval boolean
+---@field thumbAnchor string
+---@field useProportionalThumb boolean
+---@field visibleExtentPercentage number
+---@field wheelPanScalar number
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject = {}
 ---@return any ...
-function CharacterFrame_TabIndicators_LeftTabButtonObject:ApplyTextureLayout(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:CallInternalScope(...) end
 ---@return any ...
-function CharacterFrame_TabIndicators_LeftTabButtonObject:BeginHold(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:CanCursorStepInDirection(...) end
 ---@return any ...
-function CharacterFrame_TabIndicators_LeftTabButtonObject:CanEnterTextureState(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:CanInterpolateScroll(...) end
 ---@return any ...
-function CharacterFrame_TabIndicators_LeftTabButtonObject:DisableDropShadow(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:CopyDeferredCallbacks(...) end
 ---@return any ...
-function CharacterFrame_TabIndicators_LeftTabButtonObject:EnableDropShadow(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:DisableControls(...) end
 ---@return any ...
-function CharacterFrame_TabIndicators_LeftTabButtonObject:EndHold(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:DoesFrameHaveEvent(...) end
 ---@return any ...
-function CharacterFrame_TabIndicators_LeftTabButtonObject:OnClick(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:EnableInternalPriority(...) end
 ---@return any ...
-function CharacterFrame_TabIndicators_LeftTabButtonObject:OnHoldAnimFinished(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:EnableSnapToInterval(...) end
 ---@return any ...
-function CharacterFrame_TabIndicators_LeftTabButtonObject:OnHoldAnimStopped(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:GenerateCallbackEvents(...) end
 ---@return any ...
-function CharacterFrame_TabIndicators_LeftTabButtonObject:OnLoad(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:GetBackStepper(...) end
 ---@return any ...
-function CharacterFrame_TabIndicators_LeftTabButtonObject:RefreshIconTextures(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:GetCallbackTable(...) end
 ---@return any ...
-function CharacterFrame_TabIndicators_LeftTabButtonObject:SetDisabled(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:GetCallbackTables(...) end
 ---@return any ...
-function CharacterFrame_TabIndicators_LeftTabButtonObject:SetFocused(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:GetCallbacksByEvent(...) end
 ---@return any ...
-function CharacterFrame_TabIndicators_LeftTabButtonObject:SetHoldState(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:GetForwardStepper(...) end
 ---@return any ...
-function CharacterFrame_TabIndicators_LeftTabButtonObject:SetInputKey(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:GetFrameExtent(...) end
 ---@return any ...
-function CharacterFrame_TabIndicators_LeftTabButtonObject:SetIsHoldAction(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:GetIntervalRange(...) end
 ---@return any ...
-function CharacterFrame_TabIndicators_LeftTabButtonObject:SetPressable(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:GetLower(...) end
 ---@return any ...
-function CharacterFrame_TabIndicators_LeftTabButtonObject:SetTextureHeight(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:GetMutableCallbacksByEvent(...) end
 ---@return any ...
-function CharacterFrame_TabIndicators_LeftTabButtonObject:SetTextureState(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:GetPanExtentPercentage(...) end
 ---@return any ...
-function CharacterFrame_TabIndicators_LeftTabButtonObject:SetTextureWidth(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:GetPanRepeatDelay(...) end
 ---@return any ...
-function CharacterFrame_TabIndicators_LeftTabButtonObject:SetUsableState(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:GetPanRepeatTime(...) end
 ---@return any ...
-function CharacterFrame_TabIndicators_LeftTabButtonObject:ShouldUseAdjustedTextureBounds(...) end
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:GetScrollInterpolator(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:GetScrollPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:GetThumb(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:GetThumbAnchor(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:GetTrack(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:GetTrackExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:GetUpper(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:GetWheelPanPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:HasScrollableExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:Init(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:InitializeNarration(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:Interpolate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:IsAtBegin(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:IsAtEnd(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:IsHorizontal(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:IsScrollAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:IsThumbMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:OnHide_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:OnMouseWheel(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:OnShow_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:OnStepperMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:OnThumbMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:OnTrackMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:RegisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:ScrollDecrease(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:ScrollInDirection(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:ScrollIncrease(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:ScrollPageInDirection(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:ScrollStepInDirection(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:ScrollToBegin(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:ScrollToEnd(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:ScrollWheelInDirection(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:SecureInsertEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:SelectCursorComponent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:SelectPointComponent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:SetFrameExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:SetHideIfUnscrollable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:SetHorizontal(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:SetInterpolateScroll(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:SetPanExtentPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:SetScrollAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:SetScrollPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:SetThumbExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:SetVisibleExtentPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:TriggerEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:UnregisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:UnregisterEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:UnregisterUpdate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:Update(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:onButtonMouseUp(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBarObject:scrollInternal(...) end
 end
 
 do
----@class CharacterFrame_TabIndicators_LeftTabButton_ActiveTextureObject : Texture
-local CharacterFrame_TabIndicators_LeftTabButton_ActiveTextureObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject : Button
+---@field Event AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Back_EventObject
+---@field Texture AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Back_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:GetAtlas(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:GetCallbackTable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:GetCallbackTables(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:IsDown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:IsDownOver(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:IsOver(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:NarrationGetName(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:OnButtonStateChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:OnDisable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:OnEnable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:OnMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:OnMouseUp(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:OnShow(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:RegisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:SecureInsertEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:SetDisplacedRegions(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:TriggerEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:UnregisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:UnregisterEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class CharacterFrame_TabIndicators_LeftTabButton_DisabledTextureObject : Texture
-local CharacterFrame_TabIndicators_LeftTabButton_DisabledTextureObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Back_EventObject
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Back_EventObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_LeftTabButton_HoldAnimObject : AnimationGroup
----@field LoadBarAnim CharacterFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim CharacterFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim CharacterFrame_TabIndicators_LeftTabButton_HoldAnim_SpinnerTipAnimObject
-local CharacterFrame_TabIndicators_LeftTabButton_HoldAnimObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Back_TextureObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Back_TextureObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarAnimObject
-local CharacterFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarAnimObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_DefaultsObject
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_DefaultsObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarGlowAnimObject : Alpha
-local CharacterFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarGlowAnimObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_DirectionsObject
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_DirectionsObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_LeftTabButton_HoldAnim_SpinnerTipAnimObject : Rotation
-local CharacterFrame_TabIndicators_LeftTabButton_HoldAnim_SpinnerTipAnimObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_EventObject
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_EventObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_LeftTabButton_HoldIndicatorObject : Texture
-local CharacterFrame_TabIndicators_LeftTabButton_HoldIndicatorObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject : Button
+---@field Event AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Forward_EventObject
+---@field Texture AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Forward_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:GetAtlas(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:GetCallbackTable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:GetCallbackTables(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:IsDown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:IsDownOver(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:IsOver(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:NarrationGetName(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:OnDisable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:OnEnable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:OnMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:OnMouseUp(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:OnShow(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:RegisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:TriggerEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:UnregisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:UnregisterEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class CharacterFrame_TabIndicators_LeftTabButton_HoldIndicatorBGObject : Texture
-local CharacterFrame_TabIndicators_LeftTabButton_HoldIndicatorBGObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Forward_EventObject
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Forward_EventObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_LeftTabButton_HoverTextureObject : Texture
-local CharacterFrame_TabIndicators_LeftTabButton_HoverTextureObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Forward_TextureObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Forward_TextureObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_LeftTabButton_LoadBarObject : Texture
-local CharacterFrame_TabIndicators_LeftTabButton_LoadBarObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_TrackObject : Frame
+---@field Begin AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_BeginObject
+---@field End AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_EndObject
+---@field Middle AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_MiddleObject
+---@field Thumb AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_TrackObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_LeftTabButton_LoadBarBGObject : Texture
-local CharacterFrame_TabIndicators_LeftTabButton_LoadBarBGObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_BeginObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_BeginObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_LeftTabButton_LoadBarGlowObject : Texture
-local CharacterFrame_TabIndicators_LeftTabButton_LoadBarGlowObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_EndObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_EndObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_LeftTabButton_NormalTextureObject : Texture
-local CharacterFrame_TabIndicators_LeftTabButton_NormalTextureObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_MiddleObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_MiddleObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_LeftTabButton_PressedTextureObject : Texture
-local CharacterFrame_TabIndicators_LeftTabButton_PressedTextureObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject : Button
+---@field Begin AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_Thumb_BeginObject
+---@field End AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_Thumb_EndObject
+---@field Event AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_Thumb_EventObject
+---@field Middle AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_Thumb_MiddleObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field downBeginTexture string
+---@field downEndTexture string
+---@field downMiddleTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field overBeginTexture string
+---@field overEndTexture string
+---@field overMiddleTexture string
+---@field upBeginTexture string
+---@field upEndTexture string
+---@field upMiddleTexture string
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:IsDown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:IsOver(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:OnDisable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:OnEnable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:OnShow(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class CharacterFrame_TabIndicators_LeftTabButton_SpinnerTipObject : Texture
-local CharacterFrame_TabIndicators_LeftTabButton_SpinnerTipObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_Thumb_BeginObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_Thumb_BeginObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_RightTabButtonObject : Button
----@field ActiveTexture CharacterFrame_TabIndicators_RightTabButton_ActiveTextureObject
----@field DisabledTexture CharacterFrame_TabIndicators_RightTabButton_DisabledTextureObject
----@field HoldAnim CharacterFrame_TabIndicators_RightTabButton_HoldAnimObject
----@field HoldIndicator CharacterFrame_TabIndicators_RightTabButton_HoldIndicatorObject
----@field HoldIndicatorBG CharacterFrame_TabIndicators_RightTabButton_HoldIndicatorBGObject
----@field HoverTexture CharacterFrame_TabIndicators_RightTabButton_HoverTextureObject
----@field LoadBar CharacterFrame_TabIndicators_RightTabButton_LoadBarObject
----@field LoadBarBG CharacterFrame_TabIndicators_RightTabButton_LoadBarBGObject
----@field LoadBarGlow CharacterFrame_TabIndicators_RightTabButton_LoadBarGlowObject
----@field NormalTexture CharacterFrame_TabIndicators_RightTabButton_NormalTextureObject
----@field PressedTexture CharacterFrame_TabIndicators_RightTabButton_PressedTextureObject
----@field SpinnerTip CharacterFrame_TabIndicators_RightTabButton_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field offset number
----@field smartNavigationIgnored boolean
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local CharacterFrame_TabIndicators_RightTabButtonObject = {}
----@return any ...
-function CharacterFrame_TabIndicators_RightTabButtonObject:ApplyTextureLayout(...) end
----@return any ...
-function CharacterFrame_TabIndicators_RightTabButtonObject:BeginHold(...) end
----@return any ...
-function CharacterFrame_TabIndicators_RightTabButtonObject:CanEnterTextureState(...) end
----@return any ...
-function CharacterFrame_TabIndicators_RightTabButtonObject:DisableDropShadow(...) end
----@return any ...
-function CharacterFrame_TabIndicators_RightTabButtonObject:EnableDropShadow(...) end
----@return any ...
-function CharacterFrame_TabIndicators_RightTabButtonObject:EndHold(...) end
----@return any ...
-function CharacterFrame_TabIndicators_RightTabButtonObject:OnClick(...) end
----@return any ...
-function CharacterFrame_TabIndicators_RightTabButtonObject:OnHoldAnimFinished(...) end
----@return any ...
-function CharacterFrame_TabIndicators_RightTabButtonObject:OnHoldAnimStopped(...) end
----@return any ...
-function CharacterFrame_TabIndicators_RightTabButtonObject:OnLoad(...) end
----@return any ...
-function CharacterFrame_TabIndicators_RightTabButtonObject:RefreshIconTextures(...) end
----@return any ...
-function CharacterFrame_TabIndicators_RightTabButtonObject:SetDisabled(...) end
----@return any ...
-function CharacterFrame_TabIndicators_RightTabButtonObject:SetFocused(...) end
----@return any ...
-function CharacterFrame_TabIndicators_RightTabButtonObject:SetHoldState(...) end
----@return any ...
-function CharacterFrame_TabIndicators_RightTabButtonObject:SetInputKey(...) end
----@return any ...
-function CharacterFrame_TabIndicators_RightTabButtonObject:SetIsHoldAction(...) end
----@return any ...
-function CharacterFrame_TabIndicators_RightTabButtonObject:SetPressable(...) end
----@return any ...
-function CharacterFrame_TabIndicators_RightTabButtonObject:SetTextureHeight(...) end
----@return any ...
-function CharacterFrame_TabIndicators_RightTabButtonObject:SetTextureState(...) end
----@return any ...
-function CharacterFrame_TabIndicators_RightTabButtonObject:SetTextureWidth(...) end
----@return any ...
-function CharacterFrame_TabIndicators_RightTabButtonObject:SetUsableState(...) end
----@return any ...
-function CharacterFrame_TabIndicators_RightTabButtonObject:ShouldUseAdjustedTextureBounds(...) end
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_Thumb_EndObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_Thumb_EndObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_RightTabButton_ActiveTextureObject : Texture
-local CharacterFrame_TabIndicators_RightTabButton_ActiveTextureObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_Thumb_EventObject
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_Thumb_EventObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_RightTabButton_DisabledTextureObject : Texture
-local CharacterFrame_TabIndicators_RightTabButton_DisabledTextureObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_Thumb_MiddleObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBar_Track_Thumb_MiddleObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_RightTabButton_HoldAnimObject : AnimationGroup
----@field LoadBarAnim CharacterFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim CharacterFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim CharacterFrame_TabIndicators_RightTabButton_HoldAnim_SpinnerTipAnimObject
-local CharacterFrame_TabIndicators_RightTabButton_HoldAnimObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject : Frame
+---@field Defaults AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_DefaultsObject
+---@field Directions AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_DirectionsObject
+---@field DragDelegate AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_DragDelegateObject
+---@field Event AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_EventObject
+---@field ScrollTarget AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject
+---@field Shadows AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ShadowsObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field debugInspectionSystem string
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field isScrollController boolean
+---@field panExtentPercentage number
+---@field wheelPanScalar number
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ApplyEdgeFade(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:CalculateEdgeFade(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:CalculatePanExtentPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:CalculateScrollPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:CanInterpolateScroll(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ClearEdgeFade(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ContainsElementDataByPredicate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:EnableSnapToInterval(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:EnumerateDataProvider(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:EnumerateDataProviderEntireRange(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:EnumerateFrames(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:FindByPredicate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:FindElementData(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:FindElementDataByPredicate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:FindElementDataIndex(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:FindElementDataIndexByPredicate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:FindFrame(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:FindFrameByPredicate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:FindFrameElementDataIndex(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:Flush(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:FlushDataProvider(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ForEachElementData(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ForEachFrame(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:FullUpdate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:FullUpdateInternal(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GenerateCallbackEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetBottomPadding(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetCallbackTable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetCallbackTables(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetDataIndexBegin(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetDataIndexEnd(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetDataProvider(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetDataProviderSize(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetDerivedExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetDerivedScrollOffset(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetDerivedScrollRange(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetElementExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetExtentPadding(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetExtentUntil(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetFrameCount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetFrameExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetFrames(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetIntervalRange(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetLeftPadding(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetLower(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetLowerPadding(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetLowerShadowTexture(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetPadding(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetPanExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetPanExtentPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetRightPadding(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetScrollInterpolator(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetScrollPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetScrollTarget(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetTopPadding(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetUpper(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetUpperPadding(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetUpperShadowTexture(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetView(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetVisibleExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:GetWheelPanPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:HasDataProvider(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:HasEdgeFade(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:HasScrollableExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:HasView(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:Init(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:Interpolate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:IsAcquireLocked(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:IsAlignmentOverlapIgnored(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:IsAtBegin(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:IsAtEnd(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:IsHorizontal(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:IsScrollAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:IsScrollToDataIndexSafe(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:IsUpdateLocked(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:IsVirtualized(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:Layout(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:OnMouseWheel(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:OnScrollTargetSizeChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:OnSizeChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:OnViewAcquiredFrame(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:OnViewDataChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:OnViewDataProviderReassigned(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:OnViewInitializedFrame(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:OnViewReleasedFrame(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:Rebuild(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:RecalculateDerivedExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:RegisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ReinitializeFrames(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:RemoveDataProvider(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ReverseEnumerateDataProvider(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ReverseForEachElementData(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ReverseForEachFrame(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SanitizeAlignment(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ScrollDecrease(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ScrollInDirection(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ScrollIncrease(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ScrollToBegin(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ScrollToElementData(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ScrollToElementDataByPredicate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ScrollToElementDataIndex(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ScrollToEnd(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ScrollToFrame(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ScrollToNearest(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ScrollToNearestByPredicate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ScrollToOffset(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SecureInsertEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SelectCursorComponent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SelectPointComponent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SetAlignmentOverlapIgnored(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SetDataProvider(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SetEdgeFadeLength(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SetFrameExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SetHorizontal(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SetInterpolateScroll(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SetLowerShadowAtlas(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SetPadding(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SetPanExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SetPanExtentPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SetScrollAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SetScrollPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SetScrollTargetOffset(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SetShadowsFrameLevel(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SetShadowsScale(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SetShadowsShown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SetUpdateLocked(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SetUpperShadowAtlas(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SetUseShadowsForEdgeFade(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:SetView(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:TriggerEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:UnregisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:UnregisterEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:Update(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBoxObject:scrollInternal(...) end
 end
 
 do
----@class CharacterFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarAnimObject
-local CharacterFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarAnimObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_DefaultsObject
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_DefaultsObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarGlowAnimObject : Alpha
-local CharacterFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarGlowAnimObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_DirectionsObject
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_DirectionsObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_RightTabButton_HoldAnim_SpinnerTipAnimObject : Rotation
-local CharacterFrame_TabIndicators_RightTabButton_HoldAnim_SpinnerTipAnimObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_DragDelegateObject : Frame
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_DragDelegateObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_RightTabButton_HoldIndicatorObject : Texture
-local CharacterFrame_TabIndicators_RightTabButton_HoldIndicatorObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_EventObject
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_EventObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_RightTabButton_HoldIndicatorBGObject : Texture
-local CharacterFrame_TabIndicators_RightTabButton_HoldIndicatorBGObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject : Frame
+---@field Event AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTarget_EventObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject:GetCallbackTable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject:GetCallbackTables(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject:RegisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject:TriggerEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject:UnregisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject:UnregisterEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
 end
 
 do
----@class CharacterFrame_TabIndicators_RightTabButton_HoverTextureObject : Texture
-local CharacterFrame_TabIndicators_RightTabButton_HoverTextureObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTarget_EventObject
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ScrollTarget_EventObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_RightTabButton_LoadBarObject : Texture
-local CharacterFrame_TabIndicators_RightTabButton_LoadBarObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ShadowsObject : Frame
+---@field Lower AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_Shadows_LowerObject
+---@field Upper AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_Shadows_UpperObject
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_ShadowsObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_RightTabButton_LoadBarBGObject : Texture
-local CharacterFrame_TabIndicators_RightTabButton_LoadBarBGObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_Shadows_LowerObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_Shadows_LowerObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_RightTabButton_LoadBarGlowObject : Texture
-local CharacterFrame_TabIndicators_RightTabButton_LoadBarGlowObject = {}
+---@class AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_Shadows_UpperObject : Texture
+local AuctionHouseFrame_ItemBuyFrame_ItemList_ScrollBox_Shadows_UpperObject = {}
 end
 
 do
----@class CharacterFrame_TabIndicators_RightTabButton_NormalTextureObject : Texture
-local CharacterFrame_TabIndicators_RightTabButton_NormalTextureObject = {}
-end
-
-do
----@class CharacterFrame_TabIndicators_RightTabButton_PressedTextureObject : Texture
-local CharacterFrame_TabIndicators_RightTabButton_PressedTextureObject = {}
-end
-
-do
----@class CharacterFrame_TabIndicators_RightTabButton_SpinnerTipObject : Texture
-local CharacterFrame_TabIndicators_RightTabButton_SpinnerTipObject = {}
-end
-
-do
----@class CharacterFrame_TabIndicators_bindingsObject
----@field actions table
----@field axes table
----@field buttons table
----@field functions table
----@field name string
----@field nextButtonId number
----@field nextFunctionId number
----@field treatBindsAsCore boolean
-local CharacterFrame_TabIndicators_bindingsObject = {}
----@return any ...
-function CharacterFrame_TabIndicators_bindingsObject:AddAxisBinding(...) end
----@return any ...
-function CharacterFrame_TabIndicators_bindingsObject:AddButtonBinding(...) end
----@return any ...
-function CharacterFrame_TabIndicators_bindingsObject:AddFunctionBinding(...) end
----@return any ...
-function CharacterFrame_TabIndicators_bindingsObject:BlockDpad(...) end
----@return any ...
-function CharacterFrame_TabIndicators_bindingsObject:BlockDpadAndFaceButtons(...) end
----@return any ...
-function CharacterFrame_TabIndicators_bindingsObject:BlockEverything(...) end
----@return any ...
-function CharacterFrame_TabIndicators_bindingsObject:BlockKeys(...) end
----@return any ...
-function CharacterFrame_TabIndicators_bindingsObject:BlockKeysWithModifiers(...) end
----@return any ...
-function CharacterFrame_TabIndicators_bindingsObject:BlockKeysWithoutModifiers(...) end
----@return any ...
-function CharacterFrame_TabIndicators_bindingsObject:Init(...) end
----@return any ...
-function CharacterFrame_TabIndicators_bindingsObject:RemoveKeys(...) end
----@return any ...
-function CharacterFrame_TabIndicators_bindingsObject:TreatAsCore(...) end
-end
-
-do
----@class CharacterFrame_TitleContainerObject : Frame
----@field TitleText CharacterFrame_TitleContainer_TitleTextObject
-local CharacterFrame_TitleContainerObject = {}
-end
-
-do
----@class CharacterFrame_TitleContainer_TitleTextObject : FontString
-local CharacterFrame_TitleContainer_TitleTextObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrameObject : Frame
----@field DetailFrame CharacterFrame_TokenFrame_DetailFrameObject
----@field LoadingSpinner CharacterFrame_TokenFrame_LoadingSpinnerObject
----@field ScrollBar CharacterFrame_TokenFrame_ScrollBarObject
----@field ScrollBox CharacterFrame_TokenFrame_ScrollBoxObject
-local CharacterFrame_TokenFrameObject = {}
----@return any ...
-function CharacterFrame_TokenFrameObject:OnEvent(...) end
----@return any ...
-function CharacterFrame_TokenFrameObject:OnHide(...) end
----@return any ...
-function CharacterFrame_TokenFrameObject:OnLoad(...) end
----@return any ...
-function CharacterFrame_TokenFrameObject:OnShow(...) end
----@return any ...
-function CharacterFrame_TokenFrameObject:RefreshAccountTransferableCurrenciesTutorial(...) end
----@return any ...
-function CharacterFrame_TokenFrameObject:SelectFirstCurrencyIfNoneSelected(...) end
----@return any ...
-function CharacterFrame_TokenFrameObject:SetLoadingSpinnerShown(...) end
----@return any ...
-function CharacterFrame_TokenFrameObject:SetTokenWatched(...) end
----@return any ...
-function CharacterFrame_TokenFrameObject:Update(...) end
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrameObject : Frame
----@field BackpackCheckbox CharacterFrame_TokenFrame_DetailFrame_BackpackCheckboxObject
----@field Content CharacterFrame_TokenFrame_DetailFrame_ContentObject
----@field CurrencyTransferToggleButton CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButtonObject
----@field Description CharacterFrame_TokenFrame_DetailFrame_DescriptionObject
----@field DescriptionScrollBar CharacterFrame_TokenFrame_DetailFrame_DescriptionScrollBarObject
----@field Divider CharacterFrame_TokenFrame_DetailFrame_DividerObject
----@field EmptyText CharacterFrame_TokenFrame_DetailFrame_EmptyTextObject
----@field Footer CharacterFrame_TokenFrame_DetailFrame_FooterObject
----@field InactiveCheckbox CharacterFrame_TokenFrame_DetailFrame_InactiveCheckboxObject
----@field Subtitle CharacterFrame_TokenFrame_DetailFrame_SubtitleObject
----@field Title CharacterFrame_TokenFrame_DetailFrame_TitleObject
----@field layoutIndex number
----@field rowPools CharacterFrame_TokenFrame_DetailFrame_rowPoolsObject
-local CharacterFrame_TokenFrame_DetailFrameObject = {}
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrameObject:AcquireRow(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrameObject:AddCategory(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrameObject:AddIconRow(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrameObject:AddRow(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrameObject:AddSpacer(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrameObject:AddWrappedRow(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrameObject:ClearEmpty(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrameObject:ClearSelectionIfMissing(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrameObject:GetSelectedCurrencyInfo(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrameObject:LayoutRows(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrameObject:OnLoad(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrameObject:OnShow(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrameObject:Refresh(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrameObject:ResetRows(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrameObject:SetDescription(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrameObject:SetEmpty(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrameObject:SetPaneTitle(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrameObject:SetPaneTitleColor(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrameObject:ShowEmptyState(...) end
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_BackpackCheckboxObject : CheckButton
----@field Label CharacterFrame_TokenFrame_DetailFrame_BackpackCheckbox_LabelObject
-local CharacterFrame_TokenFrame_DetailFrame_BackpackCheckboxObject = {}
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_BackpackCheckboxObject:OnClick(...) end
----@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_BackpackCheckboxObject:OnEnter(...) end
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_BackpackCheckbox_LabelObject : FontString
-local CharacterFrame_TokenFrame_DetailFrame_BackpackCheckbox_LabelObject = {}
-end
-
-do
----@class CharacterFrame_TokenFrame_DetailFrame_ContentObject : Frame
----@field dirty boolean
----@field fixedWidth number
+---@class AuctionHouseFrame_ItemSellFrameObject : Frame
+---@field Background AuctionHouseFrame_ItemSellFrame_BackgroundObject
+---@field BuyoutModeCheckButton AuctionHouseFrame_ItemSellFrame_BuyoutModeCheckButtonObject
+---@field CreateAuctionLabel AuctionHouseFrame_ItemSellFrame_CreateAuctionLabelObject
+---@field CreateAuctionTabLeft AuctionHouseFrame_ItemSellFrame_CreateAuctionTabLeftObject
+---@field CreateAuctionTabMiddle AuctionHouseFrame_ItemSellFrame_CreateAuctionTabMiddleObject
+---@field CreateAuctionTabRight AuctionHouseFrame_ItemSellFrame_CreateAuctionTabRightObject
+---@field Deposit AuctionHouseFrame_ItemSellFrame_DepositObject
+---@field DisabledOverlay AuctionHouseFrame_ItemSellFrame_DisabledOverlayObject
+---@field Duration AuctionHouseFrame_ItemSellFrame_DurationObject
+---@field ItemDisplay AuctionHouseFrame_ItemSellFrame_ItemDisplayObject
+---@field NineSlice AuctionHouseFrame_ItemSellFrame_NineSliceObject
+---@field Overlay AuctionHouseFrame_ItemSellFrame_OverlayObject
+---@field PostButton AuctionHouseFrame_ItemSellFrame_PostButtonObject
+---@field PriceInput AuctionHouseFrame_ItemSellFrame_PriceInputObject
+---@field QuantityInput AuctionHouseFrame_ItemSellFrame_QuantityInputObject
+---@field SecondaryPriceInput AuctionHouseFrame_ItemSellFrame_SecondaryPriceInputObject
+---@field TotalPrice AuctionHouseFrame_ItemSellFrame_TotalPriceObject
+---@field backgroundAtlas string
+---@field backgroundTextureClassic string
+---@field bottomPadding number
+---@field headers table
+---@field layoutType string
+---@field leftPadding number
+---@field rightPadding number
+---@field searchContext number
 ---@field spacing number
-local CharacterFrame_TokenFrame_DetailFrame_ContentObject = {}
+---@field textureHeightClassic number
+---@field textureWidthClassic number
+---@field textureXOffsetClassic number
+---@field textureYOffsetClassic number
+---@field topPadding number
+local AuctionHouseFrame_ItemSellFrameObject = {}
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:AddLayoutChildren(...) end
+function AuctionHouseFrame_ItemSellFrameObject:AddLayoutChildren(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:CalculateFrameSize(...) end
+function AuctionHouseFrame_ItemSellFrameObject:CachePendingPost(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:ClearFixedSize(...) end
+function AuctionHouseFrame_ItemSellFrameObject:CalculateFrameSize(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:GetAdditionalRegions(...) end
+function AuctionHouseFrame_ItemSellFrameObject:CanPostItem(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:GetChildHeight(...) end
+function AuctionHouseFrame_ItemSellFrameObject:ClearFixedSize(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:GetChildPadding(...) end
+function AuctionHouseFrame_ItemSellFrameObject:ClearNoneAvailableEntry(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:GetChildSize(...) end
+function AuctionHouseFrame_ItemSellFrameObject:ClearPost(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:GetChildWidth(...) end
+function AuctionHouseFrame_ItemSellFrameObject:ClearSearchResultPrice(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:GetFixedHeight(...) end
+function AuctionHouseFrame_ItemSellFrameObject:ConfirmPost(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:GetFixedSize(...) end
+function AuctionHouseFrame_ItemSellFrameObject:GetAdditionalRegions(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:GetFixedWidth(...) end
+function AuctionHouseFrame_ItemSellFrameObject:GetAuctionHouseFrame(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:GetHeightPadding(...) end
+function AuctionHouseFrame_ItemSellFrameObject:GetBestEntry(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:GetLayoutChildren(...) end
+function AuctionHouseFrame_ItemSellFrameObject:GetChildHeight(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:GetPadding(...) end
+function AuctionHouseFrame_ItemSellFrameObject:GetChildPadding(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:GetWidthPadding(...) end
+function AuctionHouseFrame_ItemSellFrameObject:GetChildSize(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:IgnoreLayoutIndex(...) end
+function AuctionHouseFrame_ItemSellFrameObject:GetChildWidth(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:IsDirty(...) end
+function AuctionHouseFrame_ItemSellFrameObject:GetDefaultPrice(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:IsLayoutFrame(...) end
+function AuctionHouseFrame_ItemSellFrameObject:GetDepositAmount(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:Layout(...) end
+function AuctionHouseFrame_ItemSellFrameObject:GetDuration(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:LayoutChildren(...) end
+function AuctionHouseFrame_ItemSellFrameObject:GetFixedHeight(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:MarkClean(...) end
+function AuctionHouseFrame_ItemSellFrameObject:GetFixedSize(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:MarkDirty(...) end
+function AuctionHouseFrame_ItemSellFrameObject:GetFixedWidth(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:MarkIgnoreInLayout(...) end
+function AuctionHouseFrame_ItemSellFrameObject:GetHeightPadding(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:OnCleaned(...) end
+function AuctionHouseFrame_ItemSellFrameObject:GetItem(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:OnShow(...) end
+function AuctionHouseFrame_ItemSellFrameObject:GetItemSellList(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:OnUpdate(...) end
+function AuctionHouseFrame_ItemSellFrameObject:GetLayoutChildren(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:SetFixedHeight(...) end
+function AuctionHouseFrame_ItemSellFrameObject:GetMaxQuantity(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:SetFixedSize(...) end
+function AuctionHouseFrame_ItemSellFrameObject:GetPadding(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:SetFixedWidth(...) end
+function AuctionHouseFrame_ItemSellFrameObject:GetPostDetails(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:SetHeightPadding(...) end
+function AuctionHouseFrame_ItemSellFrameObject:GetPrice(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:SetWidthPadding(...) end
+function AuctionHouseFrame_ItemSellFrameObject:GetQuantity(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_ContentObject:ShouldClearOnUpdateAfterClean(...) end
+function AuctionHouseFrame_ItemSellFrameObject:GetSearchContext(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:GetSearchResultPrice(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:GetSortOrderState(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:GetTotalPrice(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:GetWidthPadding(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:HideHelpTip(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:InitializeItemSellList(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:IsDirty(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:IsLayoutFrame(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:Layout(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:LayoutChildren(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:MarkClean(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:MarkDirty(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:OnCleaned(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:OnDurationUpdated(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:OnEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:OnHide(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:OnOverlayClick(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:OnOverlayEnter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:OnOverlayLeave(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:OnOverlayReceiveDrag(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:OnSearchResultSelected(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:OnShow(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:OnUpdate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:PostItem(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:RegisterHeader(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:SetFixedHeight(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:SetFixedSize(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:SetFixedWidth(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:SetHeightPadding(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:SetItem(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:SetMultiSell(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:SetSearchContext(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:SetSearchResultPrice(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:SetSecondaryPriceInputEnabled(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:SetSortOrder(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:SetToMaxQuantity(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:SetWidthPadding(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:ShouldClearOnUpdateAfterClean(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:ShowHelpTip(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:StartPost(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:UpdateDeposit(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:UpdateFocusTabbing(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:UpdateHeaders(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:UpdateNoneAvailableEntry(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:UpdatePostButtonState(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:UpdatePostState(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:UpdatePriceSelection(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrameObject:UpdateTotalPrice(...) end
 end
 
 do
----@class CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButtonObject : Button
----@field Left CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_LeftObject
----@field LoadingSpinner CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_LoadingSpinnerObject
----@field Middle CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_MiddleObject
----@field Right CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_RightObject
----@field Text CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButton_TextObject
+---@class AuctionHouseFrame_ItemSellFrame_BackgroundObject : Texture
+local AuctionHouseFrame_ItemSellFrame_BackgroundObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_BuyoutModeCheckButtonObject : CheckButton
+---@field Text AuctionHouseFrame_ItemSellFrame_BuyoutModeCheckButton_TextObject
+---@field text AuctionHouseFrame_ItemSellFrame_BuyoutModeCheckButton_textObject
+local AuctionHouseFrame_ItemSellFrame_BuyoutModeCheckButtonObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_BuyoutModeCheckButtonObject:OnClick(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_BuyoutModeCheckButtonObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_BuyoutModeCheckButtonObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_BuyoutModeCheckButtonObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_BuyoutModeCheckButtonObject:OnShow(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_BuyoutModeCheckButtonObject:UpdateState(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_BuyoutModeCheckButton_TextObject
+local AuctionHouseFrame_ItemSellFrame_BuyoutModeCheckButton_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_BuyoutModeCheckButton_textObject : FontString
+local AuctionHouseFrame_ItemSellFrame_BuyoutModeCheckButton_textObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_CreateAuctionLabelObject : FontString
+local AuctionHouseFrame_ItemSellFrame_CreateAuctionLabelObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_CreateAuctionTabLeftObject : Texture
+local AuctionHouseFrame_ItemSellFrame_CreateAuctionTabLeftObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_CreateAuctionTabMiddleObject : Texture
+local AuctionHouseFrame_ItemSellFrame_CreateAuctionTabMiddleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_CreateAuctionTabRightObject : Texture
+local AuctionHouseFrame_ItemSellFrame_CreateAuctionTabRightObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_DepositObject : Frame
+---@field Label AuctionHouseFrame_ItemSellFrame_Deposit_LabelObject
+---@field LabelTitle AuctionHouseFrame_ItemSellFrame_Deposit_LabelTitleObject
+---@field MoneyDisplayFrame AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrameObject
+---@field Subtext AuctionHouseFrame_ItemSellFrame_Deposit_SubtextObject
+---@field labelText string
+---@field layoutIndex number
+local AuctionHouseFrame_ItemSellFrame_DepositObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_DepositObject:GetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_DepositObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_DepositObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_DepositObject:SetLabel(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_DepositObject:SetLabelColor(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_DepositObject:SetSubtext(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Deposit_LabelObject : FontString
+local AuctionHouseFrame_ItemSellFrame_Deposit_LabelObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Deposit_LabelTitleObject : FontString
+local AuctionHouseFrame_ItemSellFrame_Deposit_LabelTitleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrameObject : Frame
+---@field CopperDisplay AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplayObject
+---@field GoldDisplay AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplayObject
+---@field SilverDisplay AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplayObject
+---@field hideCopper boolean
+---@field leftAlign boolean
+---@field useAuctionHouseCopperValue boolean
+---@field useAuctionHouseIcons boolean
+local AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrameObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrameObject:GetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrameObject:GetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrameObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrameObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrameObject:SetFontAndIconDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrameObject:SetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrameObject:SetResizeToFit(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrameObject:UpdateAnchoring(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrameObject:UpdateWidth(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplayObject : Frame
+---@field Icon AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplay_IconObject
+---@field Text AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplay_TextObject
+---@field amount number
+---@field displayType AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplay_displayTypeObject
+---@field showsZeroAmount boolean
+local AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplayObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplayObject:GetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplayObject:IsForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplayObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplayObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplayObject:SetDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplayObject:SetFontAndIconDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplayObject:SetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplayObject:SetForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplayObject:SetFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplayObject:SetShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplayObject:ShouldBeShown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplayObject:ShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplayObject:UpdateDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplayObject:UpdateWidth(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplay_IconObject : Texture
+local AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplay_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplay_TextObject : FontString
+local AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplay_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplay_displayTypeObject
+local AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_CopperDisplay_displayTypeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplayObject : Frame
+---@field Icon AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplay_IconObject
+---@field Text AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplay_TextObject
+---@field amount number
+---@field displayType AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplay_displayTypeObject
+local AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplayObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplayObject:GetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplayObject:IsForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplayObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplayObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplayObject:SetDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplayObject:SetFontAndIconDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplayObject:SetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplayObject:SetForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplayObject:SetFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplayObject:SetShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplayObject:ShouldBeShown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplayObject:ShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplayObject:UpdateDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplayObject:UpdateWidth(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplayObject:formatter(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplay_IconObject : Texture
+local AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplay_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplay_TextObject : FontString
+local AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplay_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplay_displayTypeObject
+local AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_GoldDisplay_displayTypeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplayObject : Frame
+---@field Icon AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplay_IconObject
+---@field Text AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplay_TextObject
+---@field amount number
+---@field displayType AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplay_displayTypeObject
+---@field showsZeroAmount boolean
+local AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplayObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplayObject:GetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplayObject:IsForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplayObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplayObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplayObject:SetDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplayObject:SetFontAndIconDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplayObject:SetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplayObject:SetForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplayObject:SetFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplayObject:SetShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplayObject:ShouldBeShown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplayObject:ShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplayObject:UpdateDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplayObject:UpdateWidth(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplay_IconObject : Texture
+local AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplay_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplay_TextObject : FontString
+local AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplay_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplay_displayTypeObject
+local AuctionHouseFrame_ItemSellFrame_Deposit_MoneyDisplayFrame_SilverDisplay_displayTypeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Deposit_SubtextObject : FontString
+local AuctionHouseFrame_ItemSellFrame_Deposit_SubtextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_DisabledOverlayObject : Button
+local AuctionHouseFrame_ItemSellFrame_DisabledOverlayObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_DurationObject : Frame
+---@field Dropdown AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject
+---@field Label AuctionHouseFrame_ItemSellFrame_Duration_LabelObject
+---@field LabelTitle AuctionHouseFrame_ItemSellFrame_Duration_LabelTitleObject
+---@field Subtext AuctionHouseFrame_ItemSellFrame_Duration_SubtextObject
+---@field labelText string
+---@field layoutIndex number
+local AuctionHouseFrame_ItemSellFrame_DurationObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_DurationObject:GetDuration(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_DurationObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_DurationObject:OnShow(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_DurationObject:SetDuration(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_DurationObject:SetLabel(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_DurationObject:SetLabelColor(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_DurationObject:SetSubtext(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject : Button
+---@field Arrow AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_ArrowObject
+---@field Background AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_BackgroundObject
+---@field Event AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_EventObject
+---@field Text AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuAnchorObject
+---@field menuDescription AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuDescriptionObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+---@field text string
+local AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:ClearMenuState(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:CloseMenu(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:CollectSelectionData(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:CreateRootDescription(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:Decrement(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:GenerateMenu(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:GetArrowAtlas(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:GetCallbackTable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:GetCallbackTables(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:GetDefaultText(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:GetMenuDescription(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:GetSelectionData(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:GetUpdateText(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:HasElements(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:HasStickyFocus(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:Increment(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:IsDown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:IsDownOver(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:IsMenuOpen(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:IsOver(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:NarrationGetContext(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:NarrationGetName(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:OnDisable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:OnEnable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:OnMenuChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:OnMenuClosed(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:OnMenuOpened(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:OnMenuResponse(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:OnMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:OnMouseUp(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:OnShow(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:OpenMenu(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:OverrideText(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:Pick(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:RegisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:RegisterMenu(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:Rotate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:SetDefaultText(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:SetMenuOpen(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:SetSelectionText(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:SetTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:SetupMenu(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:ShowTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:SignalUpdate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:TriggerEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:UnregisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:UnregisterEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:Update(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:UpdateSelections(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:UpdateText(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:menuGenerator(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_DropdownObject:selectionTranslator(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_ArrowObject : Texture
+local AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_ArrowObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_BackgroundObject : Texture
+local AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_BackgroundObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_EventObject
+local AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_EventObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_TextObject : FontString
+local AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuAnchorObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuAnchor_relativeToObject
+local AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuDescriptionObject
+---@field tag string
+local AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuDescriptionObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuDescriptionObject:CreateButton(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuDescriptionObject:CreateCheckbox(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuDescriptionObject:CreateColorSwatch(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuDescriptionObject:CreateDivider(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuDescriptionObject:CreateFrame(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuDescriptionObject:CreateHighlightButton(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuDescriptionObject:CreateHighlightRadio(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuDescriptionObject:CreateRadio(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuDescriptionObject:CreateSearchEntry(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuDescriptionObject:CreateSpacer(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuDescriptionObject:CreateTemplate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuDescriptionObject:CreateTitle(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuDescriptionObject:QueueDivider(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuDescriptionObject:QueueSpacer(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuDescriptionObject:QueueTitle(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuDescriptionObject:SetTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_Duration_Dropdown_menuDescriptionObject:private(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Duration_LabelObject : FontString
+local AuctionHouseFrame_ItemSellFrame_Duration_LabelObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Duration_LabelTitleObject : FontString
+local AuctionHouseFrame_ItemSellFrame_Duration_LabelTitleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_Duration_SubtextObject : FontString
+local AuctionHouseFrame_ItemSellFrame_Duration_SubtextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_ItemDisplayObject : Button
+---@field Background AuctionHouseFrame_ItemSellFrame_ItemDisplay_BackgroundObject
+---@field ItemButton AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButtonObject
+---@field Name AuctionHouseFrame_ItemSellFrame_ItemDisplay_NameObject
+---@field NineSlice AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSliceObject
+---@field auctionHouseFrame AuctionHouseFrame_ItemSellFrame_ItemDisplay_auctionHouseFrameObject
+---@field bottomPadding number
+---@field itemButtonXOffset number
+---@field itemButtonYOffset number
+---@field layoutIndex number
+---@field layoutType string
+local AuctionHouseFrame_ItemSellFrame_ItemDisplayObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:GetItem(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:GetItemCount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:GetItemDisplayText(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:GetItemID(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:GetItemInfo(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:GetItemKey(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:GetItemLink(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:GetItemLocation(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:GetItemSource(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:IsPet(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:OnClick(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:OnEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:OnReceiveDrag(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:OnUpdate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:Reset(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:SetAuctionHouseFrame(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:SetItem(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:SetItemCountFunction(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:SetItemInternal(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:SetItemKey(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:SetItemLevelShown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:SetItemLocation(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:SetItemSource(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:SetItemValidationFunction(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:SetOnItemChangedCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:SwitchItemWithCursor(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:itemValidationFunc(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplayObject:onItemChangedCallback(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_ItemDisplay_BackgroundObject : Texture
+local AuctionHouseFrame_ItemSellFrame_ItemDisplay_BackgroundObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButtonObject : Button
+---@field Count AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_CountObject
+---@field EmptyBackground AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_EmptyBackgroundObject
+---@field Highlight AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_HighlightObject
+---@field Icon AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_IconObject
+---@field IconBorder AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_IconBorderObject
+---@field IconMask AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_IconMaskObject
+---@field IconOverlay AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_IconOverlayObject
+---@field IconOverlay2 AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_IconOverlay2Object
+local AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButtonObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButtonObject:GetItemLocation(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButtonObject:Init(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButtonObject:OnClick(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButtonObject:OnDragStart(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButtonObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButtonObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButtonObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButtonObject:OnReceiveDrag(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButtonObject:SetItemLocation(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButtonObject:SwitchItemWithCursor(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_CountObject : FontString
+local AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_CountObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_EmptyBackgroundObject : Texture
+local AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_EmptyBackgroundObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_HighlightObject : Texture
+local AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_HighlightObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_IconObject : Texture
+local AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_IconBorderObject : Texture
+local AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_IconBorderObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_IconMaskObject : MaskTexture
+local AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_IconMaskObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_IconOverlayObject : Texture
+local AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_IconOverlayObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_IconOverlay2Object : Texture
+local AuctionHouseFrame_ItemSellFrame_ItemDisplay_ItemButton_IconOverlay2Object = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_ItemDisplay_NameObject : FontString
+local AuctionHouseFrame_ItemSellFrame_ItemDisplay_NameObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSliceObject : Frame
+---@field BottomEdge AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_BottomRightCornerObject
+---@field LeftEdge AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_LeftEdgeObject
+---@field RightEdge AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_RightEdgeObject
+---@field TopEdge AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_TopEdgeObject
+---@field TopLeftCorner AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_TopLeftCornerObject
+---@field TopRightCorner AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_TopRightCornerObject
+local AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSliceObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSliceObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_BottomEdgeObject : Texture
+local AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_BottomLeftCornerObject : Texture
+local AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_BottomRightCornerObject : Texture
+local AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_LeftEdgeObject : Texture
+local AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_RightEdgeObject : Texture
+local AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_TopEdgeObject : Texture
+local AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_TopLeftCornerObject : Texture
+local AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_TopRightCornerObject : Texture
+local AuctionHouseFrame_ItemSellFrame_ItemDisplay_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_ItemDisplay_auctionHouseFrameObject
+local AuctionHouseFrame_ItemSellFrame_ItemDisplay_auctionHouseFrameObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_NineSliceObject : Frame
+---@field BottomEdge AuctionHouseFrame_ItemSellFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner AuctionHouseFrame_ItemSellFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner AuctionHouseFrame_ItemSellFrame_NineSlice_BottomRightCornerObject
+---@field LeftEdge AuctionHouseFrame_ItemSellFrame_NineSlice_LeftEdgeObject
+---@field RightEdge AuctionHouseFrame_ItemSellFrame_NineSlice_RightEdgeObject
+---@field TopEdge AuctionHouseFrame_ItemSellFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner AuctionHouseFrame_ItemSellFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner AuctionHouseFrame_ItemSellFrame_NineSlice_TopRightCornerObject
+local AuctionHouseFrame_ItemSellFrame_NineSliceObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_NineSlice_BottomEdgeObject : Texture
+local AuctionHouseFrame_ItemSellFrame_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_NineSlice_BottomLeftCornerObject : Texture
+local AuctionHouseFrame_ItemSellFrame_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_NineSlice_BottomRightCornerObject : Texture
+local AuctionHouseFrame_ItemSellFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_NineSlice_LeftEdgeObject : Texture
+local AuctionHouseFrame_ItemSellFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_NineSlice_RightEdgeObject : Texture
+local AuctionHouseFrame_ItemSellFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_NineSlice_TopEdgeObject : Texture
+local AuctionHouseFrame_ItemSellFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_NineSlice_TopLeftCornerObject : Texture
+local AuctionHouseFrame_ItemSellFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_NineSlice_TopRightCornerObject : Texture
+local AuctionHouseFrame_ItemSellFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_OverlayObject : Button
+local AuctionHouseFrame_ItemSellFrame_OverlayObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_OverlayObject:OnClick(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_OverlayObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_OverlayObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_OverlayObject:OnReceiveDrag(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_PostButtonObject : Button
+---@field Left AuctionHouseFrame_ItemSellFrame_PostButton_LeftObject
+---@field Middle AuctionHouseFrame_ItemSellFrame_PostButton_MiddleObject
+---@field Right AuctionHouseFrame_ItemSellFrame_PostButton_RightObject
+---@field Text AuctionHouseFrame_ItemSellFrame_PostButton_TextObject
 ---@field fitTextCanWidthDecrease boolean
 ---@field fitTextWidthPadding number
-local CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButtonObject = {}
+---@field layoutIndex number
+---@field leftPadding number
+local AuctionHouseFrame_ItemSellFrame_PostButtonObject = {}
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButtonObject:FitToText(...) end
+function AuctionHouseFrame_ItemSellFrame_PostButtonObject:FitToText(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButtonObject:GetCurrencyTransferMenu(...) end
+function AuctionHouseFrame_ItemSellFrame_PostButtonObject:GetDisabledTooltip(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButtonObject:GetDisabledErrorMessage(...) end
+function AuctionHouseFrame_ItemSellFrame_PostButtonObject:OnClick(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButtonObject:GetDisabledTooltip(...) end
+function AuctionHouseFrame_ItemSellFrame_PostButtonObject:OnEnter(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButtonObject:OnClick(...) end
+function AuctionHouseFrame_ItemSellFrame_PostButtonObject:OnLeave(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButtonObject:OnEnter(...) end
+function AuctionHouseFrame_ItemSellFrame_PostButtonObject:SetDisabledState(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButtonObject:OnEvent(...) end
+function AuctionHouseFrame_ItemSellFrame_PostButtonObject:SetDisabledTooltip(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButtonObject:OnHide(...) end
+function AuctionHouseFrame_ItemSellFrame_PostButtonObject:SetTextToFit(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButtonObject:OnLeave(...) end
+function AuctionHouseFrame_ItemSellFrame_PostButtonObject:SetTooltip(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_PostButton_LeftObject : Texture
+local AuctionHouseFrame_ItemSellFrame_PostButton_LeftObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_PostButton_MiddleObject : Texture
+local AuctionHouseFrame_ItemSellFrame_PostButton_MiddleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_PostButton_RightObject : Texture
+local AuctionHouseFrame_ItemSellFrame_PostButton_RightObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_PostButton_TextObject : FontString
+local AuctionHouseFrame_ItemSellFrame_PostButton_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_PriceInputObject : Frame
+---@field Label AuctionHouseFrame_ItemSellFrame_PriceInput_LabelObject
+---@field LabelTitle AuctionHouseFrame_ItemSellFrame_PriceInput_LabelTitleObject
+---@field MoneyInputFrame AuctionHouseFrame_ItemSellFrame_PriceInput_MoneyInputFrameObject
+---@field PerItemPostfix AuctionHouseFrame_ItemSellFrame_PriceInput_PerItemPostfixObject
+---@field PriceError AuctionHouseFrame_ItemSellFrame_PriceInput_PriceErrorObject
+---@field Subtext AuctionHouseFrame_ItemSellFrame_PriceInput_SubtextObject
+---@field labelText string
+---@field layoutIndex number
+local AuctionHouseFrame_ItemSellFrame_PriceInputObject = {}
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButtonObject:OnShow(...) end
+function AuctionHouseFrame_ItemSellFrame_PriceInputObject:Clear(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButtonObject:Refresh(...) end
+function AuctionHouseFrame_ItemSellFrame_PriceInputObject:GetAmount(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButtonObject:SetCurrencyID(...) end
+function AuctionHouseFrame_ItemSellFrame_PriceInputObject:OnLoad(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButtonObject:SetDisabledState(...) end
+function AuctionHouseFrame_ItemSellFrame_PriceInputObject:SetAmount(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButtonObject:SetDisabledTooltip(...) end
+function AuctionHouseFrame_ItemSellFrame_PriceInputObject:SetErrorShown(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButtonObject:SetLoadingSpinnerShown(...) end
+function AuctionHouseFrame_ItemSellFrame_PriceInputObject:SetErrorTooltip(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButtonObject:SetTextToFit(...) end
+function AuctionHouseFrame_ItemSellFrame_PriceInputObject:SetLabel(...) end
 ---@return any ...
-function CharacterFrame_TokenFrame_DetailFrame_CurrencyTransferToggleButtonObject:UpdateEnabledState(...) end
+function AuctionHouseFrame_ItemSellFrame_PriceInputObject:SetLabelColor(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_PriceInputObject:SetNextEditBox(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_PriceInputObject:SetOnValueChangedCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_PriceInputObject:SetSubtext(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_PriceInput_LabelObject : FontString
+local AuctionHouseFrame_ItemSellFrame_PriceInput_LabelObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_PriceInput_LabelTitleObject : FontString
+local AuctionHouseFrame_ItemSellFrame_PriceInput_LabelTitleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_PriceInput_MoneyInputFrameObject : Frame
+---@field CopperBox AuctionHouseFrame_ItemSellFrame_PriceInput_MoneyInputFrame_CopperBoxObject
+---@field GoldBox AuctionHouseFrame_ItemSellFrame_PriceInput_MoneyInputFrame_GoldBoxObject
+---@field SilverBox AuctionHouseFrame_ItemSellFrame_PriceInput_MoneyInputFrame_SilverBoxObject
+---@field hideCopper boolean
+---@field useAuctionHouseCopperValue boolean
+local AuctionHouseFrame_ItemSellFrame_PriceInput_MoneyInputFrameObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_PriceInput_MoneyInputFrameObject:Clear(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_PriceInput_MoneyInputFrameObject:GetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_PriceInput_MoneyInputFrameObject:OnAmountChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_PriceInput_MoneyInputFrameObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_PriceInput_MoneyInputFrameObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_PriceInput_MoneyInputFrameObject:SetEnabled(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_PriceInput_MoneyInputFrameObject:SetNextEditBox(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_PriceInput_MoneyInputFrameObject:SetOnValueChangedCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_PriceInput_MoneyInputFrameObject:onValueChangedCallback(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_PriceInput_MoneyInputFrame_CopperBoxObject
+local AuctionHouseFrame_ItemSellFrame_PriceInput_MoneyInputFrame_CopperBoxObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_PriceInput_MoneyInputFrame_GoldBoxObject
+local AuctionHouseFrame_ItemSellFrame_PriceInput_MoneyInputFrame_GoldBoxObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_PriceInput_MoneyInputFrame_SilverBoxObject
+local AuctionHouseFrame_ItemSellFrame_PriceInput_MoneyInputFrame_SilverBoxObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_PriceInput_PerItemPostfixObject : FontString
+local AuctionHouseFrame_ItemSellFrame_PriceInput_PerItemPostfixObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_PriceInput_PriceErrorObject : Frame
+---@field tooltip string
+local AuctionHouseFrame_ItemSellFrame_PriceInput_PriceErrorObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_PriceInput_PriceErrorObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_PriceInput_PriceErrorObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_PriceInput_PriceErrorObject:SetTooltip(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_PriceInput_SubtextObject : FontString
+local AuctionHouseFrame_ItemSellFrame_PriceInput_SubtextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInputObject : Frame
+---@field InputBox AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBoxObject
+---@field Label AuctionHouseFrame_ItemSellFrame_QuantityInput_LabelObject
+---@field LabelTitle AuctionHouseFrame_ItemSellFrame_QuantityInput_LabelTitleObject
+---@field MaxButton AuctionHouseFrame_ItemSellFrame_QuantityInput_MaxButtonObject
+---@field Subtext AuctionHouseFrame_ItemSellFrame_QuantityInput_SubtextObject
+---@field labelText string
+---@field layoutIndex number
+local AuctionHouseFrame_ItemSellFrame_QuantityInputObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInputObject:GetQuantity(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInputObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInputObject:Reset(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInputObject:SetInputChangedCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInputObject:SetLabel(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInputObject:SetLabelColor(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInputObject:SetNextEditBox(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInputObject:SetQuantity(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInputObject:SetSubtext(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBoxObject : EditBox
+---@field Left AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_LeftObject
+---@field Middle AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_MiddleObject
+---@field Right AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_RightObject
+---@field nextEditBox AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBoxObject
+---@field previousEditBox AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_previousEditBoxObject
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBoxObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBoxObject:GetInputChangedCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBoxObject:NarrationGetContext(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBoxObject:NarrationGetDescription(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBoxObject:NarrationGetName(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBoxObject:OnEditFocusLost(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBoxObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBoxObject:OnTextChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBoxObject:Reset(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBoxObject:SetInputChangedCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBoxObject:SetNarrationLabelRegion(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBoxObject:SetNextEditBox(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBoxObject:inputChangedCallback(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_LeftObject : Texture
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_LeftObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_MiddleObject : Texture
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_MiddleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_RightObject : Texture
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_RightObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBoxObject : EditBox
+---@field Icon AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_IconObject
+---@field Left AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_LeftObject
+---@field Middle AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_MiddleObject
+---@field Right AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_RightObject
+---@field Text AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_TextObject
+---@field displayType AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_displayTypeObject
+---@field iconAtlas string
+---@field nextEditBox AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject
+---@field previousEditBox AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_previousEditBoxObject
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBoxObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBoxObject:Clear(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBoxObject:GetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBoxObject:NarrationGetContext(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBoxObject:NarrationGetDescription(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBoxObject:NarrationGetName(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBoxObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBoxObject:OnTextChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBoxObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBoxObject:SetNarrationLabelRegion(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_IconObject : Texture
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_LeftObject : Texture
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_LeftObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_MiddleObject : Texture
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_MiddleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_RightObject : Texture
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_RightObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_TextObject : FontString
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_displayTypeObject
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_displayTypeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject : EditBox
+---@field Icon AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_IconObject
+---@field Left AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_LeftObject
+---@field Middle AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_MiddleObject
+---@field Right AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_RightObject
+---@field Text AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_TextObject
+---@field displayType AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_displayTypeObject
+---@field iconAtlas string
+---@field nextEditBox AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject
+---@field previousEditBox AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_previousEditBoxObject
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject:Clear(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject:GetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject:NarrationGetContext(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject:NarrationGetDescription(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject:NarrationGetName(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject:OnTextChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBoxObject:SetNarrationLabelRegion(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_IconObject : Texture
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_LeftObject : Texture
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_LeftObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_MiddleObject : Texture
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_MiddleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_RightObject : Texture
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_RightObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_TextObject : FontString
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_displayTypeObject
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_displayTypeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject : EditBox
+---@field Icon AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_IconObject
+---@field Left AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_LeftObject
+---@field Middle AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_MiddleObject
+---@field Right AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_RightObject
+---@field Text AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_TextObject
+---@field displayType AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_displayTypeObject
+---@field iconAtlas string
+---@field nextEditBox AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_nextEditBoxObject
+---@field previousEditBox AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_previousEditBoxObject
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject:Clear(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject:GetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject:NarrationGetContext(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject:NarrationGetDescription(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject:NarrationGetName(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject:OnTextChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBoxObject:SetNarrationLabelRegion(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_IconObject : Texture
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_LeftObject : Texture
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_LeftObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_MiddleObject : Texture
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_MiddleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_RightObject : Texture
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_RightObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_TextObject : FontString
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_displayTypeObject
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_displayTypeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_nextEditBoxObject
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_nextEditBoxObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_previousEditBoxObject
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_nextEditBox_previousEditBoxObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_previousEditBoxObject
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_nextEditBox_previousEditBoxObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_previousEditBoxObject
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_nextEditBox_previousEditBoxObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_previousEditBoxObject
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_InputBox_previousEditBoxObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_LabelObject : FontString
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_LabelObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_LabelTitleObject : FontString
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_LabelTitleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_MaxButtonObject : Button
+---@field Left AuctionHouseFrame_ItemSellFrame_QuantityInput_MaxButton_LeftObject
+---@field Middle AuctionHouseFrame_ItemSellFrame_QuantityInput_MaxButton_MiddleObject
+---@field Right AuctionHouseFrame_ItemSellFrame_QuantityInput_MaxButton_RightObject
+---@field Text AuctionHouseFrame_ItemSellFrame_QuantityInput_MaxButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_MaxButtonObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_MaxButtonObject:FitToText(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_MaxButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_MaxButtonObject:OnClick(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_MaxButtonObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_MaxButtonObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_MaxButtonObject:SetDisabledState(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_MaxButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_QuantityInput_MaxButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_MaxButton_LeftObject : Texture
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_MaxButton_LeftObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_MaxButton_MiddleObject : Texture
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_MaxButton_MiddleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_MaxButton_RightObject : Texture
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_MaxButton_RightObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_MaxButton_TextObject : FontString
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_MaxButton_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_QuantityInput_SubtextObject : FontString
+local AuctionHouseFrame_ItemSellFrame_QuantityInput_SubtextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInputObject : Frame
+---@field Label AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_LabelObject
+---@field LabelTitle AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_LabelTitleObject
+---@field MoneyInputFrame AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrameObject
+---@field PerItemPostfix AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_PerItemPostfixObject
+---@field PriceError AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_PriceErrorObject
+---@field Subtext AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_SubtextObject
+---@field labelText string
+---@field layoutIndex number
+---@field topPadding number
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInputObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInputObject:Clear(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInputObject:GetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInputObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInputObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInputObject:SetErrorShown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInputObject:SetErrorTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInputObject:SetLabel(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInputObject:SetLabelColor(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInputObject:SetNextEditBox(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInputObject:SetOnValueChangedCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInputObject:SetSubtext(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_LabelObject : FontString
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_LabelObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_LabelTitleObject : FontString
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_LabelTitleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrameObject : Frame
+---@field CopperBox AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_CopperBoxObject
+---@field GoldBox AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_GoldBoxObject
+---@field SilverBox AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBoxObject
+---@field hideCopper boolean
+---@field useAuctionHouseCopperValue boolean
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrameObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrameObject:Clear(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrameObject:GetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrameObject:OnAmountChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrameObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrameObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrameObject:SetEnabled(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrameObject:SetNextEditBox(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrameObject:SetOnValueChangedCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrameObject:onValueChangedCallback(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_CopperBoxObject
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_CopperBoxObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_GoldBoxObject
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_GoldBoxObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBoxObject : EditBox
+---@field Icon AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_IconObject
+---@field Left AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_LeftObject
+---@field Middle AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_MiddleObject
+---@field Right AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_RightObject
+---@field Text AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_TextObject
+---@field displayType AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_displayTypeObject
+---@field iconAtlas string
+---@field nextEditBox AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBoxObject
+---@field previousEditBox AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_previousEditBoxObject
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBoxObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBoxObject:Clear(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBoxObject:GetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBoxObject:NarrationGetContext(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBoxObject:NarrationGetDescription(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBoxObject:NarrationGetName(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBoxObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBoxObject:OnTextChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBoxObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBoxObject:SetNarrationLabelRegion(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_IconObject : Texture
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_LeftObject : Texture
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_LeftObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_MiddleObject : Texture
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_MiddleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_RightObject : Texture
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_RightObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_TextObject : FontString
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_displayTypeObject
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_displayTypeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBoxObject : EditBox
+---@field Icon AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_IconObject
+---@field Left AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_LeftObject
+---@field Middle AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_MiddleObject
+---@field Right AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_RightObject
+---@field Text AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_TextObject
+---@field displayType AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_displayTypeObject
+---@field iconAtlas string
+---@field previousEditBox AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBoxObject
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBoxObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBoxObject:Clear(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBoxObject:GetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBoxObject:NarrationGetContext(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBoxObject:NarrationGetDescription(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBoxObject:NarrationGetName(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBoxObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBoxObject:OnTextChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBoxObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBoxObject:SetNarrationLabelRegion(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_IconObject : Texture
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_LeftObject : Texture
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_LeftObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_MiddleObject : Texture
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_MiddleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_RightObject : Texture
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_RightObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_TextObject : FontString
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_displayTypeObject
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_displayTypeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBoxObject : EditBox
+---@field Icon AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBox_IconObject
+---@field Left AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBox_LeftObject
+---@field Middle AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBox_MiddleObject
+---@field Right AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBox_RightObject
+---@field Text AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBox_TextObject
+---@field displayType AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBox_displayTypeObject
+---@field iconAtlas string
+---@field nextEditBox AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBox_nextEditBoxObject
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBoxObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBoxObject:Clear(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBoxObject:GetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBoxObject:NarrationGetContext(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBoxObject:NarrationGetDescription(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBoxObject:NarrationGetName(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBoxObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBoxObject:OnTextChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBoxObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBoxObject:SetNarrationLabelRegion(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBox_IconObject : Texture
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBox_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBox_LeftObject : Texture
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBox_LeftObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBox_MiddleObject : Texture
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBox_MiddleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBox_RightObject : Texture
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBox_RightObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBox_TextObject : FontString
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBox_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBox_displayTypeObject
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBox_displayTypeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBox_nextEditBoxObject
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_nextEditBox_previousEditBox_nextEditBoxObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_previousEditBoxObject
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_MoneyInputFrame_SilverBox_previousEditBoxObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_PerItemPostfixObject : FontString
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_PerItemPostfixObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_PriceErrorObject : Frame
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_PriceErrorObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_PriceErrorObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_PriceErrorObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_PriceErrorObject:SetTooltip(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_SubtextObject : FontString
+local AuctionHouseFrame_ItemSellFrame_SecondaryPriceInput_SubtextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_TotalPriceObject : Frame
+---@field Label AuctionHouseFrame_ItemSellFrame_TotalPrice_LabelObject
+---@field LabelTitle AuctionHouseFrame_ItemSellFrame_TotalPrice_LabelTitleObject
+---@field MoneyDisplayFrame AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrameObject
+---@field Subtext AuctionHouseFrame_ItemSellFrame_TotalPrice_SubtextObject
+---@field labelText string
+---@field layoutIndex number
+local AuctionHouseFrame_ItemSellFrame_TotalPriceObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPriceObject:GetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPriceObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPriceObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPriceObject:SetLabel(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPriceObject:SetLabelColor(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPriceObject:SetSubtext(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_TotalPrice_LabelObject : FontString
+local AuctionHouseFrame_ItemSellFrame_TotalPrice_LabelObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_TotalPrice_LabelTitleObject : FontString
+local AuctionHouseFrame_ItemSellFrame_TotalPrice_LabelTitleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrameObject : Frame
+---@field CopperDisplay AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject
+---@field GoldDisplay AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject
+---@field SilverDisplay AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject
+---@field hideCopper boolean
+---@field leftAlign boolean
+---@field useAuctionHouseCopperValue boolean
+---@field useAuctionHouseIcons boolean
+local AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrameObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrameObject:GetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrameObject:GetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrameObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrameObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrameObject:SetFontAndIconDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrameObject:SetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrameObject:SetResizeToFit(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrameObject:UpdateAnchoring(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrameObject:UpdateWidth(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject : Frame
+---@field Icon AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplay_IconObject
+---@field Text AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplay_TextObject
+---@field amount number
+---@field displayType AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplay_displayTypeObject
+---@field showsZeroAmount boolean
+local AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:GetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:IsForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:SetDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:SetFontAndIconDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:SetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:SetForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:SetFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:SetShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:ShouldBeShown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:ShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:UpdateDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplayObject:UpdateWidth(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplay_IconObject : Texture
+local AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplay_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplay_TextObject : FontString
+local AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplay_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplay_displayTypeObject
+local AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_CopperDisplay_displayTypeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject : Frame
+---@field Icon AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplay_IconObject
+---@field Text AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplay_TextObject
+---@field amount number
+---@field displayType AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplay_displayTypeObject
+local AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:GetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:IsForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:SetDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:SetFontAndIconDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:SetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:SetForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:SetFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:SetShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:ShouldBeShown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:ShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:UpdateDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:UpdateWidth(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplayObject:formatter(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplay_IconObject : Texture
+local AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplay_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplay_TextObject : FontString
+local AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplay_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplay_displayTypeObject
+local AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_GoldDisplay_displayTypeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject : Frame
+---@field Icon AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplay_IconObject
+---@field Text AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplay_TextObject
+---@field amount number
+---@field displayType AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplay_displayTypeObject
+---@field showsZeroAmount boolean
+local AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:GetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:IsForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:SetDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:SetFontAndIconDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:SetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:SetForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:SetFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:SetShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:ShouldBeShown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:ShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:UpdateDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplayObject:UpdateWidth(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplay_IconObject : Texture
+local AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplay_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplay_TextObject : FontString
+local AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplay_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplay_displayTypeObject
+local AuctionHouseFrame_ItemSellFrame_TotalPrice_MoneyDisplayFrame_SilverDisplay_displayTypeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellFrame_TotalPrice_SubtextObject : FontString
+local AuctionHouseFrame_ItemSellFrame_TotalPrice_SubtextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellListObject : Frame
+---@field Background AuctionHouseFrame_ItemSellList_BackgroundObject
+---@field HeaderContainer AuctionHouseFrame_ItemSellList_HeaderContainerObject
+---@field LoadingSpinner AuctionHouseFrame_ItemSellList_LoadingSpinnerObject
+---@field NineSlice AuctionHouseFrame_ItemSellList_NineSliceObject
+---@field RefreshFrame AuctionHouseFrame_ItemSellList_RefreshFrameObject
+---@field ResultsText AuctionHouseFrame_ItemSellList_ResultsTextObject
+---@field ScrollBar AuctionHouseFrame_ItemSellList_ScrollBarObject
+---@field ScrollBox AuctionHouseFrame_ItemSellList_ScrollBoxObject
+---@field backgroundAtlas string
+---@field backgroundYOffset number
+---@field layoutType string
+---@field refreshFrameXOffset number
+---@field refreshFrameYOffset number
+---@field textureHeightClassic number
+---@field textureWidthClassic number
+local AuctionHouseFrame_ItemSellListObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:CallRefreshCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:DirtyScrollFrame(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:GetHeaderContainer(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:GetScrollBoxDataIndexBegin(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:GetSelectedEntry(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:Init(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:OnEnterListLine(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:OnLeaveListLine(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:OnScrollBoxScroll(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:OnShow(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:OnUpdate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:RefreshScrollFrame(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:Reset(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:ScrollToEntryIndex(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:SetCustomError(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:SetDataProvider(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:SetHighlightCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:SetLineOnEnterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:SetLineOnLeaveCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:SetLineTemplate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:SetRefreshCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:SetRefreshFrameFunctions(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:SetSelectedEntry(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:SetSelectedEntryByCondition(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:SetSelectionCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:SetState(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:SetTableBuilderLayout(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:UpdateRefreshFrame(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellListObject:UpdateTableBuilderLayout(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_BackgroundObject : Texture
+local AuctionHouseFrame_ItemSellList_BackgroundObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_HeaderContainerObject : Frame
+local AuctionHouseFrame_ItemSellList_HeaderContainerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_LoadingSpinnerObject : Frame
+---@field Anim AuctionHouseFrame_ItemSellList_LoadingSpinner_AnimObject
+---@field Ring AuctionHouseFrame_ItemSellList_LoadingSpinner_RingObject
+---@field SearchingText AuctionHouseFrame_ItemSellList_LoadingSpinner_SearchingTextObject
+---@field Sparks AuctionHouseFrame_ItemSellList_LoadingSpinner_SparksObject
+local AuctionHouseFrame_ItemSellList_LoadingSpinnerObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellList_LoadingSpinnerObject:GetShadowAlpha(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_LoadingSpinnerObject:OnHide(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_LoadingSpinnerObject:OnShow(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_LoadingSpinnerObject:OnSizeChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_LoadingSpinnerObject:SetDesaturated(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_LoadingSpinnerObject:SetShadowEnabled(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_LoadingSpinnerObject:UpdateShadowSize(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_LoadingSpinnerObject:UpdateTheme(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_LoadingSpinner_AnimObject : AnimationGroup
+local AuctionHouseFrame_ItemSellList_LoadingSpinner_AnimObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_LoadingSpinner_RingObject : Texture
+local AuctionHouseFrame_ItemSellList_LoadingSpinner_RingObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_LoadingSpinner_SearchingTextObject : FontString
+local AuctionHouseFrame_ItemSellList_LoadingSpinner_SearchingTextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_LoadingSpinner_SparksObject : Texture
+local AuctionHouseFrame_ItemSellList_LoadingSpinner_SparksObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_NineSliceObject : Frame
+---@field BottomEdge AuctionHouseFrame_ItemSellList_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner AuctionHouseFrame_ItemSellList_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner AuctionHouseFrame_ItemSellList_NineSlice_BottomRightCornerObject
+---@field LeftEdge AuctionHouseFrame_ItemSellList_NineSlice_LeftEdgeObject
+---@field RightEdge AuctionHouseFrame_ItemSellList_NineSlice_RightEdgeObject
+---@field TopEdge AuctionHouseFrame_ItemSellList_NineSlice_TopEdgeObject
+---@field TopLeftCorner AuctionHouseFrame_ItemSellList_NineSlice_TopLeftCornerObject
+---@field TopRightCorner AuctionHouseFrame_ItemSellList_NineSlice_TopRightCornerObject
+local AuctionHouseFrame_ItemSellList_NineSliceObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellList_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_NineSliceObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_NineSlice_BottomEdgeObject : Texture
+local AuctionHouseFrame_ItemSellList_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_NineSlice_BottomLeftCornerObject : Texture
+local AuctionHouseFrame_ItemSellList_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_NineSlice_BottomRightCornerObject : Texture
+local AuctionHouseFrame_ItemSellList_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_NineSlice_LeftEdgeObject : Texture
+local AuctionHouseFrame_ItemSellList_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_NineSlice_RightEdgeObject : Texture
+local AuctionHouseFrame_ItemSellList_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_NineSlice_TopEdgeObject : Texture
+local AuctionHouseFrame_ItemSellList_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_NineSlice_TopLeftCornerObject : Texture
+local AuctionHouseFrame_ItemSellList_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_NineSlice_TopRightCornerObject : Texture
+local AuctionHouseFrame_ItemSellList_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_RefreshFrameObject : Frame
+---@field RefreshButton AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButtonObject
+---@field TotalQuantity AuctionHouseFrame_ItemSellList_RefreshFrame_TotalQuantityObject
+local AuctionHouseFrame_ItemSellList_RefreshFrameObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrameObject:Deactivate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrameObject:SetQuantity(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrameObject:SetRefreshCallback(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButtonObject : Button
+---@field Controller AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButton_ControllerObject
+---@field Icon AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButton_IconObject
+---@field iconAtlas string
+---@field iconSize number
+---@field tooltipTitle string
+local AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButtonObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButtonObject:ClearCustomTextFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButtonObject:GetOnClickSoundKit(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButtonObject:InitButton(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButtonObject:OnClick(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButtonObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButtonObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButtonObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButtonObject:OnMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButtonObject:OnMouseUp(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButtonObject:RunCustomTextFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButtonObject:SetAtlas(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButtonObject:SetButtonArtKit(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButtonObject:SetCustomTextFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButtonObject:SetEnabledState(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButtonObject:SetIcon(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButtonObject:SetOnClickHandler(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButtonObject:SetOnEnterHandler(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButtonObject:SetTooltipAnchor(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButtonObject:SetTooltipInfo(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButton_ControllerObject : Frame
+local AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButton_ControllerObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButton_ControllerObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButton_ControllerObject:OnShow(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButton_IconObject : Texture
+local AuctionHouseFrame_ItemSellList_RefreshFrame_RefreshButton_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_RefreshFrame_TotalQuantityObject : FontString
+local AuctionHouseFrame_ItemSellList_RefreshFrame_TotalQuantityObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ResultsTextObject : FontString
+local AuctionHouseFrame_ItemSellList_ResultsTextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBarObject : Frame
+---@field Back AuctionHouseFrame_ItemSellList_ScrollBar_BackObject
+---@field Defaults AuctionHouseFrame_ItemSellList_ScrollBar_DefaultsObject
+---@field Directions AuctionHouseFrame_ItemSellList_ScrollBar_DirectionsObject
+---@field Event AuctionHouseFrame_ItemSellList_ScrollBar_EventObject
+---@field Forward AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject
+---@field Track AuctionHouseFrame_ItemSellList_ScrollBar_TrackObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field hideTrack boolean
+---@field hideTrackIfThumbExceedsTrack boolean
+---@field isScrollController boolean
+---@field minThumbExtent number
+---@field panDelay number
+---@field panExtentPercentage number
+---@field panRepeatTime number
+---@field smartNavigationIgnored boolean
+---@field snapToInterval boolean
+---@field thumbAnchor string
+---@field useProportionalThumb boolean
+---@field visibleExtentPercentage number
+---@field wheelPanScalar number
+local AuctionHouseFrame_ItemSellList_ScrollBarObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:CallInternalScope(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:CanCursorStepInDirection(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:CanInterpolateScroll(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:DisableControls(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:EnableInternalPriority(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:EnableSnapToInterval(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:GenerateCallbackEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:GetBackStepper(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:GetCallbackTable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:GetCallbackTables(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:GetCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:GetForwardStepper(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:GetFrameExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:GetIntervalRange(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:GetLower(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:GetPanExtentPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:GetPanRepeatDelay(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:GetPanRepeatTime(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:GetScrollInterpolator(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:GetScrollPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:GetThumb(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:GetThumbAnchor(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:GetTrack(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:GetTrackExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:GetUpper(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:GetWheelPanPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:HasScrollableExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:Init(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:InitializeNarration(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:Interpolate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:IsAtBegin(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:IsAtEnd(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:IsHorizontal(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:IsScrollAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:IsThumbMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:OnHide_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:OnMouseWheel(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:OnShow_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:OnStepperMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:OnThumbMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:OnTrackMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:RegisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:ScrollDecrease(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:ScrollInDirection(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:ScrollIncrease(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:ScrollPageInDirection(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:ScrollStepInDirection(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:ScrollToBegin(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:ScrollToEnd(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:ScrollWheelInDirection(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:SecureInsertEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:SelectCursorComponent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:SelectPointComponent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:SetFrameExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:SetHideIfUnscrollable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:SetHorizontal(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:SetInterpolateScroll(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:SetPanExtentPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:SetScrollAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:SetScrollPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:SetThumbExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:SetVisibleExtentPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:TriggerEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:UnregisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:UnregisterEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:UnregisterUpdate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:Update(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:onButtonMouseUp(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBarObject:scrollInternal(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBar_BackObject : Button
+---@field Event AuctionHouseFrame_ItemSellList_ScrollBar_Back_EventObject
+---@field Texture AuctionHouseFrame_ItemSellList_ScrollBar_Back_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local AuctionHouseFrame_ItemSellList_ScrollBar_BackObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:DesaturateIfDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:GenerateCallbackEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:GetAtlas(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:GetCallbackTable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:GetCallbackTables(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:GetCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:IsDown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:IsDownOver(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:IsOver(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:NarrationGetName(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:OnButtonStateChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:OnClick_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:OnDisable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:OnEnable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:OnMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:OnMouseUp(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:OnShow(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:RegisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:SecureInsertEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:SetDisplacedRegions(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:TriggerEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:UnregisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:UnregisterEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBar_Back_EventObject
+local AuctionHouseFrame_ItemSellList_ScrollBar_Back_EventObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBar_Back_TextureObject : Texture
+local AuctionHouseFrame_ItemSellList_ScrollBar_Back_TextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBar_DefaultsObject
+local AuctionHouseFrame_ItemSellList_ScrollBar_DefaultsObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBar_DirectionsObject
+local AuctionHouseFrame_ItemSellList_ScrollBar_DirectionsObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBar_EventObject
+local AuctionHouseFrame_ItemSellList_ScrollBar_EventObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject : Button
+---@field Event AuctionHouseFrame_ItemSellList_ScrollBar_Forward_EventObject
+---@field Texture AuctionHouseFrame_ItemSellList_ScrollBar_Forward_TextureObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field direction number
+---@field disabledTexture string
+---@field displaceX number
+---@field displaceY number
+---@field displacedRegions table
+---@field downTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field normalTexture string
+---@field overTexture string
+local AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:GetAtlas(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:GetCallbackTable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:GetCallbackTables(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:IsDown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:IsDownOver(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:IsOver(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:NarrationGetName(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:OnDisable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:OnEnable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:OnMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:OnMouseUp(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:OnShow(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:RegisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:SecureInsertEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:TriggerEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:UnregisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:UnregisterEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBar_Forward_EventObject
+local AuctionHouseFrame_ItemSellList_ScrollBar_Forward_EventObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBar_Forward_TextureObject : Texture
+local AuctionHouseFrame_ItemSellList_ScrollBar_Forward_TextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBar_TrackObject : Frame
+---@field Begin AuctionHouseFrame_ItemSellList_ScrollBar_Track_BeginObject
+---@field End AuctionHouseFrame_ItemSellList_ScrollBar_Track_EndObject
+---@field Middle AuctionHouseFrame_ItemSellList_ScrollBar_Track_MiddleObject
+---@field Thumb AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject
+local AuctionHouseFrame_ItemSellList_ScrollBar_TrackObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBar_Track_BeginObject : Texture
+local AuctionHouseFrame_ItemSellList_ScrollBar_Track_BeginObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBar_Track_EndObject : Texture
+local AuctionHouseFrame_ItemSellList_ScrollBar_Track_EndObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBar_Track_MiddleObject : Texture
+local AuctionHouseFrame_ItemSellList_ScrollBar_Track_MiddleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject : Button
+---@field Begin AuctionHouseFrame_ItemSellList_ScrollBar_Track_Thumb_BeginObject
+---@field End AuctionHouseFrame_ItemSellList_ScrollBar_Track_Thumb_EndObject
+---@field Event AuctionHouseFrame_ItemSellList_ScrollBar_Track_Thumb_EventObject
+---@field Middle AuctionHouseFrame_ItemSellList_ScrollBar_Track_Thumb_MiddleObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field desaturateIfDisabled boolean
+---@field downBeginTexture string
+---@field downEndTexture string
+---@field downMiddleTexture string
+---@field executingEvents table
+---@field mouseDownSoundKitID number
+---@field overBeginTexture string
+---@field overEndTexture string
+---@field overMiddleTexture string
+---@field upBeginTexture string
+---@field upEndTexture string
+---@field upMiddleTexture string
+local AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:GetAtlas(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:IsDown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:IsDownOver(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:IsOver(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:OnDisable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:OnEnable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:OnShow(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBar_Track_Thumb_BeginObject : Texture
+local AuctionHouseFrame_ItemSellList_ScrollBar_Track_Thumb_BeginObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBar_Track_Thumb_EndObject : Texture
+local AuctionHouseFrame_ItemSellList_ScrollBar_Track_Thumb_EndObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBar_Track_Thumb_EventObject
+local AuctionHouseFrame_ItemSellList_ScrollBar_Track_Thumb_EventObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBar_Track_Thumb_MiddleObject : Texture
+local AuctionHouseFrame_ItemSellList_ScrollBar_Track_Thumb_MiddleObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBoxObject : Frame
+---@field Defaults AuctionHouseFrame_ItemSellList_ScrollBox_DefaultsObject
+---@field Directions AuctionHouseFrame_ItemSellList_ScrollBox_DirectionsObject
+---@field DragDelegate AuctionHouseFrame_ItemSellList_ScrollBox_DragDelegateObject
+---@field Event AuctionHouseFrame_ItemSellList_ScrollBox_EventObject
+---@field ScrollTarget AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject
+---@field Shadows AuctionHouseFrame_ItemSellList_ScrollBox_ShadowsObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field debugInspectionSystem string
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field isScrollController boolean
+---@field panExtentPercentage number
+---@field wheelPanScalar number
+local AuctionHouseFrame_ItemSellList_ScrollBoxObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ApplyEdgeFade(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:CalculateEdgeFade(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:CalculatePanExtentPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:CalculateScrollPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:CanInterpolateScroll(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ClearEdgeFade(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ContainsElementDataByPredicate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:EnableSnapToInterval(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:EnumerateDataProvider(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:EnumerateDataProviderEntireRange(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:EnumerateFrames(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:FindByPredicate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:FindElementData(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:FindElementDataByPredicate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:FindElementDataIndex(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:FindElementDataIndexByPredicate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:FindFrame(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:FindFrameByPredicate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:FindFrameElementDataIndex(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:Flush(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:FlushDataProvider(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ForEachElementData(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ForEachFrame(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:FullUpdate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:FullUpdateInternal(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GenerateCallbackEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetBottomPadding(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetCallbackTable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetCallbackTables(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetDataIndexBegin(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetDataIndexEnd(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetDataProvider(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetDataProviderSize(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetDerivedExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetDerivedScrollOffset(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetDerivedScrollRange(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetElementExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetExtentPadding(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetExtentUntil(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetFrameCount(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetFrameExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetFrames(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetIntervalRange(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetLeftPadding(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetLower(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetLowerPadding(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetLowerShadowTexture(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetPadding(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetPanExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetPanExtentPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetRightPadding(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetScrollInterpolator(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetScrollPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetScrollTarget(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetTopPadding(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetUpper(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetUpperPadding(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetUpperShadowTexture(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetView(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetVisibleExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:GetWheelPanPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:HasDataProvider(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:HasEdgeFade(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:HasScrollableExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:HasView(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:Init(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:Interpolate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:IsAcquireLocked(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:IsAlignmentOverlapIgnored(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:IsAtBegin(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:IsAtEnd(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:IsHorizontal(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:IsScrollAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:IsScrollToDataIndexSafe(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:IsUpdateLocked(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:IsVirtualized(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:Layout(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:OnMouseWheel(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:OnScrollTargetSizeChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:OnSizeChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:OnViewAcquiredFrame(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:OnViewDataChanged(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:OnViewDataProviderReassigned(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:OnViewInitializedFrame(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:OnViewReleasedFrame(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:Rebuild(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:RecalculateDerivedExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:RegisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ReinitializeFrames(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:RemoveDataProvider(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ReverseEnumerateDataProvider(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ReverseForEachElementData(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ReverseForEachFrame(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SanitizeAlignment(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ScrollDecrease(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ScrollInDirection(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ScrollIncrease(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ScrollToBegin(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ScrollToElementData(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ScrollToElementDataByPredicate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ScrollToElementDataIndex(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ScrollToEnd(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ScrollToFrame(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ScrollToNearest(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ScrollToNearestByPredicate(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ScrollToOffset(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SecureInsertEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SelectCursorComponent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SelectPointComponent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SetAlignmentOverlapIgnored(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SetDataProvider(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SetEdgeFadeLength(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SetFrameExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SetHorizontal(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SetInterpolateScroll(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SetLowerShadowAtlas(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SetPadding(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SetPanExtent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SetPanExtentPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SetScrollAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SetScrollPercentage(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SetScrollTargetOffset(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SetShadowsFrameLevel(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SetShadowsScale(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SetShadowsShown(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SetUpdateLocked(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SetUpperShadowAtlas(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SetUseShadowsForEdgeFade(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:SetView(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:TriggerEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:UnregisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:UnregisterEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:Update(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBoxObject:scrollInternal(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBox_DefaultsObject
+local AuctionHouseFrame_ItemSellList_ScrollBox_DefaultsObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBox_DirectionsObject
+local AuctionHouseFrame_ItemSellList_ScrollBox_DirectionsObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBox_DragDelegateObject : Frame
+local AuctionHouseFrame_ItemSellList_ScrollBox_DragDelegateObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBox_EventObject
+local AuctionHouseFrame_ItemSellList_ScrollBox_EventObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject : Frame
+---@field Event AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTarget_EventObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+local AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject = {}
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject:GenerateCallbackEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject:GetCallbackTable(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject:GetCallbackTables(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject:GetCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject:OnHide_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject:OnShow_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject:RegisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject:SecureInsertEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject:TriggerEvent(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject:UnregisterCallback(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject:UnregisterEvents(...) end
+---@return any ...
+function AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTargetObject:UnregisterEventsByEventTable(...) end
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTarget_EventObject
+local AuctionHouseFrame_ItemSellList_ScrollBox_ScrollTarget_EventObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBox_ShadowsObject : Frame
+---@field Lower AuctionHouseFrame_ItemSellList_ScrollBox_Shadows_LowerObject
+---@field Upper AuctionHouseFrame_ItemSellList_ScrollBox_Shadows_UpperObject
+local AuctionHouseFrame_ItemSellList_ScrollBox_ShadowsObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBox_Shadows_LowerObject : Texture
+local AuctionHouseFrame_ItemSellList_ScrollBox_Shadows_LowerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_ItemSellList_ScrollBox_Shadows_UpperObject : Texture
+local AuctionHouseFrame_ItemSellList_ScrollBox_Shadows_UpperObject = {}
+end
+
+do
+---@class AuctionHouseFrame_LeftJumpHintObject : Frame
+---@field ActiveTexture AuctionHouseFrame_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture AuctionHouseFrame_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim AuctionHouseFrame_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator AuctionHouseFrame_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG AuctionHouseFrame_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture AuctionHouseFrame_LeftJumpHint_HoverTextureObject
+---@field LoadBar AuctionHouseFrame_LeftJumpHint_LoadBarObject
+---@field LoadBarBG AuctionHouseFrame_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow AuctionHouseFrame_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture AuctionHouseFrame_LeftJumpHint_NormalTextureObject
+---@field PressedTexture AuctionHouseFrame_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip AuctionHouseFrame_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local AuctionHouseFrame_LeftJumpHintObject = {}
+---@return any ...
+function AuctionHouseFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function AuctionHouseFrame_LeftJumpHintObject:BeginHold(...) end
+---@return any ...
+function AuctionHouseFrame_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function AuctionHouseFrame_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function AuctionHouseFrame_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function AuctionHouseFrame_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function AuctionHouseFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function AuctionHouseFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function AuctionHouseFrame_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function AuctionHouseFrame_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function AuctionHouseFrame_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function AuctionHouseFrame_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function AuctionHouseFrame_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function AuctionHouseFrame_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function AuctionHouseFrame_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function AuctionHouseFrame_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function AuctionHouseFrame_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function AuctionHouseFrame_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function AuctionHouseFrame_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function AuctionHouseFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class AuctionHouseFrame_LeftJumpHint_ActiveTextureObject : Texture
+local AuctionHouseFrame_LeftJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_LeftJumpHint_DisabledTextureObject : Texture
+local AuctionHouseFrame_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim AuctionHouseFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim AuctionHouseFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim AuctionHouseFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local AuctionHouseFrame_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class AuctionHouseFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local AuctionHouseFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class AuctionHouseFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local AuctionHouseFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class AuctionHouseFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local AuctionHouseFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class AuctionHouseFrame_LeftJumpHint_HoldIndicatorObject : Texture
+local AuctionHouseFrame_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class AuctionHouseFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
+local AuctionHouseFrame_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class AuctionHouseFrame_LeftJumpHint_HoverTextureObject : Texture
+local AuctionHouseFrame_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_LeftJumpHint_LoadBarObject : Texture
+local AuctionHouseFrame_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class AuctionHouseFrame_LeftJumpHint_LoadBarBGObject : Texture
+local AuctionHouseFrame_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class AuctionHouseFrame_LeftJumpHint_LoadBarGlowObject : Texture
+local AuctionHouseFrame_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class AuctionHouseFrame_LeftJumpHint_NormalTextureObject : Texture
+local AuctionHouseFrame_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_LeftJumpHint_PressedTextureObject : Texture
+local AuctionHouseFrame_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_LeftJumpHint_SpinnerTipObject : Texture
+local AuctionHouseFrame_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameBorderObject : Frame
+---@field MoneyFrame AuctionHouseFrame_MoneyFrameBorder_MoneyFrameObject
+local AuctionHouseFrame_MoneyFrameBorderObject = {}
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameBorder_MoneyFrameObject : Frame
+---@field CopperDisplay AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplayObject
+---@field GoldDisplay AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplayObject
+---@field SilverDisplay AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplayObject
+local AuctionHouseFrame_MoneyFrameBorder_MoneyFrameObject = {}
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrameObject:GetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrameObject:GetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrameObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrameObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrameObject:SetFontAndIconDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrameObject:SetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrameObject:SetResizeToFit(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrameObject:UpdateAnchoring(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrameObject:UpdateWidth(...) end
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplayObject : Frame
+---@field Icon AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplay_IconObject
+---@field Text AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplay_TextObject
+---@field amount number
+---@field displayType AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplay_displayTypeObject
+---@field showsZeroAmount boolean
+local AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplayObject = {}
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplayObject:GetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplayObject:IsForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplayObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplayObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplayObject:SetDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplayObject:SetFontAndIconDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplayObject:SetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplayObject:SetForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplayObject:SetFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplayObject:SetShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplayObject:ShouldBeShown(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplayObject:ShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplayObject:UpdateDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplayObject:UpdateWidth(...) end
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplay_IconObject : Texture
+local AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplay_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplay_TextObject : FontString
+local AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplay_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplay_displayTypeObject
+local AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_CopperDisplay_displayTypeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplayObject : Frame
+---@field Icon AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplay_IconObject
+---@field Text AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplay_TextObject
+---@field amount number
+---@field displayType AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplay_displayTypeObject
+local AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplayObject = {}
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplayObject:GetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplayObject:IsForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplayObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplayObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplayObject:SetDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplayObject:SetFontAndIconDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplayObject:SetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplayObject:SetForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplayObject:SetFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplayObject:SetShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplayObject:ShouldBeShown(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplayObject:ShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplayObject:UpdateDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplayObject:UpdateWidth(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplayObject:formatter(...) end
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplay_IconObject : Texture
+local AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplay_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplay_TextObject : FontString
+local AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplay_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplay_displayTypeObject
+local AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_GoldDisplay_displayTypeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplayObject : Frame
+---@field Icon AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplay_IconObject
+---@field Text AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplay_TextObject
+---@field amount number
+---@field displayType AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplay_displayTypeObject
+---@field showsZeroAmount boolean
+local AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplayObject = {}
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplayObject:GetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplayObject:IsForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplayObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplayObject:SetAmount(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplayObject:SetDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplayObject:SetFontAndIconDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplayObject:SetFontObject(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplayObject:SetForcedHidden(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplayObject:SetFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplayObject:SetShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplayObject:ShouldBeShown(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplayObject:ShowsZeroAmount(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplayObject:UpdateDisplayType(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplayObject:UpdateWidth(...) end
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplay_IconObject : Texture
+local AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplay_IconObject = {}
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplay_TextObject : FontString
+local AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplay_TextObject = {}
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplay_displayTypeObject
+local AuctionHouseFrame_MoneyFrameBorder_MoneyFrame_SilverDisplay_displayTypeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameInsetObject : Frame
+---@field Bg table
+---@field NineSlice AuctionHouseFrame_MoneyFrameInset_NineSliceObject
+---@field layoutType string
+local AuctionHouseFrame_MoneyFrameInsetObject = {}
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameInset_NineSliceObject : Frame
+---@field BottomEdge AuctionHouseFrame_MoneyFrameInset_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner AuctionHouseFrame_MoneyFrameInset_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner AuctionHouseFrame_MoneyFrameInset_NineSlice_BottomRightCornerObject
+---@field LeftEdge AuctionHouseFrame_MoneyFrameInset_NineSlice_LeftEdgeObject
+---@field RightEdge AuctionHouseFrame_MoneyFrameInset_NineSlice_RightEdgeObject
+---@field TopEdge AuctionHouseFrame_MoneyFrameInset_NineSlice_TopEdgeObject
+---@field TopLeftCorner AuctionHouseFrame_MoneyFrameInset_NineSlice_TopLeftCornerObject
+---@field TopRightCorner AuctionHouseFrame_MoneyFrameInset_NineSlice_TopRightCornerObject
+local AuctionHouseFrame_MoneyFrameInset_NineSliceObject = {}
+---@return any ...
+function AuctionHouseFrame_MoneyFrameInset_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameInset_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameInset_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameInset_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameInset_NineSliceObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameInset_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameInset_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameInset_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameInset_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_MoneyFrameInset_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameInset_NineSlice_BottomEdgeObject : Texture
+local AuctionHouseFrame_MoneyFrameInset_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameInset_NineSlice_BottomLeftCornerObject : Texture
+local AuctionHouseFrame_MoneyFrameInset_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameInset_NineSlice_BottomRightCornerObject : Texture
+local AuctionHouseFrame_MoneyFrameInset_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameInset_NineSlice_LeftEdgeObject
+---@field [string] any
+local AuctionHouseFrame_MoneyFrameInset_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameInset_NineSlice_RightEdgeObject : Texture
+local AuctionHouseFrame_MoneyFrameInset_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameInset_NineSlice_TopEdgeObject : Texture
+local AuctionHouseFrame_MoneyFrameInset_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameInset_NineSlice_TopLeftCornerObject : Texture
+local AuctionHouseFrame_MoneyFrameInset_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_MoneyFrameInset_NineSlice_TopRightCornerObject : Texture
+local AuctionHouseFrame_MoneyFrameInset_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_NineSliceObject : Frame
+---@field BottomEdge AuctionHouseFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner AuctionHouseFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner AuctionHouseFrame_NineSlice_BottomRightCornerObject
+---@field Center AuctionHouseFrame_NineSlice_CenterObject
+---@field LeftEdge AuctionHouseFrame_NineSlice_LeftEdgeObject
+---@field RightEdge AuctionHouseFrame_NineSlice_RightEdgeObject
+---@field TopEdge AuctionHouseFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner AuctionHouseFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner AuctionHouseFrame_NineSlice_TopRightCornerObject
+local AuctionHouseFrame_NineSliceObject = {}
+---@return any ...
+function AuctionHouseFrame_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function AuctionHouseFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function AuctionHouseFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function AuctionHouseFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function AuctionHouseFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function AuctionHouseFrame_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class AuctionHouseFrame_NineSlice_BottomEdgeObject : Texture
+local AuctionHouseFrame_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_NineSlice_BottomLeftCornerObject : Texture
+local AuctionHouseFrame_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_NineSlice_BottomRightCornerObject : Texture
+local AuctionHouseFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_NineSlice_CenterObject : Texture
+local AuctionHouseFrame_NineSlice_CenterObject = {}
+end
+
+do
+---@class AuctionHouseFrame_NineSlice_LeftEdgeObject : Texture
+local AuctionHouseFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_NineSlice_RightEdgeObject : Texture
+local AuctionHouseFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_NineSlice_TopEdgeObject : Texture
+local AuctionHouseFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class AuctionHouseFrame_NineSlice_TopLeftCornerObject : Texture
+local AuctionHouseFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_NineSlice_TopRightCornerObject : Texture
+local AuctionHouseFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_PortraitContainerObject : Frame
+---@field CircleMask AuctionHouseFrame_PortraitContainer_CircleMaskObject
+---@field portrait AuctionHouseFrame_PortraitContainer_portraitObject
+local AuctionHouseFrame_PortraitContainerObject = {}
+end
+
+do
+---@class AuctionHouseFrame_PortraitContainer_CircleMaskObject : MaskTexture
+local AuctionHouseFrame_PortraitContainer_CircleMaskObject = {}
+end
+
+do
+---@class AuctionHouseFrame_PortraitContainer_portraitObject : Texture
+local AuctionHouseFrame_PortraitContainer_portraitObject = {}
+end
+
+do
+---@class AuctionHouseFrame_RightJumpHintObject : Frame
+---@field ActiveTexture AuctionHouseFrame_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture AuctionHouseFrame_RightJumpHint_DisabledTextureObject
+---@field HoldAnim AuctionHouseFrame_RightJumpHint_HoldAnimObject
+---@field HoldIndicator AuctionHouseFrame_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG AuctionHouseFrame_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture AuctionHouseFrame_RightJumpHint_HoverTextureObject
+---@field LoadBar AuctionHouseFrame_RightJumpHint_LoadBarObject
+---@field LoadBarBG AuctionHouseFrame_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow AuctionHouseFrame_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture AuctionHouseFrame_RightJumpHint_NormalTextureObject
+---@field PressedTexture AuctionHouseFrame_RightJumpHint_PressedTextureObject
+---@field SpinnerTip AuctionHouseFrame_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local AuctionHouseFrame_RightJumpHintObject = {}
+---@return any ...
+function AuctionHouseFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function AuctionHouseFrame_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function AuctionHouseFrame_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function AuctionHouseFrame_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function AuctionHouseFrame_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function AuctionHouseFrame_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function AuctionHouseFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function AuctionHouseFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function AuctionHouseFrame_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function AuctionHouseFrame_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function AuctionHouseFrame_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function AuctionHouseFrame_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function AuctionHouseFrame_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function AuctionHouseFrame_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function AuctionHouseFrame_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function AuctionHouseFrame_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function AuctionHouseFrame_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function AuctionHouseFrame_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function AuctionHouseFrame_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function AuctionHouseFrame_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function AuctionHouseFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class AuctionHouseFrame_RightJumpHint_ActiveTextureObject : Texture
+local AuctionHouseFrame_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_RightJumpHint_DisabledTextureObject : Texture
+local AuctionHouseFrame_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim AuctionHouseFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim AuctionHouseFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim AuctionHouseFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local AuctionHouseFrame_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class AuctionHouseFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+local AuctionHouseFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class AuctionHouseFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local AuctionHouseFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class AuctionHouseFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local AuctionHouseFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class AuctionHouseFrame_RightJumpHint_HoldIndicatorObject : Texture
+local AuctionHouseFrame_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class AuctionHouseFrame_RightJumpHint_HoldIndicatorBGObject : Texture
+local AuctionHouseFrame_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class AuctionHouseFrame_RightJumpHint_HoverTextureObject : Texture
+local AuctionHouseFrame_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_RightJumpHint_LoadBarObject : Texture
+local AuctionHouseFrame_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class AuctionHouseFrame_RightJumpHint_LoadBarBGObject : Texture
+local AuctionHouseFrame_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class AuctionHouseFrame_RightJumpHint_LoadBarGlowObject : Texture
+local AuctionHouseFrame_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class AuctionHouseFrame_RightJumpHint_NormalTextureObject : Texture
+local AuctionHouseFrame_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_RightJumpHint_PressedTextureObject : Texture
+local AuctionHouseFrame_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class AuctionHouseFrame_RightJumpHint_SpinnerTipObject : Texture
+local AuctionHouseFrame_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class AuctionHouseFrame_SearchBarObject : Frame
+---@field FavoritesSearchButton AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject
+---@field FilterButton AuctionHouseFrame_SearchBar_FilterButtonObject
+---@field SearchBox AuctionHouseFrame_SearchBar_SearchBoxObject
+---@field SearchButton AuctionHouseFrame_SearchBar_SearchButtonObject
+local AuctionHouseFrame_SearchBarObject = {}
+---@return any ...
+function AuctionHouseFrame_SearchBarObject:GetAuctionHouseFrame(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBarObject:GetLevelFilterRange(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBarObject:OnFilterToggled(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBarObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBarObject:OnShow(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBarObject:SetSearchText(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBarObject:StartFavoritesSearch(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBarObject:StartSearch(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBarObject:UpdateClearFiltersButton(...) end
+end
+
+do
+---@class AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject : Button
+---@field Controller AuctionHouseFrame_SearchBar_FavoritesSearchButton_ControllerObject
+---@field Icon AuctionHouseFrame_SearchBar_FavoritesSearchButton_IconObject
+---@field iconSize number
+local AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject = {}
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:ClearCustomTextFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:GetOnClickSoundKit(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:InitButton(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:OnClick(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:OnEnter(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:OnEvent(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:OnHide(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:OnLeave(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:OnLoad(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:OnMouseDown(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:OnMouseUp(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:OnShow(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:RunCustomTextFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:SetAtlas(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:SetButtonArtKit(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:SetCustomTextFormatter(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:SetEnabledState(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:SetIcon(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:SetOnClickHandler(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:SetOnEnterHandler(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:SetTooltipAnchor(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:SetTooltipInfo(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:UpdateState(...) end
+---@return any ...
+function AuctionHouseFrame_SearchBar_FavoritesSearchButtonObject:onClickHandler(...) end
 end
